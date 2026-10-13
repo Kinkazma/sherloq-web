@@ -1,3 +1,4 @@
+import {localFeaturePolicy} from './feature-policy.js';
 import {createM2WorkerClient} from './unified-engine/src/m2-worker-client.js';
 import {createRemoteSurface} from './remote-surface.js';
 export const COMPOSITE_POLICY='covariance-floor-v1';
@@ -27,7 +28,7 @@ export async function createCompositeClient(options){
  }
  return {...client,deployment,
   reserveExport:async bytes=>{const lease=await client.reserveExternalMemory({bytes});return()=>client.releaseExternalMemory(lease.id);},
-  async analyze(blob,params,hooks){const result=await client.analyzeBlob('composite',blob,params,hooks);try{const metadata=await client.metadata(result);if(result.fields.map&&metadata.provenance?.statisticsPolicy!==COMPOSITE_POLICY)throw Error('Composite result policy mismatch');return {result,metadata};}catch(error){await client.release(result.id);throw error;}},
+  async analyze(blob,params,hooks){localFeaturePolicy.assertTaskAvailable({operation:'composite',params});const result=await client.analyzeBlob('composite',blob,params,hooks);try{const metadata=await client.metadata(result);if(result.fields.map&&metadata.provenance?.statisticsPolicy!==COMPOSITE_POLICY)throw Error('Composite result policy mismatch');return {result,metadata};}catch(error){await client.release(result.id);throw error;}},
   surface(result,view,cache,changed,onError){
    return createRemoteSurface({id:result.id,view,width:result.width,height:result.height},cache,async(action,{tile,rect})=>{
     if(action==='read-window')return {pixels:await readWindow(result.id,view,rect)};

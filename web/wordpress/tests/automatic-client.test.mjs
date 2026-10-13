@@ -3,7 +3,7 @@ import {Budget} from '../sherloq-browser/assets/unified-engine/src/cache.js';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createAutomaticClient} from '../sherloq-browser/assets/automatic-client.js';
-import {createAutomaticProgress,automaticSelection,automaticReport} from '../sherloq-browser/assets/automatic-state.js';
+import {createAutomaticProgress,automaticSelection,automaticReport,automaticAnalysisIncomplete} from '../sherloq-browser/assets/automatic-state.js';
 const config={assetBase:'./unified-assets/',engineCommit:'fixed',englishSha256:'abc'};
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 function harness(){
@@ -74,4 +74,12 @@ test('completed mask bytes are not retained a second time by the presentation cl
 test('a partial result exposes retry for failed resumable groups without discarding successful groups',async()=>{
  const h=harness();h.result.status='partial';h.result.data.state={states:{d2prl:'failed',patchmatch:'done'},completed:['patchmatch'],resumable:['d2prl']};
  const client=await h.open();await client.run({operation:'analysis.complete'});assert.equal(client.checkpoint.analysisId,'analysis');await client.resume();assert.equal(h.calls.filter(c=>c[0]==='run').length,1);assert.equal(h.calls.filter(c=>c[0]==='resume').length,1);await client.dispose();
+});
+
+
+test('Voluntarily uninstalled automatic groups do not turn a completed analysis into a failure',()=>{
+ const complete={status:'ok',data:{state:{states:{patchmatch:'done',sift:'done',ela:'done',d2prl:'feature-uninstalled',forgeryscope:'feature-uninstalled'}}}};
+ assert.equal(automaticAnalysisIncomplete(complete),false);
+ for(const state of ['failed','running','waiting-memory','cancelled'])assert.equal(automaticAnalysisIncomplete({...complete,data:{state:{states:{...complete.data.state.states,ela:state}}}}),true,state);
+ assert.equal(automaticAnalysisIncomplete({...complete,status:'partial'}),true);
 });

@@ -11,10 +11,10 @@ import {createRgbSurface} from './rgb-surface.js';
 
 /** Integration facade. Engines and the immutable source are caller-owned and
  * must share budget. Actual dependencies are injected, never substituted. */
-export async function createAutomaticAnalyzer({image,imageId,selection,budget,engines={},complete=false,cpu=false,d2Minimum=500,maxConcurrent=5,sparseOptions={},ela={},entryWasmBinary,compositionWasmBinary}={}) {
+export async function createAutomaticAnalyzer({image,imageId,selection,budget,engines={},complete=false,cpu=false,d2Minimum=500,excludedFeatures=[],maxConcurrent=5,sparseOptions={},ela={},entryWasmBinary,compositionWasmBinary}={}) {
  const dimensions=image?.surface?.descriptor??image?.pixels??image,{width,height}=dimensions??{};
  requireValue(dimensions?.format==='rgb8'&&typeof budget?.reserve==='function'&&selection,'Qualified original RGB source, explicit selection and shared budget required.');
- const plan=automaticAnalysisPlan({...selection,width,height,complete,cpu,d2Minimum}),view=createAutomaticAnalysisView({complete,width,height});view.setD2prlMinimum(d2Minimum);
+ const plan=automaticAnalysisPlan({...selection,width,height,complete,cpu,d2Minimum,excludedFeatures}),view=createAutomaticAnalysisView({complete,width,height});view.setD2prlMinimum(d2Minimum);
  let surface,elaProvider,session,closed=false,disposal;
  try{
   const providers=createAutomaticDetectorProviders({image,budget,dense:engines.dense,sparse:engines.sparse,geometry:engines.geometry,forgeryscope:engines.forgeryscope,sparseOptions,wasmBinary:entryWasmBinary});

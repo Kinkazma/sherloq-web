@@ -2,6 +2,15 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.18.0 — Local updates, feature choices and recovery · 2026-10-13
+
+- Add verified local release preparation, resumption, atomic activation, repair and rollback, retaining the active application until every window is idle. Batch imports, native display rendering, exports and local model operations also participate in the activity guard.
+- Add the optional local “Auto update” startup check, translated in English and French. A styled prompt offers update preparation, postponement, suppression for that version or disabling future checks. Disabling asks for a second confirmation; Settings can enable checks again. Installation continues through the verified update controls.
+- Add a functional resource catalogue and selective archive export. Stable exclusions survive updates; shared dependencies, recovery versions and imported optional models remain protected. Existing TAR resources are read in place and only changed resources are received.
+- Preserve per-tool settings, profiles, favorites and recoverable original values through backup and restoration, including the current batch export/view preferences and independent neural subimage settings.
+- Integrate these controls with the published D2PRL and batch improvements. Record the selection overlay separately from the retained scientific source identities; model weights, numerical settings and compatibility inventories remain unchanged.
+- Keep WordPress and web installation packages private. Public reconstruction uses reviewed source code, authorized resources and build scripts.
+
 ## 0.17.3 — Batch results, archive export and individual tools · 2026-10-13
 
 - Add Biomes / Corroboration display choices and opacity controls using archived scientific data. Sparse and dense paired groups retain their native geometry and colors; partial and legacy results keep the views supported by their recorded data.

@@ -8,10 +8,11 @@ function header(path,size){
  if(enc.encode(name).length>100){const slash=path.lastIndexOf('/');name=path.slice(slash+1);prefix=path.slice(0,slash);}
  put(h,0,100,name);put(h,345,155,prefix);put(h,100,8,'0000644\0');put(h,108,8,'0000000\0');put(h,116,8,'0000000\0');put(h,124,12,size.toString(8).padStart(11,'0')+'\0');put(h,136,12,'00000000000\0');h.fill(32,148,156);h[156]=48;put(h,257,6,'ustar\0');put(h,263,2,'00');put(h,148,8,h.reduce((n,b)=>n+b,0).toString(8).padStart(6,'0')+'\0 ');return h;
 }
-export async function* resourceTarParts(manifest,load,{signal,progress=()=>{},extras,includeLocalOnly=false}={}){
+export async function* resourceTarParts(manifest,load,{signal,progress=()=>{},extras,includeLocalOnly=false,selectedPaths,manifestBytes}={}){
  let done=0;
- const entries=[['manifest.json',{size:0}],...(includeLocalOnly?Object.entries(manifest.files):publicDependencyEntries(manifest))];
- const metadata=enc.encode(JSON.stringify(manifest,null,2)+'\n');entries[0][1].size=metadata.length;
+ const selected=selectedPaths===undefined?null:new Set(selectedPaths);if(selected&&[...selected].some(path=>!Object.hasOwn(manifest.files,path)))throw Error('Unknown selected TAR resource');
+ const entries=[['manifest.json',{size:0}],...(includeLocalOnly?Object.entries(manifest.files):publicDependencyEntries(manifest)).filter(([path])=>!selected||selected.has(path))];
+ const metadata=manifestBytes||enc.encode(JSON.stringify(manifest,null,2)+'\n');entries[0][1].size=metadata.length;
  if(extras)for await(const [path,bytes] of extras){
   signal?.throwIfAborted();if(!safeTarPath(path)||path==='manifest.json'||Object.hasOwn(manifest.files,path))throw Error('Invalid extra TAR path');
   yield header(path,bytes.byteLength);yield bytes;if(bytes.byteLength%BLOCK)yield new Uint8Array(BLOCK-bytes.byteLength%BLOCK);

@@ -1,3 +1,5 @@
+import {createPreferenceAccess,capturePreferenceBackup,downloadPreferenceBackup} from '../sherloq-browser/assets/preferences-recovery.js';
+import {localFeaturePolicy} from '../sherloq-browser/assets/feature-policy.js';
 import {diagnostic} from '../sherloq-browser/assets/runtime-context.js';
 import {EngineError,serializeEngineError,deserializeEngineError} from '../sherloq-browser/assets/unified-engine/src/errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from '../sherloq-browser/assets/unified-engine/src/worker-message-protocol.js';
@@ -27,7 +29,7 @@ function harness(blockStorage=false){
  const nodes=new Map(),workers=[],timers=new Map();let timerId=0;
  class Element {
   constructor(){this.listeners={};this.value='';this.checked=false;this.disabled=false;this.hidden=false;this.textContent='';this.options=[];this.dataset={};this.attrs={};this.children=[];this.clientWidth=800;this.clientHeight=600;const classes=new Set();this.classList={contains:k=>classes.has(k),add:k=>classes.add(k),remove:k=>classes.delete(k),toggle:(k,v)=>{v=v??!classes.has(k);v?classes.add(k):classes.delete(k);return v;}};}
-  querySelectorAll(){return [];} removeAttribute(k){delete this.attrs[k];} setAttribute(k,v){this.attrs[k]=v;} getAttribute(k){return this.attrs[k];}
+  closest(){return this;} querySelectorAll(){return [];} removeAttribute(k){delete this.attrs[k];} setAttribute(k,v){this.attrs[k]=v;} getAttribute(k){return this.attrs[k];}
   replaceChildren(...items){this.children=items;this.options=items;}
   append(...items){this.children.push(...items);} addEventListener(type,fn){(this.listeners[type]??=[]).push(fn);} emit(type,event={}){for(const fn of this.listeners[type]||[])fn(event);} focus(){} click(){}
   showModal(){this.open=true;} close(){this.open=false;}
@@ -45,6 +47,7 @@ function harness(blockStorage=false){
   progress(call){this.onmessage({data:{id:call.id,progress:{fraction:.75,phase:'late'}}});}
  }
  const sandbox={diagnostic,EngineError,serializeEngineError,deserializeEngineError,installWorkerMessageProtocol,workerMessageFailure,reportWithSession,bindSliderReset,...media,createPointerLoupe:()=>({enabled:false,set(){},draw(){},cancelImage(){},dispose(){}}),createErrorJournal,errorEvidence,localizeStatus,toolCatalog:{},toolTitle:id=>id,createToolWorkspace:()=>({select(){},lock(){},hideResult(){},invalidateResult(){},setFile(){},restore(){},serialize(){return {};}}),resolveComputeProfile,createRemoteSurface:p=>({width:p.width,height:p.height,byteLength:0,draw(){},close(){}}),removeTerminatedTemporarySession:async()=>{},createEnergyUI:()=>({bundle:()=>settings.validEnergySettings(),load(){},translate(){}}),...settings,bindViewerNavigation,doubleClickCamera,TileCache,createTiledSurface:p=>({width:p.width,height:p.height,byteLength:p.data.byteLength,pixels:p,draw(){},close(){this.byteLength=0;}}),exportRGBPNG:()=>{throw new Error('Not used by state tests');},strings,toolGroups,document,Worker,URL,URLSearchParams,Uint8Array,Uint8ClampedArray,structuredClone,crypto:webcrypto,console,queueMicrotask,clearInterval(){},setInterval(){return 0;},setTimeout:fn=>{timers.set(++timerId,fn);return timerId;},clearTimeout:id=>timers.delete(id),location:{hash:'',href:appURL.href},navigator:{hardwareConcurrency:8},performance:{},isSecureContext:true,devicePixelRatio:1,innerWidth:1000,localStorage:{getItem:()=>null,setItem(){if(blockStorage)throw Error("Storage denied");}},matchMedia:()=>({matches:false}),window:{addEventListener(){}},ResizeObserver:class{observe(){}},Option:class{constructor(text,value){this.text=text;this.value=value;}},createWindowLayout:()=>({mode:'tabs',set(mode){this.mode=mode;},draw(){},fit(){},focus(){}})};
+ Object.assign(sandbox,{localFeaturePolicy,preferenceAccess:createPreferenceAccess(sandbox.localStorage),capturePreferenceBackup,downloadPreferenceBackup});
  const context=vm.createContext(sandbox);new vm.Script(code,{filename:appURL.pathname}).runInContext(context);
  const read=expression=>copy(vm.runInContext(expression,context));
  function edit(key,value){$(key)[typeof settings.defaults[key]==='boolean'?'checked':'value']=value;$(key).onchange();}

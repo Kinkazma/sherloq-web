@@ -43,9 +43,17 @@ def delivery_bytes(name, source, version):
     if name.endswith('.js'):
         value = re.sub(r'''(['"])(\./[^/'"?]+\.(?:m?js|html|json))(?:\?v=[^'"]*)?\1''',
                        lambda m: m[1] + m[2] + '?v=' + version + m[1], value)
+        if name == 'assets/app.js':
+            value = re.sub(r'''(ui:\s*\{\s*version:)(['"])[^'"]*\2''',
+                           lambda m: m[1] + m[2] + version + m[2], value)
+        if name == 'assets/session-log.js':
+            value = re.sub(r'''(uiVersion:\s*)(['"])[^'"]*\2''',
+                           lambda m: m[1] + m[2] + version + m[2], value)
     else:
         value = re.sub(r'''((?:src|href)=['"])([\w./-]+\.(?:js|css))(?:\?v=[^'"]*)?(['"])''',
                        lambda m: m[1] + m[2] + '?v=' + version + m[3], value)
+        value = re.sub(r'(<span id="app-version">)[^<]*(</span>)',
+                       lambda m: m[1] + version + m[2], value)
     return value.encode()
 
 
@@ -134,6 +142,10 @@ def main():
                 info.compress_type = zipfile.ZIP_DEFLATED
                 info.external_attr = 0o100644 << 16
                 archive.writestr(info, prepared.get(name, source.read_bytes()))
+        initial_zip = folder/f'sherloq-browser-{version}-local.zip'
+        if initial_zip.stat().st_size > 25_000_000:
+            initial_zip.unlink()
+            raise ValueError('Compressed bootstrap ZIP exceeds 25,000,000 bytes')
         print('Local ZIP', len(files), 'files')
     if args.sources_zip or args.dependencies_zip:
         folder = root / 'dist'

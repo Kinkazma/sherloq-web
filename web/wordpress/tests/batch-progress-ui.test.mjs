@@ -1,3 +1,4 @@
+import {setLocalActivityFrozen} from '../sherloq-browser/assets/local-activity.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
@@ -26,6 +27,7 @@ function harness(){
  const {document,window}=parseHTML('<html lang="fr"><body></body></html>');
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value??this.options[0]?.value??'';},set(value){for(const o of this.options)o.toggleAttribute('selected',o.value===String(value));}});
  window.HTMLElement.prototype.reportValidity=()=>true;
+ window.HTMLElement.prototype.checkValidity=()=>true;
  const model=displayFixture();model.images=model.images.slice(0,3);model.results=null;
  // This harness starts a new batch rather than restoring the display-only
  // fixture's explicit empty selection. Production must continue to honor [].
@@ -45,15 +47,18 @@ test('worker ticks update status without rerendering outputs; completed batch no
  let pending;
  try{
   ui.dialog.querySelector('[data-batch-word="selection"]').onclick();pending=ui.run();await Promise.race([entered,pending.then(()=>{throw Error('The new-batch progress harness did not enter its runner: '+ui.dialog.querySelector('.batch-status').textContent);})]);
+  assert.equal(ui.busy,true,'the workspace activation guard sees a running batch');
   const image=model.images[0];progress({phase:'image-start',image,index:0,total:3});progress({phase:'tool',image,recipe:{fr:'D2PRL',en:'D2PRL'}});
   const cards=[...ui.dialog.querySelectorAll('.batch-study-result')];assert.deepEqual(cards.map(c=>c.querySelector('.batch-badge').textContent),['Traitement en cours','En attente de traitement','En attente de traitement']);
   progress({phase:'kernel',detail:{phase:'patchmatch',zoneIndex:5,totalZones:9,completed:101,total:198}});
   assert.match(ui.dialog.querySelector('.batch-status').textContent,/1\/3.*D2PRL.*panneau 6\/9.*PatchMatch 101\/198/);
   assert.equal(ui.dialog.querySelector('.batch-study-result'),cards[0],'kernel progress does not replace result DOM or preview URLs');
   ui.dialog.dispatchEvent(new window.Event('close'));assert.deepEqual(notifications.at(-1),{running:true,canExport:false});
+  assert.equal(ui.busy,true,'closing the dialog does not clear a live batch');
   for(const [index,i]of model.images.entries()){i.state='done';i.score={clones:0,additional:0,total:0,incomplete:false};progress({phase:'image-done',image:i,index:index+1,total:3});}
   model.results=studyScores(model.studies,model.images);finish();await pending;pending=null;
   assert.deepEqual(notifications.at(-1),{running:false,canExport:true});assert.match(ui.dialog.querySelector('.batch-status').textContent,/Traitement terminé/);
+  assert.equal(ui.busy,false);
   assert.deepEqual(model.images.map(i=>i.selected),beforeSelection);assert.deepEqual(model.images.map(i=>i.preparation),beforePreparation);assert.deepEqual([...model.artifacts.entries()],beforeArtifacts);
  }finally{finish();await pending;await ui.dispose();}
 });
@@ -78,4 +83,50 @@ test('import completion and reset notify global report availability after their 
  ui=await mountBatchUI({document,resultDisplayFactory:unavailableResultDisplayFactory,importerFactory:async()=>model,preparationFactory:()=>({async prepare(){},async dispose(){}}),onChange:()=>seen.push({running:ui.running,canExport:ui.canExport})});
  try{await ui.importFiles([new Blob(['local fixture'])]);assert.deepEqual(seen.at(-1),{running:false,canExport:true});ui.dialog.querySelector('[data-batch-word="clear"]').onclick();await new Promise(resolve=>setImmediate(resolve));assert.deepEqual(seen.at(-1),{running:false,canExport:false});}
  finally{await ui.dispose();}
+});
+
+test('the workspace busy guard covers import and scientific preparation until cancellation settles',async()=>{
+ const {document,model}=harness();let finishImport,enterImport,finishPreparation,enterPreparation;
+ const imported=new Promise(resolve=>enterImport=resolve),importGate=new Promise(resolve=>finishImport=resolve),prepared=new Promise(resolve=>enterPreparation=resolve),prepareGate=new Promise(resolve=>finishPreparation=resolve);
+ model.import=async()=>{enterImport();await importGate;};
+ const ui=await mountBatchUI({document,resultDisplayFactory:unavailableResultDisplayFactory,importerFactory:async()=>model,preparationFactory:()=>({async prepare(_model,{signal}){enterPreparation();await prepareGate;signal.throwIfAborted();},async dispose(){}})});
+ let pending;
+ try{
+  assert.equal(ui.busy,false);pending=ui.importFiles([new Blob(['local fixture'])]);await imported;assert.equal(ui.busy,true);
+  finishImport();await prepared;assert.equal(ui.busy,true);
+  ui.dialog.querySelector('[data-batch-word="stop"]').onclick();assert.equal(ui.busy,true,'abort does not pretend cleanup already finished');
+  finishPreparation();await pending;pending=null;assert.equal(ui.busy,false);assert.match(ui.dialog.querySelector('.batch-status').textContent,/résultats terminés seront conservés/);
+ }finally{finishImport();finishPreparation();await pending;await ui.dispose();}
+});
+
+test('the workspace busy guard covers report export after calculations finish and clears after a read failure',async()=>{
+ const {document}=harness(),model=displayFixture(),matrix=Object.getOwnPropertyDescriptor(globalThis,'DOMMatrix');let enter,fail,blockExport=false;
+ // PDF.js initializes an unused transform when its shared library loads. This
+ // test exports with pdf-lib and never decodes a PDF or calls that transform.
+ Object.defineProperty(globalThis,'DOMMatrix',{configurable:true,value:class{}});
+ const entered=new Promise(resolve=>enter=resolve),gate=new Promise((_,reject)=>fail=reject),read=model.artifacts.get.bind(model.artifacts);
+ model.artifacts.get=async path=>{if(blockExport&&path==='final-single.png'){enter();await gate;}return read(path);};
+ const ui=await mountBatchUI({document,resultDisplayFactory:unavailableResultDisplayFactory,importerFactory:async()=>model,preparationFactory:()=>({async prepare(){},async dispose(){}})});
+ let pending;
+ try{
+  await new Promise(resolve=>setImmediate(resolve));blockExport=true;
+  assert.equal(ui.busy,false);pending=ui.exportReport();await entered;assert.equal(ui.running,false);assert.equal(ui.busy,true);assert.equal(ui.canExport,false);
+  fail(Error('Report artifact read failed'));await pending;pending=null;assert.equal(ui.busy,false);assert.equal(ui.canExport,true);assert.match(ui.dialog.querySelector('.batch-status').textContent,/Report artifact read failed/);
+ }finally{fail(Error('Test cleanup'));await pending;await ui.dispose();if(matrix)Object.defineProperty(globalThis,'DOMMatrix',matrix);else delete globalThis.DOMMatrix;}
+});
+
+test('result preview and full rendering keep the workspace busy after the dialog closes, until ownership settles',async()=>{
+ const {document,window}=harness(),model=displayFixture();model.images=[model.images[1]];
+ window.HTMLElement.prototype.close=function(){this.removeAttribute('open');this.dispatchEvent(new window.Event('close'));};
+ window.HTMLCanvasElement.prototype.getContext=()=>({createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)}),putImageData(){}});
+ let finishPreview,finishRender,enterRender,renderCalls=0;const previewGate=new Promise(resolve=>finishPreview=resolve),renderGate=new Promise(resolve=>finishRender=resolve),rendered=new Promise(resolve=>enterRender=resolve);
+ const ui=await mountBatchUI({document,importerFactory:async()=>model,preparationFactory:()=>({async prepare(){},async dispose(){}}),resultDisplayFactory:()=>({describe:()=>({available:true,preferences:{schema:'sherloq.batch-result-display-preferences/1',mode:'corroboration',opacity:.35}}),async preparePreview(){await previewGate;return {width:2,height:2,corroboration:{rgba:new Uint8ClampedArray(16)},biomes:{rgba:new Uint8ClampedArray(16)}};},async ensureRendered(){renderCalls++;enterRender();await renderGate;return {blob:new Blob(['rendered view'])};},async dispose(){}})});
+ let pending;
+ try{
+  await new Promise(resolve=>setImmediate(resolve));assert.equal(ui.busy,true);ui.dialog.close();assert.equal(ui.busy,true);
+  finishPreview();await new Promise(resolve=>setImmediate(resolve));assert.equal(ui.busy,false);
+  setLocalActivityFrozen(true);await ui.dialog.querySelector('[data-batch-word="viewCorroboration"]').onclick();assert.equal(renderCalls,0,'no new rendering starts after the update freeze');setLocalActivityFrozen(false);
+  pending=ui.dialog.querySelector('[data-batch-word="viewCorroboration"]').onclick();await rendered;assert.equal(ui.running,false);assert.equal(ui.busy,true);ui.dialog.close();assert.equal(ui.busy,true);
+  finishRender();await pending;pending=null;assert.equal(ui.busy,false);
+ }finally{finishPreview();finishRender();await pending;setLocalActivityFrozen(false);await ui.dispose();}
 });

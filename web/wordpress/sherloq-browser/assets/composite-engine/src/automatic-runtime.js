@@ -42,7 +42,7 @@ export function createAutomaticRuntime({budget,profile,version,getD2prl,getLangu
    }finally{candidate?.dispose();release?.();}
   },
   async run(task,image,hooks={}){
-   const p=task.params??{};requireValue(Object.keys(p).every(k=>['selection','d2Minimum','ela','maxConcurrent'].includes(k)),'Unknown automatic analysis parameter.');requireValue(!task.regions?.length,'Automatic polygons belong in params.selection.');requireValue(['auto','cpu',undefined].includes(task.backend),'Automatic analysis supports auto or reference CPU.');
+   const p=task.params??{};requireValue(Object.keys(p).every(k=>['selection','d2Minimum','ela','maxConcurrent','excludedFeatures'].includes(k)),'Unknown automatic analysis parameter.');requireValue(!task.regions?.length,'Automatic polygons belong in params.selection.');requireValue(['auto','cpu',undefined].includes(task.backend),'Automatic analysis supports auto or reference CPU.');
    const key=JSON.stringify([task.imageId,task.operation,p,task.backend??'auto']);
    if(current?.key===key){current.taskId=task.id;current.reused=true;return frame(current,{},hooks);}
    await clear();const r={id:crypto.randomUUID(),key,image,imageId:task.imageId,operation:task.operation,taskId:task.id,reused:false};current=r;
@@ -71,7 +71,7 @@ export function createAutomaticRuntime({budget,profile,version,getD2prl,getLangu
     const sparse={async analyze(params,options){const language=getLanguage();if(!language)throw new EngineError('MODEL_UNAVAILABLE','Load verified English OCR weights through loadM3Models({models:{},language}) for SIFT Panels + Text.');r.sparse??=new SparseCopyEngine(await rgb(options.signal),budget,profile);return r.sparse.analyze(params,{...options,language,storageContext:sparseStorage});}};
     const d2prl={async runOwned(request,source,options){const adapter=getD2prl();if(!adapter?.configured())throw new EngineError('MODEL_UNAVAILABLE','Load the pinned D2PRL manifest through loadD2prlModel.');return adapter.runOwned(request,image.segmented?image:{...image,pixels:await rgb(options.signal)},options);},readRawOwned(request){return getD2prl().readRawOwned(request);}};
     const forgeryscope={analyze(...args){if(!forge)throw new EngineError('MODEL_UNAVAILABLE','Load Forgeryscope assets and runtime URLs through loadAutomaticModels.');return forge.analyze(...args);}};
-    r.analyzer=await createAutomaticAnalyzer({image,imageId:task.imageId,selection:r.selection,budget,engines:{dense,sparse,geometry,d2prl,forgeryscope},complete:task.operation==='analysis.complete',cpu:task.backend==='cpu',d2Minimum:p.d2Minimum,maxConcurrent:p.maxConcurrent,ela:{...p.ela,maxWorkers:Math.min(32,profile.maxWorkers),onTemporarySession}});
+    r.analyzer=await createAutomaticAnalyzer({image,imageId:task.imageId,selection:r.selection,budget,engines:{dense,sparse,geometry,d2prl,forgeryscope},complete:task.operation==='analysis.complete',cpu:task.backend==='cpu',d2Minimum:p.d2Minimum,excludedFeatures:p.excludedFeatures,maxConcurrent:p.maxConcurrent,ela:{...p.ela,maxWorkers:Math.min(32,profile.maxWorkers),onTemporarySession}});
     await r.analyzer.run({...hooks,onState:state=>hooks.onProgress?.({phase:'automatic-state',state})});checkAbort(hooks.signal);return await frame(r,{},hooks);
    }catch(error){await clear();throw error;}
   },

@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "ort": "1.30.0",
+  "providers": {
+    "wasm": {
+      "sourceSha256": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b",
+      "factory": "wasm-factory.mjs",
+      "factorySha256": "d7b2ab91c390777d54371768de4f3d53bc9457ad75fbd6168eeb87d16e0e042a",
+      "module": "ort-wasm-simd-threaded.mjs",
+      "moduleSha256": "166572df3e99b82d7cbcabbd7bb51388ebb83b3368799bc7f4dea4e99759c769",
+      "wasm": "ort-wasm-simd-threaded.wasm",
+      "wasmSha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2"
+    },
+    "webgpu": {
+      "sourceSha256": "3d1c85995364bb643302fc6fd877a0c3ba5ae72401815e0f24828a53d9191e28",
+      "factory": "webgpu-factory.mjs",
+      "factorySha256": "9f319de79e274a949ed052576c90449954d1d9cbaaad382884e90befb2465fa6",
+      "module": "ort-wasm-simd-threaded.asyncify.mjs",
+      "moduleSha256": "6d78564b00dda60de8b14ba5051cbbddf7a20679b101d29d7e67b9c6ce6c8a1a",
+      "wasm": "ort-wasm-simd-threaded.asyncify.wasm",
+      "wasmSha256": "39f9f0894d478800487ed9f7dbe92618498db320cf55c8e3d89adff8dce658da"
+    }
+  }
+}

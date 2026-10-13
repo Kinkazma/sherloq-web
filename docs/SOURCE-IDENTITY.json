@@ -2,7 +2,7 @@
   "schema": "sherloq.publication-identity/1",
   "ui_commit": "db9d54429f6029eaa20a2c44c88f579e14019534",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
-  "ui_version": "0.17.3",
+  "ui_version": "0.18.0",
   "engine_commit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "engine_version": "0.37.0-methods.1",
@@ -53,5 +53,7 @@
   "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/a81fb1dfb29cf37c7f3a2487fe55860665144487/web-assets/",
   "deployment_manifest_sha256": "a488d0a8cba3120ea52cc497beadf6cf68758394cb2db81c81ab6c47890a6081",
   "ui_source_commit": "db9d54429f6029eaa20a2c44c88f579e14019534",
-  "batch_interface_source_commit": "db9d54429f6029eaa20a2c44c88f579e14019534"
+  "batch_interface_source_commit": "db9d54429f6029eaa20a2c44c88f579e14019534",
+  "selection_overlay": "web/wordpress/runtime-patches/feature-selection-overlay-0.18.0.json",
+  "local_update_contract": "docs/LOCAL-UPDATES.md"
 }

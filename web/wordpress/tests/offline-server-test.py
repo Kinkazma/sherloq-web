@@ -23,7 +23,7 @@ class OfflineServerTests(unittest.TestCase):
         file = lambda b: {'size': len(b), 'sha256': offline.digest(b), 'chunks':[offline.digest(b)], 'type':'application/wasm'}
         self.manifest = {'schema':'sherloq.dependencies/1','slots':['engine'],'files':{'engine/module.wasm':file(self.model)},'chunks':{offline.digest(self.model):len(self.model)},'remoteBase':None}
         canonical = lambda v: (json.dumps(v,sort_keys=True,separators=(',',':'))+'\n').encode()
-        self.shell = {'schema':'sherloq.offline-shell/1','manifest':offline.digest(canonical(self.manifest)),'files':{'app.html':{'size':len(self.html),'sha256':offline.digest(self.html)}}}
+        self.shell = {'schema':'sherloq.offline-shell/1','version':'0.15.2-test','manifest':offline.digest(canonical(self.manifest)),'files':{'app.html':{'size':len(self.html),'sha256':offline.digest(self.html)}}}
         self.config={'port':0,'token':'a'*32,'manifest':self.shell['manifest'],'shellSha256':offline.digest(canonical(self.shell))}
         with tarfile.open(self.path, 'w:', format=tarfile.USTAR_FORMAT) as tar:
             for name,data in [('manifest.json',canonical(self.manifest)),('offline-kit.json',canonical(self.shell)),('app/app.html',self.html),('engine/module.wasm',self.model)]:

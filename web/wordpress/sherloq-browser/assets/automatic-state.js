@@ -45,3 +45,8 @@ export function automaticReport(result, progress, deployment) {
     view: result?.data?.view, filters: result?.data?.filters, progress,
     entries: result?.data?.entries?.map(({pixel_mask, ...entry}) => ({...entry, ...(pixel_mask ? {mask: {width: pixel_mask.width, height: pixel_mask.height, storage: 'full scientific mask in NPZ export'}} : {})}))};
 }
+
+
+export function automaticAnalysisIncomplete(result) {
+  return result?.status !== 'ok' || Object.values(result?.data?.state?.states ?? {}).some(state => !['done', 'skipped', 'feature-uninstalled'].includes(state));
+}

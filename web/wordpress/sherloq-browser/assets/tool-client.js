@@ -1,3 +1,4 @@
+import {localFeaturePolicy} from './feature-policy.js';
 import {composeCloneFrame,sampleCloneField,d2AnalysisKey} from './neural-clone-ui.js';
 import {samplePixels} from './unified-engine/src/display-sampling.js';
 import {individualModels,m2ToolClient} from './tool-models.js';
@@ -121,6 +122,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    finally{if(opened)try{await engine.unload(id);}catch(cleanupError){if(failure)failure.cleanupError=cleanupError;else throw cleanupError;}}
   })),
   run:(task,extras={})=>enqueue(()=>work(async()=>{
+   localFeaturePolicy.assertTaskAvailable(task);
    await release();
    // Auxiliary images/databases belong to their tool; the original and evictable
    // analysis caches survive tool changes without pinning unrelated workspaces.

@@ -7,10 +7,12 @@ import {toolGroups} from './tool-tree.js';
 import {mountAnalysisPanel} from './app.js';
 import {createWorkspaceState} from './workspace-state.js';
 import {createWorkspaceEnginePool} from './workspace-engine-pool.js';
-import {validateSettings,settingsFilename} from './settings.js';
+import {recoverSettings,settingsFilename} from './settings.js';
 import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js';
+import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js';
+import {localFeaturePolicy} from './feature-policy.js';
 
-export function mountWorkspace(document=globalThis.document,{panelFactory=mountAnalysisPanel,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js')).mountBatchUI(options)}={}) {
+export function mountWorkspace(document=globalThis.document,{panelFactory=mountAnalysisPanel,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js')).mountBatchUI(options),localManagement}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
 const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id)),engineFactory=createWorkspaceEnginePool();
@@ -20,22 +22,24 @@ const labels={
 };
 const text=key=>labels[state.language][key]||key,title=id=>tools.find(t=>t.id===id)?.[state.language]||id;
 let sourceEntry=null,sourceInput=null,currentFile=null,generation=0,framePending=false,theme='dark',savedTools={},pendingSession=null;
-let computeProfile='maximum',navigationMode='auto',highlight=false,media=validateMediaPreferences();
+let computeProfile='maximum',navigationMode='auto',highlight=false,media=validateMediaPreferences(),unknownFavorites=[],lastPreferences;const toolSignatures=new Map(),dirtyTools=new Set();
 const template=fetcher(new URL('./panel.html',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
-function preferences(){return {...state.preferences(),theme,computeProfile,navigationMode,highlight,...media,dependencies:dependencyPreferences()};}
+function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,...media,dependencies:dependencyPreferences()};}
 function setMedia(next){media=validateMediaPreferences(next);applyMedia();savePreferences();}
 const comparisonKeys=new Set();let comparisonController=null;let pinnedController=null;
 function pinLoupe(open){const next=open?state.documents.get(state.active)?.controller:null;if(next!==pinnedController){pinnedController?.pinLoupe?.(false);pinnedController=next;}pinnedController?.pinLoupe?.(!!open);return pinnedController?.loupeAnchor?.();}
 const mediaUI=mountMediaControls(document,{getPreferences:()=>media,setPreferences:setMedia,onLoupePanel:pinLoupe,onSweep:group=>state.documents.get(state.active)?.controller?.toggleLoupeSweep?.(group),stopSweep:()=>state.documents.get(state.active)?.controller?.stopLoupeSweep?.(),sweepState:()=>state.documents.get(state.active)?.controller?.loupeSweepState?.(),getEffectsContext:()=>state.documents.get(state.active)?.controller?.loupeEffectsContext?.(),setEffectsContext:value=>state.documents.get(state.active)?.controller?.setLoupeEffectsContext?.(value),getEnhancementContext:()=>state.documents.get(state.active)?.controller?.loupeEnhancement?.(),setEnhancementContext:value=>state.documents.get(state.active)?.controller?.setLoupeEnhancement?.(value),language:()=>state.language,getMinimumZoom:()=>state.documents.get(state.active)?.controller?.loupeMinimum?.()??2,getImageSize:()=>state.documents.get(state.active)?.controller?.exportSize?.()});
 $('image-file').accept=imageAccept;
-function savePreferences(){try{localStorage.setItem('sherloq.workspace.preferences',JSON.stringify(preferences()));}catch{}}
+function savePreferences(){const current=preferences();if(JSON.stringify(current)===JSON.stringify(lastPreferences))return true;const latest=preferenceAccess.read('sherloq.workspace.preferences').value||{},value=mergePreferenceChanges(lastPreferences,current,latest),saved=preferenceAccess.write('sherloq.workspace.preferences',value);if(saved)lastPreferences=structuredClone(current);return saved;}
+function saveTools(){for(const record of entries())remember(record);if(!dirtyTools.size)return true;const latest=preferenceAccess.read('sherloq.workspace.tools').value||{},next={...latest};for(const id of dirtyTools)next[id]=savedTools[id];if(!preferenceAccess.write('sherloq.workspace.tools',next))return false;for(const id of dirtyTools)toolSignatures.set(id,JSON.stringify(savedTools[id]));dirtyTools.clear();savedTools=next;return true;}
 function notify(message){$('workspace-status').textContent=message;}
 function button(label,action,className=''){const b=document.createElement('button');b.type='button';b.textContent=label;b.className=className;b.onclick=action;return b;}
 function download(value,name){const blob=value instanceof Blob?value:new Blob([JSON.stringify(value,null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function closeMenus(){for(const el of document.querySelectorAll('.app-menu'))el.open=false;}
 function renderCatalog(){
  const tree=$('tool-tree');tree.replaceChildren();
- const groups=[...(state.favorites.size?[{en:'Favorites',fr:text('favorites'),items:tools.filter(t=>state.favorites.has(t.id))}]:[]),...toolGroups];
+ const visible=tool=>localFeaturePolicy.isToolAvailable(tool.id);
+ const groups=[...(state.favorites.size?[{en:'Favorites',fr:text('favorites'),items:tools.filter(t=>state.favorites.has(t.id))}]:[]),...toolGroups].map(group=>({...group,items:group.items.filter(visible)})).filter(group=>group.items.length);
  for(const group of groups){
   const d=document.createElement('details'),summary=document.createElement('summary');d.className='tool-group';d.open=state.groups.has(group.en);summary.textContent=group[state.language];d.append(summary);
   d.ontoggle=()=>{if(d.isConnected)state.setGroup(group.en,d.open);};
@@ -53,7 +57,8 @@ function translate(){
  mediaUI.translate();renderCatalog();renderDocuments();savePreferences();
 }
 function entries(){return [...new Set([sourceEntry,...state.documents.values()].filter(Boolean))];}
-function scheduleRender(){if(framePending)return;framePending=true;requestAnimationFrame(()=>{framePending=false;renderStatus();});}
+let settingsTimer;
+function scheduleRender(){if(framePending)return;framePending=true;requestAnimationFrame(()=>{framePending=false;renderStatus();clearTimeout(settingsTimer);settingsTimer=setTimeout(saveTools,250);});}
 function reportTarget(entry=state.documents.get(state.active),view=entry?.controller?.snapshot()){
  if(entry?.controller&&!entry.loading)return view?.hasReport?entry.controller:null;
  return batchUI?.canExport?batchUI:null;
@@ -124,6 +129,7 @@ function createEntry(id){
 async function openTool(id){
  diagnostic({level:'info',kind:'tool.open',operation:id});
  if(!known.has(id))return;
+ if(!localFeaturePolicy.isToolAvailable(id)){notify(state.language==='fr'?'Cette fonction a été désinstallée. Réinstallez-la dans les réglages locaux.':'This feature was uninstalled. Reinstall it in local settings.');return;}
  if(state.documents.has(id)){selectDocument(id);return;}
  if(!currentFile){pickImage();return;}
  if(id==='inspection.magnifier'&&!media.loupe.enabled)setMedia({...media,loupe:{...media.loupe,enabled:true}});
@@ -132,12 +138,12 @@ async function openTool(id){
  try{const controller=await record.ready,input=await sourceEntry.inputReady;if(!controller||record.closed||record.generation!==generation)return;controller.adopt(input);record.loading=false;renderDocuments();}
  catch(error){record.loading=false;notify(error.message);}
 }
-function remember(record){if(record.controller)savedTools[record.id]=record.controller.settings();}
+function remember(record){if(record.controller){const value=record.controller.settings();savedTools[record.id]=value;if(JSON.stringify(value)!==toolSignatures.get(record.id))dirtyTools.add(record.id);}}
 async function closeDocument(id,{force=false}={}){
  diagnostic({level:'info',kind:'tool.close',operation:id});
  const record=state.documents.get(id);if(!record)return;
  if(!force&&record.controller?.busy&&!confirm(text('busyClose')))return;
- remember(record);state.close(id);record.element.remove();
+ remember(record);saveTools();state.close(id);record.element.remove();
  if(record===sourceEntry&&state.documents.size){record.element.hidden=true;renderDocuments();return;}
  record.closed=true;const closing=[record];
  if(!state.documents.size){if(sourceEntry&&sourceEntry!==record){sourceEntry.closed=true;sourceEntry.element.remove();closing.push(sourceEntry);}sourceEntry=null;sourceInput=null;currentFile=null;$('image-file').value='';}
@@ -147,6 +153,7 @@ async function closeDocument(id,{force=false}={}){
 async function closeAll(){
  generation++;const previous=entries();state.clear();sourceEntry=null;sourceInput=null;currentFile=null;pendingSession=null;$('image-file').value='';
  for(const record of previous){remember(record);record.closed=true;record.element.remove();}
+ saveTools();
  renderDocuments();await Promise.allSettled(previous.map(record=>record.ready.then(c=>c?.dispose())));
 }
 async function openImage(file){
@@ -180,19 +187,21 @@ $('background-status').onclick=()=>{const next=[...state.documents.values()].fin
 $('compute-profile').onchange=()=>{computeProfile=$('compute-profile').value;for(const record of entries())record.controller?.setComputeProfile(computeProfile);savePreferences();};
 $('navigation-mode').onchange=()=>{navigationMode=$('navigation-mode').value;for(const record of entries())record.controller?.setNavigation(navigationMode);savePreferences();};
 $('highlight-tools').onchange=()=>{highlight=$('highlight-tools').checked;$('workspace-app').classList.toggle('highlight-new-features',highlight);for(const entry of entries())entry.controller?.setHighlight?.(highlight);savePreferences();};
-$('export-settings').onclick=()=>{for(const record of entries())remember(record);download({schema:'sherloq.workspace/1',preferences:preferences(),tools:savedTools},settingsFilename());closeMenus();};
+$('export-settings').onclick=()=>{saveTools();download({schema:'sherloq.workspace/1',preferences:preferences(),tools:savedTools},settingsFilename());closeMenus();};
 $('import-settings').onclick=()=>{closeMenus();$('settings-file').value='';$('settings-file').click();};
 $('settings-file').onchange=async e=>{
  const file=e.target.files[0];if(!file)return;
  try{
   if(entries().some(e=>e.controller?.busy))throw Error(text('busySettings'));if(file.size>2*1024**2)throw Error(text('invalid'));
-  const value=JSON.parse(await file.text());let nextTools,nextPreferences;
-  if(value.schema==='sherloq.settings/1'){const settings=validateSettings(value);nextTools={...savedTools,[state.active||'ela.classic']:settings};nextPreferences={...preferences(),...settings.preferences};}
-  else{if(value.schema!=='sherloq.workspace/1'||!value.tools||typeof value.tools!=='object')throw Error(text('invalid'));nextTools={};for(const [id,settings]of Object.entries(value.tools)){if(!known.has(id))throw Error(text('invalid'));nextTools[id]=validateSettings(settings);}nextPreferences=value.preferences||{};}
+  const value=JSON.parse(await file.text());let nextTools,nextPreferences,recovery;
+  if(value.schema==='sherloq.settings/1'){recovery=recoverSettings(value);nextTools={...savedTools,[state.active||'ela.classic']:recovery.value};nextPreferences={...preferences(),...recovery.value.preferences};}
+  else{recovery=recoverWorkspaceSettings(value,{fallback:{schema:'sherloq.workspace/1',preferences:preferences(),tools:savedTools}});nextTools=recovery.value.tools;nextPreferences=recovery.value.preferences;}
   const candidate=createWorkspaceState();candidate.restore(nextPreferences,[...known]);const nextMedia=validateMediaPreferences(nextPreferences);
-  media=nextMedia;savedTools=nextTools;state.restore(candidate.preferences(),[...known]);theme=['light','dark'].includes(nextPreferences.theme)?nextPreferences.theme:theme;computeProfile=['maximum','aggressive'].includes(nextPreferences.computeProfile)?nextPreferences.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(nextPreferences.navigationMode)?nextPreferences.navigationMode:navigationMode;highlight=nextPreferences.highlight===true;
+  saveTools();const rescue=await capturePreferenceBackup();rescue.importedSource=value;rescue.importedReport=recovery.issues;downloadPreferenceBackup(document,rescue);
+  unknownFavorites=(nextPreferences.favorites||[]).filter(id=>!known.has(id));
+  media=nextMedia;savedTools=nextTools;for(const id of Object.keys(nextTools))dirtyTools.add(id);state.restore(candidate.preferences(),[...known]);theme=['light','dark'].includes(nextPreferences.theme)?nextPreferences.theme:theme;computeProfile=['maximum','aggressive'].includes(nextPreferences.computeProfile)?nextPreferences.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(nextPreferences.navigationMode)?nextPreferences.navigationMode:navigationMode;highlight=nextPreferences.highlight===true;
   for(const record of entries())if(savedTools[record.id])record.controller?.applySettings(savedTools[record.id]);
-  restoreDependencyPreferences(nextPreferences.dependencies);applyPreferences();translate();notify(text('loadedSettings'));
+  restoreDependencyPreferences(nextPreferences.dependencies);applyPreferences();translate();saveTools();notify(text('loadedSettings')+(recovery.issues.length?' · '+recovery.issues.length+(state.language==='fr'?' entrée(s) conservée(s) dans la sauvegarde de secours.':' entry/entries retained in the recovery backup.'):''));
  }catch(error){notify(error.message);}
 };
 async function applySession(value){
@@ -223,10 +232,17 @@ window.addEventListener('blur',clearComparison);document.addEventListener('visib
 function applyMedia(){document.documentElement.style.setProperty('--ui-font',media.font==='montserrat'?'"Montserrat", Arial, sans-serif':'"iowan-old-style-bt", "Iowan Old Style", Georgia, serif');mediaUI.sync();for(const record of entries())record.controller?.setLoupe?.(media.loupe);}
 function applyPreferences(){document.documentElement.dataset.theme=theme;applyMedia();$('compute-profile').value=computeProfile;$('navigation-mode').value=navigationMode;$('highlight-tools').checked=highlight;$('workspace-app').classList.toggle('highlight-new-features',highlight);for(const record of entries()){record.controller?.setTheme(theme);record.controller?.setHighlight?.(highlight);record.controller?.setNavigation(navigationMode);record.controller?.setComputeProfile(computeProfile);}}
 state.setLanguage(browserLanguage(document.defaultView?.navigator??globalThis.navigator));
-try{const saved=JSON.parse(localStorage.getItem('sherloq.workspace.preferences'));if(saved){media=validateMediaPreferences(saved);state.restore(saved,[...known]);theme=['light','dark'].includes(saved.theme)?saved.theme:theme;computeProfile=['maximum','aggressive'].includes(saved.computeProfile)?saved.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(saved.navigationMode)?saved.navigationMode:navigationMode;highlight=saved.highlight===true;}}catch{}
+const storedPreferences=preferenceAccess.read('sherloq.workspace.preferences'),saved=storedPreferences.value;
+if(saved){media=validateMediaPreferences(saved);unknownFavorites=(saved.favorites||[]).filter(id=>!known.has(id));state.restore(saved,[...known]);theme=['light','dark'].includes(saved.theme)?saved.theme:theme;computeProfile=['maximum','aggressive'].includes(saved.computeProfile)?saved.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(saved.navigationMode)?saved.navigationMode:navigationMode;highlight=saved.highlight===true;restoreDependencyPreferences(saved.dependencies);}
+savedTools=preferenceAccess.read('sherloq.workspace.tools').value||{};
+for(const [id,value]of Object.entries(savedTools))toolSignatures.set(id,JSON.stringify(value));lastPreferences=preferences();
 const query=new URLSearchParams(location.hash.slice(1));if(['fr','en'].includes(query.get('lang')))state.setLanguage(query.get('lang'));
 try{const home=new URL(query.get('home')||'../../../../',location.href);if(home.origin===location.origin)$('home').href=home.href;}catch{}
 applyPreferences();translate();renderDocuments();
+if(storedPreferences.issues.length)notify(state.language==='fr'?'Réglages récupérés partiellement. L’original reste conservé ; exportez la sauvegarde de secours dans les réglages locaux.':'Settings partially recovered. The original is retained; export a recovery backup from local settings.');
+window.addEventListener('local-feature-change',renderCatalog);
+window.addEventListener('pagehide',()=>{clearTimeout(settingsTimer);saveTools();savePreferences();});
+localManagement?.mount(document,{isBusy:()=>entries().some(entry=>entry.loading||entry.controller?.busy)||!!batchUI?.busy,onBeforeBackup:()=>{saveTools();savePreferences();},onFreeze:value=>{if(value){saveTools();savePreferences();}$('workspace-app').inert=value;},onPolicyChange:renderCatalog});
 
-return {state,openImage,openTool,closeAll,selectDocument,closeDocument};
+return {state,openImage,openTool,closeAll,selectDocument,closeDocument,savePreferences,saveTools};
 }

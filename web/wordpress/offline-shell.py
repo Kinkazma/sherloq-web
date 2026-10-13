@@ -32,7 +32,9 @@ def write_shell(plugin, manifest, identity, version):
         data = license_file.read_bytes()
         (assets / 'offline-LICENSE.txt').write_bytes(data)
         files['offline-LICENSE.txt'] = {'size': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
-    result = {'schema': 'sherloq.offline-shell/1', 'version': version, 'manifest': identity, 'files': files}
+    result = {'schema': 'sherloq.offline-shell/1', 'version': version, 'manifest': identity, 'workerType':'classic', 'files': files}
+    if 'feature-catalog.json' in files:
+        result['catalog'] = files['feature-catalog.json']['sha256']
     (assets / 'offline-shell.json').write_text(json.dumps(result, sort_keys=True, separators=(',', ':'))+'\n')
     # A newly installed Home Screen app may have separate storage from Safari.
     # Its real start URL must open setup online even before its SW is installed.

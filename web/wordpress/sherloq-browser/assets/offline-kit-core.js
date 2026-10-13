@@ -1,6 +1,7 @@
 import {sha256} from './dependency-core.js';
 import {safeTarPath} from './dependency-tar.js';
 export function validateOfflineShell(value){
+ if(value?.workerType!==undefined&&!['classic','module'].includes(value.workerType))throw Error('Unsupported offline worker type');
  if(value?.schema!=='sherloq.offline-shell/1'||!value.files||!/^[a-f0-9]{64}$/.test(value.manifest))throw Error('Invalid offline shell');
  for(const [path,file]of Object.entries(value.files))if(!safeTarPath(path)||path.startsWith('private')||(file.source&&!safeTarPath(file.source))||!Number.isSafeInteger(file.size)||file.size<0||file.size>20_000_000||!/^[a-f0-9]{64}$/.test(file.sha256))throw Error('Invalid offline shell file');
  for(const path of ['app.html','workspace-entry.js','offline-server.py'])if(!value.files[path])throw Error('Incomplete offline shell');
@@ -19,11 +20,12 @@ export async function* offlineShellParts(shell,scope,{fetcher=fetch,signal}={}){
  }
 }
 const escapeHTML=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export function offlineLauncherHTML({archivePath,manifest,shellSha256,version,port=8765,token,language='fr',server}){
+export function offlineLauncherHTML({archivePath,manifest,shellSha256,version,port=8765,token,language='fr',server,entry='app.html'}){
  if(!archivePath?.trim()||/[\x00-\x1f]/.test(archivePath)||!token?.match(/^[a-f0-9]{32}$/)||!manifest?.match(/^[a-f0-9]{64}$/)||!Number.isInteger(port)||port<1024||port>65535)throw Error('Invalid offline launcher settings');
  if(!shellSha256?.match(/^[a-f0-9]{64}$/))throw Error('Missing offline shell identity');
+ if(!['app.html','offline-bridge.html'].includes(entry))throw Error('Invalid offline launcher entry');
  const fr=language!=='en',config={schema:'sherloq.offline-launcher/1',archivePath:archivePath.trim(),manifest,shellSha256,version,port,token};
- const data=JSON.stringify(config).replace(/</g,'\\u003c'),address='http://127.0.0.1:'+port+'/'+token+'/app.html#lang='+(fr?'fr':'en');
+ const route=entry==='offline-bridge.html'?'/__sherloq_bridge/'+token+'/offline-bridge.html':'/'+token+'/app.html',data=JSON.stringify(config).replace(/</g,'\\u003c'),address='http://127.0.0.1:'+port+route+'#lang='+(fr?'fr':'en');
  // A path is private configuration, never interpolated into executable code.
  // The helper reads this JSON and serves only the archive over loopback.
  const source=JSON.stringify(server).replace(/</g,'\\u003c');

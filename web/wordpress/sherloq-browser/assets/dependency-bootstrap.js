@@ -5,7 +5,7 @@ import {mountOfflineControls} from './offline-kit-ui.js';
 export async function prepareDependencies({onStatus}={}){
  const response=await fetch(new URL('./dependency-config.json',import.meta.url),{cache:'no-cache'});
  if(!response.ok)throw Error('Dependency configuration unavailable');
- const config=await response.json();if(!config.enabled){if(config.offline)mountOfflineControls(document,config);return;}
+ const config=await response.json();if(!config.enabled){if(config.offline){mountOfflineControls(document,config);mountDependencyControls(document,config);}return;}
  if(!navigator.serviceWorker)throw Error('Le chargement des ressources nécessite HTTPS et les Service Workers.');
  const expected=new URL('./dependency-sw.js?manifest='+config.manifest,import.meta.url);
  if(config.workerVersion)expected.searchParams.set('release',config.workerVersion);

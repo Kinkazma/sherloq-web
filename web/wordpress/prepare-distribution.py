@@ -22,6 +22,9 @@ _spec.loader.exec_module(_delivery)
 _offline_spec = importlib.util.spec_from_file_location('offline_shell', Path(__file__).with_name('offline-shell.py'))
 _offline = importlib.util.module_from_spec(_offline_spec)
 _offline_spec.loader.exec_module(_offline)
+_feature_spec = importlib.util.spec_from_file_location('feature_catalog_builder', Path(__file__).parent/'scripts/generate-feature-catalog.py')
+_features = importlib.util.module_from_spec(_feature_spec)
+_feature_spec.loader.exec_module(_features)
 from build import locked_files, delivery_bytes
 
 CHUNK = 100_000_000
@@ -152,7 +155,7 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
             put(output / 'public/web/wordpress' / name, source_bytes(source))
     if resource_policy is not None:
         put(output / 'public/web/wordpress/resource-policy.json', encode(resource_policy))
-    for folder in ['tests', 'scripts', 'runtime-patches', 'offline-launcher', 'compatibility-manifests']:
+    for folder in ['tests', 'scripts', 'runtime-patches', 'offline-launcher', 'compatibility-manifests', 'feature-inputs']:
         for source in (ROOT / folder).rglob('*'):
             if source.is_file() and source.suffix in {'.js', '.mjs', '.py', '.json', '.html', '.go', '.mod'} and 'fixtures' not in source.parts:
                 if tracked is None or source.relative_to(ROOT).as_posix() in tracked:
@@ -206,7 +209,7 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
         data = delivery_bytes(name, source, version)
         if data is None:
             data = source.read_bytes()
-        if name in ['assets/app.html', 'assets/panel.html']:
+        if name.startswith('assets/') and name.endswith('.html'):
             data = data.replace(b"connect-src 'self'", b"connect-src 'self' https://raw.githubusercontent.com")
             if local_test:
                 data = data.replace(b"connect-src 'self'", b"connect-src 'self' http://127.0.0.1:* http://localhost:*")
@@ -216,7 +219,7 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '')
                        for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-sw.js'])
     put(plugin / 'assets/dependency-sw.js', worker.encode())
-    offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
+    offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
     put(plugin / 'assets/offline-browser-sw.js', offline_worker.encode())
     put(plugin / ('assets/dependency-manifest-' + identity + '.json'), encode(manifest))
     # An old installed worker requests its own immutable manifest before it can
@@ -227,6 +230,9 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
             raise ValueError('Compatibility manifest identity mismatch: ' + previous.name)
         put(plugin / ('assets/dependency-manifest-' + previous.name), previous.read_bytes())
     put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'workerVersion': version, 'manifest': identity}))
+    if (sources/'assets/local-management-ui.js').is_file():
+        catalog = _features.generate(manifest, output/'public/web/wordpress/feature-inputs', sources/'assets')
+        put(plugin / 'assets/feature-catalog.json', encode(catalog))
     _offline.write_shell(plugin, manifest, identity, version)
     if private_overlay:
         for source in Path(private_overlay).rglob('*'):
@@ -244,7 +250,8 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
         for p in names:
             z.write(p, 'sherloq-browser/' + p.relative_to(plugin).as_posix())
     if archive.stat().st_size > 25_000_000:
-        raise ValueError('Compressed bootstrap ZIP exceeds 25 MB')
+        archive.unlink()
+        raise ValueError('Compressed private bootstrap ZIP exceeds 25,000,000 bytes')
     result = {'installer': archive.name, 'bytes': archive.stat().st_size, 'uncompressedBytes': size, 'sha256': digest(archive.read_bytes()), 'origin': manifest['remoteBase'], 'manifest': identity, 'private': True, 'originConfigured': bool(origin and not local_test), 'publishedOriginVerified': False}
     # This directory is generated packaging output. Start from the reviewed
     # public inputs on each finalization; retain deployed manifests only through

@@ -1,3 +1,4 @@
+import {localFeaturePolicy} from './feature-policy.js';
 import {toolCatalog,toolFields} from './tool-catalog.js';
 import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js';
 import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js';
@@ -63,6 +64,7 @@ for(const [index,algorithm] of CLONE_ALGORITHMS.entries()){
 const priority=x=>x.id==='ai.clones.d2prl'?0:x.params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text'?1:x.params.algorithm==='SIFT + G2NN + RANSAC'?2:x.params.algorithm==='PatchMatch Zernike'?3:x.id==='m2.forgeryscope'?4:x.id==='analysis.clones'?5:x.id==='analysis.complete'?6:10;
 export const batchCatalog=Object.freeze(entries.sort((a,b)=>priority(a)-priority(b)));
 export function batchTask(recipe,{id,imageId,regions=[],scientificScope}={}){
+ localFeaturePolicy.assertTaskAvailable(recipe);
  let operation=recipe.operation,params=copy(recipe.params);
  if(scientificScope)assertBatchScientificScope({name:imageId,width:scientificScope.width,height:scientificScope.height,preparation:scientificScope});
  if(operation==='tampering.copyMove.sparse'){

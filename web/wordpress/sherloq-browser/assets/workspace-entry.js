@@ -1,9 +1,10 @@
 import {sessionLog} from './session-log.js';
 import {diagnostic} from './runtime-context.js';
 import {mountSessionControls,downloadSession} from './session-ui.js';
+import {preferenceAccess,capturePreferenceBackup,downloadPreferenceBackup,importPreferenceBackup} from './preferences-recovery.js';
 const app=document.getElementById('workspace-app'),notice=document.getElementById('startup-notice');
 const explicit=new URLSearchParams(location.hash.slice(1)).get('lang');let saved;
-try{saved=JSON.parse(localStorage.getItem('sherloq.workspace.preferences'))?.language;}catch{}
+try{saved=preferenceAccess.read('sherloq.workspace.preferences').value?.language;}catch{}
 const preferred=[explicit,saved,...(navigator.languages||[navigator.language])].map(value=>String(value||'').toLowerCase().split(/[-_]/)[0]).find(value=>value==='fr'||value==='en')||'en';
 const messages=preferred==='fr'?{
  installing:'Préparation de SHERLOQ…',slow:'Le premier chargement prend un peu de temps. L’application s’ouvrira automatiquement dès qu’elle sera prête.',waiting:'Mise à jour prête. Fermez les autres fenêtres SHERLOQ lorsque leurs calculs sont terminés ; cette page poursuivra automatiquement.',opening:'Ouverture des outils…',retrying:'Connexion interrompue. Nouvelle tentative automatique…',failed:'Impossible de terminer le chargement.',retry:'Réessayer',reload:'Recharger'
@@ -22,7 +23,9 @@ async function start(){
    catch(error){if(attempt>=2)throw error;show('retrying');await new Promise(resolve=>setTimeout(resolve,1000*2**attempt));}
   }
   stage='workspace';show('opening');const {mountWorkspace}=await import('./workspace.js');
-  mountWorkspace();if(app)app.inert=false;notice?.remove();document.documentElement.dataset.workspaceReady='true';
+  const {initializeLocalManagement}=await import('./local-management-ui.js');
+  const localManagement=await initializeLocalManagement();
+  mountWorkspace(document,{localManagement});if(app)app.inert=false;notice?.remove();document.documentElement.dataset.workspaceReady='true';
  }catch(error){
   // A rejected ES module graph stays rejected for this document. Only the
   // dependency preparation can retry in place; import/mount failures need a
@@ -30,6 +33,10 @@ async function start(){
   const reload=stage!=='dependencies';
   show('failed');if(notice){const detail=document.createElement('small');detail.textContent=error.message;notice.append(detail);const retry=document.createElement('button');retry.type='button';retry.textContent=messages[reload?'reload':'retry'];retry.onclick=()=>reload?location.reload():start();notice.append(retry);}
   const logs=document.createElement('button');logs.textContent=preferred==='fr'?'Exporter le journal complet':'Export complete log';logs.onclick=()=>void downloadSession();notice?.append(logs);console.error(error);
+  // Recovery stays reachable even when corrupted feature choices prevent the
+  // scientific menus from opening. Never replace their unknown state by defaults.
+  const rescue=document.createElement('button');rescue.textContent=preferred==='fr'?'Exporter la sauvegarde de réglages':'Export preference recovery backup';rescue.onclick=async()=>downloadPreferenceBackup(document,await capturePreferenceBackup());notice?.append(rescue);
+  const restore=document.createElement('button'),backupFile=document.createElement('input');backupFile.type='file';backupFile.accept='application/json,.json';backupFile.hidden=true;restore.textContent=preferred==='fr'?'Restaurer une sauvegarde de réglages…':'Restore preference backup…';restore.onclick=()=>{backupFile.value='';backupFile.click();};backupFile.onchange=async()=>{try{const file=backupFile.files?.[0];if(!file)return;if(file.size>8_000_000)throw Error('Backup > 8 MB');downloadPreferenceBackup(document,await capturePreferenceBackup());await importPreferenceBackup(JSON.parse(await file.text()));location.reload();}catch(failure){const detail=document.createElement('small');detail.textContent=failure.message;notice?.append(detail);}};notice?.append(restore,backupFile);
  }finally{running=false;}
 }
 mountSessionControls();

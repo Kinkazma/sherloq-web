@@ -17,6 +17,7 @@ import {safireParams} from '../../engine-source/src/safire.js';
 import {resultResources,createToolClient} from '../sherloq-browser/assets/tool-client.js';
 import {SELFDM_PROPOSAL_MODELS} from '../../engine-source/src/selfdm-proposal-assets.js';
 import {SEGMENTATION_MODELS} from '../../engine-source/experiments/segmentation/models.js';
+import {createRuntimeTestFiles} from './runtime-test-files.mjs';
 
 test('Every tree entry has a concrete adapter and native default parameters validate',()=>{
  const existing=new Set(['original','ela.classic','composite','analysis.complete','analysis.clones']);
@@ -66,13 +67,18 @@ test('Pinned model closure includes nested backbones, runtime factories and ever
   for(const part of record.chunks)await assert.rejects(fs.stat(path.join(repository,'web-assets/chunks',part.sha256+'.bin')),error=>error.code==='ENOENT','Restricted graph must not be hosted: '+name);
  }
  async function qualify(assets,{publicBuild}={}){
-  const catalogBytes=await fs.readFile(path.join(assets,'individual-models.json')),catalog=JSON.parse(catalogBytes),visited=new Set(),localOnlyVisited=new Set();
+  const transport=createRuntimeTestFiles(path.dirname(assets));
+  const catalogBytes=publicBuild?await transport.readJSONBytes(path.join(assets,'individual-models.json'),{expectedSHA:lock['individual-models.json']}):await fs.readFile(path.join(assets,'individual-models.json')),catalog=JSON.parse(catalogBytes),visited=new Set(),localOnlyVisited=new Set();
   if(publicBuild)assert.equal(createHash('sha256').update(catalogBytes).digest('hex'),lock['individual-models.json']);
   async function visitFile(name,sha,bytes){name=path.normalize(name);assert.ok(!path.isAbsolute(name)&&name!=='..'&&!name.startsWith('../'),'Unsafe resource path: '+name);
    if(!lock[name]){const optional=policy['individual-assets/'+name];assert.ok(optional?.localOnly===true,'Missing execution resource: '+name);assert.ok(sha&&Number.isSafeInteger(bytes),'Missing exact local-only identity: '+name);assert.equal(optional.sha256,sha,name);assert.equal(optional.bytes,bytes,name);localOnlyVisited.add(name);visited.add(name);return;}
-   if(sha)assert.equal(lock[name],sha,name);const file=path.join(assets,name),stat=await fs.stat(file);if(bytes!==undefined)assert.equal(stat.size,bytes,name);
+   if(sha)assert.equal(lock[name],sha,name);const file=path.join(assets,name),stat=publicBuild?await transport.describe(file,{expectedSHA:lock[name]}):await fs.stat(file);if(bytes!==undefined)assert.equal(stat.size,bytes,name);
    if(visited.has(name))return;visited.add(name);if(!name.endsWith('.json'))return;
-   const data=await fs.readFile(file);assert.equal(createHash('sha256').update(data).digest('hex'),lock[name],name);await walk(JSON.parse(data),path.dirname(name));
+   // This XGBoost JSON is a weight body, not a manifest naming other files.
+   // Its public descriptor and actual piece sizes are checked above; closure
+   // qualification deliberately does not reread 27.8 MB of numeric weights.
+   if(publicBuild&&name==='median/model.json'){assert.equal(stat.sha256??(await transport.manifest()).files['individual-assets/'+name].sha256,lock[name]);return;}
+   const data=publicBuild?await transport.readJSONBytes(file,{expectedSHA:lock[name]}):await fs.readFile(file);assert.equal(createHash('sha256').update(data).digest('hex'),lock[name],name);await walk(JSON.parse(data),path.dirname(name));
   }
   async function walk(v,folder){if(!v||typeof v!=='object')return;
    if(v.schema==='sherloq.ssg-structured-forest/1'){

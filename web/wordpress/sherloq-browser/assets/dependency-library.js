@@ -1,3 +1,8 @@
+import {withLocalActivity,localActivityFrozen} from './local-activity.js';
+import {localFeaturePolicy} from './feature-policy.js';
+import {updateWorkerMessage} from './local-update-core.js';
+import {offlineCacheName} from './offline-browser-store.js';
+import {browserUpdateStore} from './local-update-store.js';
 import {validateManifest,remoteBase,sha256,publicDependencyEntries,requiredDependencyChunks} from './dependency-core.js';
 import {libraryValue,createChunkLoader,saveLibraryFile} from './dependency-store.js';
 import {importResourceTar,importLibraryFile} from './dependency-tar.js';
@@ -5,11 +10,20 @@ const scope=new URL('./',import.meta.url);
 let folderName='';
 export const dependencyPreferences=()=>({folderName});
 export function restoreDependencyPreferences(value){folderName=typeof value?.folderName==='string'?value.folderName.slice(0,200):'';}
-export async function readDependencyManifest(config){
+export async function readDependencyManifest(config,{storage=globalThis.caches,store=browserUpdateStore({base:scope}),fetcher=fetch,scopeURL=scope}={}){
  if(!/^[a-f0-9]{64}$/.test(config.manifest))throw Error('Invalid dependency manifest identity');
- const r=await fetch(new URL('dependency-manifest-'+config.manifest+'.json',scope));if(!r.ok)throw Error('Dependency manifest unavailable');
- const b=await r.arrayBuffer();if(await sha256(b)!==config.manifest)throw Error('Dependency manifest integrity failure');
- return validateManifest(JSON.parse(new TextDecoder().decode(b)));
+ let response,identity;
+ if(config.offline){
+  identity=(await store.read()).active?.identity;
+  if(!/^[a-f0-9]{64}$/.test(identity||''))throw Error('Reload the local application before importing models.');
+  const cache=await storage.open(offlineCacheName(identity)),cached=await cache.match(new URL('__manifest.json',scopeURL));
+  if(cached){const bytes=await cached.arrayBuffer();if(bytes.byteLength<=8_000_000&&await sha256(bytes)===config.manifest)return validateManifest(JSON.parse(new TextDecoder().decode(bytes)));}
+ }
+ response=await fetcher(new URL(config.offline?'__manifest.json':'dependency-manifest-'+config.manifest+'.json',scopeURL),config.offline?{headers:{'X-Sherloq-Release':identity},cache:'no-store'}:undefined);
+ if(!response.ok)throw Error('Dependency manifest unavailable');
+ if(config.offline&&response.headers.get('X-Sherloq-Release')!==identity)throw Error('The local helper release differs; reload the matching application.');
+ const bytes=await response.arrayBuffer();if(bytes.byteLength>8_000_000||await sha256(bytes)!==config.manifest)throw Error('Dependency manifest integrity failure');
+ return validateManifest(JSON.parse(new TextDecoder().decode(bytes)));
 }
 export function localModelEntries(manifest){
  validateManifest(manifest);
@@ -33,13 +47,16 @@ export async function importLocalModelFiles(files,manifest,cache,{signal,progres
    const file=matching[0].file,identity=JSON.stringify([blob.name,file.size,file.sha256,file.chunks]);
    if(seen.has(identity)){result.duplicates.push(blob.name);continue;}
    const hash=await createSHA256();hash.init();
-   await importLibraryFile(blob,file,manifest,async(chunk,bytes)=>{
-    signal?.throwIfAborted();hash.update(bytes);const url=key(chunk),previous=await cache.match(url);
-    await cache.put(url,new Response(bytes));
-    if(!previous&&!publicChunks.has(chunk)&&!result.addedChunks.includes(chunk)){result.addedChunks.push(chunk);onAddedChunk(chunk);}
-   },signal);
+   await importLibraryFile(blob,file,manifest,(_chunk,bytes)=>{signal?.throwIfAborted();hash.update(bytes);},signal);
    signal?.throwIfAborted();const receivedSha256=hash.digest('hex');
    if(receivedSha256!==file.sha256)throw Object.assign(Error('The complete local model SHA-256 differs.'),{code:'LOCAL_MODEL_INTEGRITY',details:{expectedSha256:file.sha256,receivedSha256}});
+   await importLibraryFile(blob,file,manifest,async(chunk,bytes)=>{
+    signal?.throwIfAborted();const url=key(chunk),previous=await cache.match(url);
+    const aliases=typeof cache.keys==='function'?await cache.keys():[];let reused=false;
+    for(const request of aliases){const alias=typeof request==='string'?request:request.url;if(!alias.endsWith('/__dependency_chunks__/'+chunk))continue;const existing=await cache.match(alias);if(existing){const b=await existing.arrayBuffer();if(b.byteLength===bytes.length&&await sha256(b)===chunk){reused=true;break;}}}
+    if(reused)return;await cache.put(url,new Response(bytes));
+    if(!previous&&!publicChunks.has(chunk)&&!result.addedChunks.includes(chunk)){result.addedChunks.push(chunk);onAddedChunk(chunk);}
+   },signal);
    seen.add(identity);result.imported.push({name:blob.name,paths:matching.map(entry=>entry.path),size:file.size,sha256:file.sha256,chunks:[...file.chunks]});
   }catch(error){if(signal?.aborted||error.name==='AbortError')throw error;result.rejected.push({name:blob.name,code:error.code??'LOCAL_MODEL_IMPORT',message:error.message,details:error.details});}
   finally{progress({completed:index+1,total:files.length,imported:result.imported.length,rejected:result.rejected.length,name:blob.name});}
@@ -48,15 +65,36 @@ export async function importLocalModelFiles(files,manifest,cache,{signal,progres
 }
 // A dialog records only keys that did not exist before its own import. Public
 // or unrelated keys remain protected even if an invalid receipt is supplied.
-export async function removeImportedLocalChunks(manifest,hashes,cache,{signal,scopeURL=scope}={}){
+export async function removeImportedLocalChunks(manifest,hashes,cache,{signal,scopeURL=scope,retainedHashes=new Set(),beforeDelete=async()=>{}}={}){
  const localChunks=new Set(localModelEntries(manifest).flatMap(entry=>entry.file.chunks)),publicChunks=new Set(requiredDependencyChunks(manifest).map(([hash])=>hash)),result={removed:[],missing:[],kept:[]};
- for(const hash of new Set(hashes)){signal?.throwIfAborted();if(!localChunks.has(hash)||publicChunks.has(hash)){result.kept.push(hash);continue;}
+ for(const hash of new Set(hashes)){signal?.throwIfAborted();if(!localChunks.has(hash)||publicChunks.has(hash)||retainedHashes.has(hash)){result.kept.push(hash);continue;}
+  await beforeDelete();signal?.throwIfAborted();
   (await cache.delete(new URL('./__dependency_chunks__/'+hash,scopeURL).href)?result.removed:result.missing).push(hash);
  }
  return result;
 }
+export async function retainedLocalImportHashes(storage,scopeURL,state){
+ const retained=new Set(),identities=new Set([state?.previous,state?.candidate,state?.bootstrapCandidate].filter(Boolean).map(record=>record.identity));
+ for(const name of await storage.keys()){
+  if(!name.startsWith('sherloq-offline-app-'))continue;
+  const cache=await storage.open(name),keys=await cache.keys();
+  for(const request of keys){
+   const url=new URL(request.url);if(!url.pathname.endsWith('/__installation.json'))continue;
+   const appBase=new URL('./',url),receipt=await cache.match(request.url);
+   let record;try{record=await receipt.json();}catch{throw Error('A retained installation is unreadable; restore it before removing imports.');}
+   if(appBase.href===new URL(scopeURL).href&&!identities.has(name.slice('sherloq-offline-app-'.length)))continue;
+   const response=await cache.match(new URL('__manifest.json',appBase));
+   if(!response)throw Error('A retained installation inventory is missing; restore it before removing imports.');
+   const bytes=await response.arrayBuffer();
+   if(await sha256(bytes)!==record.manifest)throw Error('A retained installation inventory differs; restore it before removing imports.');
+   const manifest=validateManifest(JSON.parse(new TextDecoder().decode(bytes)));
+   for(const file of Object.values(manifest.files))for(const hash of file.chunks)retained.add(hash);
+  }
+ }
+ return retained;
+}
 export function mountDependencyControls(document,config){
- if(!config.enabled||document.getElementById('dependency-settings'))return;
+ if((!config.enabled&&!config.offline)||document.getElementById('dependency-settings'))return;
  const fr=()=>document.documentElement.lang!=='en',t=(a,b)=>fr()?a:b;
  const entry=document.createElement('button');entry.id='dependency-settings';entry.type='button';
  document.querySelector('#settings-menu > div').append(entry);
@@ -70,10 +108,10 @@ export function mountDependencyControls(document,config){
   const folder=await showDirectoryPicker({id:'sherloq-dependencies',mode});
   await libraryValue('folder',folder);folderName=folder.name;await libraryValue('folderName',folderName);translate();return folder;
  }
- async function job(fn){if(busy)return;busy=true;controller=new AbortController();buttons.forEach(b=>b.disabled=b!==cancel);meter.hidden=false;status.textContent=t('Préparation…','Preparing…');
-  try{const message=await fn(controller.signal);status.textContent=typeof message==='string'?message:t('Ressources reçues et vérifiées.','Received resources verified.');}
+ async function job(fn,{remove=false}={}){if(busy||localActivityFrozen())return;busy=true;controller=new AbortController();buttons.forEach(b=>b.disabled=b!==cancel);meter.hidden=false;status.textContent=t('Préparation…','Preparing…');
+  let worker,lease=false;try{if(remove&&localFeaturePolicy.local){worker=globalThis.navigator?.serviceWorker?.controller;if(!worker)throw Error('Reload the local application before removing imports.');await updateWorkerMessage(worker,{type:'local-feature-lock'});lease=true;}const message=await withLocalActivity(()=>fn(controller.signal,{worker,lease}),{allowFrozen:lease});status.textContent=typeof message==='string'?message:t('Ressources reçues et vérifiées.','Received resources verified.');}
   catch(e){if(e.name==='AbortError')status.textContent=t('Arrêté. Les morceaux déjà reçus sont conservés.','Stopped. Completed pieces are kept.');else report(e);}
-  finally{busy=false;buttons.forEach(b=>b.disabled=false);cancel.disabled=true;meter.hidden=true;syncLocalControls();}
+  finally{if(lease)await updateWorkerMessage(worker,{type:'local-feature-unlock'}).catch(()=>{});busy=false;buttons.forEach(b=>b.disabled=false);cancel.disabled=true;meter.hidden=true;syncLocalControls();}
  }
  const folderInput=document.createElement('input');folderInput.type='file';folderInput.webkitdirectory=true;folderInput.multiple=true;folderInput.hidden=true;dialog.append(folderInput);
  const choose=add('dependency-choose',async()=>{if(!globalThis.showDirectoryPicker){folderInput.value='';folderInput.click();return;}try{await useFolder();status.textContent=t('Dossier connecté. Les fichiers présents seront réutilisés ; les manquants viendront de GitHub.','Folder connected. Existing files will be reused; missing ones will come from GitHub.');}catch(e){if(e.name!=='AbortError')report(e);}});
@@ -92,11 +130,11 @@ export function mountDependencyControls(document,config){
  const localInput=document.createElement('input');localInput.type='file';localInput.id='dependency-local-model-files';localInput.multiple=true;localInput.hidden=true;dialog.append(localInput);
  const localImport=add('dependency-import-local',()=>{if(busy||!localEntries.length)return;localInput.value='';localInput.click();});
  const localList=document.createElement('details'),localSummary=document.createElement('summary'),localNames=document.createElement('ul'),localNote=document.createElement('p');localList.className='dependency-local-model-list';localList.append(localSummary,localNames,localNote);dialog.insertBefore(localList,actions);
- const localRemove=add('dependency-remove-local',()=>job(async signal=>{
-  const m=await manifest(),cache=await caches.open('sherloq-dependency-chunks-v1'),result=await removeImportedLocalChunks(m,importedChunks,cache,{signal});
-  for(const hash of [...result.removed,...result.missing,...result.kept])importedChunks.delete(hash);
-  return t(result.removed.length+' morceaux de ces imports retirés du cache. Les ressources antérieures et les fichiers originaux sont conservés.',result.removed.length+' chunks from these imports removed from cache. Previous resources and original files are retained.');
- }));
+ const localRemove=add('dependency-remove-local',()=>job(async(signal,{worker,lease})=>{
+  const m=await manifest(),cache=await caches.open('sherloq-dependency-chunks-v1'),state=localFeaturePolicy.local?await browserUpdateStore({base:scope}).read():null,retainedHashes=await retainedLocalImportHashes(caches,scope,state),result=await removeImportedLocalChunks(m,importedChunks,cache,{signal,retainedHashes,beforeDelete:()=>lease?updateWorkerMessage(worker,{type:'local-feature-validate'}):Promise.resolve()});
+  for(const hash of [...result.removed,...result.missing])importedChunks.delete(hash);
+  return t(result.removed.length+' morceaux de ces imports retirés du cache. Les sauvegardes, autres installations et fichiers originaux sont conservés.',result.removed.length+' chunks from these imports removed from cache. Previous resources and original files are retained.')+(result.kept.length?t(' '+result.kept.length+' morceaux conservés par les sauvegardes ou autres installations.',' '+result.kept.length+' chunks retained by backups or other installations.'):'');
+ },{remove:true}));
  localInput.onchange=()=>{const files=[...localInput.files];if(!files.length)return;return job(async signal=>{
   const m=await manifest(),cache=await caches.open('sherloq-dependency-chunks-v1');meter.max=files.length;meter.value=0;
   const result=await importLocalModelFiles(files,m,cache,{signal,onAddedChunk:hash=>importedChunks.add(hash),progress:value=>{meter.value=value.completed;status.textContent=t('Vérification : ','Verifying: ')+value.completed+' / '+value.total+' · '+value.name;}});
@@ -105,6 +143,7 @@ export function mountDependencyControls(document,config){
  }).finally(()=>{localInput.value='';});};
  folderInput.onchange=()=>{const files=[...folderInput.files];if(files.length)void job(async signal=>{const m=await manifest(),cache=await caches.open('sherloq-dependency-chunks-v1');let n=0,matched=0;meter.max=files.length;for(const file of files){signal.throwIfAborted();const path=file.webkitRelativePath.split('/').slice(1).join('/');if(m.files[path]){await importLibraryFile(file,m.files[path],m,(h,b)=>cache.put(new URL('./__dependency_chunks__/'+h,scope).href,new Response(b)),signal);matched++;}meter.value=++n;}if(!matched)throw Error(t('Aucune ressource compatible dans ce dossier.','No compatible resources in this folder.'));folderName=files[0].webkitRelativePath.split('/')[0];await libraryValue('folderName',folderName);translate();});};
  const forget=add('dependency-disconnect',async()=>{await libraryValue('folder',null);await libraryValue('folderName','');folderName='';translate();status.textContent=t('Dossier déconnecté. Aucun fichier supprimé.','Folder disconnected. No files deleted.');});
+ if(config.offline){download.hidden=true;restore.hidden=true;}
  const cancel=add('dependency-cancel',()=>controller?.abort());cancel.disabled=true;
  const close=add('dependency-close',()=>dialog.close());
  function syncLocalControls(){localImport.disabled=busy||!localEntries.length;localRemove.disabled=busy||!importedChunks.size;localRemove.textContent=t('Retirer ces imports du cache','Remove these imports from cache')+(importedChunks.size?' ('+importedChunks.size+')':'');}

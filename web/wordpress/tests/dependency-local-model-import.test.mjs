@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
 import {sha256, validateManifest} from '../sherloq-browser/assets/dependency-core.js';
 import {createChunkLoader} from '../sherloq-browser/assets/dependency-store.js';
-import {localModelEntries, importLocalModelFiles, removeImportedLocalChunks, mountDependencyControls} from '../sherloq-browser/assets/dependency-library.js';
+import {readDependencyManifest,localModelEntries, importLocalModelFiles, removeImportedLocalChunks,retainedLocalImportHashes, mountDependencyControls} from '../sherloq-browser/assets/dependency-library.js';
 
 const names = ['selfdm-map-512.onnx', 'superpoint-dense-folded.onnx', 'superpoint-post-folded.onnx', 'superglue-indoor.onnx'];
 const scopeURL = 'https://app.test/assets/';
@@ -25,7 +25,7 @@ async function fixture() {
   await add('operators.wasm', [0,97,115,109,1,0,0,0], true); await add('public.onnx', [201,202,203], false);
   validateManifest(manifest);
   const stores = new Map(); let writes = 0, writeFailure, afterWrite;
-  const storage = {async open(name) {
+  const storage = {async keys(){return [...stores.keys()];},async open(name) {
     if (!stores.has(name)) stores.set(name, new Map()); const values = stores.get(name);
     return {values, async match(url) {return values.get(String(url))?.clone();},
       async put(url, response) {if (writeFailure) throw writeFailure; writes++; values.set(String(url), response.clone()); await afterWrite?.();},
@@ -70,7 +70,7 @@ test('integral file SHA is checked independently of verified chunk hashes and du
   const f = await fixture(), wrong = structuredClone(f.manifest); wrong.files['models/' + names[0]].sha256 = '0'.repeat(64);
   const rejected = await importLocalModelFiles([f.selected[0]], wrong, f.cache, {scopeURL});
   assert.equal(rejected.imported.length, 0); assert.equal(rejected.rejected[0].code, 'LOCAL_MODEL_INTEGRITY');
-  assert.equal(rejected.rejected[0].details.receivedSha256, f.manifest.files['models/' + names[0]].sha256);
+  assert.equal(rejected.rejected[0].details.receivedSha256, f.manifest.files['models/' + names[0]].sha256);assert.equal(f.writes,0);
   const result = await importLocalModelFiles([f.selected[1], f.selected[1]], f.manifest, f.cache, {scopeURL});
   assert.equal(result.imported.length, 1); assert.deepEqual(result.duplicates, [names[1]]);
 });
@@ -158,4 +158,40 @@ test('local-model GUI reports honest mixed counts and never claims a public or c
     assert.match(text,/public.onnx — nom absent/);assert.match(text,/superpoint-dense-folded.onnx — empreinte SHA-256 incorrecte/);
     assert.equal(f.cache.values.size,2);
   } finally {f.dispose();}
+});
+
+test('explicit removal retains hashes used by a backup or another installation and rechecks the lease before each deletion',async()=>{
+ const f=await fixture(),result=await importLocalModelFiles(f.selected.slice(0,2),f.manifest,f.cache,{scopeURL}),hashes=result.addedChunks,retainedHashes=new Set([hashes[0]]);let validations=0;
+ const removed=await removeImportedLocalChunks(f.manifest,hashes,f.cache,{scopeURL,retainedHashes,beforeDelete:async()=>{validations++;if(validations>1)throw Error('New local client');}}).catch(error=>error);
+ assert.equal(removed.message,'New local client');assert.ok(await f.cache.match(chunkURL(hashes[0])));assert.equal(validations,2);
+});
+
+test('imported model content reuses a verified hash under a different scope without a second cache copy',async()=>{
+ const f=await fixture(),meta=f.manifest.files['models/'+names[0]],hash=meta.chunks[0],alias='https://another.test/app/__dependency_chunks__/'+hash;
+ await f.cache.put(alias,new Response(f.bytes.get(names[0]).subarray(0,3)));const result=await importLocalModelFiles([f.selected[0]],f.manifest,f.cache,{scopeURL});
+ assert.equal(result.imported.length,1);assert.ok(!result.addedChunks.includes(hash));assert.equal(f.cache.values.size,meta.chunks.length);assert.equal(await f.cache.match(chunkURL(hash)),undefined);
+});
+
+test('import retention reads SHA-verified inventories of candidate and other scopes, without retaining a removable current import',async()=>{
+ const f=await fixture(),sha='a'.repeat(64),bytes=new TextEncoder().encode(JSON.stringify(f.manifest)),identity=await sha256(bytes),other=new URL('https://other.test/offline/');
+ const save=async(base,name)=>{const cache=await f.storage.open('sherloq-offline-app-'+name);await cache.put(new URL('__installation.json',base),new Response(JSON.stringify({manifest:identity,appBase:base.href})));await cache.put(new URL('__manifest.json',base),new Response(bytes));return cache;};
+ await save(scopeURL,sha);assert.equal((await retainedLocalImportHashes(f.storage,scopeURL,{active:{identity:sha}})).size,0);
+ const hashes=await retainedLocalImportHashes(f.storage,scopeURL,{candidate:{identity:sha}});assert.ok(hashes.has(f.manifest.files['models/'+names[0]].chunks[0]));
+ const cache=await save(other,'b'.repeat(64));assert.ok((await retainedLocalImportHashes(f.storage,scopeURL,{})).size>0);
+ await cache.put(new URL('__manifest.json',other),new Response('{}'));await assert.rejects(retainedLocalImportHashes(f.storage,scopeURL,{}),/inventory differs/);
+});
+
+test('offline model import reads only a SHA verified active cache or helper response with the exact release echo',async()=>{
+ const f=await fixture(),bytes=new TextEncoder().encode(JSON.stringify(f.manifest)),manifest=await sha256(bytes),identity='c'.repeat(64),store={read:async()=>({active:{identity}})},config={offline:true,manifest};
+ const cache=await f.storage.open('sherloq-offline-app-'+identity);await cache.put(new URL('__manifest.json',scopeURL),new Response(bytes));
+ assert.deepEqual(await readDependencyManifest(config,{storage:f.storage,store,scopeURL,fetcher:()=>assert.fail('Verified active metadata needs no helper read')}),f.manifest);
+ await cache.delete(new URL('__manifest.json',scopeURL));
+ const fetcher=async(url,options)=>{assert.ok(String(url).endsWith('/__manifest.json'));assert.equal(options.headers['X-Sherloq-Release'],identity);return new Response(bytes,{headers:{'X-Sherloq-Release':identity}});};
+ assert.deepEqual(await readDependencyManifest(config,{storage:f.storage,store,scopeURL,fetcher}),f.manifest);
+ await assert.rejects(readDependencyManifest(config,{storage:f.storage,store,scopeURL,fetcher:async()=>new Response(bytes,{headers:{'X-Sherloq-Release':'d'.repeat(64)}})}),/helper release differs/);
+});
+
+test('corruption in a later model chunk is rejected before any earlier verified chunk can mutate storage',async()=>{
+ const f=await fixture(),bytes=f.bytes.get(names[0]).slice();bytes[bytes.length-1]^=1;
+ const result=await importLocalModelFiles([file(names[0],bytes)],f.manifest,f.cache,{scopeURL});assert.equal(result.imported.length,0);assert.equal(result.rejected.length,1);assert.equal(f.writes,0);assert.equal(f.cache.values.size,0);
 });

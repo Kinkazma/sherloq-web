@@ -1,3 +1,4 @@
+import {localFeaturePolicy} from './feature-policy.js';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {readExtensionMemoryHints} from './unified-engine/src/browser-memory.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
@@ -13,12 +14,13 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
   let hints;
   if (extensionId) try { hints = await readExtensionMemoryHints(extensionId); } catch { /* Optional bridge. */ }
   const engine = engineFactory({computeProfile, resourceHints: hints ?? undefined, ...(memoryBudgetBytes ? {memoryBudgetBytes} : {}), ...(extensionId ? {memoryExtensionId: extensionId} : {})});
-  let queue = Promise.resolve(), disposed = false, models = false, abort, analysis, retained, source, rendered, renderingLayer, disposePromise;
+  let analysisPolicy,queue = Promise.resolve(), disposed = false, models = new Set(), abort, analysis, retained, source, rendered, renderingLayer, disposePromise;
   function enqueue(fn) { const task = queue.then(() => { if (disposed) throw cancelled(); return fn(); }); queue = task.catch(() => {}); return task; }
   function hooks() { return {signal: abort?.signal, onProgress}; }
-  async function configure() {
-    if (models) return;
-    const signal = abort?.signal, manifest = await json(url('forgeryscope/manifest.json'), signal), segments = await json(url('aliked-segments/manifest.json'), signal), runtime = await json(url('neural-runtime/manifest.json'), signal);
+  async function configure(excludedFeatures=[]) {
+    const excluded=new Set(excludedFeatures),signal = abort?.signal;
+    if (!excluded.has('m2.forgeryscope')&&!models.has('forgeryscope')) {
+    const manifest = await json(url('forgeryscope/manifest.json'), signal), segments = await json(url('aliked-segments/manifest.json'), signal), runtime = await json(url('neural-runtime/manifest.json'), signal);
     const resolve = (assets, folder) => Object.fromEntries(Object.entries(assets).map(([key, asset]) => [key, {...asset, url: url(folder + asset.file)}]));
     const runtimes = Object.fromEntries(Object.entries(runtime.providers).map(([provider, value]) => [provider, {
       factoryUrl: url('neural-runtime/' + value.factory), ortUrl: url('ort/ort.' + (provider === 'wasm' ? 'wasm' : 'webgpu') + '.min.mjs'), wasmUrl: url('ort/' + value.wasm)
@@ -26,11 +28,15 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
     await engine.loadAutomaticModels({forgeryscope: {assets: resolve(manifest.assets, 'forgeryscope/'), alikedSegments: {...segments, assets: resolve(segments.assets, 'aliked-segments/')}, runtimes,
       preparationFactoryUrl: new URL('./unified-engine/.build/forgeryscope/prepare.mjs', import.meta.url).href,
       siftFactoryUrl: new URL('./unified-engine/.build/forgeryscope/sift.mjs', import.meta.url).href, siftIdentity: 'native-sift'}}, hooks());
-    await engine.loadD2prlModel({...D2PRL_MODEL_IDENTITY, url: url('d2prl/model.json')}, hooks());
+    models.add('forgeryscope');
+    }
+    if(!excluded.has('ai.clones.d2prl')&&!models.has('d2prl')){await engine.loadD2prlModel({...D2PRL_MODEL_IDENTITY, url: url('d2prl/model.json')}, hooks());models.add('d2prl');}
+    if(!models.has('ocr')){
     const response = await fetcher(url('ocr/eng.traineddata'), {signal}); if (!response.ok) throw new Error('English OCR resource unavailable.');
     const data = new Uint8Array(await response.arrayBuffer());
     await engine.loadM3Models({models: {}, language: {data, sha256: deployment.englishSha256}}, hooks());
-    models = true;
+    models.add('ocr');
+    }
   }
   async function releaseRendering() { if (rendered) { const previous = rendered; rendered = null; renderingLayer = null; await engine.releaseSurface(previous.id); } }
   function checkpoint() { return retained ?? (analysis?.data?.state?.resumable?.length ? {analysisId: analysis.analysisId, state: analysis.data.state, completed: analysis.data.state.completed} : null); }
@@ -48,7 +54,7 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
   async function execute(fn) {
     abort = new AbortController();
     try { analysis = compactResult(await fn()); retained = null; return analysis; }
-    catch (error) { retained = error.details?.retainedAnalysis ?? retained; if (error.imagesCleared) { source = null; models = false; retained = null; analysis = null; } throw error; }
+    catch (error) { retained = error.details?.retainedAnalysis ?? retained; if (error.imagesCleared) { source = null; models = new Set(); retained = null; analysis = null; } throw error; }
     finally { abort = null; }
   }
   async function pixels(display, rect) {
@@ -69,8 +75,8 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
     reserveExport:async bytes=>{const lease=await enqueue(()=>engine.reserveExternalMemory({bytes}));return()=>engine.releaseExternalMemory(lease.id);},
     pause() { abort?.abort(); return queue; },
     load(input) { return enqueue(() => execute(async () => { await releaseRendering(); await releaseAnalysis(); source = await engine.loadBlob({...input, layout: 'segmented'}, hooks()); return null; })).then(() => source); },
-    run(task) { return enqueue(() => execute(async () => { await releaseRendering(); await configure(); await releaseAnalysis(); return engine.run(task, hooks()); })); },
-    resume() { return enqueue(() => execute(async () => { const point = checkpoint(); if (!point) throw new Error('No retained analysis to resume.'); return engine.resumeAutomatic({analysisId: point.analysisId}, hooks()); })); },
+    run(task) { return enqueue(() => execute(async () => { localFeaturePolicy.assertTaskAvailable(task);analysisPolicy=JSON.stringify(localFeaturePolicy.snapshot());const excludedFeatures=localFeaturePolicy.automaticExcludedFeatures();task={...task,params:{...task.params,...(excludedFeatures.length?{excludedFeatures}:{})}};await releaseRendering();await configure(excludedFeatures);await releaseAnalysis();return engine.run(task,hooks()); })); },
+    resume() { return enqueue(() => execute(async () => { if(analysisPolicy!==JSON.stringify(localFeaturePolicy.snapshot()))throw Object.assign(Error('Les fonctions locales ont changé ; relancez l’analyse avec les méthodes disponibles.'),{code:'FEATURE_POLICY_CHANGED'});const point = checkpoint(); if (!point) throw new Error('No retained analysis to resume.'); return engine.resumeAutomatic({analysisId: point.analysisId}, hooks()); })); },
     update(view = [], filters) { return enqueue(() => execute(async () => { if (!analysis) throw new Error('No analysis result.'); await releaseRendering(); return engine.updateAutomatic({analysisId: analysis.analysisId, view, ...(filters ? {filters} : {})}, hooks()); })); },
     display(layer = 'corroboration', {overlay = false, opacity = .7} = {}) { return enqueue(async () => { if (rendered && renderingLayer === layer) return {...rendered, layer, overlay, opacity}; await releaseRendering(); const answer = await engine.renderAutomatic({analysisId: analysis.analysisId, layer}, {onProgress}); rendered = answer.surface; renderingLayer = layer; return {...rendered, layer, overlay, opacity}; }); },
     readWindow(display, rect) { return enqueue(() => pixels(display, rect)); },

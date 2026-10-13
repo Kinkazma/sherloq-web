@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
 import {createToolWorkspace} from '../sherloq-browser/assets/tool-workspace.js';
+import {localFeaturePolicy} from '../sherloq-browser/assets/feature-policy.js';
 import {toolCatalog,toolFields} from '../sherloq-browser/assets/tool-catalog.js';
 import {CLONE_ALGORITHMS,SSG_DEFAULTS} from '../sherloq-browser/assets/clone-methods.js';
 import {ssgFullParams} from '../../engine-source/src/ssg-full-input.js';
@@ -89,4 +90,18 @@ test('SIFT G2NN algorithm defaults retain their fractional scientific distance a
  algorithm.value=JSON.stringify('SIFT + G2NN + RANSAC');algorithm.onchange();const radius=h.parameter('radius');
  assert.equal(radius.value,'808.95');assert.equal(radius.step,'any');assert.equal(radius.reportValidity(),true);assert.equal(h.workspace.params().radius,808.95);
  radius.onkeydown({key:'ArrowUp',preventDefault(){},stopPropagation(){}});assert.equal(Number(radius.value),809.05);assert.equal(h.workspace.params().radius,809.05);
+});
+
+
+test('Opened optional controls become unavailable after uninstall and return with their parameters intact',()=>{
+ const h=environment(),catalog={schema:'sherloq.features/1',groups:[{id:'models',fr:'Modèles',en:'Models'}],features:[{id:'m2.cfa',group:'models',protected:false,fr:'CFA',en:'CFA',resources:[],dependsOn:[],tasks:[{operation:'m2.cfa'}]}]};
+ localFeaturePolicy.configure({catalog,local:true,state:{}});
+ try{
+  h.workspace.select('m2.cfa');h.workspace.updateParams({block:64});h.workspace.lock(false,true);
+  assert.equal(h.document.getElementById('tool-run').disabled,false);
+  localFeaturePolicy.configure({state:{disabledFeatures:['m2.cfa']}});h.workspace.refreshFeatures();h.workspace.lock(false,true);
+  assert.equal(h.document.getElementById('tool-run').disabled,true);assert.equal(h.workspace.canRun(),false);assert.equal(h.workspace.params().block,64);
+  localFeaturePolicy.configure({state:{}});h.workspace.refreshFeatures();h.workspace.lock(false,true);
+  assert.equal(h.document.getElementById('tool-run').disabled,false);assert.equal(h.workspace.canRun(),true);assert.equal(h.workspace.params().block,64);
+ }finally{localFeaturePolicy.configure({local:false,state:{}});}
 });

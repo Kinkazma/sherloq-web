@@ -69,24 +69,35 @@ with tempfile.TemporaryDirectory() as directory:
     assert (output / 'public/web-assets/chunks' / (a + '.bin')).read_bytes() == public
     assert (output / 'public/web-assets/chunks' / (sha(factory) + '.bin')).read_bytes() == factory
     assert receipt['uniqueBytes'] == len(public) + len(factory)
-    # Real nested Git checkout: ls-tree paths are relative to its working
-    # directory. The frozen build must include its committed UI, never the
-    # modified working copy or an untracked private file.
-    subprocess.run(['git', 'init', '-q', str(root)], check=True)
-    subprocess.run(['git', 'add', 'staged'], cwd=root, check=True)
-    subprocess.run(['git', '-c', 'user.name=SHERLOQ fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'fixture'], cwd=root, check=True)
-    revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
+    # Simulate only the read-only Git boundary, including nested ls-tree paths.
+    # No test commit or repository mutation is necessary to verify that the
+    # frozen UI ignores modified and untracked working files.
+    revision = 'a'*40
+    frozen_files = {p.relative_to(staged).as_posix():p.read_bytes() for p in staged.rglob('*') if p.is_file()}
+    check_output = subprocess.check_output
+    def frozen_git(command, **options):
+        if command[0] != 'git': return check_output(command, **options)
+        if command[1:] == ['rev-parse', revision+'^{commit}']: return revision+'\n'
+        if command[1:] == ['rev-parse', '--show-prefix']: return 'staged/\n'
+        if command[1:] == ['ls-tree', '-r', '--name-only', revision, '--', '.']: return '\n'.join(sorted(frozen_files))+'\n'
+        if command[1] == 'show' and command[2].startswith(revision+':staged/'):
+            return frozen_files[command[2].removeprefix(revision+':staged/')]
+        raise AssertionError('Unexpected Git operation: '+repr(command))
     (plugin / 'sherloq-browser.php').write_text('Version: 99.0.0\n')
     (plugin / 'private.php').write_text('untracked private integration\n')
     frozen = root / 'frozen'
-    packer.pack(frozen, source_revision=revision, resource_policy=policy)
+    subprocess.check_output = frozen_git
+    try:
+        packer.pack(frozen, source_revision=revision, resource_policy=policy)
+    finally:
+        subprocess.check_output = check_output
     assert (frozen / 'public/web/wordpress/sherloq-browser/sherloq-browser.php').read_text() == 'Version: 0.17.2\n'
     assert not (frozen / 'public/web/wordpress/sherloq-browser/private.php').exists()
     (plugin / 'sherloq-browser.php').write_text('Version: 0.17.2\n')
     # Finalizing twice must not accumulate old test manifests or private files.
     sources = frozen / 'public/web/wordpress/sherloq-browser'
     (sources / 'assets').mkdir(exist_ok=True)
-    for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-sw.js', 'offline-browser-store.js', 'offline-browser-sw.js']:
+    for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'dependency-manifest.js', 'dependency-sw.js', 'offline-browser-store.js', 'offline-browser-sw.js']:
         (sources / 'assets' / name).write_text('')
     compatibility = frozen / 'public/web/wordpress/compatibility-manifests'
     compatibility.mkdir()

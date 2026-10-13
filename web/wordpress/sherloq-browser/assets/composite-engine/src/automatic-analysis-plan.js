@@ -27,8 +27,8 @@ export function automaticSelection(width,height,detected){
 /** Owned native submission and M3/M4 parameter objects, in source pixel centres.
  * Forgeryscope/D2PRL remain native selection contracts pending ROI adaptation.
  * Consumers MUST honor enabled: false, especially when all zones are disabled. */
-export function automaticAnalysisPlan({width,height,regions,envelope=null,disabled=[],cpu=false,complete=false,d2Minimum=500}){
- dimensions(width,height);requireValue(Array.isArray(regions)&&Array.isArray(disabled)&&disabled.every(i=>Number.isSafeInteger(i)&&i>=0&&i<regions.length),'Invalid automatic selection');
+export function automaticAnalysisPlan({width,height,regions,envelope=null,disabled=[],cpu=false,complete=false,d2Minimum=500,excludedFeatures=[]}){
+ dimensions(width,height);requireValue(Array.isArray(excludedFeatures)&&excludedFeatures.every(id=>['ai.clones.d2prl','m2.forgeryscope'].includes(id)),'Invalid automatic feature exclusions');requireValue(Array.isArray(regions)&&Array.isArray(disabled)&&disabled.every(i=>Number.isSafeInteger(i)&&i>=0&&i<regions.length),'Invalid automatic selection');
  requireValue(typeof cpu==='boolean'&&typeof complete==='boolean'&&Number.isInteger(d2Minimum)&&d2Minimum>=0&&d2Minimum<=5000,'Invalid automatic analysis controls');
  regions=regions.map(polygon);envelope=envelope===null?null:polygon(envelope);const off=new Set(disabled);
  const active=regions.filter((_,i)=>!off.has(i)),excluded=regions.filter((r,i)=>off.has(i)&&!same(r,envelope));
@@ -46,6 +46,7 @@ export function automaticAnalysisPlan({width,height,regions,envelope=null,disabl
  const enabled=active.length>0;
  const jobs=[{id:'patchmatch',enabled,params:denseParams},{id:'sift',enabled,params:sparseParams},{id:'forgeryscope',enabled:enabled&&forge.regions.length>0,params:forge},{id:'d2prl',enabled,params:d2,minimum:d2Minimum}];
  if(complete)jobs.push({id:'ela',enabled,params:{regions:active,excluded}});
- for(const job of jobs)job.state=job.enabled?'pending':enabled?'envelope-disabled':'no-active-zones';
- return structuredClone({version:2,width,height,complete,cpu,regions,envelope,disabled:[...off].sort((a,b)=>a-b),active,excluded,guides,native:{patchmatch,sift,forgeryscope:forge,d2prl:d2},jobs});
+ const featureExclusions=new Set(excludedFeatures),featureFor={d2prl:'ai.clones.d2prl',forgeryscope:'m2.forgeryscope'};
+ for(const job of jobs){if(featureExclusions.has(featureFor[job.id])){job.enabled=false;job.state='feature-uninstalled';}else job.state=job.enabled?'pending':enabled?'envelope-disabled':'no-active-zones';}
+ return structuredClone({version:2,width,height,complete,cpu,regions,envelope,disabled:[...off].sort((a,b)=>a-b),excludedFeatures:[...featureExclusions].sort(),active,excluded,guides,native:{patchmatch,sift,forgeryscope:forge,d2prl:d2},jobs});
 }

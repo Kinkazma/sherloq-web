@@ -4,6 +4,7 @@
 <meta name="color-scheme" content="dark light"><meta name="theme-color" content="#292a2d">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' https://use.typekit.net https://p.typekit.net; font-src 'self' https://use.typekit.net; img-src 'self' data:; connect-src 'self' https://raw.githubusercontent.com; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>SHERLOQ — Hors ligne / Offline</title>
+<link rel="icon" type="image/svg+xml" href="offline-icon.svg">
 <link rel="stylesheet" href="app.css"><link rel="stylesheet" href="workspace-shell.css"><link rel="stylesheet" href="media.css"><link rel="stylesheet" href="offline-setup.css">
 <script type="module" src="fonts.js"></script><script type="module" src="offline-setup.js"></script>
 </head><body class="offline-setup">
@@ -21,8 +22,8 @@
  <main class="offline-content">
   <h1 id="title"></h1><p id="intro"></p>
   <section id="archive-section"><h2 id="archive-title"></h2><p id="archive-info"></p>
-   <div class="actions"><button id="download" type="button" class="offline-kit-button"></button><button id="choose" type="button"></button><input id="archive" type="file" accept=".tar,application/x-tar" hidden></div>
-   <p id="selected"></p>
+   <div class="actions"><button id="download" type="button" class="offline-kit-button"></button><button id="download-launcher" type="button"></button><button id="choose" type="button"></button><input id="archive" type="file" accept=".tar,application/x-tar" hidden></div>
+   <p id="selected"></p><p id="archive-pair-info" class="muted"></p>
   </section>
   <section id="install-section"><h2 id="install-title"></h2><p id="install-info"></p><p id="storage-info" class="muted"></p>
    <div class="actions"><button id="prepare" type="button" class="offline-kit-button"></button><button id="cancel" type="button" disabled></button></div>

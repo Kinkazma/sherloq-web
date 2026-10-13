@@ -60,3 +60,47 @@ export function validIndividualSettings(value){
  const copy=(v,depth=0)=>{if(Array.isArray(v)){if(depth>4||v.length>1000)throw Error('Invalid tool parameter array');return v.map(x=>copy(x,depth+1));}if(v===null||typeof v==='boolean'||typeof v==='string'&&v.length<=4096||typeof v==='number'&&Number.isFinite(v))return v;if(depth>4||!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).length>64)throw Error('Invalid tool parameter');return Object.fromEntries(Object.entries(v).map(([k,item])=>{if(!/^[a-zA-Z][a-zA-Z0-9.]*$/.test(k)||['constructor','prototype','__proto__'].includes(k))throw Error('Invalid tool parameter name');return [k,copy(item,depth+1)];}));};
  return copy(value);
 }
+
+// Import and release migration recover each field independently. The strict
+// validator remains available for scientific task/session validation.
+export function defaultSettings(){return{schema:'sherloq.settings/1',profiles:[],current:{...defaults},activeProfile:'native',preferences:{navigationMode:'auto',theme:'dark',language:'fr',layout:'tabs',computeProfile:'maximum',regionMode:'whole',favorite:false,showZones:true,toolsVisible:true,inspectorVisible:false}};}
+export function recoverSettings(input,{fallback=defaultSettings()}={}){
+ const issues=[],base=validateSettings(fallback),value=input&&typeof input==='object'&&!Array.isArray(input)?input:{};
+ if(value.schema!=='sherloq.settings/1')throw Error('Expected sherloq.settings/1');
+ const out=structuredClone(base),issue=(path,error,kind='incompatible')=>issues.push({path,kind,message:error?.message||String(error)});
+ const fields=(source,target,validate,path)=>{if(!source||typeof source!=='object'||Array.isArray(source)){if(source!==undefined)issue(path,'Invalid object');return target;}for(const [key,item]of Object.entries(source)){if(!Object.hasOwn(target,key)){issue(path+'.'+key,'Preserved in recovery backup','unknown');continue;}const candidate={...target,[key]:item};try{target=validate(candidate);}catch(error){issue(path+'.'+key,error);}}return target;};
+ out.current=fields(value.current,{...out.current},validParams,'current');
+ // Profiles keep their identity, name and every compatible parameter. An
+ // unusable identity is retained only in the recovery copy, never invented.
+ const hasProfiles=Array.isArray(value.profiles),ids=new Set(hasProfiles?[]:base.profiles.map(profile=>profile.id)),names=new Set(hasProfiles?[]:base.profiles.map(profile=>profile.name));out.profiles=hasProfiles?[]:structuredClone(base.profiles);
+ if(Array.isArray(value.profiles))for(const [index,p]of value.profiles.entries()){
+  const path='profiles.'+index;
+  if(index>=100||!p||typeof p.id!=='string'||!/^profile-[\w-]{1,80}$/.test(p.id)||ids.has(p.id)||typeof p.name!=='string'||!p.name.trim()||p.name.length>80||names.has(p.name.trim())||p.operation!=='ela.classic'){issue(path,'Invalid profile identity, name or operation');continue;}
+  ids.add(p.id);names.add(p.name.trim());const prior=base.profiles.find(item=>item.id===p.id);
+  out.profiles.push({id:p.id,name:p.name.trim(),operation:'ela.classic',params:fields(p.params,{...(prior?.params||defaults)},validParams,path+'.params')});
+  for(const key of Object.keys(p))if(!['id','name','operation','params'].includes(key))issue(path+'.'+key,'Preserved in recovery backup','unknown');
+ }else if(value.profiles!==undefined)issue('profiles','Invalid profiles');
+ // Validate UI fields without making a bad boolean/theme discard other fields.
+ out.preferences=fields(value.preferences,{...out.preferences,highlightNewFeatures:out.preferences.highlightNewFeatures??false,elaMode:out.preferences.elaMode??'classic'},q=>validateSettings({...out,activeProfile:'native',preferences:q}).preferences,'preferences');
+ if(['native','manual',...ids].includes(value.activeProfile))out.activeProfile=value.activeProfile;else if(value.activeProfile!==undefined){out.activeProfile=['native','manual',...ids].includes(base.activeProfile)?base.activeProfile:'manual';issue('activeProfile','Profile unavailable');}else if(!['native','manual',...ids].includes(out.activeProfile))out.activeProfile='manual';
+ if(value.individual!==undefined){out.individual={...base.individual};if(value.individual&&typeof value.individual==='object'&&!Array.isArray(value.individual))for(const [id,parameters]of Object.entries(value.individual))try{Object.assign(out.individual,validIndividualSettings({[id]:parameters}));}catch(error){issue('individual.'+id,error);}else issue('individual','Invalid tool settings');}
+ for(const [key,validate]of [['automatic',validAutomaticSettings],['composite',validCompositeSettings]])if(value[key]!==undefined)out[key]=fields(value[key],validate(base[key]),validate,key);
+ if(value.energy!==undefined){
+  const energy=validEnergySettings(base.energy),v=value.energy;
+  if(!v||typeof v!=='object'||Array.isArray(v))issue('energy','Invalid energy settings');else{
+   const parameters=['quality','block','minimum','view','opacity'];for(const key of parameters)if(v[key]!==undefined)try{Object.assign(energy,validEnergySettings({...energy,[key]:v[key]}));}catch(error){issue('energy.'+key,error);}
+   energy.values=fields(v.values,{...energy.values},values=>validEnergySettings({...energy,values}).values,'energy.values');
+   const priorProfiles=energy.profiles,hasProfiles=Array.isArray(v.profiles);energy.profiles=hasProfiles?[]:priorProfiles;const energyIds=new Set(hasProfiles?[]:priorProfiles.map(profile=>profile.id)),energyNames=new Set(hasProfiles?[]:priorProfiles.map(profile=>profile.name));
+   if(Array.isArray(v.profiles))for(const [index,p]of v.profiles.entries()){
+    const path='energy.profiles.'+index;if(index>=100||!p||typeof p.id!=='string'||!/^profile-[\w-]{1,80}$/.test(p.id)||energyIds.has(p.id)||typeof p.name!=='string'||!p.name.trim()||p.name.length>80||energyNames.has(p.name.trim())){issue(path,'Invalid energy profile');continue;}
+    const prior=base.energy?.profiles.find(item=>item.id===p.id),candidate={id:p.id,name:p.name.trim(),values:{...(prior?.values||energy.values)},quality:prior?.quality??energy.quality,block:prior?.block??energy.block,minimum:prior?.minimum??energy.minimum};
+    const profileCheck=x=>validEnergySettings({...energy,profiles:[x],selected:x.id}).profiles[0];candidate.values=fields(p.values,candidate.values,values=>profileCheck({...candidate,values}).values,path+'.values');
+    for(const key of ['quality','block','minimum'])if(p[key]!==undefined)try{Object.assign(candidate,profileCheck({...candidate,[key]:p[key]}));}catch(error){issue(path+'.'+key,error);}
+    energyIds.add(p.id);energyNames.add(p.name.trim());energy.profiles.push(candidate);
+   }else if(v.profiles!==undefined)issue('energy.profiles','Invalid energy profiles');
+   if(['standard','conservative','sensitive','manual',...energyIds].includes(v.selected))energy.selected=v.selected;else if(v.selected!==undefined){energy.selected='manual';issue('energy.selected','Energy profile unavailable');}else if(!['standard','conservative','sensitive','manual',...energyIds].includes(energy.selected))energy.selected='manual';
+  }out.energy=energy;
+ }
+ for(const key of Object.keys(value))if(!['schema','profiles','current','activeProfile','preferences','individual','automatic','composite','energy','exportedAt'].includes(key))issue(key,'Preserved in recovery backup','unknown');
+ return {value:validateSettings(out),issues};
+}
