@@ -1,6 +1,11 @@
 # Validation scope and optimization priorities
 
-## Current interface integration — 0.17.3
+## 0.18.0 — Local updates, resource choices and preferences
+
+The integrated interface, Python helper and Go launcher checks pass. Fresh Chrome verifies the actual immutable GitHub inventories, all local interface source hashes and the six declared JavaScript resource replacements. Startup checks are optional; preparation and activation require explicit choices. Existing scientific qualification is retained, with model weights, D2PRL WASM and compatibility inventories unchanged. This is a local workflow and transport qualification, not a new claim about every detector or target device. [Local update contracts](LOCAL-UPDATES.md) · [Selection overlay](../web/wordpress/FEATURE-SELECTION-OVERLAY.md).
+
+
+## Previous interface integration — 0.17.3
 
 The interface delta is integrated on the published 0.17.2 engine/resources. Independent integration passes 437 interface checks and 12 archive/export checks. Fresh isolated Chrome against the immutable GitHub resource origin verifies exact source pixels and lossless export, the real batch export controls, the listed local-model controls, native configuration capability and shared-engine owner lifetime. The finalized offline inventory pins all five new UI modules. The extracted Python launcher passes the same checks with no connection reset after its HTTP request backlog is increased.
 
