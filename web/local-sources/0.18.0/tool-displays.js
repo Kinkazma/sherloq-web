@@ -1,0 +1,17 @@
+/** Display handles must belong to the engine which will read them. Metadata
+ * can describe an input owned by a different worker and is not a display. */
+export function resultDisplays(output,{neuralDisplays=()=>null,language='fr'}={}){
+ const neural=neuralDisplays(output,language);if(neural)return neural;
+ const found=[],seen=new Set(),english=language==='en';
+ function visit(value,path){
+  if(!value||typeof value!=='object'||ArrayBuffer.isView(value))return;
+  if(value.width&&value.height&&value.format&&((value.id&&value.revision)||value.data instanceof Uint8Array)){
+   const key=value.id||path;if(!seen.has(key)){seen.add(key);const names=english?{map:'Anomaly map',confidence:'Confidence',noiseprint_pp:'Noiseprint++'}:{map:'Carte des anomalies',confidence:'Confiance',noiseprint_pp:'Noiseprint++'},numbered=english?['Overlay','Map','Grids / map']:['Superposition','Carte','Grilles / carte'];found.push({label:value.m2Result?names[value.view]??numbered[value.view]:path||'Résultat',display:value.id?value:{...value,pixels:value}});}return;
+  }
+  for(const [key,child]of Object.entries(value)){if(['provenance','metrics'].includes(key))continue;visit(child,path?path+'.'+key:key);}
+ }
+ // M2 explicitly publishes its own render handles. Its source descriptor in
+ // data.source belongs to the M2 decoder, not the UI's original-image engine.
+ if(output.m2Result&&Array.isArray(output.views))visit(output.views,'views');else visit(output,'');
+ return found;
+}
