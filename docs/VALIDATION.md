@@ -4,7 +4,7 @@
 
 Independent integration checks pass 368 interface tests, 150 targeted engine tests and 19 retained scheduling/resource tests. The changed resources, source/executable locks, generated WASM loader identity and runtime mirrors are verified together. Existing batch preparation, model weights, atomic SIFT scheduling and historical compatibility manifests are preserved.
 
-Fresh isolated Chrome checks exercise exact source pixels and lossless export, real PP-OCR text detection, the new D2PRL native evaluator with its retained 256 MiB role runtime, the SSG forest ABI, and ordered native float32 distances with final descriptor ownership released. These checks establish transport and integration behavior; the supplied image qualifications establish parity for their particular inputs.
+Fresh isolated Chrome checks against the actual immutable GitHub resource origin exercise exact source pixels and lossless export, real PP-OCR text detection, the new D2PRL native evaluator with its retained 256 MiB role runtime, the SSG forest ABI, and ordered native float32 distances with final descriptor ownership released. These checks establish transport and integration behavior; the supplied image qualifications establish parity for their particular inputs.
 
 The supplied half-round-table comparisons pass exact current-API outputs, masks, views, NPZ exports and refiltering on the recorded 30 MP and 96 MP cases. Paired timing gains describe those inputs and host. CPU/GPU counts in the pinned scientific receipt describe the qualification recipe, not a new application worker limit. Dense GPU transport reuse remains disabled by default.
 
