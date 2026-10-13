@@ -42,7 +42,7 @@ The dependency recipe exercised real worker bytes, exact synthetic pixels, a los
 
 All 5,246 runtime file hashes and 4,247 referenced chunks were verified after reconstruction, including the seven multi-chunk files. The 191 WASM file hashes and 2,894 scientific binary/model file hashes match the preceding manifest. All 90 WASM modules below 300 KiB remain local.
 
-The batch PDF/ZIP vendor bytes and paths are unchanged. Eight files now form a locked `batch-vendor` slot, loaded on demand through the integrity-checked dependency transport. This keeps the verified bootstrap at approximately 17.8 MB. The owner-approved packaging cap is **25,000,000 bytes**. Source reconstruction and the resource manifest include this addition; the original qualified handoff package had 5,238 runtime files and 4,239 chunks before batch integration.
+The batch PDF/ZIP vendor bytes and paths are unchanged. Eight files now form a locked `batch-vendor` slot, loaded on demand through the integrity-checked dependency transport. Source reconstruction and the resource manifest include this addition; the original qualified handoff package had 5,238 runtime files and 4,239 chunks before batch integration.
 
 ## Limits
 

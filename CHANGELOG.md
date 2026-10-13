@@ -37,13 +37,12 @@ Independent integration checks pass 368 interface tests, 256 D2PRL/projection ch
 
 ## 0.17.0 — Scientific batch preparation and exports · 2026-10-12
 
-- Published the 9.66 MB standalone local-web bootstrap with an immutable dependency origin. Independent anonymous HTTPS and fresh Chrome checks verify the actual delivered text detector and runtime resources. [Artifact](docs/evidence/public-bootstrap-0.17.0.json) · [Delivery evidence](docs/evidence/batch-publication-0.17.0.json).
+- Verified the immutable dependency origin through anonymous HTTPS and fresh Chrome checks of the text detector and runtime resources. [Delivery evidence](docs/evidence/batch-publication-0.17.0.json).
 - Added acquisition preclassification and PP-OCRv6 detector-only text polygons for native-coordinate exclusions. Ambiguous OCR proposals can be reviewed without losing their source/model provenance; original pixels remain unchanged.
 - Corrected native neural window bounds for D2PRL and MGCFDN while keeping exact scientific polygons for filtering. Small annotations already outside acquisitions are shown explicitly.
 - Added biomes-only single-method views, multi-method corroboration, source-linked flat archives, restored history and partial-run PDF/journal exports. Journal reads use ordered bounded windows and report incomplete exports.
 - Qualified shared SSG callers and reject a different algorithm injected into the automatic SIFT provider before computation. The local preview serves pinned SSG logical URLs from existing pieces. This local 404 correction is not claimed as a production WordPress failure.
 - Preserved the 0.16.0 method integrations, normal SIFT worker capacity, immutable models/WASM, startup migration, local/offline workflows and the noindex correction.
-- Corrected the bootstrap limit to apply to the compressed download ZIP, with a 20,000,000-byte ceiling and a target below 10 MB. Extracted size remains reported. Large resources are obtained separately from the immutable GitHub origin.
 
 The user accepted this version as functional. The interrupted four-method run is not counted as sixteen completed analyses; scientific accuracy on all 86 images and full MATLAB parity remain unestablished. See [batch preparation evidence](docs/evidence/batch-scientific-preparation-local.json) and the separate SSG records.
 
@@ -58,7 +57,7 @@ The user accepted this version as functional. The interrupted four-method run is
 - Added verified local resource imports for optional SelfDM/SuperPoint/SuperGlue graphs. Missing files produce an explicit local-resource requirement rather than a failing remote download; bulk public downloads skip these optional files.
 - Preserved exact hashes for factories that receive already verified WASM binaries. Corrected offline preparation to reuse models in a connected local folder. Repeated private builds start from clean reviewed inputs.
 - The frozen interface passes 317 tests; the combined batch contracts pass 15 tests. The earlier real interface/batch method runs produced 14 scientific NPZ files with 249 independent checks. These are functional and export checks, not acceptance of the scientific filtering workflow.
-- The generated delivery passes Chrome 154 and WebKit 26.6 checks on two local origins: exact synthetic pixels, lossless WebP, ranges across two chunks, verified local-model import, SSG factory ABI and independently read TAR/offline resources. The test bootstrap is 24,452,025 bytes before any private site overlay. These records do not establish a new 96 MP, physical-mobile or universal numerical-parity qualification.
+- The generated delivery passes Chrome 154 and WebKit 26.6 checks on two local origins: exact synthetic pixels, lossless WebP, ranges across two chunks, verified local-model import, SSG factory ABI and independently read TAR/offline resources. These records do not establish a new 96 MP, physical-mobile or universal numerical-parity qualification.
 
 - A fresh Chrome run against the actual pinned GitHub origin verifies native pixels, lossless WebP export, SSG factory/WASM identities and ABI, with zero remote requests at startup. Anonymous HTTPS checks verify the manifest and new model/factory resources against their hashes, sizes and CORS policy. [Browser checks](docs/evidence/methods-public-origin-browser.json) · [HTTP checks](docs/evidence/methods-public-origin-http.json).
 

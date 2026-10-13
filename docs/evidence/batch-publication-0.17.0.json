@@ -37,17 +37,6 @@
   },
   "humanFunctionalAcceptance": true,
   "humanPublicationAuthorization": true,
-  "bootstrap": {
-    "artifact": "SHERLOQ-Web-bootstrap-0.17.0.zip",
-    "bytes": 9659762,
-    "sha256": "62959502da6d828d89e6206e60f270d8bc47f93f733be5225f98945cc12470ae",
-    "version": "0.17.0",
-    "resourceOrigin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/39575baa97a08cd2f0b461bf5016043c40c15ccb/web-assets/",
-    "manifestSha256": "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d",
-    "privateOverlayIncluded": false,
-    "scientificModelsBundled": false,
-    "compressedLimitBytes": 20000000
-  },
   "localPublicLauncherBrowserPassed": true,
   "publicPinnedOriginBrowserPassed": true,
   "publicPinnedOriginHttpPassed": true,

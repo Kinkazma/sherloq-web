@@ -101,8 +101,6 @@ Choose paired **Biomes** or scientific **Corroboration** counts and adjust their
 
 ### Entirely local web app
 
-Download the [small local launcher (10.83 MB)](https://github.com/Kinkazma/sherloq-web/releases/download/web-0.17.3/SHERLOQ-Web-bootstrap-0.17.3.zip), extract it and run `Launch-SHERLOQ.py` with Python 3.9 or later. It starts SHERLOQ in your browser and obtains the selected tools’ dependencies from GitHub. [Local setup](web/wordpress/DISTRIBUTION.md#small-public-bootstrap).
-
 The **Take offline / Emporter hors ligne** command prepares a local web app and its resource library. Once prepared, it can open and analyze images without WordPress or an Internet connection. The saved resource archive can restore its working library. [Local installation and restoration](web/wordpress/DISTRIBUTION.md#sherloq-web-local).
 
 ## Example material

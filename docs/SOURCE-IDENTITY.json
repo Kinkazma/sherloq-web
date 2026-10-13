@@ -24,7 +24,6 @@
     "d1a3950258a58e242d6ce460b6b02d58281e87fa76318f77e96cc33c14b3fa4b",
     "f6888946a2866155275f75dd9f134090cb914e2ec3ab772577c51b721f021408"
   ],
-  "bootstrap_limit_bytes": 20000000,
   "public_additions": {
     "methods": [
       "CMSeg-Net",
@@ -47,20 +46,12 @@
     "resource_commit": "a81fb1dfb29cf37c7f3a2487fe55860665144487",
     "deployment_manifest_sha256": "a488d0a8cba3120ea52cc497beadf6cf68758394cb2db81c81ab6c47890a6081"
   },
-  "bootstrap_limit_basis": "compressed ZIP bytes",
-  "desired_bootstrap_bytes": 10000000,
   "d2prl_increment_sha256": "ab77ee77b286abd9866e68f433121149f835f96764c18e33c0fffe200ec6c6a8",
   "d2prl_qualification": "Supplied 30/96 MP native-array/mask, refilter and paged export checks passed. Detailed qualification files remain local.",
   "clone_increment_sha256": "9c47fc55f2777a7f9bff4a1a588c14036ad2ab8a228e6395fe34c77d41429b5c",
   "resource_commit": "a81fb1dfb29cf37c7f3a2487fe55860665144487",
   "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/a81fb1dfb29cf37c7f3a2487fe55860665144487/web-assets/",
   "deployment_manifest_sha256": "a488d0a8cba3120ea52cc497beadf6cf68758394cb2db81c81ab6c47890a6081",
-  "finalized_bootstrap_compressed_bytes_before_private_overlay": 10854617,
-  "finalized_bootstrap_extracted_bytes_before_private_overlay": 33329174,
-  "public_bootstrap_asset": "SHERLOQ-Web-bootstrap-0.17.3.zip",
-  "public_bootstrap_bytes": 10834705,
-  "public_bootstrap_sha256": "9205214076b6a09e7d0188d93f5e8b7de7bd13d3d84aa2a8c1af8ce38d608433",
   "ui_source_commit": "db9d54429f6029eaa20a2c44c88f579e14019534",
-  "public_bootstrap_compressed_limit_bytes": 25000000,
   "batch_interface_source_commit": "db9d54429f6029eaa20a2c44c88f579e14019534"
 }
