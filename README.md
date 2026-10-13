@@ -99,6 +99,8 @@ Import documents or images, review the automatically proposed acquisitions and t
 
 Choose paired **Biomes** or scientific **Corroboration** counts and adjust their opacity without rerunning the detectors. ZIP exports support PNG, WebP, TIFF, AVIF and HEIC; saved archives retain their display settings and scientific outputs.
 
+In practice, this offers an experience close to a desktop application, accessible on most operating systems through a compatible browser. I can easily imagine the future of open-source software taking this direction.
+
 ### Entirely local web app
 
 The **Take offline / Emporter hors ligne** command prepares a local web app with a selected resource library. Local Settings can check for updates, remove optional tools and recover saved preferences. **Auto update** is off by default; enabling it checks at startup and asks before preparing or activating a change. [Local updates and resource management](docs/LOCAL-UPDATES.md). Once prepared, it can open and analyze images without WordPress or an Internet connection. The saved resource archive can restore its working library. [Local installation and restoration](web/wordpress/DISTRIBUTION.md#sherloq-web-local).
