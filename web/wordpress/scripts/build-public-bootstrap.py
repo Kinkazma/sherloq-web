@@ -30,12 +30,17 @@ class Handler(SimpleHTTPRequestHandler):
     def log_message(self, *args):
         pass
 
+class Server(ThreadingHTTPServer):
+    # Multiple browser workers load many modules concurrently at startup.
+    request_queue_size = 256
+    daemon_threads = True
+
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--port', type=int, default=8765)
 parser.add_argument('--no-browser', action='store_true')
 options = parser.parse_args()
 try:
-    server = ThreadingHTTPServer(('127.0.0.1', options.port), Handler)
+    server = Server(('127.0.0.1', options.port), Handler)
 except OSError:
     raise SystemExit('The local port is occupied. Close the previous SHERLOQ launcher, or use --port with a free port.')
 url = f'http://127.0.0.1:{server.server_port}/app.html#lang=auto'
