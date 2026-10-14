@@ -1,7 +1,7 @@
 {
   "date": "2026-10-06",
   "engine": "0.35.0-export.2",
-  "scope": "Illustrative direct-engine outputs; not accuracy certification. Preview reductions are display-only.",
+  "scope": "Illustrative direct-engine outputs, with per-run engine and source identities. Not accuracy certification. Preview reductions are display-only.",
   "examples": [
     {
       "id": "microscopy-d2prl-automatic-zones",
@@ -849,6 +849,377 @@
         }
       ],
       "recordSha256": "7944ef47038a24f9e20f9421d9c3b207508b97553ab7cc277273c09467dcda09"
+    },
+    {
+      "id": "three-cells-mgcfdn",
+      "operation": "ai.clones.segmentation",
+      "input": "examples/three-cells/input.png",
+      "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": "0.37.0-methods.1",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "outputs": [
+        {
+          "file": "overlay.png",
+          "label": "Overlay",
+          "width": 416,
+          "height": 320,
+          "sha256": "0ed0ef0dd7aa4a7dcea3643d5d0a95604845f9bd201011e4aa8ddfef15ac8252",
+          "rawRgbSha256": "74e2f69622938ff0b172dd9ba2355720b21e9d99ff0405b76a3ded3401f1af79"
+        },
+        {
+          "file": "map.png",
+          "label": "Raw map (unfiltered)",
+          "width": 416,
+          "height": 320,
+          "sha256": "1accca3a2c21dd06058b3fad165e39eea5e8ab3991dc9c601c8c123088ca7463",
+          "rawRgbSha256": "5c2ea98d3982d2446f5862e6ea1d63bace1d68efb8ad5813c3b40d3edefb5497"
+        },
+        {
+          "file": "mask.png",
+          "label": "Filtered mask",
+          "width": 416,
+          "height": 320,
+          "sha256": "9d84092592ec47f02916e67b0133bb4b0c7368d8b605bf0c2470ac43a7aa9be2",
+          "rawRgbSha256": "1bbea44a0be76516dc3c061fdd139d92eda4eb6123609aa3f6090ecf5ec6decd"
+        }
+      ],
+      "scientific": [
+        {
+          "file": "map.f32",
+          "field": "map",
+          "type": "Float32Array",
+          "byteOrder": "little-endian",
+          "width": 416,
+          "height": 320,
+          "sha256": "2a4bd7cc779a439e435180ac5f11647010eb0666796d8f6ba4070854d59765b8"
+        },
+        {
+          "file": "mask.f32",
+          "field": "mask",
+          "type": "Float32Array",
+          "byteOrder": "little-endian",
+          "width": 416,
+          "height": 320,
+          "sha256": "8d6335f48dc778072deef3d0dde8ef672a4cbce6c7803d982a50edbe115488b8"
+        }
+      ]
+    },
+    {
+      "id": "three-cells-cmseg-generalization",
+      "operation": "ai.clones.segmentation",
+      "input": "examples/three-cells/input.png",
+      "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": "0.37.0-methods.1",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "outputs": [
+        {
+          "file": "overlay.png",
+          "label": "Overlay",
+          "width": 416,
+          "height": 320,
+          "sha256": "26227372c94b9cae848972cf9f8cfa51a45859723beeb792796b294d3d223c1f",
+          "rawRgbSha256": "86b96876f4162e62f1938fe2cc89b62365193b9441ffc6aeb1c4ec87f14f1097"
+        },
+        {
+          "file": "map.png",
+          "label": "Raw map (unfiltered)",
+          "width": 416,
+          "height": 320,
+          "sha256": "c445931c39e2bc7fa60770ab2b3ae6d9ef3e45d6b3c8048b5758b032cf0b6500",
+          "rawRgbSha256": "97a4ec4c7483d303d4f1807dfba07ef46c3b10fad5299c0d7f5e928f035ae3f8"
+        },
+        {
+          "file": "mask.png",
+          "label": "Filtered mask",
+          "width": 416,
+          "height": 320,
+          "sha256": "7c24fc8387bd5aafd882c490a5db8f696fa38d37f5b96cd0b679804c5f1bc8ef",
+          "rawRgbSha256": "b0e615cd6f2091ad55eb710c68126299955d7a5fdef35475ccc7bb650d8d5974"
+        }
+      ],
+      "scientific": [
+        {
+          "file": "map.f32",
+          "field": "map",
+          "type": "Float32Array",
+          "byteOrder": "little-endian",
+          "width": 416,
+          "height": 320,
+          "sha256": "a31d3e47dc4b89b92bca4343181911a85971a7fdd1283f93c9af0a333c8e5bb2"
+        },
+        {
+          "file": "mask.f32",
+          "field": "mask",
+          "type": "Float32Array",
+          "byteOrder": "little-endian",
+          "width": 416,
+          "height": 320,
+          "sha256": "4cd86cfd6af96d1c9582723b9898f52db3e863aac8f8202b3bc0138e62300656"
+        }
+      ]
+    },
+    {
+      "id": "three-cells-selfdm-map",
+      "operation": "ai.clones.segmentation",
+      "input": "examples/three-cells/input.png",
+      "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": "0.37.0-methods.1",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "outputs": [
+        {
+          "file": "overlay.png",
+          "label": "Overlay",
+          "width": 416,
+          "height": 320,
+          "sha256": "9b5ae610cac3dcd29c1082b8ae57b2845db7fbcfb71a33452e6ee02757b468fe",
+          "rawRgbSha256": "b686ef8e60b7670eecf43c15d584862a6a1fa90a24fe6ef5bebb4213abcddbd7"
+        },
+        {
+          "file": "map.png",
+          "label": "Raw map (unfiltered)",
+          "width": 416,
+          "height": 320,
+          "sha256": "96ce0b2caf82aad0113af359a62781366d10e7c1e65cfc37c14b3d3d3fe491fd",
+          "rawRgbSha256": "8f5db6ba6e4456cfb2fb0c33832dcad4ea5f3f0d2978aec077722b6f9ef6e54f"
+        },
+        {
+          "file": "mask.png",
+          "label": "Filtered mask",
+          "width": 416,
+          "height": 320,
+          "sha256": "75ef509a190d6035d96f7c9b6d7996155e636e768b95eb537617566708f0417e",
+          "rawRgbSha256": "cd5dc9dc5870e06fe52d35b1ca56aefd03b4ca8e241f22eeeb093a3f0b779272"
+        }
+      ],
+      "scientific": [
+        {
+          "file": "map.f32",
+          "field": "map",
+          "type": "Float32Array",
+          "byteOrder": "little-endian",
+          "width": 416,
+          "height": 320,
+          "sha256": "ffd02c76649e46cfb5046026c92bd0e8e61b5ba0b90dd5f9a4d45a32b9d19ac5"
+        },
+        {
+          "file": "mask.f32",
+          "field": "mask",
+          "type": "Float32Array",
+          "byteOrder": "little-endian",
+          "width": 416,
+          "height": 320,
+          "sha256": "21dc94c5095b84dc5ed309e611385184ede652f694771f62d1fecb4214bbb048"
+        }
+      ]
+    },
+    {
+      "id": "three-cells-selfdm-proposal",
+      "operation": "ai.clones.segmentation",
+      "input": "examples/three-cells/input.png",
+      "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": "0.37.0-methods.1",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "outputs": [
+        {
+          "file": "overlay.png",
+          "label": "Overlay",
+          "width": 416,
+          "height": 320,
+          "sha256": "a96e3f95ad8b57dba5057476893ac731969d53b8d46df5748eb5af3161daaac6",
+          "rawRgbSha256": "32a176502b0736f82ac3a149221f3d9d2680f4732bcc0ab4a6d37875f9cf1c9c"
+        },
+        {
+          "file": "map.png",
+          "label": "Raw map (unfiltered)",
+          "width": 416,
+          "height": 320,
+          "sha256": "5574447ecddb031e34eb7bd9c68f10bcde522ee204c0c08963c89b1545fad925",
+          "rawRgbSha256": "18fd5602633417e0be9fb14787b8a995f5696b7a545c57e4b7dc4f2ba132f146"
+        },
+        {
+          "file": "mask.png",
+          "label": "Filtered mask",
+          "width": 416,
+          "height": 320,
+          "sha256": "8c524ef6bee23edee8c6a442e5b21cfab5ecb56d87a04dd8f7673569e59d2444",
+          "rawRgbSha256": "b4629c275551a0a7ce4724b368fa18f57b28fa12bcaf42583263eb3393eac532"
+        }
+      ],
+      "scientific": [
+        {
+          "file": "map.f32",
+          "field": "map",
+          "type": "Float32Array",
+          "byteOrder": "little-endian",
+          "width": 416,
+          "height": 320,
+          "sha256": "33c30e95ae1aeb4377ee50b477fdd69dc9abc94adc8f874c993a39637cc71a89"
+        },
+        {
+          "file": "mask.f32",
+          "field": "mask",
+          "type": "Float32Array",
+          "byteOrder": "little-endian",
+          "width": 416,
+          "height": 320,
+          "sha256": "fec27cce182b299f251627702618330c21bb09a51a78d4159f1130cecc2f56c3"
+        }
+      ]
+    },
+    {
+      "id": "three-cells-aliked",
+      "operation": "tampering.copyMove.sparse",
+      "input": "examples/three-cells/input.png",
+      "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": "0.37.0-methods.1",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "label": "surface",
+          "width": 416,
+          "height": 320,
+          "sha256": "3942a812bfe2b994817e181d8ee477d95f8ab331ff4c32807f0adf83d0f6fa13",
+          "rawRgbSha256": "86ecd46727547db8c1d8c0982507be0afe0e3b5df88f48947e4dfe8de34f8ba1"
+        }
+      ],
+      "scientific": [
+        {
+          "file": "matches.json",
+          "format": "json",
+          "sha256": "a88bbc434e723169910523b40f39280cc10fa361d502835c04d56385c60fc4f5"
+        }
+      ]
+    },
+    {
+      "id": "three-cells-xfeat-pair",
+      "operation": "tampering.copyMove.sparse",
+      "input": "examples/three-cells/input.png",
+      "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": "0.37.0-methods.1",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "label": "surface",
+          "width": 416,
+          "height": 320,
+          "sha256": "183600998ae77bbfda191f0b2f2a24f8847bfb086796eeb7faf74f1397037437",
+          "rawRgbSha256": "ee48d0631ba74116852fd50abb35c57eb7b2237b377dccbcb95439383dc22d39"
+        }
+      ],
+      "scientific": [
+        {
+          "file": "matches.json",
+          "format": "json",
+          "sha256": "28828039aa9da5bb06ef053c486ed809c4644d6da1bd9024297f70b483a7b1d4"
+        }
+      ]
+    },
+    {
+      "id": "three-cells-efficient-loftr",
+      "operation": "tampering.copyMove.sparse",
+      "input": "examples/three-cells/input.png",
+      "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": "0.37.0-methods.1",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "label": "surface",
+          "width": 416,
+          "height": 320,
+          "sha256": "5029f1639fe5429233e8254aa636b6805cc03d8d0036967b71fbb81d99515f67",
+          "rawRgbSha256": "ed1cf34ce11d66eb84cef4c5b58cd1eb079e8dc858ac49542f7e58f1f86a4e73"
+        }
+      ],
+      "scientific": [
+        {
+          "file": "matches.json",
+          "format": "json",
+          "sha256": "ff14867a653f006a15a129eb27a396e40c0c03c42cbd26870f6bb810adacd541"
+        }
+      ]
+    },
+    {
+      "id": "three-cells-ssg",
+      "operation": "tampering.copyMove.sparse",
+      "input": "examples/three-cells/input.png",
+      "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": "0.37.0-methods.1",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "label": "surface",
+          "width": 416,
+          "height": 320,
+          "sha256": "6d4baebf99c051cc2957c0c110264ace99eca58bf6c4d5538c3782c795f2bf9d",
+          "rawRgbSha256": "f4e2f248e92a18ec733d04b1af3ead0323ee112e6ed730f7cb449260c4d73e4b"
+        }
+      ],
+      "scientific": [
+        {
+          "file": "matches.json",
+          "format": "json",
+          "sha256": "4feb7e8e75836280ec5814f59901c2845b6b8e30d4522f91a7cc45b9bf8128ae"
+        }
+      ]
+    },
+    {
+      "id": "microscopy-ppocrv6",
+      "operation": "preparation.text",
+      "input": "examples/microscopy/input.png",
+      "inputSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+      "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+      "engine": null,
+      "sourceDimensions": [
+        3226,
+        936
+      ],
+      "outputs": [
+        {
+          "file": "result.png",
+          "label": "Text detection proposals",
+          "width": 3226,
+          "height": 936,
+          "sha256": "aec5466844e0f03920a2672fb5d7ed99bb977575c15bdec1d03611564510c8dd"
+        }
+      ],
+      "scientific": []
     }
-  ]
+  ],
+  "lastUpdated": "2026-10-14"
 }

@@ -834,6 +834,125 @@
         1133
       ],
       "quality": 88
+    },
+    {
+      "source": "examples/three-cells/input.png",
+      "preview": "screenshots/readme-webp/examples/three-cells/input.webp",
+      "sourceBytes": 234993,
+      "previewBytes": 21708,
+      "sourceSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "previewSha256": "5ef25ce60c2c90c3883adb02dc692b5ed15824ecd74c723ef999cc25fcee482b",
+      "sourceDimensions": [
+        416,
+        320
+      ],
+      "previewDimensions": [
+        416,
+        320
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/three-cells-localization/comparison.png",
+      "preview": "screenshots/readme-webp/examples/results/three-cells-localization/comparison.webp",
+      "sourceBytes": 465266,
+      "previewBytes": 51138,
+      "sourceSha256": "23e1c8ec8632a30bb66cba29e14ab4c4f96776efd2d7b3b21aa9d57be0640f8b",
+      "previewSha256": "b979bf8a3a22ad82139e11dc805f1b668cb3aaf2517cb73462cda7ff3aa432ff",
+      "sourceDimensions": [
+        1320,
+        446
+      ],
+      "previewDimensions": [
+        1320,
+        446
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/three-cells-selfdm/comparison.png",
+      "preview": "screenshots/readme-webp/examples/results/three-cells-selfdm/comparison.webp",
+      "sourceBytes": 613286,
+      "previewBytes": 53808,
+      "sourceSha256": "b6f5697b90de660752764b44e71c45fb96568a2ad1f02c7a5271297dd22eb463",
+      "previewSha256": "6a112548824cdc34b57ad64b9de83cc597a7ee0b3fc37d6d0022002d22462761",
+      "sourceDimensions": [
+        888,
+        804
+      ],
+      "previewDimensions": [
+        888,
+        804
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/three-cells-learned-biomes/comparison.png",
+      "preview": "screenshots/readme-webp/examples/results/three-cells-learned-biomes/comparison.webp",
+      "sourceBytes": 294195,
+      "previewBytes": 69302,
+      "sourceSha256": "a0d58a302a815dd1867aaaf8b81504cdfdf28dd7c91d01ff016a805cf5119c87",
+      "previewSha256": "1cef7290153b1883ddea6ce10da869920fac14eab9ad158963a4247aa625781f",
+      "sourceDimensions": [
+        1320,
+        446
+      ],
+      "previewDimensions": [
+        1320,
+        446
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/three-cells-efficient-loftr/comparison.png",
+      "preview": "screenshots/readme-webp/examples/results/three-cells-efficient-loftr/comparison.webp",
+      "sourceBytes": 247176,
+      "previewBytes": 43464,
+      "sourceSha256": "ad45155a20bc5f33cce381d5fd884cb84cbb022bda0a9e3108a0602ad1b4cb0f",
+      "previewSha256": "ec39fbde3f34cd99a3f95001095520e3e5800101fd48902ed52adac4751c602c",
+      "sourceDimensions": [
+        888,
+        446
+      ],
+      "previewDimensions": [
+        888,
+        446
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/three-cells-ssg/comparison.png",
+      "preview": "screenshots/readme-webp/examples/results/three-cells-ssg/comparison.webp",
+      "sourceBytes": 268140,
+      "previewBytes": 44468,
+      "sourceSha256": "e5050b9c8209bbad137afac7fdd21a9aa20c302ce396c6610b87e92f3dee8ada",
+      "previewSha256": "475dfc14861fc79c07f335e39fe9e0bd7949b0667217c657b03552feffbef52f",
+      "sourceDimensions": [
+        888,
+        446
+      ],
+      "previewDimensions": [
+        888,
+        446
+      ],
+      "quality": 88
+    },
+    {
+      "source": "examples/results/microscopy-ppocrv6/result.png",
+      "preview": "screenshots/readme-webp/examples/results/microscopy-ppocrv6/result.webp",
+      "sourceBytes": 4326408,
+      "previewBytes": 302202,
+      "sourceSha256": "aec5466844e0f03920a2672fb5d7ed99bb977575c15bdec1d03611564510c8dd",
+      "previewSha256": "f1e9219503deb4ab5a4cb20fade02d30836b3b08d37739ec24614027ebc19987",
+      "sourceDimensions": [
+        3226,
+        936
+      ],
+      "previewDimensions": [
+        2400,
+        696
+      ],
+      "quality": 88
     }
   ]
 }

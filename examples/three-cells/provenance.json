@@ -1,0 +1,12 @@
+{
+  "input": "examples/three-cells/input.png",
+  "sha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+  "dimensions": [
+    416,
+    320
+  ],
+  "encodedBytes": 234993,
+  "source": "PNG supplied by the repository maintainer for these illustrative examples.",
+  "processing": "Original encoded bytes preserved; no crop, resize or added annotation before analysis. Each model retains its defined internal preparation, recorded with its output.",
+  "referenceMaskProvided": false
+}

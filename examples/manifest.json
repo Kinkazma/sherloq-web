@@ -52,5 +52,13 @@
     "source_commit": "94e3aec6a0a5f1149bb825b2e17eb784f03e4f35",
     "source_path": "examples/street/street-reference-preview.jpg",
     "sha256": "f364b91442e7cfb81c09042b12732406f5ad568134da83ea69eea3215c39b16e"
+  },
+  "examples/three-cells/input.png": {
+    "source": "Supplied example input",
+    "sha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+    "dimensions": [
+      416,
+      320
+    ]
   }
 }

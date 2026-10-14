@@ -1,0 +1,679 @@
+{
+  "job": {
+    "id": "three-cells-selfdm-map",
+    "input": "examples/three-cells/input.png",
+    "operation": "ai.clones.segmentation",
+    "params": {
+      "variant": "selfdm-map"
+    },
+    "views": [
+      "overlay",
+      "map",
+      "mask"
+    ],
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+  "sourceDimensions": [
+    416,
+    320
+  ],
+  "engine": "0.37.0-methods.1",
+  "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+  "runtime": "Direct shipped web computational clients in headless Chrome; no application UI",
+  "outputs": [
+    {
+      "file": "overlay.png",
+      "label": "Overlay",
+      "width": 416,
+      "height": 320,
+      "sha256": "9b5ae610cac3dcd29c1082b8ae57b2845db7fbcfb71a33452e6ee02757b468fe",
+      "rawRgbSha256": "b686ef8e60b7670eecf43c15d584862a6a1fa90a24fe6ef5bebb4213abcddbd7"
+    },
+    {
+      "file": "map.png",
+      "label": "Raw map (unfiltered)",
+      "width": 416,
+      "height": 320,
+      "sha256": "96ce0b2caf82aad0113af359a62781366d10e7c1e65cfc37c14b3d3d3fe491fd",
+      "rawRgbSha256": "8f5db6ba6e4456cfb2fb0c33832dcad4ea5f3f0d2978aec077722b6f9ef6e54f"
+    },
+    {
+      "file": "mask.png",
+      "label": "Filtered mask",
+      "width": 416,
+      "height": 320,
+      "sha256": "75ef509a190d6035d96f7c9b6d7996155e636e768b95eb537617566708f0417e",
+      "rawRgbSha256": "cd5dc9dc5870e06fe52d35b1ca56aefd03b4ca8e241f22eeeb093a3f0b779272"
+    }
+  ],
+  "scientific": [
+    {
+      "file": "map.f32",
+      "field": "map",
+      "type": "Float32Array",
+      "byteOrder": "little-endian",
+      "width": 416,
+      "height": 320,
+      "sha256": "ffd02c76649e46cfb5046026c92bd0e8e61b5ba0b90dd5f9a4d45a32b9d19ac5"
+    },
+    {
+      "file": "mask.f32",
+      "field": "mask",
+      "type": "Float32Array",
+      "byteOrder": "little-endian",
+      "width": 416,
+      "height": 320,
+      "sha256": "21dc94c5095b84dc5ed309e611385184ede652f694771f62d1fecb4214bbb048"
+    }
+  ],
+  "result": {
+    "id": "three-cells-selfdm-map",
+    "imageId": "source",
+    "operation": "ai.clones.segmentation",
+    "status": "ok",
+    "data": {
+      "width": 416,
+      "height": 320,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            0,
+            416,
+            320
+          ]
+        ],
+        "zones": [
+          {
+            "id": "whole-image",
+            "bounds": [
+              0,
+              0,
+              416,
+              320
+            ],
+            "origin": [
+              0,
+              0
+            ],
+            "analysis_shape": [
+              1,
+              512,
+              512
+            ],
+            "status": "ok",
+            "kind": "whole-image"
+          }
+        ],
+        "channel_order": [
+          "union_probability"
+        ],
+        "threshold": 0.5,
+        "threshold_rule": "probability>0.5",
+        "raw_filter_applied": false,
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "selfdm-initial-map-native512-topk48-v1",
+        "variant": "SelfDM — initial map",
+        "backend": "cpu",
+        "execution": {
+          "backend": "cpu",
+          "independentZones": {
+            "requested": 1,
+            "observed": 1,
+            "memoryBackoffs": 0,
+            "internalThreadsPerWorker": 4,
+            "admittedThreadsPerWorker": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "meaning": "Region tasks include cache lookups; thread teams below are admitted by the shared broker, not physical CPU utilization"
+          },
+          "wasmMaximumBytes": 536870912,
+          "gpuMaximumBytes": 0,
+          "observedHeapBytes": 290193408,
+          "gpuPeakBufferBytes": 0,
+          "wasmMaximumScope": "Completed model-grid admission, including cached grid provenance",
+          "runtimeMaximumBytes": 2147483648,
+          "neuralPool": {
+            "enabled": true,
+            "scope": "Successful final useful inferences in this request; cache-only views perform none",
+            "jobs": 1,
+            "admittedTeams": [
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 290193408,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              }
+            ],
+            "workerReuses": 0,
+            "modelReuses": 0,
+            "runtimeInitializations": 1,
+            "modelInitializations": 1,
+            "initializationMeaning": "Initializations of successful final executions; retry evidence is retained per team",
+            "preflightExecutions": 0,
+            "laneSnapshots": [
+              {
+                "laneIndex": 0,
+                "scope": "Cumulative counters of this lane at its latest completed inference",
+                "pool": {
+                  "residentWorkers": 1,
+                  "busyWorkers": 0,
+                  "peakWorkers": 1,
+                  "workerStarts": 1,
+                  "runtimeReuses": 0,
+                  "sharedResidentWorkers": 1,
+                  "sharedBusyWorkers": 0,
+                  "sharedPeakWorkers": 1
+                },
+                "runtime": {
+                  "runtimeInitializations": 1,
+                  "modelInitializations": 1,
+                  "modelSwitches": 0
+                }
+              }
+            ],
+            "sharedBroker": {
+              "admitted": 1,
+              "completed": 1,
+              "peakCpu": 4,
+              "peakGpu": 0,
+              "peakQueued": 1,
+              "waitMs": 0.309999942779541,
+              "cpuLeaseMs": 13041.159999847412,
+              "gpuLeaseMs": 0,
+              "elasticAdmissions": 1,
+              "memoryReclaims": 0,
+              "preflightExecutions": 0,
+              "capacity": {
+                "cpu": 4,
+                "gpu": 1
+              },
+              "active": {
+                "cpu": 0,
+                "gpu": 0
+              },
+              "running": 0,
+              "queued": 0,
+              "waiting": {
+                "cpu": 0,
+                "gpu": 0,
+                "memory": 0
+              },
+              "queuedRequests": [],
+              "queuedRequestsOmitted": 0,
+              "labels": {
+                "neural/selfdm": {
+                  "admitted": 1,
+                  "completed": 1,
+                  "activeJobs": 0,
+                  "activeCpu": 0,
+                  "activeGpu": 0,
+                  "peakCpu": 4,
+                  "cpuLeaseMs": 13041.159999847412,
+                  "gpuLeaseMs": 0
+                }
+              },
+              "phaseDomains": {
+                "array-buffer": 0,
+                "wasm": 0,
+                "gpu": 0,
+                "gpu-mapped": 0
+              },
+              "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement",
+              "domainMeaning": "New allocation requirements of active phases; separate from policy reservations and materialized backing ownership",
+              "observationPhase": "After model-grid work, before result projection",
+              "observedAt": 1792004867483,
+              "scope": "Shared engine snapshot with cumulative counters; not a per-request wait-time or physical-utilization measurement"
+            }
+          },
+          "projectionReleasedSessionBytes": 0
+        },
+        "timings": {
+          "cropMs": 0.009999990463256836,
+          "preparationMs": 13.534999966621399,
+          "neuralRpcMs": 3271.625,
+          "modelLoadMs": 348.3549998998642,
+          "inferenceMs": 2916.5950000286102,
+          "outputCopyMs": 0,
+          "gpuWriteBytes": 0,
+          "gpuReadBytes": 0,
+          "aggregation": "Per-task phase durations are summed across zones and pipeline graph stages; concurrent tasks can overlap. zoneWallMs, projectionMs and totalMs describe elapsed wall time.",
+          "snapshotAndHashMs": 2.475000023841858,
+          "correlationMs": 0,
+          "backboneMs": 0,
+          "backboneSetupMs": 0,
+          "parameterLoadMs": 0,
+          "attentionMatmulMs": 0,
+          "graphDistanceMs": 0,
+          "correlationGpuMs": 0,
+          "zoneWallMs": 3285.6350001096725,
+          "projectionMs": 26.514999985694885
+        },
+        "pixelSha256": "a191723536acd31fcbb1849a2df8511c78eb5d855dc856c43650e2d5a74632ce",
+        "resultId": "segmentation-1:1",
+        "analysisId": "segmentation-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              416,
+              320
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "arrayLayout": "segmented; readPlane/readMask windows or streamed NPZ export"
+    },
+    "semantics": "Native sigmoid or target/source/background class probabilities, independent rectangle inference and maximum/OR composition. No D2PRL residual roles or component filter.",
+    "layers": [
+      {
+        "id": "probability",
+        "kind": "scalar",
+        "surfaceId": "98b3fe16-4912-4fc5-9005-09e952f2b83b",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "union",
+        "kind": "mask",
+        "surfaceId": "220fec52-87c8-416c-8cc2-22cce163327f",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "analyzed",
+        "kind": "mask",
+        "surfaceId": "558d7359-5617-4ad0-8767-da8d182bcd37",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "candidates",
+        "kind": "mask",
+        "surfaceId": "b01fc448-36f9-4b50-899e-3507cc011e6e",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.37.0-methods.1",
+      "operation": "ai.clones.segmentation",
+      "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          416,
+          320
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "params": {
+        "variant": "selfdm-map"
+      },
+      "regions": [
+        {
+          "id": "whole-image",
+          "kind": "whole-image",
+          "bounds": [
+            0,
+            0,
+            416,
+            320
+          ]
+        }
+      ],
+      "model": {
+        "id": "selfdm-initial-map-native512-topk48-v1",
+        "variant": "SelfDM — initial map",
+        "family": "selfdm",
+        "side": 512,
+        "kind": "sigmoid",
+        "bytes": 62971505,
+        "sha256": "933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59",
+        "checkpointSha256": "5d8ad8b3fe51c31c150bc9b26a858ad1e9653f05cbd0415ae0c36bf8952ab574",
+        "gpu": {
+          "id": "selfdm-initial-map-native512-topk48-v1",
+          "bytes": 62971505,
+          "sha256": "933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59",
+          "sharedAssets": true,
+          "status": "experimental-webgpu-native-corpus"
+        },
+        "status": "experimental-initial-map-cpu-and-webgpu-corpus",
+        "cpuContinuousBitExact": false,
+        "numericalParity": "Initial map only. Native BGR/mean preparation; two declared images have zero threshold-0.5 mask differences, maximum probability error 2.67e-4. Proposal SuperGlue refinement is not included.",
+        "license": "Research use only; local integration, no public redistribution authorization."
+      },
+      "backend": "cpu-wasm",
+      "backendSelection": "explicit-cpu",
+      "kernelParity": "Initial map only. Native BGR/mean preparation; two declared images have zero threshold-0.5 mask differences, maximum probability error 2.67e-4. Proposal SuperGlue refinement is not included.",
+      "layout": "segmented"
+    },
+    "metrics": {
+      "execution": {
+        "backend": "cpu",
+        "independentZones": {
+          "requested": 1,
+          "observed": 1,
+          "memoryBackoffs": 0,
+          "internalThreadsPerWorker": 4,
+          "admittedThreadsPerWorker": {
+            "minimum": 4,
+            "maximum": 4
+          },
+          "meaning": "Region tasks include cache lookups; thread teams below are admitted by the shared broker, not physical CPU utilization"
+        },
+        "wasmMaximumBytes": 536870912,
+        "gpuMaximumBytes": 0,
+        "observedHeapBytes": 290193408,
+        "gpuPeakBufferBytes": 0,
+        "wasmMaximumScope": "Completed model-grid admission, including cached grid provenance",
+        "runtimeMaximumBytes": 2147483648,
+        "neuralPool": {
+          "enabled": true,
+          "scope": "Successful final useful inferences in this request; cache-only views perform none",
+          "jobs": 1,
+          "admittedTeams": [
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 290193408,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            }
+          ],
+          "workerReuses": 0,
+          "modelReuses": 0,
+          "runtimeInitializations": 1,
+          "modelInitializations": 1,
+          "initializationMeaning": "Initializations of successful final executions; retry evidence is retained per team",
+          "preflightExecutions": 0,
+          "laneSnapshots": [
+            {
+              "laneIndex": 0,
+              "scope": "Cumulative counters of this lane at its latest completed inference",
+              "pool": {
+                "residentWorkers": 1,
+                "busyWorkers": 0,
+                "peakWorkers": 1,
+                "workerStarts": 1,
+                "runtimeReuses": 0,
+                "sharedResidentWorkers": 1,
+                "sharedBusyWorkers": 0,
+                "sharedPeakWorkers": 1
+              },
+              "runtime": {
+                "runtimeInitializations": 1,
+                "modelInitializations": 1,
+                "modelSwitches": 0
+              }
+            }
+          ],
+          "sharedBroker": {
+            "admitted": 1,
+            "completed": 1,
+            "peakCpu": 4,
+            "peakGpu": 0,
+            "peakQueued": 1,
+            "waitMs": 0.309999942779541,
+            "cpuLeaseMs": 13041.159999847412,
+            "gpuLeaseMs": 0,
+            "elasticAdmissions": 1,
+            "memoryReclaims": 0,
+            "preflightExecutions": 0,
+            "capacity": {
+              "cpu": 4,
+              "gpu": 1
+            },
+            "active": {
+              "cpu": 0,
+              "gpu": 0
+            },
+            "running": 0,
+            "queued": 0,
+            "waiting": {
+              "cpu": 0,
+              "gpu": 0,
+              "memory": 0
+            },
+            "queuedRequests": [],
+            "queuedRequestsOmitted": 0,
+            "labels": {
+              "neural/selfdm": {
+                "admitted": 1,
+                "completed": 1,
+                "activeJobs": 0,
+                "activeCpu": 0,
+                "activeGpu": 0,
+                "peakCpu": 4,
+                "cpuLeaseMs": 13041.159999847412,
+                "gpuLeaseMs": 0
+              }
+            },
+            "phaseDomains": {
+              "array-buffer": 0,
+              "wasm": 0,
+              "gpu": 0,
+              "gpu-mapped": 0
+            },
+            "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement",
+            "domainMeaning": "New allocation requirements of active phases; separate from policy reservations and materialized backing ownership",
+            "observationPhase": "After model-grid work, before result projection",
+            "observedAt": 1792004867483,
+            "scope": "Shared engine snapshot with cumulative counters; not a per-request wait-time or physical-utilization measurement"
+          }
+        },
+        "projectionReleasedSessionBytes": 0
+      },
+      "timings": {
+        "cropMs": 0.009999990463256836,
+        "preparationMs": 13.534999966621399,
+        "neuralRpcMs": 3271.625,
+        "modelLoadMs": 348.3549998998642,
+        "inferenceMs": 2916.5950000286102,
+        "outputCopyMs": 0,
+        "gpuWriteBytes": 0,
+        "gpuReadBytes": 0,
+        "aggregation": "Per-task phase durations are summed across zones and pipeline graph stages; concurrent tasks can overlap. zoneWallMs, projectionMs and totalMs describe elapsed wall time.",
+        "snapshotAndHashMs": 2.475000023841858,
+        "correlationMs": 0,
+        "backboneMs": 0,
+        "backboneSetupMs": 0,
+        "parameterLoadMs": 0,
+        "attentionMatmulMs": 0,
+        "graphDistanceMs": 0,
+        "correlationGpuMs": 0,
+        "zoneWallMs": 3285.6350001096725,
+        "projectionMs": 26.514999985694885
+      },
+      "totalMs": 3316.5749999284744,
+      "inferences": 1,
+      "cache": {
+        "rawGrids": 0
+      },
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 7812453150,
+        "retainedBytes": 668413154,
+        "cacheBytes": 1048576,
+        "activeReservationBytes": 108019712,
+        "peakAccountedBytes": 786316130,
+        "activeRecoveries": 0
+      },
+      "projection": {
+        "totalMs": 18.539999961853027,
+        "projectionMs": 8.020000100135803,
+        "compositionMs": 4.2149999141693115,
+        "postprocessMs": 10.024999976158142,
+        "blocks": 2,
+        "metadataBytes": 73728,
+        "storage": {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        "resultBytes": 931840
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "98b3fe16-4912-4fc5-9005-09e952f2b83b",
+      "revision": 1,
+      "width": 416,
+      "height": 320,
+      "format": "float32",
+      "semantics": "Native union probability; source-coordinate projection.",
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "maskSurfaces": {
+      "mask": {
+        "id": "220fec52-87c8-416c-8cc2-22cce163327f",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native mask support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "analyzed": {
+        "id": "558d7359-5617-4ad0-8767-da8d182bcd37",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native analyzed support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "candidates": {
+        "id": "b01fc448-36f9-4b50-899e-3507cc011e6e",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native candidates support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      }
+    },
+    "planeSurfaces": {
+      "map": {
+        "id": "98b3fe16-4912-4fc5-9005-09e952f2b83b",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "float32",
+        "semantics": "Native union probability; source-coordinate projection.",
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      }
+    }
+  }
+}

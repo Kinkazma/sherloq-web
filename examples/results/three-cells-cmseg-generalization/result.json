@@ -1,0 +1,488 @@
+{
+  "job": {
+    "id": "three-cells-cmseg-generalization",
+    "input": "examples/three-cells/input.png",
+    "operation": "ai.clones.segmentation",
+    "params": {
+      "variant": "cmseg-generalization"
+    },
+    "views": [
+      "overlay",
+      "map",
+      "mask"
+    ],
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+  "sourceDimensions": [
+    416,
+    320
+  ],
+  "engine": "0.37.0-methods.1",
+  "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+  "runtime": "Direct shipped web computational clients in headless Chrome; no application UI",
+  "outputs": [
+    {
+      "file": "overlay.png",
+      "label": "Overlay",
+      "width": 416,
+      "height": 320,
+      "sha256": "26227372c94b9cae848972cf9f8cfa51a45859723beeb792796b294d3d223c1f",
+      "rawRgbSha256": "86b96876f4162e62f1938fe2cc89b62365193b9441ffc6aeb1c4ec87f14f1097"
+    },
+    {
+      "file": "map.png",
+      "label": "Raw map (unfiltered)",
+      "width": 416,
+      "height": 320,
+      "sha256": "c445931c39e2bc7fa60770ab2b3ae6d9ef3e45d6b3c8048b5758b032cf0b6500",
+      "rawRgbSha256": "97a4ec4c7483d303d4f1807dfba07ef46c3b10fad5299c0d7f5e928f035ae3f8"
+    },
+    {
+      "file": "mask.png",
+      "label": "Filtered mask",
+      "width": 416,
+      "height": 320,
+      "sha256": "7c24fc8387bd5aafd882c490a5db8f696fa38d37f5b96cd0b679804c5f1bc8ef",
+      "rawRgbSha256": "b0e615cd6f2091ad55eb710c68126299955d7a5fdef35475ccc7bb650d8d5974"
+    }
+  ],
+  "scientific": [
+    {
+      "file": "map.f32",
+      "field": "map",
+      "type": "Float32Array",
+      "byteOrder": "little-endian",
+      "width": 416,
+      "height": 320,
+      "sha256": "a31d3e47dc4b89b92bca4343181911a85971a7fdd1283f93c9af0a333c8e5bb2"
+    },
+    {
+      "file": "mask.f32",
+      "field": "mask",
+      "type": "Float32Array",
+      "byteOrder": "little-endian",
+      "width": 416,
+      "height": 320,
+      "sha256": "4cd86cfd6af96d1c9582723b9898f52db3e863aac8f8202b3bc0138e62300656"
+    }
+  ],
+  "result": {
+    "id": "three-cells-cmseg-generalization",
+    "imageId": "source",
+    "operation": "ai.clones.segmentation",
+    "status": "ok",
+    "data": {
+      "width": 416,
+      "height": 320,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            0,
+            416,
+            320
+          ]
+        ],
+        "zones": [
+          {
+            "id": "whole-image",
+            "bounds": [
+              0,
+              0,
+              416,
+              320
+            ],
+            "origin": [
+              0,
+              0
+            ],
+            "analysis_shape": [
+              1,
+              512,
+              512
+            ],
+            "status": "ok",
+            "kind": "whole-image"
+          }
+        ],
+        "channel_order": [
+          "union_probability"
+        ],
+        "threshold": 0.5,
+        "threshold_rule": "probability>0.5",
+        "raw_filter_applied": false,
+        "status": "ok",
+        "probability_interpolation": "bilinear",
+        "mask_interpolation": "nearest",
+        "inference_performed": true,
+        "modelId": "cmseg-generalization-native512-backbone-v2",
+        "variant": "CMSeg-Net generalization",
+        "backend": "cpu",
+        "execution": {
+          "backend": "cpu",
+          "independentZones": {
+            "requested": 1,
+            "observed": 1,
+            "memoryBackoffs": 0,
+            "internalThreadsPerWorker": 1
+          },
+          "wasmMaximumBytes": 536870912,
+          "gpuMaximumBytes": 0,
+          "observedHeapBytes": 521469952,
+          "gpuPeakBufferBytes": 0,
+          "correlationBackend": "wasm-cpu",
+          "correlationWorkerMaximumBytes": 67108864,
+          "observedCorrelationWorkers": 10,
+          "observedCorrelationHeapBytes": 16777216,
+          "projectionReleasedSessionBytes": 0
+        },
+        "timings": {
+          "cropMs": 0.014999985694885254,
+          "preparationMs": 28.84500002861023,
+          "neuralRpcMs": 11120.56500005722,
+          "modelLoadMs": 854.3149998188019,
+          "inferenceMs": 10220.240000247955,
+          "outputCopyMs": 10.529999852180481,
+          "gpuWriteBytes": 0,
+          "gpuReadBytes": 0,
+          "aggregation": "Per-task phase durations are summed across zones and pipeline graph stages; concurrent tasks can overlap. zoneWallMs, projectionMs and totalMs describe elapsed wall time.",
+          "snapshotAndHashMs": 2.6750000715255737,
+          "correlationMs": 6357.799999952316,
+          "backboneMs": 3196.9050002098083,
+          "backboneSetupMs": 8.784999966621399,
+          "parameterLoadMs": 567.1849998235703,
+          "attentionMatmulMs": 0,
+          "graphDistanceMs": 0,
+          "correlationGpuMs": 0,
+          "zoneWallMs": 11149.875,
+          "projectionMs": 26.039999961853027
+        },
+        "pixelSha256": "a191723536acd31fcbb1849a2df8511c78eb5d855dc856c43650e2d5a74632ce",
+        "resultId": "segmentation-1:1",
+        "analysisId": "segmentation-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              416,
+              320
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "inferences": 1,
+        "cache_hits": 0
+      },
+      "arrayLayout": "segmented; readPlane/readMask windows or streamed NPZ export"
+    },
+    "semantics": "Native sigmoid or target/source/background class probabilities, independent rectangle inference and maximum/OR composition. No D2PRL residual roles or component filter.",
+    "layers": [
+      {
+        "id": "probability",
+        "kind": "scalar",
+        "surfaceId": "a8cab219-fef2-4035-a228-10c3ff09c4bb",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "union",
+        "kind": "mask",
+        "surfaceId": "c14263cb-01f8-44de-9919-39c37932e964",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "analyzed",
+        "kind": "mask",
+        "surfaceId": "7ce458bd-171d-4523-a784-bd83334fb3da",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "candidates",
+        "kind": "mask",
+        "surfaceId": "929917fd-10ce-4835-8ee8-4caf0ec18a0a",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.37.0-methods.1",
+      "operation": "ai.clones.segmentation",
+      "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          416,
+          320
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "params": {
+        "variant": "cmseg-generalization"
+      },
+      "regions": [
+        {
+          "id": "whole-image",
+          "kind": "whole-image",
+          "bounds": [
+            0,
+            0,
+            416,
+            320
+          ]
+        }
+      ],
+      "model": {
+        "id": "cmseg-generalization-native512-backbone-v2",
+        "bytes": 885,
+        "sha256": "5971bb653cecd0c6f9672bed99c2f694151ed9b50693501642ca66213b820c2c",
+        "assetBytes": 12010557,
+        "gpu": {
+          "id": "cmseg-generalization-native512-backbone-v2",
+          "bytes": 885,
+          "sha256": "5971bb653cecd0c6f9672bed99c2f694151ed9b50693501642ca66213b820c2c",
+          "sharedAssets": true,
+          "residentCorrelation": true,
+          "minimumResidentBytes": 805306368,
+          "status": "experimental-hybrid-corpus"
+        },
+        "backbone": {
+          "file": "backbone.json",
+          "bytes": 123659,
+          "sha256": "229eb4777e368f0350afdf3e1f96e290227dd85d4dc7b814c6ed51ef71d5e025"
+        },
+        "checkpointSha256": "a3351ae664fca9780c3ca56db708fe3fdc74878c07327dfdd6ed75f14537454b",
+        "correlation": [
+          {
+            "name": "corr24",
+            "topk": 24,
+            "alpha": 5.115073204040527
+          },
+          {
+            "name": "corr32",
+            "topk": 32,
+            "alpha": 5.133166313171387
+          },
+          {
+            "name": "corr96",
+            "topk": 96,
+            "alpha": 5.1324782371521
+          }
+        ],
+        "variant": "CMSeg-Net generalization",
+        "family": "cmseg",
+        "side": 512,
+        "kind": "sigmoid",
+        "status": "experimental-cpu-corpus",
+        "cpuContinuousBitExact": false
+      },
+      "backend": "cpu-wasm",
+      "backendSelection": "explicit-cpu",
+      "kernelParity": "Declared native synthetic corpus: preparation and masks exact; continuous probabilities differ, see variant-specific numerical reports. Not universal detector accuracy.",
+      "layout": "segmented"
+    },
+    "metrics": {
+      "execution": {
+        "backend": "cpu",
+        "independentZones": {
+          "requested": 1,
+          "observed": 1,
+          "memoryBackoffs": 0,
+          "internalThreadsPerWorker": 1
+        },
+        "wasmMaximumBytes": 536870912,
+        "gpuMaximumBytes": 0,
+        "observedHeapBytes": 521469952,
+        "gpuPeakBufferBytes": 0,
+        "correlationBackend": "wasm-cpu",
+        "correlationWorkerMaximumBytes": 67108864,
+        "observedCorrelationWorkers": 10,
+        "observedCorrelationHeapBytes": 16777216,
+        "projectionReleasedSessionBytes": 0
+      },
+      "timings": {
+        "cropMs": 0.014999985694885254,
+        "preparationMs": 28.84500002861023,
+        "neuralRpcMs": 11120.56500005722,
+        "modelLoadMs": 854.3149998188019,
+        "inferenceMs": 10220.240000247955,
+        "outputCopyMs": 10.529999852180481,
+        "gpuWriteBytes": 0,
+        "gpuReadBytes": 0,
+        "aggregation": "Per-task phase durations are summed across zones and pipeline graph stages; concurrent tasks can overlap. zoneWallMs, projectionMs and totalMs describe elapsed wall time.",
+        "snapshotAndHashMs": 2.6750000715255737,
+        "correlationMs": 6357.799999952316,
+        "backboneMs": 3196.9050002098083,
+        "backboneSetupMs": 8.784999966621399,
+        "parameterLoadMs": 567.1849998235703,
+        "attentionMatmulMs": 0,
+        "graphDistanceMs": 0,
+        "correlationGpuMs": 0,
+        "zoneWallMs": 11149.875,
+        "projectionMs": 26.039999961853027
+      },
+      "totalMs": 11179.810000061989,
+      "inferences": 1,
+      "cache": {
+        "rawGrids": 0
+      },
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 7911611004,
+        "retainedBytes": 1404928,
+        "cacheBytes": 1048576,
+        "activeReservationBytes": 675870084,
+        "peakAccountedBytes": 3116114670,
+        "activeRecoveries": 0
+      },
+      "projection": {
+        "totalMs": 12.615000009536743,
+        "projectionMs": 7.389999985694885,
+        "compositionMs": 4.25,
+        "postprocessMs": 4.679999947547913,
+        "blocks": 2,
+        "metadataBytes": 73728,
+        "storage": {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        "resultBytes": 931840
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "a8cab219-fef2-4035-a228-10c3ff09c4bb",
+      "revision": 1,
+      "width": 416,
+      "height": 320,
+      "format": "float32",
+      "semantics": "Native union probability; source-coordinate projection.",
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "maskSurfaces": {
+      "mask": {
+        "id": "c14263cb-01f8-44de-9919-39c37932e964",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native mask support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "analyzed": {
+        "id": "7ce458bd-171d-4523-a784-bd83334fb3da",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native analyzed support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "candidates": {
+        "id": "929917fd-10ce-4835-8ee8-4caf0ec18a0a",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native candidates support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      }
+    },
+    "planeSurfaces": {
+      "map": {
+        "id": "a8cab219-fef2-4035-a228-10c3ff09c4bb",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "float32",
+        "semantics": "Native union probability; source-coordinate projection.",
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      }
+    }
+  }
+}

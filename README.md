@@ -107,7 +107,7 @@ Once the local version and its resources are prepared, SHERLOQ runs entirely off
 
 ## Example material
 
-These are the same original and edited inputs used to document my macOS work. Edit-reference images are visual comparisons and are never detector inputs. The previews below show input material, not browser analysis results.
+The spiral, Street Photo and microscopy inputs also document my macOS work. I supplied the three-cell image for additional clone examples. Edit-reference images are visual comparisons and are never detector inputs. The previews below show input material, not browser analysis results.
 
 <details>
 <summary>Spiral — original, edited input and my edit reference</summary>
@@ -129,6 +129,15 @@ These are the same original and edited inputs used to document my macOS work. Ed
 
 </details>
 
+<details>
+<summary>Three cells — input for the new clone examples</summary>
+
+[![Three-cell microscopy input](screenshots/readme-webp/examples/three-cells/input.webp)](examples/three-cells/input.png)
+
+This supplied image is analyzed unchanged at **416 × 320 pixels**. The repeated structures and rectangular boundaries make it useful for comparing clone responses. It has no supplied pixel-level edit-reference mask. [Input record](examples/three-cells/provenance.json).
+
+</details>
+
 ## Examples from the web engine
 
 These are computed outputs from the shipped web engine, generated in batches on the inputs above. They are illustrations of the methods, not interface screenshots or a guarantee of detection. Expand a section to see the images directly. WebP previews are limited to 500 kB each; click an image to open its original. The [full-resolution outputs and settings](examples/results/README.md) remain available; [generation procedure](docs/EXAMPLE-GENERATION.md).
@@ -141,6 +150,60 @@ These are computed outputs from the shipped web engine, generated in batches on 
 | [![Spiral — PatchMatch Zernike](screenshots/readme-webp/examples/results/spiral-patchmatch/result.webp)](examples/results/spiral-patchmatch/result.png) | [![Spiral — SIFT + G2NN + RANSAC](screenshots/readme-webp/examples/results/spiral-sift-g2nn/result.webp)](examples/results/spiral-sift-g2nn/result.png) |
 
 Colors distinguish groups of matched regions. These are geometric correspondences, not a reconstruction of every edit. Compare their locations with my spiral edit reference above.
+
+</details>
+
+<details>
+<summary>CMSeg-Net and MGCFDN — clone localization on the three-cell image</summary>
+
+[![Input, CMSeg-Net overlay and MGCFDN overlay](screenshots/readme-webp/examples/results/three-cells-localization/comparison.webp)](examples/results/three-cells-localization/comparison.png)
+
+Both models respond clearly to the three cells and to the partial structure at the right edge. These are the application's native overlays; the colors follow each model's map. They also include responses around some boundaries. [Separate maps, masks and settings](examples/results/NEW-METHODS.md#cmseg-net-and-mgcfdn).
+
+</details>
+
+<details>
+<summary>SelfDM — initial map and complete refinement</summary>
+
+[![SelfDM input, initial map, complete pipeline overlay and final mask](screenshots/readme-webp/examples/results/three-cells-selfdm/comparison.webp)](examples/results/three-cells-selfdm/comparison.png)
+
+The complete experimental pipeline refines the initial map and returns a mask in the original image coordinates. This example retains its responses in the background between and beside the cells; it is not an exact outline of every pasted pixel. SelfDM requires separately imported local model files. [Outputs and settings](examples/results/NEW-METHODS.md#selfdm).
+
+</details>
+
+<details>
+<summary>XFeat and ALIKED + LightGlue — Biomes</summary>
+
+[![Input, guided XFeat comparison and full-image ALIKED Biomes](screenshots/readme-webp/examples/results/three-cells-learned-biomes/comparison.webp)](examples/results/three-cells-learned-biomes/comparison.png)
+
+**XFeat + LighterGlue compares two explicitly selected regions here; ALIKED + LightGlue searches the full image.** The XFeat view illustrates a guided comparison, not automatic discovery of those regions. In each result, the same color marks the two sides of an accepted Biome. Their envelopes describe matched points, not pixel-level segmentation. Only Biomes are displayed. [Search regions, outputs and settings](examples/results/NEW-METHODS.md#xfeat-and-aliked).
+
+</details>
+
+<details>
+<summary>EfficientLoFTR — Biomes between two selected regions</summary>
+
+[![EfficientLoFTR input and Biomes between two selected regions](screenshots/readme-webp/examples/results/three-cells-efficient-loftr/comparison.webp)](examples/results/three-cells-efficient-loftr/comparison.png)
+
+EfficientLoFTR compares the selected upper-left and lower regions. The paired envelopes show where its geometrically accepted matches lie. This is a two-region comparison, not a whole-image search. Only Biomes are displayed. [Regions, outputs and settings](examples/results/NEW-METHODS.md#efficientloftr).
+
+</details>
+
+<details>
+<summary>SSG — structured-edge matching and localized mask</summary>
+
+[![SSG input and native localized mask](screenshots/readme-webp/examples/results/three-cells-ssg/comparison.webp)](examples/results/three-cells-ssg/comparison.png)
+
+This run keeps the input's original resolution. SSG associates the upper-left and lower cells through its structured-edge and spatial-phrase pipeline. Its native SSIM localization extends beyond the visible cell boundaries. The area view shows that mask alone, with no circles or connecting lines. [Outputs and settings](examples/results/NEW-METHODS.md#ssg).
+
+</details>
+
+<details>
+<summary>PP-OCRv6 — proposed text regions for scientific preparation</summary>
+
+[![PP-OCRv6 text proposals on the microscopy figure](screenshots/readme-webp/examples/results/microscopy-ppocrv6/result.webp)](examples/results/microscopy-ppocrv6/result.png)
+
+The red outlines are the detector's text proposals over the unchanged input. They can help prepare text exclusions before analysis. This is text detection, not recognition or evidence of manipulation. One proposal also follows a vertical gap between panels, so the proposals still need review. [Polygons, model identity and settings](examples/results/NEW-METHODS.md#pp-ocrv6).
 
 </details>
 

@@ -1,0 +1,451 @@
+{
+  "job": {
+    "id": "three-cells-ssg",
+    "input": "examples/three-cells/input.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "SSG",
+      "limit": 2000,
+      "minimum": 4,
+      "threshold": 0.3,
+      "model": "Affine",
+      "geometricThreshold": 3,
+      "geometricMinimum": 4,
+      "autoRadius": false,
+      "radius": 600,
+      "compact": false,
+      "independent": false,
+      "tolerance": 50,
+      "compare": false,
+      "reflections": false,
+      "normalizationLongEdge": 0,
+      "minimumDistance": 50,
+      "spatialK": 3,
+      "ratio": 0.6,
+      "absolute": 0.1,
+      "salienceSigma": 0.001,
+      "maskThreshold": 0.4,
+      "minimumArea": 0.0001,
+      "roiRadius": 50,
+      "ssimRadius": 3,
+      "ssimOpening": 4,
+      "rngSeed": 1
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+  "sourceDimensions": [
+    416,
+    320
+  ],
+  "engine": "0.37.0-methods.1",
+  "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+  "runtime": "Direct shipped web computational clients in headless Chrome; no application UI",
+  "outputs": [
+    {
+      "file": "result.png",
+      "label": "surface",
+      "width": 416,
+      "height": 320,
+      "sha256": "6d4baebf99c051cc2957c0c110264ace99eca58bf6c4d5538c3782c795f2bf9d",
+      "rawRgbSha256": "f4e2f248e92a18ec733d04b1af3ead0323ee112e6ed730f7cb449260c4d73e4b"
+    }
+  ],
+  "scientific": [
+    {
+      "file": "matches.json",
+      "format": "json",
+      "sha256": "4feb7e8e75836280ec5814f59901c2845b6b8e30d4522f91a7cc45b9bf8128ae"
+    }
+  ],
+  "result": {
+    "id": "three-cells-ssg",
+    "imageId": "source",
+    "operation": "tampering.copyMove.sparse",
+    "status": "ok",
+    "data": {
+      "status": "ok",
+      "points": {
+        "type": "Float64Array",
+        "length": 4193
+      },
+      "pairs": {
+        "type": "Float64Array",
+        "length": 88
+      },
+      "pair_search_regions": {
+        "type": "Int32Array",
+        "length": 22
+      },
+      "groups": [
+        {
+          "type": "Uint32Array",
+          "length": 22
+        }
+      ],
+      "models": [
+        {
+          "matrix": [
+            [
+              1.0036815768945375,
+              0.0013413497212656058,
+              -147.5580680758766
+            ],
+            [
+              -0.0013413497212656058,
+              1.0036815768945375,
+              -125.45304324663708
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "theta": [
+            1.0036815768945375,
+            -0.0013413497212656058,
+            -147.5580680758766,
+            -125.45304324663708
+          ],
+          "reflection": false,
+          "source_point_indices": [
+            64,
+            164,
+            60,
+            156,
+            71,
+            174,
+            72,
+            176,
+            307,
+            379,
+            319,
+            81,
+            187,
+            471,
+            515,
+            76,
+            180,
+            189,
+            465,
+            508,
+            511,
+            181
+          ],
+          "destination_point_indices": [
+            164,
+            64,
+            156,
+            60,
+            174,
+            71,
+            176,
+            72,
+            379,
+            307,
+            388,
+            187,
+            81,
+            515,
+            471,
+            180,
+            76,
+            83,
+            508,
+            465,
+            468,
+            80
+          ],
+          "inliers": 12,
+          "ssg": {
+            "iterations": 43,
+            "score": -151.3792315463482,
+            "scoreDefinition": "128-gamma-grid-MLESAC",
+            "threshold": 13.278488654186267
+          }
+        }
+      ],
+      "colors": {
+        "type": "Uint8Array",
+        "length": 66
+      },
+      "bases": [
+        [
+          242,
+          61,
+          162
+        ]
+      ],
+      "mask": {
+        "type": "Uint8Array",
+        "length": 133120
+      },
+      "width": 416,
+      "height": 320,
+      "total_features": 599,
+      "candidate_comparisons": 105,
+      "params": {
+        "algorithm": "SSG",
+        "normalizationLongEdge": 0,
+        "minimumDistance": 50,
+        "ratio": 0.6,
+        "absolute": 0.1,
+        "spatialK": 3,
+        "salienceSigma": 0.001,
+        "roiRadius": 50,
+        "maskThreshold": 0.4,
+        "minimumArea": 0.0001,
+        "ssimRadius": 3,
+        "ssimOpening": 4,
+        "rngSeed": 1,
+        "regions": [],
+        "excluded": [],
+        "compare": false,
+        "reflections": false,
+        "limit": 2000,
+        "minimum": 4,
+        "threshold": 0.3,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 4,
+        "autoRadius": false,
+        "radius": 600,
+        "compact": false,
+        "independent": false,
+        "tolerance": 50
+      },
+      "regions": [],
+      "compare": false,
+      "backend": "cpu",
+      "feature_policy": "ssg-paper-v2-full",
+      "metadata": {
+        "algorithm": "SSG",
+        "completeDetector": true,
+        "sourceCommit": "66bb26eca0c7e95c76042d5bcca58f744d70a27d",
+        "modelSha256": "b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157",
+        "edge": {
+          "modelSha256": "b428fe9626dfd59ea3161e2b79786b2a4713e13770e8d75c80477b5805f57157",
+          "modelBytes": 218140772,
+          "sharpen": 2,
+          "nTreesEval": 4,
+          "sharedImmutableModel": true,
+          "cpuTeamAdmitted": 4,
+          "physicalCpuMeasured": false,
+          "runtimeReused": false,
+          "wallMs": 51.765000104904175,
+          "heapBytes": 248381440
+        },
+        "counts": {
+          "features": 599,
+          "words": 71,
+          "phrases": 34,
+          "filtered": 22,
+          "clusters": 1
+        },
+        "stageCache": {
+          "nativeCheckpoint": false,
+          "newVlfeat": 1,
+          "newForest": 1,
+          "newMatching": 1
+        },
+        "coordinates": "original-pixel-centres",
+        "scientificDefinitions": {
+          "I2NN": "paper-two-neighbors",
+          "salience": "paper-exp-negative-sigma-squared-distance",
+          "pairConfidence": "unscored-accepted-match",
+          "localization": {
+            "ssim": {
+              "radius": 3,
+              "exponents": [
+                3,
+                1,
+                2
+              ],
+              "dynamicRange": 1,
+              "gaussianSupport": "3-sigma",
+              "padding": "replicate",
+              "matlabOracle": false
+            },
+            "ROI": "counted-strict-disks/grayscale-dilation/finite-radial-FFT/zero-padding",
+            "roiDisk": {
+              "radius": 50,
+              "decomposition": "four-periodic-lines",
+              "matlabFootprintQualified": false
+            },
+            "openingDisk": {
+              "radius": 4,
+              "matlabFootprintQualified": true
+            },
+            "mlesac": "native-128-gamma-grid",
+            "componentIndexing": "correct-linear-component-pixels",
+            "scriptParity": false,
+            "workspaceMaximumBytes": 88408064,
+            "heapBytes": 33554432
+          },
+          "scriptParity": false
+        },
+        "preflightExecutions": 0,
+        "method": "sparse"
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "935ae39d-b23a-4082-b455-12a1fa2fefec",
+      "revision": 1,
+      "width": 416,
+      "height": 320,
+      "format": "rgb8",
+      "sourceWidth": 416,
+      "sourceHeight": 320,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "style": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "chosen": [],
+      "hidden": [],
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "legend": [
+      [
+        0,
+        22,
+        22
+      ]
+    ],
+    "visible": [
+      [
+        0,
+        22
+      ]
+    ],
+    "selectedGroups": [
+      {
+        "index": 0,
+        "rows": {
+          "type": "Uint32Array",
+          "length": 22
+        }
+      }
+    ],
+    "layers": [
+      {
+        "id": "tampering.copyMove.sparse",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ],
+        "surfaceId": "935ae39d-b23a-4082-b455-12a1fa2fefec",
+        "width": 416,
+        "height": 320
+      }
+    ],
+    "provenance": {
+      "engine": "0.37.0-methods.1",
+      "operation": "tampering.copyMove.sparse",
+      "params": {
+        "algorithm": "SSG",
+        "normalizationLongEdge": 0,
+        "minimumDistance": 50,
+        "ratio": 0.6,
+        "absolute": 0.1,
+        "spatialK": 3,
+        "salienceSigma": 0.001,
+        "roiRadius": 50,
+        "maskThreshold": 0.4,
+        "minimumArea": 0.0001,
+        "ssimRadius": 3,
+        "ssimOpening": 4,
+        "rngSeed": 1,
+        "regions": [],
+        "excluded": [],
+        "compare": false,
+        "reflections": false,
+        "limit": 2000,
+        "minimum": 4,
+        "threshold": 0.3,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 4,
+        "autoRadius": false,
+        "radius": 600,
+        "compact": false,
+        "independent": false,
+        "tolerance": 50
+      },
+      "backend": "cpu",
+      "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          416,
+          320
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "word2phraseCMFD/PostP.m",
+      "protocol": "ssg-paper-v2-full",
+      "nativeSourceCommit": "66bb26eca0c7e95c76042d5bcca58f744d70a27d",
+      "kernelParity": "SSG paper-v2: qualified VLFeat and structured-edge kernels; independent declared localization, no full MATLAB detector parity claimed.",
+      "coordinates": "original-pixel-centres"
+    },
+    "metrics": {
+      "totalMs": 865.1749999523163,
+      "cache": {
+        "stages": {
+          "nativeCheckpoint": false,
+          "newVlfeat": 1,
+          "newForest": 1,
+          "newMatching": 1
+        },
+        "result": false,
+        "proposals": false
+      },
+      "backend": "cpu",
+      "preflightExecutions": 0,
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8553485460,
+        "retainedBytes": 835370,
+        "cacheBytes": 1092040,
+        "activeReservationBytes": 34521722,
+        "peakAccountedBytes": 509195610,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}

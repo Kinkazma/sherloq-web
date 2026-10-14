@@ -1,0 +1,765 @@
+{
+  "job": {
+    "id": "microscopy-ppocrv6",
+    "input": "examples/microscopy/input.png",
+    "operation": "preparation.text",
+    "params": {},
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  "inputSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+  "sourceDimensions": [
+    3226,
+    936
+  ],
+  "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+  "runtime": "Direct shipped batch preparation client in headless Chrome; no application UI",
+  "presentation": "Three-pixel red polygon outlines drawn from PP-OCRv6 native text proposals over the unchanged source raster; detection only, not text recognition.",
+  "outputs": [
+    {
+      "file": "result.png",
+      "label": "Text detection proposals",
+      "width": 3226,
+      "height": 936,
+      "sha256": "aec5466844e0f03920a2672fb5d7ed99bb977575c15bdec1d03611564510c8dd"
+    }
+  ],
+  "result": {
+    "panels": null,
+    "text": {
+      "status": "complete",
+      "width": 3226,
+      "height": 936,
+      "polygons": [
+        [
+          [
+            2101.386188884052,
+            22.328079707865292
+          ],
+          [
+            2376.820238514738,
+            19.44923534420706
+          ],
+          [
+            2377.5374682710762,
+            89.25856779194265
+          ],
+          [
+            2102.1034186403904,
+            92.13741215560088
+          ]
+        ],
+        [
+          [
+            74.73715477946656,
+            20.55078210055051
+          ],
+          [
+            313.63612598706914,
+            21.874729601085257
+          ],
+          [
+            313.2450338997787,
+            93.66709948695762
+          ],
+          [
+            74.34606269217619,
+            92.34315198642287
+          ]
+        ],
+        [
+          [
+            1739.7030303030303,
+            20.88150470219436
+          ],
+          [
+            1977.2969696969697,
+            20.88150470219436
+          ],
+          [
+            1977.2969696969697,
+            92.08401253918495
+          ],
+          [
+            1739.7030303030303,
+            92.08401253918495
+          ]
+        ],
+        [
+          [
+            2892.9343387503504,
+            22.502350503784402
+          ],
+          [
+            3167.6896483489636,
+            21.05144008570181
+          ],
+          [
+            3168.045706203325,
+            89.64475794270503
+          ],
+          [
+            2893.2903966047115,
+            91.09566836078761
+          ]
+        ],
+        [
+          [
+            1398.0523595260106,
+            29.917135918405194
+          ],
+          [
+            1477.053634591142,
+            21.52952323000193
+          ],
+          [
+            1483.7038048575512,
+            85.2507667740842
+          ],
+          [
+            1404.7025297924195,
+            93.63837946248746
+          ]
+        ],
+        [
+          [
+            459.41486183391396,
+            21.74840701585363
+          ],
+          [
+            688.5338184816721,
+            24.483248673452866
+          ],
+          [
+            687.7533160061002,
+            91.00426354191846
+          ],
+          [
+            458.63435935834207,
+            88.26942188431921
+          ]
+        ],
+        [
+          [
+            2533.5550871655096,
+            25.151460427749512
+          ],
+          [
+            2771.018536450042,
+            23.79829348997967
+          ],
+          [
+            2771.392917941417,
+            90.63507198032033
+          ],
+          [
+            2533.9294686568846,
+            91.98823891809018
+          ]
+        ],
+        [
+          [
+            869.2933920704847,
+            24.502817864195656
+          ],
+          [
+            1102.7066079295155,
+            24.502817864195656
+          ],
+          [
+            1102.7066079295155,
+            89.47132006683881
+          ],
+          [
+            869.2933920704847,
+            89.47132006683881
+          ]
+        ],
+        [
+          [
+            2891.3905405405403,
+            24.600803821062442
+          ],
+          [
+            2947.6094594594597,
+            24.600803821062442
+          ],
+          [
+            2947.6094594594597,
+            93.40781686859273
+          ],
+          [
+            2891.3905405405403,
+            93.40781686859273
+          ]
+        ],
+        [
+          [
+            1250.883257918552,
+            25.097768762677486
+          ],
+          [
+            1478.116742081448,
+            25.097768762677486
+          ],
+          [
+            1478.116742081448,
+            87.86774847870183
+          ],
+          [
+            1250.883257918552,
+            87.86774847870183
+          ]
+        ],
+        [
+          [
+            2431.1132686084143,
+            159.4763140274523
+          ],
+          [
+            2454.8867313915857,
+            159.4763140274523
+          ],
+          [
+            2454.8867313915857,
+            786.6098928690993
+          ],
+          [
+            2431.1132686084143,
+            786.6098928690993
+          ]
+        ]
+      ],
+      "detections": [
+        {
+          "polygon": [
+            [
+              2101.386188884052,
+              22.328079707865292
+            ],
+            [
+              2376.820238514738,
+              19.44923534420706
+            ],
+            [
+              2377.5374682710762,
+              89.25856779194265
+            ],
+            [
+              2102.1034186403904,
+              92.13741215560088
+            ]
+          ],
+          "confidence": 0.8741742875416857,
+          "source": "ppocrv6-detector",
+          "tile": [
+            1690,
+            0,
+            3226,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              74.73715477946656,
+              20.55078210055051
+            ],
+            [
+              313.63612598706914,
+              21.874729601085257
+            ],
+            [
+              313.2450338997787,
+              93.66709948695762
+            ],
+            [
+              74.34606269217619,
+              92.34315198642287
+            ]
+          ],
+          "confidence": 0.8256270483369044,
+          "source": "ppocrv6-detector",
+          "tile": [
+            0,
+            0,
+            1536,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              1739.7030303030303,
+              20.88150470219436
+            ],
+            [
+              1977.2969696969697,
+              20.88150470219436
+            ],
+            [
+              1977.2969696969697,
+              92.08401253918495
+            ],
+            [
+              1739.7030303030303,
+              92.08401253918495
+            ]
+          ],
+          "confidence": 0.8546042544823704,
+          "source": "ppocrv6-detector",
+          "tile": [
+            1690,
+            0,
+            3226,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              2892.9343387503504,
+              22.502350503784402
+            ],
+            [
+              3167.6896483489636,
+              21.05144008570181
+            ],
+            [
+              3168.045706203325,
+              89.64475794270503
+            ],
+            [
+              2893.2903966047115,
+              91.09566836078761
+            ]
+          ],
+          "confidence": 0.8703013554664485,
+          "source": "ppocrv6-detector",
+          "tile": [
+            1690,
+            0,
+            3226,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              1398.0523595260106,
+              29.917135918405194
+            ],
+            [
+              1477.053634591142,
+              21.52952323000193
+            ],
+            [
+              1483.7038048575512,
+              85.2507667740842
+            ],
+            [
+              1404.7025297924195,
+              93.63837946248746
+            ]
+          ],
+          "confidence": 0.8202148424344936,
+          "source": "ppocrv6-detector",
+          "tile": [
+            1408,
+            0,
+            2944,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              459.41486183391396,
+              21.74840701585363
+            ],
+            [
+              688.5338184816721,
+              24.483248673452866
+            ],
+            [
+              687.7533160061002,
+              91.00426354191846
+            ],
+            [
+              458.63435935834207,
+              88.26942188431921
+            ]
+          ],
+          "confidence": 0.8920317970090521,
+          "source": "ppocrv6-detector",
+          "tile": [
+            0,
+            0,
+            1536,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              2533.5550871655096,
+              25.151460427749512
+            ],
+            [
+              2771.018536450042,
+              23.79829348997967
+            ],
+            [
+              2771.392917941417,
+              90.63507198032033
+            ],
+            [
+              2533.9294686568846,
+              91.98823891809018
+            ]
+          ],
+          "confidence": 0.8653288310545169,
+          "source": "ppocrv6-detector",
+          "tile": [
+            1408,
+            0,
+            2944,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              869.2933920704847,
+              24.502817864195656
+            ],
+            [
+              1102.7066079295155,
+              24.502817864195656
+            ],
+            [
+              1102.7066079295155,
+              89.47132006683881
+            ],
+            [
+              869.2933920704847,
+              89.47132006683881
+            ]
+          ],
+          "confidence": 0.8612864079736985,
+          "source": "ppocrv6-detector",
+          "tile": [
+            0,
+            0,
+            1536,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              2891.3905405405403,
+              24.600803821062442
+            ],
+            [
+              2947.6094594594597,
+              24.600803821062442
+            ],
+            [
+              2947.6094594594597,
+              93.40781686859273
+            ],
+            [
+              2891.3905405405403,
+              93.40781686859273
+            ]
+          ],
+          "confidence": 0.805248465875841,
+          "source": "ppocrv6-detector",
+          "tile": [
+            1408,
+            0,
+            2944,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              1250.883257918552,
+              25.097768762677486
+            ],
+            [
+              1478.116742081448,
+              25.097768762677486
+            ],
+            [
+              1478.116742081448,
+              87.86774847870183
+            ],
+            [
+              1250.883257918552,
+              87.86774847870183
+            ]
+          ],
+          "confidence": 0.8823910196650465,
+          "source": "ppocrv6-detector",
+          "tile": [
+            0,
+            0,
+            1536,
+            936
+          ]
+        },
+        {
+          "polygon": [
+            [
+              2431.1132686084143,
+              159.4763140274523
+            ],
+            [
+              2454.8867313915857,
+              159.4763140274523
+            ],
+            [
+              2454.8867313915857,
+              786.6098928690993
+            ],
+            [
+              2431.1132686084143,
+              786.6098928690993
+            ]
+          ],
+          "confidence": 0.5823071763344284,
+          "source": "ppocrv6-detector",
+          "tile": [
+            1408,
+            0,
+            2944,
+            936
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "version": "sherloq.text-detection/1",
+        "model": {
+          "id": "PP-OCRv6_small_det",
+          "sha256": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f",
+          "bytes": 9929594
+        },
+        "method": "text-detection-only",
+        "recognition": false,
+        "originalPixelsModified": false,
+        "coordinateSpace": "original-image-pixels",
+        "sourceSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+        "preprocess": {
+          "channels": "BGR",
+          "mean": [
+            0.485,
+            0.456,
+            0.406
+          ],
+          "std": [
+            0.229,
+            0.224,
+            0.225
+          ],
+          "minSide": 736,
+          "interpolation": "bilinear-half-pixel",
+          "maxInputSide": 1536,
+          "overlap": 128,
+          "windows": [
+            {
+              "tile": [
+                0,
+                0,
+                1536,
+                936
+              ],
+              "inputDimensions": [
+                1536,
+                928
+              ]
+            },
+            {
+              "tile": [
+                1408,
+                0,
+                2944,
+                936
+              ],
+              "inputDimensions": [
+                1536,
+                928
+              ]
+            },
+            {
+              "tile": [
+                1690,
+                0,
+                3226,
+                936
+              ],
+              "inputDimensions": [
+                1536,
+                928
+              ]
+            }
+          ]
+        },
+        "postprocess": {
+          "bitmapThreshold": 0.2,
+          "boxThreshold": 0.45,
+          "unclipRatio": 1.4,
+          "maxCandidates": 3000,
+          "implementation": "connected-component-hull/minimum-rectangle-offset",
+          "candidates": 15,
+          "truncated": false
+        },
+        "qualityGuard": {
+          "version": "large-text-region/1",
+          "minimumCoverage": 0.2,
+          "minimumThicknessFraction": 0.2
+        },
+        "execution": [
+          {
+            "milliseconds": 958.7799999713898,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 822083584,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 10,
+            "threadReconfigured": false,
+            "workerReused": false,
+            "modelReconfigured": false,
+            "pool": {
+              "residentWorkers": 1,
+              "busyWorkers": 0,
+              "peakWorkers": 1,
+              "workerStarts": 1,
+              "runtimeReuses": 0,
+              "sharedResidentWorkers": 1,
+              "sharedBusyWorkers": 0,
+              "sharedPeakWorkers": 1
+            },
+            "runtime": {
+              "runtimeInitializations": 1,
+              "modelInitializations": 1,
+              "modelSwitches": 0
+            },
+            "cpuGranted": 10,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "milliseconds": 401.8199999332428,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 822083584,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 10,
+            "threadReconfigured": false,
+            "workerReused": true,
+            "modelReconfigured": false,
+            "pool": {
+              "residentWorkers": 1,
+              "busyWorkers": 0,
+              "peakWorkers": 1,
+              "workerStarts": 1,
+              "runtimeReuses": 0,
+              "sharedResidentWorkers": 1,
+              "sharedBusyWorkers": 0,
+              "sharedPeakWorkers": 1
+            },
+            "runtime": {
+              "runtimeInitializations": 1,
+              "modelInitializations": 1,
+              "modelSwitches": 0
+            },
+            "cpuGranted": 10,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          },
+          {
+            "milliseconds": 496.6750000715256,
+            "preflightExecutions": 0,
+            "memoryMaximumBytes": 822083584,
+            "provider": "wasm",
+            "workers": 1,
+            "threads": 10,
+            "threadReconfigured": false,
+            "workerReused": true,
+            "modelReconfigured": false,
+            "pool": {
+              "residentWorkers": 1,
+              "busyWorkers": 0,
+              "peakWorkers": 1,
+              "workerStarts": 1,
+              "runtimeReuses": 0,
+              "sharedResidentWorkers": 1,
+              "sharedBusyWorkers": 0,
+              "sharedPeakWorkers": 1
+            },
+            "runtime": {
+              "runtimeInitializations": 1,
+              "modelInitializations": 1,
+              "modelSwitches": 0
+            },
+            "cpuGranted": 10,
+            "gpuGranted": 0,
+            "reusedInputBytes": 0,
+            "copiedOutputBytes": 0
+          }
+        ],
+        "elapsedMs": 2493.935000061989
+      }
+    },
+    "annotations": null,
+    "width": 3226,
+    "height": 936,
+    "sourceSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+    "provenance": {
+      "originalSourceSha256": "b8ddf80f8b13017ff989c3a2e095b639ca2123615604d78e1fbe58c848ad1c41",
+      "decoder": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          3226,
+          936
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "sourceMetrics": {
+        "decodeMs": 87.0699999332428,
+        "rowsPerChunk": 32,
+        "passes": 1,
+        "encodedReadCalls": 13,
+        "encodedReadBytes": 3181758,
+        "codecHeapCapacityBytes": 16777216,
+        "codecHeapMaximumBytes": 33554432,
+        "workingReservationBytes": 42252736,
+        "storage": "memory",
+        "temporaryBackend": null,
+        "temporaryFallback": null,
+        "temporaryBytes": 0,
+        "originalBlobBytes": 3181758,
+        "originalBlobResidency": "browser-managed; not measured as zero RAM"
+      },
+      "panelDetection": null,
+      "coordinateSpace": "original-image-pixels",
+      "originalPixelsModified": false
+    }
+  }
+}

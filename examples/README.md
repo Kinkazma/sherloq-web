@@ -1,6 +1,6 @@
 # Original inputs, edited inputs and edit references
 
-These files reproduce the example material from my macOS repository. They are inputs and visual references, not browser-analysis screenshots. No reference image is used as input to a detector.
+The spiral, Street Photo and microscopy files reproduce the example material from my macOS repository. The three-cell input was supplied for additional web-engine demonstrations. They are inputs and visual references, not browser-analysis screenshots. No reference image is used as input to a detector.
 
 ## Spiral
 
@@ -19,3 +19,7 @@ The edited input preserves the TIFF's decoded 4387 × 3510 colour pixels. Smalle
 ## Microscopy input
 
 The [supplied figure](microscopy/input.png) is the same input used for my macOS microscopy demonstrations. Its TIFF was converted to RGB8 PNG at the original 3226 × 936 dimensions, without resizing. [Provenance and hashes](microscopy/provenance.json). It is an example input, not an independently established edit-reference mask.
+
+## Three-cell input
+
+The [supplied PNG](three-cells/input.png) is retained byte for byte at 416 × 320 pixels. It is the analysis input for the added clone-method examples. No original counterpart or pixel-level edit-reference mask accompanies this input. [Provenance and hash](three-cells/provenance.json).

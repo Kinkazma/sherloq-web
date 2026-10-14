@@ -1,0 +1,2059 @@
+{
+  "job": {
+    "id": "three-cells-selfdm-proposal",
+    "input": "examples/three-cells/input.png",
+    "operation": "ai.clones.segmentation",
+    "params": {
+      "variant": "selfdm-proposal"
+    },
+    "views": [
+      "overlay",
+      "map",
+      "mask"
+    ],
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+  "sourceDimensions": [
+    416,
+    320
+  ],
+  "engine": "0.37.0-methods.1",
+  "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+  "runtime": "Direct shipped web computational clients in headless Chrome; no application UI",
+  "outputs": [
+    {
+      "file": "overlay.png",
+      "label": "Overlay",
+      "width": 416,
+      "height": 320,
+      "sha256": "a96e3f95ad8b57dba5057476893ac731969d53b8d46df5748eb5af3161daaac6",
+      "rawRgbSha256": "32a176502b0736f82ac3a149221f3d9d2680f4732bcc0ab4a6d37875f9cf1c9c"
+    },
+    {
+      "file": "map.png",
+      "label": "Raw map (unfiltered)",
+      "width": 416,
+      "height": 320,
+      "sha256": "5574447ecddb031e34eb7bd9c68f10bcde522ee204c0c08963c89b1545fad925",
+      "rawRgbSha256": "18fd5602633417e0be9fb14787b8a995f5696b7a545c57e4b7dc4f2ba132f146"
+    },
+    {
+      "file": "mask.png",
+      "label": "Filtered mask",
+      "width": 416,
+      "height": 320,
+      "sha256": "8c524ef6bee23edee8c6a442e5b21cfab5ecb56d87a04dd8f7673569e59d2444",
+      "rawRgbSha256": "b4629c275551a0a7ce4724b368fa18f57b28fa12bcaf42583263eb3393eac532"
+    }
+  ],
+  "scientific": [
+    {
+      "file": "map.f32",
+      "field": "map",
+      "type": "Float32Array",
+      "byteOrder": "little-endian",
+      "width": 416,
+      "height": 320,
+      "sha256": "33c30e95ae1aeb4377ee50b477fdd69dc9abc94adc8f874c993a39637cc71a89"
+    },
+    {
+      "file": "mask.f32",
+      "field": "mask",
+      "type": "Float32Array",
+      "byteOrder": "little-endian",
+      "width": 416,
+      "height": 320,
+      "sha256": "fec27cce182b299f251627702618330c21bb09a51a78d4159f1130cecc2f56c3"
+    }
+  ],
+  "result": {
+    "id": "three-cells-selfdm-proposal",
+    "imageId": "source",
+    "operation": "ai.clones.segmentation",
+    "status": "ok",
+    "data": {
+      "width": 416,
+      "height": 320,
+      "metadata": {
+        "boxes": [
+          [
+            0,
+            0,
+            416,
+            320
+          ]
+        ],
+        "zones": [
+          {
+            "id": "whole-image",
+            "bounds": [
+              0,
+              0,
+              416,
+              320
+            ],
+            "origin": [
+              0,
+              0
+            ],
+            "analysis_shape": [
+              1,
+              320,
+              416
+            ],
+            "status": "ok",
+            "kind": "whole-image"
+          }
+        ],
+        "channel_order": [
+          "union_probability"
+        ],
+        "threshold": 0.5,
+        "threshold_rule": "probability>0.5",
+        "raw_filter_applied": false,
+        "status": "ok",
+        "probability_interpolation": "none",
+        "mask_interpolation": "none",
+        "inference_performed": true,
+        "modelId": "selfdm-proposal-superglue-original-grid-sp-windows-v3",
+        "variant": "SelfDM + Proposal SuperGlue",
+        "backend": "cpu",
+        "execution": {
+          "backend": "cpu",
+          "independentZones": {
+            "requested": 1,
+            "observed": 1,
+            "memoryBackoffs": 0,
+            "internalThreadsPerWorker": null,
+            "admittedThreadsPerWorker": {
+              "minimum": 1,
+              "maximum": 4
+            },
+            "meaning": "Region tasks include cache lookups; thread teams below are admitted by the shared broker, not physical CPU utilization"
+          },
+          "wasmMaximumBytes": 536870912,
+          "gpuMaximumBytes": 0,
+          "observedHeapBytes": 290193408,
+          "gpuPeakBufferBytes": 0,
+          "wasmMaximumScope": "Completed model-grid admission, including cached grid provenance",
+          "runtimeMaximumBytes": 2147483648,
+          "pipelineCvPools": [
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "pools": {
+                "initial-resize": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/0/17825792": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/1/18874368": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/2/18874368": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/3/18874368": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/4/19922944": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/5/20971520": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/6/20971520": {
+                  "workers": 1,
+                  "completedStripJobs": 2,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 1,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/6/22020096": {
+                  "workers": 1,
+                  "completedStripJobs": 2,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 1,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "pyramid/6/19922944": {
+                  "workers": 1,
+                  "completedStripJobs": 2,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 1,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "projection": {
+                  "workers": 4,
+                  "completedStripJobs": 500,
+                  "residentWorkers": 4,
+                  "workerStarts": 4,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "roi/0": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "roi/1": {
+                  "workers": 1,
+                  "completedStripJobs": 1,
+                  "residentWorkers": 1,
+                  "workerStarts": 1,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                },
+                "fusion-resize": {
+                  "workers": 2,
+                  "completedStripJobs": 2,
+                  "residentWorkers": 2,
+                  "workerStarts": 2,
+                  "workerReuses": 0,
+                  "retiredWorkers": 0,
+                  "stripRetries": 0,
+                  "preflightExecutions": 0,
+                  "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+                }
+              },
+              "scope": "Cumulative counters for this pipeline instance after the request; admitted worker counts, not physical CPU utilization"
+            }
+          ],
+          "neuralPool": {
+            "enabled": true,
+            "scope": "Successful final useful inferences in this request; cache-only views perform none",
+            "jobs": 24,
+            "admittedTeams": [
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "selfdm",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 290193408,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 234881024,
+                "heapBytes": 197001216,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 197001216,
+                "workerReused": true,
+                "threadReconfigured": true,
+                "modelReconfigured": true,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 251658240,
+                "heapBytes": 197001216,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 268435456,
+                "heapBytes": 197001216,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 301989888,
+                "heapBytes": 197001216,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 197001216,
+                "workerReused": true,
+                "threadReconfigured": false,
+                "modelReconfigured": true,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 352321536,
+                "heapBytes": 197001216,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 237764608,
+                "workerReused": true,
+                "threadReconfigured": true,
+                "modelReconfigured": true,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 237764608,
+                "workerReused": true,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 237764608,
+                "workerReused": true,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 237764608,
+                "workerReused": true,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "deepmask",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 237764608,
+                "workerReused": true,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "superpoint",
+                "threads": 3,
+                "cpuGranted": 3,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 60686336,
+                "workerReused": true,
+                "threadReconfigured": true,
+                "modelReconfigured": true,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "superpoint",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 117440512,
+                "heapBytes": 36765696,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "superpoint",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 117440512,
+                "heapBytes": 36765696,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "superpoint",
+                "threads": 3,
+                "cpuGranted": 3,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 134217728,
+                "heapBytes": 60686336,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "superpoint-post",
+                "threads": 1,
+                "cpuGranted": 1,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 117440512,
+                "heapBytes": 36765696,
+                "workerReused": true,
+                "threadReconfigured": false,
+                "modelReconfigured": true,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "superpoint-post",
+                "threads": 3,
+                "cpuGranted": 3,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 117440512,
+                "heapBytes": 16777216,
+                "workerReused": true,
+                "threadReconfigured": true,
+                "modelReconfigured": true,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "superglue",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 174981120,
+                "workerReused": true,
+                "threadReconfigured": true,
+                "modelReconfigured": true,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "crf",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 536870912,
+                "heapBytes": 174981120,
+                "workerReused": true,
+                "threadReconfigured": false,
+                "modelReconfigured": true,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "crf",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 134217728,
+                "heapBytes": 24248320,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "crf",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 117440512,
+                "heapBytes": 20185088,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              },
+              {
+                "zoneIds": [
+                  "whole-image"
+                ],
+                "zoneIndex": 0,
+                "laneIndex": 0,
+                "stage": "crf",
+                "threads": 4,
+                "cpuGranted": 4,
+                "gpuGranted": 0,
+                "provider": "wasm",
+                "memoryMaximumBytes": 117440512,
+                "heapBytes": 16777216,
+                "workerReused": false,
+                "threadReconfigured": false,
+                "modelReconfigured": false,
+                "admissionWaitMs": null
+              }
+            ],
+            "workerReuses": 7,
+            "modelReuses": 4,
+            "runtimeInitializations": 17,
+            "modelInitializations": 20,
+            "initializationMeaning": "Initializations of successful final executions; retry evidence is retained per team",
+            "preflightExecutions": 0,
+            "laneSnapshots": [
+              {
+                "laneIndex": 0,
+                "scope": "Cumulative counters of this lane at its latest completed inference",
+                "pool": {
+                  "residentWorkers": 4,
+                  "busyWorkers": 0,
+                  "peakWorkers": 4,
+                  "workerStarts": 17,
+                  "runtimeReuses": 8,
+                  "sharedResidentWorkers": 4,
+                  "sharedBusyWorkers": 0,
+                  "sharedPeakWorkers": 4
+                },
+                "runtime": {
+                  "runtimeInitializations": 1,
+                  "modelInitializations": 1,
+                  "modelSwitches": 0
+                }
+              }
+            ],
+            "sharedBroker": {
+              "admitted": 541,
+              "completed": 541,
+              "peakCpu": 4,
+              "peakGpu": 0,
+              "peakQueued": 3,
+              "waitMs": 1538.6049993038177,
+              "cpuLeaseMs": 40508.89999818802,
+              "gpuLeaseMs": 0,
+              "elasticAdmissions": 24,
+              "memoryReclaims": 0,
+              "preflightExecutions": 0,
+              "capacity": {
+                "cpu": 4,
+                "gpu": 1
+              },
+              "active": {
+                "cpu": 0,
+                "gpu": 0
+              },
+              "running": 0,
+              "queued": 0,
+              "waiting": {
+                "cpu": 0,
+                "gpu": 0,
+                "memory": 0
+              },
+              "queuedRequests": [],
+              "queuedRequestsOmitted": 0,
+              "labels": {
+                "neural/selfdm": {
+                  "admitted": 1,
+                  "completed": 1,
+                  "activeJobs": 0,
+                  "activeCpu": 0,
+                  "activeGpu": 0,
+                  "peakCpu": 4,
+                  "cpuLeaseMs": 12909.480000019073,
+                  "gpuLeaseMs": 0
+                },
+                "transform-strip": {
+                  "admitted": 517,
+                  "completed": 517,
+                  "activeJobs": 0,
+                  "activeCpu": 0,
+                  "activeGpu": 0,
+                  "peakCpu": 4,
+                  "cpuLeaseMs": 1164.834998846054,
+                  "gpuLeaseMs": 0
+                },
+                "neural/deepmask": {
+                  "admitted": 12,
+                  "completed": 12,
+                  "activeJobs": 0,
+                  "activeCpu": 0,
+                  "activeGpu": 0,
+                  "peakCpu": 4,
+                  "cpuLeaseMs": 17028.374998927116,
+                  "gpuLeaseMs": 0
+                },
+                "neural/superpoint": {
+                  "admitted": 4,
+                  "completed": 4,
+                  "activeJobs": 0,
+                  "activeCpu": 0,
+                  "activeGpu": 0,
+                  "peakCpu": 4,
+                  "cpuLeaseMs": 2070.695000052452,
+                  "gpuLeaseMs": 0
+                },
+                "neural/superpoint-post": {
+                  "admitted": 2,
+                  "completed": 2,
+                  "activeJobs": 0,
+                  "activeCpu": 0,
+                  "activeGpu": 0,
+                  "peakCpu": 4,
+                  "cpuLeaseMs": 304.8550000190735,
+                  "gpuLeaseMs": 0
+                },
+                "neural/superglue": {
+                  "admitted": 1,
+                  "completed": 1,
+                  "activeJobs": 0,
+                  "activeCpu": 0,
+                  "activeGpu": 0,
+                  "peakCpu": 4,
+                  "cpuLeaseMs": 5359.120000362396,
+                  "gpuLeaseMs": 0
+                },
+                "neural/crf": {
+                  "admitted": 4,
+                  "completed": 4,
+                  "activeJobs": 0,
+                  "activeCpu": 0,
+                  "activeGpu": 0,
+                  "peakCpu": 4,
+                  "cpuLeaseMs": 1671.539999961853,
+                  "gpuLeaseMs": 0
+                }
+              },
+              "phaseDomains": {
+                "array-buffer": 0,
+                "wasm": 0,
+                "gpu": 0,
+                "gpu-mapped": 0
+              },
+              "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement",
+              "domainMeaning": "New allocation requirements of active phases; separate from policy reservations and materialized backing ownership",
+              "observationPhase": "After model-grid work, before result projection",
+              "observedAt": 1792004879710,
+              "scope": "Shared engine snapshot with cumulative counters; not a per-request wait-time or physical-utilization measurement"
+            }
+          },
+          "projectionReleasedSessionBytes": 0
+        },
+        "timings": {
+          "cropMs": 0.004999995231628418,
+          "preparationMs": 0.04999995231628418,
+          "neuralRpcMs": 11424.02999997139,
+          "modelLoadMs": 4850.8900002241135,
+          "inferenceMs": 11436.199999809265,
+          "outputCopyMs": 2.0199999809265137,
+          "gpuWriteBytes": 0,
+          "gpuReadBytes": 0,
+          "aggregation": "Per-task phase durations are summed across zones and pipeline graph stages; concurrent tasks can overlap. zoneWallMs, projectionMs and totalMs describe elapsed wall time.",
+          "snapshotAndHashMs": 2.944999933242798,
+          "correlationMs": 0,
+          "backboneMs": 0,
+          "backboneSetupMs": 0,
+          "parameterLoadMs": 0,
+          "attentionMatmulMs": 0,
+          "graphDistanceMs": 0,
+          "correlationGpuMs": 0,
+          "zoneWallMs": 11424.455000042915,
+          "projectionMs": 12.419999957084656
+        },
+        "pixelSha256": "a191723536acd31fcbb1849a2df8511c78eb5d855dc856c43650e2d5a74632ce",
+        "resultId": "segmentation-1:1",
+        "analysisId": "segmentation-1:1",
+        "revision": 1,
+        "sourceProvenance": {
+          "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+          "decode": {
+            "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+            "format": "png",
+            "layout": "segmented-scanlines",
+            "orientation": 1,
+            "orientationApplied": true,
+            "sourceSize": [
+              416,
+              320
+            ],
+            "sourceDepth": 8,
+            "analysisDepth": 8,
+            "interlace": 0,
+            "icc": "absent",
+            "alpha": "absent",
+            "interpolation": "none",
+            "frames": "static PNG"
+          }
+        },
+        "inferences": 1,
+        "cache_hits": 0,
+        "nativePipelines": [
+          {
+            "zoneId": "whole-image",
+            "algorithm": "SelfDM + Proposal SuperGlue",
+            "sourceCommit": "ef7b4a00d0c5742a63b187d898979259c2aead40",
+            "initialNetworkDimensions": [
+              512,
+              512
+            ],
+            "outputCoordinates": "original source rectangle",
+            "sourceParameters": {
+              "rank": 48,
+              "proposals": 500,
+              "maskThreshold": 0.2,
+              "nmsRadius": 4,
+              "keypointThreshold": 0,
+              "maxKeypoints": 2048,
+              "removeBorders": 4,
+              "sinkhornIterations": 20,
+              "matchThreshold": 0.4,
+              "seeds": [
+                400,
+                15,
+                3,
+                5,
+                true,
+                10
+              ],
+              "crfIterations": 1
+            },
+            "license": "SelfDM research-only; SuperGlue noncommercial/internal restrictions; public redistribution requires review",
+            "numerical": "Original Float32 model/CV formulas, original-grid CRF and receptive-field windows. CPU/GPU rounding is measured rather than claimed bit-exact universally: the windowed 831x641 GPU case has zero mask differences and continuous maximum0.0011100769; the CPU case differs at1 threshold-boundary pixel. Some continuous maxima exceed the provisional0.001 target; the qualification receipts preserve those failed-parity statuses. Near-equal SuperPoint TopK scores can reorder. See the current windowed integration qualification receipts.",
+            "sourceDimensions": [
+              416,
+              320
+            ],
+            "proposals": [
+              [
+                [
+                  48,
+                  6,
+                  276,
+                  187
+                ],
+                0.2931375503540039,
+                41268
+              ],
+              [
+                [
+                  216,
+                  174,
+                  340,
+                  269
+                ],
+                0.4741152226924896,
+                11780
+              ]
+            ],
+            "resize": [
+              320,
+              240
+            ],
+            "matchedPoints": 416,
+            "fellBackToInitial": false,
+            "inputColorOrder": "BGR initial map/CRF; RGB DeepMask; upstream RGB passed to BGR2GRAY/SEEDS",
+            "coordinateFrame": "input-rectangle-pixels",
+            "sourceCoordinates": true,
+            "originalBounds": [
+              0,
+              0,
+              416,
+              320
+            ],
+            "originalOrigin": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "arrayLayout": "segmented; readPlane/readMask windows or streamed NPZ export"
+    },
+    "semantics": "Native sigmoid or target/source/background class probabilities, independent rectangle inference and maximum/OR composition. No D2PRL residual roles or component filter.",
+    "layers": [
+      {
+        "id": "probability",
+        "kind": "scalar",
+        "surfaceId": "5abead4b-6597-4f9d-b9ed-031acbf9e77a",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "union",
+        "kind": "mask",
+        "surfaceId": "5d798616-03c8-491d-841c-c5958cdd9337",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "analyzed",
+        "kind": "mask",
+        "surfaceId": "737b50c2-8455-4984-ba20-720bf61002ee",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "candidates",
+        "kind": "mask",
+        "surfaceId": "a30f0cc8-dc3e-4101-91e3-6fd92fc80081",
+        "width": 416,
+        "height": 320,
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          1
+        ]
+      }
+    ],
+    "provenance": {
+      "engine": "0.37.0-methods.1",
+      "operation": "ai.clones.segmentation",
+      "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          416,
+          320
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "params": {
+        "variant": "selfdm-proposal"
+      },
+      "regions": [
+        {
+          "id": "whole-image",
+          "kind": "whole-image",
+          "bounds": [
+            0,
+            0,
+            416,
+            320
+          ]
+        }
+      ],
+      "model": {
+        "id": "selfdm-proposal-superglue-original-grid-sp-windows-v3",
+        "variant": "SelfDM + Proposal SuperGlue",
+        "family": "selfdm-proposal",
+        "side": 512,
+        "kind": "sigmoid",
+        "bytes": 1824,
+        "assetBytes": 187736352,
+        "sha256": "b446e758115af4c71080e06573e66cdae7e0f3853cf7bd403eaf3bea1e64ed79",
+        "gpu": {
+          "id": "selfdm-proposal-superglue-original-grid-sp-windows-v3",
+          "bytes": 1824,
+          "assetBytes": 187736352,
+          "sha256": "b446e758115af4c71080e06573e66cdae7e0f3853cf7bd403eaf3bea1e64ed79",
+          "sharedAssets": true,
+          "status": "experimental-five-network-webgpu-native-corpus"
+        },
+        "status": "experimental-local-full-original-grid",
+        "cpuContinuousBitExact": false,
+        "qualificationDimensions": [
+          [
+            32,
+            32
+          ],
+          [
+            416,
+            320
+          ],
+          [
+            512,
+            512
+          ],
+          [
+            831,
+            641
+          ]
+        ],
+        "numericalParity": "Complete SelfDM, DeepMask, Proposal SuperGlue, SEEDS and ConvCRF chain. Initial network at512; refinement and output at the original rectangle dimensions using DeepMask/SuperPoint/CRF halo windows and global coordinates, with native global SuperPoint NMS/TopK/descriptor sampling. SuperPoint is separately qualified through2000×1500. Measured Float32 differences remain: one threshold-crossing pixel on the declared831×641 CPU case; continuous errors and CPU/WebGPU qualifications are recorded separately. This is not universal bit-exact parity.",
+        "license": "Local research only. SelfDM and SuperGlue redistribution/use terms require separate review before public distribution."
+      },
+      "backend": "cpu-wasm",
+      "backendSelection": "explicit-cpu",
+      "kernelParity": "Complete SelfDM, DeepMask, Proposal SuperGlue, SEEDS and ConvCRF chain. Initial network at512; refinement and output at the original rectangle dimensions using DeepMask/SuperPoint/CRF halo windows and global coordinates, with native global SuperPoint NMS/TopK/descriptor sampling. SuperPoint is separately qualified through2000×1500. Measured Float32 differences remain: one threshold-crossing pixel on the declared831×641 CPU case; continuous errors and CPU/WebGPU qualifications are recorded separately. This is not universal bit-exact parity.",
+      "layout": "segmented"
+    },
+    "metrics": {
+      "execution": {
+        "backend": "cpu",
+        "independentZones": {
+          "requested": 1,
+          "observed": 1,
+          "memoryBackoffs": 0,
+          "internalThreadsPerWorker": null,
+          "admittedThreadsPerWorker": {
+            "minimum": 1,
+            "maximum": 4
+          },
+          "meaning": "Region tasks include cache lookups; thread teams below are admitted by the shared broker, not physical CPU utilization"
+        },
+        "wasmMaximumBytes": 536870912,
+        "gpuMaximumBytes": 0,
+        "observedHeapBytes": 290193408,
+        "gpuPeakBufferBytes": 0,
+        "wasmMaximumScope": "Completed model-grid admission, including cached grid provenance",
+        "runtimeMaximumBytes": 2147483648,
+        "pipelineCvPools": [
+          {
+            "zoneIds": [
+              "whole-image"
+            ],
+            "zoneIndex": 0,
+            "laneIndex": 0,
+            "pools": {
+              "initial-resize": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/0/17825792": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/1/18874368": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/2/18874368": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/3/18874368": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/4/19922944": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/5/20971520": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/6/20971520": {
+                "workers": 1,
+                "completedStripJobs": 2,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 1,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/6/22020096": {
+                "workers": 1,
+                "completedStripJobs": 2,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 1,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "pyramid/6/19922944": {
+                "workers": 1,
+                "completedStripJobs": 2,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 1,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "projection": {
+                "workers": 4,
+                "completedStripJobs": 500,
+                "residentWorkers": 4,
+                "workerStarts": 4,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "roi/0": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "roi/1": {
+                "workers": 1,
+                "completedStripJobs": 1,
+                "residentWorkers": 1,
+                "workerStarts": 1,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              },
+              "fusion-resize": {
+                "workers": 2,
+                "completedStripJobs": 2,
+                "residentWorkers": 2,
+                "workerStarts": 2,
+                "workerReuses": 0,
+                "retiredWorkers": 0,
+                "stripRetries": 0,
+                "preflightExecutions": 0,
+                "policy": "persistent reclaimable workers, per-useful-strip shared CPU admission"
+              }
+            },
+            "scope": "Cumulative counters for this pipeline instance after the request; admitted worker counts, not physical CPU utilization"
+          }
+        ],
+        "neuralPool": {
+          "enabled": true,
+          "scope": "Successful final useful inferences in this request; cache-only views perform none",
+          "jobs": 24,
+          "admittedTeams": [
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "selfdm",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 290193408,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 234881024,
+              "heapBytes": 197001216,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 197001216,
+              "workerReused": true,
+              "threadReconfigured": true,
+              "modelReconfigured": true,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 251658240,
+              "heapBytes": 197001216,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 268435456,
+              "heapBytes": 197001216,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 301989888,
+              "heapBytes": 197001216,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 197001216,
+              "workerReused": true,
+              "threadReconfigured": false,
+              "modelReconfigured": true,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 352321536,
+              "heapBytes": 197001216,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 237764608,
+              "workerReused": true,
+              "threadReconfigured": true,
+              "modelReconfigured": true,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 237764608,
+              "workerReused": true,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 237764608,
+              "workerReused": true,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 237764608,
+              "workerReused": true,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "deepmask",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 237764608,
+              "workerReused": true,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "superpoint",
+              "threads": 3,
+              "cpuGranted": 3,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 60686336,
+              "workerReused": true,
+              "threadReconfigured": true,
+              "modelReconfigured": true,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "superpoint",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 117440512,
+              "heapBytes": 36765696,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "superpoint",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 117440512,
+              "heapBytes": 36765696,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "superpoint",
+              "threads": 3,
+              "cpuGranted": 3,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 134217728,
+              "heapBytes": 60686336,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "superpoint-post",
+              "threads": 1,
+              "cpuGranted": 1,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 117440512,
+              "heapBytes": 36765696,
+              "workerReused": true,
+              "threadReconfigured": false,
+              "modelReconfigured": true,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "superpoint-post",
+              "threads": 3,
+              "cpuGranted": 3,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 117440512,
+              "heapBytes": 16777216,
+              "workerReused": true,
+              "threadReconfigured": true,
+              "modelReconfigured": true,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "superglue",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 174981120,
+              "workerReused": true,
+              "threadReconfigured": true,
+              "modelReconfigured": true,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "crf",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 536870912,
+              "heapBytes": 174981120,
+              "workerReused": true,
+              "threadReconfigured": false,
+              "modelReconfigured": true,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "crf",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 134217728,
+              "heapBytes": 24248320,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "crf",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 117440512,
+              "heapBytes": 20185088,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            },
+            {
+              "zoneIds": [
+                "whole-image"
+              ],
+              "zoneIndex": 0,
+              "laneIndex": 0,
+              "stage": "crf",
+              "threads": 4,
+              "cpuGranted": 4,
+              "gpuGranted": 0,
+              "provider": "wasm",
+              "memoryMaximumBytes": 117440512,
+              "heapBytes": 16777216,
+              "workerReused": false,
+              "threadReconfigured": false,
+              "modelReconfigured": false,
+              "admissionWaitMs": null
+            }
+          ],
+          "workerReuses": 7,
+          "modelReuses": 4,
+          "runtimeInitializations": 17,
+          "modelInitializations": 20,
+          "initializationMeaning": "Initializations of successful final executions; retry evidence is retained per team",
+          "preflightExecutions": 0,
+          "laneSnapshots": [
+            {
+              "laneIndex": 0,
+              "scope": "Cumulative counters of this lane at its latest completed inference",
+              "pool": {
+                "residentWorkers": 4,
+                "busyWorkers": 0,
+                "peakWorkers": 4,
+                "workerStarts": 17,
+                "runtimeReuses": 8,
+                "sharedResidentWorkers": 4,
+                "sharedBusyWorkers": 0,
+                "sharedPeakWorkers": 4
+              },
+              "runtime": {
+                "runtimeInitializations": 1,
+                "modelInitializations": 1,
+                "modelSwitches": 0
+              }
+            }
+          ],
+          "sharedBroker": {
+            "admitted": 541,
+            "completed": 541,
+            "peakCpu": 4,
+            "peakGpu": 0,
+            "peakQueued": 3,
+            "waitMs": 1538.6049993038177,
+            "cpuLeaseMs": 40508.89999818802,
+            "gpuLeaseMs": 0,
+            "elasticAdmissions": 24,
+            "memoryReclaims": 0,
+            "preflightExecutions": 0,
+            "capacity": {
+              "cpu": 4,
+              "gpu": 1
+            },
+            "active": {
+              "cpu": 0,
+              "gpu": 0
+            },
+            "running": 0,
+            "queued": 0,
+            "waiting": {
+              "cpu": 0,
+              "gpu": 0,
+              "memory": 0
+            },
+            "queuedRequests": [],
+            "queuedRequestsOmitted": 0,
+            "labels": {
+              "neural/selfdm": {
+                "admitted": 1,
+                "completed": 1,
+                "activeJobs": 0,
+                "activeCpu": 0,
+                "activeGpu": 0,
+                "peakCpu": 4,
+                "cpuLeaseMs": 12909.480000019073,
+                "gpuLeaseMs": 0
+              },
+              "transform-strip": {
+                "admitted": 517,
+                "completed": 517,
+                "activeJobs": 0,
+                "activeCpu": 0,
+                "activeGpu": 0,
+                "peakCpu": 4,
+                "cpuLeaseMs": 1164.834998846054,
+                "gpuLeaseMs": 0
+              },
+              "neural/deepmask": {
+                "admitted": 12,
+                "completed": 12,
+                "activeJobs": 0,
+                "activeCpu": 0,
+                "activeGpu": 0,
+                "peakCpu": 4,
+                "cpuLeaseMs": 17028.374998927116,
+                "gpuLeaseMs": 0
+              },
+              "neural/superpoint": {
+                "admitted": 4,
+                "completed": 4,
+                "activeJobs": 0,
+                "activeCpu": 0,
+                "activeGpu": 0,
+                "peakCpu": 4,
+                "cpuLeaseMs": 2070.695000052452,
+                "gpuLeaseMs": 0
+              },
+              "neural/superpoint-post": {
+                "admitted": 2,
+                "completed": 2,
+                "activeJobs": 0,
+                "activeCpu": 0,
+                "activeGpu": 0,
+                "peakCpu": 4,
+                "cpuLeaseMs": 304.8550000190735,
+                "gpuLeaseMs": 0
+              },
+              "neural/superglue": {
+                "admitted": 1,
+                "completed": 1,
+                "activeJobs": 0,
+                "activeCpu": 0,
+                "activeGpu": 0,
+                "peakCpu": 4,
+                "cpuLeaseMs": 5359.120000362396,
+                "gpuLeaseMs": 0
+              },
+              "neural/crf": {
+                "admitted": 4,
+                "completed": 4,
+                "activeJobs": 0,
+                "activeCpu": 0,
+                "activeGpu": 0,
+                "peakCpu": 4,
+                "cpuLeaseMs": 1671.539999961853,
+                "gpuLeaseMs": 0
+              }
+            },
+            "phaseDomains": {
+              "array-buffer": 0,
+              "wasm": 0,
+              "gpu": 0,
+              "gpu-mapped": 0
+            },
+            "timingMeaning": "Admitted execution time; not an OS CPU-utilization measurement",
+            "domainMeaning": "New allocation requirements of active phases; separate from policy reservations and materialized backing ownership",
+            "observationPhase": "After model-grid work, before result projection",
+            "observedAt": 1792004879710,
+            "scope": "Shared engine snapshot with cumulative counters; not a per-request wait-time or physical-utilization measurement"
+          }
+        },
+        "projectionReleasedSessionBytes": 0
+      },
+      "timings": {
+        "cropMs": 0.004999995231628418,
+        "preparationMs": 0.04999995231628418,
+        "neuralRpcMs": 11424.02999997139,
+        "modelLoadMs": 4850.8900002241135,
+        "inferenceMs": 11436.199999809265,
+        "outputCopyMs": 2.0199999809265137,
+        "gpuWriteBytes": 0,
+        "gpuReadBytes": 0,
+        "aggregation": "Per-task phase durations are summed across zones and pipeline graph stages; concurrent tasks can overlap. zoneWallMs, projectionMs and totalMs describe elapsed wall time.",
+        "snapshotAndHashMs": 2.944999933242798,
+        "correlationMs": 0,
+        "backboneMs": 0,
+        "backboneSetupMs": 0,
+        "parameterLoadMs": 0,
+        "attentionMatmulMs": 0,
+        "graphDistanceMs": 0,
+        "correlationGpuMs": 0,
+        "zoneWallMs": 11424.455000042915,
+        "projectionMs": 12.419999957084656
+      },
+      "totalMs": 11441.449999928474,
+      "inferences": 1,
+      "cache": {
+        "rawGrids": 0
+      },
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 7016612152,
+        "retainedBytes": 924531896,
+        "cacheBytes": 87786000,
+        "activeReservationBytes": 561004544,
+        "peakAccountedBytes": 2500483716,
+        "activeRecoveries": 0
+      },
+      "projection": {
+        "totalMs": 11.169999957084656,
+        "projectionMs": 5.764999985694885,
+        "compositionMs": 5.440000057220459,
+        "postprocessMs": 4.475000023841858,
+        "blocks": 2,
+        "metadataBytes": 73728,
+        "storage": {
+          "map": "memory",
+          "mask": "memory",
+          "analyzed": "memory",
+          "candidates": "memory"
+        },
+        "resultBytes": 931840
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "5abead4b-6597-4f9d-b9ed-031acbf9e77a",
+      "revision": 1,
+      "width": 416,
+      "height": 320,
+      "format": "float32",
+      "semantics": "Native union probability; source-coordinate projection.",
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "maskSurfaces": {
+      "mask": {
+        "id": "5d798616-03c8-491d-841c-c5958cdd9337",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native mask support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "analyzed": {
+        "id": "737b50c2-8455-4984-ba20-720bf61002ee",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native analyzed support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      },
+      "candidates": {
+        "id": "a30f0cc8-dc3e-4101-91e3-6fd92fc80081",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "mask8",
+        "range": [
+          0,
+          1
+        ],
+        "semantics": "Native candidates support in source coordinates.",
+        "sourceWidth": 416,
+        "sourceHeight": 320,
+        "orientation": 1,
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      }
+    },
+    "planeSurfaces": {
+      "map": {
+        "id": "5abead4b-6597-4f9d-b9ed-031acbf9e77a",
+        "revision": 1,
+        "width": 416,
+        "height": 320,
+        "format": "float32",
+        "semantics": "Native union probability; source-coordinate projection.",
+        "coordinates": "full-resolution",
+        "storage": "memory"
+      }
+    }
+  }
+}

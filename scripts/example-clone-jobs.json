@@ -1,0 +1,244 @@
+[
+  {
+    "id": "three-cells-mgcfdn",
+    "input": "examples/three-cells/input.png",
+    "operation": "ai.clones.segmentation",
+    "params": {
+      "variant": "mgcfdn"
+    },
+    "views": [
+      "overlay",
+      "map",
+      "mask"
+    ],
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  {
+    "id": "three-cells-cmseg-generalization",
+    "input": "examples/three-cells/input.png",
+    "operation": "ai.clones.segmentation",
+    "params": {
+      "variant": "cmseg-generalization"
+    },
+    "views": [
+      "overlay",
+      "map",
+      "mask"
+    ],
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  {
+    "id": "three-cells-selfdm-map",
+    "input": "examples/three-cells/input.png",
+    "operation": "ai.clones.segmentation",
+    "params": {
+      "variant": "selfdm-map"
+    },
+    "views": [
+      "overlay",
+      "map",
+      "mask"
+    ],
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  {
+    "id": "three-cells-selfdm-proposal",
+    "input": "examples/three-cells/input.png",
+    "operation": "ai.clones.segmentation",
+    "params": {
+      "variant": "selfdm-proposal"
+    },
+    "views": [
+      "overlay",
+      "map",
+      "mask"
+    ],
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  {
+    "id": "three-cells-aliked",
+    "input": "examples/three-cells/input.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "ALIKED + LightGlue",
+      "limit": 2000,
+      "minimum": 4,
+      "threshold": 0.9,
+      "model": "Affine",
+      "geometricThreshold": 3,
+      "geometricMinimum": 4,
+      "autoRadius": false,
+      "radius": 600,
+      "compact": false,
+      "independent": false,
+      "tolerance": 50,
+      "compare": false,
+      "reflections": false
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  {
+    "id": "three-cells-efficient-loftr",
+    "input": "examples/three-cells/input.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "EfficientLoFTR",
+      "limit": 2000,
+      "minimum": 4,
+      "threshold": 0.2,
+      "model": "Affine",
+      "geometricThreshold": 3,
+      "geometricMinimum": 4,
+      "autoRadius": false,
+      "radius": 600,
+      "compact": false,
+      "independent": false,
+      "tolerance": 50,
+      "compare": true,
+      "reflections": false,
+      "longSide": 832,
+      "rotationMode": "none"
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+    "rectangles": [
+      {
+        "x0": 48,
+        "y0": 48,
+        "x1": 166,
+        "y1": 136
+      },
+      {
+        "x0": 213,
+        "y0": 180,
+        "x1": 317,
+        "y1": 268
+      }
+    ]
+  },
+  {
+    "id": "three-cells-ssg",
+    "input": "examples/three-cells/input.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "SSG",
+      "limit": 2000,
+      "minimum": 4,
+      "threshold": 0.3,
+      "model": "Affine",
+      "geometricThreshold": 3,
+      "geometricMinimum": 4,
+      "autoRadius": false,
+      "radius": 600,
+      "compact": false,
+      "independent": false,
+      "tolerance": 50,
+      "compare": false,
+      "reflections": false,
+      "normalizationLongEdge": 0,
+      "minimumDistance": 50,
+      "spatialK": 3,
+      "ratio": 0.6,
+      "absolute": 0.1,
+      "salienceSigma": 0.001,
+      "maskThreshold": 0.4,
+      "minimumArea": 0.0001,
+      "roiRadius": 50,
+      "ssimRadius": 3,
+      "ssimOpening": 4,
+      "rngSeed": 1
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  {
+    "id": "three-cells-xfeat-pair",
+    "input": "examples/three-cells/input.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "XFeat + LighterGlue",
+      "limit": 2000,
+      "minimum": 4,
+      "threshold": 0.9,
+      "model": "Affine",
+      "geometricThreshold": 3,
+      "geometricMinimum": 4,
+      "autoRadius": false,
+      "radius": 600,
+      "compact": false,
+      "independent": false,
+      "tolerance": 50,
+      "compare": true,
+      "reflections": false
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+    "rectangles": [
+      {
+        "x0": 48,
+        "y0": 48,
+        "x1": 166,
+        "y1": 136
+      },
+      {
+        "x0": 213,
+        "y0": 180,
+        "x1": 317,
+        "y1": 268
+      }
+    ]
+  },
+  {
+    "id": "microscopy-ppocrv6",
+    "input": "examples/microscopy/input.png",
+    "operation": "preparation.text",
+    "params": {},
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  }
+]

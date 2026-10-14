@@ -1,0 +1,787 @@
+{
+  "job": {
+    "id": "three-cells-xfeat-pair",
+    "input": "examples/three-cells/input.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "XFeat + LighterGlue",
+      "limit": 2000,
+      "minimum": 4,
+      "threshold": 0.9,
+      "model": "Affine",
+      "geometricThreshold": 3,
+      "geometricMinimum": 4,
+      "autoRadius": false,
+      "radius": 600,
+      "compact": false,
+      "independent": false,
+      "tolerance": 50,
+      "compare": true,
+      "reflections": false
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+    "rectangles": [
+      {
+        "x0": 48,
+        "y0": 48,
+        "x1": 166,
+        "y1": 136
+      },
+      {
+        "x0": 213,
+        "y0": 180,
+        "x1": 317,
+        "y1": 268
+      }
+    ]
+  },
+  "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+  "sourceDimensions": [
+    416,
+    320
+  ],
+  "engine": "0.37.0-methods.1",
+  "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+  "runtime": "Direct shipped web computational clients in headless Chrome; no application UI",
+  "outputs": [
+    {
+      "file": "result.png",
+      "label": "surface",
+      "width": 416,
+      "height": 320,
+      "sha256": "183600998ae77bbfda191f0b2f2a24f8847bfb086796eeb7faf74f1397037437",
+      "rawRgbSha256": "ee48d0631ba74116852fd50abb35c57eb7b2237b377dccbcb95439383dc22d39"
+    }
+  ],
+  "scientific": [
+    {
+      "file": "matches.json",
+      "format": "json",
+      "sha256": "28828039aa9da5bb06ef053c486ed809c4644d6da1bd9024297f70b483a7b1d4"
+    }
+  ],
+  "result": {
+    "id": "three-cells-xfeat-pair",
+    "imageId": "source",
+    "operation": "tampering.copyMove.sparse",
+    "status": "ok",
+    "data": {
+      "status": "ok",
+      "points": {
+        "type": "Float64Array",
+        "length": 2597
+      },
+      "pairs": {
+        "type": "Float64Array",
+        "length": 444
+      },
+      "pair_search_regions": {
+        "type": "Int32Array",
+        "length": 111
+      },
+      "groups": [
+        {
+          "type": "Uint32Array",
+          "length": 101
+        },
+        {
+          "type": "Uint32Array",
+          "length": 6
+        }
+      ],
+      "models": [
+        {
+          "source_point_indices": [
+            19,
+            23,
+            26,
+            32,
+            33,
+            35,
+            36,
+            39,
+            41,
+            42,
+            44,
+            46,
+            50,
+            51,
+            52,
+            54,
+            57,
+            58,
+            59,
+            62,
+            63,
+            66,
+            68,
+            69,
+            70,
+            73,
+            74,
+            78,
+            81,
+            84,
+            85,
+            87,
+            88,
+            89,
+            90,
+            92,
+            93,
+            94,
+            96,
+            98,
+            99,
+            100,
+            101,
+            103,
+            104,
+            105,
+            106,
+            107,
+            109,
+            110,
+            111,
+            112,
+            115,
+            117,
+            119,
+            120,
+            123,
+            124,
+            125,
+            126,
+            127,
+            131,
+            132,
+            133,
+            136,
+            137,
+            138,
+            142,
+            143,
+            144,
+            147,
+            148,
+            149,
+            150,
+            153,
+            155,
+            156,
+            157,
+            158,
+            160,
+            161,
+            164,
+            167,
+            168,
+            170,
+            171,
+            172,
+            173,
+            175,
+            180,
+            183,
+            184,
+            185,
+            186,
+            187,
+            188,
+            190,
+            193,
+            195,
+            196,
+            198
+          ],
+          "destination_point_indices": [
+            199,
+            203,
+            205,
+            208,
+            212,
+            209,
+            210,
+            215,
+            220,
+            225,
+            224,
+            227,
+            230,
+            228,
+            231,
+            234,
+            232,
+            238,
+            236,
+            242,
+            240,
+            243,
+            246,
+            248,
+            249,
+            251,
+            247,
+            250,
+            254,
+            256,
+            258,
+            257,
+            259,
+            262,
+            261,
+            263,
+            264,
+            267,
+            268,
+            265,
+            266,
+            269,
+            270,
+            272,
+            274,
+            273,
+            275,
+            276,
+            277,
+            283,
+            280,
+            281,
+            282,
+            285,
+            286,
+            287,
+            288,
+            289,
+            290,
+            291,
+            292,
+            295,
+            293,
+            294,
+            300,
+            298,
+            299,
+            302,
+            303,
+            304,
+            306,
+            309,
+            310,
+            308,
+            316,
+            318,
+            321,
+            317,
+            319,
+            322,
+            323,
+            324,
+            325,
+            332,
+            328,
+            331,
+            327,
+            330,
+            335,
+            338,
+            339,
+            342,
+            340,
+            344,
+            345,
+            341,
+            348,
+            351,
+            355,
+            353,
+            358
+          ],
+          "parent_biome": 0,
+          "model": "Affine",
+          "matrix": [
+            [
+              1.0063386601157953,
+              0.021868968776285823,
+              143.12147351151015
+            ],
+            [
+              0.005018705791016251,
+              0.9860960907113177,
+              126.1389722836161
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 101,
+          "distinct_centres": [
+            101,
+            101
+          ],
+          "median_error_px": 1.0915902500035806,
+          "maximum_error_px": 2.883270327826264
+        },
+        {
+          "source_point_indices": [
+            30,
+            40,
+            55,
+            135,
+            194,
+            197
+          ],
+          "destination_point_indices": [
+            204,
+            214,
+            222,
+            301,
+            365,
+            360
+          ],
+          "parent_biome": 0,
+          "model": "Affine",
+          "matrix": [
+            [
+              0.9410097179851883,
+              0.006798250476163004,
+              155.43622162006363
+            ],
+            [
+              -0.034950193921627314,
+              1.0803527781207167,
+              121.80132263412432
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 6,
+          "distinct_centres": [
+            6,
+            6
+          ],
+          "median_error_px": 1.236455081061714,
+          "maximum_error_px": 1.3552057332914464
+        }
+      ],
+      "hypotheses": 3,
+      "total_features": 371,
+      "candidate_comparisons": 34228,
+      "colors": {
+        "type": "Uint8Array",
+        "length": 333
+      },
+      "bases": [
+        [
+          242,
+          61,
+          162
+        ],
+        [
+          109,
+          242,
+          61
+        ]
+      ],
+      "biome_partitions": [],
+      "params": {
+        "algorithm": "XFeat + LighterGlue",
+        "limit": 2000,
+        "radius": 600,
+        "minimum": 4,
+        "threshold": 0.9,
+        "tolerance": 50,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 4,
+        "regions": [
+          [
+            [
+              48,
+              48
+            ],
+            [
+              166,
+              48
+            ],
+            [
+              166,
+              136
+            ],
+            [
+              48,
+              136
+            ]
+          ],
+          [
+            [
+              213,
+              180
+            ],
+            [
+              317,
+              180
+            ],
+            [
+              317,
+              268
+            ],
+            [
+              213,
+              268
+            ]
+          ]
+        ],
+        "excluded": [],
+        "compare": true,
+        "reflections": false,
+        "autoRadius": false,
+        "compact": false,
+        "guides": [],
+        "independent": false
+      },
+      "regions": [
+        [
+          [
+            48,
+            48
+          ],
+          [
+            166,
+            48
+          ],
+          [
+            166,
+            136
+          ],
+          [
+            48,
+            136
+          ]
+        ],
+        [
+          [
+            213,
+            180
+          ],
+          [
+            317,
+            180
+          ],
+          [
+            317,
+            268
+          ],
+          [
+            213,
+            268
+          ]
+        ]
+      ],
+      "compare": true,
+      "backend": "cpu",
+      "feature_policy": "global",
+      "distance_policy": {
+        "radii": [
+          600,
+          600
+        ],
+        "comparison_radius": 600,
+        "gap": [
+          0,
+          0
+        ],
+        "compact_guides": []
+      },
+      "preprocessing": null,
+      "self_match_filter": {
+        "maximum_overlap": 0.8,
+        "metric": "intersection_over_smaller_hull",
+        "minimum_model_displacement_px": 4
+      },
+      "rejected_biomes": [],
+      "metadata": {
+        "extraction": {
+          "family": "XFeat",
+          "provider": "wasm",
+          "execution": "global-normalization-paged-backbone-global-selection",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "maximumActualHeapBytes": 20185088,
+          "preflightExecutions": 0,
+          "halo": 256,
+          "coreSize": 1024,
+          "workers": 1,
+          "workerAdmittedBytes": 271630336,
+          "preparation": {
+            "width": 416,
+            "height": 320,
+            "mean": 203.547119140625,
+            "inverseStd": 0.0251077301800251,
+            "reads": 6,
+            "normalization": "one global InstanceNorm; float64 moment reduction, float32 tensor"
+          },
+          "storage": {
+            "gray": "memory",
+            "heat": "memory",
+            "dense": "memory",
+            "bytes": 1597440
+          },
+          "finalWorkers": 1,
+          "globalCandidates": 2617,
+          "postHeapBytes": 16777216,
+          "maskHeapBytes": 33554432
+        },
+        "matching": {
+          "kind": "xfeat",
+          "runs": [
+            {
+              "provider": "wasm",
+              "execution": "native-layers-global-csr-row-pages",
+              "actualHeapBytes": 16777216,
+              "attentionHeapBytes": 16777216,
+              "maximumHeapBytes": 536870912,
+              "threads": 4,
+              "totalMs": 377.77499997615814,
+              "maximumConfidence": 0.9989972710609436,
+              "above": {
+                "point1": 131,
+                "point3": 99,
+                "point7": 72,
+                "point9": 47
+              },
+              "attentionPages": 24,
+              "assignmentPages": 1,
+              "maximumPageEdges": 25472,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 34228,
+              "gpuEstimatedBytes": 536870912
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-comparisons-documented",
+        "method": "sparse"
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "6b4d6d49-6949-4147-80b9-8c043974951c",
+      "revision": 1,
+      "width": 416,
+      "height": 320,
+      "format": "rgb8",
+      "sourceWidth": 416,
+      "sourceHeight": 320,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "style": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "chosen": [],
+      "hidden": [],
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "legend": [
+      [
+        0,
+        101,
+        101
+      ],
+      [
+        1,
+        6,
+        6
+      ]
+    ],
+    "visible": [
+      [
+        0,
+        101
+      ],
+      [
+        1,
+        6
+      ]
+    ],
+    "selectedGroups": [
+      {
+        "index": 0,
+        "rows": {
+          "type": "Uint32Array",
+          "length": 101
+        }
+      },
+      {
+        "index": 1,
+        "rows": {
+          "type": "Uint32Array",
+          "length": 6
+        }
+      }
+    ],
+    "layers": [
+      {
+        "id": "tampering.copyMove.sparse",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ],
+        "surfaceId": "6b4d6d49-6949-4147-80b9-8c043974951c",
+        "width": 416,
+        "height": 320
+      }
+    ],
+    "provenance": {
+      "engine": "0.37.0-methods.1",
+      "operation": "tampering.copyMove.sparse",
+      "params": {
+        "algorithm": "XFeat + LighterGlue",
+        "limit": 2000,
+        "radius": 600,
+        "minimum": 4,
+        "threshold": 0.9,
+        "tolerance": 50,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 4,
+        "regions": [
+          [
+            [
+              48,
+              48
+            ],
+            [
+              166,
+              48
+            ],
+            [
+              166,
+              136
+            ],
+            [
+              48,
+              136
+            ]
+          ],
+          [
+            [
+              213,
+              180
+            ],
+            [
+              317,
+              180
+            ],
+            [
+              317,
+              268
+            ],
+            [
+              213,
+              268
+            ]
+          ]
+        ],
+        "excluded": [],
+        "compare": true,
+        "reflections": false,
+        "autoRadius": false,
+        "compact": false,
+        "guides": [],
+        "independent": false
+      },
+      "backend": "cpu",
+      "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          416,
+          320
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/cloning2.py",
+      "kernelParity": "Native method, measured floating arithmetic differences; see M3 delivery proofs.",
+      "coordinates": "original-pixel-centres"
+    },
+    "metrics": {
+      "totalMs": 795.6000000238419,
+      "cache": {
+        "stages": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "result": false,
+        "proposals": false
+      },
+      "backend": "cpu",
+      "preflightExecutions": 0,
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8540364669,
+        "retainedBytes": 835370,
+        "cacheBytes": 7229288,
+        "activeReservationBytes": 41505265,
+        "peakAccountedBytes": 1269113704,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}

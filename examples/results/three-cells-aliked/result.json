@@ -1,0 +1,619 @@
+{
+  "job": {
+    "id": "three-cells-aliked",
+    "input": "examples/three-cells/input.png",
+    "operation": "tampering.copyMove.sparse",
+    "params": {
+      "algorithm": "ALIKED + LightGlue",
+      "limit": 2000,
+      "minimum": 4,
+      "threshold": 0.9,
+      "model": "Affine",
+      "geometricThreshold": 3,
+      "geometricMinimum": 4,
+      "autoRadius": false,
+      "radius": 600,
+      "compact": false,
+      "independent": false,
+      "tolerance": 50,
+      "compare": false,
+      "reflections": false
+    },
+    "view": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "backend": "cpu",
+    "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709"
+  },
+  "inputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+  "sourceDimensions": [
+    416,
+    320
+  ],
+  "engine": "0.37.0-methods.1",
+  "sourceCommit": "ed0d5a3a6ae85a7a04103ec9eaa858045938f709",
+  "runtime": "Direct shipped web computational clients in headless Chrome; no application UI",
+  "outputs": [
+    {
+      "file": "result.png",
+      "label": "surface",
+      "width": 416,
+      "height": 320,
+      "sha256": "3942a812bfe2b994817e181d8ee477d95f8ab331ff4c32807f0adf83d0f6fa13",
+      "rawRgbSha256": "86ecd46727547db8c1d8c0982507be0afe0e3b5df88f48947e4dfe8de34f8ba1"
+    }
+  ],
+  "scientific": [
+    {
+      "file": "matches.json",
+      "format": "json",
+      "sha256": "a88bbc434e723169910523b40f39280cc10fa361d502835c04d56385c60fc4f5"
+    }
+  ],
+  "result": {
+    "id": "three-cells-aliked",
+    "imageId": "source",
+    "operation": "tampering.copyMove.sparse",
+    "status": "ok",
+    "data": {
+      "status": "ok",
+      "points": {
+        "type": "Float64Array",
+        "length": 3185
+      },
+      "pairs": {
+        "type": "Float64Array",
+        "length": 356
+      },
+      "pair_search_regions": {
+        "type": "Int32Array",
+        "length": 89
+      },
+      "groups": [
+        {
+          "type": "Uint32Array",
+          "length": 13
+        },
+        {
+          "type": "Uint32Array",
+          "length": 75
+        }
+      ],
+      "models": [
+        {
+          "source_point_indices": [
+            45,
+            48,
+            49,
+            64,
+            67,
+            104,
+            118,
+            124,
+            141,
+            143,
+            158,
+            159,
+            190
+          ],
+          "destination_point_indices": [
+            77,
+            81,
+            82,
+            96,
+            102,
+            134,
+            154,
+            160,
+            177,
+            179,
+            192,
+            194,
+            224
+          ],
+          "parent_biome": 0,
+          "model": "Affine",
+          "matrix": [
+            [
+              0.9933304062395318,
+              0.00017630200661286898,
+              -113.16537651774394
+            ],
+            [
+              0.004368301178222049,
+              1.0031962051955325,
+              8.83566404834198
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 13,
+          "distinct_centres": [
+            13,
+            13
+          ],
+          "median_error_px": 0.2202800490981024,
+          "maximum_error_px": 0.7934153551942109
+        },
+        {
+          "source_point_indices": [
+            30,
+            32,
+            33,
+            35,
+            36,
+            38,
+            40,
+            43,
+            46,
+            56,
+            63,
+            66,
+            68,
+            72,
+            73,
+            79,
+            80,
+            84,
+            85,
+            86,
+            88,
+            94,
+            97,
+            99,
+            107,
+            108,
+            109,
+            112,
+            115,
+            116,
+            119,
+            121,
+            123,
+            125,
+            127,
+            131,
+            136,
+            144,
+            145,
+            146,
+            151,
+            153,
+            164,
+            166,
+            167,
+            169,
+            170,
+            172,
+            175,
+            178,
+            181,
+            182,
+            183,
+            188,
+            191,
+            198,
+            199,
+            200,
+            201,
+            205,
+            207,
+            213,
+            220,
+            225,
+            226,
+            227,
+            229,
+            230,
+            231,
+            233,
+            236,
+            237,
+            238,
+            239,
+            242
+          ],
+          "destination_point_indices": [
+            295,
+            297,
+            299,
+            303,
+            305,
+            306,
+            308,
+            311,
+            312,
+            313,
+            314,
+            315,
+            316,
+            318,
+            317,
+            319,
+            320,
+            321,
+            322,
+            323,
+            324,
+            325,
+            328,
+            329,
+            330,
+            332,
+            331,
+            333,
+            334,
+            337,
+            339,
+            340,
+            342,
+            343,
+            344,
+            345,
+            346,
+            347,
+            348,
+            349,
+            350,
+            351,
+            354,
+            356,
+            357,
+            358,
+            359,
+            360,
+            364,
+            365,
+            366,
+            369,
+            368,
+            370,
+            371,
+            373,
+            374,
+            375,
+            377,
+            382,
+            383,
+            387,
+            393,
+            398,
+            399,
+            400,
+            403,
+            402,
+            404,
+            405,
+            407,
+            409,
+            410,
+            411,
+            413
+          ],
+          "parent_biome": 1,
+          "model": "Affine",
+          "matrix": [
+            [
+              0.9995522880188502,
+              -0.0007976943066360339,
+              146.36529395718748
+            ],
+            [
+              0.0005308953435957462,
+              1.001292660262065,
+              124.81702471719795
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "inliers": 75,
+          "distinct_centres": [
+            71,
+            72
+          ],
+          "median_error_px": 0.11754922248056765,
+          "maximum_error_px": 0.849656444478307
+        }
+      ],
+      "hypotheses": 2,
+      "total_features": 455,
+      "candidate_comparisons": 206274,
+      "colors": {
+        "type": "Uint8Array",
+        "length": 267
+      },
+      "bases": [
+        [
+          242,
+          61,
+          162
+        ],
+        [
+          109,
+          242,
+          61
+        ]
+      ],
+      "biome_partitions": [],
+      "params": {
+        "algorithm": "ALIKED + LightGlue",
+        "limit": 2000,
+        "radius": 600,
+        "minimum": 4,
+        "threshold": 0.9,
+        "tolerance": 50,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 4,
+        "regions": [],
+        "excluded": [],
+        "compare": false,
+        "reflections": false,
+        "autoRadius": false,
+        "compact": false,
+        "guides": [],
+        "independent": false
+      },
+      "regions": [],
+      "compare": false,
+      "backend": "cpu",
+      "feature_policy": "global",
+      "distance_policy": {
+        "radii": [
+          600
+        ],
+        "comparison_radius": 600,
+        "gap": [
+          0,
+          0
+        ],
+        "compact_guides": []
+      },
+      "preprocessing": null,
+      "self_match_filter": {
+        "maximum_overlap": 0.8,
+        "metric": "intersection_over_smaller_hull",
+        "minimum_model_displacement_px": 4
+      },
+      "rejected_biomes": [],
+      "metadata": {
+        "extraction": {
+          "family": "ALIKED",
+          "provider": "wasm",
+          "execution": "wasm",
+          "threads": 4,
+          "actualHeapBytes": 1309278208,
+          "maximumHeapBytes": 1409286144,
+          "maskHeapBytes": 33554432,
+          "preflightExecutions": 0,
+          "qualification": "native-floating-arithmetic-differences-measured",
+          "executions": 1,
+          "retries": 0,
+          "failures": [],
+          "gpuEstimatedBytes": 0,
+          "workerAdmittedBytes": 2432499552,
+          "preparation": {
+            "sourceReads": 320,
+            "preparedShape": [
+              1,
+              3,
+              787,
+              1024
+            ],
+            "maximumHeapBytes": 43581440,
+            "actualHeapBytes": 16777216,
+            "preparation": "native-separable-support-rows"
+          }
+        },
+        "matching": {
+          "kind": "aliked",
+          "runs": [
+            {
+              "provider": "wasm",
+              "execution": "native-layers-global-csr-row-pages",
+              "actualHeapBytes": 24248320,
+              "attentionHeapBytes": 16777216,
+              "maximumHeapBytes": 536870912,
+              "threads": 4,
+              "totalMs": 1560.2450000047684,
+              "maximumConfidence": 0.9306137561798096,
+              "above": {
+                "point1": 258,
+                "point3": 150,
+                "point7": 38,
+                "point9": 8
+              },
+              "attentionPages": 72,
+              "assignmentPages": 4,
+              "maximumPageEdges": 58036,
+              "preflightExecutions": 0,
+              "zone": 0,
+              "candidates": 206274,
+              "gpuEstimatedBytes": 536870912
+            }
+          ],
+          "failures": [],
+          "preflightExecutions": 0
+        },
+        "stageCache": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "counts": {
+          "detections": 1,
+          "matchings": 1,
+          "groupings": 1,
+          "ocr": 0
+        },
+        "preflightExecutions": 0,
+        "coordinates": "original-pixel-centres",
+        "colorOrder": "BGR",
+        "qualification": "native-comparisons-documented",
+        "method": "sparse"
+      }
+    },
+    "layout": "surface",
+    "surface": {
+      "id": "822efa86-d148-4ea2-b910-e1c153632272",
+      "revision": 1,
+      "width": 416,
+      "height": 320,
+      "format": "rgb8",
+      "sourceWidth": 416,
+      "sourceHeight": 320,
+      "orientation": 1,
+      "coordinates": "full-resolution",
+      "storage": "memory"
+    },
+    "style": {
+      "low": 0,
+      "high": 100000,
+      "minimum": 4,
+      "chosen": [],
+      "hidden": [],
+      "circles": false,
+      "lines": false,
+      "points": false,
+      "areas": true,
+      "textExclusions": false
+    },
+    "legend": [
+      [
+        0,
+        13,
+        13
+      ],
+      [
+        1,
+        75,
+        75
+      ]
+    ],
+    "visible": [
+      [
+        0,
+        13
+      ],
+      [
+        1,
+        75
+      ]
+    ],
+    "selectedGroups": [
+      {
+        "index": 0,
+        "rows": {
+          "type": "Uint32Array",
+          "length": 13
+        }
+      },
+      {
+        "index": 1,
+        "rows": {
+          "type": "Uint32Array",
+          "length": 75
+        }
+      }
+    ],
+    "layers": [
+      {
+        "id": "tampering.copyMove.sparse",
+        "kind": "rgb",
+        "origin": [
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ],
+        "surfaceId": "822efa86-d148-4ea2-b910-e1c153632272",
+        "width": 416,
+        "height": 320
+      }
+    ],
+    "provenance": {
+      "engine": "0.37.0-methods.1",
+      "operation": "tampering.copyMove.sparse",
+      "params": {
+        "algorithm": "ALIKED + LightGlue",
+        "limit": 2000,
+        "radius": 600,
+        "minimum": 4,
+        "threshold": 0.9,
+        "tolerance": 50,
+        "model": "Affine",
+        "geometricThreshold": 3,
+        "geometricMinimum": 4,
+        "regions": [],
+        "excluded": [],
+        "compare": false,
+        "reflections": false,
+        "autoRadius": false,
+        "compact": false,
+        "guides": [],
+        "independent": false
+      },
+      "backend": "cpu",
+      "originalSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+      "decode": {
+        "decoder": "libpng-1.6.43/emscripten-4.0.15/scanlines-v1",
+        "format": "png",
+        "layout": "segmented-scanlines",
+        "orientation": 1,
+        "orientationApplied": true,
+        "sourceSize": [
+          416,
+          320
+        ],
+        "sourceDepth": 8,
+        "analysisDepth": 8,
+        "interlace": 0,
+        "icc": "absent",
+        "alpha": "absent",
+        "interpolation": "none",
+        "frames": "static PNG"
+      },
+      "native": "core/cloning2.py",
+      "kernelParity": "Native method, measured floating arithmetic differences; see M3 delivery proofs.",
+      "coordinates": "original-pixel-centres"
+    },
+    "metrics": {
+      "totalMs": 3686.0899999141693,
+      "cache": {
+        "stages": {
+          "features": false,
+          "matches": false,
+          "groups": false
+        },
+        "result": false,
+        "proposals": false
+      },
+      "backend": "cpu",
+      "preflightExecutions": 0,
+      "memory": {
+        "budgetBytes": 8589934592,
+        "policyAvailableBytes": 8457671276,
+        "retainedBytes": 835370,
+        "cacheBytes": 48647273,
+        "activeReservationBytes": 82780673,
+        "peakAccountedBytes": 2587122689,
+        "activeRecoveries": 0
+      }
+    }
+  }
+}
