@@ -134,7 +134,7 @@ The spiral, Street Photo and microscopy inputs also document my macOS work. I su
 
 [![Three-cell microscopy input](screenshots/readme-webp/examples/three-cells/input.webp)](examples/three-cells/input.png)
 
-This supplied image is analyzed unchanged at **416 × 320 pixels**. The repeated structures and rectangular boundaries make it useful for comparing clone responses. It has no supplied pixel-level edit-reference mask. [Input record](examples/three-cells/provenance.json).
+[Input record](examples/three-cells/provenance.json).
 
 </details>
 
