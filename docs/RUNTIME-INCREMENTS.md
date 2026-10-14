@@ -1,0 +1,9 @@
+# Reviewed runtime increments
+
+Runtime source and executable locks identify different bytes: the executable JavaScript includes its reviewed dependency transport. The dependency inventory identifies the exact public resources. A build verifies these identities before replaying an explicit increment; it does not rewrite a receipt to accept an unrelated runtime.
+
+The original scientific increment remains byte-identical at `web/wordpress/runtime-patches/batch-scientific-regions-20261013.json`. Its source/deployed locks and inventory are retained under `runtime-patches/baselines/web-0.19.1/`, together with the exact prior source and deployed index. These are source metadata and code, not user analysis evidence.
+
+`web/wordpress/runtime-patches/ela-runtime-20261014.json` declares four JavaScript replacements and one addition. Reversing only those entries must reconstruct the retained inventory and locks exactly. The validator then checks the original scientific increment against its own predecessor view. Shared `index.js` resolves to the newest reviewed layer for execution; its older bytes remain independently verifiable. No model, WASM or undeclared file is admitted by this ELA layer.
+
+`build.py`, `prepare-distribution.py` and `scripts/build-local-release.py` use the same validator. The local release descriptor retains the scientific runtime reference and records both layers in `runtimeIncrements`; its content-addressed resource paths point to the final bytes. Local reconstruction and private packaging must retain the receipt/snapshot directories. Historical compatibility inventories and release descriptors are not restamped.

@@ -99,6 +99,10 @@ with tempfile.TemporaryDirectory() as directory:
     (sources / 'assets').mkdir(exist_ok=True)
     for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'dependency-manifest.js', 'dependency-sw.js', 'offline-browser-store.js', 'offline-browser-sw.js']:
         (sources / 'assets' / name).write_text('')
+    # The current worker bundle also declares this small production helper.
+    # Exercise its real source without changing optional-model policy fixtures.
+    (sources / 'assets/dependency-client-routing.js').write_bytes(
+        (ROOT / 'sherloq-browser/assets/dependency-client-routing.js').read_bytes())
     compatibility = frozen / 'public/web/wordpress/compatibility-manifests'
     compatibility.mkdir()
     previous = b'{"previous":true}\n'

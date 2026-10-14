@@ -1,4 +1,9 @@
 export const defaults={quality:75,scale:50,contrast:20,linear:false,grayscale:false};
+export function validElaMode(value){
+ const mode=value==='energy'?'biomes':value;
+ if(!['classic','scores','biomes'].includes(mode))throw Error('Invalid ELA mode');
+ return mode;
+}
 export function validParams(p){
  if(!p||typeof p!=='object')throw new Error('Invalid params');
  for(const k of ['quality','scale','contrast'])if(!Number.isInteger(p[k])||p[k]<(k==='contrast'?0:1)||p[k]>100)throw new Error('Invalid '+k);
@@ -17,7 +22,7 @@ export function validateSettings(value){
  const q=value.preferences;if(!q||typeof q!=='object')throw new Error('Invalid preferences');
  const preferences={navigationMode:q.navigationMode??'auto'};
  if(q.highlightNewFeatures!==undefined){if(typeof q.highlightNewFeatures!=='boolean')throw Error('Invalid highlightNewFeatures');preferences.highlightNewFeatures=q.highlightNewFeatures;}
- if(q.elaMode!==undefined){if(!['classic','energy'].includes(q.elaMode))throw Error('Invalid ELA mode');preferences.elaMode=q.elaMode;}
+ if(q.elaMode!==undefined)preferences.elaMode=validElaMode(q.elaMode);
  if(!['auto','mouse','trackpad'].includes(preferences.navigationMode))throw new Error('Invalid navigationMode');
  for(const [k,choices] of Object.entries({theme:['light','dark'],language:['fr','en'],layout:['tabs','tile','cascade'],computeProfile:['aggressive','maximum'],regionMode:['whole','independent','pair','cross']})){
   if(!choices.includes(q[k]))throw new Error('Invalid '+k);preferences[k]=q[k];
@@ -37,7 +42,9 @@ export function validEnergySettings(input){
  if(!Array.isArray(v.profiles)||v.profiles.length>100)throw Error('Invalid energy profiles');const ids=new Set(),names=new Set();
  const profiles=v.profiles.map(p=>{if(!p||typeof p.id!=='string'||!/^profile-[\w-]{1,80}$/.test(p.id)||ids.has(p.id)||typeof p.name!=='string'||!p.name.trim()||p.name.length>80||names.has(p.name.trim()))throw Error('Invalid energy profile');ids.add(p.id);names.add(p.name.trim());return{id:p.id,name:p.name.trim(),values:values(p.values),...parameters(p)};});
  if(!['standard','conservative','sensitive','manual',...ids].includes(v.selected)||!['overlay','labels'].includes(v.view)||!Number.isInteger(v.opacity)||v.opacity<0||v.opacity>100)throw Error('Invalid energy view or profile');
- return{selected:v.selected,values:values(v.values),...parameters(v),view:v.view,opacity:v.opacity,profiles};
+ const scoreField=v.scoreField??'unified',storedScoreThreshold=v.scoreThreshold??0,scoreThreshold=scoreField==='both'?storedScoreThreshold:Math.max(0,storedScoreThreshold),scoreView=v.scoreView??'map';
+ if(!['low','high','both','unified'].includes(scoreField)||!Number.isFinite(storedScoreThreshold)||!['map','overlay'].includes(scoreView))throw Error('Invalid energy score presentation');
+ return{selected:v.selected,values:values(v.values),...parameters(v),view:v.view,opacity:v.opacity,scoreField,scoreThreshold,scoreView,profiles};
 }
 
 export function validCompositeSettings(input){
@@ -63,7 +70,7 @@ export function validIndividualSettings(value){
 
 // Import and release migration recover each field independently. The strict
 // validator remains available for scientific task/session validation.
-export function defaultSettings(){return{schema:'sherloq.settings/1',profiles:[],current:{...defaults},activeProfile:'native',preferences:{navigationMode:'auto',theme:'dark',language:'fr',layout:'tabs',computeProfile:'maximum',regionMode:'whole',favorite:false,showZones:true,toolsVisible:true,inspectorVisible:false}};}
+export function defaultSettings(){return{schema:'sherloq.settings/1',profiles:[],current:{...defaults},activeProfile:'native',energy:validEnergySettings(),preferences:{elaMode:'classic',navigationMode:'auto',theme:'dark',language:'fr',layout:'tabs',computeProfile:'maximum',regionMode:'whole',favorite:false,showZones:true,toolsVisible:true,inspectorVisible:false}};}
 export function recoverSettings(input,{fallback=defaultSettings()}={}){
  const issues=[],base=validateSettings(fallback),value=input&&typeof input==='object'&&!Array.isArray(input)?input:{};
  if(value.schema!=='sherloq.settings/1')throw Error('Expected sherloq.settings/1');
@@ -88,7 +95,7 @@ export function recoverSettings(input,{fallback=defaultSettings()}={}){
  if(value.energy!==undefined){
   const energy=validEnergySettings(base.energy),v=value.energy;
   if(!v||typeof v!=='object'||Array.isArray(v))issue('energy','Invalid energy settings');else{
-   const parameters=['quality','block','minimum','view','opacity'];for(const key of parameters)if(v[key]!==undefined)try{Object.assign(energy,validEnergySettings({...energy,[key]:v[key]}));}catch(error){issue('energy.'+key,error);}
+   const parameters=['quality','block','minimum','view','opacity','scoreField','scoreThreshold','scoreView'];for(const key of parameters)if(v[key]!==undefined)try{Object.assign(energy,validEnergySettings({...energy,[key]:v[key]}));}catch(error){issue('energy.'+key,error);}
    energy.values=fields(v.values,{...energy.values},values=>validEnergySettings({...energy,values}).values,'energy.values');
    const priorProfiles=energy.profiles,hasProfiles=Array.isArray(v.profiles);energy.profiles=hasProfiles?[]:priorProfiles;const energyIds=new Set(hasProfiles?[]:priorProfiles.map(profile=>profile.id)),energyNames=new Set(hasProfiles?[]:priorProfiles.map(profile=>profile.name));
    if(Array.isArray(v.profiles))for(const [index,p]of v.profiles.entries()){

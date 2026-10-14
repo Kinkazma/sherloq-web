@@ -114,6 +114,9 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
     if runtime_overlay.files:
         put(output / 'public/web/wordpress/sherloq-browser/assets/scientific-regions-delivery-increment.json',
             (ROOT / 'runtime-patches/batch-scientific-regions-20261013.json').read_bytes())
+    ela_receipt = ROOT / 'runtime-patches/ela-runtime-20261014.json'
+    if ela_receipt.exists():
+        put(output / 'public/web/wordpress/sherloq-browser/assets/ela-delivery-increment.json', ela_receipt.read_bytes())
     if resource_policy is not None:
         if not isinstance(resource_policy, dict) or resource_policy.get('schema') != 'sherloq.resource-policy/1' or not isinstance(resource_policy.get('files'), dict):
             raise ValueError('Invalid resource policy')
@@ -223,7 +226,7 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     # Classic SW works in Firefox/WebKit too. Only module syntax is removed from
     # these reviewed dependency files; runtime bytes remain untouched.
     worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '')
-                       for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-sw.js'])
+                       for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-client-routing.js', 'dependency-sw.js'])
     put(plugin / 'assets/dependency-sw.js', worker.encode())
     offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
     put(plugin / 'assets/offline-browser-sw.js', offline_worker.encode())

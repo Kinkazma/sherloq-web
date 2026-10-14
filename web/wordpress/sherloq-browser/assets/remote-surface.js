@@ -1,4 +1,24 @@
 let serial=0;
+// One immutable, bounded provisional frame. It uses native logical coordinates
+// but never asks a worker for pixels after a newer preview has replaced them.
+export function createPreviewSurface(pixels,{document=globalThis.document}={}){
+ const {width:sampleWidth,height:sampleHeight,logicalWidth:width,logicalHeight:height,format,data,preview}=pixels??{};
+ if(preview!==true||format!=='rgb8'||![sampleWidth,sampleHeight].every(v=>Number.isSafeInteger(v)&&v>=1&&v<=320)||![width,height].every(v=>Number.isSafeInteger(v)&&v>=1)||sampleWidth>width||sampleHeight>height||!(data instanceof Uint8Array)||data.length!==sampleWidth*sampleHeight*3)throw Object.assign(Error('Invalid bounded preview surface.'),{code:'INVALID_INPUT'});
+ const canvas=document.createElement('canvas');canvas.width=sampleWidth;canvas.height=sampleHeight;
+ try{const ctx=canvas.getContext('2d'),image=ctx.createImageData(sampleWidth,sampleHeight);for(let a=0,b=0;a<data.length;a+=3,b+=4){image.data[b]=data[a];image.data[b+1]=data[a+1];image.data[b+2]=data[a+2];image.data[b+3]=255;}ctx.putImageData(image,0,0);}
+ catch(error){canvas.width=canvas.height=0;throw error;}
+ let references=0;
+ const unavailable=async()=>{throw Object.assign(Error('A provisional frame cannot provide native pixels or exports.'),{code:'PREVIEW_NOT_EXPORTABLE'});};
+ function retain(){references++;let released=false;return{width,height,previewOnly:true,
+  get byteLength(){return released?0:sampleWidth*sampleHeight*4;},
+  prepare:()=>!released,
+  draw(ctx){if(released)return;ctx.save();ctx.beginPath();ctx.rect(0,0,width,height);ctx.clip();ctx.drawImage(canvas,0,0,width,height);ctx.restore();},
+  readPixels:unavailable,readDisplayPixels:unavailable,
+  fork(){return released?null:retain();},freeze(){return released?null:retain();},
+  close(){if(released)return;released=true;if(!--references)canvas.width=canvas.height=0;}
+ };}
+ return retain();
+}
 // One bounded frame per viewport. Repeated movement replaces the next request;
 // it never queues a screenful of obsolete tiles behind the current calculation.
 export function displayViewport(width,height,{left,top,right,bottom},scale=1,maximumPixels=8*1024**2){
@@ -9,6 +29,7 @@ export function displayViewport(width,height,{left,top,right,bottom},scale=1,max
 }
 export function createRemoteSurface(display,cache,request,changed,onError=()=>{}){
  const {width,height}=display,prefix='remote-'+(++serial)+':',key=prefix+'frame',children=new Set();
+ const previewStep=Number.isSafeInteger(display.previewStep)&&display.previewStep>1?display.previewStep:1;
  let closed=false,pending=null,wanted=null,frame=null,failed=null;
  const identity=t=>t?[t.x,t.y,t.w,t.h,t.step].join(':'):'';
  function available(tile){const canvas=frame&&cache.get(key);return canvas&&frame.step===tile.step&&frame.x<=tile.x&&frame.y<=tile.y&&frame.x+frame.w>=tile.x+tile.w&&frame.y+frame.h>=tile.y+tile.h?canvas:null;}
@@ -38,7 +59,7 @@ export function createRemoteSurface(display,cache,request,changed,onError=()=>{}
     close(){if(released)return;released=true;if(!--refs)canvas.width=canvas.height=0;}
    };};return retain();
   },
-  prepare(bounds,scale){if(closed)return false;wanted=displayViewport(width,height,bounds,scale,Math.min(8*1024**2,Math.floor(cache.limit/8)));if(!wanted)return true;const ready=!!available(wanted);if(!ready)pump();return ready;},
+  prepare(bounds,scale){if(closed)return false;wanted=displayViewport(width,height,bounds,Math.min(scale,1/previewStep),Math.min(8*1024**2,Math.floor(cache.limit/8)));if(!wanted)return true;const ready=!!available(wanted);if(!ready)pump();return ready;},
   draw(ctx,bounds,scale){surface.prepare(bounds,scale);const canvas=frame&&cache.get(key);if(!canvas||closed)return;
    ctx.save();ctx.beginPath();ctx.rect(0,0,width,height);ctx.clip();ctx.drawImage(canvas,frame.x,frame.y,canvas.width*frame.step,canvas.height*frame.step);ctx.restore();
   },

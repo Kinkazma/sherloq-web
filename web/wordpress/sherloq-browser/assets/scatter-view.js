@@ -1,3 +1,25 @@
+import {bindViewerNavigation} from './viewer-input.js';
+
+const MIN_ZOOM=.1,MAX_ZOOM=12;
+function cssViewport(element){const rect=element.getBoundingClientRect?.();return {width:Number.isFinite(rect?.width)&&rect.width>0?rect.width:element.clientWidth,height:Number.isFinite(rect?.height)&&rect.height>0?rect.height:element.clientHeight};}
+export function createPlotCamera(initial={}){
+ const value=(key,fallback)=>Number.isFinite(initial?.[key])?initial[key]:fallback;
+ return {yaw:value('yaw',0),pitch:Math.max(-Math.PI/2,Math.min(Math.PI/2,value('pitch',0))),zoom:Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,value('zoom',1))),x:value('x',0),y:value('y',0)};
+}
+function projectCoordinates(x,y,z,kind,camera,{width,height}){
+ x-=.5;y-=.5;z-=.5;
+ if(kind==='3d'){const xx=x*Math.cos(camera.yaw)+z*Math.sin(camera.yaw);z=z*Math.cos(camera.yaw)-x*Math.sin(camera.yaw);x=xx;y=y*Math.cos(camera.pitch)-z*Math.sin(camera.pitch);}
+ const size=Math.min(width,height)*.7*camera.zoom;return [width/2+camera.x+x*size,height/2+camera.y-y*size];
+}
+// CSS coordinates match the orthographic GPU projection, independently of DPR.
+export function projectPlotPoint(point,style,camera,viewport){return projectCoordinates(point[style.x],point[style.y],style.kind==='3d'?point[style.z]:.5,style.kind,camera,viewport);}
+export function zoomPlotCamera(camera,{width,height},point,factor){
+ if(!Number.isFinite(factor)||factor<=0||!Number.isFinite(width)||!Number.isFinite(height)||width<=0||height<=0||!Number.isFinite(camera?.zoom)||camera.zoom<=0||!Number.isFinite(camera.x)||!Number.isFinite(camera.y))return false;
+ const before=camera.zoom,zoom=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,before*factor));if(zoom===before)return false;
+ const ratio=zoom/before,x=(Number.isFinite(point?.x)?point.x:width/2)-width/2,y=(Number.isFinite(point?.y)?point.y:height/2)-height/2;
+ camera.x=ratio*camera.x+(1-ratio)*x;camera.y=ratio*camera.y+(1-ratio)*y;camera.zoom=zoom;return true;
+}
+
 // Presentation cache only. The native table and its CSV keep every computed row.
 export async function readPlotPoints(table,readTable,{valid=()=>true,maxPoints=262144}={}) {
  const stride=Math.max(1,Math.ceil(table.rowCount/maxPoints));
@@ -16,34 +38,42 @@ export async function readPlotPoints(table,readTable,{valid=()=>true,maxPoints=2
  return {values,count,total:table.rowCount};
 }
 
-export function bindPlotCamera(canvas,{camera,style,changed,reset}) {
- const pointers=new Map();
+export function bindPlotCamera(canvas,{camera,style,changed,reset,getNavigationMode=()=> 'auto'}) {
+ const pointers=new Map(),listeners=[];let disposed=false,nativeGestureEnd=null;
+ const listen=(target,type,handler,options)=>{if(!target?.addEventListener)return;target.addEventListener(type,handler,options);listeners.push(()=>target.removeEventListener?.(type,handler,options));};
  const stop=e=>{e.preventDefault();e.stopPropagation();};
- canvas.addEventListener('pointerdown',e=>{
-  if(e.button!==0&&e.button!==1)return;
+ const viewport=()=>cssViewport(canvas);
+ const point=e=>{const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};};
+ const panBy=(dx,dy)=>{if(!Number.isFinite(dx)||!Number.isFinite(dy)||!dx&&!dy)return;camera.x+=dx;camera.y+=dy;changed();};
+ // The adapter tracks the shared helper's listeners for local cleanup. Events
+ // stop here so the enclosing image viewport cannot navigate a second time.
+ const navigation={getBoundingClientRect:()=>canvas.getBoundingClientRect(),get clientHeight(){return canvas.clientHeight||viewport().height;},addEventListener(type,handler,options){if(type==='gestureend')nativeGestureEnd=handler;listen(canvas,type,e=>{if(disposed)return;e.stopPropagation();handler(e);},options);}};
+ bindViewerNavigation(navigation,{enabled:()=>!disposed,getMode:getNavigationMode,panBy,zoomBy:(anchor,factor)=>{if(zoomPlotCamera(camera,viewport(),anchor,factor))changed();},isTouchActive:()=>pointers.size>1});
+ listen(canvas,'pointerdown',e=>{
+  if(disposed||e.button!==0&&e.button!==1)return;
   stop(e);canvas.focus();canvas.setPointerCapture(e.pointerId);
-  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY,pan:e.shiftKey||e.button===1});
+  pointers.set(e.pointerId,{...point(e),pan:e.shiftKey||e.button===1});
  });
- canvas.addEventListener('pointermove',e=>{
+ listen(canvas,'pointermove',e=>{
   const previous=pointers.get(e.pointerId);if(!previous)return;stop(e);
-  const next={...previous,x:e.clientX,y:e.clientY},dx=next.x-previous.x,dy=next.y-previous.y;
+  const old=[...pointers.values()],next={...previous,...point(e)},dx=next.x-previous.x,dy=next.y-previous.y;pointers.set(e.pointerId,next);
   if(pointers.size===2){
-   const other=[...pointers.entries()].find(([id])=>id!==e.pointerId)[1];
-   const a=Math.hypot(previous.x-other.x,previous.y-other.y),b=Math.hypot(next.x-other.x,next.y-other.y);
-   if(a>0)camera.zoom=Math.max(.1,Math.min(12,camera.zoom*b/a));
-   camera.x+=dx/2;camera.y+=dy/2;
+   const updated=[...pointers.values()],center=pts=>({x:(pts[0].x+pts[1].x)/2,y:(pts[0].y+pts[1].y)/2}),distance=pts=>Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y),a=center(old),b=center(updated),d=distance(old);
+   if(d>0)zoomPlotCamera(camera,viewport(),a,distance(updated)/d);camera.x+=b.x-a.x;camera.y+=b.y-a.y;
   }else if(style().kind==='3d'&&!previous.pan){camera.yaw+=dx*.008;camera.pitch=Math.max(-Math.PI/2,Math.min(Math.PI/2,camera.pitch+dy*.008));}
   else{camera.x+=dx;camera.y+=dy;}
-  pointers.set(e.pointerId,next);changed();
+  changed();
  });
  const end=e=>{if(pointers.delete(e.pointerId))e.stopPropagation();};
- for(const name of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(name,end);
- canvas.addEventListener('wheel',e=>{stop(e);camera.zoom=Math.max(.1,Math.min(12,camera.zoom*Math.exp(Math.max(-1,Math.min(1,-e.deltaY*(e.deltaMode===1?16:1)*.002)))));changed();},{passive:false});
- canvas.addEventListener('dblclick',e=>{stop(e);reset();});
- canvas.addEventListener('keydown',e=>{
+ for(const name of ['pointerup','pointercancel','lostpointercapture'])listen(canvas,name,end);
+ listen(canvas,'dblclick',e=>{stop(e);reset();});
+ listen(canvas,'keydown',e=>{
   if(e.key==='Home'){stop(e);reset();return;}
-  if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){stop(e);camera.yaw+=(e.key==='ArrowLeft'?-.1:e.key==='ArrowRight'?.1:0);camera.pitch=Math.max(-Math.PI/2,Math.min(Math.PI/2,camera.pitch+(e.key==='ArrowUp'?-.1:e.key==='ArrowDown'?.1:0)));changed();}
+  if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){stop(e);if(style().kind!=='3d'||e.shiftKey){panBy(e.key==='ArrowLeft'?-20:e.key==='ArrowRight'?20:0,e.key==='ArrowUp'?-20:e.key==='ArrowDown'?20:0);return;}camera.yaw+=(e.key==='ArrowLeft'?-.1:e.key==='ArrowRight'?.1:0);camera.pitch=Math.max(-Math.PI/2,Math.min(Math.PI/2,camera.pitch+(e.key==='ArrowUp'?-.1:e.key==='ArrowDown'?.1:0)));changed();}
  });
+ const endSession=()=>{pointers.clear();nativeGestureEnd?.({preventDefault(){}});};
+ listen(canvas,'blur',endSession);listen(canvas.ownerDocument?.defaultView,'blur',endSession);listen(canvas.ownerDocument,'visibilitychange',()=>{if(canvas.ownerDocument.hidden)endSession();});
+ return {dispose(){if(disposed)return;disposed=true;endSession();for(const remove of listeners.splice(0))remove();}};
 }
 
 function gpuRenderer(canvas,points) {
@@ -90,9 +120,9 @@ function gpuRenderer(canvas,points) {
  }catch(error){if(buffer)gl.deleteBuffer(buffer);if(program)gl.deleteProgram(program);for(const s of shaders)gl.deleteShader(s);return null;}
 }
 
-export function createScatterView({document,parent,points,style,columns,language=()=> 'fr',forceCanvas=false}) {
+export function createScatterView({document,parent,points,style,columns,language=()=> 'fr',getNavigationMode=()=> 'auto',forceCanvas=false,initialCamera}) {
  let p={...style},disposed=false,frame=null;
- const camera={yaw:.5,pitch:.3,zoom:1,x:0,y:0};
+ const camera=createPlotCamera(initialCamera);
  const stage=document.createElement('div');stage.className='scatter-stage';
  let canvas=document.createElement('canvas');canvas.className='scatter-canvas';stage.append(canvas);
  const guides=document.createElement('canvas');guides.className='scatter-guides';guides.setAttribute('aria-hidden','true');stage.append(guides);const axisContext=guides.getContext('2d');
@@ -104,35 +134,34 @@ export function createScatterView({document,parent,points,style,columns,language
  if(!renderer){canvas.remove();canvas=document.createElement('canvas');canvas.className='scatter-canvas';stage.prepend(canvas);}
  const context=renderer?null:canvas.getContext('2d');
  canvas.tabIndex=0;canvas.setAttribute('aria-label','Nuage RGB/HSV interactif');
- const axes=point=>{let x=point[p.x]-.5,y=point[p.y]-.5,z=p.kind==='3d'?point[p.z]-.5:0;if(p.kind==='3d'){const xx=x*Math.cos(camera.yaw)+z*Math.sin(camera.yaw);z=z*Math.cos(camera.yaw)-x*Math.sin(camera.yaw);x=xx;y=y*Math.cos(camera.pitch)-z*Math.sin(camera.pitch);}return [x,y];};
  function draw(){
   frame=null;if(disposed)return;
-  const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;
+  const {width:w,height:h}=cssViewport(stage);if(!w||!h)return;
   const dpr=Math.min(globalThis.devicePixelRatio||1,2),dark=(document.documentElement.dataset.theme||'dark')==='dark';
   if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
   if(renderer)renderer.draw(p,camera,w,h,dpr,dark);
   else{
-   context.setTransform(dpr,0,0,dpr,0,0);context.fillStyle=dark?'#17181a':'#f7f7f7';context.fillRect(0,0,w,h);context.globalAlpha=p.alpha;
-   const size=Math.min(w,h)*.7*camera.zoom;
-   for(let i=0;i<points.count;i++){const row=points.values.subarray(i*6,i*6+6),[x,y]=axes(row);context.fillStyle=p.colored?`rgb(${row[0]*255},${row[1]*255},${row[2]*255})`:'#338cd9';context.fillRect(w/2+camera.x+x*size,h/2+camera.y-y*size,1.5,1.5);}context.globalAlpha=1;
+   context.setTransform(canvas.width/w,0,0,canvas.height/h,0,0);context.fillStyle=dark?'#17181a':'#f7f7f7';context.fillRect(0,0,w,h);context.globalAlpha=p.alpha;
+   const viewport={width:w,height:h};for(let i=0;i<points.count;i++){const row=points.values.subarray(i*6,i*6+6),[x,y]=projectPlotPoint(row,p,camera,viewport);context.fillStyle=p.colored?`rgb(${row[0]*255},${row[1]*255},${row[2]*255})`:'#338cd9';context.fillRect(x,y,1.5,1.5);}context.globalAlpha=1;
   }
   if(guides.width!==canvas.width||guides.height!==canvas.height){guides.width=canvas.width;guides.height=canvas.height;}
-  axisContext.setTransform(dpr,0,0,dpr,0,0);axisContext.clearRect(0,0,w,h);axisContext.lineWidth=1;axisContext.font='11px sans-serif';
-  const project=(x,y,z)=>{x-=.5;y-=.5;z-=.5;if(p.kind==='3d'){const xx=x*Math.cos(camera.yaw)+z*Math.sin(camera.yaw);z=z*Math.cos(camera.yaw)-x*Math.sin(camera.yaw);x=xx;y=y*Math.cos(camera.pitch)-z*Math.sin(camera.pitch);}const size=Math.min(w,h)*.7*camera.zoom;return [w/2+camera.x+x*size,h/2+camera.y-y*size];};
+  axisContext.setTransform(guides.width/w,0,0,guides.height/h,0,0);axisContext.clearRect(0,0,w,h);axisContext.lineWidth=1;axisContext.font='11px sans-serif';
+  const project=(x,y,z)=>projectCoordinates(x,y,z,p.kind,camera,{width:w,height:h});
   const origin=project(0,0,0),ends=[project(1,0,0),project(0,1,0),...(p.kind==='3d'?[project(0,0,1)]:[])];
-  ends.forEach((end,i)=>{axisContext.strokeStyle=['#ce7777','#78b58a','#81a9dc'][i];axisContext.fillStyle=axisContext.strokeStyle;axisContext.beginPath();axisContext.moveTo(...origin);axisContext.lineTo(...end);axisContext.stroke();axisContext.fillText(columns[[p.x,p.y,p.z][i]]+' 1',end[0]+4,end[1]-4);});
+  ends.forEach((end,i)=>{if(Math.hypot(end[0]-origin[0],end[1]-origin[1])<2)return;axisContext.strokeStyle=['#ce7777','#78b58a','#81a9dc'][i];axisContext.fillStyle=axisContext.strokeStyle;axisContext.beginPath();axisContext.moveTo(...origin);axisContext.lineTo(...end);axisContext.stroke();axisContext.fillText(columns[[p.x,p.y,p.z][i]]+' 1',end[0]+4,end[1]-4);});
   axisContext.fillStyle=dark?'#aeb2b9':'#59606a';axisContext.fillText('0',origin[0]-10,origin[1]+12);
  }
  function requestDraw(){if(!disposed&&frame===null)frame=requestAnimationFrame(draw);}
- function resetCamera(){Object.assign(camera,{yaw:.5,pitch:.3,zoom:1,x:0,y:0});requestDraw();}
- function translate(){const fr=language()==='fr';label.textContent=[p.x,p.y,...(p.kind==='3d'?[p.z]:[])].map(i=>columns[i]).join(' × ');help.textContent=(fr?(p.kind==='3d'?'Glisser : tourner · Maj + glisser : déplacer':'Glisser : déplacer')+' · Molette : zoom · Double-clic : ajuster':(p.kind==='3d'?'Drag: rotate · Shift + drag: pan':'Drag: pan')+' · Wheel: zoom · Double-click: fit')+(points.count<points.total?(fr?' · Affichage : ':' · Display: ')+points.count.toLocaleString()+' / '+points.total.toLocaleString()+(fr?' points ; CSV complet disponible.':' points; full CSV available.'):'');reset.textContent=fr?'Ajuster':'Fit';}
- reset.onclick=resetCamera;bindPlotCamera(canvas,{camera,style:()=>p,changed:requestDraw,reset:resetCamera});
+ function resetCamera(){Object.assign(camera,createPlotCamera());requestDraw();}
+ function translate(){const fr=language()==='fr';label.textContent=[p.x,p.y,...(p.kind==='3d'?[p.z]:[])].map(i=>columns[i]).join(' × ');help.textContent=(fr?(p.kind==='3d'?'Glisser : tourner · Maj + glisser : déplacer':'Glisser : déplacer')+' · Trackpad : déplacer · Molette / pincement : zoom · Double-clic : ajuster':(p.kind==='3d'?'Drag: rotate · Shift + drag: pan':'Drag: pan')+' · Trackpad: pan · Wheel / pinch: zoom · Double-click: fit')+(points.count<points.total?(fr?' · Affichage : ':' · Display: ')+points.count.toLocaleString()+' / '+points.total.toLocaleString()+(fr?' points ; CSV complet disponible.':' points; full CSV available.'):'');reset.textContent=fr?'Ajuster':'Fit';}
+ reset.onclick=resetCamera;const navigation=bindPlotCamera(canvas,{camera,style:()=>p,changed:requestDraw,reset:resetCamera,getNavigationMode});
  const resize=new ResizeObserver(requestDraw);resize.observe(stage);
  // Restoring a context cannot restore its old resources. Fall back to the same
  // retained points without an engine call or an automatic rerun.
- canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();if(disposed)return;renderer?.dispose();renderer=null;replacement();});
- function replacement(){const next=createScatterView({document,parent,points,style:p,columns,language,forceCanvas:true});disposed=true;resize.disconnect();if(frame!==null)cancelAnimationFrame(frame);successor=next;}
+ const contextLost=e=>{e.preventDefault();if(disposed)return;renderer?.dispose();renderer=null;replacement();};canvas.addEventListener('webglcontextlost',contextLost);
+ function releaseView(){disposed=true;navigation.dispose();resize.disconnect();if(frame!==null)cancelAnimationFrame(frame);canvas.removeEventListener('webglcontextlost',contextLost);reset.onclick=null;}
+ function replacement(){const saved=createPlotCamera(camera);releaseView();successor=createScatterView({document,parent,points,style:p,columns,language,getNavigationMode,forceCanvas:true,initialCamera:saved});}
  let successor=null;
  translate();requestDraw();
- return {setStyle(value){if(successor)return successor.setStyle(value);p={...p,...value};translate();requestDraw();},redraw(){if(successor)return successor.redraw();translate();requestDraw();},fit(){if(successor)return successor.fit();resetCamera();},zoomBy(factor){if(successor)return successor.zoomBy(factor);camera.zoom=Math.max(.1,Math.min(12,camera.zoom*factor));requestDraw();},dispose(){if(successor)return successor.dispose();disposed=true;resize.disconnect();if(frame!==null)cancelAnimationFrame(frame);renderer?.dispose();}};
+ return {setStyle(value){if(successor)return successor.setStyle(value);p={...p,...value};translate();requestDraw();},redraw(){if(successor)return successor.redraw();translate();requestDraw();},fit(){if(successor)return successor.fit();resetCamera();},zoomBy(factor){if(successor)return successor.zoomBy(factor);if(zoomPlotCamera(camera,cssViewport(stage),null,factor))requestDraw();},dispose(){if(successor)return successor.dispose();if(disposed)return;releaseView();renderer?.dispose();}};
 }

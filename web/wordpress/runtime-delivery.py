@@ -22,6 +22,111 @@ def _encoded(value):
 def _digest(data):
     return hashlib.sha256(data).hexdigest()
 
+def _reviewed_ela_increment(root):
+    """Validate the new layer before exposing its immutable predecessor.
+
+    Historical receipts still describe their original bytes. Only this fixed,
+    five-module layer can shadow those bytes, and reversing it must recover
+    the retained metadata exactly. No model/native binary can enter this layer.
+    """
+    root = Path(root)
+    repository = root.parents[1]
+    receipt_path = root / 'runtime-patches/ela-runtime-20261014.json'
+    if not receipt_path.exists():
+        return None, {}
+    receipt = json.loads(receipt_path.read_bytes())
+    if receipt.get('schema') != 'sherloq.ela-runtime-increment/1':
+        raise ValueError('Unsupported ELA runtime increment')
+    expected_names = {'unified-engine/src/' + name for name in
+                      ['index.js', 'segmented-ela.js', 'ela-classic-preview.js',
+                       'energy-prepare.js', 'energy-segment.js']}
+    records = receipt.get('files', [])
+    if len(records) != 5 or {r.get('file') for r in records} != expected_names:
+        raise ValueError('ELA increment must declare its five reviewed modules')
+    def read_path(name):
+        if not isinstance(name, str) or '\\' in name or PurePosixPath(name).is_absolute() or any(p in ['', '.', '..'] for p in name.split('/')):
+            raise ValueError('Unsafe ELA metadata path')
+        return (repository / name).read_bytes()
+    def verify(record, location=None):
+        data = read_path(location or record['file'])
+        if _digest(data) != record['sha256'] or len(data) != record['size']:
+            raise ValueError('ELA runtime metadata changed: ' + record['file'])
+        return data
+    parent_ref = receipt['baseline']['parentReceipt']
+    if parent_ref['file'] != 'web/wordpress/runtime-patches/batch-scientific-regions-20261013.json' or parent_ref['sha256'] != '01e747c1d6973fccef363b90ec8cd0a56ed2eb82ccc623a33a8c0d3d9d5f6037':
+        raise ValueError('ELA increment must retain the published scientific receipt')
+    parent = json.loads(verify(parent_ref))
+    expected_snapshots = {
+        'web-assets/manifest-template.json',
+        'web/wordpress/runtime-source-lock.json', 'web/wordpress/runtime-lock.json',
+        'web/engine-source/src/index.js',
+        'web/wordpress/sherloq-browser/assets/unified-engine/src/index.js',
+        'web/runtime-sources/unified-engine/src/index.js'}
+    snapshots = receipt['baseline']['snapshots']
+    if len(snapshots) != len(expected_snapshots) or {r['file'] for r in snapshots} != expected_snapshots:
+        raise ValueError('ELA predecessor snapshot set differs')
+    previous = {}
+    for record in snapshots:
+        if not record['copy'].startswith('web/wordpress/runtime-patches/baselines/web-0.19.1/'):
+            raise ValueError('ELA predecessor is outside its fixed source directory')
+        previous[record['file']] = verify(record, record['copy'])
+    def previous_record(record):
+        data = previous[record['file']]
+        if _digest(data) != record['sha256'] or len(data) != record['size']:
+            raise ValueError('ELA predecessor reference changed')
+        return json.loads(data)
+    baseline = receipt['baseline']
+    before_manifest = previous_record(baseline['manifest'])
+    if baseline['manifest']['file'] != parent['manifest']['file'] or baseline['manifest']['sha256'] != parent['manifest']['sha256']:
+        raise ValueError('ELA predecessor inventory differs from the scientific receipt')
+    old_locks = {kind: previous_record(baseline['locks'][kind]) for kind in ['source', 'delivered']}
+    for kind in old_locks:
+        if baseline['locks'][kind]['file'] != parent['locks'][kind]['file'] or baseline['locks'][kind]['sha256'] != parent['locks'][kind]['sha256']:
+            raise ValueError('ELA predecessor lock differs from the scientific receipt')
+    parent_index = next(r for r in parent['files'] if r['file'] == 'unified-engine/src/index.js')
+    for name, expected in [('web/engine-source/src/index.js', parent_index['sourceAfter']['sha256']),
+                           ('web/wordpress/sherloq-browser/assets/unified-engine/src/index.js', parent_index['after']['sha256']),
+                           ('web/runtime-sources/unified-engine/src/index.js', parent_index['after']['sha256'])]:
+        if _digest(previous[name]) != expected:
+            raise ValueError('ELA predecessor index differs from the scientific receipt')
+    expected_manifest = deepcopy(before_manifest)
+    expected_locks = deepcopy(old_locks)
+    for record in records:
+        name, after = record['file'], record['after']
+        added = name not in before_manifest['files']
+        if record['added'] != added or record['before'] != before_manifest['files'].get(name) or added != name.endswith('/ela-classic-preview.js'):
+            raise ValueError('ELA predecessor file identity differs: ' + name)
+        if after != {'sha256': after['sha256'], 'size': after['size'], 'type': 'text/javascript', 'chunks': [after['sha256']]} or not 0 < after['size'] < 512_000:
+            raise ValueError('Invalid ELA resource descriptor: ' + name)
+        source_name = 'web/engine-source/' + name.removeprefix('unified-engine/')
+        asset_name = 'web/wordpress/sherloq-browser/assets/' + name
+        mirror_name = 'web/runtime-sources/' + name
+        if (record['source'], record['asset'], record['mirror']) != (source_name, asset_name, mirror_name):
+            raise ValueError('ELA source or runtime path differs')
+        data, raw = read_path(asset_name), read_path(source_name)
+        logic = re.sub(rb'^import [^\n]*runtime-context\.js\?v=[^\n]*;\n', b'', data)
+        if _digest(data) != after['sha256'] or len(data) != after['size'] or read_path(mirror_name) != data or logic != raw or _digest(raw) != record['sourceAfter']['sha256'] or len(raw) != record['sourceAfter']['size']:
+            raise ValueError('ELA reviewed source/deployed bytes changed: ' + name)
+        expected_manifest['files'][name] = after
+        expected_manifest['chunks'][after['sha256']] = len(data)
+        if added:
+            expected_manifest['localFiles'].append(name)
+        for kind in ['source', 'delivered']:
+            slot = next(r for r in expected_locks[kind]['runtimes'] if r['destination'] == 'sherloq-browser/assets/unified-engine')
+            relative = name.removeprefix('unified-engine/')
+            before_hash = record['sourceBeforeSha256' if kind == 'source' else 'deliveredBeforeSha256']
+            if slot['files'].get(relative) != before_hash:
+                raise ValueError('ELA predecessor slot changed: ' + name)
+            slot['files'][relative] = record['sourceAfter']['sha256'] if kind == 'source' else after['sha256']
+    if receipt['manifest']['file'] != parent['manifest']['file'] or receipt['manifest']['addedLocalFiles'] != ['unified-engine/src/ela-classic-preview.js']:
+        raise ValueError('ELA inventory declaration differs')
+    if _encoded(expected_manifest) != verify(receipt['manifest']):
+        raise ValueError('ELA increment changes undeclared dependency metadata')
+    for kind in ['source', 'delivered']:
+        if receipt['locks'][kind]['file'] != parent['locks'][kind]['file'] or _encoded(expected_locks[kind]) != verify(receipt['locks'][kind]):
+            raise ValueError('ELA increment changes undeclared runtime locks')
+    return receipt, previous
+
 class QualifiedRuntimeOverlay:
     """Replay only a reviewed additive increment after the ordinary adapter.
 
@@ -33,6 +138,9 @@ class QualifiedRuntimeOverlay:
     def __init__(self, root):
         root = Path(root)
         self.files = {}
+        self.receipts = []
+        ela, predecessor = _reviewed_ela_increment(root)
+        self.predecessor = predecessor
         receipt_path = root / 'runtime-patches/batch-scientific-regions-20261013.json'
         if not receipt_path.exists():
             return
@@ -48,7 +156,7 @@ class QualifiedRuntimeOverlay:
             parts = PurePosixPath(name)
             if parts.is_absolute() or any(p in ['', '..', '.'] for p in name.split('/')) or '\\' in name:
                 raise ValueError('Unsafe qualified runtime identity')
-            data = (repository / name).read_bytes()
+            data = predecessor[name] if name in predecessor else (repository / name).read_bytes()
             if _digest(data) != record['sha256']:
                 raise ValueError('Qualified runtime metadata changed: ' + name)
             return data
@@ -105,12 +213,16 @@ class QualifiedRuntimeOverlay:
             # Only the fixed plugin location can supply these bytes.
             if record['asset'] != 'web/wordpress/sherloq-browser/assets/' + name:
                 raise ValueError('Qualified runtime asset path differs')
-            data = (repository / record['asset']).read_bytes()
+            data = predecessor[record['asset']] if record['asset'] in predecessor else (repository / record['asset']).read_bytes()
             if len(data) != record['after']['size'] or _digest(data) != record['after']['sha256']:
                 raise ValueError('Qualified runtime bytes changed: ' + name)
             if manifest['chunks'].get(record['after']['sha256']) != len(data) or record['after']['chunks'] != [record['after']['sha256']]:
                 raise ValueError('Qualified runtime chunk identity differs: ' + name)
             self.files[name] = record
+        self.receipts.append(receipt)
+        if ela is not None:
+            self.receipts.append(ela)
+            self.files.update((record['file'], record) for record in ela['files'])
 
     def apply(self, relative, source, adapted):
         record = self.files.get(relative)

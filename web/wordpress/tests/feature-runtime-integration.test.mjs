@@ -8,7 +8,11 @@ import path from 'node:path';
 import {validateFeatureCatalog,selectActiveFiles,requiredFeatureChunks,featureDeletionPlan} from '../sherloq-browser/assets/feature-catalog.js';
 
 const root=fileURLToPath(new URL('../',import.meta.url)),repository=path.resolve(root,'../..');
-const bytes=file=>fs.readFileSync(path.join(repository,file));
+const currentBytes=file=>fs.readFileSync(path.join(repository,file));
+const ela=JSON.parse(currentBytes('web/wordpress/runtime-patches/ela-runtime-20261014.json'));
+const predecessor=new Map(ela.baseline.snapshots.map(record=>[record.file,record]));
+// Historical contracts retain the original 57-file view, including index.js.
+const bytes=file=>{const record=predecessor.get(file);if(!record)return currentBytes(file);const data=currentBytes(record.copy);assert.equal(createHash('sha256').update(data).digest('hex'),record.sha256);assert.equal(data.length,record.size);return data;};
 const sha=data=>createHash('sha256').update(data).digest('hex');
 const json=file=>JSON.parse(bytes(file));
 const sorted=value=>Array.isArray(value)?value.map(sorted):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,sorted(value[key])])):value;
@@ -41,9 +45,9 @@ test('integrated catalogue covers the newer protected runtime without changing o
  const deletion=featureDeletionPlan(originalCatalog,manifest,{},['ai.clones.d2prl'],{presentChunks:Object.keys(manifest.chunks)});
  assert.ok(!deletion.paths.includes(overlay.preserved.d2prlWasm.file));
  assert.ok(requiredFeatureChunks(originalCatalog,manifest,{disabledGroups}).has(overlay.preserved.d2prlWasm.sha256));
- validateFeatureCatalog(catalog,candidate);assert.equal(catalog.features.length,91);assert.equal(selectActiveFiles(catalog).size,5475);
+ validateFeatureCatalog(catalog,JSON.parse(currentBytes(ela.manifest.file)));assert.equal(catalog.features.length,91);assert.equal(selectActiveFiles(catalog).size,5476);
  for(const feature of originalCatalog.features.filter(feature=>feature.id!=='core'))assert.deepEqual(catalog.features.find(f=>f.id===feature.id),feature,'Optional identities and resources stay exact: '+feature.id);
- const active=selectActiveFiles(catalog,{disabledGroups});for(const record of increment.files.filter(r=>r.added))assert.ok(active.has(record.file),record.file);
+ const active=selectActiveFiles(catalog,{disabledGroups});for(const record of [...increment.files,...ela.files].filter(r=>r.added))assert.ok(active.has(record.file),record.file);
 });
 
 test('the immutable six-file selection overlay remains verifiable before the additive increment',()=>{

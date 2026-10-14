@@ -39,22 +39,23 @@ def immutable(value,directory=False):
 
 
 def reviewed_runtime_increment(manifest):
-    """Recover declared predecessor identities when input is already updated.
-
-    New paths remain ordinary content-addressed dependencies. Only existing
-    JavaScript replacements enter the updater's before/after override format.
-    """
+    """Compose reviewed layers without rewriting their predecessor receipts."""
     path=ROOT/'runtime-patches/batch-scientific-regions-20261013.json'
     if not path.exists(): return {},{},None
-    receipt=json.loads(path.read_bytes())
-    matches=[manifest['files'].get(record['file'])==record['after'] for record in receipt['files']]
-    if not any(matches): return {},{},None
-    if not all(matches): raise ValueError('Staged inventory contains only part of the qualified runtime increment')
     overlay=runtime_delivery.qualified_runtime_overlay(ROOT)
-    changes={record['file']:{'before':record['before']['sha256'],'after':record['after']['sha256'],'size':record['after']['size']}
-             for record in receipt['files'] if record['before'] is not None}
-    if len(changes)!=43 or any(not name.endswith(('.js','.mjs')) for name in changes):
-        raise ValueError('Qualified runtime updater replacements differ from the reviewed declaration')
+    if not all(manifest['files'].get(name)==record['after'] for name,record in overlay.files.items()):
+        raise ValueError('Staged inventory differs from the complete qualified runtime chain')
+    first,latest={},{}
+    for receipt in overlay.receipts:
+        for record in receipt['files']:
+            name=record['file']
+            if name in latest and latest[name]!=record['before']:
+                raise ValueError('Qualified runtime layers do not join: '+name)
+            first.setdefault(name,record['before']);latest[name]=record['after']
+    changes={name:{'before':first[name]['sha256'],'after':after['sha256'],'size':after['size']}
+             for name,after in latest.items() if first[name] is not None}
+    if any(not name.endswith(('.js','.mjs')) for name in changes):
+        raise ValueError('Qualified updater replacements must be JavaScript')
     payloads={}
     for name,record in overlay.files.items():
         data=(ROOT/'sherloq-browser/assets'/name).read_bytes()
@@ -63,6 +64,17 @@ def reviewed_runtime_increment(manifest):
         payloads[record['after']['sha256']]=data
     reference={'schema':'sherloq.runtime-increment-reference/1','sha256':digest(path.read_bytes()),'files':57,'addedFiles':14}
     return changes,payloads,reference
+
+
+def runtime_increment_references():
+    references=[]
+    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json']:
+        path=ROOT/'runtime-patches'/name
+        if not path.exists(): continue
+        receipt=json.loads(path.read_bytes())
+        references.append({'schema':'sherloq.runtime-increment-reference/1','sha256':digest(path.read_bytes()),
+                           'files':len(receipt['files']),'addedFiles':sum(record['added'] for record in receipt['files'])})
+    return references
 
 
 def stage(args):
@@ -104,7 +116,7 @@ def stage(args):
         if b'private-report' in data: raise ValueError('Private overlay is not a public local interface')
         if source.suffix=='.html': data=data.replace(b"connect-src 'self'",b"connect-src 'self' https://raw.githubusercontent.com")
         put(assets/name,data)
-    for worker,names in [('offline-browser-sw.js',OFFLINE_MODULES),('dependency-sw.js',['dependency-core.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','dependency-manifest.js','dependency-sw.js'])]:
+    for worker,names in [('offline-browser-sw.js',OFFLINE_MODULES),('dependency-sw.js',['dependency-core.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','dependency-manifest.js','dependency-client-routing.js','dependency-sw.js'])]:
         # Reviewed classic script bundle, also valid as a module bridge. The
         # build validates lexical collisions rather than hiding parser errors.
         code='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in names)
@@ -113,6 +125,8 @@ def stage(args):
     if increment is not None:
         put(assets/'scientific-regions-delivery-increment.json',
             (ROOT/'runtime-patches/batch-scientific-regions-20261013.json').read_bytes())
+    ela_receipt=ROOT/'runtime-patches/ela-runtime-20261014.json'
+    if ela_receipt.exists(): put(assets/'ela-delivery-increment.json',ela_receipt.read_bytes())
     put(assets/'feature-catalog.json',encode(catalogue))
     put(assets/'dependency-config.json',encode({'schema':'sherloq.dependency-config/1','enabled':False,'offline':True,'offlineMode':'archive','version':args.version,'manifest':identity}))
     shell=offline.write_shell(plugin,manifest,identity,args.version)
@@ -156,7 +170,9 @@ Le lanceur natif peut être conservé ; le HTML Python contient le helper exact.
             zipped.write(source,'resource-overlay/web-assets/chunks/'+source.name)
     if archive.stat().st_size>MAX_ZIP: archive.unlink(); raise ValueError('Compressed bootstrap ZIP exceeds 25,000,000 bytes')
     result={'schema':'sherloq.local-release-stage/1','version':args.version,'manifest':identity,'shell':digest((destination/'offline-shell.json').read_bytes()),'shellFiles':len(shell['files']),'features':len(catalogue['features']),'runtimeOverrides':changes,'bootstrap':{'bytes':archive.stat().st_size,'sha256':digest(archive.read_bytes()),'compressedLimitBytes':MAX_ZIP,'private':True},'published':False}
-    if increment is not None: result['runtimeIncrement']=increment
+    if increment is not None:
+        result['runtimeIncrement']=increment
+        result['runtimeIncrements']=runtime_increment_references()
     put(args.output/'stage.json',encode(result)); print(json.dumps(result,indent=2))
 
 
@@ -182,6 +198,7 @@ def describe(args):
                 raise ValueError('Runtime overlay does not match the verified resource inventory')
         if overrides: result['runtimeOverrides']=overrides
         if receipt.get('runtimeIncrement'): result['runtimeIncrement']=receipt['runtimeIncrement']
+        if receipt.get('runtimeIncrements'): result['runtimeIncrements']=receipt['runtimeIncrements']
     put(args.output,encode(result)); print(json.dumps({'bytes':args.output.stat().st_size,'sha256':digest(args.output.read_bytes()),'published':False}))
 
 

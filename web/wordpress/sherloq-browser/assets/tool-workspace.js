@@ -13,7 +13,7 @@ const button=(text,fn)=>{const b=node('button',text,{type:'button'});b.onclick=f
 // Decimal steps describe editing increments, not a scientific lattice anchored
 // at the lower bound. Keep native integer/parity validation for discrete fields.
 const numericIncrement=field=>field.step??(Number.isInteger(field.value)?1:'any');
-export function createToolWorkspace({document=globalThis.document,language,getClient,run,cancel,activity=fn=>fn(),showSurface,onLoupe=()=>{},download,notify,onSettings=()=>{}}){
+export function createToolWorkspace({document=globalThis.document,language,getClient,run,cancel,activity=fn=>fn(),showSurface,onLoupe=()=>{},download,notify,onSettings=()=>{},getNavigationMode=()=> 'auto'}){
  const controls=node('section',null,{id:'tool-controls',hidden:true}),form=node('form',null,{id:'tool-form'}),toolbar=node('div',null,{className:'parameter-bar'}),body=node('div',null,{id:'tool-results',hidden:true});
  document.getElementById('analysis-controls').after(controls);document.getElementById('viewport').append(body);
  const title=node('strong'),fields=node('div',null,{className:'tool-fields'}),attachments=node('div',null,{className:'tool-attachments'}),start=button('Calculer',run),stop=button('Annuler',cancel),reset=button('Réinitialiser',()=>{settings[id]=structuredClone(toolCatalog[id].params);if(id==='tampering.copyMove.sparse')extras.sparseView=sparseViewDefaults();select(id,true,{preserveResult:true});onSettings();}),layers=node('select',null,{id:'tool-layer','ariaLabel':'Couche du résultat'}),presentationContext=node('span',null,{id:'tool-presentation-context',className:'tool-presentation-context',hidden:true}),exports=node('div',null,{className:'tool-exports'});
@@ -154,7 +154,7 @@ export function createToolWorkspace({document=globalThis.document,language,getCl
   const token=epoch;parent.textContent=language()==='fr'?'Préparation du nuage…':'Preparing point cloud…';
   const client=await getClient(),points=await readPlotPoints(table,(...args)=>client.readTable(...args),{valid:()=>token===epoch});
   if(!points||token!==epoch)return;
-  plot=createScatterView({document,parent,points,style:settings[id],columns:table.columns,language});
+  plot=createScatterView({document,parent,points,style:settings[id],columns:table.columns,language,getNavigationMode});
  }
  function findDisplays(output){return resultDisplays(output,{neuralDisplays,language:language()});}
  function syncPresentationContext(){

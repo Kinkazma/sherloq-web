@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createRemoteSurface,displayViewport} from '../sherloq-browser/assets/remote-surface.js';import {TileCache} from '../sherloq-browser/assets/tiled-surface.js';
+import {createRemoteSurface,createPreviewSurface,displayViewport} from '../sherloq-browser/assets/remote-surface.js';import {TileCache} from '../sherloq-browser/assets/tiled-surface.js';
 const flush=()=>new Promise(r=>setImmediate(r));
 function setup(){const canvases=[];globalThis.document={createElement(){const c={width:0,height:0,getContext(){return {createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)}),putImageData(image){c.image=image;}};}};canvases.push(c);return c;}};const tasks=[],events=[],cache=new TileCache(),display={width:12000,height:8000},surface=createRemoteSurface(display,cache,(_,{tile})=>new Promise((resolve,reject)=>tasks.push({tile,resolve,reject})),()=>events.push('changed'),e=>events.push(e.message));const finish=t=>t.resolve({pixels:{width:Math.ceil(t.tile.w/t.tile.step),height:Math.ceil(t.tile.h/t.tile.step),data:new Uint8Array(Math.ceil(t.tile.w/t.tile.step)*Math.ceil(t.tile.h/t.tile.step)*3)}});return{tasks,events,cache,surface,finish,canvases};}
 const full={left:0,top:0,right:12000,bottom:8000};
@@ -11,4 +11,29 @@ test('failed frame stops retrying unchanged geometry instead of creating a redra
 test('retained preview transfers the bounded frame and survives worker retirement without copies or reads',async()=>{
  const h=setup();h.surface.prepare(full,.1);await flush();h.finish(h.tasks[0]);await flush();const canvas=h.canvases[0],width=canvas.width,preview=h.surface.freeze();assert.equal(h.cache.bytes,0);h.surface.close();assert.equal(canvas.width,width);assert.equal(preview.previewOnly,true);assert.equal(preview.readPixels,undefined);
  const fork=preview.fork();let painted;preview.draw({save(){},beginPath(){},rect(){},clip(){},restore(){},drawImage:c=>painted=c});assert.equal(painted,canvas);assert.equal(preview.prepare(full,10),true);await flush();assert.equal(h.tasks.length,1);preview.close();assert.equal(canvas.width,width);fork.close();assert.equal(canvas.width,0);
+});
+
+test('a reduced drag backing keeps native logical geometry and requests coarse frames only until the exact descriptor replaces it',async()=>{
+ const h=setup(),requests=[],changed=[];const preview=createRemoteSurface({width:2508,height:1254,preview:true,previewStep:8},h.cache,async(_,{tile})=>{requests.push(tile);return{pixels:{width:Math.ceil(tile.w/tile.step),height:Math.ceil(tile.h/tile.step),data:new Uint8Array(Math.ceil(tile.w/tile.step)*Math.ceil(tile.h/tile.step)*3)}};},()=>changed.push(true));
+ const bounds={left:0,top:0,right:2508,bottom:1254};preview.prepare(bounds,1);await flush();assert.equal(preview.width,2508);assert.equal(preview.height,1254);assert.equal(requests.length,1);assert.equal(requests[0].step,8);assert.ok(Math.ceil(requests[0].w/8)<=314);assert.equal(changed.length,1);
+ let painted;preview.draw({save(){},beginPath(){},rect(){},clip(){},restore(){},drawImage(...args){painted=args;}},bounds,1);assert.equal(painted[3],Math.ceil(requests[0].w/8)*8);assert.equal(painted[4],Math.ceil(requests[0].h/8)*8);preview.close();
+ const exact=createRemoteSurface({width:2508,height:1254},h.cache,async(_,{tile})=>{requests.push(tile);return{pixels:{width:tile.w,height:tile.h,data:new Uint8Array(tile.w*tile.h*3)}};},()=>{});exact.prepare({left:10,top:10,right:50,bottom:50},1);await flush();assert.equal(requests.at(-1).step,1);assert.equal(exact.width,2508);assert.equal(exact.height,1254);exact.close();h.surface.close();assert.equal(h.cache.bytes,0);
+});
+
+test('immutable preview owns one small canvas across forks/freezes, preserves logical camera geometry and never reads or exports native pixels',async()=>{
+ const h=setup(),data=Uint8Array.of(1,2,3,4,5,6,7,8,9,10,11,12),surface=createPreviewSurface({width:2,height:2,logicalWidth:1254,logicalHeight:1254,format:'rgb8',data,preview:true},{document:globalThis.document}),canvas=h.canvases.at(-1),calls=[];
+ assert.deepEqual(canvas.image.data,new Uint8ClampedArray([1,2,3,255,4,5,6,255,7,8,9,255,10,11,12,255]));assert.equal(surface.width,1254);assert.equal(surface.height,1254);assert.equal(surface.byteLength,16);assert.equal(surface.previewOnly,true);assert.equal(surface.prepare(full,100),true);
+ data.fill(99);surface.draw({save(){},beginPath(){},rect(){},clip(){},restore(){},drawImage(...args){calls.push(args);}});assert.deepEqual(calls[0],[canvas,0,0,1254,1254]);assert.equal(canvas.image.data[0],1,'input buffer is not retained as a mutable presentation');
+ for(const method of ['readPixels','readDisplayPixels'])await assert.rejects(surface[method]({x:0,y:0,width:1,height:1}),{code:'PREVIEW_NOT_EXPORTABLE'});
+ const fork=surface.fork(),frozen=surface.freeze();assert.equal(h.canvases.length,1);surface.close();surface.close();assert.equal(surface.byteLength,0);assert.equal(surface.prepare(full,1),false);assert.equal(surface.fork(),null);assert.equal(canvas.width,2);fork.close();assert.equal(canvas.width,2);frozen.close();assert.equal(canvas.width,0);assert.equal(canvas.height,0);h.surface.close();assert.equal(h.tasks.length,0);
+});
+test('successive local drafts retain at most the current and frozen320px frame; malformed dimensions allocate no canvas',()=>{
+ const h=setup(),pixels={width:320,height:320,logicalWidth:1254,logicalHeight:1254,format:'rgb8',data:new Uint8Array(320*320*3),preview:true},a=createPreviewSurface(pixels),frozen=a.freeze();a.close();const b=createPreviewSurface(pixels),alive=()=>h.canvases.filter(c=>c.width&&c.height);
+ assert.equal(alive().length,2);assert.equal(alive().reduce((n,c)=>n+c.width*c.height*4,0),2*320*320*4);frozen.close();assert.equal(alive().length,1);b.close();assert.equal(alive().length,0);
+ for(const bad of [{...pixels,width:321},{...pixels,height:0},{...pixels,logicalWidth:319},{...pixels,data:new Uint8Array(1)},{...pixels,preview:false}])assert.throws(()=>createPreviewSurface(bad),{code:'INVALID_INPUT'});assert.equal(h.canvases.length,2);
+ h.surface.close();
+});
+test('failed local preview canvas initialization releases its sample backing and does not retain the supplied pixels',()=>{
+ const canvas={width:0,height:0,getContext(){throw Error('Canvas admission refused');}},data=Uint8Array.of(1,2,3);
+ assert.throws(()=>createPreviewSurface({width:1,height:1,logicalWidth:1,logicalHeight:1,format:'rgb8',data,preview:true},{document:{createElement:()=>canvas}}),/admission refused/);assert.equal(canvas.width,0);assert.equal(canvas.height,0);assert.deepEqual(data,Uint8Array.of(1,2,3));
 });

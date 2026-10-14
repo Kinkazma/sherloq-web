@@ -56,3 +56,10 @@
 
 :host,.embedded-panel,.embedded-panel button,.embedded-panel input,.embedded-panel select,.embedded-panel textarea{font-family:var(--ui-font,"Iowan Old Style",Georgia,serif)}
 .embedded-panel input[type=range]{width:clamp(160px,18vw,240px)!important;max-width:100%;flex-shrink:1;min-width:140px}
+.embedded-panel #energy-biome-controls{flex-basis:100%;width:100%}
+.embedded-panel .energy-biome-grid{padding:0;gap:10px}
+.embedded-panel .energy-biome-grid .energy-four{display:grid;grid-template-columns:minmax(0,1fr);gap:7px}
+.embedded-panel .energy-biome-grid .energy-four>label{display:block;font-size:11px}
+.embedded-panel .energy-biome-grid .energy-four output{display:inline}
+.embedded-panel .energy-biome-grid .energy-pair input[type=range]{width:100%!important;min-width:0;flex:1}
+.embedded-panel .energy-histogram-selectors select{font-size:10px;min-height:21px;padding:1px 3px}

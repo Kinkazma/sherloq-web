@@ -71,7 +71,7 @@ test('Every catalogue tool has compact shared controls and no provenance action;
    assert.ok(root.getElementById('task-run').classList.contains('primary'),id);assert.equal(root.getElementById('task-run').parentElement.className,'panel-actions',id);
    await controller.dispose();
   }
-  const {root}=h.mount('ela.classic');assert.equal(root.getElementById('ela-tab-classic').getAttribute('aria-selected'),'true');root.getElementById('ela-tab-energy').onclick();assert.equal(root.getElementById('ela-mode').value,'energy');assert.equal(root.getElementById('classic-controls').hidden,true);assert.equal(root.getElementById('ela-tab-energy').getAttribute('aria-selected'),'true');
+  const {root}=h.mount('ela.classic');assert.equal(root.getElementById('ela-tab-classic').getAttribute('aria-selected'),'true');root.getElementById('ela-tab-energy').onclick();assert.equal(root.getElementById('ela-mode').value,'scores');assert.equal(root.getElementById('classic-controls').hidden,true);assert.equal(root.getElementById('energy-score-controls').hidden,false);assert.equal(root.getElementById('ela-tab-energy').getAttribute('aria-selected'),'true');root.getElementById('ela-tab-biomes').onclick();assert.equal(root.getElementById('ela-mode').value,'biomes');assert.equal(root.getElementById('energy-score-controls').hidden,true);assert.equal(root.getElementById('energy-biome-controls').hidden,false);assert.equal(root.getElementById('ela-tab-biomes').getAttribute('aria-selected'),'true');
  }finally{await h.dispose();}
 });
 test('the mounted modern individual owner defaults to checked OCR and submits a bound scope without changing edited manual geometry',async()=>{
@@ -129,7 +129,7 @@ test('Plot presentation memory is bounded, samples span pages, cancellation publ
 function target(){const handlers={};return{style:{setProperty(k,v){this[k]=v;}},getBoundingClientRect:()=>({width:500,height:350,left:10,top:10,right:510,bottom:360}),addEventListener:(k,fn)=>handlers[k]=fn,focus(){},setPointerCapture(){},emit(k,values={}){handlers[k]?.({preventDefault(){},stopPropagation(){},...values});}};}
 test('3D drag changes both angles; shift drag pans, wheel zooms and release ends motion',()=>{
  const canvas=target(),camera={yaw:0,pitch:0,zoom:1,x:0,y:0};let draws=0;
- bindPlotCamera(canvas,{camera,style:()=>({kind:'3d'}),changed:()=>draws++,reset(){}});
+ bindPlotCamera(canvas,{camera,style:()=>({kind:'3d'}),changed:()=>draws++,reset(){},getNavigationMode:()=> 'mouse'});
  canvas.emit('pointerdown',{button:0,pointerId:1,clientX:10,clientY:20});canvas.emit('pointermove',{pointerId:1,clientX:40,clientY:60});assert.notEqual(camera.yaw,0);assert.notEqual(camera.pitch,0);canvas.emit('pointerup',{pointerId:1});const before={...camera};canvas.emit('pointermove',{pointerId:1,clientX:100,clientY:100});assert.deepEqual(camera,before);
  canvas.emit('pointerdown',{button:0,shiftKey:true,pointerId:2,clientX:10,clientY:20});canvas.emit('pointermove',{pointerId:2,clientX:40,clientY:60});assert.equal(camera.yaw,before.yaw);assert.equal(camera.x,30);canvas.emit('wheel',{deltaY:-50});assert.ok(camera.zoom>1);assert.equal(draws,3);
 });

@@ -2,6 +2,15 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.20.0 — ELA views, native previews and RGB/HSV navigation · 2026-10-14
+
+- Present ELA as Classic, Energy and Biome views, retaining explicit saved choices and migrating the former Energy-biome mode. Add the unified red/blue energy view while preserving separate signed views and independent map/overlay presentation.
+- Keep the last view visible during recalculation. Coalesce continuous Classic and Biome parameter previews, reject obsolete source/gesture responses and restore the exact native result and exports on release. Shared JPEG preparation and cached residuals avoid redundant compatible recompression; draft previews cannot become scientific exports.
+- Add Classic Auto using current JPEG quantization tables first, then a bounded independent native-grid DCT estimate where supported. Ambiguous traces retain the chosen quality. Residual-based gain calibration is a documented visibility rule, not a forgery probability or unique compression history. [ELA views and limits](docs/ELA-VIEWS.md).
+- Show native residual and signed-score histograms for Biome with separate percentile/score units, valid original reference bounds, zero-score counts, logarithmic bar heights and provisional versus exact threshold markers.
+- Allow a new workspace to start alongside existing tabs and workers while pinning each owner to its immutable resource inventory. Preserve migration and resource-deletion safeguards. Compose the new five-module ELA delivery with the unchanged scientific receipt and retained predecessor locks.
+- Align the initial 3D RGB/HSV view with 2D. Honor the common mouse/trackpad preference, pointer-anchored zoom after panning, visible-center buttons, fractional CSS dimensions and camera preservation across rendering fallback. Points and scientific CSV/JSON data remain unchanged. [RGB/HSV navigation](docs/RGB-HSV-PLOTS.md).
+
 ## 0.19.1 — Downloads and batch result display · 2026-10-14
 
 - Restore normal browser download dispatch for every explicit export, including browsers offering native Save as. Retain the prepared file and native Save as fallback without claiming a completed standard download.
