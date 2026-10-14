@@ -33,4 +33,4 @@ The 0.17.0 delivery retains 96 native WASM modules below 300 KiB locally, on dem
 
 The batch PDF/ZIP vendor files retain their original bytes and paths and load on demand. Method-specific optional files can be imported from an authorized local library without blocking downloads for other tools. [Changes and qualification](../CHANGELOG.md).
 
-Local update inventories for this version are recorded in `web/local-sources/0.19.0/` and `releases/0.19.0.json`. The declared scientific scope increment adds 14 resources and replaces 43 JavaScript files; its receipt binds the exact runtime locks and leaves existing model payloads unchanged. Rebuilding retains the previous version’s compatibility manifest.
+Local update inventories for this version are recorded in `web/local-sources/0.19.1/` and `releases/0.19.1.json`. The declared scientific scope increment adds 14 resources and replaces 43 JavaScript files; its receipt binds the exact runtime locks and leaves existing model payloads unchanged. Rebuilding retains the previous version’s compatibility manifest.

@@ -1,5 +1,11 @@
 # Validation scope and optimization priorities
 
+## 0.19.1 — Downloads and batch result inspection
+
+The integrated interface and archive/export checks pass. Real Opera download checks cover JSON, quick WebP, displayed PNG, PDF and ZIP; the supplied images and archived scientific files retain their checked identities. The result grid is static during scrolling, switches between two columns and one with the available width, and opens native inspection by click or keyboard. View-specific opacities, valid inspection refreshes, zoom/pan and resource cleanup are covered by the source and supplied browser checks.
+
+Publication checks verify the new local interface sources and inventories through the actual GitHub URLs in fresh Chrome. Engine resources, model payloads and scientific arrays are unchanged. These checks qualify the tested interface, archive and transport paths; they do not establish new scientific accuracy or identical download behavior in every browser. [Compact source checks](evidence/batch-display-download-followup-local.json) · [Batch workflow](TRAITEMENT-PAR-LOT.md).
+
 ## 0.19.0 — Interactive regions, scientific scope and exports
 
 Interface, scientific-domain, runtime-identity and archive/export checks pass. A fresh Chrome profile retrieves the actual immutable GitHub inventories, verifies every local interface source and all declared new or replaced resources, and prepares the update shell. The previous release’s compatibility manifest is retained alongside the existing inventories.

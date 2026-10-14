@@ -1,8 +1,8 @@
 {
   "schema": "sherloq.publication-identity/1",
-  "ui_commit": "4027ccbd051c7f071a8a8f8885c68d401ce47dbf",
+  "ui_commit": "4aa890862a5a74f181c7027e8dbab4617ebe3e8d",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
-  "ui_version": "0.19.0",
+  "ui_version": "0.19.1",
   "engine_commit": "4027ccbd051c7f071a8a8f8885c68d401ce47dbf",
   "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "engine_version": "0.37.0-methods.1",
@@ -16,6 +16,7 @@
   "transport_adapter": "web/wordpress/runtime-delivery.py",
   "resource_origin_policy": "Deployments use the verified immutable resource publication commit. The manifest template has no deployment origin; this deployment manifest pins that origin.",
   "compatibility_manifest_sha256": [
+    "0c620d7f56fade62a1ed84ed72379847e63de9858e42cd5d47183c278ff57fce",
     "16d9cac45bc5ce786d36c9c78f6927f72dd72ccc6d6644c11d77bf77e668bf69",
     "3a08025dd38b6be3aad1adb0ba1ed58778b28633ef1847a441e827b1fa34484d",
     "4279039f9f3984b9416093f1b06cbd0d485448e4dd2c6cbd8eff84a5b0760536",
@@ -34,7 +35,7 @@
       "EfficientLoFTR",
       "SSG"
     ],
-    "batch_version": "0.19.0 interface",
+    "batch_version": "0.19.1 interface",
     "batch_method_defaults": "Biomes alone, without circles, lines or points.",
     "batch_human_acceptance": "Functionally accepted and explicitly authorized for publication by Ga\u00ebl; scientific corpus-wide accuracy remains unestablished.",
     "atomic_sift_phase_handoff": "Normal native worker capacity retained; no added three-worker ceiling or raised budget.",
@@ -43,9 +44,9 @@
     "text_detector": "PP-OCRv6 small, detection only; 9,929,594 public bytes, requested on demand."
   },
   "previous_publication": {
-    "main_commit": "3f5fa830ad53caf500de6d46377b1a9cef4bdc93",
-    "resource_commit": "360066f0cd38b1c2bbfadc81d6754001a846824b",
-    "deployment_manifest_sha256": "16d9cac45bc5ce786d36c9c78f6927f72dd72ccc6d6644c11d77bf77e668bf69"
+    "main_commit": "bd411d1dd3dc73c906c173544094bf24d346e126",
+    "resource_commit": "05e2dafaab93bc79e5d470fff7b4996199134efe",
+    "deployment_manifest_sha256": "0c620d7f56fade62a1ed84ed72379847e63de9858e42cd5d47183c278ff57fce"
   },
   "d2prl_increment_sha256": "ab77ee77b286abd9866e68f433121149f835f96764c18e33c0fffe200ec6c6a8",
   "d2prl_qualification": "Supplied 30/96 MP native-array/mask, refilter and paged export checks passed. Detailed qualification files remain local.",
@@ -53,16 +54,16 @@
   "resource_commit": "05e2dafaab93bc79e5d470fff7b4996199134efe",
   "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/05e2dafaab93bc79e5d470fff7b4996199134efe/web-assets/",
   "deployment_manifest_sha256": "0c620d7f56fade62a1ed84ed72379847e63de9858e42cd5d47183c278ff57fce",
-  "ui_source_commit": "4027ccbd051c7f071a8a8f8885c68d401ce47dbf",
-  "batch_interface_source_commit": "4027ccbd051c7f071a8a8f8885c68d401ce47dbf",
+  "ui_source_commit": "4aa890862a5a74f181c7027e8dbab4617ebe3e8d",
+  "batch_interface_source_commit": "4aa890862a5a74f181c7027e8dbab4617ebe3e8d",
   "selection_overlay": "web/wordpress/runtime-patches/feature-selection-overlay-0.18.0.json",
   "local_update_contract": "docs/LOCAL-UPDATES.md",
   "selection_overlay_source_commit": "088326bf98e50787f7626190b0059e61b27349b9",
   "scientific_baseline_engine_commit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "scientific_baseline_manifest_sha256": "a488d0a8cba3120ea52cc497beadf6cf68758394cb2db81c81ab6c47890a6081",
-  "local_source_inventory_commit": "f05bba58850e8ec77c2a7f0a4d3c83764d94214a",
-  "local_update_shell_sha256": "272991ba78b00bfbe411a260a913f257743ee5b8844d669f8415319ee15b600f",
-  "local_update_source_root": "web/local-sources/0.19.0/",
+  "local_source_inventory_commit": "7ae4849a2b678b427a8e538f97c57a1832234f65",
+  "local_update_shell_sha256": "71cb9497b5fb07d23142ce1cf79efcd8650e11b1784dacbc8dbb619280b2a825",
+  "local_update_source_root": "web/local-sources/0.19.1/",
   "batch_scientific_increment_sha256": "01e747c1d6973fccef363b90ec8cd0a56ed2eb82ccc623a33a8c0d3d9d5f6037",
   "batch_scientific_increment": "web/wordpress/runtime-patches/batch-scientific-regions-20261013.json",
   "batch_scientific_source_commit": "4027ccbd051c7f071a8a8f8885c68d401ce47dbf"
