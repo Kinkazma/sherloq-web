@@ -1,5 +1,13 @@
 # Validation scope and optimization priorities
 
+## 0.20.0 — ELA, native previews and RGB/HSV navigation
+
+The integrated interface, runtime-chain and targeted native engine checks pass. The source delivery’s native ELA comparisons retain exact segmentation labels, scores, support and preparation statistics. Its real UI qualifications cover continuous previews followed by exact renders, export barriers, Auto with and without JPEG tables, shared JPEG reuse and histogram counts checked against an independent array oracle. The RGB/HSV qualification retains point data and verifies aligned initial projections, pointer-anchored navigation and rendering fallback. These image-specific checks do not establish universal forensic accuracy or parity with the original IPOL executable.
+
+The new five-module ELA increment composes with the unchanged scientific receipt. Independent checks reject changed ancestry, sources, predecessor snapshots and undeclared lock/inventory changes. Existing model and WASM identities are preserved. The final local interface assembles and parses both service-worker bundles, with the new routing module included.
+
+Fresh Chrome using the actual 0.19.1 worker bundle and the new staged bundle verifies coexistence while a logical resource changes: the old document, its existing worker and a new descendant continue reading the old version; the new document and worker read the new one. The pins also survive a service-worker restart when the old manifest is no longer served. This is a synthetic transport/lifecycle qualification, distinct from the supplied ELA/RGB image runs. Published interface sources and the five new resource bodies are checked against their actual immutable GitHub URLs. [ELA views and limits](ELA-VIEWS.md) · [RGB/HSV navigation](RGB-HSV-PLOTS.md) · [Runtime ancestry](RUNTIME-INCREMENTS.md).
+
 ## 0.19.1 — Downloads and batch result inspection
 
 The integrated interface and archive/export checks pass. Real Opera download checks cover JSON, quick WebP, displayed PNG, PDF and ZIP; the supplied images and archived scientific files retain their checked identities. The result grid is static during scrolling, switches between two columns and one with the available width, and opens native inspection by click or keyboard. View-specific opacities, valid inspection refreshes, zoom/pan and resource cleanup are covered by the source and supplied browser checks.
