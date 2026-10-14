@@ -1,6 +1,7 @@
 @import url('./batch-scope-editor.css');
 /* SHERLOQ's existing palette, controls, tabs and compact workbench spacing. */
 .batch-dialog {
+ box-sizing:border-box;
  width:min(1120px,calc(100vw - 28px));
  height:min(840px,92dvh);
  max-width:calc(100vw - 28px);
@@ -18,8 +19,13 @@
 .batch-dialog[open] { display:flex; flex-direction:column; }
 .batch-dialog [hidden] { display:none!important; }
 .batch-header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 12px; background:var(--raised); border-bottom:1px solid var(--line); }
+.batch-header>div:first-child { min-width:0; flex:1; }
 .batch-header h2 { margin:0; font-size:17px; }
+.batch-result-inspection .batch-header h2 { overflow-wrap:anywhere; }
 .batch-header p { margin:3px 0 0; font-size:11px; color:var(--muted); }
+.batch-window-actions { display:flex; align-items:center; flex:none; gap:16px; }
+.batch-window-actions .batch-close { min-width:66px; }
+.batch-dialog.batch-expanded { width:calc(100vw - 16px); max-width:calc(100vw - 16px); height:calc(100dvh - 16px); max-height:calc(100dvh - 16px); }
 .batch-layout { display:flex; flex-direction:column; flex:1; min-height:0; }
 .batch-nav { flex:none; gap:2px; min-height:30px; padding:0 4px; }
 .batch-dialog .batch-nav button { min-height:29px; padding:5px 12px; border-bottom:0; border-radius:4px 4px 0 0; }
@@ -53,14 +59,21 @@
 .batch-selection-bar,.batch-export-actions { display:flex; gap:5px; flex-wrap:wrap; margin:0 0 10px; padding:5px 0; }
 .batch-export-settings { display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; padding:8px; margin-bottom:12px; border:1px solid var(--line); background:var(--raised); }
 .batch-export-settings>small { flex-basis:100%; margin:0; }
-.batch-display-controls { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:7px 0; padding:6px 8px; border:1px solid var(--line); }
+.batch-display-controls { min-inline-size:0; display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:7px 0; padding:6px 8px; border:1px solid var(--line); }
 .batch-result-modes { display:flex; flex-wrap:wrap; gap:4px; }
 .batch-display-controls legend { font-size:11px; color:var(--muted); }
 .batch-display-controls input[type=range] { width:145px; min-height:20px; padding:0; accent-color:var(--accent); }
 .batch-display-controls output { width:38px; font-size:11px; text-align:right; }
-.batch-result-image { position:relative; height:260px; background:var(--canvas); }
-.batch-result-image>img,.batch-result-image>.batch-result-overlay { box-sizing:border-box; position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
-.batch-result-image>.batch-result-overlay { pointer-events:none; background:transparent; border:0; }
+.batch-result-image { position:relative; height:260px; background:var(--canvas); overflow:hidden; touch-action:auto; cursor:zoom-in; }
+.batch-result-plane { position:absolute; left:0; top:0; transform-origin:0 0; }
+.batch-result-plane>.batch-result-overlay { pointer-events:none; background:transparent; border:0; }
+.batch-result-panning { cursor:grab; }
+.batch-result-image:focus-visible,.batch-result-inspection-viewport:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+.batch-result-inspection { width:calc(100vw - 24px); max-width:calc(100vw - 24px); height:calc(100dvh - 24px); max-height:calc(100dvh - 24px); }
+.batch-result-inspection-viewport { position:relative; flex:1; min-height:0; overflow:hidden; touch-action:none; background:var(--canvas); cursor:grab; }
+.batch-inspection-notice { position:absolute; inset:40% 12px auto; text-align:center; color:var(--muted); }
+.batch-inspection-hint { flex:none; margin:0; padding:7px 12px; font-size:11px; color:var(--muted); border-top:1px solid var(--line); }
+.batch-inspection-zoom { min-width:45px; font-size:11px; text-align:right; }
 .batch-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:8px; }
 .batch-image-card { display:flex; flex-direction:column; gap:7px; min-width:0; padding:7px; background:var(--panel); border:1px solid var(--line); }
 .batch-image-card.excluded { opacity:.55; }
@@ -121,6 +134,11 @@
 .batch-required { border-top:1px solid var(--line); padding:8px 0; }
 .batch-required label { margin:7px 0; flex-wrap:wrap; }
 .batch-required input[type=file] { flex:1 1 200px; }
+.batch-panel[data-batch-step="3"] { container-type:inline-size; container-name:batch-results; }
+.batch-results { display:grid; grid-template-columns:minmax(0,1fr); gap:10px; }
+.batch-results>:not(.batch-image-result) { grid-column:1 / -1; }
+.batch-results>.batch-image-result { min-width:0; margin:0; }
+@container batch-results (min-width:720px) { .batch-results { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 .batch-summary { font-size:12px; color:var(--ink); font-weight:600; }
 .batch-study-result,.batch-image-result { padding:9px 12px; margin:8px 0; border:1px solid var(--line); background:var(--panel); overflow-wrap:anywhere; font-size:12px; }
 .batch-study-result.flagged { border-left:3px solid var(--accent); }
@@ -130,8 +148,13 @@
 .batch-run-result { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; padding:7px 0; border-top:1px solid var(--line); }
 .batch-error { color:var(--ink); font-size:11px; overflow-wrap:anywhere; border-left:2px solid var(--muted); padding-left:7px; }
 .batch-image-result>button { float:right; }
-.batch-final-preview { margin:10px 0; padding:8px; background:var(--canvas); border:1px solid var(--line); }
+.batch-final-preview { clear:both; margin:10px 0; padding:8px; background:var(--canvas); border:1px solid var(--line); }
 .batch-final-preview img { display:block; max-width:100%; max-height:300px; margin:0 auto 7px; object-fit:contain; }
+.batch-result-plane>img,.batch-result-plane>.batch-result-overlay { box-sizing:border-box; position:absolute; inset:0; width:100%; height:100%; max-width:none; max-height:none; margin:0; object-fit:fill; border:0; }
+/* Cards are static replaced content. Their wheel/touch scroll belongs to the
+   results pane; only the independent large inspection has a camera. */
+.batch-result-image>.batch-result-plane { inset:0; width:100%; height:100%; transform:none; }
+.batch-result-image .batch-result-plane>img,.batch-result-image .batch-result-plane>.batch-result-overlay { object-fit:contain; }
 .batch-final-preview figcaption { color:var(--ink); font-weight:600; margin:5px 0; }
 .batch-final-preview p { margin:5px 0 8px; }
 .batch-individual-outputs>summary { cursor:pointer; font-size:11px; padding:6px 0; }

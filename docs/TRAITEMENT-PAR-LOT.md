@@ -1,12 +1,24 @@
 # Traitement par lot intégré à SHERLOQ
 
+## 0.19.1 — Téléchargements et vues des résultats · 2026-10-14
+
+Les exports explicites déclenchent de nouveau le téléchargement normal du navigateur, y compris lorsque celui-ci propose « Enregistrer sous… ». Le même fichier préparé reste disponible dans le panneau latéral pour utiliser ce secours ou recommencer après une interruption. Seule la fermeture réussie de la destination permet de confirmer l’enregistrement natif ; le déclenchement du téléchargement normal ne constitue pas cet accusé de réception.
+
+Les Biomes démarrent à 100 % d’opacité et la Corroboration à 35 %. Chaque vue mémorise son propre réglage ; l’opacité active et les deux valeurs suivent l’archive. L’ancienne valeur unique de 35 % était également le défaut automatique : son intention est ambiguë et elle migre vers les nouveaux défauts. Les autres anciens choix sont conservés sur leur vue active, et une nouvelle valeur explicitement choisie de 35 % reste enregistrée.
+
+La fenêtre du lot peut être agrandie puis restaurée dans le viewport. Le clic sur un résultat ouvre l’inspection de son PNG natif à l’intérieur du lot, avec les gestes habituels souris ou trackpad, Espace pour déplacer l’image et double-clic pour l’ajuster. Une perte de focus termine le geste en cours. Un rafraîchissement des cartes conserve l’inspection si l’image, ses empreintes, son périmètre et ses résultats restent identiques ; un remplacement, une réinitialisation ou une fermeture explicite la ferme. Ces réglages et cette navigation ne relancent aucun détecteur et ne modifient pas les tableaux scientifiques.
+
+Les résultats se présentent dans une grille à deux colonnes, qui revient à une seule colonne sur un viewport étroit pour éviter le débordement. Les vignettes restent statiques pendant les gestes de défilement : la molette et le trackpad font défiler la page sans zoomer ni déplacer leur image, et sans ouvrir l’inspection. Le clic ou le clavier ouvre la grande inspection, où la navigation de l’image reste disponible. Le chargement à la demande, le budget borné et l’annulation des préparations hors champ sont conservés ; le mode choisi, son opacité et les données scientifiques restent inchangés.
+
+Les contrôles d’intégration de ces changements passent sur les sources. Cette qualification reste distincte de la recette navigateur des rapports PDF et dossiers ZIP et de la précision scientifique des méthodes. [Preuve compacte des contrôles source](evidence/batch-display-download-followup-local.json).
+
 ## 0.19.0 — Zones, périmètre scientifique et export
 
 Les zones d’acquisition et d’exclusion se dessinent et se modifient à la souris. Les coordonnées restent ajustables ; Annuler, Rétablir et la restauration de la géométrie d’origine conservent le repère de l’image. Le panneau Zones / Biomes à gauche se replie ; la navigation habituelle, le trackpad, Espace et le double-clic restent disponibles. Les régions et biomes natifs peuvent être mis en surbrillance. Une sous-section IA présente explicitement les méthodes neuronales.
 
 Les exclusions sont prioritaires dans les acquisitions. Les positions source et cible sont admises avant la corrélation et la propagation des méthodes raccordées. Le contexte RGB des CNN reste celui de l’image originale (`cnnContextMasked:false`) : ces exclusions ne signifient pas que les convolutions ne voient aucun pixel exclu. Les poids et réglages scientifiques restent identifiables ; le nouveau petit module de corrélation a sa source et son inventaire propres.
 
-Le seuil automatique de corroboration est `max(1, floor(n/2))` pour les détecteurs admissibles ; un choix explicite de l’utilisateur garde la priorité. Les vues Biomes / corroboration, l’opacité et leurs exports réutilisent les sorties scientifiques disponibles, sans lancer un nouveau détecteur. L’opacité initiale est de 35 %.
+Le seuil automatique de corroboration est `max(1, floor(n/2))` pour les détecteurs admissibles ; un choix explicite de l’utilisateur garde la priorité. Les vues Biomes / corroboration, l’opacité et leurs exports réutilisent les sorties scientifiques disponibles, sans lancer un nouveau détecteur. Les opacités initiales depuis 0.19.1 sont de 100 % pour les Biomes et de 35 % pour la Corroboration.
 
 Un lot arrêté garde les analyses terminées. La reprise vérifie l’identité de l’incrément scientifique avant toute mutation ou exécution native : un incrément différent refuse la reprise au lieu de réattribuer les anciennes sorties. Les réglages et désactivations archivés restent conservés.
 
@@ -161,7 +173,7 @@ CMSeg-Net, MGCFDN, SelfDM, ALIKED + LightGlue, EfficientLoFTR et SSG restent dis
 
 ## Vues des résultats et export des images
 
-Sur la page Résultats, choisissez **Biomes** ou **Corroboration**, puis réglez l’opacité entre 0 et 100 %. La valeur initiale est 35 %. Les aperçus, rapports PDF et images du ZIP suivent ce choix, sans relancer les détecteurs.
+Sur la page Résultats, choisissez **Biomes** ou **Corroboration**, puis réglez l’opacité entre 0 et 100 %. Les valeurs initiales sont 100 % pour les Biomes et 35 % pour la Corroboration ; chaque vue conserve son propre choix. Les aperçus, rapports PDF et images du ZIP suivent ce choix, sans relancer les détecteurs.
 
 Biomes affiche les groupes appariés de Détection de clones 2, issus de SIFT ou de PatchMatch, lorsque leurs coordonnées natives ont été archivées. Une même couleur relie les deux côtés du groupe. Les groupes collinéaires restent des contours. Corroboration affiche les comptes scientifiques des méthodes concordantes. La disponibilité de chaque vue dépend des données conservées ; les sorties neuronales seules restent des cartes ou des masques.
 

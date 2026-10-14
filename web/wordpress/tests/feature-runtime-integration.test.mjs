@@ -114,8 +114,10 @@ test('D2PRL bytes and scientific receipts remain immutable as compatibility mani
  const baselineNames=execFileSync(process.env.SHERLOQ_TEST_GIT||'git',['ls-tree','--name-only',increment.baseline.incomingCommit+':web/wordpress/compatibility-manifests'],{cwd:repository}).toString().trim().split('\n').filter(name=>name.endsWith('.json'));
  assert.equal(baselineNames.length,7);
  for(const name of baselineNames){assert.ok(names.includes(name),name);assert.deepEqual(fs.readFileSync(path.join(directory,name)),historical('web/wordpress/compatibility-manifests/'+name),name);}
- const previousRelease=json('releases/0.18.0.json'),previousManifest=previousRelease.manifest.sha256;
- assert.ok(names.includes(previousManifest+'.json'),'The immediately preceding public release remains compatible');
- assert.deepEqual(fs.readFileSync(path.join(directory,previousManifest+'.json')),bytes('web/local-sources/0.18.0/manifest.json'));
+ for(const version of ['0.18.0','0.19.0']){
+  const previousRelease=json('releases/'+version+'.json'),previousManifest=previousRelease.manifest.sha256;
+  assert.ok(names.includes(previousManifest+'.json'),'Previous public release remains compatible: '+version);
+  assert.deepEqual(fs.readFileSync(path.join(directory,previousManifest+'.json')),bytes('web/local-sources/'+version+'/manifest.json'));
+ }
  for(const name of names)assert.equal(sha(fs.readFileSync(path.join(directory,name))),name.slice(0,-5),name);
 });

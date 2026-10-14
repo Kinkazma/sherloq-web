@@ -4,6 +4,21 @@ import {parseHTML} from 'linkedom';
 import {createDownloadShelf} from '../sherloq-browser/assets/download-shelf.js';
 import {createDownloadManager} from '../sherloq-browser/assets/download-manager.js';
 const fixture=()=>parseHTML('<html lang="fr"><body><main><footer></footer></main></body></html>').document;
+for(const nativeSaveSupported of [false,true])test('explicit exports dispatch each prepared file by default, native Save as available='+nativeSaveSupported,async()=>{
+ const document=fixture(),dispatched=[],cleaned=new Map(),originalClick=document.defaultView.HTMLAnchorElement.prototype.click;let pickers=0;
+ document.defaultView.HTMLAnchorElement.prototype.click=function(){assert.equal(document.body.contains(this),true);dispatched.push({filename:this.download,url:this.href});};
+ const shelf=createDownloadShelf({document,managerFactory:options=>createDownloadManager({...options,...(nativeSaveSupported?{showSaveFilePicker(){pickers++;throw Error('Standard export must not open the native fallback.');}}:{})})});
+ try{
+  const filenames=['image.png','rapide.webp','image-affichee.tiff','rapport.pdf','dossier.zip','donnees.npz','journal.json'],leases=[];
+  for(const [index,filename]of filenames.entries()){
+   const bytes=Uint8Array.of(11,index,43,79),lease=await shelf.download({blob:new Blob([bytes]),storage:'opfs',cleanup:()=>cleaned.set(filename,(cleaned.get(filename)??0)+1)},filename);leases.push(lease);
+   assert.equal(lease.state,'dispatched');assert.equal(lease.savedAt,undefined);assert.equal(dispatched[index].filename,filename);assert.equal(dispatched[index].url,lease.url);assert.deepEqual(new Uint8Array(await(await fetch(lease.url)).arrayBuffer()),bytes);assert.equal(shelf.manager.snapshot()[index].attempts,1);
+  }
+  assert.equal(dispatched.length,filenames.length);assert.equal(pickers,0);assert.equal(cleaned.size,0);assert.equal(shelf.element.querySelector('button').textContent,nativeSaveSupported?'Enregistrer sous…':'Télécharger');
+  const preparedOnly=await shelf.download({blob:new Blob(['explicitly deferred']),storage:'opfs'},'prepare-only.png',{autoDispatch:false});assert.equal(preparedOnly.state,'ready');assert.equal(dispatched.length,filenames.length,'An explicit prepare-only request is still respected.');
+  await shelf.dispose();assert.equal(cleaned.size,filenames.length);assert.ok([...cleaned.values()].every(count=>count===1));for(const lease of leases)await assert.rejects(fetch(lease.url));
+ }finally{await shelf.dispose();document.defaultView.HTMLAnchorElement.prototype.click=originalClick;}
+});
 test('prepared downloads retain readable exact bytes and explicit release without exposing opaque URLs as page links',async()=>{
  const document=fixture();let cleaned=0;const shelf=createDownloadShelf({document,parent:document.querySelector('main'),before:document.querySelector('footer'),language:()=>document.documentElement.lang});
  const payload=new Blob(['exact bytes'],{type:'image/webp'}),lease=await shelf.download({blob:payload,storage:'opfs',cleanup:()=>cleaned++},'image.webp');
@@ -11,10 +26,10 @@ test('prepared downloads retain readable exact bytes and explicit release withou
  document.documentElement.lang='en';shelf.translate();assert.equal(shelf.element.querySelector('button').textContent,'Download');assert.equal(shelf.manager.snapshot()[0].url,lease.url);
  shelf.element.querySelector('button[aria-label="Remove prepared file: image.webp"]').click();await new Promise(r=>setImmediate(r));assert.equal(cleaned,1);assert.equal(shelf.element.hidden,true);await shelf.dispose();assert.equal(cleaned,1);
 });
-test('direct Save as is a user action and reports Saved only after the destination writer closes',async()=>{
+test('after a standard download, fallback Save as is a user action and reports Saved only after the destination writer closes',async()=>{
  const document=fixture(),writes=[];let close,closed=0;const gate=new Promise(r=>close=r);
  const shelf=createDownloadShelf({document,language:()=> 'fr',managerFactory:options=>createDownloadManager({...options,showSaveFilePicker:()=>({createWritable:async()=>({write:async bytes=>writes.push(...bytes),close:async()=>{await gate;closed++;},abort:async()=>{}})})})});
- const lease=await shelf.download({blob:new Blob(['unchanged']),storage:'opfs'},'source.webp');assert.equal(lease.state,'ready');assert.equal(shelf.manager.snapshot()[0].attempts,0);
+ const lease=await shelf.download({blob:new Blob(['unchanged']),storage:'opfs'},'source.webp');assert.equal(lease.state,'dispatched');assert.equal(shelf.manager.snapshot()[0].attempts,1);
  assert.equal(shelf.element.querySelector('button').textContent,'Enregistrer sous…');shelf.element.querySelector('button').click();await new Promise(r=>setImmediate(r));assert.equal(shelf.element.innerText.includes('Enregistré'),false);assert.equal(closed,0);
  close();await new Promise(r=>setImmediate(r));assert.equal(shelf.element.innerText.includes('Enregistré'),true);assert.equal(new TextDecoder().decode(Uint8Array.from(writes)),'unchanged');await shelf.dispose();
 });

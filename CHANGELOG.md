@@ -2,6 +2,13 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.19.1 — Downloads and batch result display · 2026-10-14
+
+- Restore normal browser download dispatch for every explicit export, including browsers offering native Save as. Retain the prepared file and native Save as fallback without claiming a completed standard download.
+- Store independent Biomes and Corroboration opacities, starting at 100% and 35%, and preserve both choices through archive import/export with explicit legacy migration.
+- Enlarge and restore the batch window within the viewport; inspect native result PNGs inside the batch using shared mouse/trackpad navigation, Space panning and double-click fit. End interrupted gestures, preserve an open inspection across unchanged result refreshes, and release it when the source, scientific scope or results change, without another detector run.
+- Keep batch result thumbnails static during page scrolling and arrange results in two responsive columns. Reserve image zoom/panning for the large inspection opened by click or keyboard; retain bounded lazy previews, selected views, opacity and unchanged scientific artifacts.
+
 ## 0.19.0 — Interactive regions, scientific scope and exports · 2026-10-14
 
 - Align the public WordPress wrapper header, preview URL and editor-script version with 0.19.0.

@@ -22,7 +22,7 @@ test('result opacity and biome switching change presentation without new analysi
  const service={
   describe(image){return {available:true,preferences:image.displayPreferences??{schema:BATCH_DISPLAY_PREFERENCES_SCHEMA,version:1,mode:'corroboration',opacity:.35}};},
   async preparePreview(){previews++;return {width:2,height:2,corroboration:{rgba:new Uint8ClampedArray([255,0,0,255,0,0,0,0,255,0,0,255,0,0,0,0])},biomes:{rgba:new Uint8ClampedArray([230,170,30,255,0,0,0,0,230,170,30,255,0,0,0,0])}};},
-  async ensureRendered(image,options){renders++;assert.equal(options.mode,'biomes');assert.equal(options.opacity,.15);return {blob:new Blob(['existing-counts-rendered-view'])};},
+  async ensureRendered(image,options){renders++;assert.equal(options.mode,'biomes');assert.equal(options.opacity,.68);return {blob:new Blob(['existing-counts-rendered-view'])};},
   async dispose(){},
  };
  const ui=await mountBatchUI({document,importerFactory:async()=>model,preparationFactory:()=>({prepare:async()=>{},dispose:async()=>{}}),resultDisplayFactory:()=>service,runnerFactory:()=>{detectors++;throw Error('Display must not start a runner');},onInspect:file=>seen.push(file)});
@@ -30,11 +30,11 @@ test('result opacity and biome switching change presentation without new analysi
   await flush();const card=ui.dialog.querySelector('.batch-image-result'),opacity=card.querySelector('input[type=range]'),mode=card.querySelector('[data-result-mode=biomes]'),canvas=card.querySelector('canvas');
   assert.equal(opacity.value,'35');assert.equal(canvas.style.opacity,'0.35');assert.equal(previews,1);assert.equal(renders,0);
   opacity.value='15';opacity.oninput();assert.equal(canvas.style.opacity,'0.15');assert.equal(card.querySelector('output').textContent,'15 %');
-  mode.onclick();assert.equal(mode.getAttribute('aria-pressed'),'true');assert.equal(card.querySelector('[data-result-mode=corroboration]').getAttribute('aria-pressed'),'false');assert.match(card.querySelector('figcaption').textContent,/Biomes.*maximum C2/);assert.match(card.querySelector('.batch-biome-legend').textContent,/Même couleur/);
+  mode.onclick();assert.equal(opacity.value,'100');assert.equal(canvas.style.opacity,'1');opacity.value='68';opacity.oninput();card.querySelector('[data-result-mode=corroboration]').onclick();assert.equal(opacity.value,'15');mode.onclick();assert.equal(opacity.value,'68');assert.equal(mode.getAttribute('aria-pressed'),'true');assert.equal(card.querySelector('[data-result-mode=corroboration]').getAttribute('aria-pressed'),'false');assert.match(card.querySelector('figcaption').textContent,/Biomes.*maximum C2/);assert.match(card.querySelector('.batch-biome-legend').textContent,/Même couleur/);
   assert.deepEqual(canvas.lastPixels.slice(0,4),[230,170,30,255]);assert.equal(previews,1);assert.equal(renders,0);assert.equal(detectors,0);
-  const button=[...card.querySelectorAll('button')].find(button=>button.textContent==='Afficher les biomes');await button.onclick();assert.equal(renders,1);assert.equal(await seen[0].text(),'existing-counts-rendered-view');
+  ui.dialog.showModal();const button=[...card.querySelectorAll('button')].find(button=>button.textContent==='Afficher les biomes');await button.onclick();assert.equal(renders,1);assert.equal(seen.length,0);assert.equal(ui.dialog.hasAttribute('open'),true);const inspection=document.querySelector('.batch-result-inspection');assert.ok(inspection);assert.equal(await(await fetch(inspection.querySelector('img').src)).text(),'existing-counts-rendered-view');
   assert.deepEqual({runs:image.runs,score:image.score,configuration:model.configuration,finalDisplay:image.finalDisplay},before);
-  assert.equal(image.displayPreferences.schema,BATCH_DISPLAY_PREFERENCES_SCHEMA);assert.equal(image.displayPreferences.mode,'biomes');assert.equal(image.displayPreferences.opacity,.15);
+  assert.equal(image.displayPreferences.schema,BATCH_DISPLAY_PREFERENCES_SCHEMA);assert.equal(image.displayPreferences.mode,'biomes');assert.equal(image.displayPreferences.opacity,.68);assert.deepEqual(image.displayPreferences.opacities,{biomes:.68,corroboration:.15});
  }finally{await ui.dispose();}
 });
 
@@ -58,7 +58,7 @@ test('restored result summary keeps its original reporting threshold rather than
  try{assert.match(ui.dialog.querySelector('.batch-summary').textContent,/^0 études à examiner/);assert.equal(model.images[0].score.clones,2);assert.equal(model.configuration.options.threshold,3);}finally{await ui.dispose();}
 });
 
-test('a biome capability rejected after reading metadata selects the real corroboration map, preserves edited opacity and explains the missing geometry',async()=>{
+test('a rejected biome capability restores the separate corroboration opacity and retains its unavailable view preference',async()=>{
  const document=dom(),model=displayFixture(),image=model.images[1];model.images=[image];
  image.displayPreferences={schema:BATCH_DISPLAY_PREFERENCES_SCHEMA,version:1,mode:'biomes',opacity:.35};
  const before=structuredClone({runs:image.runs,score:image.score,configuration:model.configuration,finalDisplay:image.finalDisplay}),original=image.blob,seen=[];
@@ -70,21 +70,21 @@ test('a biome capability rejected after reading metadata selects the real corrob
  const service={
   describe(){return {available:true,capabilities:capabilities(),preferences:{...image.displayPreferences,...(verified?{mode:'corroboration',opacity:.99}:{})},...(verified?{reason}:{})};},
   async preparePreview(){previews++;entered();await gate;verified=true;return {width:2,height:2,corroboration:{rgba},biomes:null,metadata:{capabilities:capabilities()}};},
-  async ensureRendered(value,options){renders++;assert.equal(value,image);assert.equal(options.mode,'corroboration');assert.equal(options.opacity,.47);return {blob:new Blob(['real corroboration from existing counts'])};},
+  async ensureRendered(value,options){renders++;assert.equal(value,image);assert.equal(options.mode,'corroboration');assert.equal(options.opacity,.35);return {blob:new Blob(['real corroboration from existing counts'])};},
   async dispose(){},
  };
  const ui=await mountBatchUI({document,importerFactory:async()=>model,preparationFactory:()=>({async prepare(){},async dispose(){}}),resultDisplayFactory:()=>service,runnerFactory:()=>{detectors++;throw Error('Display fallback must not run detectors');},onInspect:file=>seen.push(file)});
  try{
   await started;const card=ui.dialog.querySelector('.batch-image-result'),biomes=card.querySelector('[data-result-mode=biomes]'),corroboration=card.querySelector('[data-result-mode=corroboration]'),opacity=card.querySelector('input[type=range]'),canvas=card.querySelector('canvas');
   assert.equal(biomes.getAttribute('aria-pressed'),'true');opacity.value='47';opacity.oninput();finish();await flush();
-  assert.equal(image.displayPreferences.mode,'corroboration');assert.equal(image.displayPreferences.opacity,.47);
+  assert.equal(image.displayPreferences.mode,'corroboration');assert.equal(image.displayPreferences.opacity,.35);assert.equal(image.displayPreferences.opacities.biomes,.47);
   assert.equal(biomes.disabled,true);assert.equal(biomes.getAttribute('aria-pressed'),'false');assert.equal(biomes.title,reason);
   assert.equal(corroboration.disabled,false);assert.equal(corroboration.getAttribute('aria-pressed'),'true');
   assert.match(card.querySelector('figcaption').textContent,/corroboration.*C2/);assert.ok(card.textContent.includes(reason));
-  assert.equal(canvas.hidden,false);assert.equal(canvas.style.opacity,'0.47');assert.deepEqual(canvas.lastPixels,Array.from(rgba));
+  assert.equal(canvas.hidden,false);assert.equal(canvas.style.opacity,'0.35');assert.deepEqual(canvas.lastPixels,Array.from(rgba));
   biomes.onclick();assert.equal(image.displayPreferences.mode,'corroboration');assert.equal(previews,1);assert.equal(renders,0);assert.equal(detectors,0);
   await [...card.querySelectorAll('button')].find(button=>button.textContent==='Afficher la carte de corroboration').onclick();
-  assert.equal(renders,1);assert.equal(await seen[0].text(),'real corroboration from existing counts');
+  assert.equal(renders,1);assert.equal(seen.length,0);assert.equal(await(await fetch(document.querySelector('.batch-result-inspection img').src)).text(),'real corroboration from existing counts');
   assert.deepEqual({runs:image.runs,score:image.score,configuration:model.configuration,finalDisplay:image.finalDisplay},before);
   assert.equal(image.blob,original);assert.equal(detectors,0);
  }finally{finish();await ui.dispose();}

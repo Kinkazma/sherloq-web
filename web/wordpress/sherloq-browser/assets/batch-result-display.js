@@ -10,6 +10,7 @@ import {EngineError,checkAbort,controlCheckpoint} from './unified-engine/src/err
 export const BATCH_DISPLAY_PREFERENCES_SCHEMA='sherloq.batch-result-display-preferences/1';
 export const BATCH_RESULT_DISPLAY_SCHEMA='sherloq.batch-result-display/1';
 export const BATCH_RESULT_OPACITY=.35;
+export const BATCH_RESULT_OPACITIES=Object.freeze({biomes:1,corroboration:BATCH_RESULT_OPACITY});
 const MiB=1024**2,CHUNK=MiB,HEADER_LIMIT=65536,METADATA_LIMIT=8*MiB;
 const invalid=message=>new EngineError('BATCH_DISPLAY_INVALID',message);
 const requireDisplay=(condition,message)=>{if(!condition)throw invalid(message);};
@@ -19,11 +20,23 @@ const crcFinish=crc=>(crc^0xffffffff)>>>0;
 
 export function validateBatchDisplayPreferences(value){
  requireDisplay(value&&typeof value==='object'&&!Array.isArray(value)&&value.schema===BATCH_DISPLAY_PREFERENCES_SCHEMA&&['biomes','corroboration'].includes(value.mode)&&Number.isFinite(value.opacity)&&value.opacity>=0&&value.opacity<=1,'Invalid post-calculation display preferences.');
- return {schema:BATCH_DISPLAY_PREFERENCES_SCHEMA,mode:value.mode,opacity:value.opacity};
+ const opacities={...BATCH_RESULT_OPACITIES};
+ if(value.opacities!==undefined){
+  requireDisplay(value.opacities&&typeof value.opacities==='object'&&!Array.isArray(value.opacities)&&Object.keys(value.opacities).length===2&&Object.keys(opacities).every(mode=>Number.isFinite(value.opacities[mode])&&value.opacities[mode]>=0&&value.opacities[mode]<=1),'Invalid per-view display opacities.');
+  Object.assign(opacities,value.opacities);
+  requireDisplay(value.opacity===opacities[value.mode],'The active display opacity differs from its saved view.');
+ }else if(value.opacity!==BATCH_RESULT_OPACITY){
+  // The old single 35% value was also the automatic default. Its intent is
+  // unknowable; migrate it to the new defaults. Preserve other old values on
+  // their active view, without carrying them to the other presentation.
+  opacities[value.mode]=value.opacity;
+ }
+ return {schema:BATCH_DISPLAY_PREFERENCES_SCHEMA,mode:value.mode,opacity:opacities[value.mode],opacities};
 }
 export function batchResultDisplayPreferences(image,overrides={}){
- const previous=image.displayPreferences?validateBatchDisplayPreferences(image.displayPreferences):{schema:BATCH_DISPLAY_PREFERENCES_SCHEMA,mode:image.finalDisplay?.kind==='biomes'?'biomes':'corroboration',opacity:BATCH_RESULT_OPACITY};
- return validateBatchDisplayPreferences({...previous,...overrides});
+ const mode=image.finalDisplay?.kind==='biomes'?'biomes':'corroboration',previous=image.displayPreferences?validateBatchDisplayPreferences(image.displayPreferences):{schema:BATCH_DISPLAY_PREFERENCES_SCHEMA,mode,opacity:BATCH_RESULT_OPACITIES[mode],opacities:{...BATCH_RESULT_OPACITIES}},nextMode=overrides.mode??previous.mode,opacities={...previous.opacities,...overrides.opacities};
+ if(overrides.opacity!==undefined)opacities[nextMode]=overrides.opacity;
+ return validateBatchDisplayPreferences({...previous,...overrides,mode:nextMode,opacity:opacities[nextMode],opacities});
 }
 function identity(image,artifacts){
  requireDisplay(Number.isSafeInteger(image.width)&&image.width>0&&Number.isSafeInteger(image.height)&&image.height>0&&Number.isSafeInteger(image.width*image.height*4),'Invalid original result dimensions.');
@@ -178,7 +191,7 @@ export function createBatchResultDisplay({artifacts,computeProfile='maximum',too
  }
  return {
   describe(image){try{alive();const expected=identity(image,artifacts),record=records.get(image.id),native=record?.biomeValue,biomeCapability=native?{available:true,reason:null,methods:native.methods,groupCount:native.groupCount}:record?.biomeError?{available:false,reason:record.biomeError.message,methods:[],groupCount:0}:batchBiomeCapabilities(image,artifacts),capabilities={corroboration:{available:!!expected.path,reason:expected.path?null:'Aucune carte numérique de corroboration archivée.'},biomes:biomeCapability};let preferences=batchResultDisplayPreferences(image),reason;
-   if(!capabilities[preferences.mode].available){reason=capabilities[preferences.mode].reason;preferences={...preferences,mode:capabilities.corroboration.available?'corroboration':'biomes'};}
+   if(!capabilities[preferences.mode].available){reason=capabilities[preferences.mode].reason;preferences=batchResultDisplayPreferences(image,{mode:capabilities.corroboration.available?'corroboration':'biomes'});}
    return {available:true,preferences,capabilities,...(reason?{reason}:{}),width:expected.width,height:expected.height,sourceSha256:expected.sourceSha256,scopeFingerprint:expected.scopeFingerprint};}catch(error){return {available:false,reason:error.message,code:error.code,capabilities:{corroboration:{available:false,reason:error.message},biomes:{available:false,reason:error.message,methods:[],groupCount:0}},preferences:batchResultDisplayPreferences({...image,displayPreferences:undefined})};}},
   preparePreview(image,options={}){return tracked(async()=>{const record=recordFor(image),signal=signalFor(options.signal);return using(record,async()=>{const value=await preview(record,{...options,signal}),geometry=await biomes(record,signal);checkAbort(signal);return {width:value.width,height:value.height,corroboration:value.buckets?{rgba:previewRgba(value.buckets,value.palette)}:null,biomes:geometry?{rgba:batchBiomePreview(geometry,{width:value.width,height:value.height,originalWidth:record.width,originalHeight:record.height},{signal,budget:new Budget(256*MiB)}),metadata:batchBiomeMetadata(geometry)}:null,metadata:{...value.metadata,capabilities:this.describe(image).capabilities,...(record.biomeError?{biomesUnavailable:record.biomeError.message}:{})}};});});},
   ensureRendered(image,{mode,opacity,signal}={}){return tracked(async()=>{const record=recordFor(image),preferences=batchResultDisplayPreferences(image,{...(mode===undefined?{}:{mode}),...(opacity===undefined?{}:{opacity})}),activeSignal=signalFor(signal);const next=record.renderQueue.then(()=>using(record,()=>full(image,record,preferences,activeSignal)));record.renderQueue=next.catch(()=>{});return next;});},

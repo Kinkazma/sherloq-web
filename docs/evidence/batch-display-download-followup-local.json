@@ -1,0 +1,57 @@
+{
+  "schema": "sherloq.batch-display-download-source-qualification/1",
+  "date": "2026-10-14",
+  "baselineCommit": "bd411d1dd3dc73c906c173544094bf24d346e126",
+  "qualificationScope": "Source integration tests and a local browser result-grid/inspection path using an already calculated archive. This record does not establish automatic ZIP downloads in every browser.",
+  "sourceTests": {
+    "files": 113,
+    "executedPassed": 772,
+    "failures": 0,
+    "sourcesStableDuringRun": true
+  },
+  "download": {
+    "normalDispatchWithNativeSaveCapability": true,
+    "normalDispatchWithoutNativeSaveCapability": true,
+    "explicitPrepareOnlyStillSupported": true,
+    "preparedBytesRetainedUntilRelease": true,
+    "nativeSavedAcknowledgementAfterWriterCloseOnly": true
+  },
+  "batchPresentation": {
+    "defaultOpacity": {
+      "biomes": 1,
+      "corroboration": 0.35
+    },
+    "independentOpacityChoicesArchived": true,
+    "legacySingleOpacityMigrationTested": true,
+    "nativePngInspectionStaysInsideBatch": true,
+    "viewportEnlargeAndRestoreTested": true,
+    "sharedMouseTrackpadSpaceDoubleClickNavigationTested": true,
+    "interruptedGestureCleanupTested": true,
+    "noDetectorRerunForPresentation": true,
+    "scientificArraysSourceAndScoresUnchanged": true,
+    "inspectionSurvivesUnchangedResultRefresh": true,
+    "sourceOrScopeOrResultReplacementClosesInspection": true,
+    "staticThumbnailsDoNotCapturePageScroll": true,
+    "responsiveTwoColumnResultGrid": true,
+    "boundedLazyPreviewLifecycleRetained": true
+  },
+  "candidateSources": {
+    "sherloq-browser/assets/download-shelf.js": "98c2798016f35efc28bcb9d0969609ad001f6eb6a3b366c75dad6eafdd19f1f5",
+    "sherloq-browser/assets/batch-ui.js": "f9d5b621c6917a7abbc71344510021e1f2497ccef543a3248d0eeba626326efa",
+    "sherloq-browser/assets/batch-result-display.js": "ec13138bf0b5bfd7f66f3e85e779f087824c37fe3bace81845827c79fc747b1c",
+    "sherloq-browser/assets/batch.css": "eba5bb228ffe3b78a167ffc723ee74110712be9a42b50f42810e0b9dcb48b417"
+  },
+  "localBrowserResultGrid": {
+    "verified": true,
+    "environment": "in-app browser",
+    "alreadyCalculatedArchiveReused": true,
+    "detectorsRerun": false,
+    "twoColumnsWideAndOneColumnNarrow": true,
+    "noNarrowHorizontalOverflow": true,
+    "wheelAndFineScrollLeaveThumbnailTransformUnchanged": true,
+    "clickAndEnterOpenNativeInspection": true,
+    "inspectionPinchPanAndDoubleClickFit": true,
+    "inspectionCloseKeepsParentBatchOpen": true,
+    "scientificCalculationsAndMasksUnmodified": true
+  }
+}

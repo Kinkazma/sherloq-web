@@ -26,7 +26,7 @@ export function createDownloadShelf(options={}){
   }
   list.scrollTop=scrollTop;
  }
- const shelf={element,manager,configure(next){if(Object.hasOwn(next,'language'))currentLanguage=next.language;if(Object.hasOwn(next,'onError'))reportError=next.onError;render();},download:(value,name,options)=>manager.download(value,name,{...options,autoDispatch:options?.autoDispatch??!manager.nativeSaveSupported}),translate:render,dispose(){if(disposal)return disposal;disposed=true;if(shelves.get(document)===shelf)shelves.delete(document);element.remove();disposal=manager.dispose();return disposal;}};
+ const shelf={element,manager,configure(next){if(Object.hasOwn(next,'language'))currentLanguage=next.language;if(Object.hasOwn(next,'onError'))reportError=next.onError;render();},download:(value,name,options)=>manager.download(value,name,options),translate:render,dispose(){if(disposal)return disposal;disposed=true;if(shelves.get(document)===shelf)shelves.delete(document);element.remove();disposal=manager.dispose();return disposal;}};
  shelves.set(document,shelf);return shelf;
 }
 export function getDocumentDownloadShelf(document=globalThis.document){return shelves.get(document)??createDownloadShelf({document});}
