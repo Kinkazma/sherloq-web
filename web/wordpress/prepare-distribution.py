@@ -49,6 +49,29 @@ def put(path, data):
     path.write_bytes(data)
 
 
+def reviewed_publication_metadata(root, manifest, overlay):
+    """Keep reviewed receipt identities when re-exporting an assembled runtime.
+
+    Resource generation checks the active files. Historical orphan declarations
+    and metadata ordering belong to the immutable reviewed inventory, not to a
+    fresh traversal of those files. No model body is read by this metadata step.
+    """
+    root = Path(root)
+    if not overlay.files:
+        return None
+    reviewed_bytes = (root.parents[1] / 'web-assets/manifest-template.json').read_bytes()
+    reviewed = json.loads(reviewed_bytes)
+    if (manifest['files'] != reviewed['files'] or manifest['slots'] != reviewed['slots']
+            or manifest['remoteBase'] != reviewed['remoteBase']
+            or len(manifest['localFiles']) != len(set(manifest['localFiles']))
+            or set(manifest['localFiles']) != set(reviewed['localFiles'])
+            or not {sha for file in manifest['files'].values() for sha in file['chunks']} <= set(manifest['chunks'])
+            or any(reviewed['chunks'].get(sha) != size for sha, size in manifest['chunks'].items())):
+        raise ValueError('Reconstructed resources differ from the reviewed publication inventory')
+    return (reviewed_bytes, (root / 'runtime-source-lock.json').read_bytes(),
+            (root / 'runtime-lock.json').read_bytes())
+
+
 def pack(output, source_revision=None, local_only=None, resource_policy=None):
     lock, files = locked_files(ROOT)
     runtime_overlay = _delivery.qualified_runtime_overlay(ROOT)
@@ -144,18 +167,24 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
     restricted_chunks = {sha for file in manifest['files'].values() if file.get('localOnly') for sha in file['chunks']}
     if any((resource / 'chunks' / (sha + '.bin')).exists() for sha in restricted_chunks - public_chunks):
         raise ValueError('Restricted payload is already present in the public output; use a fresh output directory')
-    put(output / 'manifest-template.json', encode(manifest))
-    put(resource / 'manifest-template.json', encode(manifest))
-    # Published resources are the executable delivery, after transport adaptation.
-    # Keep the original reviewed engine identity separately for reproducibility.
-    put(output / 'public/web/wordpress/runtime-source-lock.json', encode(lock))
-    delivered = json.loads(json.dumps(lock))
-    delivered['deliveryAdapter'] = {'script': 'runtime-delivery.py', 'uiVersion': version,
-                                  'sourceLock': 'runtime-source-lock.json'}
-    for runtime in delivered['runtimes']:
-        slot = str(Path(runtime['destination']).relative_to('sherloq-browser/assets'))
-        runtime['files'] = {name: manifest['files'][slot + '/' + name]['sha256'] for name in runtime['files']}
-    put(output / 'public/web/wordpress/runtime-lock.json', encode(delivered))
+    retained = reviewed_publication_metadata(ROOT, manifest, runtime_overlay)
+    if retained is not None:
+        manifest_bytes, source_lock_bytes, delivered_lock_bytes = retained
+        manifest = json.loads(manifest_bytes)
+    else:
+        manifest_bytes, source_lock_bytes = encode(manifest), encode(lock)
+        delivered = json.loads(json.dumps(lock))
+        delivered['deliveryAdapter'] = {'script': 'runtime-delivery.py', 'uiVersion': version,
+                                      'sourceLock': 'runtime-source-lock.json'}
+        for runtime in delivered['runtimes']:
+            slot = str(Path(runtime['destination']).relative_to('sherloq-browser/assets'))
+            runtime['files'] = {name: manifest['files'][slot + '/' + name]['sha256'] for name in runtime['files']}
+        delivered_lock_bytes = encode(delivered)
+    put(output / 'manifest-template.json', manifest_bytes)
+    put(resource / 'manifest-template.json', manifest_bytes)
+    # Source and executable metadata keep their distinct reviewed identities.
+    put(output / 'public/web/wordpress/runtime-source-lock.json', source_lock_bytes)
+    put(output / 'public/web/wordpress/runtime-lock.json', delivered_lock_bytes)
     for name in ['build.py', 'runtime-delivery.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
     for name in ['resource-policy.json', 'method-resource-assembly.json']:
