@@ -1,11 +1,11 @@
 {
-  "commit": "a1a5a62908390a71d90d660aad229ea0c9ed7d4e",
+  "commit": "100d1803accc6ce23af1182f942536facb1f957e",
   "commitRepository": "https://github.com/Kinkazma/sherloq-web",
   "baseCommit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
   "runtime": "0.37.0-methods.1",
   "snapshot": "engine-source",
   "sourceIncrementSha256": "440210e4665b4a62114cc5028b045414a0901aab55d39ab465136a7067b3e88c",
-  "incrementScope": "Retained D2PRL/clone and scientific candidate-domain layers plus native Classic ELA previews and reusable energy preparation/segmentation. Original receipt ancestry, model payloads and native binaries are preserved.",
+  "incrementScope": "Retained D2PRL/clone and scientific candidate-domain layers plus native Classic ELA previews and reusable energy preparation/segmentation. Original receipt ancestry, model payloads and native binaries are preserved. Additional independent browser inspection methods retain these predecessors and share core scheduling, memory admission and scientific storage.",
   "d2prlIncrementSha256": "ab77ee77b286abd9866e68f433121149f835f96764c18e33c0fffe200ec6c6a8",
   "d2prlSourceCommit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "cloneSourceCommit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
@@ -14,5 +14,11 @@
   "batchScientificIncrementSha256": "01e747c1d6973fccef363b90ec8cd0a56ed2eb82ccc623a33a8c0d3d9d5f6037",
   "batchScientificIncrementFile": "web/wordpress/runtime-patches/batch-scientific-regions-20261013.json",
   "elaRuntimeIncrementSha256": "b2e46e895640736b7a4120b7e32e242ba20e518a5888b14997cfd3c539c100f4",
-  "elaSourceCommit": "a1a5a62908390a71d90d660aad229ea0c9ed7d4e"
+  "elaSourceCommit": "a1a5a62908390a71d90d660aad229ea0c9ed7d4e",
+  "browserExtensionsIncrementSha256": "a426c99923011e5a86f7e2d76d0c2f53616c6d7c5d227aab479d6b9043b74a6b",
+  "browserExtensionsIncrementFile": "web/wordpress/runtime-patches/browser-extensions-20261015.json",
+  "browserExtensionsSourceCommit": "100d1803accc6ce23af1182f942536facb1f957e",
+  "elaResultOwnershipIncluded": true,
+  "runtimeSourceLockSha256": "88c495f069cb6c83460757f7878a49bf8d23ae4522804ad6e3e28deb7c535f12",
+  "runtimeLockSha256": "80a282856ef1b08bdbcf2f7cedc9565f664f02205a59d48234344be228823620"
 }
