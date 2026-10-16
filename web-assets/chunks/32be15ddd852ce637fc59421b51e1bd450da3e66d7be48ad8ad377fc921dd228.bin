@@ -1,0 +1,81 @@
+{
+  "source_revision": "e79cd7d9bc768cde6d0fbf77d4cea79ec31ce2aa",
+  "source_repository": "https://github.com/IDLabMedia/comprint",
+  "archive": "comprint-statistics.zip",
+  "bytes": 32680,
+  "sha256": "857ce24f89f3fd87aec58de96b72024f9343910f69b9ae2502b9cb00eb435ec9",
+  "files": [
+    {
+      "path": "post_em.py",
+      "bytes": 5336,
+      "sha256": "a2b4c72837ef5f9d0d0f5287c07c55bfc37023e2a6eb399528a96ecc93da1a59",
+      "modified": false
+    },
+    {
+      "path": "feat_spam/spam_np_opt.py",
+      "bytes": 5756,
+      "sha256": "8e9552ffee5e9268a6e562650b27d36f06a2ddc390b69478a16237efe13be4ca",
+      "modified": false
+    },
+    {
+      "path": "feat_spam/residue.py",
+      "bytes": 2331,
+      "sha256": "cf7cc022f8353f3817ab0641d96a19f6e9d3afc9942fab2cd87d60599ce806fa",
+      "modified": false
+    },
+    {
+      "path": "feat_spam/mapping.py",
+      "bytes": 2510,
+      "sha256": "5cf42d7ba0c4dfe33e794de768b7fa2615cab50932d90820bca203af036bc375",
+      "modified": false
+    },
+    {
+      "path": "utility/gaussianMixture.py",
+      "bytes": 13419,
+      "sha256": "68dedb2761a6a5b953ebab1747aae32bcaa4bbb1849bc0d3f8106e355976a205",
+      "modified": false
+    }
+  ],
+  "runtime": {
+    "pyodide": "0.26.4",
+    "packages": [
+      "numpy",
+      "scipy",
+      "scikit-image"
+    ],
+    "default_index_url": "./pyodide/",
+    "python_installation_on_user_computer": false,
+    "remote_inference": false,
+    "roles": {
+      "main": [
+        "numpy",
+        "scipy",
+        "scikit-image"
+      ],
+      "fit": [
+        "numpy",
+        "scipy"
+      ]
+    }
+  },
+  "policy": "exact-published-Comprint-statistics; no covariance-floor or substitute Noiseprint saturation morphology",
+  "kernel": {
+    "file": "kernel.py",
+    "bytes": 8553,
+    "sha256": "a02c911e72ce1f7de3c6b875193163bbb3037eaa6a2947d6c95bdcc1ceb5f171",
+    "purpose": "global covariance partition, exact PCA32, original10EMloops, deterministic likelihood reduction"
+  },
+  "runtime_config": "runtime-config.json",
+  "factory": {
+    "file": "pyodide-factory.js",
+    "bytes": 1229120,
+    "sha256": "7ac81fc7c1341c3112637600fff87732431d5db7b9621bdced27a6853372e4db",
+    "maximumEnforced": true
+  },
+  "chunked_em": {
+    "file": "em_chunked.py",
+    "bytes": 4727,
+    "sha256": "60fd6404eba954ab44a2bded01fb601bb33f4f88acb72a22ffe658966dc6c7a0",
+    "purpose": "global EM on all32D observations with8192-row temporary residuals; 10 original seeded initializations/stopping/100iterations"
+  }
+}

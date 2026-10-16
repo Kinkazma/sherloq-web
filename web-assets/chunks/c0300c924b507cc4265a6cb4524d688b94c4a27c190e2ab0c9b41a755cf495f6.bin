@@ -1,0 +1,71 @@
+{
+  "purpose": "Descriptive metadata; runtime parameters are supplied by the shared browser engine and scheduler",
+  "pyodide": "0.26.4",
+  "indexURL": "./pyodide/",
+  "factory": {
+    "file": "pyodide-factory.js",
+    "bytes": 1229120,
+    "sha256": "7ac81fc7c1341c3112637600fff87732431d5db7b9621bdced27a6853372e4db",
+    "maximumPagesVariable": "__sherloqPythonMemoryPages",
+    "enforced": true
+  },
+  "mainHeapMaximumBytes": 805306368,
+  "featureHeapMaximumBytes": 536870912,
+  "fitHeap": {
+    "dynamic": true,
+    "minimumBytes": 268435456,
+    "roundingBytes": 67108864,
+    "qualifiedCeilingBytes": 2147483648,
+    "trainingDimensions": 32,
+    "trainingDtype": "float64",
+    "posteriorComponents": 2,
+    "posteriorDtype": "float64",
+    "formula": "ceil64MiB(max(256MiB, trainingBytes + validObservations*16 + 256MiB))"
+  },
+  "workers": {
+    "adaptive": true,
+    "maximumSupported": 6,
+    "boundedBy": [
+      "instance maxWorkers",
+      "per-analysis maxWorkers",
+      "shared scheduler CPU capacity",
+      "actual shared memory budget headroom after awaited reclamation",
+      "useful feature windows or EM initializations"
+    ],
+    "minimumConfiguration": {
+      "main": 1,
+      "extraFeatureWorkers": 0,
+      "fitWorkers": 1
+    },
+    "featureAndFitWorkersRetiredBetweenPhases": true,
+    "executionHandshake": "executionReady -> shared CPU admission -> execute",
+    "libraryLoadingHoldsCpuExecutionLease": false,
+    "fixedApplicationMemoryBudget": false
+  },
+  "statistics": {
+    "chunkedEM": true,
+    "temporaryResidualRows": 8192,
+    "globalPCAComponents": 32,
+    "allValidObservationsRetained": true,
+    "replicates": 10,
+    "seed": 0,
+    "maximumIterations": 100,
+    "featureGridBlockRows": 8,
+    "featureGridBlockColumnsMaximum": 256,
+    "featureHaloGridCells": 2,
+    "sourceResize": false,
+    "featureSubsample": false,
+    "temporaryBanks": "Lossless OPFS through dedicated browser worker"
+  },
+  "memoryAccounting": {
+    "callerLuminanceFingerprintPolicyBytesPerPixel": 8,
+    "luminanceFingerprintMaterializedBackingsRegistered": true,
+    "trainingMaterializedBackingRegistered": true,
+    "workerReservationsIncludeBoundedResourceDownloadTransport": true,
+    "retirementWaitsForPythonCleanupAcknowledgement": true,
+    "immediatePhysicalChromiumRSSReclamationGuaranteed": false
+  },
+  "librariesSharedByHTTPcache": true,
+  "noInstalledPython": true,
+  "noServerInference": true
+}
