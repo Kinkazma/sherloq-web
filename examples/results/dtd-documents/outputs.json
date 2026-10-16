@@ -1,0 +1,159 @@
+{
+  "schema": "sherloq.dtd-example-responses/1",
+  "language": "en",
+  "width": 512,
+  "height": 512,
+  "backend": "webgpu",
+  "maps": [
+    {
+      "id": "doc-01-a",
+      "response": {
+        "file": "raw/doc-01-a.f32",
+        "sha256": "4f995897da956a2f67f8103c87bd6896da68ed9b008a869d88c88ced0186d4cf",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-01-a-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-01-b",
+      "response": {
+        "file": "raw/doc-01-b.f32",
+        "sha256": "042ea4626484710e0abd17039cbf2895d897169eaeb6ee004ba51685392a6480",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-01-b-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-02-a",
+      "response": {
+        "file": "raw/doc-02-a.f32",
+        "sha256": "e663b8d7a1e0f4a317c3c8c507d8f2615726dda3b0aa3830cd910394eb5dd65f",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-02-a-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-02-b",
+      "response": {
+        "file": "raw/doc-02-b.f32",
+        "sha256": "6b978929a76ab21fa08d7525282f7b4b4c8f33da6e1372d18aaef2d790ad9e49",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-02-b-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-03-a",
+      "response": {
+        "file": "raw/doc-03-a.f32",
+        "sha256": "7d8aaad0bb5ead2cbfd838eaa68d317f968b782b009c5f9eed7a5b97349785a5",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-03-a-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-03-b",
+      "response": {
+        "file": "raw/doc-03-b.f32",
+        "sha256": "cd41976743d9cc56488f8340b23236bdf215c2957007929ff9e3e08725552251",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-03-b-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-04-a",
+      "response": {
+        "file": "raw/doc-04-a.f32",
+        "sha256": "4aedda40d2c30109f1df8705e38fede9d4daa3aff8552190c9abdd4ac3838218",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-04-a-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-04-b",
+      "response": {
+        "file": "raw/doc-04-b.f32",
+        "sha256": "e1e50e2f2b6bd416ec48ab0c3beeebbfee9e25a11db2850ec5b0504d71856931",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-04-b-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-05-a",
+      "response": {
+        "file": "raw/doc-05-a.f32",
+        "sha256": "d9831ee5a339606ddc654bf0af0d4758054597b5ee242db7430a23460ce134f6",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-05-a-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    },
+    {
+      "id": "doc-05-b",
+      "response": {
+        "file": "raw/doc-05-b.f32",
+        "sha256": "332b6a4bc3c70ee6c82867ac6752d8370c539a7d5c23763f35a786c0712e0b46",
+        "bytes": 1048576,
+        "type": "little-endian Float32"
+      },
+      "validity": {
+        "file": "raw/doc-05-b-valid.u8",
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b",
+        "bytes": 262144,
+        "type": "uint8"
+      }
+    }
+  ]
+}

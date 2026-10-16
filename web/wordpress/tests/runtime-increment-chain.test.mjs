@@ -45,13 +45,15 @@ def mutation(repo,case):
   def mutate(x):next(r for r in x['baseline']['snapshots'] if r['file']==record['file']).update(identity(b))
   change_json(repo,ela_path,mutate)
 accepted=m.qualified_runtime_overlay(root)
-assert len(accepted.files)==61 and [len(x['files']) for x in accepted.receipts]==[57,5]
+assert [len(x['files']) for x in accepted.receipts[:2]]==[57,5]
+_,latest_predecessor=m._extensions.reviewed_extensions_increment(root)
 rejected=[]
 for case in ['source','ancestry','snapshot','undeclared-lock','undeclared-inventory','wrong-native-kind','rewritten-index-preimage']:
  with tempfile.TemporaryDirectory() as d:
   copied=Path(d)/'repo'
   for name in needed:
-   p=copied/name;p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(repo/name,p)
+   p=copied/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(latest_predecessor.get(name,(repo/name).read_bytes()))
+  historical=m.qualified_runtime_overlay(copied/'web/wordpress');assert len(historical.files)==61 and len(historical.receipts)==2
   mutation(copied,case)
   try:m.qualified_runtime_overlay(copied/'web/wordpress');raise AssertionError('Tampered chain accepted: '+case)
   except ValueError as error:

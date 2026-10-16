@@ -87,9 +87,13 @@ I brought the following method families into the web workflows, alongside the in
 - **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG.
 - **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM.
 - **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression.
-- **Text detection:** PP-OCRv6.
+- **Text detection and document inspection:** PP-OCRv6 and DTD / DocTamper.
 - **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL and AdaIFL.
+- **Experimental AI detectors:** B-Free and SPAI.
+- **Compression fingerprints:** Comprint.
 - **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, and ELA energy/territory views.
+
+B-Free, SPAI and DTD are experimental and hidden by default. Show them through **Settings → Enable experimental tools**.
 
 These are integrations of existing research methods, whose authors retain credit. SelfDM requires model files imported into the local resource library; the supplied models and their terms are described in the [resource notices](docs/METHODS-RESOURCE-LICENSES.txt).
 
@@ -135,6 +139,15 @@ The spiral, Street Photo and microscopy inputs also document my macOS work. I su
 [![Three-cell microscopy input](screenshots/readme-webp/examples/three-cells/input.webp)](examples/three-cells/input.png)
 
 [Input record](examples/three-cells/provenance.json).
+
+</details>
+
+<details>
+<summary>Moss photo — original, edited input and my edit reference</summary>
+
+[![Moss photo — original, edited input and edit reference](examples/moss/comparison.webp)](examples/moss/comparison.png)
+
+[Original](examples/moss/original.png) · [Edited input](examples/moss/edited.png) · [My edit reference](examples/moss/reference.png)
 
 </details>
 
@@ -351,6 +364,67 @@ ZERO did not identify a main JPEG grid on this spiral and returned no foreign/mi
 | [![Street Photo — recompression curve](screenshots/readme-webp/examples/results/street-recompression/preview.webp)](examples/results/street-recompression/preview.png) | [![Street Photo — aligned double-JPEG scores](screenshots/readme-webp/examples/results/street-multiple-compression/preview.webp)](examples/results/street-multiple-compression/preview.png) |
 
 Both calculations use the original JPEG. The curve measures pixel differences after recompression at qualities 0–100. The separate aligned detector returns **inconclusive** here, with no frequency reaching its decision threshold. These plots show the unchanged engine values; they neither count past saves nor establish authenticity.
+
+</details>
+
+<details>
+<summary>Comprint — compression fingerprints on the moss photo</summary>
+
+[![Comprint — original and edited compression-distance maps](examples/results/moss-comprint/comparison.webp)](examples/results/moss-comprint/comparison.png)
+
+Top: the edited photo and its edit reference. Below: Comprint on the original and edited images. The edited image produces local responses near parts of the supplied edit reference, and additional responses elsewhere. These are compression-distance displays, not probabilities of manipulation. [Full-resolution maps and settings](examples/results/moss-comprint/README.md).
+
+</details>
+
+<details>
+<summary>⚠ DTD / DocTamper — experimental text-edit detection</summary>
+
+Five synthetic documents, each shown before and after a text edit. **DTD can flag unchanged text or miss edits; its result does not constitute proof.**
+
+[![DTD — five documents before and after editing](examples/results/dtd-documents/planche-dtd.webp)](examples/results/dtd-documents/planche-dtd.png)
+
+| Measure | Result |
+| --- | ---: |
+| Edited pixels detected | 36.50% |
+| Unedited pixels wrongly flagged | 0.0308% |
+| Correct among pixels flagged | 75.26% |
+| Correct pixel decisions overall | 99.81% |
+
+Green: detected edits · red: false alerts · yellow: missed edits. Always answering “unedited” would give 99.74% overall.
+
+[Inputs, maps and detailed results](examples/results/dtd-documents/README.md).
+
+</details>
+
+<details>
+<summary>B-Free — experimental AI detector</summary>
+
+**⚠ Experimental — low reliability: about 62% correct classifications on the study’s images.** An AI label, even when correct, does not mean the underlying data are false. A real acquisition processed with AI denoising or sharpening can still contain reliable information. Partial AI edits may also be missed.
+
+| Independent CONVEX study | B-Free |
+| --- | ---: |
+| Of AI images, those detected | 52.72% |
+| Of non-AI images, those wrongly flagged | 27.81% |
+| Of AI alerts, those that are correct | 65.65% |
+| Correct answers overall | 62.42% |
+
+[Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
+
+</details>
+
+<details>
+<summary>SPAI — experimental AI detector</summary>
+
+**⚠ Experimental — low reliability: about 58% correct classifications on the study’s images.** An AI label, even when correct, does not mean the underlying data are false. A real acquisition processed with AI denoising or sharpening can still contain reliable information. Partial AI edits may also be missed.
+
+| Independent CONVEX study | SPAI |
+| --- | ---: |
+| Of AI images, those detected | 41.48% |
+| Of non-AI images, those wrongly flagged | 24.66% |
+| Of AI alerts, those that are correct | 62.90% |
+| Correct answers overall | 58.34% |
+
+[Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
 
 </details>
 

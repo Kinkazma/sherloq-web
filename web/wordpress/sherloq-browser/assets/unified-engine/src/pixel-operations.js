@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.21.0";
 import {resamplingAnalysisParams} from './resampling-analysis.js';
 import {elaCellParams,elaCellPipeline} from './ela-cell-pipeline.js';
 import {recompressionParams,jpegRecompression} from './jpeg-recompression.js';
@@ -33,8 +33,8 @@ import {resamplingFourierParams,resamplingFourierAdmission,resamplingFourierData
 
 // Budget multipliers include working arrays, retained result and defensive copy.
 export const PIXEL_OPERATIONS=Object.freeze({
- 'ela.biomes':{validate:elaCellParams,compute:elaCellPipeline,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,native:'core/ela_biomes.py cell path + ela_background.py + ela_ghosts.py; original RGB and native cKDTree',exports:['json','npz'],kernelStatus:'validated-synthetic',parity:'Original-resolution native cell profiles, robust peers, Ghost phases and seeded segmentation. Descriptor maximum measured error2.39e-7; qualified corpus and limits in docs/ELA-CELLS.md. Pixel-energy analysis remains a separate operation.'},
- 'ela.energy':{validate:energyParams,compute:energyPipeline,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,native:'core/ela_biomes.py energy path + ela_energy.py + ela_energy_auto.py; original-byte JPEG tables',exports:['json','npz'],kernelStatus:'validated-synthetic',parity:'51 complete native original-byte energy paths exact through real API workers in Chrome/Firefox/WebKit; 84 preparation,624 mask,512 colour and scientific-profile corpora. Three useful JPEG workers at1MP, cache/NPZ/cancellation verified. Energy-only; no legacy peer biomes or complete analysis.'},
+ 'ela.biomes':{validate:elaCellParams,compute:elaCellPipeline,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,resultMemory:'owned-source-copy',native:'core/ela_biomes.py cell path + ela_background.py + ela_ghosts.py; original RGB and native cKDTree',exports:['json','npz'],kernelStatus:'validated-synthetic',parity:'Original-resolution native cell profiles, robust peers, Ghost phases and seeded segmentation. Descriptor maximum measured error2.39e-7; qualified corpus and limits in docs/ELA-CELLS.md. Pixel-energy analysis remains a separate operation.'},
+ 'ela.energy':{validate:energyParams,compute:energyPipeline,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,resultMemory:'owned-source-copy',native:'core/ela_biomes.py energy path + ela_energy.py + ela_energy_auto.py; original-byte JPEG tables',exports:['json','npz'],kernelStatus:'validated-synthetic',parity:'51 complete native original-byte energy paths exact through real API workers in Chrome/Firefox/WebKit; 84 preparation,624 mask,512 colour and scientific-profile corpora. Three useful JPEG workers at1MP, cache/NPZ/cancellation verified. Energy-only; no legacy peer biomes or complete analysis.'},
  ...METADATA_OPERATIONS,
  ...OPENCV_OPERATIONS,
  'subimages.detect':{validate:subimageParams,compute:subimageData,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,native:'core/auto_zones.py: detect_panels; NumPy1.26.4/OpenCV4.11.0',exports:['json'],kernelStatus:'validated-synthetic',parity:'144 generated original-byte cases reproduce exact native decoded pixels and panel polygons. Native BGR palette ties, median, morphology, connected components, geometry and row order; no complete analysis or authenticity decision. CPU and full-memory only.'},
@@ -73,6 +73,23 @@ export function payloadBytes(value){
  if(typeof value==='string')return value.length*2;
  if(value===null||typeof value!=='object')return 8;
  return Object.entries(value).reduce((sum,[key,v])=>sum+key.length*2+payloadBytes(v)+32,64);
+}
+// structuredClone preserves aliases but copies the entire ArrayBuffer behind
+// a view, including bytes outside a subarray. Count one owned backing, rather
+// than each alias or just its visible slice, for explicit source/copy handoffs.
+export function ownedPayloadBytes(value){
+ const seen=new Set(),backings=new Set();
+ const visit=value=>{
+  if(ArrayBuffer.isView(value)){const buffer=value.buffer;if(backings.has(buffer))return 0;backings.add(buffer);return buffer.byteLength;}
+  if(value instanceof ArrayBuffer||typeof SharedArrayBuffer!=='undefined'&&value instanceof SharedArrayBuffer){if(backings.has(value))return 0;backings.add(value);return value.byteLength;}
+  if(typeof value==='string')return value.length*2;
+  if(value===null||typeof value!=='object')return 8;
+  if(seen.has(value))return 0;seen.add(value);
+  if(value instanceof Map)return [...value].reduce((sum,[key,item])=>sum+64+visit(key)+visit(item),64);
+  if(value instanceof Set)return [...value].reduce((sum,item)=>sum+32+visit(item),64);
+  return Object.entries(value).reduce((sum,[key,item])=>sum+key.length*2+visit(item)+32,64);
+ };
+ return visit(value);
 }
 export function histogramView(result,p){
  result.data.summary=histogramSummary(result.data.bins,p.channel,p.start,p.end,result.data.cumulative[255]);return result;

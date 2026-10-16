@@ -3,13 +3,13 @@ import type {CloneEntry} from './clone-relations.js';
 import type {AutomaticViewState} from './automatic-analysis-view.js';
 export interface Pixels { width:number; height:number; format:'rgb8'; data:Uint8Array; }
 export interface Surface {id:string;revision:number;width:number;height:number;format:'rgb8';coordinates:'full-resolution';}
-export interface NumericSurface extends Omit<Surface,'format'> {format:'float32'|'int32';semantics:string;storage:string;}
-export interface NumericPlane {width:number;height:number;format:'float32'|'int32';data:Float32Array|Int32Array;}
+export interface NumericSurface extends Omit<Surface,'format'|'coordinates'> {coordinates:'full-resolution'|'native-analysis-grid';format:'float32'|'float64'|'int32';semantics:string;storage:string;}
+export interface NumericPlane {width:number;height:number;format:'float32'|'float64'|'int32';data:Float32Array|Float64Array|Int32Array;}
 export interface ScientificExportPageRequest {exportId:string;revision:number;offset?:number;length?:number;}
 export interface ScientificExportPage {exportId:string;revision:number;offset:number;bytes:Uint8Array;totalBytes:number;nextOffset:number;done:boolean;mime:'application/zip';}
 export interface MaskSurface extends Omit<Surface,'format'> {format:'mask8';range:readonly [number,number];semantics:string;}
-export interface ScientificSurface extends Omit<Surface,'format'> {format:'float32'|'int32';semantics:string;storage:string;}
-export type ScientificPlane = {width:number;height:number}&({format:'float32';data:Float32Array}|{format:'int32';data:Int32Array});
+export interface ScientificSurface extends Omit<Surface,'format'|'coordinates'> {coordinates:'full-resolution'|'native-analysis-grid';format:'float32'|'float64'|'int32';semantics:string;storage:string;}
+export type ScientificPlane = {width:number;height:number}&({format:'float32';data:Float32Array}|{format:'float64';data:Float64Array}|{format:'int32';data:Int32Array});
 export interface FlagSurface extends Omit<MaskSurface,'format'> {format:'rgb-flags8';channelOrder:'RGB';}
 export interface Table {id:string;revision:number;format:'uint32-table'|'float32-table'|'float64-table';rowCount:number;columns:readonly string[];order:string;coordinates:string;scale?:number;gridWidth?:number;gridHeight?:number;storage?:string;}
 export interface TableWindow {tableId:string;revision:number;offset?:number;length?:number;}
@@ -22,7 +22,16 @@ export interface SparseParams {algorithm:'SIFT'|'RootSIFT'|'AKAZE'|'BRISK'|'ORB'
 export interface SparseView {low?:number;high?:number;minimum?:number;chosen?:number[];hidden?:number[];circles?:boolean;lines?:boolean;points?:boolean;areas?:boolean;textExclusions?:boolean;}
 export interface M3Asset {sha256:string;data?:Uint8Array;url?:string;}
 export interface M3Resources {models:Record<string,M3Asset|{graphs:Record<string,M3Asset>}>;language?:{data:Uint8Array;sha256:string};}
+export type ExtensionMethod='bfree'|'spai'|'doctamper'|'comprint';
+export interface ExtensionResources {baseURL?:string;moduleURL?:string;manifest?:Record<string,unknown>;resultStorage?:'auto'|'borrowed'|'temporary';pagedResultThresholdPixels?:number;[key:string]:unknown;}
+export interface ExtensionTask {id:string;imageId:string;methods?:ExtensionMethod[];backend?:'cpu'|'webgpu'|'auto';}
+export interface ExtensionFailure {id:string;imageId:string;operation:keyof OperationParams;status:'error';error:{code:string;message:string;details?:Record<string,unknown>};}
+export interface ExtensionBatch {id:string;imageId:string;operation:'analysis.extensions';status:'ok'|'partial';results:(Result|ExtensionFailure)[];metrics:Record<string,unknown>;}
 export interface OperationParams {
+ 'ai.generation.bfree':Record<string,never>;
+ 'ai.generation.spai':Record<string,never>;
+ 'ai.text.doctamper':Record<string,never>;
+ 'jpeg.comprint':Record<string,never>;
  'analysis.complete':AutomaticRuntimeParams;
  'analysis.clones':AutomaticRuntimeParams;
  'tampering.copyMove.brisk':OperationParams['tampering.copyMove.orb'];
@@ -95,7 +104,7 @@ export interface SegmentationAsset {url:string;bytes:number;sha256:string;}
 export interface SegmentationModelInput extends SegmentationAsset {variant:SegmentationVariant;gpu?:SegmentationAsset;}
 export const SEGMENTATION_MODEL_IDENTITIES:Readonly<Record<SegmentationVariant,Readonly<{id:string;variant:string;side:number;kind:'sigmoid'|'softmax';bytes:number;sha256:string;checkpointSha256:string;status:string;cpuContinuousBitExact:false;family?:'cmseg'|'tnt'|'vig'|'selfdm';backbone?:Readonly<{file:string;bytes:number;sha256:string}>;tail?:Readonly<{file:string;bytes:number;sha256:string}>;assetBytes?:number;gpu?:Readonly<{id:string;bytes:number;sha256:string;status:string;sharedAssets?:true;correlationGpuOnly?:true;residentCorrelation?:true;minimumResidentBytes?:number}>}>>>;
 export const D2PRL_MODEL_IDENTITY:Readonly<{bytes:number;sha256:string;modelId:string;checkpointSha256:string;assets:number;assetBytes:number}>;
-export type Task = { [K in keyof OperationParams]:{id:string;imageId:string;operation:K;params?:Partial<OperationParams[K]>;view?:K extends 'tampering.copyMove.sparse'?SparseView:{mode?:'overlay'|'map'|'mask'|'confidence'};backend?:'cpu'|'auto'|(K extends 'detail.frequency'|'ai.clones.d2prl'|'ai.clones.segmentation'|'tampering.copyMove.brisk'|'tampering.copyMove.orb'|'tampering.copyMove.akaze'|'tampering.copyMove.sparse'|'ai.sources.safire'|'ai.localization.focal'|'ai.localization.adaifl'?'webgpu':never);regions?:K extends 'ai.clones.d2prl'|'ai.clones.segmentation'?D2prlRegion[]:never[]} }[keyof OperationParams];
+export type Task = { [K in keyof OperationParams]:{id:string;imageId:string;operation:K;params?:Partial<OperationParams[K]>;view?:K extends 'tampering.copyMove.sparse'?SparseView:{mode?:'overlay'|'map'|'mask'|'confidence'};backend?:'cpu'|'auto'|(K extends 'detail.frequency'|'ai.clones.d2prl'|'ai.clones.segmentation'|'ai.generation.bfree'|'ai.generation.spai'|'ai.text.doctamper'|'jpeg.comprint'|'tampering.copyMove.brisk'|'tampering.copyMove.orb'|'tampering.copyMove.akaze'|'tampering.copyMove.sparse'|'ai.sources.safire'|'ai.localization.focal'|'ai.localization.adaifl'?'webgpu':never);regions?:K extends 'ai.clones.d2prl'|'ai.clones.segmentation'?D2prlRegion[]:never[]} }[keyof OperationParams];
 export interface Mask {width:number;height:number;format:'mask8';data:Uint8Array;range:number[];semantics:string;}
 export interface Flags extends Omit<Mask,'format'> {format:'rgb-flags8';channelOrder:'RGB';}
 export interface Result { id:string; imageId:string; operation:keyof OperationParams; status:'ok'|'no-regions'|'partial';analysisId?:string;selection?:AutomaticSelection; layout?:'surface'|'table';surface?:Surface|NumericSurface;planeSurfaces?:Record<string,NumericSurface>;rgbSurfaces?:Record<string,Surface>;maskSurfaces?:Record<string,MaskSurface>;flagSurfaces?:Record<string,FlagSurface>;tables?:Record<string,Table>;pixels?:Pixels; masks?:Record<string,Mask>; data?:Record<string,unknown>; layers:unknown[]; provenance:Record<string,unknown>; metrics:Record<string,unknown>; }
@@ -138,6 +147,9 @@ export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'aut
  exportAutomatic(request:{analysisId:string;options?:Record<string,unknown>;storage?:'auto'|'memory'|'temporary';maxBytes?:number},hooks?:Hooks):Promise<AutomaticRuntimeExport>;
  releaseAutomatic():Promise<void>;
  readNpz(request:{surfaceId:string;revision:number;offset?:number;length?:number},hooks?:Hooks):Promise<Record<string,unknown>>;
+ loadExtensionModels(input?:ExtensionResources,hooks?:Hooks):Promise<{methods:ExtensionMethod[];execution:'browser-only';sharedResources:true;weightsFetched:false;preflightExecutions:0;resultStorage:'auto'|'borrowed'|'temporary';pagedResultThresholdPixels:number}>;
+ unloadExtensionModels():Promise<void>;
+ runExtensions(task:ExtensionTask,hooks?:Hooks):Promise<ExtensionBatch>;
  loadM3Models(input:M3Resources,hooks?:Hooks):Promise<Record<string,unknown>>;
  unloadM3Models():Promise<void>;
  loadD2prlModel(input:D2prlManifest,hooks?:Hooks):Promise<Record<string,unknown>>;

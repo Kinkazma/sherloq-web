@@ -1,5 +1,6 @@
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
-import {resultResources,configureSegmentationModel} from './tool-client.js';
+import {resultResources,configureSegmentationModel,configureExtensionModels} from './tool-client.js';
+import {isExtensionTool} from './extension-tools.js';
 import {requireValue} from './unified-engine/src/errors.js';
 
 // Individual documents share one native memory budget and the original image.
@@ -52,10 +53,14 @@ export function createWorkspaceEnginePool(createEngine=createWorkerEngine){
       // must not switch the shared adapter between configuration and inference.
       await configureSegmentationModel(record.engine,model,hooks);
       output=await record.engine.run(task,hooks);
+     }else if(method==='runConfiguredExtension'){
+      const [task,configuration,hooks]=args;requireValue(isExtensionTool(task?.operation),'Approved extension task required');
+      await configureExtensionModels(record.engine,configuration,hooks);
+      output=await record.engine.run(task,hooks);
      }else output=await record.engine[method](...args);
     }catch(error){if(error.imagesCleared){record.images.clear();record.configured.clear();for(const scope of record.owners){for(const name of ['images','surfaces','tables','models','leases'])scope[name].clear();scope.invalidate?.();}}throw error;}
     if(configuration)record.configured.set(configuration,output);
-    if(method==='run'||method==='runConfiguredSegmentation'){const owned=resultResources(output);for(const s of owned.surfaces)if(![...record.images.values()].some(i=>i.descriptor.surface?.id===s.id))surfaces.add(s.id);for(const t of owned.tables)tables.add(t.id);}
+    if(['run','runConfiguredSegmentation','runConfiguredExtension'].includes(method)){const owned=resultResources(output);for(const s of owned.surfaces)if(![...record.images.values()].some(i=>i.descriptor.surface?.id===s.id))surfaces.add(s.id);for(const t of owned.tables)tables.add(t.id);}
     if(method==='releaseSurface')surfaces.delete(args[0]);
     if(method==='releaseTable')tables.delete(args[0]);
     if(method==='reserveExternalMemory')leases.add(output.id);

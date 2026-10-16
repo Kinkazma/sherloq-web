@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "version": "0.1.0-research",
+  "execution": "browser-only: WebAssembly CPU and WebGPU; no installed Python, no remote inference",
+  "default_methods": [
+    "bfree",
+    "spai",
+    "doctamper",
+    "comprint"
+  ],
+  "advanced_optional_models": [],
+  "methods": {
+    "bfree": {
+      "label": "B-Free",
+      "family": "global-ai"
+    },
+    "spai": {
+      "label": "SPAI",
+      "family": "global-ai"
+    },
+    "doctamper": {
+      "label": "DTD / DocTamper",
+      "family": "document-text"
+    },
+    "comprint": {
+      "label": "Comprint",
+      "family": "compression"
+    }
+  },
+  "assets": {
+    "models/bfree/encoder.onnx": {
+      "url": "models/bfree/encoder.onnx",
+      "bytes": 346253355,
+      "sha256": "aafa23f59e64ec4257a6ba3ad29955db5ff517baab0a257062d728fce0d3e3ee",
+      "workspaceBytes": 536870912,
+      "method": "bfree",
+      "outputBytes": 16777216,
+      "wasmMaximumBytes": 4294967296,
+      "webgpuOrtURL": "runtime/comprint-ort-bounded.mjs",
+      "gpuWorkspaceBytes": 1073741824,
+      "gpuWasmWorkspaceBytes": 268435456
+    },
+    "models/comprint/comprint.onnx": {
+      "url": "models/comprint/comprint.onnx",
+      "bytes": 2677173,
+      "sha256": "229a9ff0b45bda46279ec790893b15ae0bd68faf83c3936be992b994e9045e68",
+      "workspaceBytes": 805306368,
+      "method": "comprint",
+      "outputBytes": 16777216,
+      "wasmMaximumBytes": 4294967296,
+      "webgpuOrtURL": "runtime/comprint-ort-bounded.mjs",
+      "gpuWorkspaceBytes": 805306368,
+      "gpuWasmWorkspaceBytes": 134217728
+    },
+    "models/doctamper/doctamper.onnx": {
+      "url": "models/doctamper/doctamper.onnx",
+      "bytes": 268570166,
+      "sha256": "a8c8ab115523350f03f42005f0b724ed8fee828acd283b47b3cf44678dfc4f73",
+      "workspaceBytes": 536870912,
+      "method": "doctamper",
+      "outputBytes": 16777216,
+      "wasmMaximumBytes": 4294967296,
+      "webgpuOrtURL": "runtime/comprint-ort-bounded.mjs",
+      "gpuWorkspaceBytes": 1342177280,
+      "gpuWasmWorkspaceBytes": 268435456
+    },
+    "models/spai/aggregator.onnx": {
+      "url": "models/spai/aggregator.onnx",
+      "bytes": 77925562,
+      "sha256": "aa383b8d09530463ed32605a191151153a2f629664306148f59731c11fbd7f22",
+      "workspaceBytes": 536870912,
+      "method": "spai",
+      "outputBytes": 16777216,
+      "wasmMaximumBytes": 4294967296,
+      "webgpuOrtURL": "runtime/comprint-ort-bounded.mjs",
+      "gpuWorkspaceBytes": 1073741824,
+      "gpuWasmWorkspaceBytes": 268435456
+    },
+    "models/spai/encoder.onnx": {
+      "url": "models/spai/encoder.onnx",
+      "bytes": 453096948,
+      "sha256": "fcff9d05d2d1d2adff6288303206160e3b94bb28d6391c00bab9f34085558cdc",
+      "workspaceBytes": 536870912,
+      "method": "spai",
+      "outputBytes": 16777216,
+      "wasmMaximumBytes": 4294967296,
+      "workspaceByBatch": {
+        "1": 1073741824,
+        "2": 1342177280,
+        "4": 1879048192
+      },
+      "productionMaximumBatch": 4,
+      "webgpuOrtURL": "runtime/comprint-ort-bounded.mjs",
+      "gpuWorkspaceBytes": 1073741824,
+      "gpuWasmWorkspaceBytes": 268435456
+    }
+  },
+  "distribution": "Runtime code and declared neural assets only; core runtime reused separately."
+}

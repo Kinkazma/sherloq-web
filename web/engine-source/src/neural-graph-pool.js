@@ -57,7 +57,7 @@ export class NeuralGraphPool {
       this.waiters.add(done);this.budget.resourceListeners?.add(inspect);signal?.addEventListener('abort',abort,{once:true});inspect();
     });operation?.setState('ready');checkAbort(signal);
   }
-  async run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend='auto',cpuRequired=false,_memoryScale=1,reusableInputs={},gpuWasmWorkspaceBytes,resourceOperation,_initializationRecovery=0}={}){
+  async run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend='auto',cpuRequired=false,_memoryScale=1,reusableInputs={},gpuWasmWorkspaceBytes,cpuWorkspaceBytes,resourceOperation,_initializationRecovery=0}={}){
     const asset=this.assets[name];
     requireValue(asset&&Number.isSafeInteger(asset.bytes)&&asset.bytes>0&&/^[a-f0-9]{64}$/.test(asset.sha256),'Invalid neural model identity.');
     const modelBytes=asset.bytes+neuralGraphTransformAllowance(asset);
@@ -66,6 +66,7 @@ export class NeuralGraphPool {
     for(const t of Object.values(inputs))requireValue(ArrayBuffer.isView(t.data)&&Array.isArray(t.dims)&&t.dims.every(x=>Number.isSafeInteger(x)&&x>=0)&&t.dims.reduce((a,b)=>a*b,1)===t.data.length,'Invalid neural tensor.');
     const provider=cpuRequired||backend==='cpu'||this.cpuOnly||!globalThis.navigator?.gpu?'wasm':'webgpu';
     if(backend==='webgpu'&&provider!=='webgpu'&&!cpuRequired)throw new EngineError('GPU_UNAVAILABLE','WebGPU unavailable.');
+    if(cpuWorkspaceBytes!==undefined){requireValue(Number.isSafeInteger(cpuWorkspaceBytes)&&cpuWorkspaceBytes>=0,'Invalid CPU workspace bound.');if(provider==='wasm')workspaceBytes=cpuWorkspaceBytes;}
     const runtime=this.runtimes[provider];requireValue(runtime?.factoryUrl&&runtime?.wasmUrl&&(runtime?.ortUrl||['cfa','noiseprint-plus'].includes(runtime?.executor)),'Bounded neural runtime required.');
     for(const [key,id]of Object.entries(reusableInputs))requireValue(inputs[key]?.data instanceof Float32Array&&typeof id==='string'&&id.length>0,'Reusable tensors require immutable float32 inputs and identity.');
     requireValue(gpuWasmWorkspaceBytes===undefined||Number.isSafeInteger(gpuWasmWorkspaceBytes)&&gpuWasmWorkspaceBytes>=0,'Invalid GPU host workspace bound.');
@@ -118,7 +119,7 @@ export class NeuralGraphPool {
     }catch(error){
       releaseJob?.();releaseJob=null;operation?.release();this.wake();
       if(error.code==='MEMORY_LIMIT'&&provider==='webgpu'&&backend==='auto'){
-        const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend:'cpu',cpuRequired,_memoryScale,reusableInputs,gpuWasmWorkspaceBytes,resourceOperation});
+        const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend:'cpu',cpuRequired,_memoryScale,reusableInputs,gpuWasmWorkspaceBytes,cpuWorkspaceBytes,resourceOperation});
         retried.metrics.retry={from:'webgpu',reason:'GPU memory admission; useful job admitted on CPU'};return retried;
       }
       throw error;
@@ -193,7 +194,7 @@ export class NeuralGraphPool {
         },{label:'neural/'+name,onFailure:error=>this.drop(slot,error)});
         slot.protocol=protocol;slot.worker.onerror=event=>protocol.fail(workerFailure(event));
         // Keep caller-owned inputs available for another graph or a CPU retry.
-        try{protocol.post({asset,inputs:Object.fromEntries(Object.entries(inputs).filter(([key])=>!reusableInputs[key]||slot.reusableInputs[key]!==reusableInputs[key])),reusableInputs,provider,runtime,memoryMaximumBytes:slot.cap,outputBytes,threads:slot.threads??1});}catch(e){protocol.fail(e);}
+        try{protocol.post({asset,inputs:Object.fromEntries(Object.entries(inputs).filter(([key])=>!reusableInputs[key]||slot.reusableInputs[key]!==reusableInputs[key])),reusableInputs,provider,runtime,memoryMaximumBytes:slot.cap,outputBytes,gpuMaximumBytes:provider==='webgpu'?modelBytes+workspaceBytes+reusableBytes+jobBytes:0,threads:slot.threads??1});}catch(e){protocol.fail(e);}
       });
       checkAbort(signal);
       requireValue(result.heapBytes>0&&result.heapBytes<=slot.cap,'Neural heap exceeded its admitted cap.');
@@ -205,7 +206,7 @@ export class NeuralGraphPool {
       // only the returned buffers remain owned by this lease.
       const outputReservation=releaseJob.split(dataBytes(result.result));releaseJob();releaseJob=outputReservation;
       slot.reusableInputs={...reusableInputs};slot.reject=null;slot.executionController=null;slot.lastUsed=++this.clock;slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);const outputBacking=registerArrayViews(this.budget,Object.fromEntries(Object.entries(result.result).map(([key,value])=>[key,value.data])),{owner:this.resourceOwner,label:'neural-output/'+name});const outputLease=releaseJob;const releaseOutput=()=>{outputBacking();outputLease();};complete=true;operation?.commit();this.wake();
-      return {...result,release:releaseOutput,metrics:{milliseconds:performance.now()-started,preflightExecutions:0,memoryMaximumBytes:slot.cap,provider,workers:1,threads:slot.threads??1,threadReconfigured,workerReused,modelReconfigured,pool:this.snapshot(),runtime:result.runtimeLifecycle,cpuGranted:peakCpuGranted,gpuGranted:peakGpuGranted,reusedInputBytes:reusedBytes,copiedOutputBytes:result.copiedOutputBytes??0}};
+      return {...result,release:releaseOutput,metrics:{milliseconds:performance.now()-started,preflightExecutions:0,memoryMaximumBytes:slot.cap,wasmHeapBytes:result.heapBytes,provider,workers:1,threads:slot.threads??1,threadReconfigured,workerReused,modelReconfigured,pool:this.snapshot(),runtime:result.runtimeLifecycle,gpuMemory:result.gpuMemory,cpuGranted:peakCpuGranted,gpuGranted:peakGpuGranted,reusedInputBytes:reusedBytes,copiedOutputBytes:result.copiedOutputBytes??0}};
     }catch(error){
       error=slot.startupError??error;
       executionLease?.release();executionLease=null;operation?.setState('recovery');this.drop(slot,error);checkAbort(signal);
@@ -216,18 +217,18 @@ export class NeuralGraphPool {
         // completed feature banks remain with the caller. No heap growth or
         // calibration run follows an address-space allocation refusal.
         if(retiredWorkers){releaseJob();releaseJob=null;await controlCheckpoint(signal);
-          const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend,cpuRequired,_memoryScale,reusableInputs,gpuWasmWorkspaceBytes,resourceOperation,_initializationRecovery:1});
+          const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend,cpuRequired,_memoryScale,reusableInputs,gpuWasmWorkspaceBytes,cpuWorkspaceBytes,resourceOperation,_initializationRecovery:1});
           retried.metrics.retry={reason:'Retired idle neural contexts after runtime initialization refusal',retiredWorkers};return retried;
         }
       }
       if(error.code==='MEMORY_ALLOCATION'&&resourceAllocationKind(error)==='wasm'&&error.details?.nativeHeapExhausted===true&&_memoryScale===1){
         releaseJob();releaseJob=null;
-        const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend,cpuRequired,_memoryScale:2,reusableInputs,gpuWasmWorkspaceBytes,resourceOperation});
+        const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend,cpuRequired,_memoryScale:2,reusableInputs,gpuWasmWorkspaceBytes,cpuWorkspaceBytes,resourceOperation});
         retried.metrics.retry={reason:'Larger admitted heap after allocation failure during useful inference',fromBytes:memoryMaximumBytes};return retried;
       }
-      if(provider==='webgpu'&&backend==='auto'&&error.code==='NEURAL_EXECUTION'){
+      if(provider==='webgpu'&&backend==='auto'&&(['NEURAL_EXECUTION','GPU_OUT_OF_MEMORY','GPU_UNAVAILABLE'].includes(error.code)||['MEMORY_LIMIT','MEMORY_ALLOCATION'].includes(error.code)&&(error.details?.allocationKind==='gpu'||resourceAllocationKind(error)==='gpu'))){
         this.cpuOnly=true;releaseJob();releaseJob=null;
-        const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend:'cpu',cpuRequired,reusableInputs,gpuWasmWorkspaceBytes,resourceOperation});
+        const retried=await this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend:'cpu',cpuRequired,reusableInputs,gpuWasmWorkspaceBytes,cpuWorkspaceBytes,resourceOperation});
         retried.metrics.retry={from:'webgpu',reason:error.message};return retried;
       }
       throw error;

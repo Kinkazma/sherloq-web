@@ -52,15 +52,16 @@ export function createWorkerEngine(options={}) {
    const abort=()=>{
     if(method==='capabilities'){const p=pending.get(sequence);if(p){pending.delete(sequence);p.cleanup();p.reject(new EngineError('CANCELLED','Diagnostic read cancelled.'));}return;}
     const automatic=['resumeAutomatic','updateAutomatic','renderAutomatic','exportAutomatic'].includes(method)||method==='run'&&['analysis.complete','analysis.clones'].includes(args[0]?.operation);
+    const extensions=['loadExtensionModels','runExtensions'].includes(method)||method==='run'&&['ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint'].includes(args[0]?.operation);
     const model=method==='run'&&['ai.clones.d2prl','ai.clones.segmentation','tampering.copyMove.sparse','ai.sources.safire','ai.localization.focal','ai.localization.adaifl'].includes(args[0]?.operation);
-    if(worker&&(automatic||model&&!storageOwners.size)){
-     const error=new EngineError('CANCELLED','Task cancelled cooperatively.');error.imagesCleared=false;const entry=pending.get(sequence);if(!entry)return;entry.cancelled=error;entry.automatic=automatic;
+    if(worker&&(automatic||extensions||model&&!storageOwners.size)){
+     const error=new EngineError('CANCELLED','Task cancelled cooperatively.');error.imagesCleared=false;const entry=pending.get(sequence);if(!entry)return;entry.cancelled=error;entry.automatic=automatic||extensions;
      try{
       worker.postMessage({method:'cancel-task',sequence});
       // Draining owned I/O can take arbitrarily long without losing liveness.
       // Automatic checkpoints are destroyed only by explicit shutdown or a
       // real worker failure, never by elapsed cancellation time alone.
-      if(!automatic)cooperativeTimer=setTimeout(()=>{const forced=new EngineError('CANCELLED','Cancellation timed out; reload sources and model manifest.');forced.cancellationMode='forced-after-task-cancel-timeout';reset(forced);},5000);
+      if(!automatic&&!extensions)cooperativeTimer=setTimeout(()=>{const forced=new EngineError('CANCELLED','Cancellation timed out; reload sources and model manifest.');forced.cancellationMode='forced-after-task-cancel-timeout';reset(forced);},5000);
      }catch(cause){error.cause=cause;error.cancellationMode='forced-after-cancel-message-failure';reset(error);}return;
     }
     const error=new EngineError('CANCELLED','Task cancelled; reload image before the next run.');error.imagesCleared=true;if(storageOwners.size&&worker)stopWithStorageClose(error);else reset(error);
@@ -139,6 +140,7 @@ export function createWorkerEngine(options={}) {
   loadQualityModel:(input,hooks)=>call('loadQualityModel',[input],hooks),
   loadSegmentationModel:(input,hooks)=>call('loadSegmentationModel',[input],hooks),unloadSegmentationModel:()=>call('unloadSegmentationModel'),readSegmentationRaw:request=>call('readSegmentationRaw',[request]),
   loadM3Models:(input,hooks)=>call('loadM3Models',[input],hooks),unloadM3Models:()=>call('unloadM3Models'),
+  loadExtensionModels:(input,hooks)=>call('loadExtensionModels',[input],hooks),unloadExtensionModels:()=>call('unloadExtensionModels'),runExtensions:(task,hooks)=>call('runExtensions',[task],hooks),
   loadD2prlModel:(input,hooks)=>call('loadD2prlModel',[input],hooks),unloadD2prlModel:()=>call('unloadD2prlModel'),
   readD2prlRaw:request=>call('readD2prlRaw',[request]),
   async buildPrnuDatabase(input,hooks){const id='job-'+crypto.randomUUID(),record={imageId:input.id,backend:null};storageOwners.set(id,record);try{const result=await call('buildPrnuDatabase',[{...input,temporarySessionId:id}],hooks);if(!result.metrics.temporaryBackend)storageOwners.delete(id);return result;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},exportPrnuDatabase:(id,hooks)=>call('exportPrnuDatabase',[id],hooks),

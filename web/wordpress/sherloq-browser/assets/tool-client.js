@@ -1,3 +1,8 @@
+import {isExtensionTool,extensionConfiguration} from './extension-tools.js';
+import {dtdFrame} from './dtd-presentation.js';
+import {comprintFrame} from './comprint-presentation.js';
+import {truforHeatFrame} from './trufor-palette.js';
+import {displayGeometry} from './unified-engine/src/display-sampling.js';
 import {localFeaturePolicy} from './feature-policy.js';
 import {composeCloneFrame,sampleCloneField,d2AnalysisKey} from './neural-clone-ui.js';
 import {samplePixels} from './unified-engine/src/display-sampling.js';
@@ -44,20 +49,24 @@ export async function configureSegmentationModel(engine,model,hooks={}){
  checkAbort(hooks.signal);
  await engine.loadSegmentationModel(model,hooks);
 }
+export async function configureExtensionModels(engine,configuration,hooks={}){
+ checkAbort(hooks.signal);const caps=await engine.capabilities();checkAbort(hooks.signal);
+ if(!caps.extensions?.configured)await engine.loadExtensionModels(configuration,hooks);
+}
 export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity,resourceHints}={}){
  const deployment=await (await fetch(new URL('./integrated-config.json',import.meta.url))).json();
  const base=new URL(deployment.assetBase,new URL('./integrated-config.json',import.meta.url));
  const asset=name=>new URL(name,base).href;
  const engine=engineFactory({computeProfile,...(resourceHints?{resourceHints}:{}),...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
  let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,m3OcrLoaded=false,d2Loaded=false,segmentationModels,m2=null,m2Method=null;
- let d2Analysis=null;let sourceInput;const sourceAliases=new Set();
- const invalidated=()=>{d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
+ let d2Analysis=null,responseProxy=null;let sourceInput;const sourceAliases=new Set();
+ const invalidated=()=>{void clearResponseProxy();d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
  engine.onSourceInvalidation?.(invalidated);
  const resolve=value=>Array.isArray(value)?value.map(resolve):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,v])=>[key,key==='url'?asset(v):resolve(v)])):value;
  const enqueue=fn=>{const task=queue.then(()=>{if(disposed)throw Object.assign(Error('Outil fermé'),{code:'CANCELLED'});return fn();});queue=task.catch(()=>{});return task;};
  const hooks=()=>({signal:controller?.signal,onProgress});
  const work=async fn=>{controller=new AbortController();try{return await fn();}catch(error){if(m2&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error.code)){const failed=m2;m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}if(error.imagesCleared){d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;}throw error;}finally{controller=null;}};
- async function release(){if(!result)return;if(result.m2Result){await m2.release(result.m2Result.id);result=null;return;}const previous=result;result=null;const resources=resultResources(previous);for(const s of resources.surfaces)if(s.id!==source?.surface.id)await engine.releaseSurface(s.id);for(const t of resources.tables)await engine.releaseTable(t.id);}
+ async function release(){await clearResponseProxy();if(!result)return;if(result.m2Result){await m2.release(result.m2Result.id);result=null;return;}const previous=result;result=null;const resources=resultResources(previous);for(const s of resources.surfaces)if(s.id!==source?.surface.id)await engine.releaseSurface(s.id);for(const t of resources.tables)await engine.releaseTable(t.id);}
  async function segmentationModel(variant){
   segmentationModels??=await individualModels();const model=segmentationModels.segmentation?.[variant];
   if(!model)throw new EngineError('MODEL_UNAVAILABLE','Segmentation model is not configured.',{details:{variant}});
@@ -99,7 +108,62 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   try{const args={surfaceId:source.surface.id,revision:source.surface.revision,...(sampled?{tile:window}:{rect:window})},base=(await engine[sampled?'readDisplay':'readPixels'](args,hooks())).pixels;return composeBiomeWindow(base,display.biomePresentation.groups,window,{scope:display.biomePresentation.scope,source:original,signal:controller?.signal});}
   finally{await engine.releaseExternalMemory(lease.id);}
  }
+ async function clearResponseProxy(){const old=responseProxy;responseProxy=null;if(old)await engine.releaseExternalMemory(old.lease.id).catch(()=>{});}
+ async function prepareResponseProxy(display){
+  const p=display.comprintPresentation??display.dtdPresentation;if(!p)return null;
+  const score=p.score,key=score.id+':'+score.revision;
+  if(responseProxy?.key===key)return responseProxy;
+  await clearResponseProxy();
+  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
+  if(!source||source.surface.width!==display.width||source.surface.height!==display.height)throw new EngineError('CACHE_MISS','The original image is unavailable for the preview.');
+  const step=Math.max(1,Math.ceil(Math.max(display.width,display.height)/256)),tile={x:0,y:0,w:display.width,h:display.height,step},g=displayGeometry(display,tile),comprint=!!display.comprintPresentation,valueBytes=comprint?8:4,span=(g.width-1)*step+1;
+  const lease=await engine.reserveExternalMemory({bytes:g.width*g.height*(valueBytes+6)+span*valueBytes});let retained=false;
+  try{
+   const values=comprint?new Float64Array(g.width*g.height):new Float32Array(g.width*g.height),[lo,hi]=comprint?score.range??[0,1]:[0,1];
+   for(let y=0;y<g.height;y++){
+    checkAbort(controller?.signal);const answer=await engine.readPlane({surfaceId:score.id,revision:score.revision,rect:{x:0,y:y*step,width:span,height:1}},hooks());
+    for(let x=0;x<g.width;x++){const value=answer.plane.data[x*step],level=Number.isFinite(value)?Math.round(Math.max(0,Math.min(1,(value-lo)/(hi-lo||1)))*255):NaN;values[y*g.width+x]=comprint?(Number.isFinite(value)?Math.round(value):NaN):lo+level/255*(hi-lo||1);}
+   }
+   const base=(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data;
+   responseProxy={key,width:g.width,height:g.height,step,values,base,lease};retained=true;return responseProxy;
+  }finally{if(!retained)await engine.releaseExternalMemory(lease.id);}
+ }
+ async function responseProxyPixels(display,tile){
+  const proxy=await prepareResponseProxy(display),g=displayGeometry(display,tile),comprint=!!display.comprintPresentation,p=display.comprintPresentation??display.dtdPresentation,overlay=p.mode.endsWith('overlay');
+  if(g.width>256||g.height>256)throw new EngineError('INVALID_INPUT','Response preview exceeds its bounded grid.');
+  const lease=await engine.reserveExternalMemory({bytes:g.width*g.height*((comprint?8:4)+3+(overlay?3:0))});
+  try{
+   const values=comprint?new Float64Array(g.width*g.height):new Float32Array(g.width*g.height),base=overlay?new Uint8Array(g.width*g.height*3):undefined;
+   for(let y=0;y<g.height;y++)for(let x=0;x<g.width;x++){const px=Math.min(proxy.width-1,Math.round((g.x+x*g.step)/proxy.step)),py=Math.min(proxy.height-1,Math.round((g.y+y*g.step)/proxy.step)),from=py*proxy.width+px,to=y*g.width+x;values[to]=proxy.values[from];if(base)base.set(proxy.base.subarray(from*3,from*3+3),to*3);}
+   const cutoff=comprint?Math.round(Math.max(0,p.threshold??0)):displayThresholdForProxy(p.threshold,.5);
+   return comprint?comprintFrame(g.width,g.height,values,{range:p.score.range,mode:p.mode,opacity:p.opacity,threshold:cutoff,base}):dtdFrame(g.width,g.height,values,{opacity:p.opacity,threshold:cutoff,base});
+  }finally{await engine.releaseExternalMemory(lease.id);}
+ }
+ const displayThresholdForProxy=(value,fallback)=>Math.round((Number.isFinite(value)?value:fallback)*255)/255;
+ async function activationPixels(display,tile){
+  const g=displayGeometry(display,tile),comprint=!!display.comprintPresentation,presentation=display.comprintPresentation??display.dtdPresentation,score=presentation.score,overlay=presentation.mode.endsWith('overlay'),valueBytes=comprint?8:4;
+  if(overlay&&!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
+  if(overlay&&(!source||source.surface.width!==display.width||source.surface.height!==display.height))throw new EngineError('CACHE_MISS','The original image is unavailable for the overlay.');
+  const span=(g.width-1)*g.step+1,rows=g.step===1?Math.max(1,Math.min(32,Math.floor(1024**2/(span*valueBytes)))):1;
+  const lease=await engine.reserveExternalMemory({bytes:g.width*g.height*(valueBytes+3+(overlay?3:0))+span*rows*valueBytes});
+  try{
+   const values=comprint?new Float64Array(g.width*g.height):new Float32Array(g.width*g.height);
+   for(let row=0;row<g.height;row+=rows){
+    checkAbort(controller?.signal);const count=Math.min(rows,g.height-row),rect={x:g.x,y:g.y+row*g.step,width:span,height:count},part=await engine.readPlane({surfaceId:score.id,revision:score.revision,rect},hooks());
+    for(let y=0;y<count;y++)for(let x=0;x<g.width;x++)values[(row+y)*g.width+x]=part.plane.data[y*span+x*g.step];
+   }
+   const base=overlay?(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data:undefined;
+   return comprint?comprintFrame(g.width,g.height,values,{base,opacity:presentation.opacity,threshold:presentation.threshold,mode:presentation.mode,range:score.range}):dtdFrame(g.width,g.height,values,{base,opacity:presentation.opacity,threshold:presentation.threshold});
+  }finally{await engine.releaseExternalMemory(lease.id);}
+ }
+ async function truforPalettePixels(display,tile){
+  const g=displayGeometry(display,tile),bytes=g.width*g.height*7+m2.ready.windowBytes,lease=await m2.reserveExternalMemory({bytes});
+  try{const values=await sampleCloneField(m2,{...display,cloneFields:display.truforFields},'map',tile);return truforHeatFrame(g.width,g.height,values);}
+  finally{await m2.releaseExternalMemory(lease.id);}
+ }
  async function pixels(display,rect){
+  if(display.dtdPresentation||display.comprintPresentation)return activationPixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
+  if(display.truforPalette)return truforPalettePixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
   if(display.biomePresentation)return biomePixels(display,rect);
   if(display.cloneView)return clonePixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
   if(sourceAliases.has(display.id)){if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(source)display=source.surface;}
@@ -138,8 +202,14 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    if(reference&&task.operation!=='comparison.image'){const old=reference;reference=null;await engine.unload(old.id);}
    if(mask&&(!extras.mask||!['tampering.copyMove.brisk','tampering.copyMove.akaze','tampering.copyMove.orb'].includes(task.operation))){const old=mask;mask=null;await engine.unload(old.id);}
    if(prnu&&task.operation!=='noise.prnu'){const old=prnu;prnu=null;await engine.unload(old.id);}
-   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=await m2Factory({method,memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile});m2Method=method;}const descriptor=await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const views=method==='forgeryscope'?[]:method==='trufor'?['map','confidence','noiseprint_pp']:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:metadata.provenance,metrics:metadata.metrics,m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view}))};return result;}
+   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=await m2Factory({method,memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile});m2Method=method;}const descriptor=await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const views=method==='forgeryscope'?[]:method==='trufor'?['map','confidence','noiseprint_pp']:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:metadata.provenance,metrics:metadata.metrics,m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view}))};if(method==='trufor'&&descriptor.fields?.map)result.views.push({...result.views[0],id:'m2-'+descriptor.id+'-map-alternative',view:'map_alternative',truforPalette:true,truforFields:descriptor.fields});return result;}
    if(m2){await m2.dispose();m2=null;m2Method=null;}
+   if(isExtensionTool(task.operation)){
+    const input={...task,imageId:source.id},configuration=extensionConfiguration();
+    if(typeof engine.runConfiguredExtension==='function')result=await engine.runConfiguredExtension(input,configuration,hooks());
+    else{await configureExtensionModels(engine,configuration,hooks());result=await engine.run(input,hooks());}
+    return result;
+   }
    await configure(task.operation,task.params);const params={...task.params};
    if(task.operation==='comparison.image'){if(!extras.reference)throw Error('Choisissez une image de référence.');if(reference?.blob!==extras.reference){if(reference){const old=reference;reference=null;await engine.unload(old.id);}const id='reference-'+crypto.randomUUID();await engine.loadBlob({id,blob:extras.reference,layout:'segmented'},hooks());reference={id,blob:extras.reference};}params.referenceImageId=reference.id;}
    if(task.operation==='noise.prnu'){if(!prnu||prnu.file!==extras.database||prnu.training!==extras.training||prnu.camera!==extras.camera){if(prnu){const old=prnu;prnu=null;await engine.unload(old.id);}const id='prnu-'+crypto.randomUUID();if(extras.database)await engine.loadPrnuDatabase({id,blob:extras.database},hooks());else if(extras.training?.length)await engine.buildPrnuDatabase({id,queryImageId:source.id,singleCamera:extras.camera||'Camera',files:extras.training,outputLayout:'pages'},hooks());else throw Error('Choisissez une base PRNU ou des images d’apprentissage.');prnu={id,file:extras.database,training:extras.training,camera:extras.camera};}params.databaseId=prnu.id;}
@@ -180,8 +250,12 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   }),
   derive:patches=>enqueue(()=>work(()=>engine.deriveOriginal({imageId:source.id,patches},hooks()))),
   loadModel:(kind,file)=>enqueue(()=>work(async()=>{const id=kind+'-'+crypto.randomUUID();await engine[kind==='median'?'loadMedianModel':'loadQualityModel']({id,blob:file},hooks());const old=kind==='median'?median:quality;if(old)await engine.unload(old);if(kind==='median')median=id;else quality=id;})),
+  prepareDisplayPreview:display=>enqueue(()=>prepareResponseProxy(display)).then(()=>undefined),
   readWindow:(display,rect)=>enqueue(()=>pixels(display,rect)),
   readTile:(display,tile)=>enqueue(async()=>{
+   if(display.responsePreview)return responseProxyPixels(display,tile);
+   if(display.dtdPresentation||display.comprintPresentation)return activationPixels(display,tile);
+   if(display.truforPalette)return truforPalettePixels(display,tile);
    if(display.biomePresentation)return biomePixels(display,tile,true);
    if(display.cloneView)return clonePixels(display,tile);
    if(sourceAliases.has(display.id)){if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(source)display=source.surface;}
@@ -194,7 +268,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    try{if(format==='npz'&&result?.m2Result){const descriptor=await m2.beginExport(result.m2Result.id,hooks());try{for(let offset=0;offset<descriptor.bytes;offset+=m2.ready.windowBytes)await sink.write(await m2.readExport(descriptor.id,offset,Math.min(m2.ready.windowBytes,descriptor.bytes-offset)));}finally{await m2.releaseExport(descriptor.id);}}
     else if(format==='npz'&&result?.operation==='tampering.copyMove.dense')await stream(await engine.exportSurface({surfaceId:result.surface.id,revision:result.surface.revision,format:'npz',storage:'temporary'},hooks()),sink);
     else if(format==='npz'&&result?.operation==='noise.noisesniffer'){let offset=0;for(;;){const page=await engine.readNpz({surfaceId:result.surface.id,revision:result.surface.revision,offset,length:1024**2},hooks());await sink.write(page.bytes);if(page.done)break;offset=page.nextOffset;}}
-    else if(format==='csv'&&['float32','int32'].includes(selected?.format)){await sink.write(new TextEncoder().encode('x,y,value\r\n'));for(let y=0;y<selected.height;y++){const {plane}=await engine.readPlane({surfaceId:selected.id,revision:selected.revision,rect:{x:0,y,width:selected.width,height:1}},hooks());let text='';for(let x=0;x<selected.width;x++)text+=x+','+y+','+plane.data[x]+'\r\n';await sink.write(new TextEncoder().encode(text));}}
+    else if(format==='csv'&&['float32','float64','int32'].includes(selected?.format)){await sink.write(new TextEncoder().encode('x,y,value\r\n'));for(let y=0;y<selected.height;y++){const {plane}=await engine.readPlane({surfaceId:selected.id,revision:selected.revision,rect:{x:0,y,width:selected.width,height:1}},hooks());let text='';for(let x=0;x<selected.width;x++)text+=x+','+y+','+plane.data[x]+'\r\n';await sink.write(new TextEncoder().encode(text));}}
     else if(format==='csv'&&selected?.columns){let offset=0;do{const page=await engine.readTableCsv({tableId:selected.id,revision:selected.revision,offset,length:1024},hooks());await sink.write(page.bytes);offset=page.nextOffset;if(page.done)break;}while(true);}
     else if(format==='prnu'){if(!prnu)throw Error('Aucune base PRNU.');await stream(await engine.createPrnuDatabaseExport(prnu.id,hooks()),sink);}
     else if(selected?.id&&!selected.columns)await stream(await engine.exportSurface({...options,surfaceId:selected.id,revision:selected.revision,format,render:format==='npz'?undefined:{range:selected.range??[0,1]},storage:'temporary'},hooks()),sink);
@@ -204,6 +278,6 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    }catch(error){await sink.abort();throw error;}
   })),
   cancel(){controller?.abort();},
-  dispose(){disposed=true;controller?.abort();return queue.then(async()=>{await m2?.dispose();await engine.dispose();});}
+  dispose(){disposed=true;controller?.abort();return queue.then(async()=>{await clearResponseProxy();await m2?.dispose();await engine.dispose();});}
  };
 }

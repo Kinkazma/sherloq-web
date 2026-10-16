@@ -5,11 +5,22 @@ import posixpath
 import re
 from pathlib import Path, PurePosixPath
 from copy import deepcopy
+import importlib.util
+
+_extension_spec = importlib.util.spec_from_file_location('runtime_extensions', Path(__file__).with_name('runtime-extensions.py'))
+_extensions = importlib.util.module_from_spec(_extension_spec)
+_extension_spec.loader.exec_module(_extensions)
 
 # These model manifests pin the original factory bytes, and their callers pass
 # a separately fetched, SHA-verified wasmBinary. Rewriting the loader would
 # break that second identity and offers no additional download protection.
 VERIFIED_BINARY_FACTORIES = frozenset({
+    'extension-engine/runtime/cpu-factory.mjs',
+    'extension-engine/runtime/gpu-factory.mjs',
+    'extension-engine/runtime/doctamper-catnet-jpeg.mjs',
+    'extension-engine/runtime/doctamper-jpeg-rgb-stream.mjs',
+    'extension-engine/comprint-statistics/pyodide-factory.js',
+    'extension-engine/comprint-statistics/pyodide/pyodide.mjs',
     'individual-assets/m3/ssg/edges.mjs',
     'individual-assets/m3/ssg/edges-shared.mjs',
     'individual-assets/segmentation/selfdm-proposal/proposal-cv.mjs',
@@ -22,7 +33,7 @@ def _encoded(value):
 def _digest(data):
     return hashlib.sha256(data).hexdigest()
 
-def _reviewed_ela_increment(root):
+def _reviewed_ela_increment(root, latest_predecessor=None):
     """Validate the new layer before exposing its immutable predecessor.
 
     Historical receipts still describe their original bytes. Only this fixed,
@@ -46,7 +57,7 @@ def _reviewed_ela_increment(root):
     def read_path(name):
         if not isinstance(name, str) or '\\' in name or PurePosixPath(name).is_absolute() or any(p in ['', '.', '..'] for p in name.split('/')):
             raise ValueError('Unsafe ELA metadata path')
-        return (repository / name).read_bytes()
+        return latest_predecessor[name] if latest_predecessor and name in latest_predecessor else (repository / name).read_bytes()
     def verify(record, location=None):
         data = read_path(location or record['file'])
         if _digest(data) != record['sha256'] or len(data) != record['size']:
@@ -139,7 +150,9 @@ class QualifiedRuntimeOverlay:
         root = Path(root)
         self.files = {}
         self.receipts = []
-        ela, predecessor = _reviewed_ela_increment(root)
+        extension, latest_predecessor = _extensions.reviewed_extensions_increment(root)
+        ela, predecessor = _reviewed_ela_increment(root, latest_predecessor)
+        predecessor = {**latest_predecessor, **predecessor}
         self.predecessor = predecessor
         receipt_path = root / 'runtime-patches/batch-scientific-regions-20261013.json'
         if not receipt_path.exists():
@@ -223,6 +236,9 @@ class QualifiedRuntimeOverlay:
         if ela is not None:
             self.receipts.append(ela)
             self.files.update((record['file'], record) for record in ela['files'])
+        if extension is not None:
+            self.receipts.append(extension)
+            self.files.update((record['file'], record) for record in extension['files'])
 
     def apply(self, relative, source, adapted):
         record = self.files.get(relative)

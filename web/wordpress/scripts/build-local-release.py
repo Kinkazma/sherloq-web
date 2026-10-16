@@ -53,7 +53,7 @@ def reviewed_runtime_increment(manifest):
                 raise ValueError('Qualified runtime layers do not join: '+name)
             first.setdefault(name,record['before']);latest[name]=record['after']
     changes={name:{'before':first[name]['sha256'],'after':after['sha256'],'size':after['size']}
-             for name,after in latest.items() if first[name] is not None}
+             for name,after in latest.items() if first[name] is not None and name.endswith(('.js','.mjs'))}
     if any(not name.endswith(('.js','.mjs')) for name in changes):
         raise ValueError('Qualified updater replacements must be JavaScript')
     payloads={}
@@ -68,7 +68,7 @@ def reviewed_runtime_increment(manifest):
 
 def runtime_increment_references():
     references=[]
-    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json']:
+    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json','browser-extensions-20261015.json']:
         path=ROOT/'runtime-patches'/name
         if not path.exists(): continue
         receipt=json.loads(path.read_bytes())

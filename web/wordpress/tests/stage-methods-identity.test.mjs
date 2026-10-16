@@ -19,7 +19,8 @@ resources = root / 'resources'
 output = root / 'staged'
 for p in (primary, fallback, resources, output, wp / 'scripts'):
     p.mkdir(parents=True)
-shutil.copyfile(real / 'runtime-delivery.py', wp / 'runtime-delivery.py')
+for module_name in ['runtime-delivery.py','runtime-extensions.py']:
+    shutil.copyfile(real / module_name, wp / module_name)
 
 def put(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)

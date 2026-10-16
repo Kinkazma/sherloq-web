@@ -2,6 +2,7 @@ import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js
 // UI descriptors only. Scientific validation remains in the frozen worker.
 import {toolGroups} from './tool-tree.js';
 import defaults from './tool-defaults.js';
+import {EXTENSION_TOOLS} from './extension-tools.js';
 const select=(values,labels=values)=>({choices:values.map((value,i)=>({value,label:labels[i]}))});
 const indexed=labels=>select(labels.map((_,i)=>i),labels);
 const range=(min,max,step=1)=>({min,max,step});
@@ -48,6 +49,7 @@ const extra={
  'ai.sources.safire':{side:16,groups:3,kind:'kmeans',eps:.2,minimum:1,binary:false},'ai.localization.focal':{},'ai.localization.adaifl':{},'ai.clones.d2prl':{minimum:500}
 };
 for(const [id,params] of Object.entries(extra))defaults[id]={params,exports:['json']};
+for(const tool of EXTENSION_TOOLS)defaults[tool.id]={params:{},exports:tool.kind==='global'?['json']:['json','npz']};
 // Keep the native automatic wavelet level; validate() canonicalizes the zero threshold.
 defaults['detail.wavelets'].params.level=null;
 export const toolCatalog=Object.fromEntries(toolGroups.flatMap(g=>g.items).filter(t=>defaults[t.id]).map(t=>[t.id,{...t,...defaults[t.id]}]));

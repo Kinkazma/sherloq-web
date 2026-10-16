@@ -1,0 +1,23 @@
+{
+  "purpose": "Comprint-specific ORT WebGPU bounded pending dispatch and buffer-cache policy",
+  "source": "web-engine-trufor-memory/vendor/segmentation/ort.all.min.mjs",
+  "source_sha256": "2e4a0eae53c3f246e26423aaca493d3bfc22ce524894f27519a9ec4a14e6397a",
+  "path": "browser/runtime/comprint-ort-bounded.mjs",
+  "sha256": "daead1ac60e1feda490ed9f72fe16372597fb0fa4e5884e13b42f5d62ef3be9b",
+  "bytes": 819531,
+  "transformations": [
+    {
+      "exact_original": "this.maxDispatchNumber=16;",
+      "exact_replacement": "this.maxDispatchNumber=1;",
+      "occurrences": 1
+    },
+    {
+      "scope": "global gg buffer-cache capacity table",
+      "rule": "cap each cached-buffer count at 2 for size bins >= 8388608 bytes",
+      "other_bins_unchanged": true
+    }
+  ],
+  "license": "MIT; original header retained",
+  "qualification": "runs/spiral/browser/comprint-gpu-ledger-flush1-cache2-qualification.json",
+  "limits": "GPUBuffer ledger includes live buffers and destroyed buffers pending onSubmittedWorkDone; excludes unobservable driver-private memory and texture storage. Declared GPU cap is enforced before every observed allocation."
+}

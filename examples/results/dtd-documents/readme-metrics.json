@@ -1,0 +1,76 @@
+{
+  "schema": "sherloq-dtd-synthetic-readme-metrics/1",
+  "language": "en",
+  "examples": 10,
+  "edited": 5,
+  "unedited": 5,
+  "width": 512,
+  "height": 512,
+  "threshold": 0.5,
+  "aggregation": "Pooled pixel confusion counts over all ten English documents.",
+  "rows": [
+    {
+      "meaning": "Among edited pixels, those correctly detected",
+      "metric": "detectedAmongEdited",
+      "englishPercent": 36.50320465046952,
+      "englishDisplay": "36.50%"
+    },
+    {
+      "meaning": "Among edited pixels, those missed by the detector",
+      "metric": "missedAmongEdited",
+      "englishPercent": 63.49679534953048,
+      "englishDisplay": "63.50%"
+    },
+    {
+      "meaning": "Among unedited pixels, those incorrectly flagged",
+      "metric": "falseAlarmsAmongUnedited",
+      "englishPercent": 0.03078710582465271,
+      "englishDisplay": "0.0308%"
+    },
+    {
+      "meaning": "Among unedited pixels, those correctly recognised",
+      "metric": "correctAmongUnedited",
+      "englishPercent": 99.96921289417536,
+      "englishDisplay": "99.9692%"
+    },
+    {
+      "meaning": "Among pixels flagged as edited, those actually edited",
+      "metric": "correctAmongAlerts",
+      "englishPercent": 75.26121696373694,
+      "englishDisplay": "75.26%"
+    },
+    {
+      "meaning": "Across all pixels, correct decisions",
+      "metric": "correctAmongAll",
+      "englishPercent": 99.8067855834961,
+      "englishDisplay": "99.81%"
+    }
+  ],
+  "pixelCounts": {
+    "TP": 2449,
+    "FP": 805,
+    "FN": 4260,
+    "TN": 2613926
+  },
+  "documentCounts": {
+    "TP": 5,
+    "FP": 4,
+    "FN": 0,
+    "TN": 1
+  },
+  "documentRule": "Alert if any pixel reaches 0.5; experimental sensitive rule, not a native DTD global verdict.",
+  "editedRegionsWithAnyOverlap": 4,
+  "alwaysNegativePixelAccuracyPercent": 99.74407196044922,
+  "macroOnFiveEditedDocuments": {
+    "detectedAmongEdited": 0.3010795042183352,
+    "correctAmongAlerts": 0.6071675143761033,
+    "meaning": "Unweighted mean of per-document recall/precision on the five edited documents; undefined per-document precision convention would be zero, as upstream."
+  },
+  "limitations": [
+    "Five matched synthetic pairs; not ten independent real-world scans.",
+    "No threshold fitting or model training on these examples.",
+    "Same numerical edits and masks as the French experiment; different rendered text also changes image features.",
+    "Pixel accuracy is dominated by unedited area; always predicting unedited already gives 99.74%.",
+    "Reference masks and TP/FP/FN colours are for these documented examples only; no mask-import feature is requested for SHERLOQ."
+  ]
+}

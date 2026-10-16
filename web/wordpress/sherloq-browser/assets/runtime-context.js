@@ -59,7 +59,7 @@ function setup(){
   const root=new URL('./',import.meta.url);
   globalThis.fetch=(input,init)=>{let url;try{url=new URL(input instanceof Request?input.url:String(input),location.href);}catch{return nativeFetch(input,init);}
    const local=url.origin===root.origin&&url.pathname.startsWith(root.pathname),relative=local?url.pathname.slice(root.pathname.length):'';
-   return local&&/^(?:engine|energy-engine|composite-engine|composite-assets|unified-engine|unified-assets|individual-assets)\//.test(relative)&&(init?.method??(input instanceof Request?input.method:'GET'))==='GET'?resilient(input,init):nativeFetch(input,init);
+   return local&&/^(?:engine|energy-engine|composite-engine|composite-assets|unified-engine|unified-assets|individual-assets|extension-engine)\//.test(relative)&&(init?.method??(input instanceof Request?input.method:'GET'))==='GET'?resilient(input,init):nativeFetch(input,init);
   };
  }
  if(typeof Worker==='function'){

@@ -2,6 +2,24 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.21.0 — AI detectors, document and compression analysis · 2026-10-16
+
+- Add four independent commands: B-Free and SPAI under AI Solutions, DTD / DocTamper under Tampering, and Comprint under JPEG. The existing new-feature preference controls their yellow outline.
+- Hide B-Free, SPAI and DTD by default behind the saved Enable experimental tools setting. Add a warning symbol and a brief reminder to DTD that its result can be wrong and does not constitute proof. Keep the unboxed reminder between the CPU/GPU selector and secondary actions without increasing the control height; hovering over its text shows the synthetic-example and original-publication results over the image, and the panel remains open while the pointer is over it.
+- Preserve ELA results and their memory reservations after the computation workspace is released, including segmented results.
+- Simplify the four added tool panels by keeping the standard image export and removing duplicate JSON, scientific NPZ and per-layer export buttons. Add adjustable DTD overlay opacity, initially 70%.
+- Add two DTD presentations from the same retained response: a fixed-range heatmap by default and a colour overlay, with no reference-mask input. Add a five-pair synthetic document example with exact counts and stated limits.
+- Add Comprint heatmap, colour overlay and grayscale map presentations. Add a native-distance opacity curve for the colour overlay, reaching 50% at 194 and rapidly approaching full opacity, with no additional inference.
+- Add display thresholds for DTD and Comprint. Slider movement uses a cached 256-pixel proxy with integer-rounded Comprint distances and quantized DTD activations, then restores the precise view on release without another inference.
+- Start the four new tools automatically when opened. Keep TruFor’s standard anomaly map as the default and offer the additional heatmap with its graduated legend.
+- Present B-Free and SPAI as experimental AI detectors, with a warning symbol, a model-index gauge alongside the complete scientific table, and separate per-model results from the independent CONVEX study. Remove redundant result descriptions and model-weight notices from the four tool panels.
+- Reuse shared image decoding, CPU/GPU admission, memory budgets, graph pools and temporary scientific storage. Keep whole-image scores distinct from spatial maps, preserve full numerical outputs and discard obsolete display responses.
+- Include the pinned Pyodide runtime and NumPy, SciPy, scikit-image dependency closure in Comprint's resource library. Each optional tool participates in local installation, removal and restoration; the browser does not need an installed Python interpreter.
+- Let local resource-presence probes fall through on missing optional files, so restoration can use another cached alias, archive or public resource without waiting for an unrelated download retry.
+- Reuse an already activated local worker for resource-archive exports, including an older bridge serving the current version, without requiring a new script download while offline.
+- Wait for the offline worker’s activation transaction before adopting a freshly prepared installation, avoiding a competing activation request.
+- Retain the scientific and ELA runtime increments, their predecessor inventories and source/executable identities when composing the additional browser-method layer. [Methods and interpretation](docs/BROWSER-INSPECTION-METHODS.md).
+
 ## 0.20.0 — ELA views, native previews and RGB/HSV navigation · 2026-10-14
 
 - Present ELA as Classic, Energy and Biome views, retaining explicit saved choices and migrating the former Energy-biome mode. Add the unified red/blue energy view while preserving separate signed views and independent map/overlay presentation.

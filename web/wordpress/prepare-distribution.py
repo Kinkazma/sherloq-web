@@ -185,8 +185,11 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
     # Source and executable metadata keep their distinct reviewed identities.
     put(output / 'public/web/wordpress/runtime-source-lock.json', source_lock_bytes)
     put(output / 'public/web/wordpress/runtime-lock.json', delivered_lock_bytes)
-    for name in ['build.py', 'runtime-delivery.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
+    for name in ['build.py', 'runtime-delivery.py', 'runtime-extensions.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
+    extensions_receipt = ROOT / 'runtime-patches/browser-extensions-20261015.json'
+    if extensions_receipt.is_file():
+        put(output / 'public/web/wordpress/sherloq-browser/assets/extensions-delivery-increment.json', extensions_receipt.read_bytes())
     for name in ['resource-policy.json', 'method-resource-assembly.json']:
         source = ROOT / name
         if source.is_file() and (tracked is None or name in tracked):

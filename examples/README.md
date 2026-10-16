@@ -23,3 +23,9 @@ The [supplied figure](microscopy/input.png) is the same input used for my macOS 
 ## Three-cell input
 
 The [supplied PNG](three-cells/input.png) is retained byte for byte at 416 × 320 pixels. It is the analysis input for the added clone-method examples. No original counterpart or pixel-level edit-reference mask accompanies this input. [Provenance and hash](three-cells/provenance.json).
+
+## Moss photo
+
+[Original](moss/original.png) · [Edited input](moss/edited.png) · [My edit reference](moss/reference.png)
+
+The three supplied images are 1642 × 1094. PNG copies preserve RGB pixels without source metadata. The visual reference is not used as a detector input.

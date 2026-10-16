@@ -32,3 +32,11 @@ The [main gallery](../../README.md#examples-from-the-web-engine) embeds WebP pre
 | street-zero | [PNG](street-zero/result.png) | [JSON](street-zero/result.json) |
 
 The [manifest](manifest.json) records input and output hashes. Result records summarize large scientific arrays by type, length and, where available, hash; they are not full serialized detector arrays. Additional display views are kept in each example directory. No edit-reference image was used as an analysis input.
+
+## Comprint and experimental AI detectors
+
+[Comprint on the moss photo](moss-comprint/README.md) includes maps from the supplied original and edited inputs, alongside the separate visual edit reference. [Numerical responses](moss-comprint/results.json) retain the B-Free and SPAI whole-image scores; their examples in the main README use tables only. The [method documentation](../../docs/BROWSER-INSPECTION-METHODS.md) distinguishes these individual image runs from the independent CONVEX corpus evaluation.
+
+## DTD / DocTamper
+
+[Five matched synthetic document pairs](dtd-documents/README.md), including all inputs, references, maps and exact counts. The example distinguishes pixel accuracy from localization and from a derived document alarm.

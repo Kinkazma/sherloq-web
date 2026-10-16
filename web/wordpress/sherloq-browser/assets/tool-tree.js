@@ -1,3 +1,4 @@
+import {EXTENSION_TOOLS} from './extension-tools.js';
 export const toolGroups = [
   {
     "en": "General",
@@ -326,3 +327,5 @@ export const toolGroups = [
     ]
   }
 ];
+
+for(const tool of EXTENSION_TOOLS)toolGroups.find(group=>group.en===tool.group).items.push({...tool});

@@ -7,3 +7,7 @@ The engine retains its [NOTICE](../web/engine-source/NOTICE.md), [license](../we
 The example originals, edits and edit-reference images were supplied by me for these galleries. [Their manifest](../examples/manifest.json) identifies the already published source files and exact hashes. A reference of known changes is not a detector result.
 
 AI assistants produced much of the implementation. I directed and corrected choices, explored solution approaches, worked on ergonomics, and reviewed part of the calculations. The validation documents distinguish actual checks from broader claims.
+
+The browser inspection tools integrate [B-Free (GRIP-UNINA)](https://github.com/grip-unina/B-Free), [SPAI (MeVer)](https://github.com/mever-team/spai), [DTD / DocTamper (Qu et al.)](https://github.com/qcf-568/DocTamper) and [Comprint (Mareen et al.)](https://github.com/IDLabMedia/comprint). Their [component notices](../web/extensions-source/licenses) and model notices remain attached. B-Free and Comprint have component-specific restrictions; the repository's root license does not replace them.
+
+Comprint uses [Pyodide](https://pyodide.org/) and its packaged numerical/scientific libraries in the browser. Their original notices remain in the [runtime resources](../web/extensions-source/comprint-statistics/pyodide/closure.json), package archives and [extracted dependency notices](../web/extensions-source/licenses/pyodide-packages).

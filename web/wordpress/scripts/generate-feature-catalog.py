@@ -28,7 +28,9 @@ def generate(manifest, metadata_root, assets_root=None):
     aliked = metadata('unified-assets/aliked-segments/manifest.json')
     metadata('unified-assets/neural-runtime/manifest.json')
     tree_text = (assets_root / 'tool-tree.js').read_text()
-    tree = json.loads(tree_text[tree_text.index('['):].rstrip().rstrip(';'))
+    # The menu may append independent optional commands after its literal base.
+    # Read only that JSON array; do not execute or parse the appended JavaScript.
+    tree, _ = json.JSONDecoder().raw_decode(tree_text[tree_text.index('['):])
     neural = re.findall(r"\['([^']+)','([^']+)'(?:,'([^']+)')?\]", (assets_root / 'neural-clone-ui.js').read_text().split('];', 1)[0])
     models = individual['m3']
     features = []
@@ -130,6 +132,35 @@ def generate(manifest, metadata_root, assets_root=None):
         operation = ('ai.sources.' if model == 'safire' else 'ai.localization.') + model
         add(operation, {'safire': 'SAFIRE — sources', 'focal': 'FOCAL — localisation', 'adaifl': 'AdaIFL — localisation'}[model], group='neural-detectors', resources=urls(models[model]), tasks=[{'operation': operation}])
     add('various.median','Classificateur médian XGBoost','Median XGBoost classifier',group='neural-detectors',resources=urls(individual['median']),tasks=[{'operation':'various.median'}])
+    if 'extension-engine/models/manifest.json' in files:
+        extension = metadata('extension-engine/models/manifest.json')
+        if set(extension['methods']) != {'bfree', 'spai', 'doctamper', 'comprint'}:
+            raise ValueError('The extension catalogue must retain its four independent methods')
+        groups.append({'id': 'inspection-models', 'fr': 'Génération, documents et compression',
+                       'en': 'Generation, documents and compression'})
+        model_paths = {'extension-engine/' + asset['url'] for asset in extension['assets'].values()}
+        python_paths = set(directory('extension-engine/comprint-statistics/pyodide'))
+        shared = set(directory('extension-engine')) - model_paths - python_paths
+        add('resource.extension-runtime', 'Exécution partagée des outils ajoutés', 'Shared added-tool runtime',
+            resources=shared, internal=True)
+        for method, operation, fr, en in [
+            ('bfree', 'ai.generation.bfree', '⚠️ B-Free — Détecteur d’IA', '⚠️ B-Free — AI detector'),
+            ('spai', 'ai.generation.spai', '⚠️ SPAI — Détecteur d’IA', '⚠️ SPAI — AI detector'),
+            ('doctamper', 'ai.text.doctamper', 'DTD — textes documentaires', 'DTD — documentary text'),
+            ('comprint', 'jpeg.comprint', 'Comprint — empreinte de compression', 'Comprint — compression fingerprint'),
+        ]:
+            resources = []
+            for asset in extension['assets'].values():
+                if asset['method'] != method:
+                    continue
+                path = 'extension-engine/' + asset['url']
+                if files[path]['sha256'] != asset['sha256'] or files[path]['size'] != asset['bytes']:
+                    raise ValueError('Extension model identity differs: ' + path)
+                resources.append(path)
+            if method == 'comprint':
+                resources += sorted(python_paths)
+            add(operation, fr, en, resources=resources, group='inspection-models',
+                depends=['resource.extension-runtime'], tasks=[{'operation': operation}])
     claimed = set(path for feature in features for path in feature['resources'])
     optional_ops = {task['operation'] for feature in features for task in feature['tasks']}
     core_tools = [item for group in tree for item in group['items'] if item['id'] not in optional_ops]

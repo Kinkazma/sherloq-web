@@ -1,0 +1,563 @@
+{
+  "methods": [
+    {
+      "input": "moss-original",
+      "operation": "ai.generation.bfree",
+      "status": "ok",
+      "data": {
+        "method": "bfree",
+        "scores": {
+          "global_logit": -5.308961296081543,
+          "sigmoid_score_uncalibrated": 0.004922709630564994,
+          "global_decision_at_default_threshold": "real",
+          "default_logit_threshold": 0
+        },
+        "scientific_limits": [
+          "Whole-image generation score; does not localize retouching.",
+          "A low score does not exclude partially AI-generated edits.",
+          "Sigmoid score is not calibrated authenticity confidence."
+        ],
+        "window_logits": [
+          -6.860903263092041,
+          -4.123812198638916,
+          -6.331270217895508,
+          -6.564761638641357,
+          -2.6640591621398926
+        ]
+      }
+    },
+    {
+      "input": "moss-original",
+      "operation": "ai.generation.spai",
+      "status": "ok",
+      "data": {
+        "method": "spai",
+        "scores": {
+          "global_logit": -40.980289459228516,
+          "sigmoid_score_uncalibrated": 1.593993041083466e-18,
+          "default_logit_threshold": 0,
+          "global_decision_at_default_threshold": "real"
+        },
+        "scientific_limits": [
+          "Whole-image generation score; cannot localize or exclude partialAI retouching.",
+          "The upstream grid omits incomplete bottom/right windows.",
+          "Sigmoid score is not calibrated authenticity confidence."
+        ],
+        "preprocessing": {
+          "streaming": false,
+          "encoderBatchSize": 4,
+          "paddedEncoderWindows": 0
+        },
+        "patch_count": 28
+      }
+    },
+    {
+      "input": "moss-original",
+      "operation": "jpeg.comprint",
+      "status": "ok",
+      "data": {
+        "method": "comprint",
+        "semantics": "Compression fingerprint consistency; anomaly is not a forgery probability.",
+        "statistics": {
+          "method": "comprint",
+          "statistics_policy": "official-Comprint-global-segmented-chunked-EM-f64",
+          "source_revision": "e79cd7d9bc768cde6d0fbf77d4cea79ec31ce2aa",
+          "original_shape": [
+            1094,
+            1642
+          ],
+          "grid_shape": [
+            125,
+            193
+          ],
+          "valid_blocks": 24125,
+          "spam_features": 512,
+          "pca_dimensions": 32,
+          "replicates": 10,
+          "max_iterations": 100,
+          "seed": 0,
+          "score_is_probability": false,
+          "ground_truth_available": false,
+          "timings_seconds": {
+            "features": 8.040555000066757,
+            "covariance": 0.9918200000524521,
+            "projection": 0.5649399999380111,
+            "em": 9.502054999947548,
+            "finish": 0.0483199999332428,
+            "total": 19.355394999980927,
+            "queue_wait": 1.999998092651367e-05
+          },
+          "normalization": {
+            "mean": 0.15647338330745697,
+            "variance": 0.0008819900685921311
+          },
+          "resources": [
+            {
+              "phase": "features-complete",
+              "budget": {
+                "budgetBytes": 27487371264,
+                "policyAvailableBytes": 14496440931,
+                "retainedBytes": 12782523837,
+                "cacheBytes": 0,
+                "activeReservationBytes": 208406496,
+                "peakAccountedBytes": 12990930333,
+                "activeRecoveries": 0
+              },
+              "workers": [
+                {
+                  "role": "main",
+                  "maximumHeapBytes": 805306368,
+                  "materializedHeapBytes": 108527616,
+                  "residentBytes": 1233125376
+                }
+              ]
+            },
+            {
+              "phase": "covariance-complete",
+              "budget": {
+                "budgetBytes": 27487371264,
+                "policyAvailableBytes": 14496440931,
+                "retainedBytes": 12782523837,
+                "cacheBytes": 0,
+                "activeReservationBytes": 208406496,
+                "peakAccountedBytes": 12990930333,
+                "activeRecoveries": 0
+              },
+              "workers": [
+                {
+                  "role": "main",
+                  "maximumHeapBytes": 805306368,
+                  "materializedHeapBytes": 130285568,
+                  "residentBytes": 1233125376
+                }
+              ]
+            },
+            {
+              "phase": "em-complete",
+              "budget": {
+                "budgetBytes": 27487371264,
+                "policyAvailableBytes": 11224883811,
+                "retainedBytes": 16054080957,
+                "cacheBytes": 0,
+                "activeReservationBytes": 208406496,
+                "peakAccountedBytes": 16268663453,
+                "activeRecoveries": 0
+              },
+              "workers": [
+                {
+                  "role": "main",
+                  "maximumHeapBytes": 805306368,
+                  "materializedHeapBytes": 130285568,
+                  "residentBytes": 1233125376
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                }
+              ]
+            },
+            {
+              "phase": "em-workers-retired",
+              "budget": {
+                "budgetBytes": 27487371264,
+                "policyAvailableBytes": 14496440931,
+                "retainedBytes": 12782523837,
+                "cacheBytes": 0,
+                "activeReservationBytes": 208406496,
+                "peakAccountedBytes": 16268663453,
+                "activeRecoveries": 0
+              },
+              "workers": [
+                {
+                  "role": "main",
+                  "maximumHeapBytes": 805306368,
+                  "materializedHeapBytes": 130285568,
+                  "residentBytes": 1233125376
+                }
+              ]
+            }
+          ],
+          "segmentation": {
+            "blockRows": 8,
+            "blockColumns": 256,
+            "haloCells": 2,
+            "featureBytes": 49408000,
+            "projectionBytes": 6176000,
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "fitHeapBytes": 335544320,
+            "chunkedEM": true,
+            "trainingBytes": 6176000,
+            "resize": false,
+            "subsample": false
+          },
+          "parallel": {
+            "workers": 1,
+            "feature_workers": 1,
+            "em_workers": 6,
+            "iterations": [
+              29,
+              9,
+              14,
+              12,
+              13,
+              10,
+              14,
+              12,
+              10,
+              11
+            ],
+            "initial_indices": [
+              2732,
+              10799,
+              9845,
+              19648,
+              13123,
+              21243,
+              9225,
+              20757,
+              22258,
+              14116
+            ],
+            "winning_replicate": 5,
+            "likelihoods": [
+              -41.15146856457603,
+              -41.150861379476844,
+              -41.15113953004421,
+              -41.1509431394714,
+              -41.15102755209679,
+              -41.15086013312178,
+              -41.151477319156946,
+              -41.15108601669342,
+              -41.15093330103491,
+              -41.89798768646748
+            ]
+          },
+          "resourceAdmission": {
+            "boundedHeaps": true,
+            "mainHeapBytes": 805306368,
+            "fitHeapBytes": [],
+            "retainedUntilClear": true,
+            "residentBytes": 1233125376,
+            "scheduler": true
+          }
+        }
+      }
+    },
+    {
+      "input": "moss-edited",
+      "operation": "ai.generation.bfree",
+      "status": "ok",
+      "data": {
+        "method": "bfree",
+        "scores": {
+          "global_logit": -5.070420980453491,
+          "sigmoid_score_uncalibrated": 0.006240586436901119,
+          "global_decision_at_default_threshold": "real",
+          "default_logit_threshold": 0
+        },
+        "scientific_limits": [
+          "Whole-image generation score; does not localize retouching.",
+          "A low score does not exclude partially AI-generated edits.",
+          "Sigmoid score is not calibrated authenticity confidence."
+        ],
+        "window_logits": [
+          -6.860903263092041,
+          -3.531282901763916,
+          -6.331270217895508,
+          -6.120665073394775,
+          -2.507983446121216
+        ]
+      }
+    },
+    {
+      "input": "moss-edited",
+      "operation": "ai.generation.spai",
+      "status": "ok",
+      "data": {
+        "method": "spai",
+        "scores": {
+          "global_logit": -42.6208381652832,
+          "sigmoid_score_uncalibrated": 3.090332225903092e-19,
+          "default_logit_threshold": 0,
+          "global_decision_at_default_threshold": "real"
+        },
+        "scientific_limits": [
+          "Whole-image generation score; cannot localize or exclude partialAI retouching.",
+          "The upstream grid omits incomplete bottom/right windows.",
+          "Sigmoid score is not calibrated authenticity confidence."
+        ],
+        "preprocessing": {
+          "streaming": false,
+          "encoderBatchSize": 4,
+          "paddedEncoderWindows": 0
+        },
+        "patch_count": 28
+      }
+    },
+    {
+      "input": "moss-edited",
+      "operation": "jpeg.comprint",
+      "status": "ok",
+      "data": {
+        "method": "comprint",
+        "semantics": "Compression fingerprint consistency; anomaly is not a forgery probability.",
+        "statistics": {
+          "method": "comprint",
+          "statistics_policy": "official-Comprint-global-segmented-chunked-EM-f64",
+          "source_revision": "e79cd7d9bc768cde6d0fbf77d4cea79ec31ce2aa",
+          "original_shape": [
+            1094,
+            1642
+          ],
+          "grid_shape": [
+            125,
+            193
+          ],
+          "valid_blocks": 24125,
+          "spam_features": 512,
+          "pca_dimensions": 32,
+          "replicates": 10,
+          "max_iterations": 100,
+          "seed": 0,
+          "score_is_probability": false,
+          "ground_truth_available": false,
+          "timings_seconds": {
+            "features": 4.988540000081063,
+            "covariance": 0.8736150000095367,
+            "projection": 0.45377499997615817,
+            "em": 6.6007450000047685,
+            "finish": 0.03393499994277954,
+            "total": 13.141414999961853,
+            "queue_wait": 0
+          },
+          "normalization": {
+            "mean": 0.15668848156929016,
+            "variance": 0.0008853753679431975
+          },
+          "resources": [
+            {
+              "phase": "features-complete",
+              "budget": {
+                "budgetBytes": 27487371264,
+                "policyAvailableBytes": 14496440931,
+                "retainedBytes": 12782523837,
+                "cacheBytes": 0,
+                "activeReservationBytes": 208406496,
+                "peakAccountedBytes": 16268663453,
+                "activeRecoveries": 0
+              },
+              "workers": [
+                {
+                  "role": "main",
+                  "maximumHeapBytes": 805306368,
+                  "materializedHeapBytes": 156368896,
+                  "residentBytes": 1233125376
+                }
+              ]
+            },
+            {
+              "phase": "covariance-complete",
+              "budget": {
+                "budgetBytes": 27487371264,
+                "policyAvailableBytes": 14496440931,
+                "retainedBytes": 12782523837,
+                "cacheBytes": 0,
+                "activeReservationBytes": 208406496,
+                "peakAccountedBytes": 16268663453,
+                "activeRecoveries": 0
+              },
+              "workers": [
+                {
+                  "role": "main",
+                  "maximumHeapBytes": 805306368,
+                  "materializedHeapBytes": 156368896,
+                  "residentBytes": 1233125376
+                }
+              ]
+            },
+            {
+              "phase": "em-complete",
+              "budget": {
+                "budgetBytes": 27487371264,
+                "policyAvailableBytes": 11224883811,
+                "retainedBytes": 16054080957,
+                "cacheBytes": 0,
+                "activeReservationBytes": 208406496,
+                "peakAccountedBytes": 16268663453,
+                "activeRecoveries": 0
+              },
+              "workers": [
+                {
+                  "role": "main",
+                  "maximumHeapBytes": 805306368,
+                  "materializedHeapBytes": 156368896,
+                  "residentBytes": 1233125376
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                },
+                {
+                  "role": "fit",
+                  "maximumHeapBytes": 335544320,
+                  "materializedHeapBytes": 117702656,
+                  "residentBytes": 545259520
+                }
+              ]
+            },
+            {
+              "phase": "em-workers-retired",
+              "budget": {
+                "budgetBytes": 27487371264,
+                "policyAvailableBytes": 14496440931,
+                "retainedBytes": 12782523837,
+                "cacheBytes": 0,
+                "activeReservationBytes": 208406496,
+                "peakAccountedBytes": 16268663453,
+                "activeRecoveries": 0
+              },
+              "workers": [
+                {
+                  "role": "main",
+                  "maximumHeapBytes": 805306368,
+                  "materializedHeapBytes": 156368896,
+                  "residentBytes": 1233125376
+                }
+              ]
+            }
+          ],
+          "segmentation": {
+            "blockRows": 8,
+            "blockColumns": 256,
+            "haloCells": 2,
+            "featureBytes": 49408000,
+            "projectionBytes": 6176000,
+            "storage": "temporary",
+            "temporaryBackend": "opfs",
+            "temporaryFallback": null,
+            "fitHeapBytes": 335544320,
+            "chunkedEM": true,
+            "trainingBytes": 6176000,
+            "resize": false,
+            "subsample": false
+          },
+          "parallel": {
+            "workers": 1,
+            "feature_workers": 1,
+            "em_workers": 6,
+            "iterations": [
+              10,
+              11,
+              13,
+              21,
+              7,
+              12,
+              16,
+              9,
+              11,
+              9
+            ],
+            "initial_indices": [
+              2732,
+              10799,
+              9845,
+              19648,
+              13123,
+              21243,
+              9225,
+              20757,
+              22258,
+              14116
+            ],
+            "winning_replicate": 1,
+            "likelihoods": [
+              -41.045305943018654,
+              -41.04524603050967,
+              -41.04530993152821,
+              -41.04542999403966,
+              -41.91948224105447,
+              -41.04534077491026,
+              -41.04539187773901,
+              -41.04526039904095,
+              -41.04533153822999,
+              -41.045282996649355
+            ]
+          },
+          "resourceAdmission": {
+            "boundedHeaps": true,
+            "mainHeapBytes": 805306368,
+            "fitHeapBytes": [],
+            "retainedUntilClear": true,
+            "residentBytes": 1233125376,
+            "scheduler": true
+          }
+        }
+      }
+    }
+  ],
+  "input": {
+    "width": 1642,
+    "height": 1094,
+    "description": "User-supplied original and edited TIFF images. Public PNG copies retain RGB pixels without source metadata. The supplied visual edit reference is not a detector input."
+  }
+}

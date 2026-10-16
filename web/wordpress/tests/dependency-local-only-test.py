@@ -54,7 +54,7 @@ with tempfile.TemporaryDirectory() as directory:
         {'destination': 'sherloq-browser/assets/individual-assets', 'version': 'test',
          'files': {'public.onnx': a, 'm3/ssg/edges.mjs': sha(factory)}}]}
     (staged / 'runtime-lock.json').write_text(json.dumps(lock))
-    for name in ['build.py', 'runtime-delivery.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
+    for name in ['build.py', 'runtime-delivery.py', 'runtime-extensions.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         (staged / name).write_text('fixture\n')
     packer.ROOT = staged
     packer.locked_files = lambda _: (lock, {'sherloq-browser.php': plugin / 'sherloq-browser.php', 'assets/individual-assets/public.onnx': model, 'assets/individual-assets/m3/ssg/edges.mjs': script})

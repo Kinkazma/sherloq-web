@@ -11,7 +11,7 @@ export function displayGeometry({width,height},{x,y,w,h,step=1}){
  requireValue(ow*oh<=MAX_DISPLAY_PIXELS,'Display window exceeds the presentation budget.');
  return {x,y,w,h,step,width:ow,height:oh};
 }
-function layout(format){requireValue(['rgb8','rgb-flags8','mask8','float32','int32'].includes(format),'Unsupported display surface format.');return {channels:['rgb8','rgb-flags8'].includes(format)?3:1,Type:format==='float32'?Float32Array:format==='int32'?Int32Array:Uint8Array};}
+function layout(format){requireValue(['rgb8','rgb-flags8','mask8','float32','float64','int32'].includes(format),'Unsupported display surface format.');return {channels:['rgb8','rgb-flags8'].includes(format)?3:1,Type:format==='float32'?Float32Array:format==='float64'?Float64Array:format==='int32'?Int32Array:Uint8Array};}
 export async function samplePixels(pixels,tile,{budget=unbudgeted,signal,alive=()=>{}}={}){
  const g=displayGeometry(pixels,tile),{channels,Type}=layout(pixels.format),owned=allocateOwnedTypedArray(Type,g.width*g.height*channels,{budget,label:'display-frame'}),cooperate=createCooperator(signal);
  try{for(let row=0;row<g.height;row++){await cooperate();alive();const start=((g.y+row*g.step)*pixels.width+g.x)*channels;

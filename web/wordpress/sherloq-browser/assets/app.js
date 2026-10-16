@@ -10,6 +10,7 @@ import {validateLoupeEffects} from './loupe-effects-settings.js';
 import {createPointerLoupe} from './pointer-loupe.js';
 import {bindSliderReset} from './slider-reset.js';
 import {loupeDefaults,loupeKey,validateLoupeSettings,imageAccept,loupeScale,loupeMinimumZoom} from './media-settings.js';
+import {isExtensionTool,extensionProgressText} from './extension-tools.js';
 import {toolCatalog,toolTitle} from './tool-catalog.js';
 import {createToolClient} from './tool-client.js';
 import {createErrorJournal,errorEvidence,showErrorJournal} from './error-journal.js';
@@ -62,8 +63,7 @@ function queueAnalysis(){
  if(localMagnifier()){pendingMagnifier=false;refreshLocalMagnifier();return;}
  if(busy||energyViewBusy||elaPreviewBusy){if(activeAnalysis==='inspection.magnifier')pendingMagnifier=true;return;}
  pendingMagnifier=false;
- // Neural methods can be costly even on initial adoption. Source/settings/ROI
- // changes prepare their task; only an explicit Calculate action starts it.
+ // Clone and region workflows keep their explicit Calculate action.
  if(activeAnalysis==='ai.clones.d2prl'||regionController?.active()){status(autoText('Choisissez les réglages et les zones, puis cliquez sur Calculer.','Choose the settings and regions, then click Calculate.'));return;}
  if(individualMode()&&!individualUI?.canRun(regions.filter(r=>r.kind!=='exclusion')))return;
  autoRunTimer=setTimeout(()=>{autoRunTimer=null;if(fileInput&&!busy&&!energyViewBusy&&!elaPreviewBusy&&!drawing)void run();},250);
@@ -315,7 +315,7 @@ async function exportImage(settingsOverride){
   const options=rasterOptions(settings.resize?{...settings,...linkedExportSize(settings,target)}:settings,source?.display?.chroma??engineCapabilities?.sourceChroma);let output;
   const progress=event=>{if(rev===revision){$('progress').value=event.fraction??0;status(t('exporting')+' · '+(event.phase??''));}};
   try{
-   if(individualMode()&&target.display?.id&&!target.display.pixels&&!target.display.m2Result&&!target.display.cloneView&&!target.display.biomePresentation){output=await(await ensureIndividualClient()).export(options.format,target.display,options);}
+   if(individualMode()&&target.display?.id&&!target.display.pixels&&!target.display.m2Result&&!target.display.cloneView&&!target.display.biomePresentation&&!target.display.dtdPresentation&&!target.display.comprintPresentation){output=await(await ensureIndividualClient()).export(options.format,target.display,options);}
    else if(!individualMode()&&!automaticMode()&&!compositeMode()){
     const sink=await createExportSink({memoryBudgetBytes:uiRGBBudget,signal:controller.signal,mime:'image/'+options.format});
     try{const answer=await request('export-raster',{display:target.display,options},chunk=>sink.write(chunk));output={...await sink.finish(),descriptor:answer.descriptor};}catch(error){await sink.abort();throw error;}
@@ -672,7 +672,7 @@ function automaticViewActions(){return [{method:'selectTab',value:$('automatic-s
 async function individualActivity(fn){if(busy)return;busy=true;controls();try{return await fn();}finally{busy=false;controls();}}
 async function ensureIndividualClient(){
  if(individualClient)return individualClient;
- if(!individualOpening){const epoch=individualEpoch;individualOpening=(async()=>{await individualCleanup;const client=await createToolClient({computeProfile:$('compute-profile').value,...(host.engineFactory?{engineFactory:host.engineFactory}:{}),onInvalidated:({resultLost})=>{if(epoch!==individualEpoch||!resultLost)return;discardIndividualPresentation();resultMeta={...resultMeta,status:'unavailable',error:{code:'WORKER_RECREATED',message:autoText('Le moteur a été recréé. L’image originale est conservée ; ce résultat doit être recalculé.','The engine was recreated. The original is retained; this result must be recalculated.')}};$('provenance').textContent=JSON.stringify(resultMeta,null,2);$('export-png').disabled=true;status(resultMeta.error.message);controls();draw();},onProgress:event=>{if(epoch!==individualEpoch||individualComputing?.revision!==revision)return;lastIndividualProgress={phase:event.phase,completed:event.completed,total:event.total};const f=event.fraction??(event.total?event.completed/event.total:0);$('progress').value=Math.max(0,Math.min(1,f||0));status(t('running')+' · '+event.phase+(event.total?' · '+event.completed+'/'+event.total:''));}});if(epoch!==individualEpoch){await client.dispose();throw Object.assign(Error('Cancelled'),{code:'CANCELLED'});}return individualClient=client;})().finally(()=>individualOpening=null);}
+ if(!individualOpening){const epoch=individualEpoch;individualOpening=(async()=>{await individualCleanup;const client=await createToolClient({computeProfile:$('compute-profile').value,...(host.engineFactory?{engineFactory:host.engineFactory}:{}),onInvalidated:({resultLost})=>{if(epoch!==individualEpoch||!resultLost)return;discardIndividualPresentation();resultMeta={...resultMeta,status:'unavailable',error:{code:'WORKER_RECREATED',message:autoText('Le moteur a été recréé. L’image originale est conservée ; ce résultat doit être recalculé.','The engine was recreated. The original is retained; this result must be recalculated.')}};$('provenance').textContent=JSON.stringify(resultMeta,null,2);$('export-png').disabled=true;status(resultMeta.error.message);controls();draw();},onProgress:event=>{if(epoch!==individualEpoch||individualComputing?.revision!==revision)return;lastIndividualProgress={phase:event.phase,completed:event.completed,total:event.total};const f=event.fraction??(event.total?event.completed/event.total:0);$('progress').value=Math.max(0,Math.min(1,f||0));status(isExtensionTool(activeAnalysis)?extensionProgressText(event,lang):t('running')+' · '+event.phase+(event.total?' · '+event.completed+'/'+event.total:''));}});if(epoch!==individualEpoch){await client.dispose();throw Object.assign(Error('Cancelled'),{code:'CANCELLED'});}return individualClient=client;})().finally(()=>individualOpening=null);}
  return individualOpening;
 }
 async function individualRequest(action,payload){const client=await ensureIndividualClient();if(action==='capabilities')return client.capabilities();if(action==='load')return client.load(payload);if(action==='read-display')return {pixels:await client.readTile(payload.display,payload.tile)};if(action==='read-window')return {pixels:await client.readWindow(payload.display,payload.rect)};throw Error('Unsupported tool action: '+action);}
@@ -691,7 +691,7 @@ function showIndividualSurface(display){
   const evidence=errorJournal.record(error,{operation,phase:'display-read',surfaceId:display.id,surfaceRevision:display.revision,width:display.width,height:display.height,sourceSha256:hash,view});
   const calculationStatus=resultMeta?.status;discardIndividualPresentation();
   resultMeta={...resultMeta,operation,status:'error',calculationStatus,phase:'display',error:evidence.error,context:evidence.context};$('provenance').textContent=JSON.stringify(resultMeta,null,2);$('export-report').disabled=false;translateTaskActions();status(t('error')+' · '+errorText(error,lang));controls();draw();
- });result=next;$('layer').value=$('app').classList.contains('original-mode')?'source':'result';$('export-png').disabled=false;if(source&&(display.width!==source.width||display.height!==source.height))fit();else draw();
+ });result=next;$('layer').value=$('app').classList.contains('original-mode')?'source':'result';$('export-png').disabled=!!display.responsePreview;if(source&&(display.width!==source.width||display.height!==source.height))fit();else draw();
 }
 async function runIndividual(){
  clearTimeout(autoRunTimer);autoRunTimer=null;if(busy||!fileInput||activeAnalysis==='file.similarity')return;if(localMagnifier()){refreshLocalMagnifier();return;}
@@ -711,7 +711,7 @@ async function runIndividual(){
  if(regionController?.active())await regionController.prepareForCalculation();if(individualCancelled)throw Object.assign(Error('Cancelled'),{code:'CANCELLED'});
  const analysisRegions=regions.filter(r=>r.kind!=='exclusion');submitted={id:'tool-'+crypto.randomUUID(),imageId,operation:individualUI.operation(),params:individualUI.params(analysisRegions,{scientificScope:regionController?.scope}),backend:individualUI.backend(),view:individualUI.view(),regions:individualUI.taskRegions(analysisRegions,{scientificScope:regionController?.scope})};submitted=regionController?.active()?regionController.task(submitted):submitted;output=await client.run(submitted,individualUI.extras);if(individualComputing===computation)individualComputing=null;if(rev!==revision)return;
  const subimageSelection=activeAnalysis==='ai.clones.d2prl'&&submitted.params.selectionPresent?individualSubimageProvenance(regions,{width:source?.width,height:source?.height,sourceSha256:hash}):null;
- resultMeta={id:output.id,operation:output.operation,status:output.status,provenance:output.provenance,metrics:output.metrics,...(subimageSelection?{ui:{subimageSelection,requestedRegions:structuredClone(submitted.regions),selectionPresent:submitted.params.selectionPresent}}:{})};$('provenance').textContent=JSON.stringify(resultMeta,null,2);$('export-report').disabled=false;
+ resultMeta={id:output.id,operation:output.operation,status:output.status,provenance:output.provenance,metrics:output.metrics,...(isExtensionTool(output.operation)?{data:output.data}:{}),...(subimageSelection?{ui:{subimageSelection,requestedRegions:structuredClone(submitted.regions),selectionPresent:submitted.params.selectionPresent}}:{})};$('provenance').textContent=JSON.stringify(resultMeta,null,2);$('export-report').disabled=false;
  await individualUI.render(output);if(regionController?.active())regionController.accept(output);
  }
  $('provenance').textContent=JSON.stringify(resultMeta,null,2);$('export-report').disabled=false;

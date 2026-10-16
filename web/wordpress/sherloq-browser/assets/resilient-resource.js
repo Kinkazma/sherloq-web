@@ -1,6 +1,9 @@
 // Resume only an interrupted dependency. The same consumer keeps its completed bytes.
 export function resourceFetch(fetcher,{emit=()=>{},wait,delay=ms=>new Promise(r=>setTimeout(r,ms)),attempts=3}={}){
  return async function fetchResource(input,init){
+  // Presence probes must fall through to another source instead of waiting
+  // for a user retry of an optional file that may legitimately be absent.
+  if(init?.sherloqResourceProbe){const {sherloqResourceProbe,...options}=init;return fetcher(input,options);}
   const request=new Request(input,init),key=request.url,abort=new AbortController();
   const stop=()=>abort.abort(request.signal.reason);request.signal.addEventListener('abort',stop,{once:true});if(request.signal.aborted)stop();
   const signal=abort.signal,cleanup=()=>request.signal.removeEventListener('abort',stop);

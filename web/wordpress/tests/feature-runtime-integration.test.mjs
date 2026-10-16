@@ -8,7 +8,10 @@ import path from 'node:path';
 import {validateFeatureCatalog,selectActiveFiles,requiredFeatureChunks,featureDeletionPlan} from '../sherloq-browser/assets/feature-catalog.js';
 
 const root=fileURLToPath(new URL('../',import.meta.url)),repository=path.resolve(root,'../..');
-const currentBytes=file=>fs.readFileSync(path.join(repository,file));
+const rawCurrentBytes=file=>fs.readFileSync(path.join(repository,file));
+const extensions=JSON.parse(rawCurrentBytes('web/wordpress/runtime-patches/browser-extensions-20261015.json'));
+const extensionsPredecessor=new Map(extensions.baseline.snapshots.map(record=>[record.file,record]));
+const currentBytes=file=>{const record=extensionsPredecessor.get(file);if(!record)return rawCurrentBytes(file);const data=rawCurrentBytes(record.copy);assert.equal(createHash('sha256').update(data).digest('hex'),record.sha256);return data;};
 const ela=JSON.parse(currentBytes('web/wordpress/runtime-patches/ela-runtime-20261014.json'));
 const predecessor=new Map(ela.baseline.snapshots.map(record=>[record.file,record]));
 // Historical contracts retain the original 57-file view, including index.js.
