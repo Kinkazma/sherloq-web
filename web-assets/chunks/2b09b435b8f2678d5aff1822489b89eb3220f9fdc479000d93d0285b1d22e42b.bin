@@ -1,0 +1,972 @@
+{
+  "source_sha256": "4ab0cb2a76ce537833589d12b54a4599322a5a5ba6a5277378d21c093c002c56",
+  "adapted_source_sha256": "469a9bf374cfab7be5decfd10382334b2631f4f32b972eec2cd21d1ed8795539",
+  "checkpoint_sha256": "50da42c81508dd3d0f150af4245f47af8c8c0b554a392527635b7e2245aa3299",
+  "state_keys": 631,
+  "parameters": 55438084,
+  "source_changes": [
+    {
+      "from": "MixVisionTransformer('/mnt/data0/xuekang/workspace/convswin/mit_b3.pth')",
+      "to": "MixVisionTransformer(None)",
+      "reason": "Complete supplied checkpoint replaces preliminary backbone load."
+    },
+    {
+      "from": "gray_x = x[:,:,128:,:]",
+      "to": "gray_x = x[:,:,H:,:]"
+    },
+    {
+      "from": "x = x[:,:,:128,:]",
+      "to": "x = x[:,:,:H,:]"
+    },
+    {
+      "from": "gray_x = x[:,:,64:,:]",
+      "to": "gray_x = x[:,:,H:,:]"
+    },
+    {
+      "from": "x = x[:,:,:64,:]",
+      "to": "x = x[:,:,:H,:]"
+    },
+    {
+      "from": "gray_x = x[:,:,32:,:]",
+      "to": "gray_x = x[:,:,H:,:]"
+    },
+    {
+      "from": "x = x[:,:,:32,:]",
+      "to": "x = x[:,:,:H,:]"
+    },
+    {
+      "from": "gray_x = x[:,:,16:,:]",
+      "to": "gray_x = x[:,:,H:,:]"
+    },
+    {
+      "from": "x = x[:,:,:16,:]",
+      "to": "x = x[:,:,:H,:]"
+    },
+    {
+      "from": "        pred_mask = self.resize(pred_mask)",
+      "to": "        pred_mask = nn.functional.interpolate(pred_mask, size=input_hw, mode=\"bilinear\", align_corners=True)"
+    }
+  ],
+  "schema": 1,
+  "assets": {
+    "s1-image-patch": {
+      "file": "s1-image-patch.onnx",
+      "bytes": 41553,
+      "sha256": "1c54e5dfa68a0fe506da735a521bb34b805c8ba7411af583c6e1a7cfa2507e18",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-mask-patch": {
+      "file": "s1-mask-patch.onnx",
+      "bytes": 82366,
+      "sha256": "4e280e002ada8750e1e8d3cb1567d3d0ee427ad3ab79108dcb97176874ccfa4a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b0-kv": {
+      "file": "s1-b0-kv.onnx",
+      "bytes": 1089191,
+      "sha256": "9efe9f0014f2a0c1ac435accbd9e6b64ae17482a82a1a33001520cd650acea6d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b0-query": {
+      "file": "s1-b0-query.onnx",
+      "bytes": 39982,
+      "sha256": "e76e79ebc601a8a7787e7f84cdf32a68164f6d023aa725749478703fe429ef94",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b0-mlp": {
+      "file": "s1-b0-mlp.onnx",
+      "bytes": 150669,
+      "sha256": "3d76f6366c186dda7a56fa330fff407c389a65fb9cbe9cf5a67b6b6ea7dbab2c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b1-kv": {
+      "file": "s1-b1-kv.onnx",
+      "bytes": 1089191,
+      "sha256": "04cc980725b9561474ca79358812c6cb252cda9b79c28840a8308f3bfee0c28f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b1-query": {
+      "file": "s1-b1-query.onnx",
+      "bytes": 39982,
+      "sha256": "69c9d7fa9421928535ed3d77ebc1b2a0a5219d67659f7256dd033c83b623edae",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b1-mlp": {
+      "file": "s1-b1-mlp.onnx",
+      "bytes": 150669,
+      "sha256": "a6514f9f6699139bcbdfd846e474dd4d443faa312e3aea6527ef165f3d18636a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b2-kv": {
+      "file": "s1-b2-kv.onnx",
+      "bytes": 1089191,
+      "sha256": "db2bfa3f00a8cce6db494b0ad528d199f6381529672bc7f08e1ade9ab6403953",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b2-query": {
+      "file": "s1-b2-query.onnx",
+      "bytes": 39982,
+      "sha256": "3eb1e4c7c3cfbebbe4cfa9f059f7d5f495eabb79540bb505eba7c2e27e78a5a4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-b2-mlp": {
+      "file": "s1-b2-mlp.onnx",
+      "bytes": 150669,
+      "sha256": "e4af6112a45c251c1f95239656f0b86205e95f16ce29426a6ea883c853515feb",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-norm": {
+      "file": "s1-norm.onnx",
+      "bytes": 1805,
+      "sha256": "3369aa759863593aa03cdd4ba72abd6a8b86605674af25077be789ca32a29ee7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-fuse": {
+      "file": "s1-fuse.onnx",
+      "bytes": 34537,
+      "sha256": "a2fd0df8b1cfc4b5797619bb8d79bec31488259eef80e9653dbbae45b1894a5e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-image-patch": {
+      "file": "s2-image-patch.onnx",
+      "bytes": 299606,
+      "sha256": "d82a20c712ff485ad74430095bb2c4814f44be1bfd52c6565f696ab70d2db422",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-mask-patch": {
+      "file": "s2-mask-patch.onnx",
+      "bytes": 299606,
+      "sha256": "bcf1e5cc12ad56c10473e4b10f008f3df7920580a921b5807ed5e9f5c86f15fe",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b0-kv": {
+      "file": "s2-b0-kv.onnx",
+      "bytes": 1189296,
+      "sha256": "730a6cfa731b51887a3725c15c8e28e7c11f84c679c0f08aa1278f49f9748b7e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b0-query": {
+      "file": "s2-b0-query.onnx",
+      "bytes": 139320,
+      "sha256": "82daf5a5f0f1b3809a06f8e67e80da10b1445d82822c924f7a227847ebf4d275",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b0-mlp": {
+      "file": "s2-b0-mlp.onnx",
+      "bytes": 555926,
+      "sha256": "f075d0b77b4c278c78d973c2df575f3e6f3667060be58225169e5c768c87cc39",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b1-kv": {
+      "file": "s2-b1-kv.onnx",
+      "bytes": 1189296,
+      "sha256": "956f093081d4d4eb03f78c3385bd17b9cd3d1ab0d8f5dc7cbec4c0f3a1d0bf77",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b1-query": {
+      "file": "s2-b1-query.onnx",
+      "bytes": 139320,
+      "sha256": "b9626eab62e47ad5adafc6aab3318d11f0db0d9746a67b48ecfe4b1092543110",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b1-mlp": {
+      "file": "s2-b1-mlp.onnx",
+      "bytes": 555926,
+      "sha256": "4c4e7a339e9517498dc3e33813aeb9893a2ce9e0f788ea502bfc329d85cac3d1",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b2-kv": {
+      "file": "s2-b2-kv.onnx",
+      "bytes": 1189296,
+      "sha256": "e197670ca2f1bbf5199ef1379d9285e7cbd45aae9672123855cf6d35caa36d64",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b2-query": {
+      "file": "s2-b2-query.onnx",
+      "bytes": 139320,
+      "sha256": "304d2f396b52c1a3ae011f6115517f2b6fafe6c16238367d64e6be66b6ae4734",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b2-mlp": {
+      "file": "s2-b2-mlp.onnx",
+      "bytes": 555926,
+      "sha256": "9d42e70016086bddcbbb573cb91e4e7f464d5f12b0fab647a0891ec69c226179",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b3-kv": {
+      "file": "s2-b3-kv.onnx",
+      "bytes": 1189296,
+      "sha256": "de53de1587176a429ed806273ba5438049ae6c5ce30ff20a786049330bebc3ac",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b3-query": {
+      "file": "s2-b3-query.onnx",
+      "bytes": 139320,
+      "sha256": "259a3b4cdfcf8efbcb792559767168a93179893c2b37826b53934de92b4d5a64",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-b3-mlp": {
+      "file": "s2-b3-mlp.onnx",
+      "bytes": 555926,
+      "sha256": "4bc04cf4921b17f0e721d84b696f94956450bdbce15383cfd52bfc8a15de2791",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-norm": {
+      "file": "s2-norm.onnx",
+      "bytes": 2321,
+      "sha256": "149971931605daa21ffc9f4f95641590a076596b29d67641d13cacda318fd673",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-fuse": {
+      "file": "s2-fuse.onnx",
+      "bytes": 133362,
+      "sha256": "b90a2213558c60087831c098d6e032dc6640a5217a3ccda2477a8d760d4f79fc",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-project-fused": {
+      "file": "s2-project-fused.onnx",
+      "bytes": 524882,
+      "sha256": "0aa68550561ac8dc03a318b4959c493216fcef3c1c1f1b6672021fd477f8464c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-project-mask": {
+      "file": "s2-project-mask.onnx",
+      "bytes": 524882,
+      "sha256": "9d52d77a3c2873729fed95c71915fae1d429a6507684199c11939a19b5d9ef12",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-image-patch": {
+      "file": "s3-image-patch.onnx",
+      "bytes": 1481560,
+      "sha256": "9a943d47f1df25ff4b095cd0b7ac86680e9ea5dcdb87db742d2a60049c311669",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-mask-patch": {
+      "file": "s3-mask-patch.onnx",
+      "bytes": 1481560,
+      "sha256": "552a1e980414164966416830a327ec812c9e1c12e33ac3265684a6c94f12fbc3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b0-kv": {
+      "file": "s3-b0-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "a3fdf1b3c08c505d0d8abbba5e6f3a2e066cb67f86900d66ea9dd4adb7c3aa03",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b0-query": {
+      "file": "s3-b0-query.onnx",
+      "bytes": 830520,
+      "sha256": "8d60cb4f502054b745192bfc9814e81473b94aefc0e10959416e50955fb12231",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b0-mlp": {
+      "file": "s3-b0-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "794b3543ac66d9cea517a1a72e7ababeac8ce9c8c85e4f1ff86a19caf15faec7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b1-kv": {
+      "file": "s3-b1-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "067d2ef2ae35c615fa5e539eb3d1031445ac780f1f99df72e5bc4db34dfac026",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b1-query": {
+      "file": "s3-b1-query.onnx",
+      "bytes": 830520,
+      "sha256": "1909a0103978c665236180838c4b459614001aee0a4e7cd384551ec15cb8f140",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b1-mlp": {
+      "file": "s3-b1-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "342b7fd8f91c1350cec3d22b45ae5b838f5ee1a6ac774c5bfae9ce1eea29cea9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b2-kv": {
+      "file": "s3-b2-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "e0d1409ad63d66b8b91ba6c32cdfa157224d0599a8e3e558bba064f851707544",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b2-query": {
+      "file": "s3-b2-query.onnx",
+      "bytes": 830520,
+      "sha256": "0609d015998b8f0d591fa7aeff4f6f6d50139f79b0210675e849f133ff44d662",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b2-mlp": {
+      "file": "s3-b2-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "46e7c717b0315d5e6ec8ab017fd707019b44ec97cc1e23aab108b6a28d7a233c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b3-kv": {
+      "file": "s3-b3-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "a0eb9f9eade55c5b3f92284ec825c437608ddfbf74795793c514be12e24a4dff",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b3-query": {
+      "file": "s3-b3-query.onnx",
+      "bytes": 830520,
+      "sha256": "6a64613f85b07f3401cdb03645a2cac804875a2a268a8d2169efb3ec0b939b2f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b3-mlp": {
+      "file": "s3-b3-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "3791076bb85e907c717ce3e803b058240793839e423dc52823747235e8525ee7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b4-kv": {
+      "file": "s3-b4-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "07cacfdea3359863a3ec03e2e1e904adb667bfff5029f2ac36f929afe95253bf",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b4-query": {
+      "file": "s3-b4-query.onnx",
+      "bytes": 830520,
+      "sha256": "81aab6d1def3af525901b03fc4045144b3637a876c3bf54712a556833bf8a4a6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b4-mlp": {
+      "file": "s3-b4-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "12257909435a07f6ca622a800d94353bff7e3b2530a3cb841e1b86643ec63c5c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b5-kv": {
+      "file": "s3-b5-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "8f2151fab1e12b2b558375445c8bcadc274a8a9b9b39dfd266e413abcb28aec3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b5-query": {
+      "file": "s3-b5-query.onnx",
+      "bytes": 830520,
+      "sha256": "c7f895f64b7f6de4687abfed4a5916dd96647153ee0cdcf8815f9e3e31c2a1de",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b5-mlp": {
+      "file": "s3-b5-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "110bc2148ce86df1d5d31bc076fcde9e855e6af1303c853531dd7638273df3e3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b6-kv": {
+      "file": "s3-b6-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "5dcf31d944b2140584593ace1a06e8fa9c3d899f8dfa40f904d7b46c6c53bbc9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b6-query": {
+      "file": "s3-b6-query.onnx",
+      "bytes": 830520,
+      "sha256": "a394f21bfcf326d9d3a8950dcc6f868d2c12d87c1dcfac813c96ad30f25d0197",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b6-mlp": {
+      "file": "s3-b6-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "afcc59bd65da378b7690d1a730720d1532f8f90ded23cd28f3d0c7d4ac63e70e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b7-kv": {
+      "file": "s3-b7-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "fdd3b5a4c9900afd384e5f4544575f9ff0d684489854c387cc2aabc42b65c300",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b7-query": {
+      "file": "s3-b7-query.onnx",
+      "bytes": 830520,
+      "sha256": "fc8d8a326582de588e396480a1cc08620613b6485c60b8d1e26ba046450bf666",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b7-mlp": {
+      "file": "s3-b7-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "c124604d849efa1e43b09c22dfd359181122c3155c35b6a4a49d416e4d4a2d56",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b8-kv": {
+      "file": "s3-b8-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "68ab7ac38f6a5eb6b403fbc6d418343eb88c5aab37980c4e0fa1ab8757f4d52c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b8-query": {
+      "file": "s3-b8-query.onnx",
+      "bytes": 830520,
+      "sha256": "982aa8250746f8b6d8b82678533a63eb962438568c4f282b08ab9eb1bcdbf5eb",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b8-mlp": {
+      "file": "s3-b8-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "0c628e5f3f7aad494b7b67c0f19580efd896b69f9749e79c769050a40c1e4ef5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b9-kv": {
+      "file": "s3-b9-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "cb92736edbaaec8872db13418f1e0fc7cf67d224960535298f019fb9a685e0d9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b9-query": {
+      "file": "s3-b9-query.onnx",
+      "bytes": 830520,
+      "sha256": "5d61c26e493e5d2ac74f0e8686fa93f1019bbe0c209ad3c35d411250d42afe08",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b9-mlp": {
+      "file": "s3-b9-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "540424ba88893a51f1966504d36015c8a334e24c3c5431906c4622c092352115",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b10-kv": {
+      "file": "s3-b10-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "85115d97a3a7f64e1fb0fd1e3498a54db968baae861a64cb3baf75413f328aa3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b10-query": {
+      "file": "s3-b10-query.onnx",
+      "bytes": 830520,
+      "sha256": "5f4be233d7afef2623eed7b8ee021ff7e963368bf26be0ffddfdf2502bcb40fd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b10-mlp": {
+      "file": "s3-b10-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "64c5d4d71e0b70692fbb02799964cabf23f930c62779882f229ece22235f0f32",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b11-kv": {
+      "file": "s3-b11-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "98b99ae77bf0073f55224f86dfee6ee168c8b9125eea981cc7ff9b0d23dacf1b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b11-query": {
+      "file": "s3-b11-query.onnx",
+      "bytes": 830520,
+      "sha256": "81525cc7d89c875f54365130658141c1fec912d063e546f36964928e1b2b5f5e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b11-mlp": {
+      "file": "s3-b11-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "8465c87d5227423f43b6d880a57031b0369607bc86556d6e2c56a2d4b224797c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b12-kv": {
+      "file": "s3-b12-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "4eda9e61f0a3c6f21527f7903f1dafa54d957c3adc4309a2dc47e019680842f9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b12-query": {
+      "file": "s3-b12-query.onnx",
+      "bytes": 830520,
+      "sha256": "38c49841b1abb18764220ad82cd5a9f947a26e568c286f2ca0b535121a0c7c6f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b12-mlp": {
+      "file": "s3-b12-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "19c1765ec2dd24e0dc60090c32d2a3bf6fda0367096a67d16a239241533e4e32",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b13-kv": {
+      "file": "s3-b13-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "164e869159080f0bd7d21b6b84f05f37798ea4389861952c71f34cf23f07276f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b13-query": {
+      "file": "s3-b13-query.onnx",
+      "bytes": 830520,
+      "sha256": "46272424929d87b08364490cc94864a31dac4b9b71939935244b086b45d532d1",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b13-mlp": {
+      "file": "s3-b13-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "d70eedf404cdfbff9dc260dc2566781a2fd679134ae61179618838a75f218552",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b14-kv": {
+      "file": "s3-b14-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "8f7dea8f91bb92c42f5f4cf531219577b70acd0503dec528ebf47f80c400dfa4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b14-query": {
+      "file": "s3-b14-query.onnx",
+      "bytes": 830520,
+      "sha256": "e4472f87919982d2f192a82fc6981cfdfc08f8c14c1d9edb01ac68c7085add9f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b14-mlp": {
+      "file": "s3-b14-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "a70f582c686707be4515ec26b94a1ab6112b90e73e62093009696dd7ff0400bd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b15-kv": {
+      "file": "s3-b15-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "a4ef09056d1dbc2212f996f2add8069a118bd31808d074fc83f5118afb287e95",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b15-query": {
+      "file": "s3-b15-query.onnx",
+      "bytes": 830520,
+      "sha256": "7b8492cc293852103a35dec63302b63a48ad63aa971715a36fba8fcdc9f004a8",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b15-mlp": {
+      "file": "s3-b15-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "977573bf3a48f192f29d92c7d37901927eecad4b4c291118627f76d5acd041b5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b16-kv": {
+      "file": "s3-b16-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "e5e4f8752ff7e56e70201449b3d8284bf63d1fc489ee27f7e08b815dfeef054e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b16-query": {
+      "file": "s3-b16-query.onnx",
+      "bytes": 830520,
+      "sha256": "b2f316d569accb4a3162e0ba42d610959e4a93b4b87819b6a531da7fcb0052b1",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b16-mlp": {
+      "file": "s3-b16-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "2fdbaea797cb2fae0e0d0cfe16b354b516b60d5af706ac3e2cf603aad4f11b84",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b17-kv": {
+      "file": "s3-b17-kv.onnx",
+      "bytes": 2472625,
+      "sha256": "45f147f462390c171bf5bf8b20a7eee31d49be6e6cf7559dd82da0940dd91c68",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b17-query": {
+      "file": "s3-b17-query.onnx",
+      "bytes": 830520,
+      "sha256": "f9c30517e061e5f08e2ae1fc39e7f31e28ae609b61a716ae56fae16c1b5d28db",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-b17-mlp": {
+      "file": "s3-b17-mlp.onnx",
+      "bytes": 3344535,
+      "sha256": "0174c05fcb6cb70ea1e9fa8823d72ec1f02c2d4afffe8498411243ff83baf97e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-norm": {
+      "file": "s3-norm.onnx",
+      "bytes": 3857,
+      "sha256": "5772b66675f72c8204ba4221ef0653eba520d8aa057b395c68da70619144b6ae",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-fuse": {
+      "file": "s3-fuse.onnx",
+      "bytes": 823026,
+      "sha256": "f355fc8279165fa80413f56805cbe37f80c8fa1d6c1903ba237710356628e8c4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-project-fused": {
+      "file": "s3-project-fused.onnx",
+      "bytes": 3147098,
+      "sha256": "ec13581302c9e96202c93716a750c1c5b8aeb97c8d3c4642997eed9ebc5d1367",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-project-mask": {
+      "file": "s3-project-mask.onnx",
+      "bytes": 3147098,
+      "sha256": "13cbf7dae18e62bbb401cb64333b2de37510e04f333106690c0b7cdf36e1bebe",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-image-patch": {
+      "file": "s4-image-patch.onnx",
+      "bytes": 5907547,
+      "sha256": "ea644931d8e8e3bc651063c552e90852b1a1f7ce3e188c344f42836d65b15ad9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-mask-patch": {
+      "file": "s4-mask-patch.onnx",
+      "bytes": 5907547,
+      "sha256": "8a25b62168924f798af1e1e0fa637511bfa361841c0817ecaaa31cfce1de116a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b0-kv": {
+      "file": "s4-b0-kv.onnx",
+      "bytes": 2108690,
+      "sha256": "13422075d26c90d942ab04aefcbecc1c09085c3d32d95ecebd808143850312f2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b0-query": {
+      "file": "s4-b0-query.onnx",
+      "bytes": 2111545,
+      "sha256": "e4e5572448918289801217023898f4372fc0a9b39c5871a079d0a35ff1822fed",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b0-mlp": {
+      "file": "s4-b0-mlp.onnx",
+      "bytes": 8492443,
+      "sha256": "93d232b141c2dcfd16cfb980b3da99c9d0fc37463aaa15263cb1f50037189dc2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b1-kv": {
+      "file": "s4-b1-kv.onnx",
+      "bytes": 2108690,
+      "sha256": "06fc840b84dd5017f5859bbd08752fd503fc3342757804b1d5f5dcc94c3bbbea",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b1-query": {
+      "file": "s4-b1-query.onnx",
+      "bytes": 2111545,
+      "sha256": "c31d5fb00869227545d7cfdad316225b25d61ffda65263275e6aa5fe84062c42",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b1-mlp": {
+      "file": "s4-b1-mlp.onnx",
+      "bytes": 8492443,
+      "sha256": "a312b412833be5676c1215ebfb463e0ef57ac88a2ef0649cfd1e8e5dbcdde88d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b2-kv": {
+      "file": "s4-b2-kv.onnx",
+      "bytes": 2108690,
+      "sha256": "5d36411f5dc19374e20b4f7a5870c321944f89c7864c21f00a6f692e79de3899",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b2-query": {
+      "file": "s4-b2-query.onnx",
+      "bytes": 2111545,
+      "sha256": "5a86c4ed725defb1612234b13fbe223fded715018af40db156ef2b5968acc7b6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-b2-mlp": {
+      "file": "s4-b2-mlp.onnx",
+      "bytes": 8492443,
+      "sha256": "5a6be14444d32b0faf6ed47b2d3891e9607145d3e2df8f8dd643a9445d212304",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-norm": {
+      "file": "s4-norm.onnx",
+      "bytes": 5393,
+      "sha256": "01cd37c880a6e13238ffed20ca03606a2c52f0e604417dfb18584530f234ed42",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-fuse": {
+      "file": "s4-fuse.onnx",
+      "bytes": 2102515,
+      "sha256": "3658dfc031b4333c514bf1bea202722ffbafc12461e8b9a75c977e07605f4820",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-project-fused": {
+      "file": "s4-project-fused.onnx",
+      "bytes": 13634391,
+      "sha256": "021950920636827c7055c43bc4daabf0d5b0ad1c799942abcee95b255a0726ef",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-project-mask": {
+      "file": "s4-project-mask.onnx",
+      "bytes": 13634391,
+      "sha256": "60e814d88312146ad56d6d6192dd7e32218ea92b0a820bc57eeb3fdd71fc0f26",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decoder-fuse": {
+      "file": "decoder-fuse.onnx",
+      "bytes": 8981,
+      "sha256": "e0c25752c9720978369e0c0f30688972ef100aac35ec5c6ea4ae0d55d2009652",
+      "graphOptimizationLevel": "disabled"
+    },
+    "decoder-final": {
+      "file": "decoder-final.onnx",
+      "bytes": 264,
+      "sha256": "212cf8e2295c85cc42ccb003294bde444a4dc37b925ba216532ed25f99e4ade4",
+      "graphOptimizationLevel": "disabled"
+    }
+  },
+  "stages": [
+    {
+      "channels": 64,
+      "stride": 4,
+      "radius": 3,
+      "patchImage": "s1-image-patch",
+      "blocks": [
+        {
+          "heads": 1,
+          "sr": 8,
+          "kv": "s1-b0-kv",
+          "query": "s1-b0-query",
+          "mlp": "s1-b0-mlp"
+        },
+        {
+          "heads": 1,
+          "sr": 8,
+          "kv": "s1-b1-kv",
+          "query": "s1-b1-query",
+          "mlp": "s1-b1-mlp"
+        },
+        {
+          "heads": 1,
+          "sr": 8,
+          "kv": "s1-b2-kv",
+          "query": "s1-b2-query",
+          "mlp": "s1-b2-mlp"
+        }
+      ],
+      "patchMask": "s1-mask-patch",
+      "norm": "s1-norm",
+      "fuse": "s1-fuse",
+      "scale": 1,
+      "projectionHalo": 0,
+      "upFused": null,
+      "upMask": null
+    },
+    {
+      "channels": 128,
+      "stride": 2,
+      "radius": 1,
+      "patchImage": "s2-image-patch",
+      "blocks": [
+        {
+          "heads": 2,
+          "sr": 4,
+          "kv": "s2-b0-kv",
+          "query": "s2-b0-query",
+          "mlp": "s2-b0-mlp"
+        },
+        {
+          "heads": 2,
+          "sr": 4,
+          "kv": "s2-b1-kv",
+          "query": "s2-b1-query",
+          "mlp": "s2-b1-mlp"
+        },
+        {
+          "heads": 2,
+          "sr": 4,
+          "kv": "s2-b2-kv",
+          "query": "s2-b2-query",
+          "mlp": "s2-b2-mlp"
+        },
+        {
+          "heads": 2,
+          "sr": 4,
+          "kv": "s2-b3-kv",
+          "query": "s2-b3-query",
+          "mlp": "s2-b3-mlp"
+        }
+      ],
+      "patchMask": "s2-mask-patch",
+      "norm": "s2-norm",
+      "fuse": "s2-fuse",
+      "scale": 2,
+      "projectionHalo": 2,
+      "upFused": "s2-project-fused",
+      "upMask": "s2-project-mask"
+    },
+    {
+      "channels": 320,
+      "stride": 2,
+      "radius": 1,
+      "patchImage": "s3-image-patch",
+      "blocks": [
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b0-kv",
+          "query": "s3-b0-query",
+          "mlp": "s3-b0-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b1-kv",
+          "query": "s3-b1-query",
+          "mlp": "s3-b1-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b2-kv",
+          "query": "s3-b2-query",
+          "mlp": "s3-b2-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b3-kv",
+          "query": "s3-b3-query",
+          "mlp": "s3-b3-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b4-kv",
+          "query": "s3-b4-query",
+          "mlp": "s3-b4-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b5-kv",
+          "query": "s3-b5-query",
+          "mlp": "s3-b5-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b6-kv",
+          "query": "s3-b6-query",
+          "mlp": "s3-b6-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b7-kv",
+          "query": "s3-b7-query",
+          "mlp": "s3-b7-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b8-kv",
+          "query": "s3-b8-query",
+          "mlp": "s3-b8-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b9-kv",
+          "query": "s3-b9-query",
+          "mlp": "s3-b9-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b10-kv",
+          "query": "s3-b10-query",
+          "mlp": "s3-b10-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b11-kv",
+          "query": "s3-b11-query",
+          "mlp": "s3-b11-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b12-kv",
+          "query": "s3-b12-query",
+          "mlp": "s3-b12-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b13-kv",
+          "query": "s3-b13-query",
+          "mlp": "s3-b13-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b14-kv",
+          "query": "s3-b14-query",
+          "mlp": "s3-b14-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b15-kv",
+          "query": "s3-b15-query",
+          "mlp": "s3-b15-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b16-kv",
+          "query": "s3-b16-query",
+          "mlp": "s3-b16-mlp"
+        },
+        {
+          "heads": 5,
+          "sr": 2,
+          "kv": "s3-b17-kv",
+          "query": "s3-b17-query",
+          "mlp": "s3-b17-mlp"
+        }
+      ],
+      "patchMask": "s3-mask-patch",
+      "norm": "s3-norm",
+      "fuse": "s3-fuse",
+      "scale": 4,
+      "projectionHalo": 2,
+      "upFused": "s3-project-fused",
+      "upMask": "s3-project-mask"
+    },
+    {
+      "channels": 512,
+      "stride": 2,
+      "radius": 1,
+      "patchImage": "s4-image-patch",
+      "blocks": [
+        {
+          "heads": 8,
+          "sr": 1,
+          "kv": "s4-b0-kv",
+          "query": "s4-b0-query",
+          "mlp": "s4-b0-mlp"
+        },
+        {
+          "heads": 8,
+          "sr": 1,
+          "kv": "s4-b1-kv",
+          "query": "s4-b1-query",
+          "mlp": "s4-b1-mlp"
+        },
+        {
+          "heads": 8,
+          "sr": 1,
+          "kv": "s4-b2-kv",
+          "query": "s4-b2-query",
+          "mlp": "s4-b2-mlp"
+        }
+      ],
+      "patchMask": "s4-mask-patch",
+      "norm": "s4-norm",
+      "fuse": "s4-fuse",
+      "scale": 8,
+      "projectionHalo": 2,
+      "upFused": "s4-project-fused",
+      "upMask": "s4-project-mask"
+    }
+  ],
+  "final": "decoder-final",
+  "scoreClass": 0,
+  "initialMaskClass": 3,
+  "eosClass": 2,
+  "maximumSteps": 10,
+  "thresholdDefault": 0.5,
+  "selection": "Exact official test.py: first step with ANY column EOS>=90%, minus1 (negative indexing); otherwise last. Keep selected class0 softmax as adjustable scientific map.",
+  "preprocessing": "RGB ImageNet mean/std, no scaling. Reflect pad right/bottom to multiple32, then crop.",
+  "scope": "Experimental native geometric adaptation; all learned weights and global attention preserved.",
+  "graphCount": 108,
+  "modelBytes": 222404116,
+  "seconds": 5.955186749924906,
+  "decode": "decoder-fuse"
+}

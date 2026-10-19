@@ -1,0 +1,27 @@
+	pytorch2.9.1:ï
+s
+pred
+gridresult/GridSample"
+GridSample*
+align_corners *
+mode"bilinear *
+padding_mode"border 
+main_graphZ"
+pred
+
+
+
+fh
+fwZ"
+grid
+
+
+oh
+ow
+b$
+result
+
+
+
+oh
+owB
