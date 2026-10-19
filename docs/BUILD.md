@@ -22,7 +22,7 @@ npm test
 python3 build.py --frozen
 ```
 
-Default reconstruction verifies 5,596 public ordinary files (8,510,208,534 declared bytes). The active public library requires 4,888 unique content-addressed pieces (8,180,499,672 bytes); historical pieces remain available for earlier releases. Four optional research-model files are declared for verified local import and are not hosted as public payloads; see [resource notices](METHODS-RESOURCE-LICENSES.txt). Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
+Default reconstruction verifies 5,714 public ordinary files (8,732,711,393 declared bytes). The active public library requires 5,006 unique content-addressed pieces (8,403,002,531 bytes); historical pieces remain available for earlier releases. Four optional research-model files are declared for verified local import and are not hosted as public payloads; see [resource notices](METHODS-RESOURCE-LICENSES.txt). Allow additional disk space for the checkout, restored library and development dependencies. Restoration is required before running tests that import locked runtime modules.
 
 The manifest template deliberately has no remote origin. A deployment origin identifies `web-assets/` at a full 40-character Git commit SHA; the source includes the finalization and browser-check scripts. The scientific runtime resources are immutable. A GitHub branch URL or a Release download is not an interchangeable origin.
 
@@ -34,6 +34,8 @@ The 0.17.0 delivery retains 96 native WASM modules below 300 KiB locally, on dem
 
 The batch PDF/ZIP vendor files retain their original bytes and paths and load on demand. Method-specific optional files can be imported from an authorized local library without blocking downloads for other tools. [Changes and qualification](../CHANGELOG.md).
 
-Local update inventories for this version are recorded in `web/local-sources/0.21.0/` and `releases/0.21.0.json`. The declared scientific scope increment adds 14 resources and replaces 43 JavaScript files; its receipt binds the exact runtime locks and leaves existing model payloads unchanged. Rebuilding retains the previous version’s compatibility manifest.
+Local update inventories for this version are recorded in `web/local-sources/0.22.0/` and `releases/0.22.0.json`. The declared scientific scope increment adds 14 resources and replaces 43 JavaScript files; its receipt binds the exact runtime locks and leaves existing model payloads unchanged. Rebuilding retains the previous version’s compatibility manifest.
 
 The ELA layer adds one JavaScript module and replaces four, including the index shared with the earlier scientific increment. Keep the immutable predecessor snapshots and both receipts when reconstructing the executable lock. [Runtime increment contracts](RUNTIME-INCREMENTS.md). The final service-worker assemblers include `dependency-client-routing.js`; older client/resource identities remain available during coexistence and migration.
+
+The RITA layer binds fourteen executable/readable JavaScript sources and 110 resources, including 108 FP32 operators. Keep `runtime-rita.py`, `runtime-patches/rita-20261019.json` and its predecessor snapshots with the existing layers. Restoring dependencies before building materializes the locked operators from their content-addressed pieces. `build-local-release.py stage --no-bootstrap` prepares versioned source inventories without an installer archive.

@@ -1,16 +1,16 @@
 {
   "schema": "sherloq.publication-identity/1",
-  "ui_commit": "100d1803accc6ce23af1182f942536facb1f957e",
+  "ui_commit": "f80cf88aa0814798894c69921025f3034bd643a0",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
-  "ui_version": "0.21.0",
-  "engine_commit": "100d1803accc6ce23af1182f942536facb1f957e",
+  "ui_version": "0.22.0",
+  "engine_commit": "f80cf88aa0814798894c69921025f3034bd643a0",
   "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "engine_version": "0.37.0-methods.1",
-  "source_revision": "100d1803accc6ce23af1182f942536facb1f957e",
+  "source_revision": "f80cf88aa0814798894c69921025f3034bd643a0",
   "engine_base_commit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
   "engine_source_increment_sha256": "440210e4665b4a62114cc5028b045414a0901aab55d39ab465136a7067b3e88c",
   "runtime_receipt_sha256": "6c66a9689c841d9fbe678a718202a2da50a54fb815116b767fa4f51c6b353c48",
-  "manifest_sha256": "7b6e2b1be71167069dc75016a48c881fafd5c2d659e1e096862c6e77e7a3385f",
+  "manifest_sha256": "6bc372c36d58aa0d539688d398d954087e7669f267b610f2f14b109879b2f261",
   "upstream": "https://github.com/GuidoBartoli/sherloq",
   "macos_derivative": "https://github.com/Kinkazma/sherloq",
   "transport_adapter": "web/wordpress/runtime-delivery.py",
@@ -36,7 +36,7 @@
       "EfficientLoFTR",
       "SSG"
     ],
-    "batch_version": "0.20.0 interface",
+    "batch_version": "0.22.0 interface",
     "batch_method_defaults": "Biomes alone, without circles, lines or points.",
     "batch_human_acceptance": "Functionally accepted and explicitly authorized for publication by Gaël; scientific corpus-wide accuracy remains unestablished.",
     "atomic_sift_phase_handoff": "Normal native worker capacity retained; no added three-worker ceiling or raised budget.",
@@ -54,19 +54,19 @@
       "SPAI",
       "DTD / DocTamper"
     ],
-    "experimental_tools_default": false
+    "experimental_tools_default": false,
+    "rita": "Native FP32 operator execution, retained display scores, batch recipes and optional local resources."
   },
   "previous_publication": {
-    "main_commit": "e7d0c8d32ae0daa56cb9f1897e231c6d0aa2282c",
-    "resource_commit": "8810f021d22ccbebe85327215545b666d1e296cb",
-    "deployment_manifest_sha256": "08d84f8ee2a6b50a06a660abee5c5fb495da556df5546534baf6085a822a0059"
+    "version": "0.21.0",
+    "commit": "450cf281d929cfe8b622c9340784ae63ee579182"
   },
   "d2prl_increment_sha256": "ab77ee77b286abd9866e68f433121149f835f96764c18e33c0fffe200ec6c6a8",
   "d2prl_qualification": "Supplied 30/96 MP native-array/mask, refilter and paged export checks passed. Detailed qualification files remain local.",
   "clone_increment_sha256": "9c47fc55f2777a7f9bff4a1a588c14036ad2ab8a228e6395fe34c77d41429b5c",
-  "resource_commit": "3d231c93686aa1399e76aade6949c835f5df0683",
-  "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/3d231c93686aa1399e76aade6949c835f5df0683/web-assets/",
-  "deployment_manifest_sha256": "b474956120bea09db21827d19c038d816ea1a42d66d57edd63ad3f1a4bbad53a",
+  "resource_commit": "8c918dce31ba13bef3b49e21de7dcafbdad9e454",
+  "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/8c918dce31ba13bef3b49e21de7dcafbdad9e454/web-assets/",
+  "deployment_manifest_sha256": "7eea7a7817639bb182546fda46f15e1777ba49a5bcbff5ecd2e3f3d49b7f00b5",
   "ui_source_commit": "100d1803accc6ce23af1182f942536facb1f957e",
   "batch_interface_source_commit": "a1a5a62908390a71d90d660aad229ea0c9ed7d4e",
   "selection_overlay": "web/wordpress/runtime-patches/feature-selection-overlay-0.18.0.json",
@@ -83,11 +83,16 @@
   "ela_runtime_increment": "web/wordpress/runtime-patches/ela-runtime-20261014.json",
   "ela_runtime_increment_sha256": "b2e46e895640736b7a4120b7e32e242ba20e518a5888b14997cfd3c539c100f4",
   "ela_source_commit": "a1a5a62908390a71d90d660aad229ea0c9ed7d4e",
-  "runtime_lock_sha256": "80a282856ef1b08bdbcf2f7cedc9565f664f02205a59d48234344be228823620",
-  "runtime_source_lock_sha256": "88c495f069cb6c83460757f7878a49bf8d23ae4522804ad6e3e28deb7c535f12",
-  "runtime_increment_contract": "docs/RUNTIME-INCREMENTS.md",
+  "runtime_lock_sha256": "a42f7ec20cd7d751b75047bb125267cfbde064991aa50dcc162d9341f17aa970",
+  "runtime_source_lock_sha256": "a25628543cdcd651a9c6e1570d2de250cdc69fc8fba71cc30d2c7b7bf9a51b3b",
+  "runtime_increment_contract": "Preserve the immutable scientific, ELA and inspection-method predecessor receipts; apply the RITA receipt last. It binds canonical source, executable and readable representations, resource inventory and both locks.",
   "browser_extensions_increment": "web/wordpress/runtime-patches/browser-extensions-20261015.json",
   "browser_extensions_increment_sha256": "a426c99923011e5a86f7e2d76d0c2f53616c6d7c5d227aab479d6b9043b74a6b",
   "browser_extensions_source_commit": "100d1803accc6ce23af1182f942536facb1f957e",
-  "ela_result_ownership_included": true
+  "ela_result_ownership_included": true,
+  "offline_shell_sha256": "37d4063dd6ecd6c54027adebe3b304671392a9ce69d7080c01a279bc9199ba5f",
+  "local_inventory_commit": "1e4a4dd2f056fb36a4fa57e1fb940dfbae00f9a8",
+  "rita_runtime_increment": "web/wordpress/runtime-patches/rita-20261019.json",
+  "rita_runtime_increment_sha256": "fb2e6e61642c390ac557c971acd5efb924b4e4982e2fefc56db860ae702d763f",
+  "rita_source_commit": "f80cf88aa0814798894c69921025f3034bd643a0"
 }

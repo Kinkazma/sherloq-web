@@ -164,3 +164,12 @@ manifest and transient configuration error recovered without document reload;
 an existing analysis window blocked the worker update until it closed.
 [Published-origin check](evidence/0145-published-browser-proof.json),
 [HTTP identities](evidence/0145-github-http-proof.json).
+
+
+## Web 0.22.0 — RITA and ELA controls
+
+RITA's native FP32 operators were checked against their reference execution, with retained-score views, batch outputs and cancellation/resource recovery. GPU cases preserve the four native fields of their corresponding references. The measured CPU differences between budgets are documented in [RITA numerical precision](RITA-NATIVE.md#précision-numérique-selon-le-budget); they do not establish a universal error bound or universal bit identity.
+
+The integrated source passed the RITA/ELA, worker, memory and batch regressions. Resource-plan and runtime-receipt tests reject altered models, predecessor snapshots, undeclared sources and inventories. Local-update tests cover resumable downloads, preserved exclusions, verified reuse, preference recovery and rollback. The final catalogue and offline shell bind every declared source, including the shared RITA pipeline, to its exact identity. Static closure checks are distinct from interactive offline inference.
+
+The English study retains the supplied 96 edited versions, their measurements and the separate image licence. README previews remain below 500 kB. No private test reports, model checkpoints or installation configuration are part of these publication records.
