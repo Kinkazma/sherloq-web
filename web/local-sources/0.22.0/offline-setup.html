@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="theme-color" content="#292a2d">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' https://use.typekit.net https://p.typekit.net; font-src 'self' https://use.typekit.net; img-src 'self' data:; connect-src 'self' https://raw.githubusercontent.com https://raw.githubusercontent.com; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>SHERLOQ — Hors ligne / Offline</title>
+<link rel="icon" type="image/svg+xml" href="offline-icon.svg">
+<link rel="stylesheet" href="app.css?v=0.22.0"><link rel="stylesheet" href="workspace-shell.css?v=0.22.0"><link rel="stylesheet" href="media.css?v=0.22.0"><link rel="stylesheet" href="offline-setup.css?v=0.22.0">
+<script type="module" src="fonts.js?v=0.22.0"></script><script type="module" src="offline-setup.js?v=0.22.0"></script>
+</head><body class="offline-setup">
+<header class="app-toolbar">
+ <strong class="brand">SHERLOQ <small id="page-name"></small></strong>
+ <a id="back-app" class="toolbar-link" href="app.html"></a>
+ <span class="toolbar-spacer"></span>
+ <details id="settings-menu" class="app-menu"><summary id="settings-title"></summary><div>
+  <label><span id="font-label"></span><select id="interface-font"><option value="iowan">Iowan Old Style</option><option value="montserrat">Montserrat</option></select></label>
+ </div></details>
+ <button id="language" class="theme-button" type="button">EN</button>
+ <button id="theme-toggle" class="icon-button" type="button">◐</button>
+</header>
+<div class="workbench">
+ <main class="offline-content">
+  <h1 id="title"></h1><p id="intro"></p>
+  <section id="archive-section"><h2 id="archive-title"></h2><p id="archive-info"></p>
+   <div class="actions"><button id="download" type="button" class="offline-kit-button"></button><button id="download-launcher" type="button"></button><button id="choose" type="button"></button><input id="archive" type="file" accept=".tar,application/x-tar" hidden></div>
+   <p id="selected"></p><p id="archive-pair-info" class="muted"></p>
+  </section>
+  <section id="install-section"><h2 id="install-title"></h2><p id="install-info"></p><p id="storage-info" class="muted"></p>
+   <div class="actions"><button id="prepare" type="button" class="offline-kit-button"></button><button id="cancel" type="button" disabled></button></div>
+  </section>
+  <section id="access-section"><h2 id="access-title"></h2><p id="access-info"></p>
+   <div class="actions"><button id="install" type="button" hidden></button><a id="open" class="toolbar-link offline-kit-button" hidden></a></div>
+   <details class="offline-help"><summary id="install-help-title"></summary><p id="install-help"></p><a id="launch-setup"></a></details>
+   <details class="offline-help"><summary id="limits-title"></summary><p id="limits"></p></details>
+  </section>
+ </main>
+</div>
+<footer class="statusbar"><p id="status" role="status" aria-live="polite"></p><progress id="progress" hidden></progress></footer>
+</body></html>
