@@ -1,0 +1,702 @@
+{
+  "schema": 1,
+  "language": "en",
+  "boards": [
+    {
+      "source_id": "2022-dsc0663_260522",
+      "preview": "2022-dsc0663_260522--compact.webp",
+      "full": "2022-dsc0663_260522--compact-hd.webp",
+      "width": 800,
+      "height": 799,
+      "full_width": 2400,
+      "full_height": 2397,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0663_260522--clone_multi",
+          "label": "Clone stamp · five areas"
+        },
+        {
+          "id": "study-case-2022-dsc0663_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0663_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0663_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0663_260522--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0663_260522"
+    },
+    {
+      "source_id": "2022-dsc0666_260522",
+      "preview": "2022-dsc0666_260522--compact.webp",
+      "full": "2022-dsc0666_260522--compact-hd.webp",
+      "width": 800,
+      "height": 610,
+      "full_width": 2400,
+      "full_height": 1830,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0666_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0666_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0666_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0666_260522"
+    },
+    {
+      "source_id": "2022-dsc0702_260522",
+      "preview": "2022-dsc0702_260522--compact.webp",
+      "full": "2022-dsc0702_260522--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0702_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0702_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0702_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0702_260522--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0702_260522"
+    },
+    {
+      "source_id": "2022-dsc0713_260522",
+      "preview": "2022-dsc0713_260522--compact.webp",
+      "full": "2022-dsc0713_260522--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0713_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0713_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0713_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0713_260522--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0713_260522"
+    },
+    {
+      "source_id": "2022-dsc0727_260522",
+      "preview": "2022-dsc0727_260522--compact.webp",
+      "full": "2022-dsc0727_260522--compact-hd.webp",
+      "width": 800,
+      "height": 796,
+      "full_width": 2400,
+      "full_height": 2388,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0727_260522--clone_multi",
+          "label": "Clone stamp · five areas"
+        },
+        {
+          "id": "study-case-2022-dsc0727_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0727_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0727_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0727_260522--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        },
+        {
+          "id": "study-case-2022-dsc0727_260522--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0727_260522"
+    },
+    {
+      "source_id": "2022-dsc0867_260522",
+      "preview": "2022-dsc0867_260522--compact.webp",
+      "full": "2022-dsc0867_260522--compact-hd.webp",
+      "width": 800,
+      "height": 799,
+      "full_width": 2400,
+      "full_height": 2397,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0867_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0867_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0867_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0867_260522--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        },
+        {
+          "id": "study-case-2022-dsc0867_260522--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0867_260522"
+    },
+    {
+      "source_id": "2022-dsc0873_260522",
+      "preview": "2022-dsc0873_260522--compact.webp",
+      "full": "2022-dsc0873_260522--compact-hd.webp",
+      "width": 800,
+      "height": 799,
+      "full_width": 2400,
+      "full_height": 2397,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0873_260522--clone_multi",
+          "label": "Clone stamp · five areas"
+        },
+        {
+          "id": "study-case-2022-dsc0873_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0873_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0873_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0873_260522--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0873_260522"
+    },
+    {
+      "source_id": "2022-dsc0880_260522",
+      "preview": "2022-dsc0880_260522--compact.webp",
+      "full": "2022-dsc0880_260522--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0880_260522--clone_multi",
+          "label": "Clone stamp · five areas"
+        },
+        {
+          "id": "study-case-2022-dsc0880_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0880_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0880_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0880_260522"
+    },
+    {
+      "source_id": "2022-dsc0884_260522",
+      "preview": "2022-dsc0884_260522--compact.webp",
+      "full": "2022-dsc0884_260522--compact-hd.webp",
+      "width": 800,
+      "height": 799,
+      "full_width": 2400,
+      "full_height": 2397,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0884_260522--clone_multi",
+          "label": "Clone stamp · five areas"
+        },
+        {
+          "id": "study-case-2022-dsc0884_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0884_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0884_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0884_260522--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0884_260522"
+    },
+    {
+      "source_id": "2022-dsc0890_260522",
+      "preview": "2022-dsc0890_260522--compact.webp",
+      "full": "2022-dsc0890_260522--compact-hd.webp",
+      "width": 800,
+      "height": 799,
+      "full_width": 2400,
+      "full_height": 2397,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0890_260522--clone_multi",
+          "label": "Clone stamp · five areas"
+        },
+        {
+          "id": "study-case-2022-dsc0890_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0890_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0890_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0890_260522--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0890_260522"
+    },
+    {
+      "source_id": "2022-dsc0896_260522",
+      "preview": "2022-dsc0896_260522--compact.webp",
+      "full": "2022-dsc0896_260522--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0896_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0896_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0896_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0896_260522--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0896_260522"
+    },
+    {
+      "source_id": "2022-dsc0902_260522",
+      "preview": "2022-dsc0902_260522--compact.webp",
+      "full": "2022-dsc0902_260522--compact-hd.webp",
+      "width": 800,
+      "height": 799,
+      "full_width": 2400,
+      "full_height": 2397,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc0902_260522--clone_multi",
+          "label": "Clone stamp · five areas"
+        },
+        {
+          "id": "study-case-2022-dsc0902_260522--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc0902_260522--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc0902_260522--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc0902_260522--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc0902_260522"
+    },
+    {
+      "source_id": "2022-dsc7622_310822",
+      "preview": "2022-dsc7622_310822--compact.webp",
+      "full": "2022-dsc7622_310822--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc7622_310822--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc7622_310822--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc7622_310822--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc7622_310822--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc7622_310822"
+    },
+    {
+      "source_id": "2022-dsc7634_310822",
+      "preview": "2022-dsc7634_310822--compact.webp",
+      "full": "2022-dsc7634_310822--compact-hd.webp",
+      "width": 800,
+      "height": 498,
+      "full_width": 2400,
+      "full_height": 1494,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc7634_310822--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc7634_310822--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc7634_310822"
+    },
+    {
+      "source_id": "2022-dsc7637_310822",
+      "preview": "2022-dsc7637_310822--compact.webp",
+      "full": "2022-dsc7637_310822--compact-hd.webp",
+      "width": 800,
+      "height": 498,
+      "full_width": 2400,
+      "full_height": 1494,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc7637_310822--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc7637_310822--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc7637_310822"
+    },
+    {
+      "source_id": "2022-dsc7644_310822",
+      "preview": "2022-dsc7644_310822--compact.webp",
+      "full": "2022-dsc7644_310822--compact-hd.webp",
+      "width": 800,
+      "height": 498,
+      "full_width": 2400,
+      "full_height": 1494,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc7644_310822--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc7644_310822--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc7644_310822"
+    },
+    {
+      "source_id": "2022-dsc7647_310822",
+      "preview": "2022-dsc7647_310822--compact.webp",
+      "full": "2022-dsc7647_310822--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc7647_310822--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc7647_310822--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc7647_310822--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2022-dsc7647_310822--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc7647_310822"
+    },
+    {
+      "source_id": "2022-dsc7653_310822",
+      "preview": "2022-dsc7653_310822--compact.webp",
+      "full": "2022-dsc7653_310822--compact-hd.webp",
+      "width": 800,
+      "height": 610,
+      "full_width": 2400,
+      "full_height": 1830,
+      "variants": [
+        {
+          "id": "study-case-2022-dsc7653_310822--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2022-dsc7653_310822--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2022-dsc7653_310822--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        }
+      ],
+      "detail_anchor": "study-source-2022-dsc7653_310822"
+    },
+    {
+      "source_id": "2023-dsc0016_030223-hd-low_res-width-6000px",
+      "preview": "2023-dsc0016_030223-hd-low_res-width-6000px--compact.webp",
+      "full": "2023-dsc0016_030223-hd-low_res-width-6000px--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2023-dsc0016_030223-hd-low_res-width-6000px--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2023-dsc0016_030223-hd-low_res-width-6000px--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2023-dsc0016_030223-hd-low_res-width-6000px--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2023-dsc0016_030223-hd-low_res-width-6000px--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2023-dsc0016_030223-hd-low_res-width-6000px"
+    },
+    {
+      "source_id": "2023-dsc0229_260223",
+      "preview": "2023-dsc0229_260223--compact.webp",
+      "full": "2023-dsc0229_260223--compact-hd.webp",
+      "width": 800,
+      "height": 386,
+      "full_width": 2400,
+      "full_height": 1158,
+      "variants": [
+        {
+          "id": "study-case-2023-dsc0229_260223--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        }
+      ],
+      "detail_anchor": "study-source-2023-dsc0229_260223"
+    },
+    {
+      "source_id": "2023-dsc0232_260223",
+      "preview": "2023-dsc0232_260223--compact.webp",
+      "full": "2023-dsc0232_260223--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2023-dsc0232_260223--clone_failed_attempt01",
+          "label": "Clone stamp · retained first attempt"
+        },
+        {
+          "id": "study-case-2023-dsc0232_260223--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2023-dsc0232_260223--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2023-dsc0232_260223--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        }
+      ],
+      "detail_anchor": "study-source-2023-dsc0232_260223"
+    },
+    {
+      "source_id": "2023-dsc0256_260223",
+      "preview": "2023-dsc0256_260223--compact.webp",
+      "full": "2023-dsc0256_260223--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2023-dsc0256_260223--clone_multi",
+          "label": "Clone stamp · five areas"
+        },
+        {
+          "id": "study-case-2023-dsc0256_260223--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2023-dsc0256_260223--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2023-dsc0256_260223--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        }
+      ],
+      "detail_anchor": "study-source-2023-dsc0256_260223"
+    },
+    {
+      "source_id": "2023-dsc0277_260223",
+      "preview": "2023-dsc0277_260223--compact.webp",
+      "full": "2023-dsc0277_260223--compact-hd.webp",
+      "width": 800,
+      "height": 610,
+      "full_width": 2400,
+      "full_height": 1830,
+      "variants": [
+        {
+          "id": "study-case-2023-dsc0277_260223--clone_unapproved_candidate",
+          "label": "Clone stamp · retained initial candidate"
+        },
+        {
+          "id": "study-case-2023-dsc0277_260223--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2023-dsc0277_260223--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2023-dsc0277_260223"
+    },
+    {
+      "source_id": "2023-dsc0453_260223",
+      "preview": "2023-dsc0453_260223--compact.webp",
+      "full": "2023-dsc0453_260223--compact-hd.webp",
+      "width": 800,
+      "height": 498,
+      "full_width": 2400,
+      "full_height": 1494,
+      "variants": [
+        {
+          "id": "study-case-2023-dsc0453_260223--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2023-dsc0453_260223--generative-attempt-02",
+          "label": "Generative AI · attempt 2"
+        }
+      ],
+      "detail_anchor": "study-source-2023-dsc0453_260223"
+    },
+    {
+      "source_id": "2023-dsc0835_220523",
+      "preview": "2023-dsc0835_220523--compact.webp",
+      "full": "2023-dsc0835_220523--compact-hd.webp",
+      "width": 800,
+      "height": 722,
+      "full_width": 2400,
+      "full_height": 2166,
+      "variants": [
+        {
+          "id": "study-case-2023-dsc0835_220523--clone",
+          "label": "Plain clone stamp"
+        },
+        {
+          "id": "study-case-2023-dsc0835_220523--clone_harmonized",
+          "label": "Clone stamp with Poisson blending"
+        },
+        {
+          "id": "study-case-2023-dsc0835_220523--generative-attempt-01",
+          "label": "Generative AI · attempt 1"
+        },
+        {
+          "id": "study-case-2023-dsc0835_220523--mixed",
+          "label": "Clone stamp and generative AI · mixed version"
+        }
+      ],
+      "detail_anchor": "study-source-2023-dsc0835_220523"
+    },
+    {
+      "source_id": "preliminary-dsc3921",
+      "preview": "preliminary-dsc3921--compact.webp",
+      "full": "preliminary-dsc3921--compact-hd.webp",
+      "width": 800,
+      "height": 498,
+      "full_width": 2400,
+      "full_height": 1494,
+      "variants": [
+        {
+          "id": "study-case-preliminary-dsc3921--prototype-clone",
+          "label": "Prototype · clone stamp"
+        },
+        {
+          "id": "study-case-preliminary-dsc3921--prototype-generative",
+          "label": "Prototype · generative AI"
+        }
+      ],
+      "detail_anchor": "study-source-preliminary-dsc3921"
+    }
+  ]
+}

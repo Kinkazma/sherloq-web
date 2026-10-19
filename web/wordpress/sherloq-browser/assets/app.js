@@ -208,9 +208,14 @@ $('file').onchange=e=>openFile(e.target.files[0]);$('run').onclick=run;$('cancel
 // Numeric gestures keep the engine's native source and scientific result alive.
 // Each input replaces the sole queued draft; release discards drafts and commits
 // the normal native calculation once, with the existing stage caches.
-function beginElaParameters(){
+function beginElaParameters({newIntent=false}={}){
+ // A trailing change/blur belongs to the existing edit and must not cancel its
+ // scheduled exact result. Only an actual new gesture can reopen that commit.
+ if(elaParameterDraft){
+  if(newIntent&&elaPreviewCommit){clearTimeout(autoRunTimer);autoRunTimer=null;elaPreviewCommit=false;elaPreviewQueued=null;elaPreviewVersion++;elaPreviewEpoch++;}
+  return;
+ }
  clearTimeout(autoRunTimer);autoRunTimer=null;
- if(elaParameterDraft)return;
  if(!energyViewBusy&&!busy)revision++;
  energyViewRevision++;energyViewQueued=false;elaPreviewVersion++;elaPreviewEpoch++;elaPreviewCommit=false;elaParameterDraft=true;
  retireResult();if(previousPresentation)$('layer').value='result';
@@ -252,16 +257,16 @@ async function pumpElaParameterPreview(){
  }}catch(error){if(rev===revision)status(error.code==='CANCELLED'?t('cancelled'):t('error')+' · '+error.message);}
  finally{if(rev===revision){elaPreviewBusy=false;controls();if(elaPreviewCommit)finishElaParameters();else if(elaPreviewQueued)void pumpElaParameterPreview();}}
 }
-function takeManualControl(){
- elaAutomatic=null;syncElaAutomatic();$('preset').value='manual';elaParameterKind='classic';beginElaParameters();persistSettings();
+function takeManualControl(options){
+ elaAutomatic=null;syncElaAutomatic();$('preset').value='manual';elaParameterKind='classic';beginElaParameters(options);persistSettings();
 }
 function updateClassicValue(key,control=$(key)){
  const raw=control.value;if(raw===''&&typeof defaults[key]!=='boolean')return false;
  try{params=validParams({...params,[key]:typeof defaults[key]==='boolean'?control.checked:Number(raw)});return true;}catch{return false;}
 }
 for(const key of ['quality','scale','contrast'])for(const id of [key,'energy-ela-'+key]){
- const control=$(id);if(!control)continue;const gesture=bindElaPreviewGesture(control,{begin:takeManualControl,finish:commitElaParameters});classicGestures.push(gesture);
- control.addEventListener('beforeinput',e=>{if(!control.disabled&&/^(insert|delete)/.test(e.inputType||''))takeManualControl();},{capture:true});
+ const control=$(id);if(!control)continue;const gesture=bindElaPreviewGesture(control,{begin:()=>takeManualControl({newIntent:true}),finish:commitElaParameters});classicGestures.push(gesture);
+ control.addEventListener('beforeinput',e=>{if(!control.disabled&&/^(insert|delete)/.test(e.inputType||''))takeManualControl({newIntent:true});},{capture:true});
  control.oninput=()=>{if(control.disabled||!updateClassicValue(key,control))return;takeManualControl();syncParams();persistSettings();if(gesture.active){gesture.markChanged();queueElaParameterPreview();}};
  control.onchange=()=>{if(!updateClassicValue(key,control)){syncParams();if(!gesture.active)commitElaParameters();return;}takeManualControl();syncParams();persistSettings();if(gesture.active)queueElaParameterPreview();else commitElaParameters();};
  control.addEventListener('blur',()=>{if(!updateClassicValue(key,control))syncParams();if(!gesture.active)commitElaParameters();});
@@ -407,7 +412,7 @@ $('confirm-close').onclick=()=>{
  $('draw').setAttribute('aria-pressed','false');view.classList.remove('drawing');$('empty').hidden=false;$('file-info').textContent=t('noImage');$('file').value='';$('progress').value=0;renderRegions();draw();controls();status(t('storageUnavailable'));
 };
 if($('energy-histograms'))energyHistogramUI=createEnergyHistogramUI({root:document,document,t,onSelection:refreshEnergyHistogram});
-energyUI=createEnergyUI({$,t,persist:persistSettings,changed:(calculate=true,options={})=>{if(options.intent||options.preview||options.commit){elaParameterKind='energy';beginElaParameters();if(options.preview)queueElaParameterPreview();if(calculate)commitElaParameters();return;}if(elaParameterDraft){commitElaParameters();return;}if(busy||energyViewBusy)stop();invalidate();status(t('changed'));if(calculate)queueAnalysis();},viewChanged:refreshEnergyView});
+energyUI=createEnergyUI({$,t,persist:persistSettings,changed:(calculate=true,options={})=>{if(options.intent||options.preview||options.commit){elaParameterKind='energy';beginElaParameters({newIntent:options.intent===true});if(options.preview)queueElaParameterPreview();if(calculate)commitElaParameters();return;}if(elaParameterDraft){commitElaParameters();return;}if(busy||energyViewBusy)stop();invalidate();status(t('changed'));if(calculate)queueAnalysis();},viewChanged:refreshEnergyView});
 $('ela-mode').value='classic';
 for(const [tabId,mode]of [['classic','classic'],['energy','scores'],['biomes','biomes']]){const tab=$('ela-tab-'+tabId);if(tab)tab.onclick=()=>{if(!tab.disabled&&elaMode!==mode){$('ela-mode').value=mode;$('ela-mode').onchange();}};}
 function setElaMode(value){elaMode=validElaMode(value);energyMode=elaMode!=='classic';for(const [tabId,mode]of [['classic','classic'],['energy','scores'],['biomes','biomes']])$('ela-tab-'+tabId)?.setAttribute('aria-selected',String(elaMode===mode));$('ela-mode').value=elaMode;$('classic-controls').hidden=energyMode;$('energy-controls').hidden=!energyMode;$('energy-score-controls').hidden=elaMode!=='scores';if($('energy-ela-controls'))$('energy-ela-controls').hidden=elaMode!=='scores';$('energy-biome-controls').hidden=elaMode!=='biomes';$('energy-biome-presentation').hidden=elaMode!=='biomes';$('energy-presentation').hidden=!energyMode||compositeMode();controls();}
@@ -423,11 +428,11 @@ function finishElaParameters(){if(elaMode==='scores'&&elaParameterKind==='classi
 async function finishEnergyEla(){
  if(elaPreviewBusy||energyViewBusy||busy||!elaPreviewCommit||!resultMeta)return;
  const prepared=prepareEnergyRequest(),rev=revision,epoch=elaPreviewEpoch,id=lastScientificEnergy.id,elaParams={...params};energyViewBusy=true;controls();status(t('energyRendering'));
- let retry=false;diagnostic({level:'info',kind:'ela.energy.presentation.commit',operation:'ela.energy',sourceSha256:hash,baseResultId:id,elaParameters:elaParams,scientificParameters:prepared.params,state:'rendering'});
- try{const answer=await request('commit-energy-ela',{imageId,resultId:id,params:elaParams,energyParams:prepared.params,presentation:prepared.presentation});if(rev!==revision||epoch!==elaPreviewEpoch||!elaPreviewCommit)return;
+ let retry=false,superseded=false;diagnostic({level:'info',kind:'ela.energy.presentation.commit',operation:'ela.energy',sourceSha256:hash,baseResultId:id,elaParameters:elaParams,scientificParameters:prepared.params,state:'rendering'});
+ try{const answer=await request('commit-energy-ela',{imageId,resultId:id,params:elaParams,energyParams:prepared.params,presentation:prepared.presentation});if(rev!==revision||epoch!==elaPreviewEpoch||!elaPreviewCommit){superseded=rev===revision&&elaPreviewCommit;return;}
   retireResult();result=remoteSurface(answer.display);elaParameterDraft=false;elaPreviewCommit=false;elaParameterKind=null;energyPreviewed=false;resultMeta.ui.elaMode=elaMode;resultMeta.ui.elaParameters=elaParams;resultMeta.ui.elaBaseSource='classic';diagnostic({level:'info',kind:'ela.energy.presentation.commit',operation:'ela.energy',sourceSha256:hash,baseResultId:id,elaParameters:elaParams,state:'done',reusedNativeEnergy:true,nativeRun:false});resultMeta.ui.presentation={...prepared.presentation,...answer.presentation};$('provenance').textContent=JSON.stringify(resultMeta,null,2);$('layer').value=$('app').classList.contains('original-mode')?'source':'result';draw();status(t('done'));
- }catch(error){if(rev===revision){if(error.code==='ENERGY_BASE_CHANGED')retry=true;else status(error.code==='CANCELLED'?t('cancelled'):t('error')+' · '+error.message);}}
- finally{if(rev===revision){energyViewBusy=false;controls();if(!elaProvisional()){for(const name of ['export-png','export-report','energy-npz','energy-json'])$(name).disabled=false;}if(retry)queueAnalysis();else if(energyViewQueued&&!elaParameterDraft)void refreshEnergyView({preview:energyViewPreview});else if(elaPreviewQueued)void pumpElaParameterPreview();}}
+ }catch(error){if(rev===revision){if(epoch!==elaPreviewEpoch||!elaPreviewCommit)superseded=elaPreviewCommit;else if(error.code==='ENERGY_BASE_CHANGED')retry=true;else status(error.code==='CANCELLED'?t('cancelled'):t('error')+' · '+error.message);}}
+ finally{if(rev===revision){energyViewBusy=false;controls();if(!elaProvisional()){for(const name of ['export-png','export-report','energy-npz','energy-json'])$(name).disabled=false;}if(superseded&&elaPreviewCommit)finishElaParameters();else if(retry)queueAnalysis();else if(energyViewQueued&&!elaParameterDraft)void refreshEnergyView({preview:energyViewPreview});else if(elaPreviewQueued)void pumpElaParameterPreview();}}
 }
 function hasRetainedEnergy(){return !!worker&&loaded&&!!lastScientificEnergy&&!!resultMeta&&(resultMeta.operation==='ela.energy'||resultMeta.provenance?.operation==='ela.energy');}
 function refreshEnergyHistogram(){
@@ -456,10 +461,10 @@ async function refreshEnergyView(options={}){
  if(energyViewBusy)return;energyViewBusy=true;controls();const rev=revision,previousSize=processedSurface()??source;let previousWidth=previousSize?.width,previousHeight=previousSize?.height;
  try{retireResult();draw();status(t('energyRendering'));while(energyViewQueued&&rev===revision&&resultMeta){energyViewQueued=false;const viewRev=energyViewRevision,presentation=energyUI.presentation(elaMode),id=resultMeta.id,preview=energyViewPreview;
  $('energy-npz').disabled=true;$('energy-json').disabled=true;$('export-png').disabled=true;$('export-report').disabled=true;
- const answer=await request('view-energy',{resultId:id,presentation,...(preview?{preview}:{})});if(rev!==revision)return;if(viewRev!==energyViewRevision||elaParameterDraft)continue;
+ let answer;try{answer=await request('view-energy',{resultId:id,presentation,...(preview?{preview}:{})});}catch(error){if(rev!==revision)return;if(viewRev!==energyViewRevision||elaParameterDraft)continue;throw error;}if(rev!==revision)return;if(viewRev!==energyViewRevision||elaParameterDraft)continue;
  const draft=!!preview||answer.display.preview===true;if(!draft&&energyUI.observePresentation?.(answer.presentation)===true){energyViewQueued=true;energyViewPreview=null;energyViewRevision++;continue;}
  retireResult();result=remoteSurface(answer.display);energyPreviewed=draft;if(!energyPreviewed){resultMeta.ui.elaMode=elaMode;resultMeta.ui.presentation={...presentation,...answer.presentation};$('provenance').textContent=JSON.stringify(resultMeta,null,2);}$('layer').value=$('app').classList.contains('original-mode')?'source':'result';if(result.width!==previousWidth||result.height!==previousHeight)fit();previousWidth=result.width;previousHeight=result.height;draw();status(t(energyPreviewed?'energyDraftView':'done'));
- }}catch(e){if(rev===revision){retireResult(false);energyPreviewed=false;$('layer').value='source';draw();status(e.code==='CANCELLED'?t('cancelled'):t('error')+' · '+e.message);}}finally{if(rev===revision){energyViewBusy=false;controls();$('energy-npz').disabled=!hasRetainedEnergy()||elaProvisional();$('energy-json').disabled=!hasRetainedEnergy()||elaProvisional();$('export-png').disabled=!result||elaProvisional();$('export-report').disabled=!resultMeta||elaProvisional();draw();if(!energyPreviewed&&!elaProvisional())refreshEnergyHistogram();if(elaPreviewCommit)finishElaParameters();else if(elaPreviewQueued)void pumpElaParameterPreview();}}
+ }}catch(e){if(rev===revision){retireResult(false);energyPreviewed=false;$('layer').value='source';draw();status(e.code==='CANCELLED'?t('cancelled'):t('error')+' · '+e.message);}}finally{if(rev===revision){energyViewBusy=false;controls();$('energy-npz').disabled=!hasRetainedEnergy()||elaProvisional();$('energy-json').disabled=!hasRetainedEnergy()||elaProvisional();$('export-png').disabled=!result||elaProvisional();$('export-report').disabled=!resultMeta||elaProvisional();draw();if(!energyPreviewed&&!elaProvisional())refreshEnergyHistogram();if(elaPreviewCommit)finishElaParameters();else if(elaPreviewQueued)void pumpElaParameterPreview();else if(energyViewQueued&&!elaParameterDraft)void refreshEnergyView({preview:energyViewPreview});}}
 }
 async function exportEnergy(format){
  if(!energyMode||!resultMeta||busy||elaProvisional())return;if(!hasRetainedEnergy()){status(t('energyRecompute'));return;}

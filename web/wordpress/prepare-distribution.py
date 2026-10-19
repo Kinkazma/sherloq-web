@@ -134,6 +134,19 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
         # resources. They are not fetched at startup simply because published.
         if not restricted and (source.suffix.lower() in {'.js', '.mjs', '.c', '.cc', '.cpp', '.h', '.hpp', '.py', '.sh', '.md', '.wgsl'} or any(x in source.name.lower() for x in ['license', 'notice', 'copyright'])):
             put(output / 'public/web/runtime-sources' / relative, adapted if adapted is not None else source.read_bytes())
+    for name, record in runtime_overlay.extra_resources.items():
+        if name in manifest['files']:
+            if manifest['files'][name] != record:
+                raise ValueError('Additional resource conflicts with a locked runtime: ' + name)
+            continue
+        manifest['files'][name] = record
+        for identity in record['chunks']:
+            source = ROOT.parents[1] / 'web-assets/chunks' / (identity + '.bin')
+            data = source.read_bytes()
+            if len(data) != record['size'] or digest(data) != identity:
+                raise ValueError('Additional resource identity differs: ' + name)
+            manifest['chunks'][identity] = len(data)
+            put(resource / 'chunks' / (identity + '.bin'), data)
     if runtime_overlay.files:
         put(output / 'public/web/wordpress/sherloq-browser/assets/scientific-regions-delivery-increment.json',
             (ROOT / 'runtime-patches/batch-scientific-regions-20261013.json').read_bytes())
@@ -185,11 +198,14 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
     # Source and executable metadata keep their distinct reviewed identities.
     put(output / 'public/web/wordpress/runtime-source-lock.json', source_lock_bytes)
     put(output / 'public/web/wordpress/runtime-lock.json', delivered_lock_bytes)
-    for name in ['build.py', 'runtime-delivery.py', 'runtime-extensions.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
+    for name in ['build.py', 'runtime-delivery.py', 'runtime-extensions.py', 'runtime-rita.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
     extensions_receipt = ROOT / 'runtime-patches/browser-extensions-20261015.json'
     if extensions_receipt.is_file():
         put(output / 'public/web/wordpress/sherloq-browser/assets/extensions-delivery-increment.json', extensions_receipt.read_bytes())
+    rita_receipt = ROOT / 'runtime-patches/rita-20261019.json'
+    if rita_receipt.is_file():
+        put(output / 'public/web/wordpress/sherloq-browser/assets/rita-delivery-increment.json', rita_receipt.read_bytes())
     for name in ['resource-policy.json', 'method-resource-assembly.json']:
         source = ROOT / name
         if source.is_file() and (tracked is None or name in tracked):

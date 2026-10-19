@@ -88,7 +88,7 @@ I brought the following method families into the web workflows, alongside the in
 - **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM.
 - **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression.
 - **Text detection and document inspection:** PP-OCRv6 and DTD / DocTamper.
-- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL and AdaIFL.
+- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA.
 - **Experimental AI detectors:** B-Free and SPAI.
 - **Compression fingerprints:** Comprint.
 - **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, and ELA energy/territory views.
@@ -443,6 +443,21 @@ The anomaly map responds strongly to two regions on the right; the confidence an
 </details>
 
 <details>
+<summary>RITA — clone-stamp and generative-edit localization</summary>
+
+RITA opens with an overlay at threshold **0.5**, with Scores and Mask views also available. The adaptation preserves the image dimensions, using reflection padding when needed and removing it from the result.
+
+| Three-cell input | RITA — overlay, threshold 0.5 |
+| --- | --- |
+| [![Three-cell input](examples/three-cells/input.png)](examples/three-cells/input.png) | [![RITA overlay at threshold 0.5](examples/results/three-cells-rita/overlay.png)](examples/results/three-cells-rita/overlay.png) |
+
+The red response highlights an upper-left cell and the lower-right rectangular area. [Method and reconstruction](docs/RITA-NATIVE.md).
+
+I also compared RITA and TruFor on **96 edited versions from 26 sources**, covering clone-stamp, generative and mixed edits. [Read the comparison, with before/after images, known edited regions and both models’ results](examples/studies/rita-trufor/mini-study-rita-trufor.md). These measurements concern edit localization, rather than the proportion of images correctly classified. [Study images: all rights reserved](examples/studies/rita-trufor/IMAGE-LICENCE.txt).
+
+</details>
+
+<details>
 <summary>Forgeryscope Auto — microscopy figure, final mask and intermediate evidence</summary>
 
 **Input figure**
@@ -504,3 +519,51 @@ The following desktop screenshots come from [Guido Bartoli’s original reposito
 Maps, groups and geometric matches are analysis outputs, not automatic verdicts of manipulation. Responses outside known edits and missed edits must remain visible in example discussions.
 
 This application adds no image-upload endpoint or analysis telemetry. Dependencies are downloaded separately from image processing. This statement does not describe the logs or behavior of a hosting site, its other WordPress plugins, optional font services or GitHub.
+
+## Credits
+
+Methods, models and shared components are credited once, from oldest to newest. Years refer to the cited publications or original software release.
+
+<details>
+<summary>Authors of the methods and models — chronological order</summary>
+
+| Publication year | Method or model | Original authors | Reference |
+| --- | --- | --- | --- |
+| 1977 · 1980 · 2004 | **Illuminant Map — colour-constancy foundations** | G. Buchsbaum; Graham D. Finlayson, Elisabetta Trezzi; Edwin H. Land | [Gray World](https://www.sciencedirect.com/science/article/pii/0016003280900587) · [Shades of Gray / Max-RGB](https://library.imaging.org/admin/apis/public/api/ist/website/downloadArticle/cic/12/1/art00008) · [Retinex](https://doi.org/10.1038/scientificamerican1277-108) |
+| 1981 · 2004 · 2011 | **SIFT + G2NN + RANSAC** | SIFT: David G. Lowe. G2NN copy-move method: Irene Amerini, Lamberto Ballan, Roberto Caldelli, Alberto Del Bimbo, Giuseppe Serra. RANSAC: Martin A. Fischler, Robert C. Bolles. | [SIFT](https://www.cs.ubc.ca/~lowe/keypoints/) · [G2NN method](https://ailab.uniud.it/wp-content/uploads/2018/11/serra_TIFS_2011.pdf) · [RANSAC](https://www.sri.com/publication/artificial-intelligence-pubs/random-sample-consensus-a-paradigm-for-model-fitting-with-applications-to-image-analysis-and-automated-cartography-2/) |
+| 2004 · 2006 | **Multiple Compression — double-quantization foundations** | Alin C. Popescu, Hany Farid; Junfeng He, Zhouchen Lin, Lifeng Wang, Xiaoou Tang | [Statistical foundations](https://farid.berkeley.edu/downloads/publications/ih04.pdf) · [DCT coefficient analysis](https://www.microsoft.com/en-us/research/publication/detecting-doctored-jpeg-images-via-dct-coefficient-analysis/) |
+| 2007 | **ELA — underlying method** | Neal Krawetz | [Original paper](https://www.blackhat.com/presentations/bh-usa-07/Krawetz/Whitepaper/bh-usa-07-krawetz-WP.pdf) |
+| 2008 | **VLFeat** | Andrea Vedaldi, Brian Fulkerson | [Original project](https://www.vlfeat.org/) |
+| 2009 · 2015 · 2018 | **PatchMatch / Zernike matching** | Dense-field detection: Davide Cozzolino, Giovanni Poggi, Luisa Verdoliva. IPOL implementation: Thibaud Ehret. Original PatchMatch: Connelly Barnes, Eli Shechtman, Adam Finkelstein, Dan B Goldman. | [Dense-field method](https://www.iris.unina.it/handle/11588/613096) · [IPOL implementation](https://www.ipol.im/pub/art/2018/213/) · [Original PatchMatch](https://collaborate.princeton.edu/en/publications/patchmatch-a-randomized-correspondence-algorithm-for-structural-i/) |
+| 2013 | **Structured Forests / edge detection** | Piotr Dollár, C. Lawrence Zitnick | [Original implementation](https://github.com/pdollar/edges) |
+| 2015 · 2018 | **DeepMask** | Pedro O. Pinheiro, Ronan Collobert, Piotr Dollár. PyTorch implementation: Qiang Wang. | [Research and implementation](https://github.com/foolwood/deepmask-pytorch) |
+| 2018 | **ConvCRF** | Marvin T. T. Teichmann, Roberto Cipolla | [Paper](https://arxiv.org/abs/1805.04777) |
+| 2018 · 2020 | **SuperPoint / SuperGlue** | Daniel DeTone, Tomasz Malisiewicz, Andrew Rabinovich; Paul-Edouard Sarlin (SuperGlue) | [SuperPoint](https://arxiv.org/abs/1712.07629) · [SuperGlue](https://github.com/magicleap/SuperGluePretrainedNetwork) |
+| 2020 | **Adaptive CFA** | Quentin Bammey, Rafael Grompone von Gioi, Jean-Michel Morel | [Paper](https://openaccess.thecvf.com/content_CVPR_2020/html/Bammey_An_Adaptive_Neural_Network_for_Unsupervised_Mosaic_Consistency_Analysis_in_CVPR_2020_paper.html) |
+| 2021 · 2022 | **CAT-Net** | Myung-Joon Kwon, In-Jae Yu, Seung-Hun Nam, Heung-Kyu Lee, Changick Kim | [Original project and both papers](https://github.com/mjkwon2021/CAT-Net) |
+| 2021 · 2024 | **Noisesniffer** | Marina Gardella, Pablo Musé, Miguel Colom, Jean-Michel Morel | [Paper and implementation](https://www.ipol.im/pub/art/2024/462/) |
+| 2021 | **ZERO JPEG Grids** | Tina Nikoukhah, Jérémy Anger, Miguel Colom, Jean-Michel Morel, Rafael Grompone von Gioi | [Paper and implementation](https://www.ipol.im/pub/art/2021/390/) |
+| 2022 | **SelfDM** | Yaqi Liu, Chao Xia, Xiaobin Zhu, Shengwei Xu | [Original project](https://github.com/yaqiliu-cs/SelfDM-TIP) |
+| 2023 | **ALIKED** | Xiaoming Zhao, Xingming Wu, Weihai Chen, Peter C. Y. Chen, Qingsong Xu, Zhengguo Li | [Original project](https://github.com/Shiaoming/ALIKED) |
+| 2023 | **Comprint** | Hannes Mareen, Dante Vanden Bussche, Fabrizio Guillaro, Davide Cozzolino, Glenn Van Wallendael, Peter Lambert, Luisa Verdoliva | [Original project](https://github.com/IDLabMedia/comprint) |
+| 2023 | **DTD / DocTamper** | Chenfan Qu, Chongyu Liu, Yuliang Liu, Xinhong Chen, Dezhi Peng, Fengjun Guo, Lianwen Jin | [Original project](https://github.com/qcf-568/DocTamper) |
+| 2023 | **LightGlue** | Philipp Lindenberger, Paul-Edouard Sarlin, Marc Pollefeys | [Original project](https://github.com/cvg/LightGlue) |
+| 2023 | **Segment Anything** | Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer Whitehead, Alexander C. Berg, Wan-Yen Lo, Piotr Dollár, Ross Girshick | [Paper](https://arxiv.org/abs/2304.02643) |
+| 2023 | **SSG / spatial-phrase matching** | Chao Wang, Zhiqiu Huang, Shuren Qi, Yaoshen Yu, Guohua Shen, Yushu Zhang | [Paper](https://arxiv.org/abs/2207.09135) |
+| 2023 | **TruFor / Noiseprint++** | Fabrizio Guillaro, Davide Cozzolino, Avneesh Sud, Nicholas Dufour, Luisa Verdoliva | [Original project](https://github.com/grip-unina/TruFor) |
+| 2023 | **Ultralytics YOLO** | Glenn Jocher, Ayush Chaurasia, Jing Qiu and Ultralytics contributors | [Original citation](https://docs.ultralytics.com/models/yolov8/) |
+| 2024 | **AdaIFL** | Yuxi Li, Fuyuan Cheng, Wangbo Yu, Guangshuo Wang, Guibo Luo, Yuesheng Zhu | [Original project](https://github.com/LMIAPC/AdaIFL) |
+| 2024 | **EfficientLoFTR** | Yifan Wang, Xingyi He, Sida Peng, Dongli Tan, Xiaowei Zhou | [Original project](https://github.com/zju3dv/EfficientLoFTR) |
+| 2024 | **XFeat / LighterGlue** | Guilherme Potje, Felipe Cadar, André Araujo, Renato Martins, Erickson R. Nascimento | [Original project](https://github.com/verlab/accelerated_features) |
+| 2025 | **B-Free** | Fabrizio Guillaro, Giada Zingarini, Ben Usman, Avneesh Sud, Davide Cozzolino, Luisa Verdoliva | [Original project](https://github.com/grip-unina/B-Free) |
+| 2025 | **CMSeg-Net** | Hao-Chiang Shao, Yuan-Rong Liao, Tse-Yu Tseng, Yen-Liang Chuo, Fong-Yi Lin | [Paper](https://arxiv.org/abs/2412.10258) |
+| 2025 | **D2PRL** | Yuanman Li, Yingjie He, Changsheng Chen, Li Dong, Bin Li, Jiantao Zhou, Xia Li | [Paper](https://arxiv.org/abs/2404.17310) |
+| 2025 | **FOCAL** | Haiwei Wu, Yiming Chen, Jiantao Zhou, Yuanman Li | [Paper](https://arxiv.org/abs/2308.09307) |
+| 2025 | **SAFIRE** | Myung-Joon Kwon, Wonjun Lee, Seung-Hun Nam, Minji Son, Changick Kim | [Paper](https://arxiv.org/abs/2412.08197) |
+| 2025 | **SPAI** | Dimitrios Karageorgiou, Symeon Papadopoulos, Ioannis Kompatsiaris, Efstratios Gavves | [Original project](https://github.com/mever-team/spai) |
+| 2026 | **Forgeryscope / Forgeryscope Auto** | Uladzislau Leketush | [Original project](https://github.com/vlad3996/forgeryscope) |
+| 2026 | **MGCFDN** | Hang Tu, Peng Liang, Xiaoguang Lu, Huimin Zhao | [Original project](https://github.com/tuhanglsWorld/MGCFDN) |
+| 2026 | **PP-OCRv6 — text detection** | Yubo Zhang, Xueqing Wang, Manhui Lin, Yue Zhang, Penglongyi Deng, Ting Sun, Tingquan Gao, Zelun Zhang, Jiaxuan Liu, Changda Zhou, Hongen Liu, Suyin Liang, Cheng Cui, Yi Liu, Dianhai Yu, Yanjun Ma. ONNX conversion: RapidAI / RapidOCR contributors. | [Paper](https://arxiv.org/abs/2606.13108) · [ONNX implementation](https://github.com/RapidAI/RapidOCR) |
+| 2026 | **RITA** | Xuekang Zhu, Ji-Zhe Zhou, Kaiwen Feng, Chenfan Qu, Xiwen Wang, Yunfei Wang, Liting Zhou, Jian Liu | [Original project](https://github.com/scu-zjz/RITA) · [Weights: CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) |
+
+</details>

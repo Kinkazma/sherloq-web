@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clone-stamp and AI edits with RITA and TruFor — SHERLOQ Web</title>
+<meta name="description" content="Detailed statistics and 26 comparison boards grouping 96 edits for RITA and TruFor.">
+<style>
+:root{color-scheme:light;--ink:#182b32;--muted:#52646b;--accent:#095d67;--rule:#d7e2e4;--back:#f2f6f5}
+*{box-sizing:border-box}body{margin:0;background:var(--back);color:var(--ink);font:17px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1110px;margin:40px auto;padding:42px;background:#fff;border:1px solid var(--rule);border-radius:16px}
+.eyebrow{color:var(--accent);font-size:.82rem;letter-spacing:.07em;text-transform:uppercase;margin:0 0 14px}
+h1{font-size:clamp(1.65rem,3.5vw,2.6rem);line-height:1.16;letter-spacing:-.035em;margin:0 0 24px}
+h2{font-size:1.4rem;margin:34px 0 14px}h3{font-size:1.12rem;margin:26px 0 12px}p{margin:16px 0}.lead{font-size:1.08rem}
+a{color:var(--accent);text-underline-offset:3px}.image-licence{border:2px solid #9d5b20;background:#fff4e6;padding:16px;margin:22px 0;font-weight:600}
+.image-licence a{display:inline-block;margin-left:8px;font-weight:400}
+.table-scroll{overflow-x:auto;margin:16px 0 22px;border:1px solid var(--rule);border-radius:9px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;font-variant-numeric:tabular-nums}
+caption{text-align:left;padding:12px;font-weight:600;background:#f7faf9}
+th,td{padding:8px 10px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+thead th{background:#f2f7f6;text-align:right}thead th:first-child{text-align:left}
+th[scope=row]{text-align:left;white-space:normal;font-weight:500}td{min-width:92px;border-left:1px solid var(--rule)}
+.metric-group th{text-align:left;font-size:.82rem;background:#f2f7f6;white-space:normal}
+tbody:last-child tr:last-child>*{border-bottom:0}.results-note{font-size:.92rem;color:var(--muted)}
+.board-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#edf3f2;padding:14px}
+select{font:inherit;max-width:100%;padding:8px}.source-board{margin:20px 0;padding:14px;border:1px solid var(--rule);border-radius:8px}
+.source-board[hidden]{display:none!important}figure{margin:0}figure img{display:block;width:100%;max-width:800px;height:auto;margin:auto}
+figcaption{padding:12px 0 0;text-align:center;font-size:.9rem}
+footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--rule);color:var(--muted);font-size:.9rem}
+@media(max-width:720px){body{font-size:16px}main{margin:0;border:0;border-radius:0;padding:24px 16px}.source-board{padding:8px}th,td{padding:8px}}
+@media print{body{background:white}main{max-width:none;margin:0;padding:0;border:0}.table-scroll{overflow:visible}table{font-size:9pt}.board-selector{display:none}.source-board[hidden]{display:block!important}}
+</style></head><body><main>
+<div class="eyebrow">SHERLOQ Web · Retouch comparison · 19 October 2026</div>
+<h1>Clone-stamp and AI edits with RITA and TruFor</h1>
+<p class="lead">Both models receive the same PNGs at the test dimensions, with a maximum side length of 2,048 pixels for the HEIC sources. RITA’s code was adapted to allow variable branch and output dimensions, using the same weights; where needed, reflection padding is added on the right and bottom to reach a multiple of 32, then removed from the final mask. The comparison covers 96 edited versions from 26 sources (49 using clone stamp or Poisson blending, 37 generative and 10 mixed) and 25 control photographs before intervention.</p>
+<aside class="image-licence" aria-label="Image licence">Image licence — All rights reserved. No reuse, commercial or non-commercial, is permitted.
+<a href="IMAGE-LICENCE.txt">Full terms</a></aside>
+<h2>Detailed results</h2><p>These tables compare the areas detected after editing with the masks of the known modifications. Percentages refer to areas, rather than the number of images. For each category, all areas are pooled before calculating the scores. F1 is calculated without mask inversion; boundaries are included.</p>
+<section id="results-clone"><h3>Clone stamp and Poisson blending · 49 versions</h3><div class="table-scroll"><table class="enriched-metrics"><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Agreement and localisation measures</th></tr><tr><th scope="row">MCC · overall agreement (−1 to +1)</th><td>0.0880</td><td>0.0233</td></tr><tr><th scope="row">IoU · overlap between flagged and edited areas</th><td>3.46%</td><td>1.63%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">What the flags detect</th></tr><tr><th scope="row">Among flagged pixels, those correctly flagged · precision / PPV</th><td>3.76%</td><td>2.18%</td></tr><tr><th scope="row">Among unflagged pixels, those correctly left unflagged · NPV</th><td>99.40%</td><td>99.23%</td></tr><tr><th scope="row">Among edited pixels, those detected · recall</th><td>30.92%</td><td>6.06%</td></tr><tr><th scope="row">Among edited pixels, those missed</th><td>69.08%</td><td>93.94%</td></tr><tr><th scope="row">Among pixels outside the edits, those flagged · false positive rate</th><td>6.43%</td><td>2.21%</td></tr><tr><th scope="row">Among pixels outside the edits, those unflagged · specificity</th><td>93.57%</td><td>97.79%</td></tr><tr><th scope="row">F1 · balance between precision and recall</th><td>6.70%</td><td>3.20%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Areas relative to the actual edited area</th></tr><tr><th scope="row">Falsely flagged area / edited area · FP / GT</th><td>792.29%</td><td>272.32%</td></tr><tr><th scope="row">Total flagged area / edited area</th><td>823.21%</td><td>278.38%</td></tr><tr><th scope="row">Missed edited area / edited area · FN / GT</th><td>69.08%</td><td>93.94%</td></tr><tr><th scope="row">Signed area difference (flagged − edited) / edited area</th><td>+723.21%</td><td>+178.38%</td></tr><tr><th scope="row">Area-size difference, irrespective of location / edited area</th><td>723.21%</td><td>178.38%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Proportions of correct and incorrect answers</th></tr><tr><th scope="row">Incorrect answers / all pixels</th><td>6.93%</td><td>2.95%</td></tr><tr><th scope="row">Correct answers / all pixels · accuracy</th><td>93.07%</td><td>97.05%</td></tr></tbody></table></div></section><section id="results-generative"><h3>Generative AI · 37 versions</h3><div class="table-scroll"><table class="enriched-metrics"><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Agreement and localisation measures</th></tr><tr><th scope="row">MCC · overall agreement (−1 to +1)</th><td>0.7692</td><td>0.8230</td></tr><tr><th scope="row">IoU · overlap between flagged and edited areas</th><td>64.13%</td><td>71.99%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">What the flags detect</th></tr><tr><th scope="row">Among flagged pixels, those correctly flagged · precision / PPV</th><td>67.16%</td><td>77.68%</td></tr><tr><th scope="row">Among unflagged pixels, those correctly left unflagged · NPV</th><td>99.33%</td><td>99.09%</td></tr><tr><th scope="row">Among edited pixels, those detected · recall</th><td>93.41%</td><td>90.78%</td></tr><tr><th scope="row">Among edited pixels, those missed</th><td>6.59%</td><td>9.22%</td></tr><tr><th scope="row">Among pixels outside the edits, those flagged · false positive rate</th><td>4.44%</td><td>2.54%</td></tr><tr><th scope="row">Among pixels outside the edits, those unflagged · specificity</th><td>95.56%</td><td>97.46%</td></tr><tr><th scope="row">F1 · balance between precision and recall</th><td>78.14%</td><td>83.72%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Areas relative to the actual edited area</th></tr><tr><th scope="row">Falsely flagged area / edited area · FP / GT</th><td>45.67%</td><td>26.09%</td></tr><tr><th scope="row">Total flagged area / edited area</th><td>139.08%</td><td>116.87%</td></tr><tr><th scope="row">Missed edited area / edited area · FN / GT</th><td>6.59%</td><td>9.22%</td></tr><tr><th scope="row">Signed area difference (flagged − edited) / edited area</th><td>+39.08%</td><td>+16.87%</td></tr><tr><th scope="row">Area-size difference, irrespective of location / edited area</th><td>39.08%</td><td>16.87%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Proportions of correct and incorrect answers</th></tr><tr><th scope="row">Incorrect answers / all pixels</th><td>4.63%</td><td>3.13%</td></tr><tr><th scope="row">Correct answers / all pixels · accuracy</th><td>95.37%</td><td>96.87%</td></tr></tbody></table></div></section><section id="results-mixed"><h3>Clone stamp + generative AI · 10 versions</h3><div class="table-scroll"><table class="enriched-metrics"><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Agreement and localisation measures</th></tr><tr><th scope="row">MCC · overall agreement (−1 to +1)</th><td>0.5107</td><td>0.7426</td></tr><tr><th scope="row">IoU · overlap between flagged and edited areas</th><td>34.99%</td><td>60.48%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">What the flags detect</th></tr><tr><th scope="row">Among flagged pixels, those correctly flagged · precision / PPV</th><td>41.10%</td><td>75.31%</td></tr><tr><th scope="row">Among unflagged pixels, those correctly left unflagged · NPV</th><td>98.62%</td><td>98.90%</td></tr><tr><th scope="row">Among edited pixels, those detected · recall</th><td>70.18%</td><td>75.43%</td></tr><tr><th scope="row">Among edited pixels, those missed</th><td>29.82%</td><td>24.57%</td></tr><tr><th scope="row">Among pixels outside the edits, those flagged · false positive rate</th><td>4.52%</td><td>1.11%</td></tr><tr><th scope="row">Among pixels outside the edits, those unflagged · specificity</th><td>95.48%</td><td>98.89%</td></tr><tr><th scope="row">F1 · balance between precision and recall</th><td>51.84%</td><td>75.37%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Areas relative to the actual edited area</th></tr><tr><th scope="row">Falsely flagged area / edited area · FP / GT</th><td>100.57%</td><td>24.72%</td></tr><tr><th scope="row">Total flagged area / edited area</th><td>170.75%</td><td>100.15%</td></tr><tr><th scope="row">Missed edited area / edited area · FN / GT</th><td>29.82%</td><td>24.57%</td></tr><tr><th scope="row">Signed area difference (flagged − edited) / edited area</th><td>+70.75%</td><td>+0.15%</td></tr><tr><th scope="row">Area-size difference, irrespective of location / edited area</th><td>70.75%</td><td>0.15%</td></tr></tbody><tbody><tr class="metric-group"><th colspan="3" scope="colgroup">Proportions of correct and incorrect answers</th></tr><tr><th scope="row">Incorrect answers / all pixels</th><td>5.61%</td><td>2.12%</td></tr><tr><th scope="row">Correct answers / all pixels · accuracy</th><td>94.39%</td><td>97.88%</td></tr></tbody></table></div></section>
+<p class="results-note">Precision measures how often flags are correct, NPV how often non-flags are correct, and recall the proportion of edits detected. F1 balances precision and recall; IoU divides the correctly detected area by the union of edited and flagged areas. MCC is an agreement coefficient between −1 and +1, rather than a confidence probability. FP / GT of 100% means the falsely flagged area is as large as the actual edited area: this ratio can exceed 100%. High NPV or accuracy can mainly reflect the large unedited area. An area-size difference of zero does not guarantee that the areas are in the right locations.</p>
+<section id="controls-results"><h3>Controls before intervention</h3><p>Each HEIC control is counted once, giving 25 images. The overall percentage divides the flagged area by the total area of the controls; the mean and median rows give equal weight to each photograph. These controls are analysed before our edits, without certifying the absence of any earlier modification. The before-intervention prototype is presented separately.</p><div class="table-scroll"><table><caption>Control photographs before intervention</caption><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr><th scope="row">Flagged area / total area of the 25 controls</th><td>7.27%</td><td>5.63%</td></tr><tr><th scope="row">Unflagged area / total area of the 25 controls</th><td>92.73%</td><td>94.37%</td></tr><tr><th scope="row">Mean flagged-area proportion per photograph</th><td>7.30%</td><td>5.66%</td></tr><tr><th scope="row">Median flagged-area proportion per photograph</th><td>4.24%</td><td>2.24%</td></tr><tr><th scope="row">Minimum flagged-area proportion per photograph</th><td>1.28%</td><td>0.34%</td></tr><tr><th scope="row">Maximum flagged-area proportion per photograph</th><td>20.34%</td><td>34.09%</td></tr><tr><th scope="row">Separate prototype: flagged area / total prototype area</th><td>1.52%</td><td>0.72%</td></tr></tbody></table></div></section><section id="mixed-components"><h3>Components of the mixed images</h3><p>Each percentage uses the area of its own component: clone stamp or generation. Flags outside the edits are shared by the whole image and are not attributed separately to either technique.</p><div class="table-scroll"><table><caption>Two components of the 10 mixed versions</caption><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr><th scope="row">Clone stamp · proportion of the edited component detected</th><td>2.91%</td><td>1.65%</td></tr><tr><th scope="row">Clone stamp · proportion of the edited component missed</th><td>97.09%</td><td>98.35%</td></tr><tr><th scope="row">Generative AI · proportion of the edited component detected</th><td>83.25%</td><td>89.77%</td></tr><tr><th scope="row">Generative AI · proportion of the edited component missed</th><td>16.75%</td><td>10.23%</td></tr></tbody></table></div></section>
+<h2>Data and method</h2><p>The photographs come from Sony RX10 IV and Alpha 7 IV cameras; the HEIC copies are converted to RGB PNGs, and a TIFF-derived prototype completes the trials. Removals use clone stamp, Poisson blending, or Stable Diffusion 1.5 Inpainting with DiffusionBee. The reference mask contains exactly the RGB pixels that differ between before and after. RITA retains its FP32 weights, trained under the CAT-Net protocol; TruFor uses its official weights and a threshold of 0.5, without tuning on these edits.</p>
+<section id="study-gallery"><h2>Comparison boards</h2><p>One comparison board groups each source: the before-intervention control appears once, then each variant occupies one row showing the edited image, the modified areas on the original, and RITA’s and TruFor’s detections after editing. Green: edit detected; red: area flagged outside the edit; blue: edit missed; dark background: area outside the edit left unflagged. On the control row, red shows flags before intervention. The 138 enlargements and separate views remain available in the detailed trials.</p><div class="board-selector"><label for="board-source-selector">Source to view</label> <select id="board-source-selector"><option value="__all__">All sources</option><option value="2022-dsc0663_260522">2022-dsc0663_260522</option><option value="2022-dsc0666_260522">2022-dsc0666_260522</option><option value="2022-dsc0702_260522">2022-dsc0702_260522</option><option value="2022-dsc0713_260522">2022-dsc0713_260522</option><option value="2022-dsc0727_260522">2022-dsc0727_260522</option><option value="2022-dsc0867_260522">2022-dsc0867_260522</option><option value="2022-dsc0873_260522">2022-dsc0873_260522</option><option value="2022-dsc0880_260522">2022-dsc0880_260522</option><option value="2022-dsc0884_260522">2022-dsc0884_260522</option><option value="2022-dsc0890_260522">2022-dsc0890_260522</option><option value="2022-dsc0896_260522">2022-dsc0896_260522</option><option value="2022-dsc0902_260522">2022-dsc0902_260522</option><option value="2022-dsc7622_310822">2022-dsc7622_310822</option><option value="2022-dsc7634_310822">2022-dsc7634_310822</option><option value="2022-dsc7637_310822">2022-dsc7637_310822</option><option value="2022-dsc7644_310822">2022-dsc7644_310822</option><option value="2022-dsc7647_310822">2022-dsc7647_310822</option><option value="2022-dsc7653_310822">2022-dsc7653_310822</option><option value="2023-dsc0016_030223-hd-low_res-width-6000px">2023-dsc0016_030223-hd-low_res-width-6000px</option><option value="2023-dsc0229_260223">2023-dsc0229_260223</option><option value="2023-dsc0232_260223">2023-dsc0232_260223</option><option value="2023-dsc0256_260223">2023-dsc0256_260223</option><option value="2023-dsc0277_260223">2023-dsc0277_260223</option><option value="2023-dsc0453_260223">2023-dsc0453_260223</option><option value="2023-dsc0835_220523" selected>2023-dsc0835_220523</option><option value="preliminary-dsc3921">preliminary-dsc3921</option></select> <span id="board-source-status" aria-live="polite"></span></div><article class="source-board" data-sourceid="2022-dsc0663_260522" hidden><h3>2022-dsc0663_260522 · 5 variants</h3><figure><a href="boards/2022-dsc0663_260522--compact-hd.webp"><img src="boards/2022-dsc0663_260522--compact.webp" width="800" height="799" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0663_260522 · 5 variants"></a><figcaption><a href="boards/2022-dsc0663_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0663_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0666_260522" hidden><h3>2022-dsc0666_260522 · 3 variants</h3><figure><a href="boards/2022-dsc0666_260522--compact-hd.webp"><img src="boards/2022-dsc0666_260522--compact.webp" width="800" height="610" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0666_260522 · 3 variants"></a><figcaption><a href="boards/2022-dsc0666_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0666_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0702_260522" hidden><h3>2022-dsc0702_260522 · 4 variants</h3><figure><a href="boards/2022-dsc0702_260522--compact-hd.webp"><img src="boards/2022-dsc0702_260522--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0702_260522 · 4 variants"></a><figcaption><a href="boards/2022-dsc0702_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0702_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0713_260522" hidden><h3>2022-dsc0713_260522 · 4 variants</h3><figure><a href="boards/2022-dsc0713_260522--compact-hd.webp"><img src="boards/2022-dsc0713_260522--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0713_260522 · 4 variants"></a><figcaption><a href="boards/2022-dsc0713_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0713_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0727_260522" hidden><h3>2022-dsc0727_260522 · 6 variants</h3><figure><a href="boards/2022-dsc0727_260522--compact-hd.webp"><img src="boards/2022-dsc0727_260522--compact.webp" width="800" height="796" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0727_260522 · 6 variants"></a><figcaption><a href="boards/2022-dsc0727_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0727_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0867_260522" hidden><h3>2022-dsc0867_260522 · 5 variants</h3><figure><a href="boards/2022-dsc0867_260522--compact-hd.webp"><img src="boards/2022-dsc0867_260522--compact.webp" width="800" height="799" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0867_260522 · 5 variants"></a><figcaption><a href="boards/2022-dsc0867_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0867_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0873_260522" hidden><h3>2022-dsc0873_260522 · 5 variants</h3><figure><a href="boards/2022-dsc0873_260522--compact-hd.webp"><img src="boards/2022-dsc0873_260522--compact.webp" width="800" height="799" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0873_260522 · 5 variants"></a><figcaption><a href="boards/2022-dsc0873_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0873_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0880_260522" hidden><h3>2022-dsc0880_260522 · 4 variants</h3><figure><a href="boards/2022-dsc0880_260522--compact-hd.webp"><img src="boards/2022-dsc0880_260522--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0880_260522 · 4 variants"></a><figcaption><a href="boards/2022-dsc0880_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0880_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0884_260522" hidden><h3>2022-dsc0884_260522 · 5 variants</h3><figure><a href="boards/2022-dsc0884_260522--compact-hd.webp"><img src="boards/2022-dsc0884_260522--compact.webp" width="800" height="799" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0884_260522 · 5 variants"></a><figcaption><a href="boards/2022-dsc0884_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0884_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0890_260522" hidden><h3>2022-dsc0890_260522 · 5 variants</h3><figure><a href="boards/2022-dsc0890_260522--compact-hd.webp"><img src="boards/2022-dsc0890_260522--compact.webp" width="800" height="799" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0890_260522 · 5 variants"></a><figcaption><a href="boards/2022-dsc0890_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0890_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0896_260522" hidden><h3>2022-dsc0896_260522 · 4 variants</h3><figure><a href="boards/2022-dsc0896_260522--compact-hd.webp"><img src="boards/2022-dsc0896_260522--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0896_260522 · 4 variants"></a><figcaption><a href="boards/2022-dsc0896_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0896_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc0902_260522" hidden><h3>2022-dsc0902_260522 · 5 variants</h3><figure><a href="boards/2022-dsc0902_260522--compact-hd.webp"><img src="boards/2022-dsc0902_260522--compact.webp" width="800" height="799" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc0902_260522 · 5 variants"></a><figcaption><a href="boards/2022-dsc0902_260522--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc0902_260522">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc7622_310822" hidden><h3>2022-dsc7622_310822 · 4 variants</h3><figure><a href="boards/2022-dsc7622_310822--compact-hd.webp"><img src="boards/2022-dsc7622_310822--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc7622_310822 · 4 variants"></a><figcaption><a href="boards/2022-dsc7622_310822--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc7622_310822">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc7634_310822" hidden><h3>2022-dsc7634_310822 · 2 variants</h3><figure><a href="boards/2022-dsc7634_310822--compact-hd.webp"><img src="boards/2022-dsc7634_310822--compact.webp" width="800" height="498" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc7634_310822 · 2 variants"></a><figcaption><a href="boards/2022-dsc7634_310822--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc7634_310822">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc7637_310822" hidden><h3>2022-dsc7637_310822 · 2 variants</h3><figure><a href="boards/2022-dsc7637_310822--compact-hd.webp"><img src="boards/2022-dsc7637_310822--compact.webp" width="800" height="498" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc7637_310822 · 2 variants"></a><figcaption><a href="boards/2022-dsc7637_310822--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc7637_310822">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc7644_310822" hidden><h3>2022-dsc7644_310822 · 2 variants</h3><figure><a href="boards/2022-dsc7644_310822--compact-hd.webp"><img src="boards/2022-dsc7644_310822--compact.webp" width="800" height="498" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc7644_310822 · 2 variants"></a><figcaption><a href="boards/2022-dsc7644_310822--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc7644_310822">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc7647_310822" hidden><h3>2022-dsc7647_310822 · 4 variants</h3><figure><a href="boards/2022-dsc7647_310822--compact-hd.webp"><img src="boards/2022-dsc7647_310822--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc7647_310822 · 4 variants"></a><figcaption><a href="boards/2022-dsc7647_310822--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc7647_310822">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2022-dsc7653_310822" hidden><h3>2022-dsc7653_310822 · 3 variants</h3><figure><a href="boards/2022-dsc7653_310822--compact-hd.webp"><img src="boards/2022-dsc7653_310822--compact.webp" width="800" height="610" loading="lazy" decoding="async" alt="Comparison board: 2022-dsc7653_310822 · 3 variants"></a><figcaption><a href="boards/2022-dsc7653_310822--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2022-dsc7653_310822">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2023-dsc0016_030223-hd-low_res-width-6000px" hidden><h3>2023-dsc0016_030223-hd-low_res-width-6000px · 4 variants</h3><figure><a href="boards/2023-dsc0016_030223-hd-low_res-width-6000px--compact-hd.webp"><img src="boards/2023-dsc0016_030223-hd-low_res-width-6000px--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2023-dsc0016_030223-hd-low_res-width-6000px · 4 variants"></a><figcaption><a href="boards/2023-dsc0016_030223-hd-low_res-width-6000px--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2023-dsc0016_030223-hd-low_res-width-6000px">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2023-dsc0229_260223" hidden><h3>2023-dsc0229_260223 · 1 variants</h3><figure><a href="boards/2023-dsc0229_260223--compact-hd.webp"><img src="boards/2023-dsc0229_260223--compact.webp" width="800" height="386" loading="lazy" decoding="async" alt="Comparison board: 2023-dsc0229_260223 · 1 variants"></a><figcaption><a href="boards/2023-dsc0229_260223--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2023-dsc0229_260223">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2023-dsc0232_260223" hidden><h3>2023-dsc0232_260223 · 4 variants</h3><figure><a href="boards/2023-dsc0232_260223--compact-hd.webp"><img src="boards/2023-dsc0232_260223--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2023-dsc0232_260223 · 4 variants"></a><figcaption><a href="boards/2023-dsc0232_260223--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2023-dsc0232_260223">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2023-dsc0256_260223" hidden><h3>2023-dsc0256_260223 · 4 variants</h3><figure><a href="boards/2023-dsc0256_260223--compact-hd.webp"><img src="boards/2023-dsc0256_260223--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2023-dsc0256_260223 · 4 variants"></a><figcaption><a href="boards/2023-dsc0256_260223--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2023-dsc0256_260223">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2023-dsc0277_260223" hidden><h3>2023-dsc0277_260223 · 3 variants</h3><figure><a href="boards/2023-dsc0277_260223--compact-hd.webp"><img src="boards/2023-dsc0277_260223--compact.webp" width="800" height="610" loading="lazy" decoding="async" alt="Comparison board: 2023-dsc0277_260223 · 3 variants"></a><figcaption><a href="boards/2023-dsc0277_260223--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2023-dsc0277_260223">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2023-dsc0453_260223" hidden><h3>2023-dsc0453_260223 · 2 variants</h3><figure><a href="boards/2023-dsc0453_260223--compact-hd.webp"><img src="boards/2023-dsc0453_260223--compact.webp" width="800" height="498" loading="lazy" decoding="async" alt="Comparison board: 2023-dsc0453_260223 · 2 variants"></a><figcaption><a href="boards/2023-dsc0453_260223--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2023-dsc0453_260223">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="2023-dsc0835_220523"><h3>2023-dsc0835_220523 · 4 variants</h3><figure><a href="boards/2023-dsc0835_220523--compact-hd.webp"><img src="boards/2023-dsc0835_220523--compact.webp" width="800" height="722" loading="lazy" decoding="async" alt="Comparison board: 2023-dsc0835_220523 · 4 variants"></a><figcaption><a href="boards/2023-dsc0835_220523--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-2023-dsc0835_220523">Detailed trials and enlargements</a></figcaption></figure></article><article class="source-board" data-sourceid="preliminary-dsc3921" hidden><h3>preliminary-dsc3921 · 2 variants</h3><figure><a href="boards/preliminary-dsc3921--compact-hd.webp"><img src="boards/preliminary-dsc3921--compact.webp" width="800" height="498" loading="lazy" decoding="async" alt="Comparison board: preliminary-dsc3921 · 2 variants"></a><figcaption><a href="boards/preliminary-dsc3921--compact-hd.webp">High resolution</a> · <a href="gallery/index.html#study-source-preliminary-dsc3921">Detailed trials and enlargements</a></figcaption></figure></article></section>
+<details id="statistics-appendix"><summary>Appendix · averages and before/after comparison</summary><p>The main tables calculate one score from the pooled areas of all versions. Here, the mean per version first calculates a score for each version, then averages those scores. The mean per source photograph first averages the versions of each photograph, then averages the photographs: a photograph with many variants therefore carries no extra weight. These calculations answer different questions and can produce different figures without contradiction.</p><p>The before/after comparison examines only the locations of the known edits, first in the image before intervention and then in the edited image. Each percentage uses only that area as its denominator. It therefore does not describe the flagged area across the whole control images. After intervention, the retained flags and new flags make up the total detected; some flags present before may disappear. Rounded sums may differ by 0.01 percentage points.</p><section id="supplement-clone"><h3>Clone stamp and Poisson blending · 49 versions</h3><div class="table-scroll"><table><caption>Other ways of averaging the scores</caption><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr><th scope="row">Mean of the scores for each version · F1</th><td>9.96%</td><td>2.35%</td></tr><tr><th scope="row">Mean of the scores for each version · IoU</th><td>6.77%</td><td>1.36%</td></tr><tr><th scope="row">Mean giving equal weight to each source photograph · F1</th><td>10.36%</td><td>3.43%</td></tr><tr><th scope="row">Mean giving equal weight to each source photograph · IoU</th><td>7.19%</td><td>2.08%</td></tr></tbody></table></div><div class="table-scroll"><table><caption>Changes in flags at the same locations</caption><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr><th scope="row">Within the future edited area: area flagged before intervention</th><td>21.90%</td><td>9.96%</td></tr><tr><th scope="row">Within the edited area: area flagged both before and after intervention</th><td>8.86%</td><td>0.20%</td></tr><tr><th scope="row">Within the edited area: area flagged after intervention, but not before</th><td>22.06%</td><td>5.86%</td></tr><tr><th scope="row">Within the edited area: total area flagged after intervention</th><td>30.92%</td><td>6.06%</td></tr></tbody></table></div></section><section id="supplement-generative"><h3>Generative AI · 37 versions</h3><div class="table-scroll"><table><caption>Other ways of averaging the scores</caption><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr><th scope="row">Mean of the scores for each version · F1</th><td>63.10%</td><td>67.98%</td></tr><tr><th scope="row">Mean of the scores for each version · IoU</th><td>55.08%</td><td>60.30%</td></tr><tr><th scope="row">Mean giving equal weight to each source photograph · F1</th><td>56.61%</td><td>61.53%</td></tr><tr><th scope="row">Mean giving equal weight to each source photograph · IoU</th><td>49.02%</td><td>53.71%</td></tr></tbody></table></div><div class="table-scroll"><table><caption>Changes in flags at the same locations</caption><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr><th scope="row">Within the future edited area: area flagged before intervention</th><td>19.82%</td><td>27.58%</td></tr><tr><th scope="row">Within the edited area: area flagged both before and after intervention</th><td>18.87%</td><td>26.63%</td></tr><tr><th scope="row">Within the edited area: area flagged after intervention, but not before</th><td>74.55%</td><td>64.15%</td></tr><tr><th scope="row">Within the edited area: total area flagged after intervention</th><td>93.41%</td><td>90.78%</td></tr></tbody></table></div></section><section id="supplement-mixed"><h3>Clone stamp + generative AI · 10 versions</h3><div class="table-scroll"><table><caption>Other ways of averaging the scores</caption><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr><th scope="row">Mean of the scores for each version · F1</th><td>43.18%</td><td>55.55%</td></tr><tr><th scope="row">Mean of the scores for each version · IoU</th><td>34.26%</td><td>46.77%</td></tr><tr><th scope="row">Mean giving equal weight to each source photograph · F1</th><td>43.18%</td><td>55.55%</td></tr><tr><th scope="row">Mean giving equal weight to each source photograph · IoU</th><td>34.26%</td><td>46.77%</td></tr></tbody></table></div><div class="table-scroll"><table><caption>Changes in flags at the same locations</caption><thead><tr><th scope="col">Question or measure</th><th scope="col">RITA</th><th scope="col">TruFor</th></tr></thead><tbody><tr><th scope="row">Within the future edited area: area flagged before intervention</th><td>14.49%</td><td>12.79%</td></tr><tr><th scope="row">Within the edited area: area flagged both before and after intervention</th><td>8.45%</td><td>9.67%</td></tr><tr><th scope="row">Within the edited area: area flagged after intervention, but not before</th><td>61.73%</td><td>65.76%</td></tr><tr><th scope="row">Within the edited area: total area flagged after intervention</th><td>70.18%</td><td>75.43%</td></tr></tbody></table></div></section></details>
+<footer><p>Several versions share the same source. These results describe the localisation of the added edits, rather than a rate of correctly classified authentic or forged images. Original methods:
+<a href="https://github.com/grip-unina/TruFor">TruFor</a>
+(<a href="https://openaccess.thecvf.com/content/CVPR2023/papers/Guillaro_TruFor_Leveraging_All-Round_Clues_for_Trustworthy_Image_Forgery_Detection_and_CVPR_2023_paper.pdf">CVPR 2023</a>) and
+<a href="https://github.com/scu-zjz/RITA">RITA</a>
+(<a href="https://arxiv.org/abs/2509.20006">paper</a>).</p></footer>
+</main><script>(()=>{"use strict";const selector=document.getElementById("board-source-selector");
+const boards=Array.from(document.querySelectorAll(".source-board"));
+const status=document.getElementById("board-source-status");
+function apply(){boards.forEach(board=>{board.hidden=selector.value!=="__all__"&&board.dataset.sourceid!==selector.value;});
+status.textContent=selector.value==="__all__"?"26 sources displayed":"1 of 26 sources displayed";}
+selector.addEventListener("change",apply);apply();})();</script>
+<script type="application/json" id="study-data">{
+  "schema": "sherloq-concise-retouch-comparison/2",
+  "date": "2026-10-19",
+  "models": {
+    "RITA": "RITA at canonical PNG test dimensions; adapted variable branches/output, same FP32 weights",
+    "TruFor": "TruFor at canonical PNG test dimensions"
+  },
+  "input": "Same canonical PNG dimensions, HEIC long edge at most 2048, not original HEIC dimensions",
+  "RITA_padding": "Reflection at right and bottom to a multiple of 32 when needed; cropped from final mask",
+  "aggregation": "Ordinary pixel metrics from cumulative family counts; version and source-balanced means separately labelled",
+  "paired_before_after_denominator": "The future newly-edited region, not the full surface of baseline controls",
+  "paired_after_identity": "Total after = still positive after + newly positive after; before-positive alerts can disappear",
+  "families": {
+    "clone": {
+      "versions": 49,
+      "source_count": 21,
+      "models": {
+        "RITA": {
+          "recall": 0.30918005399978415,
+          "false_negative_rate": 0.6908199460002159,
+          "false_positive_rate_relative_to_new_edit": 0.0642528351433809,
+          "specificity_relative_to_new_edit": 0.9357471648566191,
+          "precision_relative_to_new_edit": 0.03755773010514812,
+          "pixel_accuracy_relative_to_new_edit": 0.9307067617515529,
+          "f1_relative_to_new_edit": 0.06697914997636875,
+          "iou_relative_to_new_edit": 0.03464998837211193,
+          "NPV": 0.9940485959034935,
+          "markedness": 0.03160632600864166,
+          "MCC": 0.08798437092782672,
+          "error_rate": 0.06929323824844714,
+          "false_positive_area_over_ground_truth_area": 7.92294827575261,
+          "false_negative_area_over_ground_truth_area": 0.6908199460002159,
+          "predicted_area_over_ground_truth_area": 8.232128329752394,
+          "signed_predicted_minus_ground_truth_area_over_ground_truth_area": 7.232128329752394,
+          "absolute_predicted_minus_ground_truth_area_over_ground_truth_area": 7.232128329752394,
+          "macro_mean": {
+            "recall": 0.31291069936899235,
+            "false_negative_rate": 0.6870893006310076,
+            "false_positive_rate_relative_to_new_edit": 0.06429055378971467,
+            "specificity_relative_to_new_edit": 0.9357094462102854,
+            "precision_relative_to_new_edit": 0.07244067810402055,
+            "pixel_accuracy_relative_to_new_edit": 0.9305205231681821,
+            "f1_relative_to_new_edit": 0.09958400845479631,
+            "iou_relative_to_new_edit": 0.06765729336800883,
+            "NPV": 0.9936293026550321,
+            "MCC": 0.11280187552098803,
+            "markedness": 0.06606998075905264,
+            "error_rate": 0.06947947683181797,
+            "false_positive_area_over_ground_truth_area": 29.61414873831475,
+            "false_negative_area_over_ground_truth_area": 0.6870893006310076,
+            "predicted_area_over_ground_truth_area": 29.927059437683738
+          },
+          "macro_mean_balanced_by_source": {
+            "recall": 0.31666174322858315,
+            "false_negative_rate": 0.6833382567714169,
+            "false_positive_rate_relative_to_new_edit": 0.06018437579943579,
+            "specificity_relative_to_new_edit": 0.939815624200564,
+            "precision_relative_to_new_edit": 0.0767519854787035,
+            "pixel_accuracy_relative_to_new_edit": 0.9338692968479879,
+            "f1_relative_to_new_edit": 0.10358174179569185,
+            "iou_relative_to_new_edit": 0.07191744450201973,
+            "NPV": 0.9928829895904879,
+            "MCC": 0.11680632585863047,
+            "markedness": 0.06963497506919157,
+            "error_rate": 0.06613070315201193,
+            "false_positive_area_over_ground_truth_area": 27.629934668844506,
+            "false_negative_area_over_ground_truth_area": 0.6833382567714169,
+            "predicted_area_over_ground_truth_area": 27.946596412073095
+          },
+          "future_changed_pixels_positive_before_fraction": 0.2190328832746688,
+          "changed_pixels_newly_positive_after_fraction": 0.22060734792494446,
+          "changed_pixels_still_positive_after_fraction": 0.08857270607483969,
+          "changed_pixels_total_positive_after_fraction": 0.30918005399978415
+        },
+        "TruFor": {
+          "recall": 0.06061144733751316,
+          "false_negative_rate": 0.9393885526624869,
+          "false_positive_rate_relative_to_new_edit": 0.0220842805631404,
+          "specificity_relative_to_new_edit": 0.9779157194368596,
+          "precision_relative_to_new_edit": 0.02177291401279073,
+          "pixel_accuracy_relative_to_new_edit": 0.970536488670889,
+          "f1_relative_to_new_edit": 0.032037338384139816,
+          "iou_relative_to_new_edit": 0.01627944422372044,
+          "NPV": 0.9922700056768534,
+          "markedness": 0.014042919689644107,
+          "MCC": 0.023260135616157633,
+          "error_rate": 0.02946351132911101,
+          "false_positive_area_over_ground_truth_area": 2.7231889801985676,
+          "false_negative_area_over_ground_truth_area": 0.9393885526624869,
+          "predicted_area_over_ground_truth_area": 2.7838004275360806,
+          "signed_predicted_minus_ground_truth_area_over_ground_truth_area": 1.7838004275360808,
+          "absolute_predicted_minus_ground_truth_area_over_ground_truth_area": 1.7838004275360808,
+          "macro_mean": {
+            "recall": 0.04003785609919838,
+            "false_negative_rate": 0.9599621439008017,
+            "false_positive_rate_relative_to_new_edit": 0.022143138050872847,
+            "specificity_relative_to_new_edit": 0.9778568619491271,
+            "precision_relative_to_new_edit": 0.02192665364573544,
+            "pixel_accuracy_relative_to_new_edit": 0.9703364753203932,
+            "f1_relative_to_new_edit": 0.023500143721622357,
+            "iou_relative_to_new_edit": 0.01357414594784413,
+            "NPV": 0.9921635810153142,
+            "MCC": 0.016344541048277608,
+            "markedness": 0.014090234661049562,
+            "error_rate": 0.029663524679606645,
+            "false_positive_area_over_ground_truth_area": 12.214770746424332,
+            "false_negative_area_over_ground_truth_area": 0.9599621439008017,
+            "predicted_area_over_ground_truth_area": 12.25480860252353
+          },
+          "macro_mean_balanced_by_source": {
+            "recall": 0.053288228265532624,
+            "false_negative_rate": 0.9467117717344674,
+            "false_positive_rate_relative_to_new_edit": 0.02551358858911698,
+            "specificity_relative_to_new_edit": 0.9744864114108831,
+            "precision_relative_to_new_edit": 0.030895672338957608,
+            "pixel_accuracy_relative_to_new_edit": 0.9669183804647232,
+            "f1_relative_to_new_edit": 0.03431496031930702,
+            "iou_relative_to_new_edit": 0.020820335187830143,
+            "NPV": 0.9920533933796786,
+            "MCC": 0.02654770323094939,
+            "markedness": 0.02294906571863635,
+            "error_rate": 0.03308161953527681,
+            "false_positive_area_over_ground_truth_area": 14.32691359817618,
+            "false_negative_area_over_ground_truth_area": 0.9467117717344674,
+            "predicted_area_over_ground_truth_area": 14.380201826441716
+          },
+          "future_changed_pixels_positive_before_fraction": 0.09961481846948614,
+          "changed_pixels_newly_positive_after_fraction": 0.05863066922910184,
+          "changed_pixels_still_positive_after_fraction": 0.001980778108411324,
+          "changed_pixels_total_positive_after_fraction": 0.06061144733751316
+        }
+      }
+    },
+    "generative": {
+      "versions": 37,
+      "source_count": 26,
+      "models": {
+        "RITA": {
+          "recall": 0.9341455670945782,
+          "false_negative_rate": 0.06585443290542183,
+          "false_positive_rate_relative_to_new_edit": 0.04438211575139569,
+          "specificity_relative_to_new_edit": 0.9556178842486043,
+          "precision_relative_to_new_edit": 0.6716472558006964,
+          "pixel_accuracy_relative_to_new_edit": 0.9537159585299786,
+          "f1_relative_to_new_edit": 0.7814411644040299,
+          "iou_relative_to_new_edit": 0.6412830809452416,
+          "NPV": 0.9933473310364873,
+          "markedness": 0.6649945868371838,
+          "MCC": 0.7692125055592806,
+          "error_rate": 0.046284041470021374,
+          "false_positive_area_over_ground_truth_area": 0.45668207200736016,
+          "false_negative_area_over_ground_truth_area": 0.06585443290542183,
+          "predicted_area_over_ground_truth_area": 1.3908276391019383,
+          "signed_predicted_minus_ground_truth_area_over_ground_truth_area": 0.39082763910193835,
+          "absolute_predicted_minus_ground_truth_area_over_ground_truth_area": 0.39082763910193835,
+          "macro_mean": {
+            "recall": 0.8157303403846337,
+            "false_negative_rate": 0.18426965961536626,
+            "false_positive_rate_relative_to_new_edit": 0.04358601433895813,
+            "specificity_relative_to_new_edit": 0.9564139856610421,
+            "precision_relative_to_new_edit": 0.5732666733447808,
+            "pixel_accuracy_relative_to_new_edit": 0.953691391561836,
+            "f1_relative_to_new_edit": 0.6310162969190654,
+            "iou_relative_to_new_edit": 0.550755575974432,
+            "NPV": 0.989327128441484,
+            "MCC": 0.6368860498041772,
+            "markedness": 0.5625938017862648,
+            "error_rate": 0.04630860843816382,
+            "false_positive_area_over_ground_truth_area": 2.8357106007637727,
+            "false_negative_area_over_ground_truth_area": 0.18426965961536626,
+            "predicted_area_over_ground_truth_area": 3.651440941148407
+          },
+          "macro_mean_balanced_by_source": {
+            "recall": 0.7721155959068748,
+            "false_negative_rate": 0.22788440409312505,
+            "false_positive_rate_relative_to_new_edit": 0.046700154801693344,
+            "specificity_relative_to_new_edit": 0.9532998451983067,
+            "precision_relative_to_new_edit": 0.5080850725825468,
+            "pixel_accuracy_relative_to_new_edit": 0.9501084000117476,
+            "f1_relative_to_new_edit": 0.5661293197708225,
+            "iou_relative_to_new_edit": 0.49016228332965583,
+            "NPV": 0.9907961673596988,
+            "MCC": 0.5759900103936734,
+            "markedness": 0.4988812399422453,
+            "error_rate": 0.049891599988252516,
+            "false_positive_area_over_ground_truth_area": 3.7184267742574613,
+            "false_negative_area_over_ground_truth_area": 0.22788440409312505,
+            "predicted_area_over_ground_truth_area": 4.490542370164336
+          },
+          "future_changed_pixels_positive_before_fraction": 0.19821045019729186,
+          "changed_pixels_newly_positive_after_fraction": 0.7454612787879904,
+          "changed_pixels_still_positive_after_fraction": 0.1886842883065878,
+          "changed_pixels_total_positive_after_fraction": 0.9341455670945782
+        },
+        "TruFor": {
+          "recall": 0.9077791050431113,
+          "false_negative_rate": 0.09222089495688873,
+          "false_positive_rate_relative_to_new_edit": 0.02535604620427699,
+          "specificity_relative_to_new_edit": 0.974643953795723,
+          "precision_relative_to_new_edit": 0.7767511548101282,
+          "pixel_accuracy_relative_to_new_edit": 0.9687213524014546,
+          "f1_relative_to_new_edit": 0.8371692512263603,
+          "iou_relative_to_new_edit": 0.7199407584545447,
+          "NPV": 0.9908882445623002,
+          "markedness": 0.7676393993724284,
+          "MCC": 0.8230326280770549,
+          "error_rate": 0.03127864759854541,
+          "false_positive_area_over_ground_truth_area": 0.2609080599795297,
+          "false_negative_area_over_ground_truth_area": 0.09222089495688873,
+          "predicted_area_over_ground_truth_area": 1.168687165022641,
+          "signed_predicted_minus_ground_truth_area_over_ground_truth_area": 0.16868716502264097,
+          "absolute_predicted_minus_ground_truth_area_over_ground_truth_area": 0.16868716502264097,
+          "macro_mean": {
+            "recall": 0.7790426968734441,
+            "false_negative_rate": 0.22095730312655587,
+            "false_positive_rate_relative_to_new_edit": 0.02398528397411801,
+            "specificity_relative_to_new_edit": 0.9760147160258821,
+            "precision_relative_to_new_edit": 0.6601922958988584,
+            "pixel_accuracy_relative_to_new_edit": 0.968720561706406,
+            "f1_relative_to_new_edit": 0.6798312354910503,
+            "iou_relative_to_new_edit": 0.6030204324276038,
+            "NPV": 0.9893912460904967,
+            "MCC": 0.6834839740914753,
+            "markedness": 0.649583541989355,
+            "error_rate": 0.031279438293594225,
+            "false_positive_area_over_ground_truth_area": 2.328854419761583,
+            "false_negative_area_over_ground_truth_area": 0.22095730312655587,
+            "predicted_area_over_ground_truth_area": 3.1078971166350273
+          },
+          "macro_mean_balanced_by_source": {
+            "recall": 0.7338862392042039,
+            "false_negative_rate": 0.266113760795796,
+            "false_positive_rate_relative_to_new_edit": 0.02599822567807605,
+            "specificity_relative_to_new_edit": 0.9740017743219239,
+            "precision_relative_to_new_edit": 0.5958037669457986,
+            "pixel_accuracy_relative_to_new_edit": 0.9672638751488856,
+            "f1_relative_to_new_edit": 0.6152948122982173,
+            "iou_relative_to_new_edit": 0.5371322143613119,
+            "NPV": 0.9907806895003284,
+            "MCC": 0.6230729799566318,
+            "markedness": 0.5865844564461271,
+            "error_rate": 0.032736124851114476,
+            "false_positive_area_over_ground_truth_area": 3.129738348799383,
+            "false_negative_area_over_ground_truth_area": 0.266113760795796,
+            "predicted_area_over_ground_truth_area": 3.8636245880035864
+          },
+          "future_changed_pixels_positive_before_fraction": 0.27578169057936885,
+          "changed_pixels_newly_positive_after_fraction": 0.6415220415211864,
+          "changed_pixels_still_positive_after_fraction": 0.2662570635219249,
+          "changed_pixels_total_positive_after_fraction": 0.9077791050431113
+        }
+      }
+    },
+    "mixed": {
+      "versions": 10,
+      "source_count": 10,
+      "models": {
+        "RITA": {
+          "recall": 0.7017769282416642,
+          "false_negative_rate": 0.2982230717583358,
+          "false_positive_rate_relative_to_new_edit": 0.04518949448769801,
+          "specificity_relative_to_new_edit": 0.954810505512302,
+          "precision_relative_to_new_edit": 0.41099617773530817,
+          "pixel_accuracy_relative_to_new_edit": 0.9439300245505244,
+          "f1_relative_to_new_edit": 0.5183943313887356,
+          "iou_relative_to_new_edit": 0.34988684396343867,
+          "NPV": 0.9861602070971418,
+          "markedness": 0.39715638483244997,
+          "MCC": 0.5106543757926107,
+          "error_rate": 0.056069975449475534,
+          "false_positive_area_over_ground_truth_area": 1.005725394793627,
+          "false_negative_area_over_ground_truth_area": 0.2982230717583358,
+          "predicted_area_over_ground_truth_area": 1.7075023230352915,
+          "signed_predicted_minus_ground_truth_area_over_ground_truth_area": 0.7075023230352914,
+          "absolute_predicted_minus_ground_truth_area_over_ground_truth_area": 0.7075023230352914,
+          "macro_mean": {
+            "recall": 0.5549057730837028,
+            "false_negative_rate": 0.44509422691629713,
+            "false_positive_rate_relative_to_new_edit": 0.0462298090241056,
+            "specificity_relative_to_new_edit": 0.9537701909758944,
+            "precision_relative_to_new_edit": 0.3975967106102604,
+            "pixel_accuracy_relative_to_new_edit": 0.9428722841145742,
+            "f1_relative_to_new_edit": 0.4318382589074763,
+            "iou_relative_to_new_edit": 0.34255197035452667,
+            "NPV": 0.9852950136291287,
+            "MCC": 0.4265526883359455,
+            "markedness": 0.38289172423938933,
+            "error_rate": 0.05712771588542578,
+            "false_positive_area_over_ground_truth_area": 1.860058425413112,
+            "false_negative_area_over_ground_truth_area": 0.44509422691629713,
+            "predicted_area_over_ground_truth_area": 2.414964198496815
+          },
+          "macro_mean_balanced_by_source": {
+            "recall": 0.5549057730837028,
+            "false_negative_rate": 0.44509422691629713,
+            "false_positive_rate_relative_to_new_edit": 0.0462298090241056,
+            "specificity_relative_to_new_edit": 0.9537701909758944,
+            "precision_relative_to_new_edit": 0.3975967106102604,
+            "pixel_accuracy_relative_to_new_edit": 0.9428722841145742,
+            "f1_relative_to_new_edit": 0.4318382589074763,
+            "iou_relative_to_new_edit": 0.34255197035452667,
+            "NPV": 0.9852950136291287,
+            "MCC": 0.4265526883359455,
+            "markedness": 0.38289172423938933,
+            "error_rate": 0.05712771588542578,
+            "false_positive_area_over_ground_truth_area": 1.860058425413112,
+            "false_negative_area_over_ground_truth_area": 0.44509422691629713,
+            "predicted_area_over_ground_truth_area": 2.414964198496815
+          },
+          "future_changed_pixels_positive_before_fraction": 0.14493782260413277,
+          "changed_pixels_newly_positive_after_fraction": 0.617275550736804,
+          "changed_pixels_still_positive_after_fraction": 0.0845013775048602,
+          "changed_pixels_total_positive_after_fraction": 0.7017769282416642
+        },
+        "TruFor": {
+          "recall": 0.7542901709705025,
+          "false_negative_rate": 0.24570982902949745,
+          "false_positive_rate_relative_to_new_edit": 0.011108400571913589,
+          "specificity_relative_to_new_edit": 0.9888915994280865,
+          "precision_relative_to_new_edit": 0.7531485592098565,
+          "pixel_accuracy_relative_to_new_edit": 0.9788037035706588,
+          "f1_relative_to_new_edit": 0.7537189328081285,
+          "iou_relative_to_new_edit": 0.6047744386476261,
+          "NPV": 0.9889589550916076,
+          "markedness": 0.7421075143014639,
+          "MCC": 0.7426444481073416,
+          "error_rate": 0.021196296429341187,
+          "false_positive_area_over_ground_truth_area": 0.24722561465596643,
+          "false_negative_area_over_ground_truth_area": 0.24570982902949745,
+          "predicted_area_over_ground_truth_area": 1.001515785626469,
+          "signed_predicted_minus_ground_truth_area_over_ground_truth_area": 0.0015157856264689782,
+          "absolute_predicted_minus_ground_truth_area_over_ground_truth_area": 0.0015157856264689782,
+          "macro_mean": {
+            "recall": 0.5917918789650175,
+            "false_negative_rate": 0.4082081210349825,
+            "false_positive_rate_relative_to_new_edit": 0.010806493224145371,
+            "specificity_relative_to_new_edit": 0.9891935067758546,
+            "precision_relative_to_new_edit": 0.5600576805813797,
+            "pixel_accuracy_relative_to_new_edit": 0.9787876840348776,
+            "f1_relative_to_new_edit": 0.5554894872081219,
+            "iou_relative_to_new_edit": 0.46766559424599385,
+            "NPV": 0.9883692102907251,
+            "MCC": 0.5546319140042523,
+            "markedness": 0.5484268908721048,
+            "error_rate": 0.021212315965122238,
+            "false_positive_area_over_ground_truth_area": 1.0917967345453334,
+            "false_negative_area_over_ground_truth_area": 0.4082081210349825,
+            "predicted_area_over_ground_truth_area": 1.683588613510351
+          },
+          "macro_mean_balanced_by_source": {
+            "recall": 0.5917918789650175,
+            "false_negative_rate": 0.4082081210349825,
+            "false_positive_rate_relative_to_new_edit": 0.010806493224145371,
+            "specificity_relative_to_new_edit": 0.9891935067758546,
+            "precision_relative_to_new_edit": 0.5600576805813797,
+            "pixel_accuracy_relative_to_new_edit": 0.9787876840348776,
+            "f1_relative_to_new_edit": 0.5554894872081219,
+            "iou_relative_to_new_edit": 0.46766559424599385,
+            "NPV": 0.9883692102907251,
+            "MCC": 0.5546319140042523,
+            "markedness": 0.5484268908721048,
+            "error_rate": 0.021212315965122238,
+            "false_positive_area_over_ground_truth_area": 1.0917967345453334,
+            "false_negative_area_over_ground_truth_area": 0.4082081210349825,
+            "predicted_area_over_ground_truth_area": 1.683588613510351
+          },
+          "future_changed_pixels_positive_before_fraction": 0.1278799315041113,
+          "changed_pixels_newly_positive_after_fraction": 0.6575841901438039,
+          "changed_pixels_still_positive_after_fraction": 0.09670598082669868,
+          "changed_pixels_total_positive_after_fraction": 0.7542901709705025
+        }
+      }
+    }
+  },
+  "controls": {
+    "images": 25,
+    "models": {
+      "RITA": {
+        "alerted_fraction_weighted_pixels": 0.07265245904060047,
+        "not_alerted_fraction_weighted_pixels": 0.9273475409593995,
+        "mean_alerted_fraction_by_image": 0.07303216180405238,
+        "median_alerted_fraction_by_image": 0.042406833363836015,
+        "min_alerted_fraction_by_image": 0.012840187156593406,
+        "max_alerted_fraction_by_image": 0.2033614497481685
+      },
+      "TruFor": {
+        "alerted_fraction_weighted_pixels": 0.05633737664473684,
+        "not_alerted_fraction_weighted_pixels": 0.9436626233552632,
+        "mean_alerted_fraction_by_image": 0.05660495812427359,
+        "median_alerted_fraction_by_image": 0.02239909807375549,
+        "min_alerted_fraction_by_image": 0.0033940018315018316,
+        "max_alerted_fraction_by_image": 0.3409490899725275
+      }
+    },
+    "prototype_separate": {
+      "images": 1,
+      "flagged_surface_fraction": {
+        "RITA": 0.015237025342528285,
+        "TruFor": 0.007164536047580981
+      }
+    }
+  },
+  "mixed_components": {
+    "versions": 10,
+    "components": {
+      "clone": {
+        "RITA": {
+          "recall": 0.02911326393485368,
+          "false_negative_rate": 0.9708867360651463
+        },
+        "TruFor": {
+          "recall": 0.01648715325831879,
+          "false_negative_rate": 0.9835128467416812
+        }
+      },
+      "generative": {
+        "RITA": {
+          "recall": 0.8324822500168073,
+          "false_negative_rate": 0.1675177499831927
+        },
+        "TruFor": {
+          "recall": 0.8976527248794014,
+          "false_negative_rate": 0.10234727512059856
+        }
+      }
+    }
+  },
+  "illustrations": {
+    "source_boards": 26,
+    "edited_versions": 96,
+    "before_controls": 26,
+    "composed_zooms_available_in_details": 138,
+    "featured_source_ids": [
+      "2023-dsc0835_220523",
+      "2022-dsc0663_260522",
+      "2022-dsc7644_310822"
+    ]
+  },
+  "source_export_sha256": "699d17795ca95dc79addd6df64427b11039ed33be22cab081e229a9a6fe1ba55"
+}</script>
+</body></html>

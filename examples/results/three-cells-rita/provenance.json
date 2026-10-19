@@ -1,0 +1,21 @@
+{
+  "method": "RITA",
+  "input": "../../three-cells/input.png",
+  "width": 416,
+  "height": 320,
+  "publicInputSha256": "f9efa33e630b9522fec1c1c0bcdece241386675328eef659eed26b022d352fc0",
+  "analyzedLosslessReencodingSha256": "c2920ce8bd62d432bd51ce4768cb679d9c0c9dddfab217977518446d3405deab",
+  "inputRGB8Sha256": "a191723536acd31fcbb1849a2df8511c78eb5d855dc856c43650e2d5a74632ce",
+  "encodedInputRelation": "The analyzed lossless PNG reencoding and the existing public input have identical RGB8 pixels.",
+  "output": {
+    "file": "overlay.png",
+    "sha256": "de79e7fcf0c7207148aaaa6bfc8a4f50d977292ae4c364e80977684921e3ab29",
+    "bytes": 199262,
+    "view": "overlay",
+    "threshold": 0.5,
+    "opacity": 0.6
+  },
+  "checkpointSha256": "50da42c81508dd3d0f150af4245f47af8c8c0b554a392527635b7e2245aa3299",
+  "geometry": "Input dimensions preserved; reflection padding to multiples of 32 is removed from the result.",
+  "interpretation": "Illustrative response, without a pixel-level edit reference or an accuracy measurement."
+}

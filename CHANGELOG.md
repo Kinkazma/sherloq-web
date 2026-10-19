@@ -2,6 +2,19 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.22.0 — RITA and individual tool controls · 2026-10-19
+
+- Reuse exact RITA graph sessions, the invariant first RGB projection and verified completed results, while prioritizing feature banks over an incomplete model cache.
+- Batch native query transfers and GPU output readbacks without merging graph computations; account for their temporary buffers and preserve historical CPU query shapes on fallback. Sample retained scores directly for fast visual controls.
+- Add RITA beside TruFor, using the supplied checkpoint at native dimensions with FP32 global attention. Default to the colour overlay and a display threshold of 0.5; retain the scores for fast threshold previews and exact full-resolution presentation on release.
+- Add the supplied RITA/TruFor comparison for ten mixed-retouch examples in an accessible hover panel, with plain-language pixel metrics and unchanged measured values.
+- Reuse the shared CPU/GPU admission, automatic RAM policy and lossless temporary storage. Allow completed neural feature banks to spill under pressure, then retry only an uncommitted working window when necessary, preserving native source geometry and scientific settings.
+- Remove duplicate JSON, scientific NPZ and per-layer export controls from individual panels, including automatic analysis and the older ELA and composite panels. Keep the standard File image export and session diagnostics.
+- Wire RITA into batch recipes, native-map previews, image/report archives and result reuse. Keep restricted or excluded scopes explicitly raw-only, without filtered scientific votes. Include RITA as an optional offline feature with its shared-runtime dependency and verified resource inventory.
+- Finish ELA parameter previews after single spinner clicks, repeated held gestures and late change events. Retain the newest exact Energy request across obsolete replies or failures, and commit retained response views after global gesture endings without rerunning their models.
+- Correct the web repository link in About and adapt the offline button to the selected light or dark theme.
+- Add reconstruction and numerical qualification scripts for externally supplied RITA source and weights. See [RITA native execution](docs/RITA-NATIVE.md).
+
 ## 0.21.0 — AI detectors, document and compression analysis · 2026-10-16
 
 - Add four independent commands: B-Free and SPAI under AI Solutions, DTD / DocTamper under Tampering, and Comprint under JPEG. The existing new-feature preference controls their yellow outline.

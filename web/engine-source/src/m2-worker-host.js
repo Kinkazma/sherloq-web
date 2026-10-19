@@ -7,6 +7,8 @@ import {resolveComputeProfile} from './profiles.js';
 import {EngineError,requireValue,checkAbort,serializeEngineError} from './errors.js';
 import {createForgeryscopeAnalyzer} from './forgeryscope-analyzer.js';
 import {createTruforAnalyzer} from './trufor-analyzer.js';
+import {createRitaAnalyzer} from './rita-analyzer.js';
+import {sampleRitaWindow} from './rita-render.js';
 import {createCompositeAnalyzer} from './composite-analyzer.js';
 import {createCatnetAnalyzer} from './catnet-analyzer.js';
 import {createCfaAnalyzer} from './cfa-analyzer.js';
@@ -20,7 +22,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
   if(analyzers.has(method))return analyzers.get(method);requireValue(config.methods[method],'M2 method is not configured.');
   const value={...config.methods[method],budget,computeProfile:config.computeProfile??'aggressive',resourceHints:config.resourceHints};
   for(const key of ['preparation','sift','jpeg'])if(value[key+'FactoryUrl']){value[key+'Factory']=await loadFactory(value[key+'FactoryUrl']);delete value[key+'FactoryUrl'];}
-  const factory={forgeryscope:createForgeryscopeAnalyzer,trufor:createTruforAnalyzer,composite:createCompositeAnalyzer,catnet:createCatnetAnalyzer,cfa:createCfaAnalyzer}[method];requireValue(factory,'Unknown M2 method.');
+  const factory={forgeryscope:createForgeryscopeAnalyzer,trufor:createTruforAnalyzer,rita:createRitaAnalyzer,composite:createCompositeAnalyzer,catnet:createCatnetAnalyzer,cfa:createCfaAnalyzer}[method];requireValue(factory,'Unknown M2 method.');
   const api=factory(value);analyzers.set(method,api);return api;
  }
  function result(id){const r=results.get(id);requireValue(r,'Released or unknown M2 result.');return r;}
@@ -44,7 +46,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
     const controller=new AbortController();pending.set(id,controller);let value,metadataLease;
     try{
      if(operation==='analyzeBlob'){
-      requireValue(['cfa','trufor','catnet','composite','forgeryscope'].includes(method)&&args.blob instanceof Blob,'Segmented original source is currently supported by CFA, TruFor, CAT-Net, Composite and Forgeryscope.');
+      requireValue(['cfa','trufor','rita','catnet','composite','forgeryscope'].includes(method)&&args.blob instanceof Blob,'Segmented original source is currently supported by CFA, TruFor, RITA, CAT-Net, Composite and Forgeryscope.');
       // The decoder accounts its entire heap while active. Keep its idle heap
       // charged afterwards: Emscripten free does not shrink WebAssembly memory.
       const signature=new Uint8Array(await args.blob.slice(0,2).arrayBuffer());
@@ -54,7 +56,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
      }else{
       const n=image?.width*image?.height;requireValue(Number.isSafeInteger(n)&&n>0&&image.data instanceof Uint8Array&&image.data.length===3*n,'RGB8 image required.');release=budget.reserve(image.data.byteLength);
      }
-     const api=await analyzer(method);checkAbort(controller.signal);value=await api.analyze(image,params,{backend,signal:controller.signal,onProgress:event=>post({id,progress:event})});checkAbort(controller.signal);
+     const api=await analyzer(method);checkAbort(controller.signal);value=await api.analyze(image,params,{backend,...(method==='rita'&&operation==='analyzeBlob'?{immutableSource:true}:{}),signal:controller.signal,onProgress:event=>post({id,progress:event})});checkAbort(controller.signal);
      const data=value.data??value,fields={},information={};
      for(const [key,v]of Object.entries(data)){
       if(typeof v?.readInto==='function')fields[key]={type:v.elementType??'Float32Array',length:v.length,byteLength:v.byteLength,storage:v.storage};
@@ -76,11 +78,12 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
     const r=result(args.resultId),dimensions=r.value.data??r.value;displayGeometry(dimensions,args.tile);r.references++;let rendered,frame;
     try{
      if(r.method==='forgeryscope')throw new EngineError('UNAVAILABLE','Forgeryscope exposes masks and polygons for the existing clone viewer.');
-     if(r.api.renderWindow&&(dimensions.segmented||r.method==='cfa'&&r.image.surface)){
+     if(r.method==='rita')frame=await sampleRitaWindow(r.image,r.value,args.view,args.tile,{...args.options,budget});
+     else if(r.api.renderWindow&&(dimensions.segmented||r.method==='cfa'&&r.image.surface)){
       const surface={descriptor:{width:dimensions.width,height:dimensions.height,format:'rgb8'},async readWindow(rect){const part=await r.api.renderWindow(r.image,r.value,args.view,rect,args.options);return {pixels:{...part,format:'rgb8'},release:()=>part.release?.()};}};
       frame=await sampleSurface(surface,args.tile,{budget});
      }else{
-      rendered=await (['catnet','cfa'].includes(r.method)?r.api.render(r.image,r.value,args.view,args.options):r.api.render(r.value,args.view,args.options));
+      rendered=await (['catnet','cfa','rita'].includes(r.method)?r.api.render(r.image,r.value,args.view,args.options):r.api.render(r.value,args.view,args.options));
       frame=await samplePixels({...rendered,format:'rgb8'},args.tile,{budget});
      }
      send(id,{pixels:frame.pixels,metrics:frame.metrics},[frame.pixels.data.buffer]);
@@ -89,7 +92,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
     const r=result(args.resultId);r.references++;let rendered;
     try{
      if(r.method==='forgeryscope')throw new EngineError('UNAVAILABLE','Forgeryscope exposes masks and polygons for the existing clone viewer.');
-     rendered=await (args.rect&&r.api.renderWindow?r.api.renderWindow(r.image,r.value,args.view,args.rect,args.options):['catnet','cfa'].includes(r.method)?r.api.render(r.image,r.value,args.view,args.options):r.api.render(r.value,args.view,args.options));
+     rendered=await (args.rect&&r.api.renderWindow?r.api.renderWindow(r.image,r.value,args.view,args.rect,args.options):['catnet','cfa','rita'].includes(r.method)?r.api.render(r.image,r.value,args.view,args.options):r.api.render(r.value,args.view,args.options));
      const exportId=next++;exports.set(exportId,{references:1,bytes:rendered.data,release:rendered.release});send(id,{id:exportId,type:'rgb8',width:rendered.width,height:rendered.height,origin:rendered.origin??[0,0],bytes:rendered.data.byteLength});rendered=null;
     }finally{rendered?.release();await unpin(r);}
    }else if(operation==='beginExport'){

@@ -17,6 +17,7 @@ export async function m2ToolConfiguration(method){
  }
  if(method==='cfa'){const manifest=await json(url('cfa-m2/program-manifest.json'));configuration={assets:Object.fromEntries(manifest.models.map(m=>[m.variant,{...m.weights,url:url('cfa-m2/'+m.weights.file),checkpointSha256:m.checkpointSha256,program:{...m.program,url:url('cfa-m2/'+m.program.file)}}])),runtimes:{wasm:{executor:'cfa',factoryUrl:url('cfa-m2/operators.mjs'),wasmUrl:url('cfa-m2/operators.wasm')}}};}
  if(method==='catnet')configuration={segments:await segments('catnet-segments'),runtimes,jpegFactoryUrl:url('catnet/jpeg.mjs')};
+ if(method==='rita')configuration={segments:await segments('rita-native'),runtimes};
  if(method==='trufor'){const npp=await json(url('trufor-npp/native-manifest.json'));configuration={segments:await segments('trufor-split-value'),runtimes,noiseprint:{asset:{...npp.weights,url:url('trufor-npp/'+npp.weights.file),program:{...npp.program,url:url('trufor-npp/'+npp.program.file)}},runtime:{executor:'noiseprint-plus',factoryUrl:url('cfa-m2/operators.mjs'),wasmUrl:url('cfa-m2/operators.wasm')}}};}
  return configuration;
 }

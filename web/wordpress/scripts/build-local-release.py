@@ -68,7 +68,7 @@ def reviewed_runtime_increment(manifest):
 
 def runtime_increment_references():
     references=[]
-    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json','browser-extensions-20261015.json']:
+    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json','browser-extensions-20261015.json','rita-20261019.json']:
         path=ROOT/'runtime-patches'/name
         if not path.exists(): continue
         receipt=json.loads(path.read_bytes())
@@ -163,13 +163,15 @@ Le lanceur natif peut être conservé ; le HTML Python contient le helper exact.
 '''
     put(destination/'LIRE-MOI.txt',instructions.encode())
     archive=args.output/('SHERLOQ-local-bootstrap-'+args.version+'.zip')
-    with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as zipped:
+    if not getattr(args,'no_bootstrap',False):
+      with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as zipped:
         for source in sorted(destination.rglob('*')):
             if source.is_file(): zipped.write(source,source.relative_to(destination))
         for source in sorted((args.output/'resource-overlay/web-assets/chunks').glob('*.bin')):
             zipped.write(source,'resource-overlay/web-assets/chunks/'+source.name)
-    if archive.stat().st_size>MAX_ZIP: archive.unlink(); raise ValueError('Compressed bootstrap ZIP exceeds 25,000,000 bytes')
-    result={'schema':'sherloq.local-release-stage/1','version':args.version,'manifest':identity,'shell':digest((destination/'offline-shell.json').read_bytes()),'shellFiles':len(shell['files']),'features':len(catalogue['features']),'runtimeOverrides':changes,'bootstrap':{'bytes':archive.stat().st_size,'sha256':digest(archive.read_bytes()),'compressedLimitBytes':MAX_ZIP,'private':True},'published':False}
+      if archive.stat().st_size>MAX_ZIP: archive.unlink(); raise ValueError('Compressed bootstrap ZIP exceeds 25,000,000 bytes')
+    result={'schema':'sherloq.local-release-stage/1','version':args.version,'manifest':identity,'shell':digest((destination/'offline-shell.json').read_bytes()),'shellFiles':len(shell['files']),'features':len(catalogue['features']),'runtimeOverrides':changes,'published':False}
+    if archive.exists(): result['bootstrap']={'bytes':archive.stat().st_size,'sha256':digest(archive.read_bytes()),'compressedLimitBytes':MAX_ZIP,'private':True}
     if increment is not None:
         result['runtimeIncrement']=increment
         result['runtimeIncrements']=runtime_increment_references()
@@ -211,7 +213,7 @@ def channel(args):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__); commands=parser.add_subparsers(dest='command',required=True)
-    p=commands.add_parser('stage'); p.add_argument('--manifest',type=Path,required=True); p.add_argument('--metadata-root',type=Path,default=ROOT/'feature-inputs'); p.add_argument('--version',required=True); p.add_argument('--resource-origin',required=True); p.add_argument('--runtime-override',action='append',default=[]); p.add_argument('--output',type=Path,required=True)
+    p=commands.add_parser('stage'); p.add_argument('--manifest',type=Path,required=True); p.add_argument('--metadata-root',type=Path,default=ROOT/'feature-inputs'); p.add_argument('--version',required=True); p.add_argument('--resource-origin',required=True); p.add_argument('--runtime-override',action='append',default=[]); p.add_argument('--output',type=Path,required=True); p.add_argument('--no-bootstrap',action='store_true',help='Prepare source inventories without creating an installer archive')
     p=commands.add_parser('describe'); p.add_argument('--staged',type=Path,required=True); p.add_argument('--inventory-base',required=True); p.add_argument('--asset-base',required=True); p.add_argument('--output',type=Path,required=True)
     p=commands.add_parser('channel'); p.add_argument('--release',type=Path,required=True); p.add_argument('--release-url',required=True); p.add_argument('--output',type=Path,required=True)
     args=parser.parse_args(); {'stage':stage,'describe':describe,'channel':channel}[args.command](args)

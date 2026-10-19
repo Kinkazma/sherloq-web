@@ -95,6 +95,29 @@ def generate(manifest, metadata_root, assets_root=None):
         resources = sum([directory(prefix) for prefix in prefixes], [])
         if method == 'cfa': resources = [path for path in resources if not path.endswith(('operators.mjs', 'operators.wasm'))]
         add('m2.' + method, {'cfa': 'CFA — dématriçage', 'catnet': 'CAT-Net', 'trufor': 'TruFor'}[method], group='neural-detectors', resources=resources, depends=deps, tasks=[{'operation': 'm2.' + method}])
+    # RITA is optional and has its own native operator catalogue. Recognize it
+    # before assigning unclaimed resources to protected core, so rebuilding the
+    # functional catalogue preserves selective offline installation/uninstall.
+    rita_prefix = 'individual-assets/rita-native'
+    rita_path = rita_prefix + '/manifest.json'
+    if rita_path in files:
+        rita = metadata(rita_path)
+        rita_paths = {rita_path}
+        notice = rita_prefix + '/NOTICE.txt'
+        if notice in files:
+            rita_paths.add(notice)
+        for name, asset in rita['assets'].items():
+            path = posixpath.normpath(posixpath.join(rita_prefix, asset['file']))
+            if not path.startswith(rita_prefix + '/') or path not in files:
+                raise ValueError('RITA operator is outside its resource family: ' + name)
+            if files[path]['sha256'] != asset['sha256'] or files[path]['size'] != asset['bytes']:
+                raise ValueError('RITA operator identity differs: ' + name)
+            rita_paths.add(path)
+        if set(directory(rita_prefix)) != rita_paths:
+            raise ValueError('RITA resource family contains unreferenced or missing operators')
+        add('m2.rita', 'RITA', group='neural-detectors', resources=rita_paths,
+            depends=['resource.neural-runtime'], tasks=[{'operation': 'm2.rita'}])
+
     for variant, fr, en in neural:
         if variant.startswith('forgeryscope') or variant == 'd2prl': continue
         if variant not in individual['segmentation']: raise ValueError('Neural menu is not configured: ' + variant)

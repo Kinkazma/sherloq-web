@@ -2,6 +2,7 @@ import {isExtensionTool,extensionConfiguration} from './extension-tools.js';
 import {dtdFrame} from './dtd-presentation.js';
 import {comprintFrame} from './comprint-presentation.js';
 import {truforHeatFrame} from './trufor-palette.js';
+import {ritaFrame,ritaDisplayThreshold,ritaDisplayOpacity,RITA_PROXY_SIDE} from './rita-presentation.js';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
 import {localFeaturePolicy} from './feature-policy.js';
 import {composeCloneFrame,sampleCloneField,d2AnalysisKey} from './neural-clone-ui.js';
@@ -59,14 +60,14 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  const asset=name=>new URL(name,base).href;
  const engine=engineFactory({computeProfile,...(resourceHints?{resourceHints}:{}),...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
  let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,m3OcrLoaded=false,d2Loaded=false,segmentationModels,m2=null,m2Method=null;
- let d2Analysis=null,responseProxy=null;let sourceInput;const sourceAliases=new Set();
- const invalidated=()=>{void clearResponseProxy();d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
+ let d2Analysis=null,responseProxy=null,ritaProxy=null;let sourceInput;const sourceAliases=new Set();
+ const invalidated=()=>{void clearResponseProxy();void clearRitaProxy();d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
  engine.onSourceInvalidation?.(invalidated);
  const resolve=value=>Array.isArray(value)?value.map(resolve):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,v])=>[key,key==='url'?asset(v):resolve(v)])):value;
  const enqueue=fn=>{const task=queue.then(()=>{if(disposed)throw Object.assign(Error('Outil fermé'),{code:'CANCELLED'});return fn();});queue=task.catch(()=>{});return task;};
  const hooks=()=>({signal:controller?.signal,onProgress});
  const work=async fn=>{controller=new AbortController();try{return await fn();}catch(error){if(m2&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error.code)){const failed=m2;m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}if(error.imagesCleared){d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;}throw error;}finally{controller=null;}};
- async function release(){await clearResponseProxy();if(!result)return;if(result.m2Result){await m2.release(result.m2Result.id);result=null;return;}const previous=result;result=null;const resources=resultResources(previous);for(const s of resources.surfaces)if(s.id!==source?.surface.id)await engine.releaseSurface(s.id);for(const t of resources.tables)await engine.releaseTable(t.id);}
+ async function release(){await clearResponseProxy();await clearRitaProxy();if(!result)return;if(result.m2Result){await m2.release(result.m2Result.id);result=null;return;}const previous=result;result=null;const resources=resultResources(previous);for(const s of resources.surfaces)if(s.id!==source?.surface.id)await engine.releaseSurface(s.id);for(const t of resources.tables)await engine.releaseTable(t.id);}
  async function segmentationModel(variant){
   segmentationModels??=await individualModels();const model=segmentationModels.segmentation?.[variant];
   if(!model)throw new EngineError('MODEL_UNAVAILABLE','Segmentation model is not configured.',{details:{variant}});
@@ -161,7 +162,73 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   try{const values=await sampleCloneField(m2,{...display,cloneFields:display.truforFields},'map',tile);return truforHeatFrame(g.width,g.height,values);}
   finally{await m2.releaseExternalMemory(lease.id);}
  }
+ async function clearRitaProxy(){const old=ritaProxy;ritaProxy=null;if(old)await engine.releaseExternalMemory(old.lease.id).catch(()=>{});}
+ function ritaResultId(display){
+  const id=display.ritaPresentation?.score?.m2Result??display.m2Result;
+  if(!m2||!id||result?.m2Result?.id!==id)throw new EngineError('CACHE_MISS','The native RITA result is unavailable.');
+  if(display.width!==result.m2Result.width||display.height!==result.m2Result.height||display.ritaPresentation?.score?.field!=='map')throw new EngineError('INVALID_INPUT','RITA display geometry or score identity differs from the native result.');
+  return id;
+ }
+ const ritaWindowElements=()=>Math.max(1,Math.floor(Math.min(4*1024**2,m2.ready.windowBytes)/4));
+ // Retained scores are sampled through bounded contiguous strips. Wide or
+ // sparse requests also split horizontally; no numeric RPC exceeds 4 MiB.
+ async function readRitaValues(display,g){
+  const id=ritaResultId(display),out=new Float32Array(g.width*g.height),limit=ritaWindowElements(),span=(g.width-1)*g.step+1,field=display.ritaPresentation.score.field??'map';
+  const read=async(offset,length)=>{const values=await m2.readArray(id,field,offset,length);if(!(values instanceof Float32Array)||values.length!==length)throw new EngineError('INVALID_INPUT','Invalid native RITA score window.');return values;};
+  for(let row=0;row<g.height;){
+   checkAbort(controller?.signal);
+   if(span<=limit){
+    const count=Math.min(g.height-row,Math.max(1,Math.floor((limit-span)/(display.width*g.step))+1)),length=(count-1)*g.step*display.width+span,values=await read((g.y+row*g.step)*display.width+g.x,length);
+    for(let y=0;y<count;y++)for(let x=0;x<g.width;x++)out[(row+y)*g.width+x]=values[y*g.step*display.width+x*g.step];
+    row+=count;
+   }else{
+    const columns=Math.max(1,Math.floor((limit-1)/g.step)+1);
+    for(let x=0;x<g.width;x+=columns){const count=Math.min(columns,g.width-x),values=await read((g.y+row*g.step)*display.width+g.x+x*g.step,(count-1)*g.step+1);for(let at=0;at<count;at++)out[row*g.width+x+at]=values[at*g.step];}
+    row++;
+   }
+  }
+  return out;
+ }
+ async function ensureRitaSource(display){
+  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
+  if(!source||source.surface.width!==display.width||source.surface.height!==display.height)throw new EngineError('CACHE_MISS','The original RITA image is unavailable.');
+ }
+ async function prepareRitaProxy(display){
+  const id=ritaResultId(display),key=id+':'+display.ritaPresentation.score.revision;
+  if(ritaProxy?.key===key)return ritaProxy;
+  await clearRitaProxy();await ensureRitaSource(display);
+  const step=Math.max(1,Math.ceil(Math.max(display.width,display.height)/RITA_PROXY_SIDE)),tile={x:0,y:0,w:display.width,h:display.height,step},g=displayGeometry(display,tile),count=g.width*g.height;
+  // Retain the tiny score/base proxy and admit the RGB frame workspace once.
+  // The dragging path below performs no worker messages or budget RPCs.
+  const lease=await engine.reserveExternalMemory({bytes:count*5+RITA_PROXY_SIDE**2*8});let transient,numeric,retained=false;
+  try{
+   transient=await engine.reserveExternalMemory({bytes:count*4});numeric=await m2.reserveExternalMemory({bytes:ritaWindowElements()*4});
+   const values=await readRitaValues(display,g),levels=new Uint8Array(count),validity=new Uint8Array(count);
+   for(let i=0;i<count;i++)if(Number.isFinite(values[i])){validity[i]=1;levels[i]=Math.round(Math.max(0,Math.min(1,values[i]))*255);}
+   const base=(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data;
+   ritaProxy={key,width:g.width,height:g.height,step,levels,validity,base,lease};retained=true;return ritaProxy;
+  }finally{if(numeric)await m2.releaseExternalMemory(numeric.id);if(transient)await engine.releaseExternalMemory(transient.id);if(!retained)await engine.releaseExternalMemory(lease.id);}
+ }
+ async function ritaProxyPixels(display,tile){
+  const proxy=await prepareRitaProxy(display),g=displayGeometry(display,tile),p=display.ritaPresentation;
+  if(g.width>RITA_PROXY_SIDE||g.height>RITA_PROXY_SIDE)throw new EngineError('INVALID_INPUT','RITA preview exceeds its bounded grid.');
+  if(g.x===0&&g.y===0&&g.step===proxy.step&&g.width===proxy.width&&g.height===proxy.height)return ritaFrame(g.width,g.height,proxy.levels,{base:p.mode==='overlay'?proxy.base:undefined,validity:proxy.validity,quantized:true,mode:p.mode,threshold:ritaDisplayThreshold(p.threshold),opacity:p.opacity});
+  const count=g.width*g.height,levels=new Uint8Array(count),validity=new Uint8Array(count),base=p.mode==='overlay'?new Uint8Array(count*3):undefined;
+  for(let y=0;y<g.height;y++)for(let x=0;x<g.width;x++){const px=Math.min(proxy.width-1,Math.round((g.x+x*g.step)/proxy.step)),py=Math.min(proxy.height-1,Math.round((g.y+y*g.step)/proxy.step)),from=py*proxy.width+px,to=y*g.width+x;levels[to]=proxy.levels[from];validity[to]=proxy.validity[from];if(base)base.set(proxy.base.subarray(from*3,from*3+3),to*3);}
+  return ritaFrame(g.width,g.height,levels,{base,validity,quantized:true,mode:p.mode,threshold:ritaDisplayThreshold(p.threshold),opacity:p.opacity});
+ }
+ async function ritaPixels(display,tile){
+  ritaResultId(display);const g=displayGeometry(display,tile),p=display.ritaPresentation,overlay=p.mode==='overlay',lease=await engine.reserveExternalMemory({bytes:g.width*g.height*(overlay?10:7)});let numeric;
+  try{
+   numeric=await m2.reserveExternalMemory({bytes:ritaWindowElements()*4});const values=await readRitaValues(display,g);
+   if(overlay)await ensureRitaSource(display);
+   const base=overlay?(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data:undefined;
+   return ritaFrame(g.width,g.height,values,{base,mode:p.mode,threshold:p.threshold,opacity:p.opacity});
+  }finally{if(numeric)await m2.releaseExternalMemory(numeric.id);await engine.releaseExternalMemory(lease.id);}
+ }
  async function pixels(display,rect){
+  if(display.responsePreview)throw new EngineError('INVALID_INPUT','A transient preview cannot be exported.');
+  if(display.ritaPresentation)return ritaPixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
   if(display.dtdPresentation||display.comprintPresentation)return activationPixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
   if(display.truforPalette)return truforPalettePixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
   if(display.biomePresentation)return biomePixels(display,rect);
@@ -202,7 +269,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    if(reference&&task.operation!=='comparison.image'){const old=reference;reference=null;await engine.unload(old.id);}
    if(mask&&(!extras.mask||!['tampering.copyMove.brisk','tampering.copyMove.akaze','tampering.copyMove.orb'].includes(task.operation))){const old=mask;mask=null;await engine.unload(old.id);}
    if(prnu&&task.operation!=='noise.prnu'){const old=prnu;prnu=null;await engine.unload(old.id);}
-   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=await m2Factory({method,memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile});m2Method=method;}const descriptor=await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const views=method==='forgeryscope'?[]:method==='trufor'?['map','confidence','noiseprint_pp']:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:metadata.provenance,metrics:metadata.metrics,m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view}))};if(method==='trufor'&&descriptor.fields?.map)result.views.push({...result.views[0],id:'m2-'+descriptor.id+'-map-alternative',view:'map_alternative',truforPalette:true,truforFields:descriptor.fields});return result;}
+   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=await m2Factory({method,memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile});m2Method=method;}const descriptor=await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const ritaModes=['overlay','probability','mask'],ritaInitial=ritaModes.includes(task.view?.mode)?task.view.mode:'overlay';const views=method==='forgeryscope'?[]:method==='rita'?[ritaInitial,...ritaModes.filter(mode=>mode!==ritaInitial)]:method==='trufor'?['map','confidence','noiseprint_pp']:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:metadata.provenance,metrics:metadata.metrics,m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view,...(method==='rita'?{ritaPresentation:{mode:view,score:{id:'m2-score-'+descriptor.id,revision:1,m2Result:descriptor.id,field:'map'},threshold:ritaDisplayThreshold(task.view?.threshold),opacity:ritaDisplayOpacity(task.view?.opacity)}}:{})}))};if(method==='trufor'&&descriptor.fields?.map)result.views.push({...result.views[0],id:'m2-'+descriptor.id+'-map-alternative',view:'map_alternative',truforPalette:true,truforFields:descriptor.fields});return result;}
    if(m2){await m2.dispose();m2=null;m2Method=null;}
    if(isExtensionTool(task.operation)){
     const input={...task,imageId:source.id},configuration=extensionConfiguration();
@@ -250,10 +317,11 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   }),
   derive:patches=>enqueue(()=>work(()=>engine.deriveOriginal({imageId:source.id,patches},hooks()))),
   loadModel:(kind,file)=>enqueue(()=>work(async()=>{const id=kind+'-'+crypto.randomUUID();await engine[kind==='median'?'loadMedianModel':'loadQualityModel']({id,blob:file},hooks());const old=kind==='median'?median:quality;if(old)await engine.unload(old);if(kind==='median')median=id;else quality=id;})),
-  prepareDisplayPreview:display=>enqueue(()=>prepareResponseProxy(display)).then(()=>undefined),
+  prepareDisplayPreview:display=>enqueue(()=>display.ritaPresentation?prepareRitaProxy(display):prepareResponseProxy(display)).then(()=>undefined),
   readWindow:(display,rect)=>enqueue(()=>pixels(display,rect)),
   readTile:(display,tile)=>enqueue(async()=>{
-   if(display.responsePreview)return responseProxyPixels(display,tile);
+   if(display.responsePreview)return display.ritaPresentation?ritaProxyPixels(display,tile):responseProxyPixels(display,tile);
+   if(display.ritaPresentation)return ritaPixels(display,tile);
    if(display.dtdPresentation||display.comprintPresentation)return activationPixels(display,tile);
    if(display.truforPalette)return truforPalettePixels(display,tile);
    if(display.biomePresentation)return biomePixels(display,tile,true);
@@ -264,6 +332,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    return (await engine.readDisplay({surfaceId:display.id,revision:display.revision,tile,render:display.format==='rgb8'?undefined:{range:display.range??[0,1]}},hooks())).pixels;
   }),
   export:(format,selected,options={})=>enqueue(()=>work(async()=>{
+   if(selected?.responsePreview)throw new EngineError('INVALID_INPUT','A transient preview cannot be exported.');
    const sink=await createExportSink({memoryBudgetBytes:32*1024**2,signal:controller.signal,mime:format==='json'?'application/json':format==='csv'?'text/csv':['png','webp','avif','heic','tiff'].includes(format)?'image/'+format:'application/zip'});
    try{if(format==='npz'&&result?.m2Result){const descriptor=await m2.beginExport(result.m2Result.id,hooks());try{for(let offset=0;offset<descriptor.bytes;offset+=m2.ready.windowBytes)await sink.write(await m2.readExport(descriptor.id,offset,Math.min(m2.ready.windowBytes,descriptor.bytes-offset)));}finally{await m2.releaseExport(descriptor.id);}}
     else if(format==='npz'&&result?.operation==='tampering.copyMove.dense')await stream(await engine.exportSurface({surfaceId:result.surface.id,revision:result.surface.revision,format:'npz',storage:'temporary'},hooks()),sink);
@@ -278,6 +347,6 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    }catch(error){await sink.abort();throw error;}
   })),
   cancel(){controller?.abort();},
-  dispose(){disposed=true;controller?.abort();return queue.then(async()=>{await clearResponseProxy();await m2?.dispose();await engine.dispose();});}
+  dispose(){disposed=true;controller?.abort();return queue.then(async()=>{await clearResponseProxy();await clearRitaProxy();await m2?.dispose();await engine.dispose();});}
  };
 }

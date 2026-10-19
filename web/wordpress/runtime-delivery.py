@@ -10,6 +10,9 @@ import importlib.util
 _extension_spec = importlib.util.spec_from_file_location('runtime_extensions', Path(__file__).with_name('runtime-extensions.py'))
 _extensions = importlib.util.module_from_spec(_extension_spec)
 _extension_spec.loader.exec_module(_extensions)
+_rita_spec = importlib.util.spec_from_file_location('runtime_rita', Path(__file__).with_name('runtime-rita.py'))
+_rita = importlib.util.module_from_spec(_rita_spec)
+_rita_spec.loader.exec_module(_rita)
 
 # These model manifests pin the original factory bytes, and their callers pass
 # a separately fetched, SHA-verified wasmBinary. Rewriting the loader would
@@ -150,7 +153,10 @@ class QualifiedRuntimeOverlay:
         root = Path(root)
         self.files = {}
         self.receipts = []
-        extension, latest_predecessor = _extensions.reviewed_extensions_increment(root)
+        self.extra_resources = {}
+        rita, rita_predecessor = _rita.reviewed_rita_increment(root)
+        extension, latest_predecessor = _extensions.reviewed_extensions_increment(root, rita_predecessor)
+        latest_predecessor = {**rita_predecessor, **latest_predecessor}
         ela, predecessor = _reviewed_ela_increment(root, latest_predecessor)
         predecessor = {**latest_predecessor, **predecessor}
         self.predecessor = predecessor
@@ -239,6 +245,11 @@ class QualifiedRuntimeOverlay:
         if extension is not None:
             self.receipts.append(extension)
             self.files.update((record['file'], record) for record in extension['files'])
+        self.extra_resources = {}
+        if rita is not None:
+            self.receipts.append(rita)
+            self.files.update((record['file'], record) for record in rita['files'])
+            self.extra_resources = {record['file']: record['after'] for record in rita['resources']}
 
     def apply(self, relative, source, adapted):
         record = self.files.get(relative)

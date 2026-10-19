@@ -267,6 +267,12 @@ export const toolGroups = [
         "id": "m2.trufor"
       },
       {
+        "en": "RITA",
+        "newFeature": "yellow",
+        "fr": "RITA",
+        "id": "m2.rita"
+      },
+      {
         "en": "CAT-Net v2",
         "newFeature": "red",
         "fr": "CAT-Net v2",

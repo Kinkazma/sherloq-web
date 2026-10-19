@@ -1,0 +1,17 @@
+IMAGE LICENCE
+
+All rights reserved.
+
+This licence applies to all images presented in the mini-study and its gallery,
+including the files in boards/ and gallery/images/: photographs before and after
+editing, views with mask overlays, model maps, and composed enlargements.
+
+These images are available for viewing solely within this mini-study. No reuse,
+commercial or non-commercial, is permitted.
+
+Beyond that viewing, any reproduction, redistribution, modification, extraction,
+or reuse in another document, website, project, dataset, or model training requires
+prior written permission.
+
+Any licences applicable to the code or the rest of the repository grant no right
+to reuse these images.

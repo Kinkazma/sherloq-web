@@ -301,3 +301,17 @@ PaddleOCR / PaddlePaddle Authors and RapidOCR / RapidAI; Apache-2.0.
 Full license and implementation attribution: web/engine-source/vendor/scientific-text-detector/.
 This integration detects polygons for reviewed exclusions, without character recognition.
 Its connected-component hull/minimum-rectangle-offset postprocessing does not claim bit parity with OpenCV/PyClipper.
+
+RITA — native FP32 browser operators
+----------------------------------
+Method: https://github.com/scu-zjz/RITA
+Paper: https://arxiv.org/abs/2509.20006
+Weights and converted operators: CC BY-NC-SA 4.0
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+The conversion changes the execution format and supports variable input geometry;
+it retains the supplied checkpoint and native FP32 computations. Non-commercial
+use, attribution, identification of modifications and share-alike terms apply
+to the weights and adapted weights. Source-code licences remain separate.
+Runtime inventory: individual-assets/rita-native/manifest.json, 108 ONNX graphs.
+Detailed credits and conversion terms:
+web/wordpress/feature-inputs/individual-assets/rita-native/NOTICE.txt

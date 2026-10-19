@@ -46,7 +46,9 @@ def mutation(repo,case):
   change_json(repo,ela_path,mutate)
 accepted=m.qualified_runtime_overlay(root)
 assert [len(x['files']) for x in accepted.receipts[:2]]==[57,5]
-_,latest_predecessor=m._extensions.reviewed_extensions_increment(root)
+_,rita_predecessor=m._rita.reviewed_rita_increment(root)
+_,latest_predecessor=m._extensions.reviewed_extensions_increment(root,rita_predecessor)
+latest_predecessor={**rita_predecessor,**latest_predecessor}
 rejected=[]
 for case in ['source','ancestry','snapshot','undeclared-lock','undeclared-inventory','wrong-native-kind','rewritten-index-preimage']:
  with tempfile.TemporaryDirectory() as d:

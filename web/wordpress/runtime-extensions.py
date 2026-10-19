@@ -14,7 +14,7 @@ encode = lambda value: (json.dumps(value, ensure_ascii=False, sort_keys=True, se
 digest = lambda data: hashlib.sha256(data).hexdigest()
 
 
-def reviewed_extensions_increment(root):
+def reviewed_extensions_increment(root, latest_predecessor=None):
     root = Path(root)
     repository = root.parents[1]
     path = root / 'runtime-patches/browser-extensions-20261015.json'
@@ -27,7 +27,7 @@ def reviewed_extensions_increment(root):
     def read(name):
         if not isinstance(name, str) or '\\' in name or PurePosixPath(name).is_absolute() or any(part in ['', '.', '..'] for part in name.split('/')):
             raise ValueError('Unsafe browser-method metadata path')
-        return (repository / name).read_bytes()
+        return latest_predecessor[name] if latest_predecessor and name in latest_predecessor else (repository / name).read_bytes()
 
     def verify(record, location=None):
         data = read(location or record['file'])

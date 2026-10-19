@@ -4,7 +4,7 @@
 .tool-method-warning{display:flex;flex:1 1 0;align-items:center;min-width:0;max-width:360px;height:30px;margin:0;padding:0;border:0;background:none;color:var(--muted,#777);font-size:10.5px;line-height:10px}
 .tool-method-warning>span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;max-height:30px;cursor:help}.tool-method-warning>span:focus-visible{outline:1px solid var(--accent,#9ec5fa);outline-offset:2px}
 .tool-method-warning[hidden],.dtd-evaluation-popup[hidden]{display:none}
-.dtd-evaluation-popup{position:absolute;z-index:12;top:8px;left:8px;width:690px;max-width:calc(100% - 16px);max-height:calc(100% - 16px);box-sizing:border-box;overflow:auto;pointer-events:auto;padding:14px 16px;border:1px solid var(--line,#9996);border-radius:8px;background:var(--panel,#fff);color:var(--ink,#222);box-shadow:0 5px 20px #0005;font-size:12px;line-height:1.4;user-select:text}
+.dtd-evaluation-popup{position:fixed;inset:auto;margin:0;z-index:2147483000;top:8px;left:8px;width:690px;max-width:calc(100% - 16px);max-height:calc(100% - 16px);box-sizing:border-box;overflow:auto;pointer-events:auto;padding:14px 16px;border:1px solid var(--line,#9996);border-radius:8px;background:var(--panel,#fff);color:var(--ink,#222);box-shadow:0 5px 20px #0005;font-size:12px;line-height:1.4;user-select:text}
 .dtd-evaluation-popup h3{margin:0 0 10px;font-size:14px}.dtd-evaluation-popup h4{margin:12px 0 6px;font-size:12px}
 .dtd-evaluation-popup table{width:100%;border-collapse:collapse;font-size:11px}.dtd-evaluation-popup th,.dtd-evaluation-popup td{padding:5px 7px;border:1px solid var(--line,#9996);text-align:left;vertical-align:top}.dtd-evaluation-popup tbody th{font-weight:400}.dtd-evaluation-popup td{white-space:nowrap;font-variant-numeric:tabular-nums}
 .dtd-evaluation-popup p{margin:7px 0 0;font-size:11px}.dtd-evaluation-popup .dtd-evaluation-source{color:var(--muted,#777)}
@@ -63,3 +63,13 @@
 .dtd-opacity-control input[type=range]{width:120px;min-width:80px;margin-inline:0;accent-color:#6b98cb}
 .dtd-opacity-control output{min-width:4ch;text-align:left;font-variant-numeric:tabular-nums}
 .dtd-opacity-control[hidden]{display:none}
+
+.rita-evaluation-popup{width:680px}
+.rita-evaluation-popup table{table-layout:fixed}
+.rita-evaluation-popup th:first-child{width:60%;overflow-wrap:anywhere}
+.rita-evaluation-popup td{text-align:right}
+.rita-evaluation-popup th:not(:first-child){overflow-wrap:anywhere}
+.rita-probability-palette .trufor-palette-bar{background:linear-gradient(90deg,#000,#f00)}
+@media(max-width:480px){.rita-evaluation-popup{padding:10px}.rita-evaluation-popup th,.rita-evaluation-popup td{padding:4px 3px}}
+
+#legacy-scientific-export-compatibility[hidden]{display:none!important}

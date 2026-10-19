@@ -59,6 +59,17 @@ export function d2prlNpz(result,maxBytes){
  }
  return writeNpz(result,maxBytes,entries);
 }
+export function ritaNpz(result,maxBytes,writer=writeNpz){
+ const d=result.data,n=d?.width*d?.height,entries=[];
+ requireValue(Number.isSafeInteger(n)&&n>0,'Invalid RITA source geometry.');
+ for(const key of ['map','official_mask','labels','logits']){
+  const value=d[key],segmented=typeof value?.readBytes==='function';
+  const channels=key==='logits'?4:1;
+  requireValue((value instanceof Float32Array||segmented&&writer!==writeNpz)&&value.length===n*channels,'Invalid RITA native array; stored results require the asynchronous export stream.');
+  entries.push({key,value,header:header('<f4',channels===4?[4,d.height,d.width]:[d.height,d.width]),bytes:value.byteLength,floating:true,segmented});
+ }
+ return writer(result,maxBytes,entries);
+}
 export function truforNpz(result,maxBytes,writer=writeNpz){
  const d=result.data,n=d.width*d.height,entries=[];
  requireValue(Number.isSafeInteger(n)&&n>0,'Invalid TruFor geometry.');

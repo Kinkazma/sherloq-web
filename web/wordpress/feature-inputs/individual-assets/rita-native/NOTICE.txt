@@ -1,0 +1,31 @@
+RITA native FP32 model operators
+
+Original model: RITA — Revisiting Image Manipulation Localization under
+Realistic Manipulation Scenarios, CVPR2026 Findings.
+Authors: Xuekang Zhu, Ji-Zhe Zhou, Kaiwen Feng, Chenfan Qu, Xiwen Wang,
+Yunfei Wang, Liting Zhou, Jian Liu.
+Original project: https://github.com/scu-zjz/RITA
+Paper: https://arxiv.org/abs/2509.20006
+
+The model weights and their converted operator resources are provided under
+Creative Commons Attribution-NonCommercial-ShareAlike4.0 International:
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+SPDX-License-Identifier: CC-BY-NC-SA-4.0
+
+Adaptation: SHERLOQ exports FP32 ONNX operators from the supplied checkpoint,
+preserves learned parameters and global attention, and makes geometric feature
+splits and final interpolation depend on the original input dimensions.
+Reflection padding to multiples of32 is cropped from the native final output.
+Operator partitioning, bounded row windows and temporary feature storage do
+not replace the image with independently inferred tiles. This adaptation is
+distinct from the original fixed512x512 evaluation protocol. The authors do
+not endorse this adaptation.
+
+Original checkpoint SHA-256:
+50da42c81508dd3d0f150af4245f47af8c8c0b554a392527635b7e2245aa3299
+Original rita.py SHA-256:
+4ab0cb2a76ce537833589d12b54a4599322a5a5ba6a5277378d21c093c002c56
+
+This notice covers the model-weight resources. It does not state a separate
+licence grant for the original repository's source code. Rebuilding requires
+the original source and checkpoint to be supplied separately.

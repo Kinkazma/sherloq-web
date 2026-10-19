@@ -1,6 +1,6 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.22.0";
 import {scientificZipPlan,scientificZipLocal,scientificZipCentral,scientificZipEnd} from './scientific-zip.js';
-import {truforNpz,compositeNpz,catnetNpz,cfaNpz,forgeryscopeNpz} from './npz.js';
+import {ritaNpz,truforNpz,compositeNpz,catnetNpz,cfaNpz,forgeryscopeNpz} from './npz.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 const enc=new TextEncoder(),CHUNK=1024**2,little=new Uint8Array(new Uint32Array([1]).buffer)[0]===1;
 const crcTable=Uint32Array.from({length:256},(_,n)=>{let c=n;for(let j=0;j<8;j++)c=(c&1)?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
@@ -29,7 +29,7 @@ function dataRange(e,offset,count){
 /** Stored ZIP/NPY bytes identical to the existing exports, random-access in
  * bounded windows. The caller must pin result arrays until release(). */
 export async function createM2NpzStream(method,result,{budget,signal,onProgress}={}){
- const factory={trufor:truforNpz,composite:compositeNpz,catnet:catnetNpz,cfa:cfaNpz,forgeryscope:forgeryscopeNpz}[method];requireValue(factory,'Unknown M2 export method.');
+ const factory={rita:ritaNpz,trufor:truforNpz,composite:compositeNpz,catnet:catnetNpz,cfa:cfaNpz,forgeryscope:forgeryscopeNpz}[method];requireValue(factory,'Unknown M2 export method.');
  let source,entries;factory(result,Infinity,(r,_limit,e)=>{source=r;entries=e;});
  const release=budget.reserve(2*CHUNK+65536+entries.length*1024+32*(jsonBound(source.data.metadata)+jsonBound(source.provenance)));
  try{

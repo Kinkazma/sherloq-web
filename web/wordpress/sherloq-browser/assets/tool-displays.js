@@ -8,7 +8,7 @@ export function resultDisplays(output,{neuralDisplays=()=>null,language='fr'}={}
  function visit(value,path){
   if(!value||typeof value!=='object'||ArrayBuffer.isView(value))return;
   if(value.width&&value.height&&value.format&&((value.id&&value.revision)||value.data instanceof Uint8Array)){
-   const key=value.id||path;if(!seen.has(key)){seen.add(key);const names=english?{map:'Anomaly map',map_alternative:'Heatmap — alternative palette',confidence:'Confidence',noiseprint_pp:'Noiseprint++'}:{map:'Carte des anomalies',map_alternative:'Carte de chaleur — palette alternative',confidence:'Confiance',noiseprint_pp:'Noiseprint++'},numbered=english?['Overlay','Map','Grids / map']:['Superposition','Carte','Grilles / carte'];found.push({label:value.m2Result?names[value.view]??numbered[value.view]:path||'Résultat',display:value.id?value:{...value,pixels:value}});}return;
+   const key=value.id||path;if(!seen.has(key)){seen.add(key);const names=english?{probability:'RITA — scores',mask:'RITA — mask',overlay:'RITA — overlay',map:'Anomaly map',map_alternative:'Heatmap — alternative palette',confidence:'Confidence',noiseprint_pp:'Noiseprint++'}:{probability:'RITA — scores',mask:'RITA — masque',overlay:'RITA — superposition',map:'Carte des anomalies',map_alternative:'Carte de chaleur — palette alternative',confidence:'Confiance',noiseprint_pp:'Noiseprint++'},numbered=english?['Overlay','Map','Grids / map']:['Superposition','Carte','Grilles / carte'];found.push({label:value.m2Result?names[value.view]??numbered[value.view]:path||'Résultat',display:value.id?value:{...value,pixels:value}});}return;
   }
   for(const [key,child]of Object.entries(value)){if(['provenance','metrics'].includes(key))continue;visit(child,path?path+'.'+key:key);}
  }

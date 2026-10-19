@@ -14,6 +14,7 @@ export const batchGroups=groups;
 // Individual-tool defaults and the minimum of four witnesses stay unchanged.
 export const BATCH_CLONE_DEFAULTS=Object.freeze({minimum:7,low:15});
 export function batchRecipeView(recipe){
+ if(recipe.operation==='m2.rita')return {mode:'overlay',opacity:.6,...copy(recipe.view??{}),threshold:recipe.signal?.threshold??recipe.view?.threshold??.5};
  if(!['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(recipe.operation))return recipe.view===undefined?undefined:copy(recipe.view);
  return {...sparseViewDefaults(),...(recipe.params?.algorithm==='SSG'?{}:{low:BATCH_CLONE_DEFAULTS.low}),...copy(recipe.view??{})};
 }
@@ -40,11 +41,11 @@ function describe(id,item){
  let kind='view',group='less';
  if(id.startsWith('analysis.')){kind='automatic';group='recommended';}
  else if(id.startsWith('ai.clones.')||id.startsWith('tampering.copyMove.')||id==='m2.forgeryscope'){kind='clones';group='recommended';}
- else if(['m2.trufor','m2.catnet','ai.localization.focal','ai.localization.adaifl'].includes(id)){kind='map';group='complement';}
+ else if(['m2.trufor','m2.rita','m2.catnet','ai.localization.focal','ai.localization.adaifl'].includes(id)){kind='map';group='complement';}
  else if(id==='noise.noisesniffer'){kind='regions';group='complement';}
  else if(id==='ela.energy'||id==='ela.biomes'){kind='ela';group='complement';}
  if(prerequisites[id]){kind='required';group='required';}
- return {id,operation:id,...item,backend:'auto',params:copy(item.params??{}),kind,group,description:id==='file.similarity'?['Liens vers des services externes ; aucune opération locale à exécuter en lot.','Links to external services; no local batch operation.']:descriptions[kind],notBatch:id==='file.similarity',requires:prerequisites[id],signal:{threshold:.8,minimumPixels:32},fields:toolCatalog[id]?toolFields(id):Object.entries(item.params??{}).map(([key,value])=>({key,label:key,value,type:typeof value==='boolean'?'checkbox':typeof value==='number'?'number':'text'}))};
+ return {id,operation:id,...item,backend:'auto',params:copy(item.params??{}),kind,group,description:id==='file.similarity'?['Liens vers des services externes ; aucune opération locale à exécuter en lot.','Links to external services; no local batch operation.']:descriptions[kind],notBatch:id==='file.similarity',requires:prerequisites[id],...(id==='m2.rita'?{view:{mode:'overlay',threshold:.5,opacity:.6},description:['RITA — tampon et IA générative, à la taille native. Score non calibré ; 0,5 reproduit le masque du modèle. Les images comportant des exclusions restent des sorties brutes, sans vote scientifique filtré.','RITA — stamping and generative AI, at native size. Uncalibrated score; 0.5 reproduces the model mask. Images with exclusions remain raw outputs and do not cast a scientifically scoped vote.']}:{}),signal:{threshold:id==='m2.rita'?.5:.8,minimumPixels:32},fields:toolCatalog[id]?toolFields(id):Object.entries(item.params??{}).map(([key,value])=>({key,label:key,value,type:typeof value==='boolean'?'checkbox':typeof value==='number'?'number':'text'}))};
 }
 const entries=Object.entries({...toolCatalog,...extra}).filter(([id])=>id!=='tampering.copyMove.sparse').map(([id,item])=>describe(id,item));
 const ssgKeys=new Set(Object.keys(SSG_DEFAULTS));
@@ -75,7 +76,7 @@ export function batchTask(recipe,{id,imageId,regions=[],scientificScope}={}){
  }
  if(operation==='m2.forgeryscope'&&scientificScope)params.scientificScope=copy(scientificScope);
  if(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&scientificScope){regions=batchNeuralCropRegions(scientificScope.regions,{width:scientificScope.width,height:scientificScope.height});params.scientificScope=copy(scientificScope);}
- return {id,imageId,operation,params,backend:recipe.backend??'auto',...(operation==='tampering.copyMove.sparse'&&scientificScope?{scientificScope:copy(scientificScope)}:{}),...(['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?{view:batchRecipeView(recipe)}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
+ return {id,imageId,operation,params,backend:recipe.backend??'auto',...(operation==='tampering.copyMove.sparse'&&scientificScope?{scientificScope:copy(scientificScope)}:{}),...(batchRecipeView(recipe)!==undefined?{view:batchRecipeView(recipe)}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
 }
 
 // Neural inputs are rectangular integer pixel windows. YOLO acquisition bounds
@@ -240,9 +241,23 @@ export async function batchNativeScopeExecution(recipe,scope,output,{budget,sign
  }
  return {schema:'sherloq.batch-native-scope-execution/1',validated:true,variant,sourceSha256:scope.sourceSha256,scopeFingerprint:scope.fingerprint,modelSha256:provenance.model.sha256,backend:provenance.backend,geometryValidation:'Reprojected exact original-coordinate acquisitions/exclusions and SHA-256 of every native admission grid.',cnnContextMasked:false,regions:checked};
 }
+// RITA has global attention and categorical feedback. Cropping, blanking or
+// post-filtering cannot establish that excluded pixels were absent from its
+// native computation. Qualify only a demonstrably complete original frame.
+export function batchRitaFullFrameScope(scope){
+ if(!scope||scope.excluded?.length||scope.text?.polygons?.length||!Number.isSafeInteger(scope.width)||!Number.isSafeInteger(scope.height))return false;
+ return (scope.regions??[]).some(r=>{
+  if(r.envelope||r.x0>0||r.y0>0||r.x1<scope.width||r.y1<scope.height)return false;
+  if(!r.polygon)return true;
+  if(r.polygon.length!==4)return false;
+  const xs=r.polygon.map(p=>p[0]),ys=r.polygon.map(p=>p[1]),left=Math.min(...xs),right=Math.max(...xs),top=Math.min(...ys),bottom=Math.max(...ys);
+  return left<=0&&top<=0&&right>=scope.width-1&&bottom>=scope.height-1&&new Set(r.polygon.map(([x,y])=>((x===left?'l':x===right?'r':'?')+(y===top?'t':y===bottom?'b':'?')))).size===4&&r.polygon.every(([x,y],i)=>{const next=r.polygon[(i+1)%4];return (x===left||x===right)&&(y===top||y===bottom)&&((x===next[0])!==(y===next[1]));});
+ });
+}
 export function batchScopeSupport(recipe,scope,output,validationOptions){
  if(!scope)return {mode:'native-diagnostic',scientificFiltering:false};
  const common={scientificFiltering:true,scopeFingerprint:scope.fingerprint,coordinates:'original-pixels',originalPixelsPreserved:true};
+ if(recipe.operation==='m2.rita')return batchRitaFullFrameScope(scope)?{...common,mode:'native-full-frame',scientificFiltering:false,qualifiedForScopedSignal:true,input:'whole-original-image',excludedPixels:0,cnnContext:'whole-original-image',rawModelOutputsPreserved:true}:{...common,mode:'raw-only',qualifiedForScopedSignal:false,input:'whole-original-image',exclusionsBeforeInference:false,rawModelOutputsPreserved:true,reason:'RITA conserve le contexte global original. Les exclusions de texte, graphiques ou sous-zones ne sont pas encore prises en charge avant son calcul ; la sortie brute ne participe pas au signalement scientifique.'};
  if(recipe.operation==='tampering.copyMove.sparse')return {...common,mode:'input-exclusions',stage:'before-matching',method:recipe.params.algorithm};
  if(recipe.operation==='m2.forgeryscope')return {...common,mode:'geometry-before-matching',rawBranches:['embeddings','lanes'],qualifiedEvidence:'filtered_evidence.comparisons'};
  if(recipe.operation==='ai.clones.d2prl')return {...common,mode:'matching-exclusions',input:'acquisition-rois',stage:'source-and-target-before-native-patchmatch',cnnContext:'original-rectangle-context',textFiltering:'matching-and-derived-evidence',nativeMapsPreserved:true};
