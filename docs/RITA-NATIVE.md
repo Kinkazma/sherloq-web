@@ -58,6 +58,19 @@ python scripts/rita-rebuild.py \
 
 La qualification numérique locale couvre des géométries rectangulaires, une image native et un motif 769 × 513 prolongé à 800 × 544. Elle ne constitue pas une mesure de fiabilité générale du modèle. La recette native a été exécutée dans Chromium, Firefox et WebKit. Les masques catégoriels des cas de référence sont identiques pixel par pixel ; les écarts numériques de logits FP32 sont mesurés séparément. Des budgets réduits, la migration sans perte vers le stockage temporaire, l’annulation et la reprise ont également été contrôlés. Le parcours utilisateur ouvre une image, lance RITA, change la vue et le seuil, puis exporte l’image native depuis le menu Fichier.
 
+## Précision numérique selon le budget
+
+Les fenêtres de calcul dépendent du budget admis. Des écarts FP32 ont été observés entre budgets. Le retour autorégressif des classes pourrait les amplifier localement, sans que cette explication soit établie par ces mesures. Les opérations restent en FP32 et les poids, dimensions et paramètres scientifiques sont conservés ; une identité numérique entre budgets ou backends n’est pas revendiquée.
+
+Sur un cas de 2 000 × 2 000 pixels dans Chromium CPU, comparé à sa référence à 2 048 Mio :
+
+| Budget admis | Écart maximal du score | Écart maximal des logits | Pixels de masque/classes différents sur 4 000 000 |
+| --- | ---: | ---: | ---: |
+| 512 Mio | 0,3217644 | 5,418489 | 3 |
+| 1 024 Mio | 0,000001788 | 0,00002289 | 0 |
+
+Ces mesures décrivent ce cas ; elles ne constituent pas une borne d’erreur universelle. Le budget admis par le moteur ne mesure pas la mémoire totale du navigateur. Les comparaisons GPU à 2 et 8 Gio ont conservé les quatre champs de leurs références correspondantes.
+
 ## Crédits et distribution
 
 RITA : Xuekang Zhu, Ji-Zhe Zhou, Kaiwen Feng, Chenfan Qu, Xiwen Wang, Yunfei Wang, Liting Zhou et Jian Liu, *Revisiting Image Manipulation Localization under Realistic Manipulation Scenarios*, CVPR 2026 Findings. [Article](https://arxiv.org/abs/2509.20006), [code officiel](https://github.com/scu-zjz/RITA). Les auteurs indiquent s’appuyer sur IMDLBenCo.
