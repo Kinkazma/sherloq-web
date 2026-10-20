@@ -180,3 +180,10 @@ The English study retains the supplied 96 edited versions, their measurements an
 The integrated interface, gesture, settings, retained-result, cancellation and update checks pass. Native PNG grayscale and blocking-filter qualifications are retained from the supplied delivery. New receipt checks reject altered sources, PNG bytes, historical snapshots, model metadata and unrelated runtime locks. The complete reviewed chain preserves the RITA resources and all other unchanged resource descriptors.
 
 A fresh Chromium workspace enables numeric hover sliders by default and retains an explicit disabled choice across reopening. The compact UI and native result presentations remain separate from provisional sampled frames. Calibration targets do not guarantee first-frame latency on every browser or device. Resource and shell identities, source closure and old-updater compatibility are checked separately; those metadata checks are not a new complete offline installation or a fresh qualification of every neural model.
+
+
+## Web 0.24.0 — Source regions, OCR and PDF reader
+
+The integrated engine and interface checks cover source-domain transport, native rectangles, grayscale/JPEG evidence, retained presentation, cancellation, ownership, OCR selection and PDF frame transitions. The cumulative runtime verifier preserves its historical receipts and rejects altered sources, OCR model identities, snapshots and undeclared metadata. The resource catalogue includes the new optional OCR families and retains user exclusions.
+
+The supplied browser qualifications cover the new OCR, PDF and source-region paths. PDF text and vectors remain a finite high-density raster; embedded images retain their certified native grid. Unsupported Energy/Biome domains containing internal holes are rejected before analysis. The supplied isolated OCR offline check and static resource closure are narrower than a fresh complete offline installation of the final cumulative product. Resource checks do not establish new scientific reliability claims for the models.
