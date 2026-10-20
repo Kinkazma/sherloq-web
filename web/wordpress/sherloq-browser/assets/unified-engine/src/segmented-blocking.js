@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.23.0";
 import {WaveletStripPool} from './wavelet-strip-pool.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {blockingParams} from './wavelet-blocking.js';
@@ -8,6 +8,8 @@ import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface,createMaskSurface} from './rgb-surface.js';
 import {createNoiseTable} from './noise-table.js';
 import {inspectJpegBlob} from './jpeg.js';
+import {inspectPngSource} from './png-header-source.js';
+import {decodePngRows} from './png-stream.js';
 import {decodeJpegGrayRows} from './jpeg-gray-rows.js';
 import {gray} from './pixel-utils.js';
 
@@ -24,8 +26,14 @@ export async function segmentedBlocking(image,params,{budget,signal,onProgress,c
  try{
   let sourceMode=cache?.sourceMode??'loaded image grayscale',sourceDimensions=cache?.sourceDimensions??[width,height];
   if(!cache&&image.source){
-   const header=await inspectJpegBlob(image.source,{signal});sourceDimensions=header.orientation>=5?[header.sourceHeight,header.sourceWidth]:[header.sourceWidth,header.sourceHeight];
-   const store=await createSegmentedBytes(header.sourceWidth*header.sourceHeight,options);try{await decodeJpegGrayRows(image.source,header,store,{budget,signal,chunkBytes:Math.max(header.sourceWidth,Math.min(4*1024**2,block)),onProgress:f=>progress('file-gray',f,1)});graySurface=createMaskSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget,range:[0,255],semantics:'Original JPEG grayscale ISLOW'});}catch(error){await store.dispose();throw error;}sourceMode='file grayscale';
+   const png=image.provenance?.format==='png';
+   if(image.provenance?.format==='tiff')throw new EngineError('UNSUPPORTED_FORMAT','Original-file TIFF grayscale streaming for block-noise analysis is not yet qualified.');
+   const header=png?(await inspectPngSource(image.source,{signal,account:bytes=>budget.reserve(bytes)})).header:await inspectJpegBlob(image.source,{signal});sourceDimensions=header.orientation>=5?[header.sourceHeight,header.sourceWidth]:[header.sourceWidth,header.sourceHeight];
+   const store=await createSegmentedBytes(header.sourceWidth*header.sourceHeight,options);try{
+    if(png)await decodePngRows(image.source,header,store,{budget,signal,grayscale:true,onProgress:f=>progress('file-gray',f,1)});
+    else await decodeJpegGrayRows(image.source,header,store,{budget,signal,chunkBytes:Math.max(header.sourceWidth,Math.min(4*1024**2,block)),onProgress:f=>progress('file-gray',f,1)});
+    graySurface=createMaskSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget,range:[0,255],semantics:png?'Original PNG grayscale, native libpng coefficients and truncation':'Original JPEG grayscale ISLOW'});
+   }catch(error){await store.dispose();throw error;}sourceMode='file grayscale';
   }
   workspace=budget.reserve(heap+block*128);const math=await waveletStreamMath();
   if(!cache){

@@ -34,9 +34,9 @@ function recoverObject(input,fallback,validator,path,issues){
 }
 export function recoverWorkspacePreferences(input={}, {fallback={}}={}){
  if(!isObject(input))throw Error('Invalid workspace preferences');
- const issues=[],value={...fallback},choices={language:['fr','en'],layout:['tabs','tile','cascade'],theme:['light','dark'],computeProfile:['maximum','aggressive'],navigationMode:['auto','mouse','trackpad']};
+ const issues=[],value={allSliders:true,...fallback},choices={language:['fr','en'],layout:['tabs','tile','cascade'],theme:['light','dark'],computeProfile:['maximum','aggressive'],navigationMode:['auto','mouse','trackpad']};
  for(const [key,allowed]of Object.entries(choices))if(input[key]!==undefined){if(allowed.includes(input[key]))value[key]=input[key];else issues.push({path:key,kind:'incompatible',message:'Invalid '+key});}
- for(const key of ['toolsVisible','highlight','experimentalTools'])if(input[key]!==undefined){if(typeof input[key]==='boolean')value[key]=input[key];else issues.push({path:key,kind:'incompatible',message:'Invalid '+key});}
+ for(const key of ['toolsVisible','highlight','allSliders','experimentalTools'])if(input[key]!==undefined){if(typeof input[key]==='boolean')value[key]=input[key];else issues.push({path:key,kind:'incompatible',message:'Invalid '+key});}
  if(input.favorites!==undefined){if(Array.isArray(input.favorites)){value.favorites=[];for(const [index,id]of input.favorites.entries())if(typeof id==='string'&&id.length<=120&&!value.favorites.includes(id))value.favorites.push(id);else issues.push({path:'favorites.'+index,kind:'incompatible',message:'Invalid favorite identity'});}else issues.push({path:'favorites',kind:'incompatible',message:'Invalid favorites'});}
  const base=validateMediaPreferences();
  if(input.font!==undefined){if(['iowan','montserrat'].includes(input.font))value.font=input.font;else issues.push({path:'font',kind:'incompatible',message:'Invalid font'});}
@@ -45,7 +45,7 @@ export function recoverWorkspacePreferences(input={}, {fallback={}}={}){
   value[key]=recoverObject(input[key],prior,validator,key,issues);
  }
  if(input.dependencies!==undefined){if(isObject(input.dependencies))value.dependencies={...input.dependencies,...(typeof input.dependencies.folderName==='string'?{folderName:input.dependencies.folderName.slice(0,200)}:{})};else issues.push({path:'dependencies',kind:'incompatible',message:'Invalid library preferences'});}
- const known=new Set([...Object.keys(choices),'toolsVisible','highlight','experimentalTools','favorites','font','exports','quickExport','loupe','dependencies']);
+ const known=new Set([...Object.keys(choices),'toolsVisible','highlight','allSliders','experimentalTools','favorites','font','exports','quickExport','loupe','dependencies']);
  for(const key of Object.keys(input))if(!known.has(key))issues.push({path:key,kind:'unknown',message:'Preserved in recovery backup'});
  return {value,issues};
 }

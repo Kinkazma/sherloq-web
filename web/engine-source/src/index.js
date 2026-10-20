@@ -1,3 +1,4 @@
+import {previewCachedZero,previewCachedStereo,reservePreview,previewUnavailable} from './cached-parameter-preview.js';
 import {readDisplayFrame} from './display-sampling.js';
 import {rasterPresentation} from './raster-presentation.js';
 import {inspectExtendedImage,loadExtendedImage} from './media-image-source.js';
@@ -545,6 +546,18 @@ export function createEngine({memoryBudgetBytes,codec=imageCodec,cpuKernel='auto
   },
   async createPrnuDatabaseExport(id,{signal}={}){idle();const value=asset(id);requireValue(value.kind==='prnu-database','A loaded PRNU database is required.');busy=true;let archive,published=false,resident;try{resident=budget.reserve(knownHeapBytes());archive=await originalPrnuArchive(value,{budget,signal,onTemporarySession});const result=rasterExports.adopt(archive,{imageId:id,operation:'noise.prnu',originalSha256:value.sha256,mime:'application/x-hdf5',format:'hdf5'});published=true;return result;}finally{try{if(!published)await archive?.dispose();}finally{resident?.();busy=false;}}},
   exportPrnuDatabase(id){idle();const value=asset(id);requireValue(value.kind==='prnu-database','A loaded PRNU database is required.');requireValue(value.bytes instanceof Uint8Array,'Use createPrnuDatabaseExport/readExport for Blob or paged databases.');const release=budget.reserve(Math.max(RUNTIME_RESERVE,knownHeapBytes())+value.bytes.byteLength);try{return {mime:'application/x-hdf5',bytes:value.bytes.slice()};}finally{release();}},
+  async previewParameters(task,preview={}, {signal,onProgress}={}){
+   idle();identity(task?.id);identity(task?.imageId);requireValue(['jpeg.zero','various.stereogram','ai.sources.safire'].includes(task.operation),'This operation has no cached parameter draft.');requireValue(!task.scientificScope&&(!task.regions||Array.isArray(task.regions)&&!task.regions.length),'Cached drafts do not add scientific regions.');const im=image(task.imageId);busy=true;let resident;const start=performance.now();
+   try{
+    checkAbort(signal);resident=reservePreview(budget,Math.max(RUNTIME_RESERVE,knownHeapBytes()));let result;
+    if(task.operation==='jpeg.zero'){
+     const p=PIXEL_OPERATIONS['jpeg.zero'].validate(task.params),raw=im.zeroAnalysis?null:budget.get(task.imageId+'\0op/jpeg.zero/'+JSON.stringify({missing:p.missing}))?.value?.data,analysis=im.zeroAnalysis??(raw?{width:raw.width,height:raw.height,missingEnabled:p.missing,data:raw}:null);result=await previewCachedZero(im,analysis,p,preview,{budget,signal});
+    }else if(task.operation==='various.stereogram'){
+     const stage=name=>budget.get(task.imageId+'\0stage/various.stereogram/'+name)?.value,search=im.stereoCache?null:stage('search'),prepared=search?stage('pattern'):null,cache=im.stereoCache??(prepared?{offset:search.offset,pattern:{width:prepared.width,height:prepared.height,format:'rgb8',data:prepared.values},flow:stage('flow')}:null);result=await previewCachedStereo(im,cache,task.params,preview,{budget,signal});
+    }else{if(!m3)previewUnavailable('Run native SAFIRE before requesting its cached grouping draft.');result=await m3.preview(task,im,preview,{signal,onProgress});}
+    checkAbort(signal);return{...result,id:task.id,imageId:task.imageId,operation:task.operation,metrics:{...result.metrics,totalMs:performance.now()-start},provenance:{originalSha256:im.sha256,sourceUnchanged:true,provisional:true}};
+   }finally{resident?.();busy=false;}
+  },
   async run(task,{signal,onProgress}={}) {
    idle();identity(task?.id);
    if(dense&&task.operation!==DENSE_OPERATION){busy=true;try{await dense.clearImage(task.imageId);}finally{busy=false;}}

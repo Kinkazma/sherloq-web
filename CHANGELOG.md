@@ -2,6 +2,27 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.23.0 — Interactive controls and adaptive previews · 2026-10-20
+
+- Enable Sliders everywhere by default, preserving explicit saved opt-outs. Compact theme-aware hover controls reuse each numeric field's bounds and step without shifting the layout; the preference survives settings export/import and recovery.
+- Keep brief and repeated clicks on the direct native path. Held gestures and dragging use bounded adaptive previews before restoring the exact native result on release, including release outside the control. Serialize final presentations, reject obsolete responses and keep provisional output separate from scientific results and standard exports.
+- Calibrate preview resolution against measured presentation cost and memory admission, retaining reusable cost profiles and native results. The 50 ms target is adaptive rather than a universal cold-start guarantee; final methods, precision, source geometry and worker settings remain unchanged.
+- Decode segmented PNG inputs with native libpng grayscale for the blocking noise filter, including 16-bit samples before reduction. Preserve RGB decoding and parity with the complete native path; this correction does not extend TIFF support.
+
+- Enable original pixel colours by default in RGB/HSV plots, preserving saved choices and restoring the coloured view on Reset.
+
+- Introduce the RGB/HSV point cloud with one short 3D rotation, keeping the third axis at a clear lower-left angle. Preserve the camera through previews and recalculation, let interaction cancel the introduction, and rearm it only after Reset or a new source. Double-click remains an exact aligned fit, and reduced-motion settings are respected.
+- Separate existing numeric Automatic settings from the manual slider range. Reaching Automatic requires deliberate movement beyond the numeric minimum and a brief hold; the thumb enters a distinct compact area. Preserve valid zero values, source-dependent maxima and each tool’s native automatic semantics, including global adjustment and batch settings.
+
+- Recalculate JPEG Ghosts, ZERO and stereogram results automatically after a setting changes. Complete discrete clicks directly, and restore native results after continuous previews.
+- Preserve the selected JPEG Ghosts quality or original layer through previews and recalculation, choosing the nearest quality when the requested grid changes.
+- Reuse retained native ZERO votes and stereogram period data for bounded provisional views. Add adaptive SAFIRE grouping previews with a 200 ms target, followed by full native grouping from retained proposals on release.
+- Update FOCAL map and overlay presentation on the first change, including native menus that consume the pointer release event.
+- Bound RGB/HSV sampling and hexadecimal offsets to the original source. Keep hexadecimal page navigation consistent with the current page size and allow the exact end of the file.
+- Add a zero detent followed by Automatic to the wavelet decomposition-level slider, preserving the native automatic setting and nonnegative threshold semantics.
+- Keep the original image when closing analysis windows, and add a button to copy the complete displayed diagnostic.
+- Finish a pending native response presentation before refreshing the active tool’s available functions, preventing a stale provisional overlay.
+
 ## 0.22.0 — RITA and individual tool controls · 2026-10-19
 
 - Reuse exact RITA graph sessions, the invariant first RGB projection and verified completed results, while prioritizing feature banks over an incomplete model cache.

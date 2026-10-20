@@ -54,6 +54,8 @@ defaults['m2.rita'].view={mode:'overlay',threshold:.5};
 for(const tool of EXTENSION_TOOLS)defaults[tool.id]={params:{},exports:tool.kind==='global'?['json']:['json','npz']};
 // Keep the native automatic wavelet level; validate() canonicalizes the zero threshold.
 defaults['detail.wavelets'].params.level=null;
+// Original pixel colours are the initial plot presentation; saved choices still win.
+defaults['colors.plots'].params.colored=true;
 export const toolCatalog=Object.fromEntries(toolGroups.flatMap(g=>g.items).filter(t=>defaults[t.id]).map(t=>[t.id,{...t,...defaults[t.id]}]));
 export function toolFields(id){const out=[];const visit=(object,prefix='')=>{for(const [name,value]of Object.entries(object)){if(hidden.has(name))continue;const key=prefix+name;if(value&&typeof value==='object'&&!Array.isArray(value)){visit(value,key+'.');continue;}if(Array.isArray(value))continue;out.push({key,label:labels[name]||name,type:typeof value==='boolean'?'checkbox':typeof value==='number'||value===null?'number':'text',value,...(fields[id]?.[key]||{} )});}};visit(toolCatalog[id].params);return out;}
 export const toolTitle=(id,language='fr')=>toolCatalog[id]?.[language]||id;

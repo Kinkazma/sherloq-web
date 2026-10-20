@@ -13,9 +13,15 @@ encode = lambda value: (json.dumps(value, ensure_ascii=False, sort_keys=True, se
 digest = lambda data: hashlib.sha256(data).hexdigest()
 
 
-def reviewed_rita_increment(root):
+def reviewed_rita_increment(root, latest_predecessor=None):
     root = Path(root)
     repository = root.parents[1]
+    if latest_predecessor is None and (root / 'runtime-patches/interactive-20261020.json').exists():
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('interactive_predecessor', root / 'runtime-interactive.py')
+        layer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(layer)
+        _, latest_predecessor = layer.reviewed_interactive_increment(root)
     path = root / 'runtime-patches/rita-20261019.json'
     if not path.exists():
         return None, {}
@@ -26,7 +32,7 @@ def reviewed_rita_increment(root):
     def read(name):
         if not isinstance(name, str) or PurePosixPath(name).is_absolute() or '\\' in name or any(p in ['', '.', '..'] for p in name.split('/')):
             raise ValueError('Unsafe RITA source path')
-        return (repository / name).read_bytes()
+        return latest_predecessor[name] if latest_predecessor and name in latest_predecessor else (repository / name).read_bytes()
 
     def verify(record, location=None):
         data = read(location or record['file'])
@@ -127,4 +133,4 @@ def reviewed_rita_increment(root):
     for kind in locks:
         if encode(locks[kind]) != verify(receipt['locks'][kind]):
             raise ValueError('RITA changes undeclared runtime locks')
-    return receipt, previous
+    return receipt, {**(latest_predecessor or {}), **previous}

@@ -28,10 +28,15 @@ class RitaRuntimeIncrementTest(unittest.TestCase):
         for record in self.receipt['files']:
             names.update(record[key] for key in ['source', 'asset', 'mirror'])
         names.update('web/wordpress/feature-inputs/individual-assets/rita-native/' + name for name in ['manifest.json', 'NOTICE.txt'])
+        latest_path = ROOT / 'runtime-patches/interactive-20261020.json'
+        latest = {}
+        if latest_path.exists():
+            for r in json.loads(latest_path.read_text())['baseline']['snapshots']:
+                latest[r['file']] = (REPO / r['copy']).read_bytes()
         for name in names:
             target = self.repo / name
             target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(REPO / name, target)
+            target.write_bytes(latest[name] if name in latest else (REPO / name).read_bytes())
     def write_receipt(self):
         (self.repo / self.receipt_name).write_bytes(rita.encode(self.receipt))
     def test_valid_increment_retains_the_full_predecessor(self):

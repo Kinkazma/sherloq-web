@@ -1,3 +1,4 @@
+import {configureAutomaticSlider} from './source-parameter-constraints.js';
 import {localFeaturePolicy} from './feature-policy.js';
 import {preferenceAccess} from './preferences-recovery.js';
 import {withLocalActivity,localActivityFrozen} from './local-activity.js';
@@ -218,6 +219,7 @@ export async function mountBatchUI({document=globalThis.document,language=()=>do
     const Event=node.ownerDocument.defaultView.Event;node.dispatchEvent(new Event('input',{bubbles:true}));node.dispatchEvent(new Event('change',{bubbles:true}));
    };
   }
+  if(node.type==='number'){const selected=model.images.filter(image=>image.selected&&image.width>0&&image.height>0);configureAutomaticSlider(node,recipe.operation,key,selected.length?{width:Math.min(...selected.map(image=>image.width)),height:Math.min(...selected.map(image=>image.height))}:{});}
   node.dataset.parameter=key;node.onchange=()=>{if(!node.reportValidity())return;let value=node.type==='checkbox'?node.checked:node.type==='number'||typeof definition.value==='number'?node.value===''&&definition.nullable?null:Number(node.value):node.value;setField(recipe.params,key,value);persist();};const efficient=recipe.params.algorithm==='EfficientLoFTR',names=lang()==='fr'?{threshold:'Confiance minimum',limit:'Correspondances maximum',reflections:'Miroir',longSide:'Grand côté (pixels)',rotationMode:'Rotations'}:{threshold:'Minimum confidence',limit:'Maximum matches',reflections:'Mirror',longSide:'Long side (pixels)',rotationMode:'Rotations'},row=label(efficient&&names[key]?names[key]:recipe.operation==='tampering.copyMove.sparse'?(sparseLabels[lang()][key]??definition.label):definition.label,node);if(efficient&&key==='threshold')row.title=lang()==='fr'?'Seuil natif de confiance. Une valeur plus élevée est plus stricte ; ce n’est pas une probabilité de fraude.':'Native confidence threshold. Higher is stricter; this is not a forgery probability.';else if(recipe.operation==='tampering.copyMove.sparse'&&sparseHelp[lang()][key])row.title=sparseHelp[lang()][key];return row;
  }
  function renderTools(){tools.replaceChildren();for(const group of ['recommended','complement','less','required']){

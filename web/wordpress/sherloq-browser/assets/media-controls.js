@@ -61,5 +61,5 @@ export function mountMediaControls(document,{getPreferences,setPreferences,langu
   if(pending)cancel();quick=false;quickDraft=null;exportSize=size;const p=getPreferences(),v=exportSettings();
   if(size){const dimensions=v.resize?linkedExportSize(v,size):size;setPreferences({...p,exports:validateExportSettings({...v,width:dimensions.width,height:dimensions.height})});}
   sync();show(exporter);return new Promise((resolve,reject)=>{pending={task,resolve,reject};});
- },dispose(){closeLoupe();cancel();controls.remove();magnifier.remove();exporter.remove();}};
+ },dispose(){effectControls.dispose?.();closeLoupe();cancel();controls.remove();magnifier.remove();exporter.remove();}};
 }

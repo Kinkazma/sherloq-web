@@ -21,6 +21,8 @@ export function validateSettings(value){
  });
  const q=value.preferences;if(!q||typeof q!=='object')throw new Error('Invalid preferences');
  const preferences={navigationMode:q.navigationMode??'auto'};
+ if(q.allSliders!==undefined&&typeof q.allSliders!=='boolean')throw Error('Invalid allSliders');
+ preferences.allSliders=q.allSliders!==false;
  if(q.highlightNewFeatures!==undefined){if(typeof q.highlightNewFeatures!=='boolean')throw Error('Invalid highlightNewFeatures');preferences.highlightNewFeatures=q.highlightNewFeatures;}
  if(q.elaMode!==undefined)preferences.elaMode=validElaMode(q.elaMode);
  if(!['auto','mouse','trackpad'].includes(preferences.navigationMode))throw new Error('Invalid navigationMode');
@@ -70,7 +72,7 @@ export function validIndividualSettings(value){
 
 // Import and release migration recover each field independently. The strict
 // validator remains available for scientific task/session validation.
-export function defaultSettings(){return{schema:'sherloq.settings/1',profiles:[],current:{...defaults},activeProfile:'native',energy:validEnergySettings(),preferences:{elaMode:'classic',navigationMode:'auto',theme:'dark',language:'fr',layout:'tabs',computeProfile:'maximum',regionMode:'whole',favorite:false,showZones:true,toolsVisible:true,inspectorVisible:false}};}
+export function defaultSettings(){return{schema:'sherloq.settings/1',profiles:[],current:{...defaults},activeProfile:'native',energy:validEnergySettings(),preferences:{allSliders:true,elaMode:'classic',navigationMode:'auto',theme:'dark',language:'fr',layout:'tabs',computeProfile:'maximum',regionMode:'whole',favorite:false,showZones:true,toolsVisible:true,inspectorVisible:false}};}
 export function recoverSettings(input,{fallback=defaultSettings()}={}){
  const issues=[],base=validateSettings(fallback),value=input&&typeof input==='object'&&!Array.isArray(input)?input:{};
  if(value.schema!=='sherloq.settings/1')throw Error('Expected sherloq.settings/1');
@@ -88,7 +90,7 @@ export function recoverSettings(input,{fallback=defaultSettings()}={}){
   for(const key of Object.keys(p))if(!['id','name','operation','params'].includes(key))issue(path+'.'+key,'Preserved in recovery backup','unknown');
  }else if(value.profiles!==undefined)issue('profiles','Invalid profiles');
  // Validate UI fields without making a bad boolean/theme discard other fields.
- out.preferences=fields(value.preferences,{...out.preferences,highlightNewFeatures:out.preferences.highlightNewFeatures??false,elaMode:out.preferences.elaMode??'classic'},q=>validateSettings({...out,activeProfile:'native',preferences:q}).preferences,'preferences');
+ out.preferences=fields(value.preferences,{...out.preferences,highlightNewFeatures:out.preferences.highlightNewFeatures??false,allSliders:out.preferences.allSliders??true,elaMode:out.preferences.elaMode??'classic'},q=>validateSettings({...out,activeProfile:'native',preferences:q}).preferences,'preferences');
  if(['native','manual',...ids].includes(value.activeProfile))out.activeProfile=value.activeProfile;else if(value.activeProfile!==undefined){out.activeProfile=['native','manual',...ids].includes(base.activeProfile)?base.activeProfile:'manual';issue('activeProfile','Profile unavailable');}else if(!['native','manual',...ids].includes(out.activeProfile))out.activeProfile='manual';
  if(value.individual!==undefined){out.individual={...base.individual};if(value.individual&&typeof value.individual==='object'&&!Array.isArray(value.individual))for(const [id,parameters]of Object.entries(value.individual))try{Object.assign(out.individual,validIndividualSettings({[id]:parameters}));}catch(error){issue('individual.'+id,error);}else issue('individual','Invalid tool settings');}
  for(const [key,validate]of [['automatic',validAutomaticSettings],['composite',validCompositeSettings]])if(value[key]!==undefined)out[key]=fields(value[key],validate(base[key]),validate,key);

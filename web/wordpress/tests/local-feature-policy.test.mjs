@@ -57,13 +57,14 @@ const runtimeIncrement=JSON.parse(fs.readFileSync(new URL('../runtime-patches/ba
 const elaIncrement=JSON.parse(fs.readFileSync(new URL('../runtime-patches/ela-runtime-20261014.json',import.meta.url)));
 const extensionsIncrement=JSON.parse(fs.readFileSync(new URL('../runtime-patches/browser-extensions-20261015.json',import.meta.url)));
 const ritaIncrement=JSON.parse(fs.readFileSync(new URL('../runtime-patches/rita-20261019.json',import.meta.url)));
+const interactiveIncrement=JSON.parse(fs.readFileSync(new URL('../runtime-patches/interactive-20261020.json',import.meta.url)));
 const realManifestBytes=fs.readFileSync(new URL('../../../web-assets/manifest-template.json',import.meta.url));
 const realManifest=JSON.parse(realManifestBytes);
 test('effective catalogue covers installed bytes and every neural/sparse batch recipe',()=>{
- assert.equal(createHash('sha256').update(realManifestBytes).digest('hex'),ritaIncrement.manifest.sha256,'The effective catalogue must use the exact reviewed current inventory');
+ assert.equal(createHash('sha256').update(realManifestBytes).digest('hex'),interactiveIncrement.manifest.sha256,'The effective catalogue must use the exact reviewed current inventory');
  validateFeatureCatalog(realCatalog,realManifest);assert.equal(selectActiveFiles(realCatalog).size,Object.keys(realManifest.files).length);
  const withoutNeural=selectActiveFiles(realCatalog,{disabledGroups:['neural-detectors','segmentation','learned-clones','forgeryscope','composite']});
- for(const record of [...runtimeIncrement.files,...elaIncrement.files,...ritaIncrement.files].filter(record=>record.added))assert.ok(withoutNeural.has(record.file),'Shared scientific admission stays in protected core: '+record.file);
+ for(const record of [...runtimeIncrement.files,...elaIncrement.files,...ritaIncrement.files,...interactiveIncrement.files].filter(record=>record.added))assert.ok(withoutNeural.has(record.file),'Shared scientific admission stays in protected core: '+record.file);
  const rita=realCatalog.features.find(feature=>feature.id==='m2.rita');assert.equal(rita.resources.length,110);assert.deepEqual(rita.dependsOn,['resource.neural-runtime']);
  for(const recipe of batchCatalog)assert.ok(featureIdsForTask(recipe,realCatalog).length,recipe.id+' has no functional connection');
  const panel='unified-assets/forgeryscope/yolo_panel_extractor.onnx',plan=featureDeletionPlan(realCatalog,realManifest,{},['m2.forgeryscope'],{presentChunks:Object.keys(realManifest.chunks)});

@@ -43,13 +43,13 @@ test('native sampled views and full-precision windows match an independent float
  const rect={x:3,y:4,width:120,height:87},values=Float32Array.from({length:rect.width*rect.height},(_,i)=>native.score(rect.x+i%rect.width,rect.y+Math.floor(i/rect.width))),frame=await client.readWindow(view(output,'mask',.50000001),rect);assert.deepEqual(frame,ritaFrame(rect.width,rect.height,values,{mode:'mask',threshold:.50000001}));assert.equal(native.inferences,1);assert.equal(native.engineLeases.size,0);assert.equal(native.m2Leases.size,0);
 }));
 test('prewarmed 8-bit proxy reuses scores and sampled source; 90 slider frames perform zero RPCs',()=>runFixture({},async({client,output,native})=>{
- const display=view(output,'overlay',.5,true);await client.prepareDisplayPreview(display);const afterWarm=native.calls.length,step=Math.ceil(Math.max(native.width,native.height)/128),tile={x:0,y:0,w:native.width,h:native.height,step};assert.equal(native.engineLeases.size,1);assert.equal(native.m2Leases.size,0);
- for(let i=0;i<90;i++){const frame=await client.readTile(view(output,i%3===0?'overlay':i%3===1?'mask':'probability',i/100,true),tile);assert(frame.width<=128&&frame.height<=128);}
+ const display=await client.planDisplayPreview(view(output,'overlay',.5,true));await client.prepareDisplayPreview(display);const afterWarm=native.calls.length,step=Math.ceil(Math.max(native.width,native.height)/128),tile={x:0,y:0,w:native.width,h:native.height,step};assert.equal(native.engineLeases.size,1);assert.equal(native.m2Leases.size,0);
+ for(let i=0;i<90;i++){const frame=await client.readTile({...view(output,i%3===0?'overlay':i%3===1?'mask':'probability',i/100,true),adaptivePreview:display.adaptivePreview},tile);assert(frame.width<=128&&frame.height<=128);}
  assert.equal(native.calls.length,afterWarm,'no reads, allocations, releases or other worker RPCs');assert.equal(native.inferences,1);await client.readWindow(view(output,'mask',.73),{x:0,y:0,width:native.width,height:native.height});assert.equal(native.inferences,1);assert.equal(native.engineLeases.size,1,'only the prewarmed proxy lease remains');
 }));
 test('cropped proxy tiles preserve geometry and consume no further worker RPC',()=>runFixture({},async({client,output,native})=>{
- const display=view(output,'overlay',.4,true);await client.prepareDisplayPreview(display);const before=native.calls.length,frame=await client.readTile(display,{x:8,y:6,w:51,h:47,step:2});assert.equal(frame.width,26);assert.equal(frame.height,24);assert.equal(native.calls.length,before);assert.equal(native.inferences,1);
- await assert.rejects(client.readTile(display,{x:0,y:0,w:129,h:1,step:1}),{code:'INVALID_INPUT'});
+ const display=await client.planDisplayPreview(view(output,'overlay',.4,true));await client.prepareDisplayPreview(display);const before=native.calls.length,frame=await client.readTile(display,{x:8,y:6,w:51,h:47,step:2});assert.equal(frame.width,26);assert.equal(frame.height,24);assert.equal(native.calls.length,before);assert.equal(native.inferences,1);
+ await assert.rejects(client.readTile(display,{x:0,y:0,w:native.width+1,h:1,step:1}),{code:'INVALID_INPUT'});
 }));
 test('native/proxy numeric reads split wide strips and never exceed the declared M2 window',()=>runFixture({width:257,height:7,windowBytes:64},async({client,output,native})=>{
  const display=view(output,'mask',.65);await client.prepareDisplayPreview(display);await client.readWindow(display,{x:2,y:1,width:253,height:5});assert(native.reads.length>10);assert(native.reads.every(read=>read.length<=16));assert.equal(native.inferences,1);
@@ -72,7 +72,7 @@ test('batch RITA opacity stays display-only and matches both exact native window
  const rect={x:0,y:0,width:native.width,height:native.height},scores=Float32Array.from({length:native.width*native.height},(_,i)=>native.score(i%native.width,Math.floor(i/native.width))),base=native.pixels({...rect,w:rect.width,h:rect.height,step:1}).data;
  assert.deepEqual(await client.readWindow(display,rect),ritaFrame(native.width,native.height,scores,{base,mode:'overlay',threshold:.42,opacity:.23}));
  const hidden={...display,ritaPresentation:{...display.ritaPresentation,opacity:0}};assert.deepEqual((await client.readWindow(hidden,rect)).data,base);
- await client.prepareDisplayPreview(display);const before=native.calls.length,step=Math.ceil(Math.max(native.width,native.height)/128),tile={x:0,y:0,w:native.width,h:native.height,step};
- for(const opacity of [0,.23,.6,1])await client.readTile({...display,responsePreview:true,ritaPresentation:{...display.ritaPresentation,opacity}},tile);
+ const planned=await client.planDisplayPreview(display);await client.prepareDisplayPreview(planned);const before=native.calls.length,step=Math.ceil(Math.max(native.width,native.height)/128),tile={x:0,y:0,w:native.width,h:native.height,step};
+ for(const opacity of [0,.23,.6,1])await client.readTile({...planned,responsePreview:true,ritaPresentation:{...display.ritaPresentation,opacity}},tile);
  assert.equal(native.calls.length,before);assert.equal(native.inferences,1);
 }));

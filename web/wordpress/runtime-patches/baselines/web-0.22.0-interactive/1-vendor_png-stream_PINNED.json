@@ -1,0 +1,21 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "libpng": "1.6.43",
+  "sources": {
+    "png-stream.c": "66349e63af834eec0bc82e3670dc79883fac6b45c9d97674b38163ed10b86a82",
+    "png.h": "4be1482ccb03edbb14998345fa47cfe7ceca0463767032ab728c12f941ae0558",
+    "pnglibconf.h": "3fc519a430e8f5be8b3962483e054373536ceae432168ce171b5c5e19b4694a3",
+    "pngread.c": "2b80c8e3477eec6c778039d011e5cacc81653a2e243571184df147309fec2c52",
+    "pngrtran.c": "8daa63d659ca6a4f27fd8a4c8fd58b43b48c796f5010e8a5a612797bbc037151"
+  },
+  "objects": {
+    "liblibpng.a": "8150b8c8c5793180ac54e292c1f86c212e9c184dfa330814fef4cee769c6c265",
+    "libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+  },
+  "files": {
+    "LICENSE": "7317e078e2d3b5d7ba5a6159e650945153262b44b76f6700f8e9edb261c5143e",
+    "png-stream.wasm": "bab568d4ba0b0495e4d3ec26b1f7561f965ad0af8b5c4d0e169b4c23307677aa",
+    "png-stream.js": "b439bcb7f4c567c1fb16976a0b76cda850a0bfb3b0848a5cf2d67a58fdaab7fe",
+    "ZLIB-README.txt": "d106dcdb2a0b3087cb3a2380b9f00a0bbadc7eb835cd80408f94a2d78d69727d"
+  }
+}

@@ -43,7 +43,7 @@ test('a decode-only public engine retains source-byte APIs and remains reusable 
 });
 
 test('packed pairs preserve all65 536channel pairs, linear/nonlinear rounding and native grayscale, without a new JPEG',async()=>{
- const budget=new Budget(4*MiB),{data,image}=source(256,256,budget),other=Uint8Array.from({length:data.length},(_,i)=>i&255),before=data.slice(),cache=createClassicPreviewCache({budget,codec:fixtureCodec});capture(cache,image,data,other);
+ const budget=new Budget(32*MiB),{data,image}=source(256,256,budget),other=Uint8Array.from({length:data.length},(_,i)=>i&255),before=data.slice(),cache=createClassicPreviewCache({budget,codec:fixtureCodec});capture(cache,image,data,other);
  try{for(const linear of [false,true])for(const grayscale of [false,true]){
   const params=validateParams({quality:75,scale:37,contrast:59,linear,grayscale}),native=await elaRender(await elaBase(data,other,linear),params),preview=await cache.preview('image',image,params,320);
   assert.deepEqual(preview.pixels.data,native);assert.equal(preview.nativePixelSamples,true);assert.equal(preview.presentation.method,'native-jpeg-pixel-samples');assert.equal(preview.pixels.preview,true);assert.equal(preview.logicalWidth,256);assert.equal(budget.active,0);
@@ -57,7 +57,7 @@ test('large native samples stay bounded and correspond to exact original pixels 
  }finally{budget.clear();await image.surface.dispose();}
 });
 
-test('optional native sample admission adapts320→160→80 and a refusal never modifies its native band',()=>{
+test('optional native sample admission respects its budget fraction and adapts without eviction and a refusal never modifies its native band',()=>{
  const budget=new Budget(150000),{data,image}=source(1103,701,budget),other=data.slice(),cache=createClassicPreviewCache({budget,codec:fixtureCodec});capture(cache,image,data,other);assert.ok(budget.get('image\0ela-classic-preview/native').width<=160);budget.clear();
  const held=budget.reserve(150000);assert.equal(cache.beginCapture('image',image,{quality:76}),null);assert.equal(budget.active,150000);held();assert.equal(budget.total(),0);
  const Type=globalThis.Uint16Array;try{globalThis.Uint16Array=class extends Type{constructor(length){if(length>20000)throw new RangeError('Injected preview backing refusal');super(length);}};capture(cache,image,data,other);assert.ok(budget.get('image\0ela-classic-preview/native').width<=80);assert.equal(budget.active,0);}finally{globalThis.Uint16Array=Type;budget.clear();}
@@ -72,7 +72,7 @@ test('a captured sample is pinned during allocations and cancellation restores i
  const budget=new Budget(4*MiB),{data,image}=source(129,117,budget),cache=createClassicPreviewCache({budget,codec:fixtureCodec});capture(cache,image,data,data);const controller=new AbortController(),pending=cache.preview('image',image,{contrast:61},320,{signal:controller.signal});controller.abort();await assert.rejects(pending,{code:'CANCELLED'});assert.equal(budget.active,0);assert.ok(budget.get('image\0ela-classic-preview/native').pairs);assert.equal((await cache.preview('image',image,{},320)).nativePixelSamples,true);budget.clear();
 });
 
-await initJpegWasm({wasmBinary:await readFile(new URL('../vendor/libjpeg/jpeg.wasm',import.meta.url))});
+await initJpegWasm({wasmBinary:await readFile(new URL(import.meta.resolve('../vendor/libjpeg/jpeg.wasm')))});
 test('public engine retains native Q samples, performs0JPEGs for visual edits, labels changed-Q drafts and clears them on unload/dispose',async()=>{
  const calls=[],codec={...jpegCodec,recompress(pixels,q,hooks){calls.push({width:pixels.width,height:pixels.height,quality:q});return jpegCodec.recompress(pixels,q,hooks);}},engine=createEngine({codec,memoryBudgetBytes:128*MiB,cpuKernel:'single'}),pixels={width:75,height:83,format:'rgb8',data:Uint8Array.from({length:75*83*3},(_,i)=>(i*31+(i>>>7))&255)};
  try{
@@ -85,7 +85,7 @@ test('public engine retains native Q samples, performs0JPEGs for visual edits, l
 });
 
 test('public preview serializes with native engine work and rejects cancellation without publishing scientific output',async()=>{
- const engine=createEngine({codec:jpegCodec,memoryBudgetBytes:128*MiB,cpuKernel:'single'}),pixels={width:33,height:35,format:'rgb8',data:new Uint8Array(33*35*3).fill(100)};try{await engine.load({id:'image',bytes:Uint8Array.of(1),pixels});await engine.run({id:'native',imageId:'image',operation:'ela.classic'});const c=new AbortController(),preview=engine.previewElaClassic({imageId:'image',params:{contrast:71}},{signal:c.signal});await assert.rejects(engine.run({id:'racing',imageId:'image',operation:'ela.classic'}),{code:'BUSY'});c.abort();await assert.rejects(preview,{code:'CANCELLED'});assert.equal(engine.capabilities().memory.activeReservationBytes,0);assert.equal((await engine.previewElaClassic({imageId:'image'})).nativePixelSamples,true);await assert.rejects(engine.previewElaClassic({imageId:'image',side:321}),{code:'INVALID_INPUT'});}finally{await engine.dispose();}
+ const engine=createEngine({codec:jpegCodec,memoryBudgetBytes:128*MiB,cpuKernel:'single'}),pixels={width:33,height:35,format:'rgb8',data:new Uint8Array(33*35*3).fill(100)};try{await engine.load({id:'image',bytes:Uint8Array.of(1),pixels});await engine.run({id:'native',imageId:'image',operation:'ela.classic'});const c=new AbortController(),preview=engine.previewElaClassic({imageId:'image',params:{contrast:71}},{signal:c.signal});await assert.rejects(engine.run({id:'racing',imageId:'image',operation:'ela.classic'}),{code:'BUSY'});c.abort();await assert.rejects(preview,{code:'CANCELLED'});assert.equal(engine.capabilities().memory.activeReservationBytes,0);assert.equal((await engine.previewElaClassic({imageId:'image'})).nativePixelSamples,true);await assert.rejects(engine.previewElaClassic({imageId:'image',side:2049}),{code:'INVALID_INPUT'});}finally{await engine.dispose();}
 });
 
 test('an actual optional Uint16 backing refusal cannot fail or alter a completed native Classic run',async()=>{
@@ -108,4 +108,9 @@ test('native segmented scanlines capture the same JPEG pass and retain pixel par
   const params=validateParams({scale:37,contrast:59,grayscale:true});result=await segmentedEla(image,params,{budget,createPreviewCapture:()=>cache.beginCapture('image',image,params)});assert.equal(result.metrics.recompressions,1);const preview=await cache.preview('image',image,params),full=await result.surface.readWindow();assert.deepEqual(preview.pixels.data,expectedSamples(full.pixels.data,659,676,preview.pixels));full.release();assert.equal(preview.nativePixelSamples,true);assert.equal(calls.length,0);
   await result.surface.dispose();result=await segmentedEla(image,validateParams({linear:true}),{budget,createPreviewCapture:()=>cache.beginCapture('image',image,{linear:true})});assert.equal(result.metrics.recompressions,0);const linear=await cache.preview('image',image,{linear:true}),linearFull=await result.surface.readWindow();assert.deepEqual(linear.pixels.data,expectedSamples(linearFull.pixels.data,659,676,linear.pixels));linearFull.release();assert.equal(calls.length,0);assert.equal(budget.active,0);
  }finally{await result?.surface.dispose();await image.rgbRecompression?.dispose();await image.surface.dispose();budget.clear();}assert.equal(budget.total(),0);
+});
+
+test('optional capture beyond320 uses only its budget fraction, exact native pairs, and zero new JPEGs',async()=>{
+ const budget=new Budget(128*MiB),{data,image}=source(659,676,budget),other=Uint8Array.from(data,x=>255-x),cache=createClassicPreviewCache({budget,codec:fixtureCodec});capture(cache,image,data,other);const entry=budget.get('image\0ela-classic-preview/native');assert.ok(entry.width>320);assert.ok(entry.byteLength<=Math.min(24*MiB,budget.limit/32));const before=data.slice(),p=validateParams({scale:19,contrast:31,grayscale:true});
+ try{const result=await cache.preview('image',image,p,2048),native=await elaRender(await elaBase(data,other,p.linear),p);assert.deepEqual(result.pixels.data,native);assert.equal(result.nativePixelSamples,true);assert.equal(budget.active,0);assert.deepEqual(data,before);const c=new AbortController(),pending=cache.preview('image',image,p,1024,{signal:c.signal});c.abort();await assert.rejects(pending,{code:'CANCELLED'});assert.ok(budget.get('image\0ela-classic-preview/native').pairs);assert.equal(budget.active,0);assert.throws(()=>cache.beginCapture('image',image,p,{side:2049}),{code:'INVALID_INPUT'});}finally{budget.clear();await image.surface.dispose();}assert.equal(budget.total(),0);
 });

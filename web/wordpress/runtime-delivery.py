@@ -14,6 +14,10 @@ _rita_spec = importlib.util.spec_from_file_location('runtime_rita', Path(__file_
 _rita = importlib.util.module_from_spec(_rita_spec)
 _rita_spec.loader.exec_module(_rita)
 
+_interactive_spec = importlib.util.spec_from_file_location('runtime_interactive', Path(__file__).with_name('runtime-interactive.py'))
+_interactive = importlib.util.module_from_spec(_interactive_spec)
+_interactive_spec.loader.exec_module(_interactive)
+
 # These model manifests pin the original factory bytes, and their callers pass
 # a separately fetched, SHA-verified wasmBinary. Rewriting the loader would
 # break that second identity and offers no additional download protection.
@@ -154,9 +158,10 @@ class QualifiedRuntimeOverlay:
         self.files = {}
         self.receipts = []
         self.extra_resources = {}
-        rita, rita_predecessor = _rita.reviewed_rita_increment(root)
+        interactive, interactive_predecessor = _interactive.reviewed_interactive_increment(root)
+        rita, rita_predecessor = _rita.reviewed_rita_increment(root, interactive_predecessor)
         extension, latest_predecessor = _extensions.reviewed_extensions_increment(root, rita_predecessor)
-        latest_predecessor = {**rita_predecessor, **latest_predecessor}
+        latest_predecessor = {**interactive_predecessor, **rita_predecessor, **latest_predecessor}
         ela, predecessor = _reviewed_ela_increment(root, latest_predecessor)
         predecessor = {**latest_predecessor, **predecessor}
         self.predecessor = predecessor
@@ -250,6 +255,9 @@ class QualifiedRuntimeOverlay:
             self.receipts.append(rita)
             self.files.update((record['file'], record) for record in rita['files'])
             self.extra_resources = {record['file']: record['after'] for record in rita['resources']}
+        if interactive is not None:
+            self.receipts.append(interactive)
+            self.files.update((record['file'], record) for record in interactive['files'])
 
     def apply(self, relative, source, adapted):
         record = self.files.get(relative)

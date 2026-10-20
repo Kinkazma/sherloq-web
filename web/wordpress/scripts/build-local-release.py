@@ -68,7 +68,7 @@ def reviewed_runtime_increment(manifest):
 
 def runtime_increment_references():
     references=[]
-    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json','browser-extensions-20261015.json','rita-20261019.json']:
+    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json','browser-extensions-20261015.json','rita-20261019.json','interactive-20261020.json']:
         path=ROOT/'runtime-patches'/name
         if not path.exists(): continue
         receipt=json.loads(path.read_bytes())

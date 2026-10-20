@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.23.0";
+import {createSafireParameterPreview} from './safire-parameter-preview.js';
+import {previewUnavailable} from './cached-parameter-preview.js';
 import {deserializeWorkerError} from './errors.js';
 import {prepareResearchRows} from './m3-research-rows.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';import {verifyM3Bytes,fetchM3Asset} from './m3-asset.js';
@@ -8,7 +10,11 @@ export function safireParams(input={}){const p={side:16,groups:3,kind:'kmeans',e
 export class SafireEngine{
  constructor(image,budget,profile){requireValue(image?.format==='rgb8'&&Number.isInteger(image.width)&&image.width>0&&Number.isSafeInteger(image.width*image.height*3)&&Number.isInteger(image.height)&&image.height>0&&(typeof image.readRows==='function'||image.data instanceof Uint8Array&&image.data.length===image.width*image.height*3),'SAFIRE requires RGB8 pixels.');requireValue(budget&&typeof budget.reserve==='function'&&profile&&Number.isInteger(profile.maxWorkers)&&profile.maxWorkers>0,'SAFIRE requires a shared memory budget and worker profile.');this.image=image;this.budget=budget;this.profile=profile;this.prefix='m3-safire-'+(++next)+'/';this.lifetime=new AbortController();this.disposed=false;this.running=false;this.counts={proposals:0,compositions:0};}
  stop(){this.worker?.terminate();this.worker=null;this.reject?.(new EngineError('CANCELLED','SAFIRE stopped.'));this.reject=null;}
- dispose(){this.disposed=true;this.lifetime.abort();this.stop();this.budget.clearPrefix(this.prefix);}
+ async dispose(){this.disposed=true;this.lifetime.abort();this.stop();this.budget.clearPrefix(this.prefix);await this.parameterPreview?.dispose();}
+ async preview(image,input={},view={},preview={},hooks={}){
+  requireValue(!this.running&&!this.disposed,'SAFIRE unavailable or busy.');const params=safireParams(input),backend=hooks.backend??'auto';requireValue(['auto','cpu','webgpu'].includes(backend),'Invalid SAFIRE backend.');const proposals=this.budget.get(this.prefix+params.side+'/'+backend)?.value;if(!proposals)previewUnavailable('The native SAFIRE proposal grid is not retained.');
+  this.running=true;try{this.parameterPreview??=createSafireParameterPreview(this.budget);return await this.parameterPreview.render(image,proposals,params,view,preview,{signal:hooks.signal?AbortSignal.any([hooks.signal,this.lifetime.signal]):this.lifetime.signal});}finally{this.running=false;}
+ }
  async rpc(job,onProgress){const worker=new Worker(new URL('./safire-worker.js',import.meta.url),{type:'module'});this.worker=worker;try{return await new Promise((resolve,reject)=>{this.reject=reject;worker.onmessage=({data})=>{if(data.progress){try{onProgress?.(data.progress);}catch(error){reject(error);}return;}data.error?reject(deserializeWorkerError(data.error,data.message)):resolve(data);};worker.onerror=e=>reject(new EngineError('WORKER_FAILED',e.message));worker.postMessage(job);});}finally{this.reject=null;worker.terminate();if(this.worker===worker)this.worker=null;}}
  async analyze(input={},hooks={}){
   requireValue(!this.running&&!this.disposed&&typeof Worker!=='undefined','SAFIRE unavailable or busy.');const params=safireParams(input),{model,backend='auto',onProgress}=hooks,signal=hooks.signal?AbortSignal.any([hooks.signal,this.lifetime.signal]):this.lifetime.signal;

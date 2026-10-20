@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {parseHTML,DOMParser} from 'linkedom';
 import {mountWorkspace} from '../sherloq-browser/assets/workspace.js';
-const html=await readFile(new URL('../sherloq-browser/assets/app.html',import.meta.url),'utf8');
-const panel=await readFile(new URL('../sherloq-browser/assets/panel.html',import.meta.url),'utf8');
+const html=await readFile(new URL(import.meta.resolve('../sherloq-browser/assets/app.html')),'utf8');
+const panel=await readFile(new URL(import.meta.resolve('../sherloq-browser/assets/panel.html')),'utf8');
 function setup(){
  const {document,window}=parseHTML(html),controllers=new Map();
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value||this.options[0]?.value||'';},set(value){for(const o of this.options)o.toggleAttribute('selected',o.value===String(value));}});
@@ -12,7 +12,7 @@ function setup(){
  let stopped=0,loads=0;
  const workspace=mountWorkspace(document,{fetcher:async()=>({ok:true,text:async()=>panel}),panelFactory(_,{toolId,sourceOnly,requestExport,regionParent}){
   let file=null,adopted=null;const id=sourceOnly?'original':toolId;
-  const c={busy:false,async load(value){loads++;file=value;},adopt(input){adopted=input;regionParent.hidden=!['tampering.copyMove.sparse','ai.clones.d2prl'].includes(toolId);regionParent.textContent='regions-'+toolId;},input(){return adopted||{file,imageId:'shared-original',hash:'same-hash',source:{width:100,height:100,draw(){},close(){}},description:'fixture transport'};},snapshot(){return {busy:c.busy,hasResult:false,hasReport:false,status:'ready',progress:0,zoom:100};},activate(){},settings(){return {};},setHighlight(value){c.highlight=value;},setLoupe(value){c.loupe={...value};},exportImage(settings){if(settings){c.exported=settings;return;}return requestExport(settings=>{c.exported=settings;});},setLanguage(){},setTheme(){},setNavigation(){},setComputeProfile(){},dispose(){stopped++;},fit(){},zoomBy(){}};controllers.set(id,c);return c;
+  const c={busy:false,async load(value){loads++;file=value;},adopt(input){adopted=input;regionParent.hidden=!['tampering.copyMove.sparse','ai.clones.d2prl'].includes(toolId);regionParent.textContent='regions-'+toolId;},input(){return adopted||{file,imageId:'shared-original',hash:'same-hash',source:{width:100,height:100,draw(){},close(){}},description:'fixture transport'};},snapshot(){return {busy:c.busy,hasResult:false,hasReport:false,status:'ready',progress:0,zoom:100};},activate(){},settings(){return {};},applySettings(value){c.applied=value;},setHighlight(value){c.highlight=value;},setLoupe(value){c.loupe={...value};},exportImage(settings){if(settings){c.exported=settings;return;}return requestExport(settings=>{c.exported=settings;});},setLanguage(){},setTheme(){},setNavigation(){},setComputeProfile(){},dispose(){stopped++;},fit(){},zoomBy(){}};controllers.set(id,c);return c;
  }});
  return {document,workspace,controllers,counts:()=>({stopped,loads}),flush(){while(frames.length)frames.shift()();}};
 }
@@ -41,7 +41,7 @@ test('New-algorithm highlighting reaches existing and newly opened panel documen
 });
 
 test('shipped menu wires L, all open panels, fonts and the export chooser',async()=>{
- const h=setup(),$=id=>h.document.getElementById(id);assert.ok($('global-loupe'));assert.ok($('interface-font'));assert.ok($('image-export-dialog'));assert.equal($('app-version').textContent,'0.21.0');
+ const h=setup(),$=id=>h.document.getElementById(id);assert.ok($('global-loupe'));assert.ok($('interface-font'));assert.ok($('image-export-dialog'));assert.equal($('app-version').textContent,'0.23.0');
  await h.workspace.openImage(new Blob(['transport']));await h.workspace.openTool('ela.classic');
  const event=new h.document.defaultView.Event('keydown',{bubbles:true,cancelable:true});event.key='l';event.code='KeyQ';h.document.dispatchEvent(event);
  assert.equal($('global-loupe').checked,true);for(const c of h.controllers.values())assert.equal(c.loupe.enabled,true);
@@ -87,4 +87,18 @@ test('the regions dock follows the active detector, preserves its node and leave
  h.workspace.selectDocument('original');h.flush();assert.equal(dock.hidden,true);
  h.workspace.selectDocument('tampering.copyMove.sparse');h.flush();assert.equal(dock.hidden,false);assert.equal(body.firstElementChild,node);
  await h.workspace.closeAll();h.flush();assert.equal(dock.hidden,true);assert.equal(body.childElementCount,0);
+});
+
+test('Close analyses preserves the same original owner and stops every analysis',async()=>{
+ const h=setup(),file=new Blob(['native source bytes']);await h.workspace.openImage(file);const original=h.controllers.get('original'),record=h.workspace.state.documents.get('original');await h.workspace.openTool('inspection.adjust');await h.workspace.openTool('file.hex');h.controllers.get('file.hex').busy=true;
+ await h.workspace.closeAnalyses();h.flush();assert.equal(h.workspace.state.documents.size,1);assert.equal(h.workspace.state.active,'original');assert.equal(h.workspace.state.documents.get('original'),record);assert.equal(h.controllers.get('original'),original);assert.equal(original.input().file,file);assert.deepEqual(h.counts(),{loads:1,stopped:2});assert.equal(h.document.querySelectorAll('.document-window').length,1);assert.equal(h.document.getElementById('welcome').hidden,true);
+ await h.workspace.openTool('file.hex');assert.equal(h.controllers.get('file.hex').input().file,file);assert.equal(h.counts().loads,1);await h.workspace.closeAll();
+});
+test('Close analyses restores an original view that was hidden while results stayed open',async()=>{
+ const h=setup();await h.workspace.openImage(new Blob(['source']));await h.workspace.openTool('file.hex');const original=h.controllers.get('original');await h.workspace.closeDocument('original');assert.equal(h.workspace.state.documents.has('original'),false);
+ await h.workspace.closeAnalyses();h.flush();assert.equal(h.workspace.state.active,'original');assert.equal(h.workspace.state.documents.get('original').controller,original);assert.equal(h.document.querySelectorAll('.document-window').length,1);assert.equal(h.document.querySelector('.document-window').hidden,false);assert.deepEqual(h.counts(),{loads:1,stopped:1});await h.workspace.closeAll();
+});
+test('Confirmed Close all uses source-preserving close; replacing the image still clears the old source',async()=>{
+ const h=setup();await h.workspace.openImage(new Blob(['first']));await h.workspace.openTool('file.hex');const source=h.workspace.state.documents.get('original');h.document.getElementById('close-dialog').close=()=>{};h.document.getElementById('confirm-close').onclick();await new Promise(r=>setImmediate(r));assert.equal(h.workspace.state.documents.get('original'),source);assert.equal(h.workspace.state.documents.size,1);
+ await h.workspace.openImage(new Blob(['second']));assert.notEqual(h.workspace.state.documents.get('original'),source);assert.deepEqual(h.counts(),{loads:2,stopped:2});await h.workspace.closeAll();
 });

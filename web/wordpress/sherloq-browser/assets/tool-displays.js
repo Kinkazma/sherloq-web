@@ -14,6 +14,6 @@ export function resultDisplays(output,{neuralDisplays=()=>null,language='fr'}={}
  }
  // M2 explicitly publishes its own render handles. Its source descriptor in
  // data.source belongs to the M2 decoder, not the UI's original-image engine.
- if(output.m2Result&&Array.isArray(output.views))visit(output.views,'views');else visit(output,'');
+ if(Array.isArray(output.parameterViews))visit(output.parameterViews,'views');else if(output.m2Result&&Array.isArray(output.views))visit(output.views,'views');else visit(output,'');
  return found;
 }

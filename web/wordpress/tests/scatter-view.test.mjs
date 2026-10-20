@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
-import {createPlotCamera,projectPlotPoint,zoomPlotCamera,bindPlotCamera,createScatterView} from '../sherloq-browser/assets/scatter-view.js';
+import {createPlotCamera,projectPlotPoint,zoomPlotCamera,bindPlotCamera,createScatterView,createPlotIntroState,rearmPlotIntro,PLOT_INTRO_CAMERA,PLOT_INTRO_DURATION} from '../sherloq-browser/assets/scatter-view.js';
 const close=(a,b,tolerance=1e-8)=>assert.ok(Math.abs(a-b)<=tolerance,`${a} differs from ${b}`),closePoint=(a,b)=>{close(a[0],b[0]);close(a[1],b[1]);},style=kind=>({kind,x:0,y:1,z:2,colored:true,alpha:.5});
 const event=(window,node,type,values={})=>{const e=new window.Event(type,{bubbles:true,cancelable:true});Object.assign(e,values);node.dispatchEvent(e);return e;};
 function inputFixture(kind='2d'){
@@ -71,14 +71,14 @@ test('Safari native pinch suppresses duplicate ctrl-wheel, resets on blur/visibi
  f.binding.dispose();const disposed={...f.camera};for(const [type,values]of [['wheel',{deltaY:-100}],['gesturestart',{scale:1}],['gesturechange',{scale:3}],['pointerdown',{button:0,pointerId:9,...f.at([30,30])}],['pointermove',{pointerId:9,...f.at([60,60])}],['dblclick',{}]])f.emit(type,values);assert.deepEqual(f.camera,disposed);assert.equal(f.resets,0);assert.ok(f.parentEvents.length>0);
 });
 
-function sceneFixture(gpu=false,viewport={width:600,height:400},clientViewport=viewport){
+function sceneFixture(gpu=false,viewport={width:600,height:400},clientViewport=viewport,options={}){
  const {document,window}=parseHTML('<html><body><div id="plot"></div></body></html>'),contexts=new Map(),frames=new Map();let frameId=0;
  Object.defineProperty(window.HTMLElement.prototype,'clientWidth',{configurable:true,get:()=>clientViewport.width});Object.defineProperty(window.HTMLElement.prototype,'clientHeight',{configurable:true,get:()=>clientViewport.height});window.HTMLElement.prototype.getBoundingClientRect=()=>({...viewport,left:30,top:50});window.HTMLCanvasElement.prototype.setPointerCapture=()=>{};window.HTMLCanvasElement.prototype.focus=()=>{};
  for(const [key,value]of Object.entries({devicePixelRatio:2,requestAnimationFrame:fn=>{frames.set(++frameId,fn);return frameId;},cancelAnimationFrame:id=>frames.delete(id),ResizeObserver:class{observe(){}disconnect(){}}}))Object.defineProperty(globalThis,key,{configurable:true,writable:true,value});
  const uniforms={},deletions=[],gl=new Proxy({NO_ERROR:0,COMPILE_STATUS:1,LINK_STATUS:2,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({}),getShaderParameter:()=>true,getProgramParameter:()=>true,getError:()=>0,getAttribLocation:()=>0,getUniformLocation:(_p,name)=>name,uniform4f(name,...values){uniforms[name]=values;},deleteBuffer(){deletions.push('buffer');},deleteProgram(){deletions.push('program');},deleteShader(){deletions.push('shader');}},{get:(target,key)=>key in target?target[key]:()=>{}});
  window.HTMLCanvasElement.prototype.getContext=function(kind){if(kind==='webgl2')return gpu?gl:null;if(!contexts.has(this)){const shapes=[],texts=[],ctx=new Proxy({shapes,texts,transform:[1,0,0,1,0,0],setTransform(...values){this.transform=values;},fillRect(...values){shapes.push(values);},fillText(...values){texts.push(values);}},{get:(target,key)=>key in target?target[key]:()=>{}});contexts.set(this,ctx);}return contexts.get(this);};
- const points={values:Float32Array.from([.2,.8,.4,.6,.7,.2,.8,.2,.9,.1,.4,.8]),count:2,total:20};let mode='mouse';const parent=document.getElementById('plot'),view=createScatterView({document,parent,points,style:style('3d'),columns:['R','G','B','H','S','V'],getNavigationMode:()=>mode,forceCanvas:!gpu});
- const flush=()=>{const pending=[...frames.values()];frames.clear();for(const fn of pending)fn();},canvas=()=>parent.querySelector('.scatter-canvas'),emit=(type,values={})=>event(window,canvas(),type,values),drawn=()=>contexts.get(canvas()).shapes.filter(shape=>shape[2]===1.5),clear=()=>{for(const ctx of contexts.values()){ctx.shapes.length=0;ctx.texts.length=0;}};
+ const points={values:Float32Array.from([.2,.8,.4,.6,.7,.2,.8,.2,.9,.1,.4,.8]),count:2,total:20};let mode='mouse';const parent=document.getElementById('plot'),view=createScatterView({document,parent,points,style:style('3d'),columns:['R','G','B','H','S','V'],getNavigationMode:()=>mode,forceCanvas:!gpu,...options});
+ const flush=time=>{const pending=[...frames.values()];frames.clear();for(const fn of pending)fn(time);},canvas=()=>parent.querySelector('.scatter-canvas'),emit=(type,values={})=>event(window,canvas(),type,values),drawn=()=>contexts.get(canvas()).shapes.filter(shape=>shape[2]===1.5),clear=()=>{for(const ctx of contexts.values()){ctx.shapes.length=0;ctx.texts.length=0;}};
  return {document,window,parent,view,points,viewport,contexts,uniforms,deletions,frames,flush,canvas,emit,drawn,clear,setMode:value=>mode=value};
 }
 test('actual Canvas front projection and Fit equal 2D; hidden Z guide appears naturally after rotation',()=>{
@@ -111,4 +111,26 @@ test('context loss preserves GPU camera projection, style, points and dynamic pr
   event(f.window,oldCanvas,'wheel',{deltaY:-100});assert.equal(f.frames.size,0,'old canvas navigation listener was removed');f.setMode('trackpad');f.clear();f.emit('wheel',{deltaX:7,deltaY:15});f.flush();for(let i=0;i<2;i++)closePoint(f.drawn()[i],[before[i][0]-7,before[i][1]-15]);
   f.view.setStyle({alpha:.8});f.view.fit();f.clear();f.flush();for(let i=0;i<2;i++)closePoint(f.drawn()[i],projectPlotPoint(f.points.values.subarray(i*6,i*6+6),style('2d'),createPlotCamera(),f.viewport));assert.equal(f.contexts.get(f.canvas()).globalAlpha,1);
  }finally{f.view.dispose();}assert.equal(f.frames.size,0);assert.equal(f.deletions.length,4);
+});
+
+
+test('3D intro starts aligned, tilts12degrees and finishes with Z down-left at45degrees',()=>{
+ close(PLOT_INTRO_CAMERA.pitch,Math.PI/15);close(PLOT_INTRO_CAMERA.yaw,-Math.atan(Math.sin(Math.PI/15)));
+ const f=sceneFixture();try{f.flush(0);assert.deepEqual(f.view.camera,createPlotCamera());const before=f.drawn().slice();f.flush(PLOT_INTRO_DURATION/2);assert.ok(f.view.camera.yaw<0&&f.view.camera.pitch>0);f.flush(PLOT_INTRO_DURATION);f.clear();f.flush(PLOT_INTRO_DURATION+1);
+  close(f.view.camera.yaw,PLOT_INTRO_CAMERA.yaw);close(f.view.camera.pitch,PLOT_INTRO_CAMERA.pitch);assert.notDeepEqual(f.drawn(),before);const a=projectPlotPoint([0,0,0,0,0,0],style('3d'),f.view.camera,f.viewport),b=projectPlotPoint([0,0,1,0,0,0],style('3d'),f.view.camera,f.viewport);assert.ok(b[0]<a[0]&&b[1]>a[1]);close(Math.abs(b[0]-a[0]),Math.abs(b[1]-a[1]));assert.equal(f.view.intro.active,false);assert.equal(f.view.intro.armed,false);
+ }finally{f.view.dispose();}assert.equal(f.frames.size,0);
+});
+test('every camera gesture cancels intro immediately and no style change replays it',()=>{
+ for(const[type,values]of[['pointerdown',{button:0,pointerId:1,clientX:100,clientY:100}],['wheel',{deltaY:-100,deltaMode:0,clientX:200,clientY:150}],['gesturestart',{scale:1,clientX:200,clientY:150}],['keydown',{key:'ArrowLeft'}]]){const f=sceneFixture();try{f.flush(0);f.flush(100);f.emit(type,values);const camera=f.view.camera;assert.equal(f.view.intro.active,false);assert.equal(f.view.intro.interacted,true);f.flush(1000);assert.deepEqual(f.view.camera,camera);f.view.setStyle({kind:'2d'});f.view.setStyle({kind:'3d'});f.flush(2000);assert.deepEqual(f.view.camera,camera);assert.equal(f.view.intro.active,false);}finally{f.view.dispose();}}
+});
+test('Fit, Home and double-click align exactly, consume intro and cannot replay it',()=>{
+ for(const reset of[f=>f.view.fit(),f=>f.emit('keydown',{key:'Home'}),f=>f.emit('dblclick')]){const f=sceneFixture();try{f.flush(0);f.flush(200);reset(f);assert.deepEqual(f.view.camera,createPlotCamera());assert.equal(f.view.intro.active,false);assert.equal(f.view.intro.armed,false);f.view.setStyle({kind:'2d'});f.view.setStyle({kind:'3d'});f.flush(2000);assert.deepEqual(f.view.camera,createPlotCamera());}finally{f.view.dispose();}}
+});
+test('shared camera and intro survive native renewals and provisional viewers without replay',()=>{
+ const camera=createPlotCamera(),intro=createPlotIntroState(),options={cameraState:camera,introState:intro},a=sceneFixture(false,undefined,undefined,options);a.flush(0);a.flush(200);a.emit('wheel',{deltaY:-100,clientX:200,clientY:100});const preserved=a.view.camera;a.view.dispose();
+ const b=sceneFixture(false,undefined,undefined,{...options,allowIntro:false});try{b.flush(1000);assert.deepEqual(b.view.camera,preserved);assert.equal(b.view.intro.active,false);b.view.zoomBy(1.25);}finally{b.view.dispose();}
+ const latest={...camera},c=sceneFixture(false,undefined,undefined,options);try{c.flush(2000);assert.deepEqual(c.view.camera,latest);assert.equal(c.view.intro.active,false);rearmPlotIntro(intro);c.view.setStyle({kind:'2d'});c.view.setStyle({kind:'3d'});assert.equal(c.view.intro.active,true);assert.deepEqual(c.view.camera,{...latest,yaw:0,pitch:0});}finally{c.view.dispose();}
+});
+test('reduced motion presents the final 3D orientation without animation and keeps native values intact',()=>{
+ const f=sceneFixture(false,undefined,undefined,{reducedMotion:true}),before=f.points.values.slice();try{assert.equal(f.view.intro.active,false);f.flush(0);assert.equal(f.frames.size,0);close(f.view.camera.yaw,PLOT_INTRO_CAMERA.yaw);close(f.view.camera.pitch,PLOT_INTRO_CAMERA.pitch);assert.deepEqual(f.points.values,before);f.view.fit();assert.deepEqual(f.view.camera,createPlotCamera());}finally{f.view.dispose();}
 });

@@ -50,6 +50,7 @@ export function createWorkerEngine(options={}) {
   return new Promise((resolve,reject)=>{
    let cooperativeTimer;
    const abort=()=>{
+    if(method==='previewParameters'&&worker){const error=new EngineError('CANCELLED','Provisional parameter view cancelled cooperatively.');error.imagesCleared=false;const entry=pending.get(sequence);if(!entry)return;entry.cancelled=error;try{worker.postMessage({method:'cancel-task',sequence});}catch(cause){error.cause=cause;reset(error);}return;}
     if(method==='capabilities'){const p=pending.get(sequence);if(p){pending.delete(sequence);p.cleanup();p.reject(new EngineError('CANCELLED','Diagnostic read cancelled.'));}return;}
     const automatic=['resumeAutomatic','updateAutomatic','renderAutomatic','exportAutomatic'].includes(method)||method==='run'&&['analysis.complete','analysis.clones'].includes(args[0]?.operation);
     const extensions=['loadExtensionModels','runExtensions'].includes(method)||method==='run'&&['ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint'].includes(args[0]?.operation);
@@ -134,7 +135,7 @@ export function createWorkerEngine(options={}) {
   readDisplay:(request,hooks)=>call('readDisplay',[request],hooks),
   readPlane:(request,hooks)=>call('readPlane',[request],hooks),
   readPixels:(request,hooks)=>call('readPixels',[request],hooks),readFlags:(request,hooks)=>call('readFlags',[request],hooks),readTable:(request,hooks)=>call('readTable',[request],hooks),readTableCsv:(request,hooks)=>call('readTableCsv',[request],hooks),readNpz:(request,hooks)=>call('readNpz',[request],hooks),releaseTable:id=>call('releaseTable',[id]),readMask:(request,hooks)=>call('readMask',[request],hooks),originalBlob:id=>call('originalBlob',[id]),deriveOriginal:(request,hooks)=>call('deriveOriginal',[request],hooks),readOriginal:(id,range,hooks)=>call('readOriginal',[id,range],hooks),
-  load:(input,hooks)=>call('load',[input],hooks),run:(task,hooks)=>call('run',[task],hooks),
+  load:(input,hooks)=>call('load',[input],hooks),previewParameters:(task,{preview={},...hooks}={})=>call('previewParameters',[task,preview],hooks),run:(task,hooks)=>call('run',[task],hooks),
   async loadPrnuDatabase(input,hooks){const id='job-'+crypto.randomUUID(),record={imageId:input.id,backend:null};storageOwners.set(id,record);try{const result=await call('loadPrnuDatabase',[{...input,temporarySessionId:id}],hooks);if(!result.metrics.temporaryBackend)storageOwners.delete(id);return result;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},
   loadMedianModel:(input,hooks)=>call('loadMedianModel',[input],hooks),
   loadQualityModel:(input,hooks)=>call('loadQualityModel',[input],hooks),

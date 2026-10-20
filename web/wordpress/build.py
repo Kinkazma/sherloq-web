@@ -110,7 +110,7 @@ def main():
     runtime_overlay = adapter.qualified_runtime_overlay(root)
     if runtime_overlay.files:
         files['assets/scientific-regions-delivery-increment.json'] = root / 'runtime-patches/batch-scientific-regions-20261013.json'
-    for receipt, asset in [('ela-runtime-20261014.json', 'ela-delivery-increment.json'), ('browser-extensions-20261015.json', 'extensions-delivery-increment.json'), ('rita-20261019.json', 'rita-delivery-increment.json')]:
+    for receipt, asset in [('ela-runtime-20261014.json', 'ela-delivery-increment.json'), ('browser-extensions-20261015.json', 'extensions-delivery-increment.json'), ('rita-20261019.json', 'rita-delivery-increment.json'), ('interactive-20261020.json', 'interactive-delivery-increment.json')]:
         if (root / 'runtime-patches' / receipt).is_file():
             files['assets/' + asset] = root / 'runtime-patches' / receipt
     slots = [relative(r['destination']).relative_to('sherloq-browser').as_posix() + '/' for r in lock['runtimes']]

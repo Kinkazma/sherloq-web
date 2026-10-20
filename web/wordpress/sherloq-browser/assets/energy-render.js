@@ -1,4 +1,5 @@
 // Presentation only. Scientific maps remain untouched in the engine worker.
+import {ADAPTIVE_PREVIEW_MAX_SIDE} from './adaptive-preview.js';
 export async function renderEnergy(data,source,{view='overlay',opacity=70,field='high',threshold=0,scoreView='map'}={}, {signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges}={}){
  if(view==='scores'&&field==='both')return renderBothEnergyV1(data,source,{view,opacity,field,threshold,scoreView},{signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges});
  if(!['overlay','labels','scores'].includes(view)||!Number.isInteger(opacity)||opacity<0||opacity>100)throw Error('Invalid energy presentation');
@@ -7,7 +8,7 @@ export async function renderEnergy(data,source,{view='overlay',opacity=70,field=
   if(!['low','high','unified'].includes(field)||!Number.isFinite(threshold)||threshold<0||!['map','overlay'].includes(scoreView))throw Error('Invalid energy score presentation');
   const {width,height,energy_scope:scope,energy_high_score:high,energy_low_score:low}=data,n=width*height;
   if(!Number.isSafeInteger(width)||!Number.isSafeInteger(height)||width<1||height<1||!Number.isSafeInteger(n)||![high,low].every(scores=>scores instanceof Float32Array&&scores.length===n)||!(scope instanceof Int32Array)||scope.length!==n)throw Error('Invalid raw energy score map or reference scope');
-  let scale=1;if(preview){const {maxWidth,maxHeight}=preview;if(!Number.isSafeInteger(maxWidth)||maxWidth<1||maxWidth>512||!Number.isSafeInteger(maxHeight)||maxHeight<1||maxHeight>512)throw Error('Invalid energy preview bounds');scale=Math.min(1,maxWidth/width,maxHeight/height);}
+  let scale=1;if(preview){const {maxWidth,maxHeight}=preview;if(!Number.isSafeInteger(maxWidth)||maxWidth<1||maxWidth>ADAPTIVE_PREVIEW_MAX_SIDE||!Number.isSafeInteger(maxHeight)||maxHeight<1||maxHeight>ADAPTIVE_PREVIEW_MAX_SIDE)throw Error('Invalid energy preview bounds');scale=Math.min(1,maxWidth/width,maxHeight/height);}
   const outputWidth=Math.max(1,Math.floor(width*scale)),outHeight=Math.max(1,Math.floor(height*scale)),isPreview=outputWidth!==width||outHeight!==height;
   if(scoreView==='overlay'&&(!source||(source.data?source.data.length!==n*3:source.width!==width||source.height!==height)))throw Error('Energy dimensions differ from original');
   const output=new Uint8Array(outputWidth*outHeight*3),alpha=.35;let highMaximum=0,lowMaximum=0,signedMinimum=Infinity,signedMaximum=-Infinity;
@@ -45,7 +46,7 @@ export async function renderEnergy(data,source,{view='overlay',opacity=70,field=
  const {width,height,energy_labels:labels,regionColors}=data,n=width*height;
  if(labels.length!==n||(source.data?source.data.length!==n*3:source.width!==width||source.height!==height))throw Error('Energy dimensions differ from original');
  if(preview){
-  const {maxWidth,maxHeight}=preview;if(!Number.isSafeInteger(maxWidth)||maxWidth<1||maxWidth>512||!Number.isSafeInteger(maxHeight)||maxHeight<1||maxHeight>512)throw Error('Invalid energy preview bounds');
+  const {maxWidth,maxHeight}=preview;if(!Number.isSafeInteger(maxWidth)||maxWidth<1||maxWidth>ADAPTIVE_PREVIEW_MAX_SIDE||!Number.isSafeInteger(maxHeight)||maxHeight<1||maxHeight>ADAPTIVE_PREVIEW_MAX_SIDE)throw Error('Invalid energy preview bounds');
   const scale=Math.min(1,maxWidth/width,maxHeight/height),ow=Math.max(1,Math.floor(width*scale)),oh=Math.max(1,Math.floor(height*scale)),colors=new Map(regionColors.map(x=>[x.id,x.rgb])),output=new Uint8Array(ow*oh*3),alpha=opacity/100;
   let sampled,step;if(view==='overlay'&&!source.data&&source.readSampled){step=Math.max(1,Math.ceil(Math.max(width/ow,height/oh)));sampled=await source.readSampled({x:0,y:0,w:width,h:height,step});check();if(sampled.width!==Math.ceil(width/step)||sampled.height!==Math.ceil(height/step)||sampled.data?.length!==sampled.width*sampled.height*3)throw Error('Invalid sampled original');}
   for(let y=0;y<oh;y++){check();const sy=Math.min(height-1,Math.floor((y+.5)*height/oh)),row=view==='overlay'&&!source.data&&!sampled?await source.readPixels({x:0,y:sy,width,height:1}):null;
@@ -77,7 +78,7 @@ async function renderBothEnergyV1(data,source,{view='overlay',opacity=70,field='
   if(!['low','high','both'].includes(field)||!Number.isFinite(threshold)||!['map','overlay'].includes(scoreView))throw Error('Invalid energy score presentation');
   const {width,height,energy_scope:scope}=data,n=width*height,fields=field==='both'?['high','low']:[field],logicalWidth=width*fields.length;
   if(!Number.isSafeInteger(width)||!Number.isSafeInteger(height)||width<1||height<1||!Number.isSafeInteger(n)||!Number.isSafeInteger(logicalWidth)||['high','low'].some(key=>!(data['energy_'+key+'_score'] instanceof Float32Array)||data['energy_'+key+'_score'].length!==n)||!(scope instanceof Int32Array)||scope.length!==n)throw Error('Invalid raw energy score map or reference scope');
-  let scale=1;if(preview){const {maxWidth,maxHeight}=preview;if(!Number.isSafeInteger(maxWidth)||maxWidth<fields.length||maxWidth>512||!Number.isSafeInteger(maxHeight)||maxHeight<1||maxHeight>512)throw Error('Invalid energy preview bounds');scale=Math.min(1,maxWidth/logicalWidth,maxHeight/height);}
+  let scale=1;if(preview){const {maxWidth,maxHeight}=preview;if(!Number.isSafeInteger(maxWidth)||maxWidth<fields.length||maxWidth>ADAPTIVE_PREVIEW_MAX_SIDE||!Number.isSafeInteger(maxHeight)||maxHeight<1||maxHeight>ADAPTIVE_PREVIEW_MAX_SIDE)throw Error('Invalid energy preview bounds');scale=Math.min(1,maxWidth/logicalWidth,maxHeight/height);}
   const paneWidth=Math.max(1,Math.floor(width*scale)),outHeight=Math.max(1,Math.floor(height*scale)),outputWidth=paneWidth*fields.length,isPreview=paneWidth!==width||outHeight!==height;
   if(scoreView==='overlay'&&(!source||(source.data?source.data.length!==n*3:source.width!==width||source.height!==height)))throw Error('Energy dimensions differ from original');
   const output=new Uint8Array(outputWidth*outHeight*3),observedMaxima=Object.fromEntries(fields.map(key=>[key,0])),ranges=Object.fromEntries(fields.map(key=>[key,{minimum:Infinity,maximum:-Infinity}])),alpha=.35;

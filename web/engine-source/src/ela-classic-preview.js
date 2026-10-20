@@ -5,7 +5,7 @@ import {allocateTypedArray} from './allocation.js';
 import {validateParams,validatePixels} from './ela.js';
 import {toneTable} from './ela-lut.js';
 
-const MAX_SIDE=320,TONE_WORKSPACE=512*1024;
+const MAX_SIDE=2048,TONE_WORKSPACE=512*1024;
 const memoryFailure=error=>['MEMORY_LIMIT','MEMORY_ALLOCATION'].includes(error?.code)||error instanceof RangeError;
 const geometry=(width,height,side)=>{const ratio=Math.min(1,side/width,side/height);return {width:Math.max(1,Math.floor(width*ratio)),height:Math.max(1,Math.floor(height*ratio))};};
 const sourceCoordinate=(index,nativeSize,sampleSize)=>Math.min(nativeSize-1,Math.floor((index+.5)*nativeSize/sampleSize));
@@ -14,14 +14,18 @@ const key=id=>id+'\0ela-classic-preview/native';
 export function createClassicPreviewCache({budget,codec}){
  requireValue(budget,'Classic preview budget required.');
  function matching(imageId,image,quality){const entry=budget.get(key(imageId));return entry?.pairs&&entry.sourceSha256===image.sha256&&entry.quality===quality&&entry.codec===codec?.id&&entry.logicalWidth===image.surface.descriptor.width&&entry.logicalHeight===image.surface.descriptor.height?entry:null;}
- function beginCapture(imageId,image,params,{side=MAX_SIDE}={}){
-  const p=validateParams(params),{width:logicalWidth,height:logicalHeight}=image.surface.descriptor;requireValue(Number.isSafeInteger(side)&&side>=1&&side<=MAX_SIDE,'Classic preview side must be1–320.');
+ function beginCapture(imageId,image,params,{side}={}){
+  requireValue(side===undefined||Number.isSafeInteger(side)&&side>=1&&side<=MAX_SIDE,'Classic preview side must be1–2048.');
+  const captureBytes=Math.min(24*1024**2,Math.floor(budget.limit/32));
+  side=Math.min(side??MAX_SIDE,Math.max(1,Math.floor(Math.sqrt(captureBytes/6))));
+  const p=validateParams(params),{width:logicalWidth,height:logicalHeight}=image.surface.descriptor;requireValue(Number.isSafeInteger(side)&&side>=1&&side<=MAX_SIDE,'Classic preview side must be1–2048.');
   if(matching(imageId,image,p.quality)||budget.recovering)return null;
   let data,release,backing,shape;
-  for(const candidate of [...new Set([side,Math.min(side,160),Math.min(side,80)])]){
+  const candidates=[];for(let candidate=side;;candidate=Math.max(1,Math.floor(candidate/2))){candidates.push(candidate);if(candidate<=80)break;}
+  for(const candidate of candidates){
    shape=geometry(logicalWidth,logicalHeight,candidate);const bytes=shape.width*shape.height*6;
    // Optional admission must not evict a useful native cache or fail its run.
-   if(budget.total()+bytes>budget.limit)continue;
+   if(bytes>captureBytes||budget.total()+bytes>budget.limit)continue;
    try{release=budget.reserve(bytes);data=allocateTypedArray(Uint16Array,shape.width*shape.height*3,{label:'ela-classic-preview-pairs'});backing=budget.registerBacking?.('array-buffer',bytes,{owner:'ela',label:'classic-preview-pairs',identity:data.buffer});break;}
    catch(error){release?.();release=null;data=null;if(!memoryFailure(error))throw error;}
   }
@@ -57,7 +61,7 @@ export function createClassicPreviewCache({budget,codec}){
  return {
   beginCapture,
   async preview(imageId,image,params,side=MAX_SIDE,{signal}={}){
-   const p=validateParams(params);requireValue(Number.isSafeInteger(side)&&side>=1&&side<=MAX_SIDE,'Classic preview side must be1–320.');checkAbort(signal);
+   const p=validateParams(params);requireValue(Number.isSafeInteger(side)&&side>=1&&side<=MAX_SIDE,'Classic preview side must be1–2048.');checkAbort(signal);
    const {width:logicalWidth,height:logicalHeight}=image.surface.descriptor,entry=matching(imageId,image,p.quality);let frame,nativePixelSamples=!!entry;
    if(entry){
     // Keep a borrowed native sample pinned across LUT allocation/checkpoints.

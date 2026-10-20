@@ -8,7 +8,7 @@ export function retainResult(master){
   descriptor:master.descriptor,
   lease(){requireValue(!ownerReleased,'Result cache entry has been released.');refs++;let disposed=false;
    const descriptor=Object.freeze({...master.descriptor,id:crypto.randomUUID()}),result={descriptor,dispose(){if(disposed)return;disposed=true;return drop();}};
-   for(const method of ['readWindow','readRows','readCsv'])if(master[method])result[method]=async(...args)=>{if(disposed)throw new EngineError('DISPOSED','Result handle released.');const value=await master[method](...args);return {...value,...(method==='readWindow'?{surfaceId:descriptor.id}:{tableId:descriptor.id})};};
+   for(const method of ['readWindow','readSampledWindow','readRows','readCsv'])if(master[method])result[method]=async(...args)=>{if(disposed)throw new EngineError('DISPOSED','Result handle released.');const value=await master[method](...args);return {...value,...(['readWindow','readSampledWindow'].includes(method)?{surfaceId:descriptor.id}:{tableId:descriptor.id})};};
    return result;
   },
   dispose(){if(ownerReleased)return closing;ownerReleased=true;return drop();}

@@ -3,7 +3,7 @@ let serial=0;
 // but never asks a worker for pixels after a newer preview has replaced them.
 export function createPreviewSurface(pixels,{document=globalThis.document}={}){
  const {width:sampleWidth,height:sampleHeight,logicalWidth:width,logicalHeight:height,format,data,preview}=pixels??{};
- if(preview!==true||format!=='rgb8'||![sampleWidth,sampleHeight].every(v=>Number.isSafeInteger(v)&&v>=1&&v<=320)||![width,height].every(v=>Number.isSafeInteger(v)&&v>=1)||sampleWidth>width||sampleHeight>height||!(data instanceof Uint8Array)||data.length!==sampleWidth*sampleHeight*3)throw Object.assign(Error('Invalid bounded preview surface.'),{code:'INVALID_INPUT'});
+ if(preview!==true||format!=='rgb8'||![sampleWidth,sampleHeight].every(v=>Number.isSafeInteger(v)&&v>=1&&v<=2048)||![width,height].every(v=>Number.isSafeInteger(v)&&v>=1)||sampleWidth>width||sampleHeight>height||!(data instanceof Uint8Array)||data.length!==sampleWidth*sampleHeight*3)throw Object.assign(Error('Invalid bounded preview surface.'),{code:'INVALID_INPUT'});
  const canvas=document.createElement('canvas');canvas.width=sampleWidth;canvas.height=sampleHeight;
  try{const ctx=canvas.getContext('2d'),image=ctx.createImageData(sampleWidth,sampleHeight);for(let a=0,b=0;a<data.length;a+=3,b+=4){image.data[b]=data[a];image.data[b+1]=data[a+1];image.data[b+2]=data[a+2];image.data[b+3]=255;}ctx.putImageData(image,0,0);}
  catch(error){canvas.width=canvas.height=0;throw error;}

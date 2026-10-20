@@ -1,3 +1,8 @@
+import {bindInteractiveControl} from './interactive-control.js';
+import {installHoverSliders} from './hover-sliders.js';
+import {createAdaptivePreview,reportAdaptivePreviewPresented} from './adaptive-preview.js';
+import {parameterPreviewPolicy} from './parameter-preview-policy.js';
+import {createParameterPreviewSession} from './parameter-preview-session.js';
 import {localFeaturePolicy} from './feature-policy.js';
 import {preferenceAccess,capturePreferenceBackup,downloadPreferenceBackup} from './preferences-recovery.js';
 import {downloadSession} from './session-ui.js';
@@ -40,26 +45,37 @@ import { TileCache } from './tiled-surface.js';
 import { exportRGBPNG } from './png-export.js';
 export function mountAnalysisPanel(document=globalThis.document,host={}) {
 const $=id=>document.getElementById(id);
+const hoverSliders=host.managed?null:installHoverSliders({root:document,enabled:true,language:()=>lang});
 let activeAnalysis='ela.classic',compositeClient=null,compositeResult=null,compositeAbort=null,compositeCleanup=Promise.resolve(),compositeDisposing=false;
 const compositeMode=()=>activeAnalysis==='composite';
 const individualMode=()=>!!toolCatalog[activeAnalysis];
 // Exports and display reads share this client; only a live computation owns the calculation status.
+let parameterSession=null,parameterCommitting=false;
 let individualUI=null,individualClient=null,individualOpening=null,individualCleanup=Promise.resolve(),individualEpoch=0,individualDisposing=false,individualCancelled=false,pendingMagnifier=false,individualComputing=null;
-function stopIndividual(){regionController?.cancel();individualComputing=null;pointerLoupe?.cancelImage();individualEpoch++;const client=individualClient;individualClient=null;individualUI?.invalidateResult();if(client){individualDisposing=true;individualCleanup=individualCleanup.then(()=>client.dispose()).catch(error=>console.warn('Tool cleanup:',error)).finally(()=>individualDisposing=false);}}
+function stopIndividual(){parameterSession?.reset('tool-change',{restoreResult:false});regionController?.cancel();individualComputing=null;pointerLoupe?.cancelImage();individualEpoch++;const client=individualClient;individualClient=null;individualUI?.invalidateResult();if(client){individualDisposing=true;individualCleanup=individualCleanup.then(()=>client.dispose()).catch(error=>console.warn('Tool cleanup:',error)).finally(()=>individualDisposing=false);}}
 const automaticMode=()=>['analysis.complete','analysis.clones'].includes(activeAnalysis);
-let automaticOpening=null,automaticEpoch=0,automaticDisposing=false;
+let automaticOpening=null,automaticEpoch=0,automaticDisposing=false,automaticPresentationDraft=false,automaticGesture=null,automaticGestureVersion=0;
 let automaticClient=null,automaticCleanup=Promise.resolve(),automaticProgress=null,automaticSnapshot=null,automaticStarted=0,automaticClock=null,automaticDisplayRevision=0;
-function stopAutomatic(){automaticEpoch++;clearInterval(automaticClock);automaticClock=null;const client=automaticClient;automaticClient=null;if(client){automaticDisposing=true;automaticCleanup=automaticCleanup.then(()=>client.dispose()).catch(error=>console.warn('Automatic cleanup:',error)).finally(()=>{automaticDisposing=false;});}}
+function stopAutomatic(){automaticGesture?.reset('cancel');automaticPresentationDraft=false;automaticGestureVersion++;automaticEpoch++;clearInterval(automaticClock);automaticClock=null;const client=automaticClient;automaticClient=null;if(client){automaticDisposing=true;automaticCleanup=automaticCleanup.then(()=>client.dispose()).catch(error=>console.warn('Automatic cleanup:',error)).finally(()=>{automaticDisposing=false;});}}
 
 function releaseCompositeResult(){if(compositeResult&&compositeClient){const client=compositeClient,id=compositeResult.id;compositeResult=null;compositeCleanup=compositeCleanup.then(()=>client.release(id)).catch(()=>{});}}
 function stopComposite(){compositeAbort?.abort();compositeAbort=null;const client=compositeClient;compositeClient=null;compositeResult=null;if(client){compositeDisposing=true;compositeCleanup=compositeCleanup.then(()=>client.dispose()).catch(error=>console.warn('Composite cleanup:',error)).finally(()=>{compositeDisposing=false;});}}
 let energyUI=null,energyHistogramUI=null,energyHistogramJob=null,energyHistogramQueued=null,energyHistogramVersion=0,energyHistogramKey='',elaMode='classic',energyMode=false,energyViewRevision=0,energyViewBusy=false,energyViewQueued=false,energyViewPreview=null,energyPreviewed=false,autoRunTimer=null;
 let lastScientificEnergy=null,lastScientificClassic=null,elaParameterDraft=false,elaPreviewBusy=false,elaPreviewQueued=null,elaPreviewVersion=0,elaPreviewEpoch=0,elaPreviewCommit=false,elaParameterKind=null;
 const classicGestures=[];
+const displayAdaptive=createAdaptivePreview();let elaAdaptiveFeedback=null;
+function observePreviewPresentation(surface,metrics){if(surface&&metrics?.adaptivePreview)surface.adaptiveMetrics=metrics;}
+function reportPresentedPreview(surface){
+ if(!surface?.adaptiveMetrics||surface.adaptiveReportPending||surface.adaptiveReported===surface.adaptiveMetrics)return;
+ const metrics=surface.adaptiveMetrics;surface.adaptiveReportPending=true;
+ requestAnimationFrame(()=>{surface.adaptiveReportPending=false;if(destroyed||surface!==result||surface!==presentedSurface||surface.adaptiveMetrics!==metrics)return;surface.adaptiveReported=metrics;const feedback=reportAdaptivePreviewPresented(metrics,{presentedAt:Date.now()});if(feedback){elaAdaptiveFeedback=feedback;diagnostic({level:'info',kind:'parameter-preview.adaptive',metrics:feedback});}});
+}
+
+const parameterProvisional=()=>!!parameterSession?.pending||!!individualUI?.interactivePending||automaticPresentationDraft;
 const elaProvisional=()=>elaParameterDraft||elaPreviewBusy||elaPreviewCommit||energyViewBusy||energyPreviewed;
 function queueAnalysis(){
  clearTimeout(autoRunTimer);autoRunTimer=null;
- if(!fileInput||host.sourceOnly||$('app').classList.contains('original-mode'))return;
+ if(!fileInput||host.sourceOnly||$('app').classList.contains('original-mode')||parameterSession?.pending&&!parameterCommitting)return;
  if(localMagnifier()){pendingMagnifier=false;refreshLocalMagnifier();return;}
  if(busy||energyViewBusy||elaPreviewBusy){if(activeAnalysis==='inspection.magnifier')pendingMagnifier=true;return;}
  pendingMagnifier=false;
@@ -89,7 +105,8 @@ const t=key=>strings[lang][key]||key;
 function status(message){diagnostic({level:'info',kind:'operation.status',operation:activeAnalysis,message});$('status').textContent=localizeStatus(message,lang);host.changed?.();}
 function localGet(key){if(host.managed)return null;return preferenceAccess.read('sherloq.'+key,key==='settings'?{recover:recoverSettings}:{}).value??null;}
 function localSet(key,value){if(host.managed)return true;return preferenceAccess.write('sherloq.'+key,value);}
-function translate(){const previous=$('status').textContent;for(const key of Object.keys(strings.fr)){if(previous===strings.fr[key]||previous===strings.en[key]){$('status').textContent=t(key);break;}}document.documentElement.lang=lang;$('language').value=lang;document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));renderCapabilities();renderRegions();renderToolTree();renderProfiles();energyUI?.translate();energyHistogramUI?.translate();syncElaAutomatic();syncAnalysisControls();individualUI?.translate?.();translateTaskActions();updateChrome();draw();}
+function translate(){
+for(const node of document.querySelectorAll('[data-all-sliders-label]'))node.textContent=lang==='fr'?'Tout en curseurs':'Sliders everywhere';const previous=$('status').textContent;for(const key of Object.keys(strings.fr)){if(previous===strings.fr[key]||previous===strings.en[key]){$('status').textContent=t(key);break;}}document.documentElement.lang=lang;$('language').value=lang;document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));renderCapabilities();renderRegions();renderToolTree();renderProfiles();energyUI?.translate();energyHistogramUI?.translate();syncElaAutomatic();syncAnalysisControls();individualUI?.translate?.();translateTaskActions();updateChrome();draw();}
 function serialize(){return {schema:'sherloq.session/1',individual:individualUI?.serialize(),operation:individualMode()?activeAnalysis:automaticMode()?activeAnalysis:compositeMode()?'composite':energyMode?'ela.energy':'ela.classic',automatic:automaticSettings(),composite:compositeSettings(),energy:energyUI.bundle(),elaMode,params:{...params},regions:structuredClone(regions),...(regionController?.active()?{scientificRegions:regionController.serialize()}:{}),regionMode:$('zone-mode').value,sha256:hash||expectedHash,language:lang};}
 function activeElaAutomatic(){return elaAutomatic?.sourceSha256===hash&&Object.keys(defaults).every(key=>elaAutomatic.parameters[key]===params[key])?elaAutomatic:null;}
 function syncElaAutomatic(){const active=activeElaAutomatic(),e=active?.estimate?.evidence;let detail='';if(active){const key=e?.status==='exact-IJG-table'?'elaAutoTables':e?.status==='IJG-compatible-statistical-trace'?'elaAutoPixels':e?.kind==='current-file-tables'?'elaAutoEquivalent':'elaAutoUncertain';detail=t(key)+(active.estimate.quality!==null||e?.kind==='current-file-tables'?' · '+active.parameters.quality:'');if(active.calibration?.status==='visibility-calibrated')detail+=' · '+t('elaAutoVisibility');}for(const id of ['ela-auto-detail','energy-ela-auto-detail'])if($(id))$(id).textContent=detail;}
@@ -104,11 +121,11 @@ const localMagnifier=()=>activeAnalysis==='inspection.magnifier'&&loupeSettings.
 const processedSurface=()=>result??previousPresentation;
 function comparisonSurface(){const shared=host.sourceInput?.()?.source;if(shared&&shared!==comparisonBase){comparisonSource?.close?.();comparisonBase=shared;comparisonSource=shared.fork?.(scheduleDraw);}return comparisonSource??source;}
 const selectedSurface=()=>comparingOriginal||localMagnifier()?comparisonSurface():$('layer').value==='result'&&processedSurface()?processedSurface():source;
-function invalidate({preserve=true}={}){energyHistogramVersion++;energyHistogramQueued=null;energyHistogramKey='';retireResult(preserve);releaseCompositeResult();$('composite-npz').disabled=true;clearTimeout(autoRunTimer);autoRunTimer=null;revision++;energyViewRevision++;energyUI?.cancelInteraction?.();for(const gesture of classicGestures)gesture.reset();elaPreviewVersion++;elaPreviewEpoch++;elaPreviewBusy=false;elaPreviewQueued=null;elaPreviewCommit=false;elaParameterDraft=false;elaParameterKind=null;energyPreviewed=false;energyViewPreview=null;energyUI?.resetBounds?.();$('energy-npz').disabled=true;$('energy-json').disabled=true;exportController?.abort();resultMeta=null;$('layer').value=previousPresentation?'result':'source';$('export-png').disabled=true;$('export-report').disabled=true;$('provenance').textContent='';draw();}
+function invalidate({preserve=true}={}){parameterSession?.reset('source-change',{restoreResult:false});energyHistogramVersion++;energyHistogramQueued=null;energyHistogramKey='';retireResult(preserve);releaseCompositeResult();$('composite-npz').disabled=true;clearTimeout(autoRunTimer);autoRunTimer=null;revision++;energyViewRevision++;energyUI?.cancelInteraction?.();for(const gesture of classicGestures)gesture.reset();elaPreviewVersion++;elaPreviewEpoch++;elaPreviewBusy=false;elaPreviewQueued=null;elaPreviewCommit=false;elaParameterDraft=false;elaParameterKind=null;energyPreviewed=false;energyViewPreview=null;energyUI?.resetBounds?.();$('energy-npz').disabled=true;$('energy-json').disabled=true;exportController?.abort();resultMeta=null;$('layer').value=previousPresentation?'result':'source';$('export-png').disabled=true;$('export-report').disabled=true;$('provenance').textContent='';draw();}
 function setCompareOriginal(value){if(comparingOriginal===value)return;comparingOriginal=value;individualUI?.setOriginal(value||drawing||localMagnifier()||$('app').classList.contains('original-mode'));draw();}
 const displayedZoom=()=>Math.round((pointerLoupe?.enabled?loupeScale(loupeSettings,zoom,localMagnifier()):zoom)*100);
 
-function controls(){ host.changed?.();individualUI?.lock(busy||energyViewBusy||!!exportController,!!fileInput);for(const b of $('tool-tree').querySelectorAll('button'))b.disabled=busy&&!['original',activeAnalysis].includes(b.dataset.toolId);automaticControls();const locked=busy||energyViewBusy||!!exportController;const previewLock=elaProvisional();energyHistogramUI?.lock(locked||previewLock||!!energyHistogramJob||!hasRetainedEnergy());if(previewLock)for(const id of ['export-png','export-report','energy-npz','energy-json'])$(id).disabled=true;for(const key of ['histogramLow','histogramHigh','shadow','highlight'])for(const suffix of ['','-number'])$('energy-'+key+suffix).disabled=busy||!!exportController;for(const key of ['quality','block','minimum','profile','view','opacity'])$('energy-'+key).disabled=busy||!!exportController;regionController?.refresh();if(regionParent)for(const c of regionParent.querySelectorAll('button,input'))c.disabled=locked||!fileInput||c.dataset.detectionUnavailable==='true';if(regionParent)regionParent.hidden=!(regionController?.active()&&fileInput);if(regionController?.active()&&fileInput){$('inspector').hidden=!!host.regionParent;$('zones').closest('section').hidden=true;}for(const id of ['composite-quality','composite-stage','composite-view'])$(id).disabled=locked;$('composite-run').disabled=!fileInput||locked;$('composite-cancel').disabled=!locked;$('composite-npz').disabled=!compositeResult||locked; $('run').disabled=!fileInput||locked; $('cancel').disabled=!(locked||previewLock); $('file').disabled=locked;$('open-file').disabled=locked;$('empty-open').disabled=locked; for(const k of Object.keys(defaults)){ $(k).disabled=locked;if($('energy-ela-'+k))$('energy-ela-'+k).disabled=locked;} $('energy-run').disabled=!fileInput||locked;$('energy-cancel').disabled=!(locked||previewLock);$('ela-mode').disabled=locked;for(const mode of ['classic','energy','biomes']){const tab=$('ela-tab-'+mode);if(tab)tab.disabled=busy||!!exportController||(mode==='classic'&&energyViewBusy);}for(const id of ['energy-score-field','energy-score-view','energy-score-threshold','energy-score-threshold-number'])$(id).disabled=busy||!!exportController;$('energy-score-run').disabled=!fileInput||locked;$('energy-score-cancel').disabled=!(locked||previewLock); for(const id of ['ela-auto','energy-ela-auto'])if($(id))$(id).disabled=locked||previewLock||!fileInput||!loaded;$('preset').disabled=locked; $('reset').disabled=locked;$('load-session').disabled=locked;$('compute-profile').disabled=locked;for(const id of ['task-zones','task-auto-zones'])if($(id))$(id).disabled=!fileInput||locked;if($('task-run'))$('task-run').disabled=!fileInput||locked||(individualMode()&&!individualUI?.canRun(regions.filter(r=>r.kind!=='exclusion')));}
+function controls(){ host.changed?.();individualUI?.lock(busy||energyViewBusy||!!exportController,!!fileInput);for(const b of $('tool-tree').querySelectorAll('button'))b.disabled=busy&&!['original',activeAnalysis].includes(b.dataset.toolId);automaticControls();const locked=busy||energyViewBusy||!!exportController;const previewLock=elaProvisional()||parameterProvisional();energyHistogramUI?.lock(locked||previewLock||!!energyHistogramJob||!hasRetainedEnergy());if(previewLock)for(const id of ['export-png','export-report','energy-npz','energy-json'])$(id).disabled=true;for(const key of ['histogramLow','histogramHigh','shadow','highlight'])for(const suffix of ['','-number'])$('energy-'+key+suffix).disabled=busy||!!exportController;for(const key of ['quality','block','minimum','profile','view','opacity'])$('energy-'+key).disabled=busy||!!exportController;regionController?.refresh();if(regionParent)for(const c of regionParent.querySelectorAll('button,input'))c.disabled=locked||!fileInput||c.dataset.detectionUnavailable==='true';if(regionParent)regionParent.hidden=!(regionController?.active()&&fileInput);if(regionController?.active()&&fileInput){$('inspector').hidden=!!host.regionParent;$('zones').closest('section').hidden=true;}for(const id of ['composite-quality','composite-stage','composite-view'])$(id).disabled=locked;$('composite-run').disabled=!fileInput||locked;$('composite-cancel').disabled=!locked;$('composite-npz').disabled=!compositeResult||locked; $('run').disabled=!fileInput||locked; $('cancel').disabled=!(locked||previewLock); $('file').disabled=locked;$('open-file').disabled=locked;$('empty-open').disabled=locked; for(const k of Object.keys(defaults)){ $(k).disabled=locked;if($('energy-ela-'+k))$('energy-ela-'+k).disabled=locked;} $('energy-run').disabled=!fileInput||locked;$('energy-cancel').disabled=!(locked||previewLock);$('ela-mode').disabled=locked;for(const mode of ['classic','energy','biomes']){const tab=$('ela-tab-'+mode);if(tab)tab.disabled=busy||!!exportController||(mode==='classic'&&energyViewBusy);}for(const id of ['energy-score-field','energy-score-view','energy-score-threshold','energy-score-threshold-number'])$(id).disabled=busy||!!exportController;$('energy-score-run').disabled=!fileInput||locked;$('energy-score-cancel').disabled=!(locked||previewLock); for(const id of ['ela-auto','energy-ela-auto'])if($(id))$(id).disabled=locked||previewLock||!fileInput||!loaded;$('preset').disabled=locked; $('reset').disabled=locked;$('load-session').disabled=locked;$('compute-profile').disabled=locked;for(const id of ['task-zones','task-auto-zones'])if($(id))$(id).disabled=!fileInput||locked;if($('task-run'))$('task-run').disabled=!fileInput||locked||(individualMode()&&!individualUI?.canRun(regions.filter(r=>r.kind!=='exclusion')));}
 function cleanupTemporarySessions(){for(const session of temporarySessions.values())void removeTerminatedTemporarySession(session.id,session.backend).catch(()=>{});temporarySessions.clear();}
 function stop(){energyHistogramVersion++;energyHistogramQueued=null;energyHistogramKey='';const cancellingParameters=elaParameterDraft||elaPreviewBusy||elaPreviewCommit;elaPreviewVersion++;elaPreviewEpoch++;elaPreviewQueued=null;elaPreviewBusy=false;elaPreviewCommit=false;elaParameterDraft=false;elaParameterKind=null;lastScientificEnergy=lastScientificClassic=null;energyUI?.cancelInteraction?.();for(const gesture of classicGestures)gesture.reset();if(cancellingParameters){resultMeta=null;$('provenance').textContent='';$('export-report').disabled=true;}const cancellingEnergyView=!cancellingParameters&&(energyViewBusy||energyPreviewed);retireResult(!cancellingEnergyView);if(cancellingEnergyView)$('layer').value='source';stopIndividual();stopAutomatic();stopComposite();if(compositeMode()){result?.close?.();result=null;resultMeta=null;$('export-report').disabled=true;$('composite-detail').textContent='';}clearTimeout(autoRunTimer);autoRunTimer=null;revision++;$('energy-npz').disabled=true;$('energy-json').disabled=true;energyViewBusy=false;energyViewQueued=false;energyViewPreview=null;energyPreviewed=false;exportController?.abort();exportController=null;worker?.terminate();worker=null;loaded=false;cleanupTemporarySessions();for(const {reject} of pending.values())reject(Object.assign(new Error('Cancelled'),{code:'CANCELLED'}));pending.clear();busy=false;controls();$('export-png').disabled=!result;if(cancellingEnergyView||cancellingParameters)draw();}
 function getWorker(){
@@ -140,7 +157,7 @@ function request(action,payload,onChunk){if(individualMode())return individualRe
  catch(error){pending.delete(id);reject(error);}
 });}
 let displayFramePending=false;function scheduleDraw(){if(destroyed||displayFramePending)return;displayFramePending=true;requestAnimationFrame(()=>{displayFramePending=false;draw();});}
-function remoteSurface(display,onFailure){return createRemoteSurface(display,tileCache,(action,payload)=>loaded?request(action,payload):Promise.reject(Object.assign(Error('Source not loaded'),{code:'CANCELLED'})),scheduleDraw,onFailure??(error=>{if(error.code!=='CANCELLED')status(t('error')+' · '+error.message);}));}
+function remoteSurface(display,onFailure){const surface=createRemoteSurface(display,tileCache,(action,payload)=>loaded?request(action,payload):Promise.reject(Object.assign(Error('Source not loaded'),{code:'CANCELLED'})),scheduleDraw,onFailure??(error=>{if(error.code!=='CANCELLED')status(t('error')+' · '+error.message);}));observePreviewPresentation(surface,{adaptivePreview:display.adaptivePreview});return surface;}
 function fit(){if(individualUI?.fit?.())return;if(!source||!view.clientWidth||!view.clientHeight)return;const frame=individualMode()||energyMode?(selectedSurface()??source):source;zoom=Math.min(view.clientWidth/frame.width,view.clientHeight/frame.height)*.95;offset={x:(view.clientWidth-frame.width*zoom)/2,y:(view.clientHeight-frame.height*zoom)/2};draw();}
 function draw(){
  if(destroyed)return;
@@ -160,6 +177,7 @@ function draw(){
   drawRegionOverlay(ctx);
   ctx.restore();
  }
+ if(nextSurface===result)reportPresentedPreview(nextSurface);
  $('analysis-state').hidden=individualMode()||!source||!!processedSurface()||$('app').classList.contains('original-mode');$('analysis-state').textContent=automaticMode()?autoText(busy?'Analyse automatique en cours…':'Prêt pour l’analyse automatique.',busy?'Automatic analysis running…':'Ready for automatic analysis.'):t(compositeMode()?(busy?'compositeComputing':'compositeWaiting'):(busy?'originalComputing':'originalPending'));
  $('zoom').value=displayedZoom()+'%';$('legend').textContent=elaParameterDraft?t('elaDraftView'):energyViewBusy?t('energyPreviousView'):energyPreviewed?t('energyDraftView'):individualMode()?toolTitle(activeAnalysis,lang):automaticMode()&&$('layer').value==='result'&&result?automaticLegend():t($('layer').value==='result'&&processedSurface()?(compositeMode()?'compositeLegend':energyMode?(elaMode==='scores'?(energyUI?.presentation('scores').field==='both'?'energyScoreBothLegend':energyUI?.presentation('scores').field==='unified'?'energyScoreUnifiedLegend':'energyScoreLegend'):'energyLegend'):'resultLegend'):'legend');pointerLoupe?.draw();host.changed?.();
 }
@@ -219,7 +237,7 @@ function beginElaParameters({newIntent=false}={}){
  if(!energyViewBusy&&!busy)revision++;
  energyViewRevision++;energyViewQueued=false;elaPreviewVersion++;elaPreviewEpoch++;elaPreviewCommit=false;elaParameterDraft=true;
  retireResult();if(previousPresentation)$('layer').value='result';
- exportController?.abort();controls();draw();status(t('elaDraftView'));
+ exportController?.abort();controls();draw();status(t('running'));
 }
 function commitElaParameters(){
  if(!elaParameterDraft||elaPreviewCommit)return;elaPreviewQueued=null;elaPreviewVersion++;elaPreviewEpoch++;elaPreviewCommit=true;
@@ -239,7 +257,7 @@ async function estimateClassicAuto(){
 for(const id of ['ela-auto','energy-ela-auto'])if($(id))$(id).onclick=estimateClassicAuto;
 function queueElaParameterPreview(){
  if(!loaded||!worker||!fileInput||busy||individualMode()||automaticMode()||compositeMode())return;
- const preview={maxWidth:320,maxHeight:320};let job;
+ const preview={adaptive:true,...(elaAdaptiveFeedback?{adaptiveFeedback:elaAdaptiveFeedback}:{})};let job;
  if(energyMode&&elaParameterKind!=='classic'){if(!lastScientificEnergy)return;const prepared=prepareEnergyRequest();energyHistogramUI?.markers(prepared.params,resultMeta?.data?.metadata,{draft:true});job={action:'preview-energy-parameters',payload:{resultId:lastScientificEnergy.id,params:{...prepared.params},presentation:{...prepared.presentation},preview}};}
  else job={action:'preview-classic',payload:{imageId,...(lastScientificClassic?.id?{resultId:lastScientificClassic.id}:{}),params:{...params},preview}};
  elaPreviewQueued=job;elaPreviewCommit=false;elaPreviewVersion++;void pumpElaParameterPreview();
@@ -253,7 +271,7 @@ async function pumpElaParameterPreview(){
   if(rev!==revision||epoch!==elaPreviewEpoch||sourceId!==imageId)return;if(!elaParameterDraft||elaPreviewCommit)continue;
   // Complete drafts advance monotonically while inputs replace only the next
   // job. Their bounded RGB snapshot survives later worker display revisions.
-  diagnostic({level:'info',kind:'ela.preview.displayed',operation:elaParameterKind==='classic'?'ela.classic':'ela.energy',sourceSha256:hash,parameters:job.payload.params,presentation:answer.presentation,provisional:true});const next=createPreviewSurface(answer.pixels,{document});retireResult();result=next;$('layer').value=$('app').classList.contains('original-mode')?'source':'result';draw();status(t('elaDraftView'));
+  diagnostic({level:'info',kind:'ela.preview.displayed',operation:elaParameterKind==='classic'?'ela.classic':'ela.energy',sourceSha256:hash,parameters:job.payload.params,presentation:answer.presentation,metrics:answer.metrics??answer.draft,provisional:true});const next=createPreviewSurface(answer.pixels,{document});observePreviewPresentation(next,answer.metrics??answer.draft);retireResult();result=next;$('layer').value=$('app').classList.contains('original-mode')?'source':'result';draw();status(t('elaDraftView'));
  }}catch(error){if(rev===revision)status(error.code==='CANCELLED'?t('cancelled'):t('error')+' · '+error.message);}
  finally{if(rev===revision){elaPreviewBusy=false;controls();if(elaPreviewCommit)finishElaParameters();else if(elaPreviewQueued)void pumpElaParameterPreview();}}
 }
@@ -265,11 +283,11 @@ function updateClassicValue(key,control=$(key)){
  try{params=validParams({...params,[key]:typeof defaults[key]==='boolean'?control.checked:Number(raw)});return true;}catch{return false;}
 }
 for(const key of ['quality','scale','contrast'])for(const id of [key,'energy-ela-'+key]){
- const control=$(id);if(!control)continue;const gesture=bindElaPreviewGesture(control,{begin:()=>takeManualControl({newIntent:true}),finish:commitElaParameters});classicGestures.push(gesture);
+ const control=$(id);if(!control)continue;const gesture=bindElaPreviewGesture(control,{begin:()=>takeManualControl({newIntent:true}),preview:queueElaParameterPreview,finish:commitElaParameters});classicGestures.push(gesture);
  control.addEventListener('beforeinput',e=>{if(!control.disabled&&/^(insert|delete)/.test(e.inputType||''))takeManualControl({newIntent:true});},{capture:true});
- control.oninput=()=>{if(control.disabled||!updateClassicValue(key,control))return;takeManualControl();syncParams();persistSettings();if(gesture.active){gesture.markChanged();queueElaParameterPreview();}};
- control.onchange=()=>{if(!updateClassicValue(key,control)){syncParams();if(!gesture.active)commitElaParameters();return;}takeManualControl();syncParams();persistSettings();if(gesture.active)queueElaParameterPreview();else commitElaParameters();};
- control.addEventListener('blur',()=>{if(!updateClassicValue(key,control))syncParams();if(!gesture.active)commitElaParameters();});
+ control.oninput=()=>{if(control.disabled||!updateClassicValue(key,control))return;takeManualControl();syncParams();persistSettings();if(gesture.active)gesture.markChanged();};
+ control.onchange=()=>{if(!updateClassicValue(key,control)){syncParams();if(!gesture.active)commitElaParameters();return;}takeManualControl();syncParams();persistSettings();if(gesture.active)gesture.markChanged();else commitElaParameters();};
+ control.addEventListener('blur',()=>{if(control.dataset?.hoverSliderActive==='true')return;if(!updateClassicValue(key,control))syncParams();if(!gesture.active)commitElaParameters();});
 }
 for(const key of ['linear','grayscale'])for(const id of [key,'energy-ela-'+key])if($(id))$(id).onchange=()=>{try{params=validParams({...params,[key]:$(id).checked});syncParams();$('preset').value='manual';if(elaMode==='scores'){takeManualControl();commitElaParameters();}else{invalidate();status(t('changed'));queueAnalysis();}}catch(e){syncParams();status(t('error')+' · '+e.message);}};
 $('reset').onclick=()=>{params={...defaults};syncParams();$('preset').value='native';invalidate();queueAnalysis();};
@@ -311,8 +329,9 @@ function setLoupe(value){const next=validateLoupeSettings(value);if(JSON.stringi
 
 if(!host.managed)document.addEventListener('keydown',e=>{if(loupeKey(e)){e.preventDefault();setLoupe({...loupeSettings,enabled:!loupeSettings.enabled});}});
 async function exportImage(settingsOverride){
+ if(parameterProvisional())return status(autoText('Attendez le rendu final avant d’exporter.','Wait for the final rendering before exporting.'));
  if(!host.sourceOnly&&!individualMode()&&!automaticMode()&&!compositeMode()&&elaProvisional())return status(t('elaExactNeeded'));
- const target=host.sourceOnly||localMagnifier()||$('layer').value==='source'?source:result;if(!target||exportController)return;
+ const target=host.sourceOnly||localMagnifier()||$('layer').value==='source'?source:result;if(!target||exportController)return;if(target.previewOnly)return status(autoText('Attendez le rendu final avant d’exporter.','Wait for the final rendering before exporting.'));
  if(!host.sourceOnly&&target===source&&host.exportOriginalImage){const task=value=>host.exportOriginalImage(value);return settingsOverride?task(settingsOverride):host.requestExport(task);}
  const selectedRevision=revision,exportMeta=resultMeta,exportOperation=activeAnalysis;
  const execute=async settings=>{
@@ -320,7 +339,7 @@ async function exportImage(settingsOverride){
   const options=rasterOptions(settings.resize?{...settings,...linkedExportSize(settings,target)}:settings,source?.display?.chroma??engineCapabilities?.sourceChroma);let output;
   const progress=event=>{if(rev===revision){$('progress').value=event.fraction??0;status(t('exporting')+' · '+(event.phase??''));}};
   try{
-   if(individualMode()&&target.display?.id&&!target.display.pixels&&!target.display.m2Result&&!target.display.cloneView&&!target.display.biomePresentation&&!target.display.dtdPresentation&&!target.display.comprintPresentation){output=await(await ensureIndividualClient()).export(options.format,target.display,options);}
+   if(individualMode()&&target.display?.id&&!target.display.pixels&&!target.display.m2Result&&!target.display.cloneView&&!target.display.biomePresentation&&!target.display.dtdPresentation&&!target.display.comprintPresentation&&!target.display.retainedParameterView){output=await(await ensureIndividualClient()).export(options.format,target.display,options);}
    else if(!individualMode()&&!automaticMode()&&!compositeMode()){
     const sink=await createExportSink({memoryBudgetBytes:uiRGBBudget,signal:controller.signal,mime:'image/'+options.format});
     try{const answer=await request('export-raster',{display:target.display,options},chunk=>sink.write(chunk));output={...await sink.finish(),descriptor:answer.descriptor};}catch(error){await sink.abort();throw error;}
@@ -335,7 +354,7 @@ async function exportImage(settingsOverride){
  };
  return settingsOverride?execute(settingsOverride):host.requestExport?host.requestExport(execute):execute({...exportDefaults});
 }
-$('export-png').onclick=()=>exportImage();$('export-report').onclick=()=>{if(resultMeta&&!elaProvisional())return downloadSession({document,button:$('export-report'),operation:'tool-report',report:{...resultMeta,...(regionController?.active()?{scientificRegions:regionController.serialize()}:{}),...(errorJournal.length?{diagnosticHistory:errorJournal.snapshot()}:{})},download,name:automaticMode()?'SHERLOQ-automatic-report.json':compositeMode()?'SHERLOQ-composite-report.json':individualMode()?analysisReportFilename(resultMeta,{fallbackOperation:activeAnalysis}):'sherloq-ela-report.json'});};$('save-session').onclick=()=>exportJSON(serialize(),'sherloq-session.json');$('load-session').onchange=e=>restore(e.target.files[0]);
+$('export-png').onclick=()=>exportImage();$('export-report').onclick=()=>{if(resultMeta&&!elaProvisional()&&!parameterProvisional())return downloadSession({document,button:$('export-report'),operation:'tool-report',report:{...resultMeta,...(regionController?.active()?{scientificRegions:regionController.serialize()}:{}),...(errorJournal.length?{diagnosticHistory:errorJournal.snapshot()}:{})},download,name:automaticMode()?'SHERLOQ-automatic-report.json':compositeMode()?'SHERLOQ-composite-report.json':individualMode()?analysisReportFilename(resultMeta,{fallbackOperation:activeAnalysis}):'sherloq-ela-report.json'});};$('save-session').onclick=()=>exportJSON(serialize(),'sherloq-session.json');$('load-session').onchange=e=>restore(e.target.files[0]);
 
 function renderCapabilities(){const m=engineCapabilities?.memory?.budgetBytes;const workers=engineCapabilities?.resourceProfile?.maxWorkers;$('capabilities').textContent=t('memory')+': '+(m?Math.round(m/1024**2)+' MiB':'—')+' · '+t('workerBudget')+': '+(workers||browserCapabilities.cpuThreadsHint||'—')+' · '+t('displayMemory')+' '+Math.round(tileCache.limit/1024**2)+' MiB / RGB '+Math.round(uiRGBBudget/1024**2)+' MiB'+(storageEstimate?.quota?' · '+t('storageQuota')+' '+Math.round(storageEstimate.quota/1024**2)+' MiB':'')+' · WebGPU '+(browserCapabilities.webgpuAPI?'API ✓ / engine —':'API — / CPU ✓');}
 $('compute-profile').onchange=()=>{stop();engineCapabilities=null;invalidate();renderCapabilities();status(t('computeChanged'));};
@@ -371,16 +390,17 @@ document.addEventListener('keydown',e=>{if(!host.managed&&(e.ctrlKey||e.metaKey)
 
 
 function compositeSettings(){return validCompositeSettings({quality:Number($('composite-quality').value),stage:$('composite-stage').value,view:$('composite-view').value});}
-function settingsBundle(){return{individual:individualUI?.serialize(),automatic:automaticSettings(),composite:compositeSettings(),schema:'sherloq.settings/1',profiles:structuredClone(profiles),current:{...params},activeProfile:$('preset').value,...(energyUI?{energy:energyUI.bundle()}:{}),preferences:{highlightNewFeatures:$('highlight-new-features').checked,elaMode,theme,language:lang,layout:layouts.mode,computeProfile:$('compute-profile').value,navigationMode:$('navigation-mode').value||'auto',regionMode:$('zone-mode').value,favorite:$('favorite').getAttribute('aria-pressed')==='true',showZones:$('show-zones').checked,toolsVisible:!$('app').classList.contains('tools-hidden'),inspectorVisible:!$('inspector').hidden}};}
+function settingsBundle(){return{individual:individualUI?.serialize(),automatic:automaticSettings(),composite:compositeSettings(),schema:'sherloq.settings/1',profiles:structuredClone(profiles),current:{...params},activeProfile:$('preset').value,...(energyUI?{energy:energyUI.bundle()}:{}),preferences:{allSliders:host.getAllSliders?.()??($('all-sliders')?.checked===true),highlightNewFeatures:$('highlight-new-features').checked,elaMode,theme,language:lang,layout:layouts.mode,computeProfile:$('compute-profile').value,navigationMode:$('navigation-mode').value||'auto',regionMode:$('zone-mode').value,favorite:$('favorite').getAttribute('aria-pressed')==='true',showZones:$('show-zones').checked,toolsVisible:!$('app').classList.contains('tools-hidden'),inspectorVisible:!$('inspector').hidden}};}
 function persistSettings(){if(destroyed)return true;if(!settingsReady)return true;return localSet('settings',settingsBundle());}
 function applySettings(v){
- stop();invalidate();individualUI?.restore(v.individual);loadAutomaticSettings(v.automatic);const composite=v.composite||{quality:0,stage:'map',view:'map'};for(const key of ['quality','stage','view'])$('composite-'+key).value=composite[key];energyUI?.load(v.energy);profiles=v.profiles;params=v.current;const q=v.preferences;setElaMode(q.elaMode??'classic');$('highlight-new-features').checked=q.highlightNewFeatures===true;applyHighlights();theme=q.theme;lang=q.language;
+ stop();invalidate();individualUI?.restore(v.individual);loadAutomaticSettings(v.automatic);const composite=v.composite||{quality:0,stage:'map',view:'map'};for(const key of ['quality','stage','view'])$('composite-'+key).value=composite[key];energyUI?.load(v.energy);profiles=v.profiles;params=v.current;const q=v.preferences;setElaMode(q.elaMode??'classic');if($('all-sliders'))$('all-sliders').checked=q.allSliders!==false;hoverSliders?.setEnabled(q.allSliders!==false);$('highlight-new-features').checked=q.highlightNewFeatures===true;applyHighlights();theme=q.theme;lang=q.language;
  $('compute-profile').value=q.computeProfile;$('navigation-mode').value=q.navigationMode||'auto';$('zone-mode').value=q.regionMode;$('show-zones').checked=q.showZones;
  $('favorite').setAttribute('aria-pressed',String(q.favorite));$('app').classList.toggle('tools-hidden',!q.toolsVisible);$('toggle-tools').setAttribute('aria-pressed',String(q.toolsVisible));
  $('inspector').hidden=!q.inspectorVisible;$('toggle-inspector').setAttribute('aria-expanded',String(q.inspectorVisible));
  layouts.set(q.layout);renderProfiles();$('preset').value=v.activeProfile;syncParams();translate();queueAnalysis();
 }
 function applyHighlights(){$('app').classList.toggle('highlight-new-features',$('highlight-new-features').checked);}
+if($('all-sliders'))$('all-sliders').onchange=()=>{hoverSliders?.setEnabled($('all-sliders').checked);persistSettings();};
 $('highlight-new-features').onchange=()=>{applyHighlights();persistSettings();};
 function downloadSettings(){exportJSON({...settingsBundle(),exportedAt:new Date().toISOString()},settingsFilename());}
 layouts=createWindowLayout({document,getSource:()=>source,getNavigationMode:()=>$('navigation-mode').value,onResize:()=>{fit();draw();}});
@@ -405,14 +425,14 @@ $('settings-file').onchange=async e=>{
 $('confirm-import').onclick=()=>{if(!pendingSettings)return;applySettings(pendingSettings);pendingSettings=null;$('import-dialog').close();status(t(persistSettings()?'settingsRestored':'storageUnavailable'));};
 $('close-all').onclick=()=>$('close-dialog').showModal();
 $('confirm-close').onclick=()=>{
- const saved=persistSettings();stop();$('close-dialog').close();
- if(saved){location.reload();return;}
- // Keep settings in memory if the browser denies storage; reset image state safely.
- invalidate({preserve:false});source?.close?.();source=null;fileInput=null;hash='';expectedHash='';imageId='';regions=[];restoring=false;pointers.clear();gesture=null;draft=null;drawing=false;
- $('draw').setAttribute('aria-pressed','false');view.classList.remove('drawing');$('empty').hidden=false;$('file-info').textContent=t('noImage');$('file').value='';$('progress').value=0;renderRegions();draw();controls();status(t('storageUnavailable'));
+ persistSettings();stop();$('close-dialog').close();invalidate({preserve:false});
+ individualUI?.hideResult();void individualClient?.release().catch(error=>{if(error.code!=='CANCELLED')console.warn('Tool result cleanup:',error);});
+ regions=[];pointers.clear();gesture=null;draft=null;drawing=false;
+ $('draw').setAttribute('aria-pressed','false');view.classList.remove('drawing');renderRegions();
+ chooseTool('original');$('progress').value=0;controls();status(t('ready'));
 };
 if($('energy-histograms'))energyHistogramUI=createEnergyHistogramUI({root:document,document,t,onSelection:refreshEnergyHistogram});
-energyUI=createEnergyUI({$,t,persist:persistSettings,changed:(calculate=true,options={})=>{if(options.intent||options.preview||options.commit){elaParameterKind='energy';beginElaParameters({newIntent:options.intent===true});if(options.preview)queueElaParameterPreview();if(calculate)commitElaParameters();return;}if(elaParameterDraft){commitElaParameters();return;}if(busy||energyViewBusy)stop();invalidate();status(t('changed'));if(calculate)queueAnalysis();},viewChanged:refreshEnergyView});
+energyUI=createEnergyUI({$,t,persist:persistSettings,changed:(calculate=true,options={})=>{if(options.cancel){clearTimeout(autoRunTimer);autoRunTimer=null;elaPreviewVersion++;elaPreviewEpoch++;elaPreviewQueued=null;elaParameterDraft=elaPreviewCommit=false;elaParameterKind=null;if(hasRetainedEnergy())void refreshEnergyView();controls();return;}if(options.intent||options.preview||options.commit){elaParameterKind='energy';beginElaParameters({newIntent:options.intent===true});if(options.preview)queueElaParameterPreview();if(calculate)commitElaParameters();return;}if(elaParameterDraft){commitElaParameters();return;}if(busy||energyViewBusy)stop();invalidate();status(t('changed'));if(calculate)queueAnalysis();},viewChanged:refreshEnergyView});
 $('ela-mode').value='classic';
 for(const [tabId,mode]of [['classic','classic'],['energy','scores'],['biomes','biomes']]){const tab=$('ela-tab-'+tabId);if(tab)tab.onclick=()=>{if(!tab.disabled&&elaMode!==mode){$('ela-mode').value=mode;$('ela-mode').onchange();}};}
 function setElaMode(value){elaMode=validElaMode(value);energyMode=elaMode!=='classic';for(const [tabId,mode]of [['classic','classic'],['energy','scores'],['biomes','biomes']])$('ela-tab-'+tabId)?.setAttribute('aria-selected',String(elaMode===mode));$('ela-mode').value=elaMode;$('classic-controls').hidden=energyMode;$('energy-controls').hidden=!energyMode;$('energy-score-controls').hidden=elaMode!=='scores';if($('energy-ela-controls'))$('energy-ela-controls').hidden=elaMode!=='scores';$('energy-biome-controls').hidden=elaMode!=='biomes';$('energy-biome-presentation').hidden=elaMode!=='biomes';$('energy-presentation').hidden=!energyMode||compositeMode();controls();}
@@ -459,11 +479,11 @@ $('energy-save').onclick=()=>{$('profile-name').value=energyUI.selectedName;$('s
 async function refreshEnergyView(options={}){
  if(elaParameterDraft){if(elaParameterKind==='classic'&&elaPreviewCommit){energyViewQueued=true;energyViewPreview=options.preview??null;energyViewRevision++;}else queueElaParameterPreview();return;}if(!energyMode||!resultMeta||busy)return;if(!hasRetainedEnergy()){status(t('energyRecompute'));return;}energyViewQueued=true;energyViewPreview=options.preview??null;energyViewRevision++;
  if(energyViewBusy)return;energyViewBusy=true;controls();const rev=revision,previousSize=processedSurface()??source;let previousWidth=previousSize?.width,previousHeight=previousSize?.height;
- try{retireResult();draw();status(t('energyRendering'));while(energyViewQueued&&rev===revision&&resultMeta){energyViewQueued=false;const viewRev=energyViewRevision,presentation=energyUI.presentation(elaMode),id=resultMeta.id,preview=energyViewPreview;
+ try{retireResult();draw();status(t('energyRendering'));while(energyViewQueued&&rev===revision&&resultMeta){energyViewQueued=false;const viewRev=energyViewRevision,presentation=energyUI.presentation(elaMode),id=resultMeta.id,preview=energyViewPreview?{...energyViewPreview,...(elaAdaptiveFeedback?{adaptiveFeedback:elaAdaptiveFeedback}:{})}:null;
  $('energy-npz').disabled=true;$('energy-json').disabled=true;$('export-png').disabled=true;$('export-report').disabled=true;
  let answer;try{answer=await request('view-energy',{resultId:id,presentation,...(preview?{preview}:{})});}catch(error){if(rev!==revision)return;if(viewRev!==energyViewRevision||elaParameterDraft)continue;throw error;}if(rev!==revision)return;if(viewRev!==energyViewRevision||elaParameterDraft)continue;
  const draft=!!preview||answer.display.preview===true;if(!draft&&energyUI.observePresentation?.(answer.presentation)===true){energyViewQueued=true;energyViewPreview=null;energyViewRevision++;continue;}
- retireResult();result=remoteSurface(answer.display);energyPreviewed=draft;if(!energyPreviewed){resultMeta.ui.elaMode=elaMode;resultMeta.ui.presentation={...presentation,...answer.presentation};$('provenance').textContent=JSON.stringify(resultMeta,null,2);}$('layer').value=$('app').classList.contains('original-mode')?'source':'result';if(result.width!==previousWidth||result.height!==previousHeight)fit();previousWidth=result.width;previousHeight=result.height;draw();status(t(energyPreviewed?'energyDraftView':'done'));
+ retireResult();result=remoteSurface(answer.display);if(draft)observePreviewPresentation(result,answer.metrics??answer.draft);energyPreviewed=draft;if(!energyPreviewed){resultMeta.ui.elaMode=elaMode;resultMeta.ui.presentation={...presentation,...answer.presentation};$('provenance').textContent=JSON.stringify(resultMeta,null,2);}$('layer').value=$('app').classList.contains('original-mode')?'source':'result';if(result.width!==previousWidth||result.height!==previousHeight)fit();previousWidth=result.width;previousHeight=result.height;draw();status(t(energyPreviewed?'energyDraftView':'done'));
  }}catch(e){if(rev===revision){retireResult(false);energyPreviewed=false;$('layer').value='source';draw();status(e.code==='CANCELLED'?t('cancelled'):t('error')+' · '+e.message);}}finally{if(rev===revision){energyViewBusy=false;controls();$('energy-npz').disabled=!hasRetainedEnergy()||elaProvisional();$('energy-json').disabled=!hasRetainedEnergy()||elaProvisional();$('export-png').disabled=!result||elaProvisional();$('export-report').disabled=!resultMeta||elaProvisional();draw();if(!energyPreviewed&&!elaProvisional())refreshEnergyHistogram();if(elaPreviewCommit)finishElaParameters();else if(elaPreviewQueued)void pumpElaParameterPreview();else if(energyViewQueued&&!elaParameterDraft)void refreshEnergyView({preview:energyViewPreview});}}
 }
 async function exportEnergy(format){
@@ -535,7 +555,41 @@ $('composite-npz').onclick=async()=>{
  finally{if(output)await client.releaseExport(output.id).catch(()=>{});if(rev===revision){exportController=null;compositeAbort=null;busy=false;controls();}}
 };
 initAutomaticControls();
-individualUI=createToolWorkspace({document,language:()=>lang,getClient:ensureIndividualClient,getNavigationMode:()=>$('navigation-mode').value,run,cancel:()=>{individualCancelled=true;regionController?.cancel();pointerLoupe?.cancelImage();individualClient?.cancel();individualUI?.hideResult();},activity:individualActivity,showSurface:showIndividualSurface,onLoupe:()=>host.openLoupeSettings?.(),download,notify:status,onSettings:({presentationOnly=false}={})=>{persistSettings();controls();translateTaskActions();if(!presentationOnly)queueAnalysis();if(activeAnalysis==='inspection.magnifier')host.onLoupeContextChange?.();}});
+// Generic parameter drafts retain the scientific result until one native
+// replacement commits. Their owner is independent from the engine run queue.
+parameterSession=createParameterPreviewSession({
+ // Brief clicks coalesce into a native calculation and never paint a proxy.
+ schedule:(finish,event)=>setTimeout(finish,event.continuous?0:120),
+ preview:async(event,{signal})=>{
+  if(!fileInput||busy||event.toolId!==activeAnalysis||event.previewHandled||event.policy?.final==='explicit')return null;
+  const rev=revision,client=await ensureIndividualClient();if(signal.aborted||rev!==revision)return null;
+  if(!client.source){const descriptor=await client.load({id:imageId,blob:fileInput});if(signal.aborted||rev!==revision)return null;loaded=true;source?.close?.();source=remoteSurface({...descriptor.surface,chroma:descriptor.provenance?.chroma});}
+  return client.previewParameters({toolId:event.toolId,operation:event.operation,params:event.params,view:event.view},{field:event.field,extras:event.extras,signal});
+ },
+ show:(answer,event)=>{
+  if(event.toolId!==activeAnalysis||destroyed)return;
+  diagnostic({level:'info',kind:'parameter-preview.frame',operation:event.operation,field:event.field,exact:false,metrics:answer.metrics});
+  if(answer.pixels){retireResult();result=createPreviewSurface({...answer.pixels,preview:true,logicalWidth:answer.pixels.logicalWidth??answer.logicalWidth??source?.width,logicalHeight:answer.pixels.logicalHeight??answer.logicalHeight??source?.height},{document});observePreviewPresentation(result,answer.metrics);$('layer').value='result';draw();}
+  individualUI.renderParameterPreview?.(answer);status(autoText('Aperçu rapide','Quick preview'));controls();
+ },
+ commit:async(event,{isCurrent=()=>true}={})=>{
+  if(!fileInput||event.toolId!==activeAnalysis||destroyed)return;
+  persistSettings();translateTaskActions();diagnostic({level:'info',kind:'parameter-preview.commit',operation:event.operation,field:event.field,parameters:event.params});
+  // A committed setting is a native calculation intention, including fields
+  // without a provisional proxy. The initial Calculate command stays available.
+  parameterCommitting=true;
+  try{
+   const client=individualClient,next=client&&await client.updateRetainedParameters({toolId:event.toolId,operation:event.operation,params:event.params,view:event.view},{isCurrent});
+   if(!isCurrent())return;
+   if(next){await individualUI.render(next);if(!isCurrent())return;resultMeta={id:next.id,operation:next.operation,status:next.status,provenance:next.provenance,metrics:next.metrics};$('provenance').textContent=JSON.stringify(resultMeta,null,2);status(t('done'));}
+   else await run();
+  }finally{parameterCommitting=false;}
+ },
+ restore:()=>{individualUI?.restorePresentation?.();},
+ state:({pending})=>{if(!individualUI||destroyed)return;controls();if(!pending&&!busy){$('export-png').disabled=!result||!!result.previewOnly||parameterProvisional();$('export-report').disabled=!resultMeta;}host.changed?.();},
+ error:(error,context)=>{diagnostic({level:'warning',kind:'parameter-preview.'+context.phase,operation:activeAnalysis,code:error.code,message:error.message});if(context.phase==='final'){discardIndividualPresentation();resultMeta={operation:activeAnalysis,status:'error',error:errorEvidence(error),parameters:context.event?.params};$('provenance').textContent=JSON.stringify(resultMeta,null,2);$('export-report').disabled=false;status(t('error')+' · '+errorText(error,lang));}}
+});
+individualUI=createToolWorkspace({document,language:()=>lang,getClient:ensureIndividualClient,getNavigationMode:()=>$('navigation-mode').value,getSourceContext:()=>({width:source?.width,height:source?.height,byteLength:fileInput?.size}),run,cancel:()=>{parameterSession.reset('cancel',{restoreResult:false});individualCancelled=true;regionController?.cancel();pointerLoupe?.cancelImage();individualClient?.cancel();individualUI?.hideResult();},activity:individualActivity,showSurface:showIndividualSurface,onLoupe:()=>host.openLoupeSettings?.(),download,notify:status,onInteractive:event=>{if(parameterCommitting&&event.phase==='cancel'&&event.reason==='result-change')return;if(event.phase==='cancel'&&event.reason!=='unchanged')parameterSession.reset(event.reason,{restoreResult:false});else parameterSession.handle(event);},onSettings:({presentationOnly=false}={})=>{persistSettings();controls();translateTaskActions();if(!presentationOnly)queueAnalysis();if(activeAnalysis==='inspection.magnifier')host.onLoupeContextChange?.();}});
 regionParent=host.regionParent??document.createElement('div');regionParent.className='individual-region-owner';if(!host.regionParent)$('inspector').prepend(regionParent);
 regionController=(host.regionControllerFactory??createIndividualRegionController)({document,parent:regionParent,language:()=>lang,source:()=>fileInput&&source?{blob:fileInput,name:fileInput.name,id:imageId,width:source.width,height:source.height,sourceSha256:hash}:null,operation:()=>activeAnalysis,getClient:ensureIndividualClient,computeProfile:()=>$('compute-profile').value,navigationMode:()=>$('navigation-mode').value,
  onHighlight:()=>draw(),onPresentation:display=>{if(display&&individualMode()){individualUI.setOriginal(false);showIndividualSurface(display);}else if(source){$('layer').value='source';individualUI?.setOriginal(true);draw();}},
@@ -628,12 +682,13 @@ async function runAutomatic(resume=false){
  }}finally{clearInterval(automaticClock);automaticClock=null;if(rev===revision){busy=false;controls();draw();}}
 }
 async function pauseAutomatic(){if(!automaticClient)return;status(autoText('Suspension en cours : conservation des étapes acquises…','Pausing: preserving committed work…'));$('automatic-pause').disabled=true;await automaticClient.pause();controls();}
-async function showAutomatic(){
+async function showAutomatic({preview=false}={}){
  const client=automaticClient;if(!client?.result)return;
  const token=++automaticDisplayRevision,rev=revision,layer=$('automatic-view').value;
- const display=await client.display(layer,{overlay:layer==='corroboration',opacity:Number($('automatic-opacity').value)/100});
+ let display=await client.display(layer,{overlay:layer==='corroboration',opacity:Number($('automatic-opacity').value)/100});
+ if(preview){const plan=displayAdaptive.plan({key:'automatic/'+layer,width:display.width,height:display.height,maxSide:2048,maxPixels:1024**2});display={...display,previewStep:plan.step,adaptivePreview:{token:plan.token}};}
  if(token!==automaticDisplayRevision||rev!==revision)return;
- retireResult();result=remoteSurface(display);$('layer').value='result';$('export-png').disabled=false;draw();
+ retireResult();result=remoteSurface(display);$('layer').value='result';$('export-png').disabled=preview||automaticPresentationDraft;draw();
 
 }
 async function updateAutomaticView(){
@@ -657,8 +712,9 @@ function initAutomaticControls(){
  $('automatic-scope').onchange=queueAnalysis;
  $('automatic-progress-export').onclick=()=>exportJSON(automaticReport(automaticClient?.result,automaticProgress?.snapshot(),automaticClient?.deployment||{}),'SHERLOQ-avancement.json');
  for(const id of ['automatic-source','automatic-relation','automatic-branch','automatic-d2-minimum'])$(id).onchange=updateAutomaticView;
- for(const id of ['automatic-view','automatic-opacity'])$(id).onchange=()=>showAutomatic().catch(error=>status(t('error')+' · '+error.message));
- bindSliderReset($('automatic-opacity'),validAutomaticSettings().opacity,()=>$('automatic-opacity').onchange());
+ $('automatic-view').onchange=()=>showAutomatic().catch(error=>status(t('error')+' · '+error.message));
+ const opacity=$('automatic-opacity');automaticGesture=bindInteractiveControl(opacity,{read:()=>({valid:opacity.value!==''&&opacity.checkValidity(),value:Number(opacity.value)}),begin:()=>{automaticPresentationDraft=true;automaticGestureVersion++;controls();},preview:()=>{void showAutomatic({preview:true}).catch(error=>status(t('error')+' · '+error.message));},commit:()=>{const token=++automaticGestureVersion;persistSettings();void showAutomatic().catch(error=>status(t('error')+' · '+error.message)).finally(()=>{if(token!==automaticGestureVersion)return;automaticPresentationDraft=false;controls();$('export-png').disabled=!result;});},cancel:event=>{automaticGestureVersion++;automaticPresentationDraft=false;if(event.reason==='unchanged')void showAutomatic();controls();}});
+ bindSliderReset(opacity,validAutomaticSettings().opacity,()=>{automaticGesture.input();automaticGesture.finish('reset');});
 }
 
 async function reloadToolSource(){
@@ -693,12 +749,19 @@ function showIndividualSurface(display){
   // A failed viewport must not keep showing an older calculation. Reads may
   // finish after a layer change or cancellation; only their current owner acts.
   if(destroyed||rev!==revision||result!==next||individualCancelled)return;
+  if(display.responsePreview){
+   // Failure of a disposable preview cannot invalidate retained scientific data.
+   next.close?.();result=null;$('layer').value=previousPresentation?'result':'source';
+   diagnostic({level:'info',kind:'parameter-preview.unavailable',operation,code:error.code,message:error.message});
+   status(autoText('Aperçu indisponible ; le résultat natif est conservé. Relâchez pour terminer.','Preview unavailable; the native result is retained. Release to finish.'));controls();draw();return;
+  }
   const evidence=errorJournal.record(error,{operation,phase:'display-read',surfaceId:display.id,surfaceRevision:display.revision,width:display.width,height:display.height,sourceSha256:hash,view});
   const calculationStatus=resultMeta?.status;discardIndividualPresentation();
   resultMeta={...resultMeta,operation,status:'error',calculationStatus,phase:'display',error:evidence.error,context:evidence.context};$('provenance').textContent=JSON.stringify(resultMeta,null,2);$('export-report').disabled=false;translateTaskActions();status(t('error')+' · '+errorText(error,lang));controls();draw();
- });result=next;$('layer').value=$('app').classList.contains('original-mode')?'source':'result';$('export-png').disabled=!!display.responsePreview;if(source&&(display.width!==source.width||display.height!==source.height))fit();else draw();
+ });observePreviewPresentation(next,{adaptivePreview:display.adaptivePreview});result=next;$('layer').value=$('app').classList.contains('original-mode')?'source':'result';$('export-png').disabled=!!display.responsePreview||!!parameterSession?.pending;if(source&&(display.width!==source.width||display.height!==source.height))fit();else draw();
 }
 async function runIndividual(){
+ if(!parameterCommitting)parameterSession?.reset('calculate',{restoreResult:false});
  clearTimeout(autoRunTimer);autoRunTimer=null;if(busy||!fileInput||activeAnalysis==='file.similarity')return;if(localMagnifier()){refreshLocalMagnifier();return;}
  const form=$('tool-form');if(!form.reportValidity())return;
  individualCancelled=false;lastIndividualProgress=null;busy=true;controls();const rev=revision,computation={revision:rev};individualComputing=computation;let submitted;status(t('running'));$('progress').value=0;individualUI.invalidateResult({preserve:true});retireResult();resultMeta=null;$('provenance').textContent='';$('export-png').disabled=true;$('export-report').disabled=true;
@@ -774,13 +837,13 @@ async function runIndividual(){
   adopt:adoptInput,
   input(){return {file:fileInput,imageId,hash,source,description:$('file-info').textContent};},
   get busy(){return busy||energyViewBusy||!!exportController;},
-  snapshot(){return {busy:busy||energyViewBusy||elaPreviewBusy||!!exportController,status:$('status').textContent,progress:$('progress').hasAttribute('value')?Number($('progress').value):null,hasResult:!!result&&!elaProvisional()||localMagnifier()&&!!source,hasReport:!!resultMeta&&!elaProvisional(),zoom:displayedZoom(),loupe:pointerLoupe?.enabled,previewPending:!!previousPresentation&&!result,fileInfo:$('file-info').textContent};},
+  snapshot(){return {busy:busy||energyViewBusy||elaPreviewBusy||!!exportController,status:$('status').textContent,progress:$('progress').hasAttribute('value')?Number($('progress').value):null,hasResult:!!result&&!result.previewOnly&&!elaProvisional()&&!parameterProvisional()||localMagnifier()&&!!source,hasReport:!!resultMeta&&!elaProvisional()&&!parameterProvisional(),zoom:displayedZoom(),loupe:pointerLoupe?.enabled,previewPending:!!previousPresentation&&!result,fileInfo:$('file-info').textContent};},
   setHighlight(value){$('highlight-new-features').checked=!!value;applyHighlights();},setLanguage(value){lang=value;translate();individualUI?.redraw?.();},setTheme(value){theme=value;updateChrome();individualUI?.redraw?.();},
   toggleLoupeSweep:group=>pointerLoupe?.toggleSweep(group),stopLoupeSweep:()=>pointerLoupe?.stopSweep(),loupeSweepState:()=>pointerLoupe?.sweeping,loupeEffectsContext,setLoupeEffectsContext,loupeEnhancement(){if(activeAnalysis!=='inspection.magnifier')return null;const p=individualUI.params();return{enabled:true,mode:p.mode,percent:p.percent,channel:p.channel};},setLoupeEnhancement(value){if(activeAnalysis==='inspection.magnifier')individualUI.updateParams({mode:value.mode,percent:value.percent,channel:value.channel});},setCompareOriginal,pinLoupe:value=>pointerLoupe?.pin(value),loupeAnchor:()=>pointerLoupe?.anchor(),loupeDiagnostics:()=>pointerLoupe?.diagnostics(),loupeKeydown:e=>pointerLoupe?.keydown(e),exportSize(){const s=host.sourceOnly?source:selectedSurface();return s?{width:s.width,height:s.height}:null;},setLoupe,loupeMinimum(){const frame=$('layer').value==='result'&&result?result:source;return frame&&view.clientWidth&&view.clientHeight?loupeMinimumZoom(loupeSettings,Math.min(view.clientWidth/frame.width,view.clientHeight/frame.height)*.95,activeAnalysis==='inspection.magnifier'):2;},activate(){if(host.managed&&!drawing)$('layer').value=host.sourceOnly||localMagnifier()?'source':processedSurface()?'result':'source';draw();individualUI?.redraw?.();},setNavigation(value){$('navigation-mode').value=value;},setComputeProfile(value){if(!individualClient&&!automaticClient&&!compositeClient&&!worker&&!busy)$('compute-profile').value=value;},restoreSession:restore,fit,zoomBy(factor){zoomAt({x:view.clientWidth/2,y:view.clientHeight/2},factor);},
   exportImage,
   exportReport(){return $('export-report').onclick();},saveSession(){return $('save-session').onclick();},
   settings:settingsBundle,
   applySettings(value){if(busy)throw new Error(t('running'));const validated=validateSettings(value);if(host.sourceOnly)return;applySettings(validated);if(host.managed){$('app').classList.remove('original-mode');syncAnalysisControls();adoptInput(host.sourceInput?.());}},
-  async dispose(){if(destroyed)return;destroyed=true;await localDownloadShelf?.dispose();const regionsOwner=regionController;regionController=null;await regionsOwner?.dispose();pointerLoupe?.dispose();energyUI?.dispose?.();energyHistogramUI?.dispose();for(const gesture of classicGestures)gesture.dispose();comparisonSource?.close?.();comparisonSource=comparisonBase=null;stop();retireResult(false);source?.close?.();source=result=fileInput=null;tileCache.release('');panelResize.disconnect();layouts?.dispose?.();window.removeEventListener('pagehide',onPageHide);window.removeEventListener('local-feature-change',onFeatureChange);document.fonts?.removeEventListener('loadingdone',onFonts);await Promise.allSettled([individualCleanup,automaticCleanup,compositeCleanup]);},
+  async dispose(){if(destroyed)return;destroyed=true;hoverSliders?.dispose();parameterSession?.dispose();automaticGesture?.dispose();await localDownloadShelf?.dispose();const regionsOwner=regionController;regionController=null;await regionsOwner?.dispose();pointerLoupe?.dispose();energyUI?.dispose?.();energyHistogramUI?.dispose();for(const gesture of classicGestures)gesture.dispose();comparisonSource?.close?.();comparisonSource=comparisonBase=null;stop();individualUI?.dispose?.();retireResult(false);source?.close?.();source=result=fileInput=null;tileCache.release('');panelResize.disconnect();layouts?.dispose?.();window.removeEventListener('pagehide',onPageHide);window.removeEventListener('local-feature-change',onFeatureChange);document.fonts?.removeEventListener('loadingdone',onFonts);await Promise.allSettled([individualCleanup,automaticCleanup,compositeCleanup]);},
  };
 }
