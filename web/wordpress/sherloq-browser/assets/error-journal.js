@@ -16,11 +16,11 @@ export function createErrorJournal({limit=8,maxBytes=32768}={}){
 }
 // Called from the explicit Copy button so clipboard permissions retain the
 // browser's user activation. The fallback keeps keyboard focus and selection.
-export async function copyDiagnosticText(document,text){
+export async function copyDiagnosticText(document,text,{label='Diagnostic'}={}){
  const owner=document.getElementById('app')?.ownerDocument??document,clipboard=owner.defaultView?.navigator?.clipboard;
  let denied;
  if(clipboard?.writeText){try{await clipboard.writeText(text);return;}catch(error){denied=error;}}
- const active=owner.activeElement,field=owner.createElement('textarea');field.value=text;field.readOnly=true;field.setAttribute('aria-label','Diagnostic');
+ const active=owner.activeElement,field=owner.createElement('textarea');field.value=text;field.readOnly=true;field.setAttribute('aria-label',label);
  Object.assign(field.style,{position:'fixed',left:'-10000px',top:'0',opacity:'0'});(document.getElementById('app')??owner.body).append(field);
  try{field.focus();field.select();if(!owner.execCommand?.('copy'))throw denied??new Error('Clipboard is unavailable.');}
  finally{field.remove();active?.focus?.();}

@@ -1,3 +1,4 @@
+import {originalBatchScientificScope} from './original-source-regions-batch.js';
 import {createBatchPreparationClient} from './batch-preparation-client.js';
 import {batchLibraries,nextFrame} from './batch-import.js';
 import {clipPolygon,pdfTextPolygons,projectPdfExclusions,rectanglePolygon,rectangleComplement} from './batch-scope-geometry.js';
@@ -31,7 +32,7 @@ export function composeScientificScope(image,prepared,{pageExclusions=[]}={}){
  return {...SCIENTIFIC_SCOPE_POLICY,sourceSha256:prepared.sourceSha256,width:image.width,height:image.height,status:warnings.length?'needs-review':'ready',family,regions,searchRegions,excluded,panels,text,annotations:prepared.annotations??null,pdfText:{polygons:nativeText,projectedPagePolygons:projectedPageText,appliedToSource:pageRaster,source:'pdf-native-text-or-page-detector',reason:pageRaster?'rasterized-page-pixel-plane':'PDF overlays are not embedded-image pixels'},models:{panels:panels?.detector,text:text?.metadata?.model},warnings,coverage:{acquisitions:'detected-panels',undetectedAreas:'excluded-unclassified',exhaustive:false},provenance:prepared.provenance};
 }
 export async function scopeFingerprint(scope){
- const encoded=new TextEncoder().encode(JSON.stringify([scope.schema,scope.version,scope.sourceSha256,scope.width,scope.height,scope.status,scope.regions,scope.searchRegions,scope.excluded,scope.models,scope.text?.status,scope.maxTextAcquisitionFraction,scope.remainder]));
+ const encoded=new TextEncoder().encode(JSON.stringify([scope.schema,scope.version,scope.sourceSha256,scope.width,scope.height,scope.status,scope.regions,scope.searchRegions,scope.excluded,scope.models,scope.text?.status,scope.maxTextAcquisitionFraction,scope.remainder,...(scope.sourceRegionDomain?[scope.sourceRegionDomain.fingerprint]:[])]));
  return [...new Uint8Array(await crypto.subtle.digest('SHA-256',encoded))].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
 export function canReviewTextAmbiguity(scope){
@@ -75,7 +76,7 @@ export function createScientificPreparation({computeProfile='maximum',onProgress
  return {async prepare(model,{signal}={}){
   try{
   const {restoreManualScientificScope}=await import('./batch-scope-manual.js'),manual=new Set();
-  for(const image of model.images){signal?.throwIfAborted();if(await restoreManualScientificScope(image))manual.add(image);}
+  for(const image of model.images){signal?.throwIfAborted();if(image.originalSourceRegions||image.preparation?.originalSourceRegions){image.originalSourceRegions??=structuredClone(image.preparation.originalSourceRegions);image.sourceSha256??=image.originalSourceRegions.sourceSha256;if(image.preparation?.version!=='original-source-regions-batch-1')image.preparation=await originalBatchScientificScope(image,{editedScope:image.preparation});manual.add(image);}else if(await restoreManualScientificScope(image))manual.add(image);}
   const pending=model.images.filter(image=>!manual.has(image));
   if(pending.length)await pages({...model,images:pending,studies:model.studies.filter(study=>pending.some(image=>image.occurrences?.some(o=>o.studyId===study.id)))},signal);
   for(const [index,image]of model.images.entries()){

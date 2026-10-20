@@ -69,5 +69,5 @@ export async function sampleCloneField(client,display,field,tile) {
 export const d2AnalysisKey = task => {
  const scope=task.params?.scientificScope;
  const identity=scope?neuralScientificScopeIdentity(scope,{width:scope.width,height:scope.height,sourceSha256:scope.sourceSha256}):null;
- return JSON.stringify([task.imageId,task.backend??'auto',task.regions??[],task.params?.selectionPresent??false,identity]);
+ return JSON.stringify([task.imageId,task.backend??'auto',task.regions??[],task.params?.selectionPresent??false,identity,...(task.sourceRegionDomain?[task.sourceRegionDomain.fingerprint]:[])]);
 };

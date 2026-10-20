@@ -107,6 +107,7 @@ export function createD2prlAdapter({budget, profile, version, publishResult}) {
       finally {result?.release();}
     },
     releaseCheckpoint(key){requireValue(!active,'D2PRL adapter busy');return state?.session.releaseCheckpoint(key);},
+    async clearImage(id) {requireValue(!active,'Neural adapter busy');if(state?.lastContext?.imageId===id)await clearState();},
     async clearImages() {requireValue(!active, 'D2PRL adapter busy'); await clearState();},
     async dispose() {requireValue(!active, 'D2PRL adapter busy'); try{await clearState();}finally{manifest = null; identity = null; assetBaseUrl = null; manifestRelease?.(); manifestRelease = null;}}
   };

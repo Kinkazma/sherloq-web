@@ -1,3 +1,5 @@
+import {receiveNativeSourceChannel} from './native-source-channel.js';
+import {compileOriginalSourceRegions} from './source-region-geometry.js';
 import {Budget} from './cache.js';
 import {jpegCodec} from './jpeg.js';
 import {loadM2SegmentedOriginal,disposeSegmentedImage} from './image-sources.js';
@@ -41,7 +43,10 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
   budget.retained+=bytes-codecBytes;codecBytes=bytes;budget.peak=Math.max(budget.peak,budget.total());budget.room(0);
  }
  async function analyze(id,args){
-  requireValue(args.method==='scientific-preparation'&&args.blob instanceof Blob,'A scientific preparation image Blob is required.');
+  const native=!!args.image;
+  try{requireValue(args.method==='scientific-preparation'&&(native||args.blob instanceof Blob),'A scientific preparation native source or image Blob is required.');
+   if(native)requireValue(args.params?.textOnly===true&&args.image.preparationContext==='envelope-not-scientific-membership','Native preparation windows currently support explicit text detection only.');
+  }catch(error){if(native)args.image.port?.close?.();throw error;}
   requireValue(['auto','cpu','webgpu'].includes(args.backend??'auto'),'Invalid preparation backend.');
   requireValue(args.params?.detectText===undefined||typeof args.params.detectText==='boolean','detectText must be a boolean.');
   if(pending.size)throw new EngineError('BUSY','Batch preparation already has an active image.');
@@ -49,12 +54,19 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
   let image,panelResult,metadataLease,metadata,width,height,failure;
   try{
    try{
-    const signature=new Uint8Array(await args.blob.slice(0,2).arrayBuffer());
-    if(signature[0]===255&&signature[1]===216){budget.retained-=codecBytes;codecBytes=0;}
-    let decodeFailure;
-    try{image=await sourceLoader(args.blob,{budget,signal:options.signal,onProgress:options.onProgress,name:args.params?.name});}catch(error){decodeFailure=error;}
-    finally{try{chargeIdleCodec();}catch(error){if(decodeFailure)decodeFailure.details={...decodeFailure.details,codecAccounting:serializeEngineError(error)};else decodeFailure=error;}}
-    if(decodeFailure)throw decodeFailure;
+    if(native){
+     const input=args.image,domain=await compileOriginalSourceRegions(input.sourceRegionDomain);checkAbort(options.signal);
+     requireValue(!domain.empty&&input.sha256===domain.sourceSha256&&input.width===domain.width&&input.height===domain.height&&JSON.stringify(input.origin)===JSON.stringify(domain.origin),'Native text preparation differs from its original-source domain.');
+     const reader=receiveNativeSourceChannel(input,{budget,signal:options.signal});
+     image={sha256:reader.sha256,nativeSourceDispose:reader.dispose,surface:{descriptor:{width:reader.width,height:reader.height,format:'rgb8'},readWindow:reader.readWindow},provenance:{source:'original-native-window-channel',originalSha256:domain.sourceSha256,sourceRegionDomain:domain.descriptor,origin:[...domain.origin],preparationContext:'envelope-not-scientific-membership',encodedSourceRewritten:false},metrics:{nativeWindowTransport:true,maximumTransportBytes:1024*1024}};
+    }else{
+     const signature=new Uint8Array(await args.blob.slice(0,2).arrayBuffer());
+     if(signature[0]===255&&signature[1]===216){budget.retained-=codecBytes;codecBytes=0;}
+     let decodeFailure;
+     try{image=await sourceLoader(args.blob,{budget,signal:options.signal,onProgress:options.onProgress,name:args.params?.name});}catch(error){decodeFailure=error;}
+     finally{try{chargeIdleCodec();}catch(error){if(decodeFailure)decodeFailure.details={...decodeFailure.details,codecAccounting:serializeEngineError(error)};else decodeFailure=error;}}
+     if(decodeFailure)throw decodeFailure;
+    }
     checkAbort(options.signal);({width,height}=image.surface.descriptor);
     requireValue([width,height].every(value=>Number.isSafeInteger(value)&&value>0),'Invalid decoded preparation dimensions.');
     requireValue(typeof image.sha256==='string'&&/^[a-f0-9]{64}$/.test(image.sha256),'Native original source identity is missing.');
@@ -71,13 +83,13 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
     const json=JSON.stringify(information);metadataLease=budget.reserve(json.length*3);metadata=new TextEncoder().encode(json);checkAbort(options.signal);
    }catch(error){failure=error;}
    finally{
-    for(const cleanup of [()=>panelResult?.release(),()=>image&&sourceDisposer(image)])try{await cleanup();}catch(error){if(!failure)failure=error;else failure.details={...failure.details,cleanup:serializeEngineError(error)};}
+    for(const cleanup of [()=>panelResult?.release(),()=>image&&(image.nativeSourceDispose?image.nativeSourceDispose():sourceDisposer(image))])try{await cleanup();}catch(error){if(!failure)failure=error;else failure.details={...failure.details,cleanup:serializeEngineError(error)};}
    }
    if(failure)throw failure;checkAbort(options.signal);
    const resultId=next++;results.set(resultId,{metadata,release:metadataLease});metadataLease=null;
    try{send(id,{id:resultId,method:'scientific-preparation',width,height,fields:{},metadataBytes:metadata.byteLength,memory:memory()});}
    catch(error){releaseResult(resultId);throw error;}
-  }finally{metadataLease?.();pending.delete(id);}
+  }finally{metadataLease?.();if(native)args.image.port?.close?.();pending.delete(id);}
  }
  async function dispose(){
   closed=true;for(const controller of pending.values())controller.abort();await Promise.all([...operations]);let failure;
@@ -95,7 +107,7 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
    }
    if(operation==='dispose'){requireValue(budget,'Initialize batch preparation first.');disposing??=dispose();send(id,await disposing);return;}
    alive();
-   if(operation==='analyzeBlob')await analyze(id,args);
+   if(operation==='analyzeBlob'||operation==='analyzeNativeSource')await analyze(id,args);
    else if(operation==='cancel'){pending.get(args.requestId)?.abort();send(id,true);}
    else if(operation==='readMetadata'){
     const value=results.get(args.resultId);requireValue(value,'Released or unknown preparation result.');const {offset,count}=args;requireValue(Number.isSafeInteger(offset)&&Number.isSafeInteger(count)&&offset>=0&&count>0&&offset+count<=value.metadata.length&&count<=MAX_WINDOW,'Preparation metadata window exceeds bounds or 4 MiB.');

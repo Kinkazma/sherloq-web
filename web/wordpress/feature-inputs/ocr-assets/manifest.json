@@ -1,0 +1,49 @@
+{
+  "schema": "sherloq.ocr-models/1",
+  "languages": {
+    "eng": {
+      "file": "tessdata-best/eng.traineddata",
+      "bytes": 15400601,
+      "sha256": "8280aed0782fe27257a68ea10fe7ef324ca0f8d85bd2fd145d1c2b560bcb66ba"
+    },
+    "fra": {
+      "file": "tessdata-best/fra.traineddata",
+      "bytes": 3972885,
+      "sha256": "907743d98915c91a3906dfbf6e48b97598346698fe53aaa797e1a064ffcac913"
+    }
+  },
+  "ppocr": {
+    "assets": {
+      "det": {
+        "file": "ppocrv6-medium/det/inference.onnx",
+        "bytes": 62032837,
+        "sha256": "eb13b44b25bb36f89528b68720af8a61d9cf381176107f465db1757b65d086e1"
+      },
+      "rec": {
+        "file": "ppocrv6-medium/rec/inference.onnx",
+        "bytes": 76554979,
+        "sha256": "9c09abf0957f7968c7586464b7397b84ad2387a0497a351af40e9acc71b673ba"
+      },
+      "ori": {
+        "file": "pp-lcnet-line-orientation/inference.onnx",
+        "bytes": 6777816,
+        "sha256": "38aa97cd4be591e0ad304e659f07ba30d946f27a63315433f6659c69c8778345"
+      }
+    },
+    "dictionary": {
+      "file": "ppocrv6-medium/rec/dictionary.json",
+      "bytes": 112366,
+      "sha256": "679f4f4cbbb4f762e84fae998e02c08a556afbd115968104ca3b4aeee5cb2b19"
+    }
+  },
+  "models": {
+    "ppocr-medium": {
+      "name": "PP-OCRv6 Medium",
+      "license": "Apache-2.0"
+    },
+    "tesseract": {
+      "name": "Tesseract LSTM — tessdata_best",
+      "license": "Apache-2.0"
+    }
+  }
+}

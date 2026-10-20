@@ -16,8 +16,8 @@ test('every catalog field has an explicit auditable preview policy',()=>{
  let count=0;for(const id of Object.keys(toolCatalog))for(const field of toolFields(id)){const rule=policy(id,field.key);assert.ok(PARAMETER_PREVIEW_KINDS.includes(rule.kind),id+'/'+field.key);assert.ok(rule.reason.length>10);assert.ok(['native','view','explicit','none'].includes(rule.final));count++;}assert.ok(count>100);assert.ok(parameterPreviewInventory().length>=count);assert.equal(policy('missing','anything').kind,'none');assert.equal(policy('inspection.adjust','unknown').kind,'explicit');
 });
 test('scientific clone thresholds, models, encoded JPEG and statistics stay explicit',()=>{
- for(const [id,key]of [['tampering.copyMove.sparse','minimum'],['tampering.copyMove.sparse','algorithm'],['ai.clones.d2prl','minimum'],['m2.rita','model'],['noise.noisesniffer','samplesPerBin'],['noise.prnu','saturation'],['comparison.image','metrics']])assert.equal(policy(id,key).kind,'explicit',id+'/'+key);
- assert.equal(policy('jpeg.ghosts','low').kind,'pixel-proxy');assert.equal(policy('jpeg.zero','view').kind,'retained');assert.equal(policy('various.stereogram','mode').kind,'retained');
+ for(const [id,key]of [['tampering.copyMove.sparse','minimum'],['tampering.copyMove.sparse','algorithm'],['ai.clones.d2prl','minimum'],['m2.rita','model'],['noise.prnu','saturation'],['comparison.image','metrics']])assert.equal(policy(id,key).kind,'explicit',id+'/'+key);
+ assert.equal(policy('noise.noisesniffer','samplesPerBin').kind,'retained');assert.equal(policy('jpeg.ghosts','low').kind,'pixel-proxy');assert.equal(policy('jpeg.zero','view').kind,'retained');assert.equal(policy('various.stereogram','mode').kind,'retained');
  assert.equal(policy('tampering.copyMove.sparse','view.minimum').kind,'retained');assert.equal(policy('colors.stats','mode').kind,'pixel-proxy');assert.equal(policy('colors.plots','scale').previewOwner,'workspace');assert.equal(policy('colors.plots','scale').final,'native');assert.equal(policy('colors.plots','alpha').kind,'local');
 });
 test('neural display policies reuse retained fields and preserve existing exact response controls',()=>{

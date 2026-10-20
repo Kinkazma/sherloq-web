@@ -1,3 +1,4 @@
+import {verifyOriginalBatchSource,originalBatchScientificScope} from './original-source-regions-batch.js';
 import {readBatchZip} from './batch-zip.js';
 import {createBatchArtifactStore} from './batch-artifacts.js';
 import {pdfTextPolygons,projectPdfExclusions} from './batch-scope-geometry.js';
@@ -29,12 +30,12 @@ async function nativeIdentity(blob,signal){
 export async function pixelIdentity(blob,{signal}={}){
  check(signal);let bitmap;try{bitmap=await createImageBitmap(blob);}catch(error){check(signal);return nativeIdentity(blob,signal);}
  try{
-  const {width,height}=bitmap;if(width*height>IMPORT_LIMITS.pixels)throw Error('Image supérieure à 100 MP : aucune réduction automatique.');
+  const {width,height}=bitmap;let hasAlpha=false,hasSemiAlpha=false;if(width*height>IMPORT_LIMITS.pixels)throw Error('Image supérieure à 100 MP : aucune réduction automatique.');
   const canvas=new OffscreenCanvas(width,Math.min(height,64)),ctx=canvas.getContext('2d',{willReadFrequently:true});
   const {createSHA256}=await import('./unified-engine/vendor/hash-wasm/hashes.js');const hash=await createSHA256();hash.init();hash.update(new TextEncoder().encode(width+'x'+height+' rgba8\n'));
-  for(let y=0;y<height;y+=64){check(signal);const rows=Math.min(64,height-y);ctx.clearRect(0,0,width,64);ctx.drawImage(bitmap,0,y,width,rows,0,0,width,rows);hash.update(new Uint8Array(ctx.getImageData(0,0,width,rows).data.buffer));await nextFrame();}
+  for(let y=0;y<height;y+=64){check(signal);const rows=Math.min(64,height-y);ctx.clearRect(0,0,width,64);ctx.drawImage(bitmap,0,y,width,rows,0,0,width,rows);const rgba=ctx.getImageData(0,0,width,rows).data;if(!hasSemiAlpha)for(let i=3;i<rgba.length;i+=4){if(rgba[i]<255)hasAlpha=true;if(rgba[i]>0&&rgba[i]<255){hasSemiAlpha=true;break;}}hash.update(new Uint8Array(rgba.buffer));await nextFrame();}
   const thumb=new OffscreenCanvas(Math.max(1,Math.round(width*Math.min(1,260/width,180/height))),Math.max(1,Math.round(height*Math.min(1,260/width,180/height))));thumb.getContext('2d').drawImage(bitmap,0,0,thumb.width,thumb.height);
-  return {hash:hash.digest('hex'),width,height,thumbnail:await thumb.convertToBlob({type:'image/webp',quality:.8})};
+  return {hash:hash.digest('hex'),width,height,hasAlpha,hasSemiAlpha,thumbnail:await thumb.convertToBlob({type:'image/webp',quality:.8})};
  }finally{bitmap.close();}
 }
 function multiply(a,b){return [a[0]*b[0]+a[2]*b[1],a[1]*b[0]+a[3]*b[1],a[0]*b[2]+a[2]*b[3],a[1]*b[2]+a[3]*b[3],a[0]*b[4]+a[2]*b[5]+a[4],a[1]*b[4]+a[3]*b[5]+a[5]];}
@@ -53,7 +54,23 @@ function pdfPixels(image){
  else if(kind===1){const rowBytes=Math.ceil(width/8);for(let y=0;y<height;y++)for(let x=0;x<width;x++){const v=(data[y*rowBytes+(x>>3)]>>(7-(x&7)))&1?255:0;out.data.set([v,v,v,255],(y*width+x)*4);}}
  else throw Error('Format de pixels PDF non reconnu.');ctx.putImageData(out,0,0);return c;
 }
-export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMITS,identify=pixelIdentity,artifactStoreFactory=createBatchArtifactStore,libraryLoader=batchLibraries}={}){
+/** Conservative certificate for synchronous image substitution into the page
+ * canvas. Group/mask/stateful/annotation operators require their own replay. */
+export function pdfPagePaintCapabilities(list,OPS){
+ const unsupported=new Set(['beginGroup','endGroup','beginAnnotation','endAnnotation','setGState','paintImageMaskXObject','paintImageMaskXObjectGroup','paintImageMaskXObjectRepeat','paintSolidColorImageMask','paintInlineImageXObjectGroup','paintImageXObjectRepeat','paintXObject']),reasons=new Set(),imageOperators=[];
+ const names=new Map(Object.entries(OPS).map(([name,value])=>[value,name]));
+ for(let index=0;index<list.fnArray.length;index++){
+  const name=names.get(list.fnArray[index]);
+  if(name==='setGState'){
+   const states=list.argsArray?.[index]?.[0],simple=Array.isArray(states)&&states.every(pair=>Array.isArray(pair)&&pair.length===2&&(pair[0]==='SMask'&&pair[1]===false||(pair[0]==='ca'||pair[0]==='CA')&&Number.isFinite(pair[1])&&pair[1]>=0&&pair[1]<=1||pair[0]==='BM'&&(pair[1]==='source-over'||pair[1]==='Normal')));
+   if(!simple)reasons.add(name);
+  }else if(unsupported.has(name))reasons.add(name);
+  if(name==='paintImageXObject'||name==='paintInlineImageXObject')imageOperators.push(index);
+ }
+ return{schema:'pdf-simple-image-paint/1',simpleImagePainting:reasons.size===0,unsupportedOperations:[...reasons],imageOperators};
+}
+export async function createBatchImporter({onProgress=()=>{},onPage,retainPDFDocument=false,limits=IMPORT_LIMITS,identify=pixelIdentity,artifactStoreFactory=createBatchArtifactStore,libraryLoader=batchLibraries,sourceByteIdentity}={}){
+ const pdfDocuments=new Map();
  const studies=[],images=[],archivedComparisons=[],importedBatchContexts=[],byHash=new Map(),errors=[],artifacts=await artifactStoreFactory(),restoredImages=new WeakMap();let total=0,filesCount=0,retainedBytes=0,imageExportSettings,globalContextRestored=false;
  const contextFields=['engine','configuration','startedAt','finishedAt','cancelled','resumeEvents','resumePlan','excludedFeatures'];
  function excludedFeatures(value){
@@ -97,9 +114,9 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   const id='import-'+crypto.randomUUID(),parent=importedBatchContexts.find(context=>context.id===archiveContextId);importedBatchContexts.push({id,sourceArchive:parent?.sourceArchive,...value});return id;
  }
  function admit(bytes){total+=bytes;if(total>limits.expandedBytes)throw Error('Le lot dépasse 1 Gio de fichiers décompressés. Fractionnez le lot.');}
- async function addImage(blob,occurrence,{name,encoding='original',identity}={},signal){
-  check(signal);const info=identity??await identify(blob,{signal});let image=byHash.get(info.hash);
-  if(!image){if(images.length>=limits.entries||retainedBytes+blob.size+info.thumbnail.size>limits.expandedBytes)throw Error('Trop d’images extraites pour ce lot. Fractionnez les documents.');retainedBytes+=blob.size+info.thumbnail.size;image={id:'image-'+info.hash.slice(0,24),hash:info.hash,name:safeName(name??'image.png'),blob,thumbnail:info.thumbnail,width:info.width,height:info.height,encoding,selected:true,family:'unknown',occurrences:[],runs:[],state:'ready'};byHash.set(info.hash,image);images.push(image);}
+ async function addImage(blob,occurrence,{name,encoding='original',identity,sourceRegions}={},signal){
+  check(signal);const info=identity??await identify(blob,{signal});const domainKey=sourceRegions?info.hash+':source-regions:'+sourceRegions.fingerprint:info.hash;let image=byHash.get(domainKey);
+  if(!image){if(images.length>=limits.entries||retainedBytes+blob.size+info.thumbnail.size>limits.expandedBytes)throw Error('Trop d’images extraites pour ce lot. Fractionnez les documents.');retainedBytes+=blob.size+info.thumbnail.size;image={id:'image-'+info.hash.slice(0,24)+(sourceRegions?'-scope-'+sourceRegions.fingerprint.slice(0,12):''),hash:info.hash,name:safeName(name??'image.png'),blob,thumbnail:info.thumbnail,width:info.width,height:info.height,encoding,...(info.hasAlpha!==undefined?{hasAlpha:info.hasAlpha,hasSemiAlpha:info.hasSemiAlpha}:{}),selected:true,family:'unknown',occurrences:[],runs:[],state:'ready'};if(sourceRegions){image.originalSourceRegions=structuredClone(sourceRegions);image.sourceSha256=sourceRegions.sourceSha256;image.preparation=await originalBatchScientificScope(image);image.selected=image.preparation.status==='ready';}byHash.set(domainKey,image);images.push(image);}
   image.occurrences.push(occurrence);onProgress({phase:'image',images:images.length,occurrences:images.reduce((n,i)=>n+i.occurrences.length,0)});return image;
  }
  async function restoreImage(image,old,manifest,zip,signal,owners,studyRemap,importedContextId){
@@ -188,7 +205,7 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
     try{let bytes=object.getContents();for(const f of filters.slice(0,-1)){if(f==='/ASCII85Decode')bytes=ascii85(bytes);else{let hex=new TextDecoder().decode(bytes).replace(/\s|>/g,'');if(hex.length%2)hex+='0';bytes=Uint8Array.from(hex.match(/../g),s=>parseInt(s,16));}}const native=new Blob([bytes],{type:'image/jpeg'}),identity=await pixelIdentity(native,{signal});originalJpegs.set(identity.hash,{blob:native,identity});}catch(error){check(signal);}
    }
    parser=pdfjs.getDocument({data:new Uint8Array(await blob.arrayBuffer()),isEvalSupported:false,useWasm:false,useSystemFonts:true,disableFontFace:true,stopAtErrors:true,maxImageSize:limits.pixels});
-   const doc=await parser.promise;study.pages=doc.numPages;
+   const doc=await parser.promise;study.pages=doc.numPages;if(retainPDFDocument)pdfDocuments.set(study.id,{parser,document:doc});
    for(let pageNumber=1;pageNumber<=doc.numPages;pageNumber++){
     check(signal);onProgress({phase:'pdf',name:study.name,page:pageNumber,pages:doc.numPages});const page=await doc.getPage(pageNumber),list=await page.getOperatorList(),textPolygons=pdfTextPolygons(await page.getTextContent()),stack=[];let matrix=[1,0,0,1,0,0];const OPS=pdfjs.OPS;
     (study.pageText??=[]).push({page:pageNumber,polygons:textPolygons,source:'pdf-native-text',coordinates:'pdf-points'});
@@ -212,10 +229,10 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
      else if(op===OPS.paintImageXObjectRepeat){const object=await new Promise(resolve=>(args[0].startsWith('g_')?page.commonObjs:page.objs).get(args[0],resolve));for(let j=0;j<args[3].length;j+=2)await record(object,multiply(matrix,[args[1],0,0,args[2],args[3][j],args[3][j+1]]),i);}
      else if(op===OPS.paintInlineImageXObjectGroup){for(const part of args[1]){const whole=pdfPixels(args[0]),crop=new OffscreenCanvas(part.w,part.h);crop.getContext('2d').drawImage(whole,part.x,part.y,part.w,part.h,0,0,part.w,part.h);const id=await pixelIdentity(await crop.convertToBlob(),{signal});await addImage(await crop.convertToBlob(),occurrence(multiply(matrix,part.transform),i,id.width,id.height),{identity:id,name:study.name+'-p'+pageNumber+'.png',encoding:'pdf-decoded-png'},signal);whole.width=whole.height=crop.width=crop.height=1;}}
     }
-    page.cleanup();await nextFrame();
+    if(onPage){try{check(signal);await onPage({page:pageNumber,pdfPage:page,study,...(retainPDFDocument?{paintCapabilities:pdfPagePaintCapabilities(list,OPS)}:{}),images:images.filter(image=>image.occurrences.some(o=>o.studyId===study.id&&o.page===pageNumber))});check(signal);}finally{page.cleanup();}}else page.cleanup();await nextFrame();
    }
   }catch(error){check(signal);study.errors.push(error.message);errors.push({name:study.name,message:error.message});}
-  finally{await parser?.destroy();}
+  finally{if(!pdfDocuments.has(study.id)){pdfDocuments.delete(study.id);await parser?.destroy();}}
  }
  async function importFile(file,name=file.name,signal){
   check(signal);if(++filesCount>limits.entries)throw Error('Maximum : 2 000 fichiers.');if(file.size>limits.fileBytes&&!/\.zip$/i.test(name))throw Error('Fichier supérieur à 256 Mio : '+name);
@@ -245,5 +262,5 @@ export async function createBatchImporter({onProgress=()=>{},limits=IMPORT_LIMIT
   else if(imagePattern.test(name)){admit(file.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(name),kind:'image',blob:file,manualMarked:/^(?:A_VERIFIER|\[?SUSPECT|★)/i.test(name),errors:[]};studies.push(study);try{await addImage(file,{studyId:study.id,page:null},{name},signal);}catch(error){check(signal);study.errors.push(error.message);errors.push({name,message:error.message});}}
   else throw Error('Format non pris en charge : '+name);
  }
- const model={studies,images,errors,artifacts,archivedComparisons,importedBatchContexts,get imageExportSettings(){return imageExportSettings;},set imageExportSettings(value){imageExportSettings=validateBatchImageExport(value);},async import(files,signal){for(const file of files){try{await importFile(file,file.name,signal);}catch(error){check(signal);errors.push({name:file.name,message:error.message});}}return {studies,images,errors};},clear(){studies.length=images.length=errors.length=archivedComparisons.length=importedBatchContexts.length=0;globalContextRestored=false;for(const key of [...contextFields,'mixedImportedContexts','comparisons'])delete model[key];byHash.clear();total=filesCount=retainedBytes=0;return artifacts.clear();}};return model;
+ const model={studies,images,errors,artifacts,archivedComparisons,importedBatchContexts,getPdfDocument(studyId){return pdfDocuments.get(studyId)?.document;},async releasePdfDocuments(){const entries=[...pdfDocuments.values()];pdfDocuments.clear();await Promise.all(entries.map(entry=>entry.parser.destroy()));},async importSource(input,signal){check(signal);if(filesCount>=limits.entries||input.file?.size>limits.fileBytes)throw Error('The original source exceeds batch admission limits.');const sourceRegions=await verifyOriginalBatchSource(input,{signal,...(sourceByteIdentity?{identifyBytes:sourceByteIdentity}:{})}),info=await identify(input.file,{signal});check(signal);if(info.width!==sourceRegions.width||info.height!==sourceRegions.height)throw Error('The original source pixel grid does not match its regions.');const name=safeName(input.file.name??'original.png'),study={id:'study-'+crypto.randomUUID(),name,kind:'image',blob:input.file,manualMarked:false,errors:[]};admit(input.file.size);const image=await addImage(input.file,{studyId:study.id,page:null},{name,identity:info,sourceRegions},signal);studies.push(study);filesCount++;return image;},get imageExportSettings(){return imageExportSettings;},set imageExportSettings(value){imageExportSettings=validateBatchImageExport(value);},async import(files,signal){for(const file of files){try{await importFile(file,file.name,signal);}catch(error){check(signal);errors.push({name:file.name,message:error.message});}}return {studies,images,errors};},async clear(){await model.releasePdfDocuments();studies.length=images.length=errors.length=archivedComparisons.length=importedBatchContexts.length=0;globalContextRestored=false;for(const key of [...contextFields,'mixedImportedContexts','comparisons'])delete model[key];byHash.clear();total=filesCount=retainedBytes=0;return artifacts.clear();}};return model;
 }

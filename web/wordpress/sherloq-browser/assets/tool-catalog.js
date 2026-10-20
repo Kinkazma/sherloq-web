@@ -8,6 +8,7 @@ const indexed=labels=>select(labels.map((_,i)=>i),labels);
 const range=(min,max,step=1)=>({min,max,step});
 const channels=indexed(['Luminance','Rouge','Vert','Bleu','Norme RGB']);
 const fields={
+ 'various.ocr':{orientationCorrection:{label:'Corriger le sens de lecture'},bitmapThreshold:{...range(.01,.99,.01),label:'Seuil du masque de texte'},boxThreshold:{...range(.01,.99,.01),label:'Confiance de détection'},unclipRatio:{...range(.1,5,.1),label:'Marge autour du texte'},algorithm:select(['ppocr-medium','tesseract'],['PP-OCRv6 Medium','Tesseract LSTM — précision']),language:{...select(['eng+fra','fra','eng'],['Français + anglais','Français','Anglais']),label:'Langues'},psm:{...select([3,4,6,7,8,10,11,13],['Mise en page automatique','Colonne de texte','Bloc de texte','Ligne de texte','Mot isolé','Caractère isolé','Texte épars','Ligne brute']),label:'Organisation du texte'},threshold:{...range(0,1,.01),label:'Confiance minimale'},view:select(['overlay','text'],['Texte et encadrements','Texte'])},
  'ai.clones.d2prl':{minimum:range(0,5000)},
  'metadata.exiftool':{mode:select(['dump','headers','location','thumbnail'],['Métadonnées','Structure HTML','Géolocalisation','Miniature brute'])},
  'm2.cfa':{variant:select(['Original','JPEG 95','Sans JPEG']),block:range(8,256,2),tile:range(0,8192)},
@@ -56,6 +57,7 @@ for(const tool of EXTENSION_TOOLS)defaults[tool.id]={params:{},exports:tool.kind
 defaults['detail.wavelets'].params.level=null;
 // Original pixel colours are the initial plot presentation; saved choices still win.
 defaults['colors.plots'].params.colored=true;
+defaults['colors.plots'].params.kind='3d';
 export const toolCatalog=Object.fromEntries(toolGroups.flatMap(g=>g.items).filter(t=>defaults[t.id]).map(t=>[t.id,{...t,...defaults[t.id]}]));
 export function toolFields(id){const out=[];const visit=(object,prefix='')=>{for(const [name,value]of Object.entries(object)){if(hidden.has(name))continue;const key=prefix+name;if(value&&typeof value==='object'&&!Array.isArray(value)){visit(value,key+'.');continue;}if(Array.isArray(value))continue;out.push({key,label:labels[name]||name,type:typeof value==='boolean'?'checkbox':typeof value==='number'||value===null?'number':'text',value,...(fields[id]?.[key]||{} )});}};visit(toolCatalog[id].params);return out;}
 export const toolTitle=(id,language='fr')=>toolCatalog[id]?.[language]||id;

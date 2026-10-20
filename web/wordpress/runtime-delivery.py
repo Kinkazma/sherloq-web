@@ -18,6 +18,10 @@ _interactive_spec = importlib.util.spec_from_file_location('runtime_interactive'
 _interactive = importlib.util.module_from_spec(_interactive_spec)
 _interactive_spec.loader.exec_module(_interactive)
 
+_workspace_spec = importlib.util.spec_from_file_location('runtime_workspace', Path(__file__).with_name('runtime-workspace.py'))
+_workspace = importlib.util.module_from_spec(_workspace_spec)
+_workspace_spec.loader.exec_module(_workspace)
+
 # These model manifests pin the original factory bytes, and their callers pass
 # a separately fetched, SHA-verified wasmBinary. Rewriting the loader would
 # break that second identity and offers no additional download protection.
@@ -158,7 +162,8 @@ class QualifiedRuntimeOverlay:
         self.files = {}
         self.receipts = []
         self.extra_resources = {}
-        interactive, interactive_predecessor = _interactive.reviewed_interactive_increment(root)
+        workspace, workspace_predecessor = _workspace.reviewed_workspace_increment(root)
+        interactive, interactive_predecessor = _interactive.reviewed_interactive_increment(root, workspace_predecessor)
         rita, rita_predecessor = _rita.reviewed_rita_increment(root, interactive_predecessor)
         extension, latest_predecessor = _extensions.reviewed_extensions_increment(root, rita_predecessor)
         latest_predecessor = {**interactive_predecessor, **rita_predecessor, **latest_predecessor}
@@ -258,6 +263,10 @@ class QualifiedRuntimeOverlay:
         if interactive is not None:
             self.receipts.append(interactive)
             self.files.update((record['file'], record) for record in interactive['files'])
+        if workspace is not None:
+            self.receipts.append(workspace)
+            self.files.update((record['file'], record) for record in workspace['files'])
+            self.extra_resources.update((record['file'], record['after']) for record in workspace['resources'])
 
     def apply(self, relative, source, adapted):
         record = self.files.get(relative)

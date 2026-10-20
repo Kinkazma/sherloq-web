@@ -1,11 +1,12 @@
-import {runtimeContext} from './runtime-context.js';
+import {installExtensionResourceRelay} from './extension-resource-relay.js';
+import {runtimeContext,diagnostic} from './runtime-context.js';
 import {connectDependencyWorker} from './dependency-lifecycle.js';
-import {mountDependencyControls} from './dependency-library.js';
+import {mountDependencyControls,readDependencyManifest} from './dependency-library.js';
 import {mountOfflineControls} from './offline-kit-ui.js';
 export async function prepareDependencies({onStatus}={}){
  const response=await fetch(new URL('./dependency-config.json',import.meta.url),{cache:'no-cache'});
  if(!response.ok)throw Error('Dependency configuration unavailable');
- const config=await response.json();if(!config.enabled){if(config.offline){mountOfflineControls(document,config);mountDependencyControls(document,config);}return;}
+ const config=await response.json();if(/^[a-f0-9]{64}$/.test(config.manifest??''))try{const manifest=await readDependencyManifest(config);installExtensionResourceRelay({manifest,scope:new URL('./',import.meta.url)});}catch(error){diagnostic({level:'warning',kind:'dependency.extension-relay-unavailable',message:error.message});}if(!config.enabled){if(config.offline){mountOfflineControls(document,config);mountDependencyControls(document,config);}return;}
  if(!navigator.serviceWorker)throw Error('Le chargement des ressources nécessite HTTPS et les Service Workers.');
  const expected=new URL('./dependency-sw.js?manifest='+config.manifest,import.meta.url);
  if(config.workerVersion)expected.searchParams.set('release',config.workerVersion);

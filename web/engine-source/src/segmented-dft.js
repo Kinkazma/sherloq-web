@@ -23,8 +23,18 @@ export async function segmentedDft(input,{inverse=false,budget,signal,onProgress
     prepare:async i=>{await controlCheckpoint(signal);const x=i*stepX,w=Math.min(stepX,total-x),values=await rows.read(x,0,w,height,{signal}),columns=new Float32Array(values.length);for(let xx=0;xx<w;xx++)for(let y=0;y<height;y++){const a=(y*w+xx)*2,b=(xx*height+y)*2;columns[b]=values[a];columns[b+1]=values[a+1];}return {op:'axis',values:columns,length:height,lines:w,globalCount:width,mode:inverse?3:1};},
     local:j=>({values:math.axis(j.values,j.length,j.lines,j.globalCount,j.mode)}),consume:async(r,i)=>{const x=i*stepX,w=Math.min(stepX,total-x),values=new Float32Array(r.values.length);for(let xx=0;xx<w;xx++)for(let y=0;y<height;y++){const a=(y*w+xx)*2,b=(xx*height+y)*2;values[a]=r.values[b];values[a+1]=r.values[b+1];}await output.write(values,x,0,w,height,{signal});completed+=w;progress('dft-columns',completed,total);}
    });
-   if(!inverse&&total<width)for(let y=0;y<height;y++){if(y%32===0)await controlCheckpoint(signal);const values=await output.read(1,(height-y)%height,width-total,1,{signal}),tail=new Float32Array(values.length);for(let x=0;x<width-total;x++){tail[x*2]=values[values.length-2-x*2];tail[x*2+1]=-values[values.length-1-x*2];}await output.write(tail,total,y,width-total,1,{signal});}
+   if(!inverse&&total<width){
+    // y=0 mirrors itself; all other source rows form contiguous, reversed
+    // bands. Bound both arrays by the already-admitted strip workspace.
+    const missing=width-total,stepY=Math.max(1,Math.floor(block/missing));
+    progress('dft-hermitian',0,height);
+    for(let y=0;y<height;){
+     await controlCheckpoint(signal);const h=y===0?1:Math.min(stepY,height-y),top=y===0?0:height-y-h+1,values=await output.read(1,top,missing,h,{signal}),tail=new Float32Array(values.length);
+     for(let row=0;row<h;row++)for(let x=0;x<missing;x++){const a=(row*missing+x)*2,b=((y===0?0:h-1-row)*missing+missing-1-x)*2;tail[a]=values[b];tail[a+1]=-values[b+1];}
+     await output.write(tail,total,y,missing,h,{signal});y+=h;progress('dft-hermitian',y,height);
+    }
+   }
   }
-  await output.store.flush();checkAbort(signal);done=true;return output;
+  progress('dft-flush',0,1);await output.store.flush();checkAbort(signal);progress('dft-flush',1,1);done=true;return output;
  }finally{await rows?.dispose();if(!done)await output?.dispose();release();}
 }

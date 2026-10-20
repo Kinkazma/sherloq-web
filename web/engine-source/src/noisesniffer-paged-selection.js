@@ -12,7 +12,7 @@ export function noisesnifferPagedSelectionWorkspace(width,height,p,validCount=(w
  const b=Math.floor(validCount/Math.max(1,bankers(validCount/p.samplesPerBin))),cells=(Math.floor(width/p.cellSize)+1)*(Math.floor(height/p.cellSize)+1);
  return 20*1024**2+Math.max(1,b)*160+width*(p.blockSize+256)*12+width*32*40+cells*16;
 }
-export async function pagedNoisesnifferSelection(image,p,stats,{budget,signal,onProgress,storage='auto'}={}){
+export async function pagedNoisesnifferSelection(image,p,stats,{budget,signal,onProgress,storage='auto',basisRecorder}={}){
  const {width,height}=image.surface.descriptor,w=p.blockSize,cols=stats.width,rows=stats.height,N=cols*rows,count=stats.validCount,owned=[],scratch=[],release=budget.reserve(noisesnifferPagedSelectionWorkspace(width,height,p,count));
  const options={budget,signal,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,storage:storage==='auto'?'temporary':storage,chunkBytes:262144};let packed;
  try{
@@ -36,8 +36,10 @@ export async function pagedNoisesnifferSelection(image,p,stats,{budget,signal,on
     if(standard){std.set(await gatherDenseValues(standard.store,Int32Array.from(chosen,i=>i*3+c),Float64Array,{signal}));for(const value of std)if(value===0)flat++;}
     else if(patches){std.set(await patches.std(chosen,cols,c));for(const value of std)if(value===0)flat++;}
     else for(let at=0;at<spatial.length;){checkAbort(signal);const y=Math.floor(chosen[spatial[at]]/cols),last=Math.min(rows,y+256);let end=at+1;while(end<spatial.length&&Math.floor(chosen[spatial[end]]/cols)<last)end++;const part=await image.surface.readWindow({x:0,y,width,height:last-y+w-1},{signal});try{for(let k=at;k<end;k++){const i=spatial[k],id=chosen[i],py=Math.floor(id/cols)-y,px=id%cols;for(let dy=0;dy<w;dy++)for(let dx=0;dx<w;dx++)block[dy*w+dx]=part.pixels.data[((py+dy)*width+px+dx)*3+c];const mean=numpySum(block)/block.length;for(let j=0;j<block.length;j++){const d=block[j]-mean;squares[j]=d*d;}std[i]=Math.sqrt(numpySum(squares)/squares.length);if(std[i]===0)flat++;}}finally{part.release();}at=end;}
-    const limit=Math.trunc(b*p.lowFrequencyFraction*p.lowNoiseFraction);
-    if(flat<limit){const sorted=numpyArgsort(std),V=Uint32Array.from(sorted,i=>chosen[i]),S=V.subarray(0,limit);await selected.write(new Uint8Array(V.buffer),selectedCount*4);await low.write(new Uint8Array(S.buffer,S.byteOffset,S.byteLength),lowCount*4);selectedCount+=V.length;lowCount+=S.length;await mark(V,1,all_blocks);await mark(S,2,low_noise_blocks);}
+    const limit=Math.trunc(b*p.lowFrequencyFraction*p.lowNoiseFraction),maximumLimit=Math.trunc(b*p.lowFrequencyFraction*.99);let V;
+    if(flat<limit||basisRecorder&&flat<maximumLimit)V=Uint32Array.from(numpyArgsort(std),i=>chosen[i]);
+    if(basisRecorder)await basisRecorder.record(c*bins+bin,V??new Uint32Array(),flat);
+    if(flat<limit){const S=V.subarray(0,limit);await selected.write(new Uint8Array(V.buffer),selectedCount*4);await low.write(new Uint8Array(S.buffer,S.byteOffset,S.byteLength),lowCount*4);selectedCount+=V.length;lowCount+=S.length;await mark(V,1,all_blocks);await mark(S,2,low_noise_blocks);}
     onProgress?.({phase:'noisesniffer-select',completed:c*bins+bin+1,total:3*bins});
    }
   }

@@ -57,10 +57,13 @@ export function createWorkspaceEnginePool(createEngine=createWorkerEngine){
       const [task,configuration,hooks]=args;requireValue(isExtensionTool(task?.operation),'Approved extension task required');
       await configureExtensionModels(record.engine,configuration,hooks);
       output=await record.engine.run(task,hooks);
+     }else if(method==='runConfiguredOcr'){
+      const [task,configuration,hooks]=args;requireValue(task?.operation==='various.ocr','OCR task required');
+      await record.engine.loadOcrModels(configuration,hooks);output=await record.engine.run(task,hooks);
      }else output=await record.engine[method](...args);
     }catch(error){if(error.imagesCleared){record.images.clear();record.configured.clear();for(const scope of record.owners){for(const name of ['images','surfaces','tables','models','leases'])scope[name].clear();scope.invalidate?.();}}throw error;}
     if(configuration)record.configured.set(configuration,output);
-    if(['run','runConfiguredSegmentation','runConfiguredExtension'].includes(method)){const owned=resultResources(output);for(const s of owned.surfaces)if(![...record.images.values()].some(i=>i.descriptor.surface?.id===s.id))surfaces.add(s.id);for(const t of owned.tables)tables.add(t.id);}
+    if(['run','runConfiguredSegmentation','runConfiguredExtension','runConfiguredOcr','deriveSourceRegionInput'].includes(method)){const owned=resultResources(output);for(const s of owned.surfaces)if(![...record.images.values()].some(i=>i.descriptor.surface?.id===s.id))surfaces.add(s.id);for(const t of owned.tables)tables.add(t.id);}
     if(method==='releaseSurface')surfaces.delete(args[0]);
     if(method==='releaseTable')tables.delete(args[0]);
     if(method==='reserveExternalMemory')leases.add(output.id);

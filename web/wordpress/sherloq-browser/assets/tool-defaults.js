@@ -1,4 +1,5 @@
 export default {
+  "various.ocr":{"params":{"algorithm":"ppocr-medium","language":"eng+fra","psm":3,"threshold":0,"view":"overlay","orientationCorrection":true,"bitmapThreshold":0.2,"boxThreshold":0.45,"unclipRatio":1.4},"exports":[]},
   "ela.biomes": {
     "params": {
       "quality": 0,

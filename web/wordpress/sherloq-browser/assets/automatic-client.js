@@ -1,3 +1,5 @@
+import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
+import {sourceRegionDomainShape,assertSourceRegionOperation} from './unified-engine/src/source-region-capabilities.js';
 import {localFeaturePolicy} from './feature-policy.js';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {readExtensionMemoryHints} from './unified-engine/src/browser-memory.js';
@@ -14,7 +16,7 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
   let hints;
   if (extensionId) try { hints = await readExtensionMemoryHints(extensionId); } catch { /* Optional bridge. */ }
   const engine = engineFactory({computeProfile, resourceHints: hints ?? undefined, ...(memoryBudgetBytes ? {memoryBudgetBytes} : {}), ...(extensionId ? {memoryExtensionId: extensionId} : {})});
-  let analysisPolicy,queue = Promise.resolve(), disposed = false, models = new Set(), abort, analysis, retained, source, rendered, renderingLayer, disposePromise;
+  let analysisPolicy,queue = Promise.resolve(), disposed = false, models = new Set(), abort, analysis, retained, source, rendered, renderingLayer, disposePromise,regionPresentation;
   function enqueue(fn) { const task = queue.then(() => { if (disposed) throw cancelled(); return fn(); }); queue = task.catch(() => {}); return task; }
   function hooks() { return {signal: abort?.signal, onProgress}; }
   async function configure(excludedFeatures=[]) {
@@ -40,10 +42,12 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
   }
   async function releaseRendering() { if (rendered) { const previous = rendered; rendered = null; renderingLayer = null; await engine.releaseSurface(previous.id); } }
   function checkpoint() { return retained ?? (analysis?.data?.state?.resumable?.length ? {analysisId: analysis.analysisId, state: analysis.data.state, completed: analysis.data.state.completed} : null); }
+  async function releaseRegionPresentation(){if(!regionPresentation)return;const old=regionPresentation;regionPresentation=null;await engine.releaseSurface(old.surface.id);}
+  async function normalizeRegionPresentation(value){const surface=value?.sourceRegionSourceSurface;if(!surface||surface.id===source?.surface.id)return value;const fingerprint=value.sourceRegionDomain?.fingerprint;if(regionPresentation?.fingerprint===fingerprint){if(surface.id!==regionPresentation.surface.id)await engine.releaseSurface(surface.id);return{...value,sourceRegionSourceSurface:regionPresentation.surface};}await releaseRegionPresentation();regionPresentation={surface,fingerprint};return value;}
   async function releaseAnalysis() {
     const id = analysis?.analysisId ?? retained?.analysisId;
     if (id) await engine.releaseAutomatic();
-    analysis = retained = null;
+    analysis = retained = null;await releaseRegionPresentation();
   }
   // Pixels stay owned by the worker. Presentation and NPZ read those originals;
   // the UI only needs descriptors and polygons, never a second retained mask.
@@ -53,7 +57,7 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
   }
   async function execute(fn) {
     abort = new AbortController();
-    try { analysis = compactResult(await fn()); retained = null; return analysis; }
+    try { analysis = compactResult(await normalizeRegionPresentation(await fn())); retained = null; return analysis; }
     catch (error) { retained = error.details?.retainedAnalysis ?? retained; if (error.imagesCleared) { source = null; models = new Set(); retained = null; analysis = null; } throw error; }
     finally { abort = null; }
   }
@@ -61,7 +65,7 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
     const request = {surfaceId: display.id, revision: display.revision, rect};
     if (display.format === 'rgb8') return (await engine.readPixels(request)).pixels;
     const answer = await engine.readPlane(request), plane = answer.plane ?? answer.pixels, values = plane.data;
-    const data = display.overlay && source ? (await engine.readPixels({surfaceId: source.surface.id, revision: source.surface.revision, rect})).pixels.data : new Uint8Array(rect.width * rect.height * 3);
+    const data = display.overlay && source ? (await engine.readPixels({surfaceId: (regionPresentation?.surface??source.surface).id, revision: (regionPresentation?.surface??source.surface).revision, rect})).pixels.data : new Uint8Array(rect.width * rect.height * 3);
     for (let i = 0; i < values.length; i++) {
       const color = display.layer === 'corroboration' ? COUNT_COLORS[Math.max(0, Math.min(COUNT_COLORS.length - 1, values[i]))] : [Math.max(0, Math.min(255, Math.round(values[i] * 255))), 0, 0];
       if (!display.overlay || values[i] > 0) for (let c = 0; c < 3; c++) data[i * 3 + c] = display.overlay ? Math.round(data[i * 3 + c] * (1 - display.opacity) + color[c] * display.opacity) : color[c];
@@ -75,13 +79,13 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
     reserveExport:async bytes=>{const lease=await enqueue(()=>engine.reserveExternalMemory({bytes}));return()=>engine.releaseExternalMemory(lease.id);},
     pause() { abort?.abort(); return queue; },
     load(input) { return enqueue(() => execute(async () => { await releaseRendering(); await releaseAnalysis(); source = await engine.loadBlob({...input, layout: 'segmented'}, hooks()); return null; })).then(() => source); },
-    run(task) { return enqueue(() => execute(async () => { localFeaturePolicy.assertTaskAvailable(task);analysisPolicy=JSON.stringify(localFeaturePolicy.snapshot());const excludedFeatures=localFeaturePolicy.automaticExcludedFeatures();task={...task,params:{...task.params,...(excludedFeatures.length?{excludedFeatures}:{})}};await releaseRendering();await configure(excludedFeatures);await releaseAnalysis();return engine.run(task,hooks()); })); },
+    run(task) { return enqueue(() => execute(async () => { localFeaturePolicy.assertTaskAvailable(task);if(task.sourceRegionDomain){const domain=await compileOriginalSourceRegions(task.sourceRegionDomain);if(domain.sourceSha256!==source.sha256||domain.sourceWidth!==source.width||domain.sourceHeight!==source.height)throw Object.assign(Error('Original-source automatic domain belongs to another source.'),{code:'SOURCE_REGIONS_INVALID'});assertSourceRegionOperation(task.operation,{shape:sourceRegionDomainShape(domain),params:task.params,task,capabilities:(await engine.capabilities()).sourceRegions});task={...task,sourceRegionDomain:domain.descriptor};}analysisPolicy=JSON.stringify(localFeaturePolicy.snapshot());const excludedFeatures=localFeaturePolicy.automaticExcludedFeatures();task={...task,params:{...task.params,...(excludedFeatures.length?{excludedFeatures}:{})}};await releaseRendering();await configure(excludedFeatures);await releaseAnalysis();return engine.run(task,hooks()); })); },
     resume() { return enqueue(() => execute(async () => { if(analysisPolicy!==JSON.stringify(localFeaturePolicy.snapshot()))throw Object.assign(Error('Les fonctions locales ont changé ; relancez l’analyse avec les méthodes disponibles.'),{code:'FEATURE_POLICY_CHANGED'});const point = checkpoint(); if (!point) throw new Error('No retained analysis to resume.'); return engine.resumeAutomatic({analysisId: point.analysisId}, hooks()); })); },
     update(view = [], filters) { return enqueue(() => execute(async () => { if (!analysis) throw new Error('No analysis result.'); await releaseRendering(); return engine.updateAutomatic({analysisId: analysis.analysisId, view, ...(filters ? {filters} : {})}, hooks()); })); },
-    display(layer = 'corroboration', {overlay = false, opacity = .7} = {}) { return enqueue(async () => { if (rendered && renderingLayer === layer) return {...rendered, layer, overlay, opacity}; await releaseRendering(); const answer = await engine.renderAutomatic({analysisId: analysis.analysisId, layer}, {onProgress}); rendered = answer.surface; renderingLayer = layer; return {...rendered, layer, overlay, opacity}; }); },
+    display(layer = 'corroboration', {overlay = false, opacity = .7} = {}) { return enqueue(async () => { if (rendered && renderingLayer === layer) return {...rendered, layer, overlay, opacity}; await releaseRendering(); const answer = await normalizeRegionPresentation(await engine.renderAutomatic({analysisId: analysis.analysisId, layer}, {onProgress})); rendered = answer.surface; renderingLayer = layer; return {...rendered, layer, overlay, opacity}; }); },
     readWindow(display, rect) { return enqueue(() => pixels(display, rect)); },
     readTile(display,tile){return enqueue(async()=>{
-      const render=display.format==='rgb8'?undefined:{range:[0,1],...(display.layer==='corroboration'?{palette:COUNT_COLORS}:{red:true}),...(display.overlay&&source?{overlaySurfaceId:source.surface.id,opacity:display.opacity}: {})};
+      const render=display.format==='rgb8'?undefined:{range:[0,1],...(display.layer==='corroboration'?{palette:COUNT_COLORS}:{red:true}),...(display.overlay&&source?{overlaySurfaceId:(regionPresentation?.surface??source.surface).id,opacity:display.opacity}: {})};
       return (await engine.readDisplay({surfaceId:display.id,revision:display.revision,tile,render})).pixels;
     });},
     exportTo(sink) { return enqueue(async () => {

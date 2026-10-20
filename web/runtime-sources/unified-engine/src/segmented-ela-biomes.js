@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.24.0";
 import {parallelGhostPlanes} from './ghost-stream-pool.js';
 import {createRgbRecompression} from './jpeg-rgb-stream.js';
 import {segmentedGhostCells} from './segmented-ghost-cells.js';
@@ -6,14 +6,14 @@ import {elaCellPipeline} from './ela-cell-pipeline.js';
 import {energyReferenceHeader} from './energy-pipeline.js';
 import {segmentedElaCellPlane} from './ela-cell-stream.js';
 import {segmentedGhostMaps,segmentedGhostShape} from './segmented-ghosts.js';
-import {inspectJpegBlob} from './jpeg.js';
+import {inspectOriginalJpeg} from './jpeg-source-evidence.js';
 import {checkAbort} from './errors.js';
 
 // The scientific pipeline is shared with contiguous inputs. Only its pixel
 // providers and their workspace admissions differ for segmented source storage.
 export async function segmentedElaBiomes(image,p,{budget,signal,onProgress,memo,memoMany,reserveMemory,maxWorkers=1,adaptive,getGhostPlane,putGhostPlane,stageCheckpoint,onCellsReady}={}){
  let header;
- if(!p.quality&&image.source){const signature=await image.source.read(0,Math.min(2,image.source.byteLength),{signal});let jpeg;try{jpeg=signature.bytes[0]===255&&signature.bytes[1]===216;}finally{signature.release();}if(jpeg)header=await inspectJpegBlob(image.source,{signal});}
+ if(!p.quality)header=await inspectOriginalJpeg(image,{signal});
  const descriptor=image.surface.descriptor,referenceQuality=energyReferenceHeader(header,p.quality),ghostWorkspaceBytes=segmentedGhostShape(image,{low:30,high:100,step:1},{normalizedOnly:true}).admissionBytes;
  const result=await elaCellPipeline(descriptor,p,{signal,onProgress:f=>onProgress?.({phase:'ela-biomes',fraction:f})},{budget,reserveMemory,memo:memo??stageCheckpoint?.memo,memoMany:memoMany??stageCheckpoint?.memoMany,stageCheckpoint,onCellsReady,referenceQuality,ghostWorkspaceBytes,
   async cellPlanes(qualities,block,hooks){const values=[];let recompressions=0;

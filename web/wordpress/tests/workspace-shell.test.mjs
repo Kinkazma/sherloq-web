@@ -12,7 +12,7 @@ function setup(){
  let stopped=0,loads=0;
  const workspace=mountWorkspace(document,{fetcher:async()=>({ok:true,text:async()=>panel}),panelFactory(_,{toolId,sourceOnly,requestExport,regionParent}){
   let file=null,adopted=null;const id=sourceOnly?'original':toolId;
-  const c={busy:false,async load(value){loads++;file=value;},adopt(input){adopted=input;regionParent.hidden=!['tampering.copyMove.sparse','ai.clones.d2prl'].includes(toolId);regionParent.textContent='regions-'+toolId;},input(){return adopted||{file,imageId:'shared-original',hash:'same-hash',source:{width:100,height:100,draw(){},close(){}},description:'fixture transport'};},snapshot(){return {busy:c.busy,hasResult:false,hasReport:false,status:'ready',progress:0,zoom:100};},activate(){},settings(){return {};},applySettings(value){c.applied=value;},setHighlight(value){c.highlight=value;},setLoupe(value){c.loupe={...value};},exportImage(settings){if(settings){c.exported=settings;return;}return requestExport(settings=>{c.exported=settings;});},setLanguage(){},setTheme(){},setNavigation(){},setComputeProfile(){},dispose(){stopped++;},fit(){},zoomBy(){}};controllers.set(id,c);return c;
+  const c={busy:false,async load(value){loads++;file=value;},adopt(input){adopted=input;regionParent.hidden=!['tampering.copyMove.sparse','ai.clones.d2prl'].includes(toolId);regionParent.textContent='regions-'+toolId;},input(){return adopted||{file,imageId:'shared-original',hash:'a'.repeat(64),source:{width:100,height:100,draw(){},close(){}},description:'fixture transport'};},snapshot(){return {busy:c.busy,hasResult:false,hasReport:false,status:'ready',progress:0,zoom:100};},activate(){},settings(){return {};},applySettings(value){c.applied=value;},setHighlight(value){c.highlight=value;},setLoupe(value){c.loupe={...value};},exportImage(settings){if(settings){c.exported=settings;return;}return requestExport(settings=>{c.exported=settings;});},setLanguage(){},setTheme(){},setNavigation(){},setComputeProfile(){},dispose(){stopped++;},fit(){},zoomBy(){}};controllers.set(id,c);return c;
  }});
  return {document,workspace,controllers,counts:()=>({stopped,loads}),flush(){while(frames.length)frames.shift()();}};
 }
@@ -41,7 +41,7 @@ test('New-algorithm highlighting reaches existing and newly opened panel documen
 });
 
 test('shipped menu wires L, all open panels, fonts and the export chooser',async()=>{
- const h=setup(),$=id=>h.document.getElementById(id);assert.ok($('global-loupe'));assert.ok($('interface-font'));assert.ok($('image-export-dialog'));assert.equal($('app-version').textContent,'0.23.0');
+ const h=setup(),$=id=>h.document.getElementById(id);assert.ok($('global-loupe'));assert.ok($('interface-font'));assert.ok($('image-export-dialog'));assert.equal($('app-version').textContent,'0.24.0');
  await h.workspace.openImage(new Blob(['transport']));await h.workspace.openTool('ela.classic');
  const event=new h.document.defaultView.Event('keydown',{bubbles:true,cancelable:true});event.key='l';event.code='KeyQ';h.document.dispatchEvent(event);
  assert.equal($('global-loupe').checked,true);for(const c of h.controllers.values())assert.equal(c.loupe.enabled,true);

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
 import {createPlotCamera,projectPlotPoint,zoomPlotCamera,bindPlotCamera,createScatterView,createPlotIntroState,rearmPlotIntro,PLOT_INTRO_CAMERA,PLOT_INTRO_DURATION} from '../sherloq-browser/assets/scatter-view.js';
+import {PLOT_FACES,nearestPlotFace,plotFaceCamera,projectOrientationPoint,plotViewDirection} from '../sherloq-browser/assets/scatter-orientation.js';
 const close=(a,b,tolerance=1e-8)=>assert.ok(Math.abs(a-b)<=tolerance,`${a} differs from ${b}`),closePoint=(a,b)=>{close(a[0],b[0]);close(a[1],b[1]);},style=kind=>({kind,x:0,y:1,z:2,colored:true,alpha:.5});
 const event=(window,node,type,values={})=>{const e=new window.Event(type,{bubbles:true,cancelable:true});Object.assign(e,values);node.dispatchEvent(e);return e;};
 function inputFixture(kind='2d'){
@@ -76,8 +77,8 @@ function sceneFixture(gpu=false,viewport={width:600,height:400},clientViewport=v
  Object.defineProperty(window.HTMLElement.prototype,'clientWidth',{configurable:true,get:()=>clientViewport.width});Object.defineProperty(window.HTMLElement.prototype,'clientHeight',{configurable:true,get:()=>clientViewport.height});window.HTMLElement.prototype.getBoundingClientRect=()=>({...viewport,left:30,top:50});window.HTMLCanvasElement.prototype.setPointerCapture=()=>{};window.HTMLCanvasElement.prototype.focus=()=>{};
  for(const [key,value]of Object.entries({devicePixelRatio:2,requestAnimationFrame:fn=>{frames.set(++frameId,fn);return frameId;},cancelAnimationFrame:id=>frames.delete(id),ResizeObserver:class{observe(){}disconnect(){}}}))Object.defineProperty(globalThis,key,{configurable:true,writable:true,value});
  const uniforms={},deletions=[],gl=new Proxy({NO_ERROR:0,COMPILE_STATUS:1,LINK_STATUS:2,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({}),getShaderParameter:()=>true,getProgramParameter:()=>true,getError:()=>0,getAttribLocation:()=>0,getUniformLocation:(_p,name)=>name,uniform4f(name,...values){uniforms[name]=values;},deleteBuffer(){deletions.push('buffer');},deleteProgram(){deletions.push('program');},deleteShader(){deletions.push('shader');}},{get:(target,key)=>key in target?target[key]:()=>{}});
- window.HTMLCanvasElement.prototype.getContext=function(kind){if(kind==='webgl2')return gpu?gl:null;if(!contexts.has(this)){const shapes=[],texts=[],ctx=new Proxy({shapes,texts,transform:[1,0,0,1,0,0],setTransform(...values){this.transform=values;},fillRect(...values){shapes.push(values);},fillText(...values){texts.push(values);}},{get:(target,key)=>key in target?target[key]:()=>{}});contexts.set(this,ctx);}return contexts.get(this);};
- const points={values:Float32Array.from([.2,.8,.4,.6,.7,.2,.8,.2,.9,.1,.4,.8]),count:2,total:20};let mode='mouse';const parent=document.getElementById('plot'),view=createScatterView({document,parent,points,style:style('3d'),columns:['R','G','B','H','S','V'],getNavigationMode:()=>mode,forceCanvas:!gpu,...options});
+ window.HTMLCanvasElement.prototype.getContext=function(kind){if(kind==='webgl2')return gpu?gl:null;if(!contexts.has(this)){const shapes=[],texts=[],fills=[],ctx=new Proxy({shapes,texts,fills,transform:[1,0,0,1,0,0],setTransform(...values){this.transform=values;},fillRect(...values){shapes.push(values);fills.push({values,color:this.fillStyle,alpha:this.globalAlpha});},fillText(...values){texts.push(values);}},{get:(target,key)=>key in target?target[key]:()=>{}});contexts.set(this,ctx);}return contexts.get(this);};
+ const points={values:Float32Array.from([.2,.8,.4,.6,.7,.2,.8,.2,.9,.1,.4,.8]),count:2,total:20};let mode='mouse';const parent=document.getElementById('plot'),view=createScatterView({document:options.scoped?{createElement:document.createElement.bind(document),documentElement:document.documentElement,addEventListener:document.addEventListener.bind(document),removeEventListener:document.removeEventListener.bind(document)}:document,parent,points,style:style('3d'),columns:['R','G','B','H','S','V'],getNavigationMode:()=>mode,forceCanvas:!gpu,...options});
  const flush=time=>{const pending=[...frames.values()];frames.clear();for(const fn of pending)fn(time);},canvas=()=>parent.querySelector('.scatter-canvas'),emit=(type,values={})=>event(window,canvas(),type,values),drawn=()=>contexts.get(canvas()).shapes.filter(shape=>shape[2]===1.5),clear=()=>{for(const ctx of contexts.values()){ctx.shapes.length=0;ctx.texts.length=0;}};
  return {document,window,parent,view,points,viewport,contexts,uniforms,deletions,frames,flush,canvas,emit,drawn,clear,setMode:value=>mode=value};
 }
@@ -133,4 +134,92 @@ test('shared camera and intro survive native renewals and provisional viewers wi
 });
 test('reduced motion presents the final 3D orientation without animation and keeps native values intact',()=>{
  const f=sceneFixture(false,undefined,undefined,{reducedMotion:true}),before=f.points.values.slice();try{assert.equal(f.view.intro.active,false);f.flush(0);assert.equal(f.frames.size,0);close(f.view.camera.yaw,PLOT_INTRO_CAMERA.yaw);close(f.view.camera.pitch,PLOT_INTRO_CAMERA.pitch);assert.deepEqual(f.points.values,before);f.view.fit();assert.deepEqual(f.view.camera,createPlotCamera());}finally{f.view.dispose();}
+});
+
+test('all six canonical faces flatten their own axis in the actual main projection and preserve framing',()=>{
+ const viewport={width:630,height:490},original=createPlotCamera({x:41,y:-63,zoom:2.5}),s=style('3d'),origin=[0,0,0,0,0,0];
+ for(const face of PLOT_FACES){const camera=plotFaceCamera(face.id,original);assert.equal(camera.x,41);assert.equal(camera.y,-63);assert.equal(camera.zoom,2.5);assert.equal(nearestPlotFace(camera),face.id);const o=projectPlotPoint(origin,s,camera,viewport),axis=[...origin];axis[face.axis]=1;closePoint(projectPlotPoint(axis,s,camera,viewport),o);const others=[0,1,2].filter(i=>i!==face.axis).map(i=>{const p=[...origin];p[i]=1;return projectPlotPoint(p,s,camera,viewport).map((v,k)=>v-o[k]);});close(others[0][0]*others[1][0]+others[0][1]*others[1][1],0,1e-6);}
+ assert.throws(()=>plotFaceCamera('no-face',original));assert.deepEqual(original,createPlotCamera({x:41,y:-63,zoom:2.5}));
+});
+test('closest-face selection hides the shortest projected axis through deterministic full rotations',()=>{
+ const s=style('3d'),viewport={width:600,height:400};
+ for(let i=0;i<=2000;i++){const c=createPlotCamera({yaw:(i*0.137)% (8*Math.PI)-4*Math.PI,pitch:Math.sin(i*0.193)*Math.PI/2}),id=nearestPlotFace(c),face=PLOT_FACES.find(f=>f.id===id),origin=projectPlotPoint([0,0,0,0,0,0],s,c,viewport),lengths=[0,1,2].map(j=>{const v=[0,0,0,0,0,0];v[j]=1;const p=projectPlotPoint(v,s,c,viewport);return Math.hypot(p[0]-origin[0],p[1]-origin[1]);});assert.ok(lengths[face.axis]<=Math.min(...lengths)+1e-8);assert.ok(plotViewDirection(c)[face.axis]*face.sign>0);}
+});
+test('cube face actions and doubleclick snap to nearby signed faces without resetting pan, zoom or scientific rows',()=>{
+ const f=sceneFixture(),before=f.points.values.slice();try{f.view.cancelIntro();f.view.zoomBy(2);f.emit('pointerdown',{button:0,shiftKey:true,pointerId:1,clientX:80,clientY:80});f.emit('pointermove',{pointerId:1,clientX:120,clientY:50});f.emit('pointerup',{pointerId:1});const framing=f.view.camera;
+ for(const face of PLOT_FACES){const button=f.parent.querySelector('.scatter-cube-menu [data-cube-face="'+face.id+'"]');button.click();const c=f.view.camera;close(c.yaw,face.yaw);close(c.pitch,face.pitch);close(c.zoom,framing.zoom);close(c.x,framing.x);close(c.y,framing.y);assert.equal(f.view.intro.interacted,true);}
+ f.view.alignFace('x+');f.emit('pointerdown',{button:0,pointerId:3,clientX:100,clientY:100});f.emit('pointermove',{pointerId:3,clientX:109,clientY:105});f.emit('pointerup',{pointerId:3});assert.equal(nearestPlotFace(f.view.camera),'x+');f.emit('dblclick');close(f.view.camera.yaw,-Math.PI/2);close(f.view.camera.pitch,0);close(f.view.camera.zoom,framing.zoom);close(f.view.camera.x,framing.x);assert.deepEqual(f.points.values,before);
+ f.view.setStyle({kind:'2d'});f.emit('dblclick');assert.deepEqual(f.view.camera,createPlotCamera());f.flush();assert.equal(f.parent.querySelector('.scatter-orientation').hidden,true);
+ }finally{f.view.dispose();}
+});
+test('miniature uses the retained RGB or HSV coordinates and source colours with bounded transparent drawing',()=>{
+ const f=sceneFixture();try{f.view.cancelIntro();f.flush();const canvas=f.parent.querySelector('.scatter-cube-cloud'),context=f.contexts.get(canvas),fills=context.fills.filter(v=>v.values[2]===1.1);assert.equal(f.view.miniPointCount,f.points.count);assert.equal(fills.length,2);for(let i=0;i<2;i++){const row=f.points.values.subarray(i*6,i*6+6),p=projectOrientationPoint([row[0],row[1],row[2]],f.view.camera);closePoint(fills[i].values,[p.x,p.y]);assert.equal(fills[i].color,`rgb(${row[0]*255},${row[1]*255},${row[2]*255})`);close(fills[i].alpha,.24);}
+ context.fills.length=0;f.view.setStyle({x:3,y:4,z:5,colored:false,alpha:.8});f.flush();const hsv=context.fills.filter(v=>v.values[2]===1.1);for(let i=0;i<2;i++){const row=f.points.values.subarray(i*6,i*6+6),p=projectOrientationPoint([row[3],row[4],row[5]],f.view.camera);closePoint(hsv[i].values,[p.x,p.y]);assert.equal(hsv[i].color,'#338cd9');close(hsv[i].alpha,.384);}
+ }finally{f.view.dispose();}
+});
+test('an interrupted native viewer resumes the same intro ticket rather than freezing at its intermediate angle',()=>{
+ const camera=createPlotCamera(),intro=createPlotIntroState(),options={cameraState:camera,introState:intro},first=sceneFixture(false,undefined,undefined,options);first.flush(0);first.flush(180);const mid={...camera},ticket=intro.transition;first.view.dispose();assert.ok(ticket&&intro.transition===ticket);
+ const next=sceneFixture(false,undefined,undefined,options);try{assert.deepEqual(next.view.camera,mid);assert.equal(intro.transition,ticket);next.flush(450);next.flush(451);close(next.view.camera.yaw,PLOT_INTRO_CAMERA.yaw);close(next.view.camera.pitch,PLOT_INTRO_CAMERA.pitch);assert.equal(next.view.intro.active,false);assert.equal(intro.transition,null);next.view.reinitialize();assert.equal(next.view.intro.active,true);assert.deepEqual(next.view.camera,createPlotCamera());}finally{next.view.dispose();}
+});
+
+test('SVG cube works with the restricted document facade used by real workspace panels',()=>{
+ const f=sceneFixture(false,undefined,undefined,{scoped:true});try{f.view.cancelIntro();f.flush();assert.equal(f.parent.querySelectorAll('.scatter-cube-face').length,6);f.parent.querySelector('.scatter-cube-choice[data-cube-face="y-"]').click();close(f.view.camera.pitch,-Math.PI/2);f.view.setStyle({kind:'2d'});f.flush();assert.equal(f.parent.querySelector('.scatter-orientation').hidden,true);}finally{f.view.dispose();}
+});
+test('miniature caps its own display work without truncating the retained scientific table',()=>{
+ const values=new Float32Array(4096*6);for(let i=0;i<values.length;i++)values[i]=(i%101)/100;const before=values.slice(),points={values,count:4096,total:4096},f=sceneFixture(false,undefined,undefined,{points});try{f.view.cancelIntro();f.flush();assert.ok(f.view.miniPointCount>0&&f.view.miniPointCount<=768);assert.equal(values.length,4096*6);assert.deepEqual(values,before);}finally{f.view.dispose();}
+});
+test('context loss resumes the current intro ticket in the retained Canvas fallback',()=>{
+ const f=sceneFixture(true);try{f.flush(0);f.flush(150);assert.equal(f.view.intro.active,true);f.emit('webglcontextlost');f.flush(450);f.flush(451);close(f.view.camera.yaw,PLOT_INTRO_CAMERA.yaw);close(f.view.camera.pitch,PLOT_INTRO_CAMERA.pitch);assert.equal(f.view.intro.active,false);}finally{f.view.dispose();}
+});
+
+
+for(const gpu of [false,true])test(`held SVG face chooses on pointerup across redraws and updates ${gpu?'GPU uniforms':'Canvas points'}`,()=>{
+ const initial=createPlotCamera({yaw:.4,pitch:.25,zoom:1.7,x:31,y:-19}),f=sceneFixture(gpu,undefined,undefined,{cameraState:{...initial},allowIntro:false});
+ try{f.flush(0);const face=f.parent.querySelector('.scatter-cube-face[data-cube-face="x-"]'),group=face.parentElement,append=group.append.bind(group);let appends=0;group.append=(...nodes)=>{appends++;return append(...nodes);};
+  event(f.window,face,'pointerdown',{button:0,isPrimary:true,pointerId:81,pointerType:'mouse',clientX:78,clientY:79});
+  for(let i=1;i<=4;i++){f.view.setStyle({alpha:.5+i*.01});f.flush(i*16);}assert.equal(appends,0,'stationary redraws must preserve the pressed DOM target');
+  event(f.window,f.window,'pointerup',{pointerId:81,pointerType:'mouse',clientX:78,clientY:79});f.clear();f.flush(100);const expected=plotFaceCamera('x-',initial);
+  close(f.view.camera.yaw,expected.yaw);close(f.view.camera.pitch,expected.pitch);close(f.view.camera.x,31);close(f.view.camera.y,-19);close(f.view.camera.zoom,1.7);
+  for(let i=0;i<f.points.count;i++){const row=f.points.values.subarray(i*6,i*6+6),actual=gpu?gpuPoint(row,f.uniforms,f.viewport):f.drawn()[i];closePoint(actual,projectPlotPoint(row,style('3d'),expected,f.viewport));}
+  if(gpu){close(f.uniforms.camera[0],expected.yaw);close(f.uniforms.camera[1],expected.pitch);}
+  assert.equal(f.frames.size,0);event(f.window,face,'click',{detail:1});assert.equal(f.frames.size,0,'the compatibility click must not align twice');
+ }finally{f.view.dispose();}assert.equal(f.frames.size,0);
+});
+test('cube accepts touch and four-pixel releases, preserves the original target outside, and ignores unrelated pointers',()=>{
+ for(const pointerType of ['mouse','touch','pen']){const initial=createPlotCamera({yaw:.4,pitch:.25}),f=sceneFixture(false,undefined,undefined,{cameraState:{...initial},allowIntro:false});try{f.flush(0);const face=f.parent.querySelector('.scatter-cube-face[data-cube-face="x-"]');event(f.window,face,'pointerdown',{button:0,isPrimary:true,pointerId:3,pointerType,clientX:100,clientY:100});event(f.window,f.window,'pointerup',{pointerId:4,pointerType,clientX:100,clientY:100});assert.deepEqual(f.view.camera,initial);event(f.window,f.window,'pointerup',{pointerId:3,pointerType,clientX:104,clientY:100});close(f.view.camera.yaw,Math.PI/2);f.flush(100);event(f.window,face,'click',{detail:1});assert.equal(f.frames.size,0);}finally{f.view.dispose();}}
+});
+test('cube drag and release beyond four pixels never align via a later compatibility click',()=>{
+ for(const move of [true,false]){const initial=createPlotCamera({yaw:.4,pitch:.25}),f=sceneFixture(false,undefined,undefined,{cameraState:{...initial},allowIntro:false});try{f.flush(0);const face=f.parent.querySelector('.scatter-cube-face[data-cube-face="x-"]');event(f.window,face,'pointerdown',{button:0,pointerId:5,clientX:100,clientY:100});if(move)event(f.window,f.window,'pointermove',{pointerId:5,clientX:104.1,clientY:100});event(f.window,f.window,'pointerup',{pointerId:5,clientX:104.1,clientY:100});const released={...f.view.camera};assert.notEqual(released.yaw,Math.PI/2);event(f.window,face,'click',{detail:1});assert.deepEqual(f.view.camera,released);f.flush(100);assert.equal(face.getAttribute('aria-pressed'),'false');}finally{f.view.dispose();}}
+});
+test('cube cancellation, lost capture, blur and hidden document reject a pending face and its compatibility click',()=>{
+ for(const end of ['pointercancel','lostpointercapture','blur','visibilitychange']){const initial=createPlotCamera({yaw:.4,pitch:.25}),f=sceneFixture(false,undefined,undefined,{cameraState:{...initial},allowIntro:false});try{f.flush(0);const face=f.parent.querySelector('.scatter-cube-face[data-cube-face="x-"]');event(f.window,face,'pointerdown',{button:0,pointerId:6,clientX:100,clientY:100});if(end==='visibilitychange'){Object.defineProperty(f.document,'hidden',{configurable:true,value:true});event(f.window,f.document,end);}else event(f.window,end==='lostpointercapture'?face:f.window,end,{pointerId:6});event(f.window,f.window,'pointerup',{pointerId:6,clientX:100,clientY:100});event(f.window,face,'click',{detail:1});assert.deepEqual(f.view.camera,initial);}finally{f.view.dispose();}}
+});
+test('cube keyboard and menu choices still work after a cancelled pointer gesture; disposal removes pending actions',()=>{
+ const initial=createPlotCamera({yaw:.4,pitch:.25}),f=sceneFixture(false,undefined,undefined,{cameraState:{...initial},allowIntro:false});f.flush(0);const face=f.parent.querySelector('.scatter-cube-face[data-cube-face="x-"]');event(f.window,face,'pointerdown',{button:0,pointerId:9,clientX:100,clientY:100});event(f.window,f.window,'pointercancel',{pointerId:9});event(f.window,face,'keydown',{key:'Enter'});close(f.view.camera.yaw,Math.PI/2);f.parent.querySelector('.scatter-cube-choice[data-cube-face="y+"]').click();close(f.view.camera.pitch,Math.PI/2);event(f.window,face,'keydown',{key:' '});close(f.view.camera.yaw,Math.PI/2);close(f.view.camera.pitch,0);event(f.window,face,'pointerdown',{button:0,pointerId:10,clientX:100,clientY:100});const before=f.view.camera;f.view.dispose();event(f.window,f.window,'pointerup',{pointerId:10,clientX:100,clientY:100});event(f.window,face,'click',{detail:1});assert.deepEqual(f.view.camera,before);assert.equal(f.frames.size,0);
+});
+
+
+function capturedCubeFixture(){
+ const initial=createPlotCamera({yaw:.4,pitch:.25}),f=sceneFixture(false,undefined,undefined,{cameraState:{...initial},allowIntro:false});f.flush(0);
+ const svg=f.parent.querySelector('.scatter-cube'),face=f.parent.querySelector('.scatter-cube-face[data-cube-face="x-"]'),captured=new Set(),calls=[];
+ Object.defineProperty(f.window,'innerWidth',{configurable:true,value:900});Object.defineProperty(f.window,'innerHeight',{configurable:true,value:700});
+ svg.setPointerCapture=id=>{calls.push(['capture',id]);captured.add(id);};svg.hasPointerCapture=id=>captured.has(id);svg.releasePointerCapture=id=>{calls.push(['release',id]);captured.delete(id);event(f.window,svg,'lostpointercapture',{pointerId:id});};
+ const down=(id=21,pointerType='mouse')=>event(f.window,face,'pointerdown',{button:0,buttons:1,isPrimary:true,pointerId:id,pointerType,clientX:100,clientY:100});
+ return{...f,svg,face,captured,calls,down,initial};
+}
+test('mini-cube captures its stable SVG root and releases before a held face aligns',()=>{
+ const f=capturedCubeFixture();try{f.down();assert.deepEqual(f.calls,[['capture',21]]);for(let n=1;n<=4;n++){f.view.setStyle({alpha:.5+n*.01});f.flush(n*16);}event(f.window,f.window,'pointerup',{pointerId:21,buttons:0,clientX:100,clientY:100});assert.deepEqual(f.calls,[['capture',21],['release',21]]);assert.equal(f.captured.size,0);close(f.view.camera.yaw,Math.PI/2);event(f.window,f.face,'click',{detail:1});close(f.view.camera.yaw,Math.PI/2);}finally{f.view.dispose();}
+});
+test('mini-cube returning with buttons zero cancels before movement and permits a new normal click',()=>{
+ const f=capturedCubeFixture();try{f.down();event(f.window,f.window,'pointermove',{pointerId:21,pointerType:'mouse',buttons:1,clientX:130,clientY:120});const dragged=f.view.camera;event(f.window,f.window,'pointermove',{pointerId:21,pointerType:'mouse',buttons:0,clientX:260,clientY:250});assert.deepEqual(f.view.camera,dragged);assert.equal(f.captured.size,0);event(f.window,f.face,'click',{detail:1});assert.deepEqual(f.view.camera,dragged);event(f.window,f.window,'pointermove',{pointerId:21,buttons:1,clientX:270,clientY:260});assert.deepEqual(f.view.camera,dragged);f.down(22);event(f.window,f.window,'pointerup',{pointerId:22,buttons:0,clientX:100,clientY:100});close(f.view.camera.yaw,Math.PI/2);assert.equal(f.captured.size,0);}finally{f.view.dispose();}
+});
+test('mini-cube cancels at the real viewport boundary, not when leaving the SVG or a shadow subtree',()=>{
+ const f=capturedCubeFixture();try{f.down();event(f.window,f.svg,'pointerout',{pointerId:21,buttons:1,relatedTarget:f.parent,clientX:220,clientY:140});assert.equal(f.captured.size,1);event(f.window,f.svg,'pointerout',{pointerId:21,buttons:1,relatedTarget:null,clientX:220,clientY:140});assert.equal(f.captured.size,1);event(f.window,f.window,'pointermove',{pointerId:21,buttons:1,clientX:240,clientY:150});const dragged=f.view.camera;event(f.window,f.svg,'pointerout',{pointerId:21,buttons:1,relatedTarget:null,clientX:900,clientY:150});assert.equal(f.captured.size,0);event(f.window,f.window,'pointermove',{pointerId:21,buttons:1,clientX:250,clientY:160});event(f.window,f.window,'pointerup',{pointerId:21,buttons:0,clientX:250,clientY:160});event(f.window,f.face,'click',{detail:1});assert.deepEqual(f.view.camera,dragged);}finally{f.view.dispose();}
+});
+test('mini-cube cannot rotate or align from outside-viewport coordinates even if boundary events were missed',()=>{
+ for(const terminal of ['pointermove','pointerup']){const f=capturedCubeFixture();try{f.down();const before=f.view.camera;event(f.window,f.window,terminal,{pointerId:21,buttons:terminal==='pointermove'?1:0,clientX:-1,clientY:100});assert.deepEqual(f.view.camera,before);assert.equal(f.captured.size,0);event(f.window,f.face,'click',{detail:1});event(f.window,f.window,'pointermove',{pointerId:21,buttons:0,clientX:100,clientY:100});assert.deepEqual(f.view.camera,before);}finally{f.view.dispose();}}
+});
+test('mini-cube capture failure, touch/pen cancellation, blur and disposal release safely without an accidental snap',()=>{
+ const failed=capturedCubeFixture();try{failed.svg.setPointerCapture=()=>{throw Error('capture unavailable');};failed.svg.hasPointerCapture=()=>true;failed.svg.releasePointerCapture=()=>{throw Error('already lost');};failed.down();event(failed.window,failed.window,'pointermove',{pointerId:21,buttons:0,clientX:200,clientY:200});assert.deepEqual(failed.view.camera,failed.initial);}finally{failed.view.dispose();}
+ for(const pointerType of ['touch','pen'])for(const terminal of ['pointercancel','blur','dispose']){const f=capturedCubeFixture();try{f.down(31,pointerType);event(f.window,f.window,'pointermove',{pointerId:31,pointerType,buttons:1,clientX:110,clientY:108});assert.notDeepEqual(f.view.camera,f.initial);const before=f.view.camera;if(terminal==='dispose')f.view.dispose();else event(f.window,f.window,terminal,{pointerId:31,pointerType});assert.equal(f.captured.size,0);event(f.window,f.window,'pointermove',{pointerId:31,pointerType,buttons:0,clientX:200,clientY:200});event(f.window,f.face,'click',{detail:1});assert.deepEqual(f.view.camera,before);}finally{f.view.dispose();}}
 });

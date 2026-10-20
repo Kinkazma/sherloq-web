@@ -1,5 +1,5 @@
 import {requireValue,checkAbort} from './errors.js';
-import {energyReferenceHeader} from './energy-pipeline.js';import {inspectJpegBlob} from './jpeg.js';
+import {energyReferenceHeader} from './energy-pipeline.js';import {inspectOriginalJpeg} from './jpeg-source-evidence.js';
 import {segmentedEnergyQualities} from './energy-qualities-stream.js';import {AdaptiveConcurrency} from './adaptive-concurrency.js';import {detectSegmentedPanels} from './auto-zones-stream.js';
 import {prepareSegmentedEnergy} from './energy-prepare-stream.js';import {estimateSegmentedEnergy,segmentedEnergyDeviations} from './energy-auto-stream.js';
 import {segmentSegmentedEnergy} from './energy-segment-stream.js';import {energyColor} from './energy-segment.js';import {energyProfile} from './energy-auto.js';
@@ -16,7 +16,9 @@ export function createSegmentedEnergyCache(image,budget,{maxWorkers=1,adaptive=n
    requireValue(!closed,'Energy cache disposed.');checkAbort(signal);let block=p.block;while(Math.floor(height/block)*Math.floor(width/block)>16384)block+=8;requireValue(Math.floor(height/block)*Math.floor(width/block)>=25,'Image too small for25 complete native cells');initializeLog();const key=JSON.stringify(p),metrics={workers:1,kernel:'ela-energy-segmented',energyRecompressions:0,energyQualityPlanesComputed:0,energyPanelDetections:0,energyPreparationMs:0,energyProfileMs:0,energySegmentationMs:0,cache:{result:false,stages:{}}};
    if(current&&key===currentKey){metrics.cache.result=true;metrics.workers=0;return {analysis:current,metrics};}const old=current;current=null;currentKey=null;await old?.dispose();let segmented,preparedRelease;const planeReleases=[];
    try{
-    if(!p.quality&&!headerRead){if(image.source){const signature=await image.source.read(0,Math.min(2,image.source.byteLength),{signal});let jpeg;try{jpeg=signature.bytes[0]===255&&signature.bytes[1]===216;}finally{signature.release();}if(jpeg)header=await inspectJpegBlob(image.source,{signal});}headerRead=true;}
+    // Quantization tables remain evidence from the encoded original. Only the
+    // derived native surface supplies pixels to every scientific energy stage.
+    if(!p.quality&&!headerRead){header=await inspectOriginalJpeg(image,{signal});headerRead=true;}
     const quality=energyReferenceHeader(header,p.quality),q=quality.quality,levels=q<=5?[q,q+5,q+10]:q>=96?[q-10,q-5,q]:[q-5,q,q+5],planes=[];
     metrics.cache.stages['energy-panels']=!!panels;if(!panels){metrics.energyPanelDetections++;const result=await detectSegmentedPanels(image,{budget,signal,onProgress});panels=shared(result,()=>result.dispose());}
     // Pin and touch every reusable quality before inserting a missing neighbor.

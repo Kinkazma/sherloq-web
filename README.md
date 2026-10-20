@@ -87,7 +87,7 @@ I brought the following method families into the web workflows, alongside the in
 - **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG.
 - **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM.
 - **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression.
-- **Text detection and document inspection:** PP-OCRv6 and DTD / DocTamper.
+- **Text recognition and document inspection:** PP-OCRv6, Tesseract and DTD / DocTamper.
 - **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA.
 - **Experimental AI detectors:** B-Free and SPAI.
 - **Compression fingerprints:** Comprint.
@@ -96,6 +96,14 @@ I brought the following method families into the web workflows, alongside the in
 B-Free, SPAI and DTD are experimental and hidden by default. Show them through **Settings → Enable experimental tools**.
 
 These are integrations of existing research methods, whose authors retain credit. SelfDM requires model files imported into the local resource library; the supplied models and their terms are described in the [resource notices](docs/METHODS-RESOURCE-LICENSES.txt).
+
+### Images and PDF documents
+
+Open PDFs in a dedicated reader, browse their pages and extract embedded images at their native resolution. Inspect pages with the loupe and shared image adjustments. [PDF reader](docs/PDF-READER.md).
+
+In **Original image**, select acquisitions and exclude regions before opening an analysis. Each tool keeps its own copy of the selection; supported methods work on the admitted native pixels. [Source regions](docs/ORIGINAL-SOURCE-REGIONS.md).
+
+**Misc → OCR** recognizes text with PP-OCRv6 Medium or Tesseract in English and French. Select text directly over the image or copy the complete transcript. [OCR tools](docs/OCR-NOISESNIFFER.md).
 
 ### Batch processing
 
@@ -533,6 +541,7 @@ Methods, models and shared components are credited once, from oldest to newest. 
 | 1981 · 2004 · 2011 | **SIFT + G2NN + RANSAC** | SIFT: David G. Lowe. G2NN copy-move method: Irene Amerini, Lamberto Ballan, Roberto Caldelli, Alberto Del Bimbo, Giuseppe Serra. RANSAC: Martin A. Fischler, Robert C. Bolles. | [SIFT](https://www.cs.ubc.ca/~lowe/keypoints/) · [G2NN method](https://ailab.uniud.it/wp-content/uploads/2018/11/serra_TIFS_2011.pdf) · [RANSAC](https://www.sri.com/publication/artificial-intelligence-pubs/random-sample-consensus-a-paradigm-for-model-fitting-with-applications-to-image-analysis-and-automated-cartography-2/) |
 | 2004 · 2006 | **Multiple Compression — double-quantization foundations** | Alin C. Popescu, Hany Farid; Junfeng He, Zhouchen Lin, Lifeng Wang, Xiaoou Tang | [Statistical foundations](https://farid.berkeley.edu/downloads/publications/ih04.pdf) · [DCT coefficient analysis](https://www.microsoft.com/en-us/research/publication/detecting-doctored-jpeg-images-via-dct-coefficient-analysis/) |
 | 2007 | **ELA — underlying method** | Neal Krawetz | [Original paper](https://www.blackhat.com/presentations/bh-usa-07/Krawetz/Whitepaper/bh-usa-07-krawetz-WP.pdf) |
+| 2007 | **Tesseract OCR / English and French LSTM data** | Ray Smith and the Tesseract / tessdata_best contributors. Browser runtime: Tesseract.js-core contributors. | [Original paper](https://tesseract-ocr.github.io/docs/tesseracticdar2007.pdf) · [Authors](https://github.com/tesseract-ocr/tesseract/blob/main/AUTHORS) · [Language models](https://github.com/tesseract-ocr/tessdata_best) · [Browser runtime](https://github.com/naptha/tesseract.js-core) |
 | 2008 | **VLFeat** | Andrea Vedaldi, Brian Fulkerson | [Original project](https://www.vlfeat.org/) |
 | 2009 · 2015 · 2018 | **PatchMatch / Zernike matching** | Dense-field detection: Davide Cozzolino, Giovanni Poggi, Luisa Verdoliva. IPOL implementation: Thibaud Ehret. Original PatchMatch: Connelly Barnes, Eli Shechtman, Adam Finkelstein, Dan B Goldman. | [Dense-field method](https://www.iris.unina.it/handle/11588/613096) · [IPOL implementation](https://www.ipol.im/pub/art/2018/213/) · [Original PatchMatch](https://collaborate.princeton.edu/en/publications/patchmatch-a-randomized-correspondence-algorithm-for-structural-i/) |
 | 2013 | **Structured Forests / edge detection** | Piotr Dollár, C. Lawrence Zitnick | [Original implementation](https://github.com/pdollar/edges) |
@@ -540,6 +549,7 @@ Methods, models and shared components are credited once, from oldest to newest. 
 | 2018 | **ConvCRF** | Marvin T. T. Teichmann, Roberto Cipolla | [Paper](https://arxiv.org/abs/1805.04777) |
 | 2018 · 2020 | **SuperPoint / SuperGlue** | Daniel DeTone, Tomasz Malisiewicz, Andrew Rabinovich; Paul-Edouard Sarlin (SuperGlue) | [SuperPoint](https://arxiv.org/abs/1712.07629) · [SuperGlue](https://github.com/magicleap/SuperGluePretrainedNetwork) |
 | 2020 | **Adaptive CFA** | Quentin Bammey, Rafael Grompone von Gioi, Jean-Michel Morel | [Paper](https://openaccess.thecvf.com/content_CVPR_2020/html/Bammey_An_Adaptive_Neural_Network_for_Unsupervised_Mosaic_Consistency_Analysis_in_CVPR_2020_paper.html) |
+| 2021 | **PP-LCNet — text-line orientation** | Cheng Cui, Tingquan Gao, Shengyu Wei, Yuning Du, Ruoyu Guo, Shuilong Dong, Bin Lu, Ying Zhou, Xueying Lv, Qiwen Liu, Xiaoguang Hu, Dianhai Yu, Yanjun Ma; PaddlePaddle contributors for the text-line model. | [Paper](https://arxiv.org/abs/2109.15099) · [Official model](https://huggingface.co/PaddlePaddle/PP-LCNet_x1_0_textline_ori_onnx) |
 | 2021 · 2022 | **CAT-Net** | Myung-Joon Kwon, In-Jae Yu, Seung-Hun Nam, Heung-Kyu Lee, Changick Kim | [Original project and both papers](https://github.com/mjkwon2021/CAT-Net) |
 | 2021 · 2024 | **Noisesniffer** | Marina Gardella, Pablo Musé, Miguel Colom, Jean-Michel Morel | [Paper and implementation](https://www.ipol.im/pub/art/2024/462/) |
 | 2021 | **ZERO JPEG Grids** | Tina Nikoukhah, Jérémy Anger, Miguel Colom, Jean-Michel Morel, Rafael Grompone von Gioi | [Paper and implementation](https://www.ipol.im/pub/art/2021/390/) |
@@ -563,7 +573,7 @@ Methods, models and shared components are credited once, from oldest to newest. 
 | 2025 | **SPAI** | Dimitrios Karageorgiou, Symeon Papadopoulos, Ioannis Kompatsiaris, Efstratios Gavves | [Original project](https://github.com/mever-team/spai) |
 | 2026 | **Forgeryscope / Forgeryscope Auto** | Uladzislau Leketush | [Original project](https://github.com/vlad3996/forgeryscope) |
 | 2026 | **MGCFDN** | Hang Tu, Peng Liang, Xiaoguang Lu, Huimin Zhao | [Original project](https://github.com/tuhanglsWorld/MGCFDN) |
-| 2026 | **PP-OCRv6 — text detection** | Yubo Zhang, Xueqing Wang, Manhui Lin, Yue Zhang, Penglongyi Deng, Ting Sun, Tingquan Gao, Zelun Zhang, Jiaxuan Liu, Changda Zhou, Hongen Liu, Suyin Liang, Cheng Cui, Yi Liu, Dianhai Yu, Yanjun Ma. ONNX conversion: RapidAI / RapidOCR contributors. | [Paper](https://arxiv.org/abs/2606.13108) · [ONNX implementation](https://github.com/RapidAI/RapidOCR) |
+| 2026 | **PP-OCRv6 — text detection and recognition** | Yubo Zhang, Xueqing Wang, Manhui Lin, Yue Zhang, Penglongyi Deng, Ting Sun, Tingquan Gao, Zelun Zhang, Jiaxuan Liu, Changda Zhou, Hongen Liu, Suyin Liang, Cheng Cui, Yi Liu, Dianhai Yu, Yanjun Ma. Small detector ONNX conversion: RapidAI / RapidOCR contributors. Medium models: official PaddlePaddle ONNX exports. | [Paper](https://arxiv.org/abs/2606.13108) · [Small conversion](https://github.com/RapidAI/RapidOCR) · [Official Medium models](https://huggingface.co/PaddlePaddle/PP-OCRv6_medium_rec_onnx) |
 | 2026 | **RITA** | Xuekang Zhu, Ji-Zhe Zhou, Kaiwen Feng, Chenfan Qu, Xiwen Wang, Yunfei Wang, Liting Zhou, Jian Liu | [Original project](https://github.com/scu-zjz/RITA) · [Weights: CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) |
 
 </details>

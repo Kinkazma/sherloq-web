@@ -33,6 +33,10 @@ class RitaRuntimeIncrementTest(unittest.TestCase):
         if latest_path.exists():
             for r in json.loads(latest_path.read_text())['baseline']['snapshots']:
                 latest[r['file']] = (REPO / r['copy']).read_bytes()
+        workspace_path = ROOT / 'runtime-patches/workspace-20261020.json'
+        if workspace_path.exists():
+            for r in json.loads(workspace_path.read_text())['baseline']['snapshots']:
+                latest.setdefault(r['file'], (REPO / r['copy']).read_bytes())
         for name in names:
             target = self.repo / name
             target.parent.mkdir(parents=True, exist_ok=True)

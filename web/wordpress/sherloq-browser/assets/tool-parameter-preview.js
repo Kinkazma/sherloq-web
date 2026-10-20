@@ -3,11 +3,11 @@
  */
 import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js';
 const MiB=1024**2,DEFAULT_SIDE=192,WORKER_BYTES=192*MiB;
-const OPERATIONS=new Set(['inspection.adjust','inspection.magnifier','detail.gradient','detail.echo','colors.space','colors.pca','detail.wavelets','detail.frequency','noise.separation','noise.planes','noise.minmax','pixels.defects','noise.blocking','colors.stats','tampering.contrast','various.illuminant','comparison.image','jpeg.ghosts']);
-const approximations=new Set(['colors.pca','detail.wavelets','detail.frequency','noise.blocking','inspection.magnifier','comparison.image','jpeg.ghosts']);
+const OPERATIONS=new Set(['inspection.adjust','inspection.magnifier','detail.gradient','detail.echo','colors.space','colors.pca','detail.wavelets','detail.frequency','noise.separation','noise.planes','noise.minmax','pixels.defects','noise.blocking','colors.stats','tampering.contrast','various.illuminant','comparison.image','jpeg.ghosts','noise.noisesniffer']);
+const approximations=new Set(['colors.pca','detail.wavelets','detail.frequency','noise.blocking','inspection.magnifier','comparison.image','jpeg.ghosts','noise.noisesniffer']);
 // Contiguous-kernel admission units: input is RGB, so scratchFactor multiplies
 // three bytes per pixel. Native admission remains the final authority.
-const ADMISSION=Object.freeze({'colors.pca':[96,32*MiB],'noise.minmax':[36,0],'colors.stats':[9,0],'noise.planes':[15,0],'pixels.defects':[180,0],'tampering.contrast':[48,32*MiB],'various.illuminant':[30,0],'inspection.magnifier':[15,0],'noise.blocking':[192,64*MiB],'comparison.image':[96,0],'jpeg.ghosts':[54,32*MiB]});
+const ADMISSION=Object.freeze({'noise.noisesniffer':[320,48*MiB],'colors.pca':[96,32*MiB],'noise.minmax':[36,0],'colors.stats':[9,0],'noise.planes':[15,0],'pixels.defects':[180,0],'tampering.contrast':[48,32*MiB],'various.illuminant':[30,0],'inspection.magnifier':[15,0],'noise.blocking':[192,64*MiB],'comparison.image':[96,0],'jpeg.ghosts':[54,32*MiB]});
 const fail=(code,message)=>{throw Object.assign(Error(message),{code});};
 const check=signal=>{if(signal?.aborted)fail('CANCELLED','Parameter preview cancelled.');};
 const crcTable=Uint32Array.from({length:256},(_,n)=>{let c=n;for(let j=0;j<8;j++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
@@ -52,6 +52,7 @@ export function projectParameterPreviewParams(operation,input,{width,height,logi
  if(operation==='noise.separation'&&(params.mode??0)!==4)radius('radius',1,1,10);
  if(operation==='noise.minmax')integer('filter',0,0,5,value=>value?clamp(Math.round((value+3)*scale)-3,1,5):0);
  if(operation==='pixels.defects')radius('radius',1,1,2);
+ if(operation==='noise.noisesniffer')radius('cellSize',100,1,10000);
  if(operation==='detail.frequency')integer('filter',0,0,15,value=>value?clamp(Math.round(value*scale),1,15):0);
  if(operation==='noise.blocking')integer('block',8,1,100,value=>{
   const nativeMaximum=Math.min(Math.floor((logicalWidth+15)/2),Math.floor((logicalHeight+15)/2));
@@ -113,7 +114,7 @@ export function createParameterPreview({readSource,readReference,reserve,release
   let room=memoryBudgetBytes-Math.max(32*MiB,memory?.knownHeapCapacityBytes??0)-extraBytes-(memory?.retainedBytes??0)-(memory?.activeReservationBytes??0)-2*MiB;
   if(room<scratchBytes+6&&engine){await retire();memory=null;room=memoryBudgetBytes-32*MiB-extraBytes-2*MiB;}
   if(room<scratchBytes+6)fail('MEMORY_LIMIT','No admitted parameter-preview kernel workspace.');
-  const admittedPixels=Math.min(maximumPixels,Math.floor(room/(scratchBytes+6))),requestedParams=structuredClone(request.params??{}),costFields=['mode','wavelet','radius','block','filter','sharpen'],cost=operation==='jpeg.ghosts'?'qualities='+Math.floor(Math.log2(1+Math.max(0,(requestedParams.high??90)-(requestedParams.low??50))/(requestedParams.step??5))):costFields.filter(key=>Object.hasOwn(requestedParams,key)).map(key=>{const v=requestedParams[key],bucket=typeof v==='number'&&!['mode'].includes(key)?v>0?Math.floor(Math.log2(v))+1:0:v;return key+'='+bucket;}).join('/'),minimumSide=operation==='jpeg.ghosts'?Math.ceil(16*Math.max(logicalWidth,logicalHeight)/Math.min(logicalWidth,logicalHeight)):16;
+  const admittedPixels=Math.min(maximumPixels,Math.floor(room/(scratchBytes+6))),requestedParams=structuredClone(request.params??{}),costFields=['mode','wavelet','radius','block','filter','sharpen','blockSize','samplesPerBin'],cost=operation==='jpeg.ghosts'?'qualities='+Math.floor(Math.log2(1+Math.max(0,(requestedParams.high??90)-(requestedParams.low??50))/(requestedParams.step??5))):costFields.filter(key=>Object.hasOwn(requestedParams,key)).map(key=>{const v=requestedParams[key],bucket=typeof v==='number'&&!['mode'].includes(key)?v>0?Math.floor(Math.log2(v))+1:0:v;return key+'='+bucket;}).join('/'),minimumSide=operation==='jpeg.ghosts'?Math.ceil(16*Math.max(logicalWidth,logicalHeight)/Math.min(logicalWidth,logicalHeight)):16;
   if(operation==='jpeg.ghosts'&&(Math.min(logicalWidth,logicalHeight)<16||minimumSide>side))fail('PREVIEW_UNAVAILABLE','A JPEG Ghost draft requires complete16px cells on its bounded sampled source.');
   const plan=adaptive?adaptive.plan({key:'pixels/'+operation+'/'+cost,width:logicalWidth,height:logicalHeight,maxSide:side,minSide:minimumSide,maxPixels:admittedPixels,feedback:request.adaptiveFeedback}):null;
   check(signal);const started=performance.now(),cold=!engine||sourceGroup!=null&&sourceGroup!==sourceKey(request.sourceIdentity,logicalWidth,logicalHeight,0),first=await sourceFor(request,signal,plan?.side??Math.min(DEFAULT_SIDE,side)),setupMilliseconds=cold?performance.now()-started:0,{params,projection}=projectParameterPreviewParams(operation,requestedParams,{width:first.width,height:first.height,logicalWidth,logicalHeight}),task={id:'parameter-preview-task-'+(++serial),imageId:first.id,operation,params,backend:'cpu'};let result,failure;

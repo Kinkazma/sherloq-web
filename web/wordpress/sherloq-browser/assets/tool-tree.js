@@ -308,6 +308,7 @@ export const toolGroups = [
     "en": "Various",
     "fr": "Divers",
     "items": [
+      {"en":"OCR — Text Recognition","fr":"OCR — Reconnaissance de texte","id":"various.ocr"},
       {
         "en": "Median Filtering",
         "fr": "Filtrage médian",

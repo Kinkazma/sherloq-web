@@ -1,3 +1,5 @@
+import {createExtensionResourceResolver} from './extension-resource-relay.js';
+import {readPinnedDependencyResponse} from './extension-resource-client.js';
 import {sha256} from './dependency-core.js';
 const DB='sherloq-dependency-library-v1';
 export async function libraryValue(key,value){
@@ -13,7 +15,8 @@ export async function saveLibraryFile(folder,path,file,load,{signal}={}){
  const handle=await libraryFile(folder,path,true),writer=await handle.createWritable();
  try{for(const hash of file.chunks){signal?.throwIfAborted();await writer.write(await load(hash));}await writer.close();}catch(e){await writer.abort().catch(()=>{});throw e;}
 }
-export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>libraryValue('folder'),archive,cacheStorage=globalThis.caches,concurrency=2,cacheWrites=true}={}){
+export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>libraryValue('folder'),archive,cacheStorage=globalThis.caches,concurrency=2,cacheWrites=true,extensionResource}={}){
+ const extension=extensionResource??createExtensionResourceResolver(manifest,{scope,cacheStorage,cacheWrites});
  const active=new Map(),waiters=[];let running=0,reserved=0,cachePromise,cacheKeysPromise;
  const locations=new Map();for(const [path,file] of Object.entries(manifest.files)){let offset=0;for(const h of file.chunks){if(!locations.has(h))locations.set(h,[]);locations.get(h).push({path,offset});offset+=manifest.chunks[h];}}
  const byteBudget=128*1024*1024;
@@ -27,8 +30,8 @@ export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>
   const c=await cache(),url=key(h);let cached=await c?.match(url).catch(()=>null),localCause;const localFailures=[];
   const localFailure=(source,error)=>{localCause=error;localFailures.push({source,name:error.name,code:error.code,message:error.message});};
 
-  if(cached){try{const bytes=await verify(h,new Uint8Array(await cached.arrayBuffer()));report({level:'info',kind:'dependency.cache-hit'});return bytes;}catch(error){localFailure('cache',error);report({level:'warning',kind:'dependency.cache-invalid',error:{message:error.message}});await c.delete(url).catch(()=>{});}}
-  if(c){cacheKeysPromise??=typeof c.keys==='function'?c.keys().catch(()=>[]):Promise.resolve([]);for(const other of await cacheKeysPromise)if(other.url.endsWith('/__dependency_chunks__/'+h)){const found=await c.match(other).catch(()=>null);if(found)try{const data=await verify(h,new Uint8Array(await found.arrayBuffer()));report({level:'info',kind:'dependency.cache-hit',reusedScope:true});return data;}catch(error){localFailure('cache',error);await c.delete(other).catch(()=>{});}}}
+  if(cached){try{const bytes=await readPinnedDependencyResponse(cached,h,manifest.chunks[h]);report({level:'info',kind:'dependency.cache-hit'});return bytes;}catch(error){localFailure('cache',error);report({level:'warning',kind:'dependency.cache-invalid',error:{message:error.message}});await c.delete(url).catch(()=>{});}}
+  if(c){cacheKeysPromise??=typeof c.keys==='function'?c.keys().catch(()=>[]):Promise.resolve([]);for(const other of await cacheKeysPromise)if(other.url.endsWith('/__dependency_chunks__/'+h)){const found=await c.match(other).catch(()=>null);if(found)try{const data=await readPinnedDependencyResponse(found,h,manifest.chunks[h]);report({level:'info',kind:'dependency.cache-hit',reusedScope:true});return data;}catch(error){localFailure('cache',error);await c.delete(other).catch(()=>{});}}}
   let bytes,localSource=false;if(archive)try{const value=await archive(h);if(value){bytes=await verify(h,value);localSource=true;report({level:'info',kind:'dependency.archive-hit'});}}catch(error){localFailure('archive',error);report({level:'warning',kind:'dependency.archive-invalid',error:{message:error.message}});}
   const local=bytes?null:await folder().catch(error=>{localFailure('folder-access',error);return null;});
   if(local)for(const {path,offset} of locations.get(h)||[])try{const file=await(await libraryFile(local,path)).getFile();if(file.size!==manifest.files[path].size)throw Error('Local library file length differs: '+path);bytes=await verify(h,new Uint8Array(await file.slice(offset,offset+manifest.chunks[h]).arrayBuffer()));localSource=true;report({level:'info',kind:'dependency.folder-hit',file:path});break;}catch(error){localFailure('folder',error);report({level:'warning',kind:'dependency.folder-invalid',file:path,error:{message:error.message}});}
@@ -38,6 +41,7 @@ export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>
    const response=await fetcher(new URL(path,scope),{credentials:'omit',referrerPolicy:'no-referrer'});
    if(response.ok){const data=new Uint8Array(await response.arrayBuffer());bytes=await verify(h,data.subarray(offset,offset+manifest.chunks[h]));report({level:'info',kind:'dependency.bundled-hit',file:path});break;}
   }catch(error){localFailure('bundled',error);}
+  if(!bytes&&extension)try{const value=await extension(h);if(value){bytes=await verify(h,value);localSource=true;report({level:'info',kind:'dependency.extension-hit'});}}catch(error){localFailure('extension',error);report({level:'warning',kind:'dependency.extension-unavailable',error:{message:error.message,code:error.code}});}
   if(!bytes){
    const files=(locations.get(h)||[]).map(({path})=>path);
    if(files.length&&files.every(path=>manifest.files[path].localOnly===true)){

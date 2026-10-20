@@ -1,0 +1,25 @@
+import "../../runtime-context.js?v=0.24.0";
+import {EngineError,checkAbort,controlCheckpoint} from './errors.js';
+const AUTO=new Set(['analysis.complete','analysis.clones']),NEURAL=new Set(['ai.clones.d2prl','ai.clones.segmentation']);
+export const isSourceRegionNeuralOperation=operation=>AUTO.has(operation)||NEURAL.has(operation);
+const fail=message=>new EngineError('SOURCE_REGIONS_INVALID',message);
+const schema='sherloq.source-region-localization/1';
+/** Geometry only. The caller's native crop reader remains the only RGB input;
+ * no exclusion pixels are replaced and no model preprocessing is changed. */
+export async function localizeNeuralSourceRegionTask(task,domain,{signal,localizeScopeTask}={}){
+ checkAbort(signal);const existing=task.sourceRegionLocalization,already=existing?.coordinates==='source-region-native';
+ if(existing&&(!already||existing.schema!==schema||existing.domainFingerprint!==domain.fingerprint||existing.originalSha256!==domain.sourceSha256||existing.width!==domain.width||existing.height!==domain.height||existing.origin?.[0]!==domain.origin[0]||existing.origin?.[1]!==domain.origin[1]))throw fail('Localized neural geometry belongs to another original-source domain.');
+ const shift=already?[0,0]:domain.origin,out={...task,params:{...task.params}},intersections=[];let points=0;
+ async function polygon(poly){if(!Array.isArray(poly)||poly.length<3)throw fail('A native analysis polygon requires at least three vertices.');const result=[];for(const p of poly){if(++points%256===0)await controlCheckpoint(signal);if(!Array.isArray(p)||p.length!==2||!p.every(Number.isFinite)||p.some(v=>Math.abs(v)>2**30))throw fail('Invalid native analysis polygon.');result.push([p[0]-shift[0],p[1]-shift[1]]);}return result;}
+ function box(value,label,minimum=8){if(!Array.isArray(value)||value.length!==4||!value.every(Number.isSafeInteger)||value[2]<=value[0]||value[3]<=value[1])throw fail('Invalid native '+label+' bounds.');const local=value.map((v,i)=>v-shift[i%2]),result=[Math.max(0,local[0]),Math.max(0,local[1]),Math.min(domain.width,local[2]),Math.min(domain.height,local[3])];if(result[2]-result[0]<minimum||result[3]-result[1]<minimum)throw new EngineError('SOURCE_SCOPE_EMPTY','An explicitly selected '+label+' has no qualified native rectangle inside the original-source crop.',{details:{label,minimum,originalBounds:[...value],localizedBounds:result}});if(local.some((v,i)=>v!==result[i]))intersections.push({label,input:local,intersection:result});return result;}
+ if(AUTO.has(task.operation)){
+  if(task.regions?.length)throw fail('Automatic polygons belong in params.selection.');
+  const s=task.params?.selection;if(s!==undefined){if(!s||!Array.isArray(s.regions)||!Array.isArray(s.disabled)||s.disabled.some(i=>!Number.isSafeInteger(i)||i<0||i>=s.regions.length))throw fail('Invalid automatic selection.');const regions=[];for(const poly of s.regions)regions.push(await polygon(poly));out.params.selection={...s,regions,envelope:s.envelope===null||s.envelope===undefined?s.envelope:await polygon(s.envelope),disabled:[...s.disabled]};for(let i=0;i<regions.length;i++){if(s.disabled.includes(i))continue;const p=regions[i],xs=p.map(v=>v[0]),ys=p.map(v=>v[1]);if(Math.max(...xs)<0||Math.max(...ys)<0||Math.min(...xs)>=domain.width||Math.min(...ys)>=domain.height)throw new EngineError('SOURCE_SCOPE_EMPTY','An active automatic selection lies outside the original-source crop.');}}
+ }else if(NEURAL.has(task.operation)){
+  if(task.regions!==undefined){if(!Array.isArray(task.regions))throw fail('Neural zones must be an explicit array.');out.regions=task.regions.map((zone,i)=>{if(!zone||typeof zone!=='object')throw fail('Invalid neural zone.');return{...zone,bounds:box(zone.bounds,'zone '+(zone.id??i))};});}
+  if(task.params?.exclusions!==undefined){if(!Array.isArray(task.params.exclusions))throw fail('Neural exclusions must be an explicit array.');out.params.exclusions=task.params.exclusions.map((b,i)=>box(b,'exclusion '+i));}
+ }
+ const scope=task.params?.scientificScope??task.scientificScope;if(task.params?.scientificScope&&task.scientificScope&&task.params.scientificScope.fingerprint!==task.scientificScope.fingerprint)throw fail('Scientific scopes disagree.');let meta;
+ if(scope){const localized=await localizeScopeTask({operation:'tampering.copyMove.sparse',params:{},scientificScope:scope,...(existing?{sourceRegionLocalization:existing}:{})});out.params.scientificScope=localized.scientificScope;if(task.scientificScope!==undefined)delete out.scientificScope;meta=localized.sourceRegionLocalization;}
+ out.sourceRegionLocalization={...(meta??existing),schema,coordinates:'source-region-native',domainFingerprint:domain.fingerprint,originalSha256:domain.sourceSha256,originalGrid:[domain.sourceWidth,domain.sourceHeight],origin:[...domain.origin],width:domain.width,height:domain.height,policy:'Exact native-grid translation; neural half-open rectangles intersect the immutable source crop; empty or sub-minimum rectangles are refused; no encoded crop.',intersections:already?existing.intersections??[]:intersections};checkAbort(signal);return out;
+}

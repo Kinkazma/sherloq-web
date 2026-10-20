@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.23.0";
+import "../../runtime-context.js?v=0.24.0";
 import {removeTerminatedTemporarySession} from './temporary-storage.js';
 import {resolveComputeProfile} from './profiles.js';
 import {readExtensionMemoryHints} from './browser-memory.js';
@@ -129,6 +129,7 @@ export function createWorkerEngine(options={}) {
   releaseAutomatic:()=>call('releaseAutomatic'),
   inspectMetadata:(input,hooks)=>call('inspectMetadata',[input],hooks),
   inspectHeaders:(input,hooks)=>call('inspectHeaders',[input],hooks),
+  deriveSourceRegionInput:(input,hooks)=>call('deriveSourceRegionInput',[input],hooks),
   // A segmented RAM source may create storage later for owned results. Keep its
   // preallocated ID registered before that first write or cancellation can race it.
   async loadBlob(input,hooks){const id='job-'+crypto.randomUUID(),record={imageId:input.id,backend:null};storageOwners.set(id,record);try{const result=await call('loadBlob',[{...input,temporarySessionId:id}],hooks);if(!['segmented-scanlines','segmented-strips-tiles','paged-rgb'].includes(result.provenance.layout))storageOwners.delete(id);return result;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},
@@ -141,6 +142,7 @@ export function createWorkerEngine(options={}) {
   loadMedianModel:(input,hooks)=>call('loadMedianModel',[input],hooks),
   loadQualityModel:(input,hooks)=>call('loadQualityModel',[input],hooks),
   loadSegmentationModel:(input,hooks)=>call('loadSegmentationModel',[input],hooks),unloadSegmentationModel:()=>call('unloadSegmentationModel'),readSegmentationRaw:request=>call('readSegmentationRaw',[request]),
+  loadOcrModels:(input,hooks)=>call('loadOcrModels',[input],hooks),unloadOcrModels:()=>call('unloadOcrModels'),
   loadM3Models:(input,hooks)=>call('loadM3Models',[input],hooks),unloadM3Models:()=>call('unloadM3Models'),
   loadExtensionModels:(input,hooks)=>call('loadExtensionModels',[input],hooks),unloadExtensionModels:()=>call('unloadExtensionModels'),runExtensions:(task,hooks)=>call('runExtensions',[task],hooks),
   loadD2prlModel:(input,hooks)=>call('loadD2prlModel',[input],hooks),unloadD2prlModel:()=>call('unloadD2prlModel'),

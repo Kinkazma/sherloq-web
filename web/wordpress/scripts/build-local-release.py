@@ -25,7 +25,7 @@ features = importlib.util.module_from_spec(spec); spec.loader.exec_module(featur
 spec = importlib.util.spec_from_file_location('runtime_delivery',ROOT/'runtime-delivery.py')
 runtime_delivery = importlib.util.module_from_spec(spec); spec.loader.exec_module(runtime_delivery)
 MAX_ZIP = 25_000_000
-OFFLINE_MODULES = ['dependency-core.js','dependency-store.js','dependency-tar.js','offline-kit-core.js',
+OFFLINE_MODULES = ['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js',
                    'feature-catalog.js','local-update-store.js','offline-browser-store.js','offline-browser-sw.js']
 
 
@@ -68,7 +68,7 @@ def reviewed_runtime_increment(manifest):
 
 def runtime_increment_references():
     references=[]
-    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json','browser-extensions-20261015.json','rita-20261019.json','interactive-20261020.json']:
+    for name in ['batch-scientific-regions-20261013.json','ela-runtime-20261014.json','browser-extensions-20261015.json','rita-20261019.json','interactive-20261020.json','workspace-20261020.json']:
         path=ROOT/'runtime-patches'/name
         if not path.exists(): continue
         receipt=json.loads(path.read_bytes())
@@ -116,7 +116,7 @@ def stage(args):
         if b'private-report' in data: raise ValueError('Private overlay is not a public local interface')
         if source.suffix=='.html': data=data.replace(b"connect-src 'self'",b"connect-src 'self' https://raw.githubusercontent.com")
         put(assets/name,data)
-    for worker,names in [('offline-browser-sw.js',OFFLINE_MODULES),('dependency-sw.js',['dependency-core.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','dependency-manifest.js','dependency-client-routing.js','dependency-sw.js'])]:
+    for worker,names in [('offline-browser-sw.js',OFFLINE_MODULES),('dependency-sw.js',['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','dependency-manifest.js','dependency-client-routing.js','dependency-sw.js'])]:
         # Reviewed classic script bundle, also valid as a module bridge. The
         # build validates lexical collisions rather than hiding parser errors.
         code='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in names)
@@ -198,7 +198,11 @@ def describe(args):
             file=manifest['files'].get(name)
             if not file or meta.get('after')!=file['sha256'] or meta.get('size')!=file['size'] or not re.fullmatch('[a-f0-9]{64}',meta.get('before','')):
                 raise ValueError('Runtime overlay does not match the verified resource inventory')
-        if overrides: result['runtimeOverrides']=overrides
+        # This optional summary is redundant with the verified full manifest.
+        # Older installed clients cap it at 64 entries. Keep the complete
+        # source history in the referenced receipts, without rejecting an
+        # otherwise fully verified update merely because that summary grew.
+        if overrides and len(overrides) <= 64: result['runtimeOverrides']=overrides
         if receipt.get('runtimeIncrement'): result['runtimeIncrement']=receipt['runtimeIncrement']
         if receipt.get('runtimeIncrements'): result['runtimeIncrements']=receipt['runtimeIncrements']
     put(args.output,encode(result)); print(json.dumps({'bytes':args.output.stat().st_size,'sha256':digest(args.output.read_bytes()),'published':False}))

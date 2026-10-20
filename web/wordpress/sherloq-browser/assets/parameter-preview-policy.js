@@ -21,7 +21,9 @@ set('jpeg.ghosts','low high step x y','pixel-proxy','Actual JPEG recompressions 
 all('colors.plots','local','The retained RGB/HSV point cloud is restyled in its existing viewer.',{final:'view',strategy:'scatter'});
 set('colors.plots','scale','retained','The chart viewer draws a stable bounded subset of its retained native points during the gesture; native sampling is calculated only at commit.',{strategy:'scatter',final:'native',previewOwner:'workspace'});
 all('noise.planes noise.minmax pixels.defects','pixel-proxy','Sampled RGB values stay unchanged, but neighboring proxy pixels can be spaced apart in the native image; filtering, extrema and defect neighborhoods are provisional.',{nativeSamples:true,approximateNeighborhoods:true});
-set('noise.noisesniffer','view','explicit','The segmented distribution is owned by the native analysis cache; switch its view through the cache-aware native renderer, never a resized statistical analysis.');
+all('noise.noisesniffer','retained','Reuse admitted native statistics and selections for a provisional draft; a missing basis uses an isolated sampled source. The native final retains the complete original statistical domain.',{strategy:'noisesniffer-native-cache',targetMs:50,final:'native',fallback:'pixel-proxy'});
+set('various.ocr','threshold view','local','Filter and repaint retained native OCR regions/text without recognition or scientific-score changes.',{existing:true,final:'view'});
+set('various.ocr','algorithm language psm orientationCorrection bitmapThreshold boxThreshold unclipRatio','explicit','Automatically recognize the full source when OCR method, language or layout changes.',{final:'native'});
 all('various.median','retained','Reuse native compact probabilities and variances; never rerun feature extraction or XGBoost for presentation.',{strategy:'median'});
 set('various.median','modelId','explicit','A model selection requires explicit native analysis.');
 set('tampering.contrast','mode','retained','Reuse the native three-indicator block grid.',{strategy:'contrast'});

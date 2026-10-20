@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.24.0";
 import {retainResult} from './retained-result.js';
 import {FrequencyStripPool} from './frequency-strip-pool.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
@@ -36,7 +36,7 @@ export async function segmentedFrequency(image,params,{budget,signal,onProgress,
   const math=await work(()=>frequencyStreamMath()),width=math.optimal(sw),height=math.optimal(sh);requireValue(width>0&&height>0,'Image exceeds OpenCV DFT dimensions.');
   const rows=Math.max(1,Math.floor(block/width));
   const render=async(plane,w,h,lo,hi,filter=0)=>work(async()=>{
-   const store=await createSegmentedBytes(w*h*3,options);let success=false;try{for(let y=0;y<h;y+=rows){await controlCheckpoint(signal);const count=Math.min(rows,h-y),top=Math.max(0,y-filter),bottom=Math.min(h,y+count+filter);let values=await plane.read(0,top,w,bottom-top,{signal});if(lo!==undefined)values=math.normalize(values,lo,hi);if(filter)values=math.gaussian8(values,w,bottom-top,filter);const bytes=new Uint8Array(w*count*3);for(let i=0;i<w*count;i++)bytes.fill(values[(y-top)*w+i],i*3,i*3+3);await store.write(bytes,y*w*3);progress('frequency-render',Math.min(h,y+rows),h);}await store.flush();const surface=createRgbSurface(store,{width:w,height:h,budget});surfaces.push(surface);success=true;return surface;}finally{if(!success)await store.dispose();}
+   const store=await createSegmentedBytes(w*h*3,options);let success=false;try{for(let y=0;y<h;y+=rows){await controlCheckpoint(signal);const count=Math.min(rows,h-y),top=Math.max(0,y-filter),bottom=Math.min(h,y+count+filter);let values=await plane.read(0,top,w,bottom-top,{signal});if(lo!==undefined)values=math.normalize(values,lo,hi);if(filter)values=math.gaussian8(values,w,bottom-top,filter);const bytes=new Uint8Array(w*count*3);for(let i=0;i<w*count;i++){const value=values[(y-top)*w+i],j=i*3;bytes[j]=value;bytes[j+1]=value;bytes[j+2]=value;}await store.write(bytes,y*w*3);progress('frequency-render',Math.min(h,y+rows),h);}await store.flush();const surface=createRgbSurface(store,{width:w,height:h,budget});surfaces.push(surface);success=true;return surface;}finally{if(!success)await store.dispose();}
   },Math.max(block,w*Math.min(h,rows+filter*2)));
   const filtered=async refs=>{
    const result=[];for(const ref of refs){const view=ref.lease();try{result.push(await render({async read(x,y,w,h,hooks){const part=await view.readWindow({x,y,width:w,height:h},hooks);try{return Float32Array.from({length:w*h},(_,i)=>part.pixels.data[i*3]);}finally{part.release();}}},width,height,undefined,undefined,p.filter));}finally{await view.dispose();}}return result;

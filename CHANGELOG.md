@@ -2,6 +2,17 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.24.0 — Source regions, OCR and PDF inspection · 2026-10-20
+
+- Add a compact RGB/HSV orientation cube with six face choices, drag rotation and 3D axis alignment. Preserve original colours, initial framing and reliable gesture completion.
+- Reuse retained Fourier data and complete the Hermitian plane in bounded bands, improving frequency-separation responsiveness and progress reporting without changing the native results.
+- Reuse Noise Sniffer statistics and selection stages across compatible adjustments, with adaptive previews and native final results.
+- Add selectable OCR under Misc: official PP-OCRv6 Medium detection/recognition, PP-LCNet text-line orientation and Tesseract English/French LSTM best data. Keep the batch Small detector unchanged; load optional resources through the shared library.
+- Open PDFs in their own reader with progressive pages, an embedded-image gallery, retained native image layers, high-density page rendering, shared loupe effects and atomic frame/camera changes. Text and vectors remain a finite raster representation.
+- Select acquisitions and exclusions in Original image. Preserve native coordinates, immutable source domains and independent per-tool selections through supported native RGB, grayscale, JPEG, OCR and neural paths. Automatic ELA accepts a native rectangular selection while retaining original JPEG evidence. Unsupported domains fail explicitly; Energy/Biomes with internal holes remain unsupported.
+- Reuse bounded segmented Energy/Biome presentation samples and keep idle/I/O time out of CPU cooperation accounting. Visual adjustments preserve the native scientific results and exports.
+- Extend resource inventories, reconstruction and local updates with the OCR resources and retained upstream notices. Keep explicit saved slider preferences and the enabled-by-default Sliders everywhere setting.
+
 ## 0.23.0 — Interactive controls and adaptive previews · 2026-10-20
 
 - Enable Sliders everywhere by default, preserving explicit saved opt-outs. Compact theme-aware hover controls reuse each numeric field's bounds and step without shifting the layout; the preference survives settings export/import and recovery.

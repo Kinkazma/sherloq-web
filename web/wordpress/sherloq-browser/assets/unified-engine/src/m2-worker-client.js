@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.24.0";
 import {deserializeEngineError} from './errors.js';
 import {serializeEngineError} from './errors.js';
 import {EngineError,checkAbort} from './errors.js';
@@ -20,7 +20,7 @@ export async function createM2WorkerClient(config,{workerFactory=url=>new Worker
   if(data.error!==undefined&&(!data.error||typeof data.error.code!=='string'||typeof data.error.message!=='string'))throw workerMessageFailure('m2-client','message','invalid-error-response');
   if(data.error===undefined&&!Object.hasOwn(data,'value'))throw workerMessageFailure('m2-client','message','missing-result-response');
   if(p.callbacks.size)await Promise.all(p.callbacks);if(pending.get(data.id)!==p)return;
-  pending.delete(data.id);p.cleanup();if(p.callbackError){try{if(data.value?.id&&['analyze','analyzeBlob','beginExport'].includes(p.operation))protocol.post({id:next++,operation:p.operation!=='beginExport'?'releaseResult':'releaseExport',args:p.operation!=='beginExport'?{resultId:data.value.id}:{exportId:data.value.id}});}finally{p.reject(p.callbackError);}}else if(data.error)p.reject(deserializeEngineError(data.error));else p.resolve(data.value);
+  pending.delete(data.id);p.cleanup();if(p.callbackError){try{if(data.value?.id&&['analyze','analyzeBlob','analyzeNativeSource','beginExport'].includes(p.operation))protocol.post({id:next++,operation:p.operation!=='beginExport'?'releaseResult':'releaseExport',args:p.operation!=='beginExport'?{resultId:data.value.id}:{exportId:data.value.id}});}finally{p.reject(p.callbackError);}}else if(data.error)p.reject(deserializeEngineError(data.error));else p.resolve(data.value);
  },{label:'m2-client',onFailure:stop});
  worker.onerror=event=>protocol.fail(new EngineError('WORKER_FAILED',event?.message||'M2 worker failed.',{cause:event?.error,details:{workerEvent:{type:event?.type,filename:event?.filename,line:event?.lineno,column:event?.colno}}}));
  function request(operation,args={},options={}){
@@ -40,6 +40,7 @@ export async function createM2WorkerClient(config,{workerFactory=url=>new Worker
   releaseExternalMemory:id=>request('releaseExternalMemory',{id}),
   analyze(method,image,params={},options={}){return request('analyze',{method,image,params,backend:options.backend??'auto'},{...options,transfer:options.transferSource?[image.data.buffer]:[]});},
   analyzeBlob(method,blob,params={},options={}){return request('analyzeBlob',{method,blob,params,backend:options.backend??'auto'},options);},
+  analyzeNativeSource(method,image,params={},options={}){return request('analyzeNativeSource',{method,image,params,backend:options.backend??'auto'},{...options,transfer:[image.port]});},
   readArray(resultId,field,offset,count){return request('readArray',{resultId,field,offset,count});},
   async metadata(result){const chunks=[];for(let offset=0;offset<result.metadataBytes;offset+=ready.windowBytes)chunks.push(await request('readMetadata',{resultId:result.id,offset,count:Math.min(ready.windowBytes,result.metadataBytes-offset)}));const data=new Uint8Array(result.metadataBytes);let at=0;for(const c of chunks){data.set(c,at);at+=c.length;}return JSON.parse(new TextDecoder().decode(data));},
   render(resultId,view,options={}){return request('render',{resultId,view,options});},

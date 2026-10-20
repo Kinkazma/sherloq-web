@@ -1,3 +1,8 @@
+import {assertM2SourceRegionTask} from './unified-engine/src/m2-source-region-input.js';
+import {withM2NativeSourceTransport} from './unified-engine/src/m2-native-source-client.js';
+import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
+import {sourceRegionDomainShape,assertSourceRegionOperation} from './unified-engine/src/source-region-capabilities.js';
+import {ocrDisplay,updateOcrPresentation,renderOcrWindow} from './ocr-presentation.js';
 import {createParameterPreview} from './tool-parameter-preview.js';
 import {createAdaptivePreview} from './adaptive-preview.js';
 import {renderRetainedPreview,updateRetainedParameters,retainedPreviewWorkingBytes,renderRetainedWindow,planRetainedPreview} from './retained-parameter-preview.js';
@@ -5,6 +10,7 @@ import {parameterPreviewPolicy} from './parameter-preview-policy.js';
 import {isExtensionTool,extensionConfiguration} from './extension-tools.js';
 import {dtdFrame} from './dtd-presentation.js';
 import {comprintFrame} from './comprint-presentation.js';
+import {extensionSourcePresentation,responseSourceSurface,responseProxyKey} from './extension-source-presentation.js';
 import {truforHeatFrame} from './trufor-palette.js';
 import {ritaFrame,ritaDisplayThreshold,ritaDisplayOpacity} from './rita-presentation.js';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
@@ -65,7 +71,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  const asset=name=>new URL(name,base).href;
  const engine=engineFactory({computeProfile,...(resourceHints?{resourceHints}:{}),...(memoryBudgetBytes?{memoryBudgetBytes}:{}),...(deployment.memoryExtensionId?{memoryExtensionId:deployment.memoryExtensionId}:{})});
  let queue=Promise.resolve(),disposed=false,controller,source,result,reference,mask,prnu,median,quality,m3Loaded=false,m3OcrLoaded=false,d2Loaded=false,segmentationModels,m2=null,m2Method=null;
- let parameterPreview=null,parameterReferenceInput=null;
+ let parameterPreview=null,parameterReferenceInput=null,parameterPreviewReader=null,parameterPreviewKey=null;
  const displayAdaptive=createAdaptivePreview();
  async function previewPixelsBudget(bytesPerPixel=40,fixedBytes=256*1024){
   const memory=(await engine.capabilities()).memory??{};
@@ -80,51 +86,94 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   return{...display,responsePreview:true,previewStep:plan.step,adaptivePreview:{token:plan.token}};
  }
 
- let d2Analysis=null,responseProxy=null,ritaProxy=null;let sourceInput;const sourceAliases=new Set();
- const invalidated=()=>{void clearResponseProxy();void clearRitaProxy();d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
+ let d2Analysis=null,responseProxy=null,ritaProxy=null;let sourceInput;const sourceAliases=new Set(),preparationSources=new Set();
+ const invalidated=()=>{for(const reader of preparationSources)reader.invalidate();preparationSources.clear();void clearResponseProxy();void clearRitaProxy();d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
  engine.onSourceInvalidation?.(invalidated);
  const resolve=value=>Array.isArray(value)?value.map(resolve):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,v])=>[key,key==='url'?asset(v):resolve(v)])):value;
  const enqueue=fn=>{const task=queue.then(()=>{if(disposed)throw Object.assign(Error('Outil fermé'),{code:'CANCELLED'});return fn();});queue=task.catch(()=>{});return task;};
  const hooks=()=>({signal:controller?.signal,onProgress});
- const work=async fn=>{controller=new AbortController();try{return await fn();}catch(error){if(m2&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error.code)){const failed=m2;m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}if(error.imagesCleared){d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;}throw error;}finally{controller=null;}};
+ const work=async fn=>{controller=new AbortController();try{return await fn();}catch(error){if(m2&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error.code)){const failed=m2;m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}if(error.imagesCleared){for(const reader of preparationSources)reader.invalidate();preparationSources.clear();d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;}throw error;}finally{controller=null;}};
  async function release(){await clearResponseProxy();await clearRitaProxy();if(!result)return;if(result.m2Result){await m2.release(result.m2Result.id);result=null;return;}const previous=result;result=null;const resources=resultResources(previous);for(const s of resources.surfaces)if(s.id!==source?.surface.id)await engine.releaseSurface(s.id);for(const t of resources.tables)await engine.releaseTable(t.id);}
- async function clearParameterPreview(){const old=parameterPreview;parameterPreview=null;if(old)await old.dispose();}
- async function parameterSource({side=192,maxSide=side,signal}={},paired=false){
+ async function clearParameterPreview(){const old=parameterPreview,reader=parameterPreviewReader;parameterPreview=null;parameterPreviewReader=null;parameterPreviewKey=null;let failure;try{if(old)await old.dispose();}catch(error){failure=error;}try{await reader?.dispose();}catch(error){failure??=error;}if(failure)throw failure;}
+ async function parameterSource({side=192,maxSide=side,signal}={},paired=false,domain=null){
   return enqueue(async()=>{
    checkAbort(signal);let image;
    if(paired){
     const blob=parameterReferenceInput;if(!blob)throw new EngineError('INVALID_INPUT','A comparison reference is required.');
     if(reference?.blob!==blob){if(reference){const old=reference;reference=null;await engine.unload(old.id);}const id='reference-'+crypto.randomUUID(),descriptor=await engine.loadBlob({id,blob,layout:'segmented'});reference={id,blob,surface:descriptor.surface};}
     image=reference;
-   }else{if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'});sourceAliases.add(source.surface.id);}image=source;}
+   }else{if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'});sourceAliases.add(source.surface.id);}image=source;if(domain&&sourceRegionDomainShape(domain)==='rectangle'){if(!parameterPreviewReader||parameterPreviewReader.sourceRegionDomain.fingerprint!==domain.fingerprint){await parameterPreviewReader?.dispose();parameterPreviewReader=await acquireSourceRegionReaderNow({sourceRegionDomain:domain,purpose:'analysis-rectangle'},{ownerQueue:true});}image={id:source.id,sha256:source.sha256,surface:parameterPreviewReader.sourceRegionSourceSurface};}}
    if(!image?.surface)throw new EngineError('CACHE_MISS','Preview source is unavailable.');
    const d=image.surface,step=Math.max(1,Math.ceil(Math.max(d.width,d.height)/Math.max(1,Math.min(2048,maxSide)))),lease=await engine.reserveExternalMemory({bytes:Math.ceil(d.width/step)*Math.ceil(d.height/step)*3});
-   try{const {pixels}=await engine.readDisplay({surfaceId:d.id,revision:d.revision,tile:{x:0,y:0,w:d.width,h:d.height,step}});checkAbort(signal);return {pixels,logicalWidth:d.width,logicalHeight:d.height,sourceIdentity:image.sha256??image.id};}
+   try{const {pixels}=await engine.readDisplay({surfaceId:d.id,revision:d.revision,tile:{x:0,y:0,w:d.width,h:d.height,step}});checkAbort(signal);return {pixels,logicalWidth:d.width,logicalHeight:d.height,sourceIdentity:domain?[image.sha256??image.id,domain.fingerprint]:image.sha256??image.id};}
    finally{await engine.releaseExternalMemory(lease.id);}
   });
  }
+ async function sourceRegionTask(task,extras={}, {admit=true,signal}={}){
+  const input=task.sourceRegionDomain??extras.sourceRegionDomain;if(input===undefined||input===null)return task;
+  checkAbort(signal);const domain=await compileOriginalSourceRegions(input);checkAbort(signal);
+  const d=source?.surface;if(!d||source.sha256!==domain.sourceSha256||d.width!==domain.sourceWidth||d.height!==domain.sourceHeight)throw new EngineError('SOURCE_REGIONS_INVALID','These original-source regions belong to another source or native grid.');
+  if(task.sourceRegionDomain&&extras.sourceRegionDomain&&task.sourceRegionDomain!==extras.sourceRegionDomain){const other=await compileOriginalSourceRegions(extras.sourceRegionDomain);if(other.fingerprint!==domain.fingerprint)throw new EngineError('SOURCE_REGIONS_INVALID','Task and source-region transport disagree.');}
+  if(admit){if(task.operation?.startsWith('m2.'))assertM2SourceRegionTask(task,domain);else{const capabilities=(await engine.capabilities()).sourceRegions;assertSourceRegionOperation(task.operation,{shape:sourceRegionDomainShape(domain),params:task.params,task,capabilities});}}
+  return{...task,sourceRegionDomain:domain.descriptor};
+ }
+ async function closePreparationSources(){for(const reader of [...preparationSources])await reader.close();}
+ function acquireSourceRegionReader(options={}){const{sourceRegionDomain,purpose}=options;return enqueue(()=>acquireSourceRegionReaderNow({sourceRegionDomain,purpose}));}
+ function acquirePreparationSource(options={}){return acquireSourceRegionReader({...options,purpose:'preparation-envelope'});}
+ // M2 owns the outer tool queue while it requests source windows. Its borrowed
+ // reader uses a separate serialized lane, never enqueuing behind that M2 run.
+ async function acquireSourceRegionReaderNow({sourceRegionDomain,purpose}={}, {ownerQueue=false}={}){
+   if(!['analysis-rectangle','preparation-envelope'].includes(purpose))throw new EngineError('INVALID_INPUT','An explicit native source-reader purpose is required.');
+   if(!source?.surface)throw new EngineError('NOT_FOUND','The original preparation source is no longer loaded.');
+   const task=await sourceRegionTask({imageId:source.id,sourceRegionDomain},{},{admit:false});
+   if(!task.sourceRegionDomain)throw new EngineError('SOURCE_REGIONS_INVALID','An explicit original-source domain is required for native preparation.');
+   if(purpose==='analysis-rectangle'&&!['identity','rectangle'].includes(sourceRegionDomainShape(task.sourceRegionDomain)))throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','A scientific native reader cannot replace holes by their enclosing rectangle.');
+   const answer=await engine.deriveSourceRegionInput({imageId:source.id,sourceRegionDomain:task.sourceRegionDomain,purpose}),display=answer.sourceRegionSourceSurface;
+   let closed=false,invalid=false,closing,disposal,readerQueue=Promise.resolve();const leases=new Map();
+   const schedule=fn=>{if(!ownerQueue)return enqueue(fn);const task=readerQueue.then(fn);readerQueue=task.catch(()=>{});return task;};
+   const close=()=>closing??=(async()=>{closed=true;preparationSources.delete(owner);let failure;for(const lease of leases.values())try{await engine.releaseExternalMemory(lease.id);}catch(error){failure??=error;}leases.clear();if(!invalid)try{await engine.releaseSurface(display.id);}catch(error){failure??=error;}if(failure)throw failure;})();
+   const owner={close(){closed=true;return ownerQueue?readerQueue.then(close):close();},invalidate(){closed=invalid=true;leases.clear();}};preparationSources.add(owner);
+   return{width:answer.width,height:answer.height,format:'rgb8',sha256:answer.originalSha256,origin:answer.sourceRegionOrigin,sourceRegionDomain:answer.sourceRegionDomain,sourceRegionSourceSurface:display,purpose,sourceRegionContext:answer.sourceRegionContext,...(purpose==='analysis-rectangle'?{analysisContext:answer.analysisContext}:{preparationContext:answer.preparationContext}),provenance:answer.provenance,
+    readWindow:(rect,{signal}={})=>schedule(async()=>{
+     checkAbort(signal);if(closed)throw new EngineError('DISPOSED','Native preparation source is closed.');
+     const {x,y,width,height}=rect??{},bytes=width*height*3;
+     if(![x,y,width,height].every(Number.isSafeInteger)||x<0||y<0||width<1||height<1||x+width>answer.width||y+height>answer.height||!Number.isSafeInteger(bytes)||bytes>1024**2)throw new EngineError('INVALID_INPUT','Native preparation reads must fit one MiB of original RGB pixels.');
+     // Window plus the provider's bounded transferable copy remain admitted together.
+     const lease=await engine.reserveExternalMemory({bytes:bytes*2+65536});let published=false;
+     try{const output=await engine.readPixels({surfaceId:display.id,revision:display.revision,rect:{x,y,width,height}});checkAbort(signal);if(closed)throw new EngineError('DISPOSED','Native preparation source closed during its read.');
+      if(output.pixels?.format!=='rgb8'||output.pixels.width!==width||output.pixels.height!==height||!(output.pixels.data instanceof Uint8Array)||output.pixels.data.length!==bytes)throw new EngineError('INVALID_RESULT','Native preparation returned another RGB grid.');
+      leases.set(lease.id,lease);published=true;let released=false;return{pixels:output.pixels,release(){if(released)return Promise.resolve();released=true;if(!leases.has(lease.id))return Promise.resolve();return schedule(async()=>{if(leases.delete(lease.id))await engine.releaseExternalMemory(lease.id);});}};
+     }finally{if(!published)await engine.releaseExternalMemory(lease.id);}
+    }),
+    dispose(){if(disposal)return disposal;if(closed)return closing??Promise.resolve();closed=true;return disposal=schedule(close);}
+   };
+ }
  async function previewParameters(task,{field,signal,extras={}}={}){
-  checkAbort(signal);const policy=parameterPreviewPolicy(task.toolId??task.operation,field);
-  if(policy.kind==='retained'&&['safire-grouping','stereo-native-cache','zero-native-cache'].includes(policy.strategy)){
-   const currentResult=result,currentSource=source;if(!currentResult||!currentSource)return null;
-   const maxPixels=await enqueue(()=>previewPixelsBudget(40)),plan=planRetainedPreview({output:currentResult,operation:task.operation,params:task.params,view:task.view,field,source:currentSource.surface,maxPixels});if(!plan)return null;
-   return enqueue(async()=>{
+  checkAbort(signal);task=await sourceRegionTask(task,extras,{admit:false,signal});const domain=task.sourceRegionDomain,shape=domain?sourceRegionDomainShape(domain):'identity',policy=parameterPreviewPolicy(task.toolId??task.operation,field),sameDomain=(result?.sourceRegionDomain?.fingerprint??null)===(domain?.fingerprint??null),previewSource=sameDomain?(result?.sourceRegionSourceSurface??source?.surface):source?.surface;
+  if(!['identity','rectangle'].includes(shape)&&!(shape==='membership'&&sameDomain&&task.operation==='inspection.histogram'&&policy.kind==='retained'))return null;
+  if(shape==='rectangle'){const capabilities=(await engine.capabilities()).sourceRegions;try{assertSourceRegionOperation(task.operation,{shape,params:task.params,task,capabilities});}catch(error){if(error.code==='SOURCE_SCOPE_UNSUPPORTED')return null;throw error;}}
+  if(policy.kind==='retained'&&['safire-grouping','stereo-native-cache','zero-native-cache','noisesniffer-native-cache'].includes(policy.strategy)){
+   const currentResult=result,currentSource=source;if(!currentResult||!currentSource||!sameDomain)return null;
+   const maxPixels=await enqueue(()=>previewPixelsBudget(40)),plan=planRetainedPreview({output:currentResult,operation:task.operation,params:task.params,view:task.view,field,source:previewSource,maxPixels});if(!plan)return null;
+   try{return await enqueue(async()=>{
     checkAbort(signal);if(result!==currentResult||source!==currentSource)throw new EngineError('CANCELLED','Preview source or result changed.');
     if(typeof engine.previewParameters!=='function')throw new EngineError('PREVIEW_UNAVAILABLE','This engine does not expose retained parameter previews.');
     const lease=await engine.reserveExternalMemory({bytes:plan.pixels*8+65536}),started=performance.now();
     try{
      const memory=(await engine.capabilities()).memory??{},budget=memory.budgetBytes??memoryBudgetBytes??64*1024**2,available=memory.policyAvailableBytes??Math.max(0,budget-(memory.retainedBytes??0)-(memory.cacheBytes??0)-(memory.activeReservationBytes??0)),maxWorkingBytes=Math.max(0,Math.floor(Math.min(budget/3,available))),targetMs=policy.targetMs??(policy.strategy==='safire-grouping'?200:50);
-     const answer=await engine.previewParameters({id:'parameter-preview-'+crypto.randomUUID(),imageId:currentSource.id,operation:task.operation,params:task.params,view:task.view,backend:task.backend??'auto'},{preview:{maxSide:plan.side,maxPixels:plan.pixels,maxWorkingBytes,targetMs},signal});checkAbort(signal);
+     const answer=await engine.previewParameters({id:'parameter-preview-'+crypto.randomUUID(),imageId:currentSource.id,operation:task.operation,params:task.params,view:task.view,backend:task.backend??'auto',...(domain?{sourceRegionDomain:domain}:{})},{preview:{maxSide:plan.side,maxPixels:plan.pixels,maxWorkingBytes,targetMs},signal});checkAbort(signal);
      const pixels=answer?.pixels;if(!pixels||pixels.format!=='rgb8'||!(pixels.data instanceof Uint8Array)||pixels.data.length!==pixels.width*pixels.height*3||pixels.width*pixels.height>plan.pixels||pixels.width>2048||pixels.height>2048)throw new EngineError('INVALID_INPUT','Retained preview exceeded its admitted transport frame.');
      return{...answer,exact:false,provisional:true,metrics:{...answer.metrics,adaptivePreview:{token:plan.token,milliseconds:performance.now()-started,setupMilliseconds:answer.metrics?.setupMilliseconds??0,cold:!!answer.metrics?.cold,pixels:pixels.width*pixels.height}}};
     }finally{await engine.releaseExternalMemory(lease.id);}
-   });
+   });}catch(error){if(policy.fallback!=='pixel-proxy'||!['PREVIEW_UNAVAILABLE','CACHE_MISS'].includes(error.code))throw error;}
   }
-  if(policy.kind==='retained'&&result){const args={output:result,operation:task.operation,params:task.params,view:task.view,field,source:source?.surface,signal,readTile:(display,tile)=>client.readTile(display,tile),readTable:(table,offset,length)=>client.readTable(table,offset,length)},maxPixels=await enqueue(()=>previewPixelsBudget(40,retainedPreviewWorkingBytes({maxSide:1})-40+256*1024)),plan=planRetainedPreview({...args,maxPixels});const lease=await enqueue(()=>engine.reserveExternalMemory({bytes:retainedPreviewWorkingBytes({plan})}));try{const answer=await renderRetainedPreview({...args,adaptivePlan:plan});checkAbort(signal);return answer;}finally{await enqueue(()=>engine.releaseExternalMemory(lease.id));}}
-  if(policy.kind!=='pixel-proxy')return null;
+  if(policy.kind==='retained'&&result&&sameDomain&&policy.fallback!=='pixel-proxy'){const args={output:result,operation:task.operation,params:task.params,view:task.view,field,source:previewSource,signal,readTile:(display,tile)=>client.readTile(display,tile),readTable:(table,offset,length)=>client.readTable(table,offset,length)},maxPixels=await enqueue(()=>previewPixelsBudget(40,retainedPreviewWorkingBytes({maxSide:1})-40+256*1024)),plan=planRetainedPreview({...args,maxPixels});const lease=await enqueue(()=>engine.reserveExternalMemory({bytes:retainedPreviewWorkingBytes({plan})}));try{const answer=await renderRetainedPreview({...args,adaptivePlan:plan});checkAbort(signal);return answer&&{...answer,...(domain?{sourceRegionDomain:domain,sourceRegionOrigin:[...domain.origin]}:{})};}finally{await enqueue(()=>engine.releaseExternalMemory(lease.id));}}
+  if(policy.kind!=='pixel-proxy'&&policy.fallback!=='pixel-proxy')return null;
+  if(shape!=='identity'&&extras.reference)return null;
   parameterReferenceInput=extras.reference;
-  parameterPreview??=createParameterPreview({readSource:parameterSource,readReference:request=>parameterSource(request,true),reserve:({bytes})=>enqueue(()=>engine.reserveExternalMemory({bytes})),release:lease=>engine.releaseExternalMemory(lease.id)});
-  return parameterPreview.preview({...task,field,sourceIdentity:source?.sha256??source?.id,logicalWidth:source?.surface.width,logicalHeight:source?.surface.height,signal});
+  const key=JSON.stringify([source?.id,source?.sha256,domain?.fingerprint??null]);if(parameterPreviewKey!==key){await clearParameterPreview();checkAbort(signal);parameterPreviewKey=key;}
+  parameterPreview??=createParameterPreview({readSource:request=>parameterSource(request,false,domain),readReference:request=>parameterSource(request,true),reserve:({bytes})=>enqueue(()=>engine.reserveExternalMemory({bytes})),release:lease=>engine.releaseExternalMemory(lease.id)});
+  const answer=await parameterPreview.preview({...task,field,sourceIdentity:domain?[source?.sha256??source?.id,domain.fingerprint]:source?.sha256??source?.id,logicalWidth:domain?.width??source?.surface.width,logicalHeight:domain?.height??source?.surface.height,signal});return{...answer,...(domain?{sourceRegionDomain:domain,sourceRegionOrigin:[...domain.origin]}:{})};
  }
  async function segmentationModel(variant){
   segmentationModels??=await individualModels();const model=segmentationModels.segmentation?.[variant];
@@ -170,11 +219,11 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  async function clearResponseProxy(){const old=responseProxy;responseProxy=null;if(old)await engine.releaseExternalMemory(old.lease.id).catch(()=>{});}
  async function prepareResponseProxy(display){
   const p=display.comprintPresentation??display.dtdPresentation;if(!p)return null;
-  const score=p.score,side=display.adaptivePreview?.token?.side??128,key=score.id+':'+score.revision+':'+side;
+  const score=p.score,side=display.adaptivePreview?.token?.side??128;
+  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
+  const baseSource=responseSourceSurface(display,source?.surface),key=responseProxyKey(display,baseSource,side);
   if(responseProxy?.key===key)return responseProxy;
   await clearResponseProxy();
-  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
-  if(!source||source.surface.width!==display.width||source.surface.height!==display.height)throw new EngineError('CACHE_MISS','The original image is unavailable for the preview.');
   const step=Math.max(1,Math.ceil(Math.max(display.width,display.height)/side)),tile={x:0,y:0,w:display.width,h:display.height,step},g=displayGeometry(display,tile),comprint=!!display.comprintPresentation,valueBytes=comprint?8:4,span=(g.width-1)*step+1;
   const lease=await engine.reserveExternalMemory({bytes:g.width*g.height*(valueBytes+6)+span*valueBytes});let retained=false;
   try{
@@ -183,7 +232,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     checkAbort(controller?.signal);const answer=await engine.readPlane({surfaceId:score.id,revision:score.revision,rect:{x:0,y:y*step,width:span,height:1}},hooks());
     for(let x=0;x<g.width;x++){const value=answer.plane.data[x*step],level=Number.isFinite(value)?Math.round(Math.max(0,Math.min(1,(value-lo)/(hi-lo||1)))*255):NaN;values[y*g.width+x]=comprint?(Number.isFinite(value)?Math.round(value):NaN):lo+level/255*(hi-lo||1);}
    }
-   const base=(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data;
+   const base=(await engine.readDisplay({surfaceId:baseSource.id,revision:baseSource.revision,tile},hooks())).pixels.data;
    responseProxy={key,width:g.width,height:g.height,step,values,base,lease};retained=true;return responseProxy;
   }finally{if(!retained)await engine.releaseExternalMemory(lease.id);}
  }
@@ -202,7 +251,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  async function activationPixels(display,tile){
   const g=displayGeometry(display,tile),comprint=!!display.comprintPresentation,presentation=display.comprintPresentation??display.dtdPresentation,score=presentation.score,overlay=presentation.mode.endsWith('overlay'),valueBytes=comprint?8:4;
   if(overlay&&!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
-  if(overlay&&(!source||source.surface.width!==display.width||source.surface.height!==display.height))throw new EngineError('CACHE_MISS','The original image is unavailable for the overlay.');
+  const baseSource=overlay?responseSourceSurface(display,source?.surface):null;
   const span=(g.width-1)*g.step+1,rows=g.step===1?Math.max(1,Math.min(32,Math.floor(1024**2/(span*valueBytes)))):1;
   const lease=await engine.reserveExternalMemory({bytes:g.width*g.height*(valueBytes+3+(overlay?3:0))+span*rows*valueBytes});
   try{
@@ -211,7 +260,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     checkAbort(controller?.signal);const count=Math.min(rows,g.height-row),rect={x:g.x,y:g.y+row*g.step,width:span,height:count},part=await engine.readPlane({surfaceId:score.id,revision:score.revision,rect},hooks());
     for(let y=0;y<count;y++)for(let x=0;x<g.width;x++)values[(row+y)*g.width+x]=part.plane.data[y*span+x*g.step];
    }
-   const base=overlay?(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data:undefined;
+   const base=overlay?(await engine.readDisplay({surfaceId:baseSource.id,revision:baseSource.revision,tile},hooks())).pixels.data:undefined;
    return comprint?comprintFrame(g.width,g.height,values,{base,opacity:presentation.opacity,threshold:presentation.threshold,mode:presentation.mode,range:score.range}):dtdFrame(g.width,g.height,values,{base,opacity:presentation.opacity,threshold:presentation.threshold});
   }finally{await engine.releaseExternalMemory(lease.id);}
  }
@@ -249,12 +298,12 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  }
  async function ensureRitaSource(display){
   if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
-  if(!source||source.surface.width!==display.width||source.surface.height!==display.height)throw new EngineError('CACHE_MISS','The original RITA image is unavailable.');
+  const base=result?.sourceRegionSourceSurface??source?.surface;if(!base||base.width!==display.width||base.height!==display.height)throw new EngineError('CACHE_MISS','The original RITA image is unavailable.');return base;
  }
  async function prepareRitaProxy(display){
   const id=ritaResultId(display),side=display.adaptivePreview?.token?.side??128,key=id+':'+display.ritaPresentation.score.revision+':'+side;
   if(ritaProxy?.key===key)return ritaProxy;
-  await clearRitaProxy();await ensureRitaSource(display);
+  await clearRitaProxy();const baseSource=await ensureRitaSource(display);
   const step=Math.max(1,Math.ceil(Math.max(display.width,display.height)/side)),tile={x:0,y:0,w:display.width,h:display.height,step},g=displayGeometry(display,tile),count=g.width*g.height;
   // Retain the tiny score/base proxy and admit the RGB frame workspace once.
   // The dragging path below performs no worker messages or budget RPCs.
@@ -263,7 +312,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    transient=await engine.reserveExternalMemory({bytes:count*4});numeric=await m2.reserveExternalMemory({bytes:ritaWindowElements()*4});
    const values=await readRitaValues(display,g),levels=new Uint8Array(count),validity=new Uint8Array(count);
    for(let i=0;i<count;i++)if(Number.isFinite(values[i])){validity[i]=1;levels[i]=Math.round(Math.max(0,Math.min(1,values[i]))*255);}
-   const base=(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data;
+   const base=(await engine.readDisplay({surfaceId:baseSource.id,revision:baseSource.revision,tile},hooks())).pixels.data;
    ritaProxy={key,width:g.width,height:g.height,step,levels,validity,base,lease};retained=true;return ritaProxy;
   }finally{if(numeric)await m2.releaseExternalMemory(numeric.id);if(transient)await engine.releaseExternalMemory(transient.id);if(!retained)await engine.releaseExternalMemory(lease.id);}
  }
@@ -279,14 +328,14 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   ritaResultId(display);const g=displayGeometry(display,tile),p=display.ritaPresentation,overlay=p.mode==='overlay',lease=await engine.reserveExternalMemory({bytes:g.width*g.height*(overlay?10:7)});let numeric;
   try{
    numeric=await m2.reserveExternalMemory({bytes:ritaWindowElements()*4});const values=await readRitaValues(display,g);
-   if(overlay)await ensureRitaSource(display);
-   const base=overlay?(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile},hooks())).pixels.data:undefined;
+   const baseSource=overlay?await ensureRitaSource(display):null;
+   const base=overlay?(await engine.readDisplay({surfaceId:baseSource.id,revision:baseSource.revision,tile},hooks())).pixels.data:undefined;
    return ritaFrame(g.width,g.height,values,{base,mode:p.mode,threshold:p.threshold,opacity:p.opacity});
   }finally{if(numeric)await m2.releaseExternalMemory(numeric.id);await engine.releaseExternalMemory(lease.id);}
  }
  async function retainedPixels(display,tile){
   const cells=Math.ceil(tile.w/(tile.step??1))*Math.ceil(tile.h/(tile.step??1)),lease=await engine.reserveExternalMemory({bytes:cells*64+65536});
-  try{return await renderRetainedWindow({display,tile,readSource:request=>engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile:request}).then(answer=>answer.pixels)});}
+  try{if(display.ocrPresentation)return await renderOcrWindow(display,tile,(source,tile)=>engine.readDisplay({surfaceId:source.id,revision:source.revision,tile},hooks()).then(answer=>answer.pixels));return await renderRetainedWindow({display,tile,readSource:request=>{const base=display.sourceRegionSourceSurface??result?.sourceRegionSourceSurface??source.surface;return engine.readDisplay({surfaceId:base.id,revision:base.revision,tile:request}).then(answer=>answer.pixels);}});}
   finally{await engine.releaseExternalMemory(lease.id);}
  }
  async function pixels(display,rect){
@@ -308,40 +357,52 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  }
  async function stream(descriptor,sink){try{for(let offset=0;offset<descriptor.byteLength;offset+=1024**2){const {bytes}=await engine.readExport({exportId:descriptor.id,revision:descriptor.revision,offset,length:Math.min(1024**2,descriptor.byteLength-offset)},hooks());await sink.write(bytes);}}finally{await engine.releaseExport(descriptor.id);}}
  const client={
-  previewParameters,
-  updateRetainedParameters:(task,{isCurrent=()=>true}={})=>enqueue(()=>{if(!isCurrent())return null;const next=updateRetainedParameters({output:result,operation:task.operation,params:task.params,view:task.view});if(next&&isCurrent())result=next;return next;}),
+  previewParameters,acquirePreparationSource,acquireSourceRegionReader,
+  updateRetainedParameters:(task,{isCurrent=()=>true}={})=>enqueue(async()=>{if(!isCurrent())return null;task=await sourceRegionTask(task,{},{admit:false});if(!isCurrent()||(result?.sourceRegionDomain?.fingerprint??null)!==(task.sourceRegionDomain?.fingerprint??null))return null;const next=task.operation==='various.ocr'?updateOcrPresentation(result,task.params,result?.sourceRegionSourceSurface??source?.surface):updateRetainedParameters({output:result,operation:task.operation,params:task.params,view:task.view});if(next&&isCurrent()){if(next.parameterViews&&next.sourceRegionDomain)next.parameterViews=next.parameterViews.map(view=>({...view,sourceRegionDomain:next.sourceRegionDomain,sourceRegionOrigin:next.sourceRegionOrigin,sourceRegionSourceSurface:next.sourceRegionSourceSurface}));result=next;return next;}return null;}),
   deployment,get source(){return source;},get result(){return result;},capabilities:()=>enqueue(()=>engine.capabilities()),
   reserveExport:async(bytes,display)=>{const owner=display?.m2Result?m2:engine;if(!owner)throw Error('No export source');const lease=await enqueue(()=>owner.reserveExternalMemory({bytes}));return()=>owner.releaseExternalMemory(lease.id);},
-  load:input=>{const previewDone=clearParameterPreview();return enqueue(()=>work(async()=>{await previewDone;d2Analysis=null;await release();if(source){const old=source;source=null;await engine.unload(old.id);}sourceInput=input;source=await engine.loadBlob({...input,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);return source;}));},
+  load:input=>{const previewDone=clearParameterPreview();return enqueue(()=>work(async()=>{await previewDone;d2Analysis=null;await closePreparationSources();await release();if(source){const old=source;source=null;await engine.unload(old.id);}sourceInput=input;source=await engine.loadBlob({...input,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);return source;}));},
   release:()=>enqueue(release),
-  detectSubimages:()=>enqueue(()=>work(async()=>{
+  detectSubimages:(options={})=>enqueue(()=>work(async()=>{
    if(!sourceInput?.blob)throw Object.assign(Error('Source not loaded'),{code:'INVALID_INPUT'});
    // The shipped detector has a full-memory API. Load an explicit temporary
    // input in the SAME engine budget and release it, preserving the current result.
+   let detectedDomain;
+   if(options.sourceRegionDomain){
+    const task=await sourceRegionTask({id:'detect-'+crypto.randomUUID(),imageId:source.id,operation:'subimages.detect',params:{},backend:'cpu',sourceRegionDomain:options.sourceRegionDomain},{},{signal:controller?.signal});
+    detectedDomain=task.sourceRegionDomain;
+    if(sourceRegionDomainShape(task.sourceRegionDomain)!=='identity'){const output=await engine.run(task,hooks());try{return{...output.data,sourceRegionDomain:output.sourceRegionDomain,sourceRegionOrigin:output.sourceRegionOrigin};}finally{const owned=resultResources(output);for(const surface of owned.surfaces)if(surface.id!==source.surface.id)await engine.releaseSurface(surface.id);for(const table of owned.tables)await engine.releaseTable(table.id);}}
+   }
    const reusable=source?.availableOperations?.includes('subimages.detect');
    const id=reusable?source.id:'subimages-'+crypto.randomUUID();let opened=false,failure;
    try{
     if(!reusable){const input=await engine.loadBlob({id,blob:sourceInput.blob,layout:'auto'},hooks());opened=true;
      if(input.availableOperations&&!input.availableOperations.includes('subimages.detect'))throw Object.assign(Error('SUBIMAGES_MEMORY'),{code:'MEMORY_LIMIT'});}
-    const output=await engine.run({id:'detect-'+crypto.randomUUID(),imageId:id,operation:'subimages.detect',params:{},backend:'cpu'},hooks());return output.data;
+    const output=await engine.run({id:'detect-'+crypto.randomUUID(),imageId:id,operation:'subimages.detect',params:{},backend:'cpu'},hooks());return detectedDomain?{...output.data,sourceRegionDomain:detectedDomain,sourceRegionOrigin:detectedDomain.origin}:output.data;
    }catch(error){failure=error;throw error;}
    finally{if(opened)try{await engine.unload(id);}catch(cleanupError){if(failure)failure.cleanupError=cleanupError;else throw cleanupError;}}
   })),
   run:(task,extras={})=>{const previewDone=clearParameterPreview();return enqueue(()=>work(async()=>{
-   await previewDone;localFeaturePolicy.assertTaskAvailable(task);
+   await previewDone;localFeaturePolicy.assertTaskAvailable(task);task=await sourceRegionTask(task,extras,{signal:controller?.signal});
    await release();
    // Auxiliary images/databases belong to their tool; the original and evictable
    // analysis caches survive tool changes without pinning unrelated workspaces.
    if(reference&&task.operation!=='comparison.image'){const old=reference;reference=null;await engine.unload(old.id);}
    if(mask&&(!extras.mask||!['tampering.copyMove.brisk','tampering.copyMove.akaze','tampering.copyMove.orb'].includes(task.operation))){const old=mask;mask=null;await engine.unload(old.id);}
    if(prnu&&task.operation!=='noise.prnu'){const old=prnu;prnu=null;await engine.unload(old.id);}
-   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=await m2Factory({method,memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile});m2Method=method;}const descriptor=await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const ritaModes=['overlay','probability','mask'],ritaInitial=ritaModes.includes(task.view?.mode)?task.view.mode:'overlay';const views=method==='forgeryscope'?[]:method==='rita'?[ritaInitial,...ritaModes.filter(mode=>mode!==ritaInitial)]:method==='trufor'?['map','confidence','noiseprint_pp']:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:metadata.provenance,metrics:metadata.metrics,m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view,...(method==='rita'?{ritaPresentation:{mode:view,score:{id:'m2-score-'+descriptor.id,revision:1,m2Result:descriptor.id,field:'map'},threshold:ritaDisplayThreshold(task.view?.threshold),opacity:ritaDisplayOpacity(task.view?.opacity)}}:{})}))};if(method==='trufor'&&descriptor.fields?.map)result.views.push({...result.views[0],id:'m2-'+descriptor.id+'-map-alternative',view:'map_alternative',truforPalette:true,truforFields:descriptor.fields});return result;}
+   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=withM2NativeSourceTransport(await m2Factory({method,memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile}));m2Method=method;}let reader;const nativeRectangle=task.sourceRegionDomain&&sourceRegionDomainShape(task.sourceRegionDomain)==='rectangle';if(nativeRectangle)reader=await acquireSourceRegionReaderNow({sourceRegionDomain:task.sourceRegionDomain,purpose:'analysis-rectangle'},{ownerQueue:true});const descriptor=reader?await m2.analyzeNativeRectangle(method,reader,task.params,{...hooks(),backend:task.backend}):await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const resultDomain=reader?.sourceRegionDomain??task.sourceRegionDomain,resultSource=reader?.sourceRegionSourceSurface??(resultDomain?source.surface:undefined);const ritaModes=['overlay','probability','mask'],ritaInitial=ritaModes.includes(task.view?.mode)?task.view.mode:'overlay';const views=method==='forgeryscope'?[]:method==='rita'?[ritaInitial,...ritaModes.filter(mode=>mode!==ritaInitial)]:method==='trufor'?['map','confidence','noiseprint_pp']:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:{...metadata.provenance,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin],originalEncodedBytesPreserved:true}:{})},metrics:metadata.metrics,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin],sourceRegionSourceSurface:resultSource}:{}),m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+(resultDomain?resultDomain.fingerprint+'-':'')+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin]}:{}),...(method==='rita'?{ritaPresentation:{mode:view,score:{id:'m2-score-'+descriptor.id,revision:1,m2Result:descriptor.id,field:'map'},threshold:ritaDisplayThreshold(task.view?.threshold),opacity:ritaDisplayOpacity(task.view?.opacity)}}:{})}))};if(method==='trufor'&&descriptor.fields?.map)result.views.push({...result.views[0],id:'m2-'+descriptor.id+'-'+(resultDomain?resultDomain.fingerprint+'-':'')+'map-alternative',view:'map_alternative',truforPalette:true,truforFields:descriptor.fields});return result;}
    if(m2){await m2.dispose();m2=null;m2Method=null;}
    if(isExtensionTool(task.operation)){
     const input={...task,imageId:source.id},configuration=extensionConfiguration();
     if(typeof engine.runConfiguredExtension==='function')result=await engine.runConfiguredExtension(input,configuration,hooks());
     else{await configureExtensionModels(engine,configuration,hooks());result=await engine.run(input,hooks());}
-    return result;
+    result=extensionSourcePresentation(result);return result;
+   }
+   if(task.operation==='various.ocr'){
+    const configuration=await (await import('./ocr-models.js')).ocrConfiguration({algorithm:task.params?.algorithm}),input={...task,imageId:source.id,backend:task.params?.algorithm==='tesseract'?'cpu':task.backend??'auto'};
+    if(typeof engine.runConfiguredOcr==='function')result=await engine.runConfiguredOcr(input,configuration,hooks());
+    else{await engine.loadOcrModels(configuration,hooks());result=await engine.run(input,hooks());}
+    result.parameterViews=[ocrDisplay(result,result.sourceRegionSourceSurface??source.surface)];if(result.sourceRegionDomain)result.parameterViews=result.parameterViews.map(view=>({...view,sourceRegionDomain:result.sourceRegionDomain,sourceRegionOrigin:result.sourceRegionOrigin,sourceRegionSourceSurface:result.sourceRegionSourceSurface}));return result;
    }
    await configure(task.operation,task.params);const params={...task.params};
    if(task.operation==='comparison.image'){if(!extras.reference)throw Error('Choisissez une image de référence.');if(reference?.blob!==extras.reference){if(reference){const old=reference;reference=null;await engine.unload(old.id);}const id='reference-'+crypto.randomUUID();await engine.loadBlob({id,blob:extras.reference,layout:'segmented'},hooks());reference={id,blob:extras.reference};}params.referenceImageId=reference.id;}
@@ -417,7 +478,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    }catch(error){await sink.abort();throw error;}
   })),
   cancel(){controller?.abort();},
-  dispose(){disposed=true;controller?.abort();const previewDone=clearParameterPreview();return queue.then(async()=>{await previewDone;await clearResponseProxy();await clearRitaProxy();await m2?.dispose();await engine.dispose();});}
+  dispose(){disposed=true;controller?.abort();const previewDone=clearParameterPreview();return queue.then(async()=>{await previewDone;await closePreparationSources();await clearResponseProxy();await clearRitaProxy();await m2?.dispose();await engine.dispose();});}
  };
  return client;
 }

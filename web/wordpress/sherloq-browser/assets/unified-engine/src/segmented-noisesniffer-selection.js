@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.24.0";
+import {createNoisesnifferSelectionBasis,noisesnifferBasisKey,selectNoisesnifferBasis} from './noisesniffer-selection-basis.js';
 import {pagedNoisesnifferSelection} from './noisesniffer-paged-selection.js';
 import {numpyArgsort} from './numpy-argsort.js';
 import {numpySum} from './numpy-sum.js';
@@ -11,8 +12,17 @@ export function noisesnifferSelectionWorkspace(width,height,p,validCount=(width-
  // channel, flags, bin buffers, RGB gathering, and region-growth cell objects.
  return validCount*16+n*5+Math.max(1,b)*96+width*(p.blockSize+256)*12+Math.min(width*height,(Math.floor(width/p.cellSize)+1)*(Math.floor(height/p.cellSize)+1))*256+4*1024**2;
 }
-export async function segmentedNoisesnifferSelection(image,p,stats,{budget,signal,onProgress,storage='auto'}={}){
- const shape=image.surface.descriptor;if(noisesnifferSelectionWorkspace(shape.width,shape.height,p,stats.validCount)>budget.limit-budget.retained-budget.active)return pagedNoisesnifferSelection(image,p,stats,{budget,signal,onProgress,storage});
+export async function segmentedNoisesnifferSelection(image,p,stats,options={}){
+ const {basis,keepBasis=false}=options;if(basis?.key===noisesnifferBasisKey(p))return selectNoisesnifferBasis(image,p,basis,options);
+ if(!keepBasis)return computeNoisesnifferSelection(image,p,stats,options);
+ let recording,result;
+ try{recording=await createNoisesnifferSelectionBasis(image,p,stats,{budget:options.budget,signal:options.signal,storage:options.storage??'auto',temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,chunkBytes:262144,reserveAfter:Math.min(noisesnifferSelectionWorkspace(image.surface.descriptor.width,image.surface.descriptor.height,p,stats.validCount),32*1024**2+Math.max(1,p.samplesPerBin)*160)});}
+ catch(error){if(!['MEMORY_LIMIT','MEMORY_ALLOCATION','STORAGE_UNAVAILABLE'].includes(error?.code))throw error;result=await computeNoisesnifferSelection(image,p,stats,options);result.metrics={...result.metrics,basisCacheSkipped:error.code};return result;}
+ try{result=await computeNoisesnifferSelection(image,p,stats,{...options,basisRecorder:recording});result.basis=await recording.finish();return result;}
+ catch(error){await Promise.allSettled([recording?.dispose(),result?.dispose()]);throw error;}
+}
+async function computeNoisesnifferSelection(image,p,stats,{budget,signal,onProgress,storage='auto',basisRecorder}={}){
+ const shape=image.surface.descriptor;if(noisesnifferSelectionWorkspace(shape.width,shape.height,p,stats.validCount)>budget.limit-budget.retained-budget.active)return pagedNoisesnifferSelection(image,p,stats,{budget,signal,onProgress,storage,basisRecorder});
  const {width,height}=image.surface.descriptor,w=p.blockSize,cols=stats.width,rows=stats.height,N=cols*rows,count=stats.validCount,owned=[],release=budget.reserve(noisesnifferSelectionWorkspace(width,height,p,count));
  const options={budget,signal,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,storage:storage==='auto'&&(image.session||image.ensureTemporarySession)&&count*24+N+width*height*7+8*1024**2>budget.limit-budget.retained-budget.active?'temporary':storage,chunkBytes:262144};
  try{
@@ -30,8 +40,10 @@ export async function segmentedNoisesnifferSelection(image,p,stats,{budget,signa
     await controlCheckpoint(signal);const ids=order.subarray(bin*b,bin===bins-1?count:(bin+1)*b),v=Float32Array.from(ids,id=>channel[id]),chosen=Uint32Array.from(numpyArgsort(v).subarray(0,Math.trunc(b*p.lowFrequencyFraction)),i=>ids[i]),std=new Float64Array(chosen.length),spatial=Uint32Array.from({length:chosen.length},(_,i)=>i);spatial.sort((a,b)=>chosen[a]-chosen[b]);let flat=0;
     // Gather spatially adjacent patches once, retaining their original bin order.
     for(let at=0;at<spatial.length;){checkAbort(signal);const y=Math.floor(chosen[spatial[at]]/cols),last=Math.min(rows,y+256);let end=at+1;while(end<spatial.length&&Math.floor(chosen[spatial[end]]/cols)<last)end++;const part=await image.surface.readWindow({x:0,y,width,height:last-y+w-1},{signal});try{for(let k=at;k<end;k++){const i=spatial[k],id=chosen[i],py=Math.floor(id/cols)-y,px=id%cols;for(let dy=0;dy<w;dy++)for(let dx=0;dx<w;dx++)block[dy*w+dx]=part.pixels.data[((py+dy)*width+px+dx)*3+c];const mean=numpySum(block)/block.length;for(let j=0;j<block.length;j++){const d=block[j]-mean;squares[j]=d*d;}std[i]=Math.sqrt(numpySum(squares)/squares.length);if(std[i]===0)flat++;}}finally{part.release();}at=end;}
-    const limit=Math.trunc(b*p.lowFrequencyFraction*p.lowNoiseFraction);
-    if(flat<limit){const sorted=numpyArgsort(std),V=Uint32Array.from(sorted,i=>chosen[i]),S=V.subarray(0,limit);await selected.write(new Uint8Array(V.buffer),selectedCount*4);await low.write(new Uint8Array(S.buffer,S.byteOffset,S.byteLength),lowCount*4);selectedCount+=V.length;lowCount+=S.length;mark(V,1,all_blocks);mark(S,2,low_noise_blocks);}
+    const limit=Math.trunc(b*p.lowFrequencyFraction*p.lowNoiseFraction),maximumLimit=Math.trunc(b*p.lowFrequencyFraction*.99);let V;
+    if(flat<limit||basisRecorder&&flat<maximumLimit)V=Uint32Array.from(numpyArgsort(std),i=>chosen[i]);
+    if(basisRecorder)await basisRecorder.record(c*bins+bin,V??new Uint32Array(),flat);
+    if(flat<limit){const S=V.subarray(0,limit);await selected.write(new Uint8Array(V.buffer),selectedCount*4);await low.write(new Uint8Array(S.buffer,S.byteOffset,S.byteLength),lowCount*4);selectedCount+=V.length;lowCount+=S.length;mark(V,1,all_blocks);mark(S,2,low_noise_blocks);}
     onProgress?.({phase:'noisesniffer-select',completed:c*bins+bin+1,total:3*bins});
    }
   }

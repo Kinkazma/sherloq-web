@@ -15,6 +15,12 @@ const messages=[
  [/SUBIMAGES_MEMORY|segmented.*(?:unavailable|unsupported)|Operation.*segmented/i,'La détection des sous-images nécessite ici une image décodée en mémoire. La mémoire disponible ne l’a pas permis ; vos zones précédentes sont conservées.','Subimage detection currently requires an in-memory decoded image. Available memory did not permit it; your previous regions are preserved.']
 ];
 const codes={
+ SOURCE_SCOPE_EMPTY:['Les zones actives ne contiennent aucun pixel à analyser. Ajoutez ou réactivez une acquisition.','The active regions contain no pixels to analyze. Add or enable an inclusion region.'],
+ SOURCE_REGIONS_INVALID:['Les zones ne correspondent pas à cette image ou leur géométrie est invalide.','The regions do not belong to this image or their geometry is invalid.'],
+ SOURCE_SCOPE_UNSUPPORTED:['Cet outil ou ces paramètres ne permettent pas encore d’analyser ce périmètre. Les pixels exclus n’ont pas été analysés.','This tool or these parameters cannot yet analyze this domain. Excluded pixels were not analyzed.'],
+ SOURCE_SCOPE_OCR_UNSUPPORTED:['La reconnaissance du texte n’est pas disponible pour ce périmètre. Les zones et exclusions conservées restent intactes.','Text recognition is unavailable for this domain. Saved regions and exclusions are preserved.'],
+ SOURCE_REGION_PARTIAL_WINDOW:['Cette étape ne sait pas encore omettre les exclusions à l’intérieur d’une zone. Aucun pixel exclu n’a été réadmis.','This stage cannot yet omit exclusions inside a region. No excluded pixel was re-admitted.'],
+ PDF_IMAGE_PAINT_UNSUPPORTED:['La composition de cette page PDF ne permet pas encore d’y appliquer les effets. Vous pouvez ouvrir son image incorporée pour l’analyser.','This PDF page composition does not yet support these effects. You can open its embedded image for analysis.'],
  ISOLATION_REQUIRED:['L’export HEIC nécessite la page dédiée de SHERLOQ, ouverte directement dans le navigateur.','HEIC export requires the dedicated SHERLOQ page opened directly in the browser.'],
  ENCODE_FAILED:['L’encodage de l’image a échoué. Le détail technique est conservé.','Image encoding failed. Technical details are preserved.'],
  MEDIA_CODEC_FAILED:['Le format de cette image n’a pas pu être lu ou écrit. Le détail technique est conservé.','The image format could not be read or written. Technical details are preserved.'],

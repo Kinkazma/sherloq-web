@@ -35,6 +35,7 @@ for(const id of['m2.rita','ai.text.doctamper','jpeg.comprint'])test(id+' respons
 test('histogram draft renders separately and restoring retains original scientific output',async()=>{
  const h=fixture('inspection.histogram'),bins=new Uint32Array(1024),cumulative=new Uint32Array(1024);bins[0]=10;cumulative[0]=10;const original={id:'hist',operation:'inspection.histogram',status:'ok',provenance:{params:{channel:0,start:0,end:255}},data:{bins,cumulative,summary:{count:10},uniqueColors:1,uniqueRatio:1}};await h.ui.render(original);assert.equal(h.ui.renderParameterPreview({data:{...original.data,summary:{count:2}}}),true);assert.equal(h.ui.interactivePending,true);assert.ok(h.document.getElementById('tool-results').textContent.includes('2'));h.ui.restorePresentation();assert.equal(h.ui.interactivePending,false);assert.ok(h.document.getElementById('tool-results').textContent.includes('10'));assert.equal(original.data.summary.count,10);h.ui.dispose();
 });
+test('a scoped channel histogram stays a chart when its comparison input handle is present',async()=>{const h=fixture('inspection.histogram'),bins=new Uint32Array(1024),cumulative=new Uint32Array(1024);bins[0]=42;cumulative[0]=42;const comparison={id:'native-comparison-crop',revision:1,width:16,height:12,format:'rgb8'},output={id:'scoped-histogram',operation:'inspection.histogram',status:'ok',sourceRegionSourceSurface:comparison,provenance:{params:{channel:0,start:0,end:255}},data:{bins,cumulative,summary:{count:42},uniqueColors:1,uniqueRatio:1}};await h.ui.render(output);const body=h.document.getElementById('tool-results'),layers=h.document.getElementById('tool-layer');assert.equal(layers.options.length,0);assert.equal(layers.hidden,true);assert.equal(body.hidden,false);assert.equal(h.surfaces.length,0);assert.ok(body.querySelector('figure canvas')?.drawRects?.some(rect=>rect.join(',')==='0,0,900,300'),'The histogram Canvas is actually painted');assert.ok(body.textContent.includes('42'));h.ui.setOriginal(true);assert.equal(body.hidden,true);h.ui.setOriginal(false);assert.equal(body.hidden,false);assert.equal(output.sourceRegionSourceSurface,comparison);assert.equal(h.ui.restorePresentation(),true);assert.equal(body.hidden,false);assert.equal(h.surfaces.length,0);h.ui.dispose();});
 test('none metadata controls keep their ordinary exact action',()=>{
  const h=fixture('metadata.exiftool'),input=h.input('mode');input.value='"headers"';h.emit(input,'change');assert.equal(h.settings.length,1);assert.equal(h.events.length,0);h.ui.dispose();
 });
@@ -102,10 +103,10 @@ test('JPEG ghosts identifies the original layer explicitly and restores the chos
 });
 
 
-test('plot camera/intro persist across native and proxy refreshes; toolbar Reset rearms in2D',async()=>{
+test('plot camera/intro persist across native and proxy refreshes; toolbar Reset rearms coloured3D',async()=>{
  const h=fixture('colors.plots'),table={id:'points',revision:1,format:'float32-table',rowCount:256,columns:['R','G','B','H','S','V']},output={id:'plot',operation:'colors.plots',status:'ok',surface:table,data:{count:256,scale:0}};await h.ui.render(output);const kind=h.input('kind');kind.value='"3d"';h.emit(kind,'change');assert.equal(h.ui.plotPresentation.intro.active,true);assert.deepEqual(h.ui.plotPresentation.camera,{yaw:0,pitch:0,zoom:1,x:0,y:0});
  h.ui.zoomBy(2);const camera=h.ui.plotPresentation.camera;assert.equal(h.ui.plotPresentation.intro.active,false);assert.equal(h.ui.plotPresentation.intro.interacted,true);const scale=h.input('scale');h.emit(scale,'keydown',{key:'ArrowUp'});h.set(scale,1);h.draw();assert.equal(h.ui.plotPreview.active,true);assert.deepEqual(h.ui.plotPresentation.camera,camera);h.ui.restorePresentation();assert.deepEqual(h.ui.plotPresentation.camera,camera);await h.ui.render({...output,id:'plot-new'});assert.deepEqual(h.ui.plotPresentation.camera,camera);assert.equal(h.ui.plotPresentation.intro.active,false);
- const reset=[...h.document.querySelectorAll('button')].find(button=>button.textContent==='Réinitialiser');reset.click();assert.equal(h.ui.params().kind,'2d');assert.equal(h.ui.plotPresentation.intro.armed,true);assert.deepEqual(h.ui.plotPresentation.camera,{yaw:0,pitch:0,zoom:1,x:0,y:0});
+ const reset=[...h.document.querySelectorAll('button')].find(button=>button.textContent==='Réinitialiser');reset.click();assert.equal(h.ui.params().kind,'3d');assert.equal(h.ui.params().colored,true);assert.equal(h.ui.plotPresentation.intro.active,true);assert.deepEqual(h.ui.plotPresentation.camera,{yaw:0,pitch:0,zoom:1,x:0,y:0});
  // select(force) replaced the old control; use the currently mounted one.
  const current=h.input('kind');current.value='"3d"';h.emit(current,'change');assert.equal(h.ui.plotPresentation.intro.active,true);h.ui.fit();assert.equal(h.ui.plotPresentation.intro.armed,false);assert.equal(h.ui.plotPresentation.intro.active,false);h.ui.dispose();
 });
@@ -115,8 +116,12 @@ test('native automatic contracts are attached to RGB and Otsu without marking or
  const adjust=fixture('inspection.adjust');assert.deepEqual(JSON.parse(adjust.input('threshold').getAttribute('data-hover-slider-automatic')),{value:0,boundary:1});assert.equal(adjust.input('brightness').hasAttribute('data-hover-slider-automatic'),false);adjust.ui.dispose();
 });
 
-test('RGB/HSV starts with original colours, respects an explicit saved monochrome choice and Reset restores colour in2D',()=>{
- const h=fixture('colors.plots');assert.equal(h.input('colored').checked,true);assert.equal(h.ui.params().colored,true);assert.equal(h.ui.params().kind,'2d');
- h.ui.restore({'colors.plots':{colored:false,kind:'3d'}});assert.equal(h.input('colored').checked,false);assert.equal(h.ui.params().colored,false);assert.equal(h.ui.params().kind,'3d');
- const reset=[...h.document.querySelectorAll('button')].find(button=>button.textContent==='Réinitialiser');reset.click();assert.equal(h.input('colored').checked,true);assert.equal(h.ui.params().colored,true);assert.equal(h.ui.params().kind,'2d');h.ui.dispose();
+test('RGB/HSV starts with original colours, respects an explicit saved monochrome choice and Reset restores colour in3D',()=>{
+ const h=fixture('colors.plots');assert.equal(h.input('colored').checked,true);assert.equal(h.ui.params().colored,true);assert.equal(h.ui.params().kind,'3d');
+ h.ui.restore({'colors.plots':{colored:false,kind:'2d'}});assert.equal(h.input('colored').checked,false);assert.equal(h.ui.params().colored,false);assert.equal(h.ui.params().kind,'2d');
+ const reset=[...h.document.querySelectorAll('button')].find(button=>button.textContent==='Réinitialiser');reset.click();assert.equal(h.input('colored').checked,true);assert.equal(h.ui.params().colored,true);assert.equal(h.ui.params().kind,'3d');h.ui.dispose();
+});
+
+test('RGB/HSV devotes the result area to the plot without numeric side panel or a second Fit button',async()=>{
+ const h=fixture('colors.plots'),table={id:'points',revision:1,format:'float32-table',rowCount:256,columns:['R','G','B','H','S','V']},output={id:'plot',operation:'colors.plots',status:'ok',surface:table,data:{count:256,scale:0}};await h.ui.render(output);assert.equal(h.document.querySelectorAll('.plot-data,.scatter-reset').length,0);assert.equal(h.document.querySelector('#tool-results').children.length,1);assert.ok(h.document.querySelector('#tool-results>.plot-view'));assert.ok(h.document.querySelector('.scatter-orientation'));assert.equal(h.document.querySelector('#tool-results table'),null);h.ui.dispose();
 });

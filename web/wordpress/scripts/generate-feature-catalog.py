@@ -184,6 +184,23 @@ def generate(manifest, metadata_root, assets_root=None):
                 resources += sorted(python_paths)
             add(operation, fr, en, resources=resources, group='inspection-models',
                 depends=['resource.extension-runtime'], tasks=[{'operation': operation}])
+    # Standalone OCR is optional and separate from batch exclusion detection.
+    # Models remain dependency assets, never bootstrap/archive shell bodies.
+    ocr_path = 'ocr-assets/manifest.json'
+    if ocr_path in files:
+        ocr = metadata(ocr_path)
+        if ocr.get('schema') != 'sherloq.ocr-models/1':
+            raise ValueError('Invalid OCR resource configuration')
+        for spec in list(ocr['languages'].values()) + list(ocr['ppocr']['assets'].values()) + [ocr['ppocr']['dictionary']]:
+            path = posixpath.normpath(posixpath.join('ocr-assets', spec['file']))
+            if not path.startswith('ocr-assets/') or path not in files:
+                raise ValueError('OCR resource is outside its family: ' + path)
+            if files[path]['sha256'] != spec['sha256'] or files[path]['size'] != spec['bytes']:
+                raise ValueError('OCR resource identity differs: ' + path)
+        groups.append({'id':'ocr', 'fr':'Reconnaissance de texte', 'en':'Text recognition'})
+        add('resource.ocr-config', 'Configuration OCR', 'OCR configuration', resources=[ocr_path], internal=True)
+        add('ocr.ppocr-medium', 'PP-OCRv6 Medium', group='ocr', resources=directory('ocr-assets/ppocrv6-medium') + (directory('ocr-assets/pp-lcnet-line-orientation') if 'ori' in ocr['ppocr']['assets'] else []), depends=['resource.neural-runtime','resource.ocr-config'], tasks=[{'operation':'various.ocr','params':{'algorithm':'ppocr-medium'}}])
+        add('ocr.tesseract-best', 'Tesseract LSTM — précision', 'Tesseract LSTM — accuracy', group='ocr', resources=directory('ocr-assets/tessdata-best'), depends=['resource.ocr-config'], tasks=[{'operation':'various.ocr','params':{'algorithm':'tesseract'}}])
     claimed = set(path for feature in features for path in feature['resources'])
     optional_ops = {task['operation'] for feature in features for task in feature['tasks']}
     core_tools = [item for group in tree for item in group['items'] if item['id'] not in optional_ops]

@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.22.0";
+import "../../runtime-context.js?v=0.24.0";
+import {receiveM2SourceRegionInput} from './m2-source-region-input.js';
 import {samplePixels,sampleSurface,displayGeometry} from './display-sampling.js';
 import {Budget} from './cache.js';
 import {jpegCodec} from './jpeg.js';
@@ -15,7 +16,7 @@ import {createCatnetAnalyzer} from './catnet-analyzer.js';
 import {createCfaAnalyzer} from './cfa-analyzer.js';
 const MAX_WINDOW=4*1024**2;
 /** One shared budget across M2 families. Numeric arrays stay in the host worker. */
-export function createM2WorkerHost({post,loadFactory=async url=>(await import(url)).default}={}){
+export function createM2WorkerHost({post,loadFactory=async url=>(await import(url)).default,analyzerFactories={}}={}){
  let config,budget,profile,disposed=false,next=1,codecBytes=0;const externalMemory=new Map(),analyzers=new Map(),pending=new Map(),results=new Map(),exports=new Map(),operations=new Set();
  const memory=()=>({...budget.snapshot(),residentCodecBytes:codecBytes});
  function alive(){if(disposed)throw new EngineError('DISPOSED','M2 worker host disposed.');requireValue(budget,'Initialize the M2 host first.');}
@@ -23,11 +24,11 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
   if(analyzers.has(method))return analyzers.get(method);requireValue(config.methods[method],'M2 method is not configured.');
   const value={...config.methods[method],budget,computeProfile:config.computeProfile??'aggressive',resourceHints:config.resourceHints};
   for(const key of ['preparation','sift','jpeg'])if(value[key+'FactoryUrl']){value[key+'Factory']=await loadFactory(value[key+'FactoryUrl']);delete value[key+'FactoryUrl'];}
-  const factory={forgeryscope:createForgeryscopeAnalyzer,trufor:createTruforAnalyzer,rita:createRitaAnalyzer,composite:createCompositeAnalyzer,catnet:createCatnetAnalyzer,cfa:createCfaAnalyzer}[method];requireValue(factory,'Unknown M2 method.');
+  const factory=analyzerFactories[method]??{forgeryscope:createForgeryscopeAnalyzer,trufor:createTruforAnalyzer,rita:createRitaAnalyzer,composite:createCompositeAnalyzer,catnet:createCatnetAnalyzer,cfa:createCfaAnalyzer}[method];requireValue(factory,'Unknown M2 method.');
   const api=factory(value);analyzers.set(method,api);return api;
  }
  function result(id){const r=results.get(id);requireValue(r,'Released or unknown M2 result.');return r;}
- async function unpin(r){if(--r.references===0){await r.value.release();try{await r.imageLease();}finally{r.metadataLease();}}}
+ async function unpin(r){if(--r.references===0){try{await r.value.release();}finally{try{await r.imageLease();}finally{r.metadataLease();}}}}
  async function releaseResult(id){const r=results.get(id);if(r){results.delete(id);await unpin(r);}}
  async function unpinExport(e){if(--e.references===0)await e.release();}
  async function releaseExport(id){const e=exports.get(id);if(e){exports.delete(id);await unpinExport(e);}}
@@ -40,13 +41,15 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
     requireValue(!config&&!disposed,'M2 host already initialized.');config=structuredClone(args);profile=resolveComputeProfile(config.computeProfile??'aggressive',config.resourceHints);const limit=config.memoryBudgetBytes??profile.memoryBudgetBytes;requireValue(Number.isSafeInteger(limit)&&limit>0,'Invalid memory budget.');budget=new Budget(limit);send(id,{profile,memory:memory(),windowBytes:MAX_WINDOW});return;
    }
    alive();
-   if(operation==='analyze'||operation==='analyzeBlob'){
+   if(operation==='analyze'||operation==='analyzeBlob'||operation==='analyzeNativeSource'){
     // A single host job avoids unbounded source clones while inner useful jobs parallelize.
     if(pending.size)throw new EngineError('BUSY','M2 host already has an active analysis.');
     const {method,params={},backend='auto'}=args;let image=args.image;
     const controller=new AbortController();pending.set(id,controller);let value,metadataLease;
     try{
-     if(operation==='analyzeBlob'){
+     if(operation==='analyzeNativeSource'){
+      image=await receiveM2SourceRegionInput(method,args.image,{budget,signal:controller.signal,params});release=()=>image.dispose();
+     }else if(operation==='analyzeBlob'){
       requireValue(['cfa','trufor','rita','catnet','composite','forgeryscope'].includes(method)&&args.blob instanceof Blob,'Segmented original source is currently supported by CFA, TruFor, RITA, CAT-Net, Composite and Forgeryscope.');
       // The decoder accounts its entire heap while active. Keep its idle heap
       // charged afterwards: Emscripten free does not shrink WebAssembly memory.
@@ -58,6 +61,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
       const n=image?.width*image?.height;requireValue(Number.isSafeInteger(n)&&n>0&&image.data instanceof Uint8Array&&image.data.length===3*n,'RGB8 image required.');release=budget.reserve(image.data.byteLength);
      }
      const api=await analyzer(method);checkAbort(controller.signal);value=await api.analyze(image,params,{backend,...(method==='rita'&&operation==='analyzeBlob'?{immutableSource:true}:{}),signal:controller.signal,onProgress:event=>post({id,progress:event})});checkAbort(controller.signal);
+     if(operation==='analyzeNativeSource')value={...value,provenance:{...value.provenance,...image.provenance}};
      const data=value.data??value,fields={},information={};
      for(const [key,v]of Object.entries(data)){
       if(typeof v?.readInto==='function')fields[key]={type:v.elementType??'Float32Array',length:v.length,byteLength:v.byteLength,storage:v.storage};

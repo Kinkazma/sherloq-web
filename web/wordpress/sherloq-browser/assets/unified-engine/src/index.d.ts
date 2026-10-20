@@ -28,6 +28,7 @@ export interface ExtensionTask {id:string;imageId:string;methods?:ExtensionMetho
 export interface ExtensionFailure {id:string;imageId:string;operation:keyof OperationParams;status:'error';error:{code:string;message:string;details?:Record<string,unknown>};}
 export interface ExtensionBatch {id:string;imageId:string;operation:'analysis.extensions';status:'ok'|'partial';results:(Result|ExtensionFailure)[];metrics:Record<string,unknown>;}
 export interface OperationParams {
+ 'various.ocr':{algorithm:'ppocr-medium'|'tesseract';language:'eng'|'fra'|'eng+fra';psm:3|4|6|7|8|10|11|13;threshold:number;view:'overlay'|'text';orientationCorrection:boolean;bitmapThreshold:number;boxThreshold:number;unclipRatio:number};
  'ai.generation.bfree':Record<string,never>;
  'ai.generation.spai':Record<string,never>;
  'ai.text.doctamper':Record<string,never>;
@@ -126,6 +127,9 @@ export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'aut
  releaseSurface(id:string):Promise<void>;
  inspectMetadata(input:{blob:Blob;mode?:'dump'|'location'|'headers'|'thumbnail';name?:string;mime?:string;lastModified?:number},hooks?:Hooks):Promise<{data:Record<string,unknown>;file:Record<string,unknown>;mode:string;warnings:string;metrics:Record<string,unknown>;semantics:string}>;
  inspectHeaders(input:{blob:Blob;name?:string;mime?:string;lastModified?:number},hooks?:Hooks):Promise<{header:Record<string,unknown>;file:Record<string,unknown>;metrics:Record<string,unknown>;semantics:string}>;
+ loadOcrModels(configuration:Record<string,unknown>,hooks?:Hooks):Promise<{configured:boolean}>;
+ unloadOcrModels():Promise<void>;
+ previewParameters(task:Task,options?:{preview?:{maxSide?:number;maxPixels?:number;maxWorkingBytes?:number;targetMs?:number}}&Hooks):Promise<unknown>;
  reserveExternalMemory(request:{bytes:number}):{id:string;bytes:number}|Promise<{id:string;bytes:number}>;
  releaseExternalMemory(id:string):void|Promise<void>;
  exportPixelBuffer(request:{pixels:Pixels}&Omit<RasterExportRequest,'surfaceId'|'revision'>,hooks?:Hooks):Promise<RasterExport>;

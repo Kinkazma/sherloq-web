@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.24.0";
 import {prepareNeuralScientificScope,emptyScopedNeuralResult,neuralScientificScopeIdentity} from './neural-scientific-scope.js';
 import {createNeuralInput} from './neural-input.js';
 import {createNeuralProjector} from './neural-projector.js';
@@ -99,6 +100,7 @@ export function createSegmentationAdapter({budget, profile, version, publishResu
       try {const {release, ...data} = result; return {id: resultId, imageId, operation: 'ai.clones.segmentation', status: 'ok', data, layers: [], provenance: {...structuredClone(state.lastProvenance), output: 'raw-model-probabilities'}, metrics: {inferences: 0, memory: budget.snapshot()}};}
       finally {result.release();}
     },
+    async clearImage(id) {requireValue(!active,'Neural adapter busy');if(state?.lastContext?.imageId===id)await clearState();},
     async clearImages() {requireValue(!active, 'Segmentation adapter busy'); await clearState();},
     async dispose() {requireValue(!active, 'Segmentation adapter busy'); await clearState(); config = null;}
   };

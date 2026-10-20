@@ -23,14 +23,26 @@
 #tool-results a{display:block;margin:14px 0}.tool-fields input:invalid{outline:2px solid #b64f43}
 #tool-results.plot-results{display:flex;flex-wrap:wrap;align-content:flex-start;gap:10px;padding:7px}
 .plot-view{flex:1 1 340px;min-width:0;height:100%;min-height:280px;display:flex;flex-direction:column}
-.plot-data{flex:0 1 240px;min-width:0;max-height:100%;overflow:auto}.plot-data details{font-size:11px}.plot-data table{width:100%}
 .scatter-stage{position:relative;flex:1;min-height:240px;overflow:hidden;background:var(--canvas)}
 #tool-results .scatter-canvas{position:absolute!important;inset:0;width:100%;height:100%!important;max-width:none;touch-action:none;cursor:grab}
 #tool-results .scatter-canvas:active{cursor:grabbing}
 #tool-results .scatter-guides{position:absolute!important;inset:0;width:100%;height:100%!important;max-width:none;pointer-events:none}
 .scatter-label{position:absolute;left:12px;top:10px;pointer-events:none;color:var(--ink);font-size:12px}
-.scatter-reset{position:absolute;top:6px;right:6px;font-size:11px}
 .scatter-help{margin:5px 0 0;font-size:10px;color:var(--muted);flex:none}
+.scatter-orientation{position:absolute;z-index:2;right:6px;top:6px;width:120px;height:120px;isolation:isolate;border:1px solid color-mix(in srgb,var(--ink) 9%,transparent);border-radius:12px;background:color-mix(in srgb,var(--canvas) 72%,transparent);color:var(--ink);touch-action:none}
+.scatter-orientation[hidden]{display:none!important}
+#tool-results .scatter-cube-cloud,.scatter-cube-cloud{position:absolute!important;inset:0;width:120px!important;height:120px!important;max-width:none!important;margin:0!important;pointer-events:none}
+.scatter-cube{position:absolute;inset:0;width:100%;height:100%;overflow:visible;touch-action:none;cursor:grab}.scatter-cube:active{cursor:grabbing}
+.scatter-cube-face{fill:transparent;stroke:var(--cube-axis);stroke-opacity:.16;stroke-width:.65;vector-effect:non-scaling-stroke;pointer-events:none}
+.scatter-cube-face[data-facing="true"]{fill:var(--cube-axis);fill-opacity:.055;stroke-opacity:.65;pointer-events:all;cursor:pointer}
+.scatter-cube-face[data-facing="true"]:hover,.scatter-cube-face:focus-visible{fill-opacity:.25;stroke-opacity:1;stroke-width:1.5;outline:none}
+.scatter-cube-face[aria-pressed="true"]{stroke-width:1.2}
+.scatter-cube-label{font:600 8px/1 system-ui,sans-serif;text-anchor:middle;dominant-baseline:middle;fill:var(--ink);paint-order:stroke;stroke:var(--canvas);stroke-width:2px;stroke-opacity:.8;pointer-events:none}
+.scatter-cube-choices{position:absolute;z-index:3;right:2px;top:0;font-size:11px}
+.scatter-cube-summary{list-style:none;cursor:pointer;line-height:18px;text-align:center;width:18px;border-radius:4px;color:var(--muted);user-select:none}.scatter-cube-summary::-webkit-details-marker{display:none}.scatter-cube-summary:hover,.scatter-cube-summary:focus-visible{color:var(--ink);background:var(--hover)}
+.scatter-cube-menu{position:absolute;right:0;top:20px;display:grid;gap:2px;padding:5px;min-width:105px;max-width:180px;border:1px solid var(--line);border-radius:7px;background:var(--raised,var(--bg));box-shadow:0 3px 14px #0004}
+#tool-results .scatter-cube-choice{font-size:11px;text-align:left;padding:5px 7px;white-space:nowrap}
+@media(max-width:640px){.scatter-orientation{width:98px;height:98px}.scatter-cube-cloud,#tool-results .scatter-cube-cloud{width:98px!important;height:98px!important}}
 
 #tool-results.generation-results{padding:20px;container-type:inline-size}
 .generation-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:start;max-width:1140px;margin:0 auto}
@@ -73,3 +85,7 @@
 @media(max-width:480px){.rita-evaluation-popup{padding:10px}.rita-evaluation-popup th,.rita-evaluation-popup td{padding:4px 3px}}
 
 #legacy-scientific-export-compatibility[hidden]{display:none!important}
+
+.ocr-result{display:grid;gap:.5rem;min-width:0}.ocr-result-heading{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}.ocr-result-heading>button{margin-left:auto}.ocr-result textarea{box-sizing:border-box;width:100%;min-height:6em;max-height:40vh;resize:vertical;color:inherit;background:var(--panel-bg,var(--bg));border:1px solid var(--border,#7776);border-radius:.35rem;padding:.6rem;line-height:1.45}
+
+.ocr-detection-settings{border:1px solid var(--border,#7776);border-radius:.35rem;padding:.35rem .5rem}.ocr-detection-settings>summary{cursor:pointer}.ocr-detection-settings[open]{display:flex;gap:.7rem;flex-wrap:wrap}.ocr-detection-settings[open]>summary{flex-basis:100%}

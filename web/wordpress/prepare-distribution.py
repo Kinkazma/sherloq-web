@@ -198,7 +198,7 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
     # Source and executable metadata keep their distinct reviewed identities.
     put(output / 'public/web/wordpress/runtime-source-lock.json', source_lock_bytes)
     put(output / 'public/web/wordpress/runtime-lock.json', delivered_lock_bytes)
-    for name in ['build.py', 'runtime-delivery.py', 'runtime-extensions.py', 'runtime-rita.py', 'runtime-interactive.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
+    for name in ['build.py', 'runtime-delivery.py', 'runtime-extensions.py', 'runtime-rita.py', 'runtime-interactive.py', 'runtime-workspace.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
     extensions_receipt = ROOT / 'runtime-patches/browser-extensions-20261015.json'
     if extensions_receipt.is_file():
@@ -209,6 +209,9 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
     interactive_receipt = ROOT / 'runtime-patches/interactive-20261020.json'
     if interactive_receipt.is_file():
         put(output / 'public/web/wordpress/sherloq-browser/assets/interactive-delivery-increment.json', interactive_receipt.read_bytes())
+    workspace_receipt = ROOT / 'runtime-patches/workspace-20261020.json'
+    if workspace_receipt.is_file():
+        put(output / 'public/web/wordpress/sherloq-browser/assets/workspace-delivery-increment.json', workspace_receipt.read_bytes())
     for name in ['resource-policy.json', 'method-resource-assembly.json']:
         source = ROOT / name
         if source.is_file() and (tracked is None or name in tracked):
@@ -277,9 +280,9 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     # Classic SW works in Firefox/WebKit too. Only module syntax is removed from
     # these reviewed dependency files; runtime bytes remain untouched.
     worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '')
-                       for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-client-routing.js', 'dependency-sw.js'])
+                       for name in ['dependency-core.js', 'extension-resource-client.js', 'extension-resource-relay.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-client-routing.js', 'dependency-sw.js'])
     put(plugin / 'assets/dependency-sw.js', worker.encode())
-    offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
+    offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'extension-resource-client.js', 'extension-resource-relay.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
     put(plugin / 'assets/offline-browser-sw.js', offline_worker.encode())
     put(plugin / ('assets/dependency-manifest-' + identity + '.json'), encode(manifest))
     # An old installed worker requests its own immutable manifest before it can

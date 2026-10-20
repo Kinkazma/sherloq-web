@@ -1,3 +1,4 @@
+import {energyFieldAvailable,sampleEnergyField} from './energy-native-fields.js';
 import {renderEnergy} from './energy-render.js';
 import {EngineError,serializeEngineError} from './unified-engine/src/errors.js';
 import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js';
@@ -17,7 +18,10 @@ export function createEnergyParameterPreview({engine,readOriginal,dependencies={
   dependencies.segmentEnergy&&dependencies.energyColor?{segmentEnergy:dependencies.segmentEnergy,energyColor:dependencies.energyColor}:import('./unified-engine/src/energy-segment.js')
  ]).then(parts=>Object.assign({},...parts,dependencies));try{return await modules;}finally{initializationMilliseconds+=performance.now()-start;}}
  let qualifiedLog=null,logLease=null,codecLease=null,codecPromise=null,disposed=false,active=false,finishActive;
- const planeCache=new Map();
+ const planeCache=new Map();let nativeGrid=null,referenceSerial=0;const references=new WeakMap();
+ const reference=value=>{if(!value||typeof value!=='object')return null;if(!references.has(value))references.set(value,++referenceSerial);return references.get(value);};
+ function nativeGridKey(analysis,width,height,step){const d=analysis.data,field=name=>{const handle=analysis.planeSurfaces?.[name]??(name==='energy_low_score'?analysis.surface:null);if(handle)return[handle.id,handle.revision,handle.width,handle.height,handle.format];const q=/^energy_plane_(\d)$/.exec(name);return reference(q?(Array.isArray(d.energy_planes)?d.energy_planes[+q[1]]:d.energy_planes):d[name]);};return JSON.stringify([analysis.id,analysis.provenance.originalSha256,analysis.sourceRegionDomain?.fingerprint??null,analysis.sourceRegionSourceSurface?.id,analysis.sourceRegionSourceSurface?.revision,reference(analysis),width,height,step,...['energy_scope','energy_low_score','energy_high_score','energy_plane_0','energy_plane_1','energy_plane_2'].map(field)]);}
+ async function clearNativeGrid(){const previous=nativeGrid;nativeGrid=null;let failure;for(const lease of previous?.leases??[])try{await release(lease);}catch(error){failure??=error;}if(failure)throw failure;}
  let activeDone=Promise.resolve();
  async function release(lease,failure){if(!lease)return;try{await engine.releaseExternalMemory(lease.id);}catch(error){if(!failure)throw error;failure.details={...failure.details,cleanup:serializeEngineError(error)};}}
  async function logarithm(){
@@ -61,7 +65,8 @@ export function createEnergyParameterPreview({engine,readOriginal,dependencies={
    const nativeQuality=d?.metadata?.quality??(nativeParams.quality||null),quality=p.quality||nativeQuality;
    if(!Number.isInteger(quality)||quality<1||quality>100)fail('DRAFT_BASE_UNAVAILABLE','The native resolved JPEG quality is unavailable.');
    const changedQuality=quality!==nativeQuality;
-   if(!Number.isSafeInteger(width)||!Number.isSafeInteger(height)||width<1||height<1||!Number.isSafeInteger(n)||!(d.energy_planes instanceof Float32Array)||d.energy_planes.length!==3*n||![d.energy_low_score,d.energy_high_score].every(a=>a instanceof Float32Array&&a.length===n)||!(d.energy_scope instanceof Int32Array)||d.energy_scope.length!==n)fail('DRAFT_BASE_UNAVAILABLE','Contiguous native energy planes and reference scope are required for this provisional view.');
+   if(!Number.isSafeInteger(width)||!Number.isSafeInteger(height)||width<1||height<1||!Number.isSafeInteger(n)||!['energy_scope','energy_low_score','energy_high_score','energy_plane_0','energy_plane_1','energy_plane_2'].every(name=>energyFieldAvailable(analysis,name)))fail('DRAFT_BASE_UNAVAILABLE','Complete retained native energy fields and reference scope are required for this provisional view.');
+   const domain=analysis.sourceRegionDomain;if(changedQuality&&domain&&domain.countIncluded!==domain.width*domain.height)fail('SOURCE_SCOPE_PREVIEW_UNSUPPORTED','A changed-quality draft cannot recompress excluded source pixels.');
    const {maxWidth=ADAPTIVE_PREVIEW_MAX_SIDE,maxHeight=ADAPTIVE_PREVIEW_MAX_SIDE,maxPixels=ADAPTIVE_PREVIEW_MAX_PIXELS,maxWorkingBytes=128*MiB}=preview;if(![maxWidth,maxHeight].every(v=>Number.isSafeInteger(v)&&v>=1&&v<=ADAPTIVE_PREVIEW_MAX_SIDE)||!Number.isSafeInteger(maxPixels)||maxPixels<1||!Number.isSafeInteger(maxWorkingBytes)||maxWorkingBytes<0)fail('INVALID_INPUT','Invalid energy draft bounds.');
    const summaries=d.energy_summary??d.metadata?.energy?.panels;if(!Array.isArray(summaries))fail('DRAFT_BASE_UNAVAILABLE','Native reference panels are unavailable.');
    const overhead=2*MiB+8192*summaries.length+(changedQuality&&!codecLease?32*MiB:0);if(maxWorkingBytes<overhead+160)fail('MEMORY_LIMIT','The retained native result leaves no admitted energy preview workspace.');
@@ -79,13 +84,23 @@ export function createEnergyParameterPreview({engine,readOriginal,dependencies={
    const nativeQuantiles=d.metadata?.energy?.quantiles,reprepare=changedQuality||automatic||!Array.isArray(nativeQuantiles)||profile.quantiles.some((q,i)=>q!==nativeQuantiles[i]);
    // Bound source, residual primitives, successive automatic preparations and
    // segmentation scratch independently from the leased JPEG/plane cache.
-   const gridIdentity=[analysis.id,analysis.provenance.originalSha256,width,height,step].join('/');for(const[key,entry]of planeCache)if(!key.startsWith(gridIdentity+'/')){planeCache.delete(key);await release(entry.lease);}
-   const lease=await engine.reserveExternalMemory({bytes:128*sn+2*MiB+8192*panels.length});let failure;
+   const gridIdentity=nativeGridKey(analysis,width,height,step);if(nativeGrid&&nativeGrid.key!==gridIdentity)await clearNativeGrid();check(signal);for(const[key,entry]of planeCache)if(!key.startsWith(gridIdentity+'/')){planeCache.delete(key);await release(entry.lease);}
+   const cacheHit=!!nativeGrid,needsPlanes=reprepare&&!changedQuality,planesHit=!!nativeGrid?.planes,entry=nativeGrid?{...nativeGrid,leases:[...nativeGrid.leases]}:{key:gridIdentity,leases:[],bytes:0},added=[];let lease,failure,committed=false;
    try{
-    const original=await readOriginal(analysis,{x:0,y:0,w:width,h:height,step},signal);check(signal);
-    if(original?.width!==sw||original.height!==sh||original.data?.length!==3*sn)fail('INVALID_INPUT','The sampled source dimensions differ from the native plane grid.');
-    const scope=new Int32Array(sn),low=new Float32Array(sn),high=new Float32Array(sn),sampledPlanes=reprepare&&!changedQuality?new Float32Array(3*sn):null;
-    for(let y=0;y<sh;y++){check(signal);for(let x=0;x<sw;x++){const to=y*sw+x,from=y*step*width+x*step;scope[to]=d.energy_scope[from];low[to]=d.energy_low_score[from];high[to]=d.energy_high_score[from];if(sampledPlanes)for(let q=0;q<3;q++)sampledPlanes[q*sn+to]=d.energy_planes[q*n+from];}}
+    // Move ownership of the sampled native inputs out of the frame workspace.
+    // Total admission remains the previous128B/sample envelope: cached buffers
+    // are counted once, and the rest stays available to preparation/rendering.
+    const extra=(cacheHit?0:15*sn)+(needsPlanes&&!planesHit?12*sn:0);
+    if(extra){const cached=await engine.reserveExternalMemory({bytes:extra});added.push(cached);entry.leases.push(cached);entry.bytes+=extra;}
+    lease=await engine.reserveExternalMemory({bytes:128*sn-entry.bytes+2*MiB+8192*panels.length});check(signal);
+    const grid={width:sw,height:sh,step};
+    if(!cacheHit){
+     const original=await readOriginal(analysis,{x:0,y:0,w:width,h:height,step},signal);check(signal);
+     if(original?.width!==sw||original.height!==sh||original.data?.length!==3*sn||original.data.BYTES_PER_ELEMENT!==1)fail('INVALID_INPUT','The sampled source dimensions differ from the native plane grid.');
+     entry.original=original;entry.scope=await sampleEnergyField(analysis,'energy_scope',grid,{engine,signal});entry.low=await sampleEnergyField(analysis,'energy_low_score',grid,{engine,signal});entry.high=await sampleEnergyField(analysis,'energy_high_score',grid,{engine,signal});
+    }
+    if(needsPlanes&&!planesHit){entry.planes=new Float32Array(3*sn);for(let q=0;q<3;q++){check(signal);entry.planes.set(await sampleEnergyField(analysis,'energy_plane_'+q,grid,{engine,signal}),q*sn);}}
+    const {original,scope,low,high}=entry,sampledPlanes=needsPlanes?entry.planes:null;
     const smallOriginal={width:sw,height:sh,format:'rgb8',data:original.data},residual=changedQuality?await residualPlanes(smallOriginal,quality,gridIdentity,signal):null,planes=residual?.planes??sampledPlanes;
     let prepared={energy_scope:scope,energy_low_score:low,energy_high_score:high,energy_summary:panels};
     if(reprepare){
@@ -105,13 +120,14 @@ export function createEnergyParameterPreview({engine,readOriginal,dependencies={
     // gates, using the native block itself; scores and thresholds keep their units.
     const segmented=await segment({width:sw,height:sh,...prepared,metadata:{block}},{thresholds:profile.thresholds,minimum:p.minimum},{signal,draftSpatialScale:step});check(signal);
     const draftData={width:sw,height:sh,...prepared,energy_labels:segmented.labels,regionColors:segmented.regions.map(r=>({id:r.id,rgb:color(r)}))},frame=await render(draftData,{width:sw,height:sh,data:original.data},presentation,{signal});check(signal);
-    const draft={baseResultId:analysis.id,sourceSha256:analysis.provenance.originalSha256,params:{...p},exact:false,samplingStep:step,sampleWidth:sw,sampleHeight:sh,reusedNativeJpeg:!changedQuality,jpegQuality:quality,jpegQualities:residual?.levels??d.metadata?.qualities,recompressedQualities:residual?.recompressed??[],repreparedHistogram:reprepare,estimatedDraftProfile:automatic,nativeBlock:block,areaScale:step*step,minimumSamples:p.minimum*block*block/(step*step),strongSamples:block*block/(step*step),nativePanelIds:panels.map(p=>p.id),referenceScope:'nearest native energy_scope; no points outside native reference panels',regionCount:segmented.regions.length};
+    const draft={nativeSampleCache:{hit:cacheHit,qualityPlanesHit:needsPlanes&&planesHit,bytes:entry.bytes,sampleWidth:sw,sampleHeight:sh,sourceReads:cacheHit?0:1,numericFieldsRead:(cacheHit?0:3)+(needsPlanes&&!planesHit?3:0)},baseResultId:analysis.id,sourceSha256:analysis.provenance.originalSha256,params:{...p},exact:false,samplingStep:step,sampleWidth:sw,sampleHeight:sh,reusedNativeJpeg:!changedQuality,jpegQuality:quality,jpegQualities:residual?.levels??d.metadata?.qualities,recompressedQualities:residual?.recompressed??[],repreparedHistogram:reprepare,estimatedDraftProfile:automatic,nativeBlock:block,areaScale:step*step,minimumSamples:p.minimum*block*block/(step*step),strongSamples:block*block/(step*step),nativePanelIds:panels.map(p=>p.id),referenceScope:'nearest native energy_scope; no points outside native reference panels',regionCount:segmented.regions.length};
     if(disposed)fail('CANCELLED','Energy draft owner disposed.');
     const milliseconds=performance.now()-started,setupMilliseconds=initializationMilliseconds-initializationBefore,cold=setupMilliseconds>0,adaptiveMetrics=plan?{token:plan.token,milliseconds,setupMilliseconds,cold,pixels:sn,feedback:adaptive.observe(plan,{milliseconds,setupMilliseconds,cold,pixels:sn})}:null,metrics={schema:'energy-parameter-preview-timing/1',milliseconds,admittedPixels,adaptivePreview:adaptiveMetrics};
+    nativeGrid=entry;committed=true;
     return{pixels:{...frame,logicalWidth:width,logicalHeight:height,preview:true},presentation:{...presentation,view:presentation.view,preview:true,nativeResolution:step===1,exact:false,method:changedQuality?'sampled-original-jpeg-energy':'native-energy-plane-samples',sourceSha256:draft.sourceSha256,sampleWidth:sw,sampleHeight:sh,params:{...p}},draft:{...draft,metrics},metrics};
-   }catch(error){failure=error;throw error;}finally{await release(lease,failure);}
+   }catch(error){failure=error;throw error;}finally{try{await release(lease,failure);}finally{if(!committed)for(const cached of added)await release(cached,failure);}}
    }finally{active=false;finishActive();}
   },
-  async dispose(){if(disposed)return;disposed=true;await activeDone;qualifiedLog=null;const leases=[logLease,codecLease,...Array.from(planeCache.values(),entry=>entry.lease)];logLease=codecLease=null;planeCache.clear();let failure;for(const lease of leases)try{await release(lease);}catch(error){failure??=error;}if(failure)throw failure;}
+  async dispose(){if(disposed)return;disposed=true;await activeDone;let failure;try{await clearNativeGrid();}catch(error){failure=error;}qualifiedLog=null;const leases=[logLease,codecLease,...Array.from(planeCache.values(),entry=>entry.lease)];logLease=codecLease=null;planeCache.clear();for(const lease of leases)try{await release(lease);}catch(error){failure??=error;}if(failure)throw failure;}
  };
 }

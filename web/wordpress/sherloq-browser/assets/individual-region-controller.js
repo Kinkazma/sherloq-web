@@ -1,6 +1,7 @@
+import {compileOriginalSourceRegions} from './original-source-regions.js';
 import {createBatchScopeEditor} from './batch-scope-editor.js';
 import {createManualScopeDraft,restoreManualScopeZone,applyManualScopeDraft,manualDraftScope,restoreManualScientificScope} from './batch-scope-manual.js';
-import {createBatchPreparationClient} from './batch-preparation-client.js';
+import {createBatchPreparationClient,reprojectNativeTextPreparation} from './batch-preparation-client.js';
 import {detectIndividualSubimages} from './individual-subimages.js';
 import {createIndividualScientificScope,individualScopeRectangles,scopeIndividualTask} from './individual-scientific-scope.js';
 import {createDetectionRegionsPanel} from './detection-regions-panel.js';
@@ -14,7 +15,7 @@ const copy=v=>structuredClone(v);
 const supported=id=>['tampering.copyMove.sparse','ai.clones.d2prl','analysis.clones','analysis.complete'].includes(id);
 // One image owns its editable scope. A result owns separate presentation
 // contours; editing those contours never mutates its native pairs or groups.
-export function createIndividualRegionController({document,parent,language=()=> 'fr',source,operation,getClient,computeProfile=()=> 'maximum',navigationMode=()=> 'auto',preparationClientFactory=createBatchPreparationClient,scopeEditorFactory=createBatchScopeEditor,onChange=()=>{},onHighlight=()=>{},onPresentation=()=>{},onError=()=>{},onProgress=()=>{}}={}){
+export function createIndividualRegionController({document,parent,language=()=> 'fr',source,operation,getClient,getSourceDomain=async()=>null,computeProfile=()=> 'maximum',navigationMode=()=> 'auto',preparationClientFactory=createBatchPreparationClient,scopeEditorFactory=createBatchScopeEditor,onChange=()=>{},onHighlight=()=>{},onPresentation=()=>{},onError=()=>{},onProgress=()=>{}}={}){
  const realDocument=parent.ownerDocument??document;
  let scope=null,editor=null,highlight=null,mode='zones',groups=[],identity=null,overrides={},excludeTexts=true,disposed=false,sourceKey=null,controller=null,past=[],future=[],presentationRevision=0,savedPresentation=null;
  const pendingPreparations=new Set();
@@ -32,6 +33,15 @@ export function createIndividualRegionController({document,parent,language=()=> 
  const textLabel=document.createElement('label'),textToggle=document.createElement('input');textToggle.type='checkbox';textToggle.checked=true;
  const textCaption=document.createElement('span');textLabel.className='detection-text-option';textLabel.append(textToggle,textCaption);parent.append(textLabel);
  textToggle.onchange=()=>{if(disposed)return;controller?.abort();excludeTexts=textToggle.checked;onChange({preparationOnly:true});};
+ async function currentDomain(){const descriptor=await getSourceDomain();if(!descriptor)return null;const domain=await compileOriginalSourceRegions(descriptor);if(domain.empty)throw new EngineError('SOURCE_SCOPE_EMPTY','No original pixels are admitted by these regions.');return domain.countIncluded===domain.sourceWidth*domain.sourceHeight?null:domain;}
+ const scopedTextUnavailable=()=>new EngineError('SOURCE_SCOPE_OCR_UNSUPPORTED','Scoped text detection requires a native source-region preparation adapter. The full original image is not substituted.');
+ function preparationMatchesDomain(value,domain){const provenance=value?.provenance?.modernTextPreparation??value?.provenance;return(provenance?.decoder?.sourceRegionDomain?.fingerprint??null)===(domain?.fingerprint??null);}
+ async function prepareText(input,domain,preparation,signal){
+  if(!domain)return preparation.prepare(input.blob,{textOnly:true,signal,onProgress});
+  const client=await getClient();checkAbort(signal);if(typeof client.acquirePreparationSource!=='function'||typeof preparation.prepareNativeSource!=='function')throw scopedTextUnavailable();let reader;
+  try{reader=await client.acquirePreparationSource({sourceRegionDomain:domain.descriptor});checkAbort(signal);const prepared=await preparation.prepareNativeSource(reader,{sourceRegionDomain:domain.descriptor,textOnly:true,signal,onProgress});checkAbort(signal);return reprojectNativeTextPreparation(prepared,input,domain);}finally{await reader?.dispose();}
+ }
+ async function domainDetector(client,domain){if(!domain)return client;return{async detectSubimages(){const data=await client.detectSubimages({sourceRegionDomain:domain.descriptor});if(data?.sourceRegionDomain?.fingerprint!==domain.fingerprint)throw new EngineError('SOURCE_SCOPE_DETECTION_UNSUPPORTED','The subimage detector did not acknowledge the native source domain.');if(!Array.isArray(data.regions)||data.regions.some(region=>!Array.isArray(region?.bounds)||region.bounds.length!==4||!region.bounds.every(Number.isSafeInteger)||region.bounds[0]<0||region.bounds[1]<0||region.bounds[2]>domain.width||region.bounds[3]>domain.height||region.bounds[0]>=region.bounds[2]||region.bounds[1]>=region.bounds[3]))throw new EngineError('INVALID_INPUT','Subimage detector regions must use the admitted native crop grid.');const [dx,dy]=domain.origin;return{...data,regions:data.regions?.map(region=>({...region,bounds:[region.bounds[0]+dx,region.bounds[1]+dy,region.bounds[2]+dx,region.bounds[3]+dy]})),...(data.polygons?{polygons:data.polygons.map(polygon=>polygon.map(([x,y])=>[x+dx,y+dy]))}:{})};}};}
  function currentImage(){if(disposed)throw new EngineError('DISPOSED','Individual region controller disposed.');const input=source();if(!input?.blob||!input.sourceSha256||!input.width||!input.height)throw Error('Ouvrez une image avant de modifier ses zones.');return {...input,preparation:scope};}
  function active(){return !disposed&&supported(operation());}
  function visibleGroups(){return groups.map(g=>overrides[g.id]?{...g,polygons:copy(overrides[g.id].polygons),presentationEdited:true}:g);}
@@ -95,7 +105,7 @@ export function createIndividualRegionController({document,parent,language=()=> 
  }
  async function prepareForCalculation({signal:outerSignal}={}){
   if(disposed)throw new EngineError('DISPOSED','Individual region controller disposed.');checkAbort(outerSignal);if(!active())return scope;
-  const input=currentImage(),previous=scope,epoch=cancellationEpoch;await validateScope(previous,input);checkAbort(outerSignal);if(disposed||epoch!==cancellationEpoch)throw new EngineError('CANCELLED','Individual text preparation cancelled during validation.');
+  const input=currentImage(),previous=scope,epoch=cancellationEpoch,domain=await currentDomain(),sameDomain=preparationMatchesDomain(previous,domain);await validateScope(previous,input);checkAbort(outerSignal);if(disposed||epoch!==cancellationEpoch)throw new EngineError('CANCELLED','Individual text preparation cancelled during validation.');
   if(!excludeTexts){
    if(!previous||previous.text?.disabled===true)return previous;
    const draft=createManualScopeDraft({...input,preparation:previous}),raw=previous.text?.rawDetection??previous.text??null,pdfText=new Set((previous.pdfText?.polygons??[]).map(polygonKey));
@@ -107,21 +117,21 @@ export function createIndividualRegionController({document,parent,language=()=> 
    const texts=draft.zones.filter(z=>z.kind==='exclusion'&&z.role==='text'),text={...(previous.text??{}),status:'complete',disabled:true,automatic:false,polygons:texts.map(z=>copy(z.polygon)),detections:texts.map(z=>({polygon:copy(z.polygon),zoneId:z.id,actor:reviewed||z.origin==='human'?'human':'automatic'})),warnings:[],rawDetection:copy(raw),disabledAutomaticZones:copy(removed),reason:'Automatic OCR exclusions disabled; human text decisions and manual exclusions preserved.'};
    const next=scopeWithTextDraft(input,previous,draft,text,{operation:'disable-automatic-text',actor:'system',coordinates:'original-pixels',removedZoneIds:[...ids]});return publishTextToggle(input,previous,next,outerSignal,epoch);
   }
-  const raw=previous?.text?.rawDetection,reviewed=previous?.text?.review?.actor==='human'&&modernText(raw)&&['complete','needs-review'].includes(raw.status);
-  if(previous?.text?.review?.actor==='human'&&modernText(raw)&&!['complete','needs-review'].includes(raw.status)){
+  const raw=previous?.text?.rawDetection,reviewed=sameDomain&&previous?.text?.review?.actor==='human'&&modernText(raw)&&['complete','needs-review'].includes(raw.status);
+  if(sameDomain&&previous?.text?.review?.actor==='human'&&modernText(raw)&&!['complete','needs-review'].includes(raw.status)){
    const blocked=copy(previous);blocked.status='needs-review';blocked.text.status=raw.status??'incomplete';blocked.warnings=[...(blocked.warnings??[]),{code:'TEXT_DETECTION_INCOMPLETE',message:'La révision des zones ne remplace pas une préparation OCR interrompue.'}];blocked.fingerprint=await scopeFingerprint(blocked);checkAbort(outerSignal);if(disposed)throw new EngineError('CANCELLED','Individual text preparation cancelled.');if(scope!==previous)throw new EngineError('INVALID_INPUT','Regions changed during text validation.');scope=blocked;refresh();onChange({scopeChanged:true,preparationOnly:true});throw scopeRequired(blocked);
   }
   if(reviewed){
    if(previous.text.disabled){const draft=createManualScopeDraft({...input,preparation:previous}),text={...copy(previous.text),disabled:false,automatic:false,reason:'Human-reviewed OCR exclusions retained without replaying deleted candidates.'};delete text.disabledAutomaticZones;const next=scopeWithTextDraft(input,previous,draft,text,{operation:'enable-reviewed-text',actor:'system',coordinates:'original-pixels'});const value=await publishTextToggle(input,previous,next,outerSignal,epoch);if(!readyForCalculation(value))throw scopeRequired(value);return value;}
    if(!readyForCalculation(previous))throw scopeRequired(previous);return previous;
   }
-  if(modernText(previous?.text)&&!previous.text.skipped&&!previous.text.disabled){if(!readyForCalculation(previous))throw scopeRequired(previous);return previous;}
+  if(sameDomain&&modernText(previous?.text)&&!previous.text.skipped&&!previous.text.disabled){if(!readyForCalculation(previous))throw scopeRequired(previous);return previous;}
   controller?.abort();const local=new AbortController();controller=local;const abort=()=>local.abort(outerSignal?.reason);outerSignal?.addEventListener('abort',abort,{once:true});if(outerSignal?.aborted)abort();let preparation;
   try{
    checkAbort(local.signal);const base=previous??await createIndividualScientificScope(input,{manualFullSource:true,excludeTexts:false});checkAbort(local.signal);
-   const cached=previous?.text?.disabled===true&&modernText(raw)&&raw.status==='complete';let prepared;
+   const cached=sameDomain&&previous?.text?.disabled===true&&modernText(raw)&&raw.status==='complete';let prepared;
    if(cached)prepared={width:input.width,height:input.height,sourceSha256:input.sourceSha256,text:copy(raw),provenance:copy(previous.provenance?.modernTextPreparation??previous.provenance??{})};
-   else{preparation=await preparationClientFactory({computeProfile:computeProfile()});checkAbort(local.signal);prepared=await preparation.prepare(input.blob,{textOnly:true,signal:local.signal,onProgress});}checkAbort(local.signal);
+   else{if(domain&&typeof(await getClient()).acquirePreparationSource!=='function')throw scopedTextUnavailable();preparation=await preparationClientFactory({computeProfile:computeProfile()});checkAbort(local.signal);prepared=await prepareText(input,domain,preparation,local.signal);}checkAbort(local.signal);if((await currentDomain())?.fingerprint!==(domain?.fingerprint))throw new EngineError('CANCELLED','The original source domain changed during text preparation.');
    if(disposed)throw new EngineError('CANCELLED','Individual text preparation cancelled.');const current=source();if(!current||current.sourceSha256!==input.sourceSha256||current.width!==input.width||current.height!==input.height||scope!==previous)throw new EngineError('INVALID_INPUT','The image or its regions changed during text preparation.');
    if(prepared?.sourceSha256!==input.sourceSha256||prepared.width!==input.width||prepared.height!==input.height||!modernText(prepared.text)||prepared.text.metadata?.sourceSha256&&prepared.text.metadata.sourceSha256!==input.sourceSha256)throw new EngineError('INVALID_INPUT','Modern text preparation belongs to another original image or detector.');
    if(!Array.isArray(prepared.text.polygons))throw new EngineError('INVALID_INPUT','Modern text polygons are missing.');
@@ -148,9 +158,8 @@ export function createIndividualRegionController({document,parent,language=()=> 
   controller?.abort();controller=new AbortController();const signal=controller.signal,input=currentImage(),key=input.sourceSha256;
   let preparation;
   try{
-   const client=await getClient();const rectangles=await detectIndividualSubimages(client,{width:input.width,height:input.height,sourceSha256:key,neural:false});
-   signal.throwIfAborted();preparation=await preparationClientFactory({computeProfile:computeProfile()});
-   const prepared=await preparation.prepare(input.blob,{signal,onProgress,detectText:excludeTexts});signal.throwIfAborted();
+   const domain=await currentDomain();const client=await getClient();if(domain&&excludeTexts&&typeof client.acquirePreparationSource!=='function')throw scopedTextUnavailable();const detector=await domainDetector(client,domain);const rectangles=await detectIndividualSubimages(detector,{width:input.width,height:input.height,sourceSha256:key,neural:false});
+   signal.throwIfAborted();let prepared;if(!domain||excludeTexts){preparation=await preparationClientFactory({computeProfile:computeProfile()});prepared=domain?await prepareText(input,domain,preparation,signal):await preparation.prepare(input.blob,{signal,onProgress,detectText:excludeTexts});}signal.throwIfAborted();const latestDomain=await currentDomain();if((latestDomain?.fingerprint??null)!==(domain?.fingerprint??null))throw new EngineError('CANCELLED','The original source domain changed during region detection.');
    if(disposed)throw new EngineError('CANCELLED','Individual region detection cancelled.');if(source()?.sourceSha256!==key)throw Error('L’image a changé pendant la préparation.');
    const next=await createIndividualScientificScope(input,{rectangles,prepared,excludeTexts,includeEnvelope:true});checkAbort(signal);if(disposed)throw new EngineError('CANCELLED','Individual region detection cancelled.');remember();scope=next;mode='zones';panel.setMode('zones');refresh();onPresentation(null);onChange({scopeChanged:true});return scope;
   }finally{await preparation?.dispose();if(controller?.signal===signal)controller=null;}
