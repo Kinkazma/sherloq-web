@@ -1,11 +1,11 @@
 {
-  "commit": "f80cf88aa0814798894c69921025f3034bd643a0",
+  "commit": "f509fb60793ecad0626d76eae418a8280af547ec",
   "commitRepository": "https://github.com/Kinkazma/sherloq-web",
   "baseCommit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
   "runtime": "0.37.0-methods.1",
   "snapshot": "engine-source",
   "sourceIncrementSha256": "440210e4665b4a62114cc5028b045414a0901aab55d39ab465136a7067b3e88c",
-  "incrementScope": "Retained D2PRL/clone and scientific candidate-domain layers plus native Classic ELA previews and reusable energy preparation/segmentation. Original receipt ancestry, model payloads and native binaries are preserved. Additional independent browser inspection methods retain these predecessors and share core scheduling, memory admission and scientific storage. RITA adds native FP32 operator execution and retained-score display controls through a separate reviewed source/resource/lock layer.",
+  "incrementScope": "Retained D2PRL/clone and scientific candidate-domain layers plus native Classic ELA previews and reusable energy preparation/segmentation. Original receipt ancestry, model payloads and native binaries are preserved. Additional independent browser inspection methods retain these predecessors and share core scheduling, memory admission and scientific storage. RITA adds native FP32 operator execution and retained-score display controls through a separate reviewed source/resource/lock layer. Interactive controls add bounded previews, retained native result presentations and the reviewed PNG grayscale correction through a separate source/resource/lock layer.",
   "d2prlIncrementSha256": "ab77ee77b286abd9866e68f433121149f835f96764c18e33c0fffe200ec6c6a8",
   "d2prlSourceCommit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "cloneSourceCommit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
@@ -19,9 +19,11 @@
   "browserExtensionsIncrementFile": "web/wordpress/runtime-patches/browser-extensions-20261015.json",
   "browserExtensionsSourceCommit": "100d1803accc6ce23af1182f942536facb1f957e",
   "elaResultOwnershipIncluded": true,
-  "runtimeSourceLockSha256": "a25628543cdcd651a9c6e1570d2de250cdc69fc8fba71cc30d2c7b7bf9a51b3b",
-  "runtimeLockSha256": "a42f7ec20cd7d751b75047bb125267cfbde064991aa50dcc162d9341f17aa970",
+  "runtimeSourceLockSha256": "a2aa79e36c52c1a53a9c9649b7a325641e142cda04577c76dc447c5295f727e7",
+  "runtimeLockSha256": "fa7347452c15607707ae184b27c15f2564d169cb045dd70e119cb7e6d2092791",
   "ritaSourceCommit": "f80cf88aa0814798894c69921025f3034bd643a0",
   "ritaRuntimeIncrementFile": "web/wordpress/runtime-patches/rita-20261019.json",
-  "ritaRuntimeIncrementSha256": "fb2e6e61642c390ac557c971acd5efb924b4e4982e2fefc56db860ae702d763f"
+  "ritaRuntimeIncrementSha256": "fb2e6e61642c390ac557c971acd5efb924b4e4982e2fefc56db860ae702d763f",
+  "interactiveRuntimeIncrementFile": "web/wordpress/runtime-patches/interactive-20261020.json",
+  "interactiveRuntimeIncrementSha256": "9cac3b17c8e7714d62c64eadbaa464b9051e815b8db800bef449a463727af212"
 }

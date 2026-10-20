@@ -173,3 +173,10 @@ RITA's native FP32 operators were checked against their reference execution, wit
 The integrated source passed the RITA/ELA, worker, memory and batch regressions. Resource-plan and runtime-receipt tests reject altered models, predecessor snapshots, undeclared sources and inventories. Local-update tests cover resumable downloads, preserved exclusions, verified reuse, preference recovery and rollback. The final catalogue and offline shell bind every declared source, including the shared RITA pipeline, to its exact identity. Static closure checks are distinct from interactive offline inference.
 
 The English study retains the supplied 96 edited versions, their measurements and the separate image licence. README previews remain below 500 kB. No private test reports, model checkpoints or installation configuration are part of these publication records.
+
+
+## Web 0.23.0 — Interactive controls and adaptive previews
+
+The integrated interface, gesture, settings, retained-result, cancellation and update checks pass. Native PNG grayscale and blocking-filter qualifications are retained from the supplied delivery. New receipt checks reject altered sources, PNG bytes, historical snapshots, model metadata and unrelated runtime locks. The complete reviewed chain preserves the RITA resources and all other unchanged resource descriptors.
+
+A fresh Chromium workspace enables numeric hover sliders by default and retains an explicit disabled choice across reopening. The compact UI and native result presentations remain separate from provisional sampled frames. Calibration targets do not guarantee first-frame latency on every browser or device. Resource and shell identities, source closure and old-updater compatibility are checked separately; those metadata checks are not a new complete offline installation or a fresh qualification of every neural model.
