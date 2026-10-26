@@ -1,3 +1,4 @@
+import {createManifestLoader} from './dependency-manifest.js?v=0.25.0';
 import {withLocalActivity,localActivityFrozen} from './local-activity.js?v=0.25.0';
 import {localFeaturePolicy} from './feature-policy.js?v=0.25.0';
 import {updateWorkerMessage} from './local-update-core.js?v=0.25.0';
@@ -12,6 +13,7 @@ export const dependencyPreferences=()=>({folderName});
 export function restoreDependencyPreferences(value){folderName=typeof value?.folderName==='string'?value.folderName.slice(0,200):'';}
 export async function readDependencyManifest(config,{storage=globalThis.caches,store=browserUpdateStore({base:scope}),fetcher=fetch,scopeURL=scope}={}){
  if(!/^[a-f0-9]{64}$/.test(config.manifest))throw Error('Invalid dependency manifest identity');
+ if(!config.offline)return createManifestLoader(new URL('dependency-manifest-'+config.manifest+'.json',scopeURL),config.manifest,{fetcher,cacheStorage:storage})();
  let response,identity;
  if(config.offline){
   identity=(await store.read()).active?.identity;
@@ -93,14 +95,14 @@ export async function retainedLocalImportHashes(storage,scopeURL,state){
  }
  return retained;
 }
-export function mountDependencyControls(document,config){
+export function mountDependencyControls(document,config,{manifest:verifiedManifest}={}){
  if((!config.enabled&&!config.offline)||document.getElementById('dependency-settings'))return;
  const fr=()=>document.documentElement.lang!=='en',t=(a,b)=>fr()?a:b;
  const entry=document.createElement('button');entry.id='dependency-settings';entry.type='button';
  document.querySelector('#settings-menu > div').append(entry);
  const dialog=document.createElement('dialog');dialog.id='dependency-dialog';
  dialog.innerHTML='<h2></h2><p class="dependency-description"></p><p class="dependency-folder"></p><div class="dependency-actions"></div><progress max="1" value="0" hidden></progress><p role="status" aria-live="polite"></p>';
- document.body.append(dialog);const actions=dialog.querySelector('.dependency-actions'),status=dialog.querySelector('[role=status]'),meter=dialog.querySelector('progress');let busy=false,controller,manifestPromise,localEntries=[];const importedChunks=new Set();
+ document.body.append(dialog);const actions=dialog.querySelector('.dependency-actions'),status=dialog.querySelector('[role=status]'),meter=dialog.querySelector('progress');let busy=false,controller,manifestPromise=verifiedManifest?Promise.resolve(verifiedManifest):null,localEntries=[];const importedChunks=new Set();
  const manifest=()=>manifestPromise??=readDependencyManifest(config).catch(e=>{manifestPromise=null;throw e;});
  const buttons=[];const add=(id,action)=>{const b=document.createElement('button');b.type='button';b.id=id;b.onclick=action;actions.append(b);buttons.push(b);return b;};
  const report=e=>{status.textContent=t('Impossible de terminer : ','Unable to finish: ')+(e.message||String(e));};

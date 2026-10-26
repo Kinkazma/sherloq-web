@@ -351,28 +351,59 @@ function offlineLauncherHTML({archivePath,manifest,shellSha256,version,port=8765
  return `<!doctype html><html lang="${fr?'fr':'en'}"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; base-uri 'none'; form-action 'none'"><title>SHERLOQ — ${fr?'hors ligne':'offline'}</title><style>body{max-width:52rem;margin:5vh auto;padding:2rem;background:#17191d;color:#eee;font:20px system-ui;line-height:1.5}a,button{display:inline-block;background:#326bb2;color:white;border:0;border-radius:.4rem;padding:.65rem 1rem;font:inherit;cursor:pointer}code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;background:#252932;padding:1rem}small{color:#bbb}</style><h1>SHERLOQ ${escapeHTML(version)}</h1><p>${fr?'Votre application locale. Les moteurs et leurs fichiers restent dans l’archive standard, sans connexion au site ou à GitHub.':'Your local application. Engines and their original files stay in the standard archive, without connecting to the site or GitHub.'}</p><p>${fr?'Archive enregistrée :':'Saved archive:'}</p><code>${escapeHTML(archivePath)}</code><p>${fr?'Placez le lanceur autonome SHERLOQ fourni avec le kit à côté de ce HTML, puis ouvrez-le. Il ouvre votre navigateur habituel et reste actif pendant les calculs. Aucun Python n’est nécessaire avec ce lanceur.':'Place the standalone SHERLOQ launcher supplied with the kit beside this HTML, then open it. It opens your usual browser and stays running during calculations. This launcher needs no Python.'}</p><details><summary>${fr?'Autre possibilité : lanceur Python':'Alternative: Python launcher'}</summary><p>${fr?'Au premier lancement, téléchargez le petit lanceur ci-dessous dans le même dossier que ce HTML. Python 3.10 ou plus récent doit être installé. Depuis ce dossier, exécutez :':'First, save the small launcher below beside this HTML. Python 3.10 or newer must be installed. From that folder, run:'}</p><code>python3 sherloq-local.py SHERLOQ.html</code><p>${fr?'Sous Windows, utilisez « py -3 » à la place de « python3 ». Gardez le lanceur ouvert pendant les calculs. Il ouvre automatiquement le navigateur ; les sessions suivantes utilisent la même commande.':'On Windows, use “py -3” instead of “python3”. Keep the launcher running during calculations. It opens the browser automatically; use the same command for later sessions.'}</p><button id="helper">${fr?'Télécharger le lanceur Python':'Download Python launcher'}</button></details><p><a href="${address}">${fr?'Ouvrir SHERLOQ local':'Open local SHERLOQ'}</a></p><p><small>${fr?'Le chemin mémorisé ne donne pas au navigateur le droit de lire le disque. Ce lanceur est nécessaire pour préserver tous les moteurs et la mémoire partagée. Aucun compte, cookie ni accès Internet n’est nécessaire. L’archive n’est pas extraite ni copiée en mémoire entière.':'A saved path does not grant browser disk access. The launcher preserves all engines and shared memory. No account, cookie or Internet access is required. The archive is not extracted or loaded entirely into RAM.'}</small></p><script id="sherloq-offline-config" type="application/json">${data}</script><script>${helperScript}</script></html>`;
 }
 
+// Only small startup metadata uses this deadline. Scientific resources and
+// calculations keep their own download, cancellation and ownership protocols.
+async function metadataDeadline(operation,timeoutMs,onTimeout){
+ let timer;
+ try{return await Promise.race([Promise.resolve().then(operation),new Promise((_,reject)=>{timer=setTimeout(()=>reject(onTimeout()),timeoutMs);})]);}
+ finally{clearTimeout(timer);}
+}
+async function optionalBootstrapCache(operation,{timeoutMs=1000}={}){
+ // Cache Storage is optional. A suspended open/read/write must not prevent a
+ // verified HTTP result from starting the application. Late immutable writes
+ // remain safe, even where the storage API cannot cancel an outstanding call.
+ try{return await metadataDeadline(operation,timeoutMs,()=>Error('Startup cache unavailable'));}catch{return undefined;}
+}
+async function readBootstrapBytes(url,{fetcher=fetch,timeoutMs=30000,maxBytes=8_000_000}={}){
+ const controller=new AbortController();
+ return metadataDeadline(async()=>{
+  const response=await fetcher(url,{cache:'no-cache',signal:controller.signal});
+  if(!response.ok)throw Object.assign(Error('Startup metadata unavailable: HTTP '+response.status),{status:response.status,url:String(url),responseURL:response.url});
+  const bytes=await response.arrayBuffer();
+  if(bytes.byteLength>maxBytes)throw Object.assign(Error('Startup metadata exceeds the supported size'),{url:String(url)});
+  return bytes;
+ },timeoutMs,()=>{
+  const error=Object.assign(Error('Startup metadata download timed out'),{code:'DEPENDENCY_METADATA_TIMEOUT',url:String(url),timeoutMs});
+  controller.abort(error);return error;
+ });
+}
+
 
 // Immutable manifests outlive a WordPress directory replacement. Keep a
 // verified copy independently of the downloaded libraries, and never latch a
 // temporary fetch failure for the lifetime of the service worker.
-function createManifestLoader(url,identity,{fetcher=fetch,cacheStorage=globalThis.caches}={}){
+function createManifestLoader(url,identity,{fetcher=fetch,cacheStorage=globalThis.caches,cacheTimeoutMs=1000,networkTimeoutMs=30000}={}){
  let pending;
  const verify=async response=>{
   if(!response.ok)throw Object.assign(Error('Dependency manifest unavailable: HTTP '+response.status),{status:response.status,url:String(url)});
   const bytes=await response.arrayBuffer();
+  if(bytes.byteLength>8_000_000)throw Error('Dependency manifest exceeds the supported size');
   if(await sha256(bytes)!==identity)throw Error('Dependency manifest integrity failure');
   return {bytes,manifest:validateManifest(JSON.parse(new TextDecoder().decode(bytes)))};
  };
  return ()=>pending??=(async()=>{
-  let cache;try{cache=await cacheStorage?.open('sherloq-dependency-manifests-v1');}catch{}
-  let cause;
-  try{
-   const verified=await verify(await fetcher(url,{cache:'no-cache'}));
-   try{await cache?.put(url,new Response(verified.bytes,{headers:{'Content-Type':'application/json'}}));}catch{}
-   return verified.manifest;
-  }catch(error){cause=error;}
-  try{const saved=await cache?.match(url);if(saved)return (await verify(saved)).manifest;}catch{}
-  throw cause;
+  let cache;
+  // The URL and SHA identify immutable bytes. A verified retained copy needs
+  // no network freshness check, including after the worker has been suspended.
+  // An absent, unreadable or corrupt copy still takes the original HTTP path.
+  const saved=await optionalBootstrapCache(async()=>{
+   cache=await cacheStorage?.open('sherloq-dependency-manifests-v1');
+   const response=await cache?.match(url);return response?verify(response):undefined;
+  },{timeoutMs:cacheTimeoutMs});
+  if(saved)return saved.manifest;
+  const verified=await verify(new Response(await readBootstrapBytes(url,{fetcher,timeoutMs:networkTimeoutMs})));
+  await optionalBootstrapCache(()=>cache?.put(url,new Response(verified.bytes,{headers:{'Content-Type':'application/json'}})),{timeoutMs:cacheTimeoutMs});
+  return verified.manifest;
  })().catch(error=>{pending=null;throw error;});
 }
 

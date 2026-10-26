@@ -1,4 +1,3 @@
-import {createBatchScopeEditor} from './batch-scope-editor.js?v=0.25.0';
 import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.25.0';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
 import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.25.0';
@@ -13,10 +12,7 @@ import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.25.0';
 import {bindDocumentResize} from './document-resize.js?v=0.25.0';
 import {toolGroups} from './tool-tree.js?v=0.25.0';
 import {isExperimentalTool} from './extension-tools.js?v=0.25.0';
-import {mountAnalysisPanel} from './app.js?v=0.25.0';
 import {createWorkspaceState} from './workspace-state.js?v=0.25.0';
-import {createWorkspaceEnginePool} from './workspace-engine-pool.js?v=0.25.0';
-import {createOriginalSourceRegionsController} from './original-source-regions-controller.js?v=0.25.0';
 import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.25.0';
 import {createDownloadShelf} from './download-shelf.js?v=0.25.0';
 import {mountSessionControls} from './session-ui.js?v=0.25.0';
@@ -25,12 +21,24 @@ import {dependencyPreferences,restoreDependencyPreferences} from './dependency-l
 import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.25.0';
 import {localFeaturePolicy} from './feature-policy.js?v=0.25.0';
 
-export function mountWorkspace(document=globalThis.document,{panelFactory=mountAnalysisPanel,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.25.0')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.25.0')).mountPdfReader(options),originalRegionsFactory=createOriginalSourceRegionsController}={}) {
+export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.25.0')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.25.0')).mountPdfReader(options),originalRegionsFactory}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
 const downloadShelf=createDownloadShelf({document,parent:$('toolbox'),before:$('toolbox').querySelector('.navigation-tools'),language:()=>state.language,onError:error=>notify(error.message)});
 mountSessionControls(document,{download});
-const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id)),engineFactory=createWorkspaceEnginePool();
+const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id));
+// The empty workspace needs no analysis client, source editor or worker pool.
+// Keep the existing synchronous factories once their shared module graph is ready.
+let runtimeReady,engineFactory,createBatchScopeEditor;
+function ensureRuntime(){return runtimeReady??=Promise.all([
+ import('./app.js?v=0.25.0'),
+ import('./workspace-engine-pool.js?v=0.25.0'),
+ import('./batch-scope-editor.js?v=0.25.0'),
+ import('./original-source-regions-controller.js?v=0.25.0')
+]).then(([panel,pool,editor,regions])=>{
+ panelFactory??=panel.mountAnalysisPanel;originalRegionsFactory??=regions.createOriginalSourceRegionsController;
+ createBatchScopeEditor=editor.createBatchScopeEditor;engineFactory=pool.createWorkspaceEnginePool();
+});}
 const labels={
  fr:{batch:'Traitement par lot',file:'Fichier',open:'Ouvrir une image…',tools:'Outils',tile:'Mosaïque',cascade:'Cascade',tabs:'Onglets',closeAll:'Tout fermer',settings:'Réglages',quickExport:'Export rapide',exportImage:'Exporter l’image affichée…',exportReport:'Exporter le rapport…',saveSession:'Exporter la session…',restoreSession:'Restaurer une session…',exportSettings:'Exporter les réglages…',importSettings:'Rappeler les réglages…',compute:'Calcul',maximum:'Maximum utile',aggressive:'Agressif',navigation:'Navigation',automatic:'Automatique',mouse:'Souris',highlight:'Signaler les nouveaux outils',allSliders:'Tout en curseurs',experimental:'Activer les outils expérimentaux',experimentalDisabled:'Activez les outils expérimentaux dans les réglages pour utiliser cet outil.',about:'À propos',availability:'Je suis heureux de mettre cette application à la disposition de tous, gratuitement et sans limite de durée d’utilisation.',privacy:'Vos images et résultats restent dans ce navigateur. Aucun envoi d’image ni suivi d’utilisation par cette application.',welcome:'Ouvrez ou glissez une image pour commencer.',fit:'Ajuster',cancel:'Annuler',closeHint:'Fermer toutes les analyses et arrêter leurs calculs ? L’image originale, les réglages et les favoris seront conservés.',closeConfirm:'Fermer les analyses',ready:'Prêt.',loading:'Chargement…',favorites:'Favoris',addFavorite:'Ajouter aux favoris',removeFavorite:'Retirer des favoris',close:'Fermer',background:'calcul(s) dans les autres onglets',busyClose:'Cet onglet calcule encore. Le fermer arrêtera son calcul. Continuer ?',replace:'Ouvrir une nouvelle image fermera les analyses de l’image actuelle. Continuer ?',invalid:'Fichier de réglages invalide.',busySettings:'Les réglages pourront être rappelés après les calculs en cours.',loadedSettings:'Réglages rappelés.',sessionImage:'Ouvrez maintenant l’image originale de cette session.',missingImage:'Cette session appartient à une autre image.'},
  en:{batch:'Batch processing',file:'File',open:'Open image…',tools:'Tools',tile:'Tile',cascade:'Cascade',tabs:'Tabs',closeAll:'Close all',settings:'Settings',quickExport:'Quick export',exportImage:'Export displayed image…',exportReport:'Export report…',saveSession:'Export session…',restoreSession:'Restore session…',exportSettings:'Export settings…',importSettings:'Recall settings…',compute:'Computation',maximum:'Maximum useful',aggressive:'Aggressive',navigation:'Navigation',automatic:'Automatic',mouse:'Mouse',highlight:'Highlight new tools',allSliders:'Sliders everywhere',experimental:'Enable experimental tools',experimentalDisabled:'Enable experimental tools in Settings to use this tool.',about:'About',availability:'I am happy to make this application available to everyone, free of charge and without a usage time limit.',privacy:'Your images and results stay in this browser. This application does not upload images or track usage.',welcome:'Open or drop an image to begin.',fit:'Fit',cancel:'Cancel',closeHint:'Close all analyses and stop their calculations? The original image, settings and favorites will be kept.',closeConfirm:'Close analyses',ready:'Ready.',loading:'Loading…',favorites:'Favorites',addFavorite:'Add to favorites',removeFavorite:'Remove from favorites',close:'Close',background:'calculation(s) in other tabs',busyClose:'This tab is still calculating. Closing it will stop its calculation. Continue?',replace:'Opening a new image will close the current image analyses. Continue?',invalid:'Invalid settings file.',busySettings:'Recall settings after the running calculations finish.',loadedSettings:'Settings restored.',sessionImage:'Now open this session’s original image.',missingImage:'This session belongs to another image.'}
@@ -42,7 +50,8 @@ let computeProfile='maximum',navigationMode='auto',highlight=false,allSliders=tr
 const hoverSliders=installHoverSliders({root:document,enabled:false,language:()=>state.language});
 const scopeFallbackUI=createWholeSourceFallbackUI({document,language:()=>state.language,getPreferences:()=>scopeFallbacks,setPreferences:value=>{scopeFallbacks=validateWholeSourceFallbacks(value);savePreferences();},toolLabel:id=>tools.find(t=>t.id===id)?.[state.language]??id});
 const scopeFallbackSettingsButton=button(state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…',()=>{closeMenus();scopeFallbackUI.configure();});$('import-settings').after(scopeFallbackSettingsButton);
-const template=fetcher(new URL('./panel.html?v=0.25.0',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
+let templateReady;
+const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.25.0',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
 function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,allSliders,experimentalTools,scopeFallbacks:validateWholeSourceFallbacks(scopeFallbacks),...media,dependencies:dependencyPreferences()};}
 function setMedia(next){if(!applyingLoupeStep)stepPlayback.reset();media=validateMediaPreferences(next);applyMedia();savePreferences();}
 const comparisonKeys=new Set();let comparisonController=null;let pinnedController=null;
@@ -156,7 +165,7 @@ function createEntry(id,{pdf=false}={}){
    if(record.closed){await controller.dispose();return null;}record.controller=controller;record.loading=false;controller.setTheme?.(theme);controller.setNavigation?.(navigationMode);controller.setLoupe?.(media.loupe);scheduleRender();return controller;
   });return record;
  }
- record.ready=template.then(nodes=>{
+ record.ready=Promise.all([template(),ensureRuntime()]).then(([nodes])=>{
   if(record.closed||record.generation!==generation)return null;
   const root=panel.attachShadow({mode:'open'});
   for(const name of ['app.css','tool-workspace.css','panel.css']){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(name,import.meta.url).href;link.onload=()=>record.controller?.fit();root.append(link);}
@@ -240,7 +249,7 @@ async function openImage(file,{preservePdfs=true,confirmReplace=true}={}){
  catch(error){record.loading=false;notify(error.message);}
 }
 function pickImage(){closeMenus();$('image-file').value='';$('image-file').click();}
-async function ensureBatch(){if(!batchUI){batchOpening??=Promise.resolve().then(()=>batchFactory({scopeEditorFactory:placementScopeEditor,document,download,language:()=>state.language,computeProfile:()=>computeProfile,getNavigationMode:()=>navigationMode,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);await batchOpening;}return batchUI;}
+async function ensureBatch(){if(!batchUI){batchOpening??=ensureRuntime().then(()=>batchFactory({scopeEditorFactory:placementScopeEditor,document,download,language:()=>state.language,computeProfile:()=>computeProfile,getNavigationMode:()=>navigationMode,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);await batchOpening;}return batchUI;}
 async function openOriginalInBatch(record,snapshot){await record.originalRegions.ready;if(record.closed||record!==sourceEntry)throw Error('The original source is no longer open.');const input=record.controller.input(),verified=await validateOriginalSourceRegions(snapshot,{sourceSha256:input.hash,width:input.source.width,height:input.source.height}),batch=await ensureBatch();if(typeof batch.importSource!=='function')throw Object.assign(Error(state.language==='fr'?'Le transfert des zones vers le lot n’est pas encore disponible.':'Source-region batch transfer is not available yet.'),{code:'BATCH_SOURCE_REGIONS_NOT_READY'});await batch.importSource({file:input.file,sourceRegions:verified});batch.open();}
 if($('batch-open'))$('batch-open').onclick=async()=>{closeMenus();try{(await ensureBatch()).open();}catch(error){notify(error.message);}};
 
