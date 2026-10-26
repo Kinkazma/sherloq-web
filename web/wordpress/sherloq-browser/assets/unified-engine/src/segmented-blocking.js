@@ -1,5 +1,6 @@
-import "../../runtime-context.js?v=0.24.0";
-import {WaveletStripPool} from './wavelet-strip-pool.js';
+import "../../runtime-context.js?v=0.25.0";
+import {ownFileGrayCleanup} from './file-gray-retirement.js';
+import {WaveletStripPool,retireWaveletPlans,appendWaveletCleanup} from './wavelet-strip-pool.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {blockingParams} from './wavelet-blocking.js';
 import {waveletStreamMath,waveletStreamHeapBytes} from './wavelet-stream-math.js';
@@ -15,29 +16,45 @@ import {gray} from './pixel-utils.js';
 import {createSourceRegionGray} from './source-region-gray.js';
 
 async function blockingGraySource(image,options,{budget,signal,block,progress}){
- if(image.originalSource)return createSourceRegionGray(image,original=>blockingGraySource(original,options,{budget,signal,block,progress}),{signal});
+ if(image.originalSource)return createSourceRegionGray(image,original=>blockingGraySource(original,options,{budget,signal,block,progress}),{signal,budget});
  if(!image.source)return null;
  const png=image.provenance?.format==='png';
  if(image.provenance?.format==='tiff')throw new EngineError('UNSUPPORTED_FORMAT','Original-file TIFF grayscale streaming for block-noise analysis is not yet qualified.');
  const header=png?(await inspectPngSource(image.source,{signal,account:bytes=>budget.reserve(bytes)})).header:await inspectJpegBlob(image.source,{signal});
- const store=await createSegmentedBytes(header.sourceWidth*header.sourceHeight,options);
+ let store,surface;const owner=ownFileGrayCleanup(image,{budget,cleanup:async()=>{if(surface){await surface.dispose();surface=null;store=null;}else if(store){await store.dispose();store=null;}}});
  try{
+  store=await createSegmentedBytes(header.sourceWidth*header.sourceHeight,options);
   if(png)await decodePngRows(image.source,header,store,{budget,signal,grayscale:true,onProgress:f=>progress('file-gray',f,1)});
   else await decodeJpegGrayRows(image.source,header,store,{budget,signal,chunkBytes:Math.max(header.sourceWidth,Math.min(4*1024**2,block)),onProgress:f=>progress('file-gray',f,1)});
-  return createMaskSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget,range:[0,255],semantics:png?'Original PNG grayscale, native libpng coefficients and truncation':'Original JPEG grayscale ISLOW'});
- }catch(error){await store.dispose();throw error;}
+  surface=createMaskSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget,range:[0,255],semantics:png?'Original PNG grayscale, native libpng coefficients and truncation':'Original JPEG grayscale ISLOW'});return {...surface,async readWindow(...args){return owner.read(()=>surface.readWindow(...args));},dispose(){return owner.retire();}};
+ }catch(error){return owner.fail(error);}
 }
 
-export async function segmentedBlocking(image,params,{budget,signal,onProgress,cache,blockPixels=65536,storage='auto',profile={}}={}){
- const pool=new WaveletStripPool(budget,{...profile,adaptive:image.blockingScheduling??=(new Map())});
- const p=blockingParams(params),{width,height}=image.surface.descriptor,owned=new Set();let output,graySurface,newCache,noise,workspace;
+const WORKER_OWNER=Symbol('blocking-cache-workers');
+const WORKER_CONFIG=['workerFactory','workerURL','workerHeapBytes','workerPixelBytes'];
+export function blockingWorkerOwnership(cache,{budget,profile={}}={}){const owner=cache?.[WORKER_OWNER];return Object.freeze({owner,pool:owner?.pool,compatible:!!owner&&owner.budget===budget&&WORKER_CONFIG.every(key=>owner.config[key]===profile[key])});}
+
+export async function segmentedBlocking(image,params,{budget,signal,onProgress,cache,blockPixels=65536,storage='auto',profile={},accountedHeapBytes=0}={}){
+ // The scientific cache owns only compatible idle endpoints. They remain
+ // admitted and reclaimable; releasing the cache also stops its workers.
+ const previousOwner=cache?.[WORKER_OWNER],compatible=previousOwner?.budget===budget&&WORKER_CONFIG.every(key=>previousOwner.config[key]===profile[key]),pool=compatible?previousOwner.pool:new WaveletStripPool(budget,{...profile,adaptive:image.blockingScheduling??=(new Map())});
+ pool.maximum=profile.maxWorkers??globalThis.navigator?.hardwareConcurrency??1;
+ pool.resourceOwner=profile.resourceOwner??'transform';pool.resourceOperation=profile.resourceOperation;
+ let keepPool=false;
+ const p=blockingParams(params),{width,height}=image.surface.descriptor,owned=new Set();let output,graySurface,newCache,noise,workspace,candidateSurface,candidateTable,returning=false,failed=false,primary;
+
  requireValue(Number.isInteger(blockPixels)&&blockPixels>0&&blockPixels<=262144,'Invalid blocking strip size.');
- const room=budget.limit-budget.retained-budget.active,heap=Math.max(8*1024**2,waveletStreamHeapBytes()),block=Math.min(blockPixels,Math.floor((room-heap-4*1024**2)/128));
+ // Only this pool's already-admitted idle reservations may be reclaimed for
+ // planning. Actual staging still passes through budget.reserve(), which
+ // retires idle endpoints before allocating; no live bytes are credited twice.
+ const idleBytes=[...pool.workers.values()].filter(slot=>!slot.busy&&!slot.retirement).reduce((n,slot)=>n+slot.bytes,0);
+ const nativeHeap=Math.max(8*1024**2,waveletStreamHeapBytes());requireValue(Number.isSafeInteger(accountedHeapBytes)&&accountedHeapBytes>=0&&accountedHeapBytes<=nativeHeap,'Invalid already accounted blocking heap.');const room=budget.limit-budget.retained-budget.active+idleBytes,heap=nativeHeap-accountedHeapBytes,block=Math.min(blockPixels,Math.floor((room-heap-4*1024**2)/128));
  if(block<Math.max(width,height,p.block*p.block))throw new EngineError('MEMORY_LIMIT','One complete db8 axis and one noise block must fit.');
  const options={budget,signal,storage:storage==='auto'&&(image.ensureTemporarySession||image.session)&&width*height*27>room-heap-block*128?'temporary':storage,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,chunkBytes:Math.max(8192,block*8)};
  const plane=async(w,h)=>{const value=await createFloatPlane(w,h,options);owned.add(value);return value;};
- const drop=async value=>{if(owned.delete(value))await value.dispose();};
+ const drop=async value=>{if(owned.has(value)){await value.dispose();owned.delete(value);}};
  const progress=(phase,completed,total)=>onProgress?.({phase,completed,total});
+ const cleanupOwner=pool.ownCleanup(async capture=>{if(graySurface){await graySurface.dispose();graySurface=null;}await retireWaveletPlans(owned,capture);if(!returning){if(candidateSurface){await candidateSurface.dispose();candidateSurface=null;}if(output){await output.dispose();output=null;}if(candidateTable){await candidateTable.dispose();candidateTable=null;}await newCache?.dispose();}if(workspace){workspace();workspace=null;}});
  try{
   let sourceMode=cache?.sourceMode??'loaded image grayscale',sourceDimensions=cache?.sourceDimensions??[width,height];
   if(!cache&&(image.source||image.originalSource)){
@@ -58,7 +75,7 @@ export async function segmentedBlocking(image,params,{budget,signal,onProgress,c
     });
     await drop(input);input=next;
    }
-   let disposed=false;newCache={detail:input,sourceMode,sourceDimensions,async dispose(){if(disposed)return;disposed=true;await input.dispose();}};cache=newCache;
+   const detailOwner=pool.ownCleanup(()=>input.dispose());newCache={detail:input,sourceMode,sourceDimensions,[WORKER_OWNER]:{budget,pool,config:Object.fromEntries(WORKER_CONFIG.map(key=>[key,profile[key]]))},dispose(){return detailOwner.retire({endpoints:true});}};owned.delete(input);cache=newCache;
   }
   const detail=cache.detail;requireValue(p.block<=Math.min(detail.width,detail.height),'Block size exceeds native detail dimensions.');
   const nw=Math.floor(detail.width/p.block),nh=Math.floor(detail.height/p.block);noise=await plane(nw,nh);let lo=Infinity,hi=-Infinity;
@@ -74,7 +91,8 @@ export async function segmentedBlocking(image,params,{budget,signal,onProgress,c
    if(sy!==previous){row=math.normalize(await noise.read(0,sy,nw,1,{signal}),lo,hi,nw*nh);previous=sy;}
    const bytes=new Uint8Array(width*3);for(let x=0;x<width;x++)bytes.fill(row[Math.min(nw-1,Math.floor(x*(1/(width/nw))))],x*3,x*3+3);await output.write(bytes,y*width*3);progress('render',y+1,height);
   }
-  await output.flush();checkAbort(signal);const surface=createRgbSurface(output,{width,height,budget});output=null;const table=createNoiseTable(noise,{budget,block:p.block});owned.delete(noise);if(newCache)owned.delete(cache.detail);
+  await output.flush();checkAbort(signal);const surface=createRgbSurface(output,{width,height,budget});candidateSurface=surface;output=null;const table=createNoiseTable(noise,{budget,block:p.block});candidateTable=table;owned.delete(noise);if(newCache)owned.delete(cache.detail);
+  keepPool=cache[WORKER_OWNER]?.pool===pool;returning=true;
   return {surface,blockingCache:cache,tableRecords:{noise:{surface:table}},data:{width,height,sourceMode,sourceDimensions,detailDimensions:[detail.width,detail.height],block:p.block,rows:nh,cols:nw},semantics:'Original file grayscale, complete global db8 axes, block median(abs(detail)) / 0.6745 and global CV_8U normalization with nearest-neighbor display.',metrics:{...pool.metrics(),blockPixels:block,detailCached:!newCache,globalMinimum:lo,globalMaximum:hi}};
- }catch(error){await output?.dispose();throw error;}finally{pool.clear();await graySurface?.dispose();await Promise.all([...owned].map(value=>value.dispose()));workspace?.();}
+ }catch(error){failed=true;primary=error;throw error;}finally{try{await cleanupOwner.retire({endpoints:!keepPool});}catch(cleanup){returning=false;if(failed)appendWaveletCleanup(primary,cleanup);else throw cleanup;}}
 }

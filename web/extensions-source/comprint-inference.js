@@ -21,7 +21,7 @@ export async function inferTiled(prepared,{inferTile,coreSize=512,concurrency=1,
     const values=response.data??response.tensor?.data;if(!(values instanceof Float32Array)||values.length!==w*h)throw Error('Comprint network returned wrong tile geometry');
     const ox=tile.x-x0,oy=tile.y-y0;
     for(let y=0;y<tile.h;y++)out.set(values.subarray((oy+y)*w+ox,(oy+y)*w+ox+tile.w),(tile.y+y)*width+tile.x);
-   }finally{response.release?.();}
+   }finally{await response.release?.();}
    onProgress?.({phase:'comprint-network',completed:++completed,total:tiles.length});
   }
  });
@@ -72,8 +72,8 @@ export async function runComprintFingerprintSource(source,{infer,asset='models/c
       const begin=(oy+row)*rect.width+ox,at=(tile.y+row)*width+tile.x;
       fingerprint.set(values.subarray(begin,begin+tile.w),at);luminance.set(prepared.luminance.subarray(begin,begin+tile.w),at);
      }
-    }finally{outputs.release?.();}
-   }finally{window.release?.();}
+    }finally{await outputs.release?.();}
+   }finally{await window.release?.();}
    onProgress?.({phase:'comprint-network',completed:++completed,total:tiles.length});
   }
  });

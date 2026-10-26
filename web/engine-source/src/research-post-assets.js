@@ -1,1 +1,1 @@
-export const RESEARCH_POST_WASM=Object.freeze({"bytes": 17212, "sha256": "00c3d2ff841401b879a0bdad5a33f1f3d7bf829df9d81e71b1622440805b853c"});
+export const RESEARCH_POST_WASM=Object.freeze({"bytes": 19454, "sha256": "c5b80335d6d7e482b4e30d56e21e0c92bdf87e572ec0635fc34e935951c5cb0c"});

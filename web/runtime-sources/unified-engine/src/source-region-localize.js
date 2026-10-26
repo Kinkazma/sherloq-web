@@ -1,4 +1,9 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.25.0";
+import {certifyNativeRequestedGeometry} from './source-region-requested-geometry.js';
+import {strictSparseDefaultTask} from './sparse-strict-defaults.js';
+import {strictDenseDefaultTask} from './dense-strict-contexts.js';
+import {localizeFragmentedResampling} from './source-region-resampling-localize.js';
+import {nativeSourceRegionMembership,nativeSourceRegionCandidateExclusions,nativeSourceRegionDefaultRegions} from './source-region-native-regions.js';
 import {isSourceRegionNeuralOperation,localizeNeuralSourceRegionTask} from './source-region-neural-localize.js';
 import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 import {magnifierParams} from './magnifier.js';
@@ -21,7 +26,7 @@ export function sourceRegionCoordinateBytes(task){
  return bytes;
 }
 async function localizeMagnifier(task,domain,{signal}={}){
- checkAbort(signal);if(sourceRegionDomainShape(domain)!=='rectangle')throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','A magnifier source crop requires a completely admitted native rectangle.');sourceRegionCoordinateBytes(task);
+ checkAbort(signal);if(!['rectangle','native-regions','membership'].includes(sourceRegionDomainShape(domain)))throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','A magnifier source crop requires a nonempty qualified native domain.');sourceRegionCoordinateBytes(task);
  const p=magnifierParams(task.params),existing=task.sourceRegionLocalization,already=existing?.coordinates==='source-region-native';
  if(existing&&(!already||existing.schema!==schema||existing.operation!=='inspection.magnifier'||existing.domainFingerprint!==domain.fingerprint||existing.originalSha256!==domain.sourceSha256||existing.width!==domain.width||existing.height!==domain.height||existing.origin?.[0]!==domain.origin[0]||existing.origin?.[1]!==domain.origin[1]||existing.originalGrid?.[0]!==domain.sourceWidth||existing.originalGrid?.[1]!==domain.sourceHeight))throw fail('A localized magnifier belongs to another original-source domain.');
  const originalBounds=already?existing.originalBounds:p.bounds?.slice()??null;
@@ -48,9 +53,20 @@ async function localizeResampling(task,domain,{signal}={}){
 /** Translation is deliberately not an approximate polygon clipping operation.
  * Concave/cross-boundary polygons keep every vertex and exclusion; only the
  * available native image grid is cropped. Holes need a different input adapter. */
-export async function localizeSourceRegionTask(task,domain,{signal}={}){
- const shape=sourceRegionDomainShape(domain);if(shape==='identity')return task;if(task.operation==='inspection.magnifier')return localizeMagnifier(task,domain,{signal});if(['tampering.resampling','tampering.resampling.fourier'].includes(task.operation))return localizeResampling(task,domain,{signal});if(isSourceRegionNeuralOperation(task.operation)){if(shape!=='rectangle')throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','Neural and automatic source adapters require a completely admitted native rectangle.');sourceRegionCoordinateBytes(task);return localizeNeuralSourceRegionTask(task,domain,{signal,localizeScopeTask:input=>localizeSourceRegionTask(input,domain,{signal})});}if(!operations.has(task.operation))return task;
- if(shape!=='rectangle')throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','Native clone polygon localization requires a fully admitted rectangular source.');
+export async function localizeSourceRegionTask(task,domain,{signal,strictNeuralFragments=false,strictDenseFragments=false,strictSparseFragments=false,strictAutomaticFragments=false}={}){
+ const shape=sourceRegionDomainShape(domain);if(shape==='identity')return task;if(task.operation==='inspection.magnifier')return localizeMagnifier(task,domain,{signal});if(['tampering.resampling','tampering.resampling.fourier'].includes(task.operation))return shape==='rectangle'?localizeResampling(task,domain,{signal}):localizeFragmentedResampling(task,domain,{signal});if(isSourceRegionNeuralOperation(task.operation)){if(!['rectangle','native-regions'].includes(shape)&&!(((strictNeuralFragments===true&&['ai.clones.d2prl','ai.clones.segmentation'].includes(task.operation))||(strictAutomaticFragments===true&&['analysis.clones','analysis.complete'].includes(task.operation)))&&shape==='membership'))throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','Neural and automatic source adapters require an admitted rectangle or native rectangular acquisitions without explicit source exclusions.');sourceRegionCoordinateBytes(task);return localizeNeuralSourceRegionTask(task,domain,{signal,strictNeuralFragments:strictNeuralFragments===true||strictAutomaticFragments===true&&['analysis.clones','analysis.complete'].includes(task.operation),nativeRegions:shape==='native-regions',localizeScopeTask:input=>localizeSourceRegionCoordinates(input,domain,{signal,nativeRegions:shape==='native-regions'})});}if(!operations.has(task.operation))return task;
+ if(task.operation==='tampering.copyMove.sparse'&&strictSparseFragments===true&&shape==='membership'){
+  const localized=await localizeSourceRegionCoordinates(task,domain,{signal,nativeRegions:false});
+  return strictSparseDefaultTask(localized,domain,{signal});
+ }
+ if(task.operation==='tampering.copyMove.dense'&&strictDenseFragments===true&&shape==='membership'){
+  const localized=await localizeSourceRegionCoordinates(task,domain,{signal,nativeRegions:false});
+  return strictDenseDefaultTask(localized,domain,{signal});
+ }
+ if(!['rectangle','native-regions'].includes(shape))throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','Native clone polygon localization requires an admitted rectangle or native rectangular acquisitions without explicit source exclusions.');
+ return localizeSourceRegionCoordinates(task,domain,{signal,nativeRegions:shape==='native-regions',certifyNativeParameters:operations.has(task.operation)});
+}
+async function localizeSourceRegionCoordinates(task,domain,{signal,nativeRegions=false,certifyNativeParameters=false}={}){
  checkAbort(signal);sourceRegionCoordinateBytes(task);const existing=task.sourceRegionLocalization,already=existing?.coordinates==='source-region-native';
  if(existing&&(!already||existing.schema!==schema||existing.domainFingerprint!==domain.fingerprint||existing.originalSha256!==domain.sourceSha256||existing.width!==domain.width||existing.height!==domain.height||existing.origin?.[0]!==domain.origin[0]||existing.origin?.[1]!==domain.origin[1]))throw fail('A localized scientific task belongs to another original-source domain.');
  const shift=already?[0,0]:domain.origin;let points=0;
@@ -65,8 +81,18 @@ export async function localizeSourceRegionTask(task,domain,{signal}={}){
   if(!value||typeof value!=='object')throw fail('Invalid native scientific region.');const out={...value},rect=box([value.x0,value.y0,value.x1,value.y1]);[out.x0,out.y0,out.x1,out.y1]=rect;if(value.polygon)out.polygon=await polygon(value.polygon);if(value.bounds)out.bounds=box(value.bounds);return out;
  }
  async function regions(value){if(!Array.isArray(value))throw fail('Native scientific regions must be an explicit list.');const out=[];for(const item of value)out.push(await region(item));return out;}
- const out={...task,params:{...task.params}},geometry={};
+ const out={...task,params:{...task.params}},geometry={};let nativeParameterExclusions,nativeParameterGeometry=already?structuredClone(existing.nativeParameterGeometry):undefined;
  for(const name of ['regions','excluded','guides'])if(present(task.params?.[name]))geometry[name]=out.params[name]=await polygons(task.params[name]);
+ if(nativeRegions&&operations.has(task.operation)){const membership=nativeSourceRegionMembership(domain),regions=nativeSourceRegionDefaultRegions(membership),complement=nativeSourceRegionCandidateExclusions(membership);
+  if(!out.params.regions?.length){out.params.regions=regions.map(r=>r.polygon);if(out.params.regions.length>1&&!out.params.compare)out.params.regions.push([[0,0],[domain.width,0],[domain.width,domain.height],[0,domain.height]]);}
+  if(certifyNativeParameters){const certificate=already?existing.nativeParameterExclusions:null;
+  if(certificate&&certificate.schema!=='sherloq.native-acquisition-parameter-exclusions/1')throw fail('Invalid native acquisition exclusion certificate.');
+  const original=certificate?await polygons(certificate.original):already?(out.params.excluded??[]).map(poly=>poly.map(([x,y])=>[x+domain.origin[0],y+domain.origin[1]])):structuredClone(task.params?.excluded??[]),provided=original.map(poly=>poly.map(([x,y])=>[x-domain.origin[0],y-domain.origin[1]])),providedKeys=new Set(provided.map(poly=>JSON.stringify(poly))),generated=complement.filter(poly=>!providedKeys.has(JSON.stringify(poly))),merged=[...new Map([...provided,...complement].map(poly=>[JSON.stringify(poly),poly])).values()];
+  if(certificate&&(JSON.stringify(certificate.generated)!==JSON.stringify(generated)||JSON.stringify(out.params.excluded??[])!==JSON.stringify(merged)))throw fail('Native candidate-only exclusion certificate differs from the original acquisition domain or explicitly supplied exclusions.');
+  nativeParameterExclusions={schema:'sherloq.native-acquisition-parameter-exclusions/1',original,generated:structuredClone(generated)};out.params.excluded=merged;}else out.params.excluded=[...new Map([...(out.params.excluded??[]),...complement].map(poly=>[JSON.stringify(poly),poly])).values()];
+  if(!out.params.guides?.length&&!out.params.compare)out.params.guides=regions.map(r=>r.polygon);
+  nativeParameterGeometry=certifyNativeRequestedGeometry(task,out.params,domain,{already,defaultRegions:regions});
+ }
  let scoped;
  if(task.scientificScope){
   const input=task.scientificScope;
@@ -74,7 +100,8 @@ export async function localizeSourceRegionTask(task,domain,{signal}={}){
   scoped={...input,width:domain.width,height:domain.height,regions:await regions(input.regions),excluded:await polygons(input.excluded)};
   if(input.searchRegions)scoped.searchRegions=await regions(input.searchRegions);
   if(input.text){scoped.text={...input.text};if(input.text.polygons)scoped.text.polygons=await polygons(input.text.polygons);if(input.text.detections){scoped.text.detections=[];for(const detection of input.text.detections){const next={...detection};if(detection.polygon)next.polygon=await polygon(detection.polygon);if(detection.bounds)next.bounds=box(detection.bounds);if(detection.rectangle)next.rectangle=box(detection.rectangle);scoped.text.detections.push(next);}}}
-  const key=['localized-scientific-scope/1',already?existing.originalScopeFingerprint:input.fingerprint,domain.fingerprint,domain.sourceSha256,domain.width,domain.height,scoped.regions,scoped.searchRegions,scoped.excluded,scoped.text?.status,scoped.text?.polygons,scoped.models];
+  if(nativeRegions){const expected=nativeSourceRegionMembership(domain);if(already&&JSON.stringify(input.nativeSourceRegions)!==JSON.stringify(expected))throw fail('Localized native acquisition membership differs from the original-source domain.');scoped.nativeSourceRegions=expected;scoped.excluded=[...new Map([...scoped.excluded,...nativeSourceRegionCandidateExclusions(expected)].map(poly=>[JSON.stringify(poly),poly])).values()];}
+  const key=['localized-scientific-scope/1',already?existing.originalScopeFingerprint:input.fingerprint,domain.fingerprint,domain.sourceSha256,domain.width,domain.height,scoped.regions,scoped.searchRegions,scoped.excluded,scoped.text?.status,scoped.text?.polygons,scoped.models,...(nativeRegions?[scoped.nativeSourceRegions]:[])];
   const fingerprint=await digest(key);if(already&&input.fingerprint!==fingerprint)throw fail('Localized scientific scope fingerprint does not match its geometry.');scoped.fingerprint=fingerprint;scoped.sourceRegionDomain=domain.descriptor;scoped.sourceRegionOrigin=[...domain.origin];
   scoped.sourceRegionLocalization={schema,coordinates:'source-region-native',originalScopeFingerprint:already?existing.originalScopeFingerprint:input.fingerprint,domainFingerprint:domain.fingerprint,originalSha256:domain.sourceSha256,originalGrid:[domain.sourceWidth,domain.sourceHeight],origin:[...domain.origin],width:domain.width,height:domain.height,metadataCoordinates:'Only regions/searchRegions/excluded/text geometry are translated; other source metadata remains in its recorded original coordinates.'};
   compileForgeryscopeScientificScope(scoped,{width:domain.width,height:domain.height,sourceSha256:domain.sourceSha256});out.scientificScope=scoped;
@@ -83,7 +110,11 @@ export async function localizeSourceRegionTask(task,domain,{signal}={}){
  // frame. Keep other shapes/vertices untouched for the native membership code.
  const positive=scoped?.regions?.map(r=>r.polygon??[[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]])??geometry.regions;
  if(scoped&&!positive?.length)throw new EngineError('SOURCE_SCOPE_EMPTY','The scientific scope has no native acquisition region.');
- if(positive?.length){for(const poly of positive){let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;for(const[x,y]of poly){minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);}if(maxX<=0||maxY<=0||minX>=domain.width||minY>=domain.height)throw new EngineError('SOURCE_SCOPE_EMPTY','A selected native clone region lies entirely outside the admitted original-source crop.');}}
- out.sourceRegionLocalization={schema,coordinates:'source-region-native',domainFingerprint:domain.fingerprint,originalSha256:domain.sourceSha256,originalGrid:[domain.sourceWidth,domain.sourceHeight],origin:[...domain.origin],width:domain.width,height:domain.height,...(scoped?{originalScopeFingerprint:scoped.sourceRegionLocalization.originalScopeFingerprint,localizedScopeFingerprint:scoped.fingerprint}:{}),policy:'Exact native-grid translation; no polygons or exclusions dropped; no encoded crop.'};
+ // Sparse native two-ROI comparison is preserved across analysis windows.
+ // A missing ROI gives the native method an empty comparison; it must not
+ // replace the ROI, borrow another window, or discard visible native features.
+ const nativeSparsePair=task.operation==='tampering.copyMove.sparse'&&out.params.regions?.length===2&&(out.params.compare===true||out.params.algorithm==='EfficientLoFTR'&&out.params.compare===undefined);
+ if(positive?.length&&!nativeSparsePair){for(const poly of positive){let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;for(const[x,y]of poly){minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);}if(maxX<=0||maxY<=0||minX>=domain.width||minY>=domain.height)throw new EngineError('SOURCE_SCOPE_EMPTY','A selected native clone region lies entirely outside the admitted original-source crop.');}}
+ out.sourceRegionLocalization={schema,coordinates:'source-region-native',domainFingerprint:domain.fingerprint,originalSha256:domain.sourceSha256,originalGrid:[domain.sourceWidth,domain.sourceHeight],origin:[...domain.origin],width:domain.width,height:domain.height,...(scoped?{originalScopeFingerprint:scoped.sourceRegionLocalization.originalScopeFingerprint,localizedScopeFingerprint:scoped.fingerprint}:{}),...(nativeParameterExclusions?{nativeParameterExclusions}:{}),...(nativeParameterGeometry?{nativeParameterGeometry}:{}),...(already&&existing.sparseDefaults?{sparseDefaults:structuredClone(existing.sparseDefaults)}:{}),policy:nativeRegions?'Exact native acquisitions and comparison envelope; acquisition complement restricts candidates before matching but remains available as declared RGB context; no explicit source exclusion is admitted.':'Exact native-grid translation; no polygons or exclusions dropped; no encoded crop.'};
  checkAbort(signal);return out;
 }

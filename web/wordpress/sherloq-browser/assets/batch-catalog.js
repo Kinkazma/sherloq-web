@@ -37,6 +37,18 @@ const descriptions={
  view:['Sortie pour inspection. Cette vue seule ne déclenche aucun signalement automatique.','Inspection output. This view alone does not automatically flag a study.'],
  required:['Une référence, une base ou un modèle doit être fourni pour le lot.','A reference, database or model must be provided for the batch.'],
 };
+// Match the existing native validators for recipes outside toolCatalog.
+// This changes input admissibility only; defaults and scientific tasks stay intact.
+const numeric=(min,max,step=1)=>({min,max,step});
+const nativeChoices=values=>({choices:values.map(value=>({value,label:String(value)}))});
+const extraFieldLimits={
+ 'analysis.clones':{d2Minimum:numeric(0,5000),maxConcurrent:numeric(1,5)},
+ 'analysis.complete':{d2Minimum:numeric(0,5000),maxConcurrent:numeric(1,5)},
+ 'ela.classic':{quality:numeric(1,100),scale:numeric(1,100),contrast:numeric(0,100)},
+ 'ela.energy':{quality:numeric(0,100),block:nativeChoices([16,32,64,96]),minimum:numeric(1,1000),histogramLow:numeric(0,500),histogramHigh:numeric(500,1000),shadow:numeric(0,200),highlight:numeric(0,200)},
+ 'ela.biomes':{quality:numeric(0,100),block:numeric(16,96,8),threshold:numeric(0,50,.1),minimum:numeric(1,1000)},
+ 'composite':{quality:numeric(0,101)},
+};
 function describe(id,item){
  let kind='view',group='less';
  if(id.startsWith('analysis.')){kind='automatic';group='recommended';}
@@ -45,7 +57,7 @@ function describe(id,item){
  else if(id==='noise.noisesniffer'){kind='regions';group='complement';}
  else if(id==='ela.energy'||id==='ela.biomes'){kind='ela';group='complement';}
  if(prerequisites[id]){kind='required';group='required';}
- return {id,operation:id,...item,backend:'auto',params:copy(item.params??{}),kind,group,description:id==='file.similarity'?['Liens vers des services externes ; aucune opération locale à exécuter en lot.','Links to external services; no local batch operation.']:descriptions[kind],notBatch:id==='file.similarity',requires:prerequisites[id],...(id==='m2.rita'?{view:{mode:'overlay',threshold:.5,opacity:.6},description:['RITA — tampon et IA générative, à la taille native. Score non calibré ; 0,5 reproduit le masque du modèle. Les images comportant des exclusions restent des sorties brutes, sans vote scientifique filtré.','RITA — stamping and generative AI, at native size. Uncalibrated score; 0.5 reproduces the model mask. Images with exclusions remain raw outputs and do not cast a scientifically scoped vote.']}:{}),signal:{threshold:id==='m2.rita'?.5:.8,minimumPixels:32},fields:toolCatalog[id]?toolFields(id):Object.entries(item.params??{}).map(([key,value])=>({key,label:key,value,type:typeof value==='boolean'?'checkbox':typeof value==='number'?'number':'text'}))};
+ return {id,operation:id,...item,backend:'auto',params:copy(item.params??{}),kind,group,description:id==='file.similarity'?['Liens vers des services externes ; aucune opération locale à exécuter en lot.','Links to external services; no local batch operation.']:descriptions[kind],notBatch:id==='file.similarity',requires:prerequisites[id],...(id==='m2.rita'?{view:{mode:'overlay',threshold:.5,opacity:.6},description:['RITA — tampon et IA générative, à la taille native. Score non calibré ; 0,5 reproduit le masque du modèle. Les images comportant des exclusions restent des sorties brutes, sans vote scientifique filtré.','RITA — stamping and generative AI, at native size. Uncalibrated score; 0.5 reproduces the model mask. Images with exclusions remain raw outputs and do not cast a scientifically scoped vote.']}:{}),signal:{threshold:id==='m2.rita'?.5:.8,minimumPixels:32},fields:toolCatalog[id]?toolFields(id):Object.entries(item.params??{}).map(([key,value])=>({key,label:key,value,type:typeof value==='boolean'?'checkbox':typeof value==='number'?'number':'text',...extraFieldLimits[id]?.[key]}))};
 }
 const entries=Object.entries({...toolCatalog,...extra}).filter(([id])=>id!=='tampering.copyMove.sparse').map(([id,item])=>describe(id,item));
 const ssgKeys=new Set(Object.keys(SSG_DEFAULTS));
@@ -254,6 +266,10 @@ export function batchRitaFullFrameScope(scope){
   return left<=0&&top<=0&&right>=scope.width-1&&bottom>=scope.height-1&&new Set(r.polygon.map(([x,y])=>((x===left?'l':x===right?'r':'?')+(y===top?'t':y===bottom?'b':'?')))).size===4&&r.polygon.every(([x,y],i)=>{const next=r.polygon[(i+1)%4];return (x===left||x===right)&&(y===top||y===bottom)&&((x===next[0])!==(y===next[1]));});
  });
 }
+export function batchRawInspectionNotice(operation,language='fr'){
+ if(operation!=='detail.wavelets'&&operation!=='noise.blocking')return null;
+ return language==='fr'?'Sortie pour inspection ; cette méthode ne participe pas au vote filtré du lot.':"Inspection output; this method does not contribute to the batch's filtered vote.";
+}
 export function batchScopeSupport(recipe,scope,output,validationOptions){
  if(!scope)return {mode:'native-diagnostic',scientificFiltering:false};
  const common={scientificFiltering:true,scopeFingerprint:scope.fingerprint,coordinates:'original-pixels',originalPixelsPreserved:true};
@@ -267,7 +283,7 @@ export function batchScopeSupport(recipe,scope,output,validationOptions){
   return batchNativeScopeExecution(recipe,scope,output,validationOptions).then(nativeExecution=>nativeExecution.validated?{...common,mode:'candidate-domain-exclusions',input:'acquisition-rois',stage:'source-and-target-before-native-candidate-scoring',textFiltering:'native-candidate-domain-and-projected-support-guard',cnnContext:'original-rectangle-context',cnnContextMasked:false,rawModelOutputsPreserved:true,projectedScopeGuard:true,nativeExecution}:{...base,nativeExecution});
  }
  if(['analysis.clones','analysis.complete'].includes(recipe.operation))return {...common,mode:'mixed-exclusions',input:'prepared-acquisitions; native-classical-search-regions',stages:{patchmatch:'input-exclusions-before-matching',sift:'input-exclusions-before-matching',d2prl:'source-and-target-before-native-patchmatch',forgeryscope:'geometric-keypoints-before-matching',...(recipe.operation==='analysis.complete'?{ela:'descriptive-only'}:{})},cnnContext:'original-rectangle-context',rawBranches:['forgeryscope-embeddings','forgeryscope-lanes'],nativeMapsPreserved:true};
- return {...common,mode:'raw-only',qualifiedForScopedSignal:false,reason:'Cette méthode ne possède pas encore d’exclusions scientifiques qualifiées avant l’analyse.'};
+ return {...common,mode:'raw-only',qualifiedForScopedSignal:false,reason:batchRawInspectionNotice(recipe.operation)??'Cette méthode ne possède pas encore d’exclusions scientifiques qualifiées avant l’analyse.'};
 }
 export const recipeKey=recipe=>JSON.stringify([recipe.operation,recipe.params,recipe.backend??'auto',batchRecipeView(recipe)??null]);
 export const catalogRecipe=id=>{const entry=batchCatalog.find(x=>x.id===id);if(!entry)throw Error('Unknown batch tool');return {...entry,params:copy(entry.params),signal:copy(entry.signal),...(entry.view?{view:copy(entry.view)}:{})};};

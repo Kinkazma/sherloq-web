@@ -26,8 +26,8 @@ import importlib.util,json
 from pathlib import Path
 spec=importlib.util.spec_from_file_location('delivery','runtime-delivery.py');d=importlib.util.module_from_spec(spec);spec.loader.exec_module(d)
 root=Path.cwd();assets=root/'sherloq-browser/assets';overlay=d.qualified_runtime_overlay(root)
-assert len(overlay.files)==224
-assert [len(receipt['files']) for receipt in overlay.receipts]==[57,5,103,14,14,50]
+assert len(overlay.files)==296
+assert [len(receipt['files']) for receipt in overlay.receipts]==[57,5,103,14,14,50,95]
 changed=0
 for relative,record in overlay.files.items():
  source=(assets/relative).read_bytes()
@@ -47,7 +47,7 @@ adapted=d.adapted_runtime('unified-engine/src/not-in-the-overlay.js',original,la
 assert adapted!=original and overlay.apply('unified-engine/src/not-in-the-overlay.js',original,adapted)==adapted
 print(json.dumps({'entries':len(overlay.files),'qualifiedBytesPreserved':True,'undeclaredAdaptationPreserved':True,'changedInputRejected':True,'nativeWasmClosed':True}))
 `],{encoding:'utf8'}));
- assert.deepEqual(result,{entries:224,qualifiedBytesPreserved:true,undeclaredAdaptationPreserved:true,changedInputRejected:true,nativeWasmClosed:true});
+ assert.deepEqual(result,{entries:296,qualifiedBytesPreserved:true,undeclaredAdaptationPreserved:true,changedInputRejected:true,nativeWasmClosed:true});
 });
 
 test('stage retains predecessor declarations and new chunks when inventory already contains the increment',()=>{
@@ -57,18 +57,18 @@ from pathlib import Path
 spec=importlib.util.spec_from_file_location('release','scripts/build-local-release.py');r=importlib.util.module_from_spec(spec);spec.loader.exec_module(r)
 manifest=json.loads((Path.cwd().parents[1]/'web-assets/manifest-template.json').read_bytes())
 changes,payloads,reference=r.reviewed_runtime_increment(manifest)
-assert len(changes)==73 and len(payloads)==221 and reference['addedFiles']==14
-assert [entry['files'] for entry in r.runtime_increment_references()]==[57,5,103,14,14,50]
+assert len(changes)==134 and len(payloads)==293 and reference['addedFiles']==14
+assert [entry['files'] for entry in r.runtime_increment_references()]==[57,5,103,14,14,50,95]
 assert 'unified-engine/src/ela-classic-preview.js' not in changes
 assert 'unified-engine/src/neural-scientific-scope.js' not in changes
 assert 'unified-engine/vendor/segmentation/scientific-correlation/correlation.wasm' not in changes
 for name,record in changes.items():
  assert record['after']==manifest['files'][name]['sha256'] and record['before']!=record['after']
-assert sum(map(len,payloads.values()))==4370481
+assert sum(map(len,payloads.values()))==4884570
 mixed=json.loads(json.dumps(manifest));mixed['files']['unified-engine/src/neural-scientific-scope.js']['sha256']='f'*64
 try:r.reviewed_runtime_increment(mixed);raise AssertionError('partial receipt accepted')
 except ValueError:pass
 print(json.dumps({'existingOverrides':len(changes),'newFiles':reference['addedFiles'],'payloads':len(payloads),'partialInventoryRejected':True}))
 `],{encoding:'utf8'}));
- assert.deepEqual(result,{existingOverrides:73,newFiles:14,payloads:221,partialInventoryRejected:true});
+ assert.deepEqual(result,{existingOverrides:134,newFiles:14,payloads:293,partialInventoryRejected:true});
 });

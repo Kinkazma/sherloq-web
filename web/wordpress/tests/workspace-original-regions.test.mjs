@@ -26,7 +26,7 @@ function setup({pdfGate, selectedFile, batchSourceAware=false} = {}) {
         busy: false, async load(value) {sourceFile = value; calls.loads.push(value);},
         adopt(value) {adopted = value;controller.adoptedSourceRegions=value.sourceRegions;},
         input() {return adopted ?? {file: sourceFile, imageId: 'shared-original', hash: 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', source: {width: 40, height: 30, draw() {}, close() {}}, description: sourceFile?.name};},
-        refreshOriginalRegions() {controller.regionDraws=(controller.regionDraws??0)+1;},markSourceRegionsStale(value) {calls.stale.push({id,value});controller.regionsStale=true;},snapshot() {return {busy: controller.busy, hasResult: id !== 'original', hasReport: false, status: 'ready', progress: 0, zoom: 100};},
+        refreshOriginalRegions() {controller.regionDraws=(controller.regionDraws??0)+1;},markSourceRegionsStale(value) {calls.stale.push({id,value});controller.regionsStale=false;},snapshot() {return {busy: controller.busy, hasResult: id !== 'original', hasReport: false, status: 'ready', progress: 0, zoom: 100};},
         settings() {calls.settings.push(id); return {};}, applySettings() {}, activate() {}, fit() {}, zoomBy() {}, setLanguage() {}, setTheme() {}, setNavigation() {}, setComputeProfile() {}, setLoupe() {}, setHighlight() {},
         exportImage(value) {controller.exported = value ?? 'dialog';}, saveSession() {controller.sessions = (controller.sessions ?? 0) + 1;},
         dispose() {calls.disposed.push(controller);}
@@ -71,11 +71,11 @@ test('Original source uses its own content control bar and live regions survive 
  }finally{await h.dispose();}
 });
 
-test('tools inherit fresh independent snapshots and later global changes mark stale without mutating them',async()=>{
+test('tools inherit fresh independent snapshots and closing/reopening captures the latest Original selection',async()=>{
  const h=setup();try{await h.workspace.openImage(image('source.png'));const record=h.workspace.state.documents.get('original');await record.originalRegions.restore(await snapshot());await h.workspace.openTool('file.hex');const first=h.panels.get('file.hex').adoptedSourceRegions;assert.equal(first.zones.length,2);assert.notEqual(first,record.originalRegions.snapshot());
- await record.originalRegions.toggle(false);assert.equal(first.enabled,true);assert.equal(h.panels.get('file.hex').regionsStale,true);assert.equal(h.calls.stale.filter(v=>v.id==='file.hex').length,1);
+ await record.originalRegions.toggle(false);assert.equal(first.enabled,true);assert.equal(h.panels.get('file.hex').regionsStale,false);assert.equal(h.calls.stale.filter(v=>v.id==='file.hex').length,1);
  await h.workspace.openTool('file.digest');assert.equal(h.panels.get('file.digest').adoptedSourceRegions.enabled,false);assert.equal(h.calls.loads.length,1);
- const options=h.calls.panelOptions.get('file.hex'),global=options.getOriginalSourceRegions(),domain=await compileOriginalSourceRegions(first,{ceiling:global});assert.equal(domain.containsOriginal(14,12),false);assert.equal(global.enabled,false);
+ const options=h.calls.panelOptions.get('file.hex'),global=options.getOriginalSourceRegions(),domain=await compileOriginalSourceRegions(first,{ceiling:global});assert.equal(domain.containsOriginal(14,12),false);assert.equal(global.enabled,false);await h.workspace.closeDocument('file.hex');await h.workspace.openTool('file.hex');assert.equal(h.panels.get('file.hex').adoptedSourceRegions.enabled,false,'A genuinely reopened tool captures the latest Original selection');assert.equal(first.enabled,true,'The closed tool snapshot remains immutable');
  }finally{await h.dispose();}
 });
 
@@ -98,8 +98,14 @@ test('session source regions validate source identity atomically before replacin
 });
 
 test('Open in batch transfers the exact verified snapshot only through a source-aware import API',async()=>{
- const h=setup({batchSourceAware:true});try{await h.workspace.openImage(image('source.png'));const record=h.workspace.state.documents.get('original');await record.originalRegions.restore(await snapshot());record.originalRegionsElement.querySelector('[data-original-regions=batch]').click();for(let i=0;i<100&&!h.calls.batchSources.length;i++)await tick();assert.equal(h.calls.batchSources.length,1);assert.equal(h.calls.batchSources[0].sourceRegions.fingerprint,record.originalRegions.snapshot().fingerprint);assert.equal(h.calls.batchSources[0].file,h.panels.get('original').input().file);assert.equal(h.calls.batchImports.length,0);
+ const h=setup({batchSourceAware:true});try{await h.workspace.openImage(image('source.png'));const record=h.workspace.state.documents.get('original');await record.originalRegions.restore(await snapshot());record.originalRegionsElement.querySelector('[data-original-regions=batch]').click();await tick();await tick();assert.equal(h.calls.batchSources.length,1);assert.equal(h.calls.batchSources[0].sourceRegions.fingerprint,record.originalRegions.snapshot().fingerprint);assert.equal(h.calls.batchSources[0].file,h.panels.get('original').input().file);assert.equal(h.calls.batchImports.length,0);
  }finally{await h.dispose();}
- const unavailable=setup();try{await unavailable.workspace.openImage(image('source.png'));const record=unavailable.workspace.state.documents.get('original');record.originalRegionsElement.querySelector('[data-original-regions=batch]').click();for(let i=0;i<100&&!/pas encore disponible/.test(unavailable.document.getElementById('workspace-status').textContent);i++)await tick();assert.match(unavailable.document.getElementById('workspace-status').textContent,/pas encore disponible/);assert.equal(unavailable.calls.batchImports.length,0);
+ const unavailable=setup();try{await unavailable.workspace.openImage(image('source.png'));const record=unavailable.workspace.state.documents.get('original');record.originalRegionsElement.querySelector('[data-original-regions=batch]').click();await tick();await tick();assert.match(unavailable.document.getElementById('workspace-status').textContent,/pas encore disponible/);assert.equal(unavailable.calls.batchImports.length,0);
  }finally{await unavailable.dispose();}
 });
+
+test('Original undo remains reachable when hiding its state button returns focus to the document',async()=>{
+ const h=setup();try{await h.workspace.openImage(image('source.png'));const owner=h.workspace.state.documents.get('original').originalRegions;await owner.restore(await snapshot());const original=owner.snapshot();await owner.clear();await owner.toggle(false);const event=new h.window.Event('keydown',{bubbles:true,cancelable:true});event.key='z';event.metaKey=true;h.document.body.dispatchEvent(event);await owner.ready;assert.equal(event.defaultPrevented,true);assert.equal(owner.snapshot().enabled,true);assert.equal(owner.snapshot().zones.length,0);const second=new h.window.Event('keydown',{bubbles:true,cancelable:true});second.key='z';second.metaKey=true;h.document.body.dispatchEvent(second);await owner.ready;assert.equal(owner.snapshot().fingerprint,original.fingerprint);const input=h.document.createElement('input');h.document.body.append(input);const typing=new h.window.Event('keydown',{bubbles:true,cancelable:true});typing.key='z';typing.metaKey=true;input.dispatchEvent(typing);await owner.ready;assert.equal(typing.defaultPrevented,false);assert.equal(owner.snapshot().fingerprint,original.fingerprint);}finally{await h.dispose();}
+});
+
+test('workspace never mounts the obsolete shared Regions/Biomes sidebar',async()=>{const h=setup();try{assert.equal(h.document.querySelector('.detection-regions-dock'),null);await h.workspace.openImage(image('source.png'));await h.workspace.openTool('tampering.copyMove.sparse');h.flush();assert.equal(h.document.querySelector('.detection-regions-dock'),null);assert.equal(h.document.getElementById('toolbox').querySelector('.individual-region-owner'),null);}finally{await h.dispose();}});

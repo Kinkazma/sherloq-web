@@ -1,2 +1,2 @@
-import "../../runtime-context.js?v=0.16.0";
-export const SPARSE_EXTRACT_WASM={"bytes":1819044,"sha256":"c7f22c579bbe9a24a27b0f23f8957e1d150b128e2be9d387dea270eab024152e"};
+import "../../runtime-context.js?v=0.25.0";
+export const SPARSE_EXTRACT_WASM={"bytes":1819044,"sha256":"58181f94dd862035a51f4a49966fa109204a123f3637b882269f986ea7656944"};

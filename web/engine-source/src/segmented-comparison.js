@@ -1,3 +1,4 @@
+import {allocateTypedArray} from './allocation.js';
 import {runPagedComparisonJobs} from './comparison-paged-pool.js';
 import {comparisonPagedButteraugli,pagedButteraugliPlan} from './comparison-paged-butteraugli.js';
 import {comparisonPagedSsimulacra,pagedSsimulacraPlan} from './comparison-paged-ssimulacra.js';
@@ -11,21 +12,32 @@ import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface} from './rgb-surface.js';
 const MIB=1024**2;
-export async function segmentedComparison(image,params,{reference,budget,signal,onProgress,profile={},cache,storage='auto',blockPixels=65536,original=false}={}){
+export async function segmentedComparison(image,params,{reference,budget,signal,onProgress,profile={},cache,cacheKey,cacheDependencies=[],storage='auto',blockPixels=65536,original=false}={}){
  const p=comparisonParams(params),{width,height}=image.surface.descriptor,n=width*height;
  requireValue(reference?.surface&&reference.surface.descriptor.width===width&&reference.surface.descriptor.height===height,'Evidence and reference must have the same size.');
  requireValue(Number.isInteger(blockPixels)&&blockPixels>=width&&blockPixels<=262144,'Invalid comparison band size.');
- const previous=cache?.reference===reference?cache:null,stages=new Map(previous?.stages),hits={},images=[image,reference],pool=new ComparisonStagePool(budget,profile);let output,planning;
- const specs=[['histograms',2],['sewar',3],['ssimulacra',5],['butteraugli',4],['ssim',1]],jobs=specs.filter(([name])=>p.metrics||p.view===(name==='butteraugli'?'butter':name)).filter(([name])=>{const needView=p.view===(name==='butteraugli'?'butter':name);hits[name]=stages.has(name)&&!needView;return !hits[name];}).map(([name,mode])=>({name,mode,view:p.view===(name==='butteraugli'?'butter':name)}));
+ const previous=cache?.reference===reference?cache:null,stages=new Map(previous?.stages),hits={},images=[image,reference],pool=new ComparisonStagePool(budget,profile);let output,planning,borrowedView;
+ const specs=[['histograms',2],['sewar',3],['ssimulacra',5],['butteraugli',4],['ssim',1]];let jobs=specs.filter(([name])=>p.metrics||p.view===(name==='butteraugli'?'butter':name)).filter(([name])=>{const needView=p.view===(name==='butteraugli'?'butter':name);hits[name]=stages.has(name)&&!needView;return !hits[name];}).map(([name,mode])=>({name,mode,view:p.view===(name==='butteraugli'?'butter':name)}));
+ const rawViewName=p.view==='ssim'?'ssim':p.view==='butter'?'butteraugli':null,rawViewKey=cacheKey&&rawViewName?cacheKey+JSON.stringify([image.surface.descriptor.id,image.surface.descriptor.revision,reference.surface.descriptor.id,reference.surface.descriptor.revision,width,height,rawViewName,original]):null;
+ // Borrow a retained immutable map only when no scientific stage still needs
+ // workers. Its copy reservation cannot reduce their admission or move output
+ // that would fit in memory to temporary storage.
+ try{
+ if(rawViewKey&&stages.has(rawViewName)&&jobs.every(job=>job.view)){
+  const entry=budget.get(rawViewKey),copyWindow=Math.min(n*3,blockPixels*3),needed=12*MIB+blockPixels*12+n*3+copyWindow;
+  if(entry?.value?.length===n*3&&entry.byteLength+needed<=budget.limit-budget.retained-budget.active){
+   budget.take(rawViewKey);let release;try{release=budget.reserve(entry.byteLength);borrowedView={entry,release,key:rawViewKey};jobs=jobs.filter(job=>!job.view);hits[rawViewName]=true;}catch(error){budget.put(rawViewKey,entry,cacheDependencies);throw error;}
+  }
+ }
  for(const job of jobs)job.paged=[1,2,3,4,5].includes(job.mode)&&(({1:profile.pagedSsim,2:profile.pagedHistograms,3:profile.pagedSewar,5:profile.pagedSsimulacra,4:profile.pagedButteraugli}[job.mode])||width>16384||height>16384||comparisonStageBytes(job.mode,n)+8*MIB+blockPixels*12>Math.min(1900*MIB,budget.limit-budget.retained-budget.active));
  const histogramOptions={resident:profile.histogramResident,cachePages:profile.histogramCachePages};
  const maximum=Math.max(0,...jobs.map(j=>j.paged?(j.mode===1?pagedSsimPlan(width,height,budget,blockPixels):j.mode===2?pagedHistogramPlan(budget,histogramOptions):j.mode===3?pagedSewarPlan(width,height):j.mode===5?pagedSsimulacraPlan(width,height):pagedButteraugliPlan(width,height)).workspace:comparisonStageBytes(j.mode,n))),reserve=maximum+12*MIB+blockPixels*12;
  const nativeJobs=jobs.filter(j=>!j.paged),pagedMetrics=[];
  if(nativeJobs.length&&(width>16384||height>16384||maximum>1900*MIB))throw new EngineError('MEMORY_LIMIT','A global comparison stage exceeds this WASM module capacity.');
  const visit=async(fn,phase,readFirst=true)=>{for(let y=0;y<height;){const rows=Math.min(height-y,Math.max(1,Math.floor(blockPixels/width))),rect={x:0,y,width,height:rows};let a,b;try{if(readFirst)a=await image.surface.readWindow(rect,{signal});b=await reference.surface.readWindow(rect,{signal});await fn(a?.pixels.data,b.pixels.data,y*width);}finally{a?.release();b?.release();}y+=rows;onProgress?.({phase,completed:y*width,total:n});await controlCheckpoint(signal);}};
- try{
   // Output selection accounts for the largest pending global stage and I/O.
   planning=budget.reserve(reserve);output=await createSegmentedBytes(n*3,{budget,chunkBytes:blockPixels*3,storage,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal});planning();planning=null;
+  if(borrowedView)for(let offset=0;offset<n*3;offset+=blockPixels*3){checkAbort(signal);await output.write(borrowedView.entry.value.subarray(offset,Math.min(n*3,offset+blockPixels*3)),offset);await controlCheckpoint(signal);}
   if(p.metrics&&!stages.has('basic')){
    let sx=0,sy=0,xx=0,yy=0,xy=0,squared=0;
    await visit((a,b)=>{for(let i=0;i<a.length;i+=3){const x=gray(a[i],a[i+1],a[i+2]),y=gray(b[i],b[i+1],b[i+2]);sx+=x;sy+=y;xx+=x*x;yy+=y*y;xy+=x*y;squared+=(x-y)*(x-y);}},'comparison-basic');
@@ -49,6 +61,17 @@ export async function segmentedComparison(image,params,{reference,budget,signal,
   for(const job of pagedJobs.filter(j=>j.mode===1||!globalThis.Worker||profile.pagedMetricWorkers===false)){const result=job.mode===1?await comparisonPagedSsim(images,job.output,{budget,signal,onProgress,profile,blockPixels,original}):job.mode===2?await comparisonPagedHistograms(images,{budget,signal,onProgress,...histogramOptions}):job.mode===3?await comparisonPagedSewar(images,{budget,signal,onProgress,original,arithmetic:profile.sewarArithmetic??'separated'}):job.mode===5?await comparisonPagedSsimulacra(images,{budget,signal,onProgress,original}):await comparisonPagedButteraugli(images,job.output,{budget,signal,onProgress,original});await consumePaged(job,result);}
 
   await pool.run(nativeJobs,images,{signal,onStage:onProgress,blockPixels,original,consume:async(job,result)=>stages.set(job.name,{values:result.values,score:result.score})});
+  // Keep an independently owned raw RGB copy only after every useful worker
+ // has finished and only in already-free headroom. Failure to cache must never
+ // alter scientific execution, storage choice, native pixels or parameters.
+  let rawViewCached=!!borrowedView;
+  if(rawViewKey&&!borrowedView&&jobs.some(job=>job.view)&&n*3+Math.min(n*3,blockPixels*3)<=budget.limit-budget.total()){
+   const release=budget.reserve(n*3);let bytes;
+   try{bytes=allocateTypedArray(Uint8Array,n*3,{label:'comparison-raw-view-cache'});await output.visit((part,offset)=>bytes.set(part,offset),{signal,blockBytes:blockPixels*3});checkAbort(signal);}
+   catch(error){bytes=null;if(!['MEMORY_LIMIT','MEMORY_ALLOCATION'].includes(error.code))throw error;}
+   finally{release();}
+   if(bytes){const entry={value:bytes,byteLength:bytes.byteLength,onEvict(){entry.value=null;budget.notifyBackingRelease?.('array-buffer',entry.byteLength);}};rawViewCached=budget.put(rawViewKey,entry,cacheDependencies);}
+  }
   if(p.equalized){
    const histogram=new Float64Array(768);await output.visit(bytes=>{for(let i=0;i<bytes.length;i++)histogram[(i%3)*256+bytes[i]]++;},{signal,blockBytes:blockPixels*3});const lut=new Uint8Array(768);
    for(let c=0;c<3;c++){const base=c*256;let first=0;while(first<255&&!histogram[base+first])first++;if(histogram[base+first]===n){lut.fill(first,base,base+256);continue;}const scale=Math.fround(255/Math.fround(n-histogram[base+first]));let sum=0;for(let i=first+1;i<256;i++){sum+=histogram[base+i];lut[base+i]=Math.max(0,Math.min(255,roundEven(Math.fround(Math.fround(sum)*scale))));}}
@@ -62,6 +85,6 @@ export async function segmentedComparison(image,params,{reference,budget,signal,
   }
   for(const [name,stage]of [['butter','butteraugli'],['ssim','ssim']])if(p.metrics||p.view===name)values[name]=stages.get(stage).score;
   const execution=pool.metrics();execution.workers=Math.max(execution.workers,pagedWorkers);for(const m of pagedMetrics){execution.workers=Math.max(execution.workers,m.workers);execution.completedMetricJobs++;execution.workerHeapPeakBytes=Math.max(execution.workerHeapPeakBytes,m.heapPeak);}
-  return {surface:createRgbSurface(output,{width,height,budget}),comparisonCache:{reference,stages},data:{referenceImageId:p.referenceImageId,values,errors,metricsRequested:p.metrics,...(p.metrics?{histogramCorrelationFullBins,histogramCorrelationBinDivisor,warnings:histogramCorrelationBinDivisor===65536?{hist_0:'Historical native correlation uses 65,536 entries for a 16,777,216-bin histogram and may exceed [-1,1]. Use histogramCorrelationFullBins for ordinary correlation interpretation.'}:{}}:{}),unavailableMetrics:[]},semantics:'Native equal-size global image comparison. Oriented sources and result use segmented storage; global metric workspaces are separately admitted and are not independently tiled. Similarity is not an authenticity verdict.',metrics:{...execution,pagedStages:pagedMetrics,storage:output.storage,blockPixels,cache:{stages:hits},globalStageMaximumBytes:maximum}};
- }catch(error){await output?.dispose();throw error;}finally{planning?.();pool.clear();}
+  return {surface:createRgbSurface(output,{width,height,budget}),comparisonCache:{reference,stages},data:{referenceImageId:p.referenceImageId,values,errors,metricsRequested:p.metrics,...(p.metrics?{histogramCorrelationFullBins,histogramCorrelationBinDivisor,warnings:histogramCorrelationBinDivisor===65536?{hist_0:'Historical native correlation uses 65,536 entries for a 16,777,216-bin histogram and may exceed [-1,1]. Use histogramCorrelationFullBins for ordinary correlation interpretation.'}:{}}:{}),unavailableMetrics:[]},semantics:'Native equal-size global image comparison. Oriented sources and result use segmented storage; global metric workspaces are separately admitted and are not independently tiled. Similarity is not an authenticity verdict.',metrics:{...execution,pagedStages:pagedMetrics,storage:output.storage,blockPixels,cache:{stages:hits,rawView:!!borrowedView,rawViewCached},globalStageMaximumBytes:maximum}};
+ }catch(error){await output?.dispose();throw error;}finally{planning?.();pool.clear();if(borrowedView){borrowedView.release();budget.put(borrowedView.key,borrowedView.entry,cacheDependencies);}}
 }

@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "llvmSort": "llvmorg-15.0.7",
+  "orbSourceSha256": "3874450ed3f9a779f2cf1a20daf544332898d5bcabed30a38071741a6ae5d203",
+  "nativeContract": "core/cloning.py BRISK, explicit ORB and AKAZE",
+  "arithmetic": "Native fast-angle polynomial; ORB LLVM fmuladd-to-fma replacement has102 symbol references including its declaration; pinned equal-distance sorting; scalar fused boundary norm",
+  "build": "scripts/build-m3-cloning.py",
+  "files": {
+    "cloning.js": {
+      "bytes": 32246,
+      "sha256": "ff8b384586c6564bd2dc467788beb94ba86e7a4496e8874daadb99a4eb5abdf5"
+    },
+    "cloning.wasm": {
+      "bytes": 1691221,
+      "sha256": "51d2866fe4f9167235206cfc915dd3c88f67d5315020442b4eebaa96020e2861"
+    },
+    "LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "LLVM-LICENSE.txt": {
+      "bytes": 16703,
+      "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b"
+    },
+    "ORB-LICENSE.txt": {
+      "bytes": 1831,
+      "sha256": "c0a26ec30a6466e2cb8dcc9db16260f01c3f4d91282271103478e0093e671946"
+    },
+    "MUSL-LICENSE.txt": {
+      "bytes": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    },
+    "AKAZE-FILTERS-LICENSE.txt": {
+      "bytes": 2156,
+      "sha256": "37bad30a26fa41a955d6c0403700a19452ae88e9318c8221bcf42aace0a4508d"
+    },
+    "AKAZE-AREA-LICENSE.txt": {
+      "bytes": 2224,
+      "sha256": "3540f4621f2ea804dbc271ee623b324fde7fcb79eb2edff14c15a8c84d183499"
+    },
+    "AKAZE-AUTHORS.txt": {
+      "bytes": 2185,
+      "sha256": "273d222d5039949c0f9f2c492b6baf71f6461c8ed1ffe7dd2967fb42b624ebce"
+    },
+    "BRISK-LICENSE.txt": {
+      "bytes": 2228,
+      "sha256": "94e2759da0f2226c3c93426070ddd139bc6959b959c619127b46adcddec2a26c"
+    },
+    "BRISK-AREA-LICENSE.txt": {
+      "bytes": 2224,
+      "sha256": "3540f4621f2ea804dbc271ee623b324fde7fcb79eb2edff14c15a8c84d183499"
+    }
+  },
+  "akazeStudy": {
+    "schema": 1,
+    "scope": "offline study only",
+    "stage": "area",
+    "sources": [
+      {
+        "source": ".build/opencv-4.11.0/modules/features2d/src/kaze/AKAZEFeatures.cpp",
+        "sha256": "43aeaaa2082281cba4036cdc27796298f57be92b36f093a128e0bbd091a907fb",
+        "explicitContractions": 78,
+        "intrinsicSymbolReferences": 79
+      },
+      {
+        "source": ".build/opencv-4.11.0/modules/features2d/src/kaze/nldiffusion_functions.cpp",
+        "sha256": "2b396eaab8f5088e22b1596defa3751f05eaf064abb832d83f94a13acb8780d2",
+        "explicitContractions": 12,
+        "intrinsicSymbolReferences": 13
+      },
+      {
+        "source": ".build/opencv-4.11.0/modules/features2d/src/kaze/fed.cpp",
+        "sha256": "77248679859ea1102b3ff3245075149d107a6aef9f97edd9c1b22ec72f255317",
+        "explicitContractions": 7,
+        "intrinsicSymbolReferences": 8
+      }
+    ]
+  },
+  "akazeAvailability": "Availability and qualified scope are declared by the API contract and engine registry; a successful build alone is not a qualification",
+  "akazeArithmetic": "97 explicit FMA call sites (100 symbol references including3 declarations); OpenCV polynomial angles; float32 Gaussian/Scharr/multiscale derivatives/INTER_AREA with native accumulation order; descriptor stride61",
+  "brisk": {
+    "opencv": "4.11.0",
+    "sourceSha256": "fc8bf60aed5dc1aece7fb0b3fd83e43cbfb2708bd7cc4e0a93d38e17624c443a",
+    "objectSha256": "5eb23ad559bfc6faaf7e46ede99364c57bb45cfecc9632b40c6dbb33a0ff20c9",
+    "fmaReferences": 67,
+    "borderSelection": "stable linear compaction, original scale/border predicates; optional CM2 stable ranking before descriptors",
+    "angle": "portable libm atan2f; known native boundary differences"
+  }
+}

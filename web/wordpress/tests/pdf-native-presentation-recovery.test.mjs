@@ -1,0 +1,54 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createPdfNativePageSurface} from '../sherloq-browser/assets/pdf-native-page-surface.js';
+const tick=()=>new Promise(resolve=>setImmediate(resolve));
+async function until(predicate){for(let i=0;i<200;i++){if(predicate())return;await tick();}throw Error('Presentation work did not settle');}
+function fixture(t,{width=600,height=270,native=true,defer=false}={}){
+ const previous=globalThis.OffscreenCanvas,canvases=[],reads=[],pending=[],errors=[];let changed=0,dispose=0,scientificBuilds=1;
+ const original=new Uint8Array(width*height*4);for(let y=0;y<height;y++)for(let x=0;x<width;x++){const i=(y*width+x)*4;original[i]=(x*19+y*3)%256;original[i+1]=(x+y*7)%256;original[i+2]=(x*11+y*13)%256;original[i+3]=(x+y)%3?255:93;}
+ class Canvas extends EventTarget{
+  constructor(w,h){super();this._width=w;this._height=h;this.bytes=new Uint8ClampedArray(w*h*4);this.lost=false;this.listeners=new Map();this.puts=0;this.ctx={isContextLost:()=>this.lost,createImageData:(w,h)=>({width:w,height:h,data:new Uint8ClampedArray(w*h*4)}),getImageData:(x,y,w,h)=>{const data=new Uint8ClampedArray(w*h*4);for(let j=0;j<h;j++)for(let i=0;i<w;i++)data.set(this.bytes.subarray(((y+j)*this.width+x+i)*4,((y+j)*this.width+x+i)*4+4),(j*w+i)*4);return{width:w,height:h,data};},putImageData:(image,x,y)=>{if(this.lost)return;this.puts++;for(let j=0;j<image.height;j++)for(let i=0;i<image.width;i++){const dx=x+i,dy=y+j;if(dx<0||dy<0||dx>=this.width||dy>=this.height)continue;this.bytes.set(image.data.subarray((j*image.width+i)*4,(j*image.width+i)*4+4),(dy*this.width+dx)*4);}const callback=this.afterPut;this.afterPut=null;callback?.();},drawImage:(image,...args)=>{if(this.lost)return;if(args.length!==2)return;const[x,y]=args;for(let j=0;j<image.height;j++)for(let i=0;i<image.width;i++){const dx=x+i,dy=y+j;if(dx<0||dy<0||dx>=this.width||dy>=this.height)continue;this.bytes.set(image.bytes.subarray((j*image.width+i)*4,(j*image.width+i)*4+4),(dy*this.width+dx)*4);}},save(){},restore(){},beginPath(){},rect(){},clip(){},fillRect(){}};canvases.push(this);}
+  get width(){return this._width;}set width(n){this._width=n;this.bytes=new Uint8ClampedArray(n*this._height*4);}
+  get height(){return this._height;}set height(n){this._height=n;this.bytes=new Uint8ClampedArray(n*this._width*4);}
+  getContext(){return this.ctx;}
+  addEventListener(name,callback,options){let set=this.listeners.get(name);if(!set)this.listeners.set(name,set=new Set());set.add(callback);return super.addEventListener(name,callback,options);}
+  removeEventListener(name,callback,options){this.listeners.get(name)?.delete(callback);return super.removeEventListener(name,callback,options);}
+  emit(name){const event=new Event(name,{cancelable:true});this.dispatchEvent(event);return event;}
+  lose(emit=true){this.lost=true;this.bytes.fill(0);return emit?this.emit('contextlost'):null;}
+  restore(emit=true){this.lost=false;this.bytes.fill(0);return emit?this.emit('contextrestored'):null;}
+  get listenerCount(){return [...this.listeners.values()].reduce((n,set)=>n+set.size,0);}
+ }
+ globalThis.OffscreenCanvas=Canvas;t.after(()=>{globalThis.OffscreenCanvas=previous;});
+ const renderWindow=async request=>{reads.push(request);if(defer)await new Promise(resolve=>pending.push(resolve));request.signal?.throwIfAborted();const w=Math.ceil(request.bounds[2]*request.scale),h=Math.ceil(request.bounds[3]*request.scale),left=Math.round(request.bounds[0]*request.scale),top=Math.round(request.bounds[1]*request.scale),data=new Uint8Array(w*h*4);for(let y=0;y<h;y++)for(let x=0;x<w;x++){const sx=left+x,sy=top+y;data.set(sx>=0&&sy>=0&&sx<width&&sy<height?original.subarray((sy*width+sx)*4,(sy*width+sx)*4+4):[255,255,255,255],(y*w+x)*4);}return{pixels:{width:w,height:h,format:'rgba8',data}};};
+ const surface=createPdfNativePageSurface({width,height,owner:'retained-native',fixedGrid:true,...(native?{nativeScale:1}:{}),memoryBudgetBytes:64*1024**2,renderWindow,changed:()=>changed++,onError:e=>errors.push(e),onDispose:()=>dispose++});
+ t.after(()=>surface.close());const bounds={left:0,top:0,right:width,bottom:height},output={save(){},restore(){},beginPath(){},rect(){},clip(){},drawImage(canvas){this.canvas=canvas;}};
+ function exact(canvas){assert.ok(canvas.width>=width&&canvas.height>=height);for(let y=0;y<height;y++)assert.deepEqual(new Uint8Array(canvas.bytes.buffer,canvas.bytes.byteOffset+y*canvas.width*4,width*4),original.subarray(y*width*4,(y+1)*width*4));}
+ return{surface,canvases,reads,pending,errors,bounds,output,exact,get scientificBuilds(){return scientificBuilds;},get changed(){return changed;},get disposed(){return dispose;},set defer(value){defer=value;}};
+}
+test('RAW fixed atlas loss and immediate restore discard coverage and recover exact retained pixels',async t=>{
+ const f=fixture(t),s=f.surface;await s.ready(f.bounds);const atlas=f.canvases[0],before=s.revision,presentation=s.presentationRevision,reads=f.reads.length;f.exact(atlas);assert.equal(s.metrics.nativeComplete,true);const loss=atlas.lose();atlas.restore();await tick();assert.equal(loss.defaultPrevented,false,'Canvas2D restoration must not be prohibited');assert.equal(s.presentationRevision,presentation+1);assert.ok(s.revision>before);assert.equal(s.metrics.nativeComplete,false);assert.equal(s.metrics.fixedPresenceBytes,0);assert.equal(s.metrics.cacheBytes,0);assert.equal(s.metrics.presentationContextLosses,1);assert.equal(s.metrics.presentationInvalidatedTiles,2);assert.equal(atlas.listenerCount,0);assert.equal(atlas.width,0);assert.equal(s.prepare(f.bounds),false);await s.ready(f.bounds);assert.equal(s.metrics.nativeComplete,true);assert.equal(f.reads.length,reads+2);assert.equal(f.scientificBuilds,1);f.exact(f.canvases.at(-1));const revision=s.presentationRevision;atlas.emit('contextlost');atlas.emit('contextrestored');assert.equal(s.presentationRevision,revision);s.close();assert.equal(s.metrics.presentationCanvases,0);assert.equal(s.metrics.fixedPresenceBytes,0);assert.equal(s.metrics.cacheBytes,0);assert.equal(f.disposed,1);
+});
+test('a silent fixed backing loss is polled before cached completeness or revision is returned',async t=>{
+ const f=fixture(t),s=f.surface;await s.ready(f.bounds);const atlas=f.canvases[0],before=s.revision;atlas.lose(false);assert.ok(s.revision>before);assert.equal(s.metrics.nativeComplete,false);assert.equal(s.prepare(f.bounds),false);await s.ready(f.bounds);f.exact(f.canvases.at(-1));assert.equal(s.metrics.presentationContextLosses,1);assert.equal(f.scientificBuilds,1);
+});
+test('a restored-only event invalidates even when isContextLost already returned false',async t=>{
+ const f=fixture(t),s=f.surface;await s.ready(f.bounds);const atlas=f.canvases[0],before=s.presentationRevision;atlas.restore();assert.equal(s.presentationRevision,before+1);assert.equal(s.prepare(f.bounds),false);await s.ready(f.bounds);f.exact(f.canvases.at(-1));assert.equal(f.errors.length,0);
+});
+test('RAW individual-tile loss also invalidates the joined presentation and listeners',async t=>{
+ const f=fixture(t,{width:257,height:129,native:false}),s=f.surface;await s.ready(f.bounds);s.draw(f.output,f.bounds);f.exact(f.output.canvas);const tile=f.canvases.find(c=>c.width===128&&c.height===128),join=f.output.canvas,reads=f.reads.length;tile.lose();tile.restore();assert.equal(join.width,0);assert.equal(join.listenerCount,0);assert.equal(tile.listenerCount,0);assert.equal(s.metrics.cacheBytes,0);assert.equal(s.prepare(f.bounds),false);await s.ready(f.bounds);s.draw(f.output,f.bounds);f.exact(f.output.canvas);assert.notEqual(f.output.canvas,join);assert.equal(f.reads.length,reads*2);assert.equal(f.scientificBuilds,1);s.close();assert.ok(f.canvases.every(c=>c.listenerCount===0));
+});
+test('a joined backing lost before its event is polled and rebuilt from retained tiles through the native reader',async t=>{
+ const f=fixture(t,{width:257,height:129,native:false}),s=f.surface;await s.ready(f.bounds);s.draw(f.output,f.bounds);const joined=f.output.canvas,revision=s.revision;joined.lose(false);assert.equal(s.prepare(f.bounds),false);assert.ok(s.revision>revision);await s.ready(f.bounds);s.draw(f.output,f.bounds);f.exact(f.output.canvas);assert.notEqual(f.output.canvas,joined);assert.equal(s.metrics.presentationContextLosses,1);assert.equal(f.scientificBuilds,1);
+});
+test('an in-flight native read after loss writes only the replacement atlas and never restores lost metadata',async t=>{
+ const f=fixture(t),s=f.surface,left={left:0,top:0,right:100,bottom:100},right={left:550,top:0,right:590,bottom:100};await s.ready(left);const atlas=f.canvases[0],puts=atlas.puts;f.defer=true;const inFlight=s.ready(right);await until(()=>f.pending.length===1);atlas.lose();f.defer=false;f.pending.shift()();await inFlight;assert.equal(atlas.puts,puts);assert.equal(atlas.width,0);assert.equal(s.metrics.nativeComplete,false);assert.equal(s.metrics.fixedTileCopies,2);await s.ready(f.bounds);assert.equal(s.metrics.nativeComplete,true);f.exact(f.canvases.at(-1));assert.equal(f.scientificBuilds,1);assert.equal(f.errors.length,0);
+});
+test('a loss during putImageData cannot publish a ready tile or trigger a fatal analysis error',async t=>{
+ const f=fixture(t),s=f.surface;f.defer=true;const ready=s.ready({left:0,top:0,right:100,bottom:100});await until(()=>f.pending.length===1);f.defer=false;
+ // The allocation occurs after the retained RGB answer; wrap construction only
+ // to arrange the deterministic driver-loss event during that first copy.
+ const Canvas=globalThis.OffscreenCanvas;globalThis.OffscreenCanvas=class extends Canvas{constructor(...args){super(...args);this.afterPut=()=>this.lose();}};f.pending.shift()();await assert.rejects(ready,{code:'CANCELLED'});globalThis.OffscreenCanvas=Canvas;assert.equal(s.metrics.nativeComplete,false);assert.equal(s.metrics.cacheBytes,0);assert.equal(s.metrics.fixedPresenceBytes,0);assert.equal(f.errors.length,0);await s.ready(f.bounds);f.exact(f.canvases.at(-1));assert.equal(f.scientificBuilds,1);
+});
+test('closing while a loss notification and native read are pending detaches every presentation callback',async t=>{
+ const f=fixture(t),s=f.surface;await s.ready({left:0,top:0,right:100,bottom:100});const atlas=f.canvases[0];f.defer=true;const ready=s.ready({left:550,top:0,right:590,bottom:100}),rejected=assert.rejects(ready,error=>error.code==='CANCELLED'||error.name==='AbortError');await until(()=>f.pending.length===1);atlas.lose();s.close();const changed=f.changed;f.pending.shift()();await rejected;await tick();assert.equal(f.changed,changed);assert.equal(s.metrics.cacheBytes,0);assert.equal(s.metrics.presentationCanvases,0);assert.equal(s.metrics.pending,0);assert.ok(f.canvases.every(c=>c.listenerCount===0));assert.equal(f.errors.length,0);assert.equal(f.disposed,1);
+});

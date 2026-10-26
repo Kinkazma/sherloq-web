@@ -1,6 +1,6 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {INFERNO} from './research-palette.js';
-import {requireValue,createCooperator} from './errors.js';
+import {requireValue,createCooperator,checkAbort} from './errors.js';
 const colors=[[210,90,220],[255,190,70],[50,190,255],[110,220,90]],even=x=>{const lo=Math.floor(x),d=x-lo;return d===.5?lo+(lo%2):Math.round(x);};
 /** Original research-panel displays. Rendering never reruns a neural graph. */
 export async function renderResearch(image,data,mode=0,{budget,signal,onProgress,origin=[0,0]}={}){
@@ -23,6 +23,7 @@ export async function renderResearch(image,data,mode=0,{budget,signal,onProgress
     for(let c=0;c<3;c++){const at=(y*width+x)*3+c;out[at]=mode===0?even((image.data[at]+color[c])*.5):color[c];}
    }
   }
+  checkAbort(signal);
   return {width,height,format:'rgb8',data:out,release:release??(()=>{})};
  }catch(e){release?.();throw e;}
 }

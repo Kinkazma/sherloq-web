@@ -27,7 +27,7 @@ export async function automaticPointEntries(result,{budget,geometry,source=null,
  requireValue((points instanceof Float32Array||points instanceof Float64Array)&&points.length%7===0&&pairs instanceof Float64Array&&pairs.length%4===0&&Array.isArray(groups)&&Array.isArray(regions)&&typeof geometry?.biomeSides==='function'&&(!split||typeof geometry.pairedBiomes==='function'),'Actual classical result and M3 geometry required');
  requireValue(Number.isFinite(low)&&low>=0&&high>=low&&Number.isFinite(maximumOverlap)&&maximumOverlap>=0&&maximumOverlap<=1,'Invalid classical display filters');
  const count=pairs.length/4,n=points.length/7;requireValue(!result.pair_search_regions||(result.pair_search_regions instanceof Int32Array&&result.pair_search_regions.length===count),'Invalid pair search owners');
- const maximum=groups.reduce((m,g)=>Math.max(m,g.length),0),workspace=budget.reserve(n*(regions.length+8)+count*512+regions.reduce((s,p)=>s+p.length*256,0)+8192),entries=[],leases=[];let kernel,complete=false;
+ const maximum=groups.reduce((m,g)=>Math.max(m,g.length),0),workspace=budget.reserve(n*(regions.length+8)+count*8+maximum*512+regions.reduce((s,p)=>s+p.length*256,0)+8192),entries=[],leases=[];let kernel,complete=false;
  try{
   if(groups.length)kernel=await createCloneEntryGeometry({budget,maxVertices:Math.max(3,maximum*2),signal,wasmBinary});const pairRelations=groups.length?await relations(result,{signal}):null,contexts=regions.map(p=>kernel?.polygonKey(p)),tolerance=Array.isArray(result.params)?result.params[5]??50:result.params?.tolerance??result.geometry?.tolerance??50;
   for(let index=0;index<groups.length;index++){

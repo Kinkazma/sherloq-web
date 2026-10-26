@@ -1,19 +1,21 @@
 import {isDenseClone,denseCloneParameters,cloneMethodYear,SSG_DEFAULTS} from './clone-methods.js';
 export const CLASSIC_SIFT='SIFT + G2NN + RANSAC';
 export const PANELS_SIFT=CLASSIC_SIFT+' + Panels + Text';
-export const sparseViewDefaults=()=>({low:0,high:100000,minimum:4,circles:false,lines:false,points:false,areas:true,textExclusions:false});
+export const sparseViewDefaults=()=>({low:10,high:100000,minimum:4,circles:false,lines:false,points:false,areas:true,textExclusions:false,traceOverlap:0});
 // Older UI saved its own initial circles+links preset as if it were a choice.
 // Migrate only that exact legacy preset; retain all customized combinations.
 export function restoreSparseView(value,version){
- const legacy={...sparseViewDefaults(),circles:true,lines:true};
+ const legacy={...sparseViewDefaults(),low:0,circles:true,lines:true};delete legacy.traceOverlap;
  if(version!==1&&value&&Object.keys(value).length===Object.keys(legacy).length&&Object.entries(legacy).every(([key,v])=>value[key]===v))return sparseViewDefaults();
- return {...sparseViewDefaults(),...value};
+ const restored={...sparseViewDefaults(),...value};
+ restored.traceOverlap=Number.isInteger(restored.traceOverlap)&&restored.traceOverlap>=0&&restored.traceOverlap<=100?restored.traceOverlap:0;
+ return restored;
 }
 export const biomesOnly=view=>!view.circles&&!view.lines&&!view.points&&view.areas;
 export function sparseAlgorithmColor(name){return cloneMethodYear(name)?'yellow':([CLASSIC_SIFT,PANELS_SIFT].includes(name)||name.startsWith('Extended:')||name.endsWith(' + Mirror'))?'green':['AKAZE','BRISK','ORB'].includes(name)?null:'red';}
 export const sparseLabels={
- fr:{longSide:'Grand côté du modèle (px)',rotationMode:'Passes de rotation',patch:'Patch (px)',iterations:'Itérations',texture:'Texture minimum',algorithm:'Détecteur',limit:'Points maximum',radius:'Écartement maximum (px)',minimum:'Séparation minimum (px)',threshold:'Tolérance du descripteur',tolerance:'Proximité des biomes (px)',model:'Géométrie',geometricThreshold:'Erreur maximum (px)',geometricMinimum:'Témoins minimum',compare:'Comparer deux zones',reflections:'Inclure les réflexions',autoRadius:'Rayon automatique par zone',compact:'Ignorer les intervalles entre zones',independent:'SIFT par zone',low:'Longueur affichée min.',high:'max.',support:'Points minimum par côté',circles:'Cercles',lines:'Liaisons',points:'Points centraux',areas:'Biomes',textExclusions:'Exclusions de texte',biomesOnly:'Biomes seuls'},
- en:{longSide:'Model long side (px)',rotationMode:'Rotation passes',patch:'Patch (px)',iterations:'Iterations',texture:'Minimum texture',algorithm:'Detector',limit:'Maximum points',radius:'Maximum spacing (px)',minimum:'Minimum spacing (px)',threshold:'Descriptor tolerance',tolerance:'Biome proximity (px)',model:'Geometry',geometricThreshold:'Maximum error (px)',geometricMinimum:'Minimum inliers',compare:'Compare two regions',reflections:'Include reflections',autoRadius:'Automatic radius per region',compact:'Ignore gaps between regions',independent:'Per-region SIFT',low:'Displayed length min.',high:'max.',support:'Minimum points per side',circles:'Circles',lines:'Links',points:'Centre points',areas:'Biomes',textExclusions:'Text exclusions',biomesOnly:'Biomes only'}
+ fr:{longSide:'Grand côté du modèle (px)',rotationMode:'Passes de rotation',patch:'Patch (px)',iterations:'Itérations',texture:'Texture minimum',algorithm:'Détecteur',limit:'Points maximum',radius:'Écartement maximum (px)',minimum:'Séparation minimum (px)',threshold:'Tolérance du descripteur',tolerance:'Proximité des biomes (px)',model:'Géométrie',geometricThreshold:'Erreur maximum (px)',geometricMinimum:'Témoins minimum',compare:'Comparer deux zones',reflections:'Inclure les réflexions',autoRadius:'Rayon automatique par zone',compact:'Ignorer les intervalles entre zones',independent:'SIFT par zone',low:'Longueur affichée min.',high:'max.',support:'Points minimum par côté',circles:'Cercles',lines:'Liaisons',points:'Points centraux',areas:'Biomes',textExclusions:'Exclusions de texte',traceOverlap:'Chevauchement des tracés (%)',biomesOnly:'Biomes seuls'},
+ en:{longSide:'Model long side (px)',rotationMode:'Rotation passes',patch:'Patch (px)',iterations:'Iterations',texture:'Minimum texture',algorithm:'Detector',limit:'Maximum points',radius:'Maximum spacing (px)',minimum:'Minimum spacing (px)',threshold:'Descriptor tolerance',tolerance:'Biome proximity (px)',model:'Geometry',geometricThreshold:'Maximum error (px)',geometricMinimum:'Minimum inliers',compare:'Compare two regions',reflections:'Include reflections',autoRadius:'Automatic radius per region',compact:'Ignore gaps between regions',independent:'Per-region SIFT',low:'Displayed length min.',high:'max.',support:'Minimum points per side',circles:'Circles',lines:'Links',points:'Centre points',areas:'Biomes',textExclusions:'Text exclusions',traceOverlap:'Trace overlap (%)',biomesOnly:'Biomes only'}
 };
 export const sparseHelp={
  fr:{
@@ -33,6 +35,7 @@ export const sparseHelp={
   tolerance:'Rapproche dans un même biome les liens dont les extrémités sont proches, directement ou par une chaîne de liens.',
   areas:'Affiche les enveloppes des deux ensembles associés à chaque biome. Même couleur : correspondances liées ; ces enveloppes ne sont pas une segmentation certaine.',
   textExclusions:'Affiche le texte exclu par Panels + Text. Aucun texte n’est recherché par cette case : il doit déjà avoir été identifié pendant l’analyse.',
+  traceOverlap:'Chevauchement maximal autorisé : intersection des deux cercles divisée par la surface du plus petit cercle. 0 évite le chevauchement ; 100 affiche tous les tracés. Modifie seulement les cercles, liaisons et centres ; les biomes et les détections restent complets.',
   biomesOnly:'Affiche uniquement les biomes ; désactive les cercles, les liaisons et les points centraux.'
  },
  en:{
@@ -52,6 +55,7 @@ export const sparseHelp={
   tolerance:'Groups links whose respective endpoints are nearby, directly or through a chain, into the same biome.',
   areas:'Displays the envelopes of both matched sets in each biome. Shared color means related matches; envelopes are not proven segmentation.',
   textExclusions:'Displays text excluded by Panels + Text. This switch does not detect text; it must already have been identified during analysis.',
+  traceOverlap:'Maximum allowed overlap: intersection area divided by the area of the smaller circle. 0 avoids overlap; 100 shows all traces. Only circles, links and centres change; biomes and detections remain complete.',
   biomesOnly:'Shows biomes and disables circles, links and centre points.'
  }
 };

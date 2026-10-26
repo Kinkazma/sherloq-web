@@ -1,0 +1,352 @@
+{
+  "schema": "private-gradient-native-orientation/1",
+  "width": 41,
+  "height": 37,
+  "inputSha256": "6edb493a8a06d7b5728670f6a322ef59b35ccf940903e4a3e9a52c53540f017d",
+  "cases": [
+    {
+      "orientation": 1,
+      "width": 41,
+      "height": 37,
+      "expected": [
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 0,
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "11429a7fa6d010cc16277825c468dbfd29335cd3344dcefd76ca5b78180c5388"
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 1,
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "76e5ee91d1baff27fd49a66b29cb81d6eb9b4752e3c74f067f532f18f6e7f9d7"
+        },
+        {
+          "params": {
+            "intensity": 100,
+            "mode": 2,
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "d456ba391b53804095dea1508230ff06d39461c8bcedda8292d7064eab65d588"
+        },
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "70b0415c143951068e369d204f6a555b0b0035c9a68c5906835fc3e84d0241d9"
+        }
+      ]
+    },
+    {
+      "orientation": 2,
+      "width": 41,
+      "height": 37,
+      "expected": [
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 0,
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "8539c1beea8a912083749fc111be15cdda730e9b12cf2f4789c96d6bdb54c146"
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 1,
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "64770ce95576081ff398b94e62c5636afe6d52c0b8244f1d821c232bf78d8c5a"
+        },
+        {
+          "params": {
+            "intensity": 100,
+            "mode": 2,
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "57e75ecbadce73684b2aa69142d5b6fc442a1f8e1ceefb6c28db550e5ddd8787"
+        },
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "e194a402244c43e322ccb7350bfeaf11057086e70676eaa5f510e4cb6f91f3de"
+        }
+      ]
+    },
+    {
+      "orientation": 3,
+      "width": 41,
+      "height": 37,
+      "expected": [
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 0,
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "c04e96d5e3e6f22d24966ba11d16edff2a1e6f2365a9c91fc0411f52f06e9b5c"
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 1,
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "c54023e17eb207066f7db23f1437a7ae0d32ed93448d375aa68406760528fafe"
+        },
+        {
+          "params": {
+            "intensity": 100,
+            "mode": 2,
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "38f1b70153de3c19d7c9a477dd70767f6116001f2865b290eeece7e19c8d9e63"
+        },
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "9689b5dca2333e6153fbd536b87f542dcf458a5032e95720a98a653720b7c3fd"
+        }
+      ]
+    },
+    {
+      "orientation": 4,
+      "width": 41,
+      "height": 37,
+      "expected": [
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 0,
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "0ad486a5954bda5dcb5090743a087b18ede6e48884888939e5b3be3865496c4c"
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 1,
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "7a8c7b9dab354fbd380b30490c2bd9210e253ac4371c513938286ddd393e80ec"
+        },
+        {
+          "params": {
+            "intensity": 100,
+            "mode": 2,
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "4df6182b2c7872be011b3c30aef4c2a99716772bc55d04aa76e8276d7138e6c9"
+        },
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "184efa9dc2847c809832fb02582d76348e534ef0c61469b77e2eb21ff2685ef3"
+        }
+      ]
+    },
+    {
+      "orientation": 5,
+      "width": 37,
+      "height": 41,
+      "expected": [
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 0,
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "22985ef821a5f52afbabafd8c3d7667d683935b5ae4cfdf74e359d862873f211"
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 1,
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "7be8e4737712adf8d95c2244ea5884417d96e8951ecfa2d1ed097ac5d68bcc51"
+        },
+        {
+          "params": {
+            "intensity": 100,
+            "mode": 2,
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a1c7b5f4a168cbc3cfdef406ed800af2e243f37d8dcfb2ed408dc1c4e40c8a2d"
+        },
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "92076e2b833d226b802f53519797d1982a53f80ced5e3b35f46651f353a6809d"
+        }
+      ]
+    },
+    {
+      "orientation": 6,
+      "width": 37,
+      "height": 41,
+      "expected": [
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 0,
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "eb2ff602ab2b846f1d463f6921b3b76b62eaee6d9b3e42309be98f340cc7839b"
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 1,
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "857a141ef54d8b0e86387309690770193c3adcbc47fa15c93324e8cda152a595"
+        },
+        {
+          "params": {
+            "intensity": 100,
+            "mode": 2,
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "7be36b7a9a052dd79511a3bbe55734fcc634e6e7fedf79cbd093f41d63bbcc71"
+        },
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "142ea6aa50cbe998003b7f4fb109afa2c6af1e9939480079226c2598aa5415f9"
+        }
+      ]
+    },
+    {
+      "orientation": 7,
+      "width": 37,
+      "height": 41,
+      "expected": [
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 0,
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "3d4437b1c3a232746ee827b06a812e47ee4f87b9a5c636e84809380a687f7a9a"
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 1,
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "849f0dcd4642437101a59c976f508173f1047e91647b50b21bec3d492592f750"
+        },
+        {
+          "params": {
+            "intensity": 100,
+            "mode": 2,
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a1f4046feea60935b77485f3cacdb4fec0cac220c8dfb34bbef7a50bd1cc4039"
+        },
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "ccf26f128ecd6bc3bb49e32bdaf86de2388eb6bd746d16f77177de3b4836a571"
+        }
+      ]
+    },
+    {
+      "orientation": 8,
+      "width": 37,
+      "height": 41,
+      "expected": [
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 0,
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "9175d173dae96452e29d82e1e7da2f37c54f9326f612c3bc27857cfacc54a64c"
+        },
+        {
+          "params": {
+            "intensity": 95,
+            "mode": 1,
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "f98a5afca11074a3f723a976353ca3ca865e8dadd168025b94c5fa54d14bc54f"
+        },
+        {
+          "params": {
+            "intensity": 100,
+            "mode": 2,
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "c3212ce99b9e7a957b5c2eae940c0bbe46dfce55fd019eaf3495169845c84e8d"
+        },
+        {
+          "params": {
+            "intensity": 0,
+            "mode": 3,
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "375696979ed363b6ce9a39146435db9aafaa8e9030e2e231f7d449179ed07071"
+        }
+      ]
+    }
+  ]
+}

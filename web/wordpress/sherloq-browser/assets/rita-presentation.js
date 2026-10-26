@@ -16,7 +16,7 @@ export function ritaFrame(width,height,values,{base,mode='probability',threshold
    data[j]=visible?Math.round(base[j]*(1-alpha)+255*alpha):base[j];
    data[j+1]=visible?Math.round(base[j+1]*(1-alpha)):base[j+1];
    data[j+2]=visible?Math.round(base[j+2]*(1-alpha)):base[j+2];
-  }else if(visible)data[j]=mode==='mask'?255:Math.round(score*255);
+  }else if(visible)data[j]=mode==='mask'?255:Math.round(Math.fround(score*255));
  }
  return {width,height,format:'rgb8',data};
 }

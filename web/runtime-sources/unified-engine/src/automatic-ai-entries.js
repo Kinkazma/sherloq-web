@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {streamedD2prlRegions} from './d2prl-regions-stream.js';
 import {requireValue,checkAbort} from './errors.js';import {createCloneEntryGeometry} from './clone-entry-geometry.js';
 export async function forgeryscopeEntries(result,{budget,low=10,high=Infinity,maximumOverlap=.8,signal,wasmBinary}={}){
@@ -7,7 +7,8 @@ export async function forgeryscopeEntries(result,{budget,low=10,high=Infinity,ma
  try{
   for(const [zoneIndex,zone]of result.metadata.zones.entries()){
    const origin=zone.origin??[0,0],scoped=zone.scientific_scope,qualified=scoped?zone.filtered_evidence?.scopeFingerprint===scoped.fingerprint?zone.filtered_evidence.comparisons??[]:[]:zone.comparisons??[];
-   const matches=[...qualified.filter(match=>!scoped||(match.supported&&match.scientificScope?.qualified&&match.scientificScope?.featureFiltering?.fingerprint===scoped.fingerprint)).map((match,index)=>({match,index,branch:match.branch??'microscopy'})),...(!scoped?zone.lane_pairs??[]:[]).map((match,index)=>({match:{...match,accepted:true,supported:false},index,branch:'lanes'}))];
+   const strict=zone.strict_native_contexts?.contextFingerprint,strictMatch=match=>!!strict&&match.scientificScope?.qualified&&match.scientificScope?.stage==='native-fragments-before-models'&&match.scientificScope?.contextFingerprint===strict;
+   const matches=[...qualified.filter(match=>!scoped||strictMatch(match)||(match.supported&&match.scientificScope?.qualified&&match.scientificScope?.featureFiltering?.fingerprint===scoped.fingerprint)).map((match,index)=>({match,index,branch:match.branch??'microscopy'})),...(!scoped?zone.lane_pairs??[]:strict?(zone.filtered_evidence?.lanePairs??[]).filter(strictMatch):[]).map((match,index)=>({match:{...match,accepted:true,supported:false},index,branch:'lanes'}))];
    for(const {match,index,branch}of matches){checkAbort(signal);const supported=!!match.supported;if(!(match.accepted??supported))continue;const title={microscopy:'Microscopy',blots:'Western blots',lanes:'Lanes'}[branch];requireValue(title,'Unknown Forgeryscope branch');
     const polygons=[0,1].map(i=>(match['display_polygon'+i]??match['polygon'+i]).map(([x,y])=>[x+origin[0],y+origin[1]])),owned=await geometry.entry('Forgeryscope Auto',polygons,supported?match.inliers??0:1,{zone:zoneIndex,comparison:index,score:match.score,branch,evidence:supported?'geometry':'similarity',accepted:true},{signal});
     if(!owned)continue;let kept=false;try{const {entry}=owned,{distance,overlap}=geometry.compare(entry.polygons);if(distance<low||distance>high||overlap>=maximumOverlap)continue;Object.assign(entry,{label:`Forgeryscope Auto · ${title} · ${supported?'Geometry':'Similarity'}`,center_distance_px:distance,search_context:'forgeryscope-zone:'+zoneIndex,...(!supported?{count_kind:'pairs'}:{})});found.get(entry.id)?.release();found.set(entry.id,owned);kept=true;}finally{if(!kept)owned.release();}

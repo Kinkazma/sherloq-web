@@ -1,11 +1,13 @@
+import {catnetMapGeometry} from './catnet-map-geometry.js';
 import {createCatnetSegmentedAnalyzer,renderCatnetSegmented} from './catnet-segmented-analyzer.js';
 import {Budget} from './cache.js';import {resolveComputeProfile} from './profiles.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';import {CatnetPreparation} from './catnet-preparation.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';import {renderResearch} from './research-render.js';import {catnetNpz} from './npz.js';
 const hash=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(x=>x.toString(16).padStart(2,'0')).join('');
 export function catnetCropOrient(padded,metadata){
- const [h,w]=metadata.source_shape,[ph,pw]=metadata.padded_shape,o=metadata.orientation,width=o>=5?h:w,height=o>=5?w:h,out=new Float32Array(w*h);
+ const {h,w,ph,pw,o,width,height}=catnetMapGeometry(metadata);
  requireValue(padded instanceof Float32Array&&padded.length===ph*pw,'Invalid padded CAT-Net map.');
+ const out=new Float32Array(w*h);
  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
   let dx=x,dy=y;
   if(o===2)dx=w-1-x;else if(o===3){dx=w-1-x;dy=h-1-y;}else if(o===4)dy=h-1-y;else if(o===5){dx=y;dy=x;}else if(o===6){dx=h-1-y;dy=x;}else if(o===7){dx=h-1-y;dy=w-1-x;}else if(o===8){dx=y;dy=w-1-x;}

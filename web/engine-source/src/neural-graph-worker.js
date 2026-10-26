@@ -1,3 +1,5 @@
+import {alikedNativeSessionOptions,alikedNativeOutputTransfer} from './aliked-native-output-transport.js';
+import {disposeNeuralWorkerResources,disposeAlikedIdleWorkerRetryable} from './neural-worker-cleanup.js';
 import {closeGpuErrorScopes} from './gpu-error-scope.js';
 import {installGpuBufferLedger} from './gpu-buffer-ledger.js';
 import {allocateWasmMemory} from './allocation.js';
@@ -12,6 +14,7 @@ import {createNeuralSessionCache} from './neural-session-cache.js';
 import {neuralModelSessionIdentity,adaptNeuralScopedModel} from './neural-scoped-model.js';
 const reusable=new Map(),sessions=createNeuralSessionCache();
 let session,ort,runtime,asset,cfaModule,cfaProgram,cfaWeights,cfaGPU,execute,resourceReady,graphTransformReceipt,gpuLedger;
+let jobActive=false,disposeRequested=false,disposal;const alikedRetirement={};
 const runtimeLifecycle={runtimeInitializations:0,modelInitializations:0,modelSwitches:0};
 function waitForExecution(initializationMs,heapBytes){
  return new Promise(resolve=>{execute=resolve;self.postMessage({executionReady:true,initializationMs,heapBytes});});
@@ -32,9 +35,23 @@ function actualGpuDeviceLimits(){
   return {maxStorageBufferBindingSize,maxBufferSize};
 }
 installWorkerMessageProtocol(self,async data=>{
+  if(data.command==='dispose'){
+    if(Object.keys(data).some(key=>key!=='command'&&key!=='retryableAliked')||data.retryableAliked!==undefined&&data.retryableAliked!==true)throw workerMessageFailure('neural-endpoint','message','invalid-dispose');
+    if(jobActive||execute||resourceReady){self.postMessage({error:serializeEngineError(new EngineError('BUSY','An active neural job cannot use idle cooperative disposal.'))});return;}
+    disposeRequested=true;
+    const owners={reusable,session,sessionCache:sessions,gpuDevice:ort?.env?.webgpu?.device,nativeGpu:cfaGPU};
+    disposal??=(data.retryableAliked?disposeAlikedIdleWorkerRetryable(owners,alikedRetirement).then(receipt=>{session=asset=graphTransformReceipt=cfaGPU=cfaModule=cfaProgram=cfaWeights=null;return receipt;},error=>{disposal=null;throw error;}):disposeNeuralWorkerResources(owners).finally(()=>{session=asset=graphTransformReceipt=cfaGPU=cfaModule=cfaProgram=cfaWeights=null;}));
+    try{const cleanupReceipt=await disposal;self.postMessage({disposed:true,cleanupReceipt});}
+    catch(error){const encoded=serializeEngineError(error,'NEURAL_CLEANUP_FAILED');if(data.retryableAliked)encoded.details={...encoded.details,retryableAliked:true,cleanupReceipt:alikedRetirement.receipt,...(error===null||typeof error!=='object'?{primaryValue:error}:{})};self.postMessage({error:encoded});}
+    return;
+  }
+  if(disposeRequested){self.postMessage({error:serializeEngineError(new EngineError('DISPOSED','Neural worker resources are being disposed.'))});return;}
   if(data.command==='resource-ready'){if(!resourceReady)throw workerMessageFailure('neural-endpoint','message','unexpected-resource-ready');const resume=resourceReady;resourceReady=null;resume();return;}
  if(data.command==='execute'){if(!execute)throw workerMessageFailure('neural-endpoint','message','unexpected-execute');const resume=execute;execute=null;resume();return;}
   if(!data.runtime||typeof data.runtime!=='object'||!data.asset||!data.inputs||data.command!==undefined)throw workerMessageFailure('neural-endpoint','message','invalid-job');
+  if(jobActive){self.postMessage({error:serializeEngineError(new EngineError('BUSY','A neural worker already has an active job.'))});return;}
+  jobActive=true;
+  try{
   const trackingGpu=data.trackGpuMemory===true&&data.provider==='webgpu';
   const initializationStart=performance.now();let initialized=false,phase='initialization';
   const timings={modelLoadMs:0,modelReleaseMs:0,inputPreparationMs:0,inferenceMs:0,outputCopyMs:0,initializationMs:0};
@@ -71,7 +88,7 @@ installWorkerMessageProtocol(self,async data=>{
    return;
   }
   try{
-    const queryBatch=queryBatchShape(data);
+    const queryBatch=queryBatchShape(data),nativeAlikedOptions=alikedNativeSessionOptions(data.asset,data.provider);
     if(trackingGpu){gpuLedger??=installGpuBufferLedger();gpuLedger?.setMaximumBytes(data.gpuMaximumBytes);}
     const incoming=(!session||neuralModelSessionIdentity(asset)!==neuralModelSessionIdentity(data.asset))?sessions.take(neuralModelSessionIdentity(data.asset)):null;
     if(session&&neuralModelSessionIdentity(asset)!==neuralModelSessionIdentity(data.asset)){
@@ -92,7 +109,7 @@ installWorkerMessageProtocol(self,async data=>{
       initialized=true;asset=data.asset;
       self.postMessage({phase:'model-load'});
       const loadStarted=performance.now(),originalBytes=await modelBytes(asset),adaptation=await adaptNeuralScopedModel(originalBytes,asset);
-      session=await ort.InferenceSession.create(adaptation.bytes,{executionProviders:[data.provider==='webgpu'&&asset.preferredLayout?{name:'webgpu',preferredLayout:asset.preferredLayout}:data.provider],graphOptimizationLevel:asset.graphOptimizationLevel??'all',enableCpuMemArena:false,enableMemPattern:false});
+      session=await ort.InferenceSession.create(adaptation.bytes,nativeAlikedOptions??{executionProviders:[data.provider==='webgpu'&&asset.preferredLayout?{name:'webgpu',preferredLayout:asset.preferredLayout}:data.provider],graphOptimizationLevel:asset.graphOptimizationLevel??'all',enableCpuMemArena:false,enableMemPattern:false});
       graphTransformReceipt=adaptation.receipt;
       timings.modelLoadMs=performance.now()-loadStarted;runtimeLifecycle.modelInitializations++;
     }
@@ -176,9 +193,10 @@ installWorkerMessageProtocol(self,async data=>{
       try{outputs=await session.run(feeds);}catch(error){cause=error;}
       const failure=await closeGpuErrorScopes(device,{cause,label:'neural-inference',validationCode:'NEURAL_EXECUTION'});if(failure)throw failure;
     }else outputs=await session.run(feeds);
-    timings.inferenceMs=performance.now()-inferenceStarted;phase='output';const outputStarted=performance.now(),{result,transfers,copiedOutputBytes}=neuralOutputTransfer(outputs,feeds,data.outputBytes);timings.outputCopyMs=performance.now()-outputStarted;
+    timings.inferenceMs=performance.now()-inferenceStarted;phase='output';const outputStarted=performance.now(),{result,transfers,copiedOutputBytes}=nativeAlikedOptions?await alikedNativeOutputTransfer(outputs,feeds,data.outputBytes,nativeAlikedOptions):neuralOutputTransfer(outputs,feeds,data.outputBytes);timings.outputCopyMs=performance.now()-outputStarted;
     const gpuMemory=trackingGpu?await gpuLedger?.settle():undefined;
     self.postMessage({result,timings,copiedOutputBytes,...(queryBatch?{logicalExecutions:queryBatch.counts.length}:{}),heapBytes:runtime.heapBytes(),...(trackingGpu?{gpuBytes:gpuMemory?.bufferBytes,gpuMemory,gpuDeviceLimits:actualGpuDeviceLimits()}:{}),runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle,sessionCache:{...sessions.snapshot(),currentHit:!!incoming}},provider:data.provider,...(graphTransformReceipt?{graphTransform:graphTransformReceipt}:{})},transfers);
   }catch(error){error=(trackingGpu?gpuLedger?.failure():null)??error;const gpuMemory=trackingGpu?gpuLedger?.snapshot():undefined;self.postMessage({...(trackingGpu?{gpuBytes:gpuMemory?.bufferBytes,gpuMemory,gpuDeviceLimits:actualGpuDeviceLimits()}:{}),error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
   finally{for(const [name,t]of Object.entries(feeds))if(reusable.get(name)?.tensor!==t)t.dispose();for(const t of Object.values(outputs??{}))t.dispose();}
+  }finally{jobActive=false;}
 },{label:'neural-endpoint',onFailure:error=>self.postMessage({error:serializeEngineError(error)})});

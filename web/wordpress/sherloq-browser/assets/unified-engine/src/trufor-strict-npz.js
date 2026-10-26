@@ -1,0 +1,7 @@
+import "../../runtime-context.js?v=0.25.0";
+import{requireValue}from'./errors.js';
+import{npyHeader}from'./npz.js';
+export function truforStrictNpzEntries(result,header=npyHeader){const d=result.data,m=d?.metadata;requireValue(m?.fragmented&&Number.isSafeInteger(d.pixelCount)&&d.pixelCount>=0&&d.context_scores instanceof Float64Array,'Strict TruFor context arrays are required.');const entries=[];
+ for(const key of['map','confidence','noiseprint_pp']){const value=d[key];requireValue(value?.elementType==='Float32Array'&&value.length===d.pixelCount&&typeof value.readBytes==='function','Invalid packed native TruFor field.');entries.push({key,value,header:header('<f4',[d.pixelCount]),bytes:value.byteLength,floating:true,segmented:true});}
+ for(const[key,value,shape]of[['context_scores',d.context_scores,[d.context_scores.length]],['fragment_bounds',new Float64Array(m.fragments.flatMap(f=>f.bounds)),[m.fragments.length,4]],['fragment_shapes',new Float64Array(m.fragments.flatMap(f=>f.shape)),[m.fragments.length,2]],['fragment_offsets',new Float64Array(m.fragments.map(f=>f.offset)),[m.fragments.length]],['fragment_evaluable',new Float64Array(m.fragments.map(f=>Number(f.evaluable))),[m.fragments.length]]])entries.push({key,value,header:header('<f8',shape),bytes:value.byteLength,floating:true});
+ return entries;}

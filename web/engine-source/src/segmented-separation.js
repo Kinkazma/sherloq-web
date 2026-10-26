@@ -39,7 +39,9 @@ export async function segmentedSeparation(image,p,{budget,signal,onProgress,rows
    output=await createSegmentedBytes(n*3,{budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal});planning();planning=null;
    const available=budget.limit-budget.retained-budget.active-overhead(count)-lineBytes,rows=Math.min(targetRows,heapRows,Math.floor((available-count*w*Math.min(h-1,2*halo)*3)/(count*w*6)));
    if(rows<1)throw new EngineError('MEMORY_LIMIT','Separation row staging does not fit the shared budget.');
-   staging=budget.reserve(overhead(count)+count*w*rows*3);if(count>1)workers=new SeparationWorkers(count,{budget});checkAbort(signal);
+   // IO is planned above, but the storage owner reserves its actual pages.
+   // Keep that allowance free instead of charging the same workspace twice.
+   staging=budget.reserve(overhead(count)-ioBytes+count*w*rows*3);if(count>1)workers=new SeparationWorkers(count,{budget});checkAbort(signal);
    const dispatchAccountedBytes=budget.total(),histograms=base?.histograms??(equalize?new Float64Array(768):null),filterStarted=performance.now(),rawResidual=!!base&&!p.denoised;
    async function batch(y){
     const jobs=[],leases=[];
@@ -67,9 +69,9 @@ export async function segmentedSeparation(image,p,{budget,signal,onProgress,rows
     }catch(error){workers?.clear();await Promise.all(jobs);throw error;}finally{for(const release of leases)release();}
    }
    for(let y=0;y<h;y+=rows*count)await batch(y);checkAbort(signal);const filterWallMs=performance.now()-filterStarted;
-   workers?.clear();workers=null;staging();staging=budget.reserve(separationHeapBytes()+ioBytes+16384);
+   workers?.clear();workers=null;staging();staging=budget.reserve(separationHeapBytes()+16384);
    if(equalize){
-    const tables=separationEqualizeLuts(histograms,n),available=budget.limit-budget.retained-budget.active,blockBytes=Math.min(4*1024**2,Math.floor(available/3)*3);if(blockBytes<3)throw new EngineError('MEMORY_LIMIT','Global residual equalization staging does not fit.');
+    const tables=separationEqualizeLuts(histograms,n),available=budget.limit-budget.retained-budget.active-ioBytes,blockBytes=Math.min(4*1024**2,Math.floor(available/3)*3);if(blockBytes<3)throw new EngineError('MEMORY_LIMIT','Global residual equalization staging does not fit.');
     const at=performance.now();await output.visit(async(bytes,offset)=>{for(let i=0;i<bytes.length;i++)bytes[i]=tables[(offset+i)%3][bytes[i]];await output.write(bytes,offset);onProgress?.(.8+.2*(offset+bytes.length)/(n*3));},{signal,blockBytes});postprocessMs+=performance.now()-at;
    }
    await output.flush();checkAbort(signal);const surface=createRgbSurface(output,{width:w,height:h,budget});

@@ -50,9 +50,20 @@ export function createConvolutionCpu({budget,arena, moduleUrl, maxWorkers = 1,op
         if (inputBytes + tile * 4 + 8 * 1024 ** 2 > HEAP_MAX) throw new EngineError('MEMORY_LIMIT', 'Layer exceeds bounded CPU convolution heap',{details:{admissionScope:'fixed',requestedBytes:inputBytes+tile*4+8*1024**2,capacityBytes:HEAP_MAX}});
         borrowed = scope.reserve(inputBytes);const output=await operation('convolution:output',()=>arena.allocate(Float32Array,count,{signal,zero:false,label:'convolution:cpu'}),{bytes:count*4});outputRelease=output.release;
         const copyBytes = inputBytes + tile * 8 + 4096;
-        const available = budget.limit - budget.total() + pool.reduce((sum,slot)=>sum+(slot.release?HEAP_MAX:0),0);
+        let available = budget.limit - budget.total() + pool.reduce((sum,slot)=>sum+(slot.release?HEAP_MAX:0),0);
         const useful = Math.max(1, Math.ceil(count * k / (4 * 1024 ** 2)));
-        const workers = Math.min(maxWorkers, Math.max(1, navigator.hardwareConcurrency || 1), useful, Math.ceil(count / tile), Math.floor(available / (HEAP_MAX + copyBytes)));
+        const requested = Math.min(maxWorkers, Math.max(1, navigator.hardwareConcurrency || 1), useful, Math.ceil(count / tile));
+        // Already idle output banks must not hide capacity from genuinely useful
+        // requested workers. Retire only whole unused arena banks, and only on
+        // a parallel-admission shortfall. Validated parameters, live tensors
+        // and active resource loans remain owned and untouched.
+        const idleBytes = arena.reclaimableIdleBytes ?? 0;
+        const attainable = Math.min(requested, Math.floor((available + idleBytes) / (HEAP_MAX + copyBytes)));
+        const shortfall = Math.max(0, attainable * (HEAP_MAX + copyBytes) - available);
+        const reclaimStarted = performance.now(), reclaimedIdleArenaBytes = shortfall > 0 ? arena.reclaimIdle?.(shortfall) ?? 0 : 0;
+        const reclaimIdleArenaMs = shortfall > 0 ? performance.now() - reclaimStarted : 0;
+        check();available = budget.limit - budget.total() + pool.reduce((sum,slot)=>sum+(slot.release?HEAP_MAX:0),0);
+        const workers = Math.min(requested, Math.floor(available / (HEAP_MAX + copyBytes)));
         if (workers < 1) throw new EngineError('MEMORY_LIMIT', 'One CPU convolution worker cannot be admitted',{details:{requestedBytes:copyBytes+(pool.some(slot=>slot.release)?0:HEAP_MAX)}});
         while (pool.length > workers) remove();
         copies = scope.reserve(workers * copyBytes);
@@ -84,7 +95,7 @@ export function createConvolutionCpu({budget,arena, moduleUrl, maxWorkers = 1,op
         await Promise.allSettled(tasks.map(task=>task.catch(error=>{failure??=error;cancelScheduledWorkerCalls(admission);while(pool.length)remove();throw error;})));if(failure)throw failure;
         const clears=pool.map(async slot=>{try{await rpc(slot,{kind:'clear'},signal);slot.loaded=false;}catch(error){if(error.code!=='WORKER_MESSAGE_FAILED')throw error;retire(slot,error);}});
         await Promise.allSettled(clears.map(task=>task.catch(error=>{failure??=error;cancelScheduledWorkerCalls(admission);while(pool.length)remove();throw error;})));if(failure)throw failure;checkAbort(signal); healthy = true; complete = true;
-        output.shape=[1,outChannels,oh,ow];output.workers=workers;output.heapBytes=heapBytes;return output;
+        output.shape=[1,outChannels,oh,ow];output.workers=workers;output.heapBytes=heapBytes;output.admission={requestedWorkerCeiling:maxWorkers,usefulRequestedWorkers:requested,workers,reclaimedIdleArenaBytes,reclaimIdleArenaMs,validatedParameterPolicy:'Never explicitly evicted by this arena-only admission step',policy:'Only whole unused tensor output banks are reclaimed for useful requested workers; validated parameters and live tensors are preserved.'};return output;
       } catch(error){throw scope.capture(error);} finally { if (!healthy) { cancelScheduledWorkerCalls(admission); while (pool.length) remove(); } copies?.(); borrowed?.(); if (!complete) outputRelease?.();scope.close(); busy = false; }
     },
     releaseIdleWorkers() { requireValue(!busy, 'CPU convolution busy'); while (pool.length) remove(); },

@@ -22,7 +22,7 @@ export async function encodeMediaRaster(surface,request,{budget,signal,onProgres
  requireValue(request.maxBytes===undefined||Number.isSafeInteger(request.maxBytes)&&request.maxBytes>0,'Positive raster output limit required.');
  requireValue(Number.isInteger(quality)&&quality>=1&&quality<=100&&['420','422','444'].includes(chroma),'Invalid compression settings.');
  requireValue(Number.isInteger(request.compression??6)&&(request.compression??6)>=0&&(request.compression??6)<=9,'Invalid lossless compression level.');
- const release=budget.reserve(plan.workingBytes);let session,store,written=0,encoded,success=false,source=surface;
+ const release=budget.reserve(plan.workingBytes);let session,store,written=0,encoded,success=false,source=surface,failure;
  try{
   const hash=await createSHA256();
   if(plan.width!==surface.descriptor.width||plan.height!==surface.descriptor.height)source=createResizedSdrSurface(surface,plan,budget,request.resize?.algorithm??(request.adaptive?'area':'auto'));
@@ -45,5 +45,10 @@ export async function encodeMediaRaster(surface,request,{budget,signal,onProgres
   requireValue(written===encoded.byteLength,'Incomplete encoded raster.');await store.flush();checkAbort(signal);
   const descriptor={id:crypto.randomUUID(),revision:1,mime:metadata.mime,format,width:plan.width,height:plan.height,byteLength:written,sha256:hash.digest('hex'),imageId,sourceSurfaceId:surface.descriptor.id,sourceSurfaceRevision:surface.descriptor.revision,sourceFormat:surface.descriptor.format,provenance:{originalSha256,...metadata,coordinates:source===surface?'full-resolution':'reduced-export-only',...(source!==surface?{reduction:source.resampling+' in linear sRGB',sourceSize:[surface.descriptor.width,surface.descriptor.height]}:{}),metadata:'No original EXIF, alpha, ICC or authenticity assertions are copied.'},metrics:{storage:store.storage,temporaryBackend:session?.backend??null,workingReservationBytes:plan.workingBytes,codecHeapCapacityBytes:metadata.heapBytes??null,memory:budget.snapshot()}};
   success=true;return{descriptor,store,session};
- }finally{try{if(!success){await store?.dispose();await session?.dispose();}}finally{release();}}
+ }catch(error){failure=error;throw error;}finally{
+  let cleanupFailure=failure;
+  const retire=async task=>{try{await task();}catch(error){if(cleanupFailure===undefined)cleanupFailure=error;else if(cleanupFailure&&typeof cleanupFailure==='object')try{cleanupFailure.details={...cleanupFailure.details,cleanupFailures:[...(cleanupFailure.details?.cleanupFailures??[]),{code:error?.code??'CLEANUP_FAILED',message:String(error?.message??error)}]};}catch{}}};
+  if(!success){await retire(()=>store?.dispose());await retire(()=>session?.dispose());}
+  await retire(release);if(failure===undefined&&cleanupFailure!==undefined)throw cleanupFailure;
+ }
 }

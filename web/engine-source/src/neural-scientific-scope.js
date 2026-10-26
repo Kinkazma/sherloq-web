@@ -5,7 +5,7 @@ export const NEURAL_SCIENTIFIC_SCOPE_SCHEMA='sherloq.neural-scientific-scope/1';
 export function neuralScientificScopeIdentity(scope,{width,height,sourceSha256}={}){
  compileForgeryscopeScientificScope(scope,{width,height,sourceSha256});
  requireValue(scope&&['ready','excluded'].includes(scope.status),'Prepared neural scope required');
- return JSON.stringify([scope.schema,scope.fingerprint,width,height,sourceSha256,scope.regions,scope.excluded]);
+ return JSON.stringify([scope.schema,scope.fingerprint,width,height,sourceSha256,scope.regions,scope.excluded,...(scope.nativeSourceRegions?[scope.nativeSourceRegions]:[])]);
 }
 function rectangular(polygon){return polygon.length===4&&new Set(polygon.map(p=>p[0])).size===2&&new Set(polygon.map(p=>p[1])).size===2&&polygon.every((p,i)=>p[0]===polygon[(i+1)%4][0]||p[1]===polygon[(i+1)%4][1]);}
 async function hasOriginalPixels(compiled,bounds,signal){
@@ -50,7 +50,7 @@ export async function prepareNeuralScientificScope(scope,zones,{width,height,sou
    if(!retainMatchingGrid||admitted===values.length){release();retained.pop();}
   }
   checkAbort(signal);complete=true;
-  return {zones:selected,grids,identity,sourceScope:scope,metadata:{schema:NEURAL_SCIENTIFIC_SCOPE_SCHEMA,fingerprint:scope.fingerprint,coordinates:'original-pixels',sourceSha256,width,height,side,matchingGrid:retainMatchingGrid?'native-source-centres':'presence-only; candidate-domain projection is performed by the native inference adapter',requestedZones:zones.length,retainedZones:selected.length,skippedZones:skipped,projection:'native-half-pixel-centres; original RGB unchanged',cnnContext:'Original rectangle context remains computed; not a masked CNN inference.'},release(){for(const free of retained.splice(0))free();}};
+  return {zones:selected,grids,identity,sourceScope:scope,metadata:{schema:NEURAL_SCIENTIFIC_SCOPE_SCHEMA,fingerprint:scope.fingerprint,coordinates:'original-pixels',sourceSha256,width,height,side,matchingGrid:retainMatchingGrid?'native-source-centres':'presence-only; candidate-domain projection is performed by the native inference adapter',requestedZones:zones.length,retainedZones:selected.length,skippedZones:skipped,projection:'native-half-pixel-centres; original RGB unchanged',cnnContext:'Original rectangle context remains computed; not a masked CNN inference.',...(scope.nativeSourceRegions?{nativeSourceRegions:{domainFingerprint:scope.nativeSourceRegions.domainFingerprint,policy:'Source and target candidates intersect native acquisition centres and every Original ceiling; gaps remain available only as the declared envelope RGB context. Explicit source exclusions are not admitted by this adapter.'}}:{})},release(){for(const free of retained.splice(0))free();}};
  }finally{if(!complete)for(const free of retained)free();}
 }
 

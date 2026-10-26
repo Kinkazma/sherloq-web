@@ -8,8 +8,13 @@ export function serveNativeSourceChannel(port,source,{signal,reserve=()=>()=>{}}
  function close(){if(closed)return;closed=true;abort.abort();signal?.removeEventListener('abort',close);try{port.postMessage({type:'closed'});}catch{}port.close?.();quiescent();}
  async function handle(message){if(closed)return;if(message?.type==='close'){close();return;}const ticket=message?.ticket;
   try{requireValue(message?.type==='read'&&Number.isSafeInteger(ticket)&&ticket>0,'Invalid native preparation read request.');const rect=rectangle(message.rect,source.width,source.height);requireValue(rect.width*rect.height*3<=MAX_BYTES,'Native preparation transport windows are limited to 1 MiB.');checkAbort(signal);checkAbort(abort.signal);let window,release;
-   try{window=await source.readWindow(rect,{signal:abort.signal});checkAbort(signal);checkAbort(abort.signal);requireValue(window.pixels?.format==='rgb8'&&window.pixels.width===rect.width&&window.pixels.height===rect.height&&window.pixels.data instanceof Uint8Array&&window.pixels.data.length===rect.width*rect.height*3,'Native preparation reader returned another grid.');release=await reserve(window.pixels.data.length);const data=window.pixels.data.slice();if(!closed)port.postMessage({ticket,pixels:{width:rect.width,height:rect.height,format:'rgb8',data}},[data.buffer]);}
-   finally{await window?.release?.();await release?.();}
+   let primary;
+   try{window=await source.readWindow(rect,{signal:abort.signal});checkAbort(signal);checkAbort(abort.signal);requireValue(window.pixels?.format==='rgb8'&&window.pixels.width===rect.width&&window.pixels.height===rect.height&&window.pixels.data instanceof Uint8Array&&window.pixels.data.length===rect.width*rect.height*3,'Native preparation reader returned another grid.');release=await reserve(window.pixels.data.length);checkAbort(signal);checkAbort(abort.signal);const data=window.pixels.data.slice();
+    // The consumer must not run or issue another source RPC until the borrowed
+    // window has acknowledged retirement. The admitted copy remains owned here.
+    const borrowed=window;window=null;await borrowed.release?.();checkAbort(signal);checkAbort(abort.signal);if(!closed)port.postMessage({ticket,pixels:{width:rect.width,height:rect.height,format:'rgb8',data}},[data.buffer]);
+   }catch(error){primary=error;throw error;}
+   finally{let failure;for(const cleanup of[()=>window?.release?.(),()=>release?.()])try{await cleanup();}catch(error){if(primary&&typeof primary==='object'&&Object.isExtensible(primary))primary.details={...primary.details,nativeSourceCleanupErrors:[...(primary.details?.nativeSourceCleanupErrors??[]),serializeEngineError(error)]};else failure??=error;}if(!primary&&failure)throw failure;}
   }catch(error){if(!closed)port.postMessage({ticket,error:serializeEngineError(error)});}
  }
  port.onmessage=({data})=>{const promise=handle(data);active.add(promise);promise.catch(()=>close()).finally(()=>{active.delete(promise);quiescent();});};port.onmessageerror=close;port.start?.();signal?.addEventListener('abort',close,{once:true});if(signal?.aborted)close();

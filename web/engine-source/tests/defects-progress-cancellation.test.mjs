@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{defectParams,defectPixels}from'../src/defect-pixels.js';
+const image={width:33,height:35,format:'rgb8',data:new Uint8Array(33*35*3).fill(128)};image.data[(15*33+15)*3]=255;
+test('defect progress spans classification and records monotonically',async()=>{const events=[];await defectPixels(image,defectParams(),{onProgress:f=>events.push(f)});assert.equal(events.length,4);assert(events.every((v,i)=>!i||v>=events[i-1]),JSON.stringify(events));assert.equal(events.at(-1),1)});
+test('defect cancellation refuses every initial, intermediate and final callback output',async()=>{for(const stopAt of[0,1,2,3,4]){const c=new AbortController();let callbacks=0;if(stopAt===0)c.abort();await assert.rejects(defectPixels(image,defectParams(),{signal:c.signal,onProgress:()=>{if(++callbacks===stopAt)c.abort()}}),{code:'CANCELLED'});assert.equal(callbacks,stopAt)}});

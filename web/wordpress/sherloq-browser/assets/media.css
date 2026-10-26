@@ -29,3 +29,8 @@ kbd,.keycap{display:inline-flex;align-items:center;justify-content:center;min-wi
 .loupe-effect-status{display:block;font-size:12px;min-height:1.4em;text-align:left!important;opacity:.8}.loupe-sidebar [data-media=hint]{font-size:11px}.loupe-sidebar .dialog-actions{margin-top:6px}.loupe-sidebar [data-media=effectsHint]{font-size:12px}
 
 .loupe-effect-actions{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:7px}.loupe-effect-actions button{font-size:12px}.loupe-effect-actions select{width:100%;margin-top:4px}
+
+.loupe-step-controls select{min-width:0;flex:1}.loupe-step-controls input[type=number]{width:64px}.loupe-step-actions{display:flex;align-items:center;gap:8px;justify-content:space-between}.loupe-step-actions button{flex:1;min-width:0}.loupe-step-actions output{min-width:3em;text-align:center;font-variant-numeric:tabular-nums}
+
+/* Numeric text fields have padding; slider tracks must use their full width. */
+.loupe-sidebar input[type=range]{padding:0;border:0;background:transparent}

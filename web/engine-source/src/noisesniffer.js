@@ -1,7 +1,7 @@
 // Corrected IPOL Noisesniffer: native core contract, not the original CLI bugs.
 import {numpyArgsort} from './numpy-argsort.js';
 import {numpySum} from './numpy-sum.js';
-import {EngineError,checkAbort,checkpoint,requireValue} from './errors.js';
+import {EngineError,checkAbort,checkpoint,requireValue,createCooperator} from './errors.js';
 import {cvNoisesnifferTailFunction,cvNoisesnifferStatistics} from './opencv.js';
 import {parameters} from './pixel-utils.js';
 export function noisesnifferParams(input={}){
@@ -46,16 +46,17 @@ export function noisesnifferCounts(width,height,w,W,selected,low){
  return {gridWidth:gw,gridHeight:gh,all_blocks:count(selected),low_noise_blocks:count(low)};
 }
 export async function noisesnifferRegions(width,height,w,W,m,counts,{signal,tail,materializeMask=true,retainRegion}={}){
- tail??=await cvNoisesnifferTailFunction();const {gridWidth:gw,gridHeight:gh,all_blocks:all,low_noise_blocks:low}=counts,grid=new Uint8Array(gw*gh),regions=[],cache=new Map();let retainedCells=0,nearGrowthBoundaries=0;
+ const cooperate=createCooperator(signal);tail??=await cvNoisesnifferTailFunction();const {gridWidth:gw,gridHeight:gh,all_blocks:all,low_noise_blocks:low}=counts,grid=new Uint8Array(gw*gh),regions=[],cache=new Map();let retainedCells=0,nearGrowthBoundaries=0;
  const cached=(K,N)=>{const key=K+':'+N;if(cache.has(key)){const v=cache.get(key);cache.delete(key);cache.set(key,v);return v;}const v=tail(K,N,w,m);if(cache.size>=32768)cache.delete(cache.keys().next().value);cache.set(key,v);return v;};
  for(let y=0;y<gh;y++){
-  await checkpoint(signal);
+  await cooperate();
   for(let x=0;x<gw;x++){
+   if((x&255)===0)await cooperate();
    const seed=y*gw+x;if(!(all[seed]>0&&low[seed]/all[seed]-m>0&&grid[seed]===0))continue;
    const cells=[seed],seen=new Set(cells);let N=all[seed],K=low[seed],before=0;
    while(before!==cells.length){before=cells.length;
     for(let i=0;i<cells.length;i++){
-     checkAbort(signal);const a=cells[i],ay=Math.floor(a/gw),ax=a%gw;
+     if((i&255)===0)await cooperate();checkAbort(signal);const a=cells[i],ay=Math.floor(a/gw),ax=a%gw;
      for(const [dy,dx] of [[1,0],[-1,0],[0,1],[0,-1]]){
       const by=ay+dy,bx=ax+dx;if(by<0||by>=gh||bx<0||bx>=gw)continue;const b=by*gw+bx;if(seen.has(b))continue;
       const R=cells.length,left=cached(K,N)-Math.log(R),right=Math.log(4)+cached(K+low[b],N+all[b])-Math.log(R+1);

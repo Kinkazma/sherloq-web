@@ -1,3 +1,4 @@
+import {errorEvidence} from './error-evidence.js';
 import {resourceFetch} from './resilient-resource.js';
 // One diagnostic channel per open workspace. No image bytes, cookies or network logging.
 const KEY=Symbol.for('sherloq.runtime.context');
@@ -30,7 +31,7 @@ export function diagnosticValue(value,depth=0,seen=new WeakSet()){
  if(typeof value!=='object')return String(value);
  if(ArrayBuffer.isView(value)||value instanceof ArrayBuffer||typeof Blob!=='undefined'&&value instanceof Blob)return {type:value.constructor.name,byteLength:value.byteLength??value.size,omitted:'binary'};
  if(depth>10)return '[depth limit]';if(seen.has(value))return '[circular]';seen.add(value);
- if(value instanceof Error)return diagnosticValue({name:value.name,code:value.code,message:value.message,stack:value.stack,details:value.details,cause:value.cause},depth+1,seen);
+ if(value instanceof Error)return diagnosticValue(errorEvidence(value),depth+1,seen);
  if(Array.isArray(value))return value.length>128?{type:'array',length:value.length,omitted:'bulk values'}:value.map(v=>diagnosticValue(v,depth+1,seen));
  const out={};for(const [k,v]of Object.entries(value)){
   if(/^filename$/i.test(k)){out[k]=diagnosticScriptURL(v)??'[omitted]';continue;}
@@ -44,14 +45,17 @@ function setup(){
  const windowContext=typeof document!=='undefined';
  const session=windowContext?crypto.randomUUID():new URL(location.href).searchParams.get('sherloqSession');
  if(windowContext){const u=new URL(location.href);u.searchParams.set('sherloqSession',session);history.replaceState(history.state,'',u);}
- const context=crypto.randomUUID(),listeners=new Set(),retryWaiters=new Map();let sequence=0;
+ const context=crypto.randomUUID(),listeners=new Set(),retryWaiters=new Map();let sequence=0,waitSerial=0;
+ const ownerPattern=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/,familyParam='sherloqDependencyOwner',inheritedFamily=windowContext?null:new URL(location.href).searchParams.get(familyParam),dependencyFamily=ownerPattern.test(inheritedFamily??'')?inheritedFamily:null;
+ // Per-window live Worker handles only; no model bytes, retired tombstones or orphan owners.
+ const activeFamilies=new Set(),workerFamilies=new WeakMap();
  const channel=session&&typeof BroadcastChannel==='function'?new BroadcastChannel('sherloq-session-'+session):null;
  const emit=entry=>{if(!session)return;const event={time:new Date().toISOString(),context,sequence:++sequence,...diagnosticValue(normalizeDiagnosticEvent(entry))};if(windowContext)for(const listener of listeners)try{listener(event);}catch{}else channel?.postMessage({type:'log',event});};
- channel?.addEventListener('message',({data})=>{if(data?.type==='log'&&windowContext){for(const listener of listeners)try{listener(data.event);}catch{}}if(data?.type==='retry'){const list=retryWaiters.get(data.key);retryWaiters.delete(data.key);for(const resolve of list||[])resolve();}});
+ channel?.addEventListener('message',({data})=>{if(data?.type==='log'&&windowContext){let event=data.event;const owner=event?.dependencyWaitOwner;if(event?.kind==='dependency.wait'&&owner?.schema==='sherloq.dependency-wait-owner/1'&&ownerPattern.test(owner.familyId??'')&&!activeFamilies.has(owner.familyId))event={...event,kind:'dependency.wait-inactive-owner',observedKind:'dependency.wait',diagnosticRetirementOnly:true,resourceAcknowledged:false};for(const listener of listeners)try{listener(event);}catch{}}if(data?.type==='retry'){const list=retryWaiters.get(data.key);retryWaiters.delete(data.key);for(const resolve of list||[])resolve();}});
  function retry(key,error,signal){
   if(!session||!channel)throw error;
-  emit({level:'error',kind:'dependency.wait',key,error});
-  return new Promise((resolve,reject)=>{const list=retryWaiters.get(key)||[];const done=()=>{signal?.removeEventListener('abort',cancel);resolve();};const cancel=()=>{const pending=retryWaiters.get(key)||[];const index=pending.indexOf(done);if(index>=0)pending.splice(index,1);if(!pending.length)retryWaiters.delete(key);emit({level:'info',kind:'dependency.cancelled',key});reject(signal.reason);};if(signal?.aborted){cancel();return;}list.push(done);retryWaiters.set(key,list);signal?.addEventListener('abort',cancel,{once:true});});
+  const dependencyWaitOwner={schema:'sherloq.dependency-wait-owner/1',context,requestId:++waitSerial,familyId:dependencyFamily};emit({level:'error',kind:'dependency.wait',key,error,dependencyWaitOwner});
+  return new Promise((resolve,reject)=>{const list=retryWaiters.get(key)||[];const done=()=>{signal?.removeEventListener('abort',cancel);emit({level:'info',kind:'dependency.resumed',key,dependencyWaitOwner});resolve();};const cancel=()=>{const pending=retryWaiters.get(key)||[];const index=pending.indexOf(done);if(index>=0)pending.splice(index,1);if(!pending.length)retryWaiters.delete(key);emit({level:'info',kind:'dependency.cancelled',key,dependencyWaitOwner});reject(signal.reason);};if(signal?.aborted){cancel();return;}list.push(done);retryWaiters.set(key,list);signal?.addEventListener('abort',cancel,{once:true});});
  }
  const api={session,context,emit,subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},retry,resume(key){emit({level:'info',kind:'dependency.retry',key});channel?.postMessage({type:'retry',key});if(windowContext)navigator.serviceWorker?.controller?.postMessage({type:'dependency-retry',key});const list=retryWaiters.get(key);retryWaiters.delete(key);for(const resolve of list||[])resolve();}};
  if(session&&typeof fetch==='function'){
@@ -65,11 +69,12 @@ function setup(){
  if(typeof Worker==='function'){
   const NativeWorker=globalThis.Worker;
   globalThis.Worker=class extends NativeWorker{
-   constructor(url,options){let target=url;try{const u=new URL(url,location.href);if(session&&u.origin===location.origin&&/^https?:$/.test(u.protocol)){u.searchParams.set('sherloqSession',session);target=u;}}catch{}super(target,options);
+   constructor(url,options){let target=url,familyId=null;try{const u=new URL(url,location.href);if(session&&u.origin===location.origin&&/^https?:$/.test(u.protocol)){u.searchParams.set('sherloqSession',session);familyId=windowContext?crypto.randomUUID():dependencyFamily;if(familyId)u.searchParams.set(familyParam,familyId);target=u;}}catch{}super(target,options);if(familyId){workerFamilies.set(this,{familyId,root:windowContext});if(windowContext)activeFamilies.add(familyId);}
     this.addEventListener('message',({data:m})=>{if(!m||typeof m!=='object')return;if(m.error||m.fatal)emit({level:m.error?.code==='CANCELLED'?'info':'error',kind:'worker.error',worker:String(url),error:m.error??m.fatal,sequence:m.sequence??m.id});else if(m.progress)emit({level:'info',kind:'worker.progress',worker:String(url),progress:m.progress,sequence:m.sequence??m.id});else if(m.result!==undefined||m.done)emit({level:'info',kind:'worker.complete',worker:String(url),sequence:m.sequence??m.id,metrics:m.result?.metrics});});
     this.addEventListener('error',e=>emit(diagnosticWorkerFailure(e,String(target))));
    }
-   postMessage(message,...rest){if(message?.method||message?.action)emit({level:'info',kind:'worker.request',method:message.method??message.action,sequence:message.sequence??message.id,operation:message.args?.[0]?.operation,parameters:message.args?.[0]?.params});return super.postMessage(message,...rest);}
+   terminate(...args){const value=super.terminate(...args),owner=workerFamilies.get(this);if(owner?.root){workerFamilies.delete(this);activeFamilies.delete(owner.familyId);emit({level:'info',kind:'dependency.owner-retired',familyId:owner.familyId,retirement:'worker-terminate-returned',diagnosticRetirementOnly:true,resourceAcknowledged:false});}return value;}
+   postMessage(message,...rest){if(message?.method||message?.action)emit({level:'info',kind:'worker.request',dependencyOwnerFamily:workerFamilies.get(this)?.familyId,method:message.method??message.action,sequence:message.sequence??message.id,operation:message.args?.[0]?.operation,parameters:message.args?.[0]?.params});return super.postMessage(message,...rest);}
   };
  }
  if(windowContext&&navigator.serviceWorker)navigator.serviceWorker.addEventListener('message',({data})=>{if(data?.type==='dependency-diagnostic'&&data.session===session)emit(data.event);});

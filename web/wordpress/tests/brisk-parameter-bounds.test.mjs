@@ -1,0 +1,2 @@
+import test from'node:test';import assert from'node:assert/strict';import{toolFields}from'../sherloq-browser/assets/tool-catalog.js';import{cloningParams}from'../../engine-source/src/cloning.js';
+for(const key of['response','matching','distance','minimum'])test('BRISK advertised '+key+' endpoints are accepted by maintained native validation',()=>{const f=toolFields('tampering.copyMove.brisk').find(x=>x.key===key);assert(f);assert.doesNotThrow(()=>cloningParams({[key]:f.min}));assert.doesNotThrow(()=>cloningParams({[key]:f.max}));});

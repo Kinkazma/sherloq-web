@@ -99,9 +99,19 @@ export async function estimateElaClassicAuto(input,{signal,onProgress,reserveMem
  * Contrast0 preserves every nonzero error before display quantization. */
 export function calibrateElaClassicDisplay(sample,params,{percentile=.995,target=225}={}){
  const p=validateParams(params),{width,height,data}=sample??{};if(sample?.format!=='rgb8'||!(data instanceof Uint8Array)||!Number.isSafeInteger(width)||!Number.isSafeInteger(height)||width<1||height<1||width>320||height>320||data.length!==width*height*3||!Number.isFinite(percentile)||percentile<=0||percentile>1||!Number.isInteger(target)||target<1||target>254)fail('A bounded real native absolute-error sample is required.');
- const histogram=new Uint32Array(256);for(const value of data)histogram[value]++;const rank=Math.max(1,Math.ceil(percentile*data.length));let cumulative=0,quantile=0;for(let i=0;i<256;i++){cumulative+=histogram[i];if(cumulative>=rank){quantile=i;break;}}
- const nonzero=data.length-histogram[0];if(nonzero===0||quantile===0)return{status:'no-calibratable-residual',params:{...p},qualityEstimated:false,displayRule:'native absolute error sample has no supported percentile',nonzeroChannels:nonzero,samples:data.length};
+ const histogram=new Uint32Array(256);for(const value of data)histogram[value]++;
+ return calibrateElaClassicHistogram(histogram,p,{percentile,target});
+}
+
+/** Same visibility rule, accumulated from admitted native samples only. No
+ * zero-padded raster or excluded presentation pixels enter this histogram. */
+export function calibrateElaClassicHistogram(histogram,params,{percentile=.995,target=225}={}){
+ const p=validateParams(params);
+ if(!(histogram instanceof Uint32Array)||histogram.length!==256||!Number.isFinite(percentile)||percentile<=0||percentile>1||!Number.isInteger(target)||target<1||target>254)fail('A bounded native absolute-error histogram is required.');
+ const count=histogram.reduce((n,v)=>n+v,0);if(!Number.isSafeInteger(count)||count<1)fail('A nonempty native absolute-error histogram is required.');
+ const rank=Math.max(1,Math.ceil(percentile*count));let cumulative=0,quantile=0;for(let i=0;i<256;i++){cumulative+=histogram[i];if(cumulative>=rank){quantile=i;break;}}
+ const nonzero=count-histogram[0];if(nonzero===0||quantile===0)return{status:'no-calibratable-residual',params:{...p},qualityEstimated:false,displayRule:'native absolute error sample has no supported percentile',nonzeroChannels:nonzero,samples:count};
  const base=p.linear?quantile:Math.fround(Math.sqrt(Math.fround(quantile/255))*255),gain=p.linear?target/base:20*target/base,scale=Math.max(1,Math.min(100,Math.floor(gain))),contrast=0,factor=Math.fround(p.linear?scale:scale/20);let clipped=0,black=0;
  for(let value=0;value<256;value++){const b=p.linear?value:Math.fround(Math.sqrt(Math.fround(value/255))*255),shown=Math.round(Math.fround(b*factor));if(shown>=255)clipped+=histogram[value];if(shown<.5)black+=histogram[value];}
- return{status:'visibility-calibrated',params:{...p,scale,contrast},qualityEstimated:false,displayRule:'native absolute RGB error percentile; contrast0; largest integer gain not exceeding target',percentile,target,rawQuantile:quantile,samples:data.length,nonzeroChannels:nonzero,estimatedSaturationFraction:clipped/data.length,estimatedBlackFraction:black/data.length,preservedPreferences:{linear:p.linear,grayscale:p.grayscale},nonlinearQualification:p.linear?'exact integer residual/gain arithmetic':'Magnitude-based estimate; final native rendering preserves per-operand Float32 arithmetic.',grayscaleQualification:p.grayscale?'Channel-based visibility statistics; final grayscale conversion remains native.':'RGB-channel visibility statistics.'};
+ return{status:'visibility-calibrated',params:{...p,scale,contrast},qualityEstimated:false,displayRule:'native absolute RGB error percentile; contrast0; largest integer gain not exceeding target',percentile,target,rawQuantile:quantile,samples:count,nonzeroChannels:nonzero,estimatedSaturationFraction:clipped/count,estimatedBlackFraction:black/count,preservedPreferences:{linear:p.linear,grayscale:p.grayscale},nonlinearQualification:p.linear?'exact integer residual/gain arithmetic':'Magnitude-based estimate; final native rendering preserves per-operand Float32 arithmetic.',grayscaleQualification:p.grayscale?'Channel-based visibility statistics; final grayscale conversion remains native.':'RGB-channel visibility statistics.'};
 }

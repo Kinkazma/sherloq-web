@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {requireValue} from './errors.js';
 export const SIFT_SOURCE = 'SIFT + G2NN + RANSAC + Panels + Text';
 export const CLASSICAL_SOURCES = Object.freeze(['PatchMatch Zernike', 'PatchMatch SIFT', SIFT_SOURCE]);
@@ -48,14 +48,15 @@ export function pairRelations({points,pairs,regions=[]}) {
   const memberships=points.map(p=>zones.filter(([,z])=>signedDistance(z,p.slice(0,2))>=0).map(([i])=>i));
   return pairs.map(([a,b])=>{requireValue(Number.isInteger(a)&&Number.isInteger(b)&&a>=0&&b>=0&&a<points.length&&b<points.length,'Invalid point-pair indices');const left=memberships[a],right=memberships[b],shared=left.find(i=>right.includes(i));return shared===undefined?[left[0]??-1,right[0]??-1].sort((x,y)=>x-y):[shared,shared];});
 }
-export function annotateRelations(entries, {regions=[],envelope=null,width,height}) {
+export function createCloneRelationAnnotator({regions=[],envelope=null,width,height}) {
   requireValue(Number.isInteger(width)&&Number.isInteger(height)&&width>0&&height>0,'Source dimensions required');
   let zones=panels(regions,envelope).sort((a,b)=>polygonArea(a[1])-polygonArea(b[1]));
   if(!zones.length)zones=[[0,[[0,0],[width-1,0],[width-1,height-1],[0,height-1]]]];
-  const keys=regions.map(polygonKey),envelopeKey=envelope&&polygonKey(envelope);
-  return entries.map(entry=>{
+  const keys=regions.map(polygonKey),envelopeKey=envelope&&polygonKey(envelope),regionCount=regions.length;
+  const bounds=new Map(zones.map(([id,p])=>[id,p.reduce((b,q)=>({left:Math.min(b.left,q[0]),top:Math.min(b.top,q[1]),right:Math.max(b.right,q[0]),bottom:Math.max(b.bottom,q[1])}),{left:Infinity,top:Infinity,right:-Infinity,bottom:-Infinity})])),areas=new Map(zones.map(([id,p])=>[id,polygonArea(p)]));
+  return entries=>entries.map(entry=>{
     if(!CLONE_SOURCES.includes(entry.source)||entry.pixel_mask)return entry;
-    const polygons=entry.polygons.map(polygon),owners=polygons.map(p=>zones.filter(([,z])=>p.every(q=>signedDistance(z,q)>=-.75)).map(([i])=>i));
+    const polygons=entry.polygons.map(polygon),owners=polygons.map(p=>zones.filter(([id,z])=>{const b=bounds.get(id);return p.every(q=>q[0]>=b.left-.75&&q[0]<=b.right+.75&&q[1]>=b.top-.75&&q[1]<=b.bottom+.75&&signedDistance(z,q)>=-.75);}).map(([i])=>i));
     const common=zones.find(([i])=>owners.length&&owners.every(ids=>ids.includes(i)));
     const assigned=common?owners.map(()=>common[0]):owners.map(ids=>ids[0]??null);
     const relation=common?'within':owners.length===2&&owners.every(ids=>ids.length)?'between':'unassigned';
@@ -63,10 +64,12 @@ export function annotateRelations(entries, {regions=[],envelope=null,width,heigh
     const searchIndex=origin?keys.indexOf(originKey):-1;
     return {...entry,relation,endpoint_zones:assigned,search_context:context,heat_eligible:true,
       search_label:searchIndex>=0?'Zone '+(searchIndex+1):AI_SOURCES.includes(entry.source)?'Enclosing zone':context==='whole-image'?'Whole image':'Unspecified search',
-      from_enclosing_search:Boolean(regions.length>1&&envelopeKey&&originKey===envelopeKey),
-      biome_fill_alpha:polygons.map((p,k)=>AI_SOURCES.includes(entry.source)?.25:.25/(1+2*Math.sqrt(Math.min(1,polygonArea(p)/Math.max(1,zones.find(([i])=>i===assigned[k])?.[1] ? polygonArea(zones.find(([i])=>i===assigned[k])[1]) : width*height)))))};
+      from_enclosing_search:Boolean(regionCount>1&&envelopeKey&&originKey===envelopeKey),
+      biome_fill_alpha:polygons.map((p,k)=>AI_SOURCES.includes(entry.source)?.25:.25/(1+2*Math.sqrt(Math.min(1,polygonArea(p)/Math.max(1,areas.get(assigned[k])??width*height)))))};
   });
 }
+// A one-shot call retains the original public API and observes its current plan.
+export function annotateRelations(entries,plan){return createCloneRelationAnnotator(plan)(entries);}
 export function visibleCloneEntries(entries,{source=null,hidden=[],focused=null,relation='all',enabledSources=CLONE_SOURCES,presentation='biomes'}={}) {
   requireValue(['within','between','all'].includes(relation)&&['biomes','map','overlay'].includes(presentation),'Invalid clone presentation');
   const excluded=new Set(hidden),enabled=new Set(enabledSources);

@@ -60,3 +60,35 @@ export function dependencyResponse(file,manifest,load,request){
  },cancel(){cancelled=true;}},{highWaterMark:0});
  return new Response(stream,{status:partial?206:200,headers});
 }
+
+// Current restricted native files each occupy one pinned chunk. Resolve that
+// owned local chunk before HTTP success; a later body error cannot carry a code.
+export async function localOnlyDependencyResponse(file,manifest,load,request,{path,identity,observe}={}){
+ if(file.localOnly!==true||file.chunks.length!==1||request.method==='HEAD'||typeof load.acquire!=='function')return dependencyResponse(file,manifest,load,request);
+ const range=byteRange(request.headers.get('range'),file.size);if(!range)return dependencyResponse(file,manifest,load,request);
+ if(!digestPattern.test(identity||'')||manifest.files[path]!==file)throw TypeError('Pinned local dependency response identity required');
+ const owner=load.acquire(file.chunks[0],observe,{metadataBytes:16384});let retirement,data,bodyController,ended=false;
+ const retire=()=>retirement??=owner.release().finally(()=>request.signal.removeEventListener('abort',abort));
+ const abort=()=>{data=null;if(bodyController&&!ended){ended=true;bodyController.error(request.signal.reason??new DOMException('Aborted','AbortError'));}void retire();};
+ request.signal.addEventListener('abort',abort,{once:true});if(request.signal.aborted)abort();
+ let status,headers;
+ try{
+  await owner.ready();if(request.signal.aborted)throw request.signal.reason;
+  const{start,end,partial}=range;data=owner.bytes.subarray(start,end+1);status=partial?206:200;
+  headers={'Content-Type':file.type,'Content-Length':String(data.byteLength),'Accept-Ranges':'bytes','ETag':'"'+file.sha256+'"','Cross-Origin-Resource-Policy':'same-origin','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Opener-Policy':'same-origin','Cache-Control':'no-cache'};
+  if(partial)headers['Content-Range']=`bytes ${start}-${end}/${file.size}`;
+ }catch(error){
+  if(request.signal.aborted||error?.code!=='MODEL_LOCAL_REQUIRED'){await retire();throw request.signal.aborted?request.signal.reason:error;}
+  try{
+   const payload={schema:'sherloq.dependency-error/1',requestedURL:request.url,manifest:identity,error:{code:'MODEL_LOCAL_REQUIRED',message:'This model requires its original local files. Connect a library folder or import its verified archive.',details:{file:path,bytes:file.size,sha256:file.sha256,chunkSha256:file.chunks[0]}}};
+   data=new TextEncoder().encode(JSON.stringify(payload));if(data.byteLength>4096)throw Error('Local dependency error exceeds bounded metadata admission');
+   status=424;headers={'Content-Type':'application/json; charset=utf-8','Content-Length':String(data.byteLength),'X-Sherloq-Dependency-Error':'local-required/1','Cross-Origin-Resource-Policy':'same-origin','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Opener-Policy':'same-origin','Cache-Control':'no-store'};
+  }catch(cause){await retire();throw cause;}
+ }
+ let sent=false;const stream=new ReadableStream({start(controller){bodyController=controller;},async pull(controller){
+  if(ended)return;if(request.signal.aborted){abort();return;}
+  if(!sent){sent=true;controller.enqueue(data);data=null;return;}
+  await retire();if(!ended){ended=true;controller.close();}
+ },async cancel(){data=null;ended=true;await retire();}},{highWaterMark:0});
+ try{return new Response(stream,{status,headers});}catch(error){data=null;ended=true;await retire();throw error;}
+}

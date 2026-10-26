@@ -1,9 +1,15 @@
+import {createBatchScopeEditor} from './batch-scope-editor.js';
+import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js';
+import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
+import {validateOriginalSourceRegionOptions} from './original-source-region-options.js';
 import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js';
 import {diagnostic} from './runtime-context.js';
 import {installHoverSliders} from './hover-sliders.js';
 import {browserLanguage} from './language.js';
 import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js';
 import {mountMediaControls} from './media-controls.js';
+import {createLoupeStepPlayback} from './loupe-step-playback.js';
+import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js';
 import {bindDocumentResize} from './document-resize.js';
 import {toolGroups} from './tool-tree.js';
 import {isExperimentalTool} from './extension-tools.js';
@@ -12,7 +18,6 @@ import {createWorkspaceState} from './workspace-state.js';
 import {createWorkspaceEnginePool} from './workspace-engine-pool.js';
 import {createOriginalSourceRegionsController} from './original-source-regions-controller.js';
 import {validateOriginalSourceRegions} from './original-source-regions.js';
-import {createDetectionRegionsDock} from './detection-regions-dock.js';
 import {createDownloadShelf} from './download-shelf.js';
 import {mountSessionControls} from './session-ui.js';
 import {recoverSettings,settingsFilename} from './settings.js';
@@ -25,22 +30,37 @@ const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
 const downloadShelf=createDownloadShelf({document,parent:$('toolbox'),before:$('toolbox').querySelector('.navigation-tools'),language:()=>state.language,onError:error=>notify(error.message)});
 mountSessionControls(document,{download});
-const regionsDock=createDetectionRegionsDock({document,parent:$('toolbox'),before:downloadShelf.element,language:()=>state.language});
 const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id)),engineFactory=createWorkspaceEnginePool();
 const labels={
  fr:{batch:'Traitement par lot',file:'Fichier',open:'Ouvrir une image…',tools:'Outils',tile:'Mosaïque',cascade:'Cascade',tabs:'Onglets',closeAll:'Tout fermer',settings:'Réglages',quickExport:'Export rapide',exportImage:'Exporter l’image affichée…',exportReport:'Exporter le rapport…',saveSession:'Exporter la session…',restoreSession:'Restaurer une session…',exportSettings:'Exporter les réglages…',importSettings:'Rappeler les réglages…',compute:'Calcul',maximum:'Maximum utile',aggressive:'Agressif',navigation:'Navigation',automatic:'Automatique',mouse:'Souris',highlight:'Signaler les nouveaux outils',allSliders:'Tout en curseurs',experimental:'Activer les outils expérimentaux',experimentalDisabled:'Activez les outils expérimentaux dans les réglages pour utiliser cet outil.',about:'À propos',availability:'Je suis heureux de mettre cette application à la disposition de tous, gratuitement et sans limite de durée d’utilisation.',privacy:'Vos images et résultats restent dans ce navigateur. Aucun envoi d’image ni suivi d’utilisation par cette application.',welcome:'Ouvrez ou glissez une image pour commencer.',fit:'Ajuster',cancel:'Annuler',closeHint:'Fermer toutes les analyses et arrêter leurs calculs ? L’image originale, les réglages et les favoris seront conservés.',closeConfirm:'Fermer les analyses',ready:'Prêt.',loading:'Chargement…',favorites:'Favoris',addFavorite:'Ajouter aux favoris',removeFavorite:'Retirer des favoris',close:'Fermer',background:'calcul(s) dans les autres onglets',busyClose:'Cet onglet calcule encore. Le fermer arrêtera son calcul. Continuer ?',replace:'Ouvrir une nouvelle image fermera les analyses de l’image actuelle. Continuer ?',invalid:'Fichier de réglages invalide.',busySettings:'Les réglages pourront être rappelés après les calculs en cours.',loadedSettings:'Réglages rappelés.',sessionImage:'Ouvrez maintenant l’image originale de cette session.',missingImage:'Cette session appartient à une autre image.'},
  en:{batch:'Batch processing',file:'File',open:'Open image…',tools:'Tools',tile:'Tile',cascade:'Cascade',tabs:'Tabs',closeAll:'Close all',settings:'Settings',quickExport:'Quick export',exportImage:'Export displayed image…',exportReport:'Export report…',saveSession:'Export session…',restoreSession:'Restore session…',exportSettings:'Export settings…',importSettings:'Recall settings…',compute:'Computation',maximum:'Maximum useful',aggressive:'Aggressive',navigation:'Navigation',automatic:'Automatic',mouse:'Mouse',highlight:'Highlight new tools',allSliders:'Sliders everywhere',experimental:'Enable experimental tools',experimentalDisabled:'Enable experimental tools in Settings to use this tool.',about:'About',availability:'I am happy to make this application available to everyone, free of charge and without a usage time limit.',privacy:'Your images and results stay in this browser. This application does not upload images or track usage.',welcome:'Open or drop an image to begin.',fit:'Fit',cancel:'Cancel',closeHint:'Close all analyses and stop their calculations? The original image, settings and favorites will be kept.',closeConfirm:'Close analyses',ready:'Ready.',loading:'Loading…',favorites:'Favorites',addFavorite:'Add to favorites',removeFavorite:'Remove from favorites',close:'Close',background:'calculation(s) in other tabs',busyClose:'This tab is still calculating. Closing it will stop its calculation. Continue?',replace:'Opening a new image will close the current image analyses. Continue?',invalid:'Invalid settings file.',busySettings:'Recall settings after the running calculations finish.',loadedSettings:'Settings restored.',sessionImage:'Now open this session’s original image.',missingImage:'This session belongs to another image.'}
 };
 const text=key=>labels[state.language][key]||key,title=id=>state.documents.get(id)?.title??tools.find(t=>t.id===id)?.[state.language]??id;
-let sourceEntry=null,sourceInput=null,currentFile=null,generation=0,framePending=false,theme='dark',savedTools={},pendingSession=null;
+let sourceEntry=null,sourceInput=null,currentFile=null,generation=0,framePending=false,theme='dark',savedTools={},pendingSession=null,sessionIntent=null;const retiringEntries=new Map();
+let scopeFallbacks={};
 let computeProfile='maximum',navigationMode='auto',highlight=false,allSliders=true,experimentalTools=false,media=validateMediaPreferences(),unknownFavorites=[],lastPreferences;const toolSignatures=new Map(),dirtyTools=new Set();
 const hoverSliders=installHoverSliders({root:document,enabled:false,language:()=>state.language});
+const scopeFallbackUI=createWholeSourceFallbackUI({document,language:()=>state.language,getPreferences:()=>scopeFallbacks,setPreferences:value=>{scopeFallbacks=validateWholeSourceFallbacks(value);savePreferences();},toolLabel:id=>tools.find(t=>t.id===id)?.[state.language]??id});
+const scopeFallbackSettingsButton=button(state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…',()=>{closeMenus();scopeFallbackUI.configure();});$('import-settings').after(scopeFallbackSettingsButton);
 const template=fetcher(new URL('./panel.html',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
-function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,allSliders,experimentalTools,...media,dependencies:dependencyPreferences()};}
-function setMedia(next){media=validateMediaPreferences(next);applyMedia();savePreferences();}
+function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,allSliders,experimentalTools,scopeFallbacks:validateWholeSourceFallbacks(scopeFallbacks),...media,dependencies:dependencyPreferences()};}
+function setMedia(next){if(!applyingLoupeStep)stepPlayback.reset();media=validateMediaPreferences(next);applyMedia();savePreferences();}
 const comparisonKeys=new Set();let comparisonController=null;let pinnedController=null;
+let applyingLoupeStep=false,stepOwner=null;
+const activeLoupeController=()=>state.documents.get(state.active)?.controller;
+function canLoupeStep(){const c=activeLoupeController(),snapshot=c?.snapshot?.();return !!media.loupe.enabled&&!comparisonKeys.size&&!snapshot?.busy&&!snapshot?.previewPending&&!!c?.loupePresentationIdentity?.();}
+const stepPlayback=createLoupeStepPlayback({canStep:canLoupeStep,onError:error=>notify(error.message),onChange:()=>mediaUI.sync(),step(direction,request){const c=activeLoupeController();if(!c||c!==request.controller||request.documentId!==state.active)return null;c.stopLoupeSweep?.();applyingLoupeStep=true;try{if(!mediaUI.applyLoupeStep(direction,{target:request.target,step:request.step}))return null;const token=c.loupePresentationIdentity?.();stepOwner={controller:c,owner:token?.owner};return token;}finally{applyingLoupeStep=false;}}});
+function loupePresented(record,frame){if(record.id===state.active)stepPlayback.presented({...frame,native:true});}
+function loupeEffectsState(record,value){if(record.id!==state.active)return;if(value.error)stepPlayback.reset();mediaUI.effectsState(value);}
+
 function pinLoupe(open){const next=open?state.documents.get(state.active)?.controller:null;if(next!==pinnedController){pinnedController?.pinLoupe?.(false);pinnedController=next;}pinnedController?.pinLoupe?.(!!open);return pinnedController?.loupeAnchor?.();}
-const mediaUI=mountMediaControls(document,{getPreferences:()=>media,setPreferences:setMedia,onLoupePanel:pinLoupe,onSweep:group=>state.documents.get(state.active)?.controller?.toggleLoupeSweep?.(group),stopSweep:()=>state.documents.get(state.active)?.controller?.stopLoupeSweep?.(),sweepState:()=>state.documents.get(state.active)?.controller?.loupeSweepState?.(),getEffectsContext:()=>state.documents.get(state.active)?.controller?.loupeEffectsContext?.(),setEffectsContext:value=>state.documents.get(state.active)?.controller?.setLoupeEffectsContext?.(value),getEnhancementContext:()=>state.documents.get(state.active)?.controller?.loupeEnhancement?.(),setEnhancementContext:value=>state.documents.get(state.active)?.controller?.setLoupeEnhancement?.(value),language:()=>state.language,getMinimumZoom:()=>state.documents.get(state.active)?.controller?.loupeMinimum?.()??2,getImageSize:()=>state.documents.get(state.active)?.controller?.exportSize?.()});
+function placementScopeEditor(options){return createBatchScopeEditor({...options,placementLoupe:{
+ getSettings:()=>media.placementLoupe,onSettings:value=>setMedia({...media,placementLoupe:value}),
+ openSettings:context=>mediaUI.openPlacementLoupe(context),closeSettings:parent=>mediaUI.closePlacementLoupe(parent),
+ sourceOptions:{computeProfile:typeof options.computeProfile==='function'?options.computeProfile():options.computeProfile??computeProfile,engineFactory,getBorrowedSource:()=>{const record=sourceEntry,input=record?.controller?.input?.();return input?{...input,getClient:()=>record.controller.regionDetectionClient(),isCurrent:()=>sourceEntry===record&&record.controller?.input?.().source===input.source&&record.controller?.input?.().file===input.file}:null;}}
+}});}
+const mediaUI=mountMediaControls(document,{getPreferences:()=>media,setPreferences:setMedia,onLoupePanel:pinLoupe,canLoupeStep,onLoupeStep:(direction,settings)=>stepPlayback.once(direction,{...settings,documentId:state.active,controller:activeLoupeController()}),onLoupeStepReset:()=>stepPlayback.reset(),onSweep:group=>state.documents.get(state.active)?.controller?.toggleLoupeSweep?.(group),stopSweep:()=>state.documents.get(state.active)?.controller?.stopLoupeSweep?.(),sweepState:()=>state.documents.get(state.active)?.controller?.loupeSweepState?.(),getEffectsContext:()=>state.documents.get(state.active)?.controller?.loupeEffectsContext?.(),setEffectsContext:value=>state.documents.get(state.active)?.controller?.setLoupeEffectsContext?.(value),getEnhancementContext:()=>state.documents.get(state.active)?.controller?.loupeEnhancement?.(),setEnhancementContext:value=>state.documents.get(state.active)?.controller?.setLoupeEnhancement?.(value),language:()=>state.language,getMinimumZoom:()=>state.documents.get(state.active)?.controller?.loupeMinimum?.()??2,getImageSize:()=>state.documents.get(state.active)?.controller?.exportSize?.()});
+const stepShortcuts=installLoupeStepShortcuts({root:document,language:()=>state.language,canStep:()=>canLoupeStep()&&!document.querySelector('dialog[open]:not(#loupe-dialog)')&&(mediaUI.loupeOpen()||activeLoupeController()?.loupeDiagnostics?.()?.visible),down:(id,direction,details)=>stepPlayback.down(id,direction,{...details,target:media.loupe.stepTarget,step:media.loupe.stepSize,documentId:state.active,controller:activeLoupeController()}),up:id=>stepPlayback.up(id),onPair:pair=>mediaUI.setStepShortcuts(pair)});
 $('image-file').accept=imageAccept+',application/pdf,.pdf';
 function savePreferences(){const current=preferences();if(JSON.stringify(current)===JSON.stringify(lastPreferences))return true;const latest=preferenceAccess.read('sherloq.workspace.preferences').value||{},value=mergePreferenceChanges(lastPreferences,current,latest),saved=preferenceAccess.write('sherloq.workspace.preferences',value);if(saved)lastPreferences=structuredClone(current);return saved;}
 function saveTools(){for(const record of entries())remember(record);if(!dirtyTools.size)return true;const latest=preferenceAccess.read('sherloq.workspace.tools').value||{},next={...latest};for(const id of dirtyTools)next[id]=savedTools[id];if(!preferenceAccess.write('sherloq.workspace.tools',next))return false;for(const id of dirtyTools)toolSignatures.set(id,JSON.stringify(savedTools[id]));dirtyTools.clear();savedTools=next;return true;}
@@ -66,7 +86,7 @@ function translate(){
  for(const e of document.querySelectorAll('[data-label]'))e.textContent=text(e.dataset.label);
  $('language-toggle').textContent=state.language==='fr'?'EN':'FR';$('language-toggle').setAttribute('aria-label',state.language==='fr'?'Display in English':'Afficher en français');
  for(const entry of entries())entry.controller?.setLanguage(state.language);
- for(const entry of entries())entry.originalRegions?.refresh();mediaUI.translate();regionsDock.translate();downloadShelf.translate();renderCatalog();renderDocuments();savePreferences();
+ scopeFallbackSettingsButton.textContent=state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…';for(const entry of entries())entry.originalRegions?.refresh();mediaUI.translate();stepShortcuts.refresh();downloadShelf.translate();renderCatalog();renderDocuments();savePreferences();
 }
 function entries(){return [...new Set([sourceEntry,...state.documents.values()].filter(Boolean))];}
 let settingsTimer;
@@ -76,8 +96,9 @@ function reportTarget(entry=state.documents.get(state.active),view=entry?.contro
  return batchUI?.canExport?batchUI:null;
 }
 function renderStatus(){
+ mediaUI.refreshLoupeStep();
+ if(stepOwner&&(stepOwner.controller!==activeLoupeController()||stepOwner.owner!==activeLoupeController()?.loupePresentationIdentity?.()?.owner)){stepOwner=null;stepPlayback.reset();}
  const entry=state.documents.get(state.active),view=entry?.controller?.snapshot();
- regionsDock.attach(entry?.id==='original'?null:entry?.regionElement??null);regionsDock.refresh();
  for(const record of state.documents.values()){
   const busy=record.controller?.busy||record.controller?.importing||record.loading;record.element.classList.toggle('busy',!!busy);record.tab?.classList.toggle('busy',!!busy);
  }
@@ -131,7 +152,7 @@ function createEntry(id,{pdf=false}={}){
  if(pdf){
   record.ready=Promise.resolve().then(async()=>{
    if(record.closed)return null;
-   const controller=await pdfFactory({document,parent:panel,file:record.file,language:state.language,theme,computeProfile,navigationMode,loupe:media.loupe,download,requestExport:(task,size)=>mediaUI.requestExport(task,size),onLoupeChange:value=>setMedia({...media,loupe:value}),onEffectsState:value=>{if(record.id===state.active)mediaUI.effectsState(value);},onInspect:file=>openImage(file,{preservePdfs:true}),changed:scheduleRender});
+   const controller=await pdfFactory({document,parent:panel,file:record.file,language:state.language,theme,computeProfile,navigationMode,loupe:media.loupe,download,requestExport:(task,size)=>mediaUI.requestExport(task,size),onLoupeChange:value=>setMedia({...media,loupe:value}),onEffectsState:value=>loupeEffectsState(record,value),onPresented:value=>loupePresented(record,value),onInspect:file=>openImage(file,{preservePdfs:true}),changed:scheduleRender});
    if(record.closed){await controller.dispose();return null;}record.controller=controller;record.loading=false;controller.setTheme?.(theme);controller.setNavigation?.(navigationMode);controller.setLoupe?.(media.loupe);scheduleRender();return controller;
   });return record;
  }
@@ -140,10 +161,11 @@ function createEntry(id,{pdf=false}={}){
   const root=panel.attachShadow({mode:'open'});
   for(const name of ['app.css','tool-workspace.css','panel.css']){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(name,import.meta.url).href;link.onload=()=>record.controller?.fit();root.append(link);}
   for(const node of nodes)root.append(document.importNode(node,true));
-  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,getAllSliders:()=>allSliders,requestExport:task=>mediaUI.requestExport(task),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>mediaUI.sync(),onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>{if(record.id===state.active)mediaUI.effectsState(value);},exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),sourceInput:()=>sourceInput,getOriginalSourceRegions:()=>sourceEntry?.originalRegions?.snapshot()??null,getOriginalRegionsHighlight:()=>sourceEntry?.originalRegions?.highlight??null,onOriginalRegionsKeydown:event=>sourceEntry?.originalRegions?.keydown(event)??false,restoreOriginalSourceRegions:value=>restoreOriginalSourceRegions(value),visible:()=>!record.element.hidden&&!record.closed,changed:scheduleRender});
+  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,scopeEditorFactory:placementScopeEditor,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,getAllSliders:()=>allSliders,requestExport:task=>mediaUI.requestExport(task),requestWholeSourceFallback:options=>scopeFallbackUI.request(options),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>{if(!applyingLoupeStep)stepPlayback.reset();mediaUI.sync();},onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>loupeEffectsState(record,value),onLoupePresented:value=>loupePresented(record,value),exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),sourceInput:()=>sourceInput,getOriginalSourceRegions:()=>sourceEntry?.originalRegions?.snapshot()??null,getOriginalSourceRegionOptions:()=>sourceEntry?.originalRegions?.serializeOptions?.()??null,getOriginalRegionsHighlight:()=>sourceEntry?.originalRegions?.highlight??null,onOriginalRegionsKeydown:event=>sourceEntry?.originalRegions?.keydown(event)??false,restoreOriginalSourceRegions:value=>restoreOriginalSourceRegions(value),visible:()=>!record.element.hidden&&!record.closed,changed:scheduleRender});
   if(id==='original'){let controls=root.getElementById('tool-controls');if(!controls){controls=document.createElement('section');controls.id='tool-controls';root.getElementById('analysis-controls').after(controls);}controls.classList.add('original-source-controls');controls.append(record.originalRegionsElement);controls.hidden=false;}
   if(savedTools[id])record.controller.applySettings(savedTools[id]);
   record.controller.setNavigation(navigationMode);record.controller.setTheme(theme);record.controller.setHighlight?.(highlight);record.controller.setLoupe?.(media.loupe);
+  record.unregisterSliders=hoverSliders.registerRoot(root);
   return record.controller;
  }).catch(error=>{record.loading=false;record.error=error;notify(error.message);throw error;});
  return record;
@@ -168,7 +190,14 @@ async function openTool(id){
  catch(error){record.loading=false;notify(error.message);}
 }
 function remember(record){if(known.has(record.id)&&record.controller?.settings){const value=record.controller.settings();savedTools[record.id]=value;if(JSON.stringify(value)!==toolSignatures.get(record.id))dirtyTools.add(record.id);}}
-async function disposeEntry(record){await record.originalRegions?.dispose();return record.ready.then(controller=>controller?.dispose());}
+function disposeEntry(record){
+ let owner=retiringEntries.get(record);if(!owner){owner={originalDone:false,panelDone:false,pending:null};retiringEntries.set(record,owner);}if(owner.pending)return owner.pending;
+ const task=Promise.resolve().then(()=>retireCompositeOwners([
+  async()=>{if(!owner.originalDone){await record.originalRegions?.dispose();owner.originalDone=true;}},
+  async()=>{if(!owner.panelDone){record.unregisterSliders?.();record.unregisterSliders=null;let controller;try{controller=await record.ready;}catch(error){controller=record.controller;if(!controller)throw error;}await controller?.dispose();owner.panelDone=true;}}
+ ])).then(()=>{retiringEntries.delete(record);});owner.pending=task;void task.finally(()=>{if(owner.pending===task)owner.pending=null;}).catch(()=>{});return task;
+}
+const retireEntries=records=>Promise.allSettled([...new Set([...retiringEntries.keys(),...records])].map(disposeEntry));
 async function closeDocument(id,{force=false}={}){
  diagnostic({level:'info',kind:'tool.close',operation:id});
  const record=state.documents.get(id);if(!record)return;
@@ -178,13 +207,13 @@ async function closeDocument(id,{force=false}={}){
  record.closed=true;const closing=[record];if(record===sourceEntry){sourceEntry=null;sourceInput=null;currentFile=null;}
  if(![...state.documents.values()].some(value=>value.kind!=='pdf')){if(sourceEntry&&sourceEntry!==record){sourceEntry.closed=true;sourceEntry.element.remove();closing.push(sourceEntry);}sourceEntry=null;sourceInput=null;currentFile=null;$('image-file').value='';}
  // Remove the view immediately; a queued worker cleanup may wait for another job.
- renderDocuments();await Promise.allSettled(closing.map(disposeEntry));
+ renderDocuments();await retireEntries(closing);
 }
 async function closeAll({preservePdfs=false}={}){
- generation++;const kept=preservePdfs?entries().filter(record=>record.kind==='pdf'):[],previous=entries().filter(record=>!kept.includes(record));state.clear();for(const record of kept){record.generation=generation;state.open(record.id,record);}sourceEntry=null;sourceInput=null;currentFile=null;pendingSession=null;$('image-file').value='';
+ generation++;const kept=preservePdfs?entries().filter(record=>record.kind==='pdf'):[],previous=entries().filter(record=>!kept.includes(record));state.clear();for(const record of kept){record.generation=generation;state.open(record.id,record);}sourceEntry=null;sourceInput=null;currentFile=null;pendingSession=null;sessionIntent=null;$('image-file').value='';
  for(const record of previous){remember(record);record.closed=true;record.element.remove();}
  saveTools();
- renderDocuments();await Promise.allSettled(previous.map(disposeEntry));
+ renderDocuments();await retireEntries(previous);
 }
 async function closeAnalyses(){
  const original=sourceEntry;if(!original)return closeAll({preservePdfs:true});
@@ -194,24 +223,24 @@ async function closeAnalyses(){
  // it alive. Put that same owner back; never decode or load the image again.
  state.open('original',original);if(!original.element.isConnected)$('workspace-desk').append(original.element);
  original.element.hidden=false;saveTools();renderDocuments();
- await Promise.allSettled(closing.map(disposeEntry));
+ await retireEntries(closing);
 }
 async function openImage(file,{preservePdfs=true,confirmReplace=true}={}){
  if(!file)return;const epoch=generation,kind=await detectWorkspaceFileKind(file);if(epoch!==generation)return;if(kind==='pdf')return openPDF(file);if(confirmReplace&&currentFile&&!confirm(text('replace')))return;
- const session=pendingSession;await closeAll({preservePdfs});pendingSession=session;currentFile=file;
+ const session=pendingSession;await closeAll({preservePdfs});pendingSession??=session;currentFile=file;
  const record=createEntry('original');sourceEntry=record;state.open('original',record);renderDocuments();
  record.inputReady=record.ready.then(async controller=>{
   if(!controller)return null;await controller.load(file);
   if(record.closed||record.generation!==generation)return null;
   sourceInput=controller.input();
-  record.originalRegions=originalRegionsFactory({document,parent:record.originalRegionsElement,presentation:'toolbar',source:()=>{const input=record.controller?.input();return input?.file&&input.source?{blob:input.file,name:input.file.name,id:input.imageId,width:input.source.width,height:input.source.height,sourceSha256:input.hash}:null;},language:()=>state.language,computeProfile:()=>computeProfile,navigationMode:()=>navigationMode,getClient:()=>record.controller.regionDetectionClient(),onHighlight:()=>record.controller?.refreshOriginalRegions?.(),onError:error=>notify(error.message),onOpenBatch:snapshot=>openOriginalInBatch(record,snapshot),onChange:snapshot=>{if(record.closed||record!==sourceEntry)return;sourceInput={...sourceInput,sourceRegions:snapshot};record.controller?.refreshOriginalRegions?.();for(const entry of entries())if(entry!==record&&entry.kind!=='pdf')entry.controller?.markSourceRegionsStale?.(snapshot);scheduleRender();}});
+  record.originalRegions=originalRegionsFactory({scopeEditorFactory:placementScopeEditor,document,parent:record.originalRegionsElement,presentation:'toolbar',source:()=>{const input=record.controller?.input();return input?.file&&input.source?{blob:input.file,name:input.file.name,id:input.imageId,width:input.source.width,height:input.source.height,sourceSha256:input.hash}:null;},language:()=>state.language,computeProfile:()=>computeProfile,navigationMode:()=>navigationMode,getClient:()=>record.controller.regionDetectionClient(),onHighlight:()=>record.controller?.refreshOriginalRegions?.(),onError:error=>notify(error.message),onOpenBatch:snapshot=>openOriginalInBatch(record,snapshot),onChange:snapshot=>{if(record.closed||record!==sourceEntry)return;sourceInput={...sourceInput,sourceRegions:snapshot};record.controller?.refreshOriginalRegions?.();for(const entry of entries())if(entry!==record&&entry.kind!=='pdf')entry.controller?.markSourceRegionsStale?.(snapshot);scheduleRender();}});
   await record.originalRegions.ready;if(record.closed||record.generation!==generation){await record.originalRegions.dispose();return null;}sourceInput={...controller.input(),sourceRegions:record.originalRegions.serialize()};record.loading=false;renderDocuments();return sourceInput;
  });
  try{await record.inputReady;if(pendingSession)await applySession(pendingSession);}
  catch(error){record.loading=false;notify(error.message);}
 }
 function pickImage(){closeMenus();$('image-file').value='';$('image-file').click();}
-async function ensureBatch(){if(!batchUI){batchOpening??=Promise.resolve().then(()=>batchFactory({document,download,language:()=>state.language,computeProfile:()=>computeProfile,getNavigationMode:()=>navigationMode,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);await batchOpening;}return batchUI;}
+async function ensureBatch(){if(!batchUI){batchOpening??=Promise.resolve().then(()=>batchFactory({scopeEditorFactory:placementScopeEditor,document,download,language:()=>state.language,computeProfile:()=>computeProfile,getNavigationMode:()=>navigationMode,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);await batchOpening;}return batchUI;}
 async function openOriginalInBatch(record,snapshot){await record.originalRegions.ready;if(record.closed||record!==sourceEntry)throw Error('The original source is no longer open.');const input=record.controller.input(),verified=await validateOriginalSourceRegions(snapshot,{sourceSha256:input.hash,width:input.source.width,height:input.source.height}),batch=await ensureBatch();if(typeof batch.importSource!=='function')throw Object.assign(Error(state.language==='fr'?'Le transfert des zones vers le lot n’est pas encore disponible.':'Source-region batch transfer is not available yet.'),{code:'BATCH_SOURCE_REGIONS_NOT_READY'});await batch.importSource({file:input.file,sourceRegions:verified});batch.open();}
 if($('batch-open'))$('batch-open').onclick=async()=>{closeMenus();try{(await ensureBatch()).open();}catch(error){notify(error.message);}};
 
@@ -245,20 +274,25 @@ $('settings-file').onchange=async e=>{
   const candidate=createWorkspaceState();candidate.restore(nextPreferences,[...known]);const nextMedia=validateMediaPreferences(nextPreferences);
   saveTools();const rescue=await capturePreferenceBackup();rescue.importedSource=value;rescue.importedReport=recovery.issues;downloadPreferenceBackup(document,rescue);
   unknownFavorites=(nextPreferences.favorites||[]).filter(id=>!known.has(id));
-  media=nextMedia;savedTools=nextTools;for(const id of Object.keys(nextTools))dirtyTools.add(id);state.restore(candidate.preferences(),[...known]);theme=['light','dark'].includes(nextPreferences.theme)?nextPreferences.theme:theme;computeProfile=['maximum','aggressive'].includes(nextPreferences.computeProfile)?nextPreferences.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(nextPreferences.navigationMode)?nextPreferences.navigationMode:navigationMode;highlight=nextPreferences.highlight===true;allSliders=nextPreferences.allSliders!==false;experimentalTools=nextPreferences.experimentalTools===true;
+  scopeFallbacks=validateWholeSourceFallbacks(nextPreferences.scopeFallbacks);media=nextMedia;savedTools=nextTools;for(const id of Object.keys(nextTools))dirtyTools.add(id);state.restore(candidate.preferences(),[...known]);theme=['light','dark'].includes(nextPreferences.theme)?nextPreferences.theme:theme;computeProfile=['maximum','aggressive'].includes(nextPreferences.computeProfile)?nextPreferences.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(nextPreferences.navigationMode)?nextPreferences.navigationMode:navigationMode;highlight=nextPreferences.highlight===true;allSliders=nextPreferences.allSliders!==false;experimentalTools=nextPreferences.experimentalTools===true;
   for(const record of entries())if(savedTools[record.id])record.controller?.applySettings?.(savedTools[record.id]);
   restoreDependencyPreferences(nextPreferences.dependencies);applyPreferences();translate();saveTools();notify(text('loadedSettings')+(recovery.issues.length?' · '+recovery.issues.length+(state.language==='fr'?' entrée(s) conservée(s) dans la sauvegarde de secours.':' entry/entries retained in the recovery backup.'):''));
  }catch(error){notify(error.message);}
 };
-async function restoreOriginalSourceRegions(value){if(!value)return;const owner=sourceEntry?.originalRegions;if(!owner)throw Error(text('sessionImage'));await owner.ready;const input=sourceEntry.controller.input(),verified=await validateOriginalSourceRegions(value,{sourceSha256:input.hash,width:input.source.width,height:input.source.height});await owner.restore(verified);}
+function sessionSourceCurrent(record,ticket,intent){if(!record||record!==sourceEntry||record.closed||ticket!==generation||intent!==undefined&&intent!==sessionIntent)throw Object.assign(Error('Session source is no longer current.'),{code:'CANCELLED'});}
+async function restoreOriginalSourceRegions(value,{record=sourceEntry,ticket=generation,intent}={}){if(!value)return;const owner=record?.originalRegions;if(!owner)throw Error(text('sessionImage'));sessionSourceCurrent(record,ticket,intent);await owner.ready;sessionSourceCurrent(record,ticket,intent);const input=record.controller.input(),verified=await validateOriginalSourceRegions(value,{sourceSha256:input.hash,width:input.source.width,height:input.source.height});sessionSourceCurrent(record,ticket,intent);await owner.restore(verified);sessionSourceCurrent(record,ticket,intent);}
 async function applySession(value){
+ const originalOptions=validateOriginalSourceRegionOptions(value.originalSourceRegionOptions);
  const id=value.operation==='ela.energy'?'ela.classic':value.operation;if(!known.has(id))throw Error(text('invalid'));
  if(!experimentalTools&&isExperimentalTool(id))throw Error(text('experimentalDisabled'));
- if(!sourceInput){pendingSession=value;notify(text('sessionImage'));pickImage();return;}
+ if(!sourceInput){pendingSession=value;sessionIntent=value;notify(text('sessionImage'));pickImage();return;}
+ const originalRecord=sourceEntry,ticket=generation;sessionSourceCurrent(originalRecord,ticket);
  if(value.sha256&&value.sha256!==sourceInput.hash)throw Error(text('missingImage'));
- if(value.originalSourceRegions)await restoreOriginalSourceRegions(value.originalSourceRegions);
- await openTool(id);const record=state.documents.get(id);if(!record)return;const controller=await record.ready;
- if(record.closed)return;if(id==='original'){pendingSession=null;renderDocuments();return;}await controller.restoreSession(new Blob([JSON.stringify(value)],{type:'application/json'}));controller.adopt({...sourceInput,sourceRegions:value.sourceRegions??sourceEntry.originalRegions?.serialize()??null});record.loading=false;pendingSession=null;renderDocuments();
+ sessionIntent=value;pendingSession=null;
+ if(value.originalSourceRegions)await restoreOriginalSourceRegions(value.originalSourceRegions,{record:originalRecord,ticket,intent:value});
+ sessionSourceCurrent(originalRecord,ticket,value);if(originalOptions)originalRecord.originalRegions.restoreOptions(originalOptions);
+ await openTool(id);sessionSourceCurrent(originalRecord,ticket,value);const record=state.documents.get(id);if(!record)return;const controller=await record.ready;sessionSourceCurrent(originalRecord,ticket,value);
+ if(record.closed)return;if(id==='original'){if(pendingSession===value)pendingSession=null;renderDocuments();return;}await controller.restoreSession(new Blob([JSON.stringify(value)],{type:'application/json'}));sessionSourceCurrent(originalRecord,ticket,value);if(record.closed||state.documents.get(id)!==record)return;controller.adopt({...sourceInput,sourceRegions:value.sourceRegions??originalRecord.originalRegions?.serialize()??null});record.loading=false;if(pendingSession===value)pendingSession=null;renderDocuments();
 }
 $('restore-session').onclick=()=>{closeMenus();$('session-file').value='';$('session-file').click();};$('session-file').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>1024**2)throw Error(text('invalid'));const value=JSON.parse(await file.text());if(value.schema!=='sherloq.session/1')throw Error(text('invalid'));await applySession(value);}catch(e){notify(e.message);}};
 const isFileDrag=isWorkspaceFileDrag;
@@ -271,6 +305,7 @@ function syncComparison(){const next=comparisonKeys.size?state.documents.get(sta
 function clearComparison(){comparisonKeys.clear();syncComparison();}
 document.addEventListener('keydown',e=>{
  if(e.defaultPrevented||document.querySelector('dialog[open]:not(#loupe-dialog)'))return;
+ if(state.active==='original'&&sourceEntry?.originalRegions?.keydown(e))return;
  if(loupeSweepKey(e)){e.preventDefault();const c=state.documents.get(state.active)?.controller,chosen=mediaUI.activeEffect();c?.toggleLoupeSweep?.((c?.loupeEffectsContext?.()??media.loupe.effects)[chosen]?.enabled?chosen:undefined);return;}
  if(loupeSettingsKey(e)){e.preventDefault();mediaUI.toggleLoupe();return;}
  if(e.key==='Escape'&&mediaUI.loupeOpen()){e.preventDefault();mediaUI.closeLoupe();return;}
@@ -280,7 +315,7 @@ document.addEventListener('keydown',e=>{
  if(!typingEvent(e))state.documents.get(state.active)?.controller?.loupeKeydown?.(e);
 });
 document.addEventListener('keyup',e=>{if(e.key==='Alt'||e.key.toLowerCase()==='o'){comparisonKeys.delete(e.key==='Alt'?'Alt':'o');syncComparison();}});
-window.addEventListener('blur',clearComparison);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearComparison();});
+window.addEventListener('blur',()=>{stepPlayback.reset();clearComparison();});document.addEventListener('visibilitychange',()=>{if(document.hidden){stepPlayback.reset();clearComparison();}});
 
 function applyMedia(){document.documentElement.style.setProperty('--ui-font',media.font==='montserrat'?'"Montserrat", Arial, sans-serif':'"iowan-old-style-bt", "Iowan Old Style", Georgia, serif');mediaUI.sync();for(const record of entries())record.controller?.setLoupe?.(media.loupe);}
 function syncExperimentalTools(){
@@ -290,7 +325,7 @@ function syncExperimentalTools(){
 function applyPreferences(){syncExperimentalTools();$('all-sliders').checked=allSliders;hoverSliders.setEnabled(allSliders);document.documentElement.dataset.theme=theme;applyMedia();$('compute-profile').value=computeProfile;$('navigation-mode').value=navigationMode;$('highlight-tools').checked=highlight;$('workspace-app').classList.toggle('highlight-new-features',highlight);for(const record of entries()){record.controller?.setTheme(theme);record.controller?.setHighlight?.(highlight);record.controller?.setNavigation(navigationMode);record.controller?.setComputeProfile(computeProfile);}}
 state.setLanguage(browserLanguage(document.defaultView?.navigator??globalThis.navigator));
 const storedPreferences=preferenceAccess.read('sherloq.workspace.preferences'),saved=storedPreferences.value;
-if(saved){media=validateMediaPreferences(saved);unknownFavorites=(saved.favorites||[]).filter(id=>!known.has(id));state.restore(saved,[...known]);theme=['light','dark'].includes(saved.theme)?saved.theme:theme;computeProfile=['maximum','aggressive'].includes(saved.computeProfile)?saved.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(saved.navigationMode)?saved.navigationMode:navigationMode;highlight=saved.highlight===true;allSliders=saved.allSliders!==false;experimentalTools=saved.experimentalTools===true;restoreDependencyPreferences(saved.dependencies);}
+if(saved){scopeFallbacks=validateWholeSourceFallbacks(saved.scopeFallbacks);media=validateMediaPreferences(saved);unknownFavorites=(saved.favorites||[]).filter(id=>!known.has(id));state.restore(saved,[...known]);theme=['light','dark'].includes(saved.theme)?saved.theme:theme;computeProfile=['maximum','aggressive'].includes(saved.computeProfile)?saved.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(saved.navigationMode)?saved.navigationMode:navigationMode;highlight=saved.highlight===true;allSliders=saved.allSliders!==false;experimentalTools=saved.experimentalTools===true;restoreDependencyPreferences(saved.dependencies);}
 savedTools=preferenceAccess.read('sherloq.workspace.tools').value||{};
 for(const [id,value]of Object.entries(savedTools))toolSignatures.set(id,JSON.stringify(value));lastPreferences=preferences();
 const query=new URLSearchParams(location.hash.slice(1));if(['fr','en'].includes(query.get('lang')))state.setLanguage(query.get('lang'));
@@ -298,7 +333,7 @@ try{const home=new URL(query.get('home')||'../../../../',location.href);if(home.
 applyPreferences();translate();renderDocuments();
 if(storedPreferences.issues.length)notify(state.language==='fr'?'Réglages récupérés partiellement. L’original reste conservé ; exportez la sauvegarde de secours dans les réglages locaux.':'Settings partially recovered. The original is retained; export a recovery backup from local settings.');
 window.addEventListener('local-feature-change',renderCatalog);
-window.addEventListener('pagehide',()=>{clearTimeout(settingsTimer);saveTools();savePreferences();});
+window.addEventListener('pagehide',()=>{hoverSliders.dispose();stepShortcuts.dispose();stepPlayback.dispose();clearTimeout(settingsTimer);saveTools();savePreferences();});
 localManagement?.mount(document,{isBusy:()=>entries().some(entry=>entry.loading||entry.controller?.busy)||!!batchUI?.busy,onBeforeBackup:()=>{saveTools();savePreferences();},onFreeze:value=>{if(value){saveTools();savePreferences();}$('workspace-app').inert=value;},onPolicyChange:renderCatalog});
 
 return {state,openImage,openPDF,openTool,closeAll,closeAnalyses,selectDocument,closeDocument,savePreferences,saveTools,restoreOriginalSourceRegions};

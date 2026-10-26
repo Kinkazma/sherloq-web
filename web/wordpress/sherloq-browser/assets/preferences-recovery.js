@@ -1,5 +1,6 @@
+import {validateWholeSourceFallbacks} from './whole-source-fallback.js';
 import {recoverSettings,validParams} from './settings.js';
-import {validateMediaPreferences,validateExportSettings,validateLoupeSettings} from './media-settings.js';
+import {validateMediaPreferences,validateExportSettings,validateLoupeSettings,validatePlacementLoupeSettings} from './media-settings.js';
 import {libraryValue} from './dependency-store.js';
 import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences} from './local-auto-update.js';
 import {getDocumentDownloadShelf} from './download-shelf.js';
@@ -40,12 +41,13 @@ export function recoverWorkspacePreferences(input={}, {fallback={}}={}){
  if(input.favorites!==undefined){if(Array.isArray(input.favorites)){value.favorites=[];for(const [index,id]of input.favorites.entries())if(typeof id==='string'&&id.length<=120&&!value.favorites.includes(id))value.favorites.push(id);else issues.push({path:'favorites.'+index,kind:'incompatible',message:'Invalid favorite identity'});}else issues.push({path:'favorites',kind:'incompatible',message:'Invalid favorites'});}
  const base=validateMediaPreferences();
  if(input.font!==undefined){if(['iowan','montserrat'].includes(input.font))value.font=input.font;else issues.push({path:'font',kind:'incompatible',message:'Invalid font'});}
- for(const [key,validator]of [['exports',validateExportSettings],['quickExport',validateExportSettings],['loupe',validateLoupeSettings]]){
+ for(const [key,validator]of [['exports',validateExportSettings],['quickExport',validateExportSettings],['loupe',validateLoupeSettings],['placementLoupe',validatePlacementLoupeSettings]]){
   let prior;try{prior=validator(fallback[key]);}catch{prior=base[key];}
   value[key]=recoverObject(input[key],prior,validator,key,issues);
  }
  if(input.dependencies!==undefined){if(isObject(input.dependencies))value.dependencies={...input.dependencies,...(typeof input.dependencies.folderName==='string'?{folderName:input.dependencies.folderName.slice(0,200)}:{})};else issues.push({path:'dependencies',kind:'incompatible',message:'Invalid library preferences'});}
- const known=new Set([...Object.keys(choices),'toolsVisible','highlight','allSliders','experimentalTools','favorites','font','exports','quickExport','loupe','dependencies']);
+ if(input.scopeFallbacks!==undefined){try{value.scopeFallbacks=validateWholeSourceFallbacks(input.scopeFallbacks);}catch{issues.push({path:'scopeFallbacks',kind:'incompatible',message:'Invalid whole-source fallback preferences'});}}
+ const known=new Set([...Object.keys(choices),'scopeFallbacks','toolsVisible','highlight','allSliders','experimentalTools','favorites','font','exports','quickExport','loupe','placementLoupe','dependencies']);
  for(const key of Object.keys(input))if(!known.has(key))issues.push({path:key,kind:'unknown',message:'Preserved in recovery backup'});
  return {value,issues};
 }

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.25.0";
 import {sampleStoredPixels} from './display-sampling.js';
 // Exact full-resolution window reads over un-oriented RGB8 or mask8 storage.
 // Presentation tiles are consumers; these coordinates never rescale analysis.
@@ -48,7 +48,7 @@ function createByteSurface(store,{width:sw,height:sh,orientation=1,budget,ownsSt
    checkAbort(options.signal);const g=windowGeometry(rect);requireValue(target instanceof Uint8Array&&target.byteLength>=g.w*g.h*channels,'Pixel window destination is too small.');
    return fill(g,target.subarray(0,g.w*g.h*channels),options);
   },
-  dispose(){if(disposing)return disposing;disposed=true;disposing=Promise.resolve(ownsStore?store.dispose():undefined);return disposing;}
+  dispose(){if(disposing)return disposing;disposed=true;const task=Promise.resolve(ownsStore?store.dispose():undefined);disposing=task;void task.catch(()=>{if(disposing===task)disposing=null;});return task;}
  };
 }
 

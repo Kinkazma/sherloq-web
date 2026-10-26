@@ -1,3 +1,4 @@
+import {ocrPresentationSnapshot} from '../sherloq-browser/assets/ocr-presentation.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -27,7 +28,7 @@ test('insufficient preview admission leaves the native budget unchanged',async()
 test('proxy-only display failure retains the report, native result and fallback frame',()=>{
  const body=app.slice(app.indexOf('function showIndividualSurface(display){'),app.indexOf('\nasync function runIndividual(){'));
  const native={operation:'m2.rita',status:'ok',data:{native:true}},fallback={nativeFrame:true},layer={value:'source'};let fail,discarded=0,recorded=0,draws=0,closed=0;
- const context={revision:9,resultMeta:native,individualUI:{operation:()=>native.operation,view:()=>({})},structuredClone,retireResult:()=>{},remoteSurface:(display,onError)=>{fail=onError;return {close(){closed++;}};},destroyed:false,individualCancelled:false,previousPresentation:fallback,result:null,diagnostic:()=>{},status:()=>{},autoText:fr=>fr,controls:()=>{},draw:()=>draws++,$:id=>id==='layer'?layer:{classList:{contains:()=>false}},observePreviewPresentation:()=>{},source:{width:100,height:80},parameterSession:{pending:true},discardIndividualPresentation:()=>discarded++,errorJournal:{record(){recorded++;return{};}},fit:()=>{}};
+ const context={ocrPresentationSnapshot,sourceRegionTaskIdentity:()=>({revision:9}),sourceRegionTaskIsCurrent:owner=>owner.revision===9,hash:'a'.repeat(64),revision:9,resultMeta:native,individualUI:{operation:()=>native.operation,view:()=>({})},structuredClone,retireResult:()=>{},remoteSurface:(display,onError)=>{fail=onError;return {close(){closed++;}};},destroyed:false,individualCancelled:false,previousPresentation:fallback,result:null,diagnostic:()=>{},status:()=>{},autoText:fr=>fr,controls:()=>{},draw:()=>draws++,$:id=>id==='layer'?layer:{classList:{contains:()=>false}},observePreviewPresentation:()=>{},source:{width:100,height:80},parameterSession:{pending:true},discardIndividualPresentation:()=>discarded++,errorJournal:{record(){recorded++;return{};}},fit:()=>{}};
  vm.createContext(context);vm.runInContext(body+'\nshowIndividualSurface({id:"view",width:100,height:80,responsePreview:true});',context);
  fail(Object.assign(Error('Not enough transient memory'),{code:'MEMORY_LIMIT'}));
  assert.equal(context.resultMeta,native);assert.equal(context.previousPresentation,fallback);assert.equal(context.result,null);assert.equal(layer.value,'result');assert.equal(recorded,0);assert.equal(discarded,0);assert.equal(closed,1);assert.ok(draws>=1);

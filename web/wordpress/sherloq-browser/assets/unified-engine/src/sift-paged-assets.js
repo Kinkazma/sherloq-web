@@ -1,2 +1,2 @@
-import "../../runtime-context.js?v=0.16.0";
-export const SIFT_PAGED_WASM={"bytes": 1379380, "sha256": "523bfdbc89410d09acd73e89a7a2053795b222aebdb5dcf832f8c6c03a69b576"};
+import "../../runtime-context.js?v=0.25.0";
+export const SIFT_PAGED_WASM={"bytes": 1379380, "sha256": "7c6d6bf0b33534307fdfef1c0a5de19abc1631b74c870cc62903fd090e20e81d"};

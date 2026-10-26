@@ -1,0 +1,554 @@
+{
+  "schema": "private-wavelet-native-reference/1",
+  "width": 43,
+  "height": 37,
+  "fixture": "rgb[i]=(i*73+floor(i/7)*19)%256",
+  "inputSha256": "0fdedfdcac17c6d1df307e72791aa13a15adc65fa8123f8134834d17c8921358",
+  "pywavelets": "1.5.0",
+  "numpy": "1.26.4",
+  "sources": {
+    "source/gui/sherloq_app/core/interactive.py": "5b1e48444582a5073f768728ae9222d2549b39fc120225b4847f73f274ba9c42",
+    "source/gui/sherloq_app/core/wavelet_threshold.py": "bcc8ef10112fb38bdfe1542e374be15c8854a4afc25ae546bb71c5b639f922e8"
+  },
+  "cases": [
+    {
+      "params": {
+        "wavelet": "db1",
+        "threshold": 0,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 5,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "threshold": 37,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 5,
+      "effectiveLevel": 2,
+      "sha256": "9d2f3ae89ade4768f4ab2ac16818ea8594aa6854beb966eaeca00963191980e7"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "threshold": 37,
+        "level": 0,
+        "mode": "hard"
+      },
+      "maximumLevel": 5,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "threshold": 1,
+        "level": 1,
+        "mode": "garrote"
+      },
+      "maximumLevel": 5,
+      "effectiveLevel": 1,
+      "sha256": "510e94432f6fe58907e4da4fa48940f8508743c958e2802b48901081fe7a0114"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "threshold": 100,
+        "level": 30,
+        "mode": "hard"
+      },
+      "maximumLevel": 5,
+      "effectiveLevel": 5,
+      "sha256": "363a0366b91dc2ec0c2562a00cdee7a7de67119e8354b8fed8275e5955a6dda1"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "threshold": 53,
+        "level": 1,
+        "mode": "greater"
+      },
+      "maximumLevel": 5,
+      "effectiveLevel": 1,
+      "sha256": "426bdc953a3bb67c6a22e3f5b1b7274e985013b7b995c074d9ac211c05b1ac21"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "threshold": 53,
+        "level": 30,
+        "mode": "less"
+      },
+      "maximumLevel": 5,
+      "effectiveLevel": 5,
+      "sha256": "49c55b5c9b08645780693bbae8b4afb0e9830ba9ac33db0d62c9d7c1d0f3210d"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "threshold": 0,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 3,
+      "effectiveLevel": 0,
+      "sha256": "47b1240d0d7b4301af0bb96e44079ed612caa5ee142097b12f9782bf66170c99"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "threshold": 37,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 3,
+      "effectiveLevel": 1,
+      "sha256": "c4a0f576c2cfca2e17b4e63a9ef03ccf6820182f00d6b42f268c3cf4412f5364"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "threshold": 37,
+        "level": 0,
+        "mode": "hard"
+      },
+      "maximumLevel": 3,
+      "effectiveLevel": 0,
+      "sha256": "47b1240d0d7b4301af0bb96e44079ed612caa5ee142097b12f9782bf66170c99"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "threshold": 1,
+        "level": 1,
+        "mode": "garrote"
+      },
+      "maximumLevel": 3,
+      "effectiveLevel": 1,
+      "sha256": "79e3a2695ceb052c8fcb383bddb62e995f0c224a9471bf1b8934bd37f5b6a296"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "threshold": 100,
+        "level": 30,
+        "mode": "hard"
+      },
+      "maximumLevel": 3,
+      "effectiveLevel": 3,
+      "sha256": "afbbae256cc9d41765efc5e90fd1ec0711e03db8c405b059ca29814bf164c1c8"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "threshold": 53,
+        "level": 1,
+        "mode": "greater"
+      },
+      "maximumLevel": 3,
+      "effectiveLevel": 1,
+      "sha256": "0303c2b2773dd26bf97db76d69f4332f6501c9edb4685d17085b05bc870bc2be"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "threshold": 53,
+        "level": 30,
+        "mode": "less"
+      },
+      "maximumLevel": 3,
+      "effectiveLevel": 3,
+      "sha256": "5c663958412383659cd2e9a898f1bab8626e3efd032880fb99080f9a7c145886"
+    },
+    {
+      "params": {
+        "wavelet": "db7",
+        "threshold": 0,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 0,
+      "sha256": "aeba1b26c4b29218bcffceb9e139f29c6b24643c3c2696275618013c99ef0777"
+    },
+    {
+      "params": {
+        "wavelet": "db7",
+        "threshold": 37,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "99afaecfc77f01dee5837a9136113117a7cebb970819b2adf09d8206daf67272"
+    },
+    {
+      "params": {
+        "wavelet": "db7",
+        "threshold": 37,
+        "level": 0,
+        "mode": "hard"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 0,
+      "sha256": "aeba1b26c4b29218bcffceb9e139f29c6b24643c3c2696275618013c99ef0777"
+    },
+    {
+      "params": {
+        "wavelet": "db7",
+        "threshold": 1,
+        "level": 1,
+        "mode": "garrote"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "327d0dae85a9fd6eae4d53e2f210bbc7a564558273e23ba97e7e1cc997a5c7a5"
+    },
+    {
+      "params": {
+        "wavelet": "db7",
+        "threshold": 100,
+        "level": 30,
+        "mode": "hard"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "23d44e282e1ebf12021206cb181ccd7b35c7e08ddfb5366682338bf927afc2df"
+    },
+    {
+      "params": {
+        "wavelet": "db7",
+        "threshold": 53,
+        "level": 1,
+        "mode": "greater"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "8e80e5bf85b2cc8e9e64ff844687f755b9a6ea136e1c0899fc6f6dc449158214"
+    },
+    {
+      "params": {
+        "wavelet": "db7",
+        "threshold": 53,
+        "level": 30,
+        "mode": "less"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "bf95d81e35266a123523beab28408a80101bfc973678ba718eb7d4442b0aa55f"
+    },
+    {
+      "params": {
+        "wavelet": "sym3",
+        "threshold": 0,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 2,
+      "effectiveLevel": 0,
+      "sha256": "1b3434ec4887350e08f8b75f358efa7eabdc606ae92d4bc9b37a2a40fd82daad"
+    },
+    {
+      "params": {
+        "wavelet": "sym3",
+        "threshold": 37,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 2,
+      "effectiveLevel": 1,
+      "sha256": "035f885698dc6c58bf17aae7e8fe2f4f92bb0f36c98234557db4d80ccc57efa0"
+    },
+    {
+      "params": {
+        "wavelet": "sym3",
+        "threshold": 37,
+        "level": 0,
+        "mode": "hard"
+      },
+      "maximumLevel": 2,
+      "effectiveLevel": 0,
+      "sha256": "1b3434ec4887350e08f8b75f358efa7eabdc606ae92d4bc9b37a2a40fd82daad"
+    },
+    {
+      "params": {
+        "wavelet": "sym3",
+        "threshold": 1,
+        "level": 1,
+        "mode": "garrote"
+      },
+      "maximumLevel": 2,
+      "effectiveLevel": 1,
+      "sha256": "0555981dc6e6713dae9db2a1869efe158f24aa6415daa90bddd9a5f5e6a968fc"
+    },
+    {
+      "params": {
+        "wavelet": "sym3",
+        "threshold": 100,
+        "level": 30,
+        "mode": "hard"
+      },
+      "maximumLevel": 2,
+      "effectiveLevel": 2,
+      "sha256": "d0687a4283b8ff08c53ea39e173a8394b4a90d898a9a87a4119ef2f55650fb2c"
+    },
+    {
+      "params": {
+        "wavelet": "sym3",
+        "threshold": 53,
+        "level": 1,
+        "mode": "greater"
+      },
+      "maximumLevel": 2,
+      "effectiveLevel": 1,
+      "sha256": "396d10d23c5a6b0dc685d0a3d0b1503ec9de4c49cc96d100cb4fbdf61f82924f"
+    },
+    {
+      "params": {
+        "wavelet": "sym3",
+        "threshold": 53,
+        "level": 30,
+        "mode": "less"
+      },
+      "maximumLevel": 2,
+      "effectiveLevel": 2,
+      "sha256": "1478fc9345abd618fbcb56f5ea5be7f36aca0feca1c0aef6b4daa87341252a53"
+    },
+    {
+      "params": {
+        "wavelet": "coif2",
+        "threshold": 0,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 0,
+      "sha256": "da5ba446dcd6aefdd5ad3e6ecd9431be0c6bb23ddd66505c98b68804ca5acabb"
+    },
+    {
+      "params": {
+        "wavelet": "coif2",
+        "threshold": 37,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "5025fbaa207e75229b2a5277951490c1b5d3250e15cba9b36774b08bb32b825d"
+    },
+    {
+      "params": {
+        "wavelet": "coif2",
+        "threshold": 37,
+        "level": 0,
+        "mode": "hard"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 0,
+      "sha256": "da5ba446dcd6aefdd5ad3e6ecd9431be0c6bb23ddd66505c98b68804ca5acabb"
+    },
+    {
+      "params": {
+        "wavelet": "coif2",
+        "threshold": 1,
+        "level": 1,
+        "mode": "garrote"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "808cc023ce9d98e16f144c5f31f113236fe11cc879d20074ff12feec4f185490"
+    },
+    {
+      "params": {
+        "wavelet": "coif2",
+        "threshold": 100,
+        "level": 30,
+        "mode": "hard"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "c04eb818524cf426d8afd650f6d9f2d5ffaee72602fd73697858a8e910650485"
+    },
+    {
+      "params": {
+        "wavelet": "coif2",
+        "threshold": 53,
+        "level": 1,
+        "mode": "greater"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "ca24fb41a1d006fce16673974f58df1a32ceffad4775215a371101d325394135"
+    },
+    {
+      "params": {
+        "wavelet": "coif2",
+        "threshold": 53,
+        "level": 30,
+        "mode": "less"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "32c49d949df08e97479cc5bb372ed518e36c2756c0c5d0decd619190a18c2ad3"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.5",
+        "threshold": 0,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 0,
+      "sha256": "1ea0ce3666b5cd6e17fa3d8f5b686be3c6a0e8210a689a707e35bf1d3c5b1f83"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.5",
+        "threshold": 37,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "8b6565414fabab2878aa86e280c570864253028d24d4b894392fe49579297f1b"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.5",
+        "threshold": 37,
+        "level": 0,
+        "mode": "hard"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 0,
+      "sha256": "1ea0ce3666b5cd6e17fa3d8f5b686be3c6a0e8210a689a707e35bf1d3c5b1f83"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.5",
+        "threshold": 1,
+        "level": 1,
+        "mode": "garrote"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "89ddd19f42a18f102a751381a07090d3e12b39e41b2c3700a9c5d575d103b483"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.5",
+        "threshold": 100,
+        "level": 30,
+        "mode": "hard"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "6370f9075807b92ad443b5c269deb6dde4ea9d63cbe3621c46d9624d4316ade1"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.5",
+        "threshold": 53,
+        "level": 1,
+        "mode": "greater"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "ece9f7d3687b5452d7b476f7483ff8e3a006e5aa9fd96a244f34cd8ae729c27e"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.5",
+        "threshold": 53,
+        "level": 30,
+        "mode": "less"
+      },
+      "maximumLevel": 1,
+      "effectiveLevel": 1,
+      "sha256": "6d6ea71e02a70934f5a4efa2287ef4ec709269c57e1d4c95efcf4f51988d5cf9"
+    },
+    {
+      "params": {
+        "wavelet": "db20",
+        "threshold": 0,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 0,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    },
+    {
+      "params": {
+        "wavelet": "db20",
+        "threshold": 37,
+        "level": null,
+        "mode": "soft"
+      },
+      "maximumLevel": 0,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    },
+    {
+      "params": {
+        "wavelet": "db20",
+        "threshold": 37,
+        "level": 0,
+        "mode": "hard"
+      },
+      "maximumLevel": 0,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    },
+    {
+      "params": {
+        "wavelet": "db20",
+        "threshold": 1,
+        "level": 1,
+        "mode": "garrote"
+      },
+      "maximumLevel": 0,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    },
+    {
+      "params": {
+        "wavelet": "db20",
+        "threshold": 100,
+        "level": 30,
+        "mode": "hard"
+      },
+      "maximumLevel": 0,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    },
+    {
+      "params": {
+        "wavelet": "db20",
+        "threshold": 53,
+        "level": 1,
+        "mode": "greater"
+      },
+      "maximumLevel": 0,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    },
+    {
+      "params": {
+        "wavelet": "db20",
+        "threshold": 53,
+        "level": 30,
+        "mode": "less"
+      },
+      "maximumLevel": 0,
+      "effectiveLevel": 0,
+      "sha256": "485bf34fe7f4c5d16f10a48b6b77d7184892083c0281d630313250f3d064c9bb"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {clusterSafireNative,projectSafireFragmentNative} from './safire-global-post.js';
 import {wasmAllocationFailure,copyTypedArray,allocateWasmMemory} from './allocation.js';
 import {serializeEngineError} from './errors.js';
 import {M3_ORT_ASSETS} from './m3-ort-assets.js';import {fetchM3Asset} from './m3-asset.js';import {RESEARCH_POST_WASM} from './research-post-assets.js';import {RESEARCH_PREPARE_WASM} from './research-prepare-assets.js';
@@ -6,6 +7,7 @@ self.onmessage=async({data:job})=>{
  try{
   const {default:createPost}=await import('../vendor/research-post/post.js');post=await createPost({wasmBinary:await fetchM3Asset(new URL('../vendor/research-post/post.wasm',import.meta.url),RESEARCH_POST_WASM),wasmMemory:allocateWasmMemory({initial:256,maximum:job.postHeapBytes/65536})});
   const alloc=(m,n)=>{const p=m._malloc(Math.max(n,8));if(!p)throw wasmAllocationFailure(m,'SAFIRE memory allocation failed',Math.max(n,8));return p;},put=(m,a)=>{const p=alloc(m,a.byteLength);m.HEAPU8.set(new Uint8Array(a.buffer,a.byteOffset,a.byteLength),p);return p;};
+  if(job.task==='cluster-global'||job.task==='compose-fragment'){const result=job.task==='cluster-global'?clusterSafireNative(post,job):projectSafireFragmentNative(post,job);postMessage(result,Object.values(result).filter(ArrayBuffer.isView).map(v=>v.buffer));return;}
   if(job.task==='compose'){
    const {proposals:p,params}=job,n=p.confidence.length,fp=put(post,p.features),lp=alloc(post,n*4);let iterations;
    if(params.kind==='kmeans')iterations=post._safire_kmeans(fp,n,params.binary?2:params.groups,lp);else iterations=post._safire_dbscan(fp,n,params.eps,params.minimum,lp);

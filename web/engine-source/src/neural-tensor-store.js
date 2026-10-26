@@ -19,7 +19,7 @@ export async function createNeuralTensor(channels,height,width,{budget,signal,co
  requireValue(cooperation==='always'||cooperation==='bounded','Invalid neural tensor cooperation policy.');
  requireValue([channels,height,width].every(x=>Number.isSafeInteger(x)&&x>0)&&Number.isSafeInteger(length*4),'Invalid neural tensor dimensions.');
  const store=await createSegmentedBytes(length*4,{...storageOptions,budget,signal});
- const spatial=height*width,bounded=cooperation==='bounded'?cpuWork(budget):null;let disposed=false;
+ const spatial=height*width,bounded=cooperation==='bounded'?cpuWork(budget):null;let disposed=false,closed=false,disposing;
  // RITA shares eight milliseconds of synchronous copy/allocation work across
  // banks. An external GPU/IO wait is not charged. The wall-time backstop covers
  // long CPU-only chains outside the measured copies, without changing other tools.
@@ -53,7 +53,11 @@ export async function createNeuralTensor(channels,height,width,{budget,signal,co
   markCold(value=true){if(disposed)throw new EngineError('DISPOSED','Neural tensor disposed.');store.markCold(value);return this;},
   spill(options){if(disposed)throw new EngineError('DISPOSED','Neural tensor disposed.');return store.spill(options);},
   flush(){return store.flush();},
-  async dispose(){if(disposed)return;disposed=true;await store.dispose();}
+  dispose(){
+   if(disposing)return disposing;if(closed)return;disposed=true;let acknowledge,refuse;const task=new Promise((resolve,reject)=>{acknowledge=resolve;refuse=reject;});disposing=task;
+   try{Promise.resolve(store.dispose()).then(()=>{closed=true;acknowledge();},refuse);}catch(error){refuse(error);}
+   void task.catch(()=>{if(disposing===task)disposing=null;});return task;
+  }
  };
 }
 

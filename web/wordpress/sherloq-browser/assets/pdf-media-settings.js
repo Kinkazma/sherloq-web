@@ -1,8 +1,8 @@
 // Generated extension adapter: zoom is relative to the displayed image, minimum +1%.
-import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js';
-// Stored locally when possible and included in portable workspace settings.
+import {validateLoupeSettings as validateSharedLoupeSettings,loupeDefaults} from './media-settings.js';
+export {loupeDefaults} from './media-settings.js';
+// Export preferences remain independent of the PDF zoom convention.
 export const exportDefaults=Object.freeze({format:'webp',quality:90,webpQuality:90,heicQuality:90,webpLossless:true,avifLossless:false,heicLossless:false,pngCompression:6,tiffCompression:'deflate',chroma:'source',resize:false,width:0,height:0,resizeAxis:'width',resizeAlgorithm:'auto'});
-export const loupeDefaults=Object.freeze({enabled:false,diameter:300,transition:60,proportional:true,zoom:200,unlock:false,markers:true,ringStyle:'dashed',ringWidth:1,ringOpacity:100,ringColor:'#edf6dc',sweepTarget:'gamma',sweepSpeed:2,effects:effectDefaults});
 const object=value=>value&&typeof value==='object'&&!Array.isArray(value);
 function integer(value,min,max,name){if(!Number.isInteger(value)||value<min||value>max)throw Error('Invalid '+name);return value;}
 export function validateExportSettings(input={}){
@@ -23,16 +23,11 @@ export function linkedExportSize(settings,source,axis=settings.resizeAxis,value=
  const n=Math.min(65500,Math.max(1,Math.round(value||source[axis]))),ratio=source.width/source.height;
  return axis==='width'?{width:n,height:Math.max(1,Math.round(n/ratio))}:{height:n,width:Math.max(1,Math.round(n*ratio))};
 }
+// Share every loupe preference with images; only the PDF zoom floor differs.
 export function validateLoupeSettings(input={}){
- if(!object(input))throw Error('Invalid magnifier settings');const v={...loupeDefaults,...input};
- // Upgrade the old 100/30 default without overwriting a user's custom size.
- if(input.proportional===undefined&&input.diameter===100&&input.transition===30){v.diameter=300;v.transition=60;}
- for(const [key,min,max]of [['sweepSpeed',.1,5],['diameter',10,2000],['transition',0,1000],['zoom',101,3600],['ringWidth',.5,5],['ringOpacity',10,100]])if(!Number.isFinite(v[key])||v[key]<min||v[key]>max)throw Error('Invalid magnifier '+key);
- for(const key of ['enabled','unlock','markers','proportional'])if(typeof v[key]!=='boolean')throw Error('Invalid '+key);
- if(!['solid','dashed'].includes(v.ringStyle)||!/^#[a-f\d]{6}$/i.test(v.ringColor))throw Error('Invalid magnifier rings');
- if(v.sweepTarget==='enabled'||!Object.hasOwn(effectDefaults.adjust,v.sweepTarget))throw Error('Invalid magnifier sweep target');
- v.effects=validateLoupeEffects(v.effects);
- return Object.fromEntries(Object.keys(loupeDefaults).map(k=>[k,v[k]]));
+ const value=validateSharedLoupeSettings(input);
+ if(value.zoom<101)throw Error('Invalid magnifier zoom');
+ return value;
 }
 export function loupeGeometry(settings,screen=globalThis.screen){
  const short=Math.min(Number(screen?.width)||2056,Number(screen?.height)||1329),factor=settings.proportional?short/1329:1;

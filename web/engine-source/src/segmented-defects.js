@@ -1,4 +1,4 @@
-import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
+import {EngineError,requireValue,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
 import {defectChannel} from './defect-pixels.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface,createMaskSurface,createFlagSurface} from './rgb-surface.js';
@@ -11,7 +11,7 @@ export async function segmentedDefects(image,p,{budget,signal,onProgress,rowsPer
  const d=image.surface.descriptor,w=d.sourceWidth,h=d.sourceHeight,n=w*h,input=image.store,r=p.radius;
  requireValue(rowsPerBlock===undefined||Number.isSafeInteger(rowsPerBlock)&&rowsPerBlock>0,'Invalid defect row group.');
  let mask,flags,output,table,planning,count=0,channels=0,blocks=0;
- const stageMs={},started=performance.now();let stamp=started;
+ const stageMs={},started=performance.now(),cooperate=createCooperator(signal);let stamp=started;
  const stage=name=>{const now=performance.now();stageMs[name]=now-stamp;stamp=now;};
  const io=()=>image.session?.backend==='indexeddb'||!image.session&&image.ensureTemporarySession?2*1024**2:0;
  const available=()=>budget.limit-budget.retained-budget.active-io();
@@ -23,12 +23,12 @@ export async function segmentedDefects(image,p,{budget,signal,onProgress,rowsPer
   const rows=Math.min(h,rowsPerBlock??Math.max(1,Math.floor(4*1024**2/(w*10))),Math.floor((available()-w*r*6-25)/(w*10)));
   if(rows<1)throw new EngineError('MEMORY_LIMIT','Defect neighborhood staging does not fit the shared budget.');
   for(let y=0;y<h;y+=rows){
-   await controlCheckpoint(signal);const lines=Math.min(rows,h-y),top=Math.max(0,y-r),bottom=Math.min(h,y+lines+r),inputBytes=(bottom-top)*w*3,size=lines*w,release=budget.reserve(inputBytes+size*7+25);
+   await cooperate();const lines=Math.min(rows,h-y),top=Math.max(0,y-r),bottom=Math.min(h,y+lines+r),inputBytes=(bottom-top)*w*3,size=lines*w,release=budget.reserve(inputBytes+size*7+25);
    try{
     const src=new Uint8Array(inputBytes),rawFlags=new Uint8Array(size*3),pixelMask=new Uint8Array(size),display=new Uint8Array(size*3),window=new Uint8Array((2*r+1)**2);
     await input.readInto(src,top*w*3);checkAbort(signal);if(p.mode!==1)display.set(src.subarray((y-top)*w*3,(y-top+lines)*w*3));
     for(let row=0;row<lines;row++){
-     if(row%32===0)await controlCheckpoint(signal);const sy=y+row;if(sy<r||sy>=h-r)continue;
+     if(row%32===0)await cooperate();const sy=y+row;if(sy<r||sy>=h-r)continue;
      for(let x=r;x<w-r;x++){
       const i=row*w+x;
       for(let c=0;c<3;c++){
@@ -55,12 +55,12 @@ export async function segmentedDefects(image,p,{budget,signal,onProgress,rowsPer
     if(candidateRows<1)throw new EngineError('MEMORY_LIMIT','Candidate record staging does not fit the shared budget.');
     const flush=async()=>{if(!used)return;const bytes=new Uint8Array(buffer.buffer,0,used*4);await table.write(bytes,offset);offset+=bytes.length;used=0;checkAbort(signal);};
     for(let y=0;y<h;y+=candidateRows){
-     await controlCheckpoint(signal);const lines=Math.min(candidateRows,h-y),top=Math.max(0,y-r),bottom=Math.min(h,y+lines+r),inputBytes=(bottom-top)*w*3,release=budget.reserve(inputBytes+lines*w*3+25);
+     await cooperate();const lines=Math.min(candidateRows,h-y),top=Math.max(0,y-r),bottom=Math.min(h,y+lines+r),inputBytes=(bottom-top)*w*3,release=budget.reserve(inputBytes+lines*w*3+25);
      try{
       const src=new Uint8Array(inputBytes),rawFlags=new Uint8Array(lines*w*3),window=new Uint8Array((2*r+1)**2);
       await input.readInto(src,top*w*3);await flags.readInto(rawFlags,y*w*3);checkAbort(signal);
       for(let row=0;row<lines;row++){
-       if(row%32===0)await controlCheckpoint(signal);
+       if(row%32===0)await cooperate();
        for(let x=0;x<w;x++)for(let c=2;c>=0;c--){
         const flag=rawFlags[(row*w+x)*3+c];if(!flag)continue;
         let k=0;for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++)window[k++]=src[((y+row-top+dy)*w+x+dx)*3+c];window.sort();

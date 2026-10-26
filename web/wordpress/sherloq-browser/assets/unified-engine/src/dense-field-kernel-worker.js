@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.25.0";
+import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,denseConstructionOwner,cleanupDenseOwners,createDenseRetirementLedger} from './dense-owner-retirement.js';
 import {allocateBuffer} from './allocation.js';
 import {wasmRange,byteView,closeMemoryRanges} from './memory-range.js';
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';
@@ -9,22 +10,25 @@ import {readByteStore} from './portable-byte-store.js';
 import {createSharedReadCacheClient} from './shared-read-cache.js';
 import {serializeDenseError} from './dense-memory-error.js';
 import {DenseWriteBatch,denseWriteBatchBytes} from './dense-write-batch.js';
-let writeBatch,commandActive=false,returnedBatch;
+let writeBatch,commandActive=false,returnedBatch,kernelRetirement,kernelClosing=false,retirementOwners,onRetirementOwner;
 let next,queued=[],module,done,stores,heap,release,bootstrapRelease,transportRelease,transportBudget,readCache,gpuTransport;const gpuWaiters=new Map();let gpuSerial=0;let io={reads:0,writes:0,readBytes:0,writeBytes:0};
-const readInput=async(store,id)=>{if(!store)return null;const reader=await readByteStore(store,{budget:transportBudget});return readCache&&Number.isInteger(store.cacheStoreId)&&store.cacheStoreId>0&&![3,4,17,18].includes(id)?readCache.wrap(store.cacheStoreId,reader):reader;};
+const readInput=async(store,id)=>{if(!store)return null;let reader,failed=false,primary;const owner=denseConstructionOwner([],{onRetirementOwner},()=>reader?.dispose());try{reader=await readByteStore(store,{budget:transportBudget,onRetirementOwner});const value=readCache&&Number.isInteger(store.cacheStoreId)&&store.cacheStoreId>0&&![3,4,17,18].includes(id)?readCache.wrap(store.cacheStoreId,reader):reader;owner.publish();return value;}catch(error){failed=true;primary=error;throw error;}finally{if(failed)await cleanupDenseOwners(()=>owner.dispose(),{failed,primary});}};
 installWorkerMessageProtocol(self,async data=>{
- if(data.inputControl){const {token,action,ids,entries}=data.inputControl;try{if(action==='detach'){await Promise.all(ids.map(async id=>{await stores[id]?.dispose?.();stores[id]=null;}));}else if(action==='attach'){for(const {id,descriptor} of entries){stores[id]=await readInput(descriptor,id);}}else throw new EngineError('INVALID_INPUT','Unknown kernel input transition.');self.postMessage({inputAck:{token}});}catch(error){self.postMessage({inputAck:{token,error:serializeDenseError(error)}});}return;}
+ if(data.retireKernel){const {token}=data.retireKernel;try{if(!kernelRetirement)throw new EngineError('WORKER_MESSAGE_FAILED','Dense kernel retirement owner is unavailable.',{details:{retirementOwnerUnavailable:true}});await kernelRetirement();self.postMessage({kernelRetired:{token}});}catch(error){self.postMessage({kernelRetired:{token,error:serializeDenseError(error)}});}return;}
+ if(data.inputControl){const {token,action,ids,entries}=data.inputControl;try{if(action==='detach'){await retireDenseOwners(ids.map(id=>async()=>{const previous=stores[id];await acknowledgeDenseRetirement(()=>previous?.dispose?.());if(stores[id]===previous)stores[id]=null;}));}else if(action==='attach'){if(kernelClosing)throw new EngineError('BUSY','Dense kernel input is retiring.');for(const {id,descriptor} of entries){if(stores[id])throw new EngineError('BUSY','Dense kernel input still has an owner.');const reader=await readInput(descriptor,id);if(kernelClosing){const forget=retirementOwners.hold(reader);await acknowledgeDenseRetirement(()=>reader?.dispose());forget();throw new EngineError('BUSY','Dense kernel retired before input adoption.');}stores[id]=reader;}}else throw new EngineError('INVALID_INPUT','Unknown kernel input transition.');self.postMessage({inputAck:{token}});}catch(error){self.postMessage({inputAck:{token,error:serializeDenseError(error)}});}return;}
  if(data.gpuPrepared){const {id,allowed,error}=data.gpuPrepared,waiting=gpuWaiters.get(id);gpuWaiters.delete(id);error?waiting?.reject(Object.assign(new Error(error.message),{code:error.code})):waiting?.resolve(allowed);return;}
  if(data.gpuResult){const {id,result,error}=data.gpuResult,waiting=gpuWaiters.get(id);gpuWaiters.delete(id);if(gpuTransport)waiting?.resolve(data.gpuResult);else error?waiting?.reject(Object.assign(new Error(error.message),{code:error.code})):waiting?.resolve(result);return;}
  if(data.gpuDrop){const {token,id}=data.gpuDrop;self.postMessage({gpuDropped:{token,retired:gpuTransport?.drop(id)===true}});return;}
- if(data.task){if(data.writeBatch)returnedBatch=data.writeBatch;if(next){const resolve=next;next=null;resolve(data.task);}else queued.push(data.task);return;}
+ if(data.task){if(kernelClosing)throw new EngineError('BUSY','Dense kernel is closing; no useful task was adopted.');if(data.writeBatch)returnedBatch=data.writeBatch;if(next){const resolve=next;next=null;resolve(data.task);}else queued.push(data.task);return;}
  if(data.workspaceBytes&&module){module.budget.limit=data.workspaceBytes;return;}
+ let finishCompute,failed=false,primary,retired=false,finalMetrics;const computeFinished=new Promise(resolve=>finishCompute=resolve),dropCache=onceDenseRetirement(async()=>{const previous=readCache;await acknowledgeDenseRetirement(()=>previous?.dispose());if(readCache===previous)readCache=null;}),dropStores=onceDenseRetirement(()=>retireDenseOwners((stores??[]).map((reader,id)=>async()=>{await acknowledgeDenseRetirement(()=>reader?.dispose?.());if(stores[id]===reader)stores[id]=null;}))),dropNative=onceDenseRetirement(async()=>{await acknowledgeDenseRetirement(()=>gpuTransport?.dispose());closeMemoryRanges(module);await acknowledgeDenseRetirement(()=>heap?.dispose());release?.();release=null;bootstrapRelease?.();bootstrapRelease=null;transportRelease?.();transportRelease=null;});
+ const close=onceDenseRetirement(async()=>{await computeFinished;await dropCache();await dropStores();await retirementOwners?.drain();await dropNative();retirementOwners?.release();retired=true;}),stop=()=>{if(!done)return;const task=[0,0,0,0,0,0];if(next){const resolve=next;next=null;resolve(task);}else if(!queued.some(value=>value[0]===0))queued.push(task);};kernelRetirement=()=>{kernelClosing=true;stop();return close();};
  try{
   const writeBatchBytes=denseWriteBatchBytes(data.values[11]);
-  const budget=new Budget(data.workspaceBytes);bootstrapRelease=budget.reserve(data.bootstrapStagingBytes??0);transportRelease=budget.reserve((data.transportBudgetBytes??0)+writeBatchBytes);transportBudget=new Budget(data.transportBudgetBytes??data.workspaceBytes);
+  const budget=new Budget(data.workspaceBytes);retirementOwners=createDenseRetirementLedger(budget);retirementOwners.prepare(3*data.stores.length+16);onRetirementOwner=owner=>retirementOwners.hold(owner);bootstrapRelease=budget.reserve(data.bootstrapStagingBytes??0);transportRelease=budget.reserve((data.transportBudgetBytes??0)+writeBatchBytes);transportBudget=new Budget(data.transportBudgetBytes??data.workspaceBytes);
   writeBatch=new DenseWriteBatch(writeBatchBytes);returnedBatch=allocateBuffer(writeBatchBytes,{label:'dense-command-write-batch'});
   readCache=createSharedReadCacheClient(data.readCache);
-  stores=await Promise.all(data.stores.map(readInput));data.stores=null;
+  stores=new Array(data.stores.length).fill(null);const reads=await Promise.allSettled(data.stores.map(async(descriptor,id)=>{stores[id]=await readInput(descriptor,id);}));data.stores=null;const refused=reads.find(value=>value.status==='rejected');if(refused)throw refused.reason;
   const heapBytes=data.workspaceBytes-budget.total();release=budget.reserve(heapBytes);heap=createDensePagedHeap(budget,heapBytes);
   const {default:create}=await import('../vendor/dense-paged/dense-paged.js');module=await create({wasmMemory:heap.memory});module.budget=budget;
   module.cacheAllocationFailure=requested=>{io.cacheAllocationFallbacks=(io.cacheAllocationFallbacks??0)+1;io.lastCacheAllocationFailure={requestedPages:requested,...(heap.error?{error:serializeDenseError(heap.error)}:{})};heap.clearError();};
@@ -53,8 +57,7 @@ installWorkerMessageProtocol(self,async data=>{
   done=module.ccall('dense_paged_field','number',values.map(()=> 'number'),values,{async:true});const code=await done;
   if(module.ioError)throw module.ioError;if(code&&heap.error)throw heap.error;if(code)throw new EngineError(code===-2?'MEMORY_ALLOCATION':'NUMERIC_RANGE',module.UTF8ToString(values[14]));
   await Promise.all(stores.map(store=>store?.flush?.()));for(const p of owned)module._free(p);
-  await readCache?.dispose();readCache=null;await Promise.allSettled(stores.map(store=>store?.dispose?.()));stores=[];
-  gpuTransport?.dispose();self.postMessage({finished:true,metrics:{...io,heapBytes:module.HEAPU8.byteLength,siftBoundRejections:module.siftBoundRejections??0,...(gpuTransport?{gpuTransport:gpuTransport.snapshot()}:{})}});
- }catch(error){self.postMessage({error:serializeDenseError(error)});}
- finally{gpuTransport?.dispose();closeMemoryRanges(module);await readCache?.dispose();await Promise.allSettled((stores??[]).map(store=>store?.dispose?.()));heap?.dispose();release?.();bootstrapRelease?.();transportRelease?.();}
+  finalMetrics={...io,heapBytes:module.HEAPU8.byteLength,siftBoundRejections:module.siftBoundRejections??0,...(gpuTransport?{gpuTransport:gpuTransport.snapshot()}:{})};
+ }catch(error){failed=true;primary=error;}finally{finishCompute();try{await close();}catch(error){if(!failed){failed=true;primary=error;}else if(primary&&typeof primary==='object')primary.details={...primary.details,denseRetirementPending:true};}}
+ if(failed)self.postMessage({error:serializeDenseError(primary),retirementPending:!retired});else self.postMessage({finished:true,metrics:finalMetrics});
 },{label:'dense-field-kernel-worker',onFailure:error=>{for(const waiting of gpuWaiters.values())waiting.reject?.(error);gpuWaiters.clear();self.postMessage({error:serializeDenseError(error)});}});

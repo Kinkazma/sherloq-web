@@ -1,3 +1,9 @@
+import {selectResamplingPreviewOutput,resamplingMagnitudeCacheKey,copyResamplingMagnitudePage} from './resampling-context-parameter-preview.js';
+import {validateClassicalContextPreview,CLASSICAL_CONTEXT_PREVIEW_BYTES} from './classical-context-preview.js';
+import {renderMedianContextPreview,MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES} from './median-context-preview.js';
+import {selectSparseTraceRows,traceSelectionSummary,sparseTraceDrawCommands,nativeTraceCircle,tracePaletteWorkingBytes} from './unified-engine/src/sparse-trace-selection.js';
+import {paintSsgRetainedMask} from './ssg-retained-mask-presentation.js';
+import {createCooperator} from './unified-engine/src/errors.js';
 import {histogramSummary} from './unified-engine/src/histogram.js';
 import {roundEven} from './unified-engine/src/pixel-utils.js';
 import {VIRIDIS} from './unified-engine/src/viridis.js';
@@ -9,8 +15,9 @@ import {illuminantCellDisplay} from './unified-engine/src/illuminant.js';
 import {detectionBiomes} from './detection-biomes.js';
 import {composeBiomeWindow} from './detection-biome-presentation.js';
 import {createAdaptivePreview} from './adaptive-preview.js';
+import {renderResearch as renderNativeResearch} from './unified-engine/src/research-view.js';
 
-const MAX_SIDE=2048,LEGACY_SIDE=256,MAX_CELLS=131072;
+const MAX_SIDE=2048,LEGACY_SIDE=256,MAX_CELLS=131072,CLONE_TRACE_BYTES=8192*6144+2048*32+16384+tracePaletteWorkingBytes(2048,8192);
 const adaptive=createAdaptivePreview(),adaptiveSafire=createAdaptivePreview({targetMs:200});
 const now=()=>globalThis.performance?.now?.()??Date.now();
 const invalid=message=>Object.assign(new TypeError(message),{code:'INVALID_INPUT'});
@@ -23,9 +30,14 @@ function geometry(width,height,maxSide=LEGACY_SIDE){
  const step=Math.max(1,Math.ceil(Math.max(width,height)/maxSide));return {x:0,y:0,w:width,h:height,step,width:Math.ceil(width/step),height:Math.ceil(height/step)};
 }
 function dimensions(output,source){const d=output?.data??{},s=source?.surface??source?.pixels??source;return [d.geometry?.imageWidth??d.width??output?.surface?.width??output?.pixels?.width??d.sourceDimensions?.[0]??s?.width,d.geometry?.imageHeight??d.height??output?.surface?.height??output?.pixels?.height??d.sourceDimensions?.[1]??s?.height];}
+// EM results publish a separate magnitude/table for each Fourier map. Resolve
+// the displayed layer before planning or sampling; a probability map has no
+// Fourier presentation to substitute during a gesture.
+function resamplingPreviewOutput(output,view={},contract){return selectResamplingPreviewOutput(output,view,contract);}
 /** Plan before admitting memory. The key describes rendering cost only, never
  * the source identity. Native final windows do not use this provisional plan. */
 export function planRetainedPreview(args={}){
+ args={...args,output:resamplingPreviewOutput(args.output,args.view,args.resamplingContext)};
  const operation=args.operation??args.output?.operation,d=args.output?.data??{},p=args.params??{},v=args.view??{};
  if(!args.output||operation==='inspection.histogram')return null;
  let [width,height]=dimensions(args.output,args.source);
@@ -59,7 +71,8 @@ function paintPoint(data,g,x,y,color,radius=0){x=roundEven(x/g.step);y=roundEven
 function paintLine(data,g,ax,ay,bx,by,color){const dx=(bx-ax)/g.step,dy=(by-ay)/g.step,steps=Math.min(512,Math.max(1,Math.ceil(Math.max(Math.abs(dx),Math.abs(dy)))));for(let i=0;i<=steps;i++)paintPoint(data,g,ax+(bx-ax)*i/steps,ay+(by-ay)*i/steps,color);}
 async function classicalClones(a,d,p,g){
  if(!array(d.points)||d.points.length%7||!array(d.matches)||d.matches.length%3||d.matches.length>2048*3||!array(d.groupLengths)||!array(d.groupIndices)||d.groupIndices.length>8192||d.groupLengths.length>2048||p.showPoints&&d.points.length>4096*7)return null;
- const base=await sourceFrame(a,g);if(!base)return null;const data=base.data,minimum=d.minimum??p.minimum??5;
+ const minimum=p.minimum??d.minimum??5;if(!Number.isInteger(minimum)||minimum<1||minimum>20||a.field==='minimum'&&d.groupLengths.length!==d.matches.length/3)return null;
+ const base=await sourceFrame(a,g);if(!base)return null;const data=base.data;
  if(p.showPoints)for(let at=0;at<d.points.length;at+=7)paintPoint(data,g,Math.trunc(d.points[at]),Math.trunc(d.points[at+1]),[72,227,250],2);
  let offset=0;for(const length of d.groupLengths){abort(a.signal);if(!Number.isSafeInteger(length)||length<0||offset+length>d.groupIndices.length)return null;if(length>=minimum)for(let j=offset;j<offset+length;j++){
   const row=d.groupIndices[j];if(!Number.isSafeInteger(row)||row<0||row>=d.matches.length/3)return null;const at=row*3,ai=d.matches[at]*7,bi=d.matches[at+1]*7;if(!Number.isSafeInteger(ai)||!Number.isSafeInteger(bi)||ai<0||bi<0||ai+6>=d.points.length||bi+6>=d.points.length)return null;
@@ -80,10 +93,15 @@ function parameterView(output,kind,params,view,width,height){const identity=JSON
  * needed. Other finals must use the existing cache-aware native pipeline. */
 export function updateRetainedParameters({output,operation=output?.operation,params={},view={}}={}){
  if(!output)return null;
+ if(['ai.localization.focal','ai.localization.adaifl'].includes(operation)&&Object.keys(params).length)return null;
  if(operation==='inspection.histogram'){const result=histogram(output,params);return result?updated(output,params,{data:{...output.data,summary:result.summary}}):null;}
  const d=output.data??{},[width,height]=dimensions(output);if(!Number.isSafeInteger(width)||!Number.isSafeInteger(height))return null;
  if(operation?.startsWith('ai.sources.')||operation?.startsWith('ai.localization.')){
   if(!sameAnalysis(output,params,[]))return null;const mode=view.mode??'overlay',method=d.metadata?.method,multi=method==='safire'&&!d.metadata?.binary,[rows,cols]=d.metadata?.native_shape??[],field=mode==='mask'?'mask':multi&&mode!=='confidence'?'source_labels':'map';
+  if(d.metadata?.strictSourceRegions?.schema==='sherloq.strict-research/1'&&Array.isArray(d.fragments)){
+   if(!['safire','focal','adaifl'].includes(method)||!['overlay','map',...(multi?['confidence']:[]),...(method==='adaifl'?['mask']:[])].includes(mode)||!d.fragments.every(f=>{const shape=f.metadata?.native_shape;return Array.isArray(shape)&&shape.length===2&&shape.every(v=>Number.isSafeInteger(v)&&v>0)&&f.metadata.method===method&&finiteArray(f[field],shape[0]*shape[1]);}))return null;
+   return updated(output,params,{parameterViews:[parameterView(output,'research',params,{mode},width,height)],style:{...output.style,mode,outsideDomain:'original-unanalysed'}});
+  }
   if(!['overlay','map',...(method==='adaifl'?['mask']:[]),...(multi?['confidence']:[])].includes(mode)||!finiteArray(d[field],rows*cols))return null;
   return updated(output,params,{parameterViews:[parameterView(output,'research',params,{mode},width,height)],style:{...output.style,mode}});
  }
@@ -96,16 +114,18 @@ function windowGeometry(display,tile={}){const x=tile.x??0,y=tile.y??0,w=tile.w?
  * and preserves the original engine handles for export and resource disposal. */
 export async function renderRetainedWindow({display,tile={},readSource,signal}={}){
  abort(signal);const v=display?.retainedParameterView;if(!v)throw invalid('Missing retained presentation contract.');const g=windowGeometry(display,tile),d=v.nativeData,p=v.params??{},mode=v.view?.mode??'overlay',data=new Uint8Array(g.width*g.height*3);let source;
- if(v.kind==='research'&&mode==='overlay'){if(typeof readSource!=='function')throw invalid('Native source reader required.');source=await readSource({x:g.x,y:g.y,w:g.w,h:g.h,step:g.step});if(source?.pixels)source=source.pixels;if(!source||source.format!=='rgb8'||source.width!==g.width||source.height!==g.height||!(source.data instanceof Uint8Array)||source.data.length!==data.length)throw invalid('Retained source window geometry changed.');abort(signal);}
+ if(v.kind==='research'&&(mode==='overlay'||Array.isArray(d.fragments))){if(typeof readSource!=='function')throw invalid('Native source reader required.');source=await readSource({x:g.x,y:g.y,w:g.w,h:g.h,step:g.step});if(source?.pixels)source=source.pixels;if(!source||source.format!=='rgb8'||source.width!==g.width||source.height!==g.height||!(source.data instanceof Uint8Array)||source.data.length!==data.length)throw invalid('Retained source window geometry changed.');abort(signal);}
+ if(v.kind==='research'&&Array.isArray(d.fragments)){const result=await renderNativeResearch(source,d,{mode},{signal,reserveMemory:()=>{},origin:[g.x,g.y],sourceSize:[display.width,display.height],step:g.step});return result.pixels;}
+ const cooperate=v.kind==='ghosts'?createCooperator(signal):null;
  const [rows,cols]=d.metadata?.native_shape??[],multi=d.metadata?.method==='safire'&&!d.metadata.binary,palette=GHOST_PALETTES[p.grayscale!==false?'gray':'viridis'],cellColors=new Map();
- for(let y=0;y<g.height;y++){if(y%32===0){abort(signal);await Promise.resolve();}for(let x=0;x<g.width;x++){const xx=g.x+x*g.step,yy=g.y+y*g.step,at=(y*g.width+x)*3;let color;
+ for(let y=0;y<g.height;y++){if(cooperate)await cooperate();else if(y%32===0){abort(signal);await Promise.resolve();}for(let x=0;x<g.width;x++){const xx=g.x+x*g.step,yy=g.y+y*g.step,at=(y*g.width+x)*3;let color;
   if(v.kind==='research'){const i=Math.floor(yy*rows/display.height)*cols+Math.floor(xx*cols/display.width);if(mode==='mask'){const value=d.mask[i]*255;color=[value,value,value];}else if(multi&&mode!=='confidence')color=SAFIRE_COLORS[d.source_labels[i]];else{const index=roundEven(Math.fround(Math.max(0,Math.min(1,d.map[i]))*255))*3;color=INFERNO.subarray(index,index+3);}if(!color||color.length!==3)throw invalid('Invalid retained research sample.');for(let c=0;c<3;c++)data[at+c]=mode==='overlay'?roundEven((source.data[at+c]+color[c])*.5):color[c];}
-  else if(v.kind==='ghosts'){const index=Math.max(0,Math.min(255,Math.floor(d.maps[(yy*d.cols+xx)*d.qualities.length+v.view.index]*256)));data.set(palette.slice(index*3,index*3+3),at);}
+  else if(v.kind==='ghosts'){const index=Math.max(0,Math.min(255,Math.floor(d.maps[(yy*d.cols+xx)*d.qualities.length+v.view.index]*256)));const color=index*3;data[at]=palette[color];data[at+1]=palette[color+1];data[at+2]=palette[color+2];}
   else if(v.kind==='illuminant'){const cell=Math.floor(yy/d.block)*d.cols+Math.floor(xx/d.block);let color=cellColors.get(cell);if(!color){const unit=d.rgb.subarray(cell*3,cell*3+3);color=illuminantCellDisplay(unit,d.counts[cell],d.areas[cell],d.valid[cell],d.globalRGB,{...p,mode:p.mode??0,linear:p.linear!==false}).color;if(cellColors.size>=256)cellColors.clear();cellColors.set(cell,color);}data.set(color,at);}
   else throw invalid('Unsupported retained presentation.');
  }}abort(signal);return {width:g.width,height:g.height,format:'rgb8',data};
 }
-export function retainedPreviewWorkingBytes({maxSide=LEGACY_SIDE,plan}={}){if(plan){if(plan.token?.schema!=='adaptive-preview-token/1'||![plan.width,plan.height,plan.side,plan.pixels].every(Number.isSafeInteger)||plan.side<1||plan.side>MAX_SIDE||plan.pixels<1||plan.pixels>MAX_SIDE**2)throw invalid('Invalid retained preview plan.');return plan.pixels*40+MAX_CELLS*16+65536;}if(!Number.isInteger(maxSide)||maxSide<1||maxSide>MAX_SIDE)throw invalid('Invalid retained preview bound.');return maxSide*maxSide*40+MAX_CELLS*16+65536;}
+export function retainedPreviewWorkingBytes({maxSide=LEGACY_SIDE,plan,operation,medianContexts=false,classicalContexts=false}={}){const classicalBytes=classicalContexts?CLASSICAL_CONTEXT_PREVIEW_BYTES:0,contextBytes=medianContexts&&operation==='various.median'?MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES:0,traceBytes=['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?CLONE_TRACE_BYTES:0;if(plan){if(plan.token?.schema!=='adaptive-preview-token/1'||![plan.width,plan.height,plan.side,plan.pixels].every(Number.isSafeInteger)||plan.side<1||plan.side>MAX_SIDE||plan.pixels<1||plan.pixels>MAX_SIDE**2)throw invalid('Invalid retained preview plan.');return plan.pixels*40+MAX_CELLS*16+65536+traceBytes+contextBytes+classicalBytes;}if(!Number.isInteger(maxSide)||maxSide<1||maxSide>MAX_SIDE)throw invalid('Invalid retained preview bound.');return maxSide*maxSide*40+MAX_CELLS*16+65536+traceBytes+contextBytes+classicalBytes;}
 function median(d,p,g,signal){
  const q=d.geometry,n=q?.width*q?.height;if(!Number.isSafeInteger(n)||n<1||n>MAX_CELLS||!finiteArray(d.probabilities,n)||!finiteArray(d.variances,n))return null;
  const rgb=new Uint8Array(n*3),neighbors=new Float32Array(9),threshold=Math.fround(p.threshold??.4),variance=p.variance??5;
@@ -131,6 +151,7 @@ async function pca(a,d,p,g){
  abort(a.signal);return frame(g,data);
 }
 async function research(a,d,g){
+ if(d.metadata?.strictSourceRegions?.schema==='sherloq.strict-research/1'&&Array.isArray(d.fragments)){const base=await sourceFrame(a,g);if(!base)return null;const result=await renderNativeResearch(base,d,a.view??{mode:'overlay'},{signal:a.signal,reserveMemory:()=>{},sourceSize:[g.w,g.h],step:g.step});return frame(g,result.pixels.data);}
  const [rows,cols]=d.metadata?.native_shape??[],n=rows*cols,mode=a.view?.mode??'overlay',method=d.metadata?.method,multi=method==='safire'&&!d.metadata.binary;
  if(!Number.isSafeInteger(n)||n<1||!['overlay','map',...(method==='adaifl'?['mask']:[]),...(multi?['confidence']:[])].includes(mode))return null;
  const field=mode==='mask'?'mask':multi&&mode!=='confidence'?'source_labels':'map';if(!finiteArray(d[field],n))return null;const base=mode==='overlay'?await sourceFrame(a,g):null;if(mode==='overlay'&&!base)return null;
@@ -154,21 +175,22 @@ async function noisesniffer(a,d,p,g){
 }
 async function resampling(a,d,p,g){
  let values;if(finiteArray(d.magnitude,g.w*g.h)){values=new Float64Array(g.width*g.height);for(let y=0;y<g.height;y++)for(let x=0;x<g.width;x++)values[y*g.width+x]=d.magnitude[sampleIndex(g,x,y)];}
- else{const table=a.output.tableSurfaces?.magnitude;if(!table||!a.readTable)return null;const key='spectrum/'+table.id+'/'+table.revision+'/'+g.step;values=a.cache?.get(key);if(!values){values=new Float64Array(g.width*g.height);const span=(g.width-1)*g.step+1;if(span>32768)return null;for(let y=0;y<g.height;y++){abort(a.signal);const answer=await a.readTable(table,y*g.step*g.w,span),columns=answer.columns?.length??3;if(!(answer.data instanceof Float64Array)||answer.data.length!==span*columns)return null;for(let x=0;x<g.width;x++)values[y*g.width+x]=answer.data[x*g.step*columns+columns-1];}a.cache?.set(key,values);}}
- const params=p.fourier??p,low=d.minimumMagnitude,high=d.maximumMagnitude;if(![low,high,params.gamma??4].every(Number.isFinite))return null;const data=new Uint8Array(values.length*3);for(let i=0;i<values.length;i++){const value=Math.pow(high>low?(values[i]-low)/(high-low):0,params.gamma??4)*(params.rescale===false?1:high);data.fill(GRAY_PALETTE[Math.max(0,Math.min(255,Math.floor(value*256)))],i*3,i*3+3);}return frame(g,data);
+ else{const table=a.output.tables?.magnitude??a.output.tableSurfaces?.magnitude;if(!table||!a.readTable)return null;const key=resamplingMagnitudeCacheKey(a.output,table,g);values=a.cache?.get(key);if(!values){values=new Float64Array(g.width*g.height);const span=(g.width-1)*g.step+1;if(span>32768)return null;for(let y=0;y<g.height;y++){abort(a.signal);a.assertResamplingCurrent?.();const offset=y*g.step*g.w,answer=await a.readTable(table,offset,span);a.assertResamplingCurrent?.();abort(a.signal);if(!copyResamplingMagnitudePage(answer,{contract:a.resamplingContext,table,offset,length:span,side:g.w,step:g.step,width:g.width,target:values,targetOffset:y*g.width}))return null;}a.cache?.set(key,values);}}
+ const params=p.fourier??p,low=d.minimumMagnitude,high=d.maximumMagnitude;if(![low,high,params.gamma??4].every(Number.isFinite))return null;const data=new Uint8Array(values.length*3);for(let i=0;i<values.length;i++){const value=Math.pow(high>low?(values[i]-low)/(high-low):0,params.gamma??4)*(params.rescale===false?1:high);data.fill(GRAY_PALETTE[Math.max(0,Math.min(255,Math.floor(value*256)))],i*3,i*3+3);}return {...frame(g,data),previewCoordinates:'frequency-grid'};
 }
 /** Read only existing native arrays/fields. This function has no engine.run,
  * release-result, detector or model-loading capability. Missing retained data
  * returns null so the caller can keep its last valid frame until native work. */
 export async function renderRetainedPreview(args={}){
- const started=now(),a={...args},output=a.output,operation=a.operation??output?.operation,params=a.params??{},d=output?.data??{};abort(a.signal);if(!output)return null;
+ const started=now(),a={...args,output:resamplingPreviewOutput(args.output,args.view,args.resamplingContext)},output=a.output,operation=a.operation??output?.operation,params=a.params??{},d=output?.data??{};abort(a.signal);if(!output)return null;
+ if(['ai.localization.focal','ai.localization.adaifl'].includes(operation)&&Object.keys(params).length)return null;
  if(operation==='inspection.histogram'){const result=histogram(output,params);return result?{...result,data:{...d,...result},operation,output:updateRetainedParameters({output,operation,params}),provisional:true,exact:false,summaryExact:true,metrics:{nativeAnalysisCalls:0,inferenceCalls:0,sourceReads:0}}:null;}
  let [width,height]=dimensions(output,a.source);if(operation==='tampering.resampling'||operation==='tampering.resampling.fourier')width=height=d.geometry?.outputSide??width;
  if(operation==='jpeg.ghosts'){width=d.cols;height=d.rows;}
  if(!Number.isInteger(width)||!Number.isInteger(height))return null;
  const plan=a.adaptivePlan;if(plan&&(plan.token?.schema!=='adaptive-preview-token/1'||plan.logicalWidth!==width||plan.logicalHeight!==height||!Number.isSafeInteger(plan.step)||plan.step<1||plan.width!==Math.ceil(width/plan.step)||plan.height!==Math.ceil(height/plan.step)||plan.side!==Math.max(plan.width,plan.height)||plan.side>MAX_SIDE||plan.pixels!==plan.width*plan.height||plan.pixels>MAX_SIDE**2))throw invalid('Retained preview plan differs from its source.');
- const g=plan?{x:0,y:0,w:width,h:height,step:plan.step,width:plan.width,height:plan.height}:geometry(width,height,a.maxSide??LEGACY_SIDE);let pixels;
- if(operation==='various.median')pixels=median(d,params,g,a.signal);
+ const g=plan?{x:0,y:0,w:width,h:height,step:plan.step,width:plan.width,height:plan.height}:geometry(width,height,a.maxSide??LEGACY_SIDE);let pixels,traceSelection;
+ if(operation==='various.median')pixels=Array.isArray(d.fragments)?await renderMedianContextPreview({output,source:a.medianSource,params,domain:a.medianDomain,geometry:g,signal:a.signal,readSource:()=>{if(a.isCurrent&&!a.isCurrent())throw Object.assign(Error('Median retained source changed.'),{code:'CANCELLED'});return sourceFrame(a,g);}}):median(d,params,g,a.signal);
  else if(operation==='tampering.contrast')pixels=contrast(d,params,g,a.signal);
  else if(operation==='various.illuminant')pixels=illuminant(d,params,g,a.signal);
  else if(operation==='colors.pca')pixels=await pca(a,d,params,g);
@@ -176,17 +198,26 @@ export async function renderRetainedPreview(args={}){
  else if(operation==='jpeg.zero')pixels=await zero(a,d,params,g);
  else if(operation==='noise.noisesniffer')pixels=await noisesniffer(a,d,params,g);
  else if(operation==='tampering.resampling'||operation==='tampering.resampling.fourier')pixels=await resampling(a,d,params,g);
- else if(['tampering.copyMove.brisk','tampering.copyMove.orb','tampering.copyMove.akaze'].includes(operation))pixels=await classicalClones(a,d,params,g);
+ else if(['tampering.copyMove.brisk','tampering.copyMove.orb','tampering.copyMove.akaze'].includes(operation)){let metadata;if(a.classicalDomain)metadata=await validateClassicalContextPreview({output:a.output,source:a.classicalSource,domain:a.classicalDomain,operation,params,signal:a.signal});if(a.isCurrent&&!a.isCurrent())throw Object.assign(Error('Classical retained source changed.'),{code:'CANCELLED'});pixels=await classicalClones(a,d,params,g);if(pixels&&metadata)pixels={...pixels,classicalContextPreview:metadata};}
  else if(operation==='jpeg.ghosts'){
-  if(!finiteArray(d.maps,d.cols*d.rows*d.qualities?.length)||params.includeOriginal)return null;const index=Math.min(d.qualities.length-1,Math.max(0,Math.trunc(a.view?.index??0))),step=g,data=new Uint8Array(step.width*step.height*3),palette=GHOST_PALETTES[params.grayscale!==false?'gray':'viridis'];for(let y=0;y<step.height;y++)for(let x=0;x<step.width;x++){const value=Math.max(0,Math.min(255,Math.floor(d.maps[(y*step.step*d.cols+x*step.step)*d.qualities.length+index]*256))),at=(y*step.width+x)*3;data.set(palette.slice(value*3,value*3+3),at);}pixels=frame(step,data);
+  if(!finiteArray(d.maps,d.cols*d.rows*d.qualities?.length)||(a.view?.layerId??a.view?.id??a.view)==='original')return null;const index=Math.min(d.qualities.length-1,Math.max(0,Math.trunc(a.view?.index??0))),step=g,data=new Uint8Array(step.width*step.height*3),palette=GHOST_PALETTES[params.grayscale!==false?'gray':'viridis'];for(let y=0;y<step.height;y++)for(let x=0;x<step.width;x++){const value=Math.max(0,Math.min(255,Math.floor(d.maps[(y*step.step*d.cols+x*step.step)*d.qualities.length+index]*256))),at=(y*step.width+x)*3;data[at]=palette[value*3];data[at+1]=palette[value*3+1];data[at+2]=palette[value*3+2];}pixels=frame(step,data);
  }
  else if(operation==='tampering.copyMove.sparse'||operation==='tampering.copyMove.dense'){
   const style=a.view??{};if(!d.pairs||d.pairs.length>2048*4||d.groups?.length>2048)return null;let memberships=0;for(const group of d.groups??[]){memberships+=group.length;if(memberships>8192)return null;}let selectedRows=0;for(const group of output.selectedGroups??[]){selectedRows+=group.rows?.length??0;if(selectedRows>8192)return null;}
-  const base=await sourceFrame(a,g);if(!base)return null;const groups=detectionBiomes(output,{style}).groups;pixels=style.areas===false?frame(g,base.data):frame(g,(a.composeBiomes??composeBiomeWindow)(base,groups,g,{signal:a.signal,scope:a.view?.scope,source:{width,height,sha256:output.provenance?.originalSha256}}).data);
-  if(style.circles||style.lines||style.points)for(const group of groups){abort(a.signal);for(const row of group.pairIndexIds){const at=row*4,ai=d.pairs[at]*7,bi=d.pairs[at+1]*7,ax=d.points[ai],ay=d.points[ai+1],bx=d.points[bi],by=d.points[bi+1];if(style.lines)paintLine(pixels.data,g,ax,ay,bx,by,group.color);if(style.circles){paintPoint(pixels.data,g,ax,ay,group.color,d.points[ai+2]/2);paintPoint(pixels.data,g,bx,by,group.color,d.points[bi+2]/2);}if(style.points){paintPoint(pixels.data,g,ax,ay,group.color);paintPoint(pixels.data,g,bx,by,group.color);}}}
+  const base=await sourceFrame(a,g);if(!base)return null;const groups=detectionBiomes(output,{style}).groups;pixels=a.ssgMaskDraft?frame(g,style.areas===false?base.data:paintSsgRetainedMask(base.data,g,a.ssgMaskDraft,{sourceSha256:output.provenance?.originalSha256,domainFingerprint:output.sourceRegionDomain?.fingerprint??null})):style.areas===false?frame(g,base.data):frame(g,(a.composeBiomes??composeBiomeWindow)(base,groups,g,{signal:a.signal,scope:a.view?.scope,source:{width,height,sha256:output.provenance?.originalSha256}}).data);
+  const traceGroups=groups.map(group=>({rows:group.pairIndexIds})),overlap=style.traceOverlap??0;let trace;
+  try{
+   // The caller admits retainedPreviewWorkingBytes({operation}) before rendering.
+   // Existing proxy limits cap this temporary index at8192 occurrences.
+   if(style.circles||style.lines||style.points)trace=await selectSparseTraceRows(d,traceGroups,overlap,{signal:a.signal,reserveMemory:bytes=>{if(bytes>CLONE_TRACE_BYTES)throw invalid('Clone trace preview exceeded its admitted workspace.');return()=>{};}});
+   traceSelection=trace?{...trace.metadata,provisional:true}:traceSelectionSummary(d,traceGroups,[],overlap,{provisional:true,selectionSkipped:true});
+   const traceFlags=(style.circles?1:0)|(style.lines?2:0)|(style.points?4:0),cooperate=createCooperator(a.signal);
+   if(trace)for(const command of sparseTraceDrawCommands(trace,traceFlags))for(const row of command.rows){await cooperate();const ai=d.pairs[row*4],bi=d.pairs[row*4+1],first=nativeTraceCircle(d.points,ai),second=nativeTraceCircle(d.points,bi),color=Array.from(trace.colors.subarray(row*3,row*3+3)).reverse(),flags=command.flags;if(flags&2)paintLine(pixels.data,g,first.x,first.y,second.x,second.y,color);if(flags&1){if(!(flags&16))paintPoint(pixels.data,g,first.x,first.y,color,first.radius);if(!(flags&32))paintPoint(pixels.data,g,second.x,second.y,color,second.radius);}if(flags&4){if(!(flags&16))paintPoint(pixels.data,g,first.x,first.y,color);if(!(flags&32))paintPoint(pixels.data,g,second.x,second.y,color);}}
+
+  }finally{trace?.release?.();}
  }
  abort(a.signal);if(!pixels)return null;const milliseconds=now()-started,adaptivePreview=plan?{token:plan.token,milliseconds,setupMilliseconds:0,cold:false,pixels:pixels.width*pixels.height}:null;
  if(plan)adaptive.observe(plan,{milliseconds,pixels:pixels.width*pixels.height});
- return {pixels,logicalWidth:width,logicalHeight:height,provisional:true,exact:false,approximate:true,metrics:{nativeAnalysisCalls:0,inferenceCalls:0,maximumFramePixels:g.width*g.height,...(adaptivePreview?{adaptivePreview}:{})}};
+ return {pixels,...(traceSelection?{traceSelection}:{}),logicalWidth:width,logicalHeight:height,provisional:true,exact:false,approximate:true,exportable:false,...(a.ssgMaskDraft?{approximation:a.ssgMaskDraft.provenance?.approximation,params:a.ssgMaskDraft.params}:{}),metrics:{nativeAnalysisCalls:0,inferenceCalls:0,maximumFramePixels:g.width*g.height,...(adaptivePreview?{adaptivePreview}:{})}};
 }
 export const previewRetainedParameters=renderRetainedPreview;

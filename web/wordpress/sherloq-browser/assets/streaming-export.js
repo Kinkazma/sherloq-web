@@ -1,3 +1,5 @@
+import {isEnergyContextCollection,selectEnergyContext,energyContextFields} from './energy-context-selection.js';
+import {readEnergyWindow} from './energy-native-fields.js';
 // Lossless NPY/ZIP64 and JSON writers. Memory use is one bounded chunk; the
 // caller provides backpressure and a file/Blob sink. No analysis is rerun.
 const encoder=new TextEncoder(),CHUNK=1024*1024;
@@ -45,4 +47,11 @@ async function* jsonTokens(value){
  }else yield JSON.stringify(value)??'null';
 }
 export async function* jsonChunks(result){let text='';for await(const token of jsonTokens(result)){text+=token;if(text.length>=65536){yield encoder.encode(text);text='';}}if(text)yield encoder.encode(text);}
-export function energyExportChunks(result,format){if(result?.operation!=='ela.energy'||result.status!=='ok')throw Error('Completed energy result required');if(format==='npz')return npzChunks(result);if(format==='json')return jsonChunks(result);throw Error('Unknown export format');}
+async function* contextJsonChunks(result,hooks){
+ selectEnergyContext(result);const encode=value=>encoder.encode(JSON.stringify(value));yield encode({operation:result.operation,status:result.status,provenance:result.provenance,contextLayout:result.data.contextLayout,width:result.data.width,height:result.data.height,metadata:result.data.metadata,coverage:result.data.coverage}).slice(0,-1);yield encoder.encode(',"contexts":[');
+ for(let index=0;index<result.data.contexts.length;index++){const context=result.data.contexts[index],selection=selectEnergyContext(result,{sourceFragment:context.id});if(index)yield encoder.encode(',');yield encode(context).slice(0,-1);yield encoder.encode(',"fields":{');
+  for(let field=0;field<energyContextFields.length;field++){const name=energyContextFields[field];if(field)yield encoder.encode(',');yield encoder.encode(JSON.stringify(name)+':[');let first=true;for(let y=0;y<context.height;y++)for(let x=0;x<context.width;x+=8192){const data=await readEnergyWindow(selection.analysis,name,{x,y,width:Math.min(8192,context.width-x),height:1},hooks);if(!first)yield encoder.encode(',');first=false;yield encoder.encode(JSON.stringify(Array.from(data)).slice(1,-1));}yield encoder.encode(']');}
+  yield encoder.encode('}}');
+ }yield encoder.encode(']}');
+}
+export function energyExportChunks(result,format,hooks={}){if(result?.operation!=='ela.energy'||result.status!=='ok')throw Error('Completed energy result required');if(isEnergyContextCollection(result)){if(format==='json')return contextJsonChunks(result,hooks);throw Error('Native context NPZ requires the retained Core scientific export.');}if(format==='npz')return npzChunks(result);if(format==='json')return jsonChunks(result);throw Error('Unknown export format');}

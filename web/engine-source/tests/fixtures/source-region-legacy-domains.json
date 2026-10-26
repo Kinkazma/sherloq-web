@@ -1,0 +1,2232 @@
+{
+  "schema": "sherloq.test-legacy-source-domains/1",
+  "producer": "Unmodified pre-native-envelope compiler; mixed-parent case supplies a native-envelope parent to that old compiler; synthetic geometry only",
+  "source": {
+    "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "width": 32,
+    "height": 24
+  },
+  "cases": [
+    {
+      "name": "fractional",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 1,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "fractional",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 2.8,
+              "y0": 1.8,
+              "x1": 28.2,
+              "y1": 21.2,
+              "polygon": [
+                [
+                  2.8,
+                  1.8
+                ],
+                [
+                  28.2,
+                  1.8
+                ],
+                [
+                  28.2,
+                  21.2
+                ],
+                [
+                  2.8,
+                  21.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+        },
+        "ceiling": null,
+        "fingerprint": "87f04e11048c18268deb62238f0cff12fd9c36b511147028c0e7b819a8774078",
+        "rect": {
+          "x0": 2,
+          "y0": 1,
+          "x1": 29,
+          "y1": 22
+        },
+        "origin": [
+          2,
+          1
+        ],
+        "width": 27,
+        "height": 21,
+        "countIncluded": 475
+      }
+    },
+    {
+      "name": "excluded-border",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 2,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "a",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 2,
+              "y0": 2,
+              "x1": 28,
+              "y1": 21,
+              "polygon": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  28,
+                  2
+                ],
+                [
+                  28,
+                  21
+                ],
+                [
+                  2,
+                  21
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2,
+                "y0": 2,
+                "x1": 28,
+                "y1": 21,
+                "polygon": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    28,
+                    2
+                  ],
+                  [
+                    28,
+                    21
+                  ],
+                  [
+                    2,
+                    21
+                  ]
+                ]
+              },
+              "origin": "human"
+            },
+            {
+              "id": "edge",
+              "kind": "exclusion",
+              "enabled": true,
+              "x0": 2,
+              "y0": 2,
+              "x1": 5,
+              "y1": 21,
+              "polygon": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  5,
+                  21
+                ],
+                [
+                  2,
+                  21
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2,
+                "y0": 2,
+                "x1": 5,
+                "y1": 21,
+                "polygon": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    5,
+                    2
+                  ],
+                  [
+                    5,
+                    21
+                  ],
+                  [
+                    2,
+                    21
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "5df5e598305945064a74e8abc46b32d1a559b45d535dd9b4bfef559cddbdf0e2"
+        },
+        "ceiling": null,
+        "fingerprint": "fce6f382245afc271d7e3548060592b811ea27bd4d7c5b9a342cdaebdf898501",
+        "rect": {
+          "x0": 2,
+          "y0": 2,
+          "x1": 28,
+          "y1": 21
+        },
+        "origin": [
+          2,
+          2
+        ],
+        "width": 26,
+        "height": 19,
+        "countIncluded": 437
+      }
+    },
+    {
+      "name": "nested-child",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 1,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "child",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 4.8,
+              "y0": 3.8,
+              "x1": 25.2,
+              "y1": 18.2,
+              "polygon": [
+                [
+                  4.8,
+                  3.8
+                ],
+                [
+                  25.2,
+                  3.8
+                ],
+                [
+                  25.2,
+                  18.2
+                ],
+                [
+                  4.8,
+                  18.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 4.8,
+                "y0": 3.8,
+                "x1": 25.2,
+                "y1": 18.2,
+                "polygon": [
+                  [
+                    4.8,
+                    3.8
+                  ],
+                  [
+                    25.2,
+                    3.8
+                  ],
+                  [
+                    25.2,
+                    18.2
+                  ],
+                  [
+                    4.8,
+                    18.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "f15b1787c1db3e063656eaa5c158d312988a167bfa1909f8841eda67c2386954"
+        },
+        "ceiling": {
+          "schema": "sherloq.source-region-domain/1",
+          "snapshot": {
+            "schema": "sherloq.source-regions/1",
+            "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "width": 32,
+            "height": 24,
+            "revision": 1,
+            "enabled": true,
+            "positiveMode": "selected",
+            "zones": [
+              {
+                "id": "fractional",
+                "kind": "acquisition",
+                "enabled": true,
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ],
+                "originalGeometry": {
+                  "x0": 2.8,
+                  "y0": 1.8,
+                  "x1": 28.2,
+                  "y1": 21.2,
+                  "polygon": [
+                    [
+                      2.8,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      21.2
+                    ],
+                    [
+                      2.8,
+                      21.2
+                    ]
+                  ]
+                },
+                "origin": "human"
+              }
+            ],
+            "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+          },
+          "ceiling": null,
+          "fingerprint": "87f04e11048c18268deb62238f0cff12fd9c36b511147028c0e7b819a8774078",
+          "rect": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 29,
+            "y1": 22
+          },
+          "origin": [
+            2,
+            1
+          ],
+          "width": 27,
+          "height": 21,
+          "countIncluded": 475
+        },
+        "fingerprint": "ca5f74ff6ac8ac685fd299b827b411d1e7a173669ef84fea5b91bea52f884a7f",
+        "rect": {
+          "x0": 4,
+          "y0": 3,
+          "x1": 26,
+          "y1": 19
+        },
+        "origin": [
+          4,
+          3
+        ],
+        "width": 22,
+        "height": 16,
+        "countIncluded": 280
+      }
+    },
+    {
+      "name": "nested-grandchild",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 1,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "grandchild",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 5.8,
+              "y0": 4.8,
+              "x1": 23.2,
+              "y1": 16.2,
+              "polygon": [
+                [
+                  5.8,
+                  4.8
+                ],
+                [
+                  23.2,
+                  4.8
+                ],
+                [
+                  23.2,
+                  16.2
+                ],
+                [
+                  5.8,
+                  16.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 5.8,
+                "y0": 4.8,
+                "x1": 23.2,
+                "y1": 16.2,
+                "polygon": [
+                  [
+                    5.8,
+                    4.8
+                  ],
+                  [
+                    23.2,
+                    4.8
+                  ],
+                  [
+                    23.2,
+                    16.2
+                  ],
+                  [
+                    5.8,
+                    16.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "aeca8840f11e2f29f059050fdcde6b64ea1d25938716364b82b6f16f5a71b692"
+        },
+        "ceiling": {
+          "schema": "sherloq.source-region-domain/1",
+          "snapshot": {
+            "schema": "sherloq.source-regions/1",
+            "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "width": 32,
+            "height": 24,
+            "revision": 1,
+            "enabled": true,
+            "positiveMode": "selected",
+            "zones": [
+              {
+                "id": "child",
+                "kind": "acquisition",
+                "enabled": true,
+                "x0": 4.8,
+                "y0": 3.8,
+                "x1": 25.2,
+                "y1": 18.2,
+                "polygon": [
+                  [
+                    4.8,
+                    3.8
+                  ],
+                  [
+                    25.2,
+                    3.8
+                  ],
+                  [
+                    25.2,
+                    18.2
+                  ],
+                  [
+                    4.8,
+                    18.2
+                  ]
+                ],
+                "originalGeometry": {
+                  "x0": 4.8,
+                  "y0": 3.8,
+                  "x1": 25.2,
+                  "y1": 18.2,
+                  "polygon": [
+                    [
+                      4.8,
+                      3.8
+                    ],
+                    [
+                      25.2,
+                      3.8
+                    ],
+                    [
+                      25.2,
+                      18.2
+                    ],
+                    [
+                      4.8,
+                      18.2
+                    ]
+                  ]
+                },
+                "origin": "human"
+              }
+            ],
+            "fingerprint": "f15b1787c1db3e063656eaa5c158d312988a167bfa1909f8841eda67c2386954"
+          },
+          "ceiling": {
+            "schema": "sherloq.source-region-domain/1",
+            "snapshot": {
+              "schema": "sherloq.source-regions/1",
+              "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "width": 32,
+              "height": 24,
+              "revision": 1,
+              "enabled": true,
+              "positiveMode": "selected",
+              "zones": [
+                {
+                  "id": "fractional",
+                  "kind": "acquisition",
+                  "enabled": true,
+                  "x0": 2.8,
+                  "y0": 1.8,
+                  "x1": 28.2,
+                  "y1": 21.2,
+                  "polygon": [
+                    [
+                      2.8,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      21.2
+                    ],
+                    [
+                      2.8,
+                      21.2
+                    ]
+                  ],
+                  "originalGeometry": {
+                    "x0": 2.8,
+                    "y0": 1.8,
+                    "x1": 28.2,
+                    "y1": 21.2,
+                    "polygon": [
+                      [
+                        2.8,
+                        1.8
+                      ],
+                      [
+                        28.2,
+                        1.8
+                      ],
+                      [
+                        28.2,
+                        21.2
+                      ],
+                      [
+                        2.8,
+                        21.2
+                      ]
+                    ]
+                  },
+                  "origin": "human"
+                }
+              ],
+              "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+            },
+            "ceiling": null,
+            "fingerprint": "87f04e11048c18268deb62238f0cff12fd9c36b511147028c0e7b819a8774078",
+            "rect": {
+              "x0": 2,
+              "y0": 1,
+              "x1": 29,
+              "y1": 22
+            },
+            "origin": [
+              2,
+              1
+            ],
+            "width": 27,
+            "height": 21,
+            "countIncluded": 475
+          },
+          "fingerprint": "ca5f74ff6ac8ac685fd299b827b411d1e7a173669ef84fea5b91bea52f884a7f",
+          "rect": {
+            "x0": 4,
+            "y0": 3,
+            "x1": 26,
+            "y1": 19
+          },
+          "origin": [
+            4,
+            3
+          ],
+          "width": 22,
+          "height": 16,
+          "countIncluded": 280
+        },
+        "fingerprint": "a415ae05ea2f3766abdb20423ea20db422077f71fbf3162c050366f9480c253a",
+        "rect": {
+          "x0": 5,
+          "y0": 4,
+          "x1": 24,
+          "y1": 17
+        },
+        "origin": [
+          5,
+          4
+        ],
+        "width": 19,
+        "height": 13,
+        "countIncluded": 187
+      }
+    },
+    {
+      "name": "whole-under-border-ceiling",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 0,
+          "enabled": false,
+          "positiveMode": "whole",
+          "zones": [],
+          "fingerprint": "9b59ea79f73fd73979f2ad83391e2bd10250bd6bc776eed52ff5abdf27f7ef39"
+        },
+        "ceiling": {
+          "schema": "sherloq.source-region-domain/1",
+          "snapshot": {
+            "schema": "sherloq.source-regions/1",
+            "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "width": 32,
+            "height": 24,
+            "revision": 2,
+            "enabled": true,
+            "positiveMode": "selected",
+            "zones": [
+              {
+                "id": "a",
+                "kind": "acquisition",
+                "enabled": true,
+                "x0": 2,
+                "y0": 2,
+                "x1": 28,
+                "y1": 21,
+                "polygon": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    28,
+                    2
+                  ],
+                  [
+                    28,
+                    21
+                  ],
+                  [
+                    2,
+                    21
+                  ]
+                ],
+                "originalGeometry": {
+                  "x0": 2,
+                  "y0": 2,
+                  "x1": 28,
+                  "y1": 21,
+                  "polygon": [
+                    [
+                      2,
+                      2
+                    ],
+                    [
+                      28,
+                      2
+                    ],
+                    [
+                      28,
+                      21
+                    ],
+                    [
+                      2,
+                      21
+                    ]
+                  ]
+                },
+                "origin": "human"
+              },
+              {
+                "id": "edge",
+                "kind": "exclusion",
+                "enabled": true,
+                "x0": 2,
+                "y0": 2,
+                "x1": 5,
+                "y1": 21,
+                "polygon": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    5,
+                    2
+                  ],
+                  [
+                    5,
+                    21
+                  ],
+                  [
+                    2,
+                    21
+                  ]
+                ],
+                "originalGeometry": {
+                  "x0": 2,
+                  "y0": 2,
+                  "x1": 5,
+                  "y1": 21,
+                  "polygon": [
+                    [
+                      2,
+                      2
+                    ],
+                    [
+                      5,
+                      2
+                    ],
+                    [
+                      5,
+                      21
+                    ],
+                    [
+                      2,
+                      21
+                    ]
+                  ]
+                },
+                "origin": "human"
+              }
+            ],
+            "fingerprint": "5df5e598305945064a74e8abc46b32d1a559b45d535dd9b4bfef559cddbdf0e2"
+          },
+          "ceiling": null,
+          "fingerprint": "fce6f382245afc271d7e3548060592b811ea27bd4d7c5b9a342cdaebdf898501",
+          "rect": {
+            "x0": 2,
+            "y0": 2,
+            "x1": 28,
+            "y1": 21
+          },
+          "origin": [
+            2,
+            2
+          ],
+          "width": 26,
+          "height": 19,
+          "countIncluded": 437
+        },
+        "fingerprint": "c18ad8ba1cc4d8d27aaf52b08a1d4a6debc5242ecc451fd1e74dff9fd02014be",
+        "rect": {
+          "x0": 2,
+          "y0": 2,
+          "x1": 28,
+          "y1": 21
+        },
+        "origin": [
+          2,
+          2
+        ],
+        "width": 26,
+        "height": 19,
+        "countIncluded": 437
+      }
+    },
+    {
+      "name": "fully-excluded",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 2,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "a",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 2.8,
+              "y0": 1.8,
+              "x1": 28.2,
+              "y1": 21.2,
+              "polygon": [
+                [
+                  2.8,
+                  1.8
+                ],
+                [
+                  28.2,
+                  1.8
+                ],
+                [
+                  28.2,
+                  21.2
+                ],
+                [
+                  2.8,
+                  21.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            },
+            {
+              "id": "all",
+              "kind": "exclusion",
+              "enabled": true,
+              "x0": 0,
+              "y0": 0,
+              "x1": 32,
+              "y1": 24,
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  32,
+                  0
+                ],
+                [
+                  32,
+                  24
+                ],
+                [
+                  0,
+                  24
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 0,
+                "y0": 0,
+                "x1": 32,
+                "y1": 24,
+                "polygon": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    32,
+                    0
+                  ],
+                  [
+                    32,
+                    24
+                  ],
+                  [
+                    0,
+                    24
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "2ef62e8cb0dd1cd60a640048fb0410868c58263cbd210d51ef5e8f64c1c90597"
+        },
+        "ceiling": null,
+        "fingerprint": "762bdeecc8a938b038cd3f5b83226eaad93a3f92d543cc17fdf8eb5725b234c4",
+        "rect": null,
+        "origin": [
+          0,
+          0
+        ],
+        "width": 0,
+        "height": 0,
+        "countIncluded": 0
+      }
+    },
+    {
+      "name": "fully-excluded-under-legacy-fractional-ceiling",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 2,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "a",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 2.8,
+              "y0": 1.8,
+              "x1": 28.2,
+              "y1": 21.2,
+              "polygon": [
+                [
+                  2.8,
+                  1.8
+                ],
+                [
+                  28.2,
+                  1.8
+                ],
+                [
+                  28.2,
+                  21.2
+                ],
+                [
+                  2.8,
+                  21.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            },
+            {
+              "id": "all",
+              "kind": "exclusion",
+              "enabled": true,
+              "x0": 0,
+              "y0": 0,
+              "x1": 32,
+              "y1": 24,
+              "polygon": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  32,
+                  0
+                ],
+                [
+                  32,
+                  24
+                ],
+                [
+                  0,
+                  24
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 0,
+                "y0": 0,
+                "x1": 32,
+                "y1": 24,
+                "polygon": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    32,
+                    0
+                  ],
+                  [
+                    32,
+                    24
+                  ],
+                  [
+                    0,
+                    24
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "2ef62e8cb0dd1cd60a640048fb0410868c58263cbd210d51ef5e8f64c1c90597"
+        },
+        "ceiling": {
+          "schema": "sherloq.source-region-domain/1",
+          "snapshot": {
+            "schema": "sherloq.source-regions/1",
+            "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "width": 32,
+            "height": 24,
+            "revision": 1,
+            "enabled": true,
+            "positiveMode": "selected",
+            "zones": [
+              {
+                "id": "fractional",
+                "kind": "acquisition",
+                "enabled": true,
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ],
+                "originalGeometry": {
+                  "x0": 2.8,
+                  "y0": 1.8,
+                  "x1": 28.2,
+                  "y1": 21.2,
+                  "polygon": [
+                    [
+                      2.8,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      21.2
+                    ],
+                    [
+                      2.8,
+                      21.2
+                    ]
+                  ]
+                },
+                "origin": "human"
+              }
+            ],
+            "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+          },
+          "ceiling": null,
+          "fingerprint": "87f04e11048c18268deb62238f0cff12fd9c36b511147028c0e7b819a8774078",
+          "rect": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 29,
+            "y1": 22
+          },
+          "origin": [
+            2,
+            1
+          ],
+          "width": 27,
+          "height": 21,
+          "countIncluded": 475
+        },
+        "fingerprint": "e5c3fae50d9f1522326d817e06e15ca831e7c1ec6ed25b0c1eec458d6499b93b",
+        "rect": null,
+        "origin": [
+          0,
+          0
+        ],
+        "width": 0,
+        "height": 0,
+        "countIncluded": 0
+      }
+    },
+    {
+      "name": "legacy-child-with-canonical-parent",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 1,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "child",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 4.8,
+              "y0": 3.8,
+              "x1": 25.2,
+              "y1": 18.2,
+              "polygon": [
+                [
+                  4.8,
+                  3.8
+                ],
+                [
+                  25.2,
+                  3.8
+                ],
+                [
+                  25.2,
+                  18.2
+                ],
+                [
+                  4.8,
+                  18.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 4.8,
+                "y0": 3.8,
+                "x1": 25.2,
+                "y1": 18.2,
+                "polygon": [
+                  [
+                    4.8,
+                    3.8
+                  ],
+                  [
+                    25.2,
+                    3.8
+                  ],
+                  [
+                    25.2,
+                    18.2
+                  ],
+                  [
+                    4.8,
+                    18.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "f15b1787c1db3e063656eaa5c158d312988a167bfa1909f8841eda67c2386954"
+        },
+        "ceiling": {
+          "schema": "sherloq.source-region-domain/1",
+          "snapshot": {
+            "schema": "sherloq.source-regions/1",
+            "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "width": 32,
+            "height": 24,
+            "revision": 1,
+            "enabled": true,
+            "positiveMode": "selected",
+            "zones": [
+              {
+                "id": "fractional",
+                "kind": "acquisition",
+                "enabled": true,
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ],
+                "originalGeometry": {
+                  "x0": 2.8,
+                  "y0": 1.8,
+                  "x1": 28.2,
+                  "y1": 21.2,
+                  "polygon": [
+                    [
+                      2.8,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      21.2
+                    ],
+                    [
+                      2.8,
+                      21.2
+                    ]
+                  ]
+                },
+                "origin": "human"
+              }
+            ],
+            "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+          },
+          "ceiling": null,
+          "fingerprint": "b795461b53a7719584eed90b7c8b9330a55fc9c8898bddb3f62f32f9b1ec4a00",
+          "rect": {
+            "x0": 3,
+            "y0": 2,
+            "x1": 28,
+            "y1": 21
+          },
+          "origin": [
+            3,
+            2
+          ],
+          "width": 25,
+          "height": 19,
+          "countIncluded": 475
+        },
+        "fingerprint": "6ffb4803e6b592ecb3e2fbe97dc84371887878c5b04005d56e7be07fb2b377d0",
+        "rect": {
+          "x0": 4,
+          "y0": 3,
+          "x1": 26,
+          "y1": 19
+        },
+        "origin": [
+          4,
+          3
+        ],
+        "width": 22,
+        "height": 16,
+        "countIncluded": 280
+      }
+    },
+    {
+      "name": "selected-empty",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 1,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [],
+          "fingerprint": "98e420936f1f0b1c545903aff67b61fc81796f442396eab2520ab71754ae8c49"
+        },
+        "ceiling": null,
+        "fingerprint": "d6a6a35fd3f4e817cb719939fd9fd76974e3336dadb6b71f50b5dbc33484eb74",
+        "rect": null,
+        "origin": [
+          0,
+          0
+        ],
+        "width": 0,
+        "height": 0,
+        "countIncluded": 0
+      }
+    },
+    {
+      "name": "disabled-retained-geometry",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 2,
+          "enabled": false,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "retained",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 2.8,
+              "y0": 1.8,
+              "x1": 28.2,
+              "y1": 21.2,
+              "polygon": [
+                [
+                  2.8,
+                  1.8
+                ],
+                [
+                  28.2,
+                  1.8
+                ],
+                [
+                  28.2,
+                  21.2
+                ],
+                [
+                  2.8,
+                  21.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "33246f51457548b57d19b47581da70a5437be3d56bd9671d4f4645b861f67e33"
+        },
+        "ceiling": null,
+        "fingerprint": "8fe2ddf538338e808e68d82ca100386f9be048148c9a01d7f29fe9c2c1b80c1f",
+        "rect": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 32,
+          "y1": 24
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "width": 32,
+        "height": 24,
+        "countIncluded": 768
+      }
+    },
+    {
+      "name": "integer-unchanged",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 1,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "integer",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 2,
+              "y0": 2,
+              "x1": 28,
+              "y1": 21,
+              "polygon": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  28,
+                  2
+                ],
+                [
+                  28,
+                  21
+                ],
+                [
+                  2,
+                  21
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2,
+                "y0": 2,
+                "x1": 28,
+                "y1": 21,
+                "polygon": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    28,
+                    2
+                  ],
+                  [
+                    28,
+                    21
+                  ],
+                  [
+                    2,
+                    21
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "a1fa293be5ff82751e321402b64f3cd0b4a807b54d2f4245a79f010a083fc51c"
+        },
+        "ceiling": null,
+        "fingerprint": "f2d471605e6f8b8efc0b468e04d828f93a47c183c86bbb8af5f1777ffdc3c6a8",
+        "rect": {
+          "x0": 2,
+          "y0": 2,
+          "x1": 28,
+          "y1": 21
+        },
+        "origin": [
+          2,
+          2
+        ],
+        "width": 26,
+        "height": 19,
+        "countIncluded": 494
+      }
+    },
+    {
+      "name": "fractional-with-real-hole",
+      "descriptor": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 2,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "a",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 2.8,
+              "y0": 1.8,
+              "x1": 28.2,
+              "y1": 21.2,
+              "polygon": [
+                [
+                  2.8,
+                  1.8
+                ],
+                [
+                  28.2,
+                  1.8
+                ],
+                [
+                  28.2,
+                  21.2
+                ],
+                [
+                  2.8,
+                  21.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            },
+            {
+              "id": "hole",
+              "kind": "exclusion",
+              "enabled": true,
+              "x0": 8,
+              "y0": 6,
+              "x1": 12,
+              "y1": 11,
+              "polygon": [
+                [
+                  8,
+                  6
+                ],
+                [
+                  12,
+                  6
+                ],
+                [
+                  12,
+                  11
+                ],
+                [
+                  8,
+                  11
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 8,
+                "y0": 6,
+                "x1": 12,
+                "y1": 11,
+                "polygon": [
+                  [
+                    8,
+                    6
+                  ],
+                  [
+                    12,
+                    6
+                  ],
+                  [
+                    12,
+                    11
+                  ],
+                  [
+                    8,
+                    11
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "38764ec00bdff2b2b5568a022abe892d3880eb8405e8dd489f001f6076764d6f"
+        },
+        "ceiling": null,
+        "fingerprint": "ae9d22b7758b66273f9e538640d6286991d0742a112a11b4004594a966f990cd",
+        "rect": {
+          "x0": 2,
+          "y0": 1,
+          "x1": 29,
+          "y1": 22
+        },
+        "origin": [
+          2,
+          1
+        ],
+        "width": 27,
+        "height": 21,
+        "countIncluded": 455
+      }
+    }
+  ],
+  "batchImage": {
+    "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "width": 32,
+    "height": 24,
+    "hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "originalSourceRegions": {
+      "schema": "sherloq.source-regions/1",
+      "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "width": 32,
+      "height": 24,
+      "revision": 1,
+      "enabled": true,
+      "positiveMode": "selected",
+      "zones": [
+        {
+          "id": "fractional",
+          "kind": "acquisition",
+          "enabled": true,
+          "x0": 2.8,
+          "y0": 1.8,
+          "x1": 28.2,
+          "y1": 21.2,
+          "polygon": [
+            [
+              2.8,
+              1.8
+            ],
+            [
+              28.2,
+              1.8
+            ],
+            [
+              28.2,
+              21.2
+            ],
+            [
+              2.8,
+              21.2
+            ]
+          ],
+          "originalGeometry": {
+            "x0": 2.8,
+            "y0": 1.8,
+            "x1": 28.2,
+            "y1": 21.2,
+            "polygon": [
+              [
+                2.8,
+                1.8
+              ],
+              [
+                28.2,
+                1.8
+              ],
+              [
+                28.2,
+                21.2
+              ],
+              [
+                2.8,
+                21.2
+              ]
+            ]
+          },
+          "origin": "human"
+        }
+      ],
+      "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+    },
+    "id": "synthetic-scoped-image",
+    "name": "synthetic.png",
+    "selected": true,
+    "family": "unknown",
+    "runs": [],
+    "preparation": {
+      "schema": "sherloq.scientific-scope/1",
+      "version": "original-source-regions-batch-1",
+      "coordinates": "original-pixels",
+      "maxTextAcquisitionFraction": 0.25,
+      "remainder": "excluded-unclassified",
+      "unknown": "needs-review",
+      "pageTextPolicy": "source-pixel-plane-only",
+      "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "width": 32,
+      "height": 24,
+      "status": "ready",
+      "family": "unknown",
+      "regions": [
+        {
+          "x0": 2.8,
+          "y0": 1.8,
+          "x1": 28.2,
+          "y1": 21.2,
+          "polygon": [
+            [
+              2.8,
+              1.8
+            ],
+            [
+              28.2,
+              1.8
+            ],
+            [
+              28.2,
+              21.2
+            ],
+            [
+              2.8,
+              21.2
+            ]
+          ],
+          "zoneId": "fractional",
+          "type": "unknown",
+          "label": "Original image acquisition",
+          "manual": true
+        }
+      ],
+      "searchRegions": [
+        {
+          "x0": 2.8,
+          "y0": 1.8,
+          "x1": 28.2,
+          "y1": 21.2,
+          "polygon": [
+            [
+              2.8,
+              1.8
+            ],
+            [
+              28.2,
+              1.8
+            ],
+            [
+              28.2,
+              21.2
+            ],
+            [
+              2.8,
+              21.2
+            ]
+          ],
+          "zoneId": "fractional",
+          "type": "unknown",
+          "label": "Original image acquisition",
+          "manual": true
+        }
+      ],
+      "excluded": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            32,
+            0
+          ],
+          [
+            32,
+            1.8
+          ],
+          [
+            0,
+            1.8
+          ]
+        ],
+        [
+          [
+            0,
+            1.8
+          ],
+          [
+            2.8,
+            1.8
+          ],
+          [
+            2.8,
+            21.2
+          ],
+          [
+            0,
+            21.2
+          ]
+        ],
+        [
+          [
+            28.2,
+            1.8
+          ],
+          [
+            32,
+            1.8
+          ],
+          [
+            32,
+            21.2
+          ],
+          [
+            28.2,
+            21.2
+          ]
+        ],
+        [
+          [
+            0,
+            21.2
+          ],
+          [
+            32,
+            21.2
+          ],
+          [
+            32,
+            24
+          ],
+          [
+            0,
+            24
+          ]
+        ]
+      ],
+      "text": {
+        "status": "complete",
+        "polygons": [],
+        "skipped": true,
+        "review": {
+          "actor": "human",
+          "decision": "original-source-regions",
+          "sourceFingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+        }
+      },
+      "models": {},
+      "warnings": [],
+      "coverage": {
+        "acquisitions": "original-source-regions",
+        "undetectedAreas": "outside-positive-union",
+        "exhaustive": true
+      },
+      "originalSourceRegions": {
+        "schema": "sherloq.source-regions/1",
+        "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "width": 32,
+        "height": 24,
+        "revision": 1,
+        "enabled": true,
+        "positiveMode": "selected",
+        "zones": [
+          {
+            "id": "fractional",
+            "kind": "acquisition",
+            "enabled": true,
+            "x0": 2.8,
+            "y0": 1.8,
+            "x1": 28.2,
+            "y1": 21.2,
+            "polygon": [
+              [
+                2.8,
+                1.8
+              ],
+              [
+                28.2,
+                1.8
+              ],
+              [
+                28.2,
+                21.2
+              ],
+              [
+                2.8,
+                21.2
+              ]
+            ],
+            "originalGeometry": {
+              "x0": 2.8,
+              "y0": 1.8,
+              "x1": 28.2,
+              "y1": 21.2,
+              "polygon": [
+                [
+                  2.8,
+                  1.8
+                ],
+                [
+                  28.2,
+                  1.8
+                ],
+                [
+                  28.2,
+                  21.2
+                ],
+                [
+                  2.8,
+                  21.2
+                ]
+              ]
+            },
+            "origin": "human"
+          }
+        ],
+        "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+      },
+      "sourceRegions": {
+        "schema": "sherloq.source-regions/1",
+        "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "width": 32,
+        "height": 24,
+        "revision": 1,
+        "enabled": true,
+        "positiveMode": "selected",
+        "zones": [
+          {
+            "id": "fractional",
+            "kind": "acquisition",
+            "enabled": true,
+            "x0": 2.8,
+            "y0": 1.8,
+            "x1": 28.2,
+            "y1": 21.2,
+            "polygon": [
+              [
+                2.8,
+                1.8
+              ],
+              [
+                28.2,
+                1.8
+              ],
+              [
+                28.2,
+                21.2
+              ],
+              [
+                2.8,
+                21.2
+              ]
+            ],
+            "originalGeometry": {
+              "x0": 2.8,
+              "y0": 1.8,
+              "x1": 28.2,
+              "y1": 21.2,
+              "polygon": [
+                [
+                  2.8,
+                  1.8
+                ],
+                [
+                  28.2,
+                  1.8
+                ],
+                [
+                  28.2,
+                  21.2
+                ],
+                [
+                  2.8,
+                  21.2
+                ]
+              ]
+            },
+            "origin": "human"
+          }
+        ],
+        "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+      },
+      "sourceRegionDomain": {
+        "schema": "sherloq.source-region-domain/1",
+        "snapshot": {
+          "schema": "sherloq.source-regions/1",
+          "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "width": 32,
+          "height": 24,
+          "revision": 1,
+          "enabled": true,
+          "positiveMode": "selected",
+          "zones": [
+            {
+              "id": "fractional",
+              "kind": "acquisition",
+              "enabled": true,
+              "x0": 2.8,
+              "y0": 1.8,
+              "x1": 28.2,
+              "y1": 21.2,
+              "polygon": [
+                [
+                  2.8,
+                  1.8
+                ],
+                [
+                  28.2,
+                  1.8
+                ],
+                [
+                  28.2,
+                  21.2
+                ],
+                [
+                  2.8,
+                  21.2
+                ]
+              ],
+              "originalGeometry": {
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ]
+              },
+              "origin": "human"
+            }
+          ],
+          "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+        },
+        "ceiling": {
+          "schema": "sherloq.source-region-domain/1",
+          "snapshot": {
+            "schema": "sherloq.source-regions/1",
+            "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "width": 32,
+            "height": 24,
+            "revision": 1,
+            "enabled": true,
+            "positiveMode": "selected",
+            "zones": [
+              {
+                "id": "fractional",
+                "kind": "acquisition",
+                "enabled": true,
+                "x0": 2.8,
+                "y0": 1.8,
+                "x1": 28.2,
+                "y1": 21.2,
+                "polygon": [
+                  [
+                    2.8,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    1.8
+                  ],
+                  [
+                    28.2,
+                    21.2
+                  ],
+                  [
+                    2.8,
+                    21.2
+                  ]
+                ],
+                "originalGeometry": {
+                  "x0": 2.8,
+                  "y0": 1.8,
+                  "x1": 28.2,
+                  "y1": 21.2,
+                  "polygon": [
+                    [
+                      2.8,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      1.8
+                    ],
+                    [
+                      28.2,
+                      21.2
+                    ],
+                    [
+                      2.8,
+                      21.2
+                    ]
+                  ]
+                },
+                "origin": "human"
+              }
+            ],
+            "fingerprint": "fb355896761f9a8559fcf7eb937aa770b8243d6b128820f34cfd2c3e56b5ec10"
+          },
+          "ceiling": null,
+          "fingerprint": "87f04e11048c18268deb62238f0cff12fd9c36b511147028c0e7b819a8774078",
+          "rect": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 29,
+            "y1": 22
+          },
+          "origin": [
+            2,
+            1
+          ],
+          "width": 27,
+          "height": 21,
+          "countIncluded": 475
+        },
+        "fingerprint": "465d50f1bf5bd92a3e0a9d4383ad8842c0cf33780ca23f120f20ec291500b399",
+        "rect": {
+          "x0": 2,
+          "y0": 1,
+          "x1": 29,
+          "y1": 22
+        },
+        "origin": [
+          2,
+          1
+        ],
+        "width": 27,
+        "height": 21,
+        "countIncluded": 475
+      },
+      "manual": {
+        "schema": "sherloq.batch-manual-scope/1",
+        "version": 1,
+        "actor": "human",
+        "coordinates": "original-pixels",
+        "edgeConvention": "half-open-rectangles",
+        "sourceSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "width": 32,
+        "height": 24,
+        "pixelHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "zones": [
+          {
+            "id": "fractional",
+            "kind": "acquisition",
+            "x0": 2.8,
+            "y0": 1.8,
+            "x1": 28.2,
+            "y1": 21.2,
+            "polygon": [
+              [
+                2.8,
+                1.8
+              ],
+              [
+                28.2,
+                1.8
+              ],
+              [
+                28.2,
+                21.2
+              ],
+              [
+                2.8,
+                21.2
+              ]
+            ],
+            "type": "unknown",
+            "label": "Original image acquisition",
+            "origin": "human"
+          }
+        ],
+        "actions": [],
+        "originalPixelsPreserved": true
+      },
+      "fingerprint": "2de5db68602b8dab87797ed66513fbf54746ae00c81bf446bde91a29530bec68"
+    }
+  }
+}

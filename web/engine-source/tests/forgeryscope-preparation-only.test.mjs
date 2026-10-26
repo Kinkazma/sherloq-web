@@ -53,8 +53,8 @@ test('prepareOnly on pixels/surface returns metadata only and Auto reuses detect
   const segmented=await api.analyze({surface,sha256:hash},{prepareOnly:true},{backend:'auto'});assert.equal(segmented.provenance.originalSourceSha256,hash);assert.equal(segmented.metadata.preparation.panels[0].label,'Graphs');segmented.release();
   const native=await api.analyze({surface,sha256:hash},{profile:'auto'},{backend:'auto'});assert.equal(native.metadata.status,'no_panels');assert.equal(calls.length,2);native.release();
   assert.equal(reads,2);assert.equal(releases,2);
-  api.clearCache();assert.equal(budget.active,0);assert.equal(budget.cacheBytes,0);
- }finally{api?.dispose();ForgeryscopePreparation.prototype.yolo=oldYolo;NeuralGraphPool.prototype.run=oldRun;}
+  await api.clearCache();assert.equal(budget.active,0);assert.equal(budget.cacheBytes,0);
+ }finally{await api?.dispose();ForgeryscopePreparation.prototype.yolo=oldYolo;NeuralGraphPool.prototype.run=oldRun;}
 });
 
 test('prepareOnly records missing trained detections as uncertain rather than a whole-image acquisition',async()=>{
@@ -62,5 +62,5 @@ test('prepareOnly records missing trained detections as uncertain rather than a 
  ForgeryscopePreparation.prototype.yolo=async()=>({tensor:{data:new Float32Array(1),dims:[1,3,640,640]},release(){}});
  NeuralGraphPool.prototype.run=async()=>({result:{predictions:{data:new Float32Array(9),dims:[1,9,1]}},release(){}});
  try{api=createForgeryscopeAnalyzer({assets,runtimes:{},budget:new Budget(32*1024**2),preparationFactory(){}});const result=await api.analyze(image,{prepareOnly:true});assert.equal(result.metadata.preparation.status,'needs-review');assert.equal(result.metadata.preparation.uncertain,true);assert.deepEqual(result.metadata.preparation.panels,[]);result.release();}
- finally{api?.dispose();ForgeryscopePreparation.prototype.yolo=oldYolo;NeuralGraphPool.prototype.run=oldRun;}
+ finally{await api?.dispose();ForgeryscopePreparation.prototype.yolo=oldYolo;NeuralGraphPool.prototype.run=oldRun;}
 });

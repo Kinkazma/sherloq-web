@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "scope": "Portable runtime without model weights; private package supplied separately by verified manifest. No runtime calibration.",
+  "scope": "Portable runtime without model weights; private package supplied separately by verified manifest. No runtime calibration. ORT512/roles256 JS heap-max and growth match their actual existing linear-memory cap; near-cap allocation history may differ. WASM bytes unchanged.",
   "rolesRuntime": {
     "schema": 1,
     "runtimeId": "ort130-wasm-512mib",
     "upstreamVersion": "1.30.0",
     "memoryMaximumBytes": 536870912,
-    "scope": "Only instantiated linear-memory maximum reduced4GiB->512MiB. WASM bytes untouched; allocation refusal remains explicit. Factory exposes actual heap capacity after useful inference, not RSS.",
+    "scope": "Linear-memory maximum512MiB and JS heap-max/growth clamped to the same ceiling. Allocation history near the cap may differ. WASM/numerical operators unchanged; explicit refusal beyond the cap; actual heap capacity is not RSS.",
     "upstreamFactorySha256": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b",
     "wasmSha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2",
     "factory": "factory.mjs",
     "files": {
       "ort-wasm-simd-threaded.mjs": {
-        "bytes": 24380,
-        "sha256": "7ec2e1087a815e79222ade487a3dfa738aa0c606df4ca2314bd90d1735a8a420"
+        "bytes": 24377,
+        "sha256": "c58b7d2aab041b4a19f4c941050fde7c09a46b6e156105659d7945183de8334e"
       },
       "factory.mjs": {
         "bytes": 221,
@@ -25,15 +25,15 @@
     "prepare": {
       "schema": 1,
       "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
-      "sourceSha256": "cca475b2f5dced88375eaeadd1ec201feda12ec5264e8499ff0526a5d43f4feb",
+      "sourceSha256": "920a994cbabbeb2beb0a990f5d255c94c806eaa89d657ffd081cdd48bcc22df2",
       "files": {
         "prepare.js": {
-          "bytes": 7639,
-          "sha256": "21c44144ae950bd5f337f5fc88444de37031383f3fbc9114509b8ce539bd3579"
+          "bytes": 7717,
+          "sha256": "f3e956c0d33f834e5b01ba80eaf0db2ee8ee604b652e80bbea9fcd0245b4138f"
         },
         "prepare.wasm": {
-          "bytes": 9388,
-          "sha256": "135ef5bdc0c79775b1c15b7fb0f52c137de662f9538a0454cec50ae94567a746"
+          "bytes": 10921,
+          "sha256": "bb39ccd9bac8c419aa016c72b517caed9457d1b3c03bd34bf8786c12f0b768aa"
         }
       }
     },
@@ -786,12 +786,12 @@
   },
   "files": {
     "prepare.js": {
-      "bytes": 7639,
-      "sha256": "21c44144ae950bd5f337f5fc88444de37031383f3fbc9114509b8ce539bd3579"
+      "bytes": 7717,
+      "sha256": "f3e956c0d33f834e5b01ba80eaf0db2ee8ee604b652e80bbea9fcd0245b4138f"
     },
     "prepare.wasm": {
-      "bytes": 9388,
-      "sha256": "135ef5bdc0c79775b1c15b7fb0f52c137de662f9538a0454cec50ae94567a746"
+      "bytes": 10921,
+      "sha256": "bb39ccd9bac8c419aa016c72b517caed9457d1b3c03bd34bf8786c12f0b768aa"
     },
     "feature-math.js": {
       "bytes": 7869,
@@ -870,8 +870,8 @@
       "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
     },
     "ort-wasm-simd-threaded.mjs": {
-      "bytes": 24380,
-      "sha256": "7ec2e1087a815e79222ade487a3dfa738aa0c606df4ca2314bd90d1735a8a420"
+      "bytes": 24377,
+      "sha256": "c58b7d2aab041b4a19f4c941050fde7c09a46b6e156105659d7945183de8334e"
     },
     "factory.mjs": {
       "bytes": 221,
@@ -906,8 +906,8 @@
       "sha256": "11ad5dc8226e0190c1930a6593fc349895f58a60d28717c34d650c54ef025878"
     },
     "ort-wasm-simd-threaded-roles256.mjs": {
-      "bytes": 24380,
-      "sha256": "62dc5bef5c2cab005cf7f6c025e3222b16066e6f0631c9e304ddcaf06ba4e28f"
+      "bytes": 24377,
+      "sha256": "470cd17fcd837fd3c451b010a0f348dbd70222c21c408141df37fb060f689903"
     },
     "factory-roles256.mjs": {
       "bytes": 573,
@@ -921,5 +921,14 @@
       "bytes": 19584,
       "sha256": "1e94c50c2a89ead1f7e595e042966345ce20fe366a4b4c5e0f58a1e180695ee3"
     }
+  },
+  "preparation": {
+    "id": "d2prl-tensor-bilinear448-noaa-v1",
+    "side": 448,
+    "antialias": false,
+    "alignCorners": false,
+    "order": "RGB8 -> ToTensor-equivalent NCHW float32/255 -> bilinear Tensor Resize448",
+    "releasedTorchvision": "0.11.1",
+    "scope": "Released Tensor Resize antialias behavior restored; old AA references retain historical scope, no claim of complete model-output requalification."
   }
 }

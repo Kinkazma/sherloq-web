@@ -138,19 +138,30 @@ SHA-256 and original-byte coordinates. It does not claim a derived SHA, valid im
 valid metadata or preserved signature. Source pixels/bytes, digests and cached
 analyses continue to refer to the original. The derived Blob survives source unload.
 
-Blob inputs, including segmented JPEGs, use immutable slices; there is no complete
-`arrayBuffer()` staging. Byte-array sources require an admitted Blob snapshot of
-the original. Patch bytes are copied into immutable Blobs before any await or caller
-callback. Known heaps, source snapshot if needed, twice inserted bytes and1024bytes
-per patch/control slot are admitted under the shared budget. Browser-managed Blob
-backing memory is explicitly unmeasured, never advertised as zero RAM. The returned
-Blob belongs to the caller, who must release downloads/object URLs when finished.
+A DOM File, and a Blob assembled from File slices, can change or become unreadable
+when the underlying file changes. The default API therefore creates an owned Blob
+from consumed byte buffers, with the complete output size admitted during its
+construction. Patch byte arrays and caller byte-array input are copied before the
+first await. Loaded encoded owners are read through their verified source accessor.
+A large direct Blob result can now refuse `MEMORY_LIMIT` where a volatile slice
+previously appeared to succeed; that previous behavior did not own the output.
+The returned Blob belongs to its caller and survives source unload.
 
-Progress phase `derive-original` reports assembly every128 edits and completion.
-Cancellation checks run between128-edit batches. Direct engine cancellation releases
-reservations and preserves sources; worker hard cancellation follows the existing
-reload-required contract. Derived outputs are not cached. File editing remains a
-separate API from the read-only `file.hex` window operation.
+For a large browser export, request `output:'archive'` and optionally
+`storage:'temporary'`. The result keeps the same size/edit/provenance report and
+adds `archive` with id, revision, byteLength and derived SHA-256. Stream its pages
+through `readExport`, then call `releaseExport(archive.id)` in a finally block.
+The existing RAM/temporary store admits the output, metadata and bounded source
+windows; no complete encoded array is required on this path. The HEX client streams
+it into the existing export sink and transfers the complete artifact, including
+storage and cleanup, to the download manager. Browser download dispatch alone is
+not a release acknowledgement; prepared files remain owned until explicit cleanup.
+
+Progress phase `derive-original` reports copied output bytes and completion.
+Cancellation checks run between bounded windows, after callbacks and before
+publication. Direct cancellation discards incomplete output and preserves sources;
+worker cancellation retains the existing reload-required contract. Derived outputs
+are not cached. File editing stays separate from read-only `file.hex` windows.
 
 Five Node tests cover edits/coordinate shifts, immutable snapshots, invalid overlaps,
 budget/cancellation, a16MiB Blob assembled within16KiB accounted staging without a

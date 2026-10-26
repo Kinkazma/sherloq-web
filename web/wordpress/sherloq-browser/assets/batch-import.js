@@ -1,7 +1,8 @@
+import {validateOriginalSourceRegions,compileOriginalSourceRegions} from './original-source-regions.js';
 import {verifyOriginalBatchSource,originalBatchScientificScope} from './original-source-regions-batch.js';
 import {readBatchZip} from './batch-zip.js';
 import {createBatchArtifactStore} from './batch-artifacts.js';
-import {pdfTextPolygons,projectPdfExclusions} from './batch-scope-geometry.js';
+import {pdfTextPolygons,projectPdfExclusions,scientificScopeEnvelope} from './batch-scope-geometry.js';
 import {batchArtifactOwners,restoredArtifactPaths} from './batch-restoration.js';
 import {remapBatchEvidence,remapBatchFilePointers} from './batch-archive-layout.js';
 import {batchPairSelection} from './batch-catalog.js';
@@ -13,7 +14,7 @@ export const IMPORT_LIMITS={fileBytes:256*MiB,expandedBytes:1024*MiB,entries:200
 const imagePattern=/\.(?:png|jpe?g|webp|avif|gif|bmp|tiff?|heic|heif|jp2|j2k|jxl|psd)$/i;
 let libraries;
 export async function batchLibraries(){
- return libraries??=Promise.all([import('./batch-vendor/pdf.mjs'),import('./batch-vendor/pdf-lib.js'),import('./batch-vendor/jszip.js')]).then(([pdfjs,pdf])=>{pdfjs.GlobalWorkerOptions.workerSrc=new URL('./batch-vendor/pdf.worker.mjs',import.meta.url).href;return {pdfjs,pdf,JSZip:globalThis.JSZip};});
+ return libraries??=Promise.all([import('./pdf-native-library.js'),import('./batch-vendor/pdf-lib.js'),import('./batch-vendor/jszip.js')]).then(([pdfjs,pdf])=>{pdfjs.GlobalWorkerOptions.workerSrc=new URL('./batch-vendor/pdf.worker.mjs',import.meta.url).href;return {pdfjs,pdf,JSZip:globalThis.JSZip};});
 }
 const check=signal=>signal?.throwIfAborted();
 export const nextFrame=()=>new Promise(resolve=>setTimeout(resolve,0));
@@ -114,10 +115,48 @@ export async function createBatchImporter({onProgress=()=>{},onPage,retainPDFDoc
   const id='import-'+crypto.randomUUID(),parent=importedBatchContexts.find(context=>context.id===archiveContextId);importedBatchContexts.push({id,sourceArchive:parent?.sourceArchive,...value});return id;
  }
  function admit(bytes){total+=bytes;if(total>limits.expandedBytes)throw Error('Le lot dépasse 1 Gio de fichiers décompressés. Fractionnez le lot.');}
- async function addImage(blob,occurrence,{name,encoding='original',identity,sourceRegions}={},signal){
+ async function addImage(blob,occurrence,{name,encoding='original',identity,sourceRegions,sourcePreparation}={},signal){
   check(signal);const info=identity??await identify(blob,{signal});const domainKey=sourceRegions?info.hash+':source-regions:'+sourceRegions.fingerprint:info.hash;let image=byHash.get(domainKey);
-  if(!image){if(images.length>=limits.entries||retainedBytes+blob.size+info.thumbnail.size>limits.expandedBytes)throw Error('Trop d’images extraites pour ce lot. Fractionnez les documents.');retainedBytes+=blob.size+info.thumbnail.size;image={id:'image-'+info.hash.slice(0,24)+(sourceRegions?'-scope-'+sourceRegions.fingerprint.slice(0,12):''),hash:info.hash,name:safeName(name??'image.png'),blob,thumbnail:info.thumbnail,width:info.width,height:info.height,encoding,...(info.hasAlpha!==undefined?{hasAlpha:info.hasAlpha,hasSemiAlpha:info.hasSemiAlpha}:{}),selected:true,family:'unknown',occurrences:[],runs:[],state:'ready'};if(sourceRegions){image.originalSourceRegions=structuredClone(sourceRegions);image.sourceSha256=sourceRegions.sourceSha256;image.preparation=await originalBatchScientificScope(image);image.selected=image.preparation.status==='ready';}byHash.set(domainKey,image);images.push(image);}
+  if(!image){if(images.length>=limits.entries||retainedBytes+blob.size+info.thumbnail.size>limits.expandedBytes)throw Error('Trop d’images extraites pour ce lot. Fractionnez les documents.');retainedBytes+=blob.size+info.thumbnail.size;image={id:'image-'+info.hash.slice(0,24)+(sourceRegions?'-scope-'+sourceRegions.fingerprint.slice(0,12):''),hash:info.hash,name:safeName(name??'image.png'),blob,thumbnail:info.thumbnail,width:info.width,height:info.height,encoding,...(info.hasAlpha!==undefined?{hasAlpha:info.hasAlpha,hasSemiAlpha:info.hasSemiAlpha}:{}),selected:true,family:'unknown',occurrences:[],runs:[],state:'ready'};if(sourceRegions){image.originalSourceRegions=structuredClone(sourceRegions);image.sourceSha256=sourceRegions.sourceSha256;image.preparation=sourcePreparation??await originalBatchScientificScope(image);image.selected=image.preparation.status==='ready';}byHash.set(domainKey,image);images.push(image);}
   image.occurrences.push(occurrence);onProgress({phase:'image',images:images.length,occurrences:images.reduce((n,i)=>n+i.occurrences.length,0)});return image;
+ }
+ // Restore source selection only after independently binding both encoded
+ // bytes and native pixel identity. Archive IDs are locators, not authority.
+ async function archivedSourceRegions(old,blob,signal){
+  if(old.archiveSourceConversion&&old.archiveSourceConversion.scientificSourceCompatible!==true)return null;
+  const snapshot=old.originalSourceRegions??old.preparation?.originalSourceRegions;
+  if(!snapshot)return null;
+  const fail=message=>Object.assign(Error(message),{code:'BATCH_SOURCE_REGIONS_INVALID'}),sourceRegions=await verifyOriginalBatchSource({file:blob,sourceRegions:snapshot},{signal,...(sourceByteIdentity?{identifyBytes:sourceByteIdentity}:{})}),info=await identify(blob,{signal});check(signal);
+  if(info.hash!==old.hash||info.width!==old.width||info.height!==old.height||info.width!==sourceRegions.width||info.height!==sourceRegions.height)throw fail('The archived source regions differ from the decoded pixel identity or native grid.');
+  const id='image-'+info.hash.slice(0,24)+'-scope-'+sourceRegions.fingerprint.slice(0,12);if(old.id!==id)throw fail('The archived scoped image ID differs from its independently verified identity.');
+  if(old.sourceSha256!==undefined&&old.sourceSha256!==sourceRegions.sourceSha256)throw fail('The archived scoped image SHA differs from its encoded source.');
+  if(old.originalSourceRegions&&old.preparation?.originalSourceRegions){const second=await validateOriginalSourceRegions(old.preparation.originalSourceRegions,{sourceSha256:sourceRegions.sourceSha256,width:info.width,height:info.height});if(second.fingerprint!==sourceRegions.fingerprint)throw fail('The archive contains conflicting original source-region ceilings.');}
+  const image={hash:info.hash,width:info.width,height:info.height,sourceSha256:sourceRegions.sourceSha256,originalSourceRegions:sourceRegions};let preparation;
+  if(old.preparation){const prior=old.preparation,{scopeFingerprint}=await import('./batch-scientific-preparation.js');
+   if(prior.sourceSha256!==image.sourceSha256||prior.width!==image.width||prior.height!==image.height||typeof prior.fingerprint!=='string'||await scopeFingerprint(prior)!==prior.fingerprint)throw fail('The archived source preparation fingerprint or coordinates differ from its original.');
+   // Recompile source-bound geometry to check membership independently of
+   // archived IDs. The engine strictly validates current or certified legacy
+   // domain fingerprints; the importer never bypasses that verification.
+   const rebuilt=await originalBatchScientificScope(image,{editedScope:prior});
+   if(prior.sourceRegionDomain){
+    const domain=await compileOriginalSourceRegions(prior.sourceRegionDomain),expected=await compileOriginalSourceRegions(rebuilt.sourceRegionDomain),bounded=await compileOriginalSourceRegions(domain.snapshot,{ceiling:sourceRegions});
+    if(domain.sourceSha256!==image.sourceSha256||domain.sourceWidth!==image.width||domain.sourceHeight!==image.height||bounded.fingerprint!==domain.fingerprint||domain.countIncluded!==expected.countIncluded)throw fail('The archived native domain differs from its source-bound geometry or Original ceiling.');
+    for(let y=0;y<image.height;y++)if(JSON.stringify(domain.originalRowIntervals(y))!==JSON.stringify(expected.originalRowIntervals(y)))throw fail('The archived native membership differs from its acquisition and exclusion geometry.');
+    preparation={...structuredClone(prior),originalSourceRegions:structuredClone(sourceRegions),sourceRegions:structuredClone(domain.snapshot),sourceRegionDomain:domain.descriptor};
+    const envelope=scientificScopeEnvelope(preparation);preparation.envelope=envelope;
+    if(Array.isArray(prior.searchRegions))preparation.searchRegions=prior.searchRegions.flatMap(region=>!region.envelope?[structuredClone(region)]:envelope?[{...structuredClone(region),x0:envelope.x0,y0:envelope.y0,x1:envelope.x1,y1:envelope.y1,polygon:structuredClone(envelope.polygon)}]:[]);
+    preparation.fingerprint=await scopeFingerprint(preparation);
+   }else preparation=rebuilt;
+   const {restoreManualScientificScope}=await import('./batch-scope-manual.js');await restoreManualScientificScope({...image,preparation});
+  }else preparation=await originalBatchScientificScope(image);
+  return{identity:info,sourceRegions,preparation,migrated:!!old.preparation&&preparation.fingerprint!==old.preparation.fingerprint};
+ }
+ function migratedSourceAttempt(old,prepared){
+  if(!prepared.migrated)return{...old,preparation:prepared.preparation};
+  const {history,...previous}=old,attempt={...previous,scientificallyReusable:false,restoredDiagnostics:true,archiveReason:'source-region-domain-recompiled'};
+  // The pixels are unchanged, but a revised crop identity cannot certify old
+  // native outputs. Keep them for inspection without marking a current run.
+  return{...old,preparation:prepared.preparation,runs:[],state:'ready',score:undefined,resumeState:undefined,finalDisplay:undefined,resultDisplay:undefined,history:[...(Array.isArray(history)?history:[]),...((old.runs?.length||old.finalDisplay||old.resultDisplay)?[attempt]:[])]};
  }
  async function restoreImage(image,old,manifest,zip,signal,owners,studyRemap,importedContextId){
   image.importedContextId=old.importedContextId??importedContextId;
@@ -248,7 +287,7 @@ export async function createBatchImporter({onProgress=()=>{},onPage,retainPDFDoc
     if(!Array.isArray(manifest.studies)||!Array.isArray(manifest.images)||manifest.studies.length>limits.entries||manifest.images.length>limits.entries)throw Error('Inventaire de reprise invalide.');
     const importedContextId=restoreContext(manifest,name),remap=new Map(),owners=batchArtifactOwners(manifest);
     for(const old of manifest.studies??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);const study={id:'study-'+crypto.randomUUID(),name:safeName(old.name),kind:old.kind,blob,manualMarked:!!old.retained,errors:Array.isArray(old.errors)?structuredClone(old.errors):[],restored:true,...(old.pageText?{pageText:old.pageText}:{})};studies.push(study);remap.set(old.id,study.id);}
-    for(const old of manifest.images??[]){const entry=zip.file(old.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);for(const occurrence of old.occurrences??[]){if(!remap.has(occurrence.studyId))continue;const image=await addImage(blob,{...occurrence,studyId:remap.get(occurrence.studyId)},{name:old.name,encoding:old.encoding},signal);image.family=['unknown','microscopy','gel','photography','schematic'].includes(old.family)?old.family:'unknown';image.selected=old.selected!==false;
+    for(const archived of manifest.images??[]){const entry=zip.file(archived.archivePath);if(!entry)continue;const blob=await entry.async('blob');admit(blob.size);const prepared=await archivedSourceRegions(archived,blob,signal),old=prepared?migratedSourceAttempt(archived,prepared):archived;for(const occurrence of old.occurrences??[]){if(!remap.has(occurrence.studyId))continue;const image=await addImage(blob,{...occurrence,studyId:remap.get(occurrence.studyId)},{name:old.name,encoding:old.encoding,...(prepared?{identity:prepared.identity,sourceRegions:prepared.sourceRegions,sourcePreparation:prepared.preparation}:{})},signal);image.family=['unknown','microscopy','gel','photography','schematic'].includes(old.family)?old.family:'unknown';image.selected=old.selected!==false&&(!prepared||prepared.preparation.status==='ready');if(prepared?.migrated)image.archiveScopeMigration={schema:'sherloq.batch-source-scope-migration/1',archivedFingerprint:archived.preparation.fingerprint,fingerprint:prepared.preparation.fingerprint,scientificResultsReusable:false};
      if(old.archiveSourceConversion&&old.width>0&&old.height>0&&(old.width!==image.width||old.height!==image.height)&&Array.isArray(occurrence.textExclusions)){
       const current=image.occurrences.at(-1);current.textExclusions=occurrence.textExclusions.map(polygon=>polygon.map(([x,y])=>[x*image.width/old.width,y*image.height/old.height]));current.textExclusionTransform={sourceDimensions:[old.width,old.height],dimensions:[image.width,image.height],reason:'export-only-source-resize'};
      }

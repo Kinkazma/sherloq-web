@@ -1,0 +1,20 @@
+import "../../runtime-context.js?v=0.25.0";
+import{readVerifiedModelAsset}from'../experiments/d2prl/model.js';
+import{validateTntBackbone}from'../experiments/segmentation/tnt-backbone.js';
+import{createParameterCache}from'../experiments/segmentation/parameter-cache.js';
+import{SEGMENTATION_MODELS}from'../experiments/segmentation/models.js';
+import{requireValue,checkAbort}from'./errors.js';
+const native=SEGMENTATION_MODELS['mgcfdn-tnt'],deepFreeze=value=>{if(value&&typeof value==='object'){for(const v of Object.values(value))deepFreeze(v);Object.freeze(value);}return value;};
+// Reusable per native model/backend. The existing verified parameter cache is
+// retained across autonomous window jobs, enabled only on its original GPU path.
+export function createTntWindowResources({budget,model=native,modelUrl,backend,onOwner,readAsset=readVerifiedModelAsset}){
+ requireValue(['cpu','webgpu'].includes(backend)&&budget?.reserve&&typeof onOwner==='function'&&model?.id===native.id&&model.bytes===native.bytes&&model.sha256===native.sha256&&JSON.stringify(model.backbone)===JSON.stringify(native.backbone)&&JSON.stringify(model.tail)===JSON.stringify(native.tail)&&/^https?:$/.test(new URL(modelUrl).protocol),'Original pinned TNT bundle/backend required');
+ const controller=new AbortController(),reads=new Set();let cache,graph,credit,initializing,closing,closed=false;
+ const current=signal=>{checkAbort(controller.signal);checkAbort(signal);requireValue(!closed&&!closing,'TNT model resources retired');};
+ const track=promise=>{reads.add(promise);promise.then(()=>reads.delete(promise),()=>reads.delete(promise));return promise;};
+ const owner={release(){if(closing)return closing;if(closed)return;controller.abort();closing=Promise.resolve().then(async()=>{while(reads.size)await Promise.allSettled([...reads]);cache?.dispose();cache=undefined;graph=undefined;credit?.();credit=undefined;closed=true;}).finally(()=>closing=undefined);return closing;}};onOwner(owner);current();
+ cache=createParameterCache({budget,enabled:backend==='webgpu',read:(spec,hooks)=>readAsset(new URL(spec.file,modelUrl).href,spec,hooks)});
+ function ready(signal){current(signal);if(graph)return Promise.resolve(graph);if(!initializing){const combined=AbortSignal.any([controller.signal,...(signal?[signal]:[])]);initializing=track(Promise.resolve().then(async()=>{let free=budget.reserve(10*(model.bytes+model.backbone.bytes));try{const manifest=JSON.parse(new TextDecoder().decode(await readAsset(modelUrl,model,{signal:combined})));current(combined);requireValue(manifest.schema===1&&manifest.id===native.id&&manifest.variant==='mgcfdn-tnt'&&manifest.side===256&&manifest.kind==='sigmoid'&&manifest.checkpointSha256===native.checkpointSha256&&JSON.stringify(manifest.backbone)===JSON.stringify(native.backbone)&&JSON.stringify(manifest.tail)===JSON.stringify(native.tail),'Pinned TNT manifest differs');const value=JSON.parse(new TextDecoder().decode(await readAsset(new URL(native.backbone.file,modelUrl).href,native.backbone,{signal:combined})));validateTntBackbone(value);current(combined);graph=deepFreeze(value);credit=free;free=undefined;return graph;}finally{free?.();}}));initializing.then(()=>initializing=undefined,()=>initializing=undefined);}return initializing;}
+ function read(spec,{signal}={}){current(signal);const combined=AbortSignal.any([controller.signal,...(signal?[signal]:[])]);return track(Promise.resolve().then(async()=>{current(combined);const value=await cache.read(spec,{signal:combined});current(combined);return value;}));}
+ return Object.freeze({ready,read,release:owner.release,dispose:owner.release,backend,modelSha256:native.sha256,tailSha256:native.tail.sha256,modelUrl,tailUrl:new URL(native.tail.file,modelUrl).href,assertCurrent:current,get graph(){current();return graph;},snapshot(){return cache?.snapshot()??null;}});
+}

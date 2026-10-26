@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "reference": "OpenCV4.11 adjustment arithmetic; complete support unchanged, incomplete Gaussian support normalized over admitted observations, empty CLAHE interpolation weights omitted and renormalized",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/adjust-bands.cpp": {
+      "bytes": 12147,
+      "sha256": "a7b4e2bd075d7258937920198c7eac663f0108c6593464bad9395eec47bda026"
+    },
+    "src/adjust-math.js": {
+      "bytes": 10141,
+      "sha256": "fc43c66e991593a3886277102eafc09191a9f7fb29d1c90989d1520882933132"
+    },
+    "scripts/build-adjust-bands.sh": {
+      "bytes": 3356,
+      "sha256": "62df15b90e4997da8751d2b593303873cacbf685e0624bd19eea2fbb81928577"
+    },
+    "vendor/adjust/adjust.js": {
+      "bytes": 26569,
+      "sha256": "33a5dff432d00ee511c8a28029db8b17555a4426d3411e9c6febfe99d05d142a"
+    },
+    "vendor/adjust/adjust.wasm": {
+      "bytes": 936941,
+      "sha256": "c0d7f44c36f4f0806dacc54bf36aab9fef623d3db2eda3d3b78f9e567b300f7a"
+    }
+  },
+  "buildInputs": {
+    ".build/adjust/adjust-reference.h": "3942192a61ab9491b325217985c9eddb30839cb562eec99b2d7f45c93002452e",
+    ".build/cv/lib/libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    ".build/cv/lib/libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+  }
+}

@@ -1,3 +1,4 @@
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {validateRgbRows} from './rgb-row-source.js';
 import {pillowCoefficients} from './adaifl-prepare.js';
@@ -16,7 +17,7 @@ export async function prepareResearchRows(source,{method,budget,signal,onProgres
  try{
   scratch=budget.reserve(pillow?(w+h)*32+side*128+yStride*side*3+w*24:side*128);
   const output=new Float32Array(side*side*3),rows=new Map();
-  const read=async y=>{checkAbort(signal);const view=await source.readRows(y,1,{signal});reads++;try{return {view,data:validateRgbRows(view,w,1)};}catch(error){view.release();throw error;}};
+  const read=async y=>{checkAbort(signal);const view=await source.readRows(y,1,{signal});reads++;try{return {view,data:validateRgbRows(view,w,1)};}catch(error){await retireCompositeOwners([()=>view.release()],{primary:error});throw error;}};
   const emit=(y,x,c,value)=>{output[c*side*side+y*side+x]=method==='safire'?value:value/255;};
   if(pillow){
    const cx=pillowCoefficients(w,side),cy=pillowCoefficients(h,side);
@@ -25,11 +26,11 @@ export async function prepareResearchRows(source,{method,budget,signal,onProgres
     if(performance.now()-stamp>=8){await controlCheckpoint(signal);stamp=performance.now();}const {start,weights}=cy[y];
     if(verticalFirst){
      const sums=new Float64Array(w*3).fill(2097152),vertical=new Uint8Array(w*3);
-     for(let k=0;k<weights.length;k++){const {view,data}=await read(start+k);try{for(let i=0;i<data.length;i++)sums[i]+=data[i]*weights[k];}finally{view.release();}}
+     for(let k=0;k<weights.length;k++){const {view,data}=await read(start+k);try{for(let i=0;i<data.length;i++)sums[i]+=data[i]*weights[k];}finally{await view.release();}}
      for(let i=0;i<vertical.length;i++)vertical[i]=sums[i]>>22;const row=horizontal(vertical);for(let x=0;x<side;x++)for(let c=0;c<3;c++)emit(y,x,c,row[x*3+c]);
     }else{
      for(const key of rows.keys())if(key<start||key>=start+weights.length)rows.delete(key);
-     for(let k=0;k<weights.length;k++)if(!rows.has(start+k)){const {view,data}=await read(start+k);try{rows.set(start+k,horizontal(data));}finally{view.release();}}
+     for(let k=0;k<weights.length;k++)if(!rows.has(start+k)){const {view,data}=await read(start+k);try{rows.set(start+k,horizontal(data));}finally{await view.release();}}
      for(let x=0;x<side;x++)for(let c=0;c<3;c++){let sum=2097152;for(let k=0;k<weights.length;k++)sum+=rows.get(start+k)[x*3+c]*weights[k];emit(y,x,c,sum>>22);}
     }
     if(y%32===31)onProgress?.({phase:'research-preparation',fraction:(y+1)/side});
@@ -40,7 +41,7 @@ export async function prepareResearchRows(source,{method,budget,signal,onProgres
    for(let y=0;y<side;y++){
     if(y%32===0)await controlCheckpoint(signal);let fy=f((y+.5)*(h/side)-.5),sy=Math.floor(fy);fy=f(fy-sy);const b0=even(f(f(1-fy)*2048)),b1=even(f(fy*2048)),y0=Math.max(0,Math.min(h-1,sy)),y1=Math.max(0,Math.min(h-1,sy+1));
     for(const key of rows.keys())if(key!==y0&&key!==y1)rows.delete(key);
-    for(const key of [y0,y1])if(!rows.has(key)){const {view,data}=await read(key);try{const row=new Int32Array(side*3);for(let x=0;x<side;x++)for(let c=0;c<3;c++)row[x*3+c]=data[xs[x]*3+c]*alpha[x*2]+data[Math.min(w-1,xs[x]+1)*3+c]*alpha[x*2+1];rows.set(key,row);}finally{view.release();}}
+    for(const key of [y0,y1])if(!rows.has(key)){const {view,data}=await read(key);try{const row=new Int32Array(side*3);for(let x=0;x<side;x++)for(let c=0;c<3;c++)row[x*3+c]=data[xs[x]*3+c]*alpha[x*2]+data[Math.min(w-1,xs[x]+1)*3+c]*alpha[x*2+1];rows.set(key,row);}finally{await view.release();}}
     const a=rows.get(y0),b=rows.get(y1);for(let x=0;x<side;x++)for(let c=0;c<3;c++){const i=x*3+c,value=(((b0*(a[i]>>4))>>16)+((b1*(b[i]>>4))>>16)+2)>>2;emit(y,x,c,value);}
     if(y%32===31)onProgress?.({phase:'research-preparation',fraction:(y+1)/side});
    }

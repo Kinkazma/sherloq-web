@@ -5,6 +5,7 @@ import {createRasterExports} from './unified-engine/src/raster-export.js';
 import {streamScientificNpz} from './unified-engine/src/scientific-npz-stream.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './unified-engine/src/errors.js';
 import {createExportSink} from './export-sink.js';
+import {exportSinkScopeFor} from './export-sink-owner.js';
 
 const MiB=1024**2,CHUNK=MiB;
 const littleEndian=new Uint8Array(new Uint16Array([0x0102]).buffer)[0]===2;
@@ -37,13 +38,12 @@ function sourceIdentity(image,client){
  * pages. The artifact store owns the final file; the transfer file is deleted
  * immediately after artifactStore.set has committed, also after cancellation.
  */
-async function commitStore(read,descriptor,path,artifacts,{budget,signal,sinkFactory}){
+async function commitStore(read,descriptor,path,artifacts,{budget,signal,sinkFactory,owner}){
  const release=budget.reserve(Math.min(CHUNK,descriptor.byteLength));let sink,result,complete=false;
- try{
-  sink=await sinkFactory({memoryBudgetBytes:0,signal,mime:descriptor.mime});
-  for(let offset=0;offset<descriptor.byteLength;offset+=CHUNK){await controlCheckpoint(signal);const bytes=await read(offset,Math.min(CHUNK,descriptor.byteLength-offset));requireValue(bytes instanceof Uint8Array&&bytes.byteLength===Math.min(CHUNK,descriptor.byteLength-offset),'Scientific export page length mismatch.');await sink.write(bytes);}
-  checkAbort(signal);result=await sink.finish();requireValue(result.blob instanceof Blob&&result.blob.size===descriptor.byteLength,'Scientific export transfer size mismatch.');await artifacts.set(path,result.blob.slice(0,result.blob.size,descriptor.mime));checkAbort(signal);complete=true;return path;
- }finally{try{if(result)await result.cleanup?.();else await sink?.abort();}finally{release();if(!complete)await artifacts.delete?.(path);}}
+ owner.after(release);owner.after(async()=>{if(!complete)await artifacts.delete?.(path);});
+ sink=await owner.open(sinkFactory,{memoryBudgetBytes:0,signal,mime:descriptor.mime});
+ for(let offset=0;offset<descriptor.byteLength;offset+=CHUNK){await controlCheckpoint(signal);const bytes=await read(offset,Math.min(CHUNK,descriptor.byteLength-offset));requireValue(bytes instanceof Uint8Array&&bytes.byteLength===Math.min(CHUNK,descriptor.byteLength-offset),'Scientific export page length mismatch.');await sink.write(bytes);}
+ checkAbort(signal);result=owner.finish(sink,await sink.finish());requireValue(result.blob instanceof Blob&&result.blob.size===descriptor.byteLength,'Scientific export transfer size mismatch.');await artifacts.set(path,result.blob.slice(0,result.blob.size,descriptor.mime));checkAbort(signal);complete=true;await owner.retireChild(sink);return path;
 }
 
 /** One native stripe traversal, uint32 on disk, then full-resolution libpng
@@ -59,7 +59,10 @@ export async function renderBatchCorroboration({image,entries,context,client,art
  const originalSha256=sourceIdentity(image,client),colors=validatePalette(palette),scope=preparation(image.preparation),declaredMethods=methods===undefined?[...new Set(entries.map(e=>e.methodKey??e.source))]:[...new Set(methods)];
  requireValue(declaredMethods.every(v=>typeof v==='string'&&v.length>0),'Corroboration method identities are invalid.');
  const budget=dependencies.budget??new Budget(256*MiB),sessionFactory=dependencies.sessionFactory??createTemporarySession,storeFactory=dependencies.storeFactory??createSegmentedBytes,rasterFactory=dependencies.rasterFactory??createRasterExports,npzFactory=dependencies.npzFactory??streamScientificNpz,sinkFactory=dependencies.sinkFactory??createExportSink;
+ const scopeOwner=exportSinkScopeFor(artifacts);await scopeOwner.retryFailed();const owner=scopeOwner.begin();
  let session,counts,raster,png,npz,committed=false;const files=[];
+ owner.after(async()=>{if(!committed)for(const file of files)await artifacts.delete?.(file);});
+ owner.after(async()=>{if(png){await raster.release(png.id);png=null;}});owner.after(()=>npz?.store?.dispose());owner.after(()=>npz?.session?.dispose());owner.after(()=>counts?.dispose());owner.after(()=>session?.dispose());
  try{
   session=await sessionFactory({budget,signal});counts=await storeFactory(width*height*4,{budget,storage:'temporary',temporarySession:session,chunkBytes:CHUNK,signal,owner:'batch-corroboration',label:'native-corroboration-counts'});
   let nextRow=0,observedMaximum=0;
@@ -86,18 +89,15 @@ export async function renderBatchCorroboration({image,entries,context,client,art
    }finally{if(!complete)release();}
   }};
   png=await raster.create(surface,{format:'png',storage:'temporary'},{signal,imageId:image.id,originalSha256,...(dependencies.wasmBinary?{wasmBinary:dependencies.wasmBinary}:{})});
-  files.push(await commitStore(async(offset,length)=>(await raster.read({exportId:png.id,revision:png.revision,offset,length},{signal})).bytes,png,path+'.png',artifacts,{budget,signal,sinkFactory}));
+  files.push(await commitStore(async(offset,length)=>(await raster.read({exportId:png.id,revision:png.revision,offset,length},{signal})).bytes,png,path+'.png',artifacts,{budget,signal,sinkFactory,owner}));
   const paletteRGB=Uint8Array.from(colors.buckets.flatMap(b=>b.rgb)),paletteValues=Uint32Array.from(colors.buckets.map(b=>b.count)),paletteAlpha=Float64Array.from(colors.buckets.map(b=>b.opacity));
   const array=(key,data,descr,shape)=>({key,descr,shape,count:data.length,elementBytes:data.BYTES_PER_ELEMENT,read(out,first,length){if(littleEndian||data.BYTES_PER_ELEMENT===1)out.set(new Uint8Array(data.buffer,data.byteOffset+first*data.BYTES_PER_ELEMENT,length*data.BYTES_PER_ELEMENT));else{const v=new DataView(out.buffer,out.byteOffset,out.byteLength);for(let i=0;i<length;i++)if(data instanceof Float64Array)v.setFloat64(i*8,data[first+i],true);else v.setUint32(i*4,data[first+i],true);}}});
   const {files:externalFiles,scientificArrays:externalScientific,...scientificMetadata}=metadata;
   npz=await npzFactory([{key:'corroboration',descr:'<u4',shape:[height,width],count:width*height,elementBytes:4,read:(out,first)=>counts.readInto(out,first*4)},array('palette_rgb',paletteRGB,'|u1',[4,3]),array('palette_counts',paletteValues,'<u4',[4]),array('palette_opacity',paletteAlpha,'<f8',[4])],{...scientificMetadata,filePointers:'external JSON or batch manifest'},{originalSha256,operation:'batch.clone-corroboration',coordinates:'original-pixels',scopeFingerprint:scope?.fingerprint??null},{storage:'temporary',progressPhase:'batch-corroboration-npz'},{budget,signal});
   const buffer=new Uint8Array(Math.min(CHUNK,npz.byteLength)),releaseBuffer=budget.reserve(buffer.byteLength);
-  try{files.push(await commitStore(async(offset,length)=>{const bytes=buffer.subarray(0,length);await npz.store.readInto(bytes,offset);return bytes;},{byteLength:npz.byteLength,mime:npz.mime},path+'.npz',artifacts,{budget,signal,sinkFactory}));}finally{releaseBuffer();}
+  owner.after(releaseBuffer);files.push(await commitStore(async(offset,length)=>{const bytes=buffer.subarray(0,length);await npz.store.readInto(bytes,offset);return bytes;},{byteLength:npz.byteLength,mime:npz.mime},path+'.npz',artifacts,{budget,signal,sinkFactory,owner}));
   metadata.png={byteLength:png.byteLength,sha256:png.sha256,provenance:png.provenance,metrics:png.metrics};metadata.npz={byteLength:npz.byteLength,sha256:npz.sha256,metrics:npz.metrics};
   checkAbort(signal);await artifacts.set(path+'.json',new Blob([JSON.stringify(metadata,null,2)],{type:'application/json'}));files.push(path+'.json');checkAbort(signal);committed=true;
-  return {...metadata,files,metrics:{memory:budget.snapshot(),countStorage:counts.storage,corroborationPasses:1,sourceRasterPasses:1,maximumExportPageBytes:CHUNK}};
- }finally{
-  if(!committed)for(const file of files)await artifacts.delete?.(file);
-  try{if(png)await raster.release(png.id);}finally{try{await npz?.store?.dispose();}finally{try{await npz?.session?.dispose();}finally{try{await counts?.dispose();}finally{await session?.dispose();}}}}
- }
+  const result={...metadata,files,metrics:{memory:budget.snapshot(),countStorage:counts.storage,corroborationPasses:1,sourceRasterPasses:1,maximumExportPageBytes:CHUNK}};owner.complete();await owner.retire();return result;
+ }catch(error){return owner.fail(error);}
 }

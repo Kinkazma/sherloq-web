@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {acquireEchoDerivativeCache} from './echo-cache.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface} from './rgb-surface.js';
@@ -6,7 +7,7 @@ import {ECHO_HEAP_BYTES,echoHeapBytes,echoDerivatives,echoRender} from './echo-m
 import {EchoWorkers} from './echo-workers.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';
 
-export async function segmentedEcho(image,p,{budget,signal,onProgress,rowsPerBlock,maxWorkers=1,adaptive=new AdaptiveConcurrency()}={}){
+export async function segmentedEcho(image,p,{budget,signal,onProgress,rowsPerBlock,cacheKey,cacheFactory=acquireEchoDerivativeCache,maxWorkers=1,adaptive=new AdaptiveConcurrency()}={}){
  const d=image.surface.descriptor,w=d.width,h=d.height,n=w*h,r=p.radius;
  requireValue(rowsPerBlock===undefined||Number.isSafeInteger(rowsPerBlock)&&rowsPerBlock>0,'Invalid Echo row group.');
  requireValue(Number.isSafeInteger(maxWorkers)&&maxWorkers>=1,'Invalid Echo worker limit.');checkAbort(signal);
@@ -20,15 +21,17 @@ export async function segmentedEcho(image,p,{budget,signal,onProgress,rowsPerBlo
  const overhead=count=>(count===1?ECHO_HEAP_BYTES:echoHeapBytes()+count*ECHO_HEAP_BYTES)+ioBytes+count*w*r*12+Math.max(w,h)*3+16384;
  const maximum=typeof Worker==='undefined'?1:Math.min(32,maxWorkers,Math.ceil(h/targetRows));
  const key=w+'/'+h+'/'+r,plan=adaptive.select(key,maximum,budget,c=>overhead(c)+c*w*28*minimumRows),started=performance.now();
- let count=plan.count,retry=null,executions=0;
+ let count=plan.count,retry=null,executions=0,cacheAllowed=true,cacheRetry=null,totalSourceReads=0;
  async function attempt(){
-  const limits=new Float64Array([Infinity,0,Infinity,0,Infinity,0]);
-  let raw,output,planning,staging,workers,blocks=0,workerJobs=0;
+  let limits=new Float64Array([Infinity,0,Infinity,0,Infinity,0]);
+  let cache,raw,output,planning,staging,workers,blocks=0,workerJobs=0;
   const abort=()=>workers?.clear();signal?.addEventListener('abort',abort,{once:true});
   try{
-   checkAbort(signal);planning=budget.reserve(overhead(count)+count*w*28*minimumRows);
+   checkAbort(signal);const minimumOutput=!image.session&&!image.ensureTemporarySession?n*3+Math.min(4*1024**2,n*3):0;
+   cache=cacheAllowed?cacheFactory(budget,cacheKey&&cacheKey+w+'/'+h+'/'+r,n*12,overhead(count)+count*w*28*Math.min(targetRows,heapRows)+minimumOutput):null;
+   if(cache?.hit)limits=cache.limits;planning=budget.reserve(overhead(count)+count*w*28*minimumRows);
    const storage={budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal};
-   raw=await createSegmentedBytes(n*12,storage);output=await createSegmentedBytes(n*3,storage);planning();planning=null;
+   raw=cache?.store??await createSegmentedBytes(n*12,storage);output=await createSegmentedBytes(n*3,storage);planning();planning=null;
    const rows=Math.min(targetRows,heapRows,Math.floor((budget.limit-budget.retained-budget.active-overhead(count))/(count*w*28)));
    if(rows<1)throw new EngineError('MEMORY_LIMIT','Echo staging does not fit the shared budget.');
    staging=budget.reserve(overhead(count)+count*w*rows*16);
@@ -44,7 +47,7 @@ export async function segmentedEcho(image,p,{budget,signal,onProgress,rowsPerBlo
       await controlCheckpoint(signal);const topY=y+i*rows,coreRows=Math.min(rows,h-topY);let input;
       if(kind==='derivatives'){
        const top=Math.max(0,topY-r),bottom=Math.min(h,topY+coreRows+r);
-       const window=await image.surface.readWindow({x:0,y:top,width:w,height:bottom-top},{signal});leases.push(window.release);
+       totalSourceReads++;const window=await image.surface.readWindow({x:0,y:top,width:w,height:bottom-top},{signal});leases.push(window.release);
        input={kind,image:window.pixels,start:topY-top,rows:coreRows,radius:r};
       }else{
        const length=w*coreRows*12;leases.push(budget.reserve(length));const bytes=new Uint8Array(length);await raw.readInto(bytes,topY*w*12);checkAbort(signal);
@@ -69,18 +72,26 @@ export async function segmentedEcho(image,p,{budget,signal,onProgress,rowsPerBlo
     finally{for(const release of leases)release();}
    }
    let at=performance.now();
-   for(let y=0;y<h;y+=rows*count)await batch(y,'derivatives');
-   await raw.flush();checkAbort(signal);const derivativesMs=performance.now()-at;
+   if(!cache?.hit)for(let y=0;y<h;y+=rows*count)await batch(y,'derivatives');
+   else onProgress?.(.7);
+   await raw.flush();checkAbort(signal);const derivativesMs=cache?.hit?0:performance.now()-at;
    at=performance.now();for(let y=0;y<h;y+=rows*count)await batch(y,'render');
    await output.flush();checkAbort(signal);const renderMs=performance.now()-at;
-   await raw.dispose();raw=null;
-   return{surface:createRgbSurface(output,{width:w,height:h,budget}),semantics:'Native Echo Laplacian with source-wide per-channel normalization, radius1–15 reflect101 halos, unchanged contrast LUT and optional gray display. Full-resolution oriented pixels.',metrics:{totalMs:performance.now()-started,derivativesMs,renderMs,blocks,rowsPerBlock:rows,workers:count,workerJobs,storage:output.storage,retainedResultBytes:n*3,arithmeticHeapCapacityBytes:count===1?ECHO_HEAP_BYTES:echoHeapBytes()+count*ECHO_HEAP_BYTES,dispatchAccountedBytes}};
+   await raw.dispose();raw=null;cache?.commit(limits);const cacheHit=cache?.hit??false,cacheBytes=cache?.bytes??0;cache?.close();cache=null;
+   return{surface:createRgbSurface(output,{width:w,height:h,budget}),semantics:'Native Echo Laplacian with source-wide per-channel normalization, radius1–15 reflect101 halos, unchanged contrast LUT and optional gray display. Full-resolution oriented pixels.',metrics:{totalMs:performance.now()-started,derivativesMs,renderMs,blocks,sourceReads:totalSourceReads,analysisCacheHit:cacheHit,derivativeCacheStored:cacheBytes>0,derivativeCacheBytes:cacheBytes,derivativeCacheStorage:cacheBytes?'memory':null,rowsPerBlock:rows,workers:count,workerJobs,storage:output.storage,retainedResultBytes:n*3,arithmeticHeapCapacityBytes:count===1?ECHO_HEAP_BYTES:echoHeapBytes()+count*ECHO_HEAP_BYTES,dispatchAccountedBytes}};
   }catch(error){workers?.clear();await Promise.allSettled([raw?.dispose(),output?.dispose()]);throw normalizeResourceError(error);}
-  finally{signal?.removeEventListener('abort',abort);workers?.clear();planning?.();staging?.();}
+  finally{signal?.removeEventListener('abort',abort);workers?.clear();planning?.();staging?.();cache?.close();}
  }
  let result;
- try{executions++;result=await attempt();}
- catch(error){checkAbort(signal);if(count===1||!isWorkerResourceFailure(error))throw error;adaptive.reduce(key,count,{error});retry={failedWorkers:count,code:error.code??'MEMORY_ALLOCATION'};count=1;executions++;result=await attempt();}
+ for(;;){
+  try{executions++;result=await attempt();break;}
+  catch(error){checkAbort(signal);
+   // Optional backing cannot turn a recoverable cache allocation into a new
+   // scientific failure or a reduction in requested useful CPU workers.
+   if(cacheAllowed&&error.code==='ECHO_CACHE_ALLOCATION'){cacheAllowed=false;cacheRetry={code:error.code,workersPreserved:count};continue;}
+   if(count===1||!isWorkerResourceFailure(error))throw error;adaptive.reduce(key,count,{error});retry={failedWorkers:count,code:error.code??'MEMORY_ALLOCATION'};count=1;
+  }
+ }
  adaptive.observe(key,{count,maximum,milliseconds:performance.now()-started,units:n});
- result.metrics.scheduling={...plan,taskExecutions:executions,preflightExecutions:0,retry};return result;
+ result.metrics.scheduling={...plan,taskExecutions:executions,preflightExecutions:0,retry,cacheRetry};return result;
 }

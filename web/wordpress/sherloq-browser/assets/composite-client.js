@@ -1,3 +1,6 @@
+import {compositeSourceDomain} from './unified-engine/src/composite-regional-source.js';
+import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
+import {EngineError,checkAbort} from './unified-engine/src/errors.js';
 import {localFeaturePolicy} from './feature-policy.js';
 import {createM2WorkerClient} from './unified-engine/src/m2-worker-client.js';
 import {createRemoteSurface} from './remote-surface.js';
@@ -19,7 +22,7 @@ export async function compositeConfiguration(){
 }
 export async function createCompositeClient(options){
  const {deployment,methods}=await compositeConfiguration(),client=await createM2WorkerClient({...options,methods});
- let disposed=false;
+ let disposed=false,closing=false,disposal,gracefulRegional=false;const regionalResults=new Map();
  async function readWindow(id,view,rect){
   if(disposed)throw Object.assign(Error('Composite disposed'),{code:'CANCELLED'});
   const frame=await client.renderWindow(id,view,rect);
@@ -28,13 +31,26 @@ export async function createCompositeClient(options){
  }
  return {...client,deployment,
   reserveExport:async bytes=>{const lease=await client.reserveExternalMemory({bytes});return()=>client.releaseExternalMemory(lease.id);},
-  async analyze(blob,params,hooks){localFeaturePolicy.assertTaskAvailable({operation:'composite',params});const result=await client.analyzeBlob('composite',blob,params,hooks);try{const metadata=await client.metadata(result);if(result.fields.map&&metadata.provenance?.statisticsPolicy!==COMPOSITE_POLICY)throw Error('Composite result policy mismatch');return {result,metadata};}catch(error){await client.release(result.id);throw error;}},
+  async analyze(blob,params,hooks={}){
+   if(disposed||closing)throw new EngineError('DISPOSED','Composite client is closing.');checkAbort(hooks.signal);
+   const selection=await compositeSourceDomain(hooks.sourceRegionDomain,{sourceSha256:hooks.expectedSourceSha256,signal:hooks.signal});
+   if(selection?.regional)gracefulRegional=true;
+   localFeaturePolicy.assertTaskAvailable({operation:'composite',params});
+   const result=await client.analyzeBlob('composite',blob,params,{...hooks,...(selection?{sourceRegionDomain:selection.domain.descriptor}:{})});
+   if(selection?.regional)regionalResults.set(result.id,result);
+   try{const metadata=await client.metadata(result);if(result.fields.map&&metadata.provenance?.statisticsPolicy!==COMPOSITE_POLICY)throw Error('Composite result policy mismatch');
+    if(selection?.regional&&(result.sourceRegionDomain?.fingerprint!==selection.domain.fingerprint||metadata.provenance?.sourceRegionDomain?.fingerprint!==selection.domain.fingerprint||result.width!==selection.domain.width||result.height!==selection.domain.height))throw new EngineError('SOURCE_CHANGED','Composite native result does not retain its admitted rectangle.');
+    return {result,metadata,...(selection?.regional?{sourceRegionDomain:selection.domain.descriptor,sourceRegionOrigin:[...selection.domain.origin]}:{})};
+   }catch(error){await retireCompositeOwners([()=>this.release(result.id)],{primary:error});throw error;}
+  },
+  async release(id){await client.release(id);regionalResults.delete(id);},
   surface(result,view,cache,changed,onError){
    return createRemoteSurface({id:result.id,view,width:result.width,height:result.height},cache,async(action,{tile,rect})=>{
     if(action==='read-window')return {pixels:await readWindow(result.id,view,rect)};
     return client.readDisplay(result.id,view,tile);
    },changed,onError);
   },
-  async dispose(){disposed=true;await client.dispose();}
+  dispose(){if(disposed)return Promise.resolve();if(disposal)return disposal;closing=true;const task=(async()=>{await(gracefulRegional?client.disposeGracefully():client.dispose());regionalResults.clear();disposed=true;})();disposal=task.finally(()=>{disposal=null;});return disposal;}
+
  };
 }

@@ -1,3 +1,4 @@
+import {inspectStructureSource} from './metadata-structure-source.js';
 import {exiftoolParams} from './exiftool.js';
 import {c2paParams} from './c2pa-report.js';
 import {cvPixels} from './opencv.js';
@@ -5,7 +6,7 @@ import {parameters} from './pixel-utils.js';import {imageHeader} from './image-h
 export const metadataParams=(p={})=>parameters(p,{});
 export const hexParams=(p={})=>parameters(p,{offset:0,length:256},{offset:[0,Number.MAX_SAFE_INTEGER],length:[1,65536]});
 export async function metadataStructure(image,p,hooks,context){
- const h=imageHeader(context.bytes);return {data:h,semantics:'Original-byte structure and supported EXIF directories. Numeric tags and omitted raw payloads are explicit; this is not a complete ExifTool dump or a C2PA signature validation.'};
+ const h=context.source?await inspectStructureSource(context.source,{signal:hooks.signal,account:context.reserveMemory,onProgress:hooks.onProgress}):imageHeader(context.bytes);return {data:h,semantics:'Original-byte structure and supported EXIF directories. Numeric tags and omitted raw payloads are explicit; this is not a complete ExifTool dump or a C2PA signature validation.'};
 }
 export async function metadataLocation(image,p,hooks,context){
  const h=imageHeader(context.bytes),gps=h.exif?.gps??h.gps;

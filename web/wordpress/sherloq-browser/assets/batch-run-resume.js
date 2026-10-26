@@ -1,6 +1,7 @@
 import {compactEvidence} from './batch-evidence.js';
 import {readBatchZip} from './batch-zip.js';
 import {createExportSink} from './export-sink.js';
+import {exportSinkScopeFor} from './export-sink-owner.js';
 import {npyHeader} from './unified-engine/src/npz.js';
 import {scientificZipPlan,scientificZipLocal,scientificZipCentral,scientificZipEnd} from './unified-engine/src/scientific-zip.js';
 
@@ -14,7 +15,7 @@ const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof v
 export const batchResumeKey=value=>JSON.stringify(canonical(value));
 export function batchScientificSignature(image,configuration){
  const pair=configuration?.pairSelections?.[image.hash],preparation=configuration?.scientificPreparations?.[image.id];
- return batchResumeKey({recipes:(configuration?.recipes??[]).map(r=>({operation:r.operation,params:r.params,signal:r.signal,backend:r.backend??'auto',view:r.view??null})).sort((a,b)=>batchResumeKey(a).localeCompare(batchResumeKey(b))),panels:!!configuration?.options?.panels,scientificFiltering:configuration?.options?.scientificFiltering??false,pair:pair?{pixelHash:pair.pixelHash,width:pair.width,height:pair.height,regions:pair.regions}:null,preparation:preparation??null,scopeGeometry:configuration?.options?.scientificFiltering?{regions:image.preparation?.regions,searchRegions:image.preparation?.searchRegions,excluded:image.preparation?.excluded}:null,displayPolicy:configuration?.displayPolicy??null,resumePolicy:configuration?.resumePolicy??null});
+ return batchResumeKey({...(!image.originalSourceRegions&&!image.preparation?.originalSourceRegions&&configuration?.options?.scientificFiltering&&(configuration?.recipes??[]).some(r=>['detail.wavelets','noise.blocking'].includes(r.operation))?{legacyNativePixelDomain:'legacy-batch-pixel-domain/1'}:{}),recipes:(configuration?.recipes??[]).map(r=>({operation:r.operation,params:r.params,signal:r.signal,backend:r.backend??'auto',view:r.view??null})).sort((a,b)=>batchResumeKey(a).localeCompare(batchResumeKey(b))),panels:!!configuration?.options?.panels,scientificFiltering:configuration?.options?.scientificFiltering??false,pair:pair?{pixelHash:pair.pixelHash,width:pair.width,height:pair.height,regions:pair.regions}:null,preparation:preparation??null,scopeGeometry:configuration?.options?.scientificFiltering?{regions:image.preparation?.regions,searchRegions:image.preparation?.searchRegions,excluded:image.preparation?.excluded}:null,displayPolicy:configuration?.displayPolicy??null,resumePolicy:configuration?.resumePolicy??null});
 }
 export const batchRunRecipeSignature=recipe=>batchResumeKey({operation:recipe.operation,params:recipe.params,signal:recipe.signal,backend:recipe.backend??'auto',view:recipe.view??null});
 export function batchResumeImageCompatible(image,configuration,engine){
@@ -78,20 +79,19 @@ export async function saveBatchRunEvidence(image,run,entries,artifacts,path,{sig
   return {...clean,resumeMask:{array:name,width:mask.width,height:mask.height,origin:entry.origin}};
  });
  const scientificArrays=arrays.length?path+'.npz':undefined,metadataPath=path+'.json',record={schema:EVIDENCE_SCHEMA,version:1,...source,recipeSignature:batchRunRecipeSignature(run),entries:geometry,...(scientificArrays?{scientificArrays}:{})};
- let sink,output,failure;const created=[];
+ const scope=exportSinkScopeFor(artifacts);await scope.retryFailed();const owner=scope.begin();let sink,output,failed=false;const created=[];owner.after(async()=>{if(failed)for(const file of created)await artifacts.delete(file);});
  try{
   if(arrays.length){
-   const plan=scientificZipPlan(arrays);sink=await sinkFactory({memoryBudgetBytes:0,mime:'application/zip',signal});
+   const plan=scientificZipPlan(arrays);sink=await owner.open(sinkFactory,{memoryBudgetBytes:0,mime:'application/zip',signal});
    for(const array of arrays){check(signal);let crc=update(0xffffffff,array.header);for(let at=0;at<array.data.length;at+=CHUNK){check(signal);const part=array.data.subarray(at,at+CHUNK);if(part.some(value=>value>1))throw fail('Le masque exact de reprise doit être binaire.');crc=update(crc,part);}array.crc=(crc^0xffffffff)>>>0;
     const local=scientificZipLocal(array);new DataView(local.buffer).setUint32(14,array.crc,true);await sink.write(local);await sink.write(array.header);
     for(let at=0;at<array.data.length;at+=CHUNK){check(signal);await sink.write(array.data.subarray(at,at+CHUNK));}
    }
-   for(const array of arrays)await sink.write(scientificZipCentral(array));await sink.write(scientificZipEnd(plan));output=await sink.finish();check(signal);await artifacts.set(scientificArrays,output.blob);created.push(scientificArrays);
+   for(const array of arrays)await sink.write(scientificZipCentral(array));await sink.write(scientificZipEnd(plan));output=owner.finish(sink,await sink.finish());check(signal);await artifacts.set(scientificArrays,output.blob);created.push(scientificArrays);
   }
   const encoded=JSON.stringify(record);if(new TextEncoder().encode(encoded).length>8*CHUNK)throw fail('La géométrie de reprise dépasse la limite de métadonnées.');check(signal);await artifacts.set(metadataPath,new Blob([encoded],{type:'application/json'}));created.push(metadataPath);
-  run.resumeEvidence={schema:EVIDENCE_SCHEMA,version:1,...source,recipeSignature:record.recipeSignature,files:{metadata:metadataPath,...(scientificArrays?{scientific:scientificArrays}:{})}};run.files.push(...created);
- }catch(error){failure=error;for(const file of created)try{await artifacts.delete(file);}catch(cleanup){error.cleanupError??=cleanup;}throw error;}
- finally{try{if(output)await output.cleanup?.();else await sink?.abort();}catch(error){if(failure)failure.cleanupError??=error;else throw error;}}
+  owner.complete();await owner.retire();run.resumeEvidence={schema:EVIDENCE_SCHEMA,version:1,...source,recipeSignature:record.recipeSignature,files:{metadata:metadataPath,...(scientificArrays?{scientific:scientificArrays}:{})}};run.files.push(...created);
+ }catch(error){failed=true;return owner.fail(error);}
 }
 export async function restoreBatchRunEvidence(image,run,artifacts,{budget,signal}={}){
  check(signal);const checkpoint=run.resumeEvidence;

@@ -5,7 +5,7 @@ const hash=a=>createHash('sha256').update(new Uint8Array(a.buffer,a.byteOffset,a
 async function surface(data,width,height,budget,orientation=1){const store=await createSegmentedBytes(data.length,{budget,chunkBytes:113});await store.write(data);return createRgbSurface(store,{width,height,budget,orientation});}
 test('Row preparations preserve all Torch and Pillow native tensor references across arbitrary strips',async()=>{
  let count=0;for(const family of ['d2prl','segmentation']){
-  const base=new URL(family==='d2prl'?'../.build/d2prl-prepare/':'../.build/segmentation-preprocess/',import.meta.url),ref=JSON.parse(await readFile(new URL('reference.json',base)));
+  const base=new URL(family==='d2prl'?'../.build/d2prl-prepare-noaa/':'../.build/segmentation-preprocess/',import.meta.url),ref=JSON.parse(await readFile(new URL('reference.json',base)));
   for(const r of ref.records){const bytes=new Uint8Array(await readFile(new URL(r.input.file,base))),[height,width]=r.input.shape,budget=new Budget(128*1024**2),s=await surface(bytes,width,height,budget),engine=family==='d2prl'?await d2(budget):createSegmentationPrepare({budget}),rows=rgbRowSource(s);
    try{for(const rowsPerRead of [7,131]){const output=family==='d2prl'?await engine.runRows(rows,{rowsPerRead}):await engine.run({...rows,side:r.side},{rowsPerRead});try{assert.equal(hash(family==='d2prl'?output.data:output.tensor),(r.output??r.tensor).sha256,`${family}/${r.name}/${rowsPerRead}`);if(r.rgb)assert.equal(hash(output.rgb),r.rgb.sha256);assert.ok(output.metrics.sourceReads>0);count++;}finally{output.release();}}}finally{engine.dispose();await s.dispose();}assert.equal(budget.total(),0);
   }

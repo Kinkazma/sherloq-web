@@ -12,7 +12,7 @@ assert torch.__version__.split('+')[0]=='2.8.0' and onnx.__version__=='1.19.0'
 def denied(*args,**kwargs):raise RuntimeError('Offline conversion prohibits downloads')
 torch.hub.download_url_to_file=denied;torch.utils.model_zoo.load_url=denied;torch.set_num_threads(8)
 spec=importlib.util.spec_from_file_location('web_d2prl_blocks',root/'experiments/d2prl/model-blocks.py');blocks=importlib.util.module_from_spec(spec);spec.loader.exec_module(blocks)
-out=root/'.build/d2prl-model';out.mkdir(exist_ok=True)
+out=root/'.build/d2prl-model-noaa';out.mkdir(exist_ok=True)
 parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=['reference','features','heads','dlf','heads-exact-dlf'],required=True);parser.add_argument('--no-fold',action='store_true');args=parser.parse_args();stage=args.stage;tag=stage+('-unfolded' if args.no_fold else '')
 loaded=load('cpu');model=loaded['model'];sha=lambda b:hashlib.sha256(b).hexdigest()
 def save(name,tensor):
@@ -23,7 +23,7 @@ if stage=='reference':
  from torchvision import transforms as T
  h,w=389,521;y,x=np.indices((h,w));rng=np.random.default_rng(290052)
  rgb=np.stack([(x*7+y*3)%256,(x//11*37+y//9*23)%256,((x-y)**2)%256],axis=2).astype(np.uint8);rgb^=rng.integers(0,16,rgb.shape,dtype=np.uint8);rgb[230:320,330:450]=rgb[50:140,70:190]
- image=T.Compose([T.ToTensor(),T.Resize((448,448))])(rgb)[None];record=dict(schema=1,scope='One synthetic copied RGB source, native CPU D2PRL model, not parity evidence for browser',torch=torch.__version__,onnx=onnx.__version__,weights=loaded['weights'],input=save('rgb448',image),source=save('source-rgb',torch.from_numpy(rgb)),features=[],patchmatch=[])
+ image=T.Compose([T.ToTensor(),T.Resize((448,448),antialias=False)])(rgb)[None];record=dict(schema=1,preprocessing='d2prl-tensor-bilinear448-noaa-v1',scope='One synthetic copied RGB source, native CPU D2PRL model, not parity evidence for browser',torch=torch.__version__,onnx=onnx.__version__,weights=loaded['weights'],input=save('rgb448',image),source=save('source-rgb',torch.from_numpy(rgb)),features=[],patchmatch=[])
  def before(module,args):record['features']=[save('native-feature-'+str(i),v) for i,v in enumerate(args)]
  def after(module,args,result):record['patchmatch']=[save('native-patchmatch-'+str(i),v) for i,v in enumerate(result)]
  handles=[model.patchmatch.register_forward_pre_hook(before),model.patchmatch.register_forward_hook(after)];count=[0]
@@ -41,7 +41,7 @@ if stage=='reference':
  assert all(record['descriptorWrapperHalfExact']) and all(record['headWrapperExact']),record
  record['nativeElapsedSeconds']=time.monotonic()-start;(out/'reference.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps({k:record[k] for k in ['descriptorWrapperHalfExact','headWrapperExact','nativeElapsedSeconds']}),flush=True)
 else:
- reference=json.loads((out/'reference.json').read_text());image=read(reference['input']);wrapper=({'features':blocks.Descriptors,'heads':blocks.Heads,'dlf':blocks.DlfStudy,'heads-exact-dlf':blocks.HeadsExactDlf}[stage])(model).eval()
+ reference=json.loads((out/'reference.json').read_text());assert reference.get('preprocessing')=='d2prl-tensor-bilinear448-noaa-v1','Regenerate native reference with explicit antialias=False; historical AA references stay separate';image=read(reference['input']);wrapper=({'features':blocks.Descriptors,'heads':blocks.Heads,'dlf':blocks.DlfStudy,'heads-exact-dlf':blocks.HeadsExactDlf}[stage])(model).eval()
  if stage=='dlf':inputs=tuple(read(e) for e in reference['patchmatch'][4:]);names=['x_cor','y_cor','x_cor2','y_cor2'];outputs=[prefix+str(k)+'_'+branch for prefix in ['error','score'] for k in [7,9,11] for branch in ['zm','cnn']]
  else:inputs=(image,) if stage=='features' else (image,*[read(e) for e in reference['patchmatch']]);names=['rgb'] if stage=='features' else ['rgb','xoff','yoff','xoff2','yoff2','x_cor','y_cor','x_cor2','y_cor2'];outputs=['zm','cnn'] if stage=='features' else ['union','target','source']
  if stage=='heads-exact-dlf':

@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "reference": "Unchanged qualified OpenCV4.11 adjustment primitives; canonical-coordinate HSV phase dispatch and retained native Gaussian neighborhood.",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/pdf-retained-adjust.cpp": {
+      "bytes": 4586,
+      "sha256": "e69abc2e2cdcc390fc11a4fae105561f31bda88911c46c0d7396d935afb51c70"
+    },
+    "scripts/build-pdf-retained-adjust.sh": {
+      "bytes": 3587,
+      "sha256": "4906715205d70e0c40bd43af6b276e8e934d31fb88ff8593bbbc94d87a77c419"
+    },
+    "vendor/pdf-retained-adjust/adjust.js": {
+      "bytes": 25929,
+      "sha256": "fea7356f102a1c1b1fbc831ff53364d1bab20c2e306a1226961828220c8bcc19"
+    },
+    "vendor/pdf-retained-adjust/adjust.wasm": {
+      "bytes": 852078,
+      "sha256": "da9e19982586f74cbab1386bfe93ca1411b59f873e90638795db792845535462"
+    },
+    "vendor/pdf-retained-adjust/LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "vendor/pdf-retained-adjust/LICENSE-MUSL.txt": {
+      "bytes": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    },
+    "vendor/pdf-retained-adjust/NOTICE-OPENCV-LEGACY.txt": {
+      "bytes": 4363,
+      "sha256": "f240e13b0d89ddc6cb4152e9e0943cc773b49c956857fed7846a62504d3a825c"
+    }
+  },
+  "buildInputs": {
+    "native/adjust-bands.cpp": {
+      "bytes": 3827,
+      "sha256": "4a75bf6e266f81007a645579faf62d87b56700cfa158afb71ce1c5c6565f28b9"
+    },
+    "native/opencv.cpp": {
+      "bytes": 27099,
+      "sha256": "3f22ebb31a9c8eb3beeabccedd866a4f6f565b62921d7fac266c7245cbc2d7a1"
+    },
+    "native/gamma-lut.h": {
+      "bytes": 48178,
+      "sha256": "8c86b116ec609e82b3ab92c01f867f33f3f0c5c07d7366da428b9dade977a138"
+    },
+    "native/hsv-tables.h": {
+      "bytes": 2700,
+      "sha256": "03507320cf0e0f8ba10dd3d0498382d63b666cb783ff02c5632b09aa6d205a5a"
+    },
+    ".build/cv/lib/libopencv_core.a": {
+      "bytes": 3723884,
+      "sha256": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    ".build/cv/lib/libopencv_imgproc.a": {
+      "bytes": 5090812,
+      "sha256": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+    },
+    "generated/adjust-reference.h": {
+      "bytes": 5089,
+      "sha256": "3942192a61ab9491b325217985c9eddb30839cb562eec99b2d7f45c93002452e"
+    }
+  }
+}

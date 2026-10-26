@@ -1,3 +1,4 @@
+import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {deserializeWorkerError,serializeEngineError,resourceAllocationKind} from './errors.js';
 import {scheduledWorkerCall,cancelScheduledWorkerCalls} from './scheduled-worker-call.js';
 import {m3ImageShape} from './m3-image-shape.js';
@@ -18,7 +19,23 @@ export class SparseFeatureEngine{
  stop(){cancelScheduledWorkerCalls(this);this.paged.stop();this.pagedAkaze.stop();for(const worker of this.workers){worker.terminate();this.pending.get(worker)?.reject(new EngineError('CANCELLED','Feature extraction stopped.'));}this.workers.clear();this.pending.clear();}
  clearCheckpoint(key){return this.paged.clearCheckpoint(key);}
  async dispose(){this.stop();this.adaptive.clear();await this.paged.dispose();await this.finished;}
- rpc(worker,message,transfer=[]){return scheduledWorkerCall(this,()=>new Promise((resolve,reject)=>{this.pending.set(worker,{reject});worker.onmessage=({data})=>{this.pending.delete(worker);data.error?reject(deserializeWorkerError(data.error,data.message)):resolve(data);};worker.onerror=()=>{this.pending.delete(worker);reject(new EngineError('WORKER_FAILED','Feature worker failed.'));};try{worker.postMessage(message,transfer);}catch(error){this.pending.delete(worker);reject(error);}}),{label:'sparse-extract'});}
+ rpc(worker,message,transfer=[]){return scheduledWorkerCall(this,()=>new Promise((resolve,reject)=>{
+  if(this.pending.has(worker)){reject(new EngineError('BUSY','Feature worker already has a pending request.'));return;}
+  let settled=false,protocol,workerError;
+  const finish=(fn,value)=>{if(settled)return;settled=true;protocol?.dispose();if(worker.onerror===workerError)worker.onerror=null;this.pending.delete(worker);fn(value);},fail=error=>finish(reject,error),bad=reason=>{throw workerMessageFailure('Sparse extraction','message',reason);};
+  this.pending.set(worker,{reject:fail});
+  protocol=installWorkerMessageProtocol(worker,data=>{
+   if(data.error!==undefined){if(!data.error||typeof data.error!=='object'||Array.isArray(data.error)||typeof data.error.message!=='string')bad('invalid-error');fail(deserializeWorkerError(data.error,data.message));return;}
+   if(message.kind==='init'){if(data.ready!==true)bad('invalid-ready');}
+   else{
+    const binary=message.family>=1&&message.family<=3,n=data.points?.length/7;
+    if(!(data.points instanceof Float64Array)||!Number.isSafeInteger(n)||n<0||!(data.descriptors instanceof(binary?Uint8Array:Float32Array))||!Number.isSafeInteger(data.descriptorSize)||data.descriptorSize<1||data.descriptorSize>128||data.descriptors.length!==n*data.descriptorSize||!(data.members instanceof Uint8Array)||data.members.length!==n*message.zoneCount||!Number.isSafeInteger(data.totalFeatures)||data.totalFeatures<n||!Number.isSafeInteger(data.heapBytes)||data.heapBytes<1)bad('invalid-feature-geometry');
+   }
+   finish(resolve,data);
+  },{label:'Sparse extraction',onFailure:fail});
+  workerError=()=>fail(new EngineError('WORKER_FAILED','Feature worker failed.'));worker.onerror=workerError;
+  try{protocol.post(message,transfer);}catch(error){fail(error);}
+ }),{label:'sparse-extract'});}
  async extract(image,{family='SIFT-G2NN',limit=6000,regions=[],excluded=[],independent=true,reflected=false,backend='auto',storageContext,checkpointKey,signal,onProgress}={}){
   requireValue(!this.running&&typeof Worker!=='undefined','Feature worker unavailable or engine busy.');
   m3ImageShape(image?.width,image?.height);

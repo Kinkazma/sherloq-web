@@ -1,5 +1,7 @@
 import {getExecutionScheduler} from '../engine-source/src/execution-scheduler.js';
+import {installWorkerMessageProtocol,workerMessageFailure} from '../engine-source/src/worker-message-protocol.js';
 import {analyzeComprintStreaming} from './comprint-streaming-statistics.js';
+import {analyzeComprintNativePopulation} from './comprint-native-population-statistics.js';
 const MiB=1024**2,BASE=new URL('./comprint-statistics/',import.meta.url),ARCHIVE_SHA='857ce24f89f3fd87aec58de96b72024f9343910f69b9ae2502b9cb00eb435ec9',FACTORY_SHA='7ac81fc7c1341c3112637600fff87732431d5db7b9621bdced27a6853372e4db',KERNEL_SHA='a02c911e72ce1f7de3c6b875193163bbb3037eaa6a2947d6c95bdcc1ceb5f171';
 const CHUNKED_SHA='60fd6404eba954ab44a2bded01fb601bb33f4f88acb72a22ffe658966dc6c7a0';
 const tensor=(data,dims=[data.length])=>({data,dims});
@@ -20,18 +22,31 @@ export function createComprintParallelStatistics({runtimeURL=new URL('pyodide/',
  function featureSlots(count){let features=slots.filter(s=>s.role==='feature');for(const extra of features.slice(count))retire(extra);features=features.slice(0,count);while(features.length<count)features.push(slot('feature',512*MiB));return features;}
  function fitSlots(count,heapBytes=fitHeapBytes){let fits=slots.filter(s=>s.role==='fit');for(const s of fits)if(s.heapBytes!==heapBytes)retire(s);fits=slots.filter(s=>s.role==='fit');for(const extra of fits.slice(count))retire(extra);fits=fits.slice(0,count);while(fits.length<count)fits.push(slot('fit',heapBytes));return fits;}
  async function call(s,operation,inputs,{signal,onProgress}={}){
-  if(signal?.aborted)throw new DOMException('Cancelled','AbortError');if(s.pending)throw Error('Comprint worker busy');const id=next++;let lease;
+  if(signal?.aborted)throw new DOMException('Cancelled','AbortError');if(s.pending)throw Error('Comprint worker busy');const id=next++;let lease,protocol,workerError,settled=false,admitting=false;
   try{return await new Promise((resolve,reject)=>{
-   s.pending={id,reject};s.worker.onmessage=({data})=>{
-    if(data.id!==id)return;
-    if(data.executionReady){s.backing?.materialize(data.heapBytes);Promise.resolve(acquire({cpu:1,wasmBytes:s.heapBytes,actualHeapBytes:data.heapBytes,signal})).then(value=>{if(!s.pending||s.pending.id!==id){value?.release?.();return;}lease=value;s.worker.postMessage({id,command:'execute'});}).catch(reject);return;}
-    if(data.progress){onProgress?.(data.progress);return;}
-    if(data.error){const e=new Error(data.error.message);Object.assign(e,data.error);reject(e);return;}
-    s.actualHeapBytes=data.metadata.runtime.heapBytes;s.backing?.materialize(s.actualHeapBytes);resolve(data);
-   };s.worker.onerror=e=>reject(new Error(e.message));
-   s.worker.postMessage({id,operation,inputs,role:s.role,heapBytes:s.heapBytes,runtimeURL,factoryURL:new URL('pyodide-factory.js',BASE).href,factorySha256:FACTORY_SHA,archiveURL:new URL('comprint-statistics.zip',BASE).href,archiveSha256:ARCHIVE_SHA,kernelURL:new URL('kernel.py',BASE).href,kernelSha256:KERNEL_SHA,chunkedURL:new URL('em_chunked.py',BASE).href,chunkedSha256:CHUNKED_SHA});
-  });}finally{lease?.release?.();s.pending=null;}
+   const finish=(fn,value)=>{if(settled)return;settled=true;protocol?.dispose();if(s.worker.onerror===workerError)s.worker.onerror=null;fn(value);};
+   const fail=error=>finish(reject,error),bad=reason=>{throw workerMessageFailure('Comprint statistics','message',reason);};
+   const validHeap=value=>Number.isSafeInteger(value)&&value>0&&value<=s.heapBytes;
+   s.pending={id,reject:fail};
+   protocol=installWorkerMessageProtocol(s.worker,data=>{
+    if(settled)return;
+    if(!Number.isSafeInteger(data.id)||data.id<1)bad('invalid-id');if(data.id!==id)return;
+    if(data.executionReady!==undefined){
+     if(data.executionReady!==true||!validHeap(data.heapBytes)||data.progress!==undefined||data.error!==undefined||data.outputs!==undefined||admitting||lease)bad('invalid-execution-ready');
+     admitting=true;s.backing?.materialize(data.heapBytes);
+     Promise.resolve().then(()=>acquire({cpu:1,wasmBytes:s.heapBytes,actualHeapBytes:data.heapBytes,signal})).then(value=>{if(settled||!s.pending||s.pending.id!==id){value?.release?.();return;}lease=value;protocol.post({id,command:'execute'});}).catch(fail);return;
+    }
+    if(data.progress!==undefined){if(!data.progress||typeof data.progress!=='object'||Array.isArray(data.progress)||typeof data.progress.phase!=='string'||data.error!==undefined||data.outputs!==undefined)bad('invalid-progress');onProgress?.(data.progress);return;}
+    if(data.error!==undefined){if(!data.error||typeof data.error!=='object'||Array.isArray(data.error)||typeof data.error.message!=='string'||data.outputs!==undefined)bad('invalid-error');const e=new Error(data.error.message);Object.assign(e,data.error);fail(e);return;}
+    if(!data.outputs||typeof data.outputs!=='object'||Array.isArray(data.outputs)||!data.metadata||typeof data.metadata!=='object'||!validHeap(data.metadata.runtime?.heapBytes))bad('invalid-result');
+    for(const value of Object.values(data.outputs)){if(!ArrayBuffer.isView(value?.data)||value.data instanceof DataView||!Array.isArray(value.dims)||value.dims.some(v=>!Number.isSafeInteger(v)||v<0)||!Number.isSafeInteger(value.dims.reduce((a,b)=>a*b,1))||value.dims.reduce((a,b)=>a*b,1)!==value.data.length)bad('invalid-output-geometry');}
+    s.actualHeapBytes=data.metadata.runtime.heapBytes;s.backing?.materialize(s.actualHeapBytes);finish(resolve,data);
+   },{label:'Comprint statistics',onFailure:fail});
+   workerError=e=>fail(new Error(e.message));s.worker.onerror=workerError;
+   try{protocol.post({id,operation,inputs,role:s.role,heapBytes:s.heapBytes,runtimeURL,factoryURL:new URL('pyodide-factory.js',BASE).href,factorySha256:FACTORY_SHA,archiveURL:new URL('comprint-statistics.zip',BASE).href,archiveSha256:ARCHIVE_SHA,kernelURL:new URL('kernel.py',BASE).href,kernelSha256:KERNEL_SHA,chunkedURL:new URL('em_chunked.py',BASE).href,chunkedSha256:CHUNKED_SHA});}catch(error){fail(error);}
+  });}finally{protocol?.dispose();if(s.worker.onerror===workerError)s.worker.onerror=null;lease?.release?.();s.pending=null;}
  }
+
  function rows(t,indices){const stride=t.data.length/t.dims[0],data=new t.data.constructor(indices.length*stride);for(let j=0;j<indices.length;j++)data.set(t.data.subarray(indices[j]*stride,(indices[j]+1)*stride),j*stride);return tensor(data,[indices.length,...t.dims.slice(1)]);}
  async function analyzeNow(luminance,fingerprint,width,height,{signal,onProgress,maxWorkers:requestedWorkers=maxWorkers,segmented=width*height>2*1024**2,getTemporarySession:temporaryProvider=getTemporarySession,temporarySession,storage='temporary',featureBlockColumns=256,chunkedEM=true}={}){
   if(active)throw Error('Comprint statistics busy');if(!(luminance instanceof Float32Array)||!(fingerprint instanceof Float32Array)||luminance.length!==width*height||fingerprint.length!==width*height)throw Error('Matching full-image Comprint luminance/fingerprint required');active=true;signal?.addEventListener('abort',clearWorkers,{once:true});const started=performance.now();let hostReservation;
@@ -75,5 +90,21 @@ export function createComprintParallelStatistics({runtimeURL=new URL('pyodide/',
   }).finally(()=>{pendingJobs--;});
   tail=job.catch(()=>{});return job;
  }
- return {analyze,clear,dispose(){disposed=true;clear();}};
+ function analyzeContexts(contexts,options={}){
+  if(disposed)return Promise.reject(new Error('Comprint statistics disposed'));
+  const expectedGeneration=generation,requested=performance.now();if(pendingJobs)options.onProgress?.({phase:'comprint-queued',pending:pendingJobs});pendingJobs++;
+  const job=tail.then(async()=>{
+   if(disposed||expectedGeneration!==generation||options.signal?.aborted)throw new DOMException('Comprint queued contexts cancelled','AbortError');
+   if(active)throw Error('Comprint statistics busy');active=true;options.signal?.addEventListener('abort',clearWorkers,{once:true});
+   try{
+    const requestedWorkers=options.maxWorkers??maxWorkers;if(!Number.isFinite(requestedWorkers)||requestedWorkers<1)throw Error('Comprint maxWorkers must be positive');
+    const admittedWorkers=Math.min(Math.max(1,Math.trunc(requestedWorkers)),Math.max(1,Math.trunc(maxWorkers)),scheduler?.capacity?.cpu??6,6);
+    retireFits();const main=slots.find(s=>s.role==='main')??slot('main');
+    const result=await analyzeComprintNativePopulation({...options,contexts,main,call,fitSlots,retireFits:()=>retireIdleRole('fit',options),featureSlots,retireFeatures:()=>retireIdleRole('feature',options),resourceSnapshot:()=>({budget:budget?.snapshot(),workers:slots.map(s=>({role:s.role,maximumHeapBytes:s.heapBytes,materializedHeapBytes:s.actualHeapBytes??null,residentBytes:s.resident}))}),budget,getTemporarySession:options.getTemporarySession??getTemporarySession,maxWorkers:admittedWorkers});
+    if(disposed||expectedGeneration!==generation||options.signal?.aborted)throw new DOMException('Comprint native population cancelled','AbortError');
+    result.metadata.resourceAdmission={boundedHeaps:true,mainHeapBytes,retainedUntilClear:Boolean(budget),residentBytes:slots.reduce((n,s)=>n+s.resident,0),scheduler:Boolean(acquireExecution||scheduler)};result.metadata.timings_seconds.queue_wait=(performance.now()-requested)/1000-result.metadata.timings_seconds.total;return result;
+   }catch(error){clearWorkers();throw error;}finally{active=false;options.signal?.removeEventListener('abort',clearWorkers);}
+  }).finally(()=>{pendingJobs--;});tail=job.catch(()=>{});return job;
+ }
+ return {analyze,analyzeContexts,clear,dispose(){disposed=true;clear();}};
 }

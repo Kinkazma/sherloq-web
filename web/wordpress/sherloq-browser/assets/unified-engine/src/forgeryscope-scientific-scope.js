@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.17.0";
+import "../../runtime-context.js?v=0.25.0";
+import {compileNativeSourceRegionMembership} from './source-region-native-regions.js';
 import {requireValue,checkAbort,checkpoint} from './errors.js';
 
 const validPolygon=polygon=>Array.isArray(polygon)&&polygon.length>=3&&polygon.every(point=>Array.isArray(point)&&point.length===2&&point.every(Number.isFinite));
@@ -30,8 +31,9 @@ export function compileForgeryscopeScientificScope(scope,{width,height,sourceSha
   requireValue(validPolygon(polygon),'Invalid scientific acquisition polygon.');return indexed(polygon);
  });
  requireValue(scope.excluded.every(validPolygon),'Invalid scientific exclusion polygon.');const excluded=scope.excluded.map(indexed);
+ const native=compileNativeSourceRegionMembership(scope.nativeSourceRegions,{width,height,sourceSha256});
  return {schema:scope.schema,fingerprint:scope.fingerprint,width,height,sourceSha256:scope.sourceSha256,regions,excluded,
-  admits(x,y){return Number.isFinite(x)&&Number.isFinite(y)&&regions.some(region=>contains(region,x,y))&&!excluded.some(region=>contains(region,x,y));}};
+  admits(x,y){return Number.isFinite(x)&&Number.isFinite(y)&&(!native||native.admits(x,y))&&regions.some(region=>contains(region,x,y))&&!excluded.some(region=>contains(region,x,y));}};
 }
 
 /** Feature tensors are owned by one extraction, not shared cached arrays.

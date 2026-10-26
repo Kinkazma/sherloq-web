@@ -1,0 +1,29 @@
+{
+  "reference": "Independent NumPy float32 RGB/256 then ImageNet normalization; no resizing",
+  "cases": [
+    {
+      "width": 29,
+      "height": 29,
+      "rgbSha256": "6b844c290db95cd4199cdf0d542394df7af185023c1d9430e9eaefd670b4090b",
+      "nativeFloat32Sha256": "0ce6442bc29ace3346e7f3d67dacdd0d09e5bb936645b9be771b5aea8eac616b"
+    },
+    {
+      "width": 31,
+      "height": 47,
+      "rgbSha256": "f82c2db3e90f339e2ca7ead03a8a0c6de24759bad1e6e0dc0831b46ee7b94b54",
+      "nativeFloat32Sha256": "95a1a42344ca5f4b59808751c865219bf8797a2e57a7165ad31663e2a877b8d7"
+    },
+    {
+      "width": 1537,
+      "height": 41,
+      "rgbSha256": "f5e2f4fab30543f61c05516b75f0f6eea2f743bc170c67aa884c0e91fad9235e",
+      "nativeFloat32Sha256": "debbf60316a5fd8017a8ef8b8453d408985e8d29c4953361c7c54c4e23332b57"
+    },
+    {
+      "width": 59,
+      "height": 30,
+      "rgbSha256": "18a03a696f127ad68410f5b75466750cd675672aa00c227aed924959f66fc7f1",
+      "nativeFloat32Sha256": "32d72ab2b944d26f66f662a11cd9bbdf5f29382013568fd15863599f6332194e"
+    }
+  ]
+}

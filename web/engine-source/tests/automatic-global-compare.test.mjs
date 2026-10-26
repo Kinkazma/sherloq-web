@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {runCompareControl} from './automatic-global-compare-controls.js';
+for(const kind of ['dense','sparse'])for(const mode of ['global','independent'])test('automatic native '+kind+' '+mode+' preserves compare=true exact two ROIs and all scientific options',async()=>assert.equal((await runCompareControl(mode,kind)).passed,true));

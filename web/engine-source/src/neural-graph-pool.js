@@ -1,3 +1,5 @@
+import {alikedNativeHeapBytes} from './aliked-native-output-transport.js';
+import {retireIdleNeuralWorker} from './neural-worker-retirement.js';
 import {registerArrayViews} from './allocation.js';
 import {EngineError,checkAbort,requireValue,deserializeEngineError,resourceAllocationKind,resourceRecoveryBytes,controlCheckpoint} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
@@ -15,7 +17,8 @@ function atomicAdmission(error,retryBytes){
  * workspaceBytes is a graph-specific live activation bound, not a benchmark.
  */
 export class NeuralGraphPool {
-  constructor(budget,profile,{assets,runtimes,resourceOwner='neural',modelCacheBytes=0,workerFactory=url=>new Worker(url,{type:'module'})}){
+  constructor(budget,profile,{assets,runtimes,resourceOwner='neural',modelCacheBytes=0,retryableAlikedRetirement=false,workerFactory=url=>new Worker(url,{type:'module'})}){
+    requireValue(typeof retryableAlikedRetirement==='boolean'&&(!retryableAlikedRetirement||resourceOwner==='aliked-strict-native'),'Retryable idle retirement is reserved to the ALIKED strict pool.');this.retryableAlikedRetirement=retryableAlikedRetirement;
     this.budget=budget;this.profile=profile;this.resourceOwner=resourceOwner;this.assets=structuredClone(assets);this.runtimes=structuredClone(runtimes);this.factory=workerFactory;
     requireValue(Number.isSafeInteger(modelCacheBytes)&&modelCacheBytes>=0,'Invalid neural session cache bound.');this.modelCacheBytes=modelCacheBytes;
     this.slots=[];this.waiters=new Set();this.disposed=false;this.cpuOnly=false;this.clock=0;this.workerStarts=0;this.peakWorkers=0;this.runtimeReuses=0;this.gpuDeviceLimits=null;
@@ -33,9 +36,20 @@ export class NeuralGraphPool {
   wake(){for(const pool of this.contexts.pools){for(const fn of pool.waiters)fn();pool.waiters.clear();}}
   drop(slot,error=new EngineError('CANCELLED','Neural worker stopped.')){
     if(!this.slots.includes(slot))return;
+    if(slot.retiring&&!slot.retirementConfirmed)return slot.retiring;
     slot.executionController?.abort();slot.protocol?.dispose();slot.worker.terminate();for(const release of slot.threadLeases??[])release();this.slots.splice(this.slots.indexOf(slot),1);this.budget.retained-=slot.bytes;const retired=slot.backing?.();if(retired)this.budget.notifyBackingRelease?.('wasm',retired);const gpuRetired=slot.gpuBacking?.();if(gpuRetired)this.budget.notifyBackingRelease?.('gpu',gpuRetired);
     slot.reject?.(error);this.wake();
   }
+  dropGracefully(slot,options){
+    if(slot.retiring)return slot.retiring;
+    if(!this.slots.includes(slot))return Promise.resolve();
+    requireValue(!slot.busy||this.retryableAlikedRetirement&&slot.retirementState==='unconfirmed','Only idle neural workers can retire gracefully.');
+    if(slot.provider!=='webgpu'){this.drop(slot);return Promise.resolve();}
+    slot.busy=true;slot.retirementState='awaiting-native-cleanup';slot.protocol?.dispose();slot.protocol=null;slot.backing?.setReclaimable(false);slot.gpuBacking?.setReclaimable(false);
+    return slot.retiring=(async()=>{try{const receipt=await retireIdleNeuralWorker(slot.worker,{...options,retryableAliked:this.retryableAlikedRetirement});slot.retirementReceipt=receipt;slot.retirementConfirmed=true;slot.retirementState='confirmed';this.drop(slot);return receipt;}catch(error){slot.retirementState='unconfirmed';slot.retirementError=error;if(this.retryableAlikedRetirement)slot.retiring=null;else slot.worker.terminate();this.wake();throw error;}})();
+  }
+  async clearGracefully(options){const retired=await Promise.allSettled([...this.slots].map(slot=>this.dropGracefully(slot,options))),failures=retired.filter(value=>value.status==='rejected').map(value=>value.reason);if(failures.length)throw failures[0];}
+  disposeGracefully(options){if(this.gracefulDisposal)return this.gracefulDisposal;this.disposed=true;const task=(async()=>{let acknowledged=false;try{await this.clearGracefully(options);acknowledged=true;}finally{if(acknowledged||!this.retryableAlikedRetirement){this.unreclaim();this.wake();this.contexts.pools.delete(this);}}})();this.gracefulDisposal=task;if(this.retryableAlikedRetirement)void task.catch(()=>{if(this.gracefulDisposal===task)this.gracefulDisposal=null;});return task;}
   clear(){for(const s of [...this.slots])this.drop(s);}
   snapshot(){const shared=this.allSlots();return {residentWorkers:this.slots.length,busyWorkers:this.slots.filter(s=>s.busy).length,peakWorkers:this.peakWorkers,workerStarts:this.workerStarts,runtimeReuses:this.runtimeReuses,sharedResidentWorkers:shared.length,sharedBusyWorkers:shared.filter(s=>s.slot.busy).length,sharedPeakWorkers:this.contexts.peakWorkers};}
   dispose(){this.disposed=true;this.clear();this.unreclaim();this.wake();this.contexts.pools.delete(this);}
@@ -79,7 +93,7 @@ export class NeuralGraphPool {
     requireValue(gpuWasmWorkspaceBytes===undefined||Number.isSafeInteger(gpuWasmWorkspaceBytes)&&gpuWasmWorkspaceBytes>=0,'Invalid GPU host workspace bound.');
     const reusableBytes=Object.keys(reusableInputs).reduce((n,key)=>n+inputs[key].data.byteLength,0);
     const modelCacheBytes=runtime.ortUrl?this.modelCacheBytes:0;
-    const inputBytes=dataBytes(inputs),memoryMaximumBytes=Math.ceil((64*MiB+modelCacheBytes+modelBytes*2+(provider==='webgpu'?(gpuWasmWorkspaceBytes??workspaceBytes):workspaceBytes))*_memoryScale/MiB/16)*16*MiB;
+    const inputBytes=dataBytes(inputs),memoryMaximumBytes=Math.max(alikedNativeHeapBytes(asset,provider,this.resourceOwner),Math.ceil((64*MiB+modelCacheBytes+modelBytes*2+(provider==='webgpu'?(gpuWasmWorkspaceBytes??workspaceBytes):workspaceBytes))*_memoryScale/MiB/16)*16*MiB);
     if(memoryMaximumBytes>Math.min(4*1024**3,asset.wasmMaximumBytes??4*1024**3)){
       if(modelCacheBytes){this.modelCacheBytes=0;for(const idle of [...this.slots].filter(s=>!s.busy))this.drop(idle);return this.run(name,inputs,{signal,onProgress,workspaceBytes,outputBytes,backend,cpuRequired,_memoryScale,reusableInputs,gpuWasmWorkspaceBytes,cpuWorkspaceBytes,resourceOperation,queryBatch});}
       throw new EngineError('MEMORY_LIMIT','Graph exceeds WebAssembly address space.');

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {denseSumFloat32} from './dense-math.js';
 import {requireValue,createCooperator} from './errors.js';
 export const DENSE_DETAIL_POLICY=Object.freeze({minimum_ncc:.8,minimum_samples:6,maximum_samples:32,patch_width:9,alignment_radius:1,alignment_step:.5,highpass_sigma:1.2});
@@ -17,7 +17,7 @@ async function corroborateWithCooperator(detail,sampler,points,model,cooperate){
   for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){
    const x=points[id*7]+dx,y=points[id*7+1]+dy,w=x*matrix[6]+y*matrix[7]+matrix[8],u=Math.abs(w)>1e-12?(x*matrix[0]+y*matrix[1]+matrix[2])/w:Infinity,v=Math.abs(w)>1e-12?(x*matrix[3]+y*matrix[4]+matrix[5])/w:Infinity;
    valid&&=x>=0&&y>=0&&x<detail.width-1&&y<detail.height-1&&u>=1&&v>=1&&u<detail.width-2&&v<detail.height-2;a.push([x,y]);b.push([u,v]);
-  }if(valid){src.push(a);dst.push(b);}
+  }if(valid&&(!sampler.admitsPatch||sampler.admitsPatch(a,b))){src.push(a);dst.push(b);}
  }
  if(src.length<6)return {accepted:false,ncc:0,samples:src.length};
  const sample=coordinates=>sampler.sample(Float32Array.from(coordinates.flatMap(row=>row.map(p=>p[0]))),Float32Array.from(coordinates.flatMap(row=>row.map(p=>p[1]))),coordinates.length,81);

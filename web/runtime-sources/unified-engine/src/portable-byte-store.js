@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {acknowledgeDenseRetirement,onceDenseRetirement,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {byteRange,byteLength as rangeLength,byteView} from './memory-range.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {EngineError,requireValue,checkAbort,serializeEngineError,deserializeEngineError} from './errors.js';
@@ -11,10 +12,11 @@ const decode=deserializeEngineError;
 // A port belongs to one reader/writer. Requests contain complete useful byte
 // ranges, never one RPC per scalar descriptor component. Mutable transports
 // have a single storage owner; the task graph owns disjoint write ranges.
-export async function exportByteStore(store,{writable=false,signal,budget,forceBroker=false,revocable}={}){
+export async function exportByteStore(store,{writable=false,signal,budget,forceBroker=false,revocable,onRetirementOwner}={}){
  checkAbort(signal);requireValue(store&&Number.isSafeInteger(store.byteLength)&&typeof store.readInto==='function','Byte store required.');
- let pin;
- try{pin=writable?(!forceBroker&&store.exportSharedMutable?.()):await store.exportReadOnly?.({forceBroker,revocable});}
+ let pin,ioPin,releaseRead,channel,protocol,stop,detachListeners,finish,forget,published=false;const construction=new Promise(resolve=>finish=resolve),retireIo=onceDenseRetirement(()=>ioPin?.release()),retirePin=onceDenseRetirement(()=>pin?.release?pin.release():releasePin()),retireRead=onceDenseRetirement(()=>releaseRead?.()),retireProtocol=onceDenseRetirement(()=>protocol?.dispose()),retireListeners=onceDenseRetirement(()=>detachListeners?.());let releasePin=()=>{};
+ const close=onceDenseRetirement(async()=>{await construction;stop?.();if(tail)await tail;await retireProtocol();await retireListeners();await retireIo();await retirePin();await retireRead();forget?.();forget=null;}),owner={dispose(){stop?.();return close();}};let tail;
+ try{forget=onRetirementOwner?.(owner);try{pin=writable?(!forceBroker&&store.exportSharedMutable?.()):await store.exportReadOnly?.({forceBroker,revocable});}
  catch(error){
   // A mutable SAB export must materialize its useful zero banks. If a real
   // allocation fails before publication, preserve them on the storage owner
@@ -22,12 +24,12 @@ export async function exportByteStore(store,{writable=false,signal,budget,forceB
   if(!writable||error.code!=='MEMORY_ALLOCATION'||!store.recoverAllocation)throw error;
   await store.recoverAllocation(error,{signal});checkAbort(signal);
  }
- if(!forceBroker&&pin?.descriptor&&pin.descriptor.kind!=='broker')return {descriptor:pin.descriptor,transfer:pin.transfer??[],release:pin.release,sealReadOnly:pin.sealReadOnly};
- const releasePin=pin?.release??(writable?store.pinMutable?.():undefined)??(()=>{});let releaseRead,ioPin,channel;
- try{ioPin=store.pinIoWorkspace?.();releaseRead=budget?.reserve(Math.min(BLOCK,store.byteLength));channel=new MessageChannel();}catch(error){releaseRead?.();await ioPin?.release();releasePin();throw error;}let closed=false,tail=Promise.resolve(),closing,lastId=0;
+ if(!forceBroker&&pin?.descriptor&&pin.descriptor.kind!=='broker'){forget?.();forget=null;return {descriptor:pin.descriptor,transfer:pin.transfer??[],release:pin.release,sealReadOnly:pin.sealReadOnly};}
+ releasePin=pin?.release??(writable?store.pinMutable?.():undefined)??(()=>{});
+ ioPin=store.pinIoWorkspace?.();releaseRead=budget?.reserve(Math.min(BLOCK,store.byteLength));channel=new MessageChannel();let closed=false,lastId=0;tail=Promise.resolve();
  const stopped=()=>new EngineError('CANCELLED','Byte broker owner closed.');
- const stop=error=>{if(closed)return;closed=true;try{channel.port1.postMessage({terminal:encode(error??stopped())});}catch{}channel.port1.close();};
- const protocol=installWorkerMessageProtocol(channel.port1,data=>{
+ stop=error=>{if(closed)return;closed=true;try{channel.port1.postMessage({terminal:encode(error??stopped())});}catch{}channel.port1.close();};
+ protocol=installWorkerMessageProtocol(channel.port1,data=>{
   if(data.closed===true){stop();return;}
   if(!Number.isSafeInteger(data.id)||data.id<=lastId||!['read','write','flush'].includes(data.op)||!Number.isSafeInteger(data.offset)||!Number.isSafeInteger(data.length)||data.offset<0||data.length<0||data.length>BLOCK||data.offset>store.byteLength-data.length||(data.op==='write'&&(!writable||!(data.buffer instanceof ArrayBuffer)||data.buffer.byteLength!==data.length))||(data.op==='flush'&&!writable))throw workerMessageFailure('byte-broker-owner','message','invalid-request');
   lastId=data.id;
@@ -43,11 +45,12 @@ export async function exportByteStore(store,{writable=false,signal,budget,forceB
   tail=operation.catch(error=>protocol.fail(error));return operation;
  },{label:'byte-broker-owner',onFailure:stop});
  const abort=()=>stop(new EngineError('CANCELLED','Byte broker owner cancelled.'));
- const peerClosed=()=>stop();channel.port1.addEventListener?.('close',peerClosed);signal?.addEventListener('abort',abort,{once:true});channel.port1.start();if(signal?.aborted)abort();
- return {descriptor:{kind:'broker',byteLength:store.byteLength,storage:store.storage??'temporary',cacheStoreId:store.cacheStoreId,writable,blockBytes:BLOCK,port:channel.port2},transfer:[channel.port2],sealReadOnly:()=>pin?.sealReadOnly?.()??releasePin.sealReadOnly?.(),release(){if(closing)return closing;stop();closing=(async()=>{await tail;protocol.dispose();signal?.removeEventListener('abort',abort);channel.port1.removeEventListener?.('close',peerClosed);releaseRead?.();await ioPin?.release();releasePin();})();return closing;}};
+ const peerClosed=()=>stop();detachListeners=()=>{signal?.removeEventListener('abort',abort);channel.port1.removeEventListener?.('close',peerClosed);};channel.port1.addEventListener?.('close',peerClosed);signal?.addEventListener('abort',abort,{once:true});channel.port1.start();if(signal?.aborted)abort();
+ const publication={descriptor:{kind:'broker',byteLength:store.byteLength,storage:store.storage??'temporary',cacheStoreId:store.cacheStoreId,writable,blockBytes:BLOCK,port:channel.port2},transfer:[channel.port2],sealReadOnly:()=>pin?.sealReadOnly?.()??releasePin.sealReadOnly?.(),release:owner.dispose};published=true;return publication;
+ }catch(error){finish();await cleanupDenseOwners(()=>owner.dispose(),{failed:true,primary:error});throw error;}finally{finish();if(published){forget?.();forget=null;}}
 }
 
-export async function readByteStore(descriptor,{budget}={}){
+export async function readByteStore(descriptor,{budget,onRetirementOwner}={}){
  requireValue(descriptor&&Number.isSafeInteger(descriptor.byteLength)&&descriptor.byteLength>=0,'Invalid transported byte store.');
  if(descriptor.kind==='shared'||descriptor.segments){
   const {byteLength,chunkBytes,mutable,cacheStoreId}=descriptor,publication={...descriptor,segments:descriptor.segments.map(pair=>[...pair])},immutable={...publication,mutable:false},base=sharedSegmentedReader(publication);descriptor=null;
@@ -57,10 +60,15 @@ export async function readByteStore(descriptor,{budget}={}){
   return {...reader,exportSharedMutable:()=>({descriptor:publication,release(){}}),write(source,offset=0){if(disposed)throw new EngineError('DISPOSED','Shared mutable reader closed.');source=byteRange(source);const length=rangeLength(source);requireValue(Number.isSafeInteger(offset)&&offset>=0&&offset<=byteLength-length,'Invalid shared write.');let done=0;while(done<length){const at=offset+done,index=Math.floor(at/chunkBytes),within=at%chunkBytes,n=Math.min(length-done,chunkBytes-within),bank=banks.get(index);requireValue(bank,'Mutable shared segment missing.');bank.set(byteView(source,done,n),within);done+=n;}},flush(){},async dispose(){banks.clear();await reader.dispose();}};
  }
  if(descriptor.kind==='opfs-readonly'){
-  const handles=[];try{for(const file of descriptor.files)handles.push(await file.createSyncAccessHandle({mode:'read-only'}));}catch(error){for(const handle of handles)handle.close();throw new EngineError('STORAGE_TRANSPORT','Concurrent OPFS readers are unavailable: '+error.message,{cause:error});}
-  let disposed=false;return {byteLength:descriptor.byteLength,storage:'temporary',transport:'opfs-readonly',exportReadOnly:async()=>({descriptor,release(){}}),
-   readInto(target,offset=0){if(disposed)throw new EngineError('DISPOSED','OPFS reader closed.');const original=target;target=byteRange(target);const length=rangeLength(target);requireValue(Number.isSafeInteger(offset)&&offset>=0&&offset<=descriptor.byteLength-length,'Invalid OPFS read range.');let done=0;while(done<length){const at=offset+done,index=Math.floor(at/descriptor.fileBytes),within=at%descriptor.fileBytes,n=Math.min(length-done,descriptor.fileBytes-within),count=handles[index].read(byteView(target,done,n),{at:within});if(count<=0||count>n)throw new EngineError('STORAGE_IO','Incomplete immutable OPFS read.');done+=count;}return original;},
-   async dispose(){if(disposed)return;disposed=true;for(const handle of handles)handle.close();handles.length=0;}};
+  const handles=[];let disposed=false,closed=false,disposing,finish,forget,ready=false,failed=false,primary;const construction=new Promise(resolve=>finish=resolve);
+  const dispose=()=>{if(closed)return;if(disposing)return disposing;const task=Promise.resolve().then(async()=>{await construction;let refused=false,first;for(let index=0;index<handles.length;index++){const handle=handles[index];if(!handle)continue;try{const answer=handle.close();if(answer===0||answer===false)throw answer;handles[index]=null;}catch(error){if(!refused){refused=true;first=error;}}}if(refused)throw first;handles.length=0;disposed=true;closed=true;forget?.();forget=null;});disposing=task;void task.catch(()=>{if(disposing===task)disposing=null;});return task;};
+  try{
+   forget=onRetirementOwner?.({dispose});for(const file of descriptor.files)handles.push(await file.createSyncAccessHandle({mode:'read-only'}));
+   const reader={byteLength:descriptor.byteLength,storage:'temporary',transport:'opfs-readonly',exportReadOnly:async()=>({descriptor,release(){}}),
+    readInto(target,offset=0){if(disposed)throw new EngineError('DISPOSED','OPFS reader closed.');const original=target;target=byteRange(target);const length=rangeLength(target);requireValue(Number.isSafeInteger(offset)&&offset>=0&&offset<=descriptor.byteLength-length,'Invalid OPFS read range.');let done=0;while(done<length){const at=offset+done,index=Math.floor(at/descriptor.fileBytes),within=at%descriptor.fileBytes,n=Math.min(length-done,descriptor.fileBytes-within),count=handles[index].read(byteView(target,done,n),{at:within});if(count<=0||count>n)throw new EngineError('STORAGE_IO','Incomplete immutable OPFS read.');done+=count;}return original;},dispose};
+   ready=true;return reader;
+  }catch(error){failed=true;primary=error===0||error===false?error:new EngineError('STORAGE_TRANSPORT','Concurrent OPFS readers are unavailable: '+error.message,{cause:error});throw primary;}
+  finally{finish();if(ready){forget?.();forget=null;}else try{await dispose();}catch(error){if(!failed)throw error;if(primary&&typeof primary==='object')primary.details={...primary.details,readOnlyHandlesAwaitingAck:true};}}
  }
  requireValue(descriptor.kind==='broker'&&descriptor.port&&Number.isSafeInteger(descriptor.blockBytes)&&descriptor.blockBytes>0&&descriptor.blockBytes<=BLOCK,'Invalid byte broker transport.');
  const port=descriptor.port,pending=new Map(),releaseStaging=budget?.reserve(Math.min(descriptor.blockBytes,descriptor.byteLength)*2);let serial=0,closed=false,cached=null,cachedOffset=-1,terminal;

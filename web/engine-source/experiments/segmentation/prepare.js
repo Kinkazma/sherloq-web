@@ -3,6 +3,8 @@
 // see Pillow-LICENSE and README.md. This is not D2PRL's tensor interpolation.
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
 import {validateRgbRows} from '../../src/rgb-row-source.js';
+import {createRgbRowRetirement} from '../../src/rgb-row-retirement.js';
+import {retireCompositeOwners} from '../../src/composite-owner-release.js';
 const SCALE = 2 ** 22, HALF = SCALE / 2;
 
 function coefficients(input, output) {
@@ -22,19 +24,20 @@ const clip = sum => Math.min(255, Math.max(0, Math.floor(sum / SCALE)));
 
 export function createSegmentationPrepare({budget}) {
   requireValue(budget && typeof budget.reserve === 'function', 'Shared budget required');
-  let busy = false, disposed = false;
+  let busy = false, disposed = false, closing=false, disposal;const rowsOwner=createRgbRowRetirement();
   return {
     async run({data, readRows, width, height, side}, {signal, onProgress, rowsPerRead} = {}) {
       if (busy) throw new EngineError('BUSY', 'Segmentation preparation busy');
       const streamed=typeof readRows==='function';
-      requireValue(!disposed && [width, height].every(v => Number.isInteger(v) && v > 0 && v <= (streamed?131072:8192)) && (streamed||width * height <= 32 * 1024 ** 2) && [256, 512].includes(side), 'Segmentation preparation geometry');
+      requireValue(!disposed && !closing && [width, height].every(v => Number.isInteger(v) && v > 0 && v <= (streamed?131072:8192)) && (streamed||width * height <= 32 * 1024 ** 2) && [256, 512].includes(side), 'Segmentation preparation geometry');
       requireValue(streamed?data===undefined:(readRows===undefined&&(data instanceof Uint8Array || data instanceof Uint8ClampedArray) && data.length === width * height * 3), 'Exclusive qualified RGB8 data or row provider required');
       requireValue(rowsPerRead===undefined||Number.isSafeInteger(rowsPerRead)&&rowsPerRead>0,'Preparation row group');
       const batchRows=Math.min(height,rowsPerRead??Math.max(1,Math.floor(262144/width)));
       checkAbort(signal); busy = true;
-      let scratchRelease, outputRelease, window,windowY=0,windowRows=0,sourceReads=0,readMs=0,complete = false, stamp = performance.now();const began=stamp;
+      let scratchRelease, outputRelease, window,windowY=0,windowRows=0,sourceReads=0,readMs=0,complete = false, result, failed=false, primary, stamp = performance.now();const began=stamp;
       const yieldIfNeeded = async () => { if (performance.now() - stamp >= 8) { await controlCheckpoint(signal); stamp = performance.now(); } };
       try {
+        await rowsOwner.retry();checkAbort(signal);
         const xStride = 2 * Math.ceil(Math.max(1, width / side)) + 1, yStride = 2 * Math.ceil(Math.max(1, height / side)) + 1;
         // At most yStride horizontally filtered rows, not a full source-height
         // intermediate. Integer sums are exact in Number (well below 2^53).
@@ -49,7 +52,7 @@ export function createSegmentationPrepare({budget}) {
             const sy = first + j; if (rows.has(sy)) continue;
             let source=data,sourceY=sy;
             if(streamed){
-              if(!window||sy<windowY||sy>=windowY+windowRows){window?.release();window=null;windowY=sy;windowRows=Math.min(batchRows,height-sy);const at=performance.now();window=await readRows(windowY,windowRows,{signal});validateRgbRows(window,width,windowRows);checkAbort(signal);readMs+=performance.now()-at;sourceReads++;}
+              if(!window||sy<windowY||sy>=windowY+windowRows){const previous=window;window=null;await rowsOwner.release(previous);windowY=sy;windowRows=Math.min(batchRows,height-sy);const at=performance.now();window=rowsOwner.hold(await readRows(windowY,windowRows,{signal}));validateRgbRows(window,width,windowRows);checkAbort(signal);readMs+=performance.now()-at;sourceReads++;}
               source=window.pixels.data;sourceY=sy-windowY;
             }
             const row = new Uint8Array(side * 3);
@@ -73,10 +76,14 @@ export function createSegmentationPrepare({budget}) {
           if ((y + 1) % 16 === 0 || y + 1 === side) onProgress?.({phase: 'segmentation-preparation', completed: y + 1, total: side});
           await yieldIfNeeded();
         }
-        checkAbort(signal); complete = true;
-        return {rgb, tensor, shape: [1, 3, side, side], release: outputRelease,metrics:{totalMs:performance.now()-began,readMs,sourceReads,rowsPerRead:streamed?batchRows:0}};
-      } finally { window?.release?.();scratchRelease?.(); if (!complete) outputRelease?.(); busy = false; }
+        checkAbort(signal);
+        result = {rgb, tensor, shape: [1, 3, side, side], release: outputRelease,metrics:{totalMs:performance.now()-began,readMs,sourceReads,rowsPerRead:streamed?batchRows:0}};
+      } catch(error){failed=true;primary=error;throw error;} finally {
+        try{await retireCompositeOwners([()=>rowsOwner.release(window)],failed?{primary}:{});complete=!failed;}
+        finally{scratchRelease?.();if(!complete)outputRelease?.();busy=false;}
+      }
+      return result;
     },
-    dispose() { requireValue(!busy, 'Segmentation preparation busy'); disposed = true; }
+    dispose() { requireValue(!busy, 'Segmentation preparation busy');if(disposal)return disposal;if(disposed)return;closing=true;disposal=rowsOwner.dispose().then(()=>{disposed=true;},error=>{disposal=undefined;throw error;});return disposal; }
   };
 }

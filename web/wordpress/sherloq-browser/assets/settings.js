@@ -56,9 +56,9 @@ export function validCompositeSettings(input){
 }
 
 export function validAutomaticSettings(input = {}) {
- const defaults={scope:'detected',source:'overlay',view:'corroboration',relation:'within',branch:'','d2-minimum':500,opacity:70};
+ const defaults={scope:'detected',source:'overlay',view:'corroboration',relation:'within',branch:'','d2-minimum':500,opacity:70,cloneWindowMode:'independent'};
  const value={...defaults,...input};
- const choices={scope:['detected','whole','selected'],source:['overlay','PatchMatch Zernike','PatchMatch SIFT','SIFT + G2NN + RANSAC + Panels + Text','Forgeryscope Auto','D2PRL'],view:['corroboration','ela-preview','energy-low','energy-high'],relation:['within','between','all'],branch:['','microscopy','blots','lanes']};
+ const choices={cloneWindowMode:['independent','global'],scope:['detected','whole','selected'],source:['overlay','PatchMatch Zernike','PatchMatch SIFT','SIFT + G2NN + RANSAC + Panels + Text','Forgeryscope Auto','D2PRL'],view:['corroboration','ela-preview','energy-low','energy-high'],relation:['within','between','all'],branch:['','microscopy','blots','lanes']};
  for(const [key,allowed] of Object.entries(choices))if(!allowed.includes(value[key]))throw Error('Invalid automatic '+key);
  for(const [key,max] of [['d2-minimum',5000],['opacity',100]])if(!Number.isInteger(value[key])||value[key]<0||value[key]>max)throw Error('Invalid automatic '+key);
  return Object.fromEntries(Object.keys(defaults).map(key=>[key,value[key]]));

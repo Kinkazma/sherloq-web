@@ -1,3 +1,4 @@
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 
 export function efficientLoFtrParams(input={}){
@@ -53,16 +54,19 @@ export async function prepareEfficientLoFtr(image,crop,{signal,reserveMemory}={}
  const rows=new Map(),cooperate=createCooperator(signal);
  const sourceRow=async y=>{
   if(rows.has(y))return rows.get(y);
-  const data=new Uint8Array(crop.width);let window;
+  const data=new Uint8Array(crop.width);let window,failed=false,primary;
   try{
-   const rgb=image.data?image.data.subarray(y*image.width*3,(y+1)*image.width*3):(window=await image.readRows(y,1,{signal})).pixels?.data;
-   requireValue(rgb instanceof Uint8Array&&rgb.length===image.width*3,'Invalid EfficientLoFTR source row.');
-   for(let x=0;x<crop.width;x++){const i=(crop.x+x)*3;data[x]=gray(rgb[i],rgb[i+1],rgb[i+2]);}
-  }finally{window?.release?.();}
+   const bounded=!image.data&&typeof image.readWindow==='function';
+   const rgb=image.data?image.data.subarray(y*image.width*3,(y+1)*image.width*3):(window=await(bounded?image.readWindow({x:crop.x,y,width:crop.width,height:1},{signal}):image.readRows(y,1,{signal}))).pixels?.data;
+   const rowWidth=bounded?crop.width:image.width,offset=bounded?0:crop.x;
+   requireValue(rgb instanceof Uint8Array&&rgb.length===rowWidth*3,'Invalid EfficientLoFTR source row.');
+   for(let x=0;x<crop.width;x++){const i=(offset+x)*3;data[x]=gray(rgb[i],rgb[i+1],rgb[i+2]);}
+  }catch(error){failed=true;primary=error;throw error;}
+  finally{await retireCompositeOwners([()=>window?.release?.()],failed?{primary}:{});}
   rows.set(y,data);return data;
  };
  try{
-  freeRows=reserveMemory(image.width*3*2+crop.width*2);output=new Float32Array(wp*hp);
+  freeRows=reserveMemory((!image.data&&typeof image.readWindow==='function'?crop.width:image.width)*3*2+crop.width*2);output=new Float32Array(wp*hp);
   for(let y=0;y<h;y++){
    checkAbort(signal);const sy=(y+.5)*crop.height/h-.5,iy=Math.floor(sy),fy=sy-iy,
     y0=crop.y+Math.max(0,Math.min(crop.height-1,iy)),y1=crop.y+Math.max(0,Math.min(crop.height-1,iy+1));

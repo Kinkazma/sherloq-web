@@ -1,0 +1,87 @@
+{
+  "schema": "sherloq.selfdm-seeds-support-build/1",
+  "compiler": "Emscripten 4.0.15",
+  "opencv": "4.11.0",
+  "inputs": {
+    "seeds-support-methods.inc": {
+      "bytes": 5963,
+      "sha256": "ffba0864ad138e47aa6517da00b7f80d265ad2809e2cb08acb165aa42d86ed40"
+    },
+    "proposal-colour-support.cpp": {
+      "bytes": 11403,
+      "sha256": "2a9a20150c599023cd45a528598beb803a95bad2c402c998d1f712a68f944a0e"
+    },
+    "seeds-support-wrapper.cpp": {
+      "bytes": 4535,
+      "sha256": "66e58a9878ab8f07b825edc63e956754aab753a090f94e6092a88ff1d396ac65"
+    },
+    "seeds-support.cpp": {
+      "bytes": 47576,
+      "sha256": "969c2d42b32ed18c64ba76fdf54253aadf2b3959b0cc954289bf84383f4f4cf5"
+    },
+    "licenses/OpenCV-4.11.0-LICENSE.txt": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "licenses/OpenCV-Contrib-4.11.0-LICENSE.txt": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "licenses/Emscripten-LICENSE.txt": {
+      "bytes": 5093,
+      "sha256": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86"
+    },
+    "licenses/Emscripten-SDK-LICENSE.txt": {
+      "bytes": 1326,
+      "sha256": "99d9a9616fbde3f5ee22a71d8645799a8522d48526130c5ba6dc27ad15ce01f1"
+    },
+    "licenses/zlib-LICENSE.txt": {
+      "bytes": 1002,
+      "sha256": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243"
+    },
+    "upstream/resize.cpp": {
+      "bytes": 171784,
+      "sha256": "a98a932f750a80856a190529adec9439da21b5ef2b2d73fd47635430a979553d"
+    },
+    "upstream/seeds.cpp": {
+      "bytes": 45580,
+      "sha256": "ef04fc840b02c1d8e48cf32f8c2ffe87dd724122a5f99e7b8ea3e13588d74d1b"
+    },
+    "upstream/seeds-wrapper.cpp": {
+      "bytes": 4326,
+      "sha256": "ace723103ba9a1a55068d690c3025e350b34962f9164e7d5e3b8d8ee9d3aa576"
+    }
+  },
+  "libraryInputs": {
+    "libopencv_imgproc.a": {
+      "bytes": 5090812,
+      "sha256": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+    },
+    "libopencv_core.a": {
+      "bytes": 3723884,
+      "sha256": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    "libzlib.a": {
+      "bytes": 104156,
+      "sha256": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+    }
+  },
+  "flags": [
+    "-D__OPENCV_BUILD",
+    "-O3",
+    "-fexceptions",
+    "-ffp-contract=off",
+    "-sDISABLE_EXCEPTION_CATCHING=0",
+    "-sMODULARIZE=1",
+    "-sEXPORT_ES6=1",
+    "-sENVIRONMENT=web,worker,node",
+    "-sFILESYSTEM=0",
+    "-sALLOW_MEMORY_GROWTH=1",
+    "-sIMPORTED_MEMORY=1",
+    "-sINITIAL_MEMORY=16777216",
+    "-sMAXIMUM_MEMORY=2147483648",
+    "-sEXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_proposal_seeds\", \"_proposal_seeds_error\", \"_proposal_prepare_roi\", \"_proposal_colour_error\", \"_proposal_colour_plan\", \"_proposal_colour_count\", \"_proposal_colour_mode\", \"_proposal_colour_trace\", \"_proposal_colour_render\", \"_proposal_colour_render_taps_control\", \"_proposal_colour_release\", \"_proposal_seeds_support_error\", \"_proposal_seeds_support_create\", \"_proposal_seeds_support_create_fork_control\", \"_proposal_seeds_support_run\", \"_proposal_seeds_support_levels\", \"_proposal_seeds_support_labels\", \"_proposal_seeds_support_histogram_stride\", \"_proposal_seeds_support_trace\", \"_proposal_seeds_support_release\"]",
+    "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAP32\",\"HEAPF32\"]"
+  ],
+  "note": "Relative diagnostic source names replace machine-specific file strings; mathematical sources and compiler arithmetic flags are preserved."
+}

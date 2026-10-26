@@ -1,4 +1,19 @@
 // Resume only an interrupted dependency. The same consumer keeps its completed bytes.
+const LOCAL_ERROR_LIMIT=4096,LOCAL_ERROR_HEADER='local-required/1';
+async function terminalLocalError(response,request){
+ if(response.status!==424||response.headers.get('X-Sherloq-Dependency-Error')!==LOCAL_ERROR_HEADER||response.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json')return null;
+ let target;try{target=new URL(response.url);}catch{return null;}
+ if(target.origin!==new URL(request.url).origin||target.href!==request.url)return null;
+ const declared=response.headers.get('content-length');if(!/^\d+$/.test(declared??'')||Number(declared)>LOCAL_ERROR_LIMIT)return null;
+ const reader=response.body?.getReader();if(!reader)return null;let size=0;const bytes=new Uint8Array(LOCAL_ERROR_LIMIT);
+ try{
+  for(;;){const part=await reader.read();if(part.done)break;if(size+part.value.length>bytes.length)return null;bytes.set(part.value,size);size+=part.value.length;}
+  if(size!==Number(declared))return null;const value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes.subarray(0,size))),error=value?.error,details=error?.details;
+  if(value?.schema!=='sherloq.dependency-error/1'||value.requestedURL!==request.url||!/^[a-f0-9]{64}$/.test(value.manifest??'')||error?.code!=='MODEL_LOCAL_REQUIRED'||typeof error.message!=='string'||error.message.length>512||!details||typeof details.file!=='string'||details.file.length>500||details.file.split('/').some(p=>!p||p==='.'||p==='..')||!new URL(request.url).pathname.endsWith('/'+details.file)||Object.keys(details).length!==4||!Number.isSafeInteger(details.bytes)||details.bytes<1||details.bytes>100_000_000||!/^[a-f0-9]{64}$/.test(details.sha256??'')||!/^[a-f0-9]{64}$/.test(details.chunkSha256??''))return null;
+  return Object.assign(new Error(error.message),{name:'DependencyError',code:'MODEL_LOCAL_REQUIRED',details:{file:details.file,bytes:details.bytes,sha256:details.sha256,chunkSha256:details.chunkSha256,manifest:value.manifest,requestedURL:request.url}});
+ }catch{return null;}finally{await reader.cancel().catch(()=>{});reader.releaseLock();}
+}
+
 export function resourceFetch(fetcher,{emit=()=>{},wait,delay=ms=>new Promise(r=>setTimeout(r,ms)),attempts=3}={}){
  return async function fetchResource(input,init){
   // Presence probes must fall through to another source instead of waiting
@@ -21,12 +36,12 @@ export function resourceFetch(fetcher,{emit=()=>{},wait,delay=ms=>new Promise(r=
     if(resume&&offset&&!encoded)headers.set('Range','bytes='+(start+offset)+'-'+(end??''));
     emit({level:'info',kind:'dependency.fetch',requestedURL:key,offset:start+offset,attempt});
     try{const r=await fetcher(new Request(request,{headers,signal,cache:attempt>1||resume?'reload':request.cache}));const details={finalURL:r.url,status:r.status,contentType:r.headers.get('content-type'),contentRange:r.headers.get('content-range'),offset:start+offset};
-     if(!r.ok){let transport;try{if(r.headers.get('content-type')?.includes('application/json')){const reader=r.body?.getReader(),part=await reader?.read();await reader?.cancel();if(part?.value?.length<65536)transport=JSON.parse(new TextDecoder().decode(part.value)).error; }else await r.body?.cancel();}catch{}throw fail('Dependency HTTP '+r.status,{...details,transport});}
+     if(!r.ok){const terminal=await terminalLocalError(r,request);if(terminal)throw terminal;let transport;try{if(r.headers.get('content-type')?.includes('application/json')){const reader=r.body?.getReader(),part=await reader?.read();await reader?.cancel();if(part?.value?.length<65536)transport=JSON.parse(new TextDecoder().decode(part.value)).error; }else await r.body?.cancel();}catch{}throw fail('Dependency HTTP '+r.status,{...details,transport});}
      const range=rangeOf(r);
      if(resume&&offset&&!encoded&&(r.status!==206||!range||Number(range[1])!==start+offset||whole!==null&&Number(range[3])!==whole||end!==null&&Number(range[2])!==end||r.headers.get('content-encoding'))){await r.body?.cancel();throw fail('Dependency range resume mismatch.',details);}
      if(!resume){encoded=!!r.headers.get('content-encoding');if(r.status===206){if(!range){await r.body?.cancel();throw fail('Invalid dependency Content-Range.',details);}start=Number(range[1]);end=Number(range[2]);whole=Number(range[3]);if(!encoded)total=end-start+1;}else{const length=r.headers.get('content-length');if(length&&/^\d+$/.test(length)&&!encoded){total=Number(length);whole=total;}}}
      emit({level:'info',kind:'dependency.response',...details});return r;
-    }catch(error){check();last=error?.code?error:fail('Dependency network request failed.',{offset:start+offset,attempt},error);emit({level:'warning',kind:'dependency.failed',error:last});if(attempt<attempts)await cancellable(delay(250*2**(attempt-1)));}
+    }catch(error){check();if(error?.code==='MODEL_LOCAL_REQUIRED')throw error;last=error?.code?error:fail('Dependency network request failed.',{offset:start+offset,attempt},error);emit({level:'warning',kind:'dependency.failed',error:last});if(attempt<attempts)await cancellable(delay(250*2**(attempt-1)));}
    }await pause(last);}}
   let first;try{first=await obtain(false);}catch(e){cleanup();throw e;}if(!first.body){cleanup();return first;}current=first.body.getReader();
   let skip=0;

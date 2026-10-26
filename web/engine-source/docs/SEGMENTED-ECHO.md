@@ -172,3 +172,39 @@ Aborted intervals do not return their peak and browser process/Blob overhead is
 excluded. The copied-runtime proof verifies the delivered worker dependency path.
 `tests/echo-workers.test.mjs` adds admission, transfer ownership, resource-only
 retry and cancellation fault injection. Inter-task derivative reuse remains open.
+
+## Optional retained derivatives
+
+The current segmented path can retain the completed absolute Laplacian planes
+and their six channel extrema in a private RAM LRU. Its key includes the native
+source/domain identity, dimensions and radius. Contrast and grayscale changes
+reuse this basis; `echoRender` still performs the same native normalization,
+contrast LUT and final grayscale conversion. No coefficients, precision,
+resolution, border rule or arithmetic order changes.
+
+The useful worker count is selected before cache admission. The optional basis
+is funded only when its complete bytes and the workspace for that worker count
+fit together. A cache that no longer fits is evicted before the ordinary native
+path runs. Tight budgets retain the existing temporary-store path. Caching does
+not lower the worker limit to create room for itself. Each worker receives a
+new admitted copy, so it cannot detach or mutate cached chunks. Published RGB
+results always own separate storage.
+
+The LRU accounts for the Float32 planes, fixed extrema and chunk metadata. Source
+unload or domain retirement clears the corresponding prefix. A cancelled or
+failed fresh calculation never publishes an incomplete basis. Failure to
+allocate the optional chunks retries the ordinary native path with the same
+worker count; resource failures in the original worker path retain their
+existing handling. `metrics.scheduling.cacheRetry` records that optional retry.
+Real source/cache I/O errors remain errors.
+
+`analysisCacheHit`, `sourceReads`, `derivativesMs` and `derivativeCacheBytes`
+report reuse; source reads include failed attempts. A cache hit has no derivative
+pass. The cache remains optional, so neither its presence nor a latency target is
+promised for every image or budget. Native output, old live handles and standard
+image export remain unchanged.
+
+Portable regression tests are in `echo-review-native.test.mjs`,
+`echo-review-orientation.test.mjs` and `echo-review-cache.test.mjs`. Their desktop
+references cover all15radii, color/grayscale, contrast extremes, small/constant
+images, oriented boundaries and unchanged full-frame global normalization.

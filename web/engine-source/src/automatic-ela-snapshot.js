@@ -12,6 +12,10 @@ function planesSource(planes,n){
 /** Borrowed native ndarray shape/dtype wrappers for a complete ELA result.
  * Hold both raw-provider and selected-frame leases until the export settles. */
 export function automaticElaSnapshot(raw,selected) {
+ if(raw?.metadata?.schema==='sherloq.automatic-complete-ela-contexts/1'){
+  requireValue(Array.isArray(raw.nativeContexts)&&Array.isArray(selected?.nativeContexts),'Matching native-context ELA records required.');
+  return{metadata:structuredClone(raw.metadata),native_contexts:raw.nativeContexts.map(fragment=>{const context=structuredClone(Object.fromEntries(Object.entries(fragment.context).filter(([key])=>key!=='image'))),chosen=selected.nativeContexts.find(s=>s.context.index===context.index);return{context,...(fragment.raw?{result:automaticElaSnapshot(fragment.raw.value,chosen?.value)}:{result:null})};})};
+ }
  const {cells,energy}=raw??{},{width,height,rows,cols}=cells??{},n=width*height;
  requireValue(cells&&selected&&selected.width===width&&selected.height===height&&selected.rows===rows&&selected.cols===cols&&cells.ela?.byteLength===n*3&&Array.isArray(cells.key),'Matching global ELA profiles, native preview and selected result required.');
  for(const [key,value]of Object.entries(cells))if(ArrayBuffer.isView(value))requireValue(fields.includes(key)||key==='labels','Unrecognized scientific cell array: '+key);

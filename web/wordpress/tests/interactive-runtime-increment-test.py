@@ -26,7 +26,9 @@ class InteractiveIncrementTest(unittest.TestCase):
         for record in self.receipt['files']:
             names.update(record[key] for key in ['source', 'asset', 'mirror'])
         workspace = json.loads((REPO / 'web/wordpress/runtime-patches/workspace-20261020.json').read_text())
-        predecessors = {r['file']:r['copy'] for r in workspace['baseline']['snapshots']}
+        review=json.loads((REPO/'web/wordpress/runtime-patches/review-20261021.json').read_text())
+        predecessors={r['file']:r['copy'] for r in review['baseline']['snapshots']}
+        predecessors.update({r['file']:r['copy'] for r in workspace['baseline']['snapshots']})
         for name in names:
             p = self.repo / name
             p.parent.mkdir(parents=True, exist_ok=True)

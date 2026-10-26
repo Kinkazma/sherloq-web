@@ -1,6 +1,7 @@
 // Technical errors/cause chains stay intact in exported reports. Only their
 // presentation is localized, never their type or recovery semantics.
 const messages=[
+ [/^Image too small for\s*25 complete native cells$/i,'La zone à analyser est trop petite pour Énergie : au moins 25 cellules complètes sont nécessaires. Aucun score n’a été calculé.','The analysis region is too small for Energy: at least 25 complete cells are required. No score was computed.'],
  [/reflected sparse pass belongs to Panels \+ Text/i,'Les réflexions nécessitent l’algorithme SIFT + G2NN + RANSAC + Panels + Text.','Reflections require SIFT + G2NN + RANSAC + Panels + Text.'],
  [/Compare requires two regions|Comparaison.*deux zones/i,'Pour comparer, tracez exactement deux zones.','Draw exactly two regions to compare.'],
  [/Invalid sparse distances or geometry/i,'Vérifiez les distances et la géométrie : la séparation minimum doit être inférieure au rayon maximum, les tolérances positives et le seuil compris entre 0 et 1.','Check distances and geometry: minimum spacing must not exceed the radius, tolerances must be positive and the threshold must be between 0 and 1.'],
@@ -36,7 +37,17 @@ const codes={
  WORKER_FAILED:['Le processus de calcul a rencontré une erreur.','The calculation process encountered an error.'],
  BUSY:['Un calcul est déjà en cours.','A calculation is already running.']
 };
+const scopeLimitations={
+ SOURCE_UPSTREAM_MEMBERSHIP_UNQUALIFIED:['Cet outil accepte une acquisition rectangulaire, mais ne sait pas encore retirer les exclusions internes avant son calcul. Le calcul n’a pas été lancé et les zones sont conservées.','This tool accepts a rectangular inclusion, but cannot yet remove internal exclusions before computation. Analysis was not started and the regions are preserved.'],
+ SOURCE_NEIGHBORHOOD_MEMBERSHIP_UNQUALIFIED:['La netteté et le contraste local ne savent pas encore omettre les exclusions de leurs voisinages. Le calcul n’a pas été lancé.','Sharpening and local contrast cannot yet omit exclusions from their neighborhoods. Analysis was not started.'],
+ ORIGINAL_ENCODED_SOURCE_REQUIRED:['Cet outil examine le fichier encodé d’origine, pas ses pixels recadrés. Une sélection ne peut pas remplacer ces données.','This tool examines the original encoded file, not cropped pixels. A selection cannot replace that evidence.'],
+ SOURCE_DCT_CROP_UNQUALIFIED:['Cet outil nécessite des données JPEG/DCT alignées avec l’image. Leur recadrage exact avec les zones n’est pas encore pris en charge.','This tool requires JPEG/DCT data aligned with the image. Their exact crop with the regions is not yet supported.'],
+ SOURCE_PAIRED_CROP_UNQUALIFIED:['Cet outil doit aligner la sélection sur toutes ses images de référence. Ce raccord n’est pas encore pris en charge ; le calcul n’a pas été lancé.','This tool must align the selection across all reference images. This adaptation is not yet supported; analysis was not started.'],
+ SOURCE_COORDINATES_UNLOCALIZED:['Les coordonnées de cette préparation ne peuvent pas encore être transposées dans la sélection. Le calcul n’a pas été lancé et les zones sont conservées.','These preparation coordinates cannot yet be localized to the selection. Analysis was not started and the regions are preserved.']
+};
 export function errorText(error,language='fr'){
+ const limitation=error?.details?.sourceRegionCapability?.limitation,explanation=error?.code==='SOURCE_SCOPE_UNSUPPORTED'&&scopeLimitations[limitation];
+ if(explanation)return explanation[language==='fr'?0:1];
  const index=language==='fr'?1:2,message=error?.message??String(error),match=messages.find(([pattern])=>pattern.test(message));
  if(match)return match[index];
  if(codes[error?.code])return codes[error.code][index-1];

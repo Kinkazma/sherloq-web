@@ -1,0 +1,33 @@
+{
+  "package": "@contentauth/c2pa-wasm",
+  "version": "0.13.2",
+  "sdk": "c2pa-rs 0.91.0",
+  "sourceCommit": "edb68d82944f15b92695506e9ff9b8280a709847",
+  "jsSourceUrl": "https://api.github.com/repos/contentauth/c2pa-js/tarball/edb68d82944f15b92695506e9ff9b8280a709847",
+  "jsArchiveSha256": "f28d96a7ec80fe63d6fb8e5d7add983bb2935ba244d5288e318a75a8bc275f60",
+  "sdkSourceUrl": "https://crates.io/api/v1/crates/c2pa/0.91.0/download",
+  "sdkArchiveSha256": "09db97539c7fbc753ede6fddfb430dbece729d0970da68e9cc959c6eb211e700",
+  "jpegSourceSha256": "b7ed8724e4b9bbff68ec2abf027adefe2848ef9f24e4cb918f936bdf21e9b38a",
+  "hashSourceSha256": "0647b1fe1bc64c584b66380f9377278a4616e8b19b643464a73581ee379cd212",
+  "patchSha256": "b4f21ce283bc9354c9dc5d86d645369da2be1aed5c2ce92daeb91723ffdb4d32",
+  "cargoLockSha256": "7144e4bd6c5208deeafe533ec668cb34678663f635758ac21a11fd44f9c2927e",
+  "sdkSourceCommit": "e7cc666c3409bdaf4cea8e49046dfbf8290dff89",
+  "headerParserReference": "img-parts0.4.0 MIT/Apache-2.0; same marker rules and first original entropy byte",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)",
+  "wasmBindgen": "0.2.129",
+  "patches": [
+    "JPEG metadata extraction retains headers through first SOS/EOI, preserving img-parts0.4.0 marker rules; unchanged SDK validates hashes on original full stream.",
+    "Sequential WASM hashing uses1MiB chunks instead of256MiB; digest algorithms and range/exclusion bytes unchanged.",
+    "128MiB memory-section maximum and4MiB JSON UTF8 limit; no cryptographic or trust changes."
+  ],
+  "unboundedBuildWasmSha256": "8415946cf9d722337a28be7018bdb20a756d5111e6bc842c42c3855ed7452ef6",
+  "files": {
+    "c2pa.js": "3461e6826f1b5b4b2250bea58844cca08efd88c9ddae2ae6e9b9192e5dd1c23f",
+    "c2pa_bg.wasm": "6639eba850d8bfe496c704c27d5ae6a75c1216780effc0f26d026f4f163b886c",
+    "LICENSE": "5aeea31bc245dd31213e7ff878a40362d6d4d8bc8093e34a0f30ed7639fe93c6",
+    "SDK-LICENSE-MIT": "89375a50de90d2dcaa04406086da832ad452ebcaf6ab402ef3d51b8401a67c71",
+    "SDK-LICENSE-APACHE": "86bdd5dafab77451044b6fd6d2efab23e3410ce658eb097f04c04f4f54aed62f",
+    "IMG-PARTS-LICENSE-MIT": "00ad23a86370b30f8df98d53a8c6680a21a9198eaf5a45d511ef4197b14745a4",
+    "IMG-PARTS-LICENSE-APACHE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  }
+}

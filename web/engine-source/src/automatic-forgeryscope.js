@@ -10,6 +10,7 @@ const bytesOf=value=>ArrayBuffer.isView(value)?value.byteLength:typeof value==='
 export async function analyzeAutomaticForgeryscope(image,plan,{analyzer,budget,signal,onProgress}={}){
  const job=plan.jobs.find(j=>j.id==='forgeryscope');requireValue(job&&typeof analyzer?.analyze==='function','Real Forgeryscope analyzer required');
  checkAbort(signal);if(!job.enabled)return {status:'disabled',reason:job.state,release(){}};
+ if(!plan.scientificScope&&typeof analyzer.analyzeSelection==='function')return analyzer.analyzeSelection(image,plan,{signal,onProgress,cloneWindowMode:plan.cloneWindowMode});
  const {width,height}=plan,source=image.surface?.descriptor??image.pixels??image;
  requireValue(source.width===width&&source.height===height,'Source and automatic plan dimensions differ');
  if(plan.scientificScope)return scopedAutomaticForgeryscope(image,plan,{analyzer,budget,signal,onProgress});

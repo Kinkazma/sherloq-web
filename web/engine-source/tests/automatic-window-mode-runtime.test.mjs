@@ -1,0 +1,24 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {fixture} from './helpers/automatic-complete-fixture.mjs';
+import {StrictDenseCopyEngine} from '../src/dense-strict-copy.js';
+import {SparseCopyEngine} from '../src/sparse-copy.js';
+import {EngineError} from '../src/errors.js';
+test('automatic modes have distinct native analysis/cache identities without replay on identical mode',async t=>{
+ const f=await fixture(),calls={dense:0,sift:0,forge:0,d2:0},receipts={};
+ t.mock.method(StrictDenseCopyEngine.prototype,'analyze',async function(params){calls.dense++;assert.equal(params.iterations,8);assert.equal(params.patch,8);assert.equal(params.flip,true);throw new EngineError('CONTROLLED_DENSE_REACHED','No descriptor or model calculation in this routing proof');});
+ t.mock.method(SparseCopyEngine.prototype,'analyze',async function(params,hooks){calls.sift++;assert.equal(params.algorithm,'SIFT + G2NN + RANSAC + Panels + Text');assert.equal(params.limit,6000);assert.equal(hooks.scientificScope,undefined);assert.equal(hooks.strictPanelsPreparation.preprocessing.text_engine,'PP-OCRv6_small_det');assert.ok(hooks.sourceContextFingerprint);throw new EngineError('CONTROLLED_SIFT_REACHED','No native feature extraction in this routing proof');});
+ t.mock.module('../src/forgeryscope-analyzer.js',{namedExports:{createForgeryscopeAnalyzer:()=>({async analyze(image,params){calls.forge++;assert.equal(params.profile,'auto');assert.ok(image.surface.descriptor.id.startsWith('forgeryscope-native-'));const lease=await image.surface.readWindow({x:0,y:0,width:4,height:4});await lease.release();throw new EngineError('CONTROLLED_FORGE_REACHED','Actual strict bounded reader; learned outputs intentionally absent');},clearCache(){},dispose(){}})}});
+ const {createAutomaticRuntime}=await import('../src/automatic-runtime.js');
+ const d2={configured:()=>true,async runOwned(task){calls.d2++;receipts.d2=structuredClone(task);assert.ok(task.sourceRegionLocalization.strictNativeFragments);assert.equal(task.params.minimum,500);assert.equal(task.params.scientificScope.text.status,'complete');throw new EngineError('CONTROLLED_D2_REACHED','Actual prepared native jobs; no model execution');},readRawOwned(){throw Error('No fabricated neural grid');}},runtime=createAutomaticRuntime({budget:f.budget,profile:{id:'maximum',maxWorkers:10},version:'routing-only',getD2prl:()=>d2,getLanguage:()=>null}),factory='data:text/javascript,export default function(){}';
+ try{
+  await runtime.load({forgeryscope:{assets:{},runtimes:{},preparationFactoryUrl:factory,siftFactoryUrl:factory}});
+  const result=await runtime.run(f.task,f.image);assert.deepEqual(calls,{dense:1,sift:1,forge:1,d2:1});assert.equal(result.status,'partial');
+  for(const[group,code]of Object.entries({patchmatch:'CONTROLLED_DENSE_REACHED',sift:'CONTROLLED_SIFT_REACHED',forgeryscope:'CONTROLLED_FORGE_REACHED',d2prl:'CONTROLLED_D2_REACHED'}))assert.equal(result.data.state.errors[group].code,code);
+  assert.equal(result.data.state.states.ela,'done');assert.equal(result.data.state.nativeContextAvailability.ela.status,'not-evaluable');assert.equal(result.data.state.nativeContextAvailability.ela.selectedPixels,f.domain.countIncluded);assert.equal(result.provenance.automaticStrictContext.groups.patchmatch,'native-independent-windows-before-descriptors-texture-highpass-NCC');assert.ok(receipts.d2.regions.length);
+  const again=await runtime.run({...f.task,id:'warm'},f.image);assert.equal(again.analysisId,result.analysisId);assert.equal(again.metrics.cache.analysis,true);assert.deepEqual(calls,{dense:1,sift:1,forge:1,d2:1});
+  assert.equal(receipts.d2.cloneWindowMode,'independent');assert.equal(result.provenance.requestedCloneWindowMode,'independent');assert.equal(result.cloneWindowMode,undefined);
+  const global=await runtime.run({...f.task,id:'global',cloneWindowMode:'global'},f.image);assert.notEqual(global.analysisId,result.analysisId);assert.equal(global.provenance.requestedCloneWindowMode,'global');assert.equal(receipts.d2.cloneWindowMode,'global');assert.deepEqual(calls,{dense:2,sift:2,forge:2,d2:2});assert.equal(global.data.state.errors.forgeryscope.code,'CONTROLLED_FORGE_REACHED');
+  const warmGlobal=await runtime.run({...f.task,id:'global-warm',cloneWindowMode:'global'},f.image);assert.equal(warmGlobal.analysisId,global.analysisId);assert.deepEqual(calls,{dense:2,sift:2,forge:2,d2:2});assert.equal(global.data.state.errors.forgeryscope.code,'CONTROLLED_FORGE_REACHED');
+  const independent=await runtime.run({...f.task,id:'independent-again'},f.image);assert.notEqual(independent.analysisId,global.analysisId);assert.equal(receipts.d2.cloneWindowMode,'independent');assert.deepEqual(calls,{dense:3,sift:3,forge:3,d2:3});
+ }finally{await runtime.dispose();assert.equal(f.budget.total(),0);}
+});

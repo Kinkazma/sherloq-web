@@ -1,3 +1,4 @@
+import {nativeParameterConstraint} from './native-context-constraints.js';
 // Native automatic values are explicit: zero is not generally an automatic mode.
 export function automaticParameterMode(operation,key){
  if(operation==='colors.plots'&&key==='scale'||operation==='detail.wavelets'&&key==='level')return{value:null,boundary:0};
@@ -22,7 +23,8 @@ export function configureAutomaticSlider(input,operation,key,context={}){
 const dimension=value=>Number.isSafeInteger(value)&&value>0;
 const byteCount=value=>Number.isSafeInteger(value)&&value>=0;
 
-export function sourceParameterConstraint(operation,key,{width,height,byteLength,offset=0}={}){
+export function sourceParameterConstraint(operation,key,context={}){
+ const {width,height,byteLength,offset=0}=context,native=nativeParameterConstraint(operation,key,context);if(native)return{...native,...(native.nullable?{automatic:automaticParameterMode(operation,key)}:{})};
  if(operation==='colors.plots'&&key==='scale'){
   if(!dimension(width)||!dimension(height))return null;
   return{min:0,max:Math.min(30,Math.floor(Math.log2(Math.min(width,height)))),step:1,nullable:true,automatic:automaticParameterMode(operation,key)};
@@ -45,6 +47,7 @@ export function constrainSourceParameterValue(operation,key,value,context){
  if(!constraint)return{value,changed:false,valid:true,constraint:null};
  if(value===null&&constraint.nullable)return{value,changed:false,valid:true,constraint};
  if(!Number.isSafeInteger(value))return{value,changed:false,valid:false,constraint};
+ if(constraint.preserveRequest&&(value<constraint.min||value>constraint.max))return{value,changed:false,valid:false,constraint};
  const next=Math.max(constraint.min,Math.min(constraint.max,value));
  return{value:next,changed:!Object.is(next,value),valid:true,constraint};
 }

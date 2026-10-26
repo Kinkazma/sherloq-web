@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
+#include <climits>
 #include <random>
 #include <vector>
 #include "../experiments/d2prl/sum.cpp"
@@ -32,7 +33,7 @@ extern "C" int safire_maps(const float* masks,const uint32_t* areas,int channels
 // NumPy RandomState's legacy MT19937 permutation, including its bounded integer
 // rejection. Its seed and sample order are part of SAFIRE's native contract.
 extern "C" int safire_initial(int count,int groups,int* output){
- if(count<1||count>1024||groups<1||groups>std::min(count,16))return 0;
+ if(count<1||count>INT_MAX/256||groups<1||groups>std::min(count,16))return 0;
  std::mt19937 rng(1701);std::vector<int> ids(count);for(int i=0;i<count;i++)ids[i]=i;
  for(int i=count-1;i>0;i--){uint32_t mask=i;mask|=mask>>1;mask|=mask>>2;mask|=mask>>4;mask|=mask>>8;mask|=mask>>16;uint32_t j;do{j=rng()&mask;}while(j>uint32_t(i));std::swap(ids[i],ids[j]);}
  std::copy(ids.begin(),ids.begin()+groups,output);return 1;
@@ -44,7 +45,7 @@ static float selected_mean(const float* features,const std::vector<int>& selecte
  for(;i<n;i++)acc[0]+=features[selected[i]*256+c];for(int level=1;level<4;level++)acc[0]+=acc[level];return acc[0]/float(n);
 }
 extern "C" int safire_kmeans(const float* features,int count,int groups,int* labels){
- if(!features||!labels||count<1||count>1024||groups<1||groups>16)return 0;groups=std::min(groups,count);
+ if(!features||!labels||count<1||count>INT_MAX/256||groups<1||groups>16)return 0;groups=std::min(groups,count);
  int ids[16];safire_initial(count,groups,ids);std::vector<float> centres(groups*256),unit(count*256),normalized(groups*256),old(groups*256);float products[256],squares[256],shifts[16];
  for(int g=0;g<groups;g++)std::copy(features+ids[g]*256,features+(ids[g]+1)*256,centres.data()+g*256);
  for(int i=0;i<count;i++){float norm=std::max(vector_norm(features+i*256),1e-12f);for(int c=0;c<256;c++)unit[i*256+c]=features[i*256+c]/norm;}
@@ -56,8 +57,25 @@ extern "C" int safire_kmeans(const float* features,int count,int groups,int* lab
  }return 1001;
 }
 extern "C" int safire_dbscan(const float* features,int count,double eps,int minimum,int* labels){
- if(!features||!labels||count<1||count>1024||!(eps>0)||minimum<1)return 0;
+ if(!features||!labels||count<1||count>INT_MAX/256||!(eps>0)||minimum<1)return 0;
  const double bound=eps*eps;auto neighbor=[&](int a,int b){double sum=0;for(int c=0;c<256;c++){double d=double(features[a*256+c])-double(features[b*256+c]);sum+=d*d;}return sum<=bound;};
  std::vector<uint8_t> core(count);for(int i=0;i<count;i++){int n=0;for(int j=0;j<count;j++)n+=neighbor(i,j);core[i]=n>=minimum;labels[i]=-1;}
  int cluster=0;std::vector<int> stack;for(int seed=0;seed<count;seed++){if(labels[seed]!=-1||!core[seed])continue;int i=seed;for(;;){if(labels[i]==-1){labels[i]=cluster;if(core[i])for(int j=0;j<count;j++)if(labels[j]==-1&&neighbor(i,j))stack.push_back(j);}if(stack.empty())break;i=stack.back();stack.pop_back();}cluster++;}return cluster;
+}
+
+// Explicit local prototypes -> global labels. Coordinates remain native 1024;
+// reduced grids are provisional samples only, never the final scientific map.
+extern "C" int safire_fragment_maps(const float* masks,const uint32_t* global_ids,int channels,int binary,int front,int back,int width,int height,float* probabilities,float* map,uint32_t* labels,uint8_t* known){
+ if(!masks||!global_ids||!probabilities||!map||!labels||!known||channels<1||channels>INT_MAX/(1024*1024)||(binary!=0&&binary!=1)||width<1||height<1||width>1024||height>1024||front< -1||front>=channels||back< -1||back>=channels)return 0;
+ const int n=width*height;std::vector<float> logits(channels),exps(channels);
+ for(int y=0;y<height;y++)for(int x=0;x<width;x++){
+  const int i=y*width+x,sx=int(int64_t(x)*1024/width),sy=int(int64_t(y)*1024/height);float maximum=-INFINITY;
+  for(int c=0;c<channels;c++){logits[c]=mask_pixel(masks+c*65536,sx,sy);maximum=std::max(maximum,logits[c]);}
+  float sum=0;for(int c=0;c<channels;c++){exps[c]=reference_exp(logits[c]-maximum);sum+=exps[c];}
+  float best=-1;uint32_t label=global_ids[0];for(int c=0;c<channels;c++){const float p=exps[c]/sum;probabilities[c*n+i]=p;if(p>best){best=p;label=global_ids[c];}}
+  labels[i]=label;known[i]=!binary||front>=0||back>=0;
+  if(!binary)map[i]=best;
+  else if(front>=0){const float a=1.f/(1.f+exp_signed(-logits[front]));map[i]=back<0?a:(a+(1.f-1.f/(1.f+exp_signed(-logits[back]))))/2.f;}
+  else map[i]=back<0?0.f:1.f-1.f/(1.f+exp_signed(-logits[back]));
+ }return 1;
 }

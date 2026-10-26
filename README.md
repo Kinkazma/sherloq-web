@@ -2,30 +2,63 @@
 
 ## [▶ Try SHERLOQ online](https://gaeldauchy.com/sherloq/)
 
-**SHERLOQ is the work of [Guido Bartoli and the original contributors](https://github.com/GuidoBartoli/sherloq).** I refer to the original project for its introduction, history, research references and upstream development.
+SHERLOQ Web adapts SHERLOQ’s image-analysis workflows for a browser workspace embedded in WordPress. It also runs entirely offline once the local application and its resources are prepared.
 
-## Why this is a separate repository
-
-This is a derivative adaptation of SHERLOQ, not a claim to have created the original project. My account already owns [the macOS fork](https://github.com/Kinkazma/sherloq). GitHub did not offer a destination for another fork under the same account, either from Guido's repository or from my existing fork: both belong to the same fork network. I therefore keep the web adaptation in this separate repository so the two versions can have their own code, documentation and examples. The absence of GitHub's “forked from” badge is a hosting constraint, not a change in authorship or attribution.
-
-**Original project: [GuidoBartoli/sherloq](https://github.com/GuidoBartoli/sherloq). macOS adaptation: [Kinkazma/sherloq](https://github.com/Kinkazma/sherloq). Browser adaptation: this repository.** Original notices and licenses remain with their components.
-
-I started with [my macOS adaptation](https://github.com/Kinkazma/sherloq), then worked on bringing its image-analysis workflows into a browser workspace embedded in WordPress. This repository contains the interface, browser engine, native kernel sources, converted model resources and the scripts needed to reconstruct the locked dependency library.
-
-Much of the implementation was produced with AI assistants. My role has been to direct the work, question and correct implementation choices, explore possible solutions, shape the interface, and review part of the calculations and results. That process does not make every method independently validated. I describe the evidence and its limits alongside the code. SHERLOQ and the integrated research methods retain their original authors and component licenses.
+SHERLOQ was created by [Guido Bartoli and the original contributors](https://github.com/GuidoBartoli/sherloq). Their repository documents the original project, its history, research references and upstream development. This web adaptation follows [my macOS fork](https://github.com/Kinkazma/sherloq).
 
 [Source layout and reconstruction](docs/BUILD.md) · [Changelog](CHANGELOG.md) · [Validation and limits](docs/VALIDATION.md) · [Example inputs](examples/README.md) · [Credits and licenses](docs/ATTRIBUTION.md)
 
+## Using the app
+
+### Images and PDF documents
+
+Open PDFs in the dedicated reader, browse pages and extract embedded images at their native resolution. The loupe and shared image adjustments are available for page inspection. [PDF reader](docs/PDF-READER.md).
+
+In **Original image**, select acquisitions and exclude regions before starting an analysis. Each tool keeps its own copy of the selection; supported methods operate on the admitted pixels at native resolution. [Source regions](docs/ORIGINAL-SOURCE-REGIONS.md).
+
+**Misc → OCR** recognizes English and French text with PP-OCRv6 Medium or Tesseract. Select text over the image or copy the full transcript. [OCR tools](docs/OCR-NOISESNIFFER.md).
+
+### Batch processing
+
+Import images or documents, review the proposed acquisitions and text/graph exclusions, then run the selected methods as a batch. Review results together or compare studies. PDF reports, source-linked ZIP archives and complete journals can preserve partial runs; saved archives can be resumed. [Batch workflow](docs/TRAITEMENT-PAR-LOT.md).
+
+Switch between paired **Biomes** and scientific **Corroboration** counts, or adjust their opacity, without rerunning detectors. ZIP exports support PNG, WebP, TIFF, AVIF and HEIC. Saved archives retain display settings and scientific outputs.
+
+### Entirely local web app
+
+Use **Take offline / Emporter hors ligne** to prepare a local application with the resources you choose. Once prepared, it runs in a compatible browser, entirely offline and independently of WordPress or my website. Installation does not require programming knowledge.
+
+Local Settings can check for updates, remove optional tools and recover saved preferences. **Auto update** is off by default. When enabled, it checks at startup and asks before preparing or activating a change. A saved resource archive can restore the working library. [Local updates and resource management](docs/LOCAL-UPDATES.md) · [Local installation and restoration](web/wordpress/DISTRIBUTION.md#sherloq-web-local).
+
+The local version works like a standalone desktop application, with straightforward updates. I can see more open-source software taking this route.
+
+## What I added
+
+Alongside SHERLOQ’s inherited tools, I integrated the following methods and added or restored the views listed below:
+
+- **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG.
+- **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM.
+- **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression.
+- **Text recognition and document inspection:** PP-OCRv6, Tesseract and DTD / DocTamper.
+- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA.
+- **Experimental AI detectors:** B-Free and SPAI.
+- **Compression fingerprints:** Comprint.
+- **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, and ELA energy/territory views.
+
+B-Free, SPAI and DTD are experimental and hidden by default. Enable them through **Settings → Enable experimental tools**.
+
+The research methods retain their original authors’ credits. SelfDM requires model files imported into the local resource library. See the [resource notices](docs/METHODS-RESOURCE-LICENSES.txt) for the supplied models and their terms.
+
 ## Featured example — D2PRL across automatic microscopy zones
 
-I used the web engine to analyze **16 automatically detected panels and their enclosing global zone**, with **minimum component sizes of 100 and 10 pixels on each 448 × 448 model grid**. Each panel has its own inference; the global pass sees the panels together and can highlight similarities across them.
+I ran D2PRL on **16 automatically detected microscopy panels and their enclosing global zone**, using **minimum component sizes of 100 and 10 pixels on each 448 × 448 model grid**. Each panel has a separate inference; the global pass sees them together and can reveal similarities across panels.
 
 <details>
 <summary>Microscopy — automatic zones, local detections, global detections and their combined result</summary>
 
 **Combined result — the two filter settings**
 
-This view retains every pixel selected by either a local search or the global search. Overlap still counts as one D2PRL contribution, not agreement between independent algorithms.
+The combined view includes every pixel selected by a local or global search. Overlapping detections count as one D2PRL contribution, not independent agreement.
 
 **Minimum 100 pixels**
 
@@ -35,19 +68,17 @@ This view retains every pixel selected by either a local search or the global se
 
 [![Combined local and global detections — minimum 10](examples/results/microscopy-d2prl-automatic-zones/combined-detections-10.webp)](examples/results/microscopy-d2prl-automatic-zones/combined-detections-10.png)
 
-
-
 **1. Automatic search zones**
 
-The blue rectangles identify the 16 independent panel searches. The orange rectangle is the global search area enclosing them, including the gaps between panels. These outlines describe where the model searches; they are not detections of image manipulation.
+Blue rectangles mark the 16 separate panel searches. The orange rectangle marks the enclosing global search area, including the gaps between panels. These are search boundaries, not manipulation detections.
 
 [![Sixteen automatic panels and their enclosing global zone](examples/results/microscopy-d2prl-automatic-zones/automatic-zones.webp)](examples/results/microscopy-d2prl-automatic-zones/automatic-zones.png)
 
 **2. Detections within each panel**
 
-Lowering the minimum keeps smaller connected components. Both settings reuse exactly the same model outputs; no neural inference is rerun.
+Lowering the minimum retains smaller connected components from the same model outputs, without rerunning inference.
 
-Each panel is analyzed separately. Its filtered mask is placed back at the panel's original coordinates. This view shows the union of those 16 local results.
+Each panel’s filtered mask is returned to its original coordinates. This view combines all 16 local results.
 
 **Minimum 100 pixels**
 
@@ -59,7 +90,7 @@ Each panel is analyzed separately. Its filtered mask is placed back at the panel
 
 **3. Global analysis across panels**
 
-The enclosing-zone pass sees all the panels together. It can therefore reveal responses spanning different panels that an isolated panel search cannot see. This is a segmentation map, not a list of verified source–target pairs.
+The global pass can reveal responses spanning panels that isolated searches cannot see. Its output is a segmentation map; it does not establish source–target pairs.
 
 **Minimum 100 pixels**
 
@@ -71,55 +102,17 @@ The enclosing-zone pass sees all the panels together. It can therefore reveal re
 
 **Detail — local panel 1**
 
-The same crop, enlarged 2× for display, shows the input, the local mask at 100 and the local mask at 10. I selected the panel with the most additional image pixels retained at 10 so the effect of the filter is easier to inspect.
+The same crop, enlarged 2×, shows the input and local masks at 100 and 10. I chose the panel with the most additional image pixels retained at 10 to make the filter’s effect visible.
 
 [![Local panel 1: input, minimum 100 and minimum 10](examples/results/microscopy-d2prl-automatic-zones/threshold-detail.webp)](examples/results/microscopy-d2prl-automatic-zones/threshold-detail.png)
 
-Yellow is applied only to the **filtered masks**, at a uniform opacity; it does not encode probability. All eight previews are WebP files under 500 kB. Click a preview for its full-resolution PNG. [Settings, per-panel masks and run records](examples/results/microscopy-d2prl-automatic-zones/README.md).
+Yellow shows only the **filtered masks**, at uniform opacity, without encoding probability. The eight WebP previews are under 500 kB each; click one for its full-resolution PNG. [Settings, per-panel masks and run records](examples/results/microscopy-d2prl-automatic-zones/README.md).
 
 </details>
 
-
-## What I added
-
-I brought the following method families into the web workflows, alongside the inherited SHERLOQ tools:
-
-- **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG.
-- **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM.
-- **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression.
-- **Text recognition and document inspection:** PP-OCRv6, Tesseract and DTD / DocTamper.
-- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA.
-- **Experimental AI detectors:** B-Free and SPAI.
-- **Compression fingerprints:** Comprint.
-- **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, and ELA energy/territory views.
-
-B-Free, SPAI and DTD are experimental and hidden by default. Show them through **Settings → Enable experimental tools**.
-
-These are integrations of existing research methods, whose authors retain credit. SelfDM requires model files imported into the local resource library; the supplied models and their terms are described in the [resource notices](docs/METHODS-RESOURCE-LICENSES.txt).
-
-### Images and PDF documents
-
-Open PDFs in a dedicated reader, browse their pages and extract embedded images at their native resolution. Inspect pages with the loupe and shared image adjustments. [PDF reader](docs/PDF-READER.md).
-
-In **Original image**, select acquisitions and exclude regions before opening an analysis. Each tool keeps its own copy of the selection; supported methods work on the admitted native pixels. [Source regions](docs/ORIGINAL-SOURCE-REGIONS.md).
-
-**Misc → OCR** recognizes text with PP-OCRv6 Medium or Tesseract in English and French. Select text directly over the image or copy the complete transcript. [OCR tools](docs/OCR-NOISESNIFFER.md).
-
-### Batch processing
-
-Import documents or images, review the automatically proposed acquisitions and text/graph exclusions, and run the selected methods as a batch. Results can be reviewed together and compared between studies. PDF reports, source-linked ZIP archives and complete journals can also preserve a partial run; saved archives can be resumed. [Batch workflow](docs/TRAITEMENT-PAR-LOT.md).
-
-Choose paired **Biomes** or scientific **Corroboration** counts and adjust their opacity without rerunning the detectors. ZIP exports support PNG, WebP, TIFF, AVIF and HEIC; saved archives retain their display settings and scientific outputs.
-
-### Entirely local web app
-
-The **Take offline / Emporter hors ligne** command prepares a local web app with a selected resource library. Local Settings can check for updates, remove optional tools and recover saved preferences. **Auto update** is off by default; enabling it checks at startup and asks before preparing or activating a change. [Local updates and resource management](docs/LOCAL-UPDATES.md). The saved resource archive can restore its working library. [Local installation and restoration](web/wordpress/DISTRIBUTION.md#sherloq-web-local).
-
-Once the local version and its resources are prepared, SHERLOQ runs entirely offline, independently of WordPress and my website. It works like a standalone desktop application in a compatible browser. Installation is straightforward, even without programming knowledge. SHERLOQ can be used online or locally, and updates are easy to apply. I can easily imagine the future of open-source software taking this direction.
-
 ## Example material
 
-The spiral, Street Photo and microscopy inputs also document my macOS work. I supplied the three-cell image for additional clone examples. Edit-reference images are visual comparisons and are never detector inputs. The previews below show input material, not browser analysis results.
+The spiral, Street Photo and microscopy inputs also document my macOS work. I supplied the three-cell image for further clone examples. The galleries below contain source material; edit-reference images show the known changes for visual comparison and are never fed to detectors.
 
 <details>
 <summary>Spiral — original, edited input and my edit reference</summary>
@@ -161,7 +154,11 @@ The spiral, Street Photo and microscopy inputs also document my macOS work. I su
 
 ## Examples from the web engine
 
-These are computed outputs from the shipped web engine, generated in batches on the inputs above. They are illustrations of the methods, not interface screenshots or a guarantee of detection. Expand a section to see the images directly. WebP previews are limited to 500 kB each; click an image to open its original. The [full-resolution outputs and settings](examples/results/README.md) remain available; [generation procedure](docs/EXAMPLE-GENERATION.md).
+These results were generated in batches by the shipped web engine from the inputs shown above. They are computed outputs rather than interface screenshots. The examples retain missed edits and responses outside known edits; they do not establish detection accuracy beyond the cases shown.
+
+Expand a section to view the images. WebP previews are limited to 500 kB each; click an image for its original. [Full-resolution outputs and settings](examples/results/README.md) · [Generation procedure](docs/EXAMPLE-GENERATION.md).
+
+### Matching and clone localization
 
 <details>
 <summary>Copy-Move Forgery 2 — dense PatchMatch and SIFT + G2NN + RANSAC</summary>
@@ -170,7 +167,7 @@ These are computed outputs from the shipped web engine, generated in batches on 
 | --- | --- |
 | [![Spiral — PatchMatch Zernike](screenshots/readme-webp/examples/results/spiral-patchmatch/result.webp)](examples/results/spiral-patchmatch/result.png) | [![Spiral — SIFT + G2NN + RANSAC](screenshots/readme-webp/examples/results/spiral-sift-g2nn/result.webp)](examples/results/spiral-sift-g2nn/result.png) |
 
-Colors distinguish groups of matched regions. These are geometric correspondences, not a reconstruction of every edit. Compare their locations with my spiral edit reference above.
+Colors separate groups of geometrically matched regions. Compare their locations with my spiral edit reference; the correspondences do not reconstruct every edit.
 
 </details>
 
@@ -179,7 +176,7 @@ Colors distinguish groups of matched regions. These are geometric correspondence
 
 [![Input, CMSeg-Net overlay and MGCFDN overlay](screenshots/readme-webp/examples/results/three-cells-localization/comparison.webp)](examples/results/three-cells-localization/comparison.png)
 
-Both models respond clearly to the three cells and to the partial structure at the right edge. These are the application's native overlays; the colors follow each model's map. They also include responses around some boundaries. [Separate maps, masks and settings](examples/results/NEW-METHODS.md#cmseg-net-and-mgcfdn).
+Both models respond to the three cells, the partial structure at the right edge and some boundaries. The overlays use the application’s native display and each model’s colors. [Separate maps, masks and settings](examples/results/NEW-METHODS.md#cmseg-net-and-mgcfdn).
 
 </details>
 
@@ -188,7 +185,7 @@ Both models respond clearly to the three cells and to the partial structure at t
 
 [![SelfDM input, initial map, complete pipeline overlay and final mask](screenshots/readme-webp/examples/results/three-cells-selfdm/comparison.webp)](examples/results/three-cells-selfdm/comparison.png)
 
-The complete experimental pipeline refines the initial map and returns a mask in the original image coordinates. This example retains its responses in the background between and beside the cells; it is not an exact outline of every pasted pixel. SelfDM requires separately imported local model files. [Outputs and settings](examples/results/NEW-METHODS.md#selfdm).
+The experimental pipeline refines the initial map and returns a mask in the original image coordinates. Here it also responds between and beside the cells, so the mask does not exactly trace the pasted pixels. SelfDM requires separately imported local model files. [Outputs and settings](examples/results/NEW-METHODS.md#selfdm).
 
 </details>
 
@@ -197,7 +194,7 @@ The complete experimental pipeline refines the initial map and returns a mask in
 
 [![Input, guided XFeat comparison and full-image ALIKED Biomes](screenshots/readme-webp/examples/results/three-cells-learned-biomes/comparison.webp)](examples/results/three-cells-learned-biomes/comparison.png)
 
-**XFeat + LighterGlue compares two explicitly selected regions here; ALIKED + LightGlue searches the full image.** The XFeat view illustrates a guided comparison, not automatic discovery of those regions. In each result, the same color marks the two sides of an accepted Biome. Their envelopes describe matched points, not pixel-level segmentation. Only Biomes are displayed. [Search regions, outputs and settings](examples/results/NEW-METHODS.md#xfeat-and-aliked).
+**XFeat + LighterGlue compares two explicitly selected regions; ALIKED + LightGlue searches the full image.** XFeat is a guided comparison here, without automatic region discovery. Only Biomes are displayed: each color pairs the two envelopes of an accepted match group. These envelopes describe matched points, not pixel-level segmentation. [Search regions, outputs and settings](examples/results/NEW-METHODS.md#xfeat-and-aliked).
 
 </details>
 
@@ -206,7 +203,7 @@ The complete experimental pipeline refines the initial map and returns a mask in
 
 [![EfficientLoFTR input and Biomes between two selected regions](screenshots/readme-webp/examples/results/three-cells-efficient-loftr/comparison.webp)](examples/results/three-cells-efficient-loftr/comparison.png)
 
-EfficientLoFTR compares the selected upper-left and lower regions. The paired envelopes show where its geometrically accepted matches lie. This is a two-region comparison, not a whole-image search. Only Biomes are displayed. [Regions, outputs and settings](examples/results/NEW-METHODS.md#efficientloftr).
+EfficientLoFTR searches only the selected upper-left and lower regions. The paired envelopes contain its geometrically accepted matches. Only Biomes are displayed. [Regions, outputs and settings](examples/results/NEW-METHODS.md#efficientloftr).
 
 </details>
 
@@ -215,104 +212,7 @@ EfficientLoFTR compares the selected upper-left and lower regions. The paired en
 
 [![SSG input and native localized mask](screenshots/readme-webp/examples/results/three-cells-ssg/comparison.webp)](examples/results/three-cells-ssg/comparison.png)
 
-This run keeps the input's original resolution. SSG associates the upper-left and lower cells through its structured-edge and spatial-phrase pipeline. Its native SSIM localization extends beyond the visible cell boundaries. The area view shows that mask alone, with no circles or connecting lines. [Outputs and settings](examples/results/NEW-METHODS.md#ssg).
-
-</details>
-
-<details>
-<summary>PP-OCRv6 — proposed text regions for scientific preparation</summary>
-
-[![PP-OCRv6 text proposals on the microscopy figure](screenshots/readme-webp/examples/results/microscopy-ppocrv6/result.webp)](examples/results/microscopy-ppocrv6/result.png)
-
-The red outlines are the detector's text proposals over the unchanged input. They can help prepare text exclusions before analysis. This is text detection, not recognition or evidence of manipulation. One proposal also follows a vertical gap between panels, so the proposals still need review. [Polygons, model identity and settings](examples/results/NEW-METHODS.md#pp-ocrv6).
-
-</details>
-
-<details>
-<summary>ELA extension — low and high energy layers</summary>
-
-| Spiral — low-energy score | Spiral — high-energy score |
-| --- | --- |
-| [![Spiral — low-energy score](screenshots/readme-webp/examples/results/spiral-ela-layers/view-1.webp)](examples/results/spiral-ela-layers/view-1.png) | [![Spiral — high-energy score](screenshots/readme-webp/examples/results/spiral-ela-layers/view-2.webp)](examples/results/spiral-ela-layers/view-2.png) |
-
-These are separate score layers, displayed with the application’s fixed red-channel scale. They also respond to scene structure and should be read alongside the territory overlay and edit reference.
-
-</details>
-
-<details>
-<summary>ELA extension — energy territories</summary>
-
-[![Spiral — ELA energy overlay](screenshots/readme-webp/examples/results/spiral-ela-energy/result.webp)](examples/results/spiral-ela-energy/result.png)
-
-The energy view highlights two areas on the right of this spiral. It does not reveal every marked edit. ELA itself belongs to the original SHERLOQ tools; this example illustrates the added energy/territory view.
-
-</details>
-
-<details>
-<summary>Noisesniffer — spiral and Street Photo</summary>
-
-| Spiral — noise responses | Street Photo — noise responses |
-| --- | --- |
-| [![Spiral — noise responses](screenshots/readme-webp/examples/results/spiral-noisesniffer/result.webp)](examples/results/spiral-noisesniffer/result.png) | [![Street Photo — noise responses](screenshots/readme-webp/examples/results/street-noisesniffer/preview.webp)](examples/results/street-noisesniffer/preview.png) |
-
-Red regions are the tool’s responses. They extend beyond some known edits and also follow parts of the scene. The edit-reference images provide a separate visual comparison.
-
-</details>
-
-<details>
-<summary>ZERO JPEG Grids — Street Photo</summary>
-
-[![Street Photo — ZERO grid analysis](screenshots/readme-webp/examples/results/street-zero/preview.webp)](examples/results/street-zero/preview.png)
-
-Blue marks missing-grid regions and red marks foreign-grid regions in this view. Broad responses across the scene are not a pixel-accurate edit mask. The analyzed file is the edited PNG, retaining whatever compression traces survived its editing/export history.
-
-</details>
-
-<details>
-<summary>Adaptive CFA — response and local grid views</summary>
-
-| Spiral — response overlay | Spiral — local grid view |
-| --- | --- |
-| [![Spiral — response overlay](screenshots/readme-webp/examples/results/spiral-adaptive-cfa/result.webp)](examples/results/spiral-adaptive-cfa/result.png) | [![Spiral — local grid view](screenshots/readme-webp/examples/results/spiral-adaptive-cfa/view-2.webp)](examples/results/spiral-adaptive-cfa/view-2.png) |
-
-This is the Original variant with block 32 and tile 512. The map is coarse and responds widely across the spiral; it is not a precise outline of my edits.
-
-</details>
-
-<details>
-<summary>FOCAL and AdaIFL — different localization responses</summary>
-
-| Spiral — FOCAL | Spiral — AdaIFL |
-| --- | --- |
-| [![Spiral — FOCAL](screenshots/readme-webp/examples/results/spiral-focal/result.webp)](examples/results/spiral-focal/result.png) | [![Spiral — AdaIFL](screenshots/readme-webp/examples/results/spiral-adaifl/result.webp)](examples/results/spiral-adaifl/result.png) |
-
-FOCAL produces a broad region on the right. AdaIFL gives a much smaller response on the left. The difference is retained here instead of presenting either result as complete detection.
-
-</details>
-
-<details>
-<summary>SAFIRE — source clustering</summary>
-
-[![Spiral — SAFIRE, three source clusters](screenshots/readme-webp/examples/results/spiral-safire/result.webp)](examples/results/spiral-safire/result.png)
-
-This run uses three k-means groups. The colors represent clusters, not automatic “authentic” and “forged” classes. A single cluster can span both edited and unedited material.
-
-</details>
-
-<details>
-<summary>CAT-Net — overlay and heatmap</summary>
-
-| Street Photo — CAT-Net overlay | Street Photo — CAT-Net heatmap |
-| --- | --- |
-| [![Street Photo — CAT-Net overlay](screenshots/readme-webp/examples/results/street-catnet/preview.webp)](examples/results/street-catnet/preview.png) | [![Street Photo — CAT-Net heatmap](screenshots/readme-webp/examples/results/street-catnet/preview-view-1.webp)](examples/results/street-catnet/preview-view-1.png) |
-
-Several compact responses align with marked edits in the sky and on the building; other cloud and edge responses are also visible. Compare with my Street Photo edit reference above.
-
-| Spiral — CAT-Net overlay | Spiral — CAT-Net heatmap |
-| --- | --- |
-| [![Spiral — CAT-Net overlay](screenshots/readme-webp/examples/results/spiral-catnet/result.webp)](examples/results/spiral-catnet/result.png) | [![Spiral — CAT-Net heatmap](screenshots/readme-webp/examples/results/spiral-catnet/view-1.webp)](examples/results/spiral-catnet/view-1.png) |
-
-The response on the spiral is weak. A successful execution does not mean the tool found its known edits.
+SSG runs at the input’s original resolution, associating the upper-left and lower cells through structured-edge and spatial-phrase matching. Its native SSIM localization extends beyond the cell boundaries. The area view shows only that mask, without circles or connecting lines. [Outputs and settings](examples/results/NEW-METHODS.md#ssg).
 
 </details>
 
@@ -323,145 +223,7 @@ The response on the spiral is weak. A successful execution does not mean the too
 | --- | --- |
 | [![Spiral — probability overlay](screenshots/readme-webp/examples/results/spiral-d2prl/overlay.webp)](examples/results/spiral-d2prl/overlay.png) | [![Spiral — probability display](screenshots/readme-webp/examples/results/spiral-d2prl/result.webp)](examples/results/spiral-d2prl/result.png) |
 
-Yellow opacity follows the saved probability display, without a new detection threshold. Several repeated patches respond around the spiral; other known edits do not. The native model retains its 448-pixel analysis grid, 40 iterations and seed 22. This run uses the original 1254 × 1254 input and projects its output back to those coordinates.
-
-</details>
-
-<details>
-<summary>Complete automatic analysis — corroboration view</summary>
-
-[![Spiral — automatic corroboration](screenshots/readme-webp/examples/results/spiral-complete-automatic/result.webp)](examples/results/spiral-complete-automatic/result.png)
-
-Colors count distinct detector/search-context contributions: blue 1, cyan 2, green 3, yellow 4, orange 5 and red 6 or more. D2PRL contributes at most one vote per pixel; ELA never votes in this map. The accompanying record lists the completed branches and detected search regions.
-
-</details>
-
-<details>
-<summary>Restored tools — Illuminant Map and Dead/Hot Pixels</summary>
-
-| Street Photo — Illuminant Map | Street Photo — Dead/Hot Pixels |
-| --- | --- |
-| [![Street Photo — Illuminant Map](screenshots/readme-webp/examples/results/street-illuminant/preview.webp)](examples/results/street-illuminant/preview.png) | [![Street Photo — Dead/Hot Pixels](screenshots/readme-webp/examples/results/street-dead-hot-pixels/preview.webp)](examples/results/street-dead-hot-pixels/preview.png) |
-
-Both use the original street photograph. The illuminant view is a local color estimate. The pixel tool reports 36 candidate pixels. The magnified windows below show six reported positions, with the original pixels beside their detector overlays. These are candidates, not a diagnosis of the camera sensor.
-
-[![Street Photo — six pixel candidates at close range](screenshots/readme-webp/examples/results/street-dead-hot-pixels/preview-details.webp)](examples/results/street-dead-hot-pixels/preview-details.png)
-
-</details>
-
-<details>
-<summary>Low-response examples — results that do not explain the known edits</summary>
-
-| Street Photo — sparse matching | Street Photo — ELA energy |
-| --- | --- |
-| [![Street Photo — sparse matching](screenshots/readme-webp/examples/results/street-sift-g2nn/preview.webp)](examples/results/street-sift-g2nn/preview.png) | [![Street Photo — ELA energy](screenshots/readme-webp/examples/results/street-ela-energy/preview.webp)](examples/results/street-ela-energy/preview.png) |
-
-These views do not clearly expose the marked edits at normal viewing size. They remain visible because a quiet output must not be read as proof that an image is original.
-
-[![Spiral — ZERO, no main grid found](screenshots/readme-webp/examples/results/spiral-zero/result.webp)](examples/results/spiral-zero/result.png)
-
-ZERO did not identify a main JPEG grid on this spiral and returned no foreign/missing-grid regions.
-
-</details>
-
-<details>
-<summary>Multiple Compression — recompression curve and aligned JPEG analysis</summary>
-
-| Street Photo — recompression curve | Street Photo — aligned double-JPEG scores |
-| --- | --- |
-| [![Street Photo — recompression curve](screenshots/readme-webp/examples/results/street-recompression/preview.webp)](examples/results/street-recompression/preview.png) | [![Street Photo — aligned double-JPEG scores](screenshots/readme-webp/examples/results/street-multiple-compression/preview.webp)](examples/results/street-multiple-compression/preview.png) |
-
-Both calculations use the original JPEG. The curve measures pixel differences after recompression at qualities 0–100. The separate aligned detector returns **inconclusive** here, with no frequency reaching its decision threshold. These plots show the unchanged engine values; they neither count past saves nor establish authenticity.
-
-</details>
-
-<details>
-<summary>Comprint — compression fingerprints on the moss photo</summary>
-
-[![Comprint — original and edited compression-distance maps](examples/results/moss-comprint/comparison.webp)](examples/results/moss-comprint/comparison.png)
-
-Top: the edited photo and its edit reference. Below: Comprint on the original and edited images. The edited image produces local responses near parts of the supplied edit reference, and additional responses elsewhere. These are compression-distance displays, not probabilities of manipulation. [Full-resolution maps and settings](examples/results/moss-comprint/README.md).
-
-</details>
-
-<details>
-<summary>⚠ DTD / DocTamper — experimental text-edit detection</summary>
-
-Five synthetic documents, each shown before and after a text edit. **DTD can flag unchanged text or miss edits; its result does not constitute proof.**
-
-[![DTD — five documents before and after editing](examples/results/dtd-documents/planche-dtd.webp)](examples/results/dtd-documents/planche-dtd.png)
-
-| Measure | Result |
-| --- | ---: |
-| Edited pixels detected | 36.50% |
-| Unedited pixels wrongly flagged | 0.0308% |
-| Correct among pixels flagged | 75.26% |
-| Correct pixel decisions overall | 99.81% |
-
-Green: detected edits · red: false alerts · yellow: missed edits. Always answering “unedited” would give 99.74% overall.
-
-[Inputs, maps and detailed results](examples/results/dtd-documents/README.md).
-
-</details>
-
-<details>
-<summary>B-Free — experimental AI detector</summary>
-
-**⚠ Experimental — low reliability: about 62% correct classifications on the study’s images.** An AI label, even when correct, does not mean the underlying data are false. A real acquisition processed with AI denoising or sharpening can still contain reliable information. Partial AI edits may also be missed.
-
-| Independent CONVEX study | B-Free |
-| --- | ---: |
-| Of AI images, those detected | 52.72% |
-| Of non-AI images, those wrongly flagged | 27.81% |
-| Of AI alerts, those that are correct | 65.65% |
-| Correct answers overall | 62.42% |
-
-[Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
-
-</details>
-
-<details>
-<summary>SPAI — experimental AI detector</summary>
-
-**⚠ Experimental — low reliability: about 58% correct classifications on the study’s images.** An AI label, even when correct, does not mean the underlying data are false. A real acquisition processed with AI denoising or sharpening can still contain reliable information. Partial AI edits may also be missed.
-
-| Independent CONVEX study | SPAI |
-| --- | ---: |
-| Of AI images, those detected | 41.48% |
-| Of non-AI images, those wrongly flagged | 24.66% |
-| Of AI alerts, those that are correct | 62.90% |
-| Correct answers overall | 58.34% |
-
-[Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
-
-</details>
-
-<details>
-<summary>TruFor — anomaly, confidence and Noiseprint++ views</summary>
-
-| Spiral — anomaly map | Spiral — confidence |
-| --- | --- |
-| [![Spiral — anomaly map](screenshots/readme-webp/examples/results/spiral-trufor/result.webp)](examples/results/spiral-trufor/result.png) | [![Spiral — confidence](screenshots/readme-webp/examples/results/spiral-trufor/view-1.webp)](examples/results/spiral-trufor/view-1.png) |
-
-
-[![Spiral — Noiseprint++](screenshots/readme-webp/examples/results/spiral-trufor/view-2.webp)](examples/results/spiral-trufor/view-2.png)
-
-The anomaly map responds strongly to two regions on the right; the confidence and Noiseprint++ outputs are separate views. TruFor was already integrated upstream. These are new outputs from the browser adaptation, not a claim to have introduced the method.
-
-</details>
-
-<details>
-<summary>RITA — clone-stamp and generative-edit localization</summary>
-
-RITA opens with an overlay at threshold **0.5**, with Scores and Mask views also available. The adaptation preserves the image dimensions, using reflection padding when needed and removing it from the result.
-
-| Three-cell input | RITA — overlay, threshold 0.5 |
-| --- | --- |
-| [![Three-cell input](examples/three-cells/input.png)](examples/three-cells/input.png) | [![RITA overlay at threshold 0.5](examples/results/three-cells-rita/overlay.png)](examples/results/three-cells-rita/overlay.png) |
-
-The red response highlights an upper-left cell and the lower-right rectangular area. [Method and reconstruction](docs/RITA-NATIVE.md).
-
-I also compared RITA and TruFor on **96 edited versions from 26 sources**, covering clone-stamp, generative and mixed edits. [Read the comparison, with before/after images, known edited regions and both models’ results](examples/studies/rita-trufor/mini-study-rita-trufor.md). These measurements concern edit localization, rather than the proportion of images correctly classified. [Study images: all rights reserved](examples/studies/rita-trufor/IMAGE-LICENCE.txt).
+Yellow opacity follows the saved probability display, with no new detection threshold. Several repeated patches respond around the spiral; other known edits do not. The native model uses its 448-pixel analysis grid, 40 iterations and seed 22. Results are projected back onto the original 1254 × 1254 input.
 
 </details>
 
@@ -478,13 +240,269 @@ I also compared RITA and TruFor on **96 edited versions from 26 sources**, cover
 | --- | --- |
 | [![Candidates without geometric support](screenshots/readme-webp/examples/results/microscopy-forgeryscope-auto/preview-view-1.webp)](examples/results/microscopy-forgeryscope-auto/preview-view-1.png) | [![Geometric matches](screenshots/readme-webp/examples/results/microscopy-forgeryscope-auto/preview-view-2.webp)](examples/results/microscopy-forgeryscope-auto/preview-view-2.png) |
 
-The run detects 16 panels, tests 23 candidate pairs and accepts 5 microscopy correspondences under its geometric rules. The final mask and geometric map coincide here; the separate candidates-without-geometry field is empty. This is the same engine component used by the automatic workflow, run directly on the supplied figure. The example does not establish a new conclusion about the source publication. [Input provenance](examples/microscopy/provenance.json).
+The run detects 16 panels, tests 23 candidate pairs and accepts 5 microscopy correspondences under its geometric rules. The final mask and geometric map coincide; the candidates-without-geometry field is empty. This is the automatic workflow’s engine component, run directly on the supplied figure. The result establishes no new conclusion about the source publication. [Input provenance](examples/microscopy/provenance.json).
 
 </details>
 
+### Noise, compression and pixel inspection
+
+<details>
+<summary>ELA extension — low and high energy layers</summary>
+
+| Spiral — low-energy score | Spiral — high-energy score |
+| --- | --- |
+| [![Spiral — low-energy score](screenshots/readme-webp/examples/results/spiral-ela-layers/view-1.webp)](examples/results/spiral-ela-layers/view-1.png) | [![Spiral — high-energy score](screenshots/readme-webp/examples/results/spiral-ela-layers/view-2.webp)](examples/results/spiral-ela-layers/view-2.png) |
+
+The two score layers use the application’s fixed red-channel scale. They also respond to scene structure; compare them with the territory overlay and edit reference.
+
+</details>
+
+<details>
+<summary>ELA extension — energy territories</summary>
+
+[![Spiral — ELA energy overlay](screenshots/readme-webp/examples/results/spiral-ela-energy/result.webp)](examples/results/spiral-ela-energy/result.png)
+
+The added energy/territory view highlights two areas on the right of the spiral and misses other marked edits. ELA itself is inherited from the original SHERLOQ tools.
+
+</details>
+
+<details>
+<summary>Noisesniffer — spiral and Street Photo</summary>
+
+| Spiral — noise responses | Street Photo — noise responses |
+| --- | --- |
+| [![Spiral — noise responses](screenshots/readme-webp/examples/results/spiral-noisesniffer/result.webp)](examples/results/spiral-noisesniffer/result.png) | [![Street Photo — noise responses](screenshots/readme-webp/examples/results/street-noisesniffer/preview.webp)](examples/results/street-noisesniffer/preview.png) |
+
+Red marks Noisesniffer’s responses, including regions beyond known edits and parts of the scene. Use the edit-reference images for comparison.
+
+</details>
+
+<details>
+<summary>ZERO JPEG Grids — Street Photo</summary>
+
+[![Street Photo — ZERO grid analysis](screenshots/readme-webp/examples/results/street-zero/preview.webp)](examples/results/street-zero/preview.png)
+
+Blue marks missing-grid regions; red marks foreign-grid regions. The broad responses do not trace edits pixel by pixel. This run uses the edited PNG, with the compression traces that survived editing and export.
+
+</details>
+
+<details>
+<summary>Adaptive CFA — response and local grid views</summary>
+
+| Spiral — response overlay | Spiral — local grid view |
+| --- | --- |
+| [![Spiral — response overlay](screenshots/readme-webp/examples/results/spiral-adaptive-cfa/result.webp)](examples/results/spiral-adaptive-cfa/result.png) | [![Spiral — local grid view](screenshots/readme-webp/examples/results/spiral-adaptive-cfa/view-2.webp)](examples/results/spiral-adaptive-cfa/view-2.png) |
+
+The Original variant uses block 32 and tile 512. Its coarse map responds across much of the spiral without precisely outlining my edits.
+
+</details>
+
+<details>
+<summary>Restored tools — Illuminant Map and Dead/Hot Pixels</summary>
+
+| Street Photo — Illuminant Map | Street Photo — Dead/Hot Pixels |
+| --- | --- |
+| [![Street Photo — Illuminant Map](screenshots/readme-webp/examples/results/street-illuminant/preview.webp)](examples/results/street-illuminant/preview.png) | [![Street Photo — Dead/Hot Pixels](screenshots/readme-webp/examples/results/street-dead-hot-pixels/preview.webp)](examples/results/street-dead-hot-pixels/preview.png) |
+
+Both tools use the original street photograph. Illuminant Map estimates local color; Dead/Hot Pixels reports 36 candidate pixels. The enlargements below show six reported positions, pairing original pixels with detector overlays. Candidate pixels alone do not diagnose the camera sensor.
+
+[![Street Photo — six pixel candidates at close range](screenshots/readme-webp/examples/results/street-dead-hot-pixels/preview-details.webp)](examples/results/street-dead-hot-pixels/preview-details.png)
+
+</details>
+
+<details>
+<summary>Low-response examples — results that do not explain the known edits</summary>
+
+| Street Photo — sparse matching | Street Photo — ELA energy |
+| --- | --- |
+| [![Street Photo — sparse matching](screenshots/readme-webp/examples/results/street-sift-g2nn/preview.webp)](examples/results/street-sift-g2nn/preview.png) | [![Street Photo — ELA energy](screenshots/readme-webp/examples/results/street-ela-energy/preview.webp)](examples/results/street-ela-energy/preview.png) |
+
+Neither view clearly reveals the marked edits at normal viewing size. They are retained here because a quiet output does not establish that an image is unedited.
+
+[![Spiral — ZERO, no main grid found](screenshots/readme-webp/examples/results/spiral-zero/result.webp)](examples/results/spiral-zero/result.png)
+
+ZERO found no main JPEG grid on the spiral and returned no foreign- or missing-grid regions.
+
+</details>
+
+<details>
+<summary>Multiple Compression — recompression curve and aligned JPEG analysis</summary>
+
+| Street Photo — recompression curve | Street Photo — aligned double-JPEG scores |
+| --- | --- |
+| [![Street Photo — recompression curve](screenshots/readme-webp/examples/results/street-recompression/preview.webp)](examples/results/street-recompression/preview.png) | [![Street Photo — aligned double-JPEG scores](screenshots/readme-webp/examples/results/street-multiple-compression/preview.webp)](examples/results/street-multiple-compression/preview.png) |
+
+Both calculations use the original JPEG. The recompression curve measures pixel differences at qualities 0–100. The separate aligned double-JPEG detector returns **inconclusive**: no frequency reaches its decision threshold. The plots retain the engine’s values; they do not count past saves or establish authenticity.
+
+</details>
+
+<details>
+<summary>Comprint — compression fingerprints on the moss photo</summary>
+
+[![Comprint — original and edited compression-distance maps](examples/results/moss-comprint/comparison.webp)](examples/results/moss-comprint/comparison.png)
+
+The top row shows the edited photo and its edit reference; below are Comprint’s results on the original and edited images. Some local responses lie near marked edits, with others elsewhere. The maps show compression distances, not manipulation probabilities. [Full-resolution maps and settings](examples/results/moss-comprint/README.md).
+
+</details>
+
+### Neural maps and combined analysis
+
+<details>
+<summary>FOCAL and AdaIFL — different localization responses</summary>
+
+| Spiral — FOCAL | Spiral — AdaIFL |
+| --- | --- |
+| [![Spiral — FOCAL](screenshots/readme-webp/examples/results/spiral-focal/result.webp)](examples/results/spiral-focal/result.png) | [![Spiral — AdaIFL](screenshots/readme-webp/examples/results/spiral-adaifl/result.webp)](examples/results/spiral-adaifl/result.png) |
+
+FOCAL gives a broad response on the right; AdaIFL gives a much smaller one on the left. Neither map should be read as a complete detection.
+
+</details>
+
+<details>
+<summary>SAFIRE — source clustering</summary>
+
+[![Spiral — SAFIRE, three source clusters](screenshots/readme-webp/examples/results/spiral-safire/result.webp)](examples/results/spiral-safire/result.png)
+
+The three colors are k-means source clusters. They do not assign “authentic” or “forged” labels: one cluster can contain both edited and unedited material.
+
+</details>
+
+<details>
+<summary>CAT-Net — overlay and heatmap</summary>
+
+| Street Photo — CAT-Net overlay | Street Photo — CAT-Net heatmap |
+| --- | --- |
+| [![Street Photo — CAT-Net overlay](screenshots/readme-webp/examples/results/street-catnet/preview.webp)](examples/results/street-catnet/preview.png) | [![Street Photo — CAT-Net heatmap](screenshots/readme-webp/examples/results/street-catnet/preview-view-1.webp)](examples/results/street-catnet/preview-view-1.png) |
+
+Several compact responses align with marked edits in the sky and building. Others follow clouds and edges. Compare them with my Street Photo edit reference.
+
+| Spiral — CAT-Net overlay | Spiral — CAT-Net heatmap |
+| --- | --- |
+| [![Spiral — CAT-Net overlay](screenshots/readme-webp/examples/results/spiral-catnet/result.webp)](examples/results/spiral-catnet/result.png) | [![Spiral — CAT-Net heatmap](screenshots/readme-webp/examples/results/spiral-catnet/view-1.webp)](examples/results/spiral-catnet/view-1.png) |
+
+The spiral produces a weak response despite the known edits. Successful execution alone does not establish detection.
+
+</details>
+
+<details>
+<summary>TruFor — anomaly, confidence and Noiseprint++ views</summary>
+
+| Spiral — anomaly map | Spiral — confidence |
+| --- | --- |
+| [![Spiral — anomaly map](screenshots/readme-webp/examples/results/spiral-trufor/result.webp)](examples/results/spiral-trufor/result.png) | [![Spiral — confidence](screenshots/readme-webp/examples/results/spiral-trufor/view-1.webp)](examples/results/spiral-trufor/view-1.png) |
+
+[![Spiral — Noiseprint++](screenshots/readme-webp/examples/results/spiral-trufor/view-2.webp)](examples/results/spiral-trufor/view-2.png)
+
+The anomaly map responds strongly to two regions on the right. Confidence and Noiseprint++ are separate outputs. TruFor was already integrated in the original SHERLOQ; these results come from the browser adaptation.
+
+</details>
+
+<details>
+<summary>RITA — clone-stamp and generative-edit localization</summary>
+
+RITA opens with an overlay at threshold **0.5**; Scores and Mask views are also available. Image dimensions are preserved. Reflection padding is applied when needed and removed from the result.
+
+| Three-cell input | RITA — overlay, threshold 0.5 |
+| --- | --- |
+| [![Three-cell input](examples/three-cells/input.png)](examples/three-cells/input.png) | [![RITA overlay at threshold 0.5](examples/results/three-cells-rita/overlay.png)](examples/results/three-cells-rita/overlay.png) |
+
+Red highlights an upper-left cell and the lower-right rectangular area. [Method and reconstruction](docs/RITA-NATIVE.md).
+
+I compared RITA and TruFor on **96 edited versions from 26 sources**, covering clone-stamp, generative and mixed edits. The measurements concern edit localization, not image-level classification accuracy. [Comparison with before/after images, known edited regions and both models’ results](examples/studies/rita-trufor/mini-study-rita-trufor.md) · [Study images: all rights reserved](examples/studies/rita-trufor/IMAGE-LICENCE.txt).
+
+</details>
+
+<details>
+<summary>Complete automatic analysis — corroboration view</summary>
+
+[![Spiral — automatic corroboration](screenshots/readme-webp/examples/results/spiral-complete-automatic/result.webp)](examples/results/spiral-complete-automatic/result.png)
+
+Colors count distinct detector/search-context contributions: blue 1, cyan 2, green 3, yellow 4, orange 5 and red 6 or more. D2PRL contributes at most one vote per pixel; ELA contributes none. The run record lists completed branches and detected search regions.
+
+</details>
+
+### Text analysis and AI-image detection
+
+<details>
+<summary>PP-OCRv6 — proposed text regions for scientific preparation</summary>
+
+[![PP-OCRv6 text proposals on the microscopy figure](screenshots/readme-webp/examples/results/microscopy-ppocrv6/result.webp)](examples/results/microscopy-ppocrv6/result.png)
+
+Red outlines mark candidate text regions on the unchanged input. They can guide exclusions before analysis, but need review: one follows a vertical gap between panels. This output detects text regions; it neither transcribes the text nor identifies manipulation. [Polygons, model identity and settings](examples/results/NEW-METHODS.md#pp-ocrv6).
+
+</details>
+
+<details>
+<summary>⚠ DTD / DocTamper — experimental text-edit detection</summary>
+
+Five synthetic documents are shown before and after text editing. **DTD can flag unchanged text and miss edits; its output alone is not proof.**
+
+[![DTD — five documents before and after editing](examples/results/dtd-documents/planche-dtd.webp)](examples/results/dtd-documents/planche-dtd.png)
+
+| Measure | Result |
+| --- | ---: |
+| Recall — edited pixels detected | 36.50% |
+| False-positive rate — unedited pixels | 0.0308% |
+| Precision — correct among flagged pixels | 75.26% |
+| Overall pixel accuracy | 99.81% |
+
+Green: detected edits · red: false alerts · yellow: missed edits. Predicting “unedited” for every pixel would already give 99.74% overall accuracy.
+
+[Inputs, maps and detailed results](examples/results/dtd-documents/README.md).
+
+</details>
+
+B-Free and SPAI assess AI-image signals. Even a correct AI label does not establish that the underlying data are false: a real acquisition can retain reliable information after AI denoising or sharpening. Partial AI edits may also go undetected.
+
+<details>
+<summary>⚠ B-Free — experimental AI detector</summary>
+
+**Experimental — low reliability in the independent CONVEX study.** B-Free correctly classified 62.42% of the study’s images.
+
+| Independent CONVEX study | B-Free |
+| --- | ---: |
+| Recall — AI images detected | 52.72% |
+| False-positive rate — non-AI images | 27.81% |
+| Precision — correct AI alerts | 65.65% |
+| Overall image accuracy | 62.42% |
+
+[Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
+
+</details>
+
+<details>
+<summary>⚠ SPAI — experimental AI detector</summary>
+
+**Experimental — low reliability in the independent CONVEX study.** SPAI correctly classified 58.34% of the study’s images.
+
+| Independent CONVEX study | SPAI |
+| --- | ---: |
+| Recall — AI images detected | 41.48% |
+| False-positive rate — non-AI images | 24.66% |
+| Precision — correct AI alerts | 62.90% |
+| Overall image accuracy | 58.34% |
+
+[Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
+
+</details>
+
+## Interpretation and privacy
+
+Maps, groups and geometric matches require interpretation. They can miss edits or respond outside edited regions, and the examples retain both. The validation records describe the checks performed and their limits; they do not claim independent validation of every method.
+
+The application adds no image-upload endpoint or analysis telemetry. Resource downloads are separate from image processing. This statement does not cover the hosting site’s logs, other WordPress plugins, optional font services or GitHub.
+
+## Why this is a separate repository
+
+My account already holds the macOS fork. GitHub offered no destination under that account for another fork, whether from the original repository or my existing fork; both belong to the same fork network. The web version therefore has its own repository, code, documentation and examples. The missing “forked from” badge does not change the original attribution.
+
+This repository contains the interface, browser engine, native kernel sources, converted model resources and scripts for reconstructing the dependency library with its pinned versions.
+
+AI assistants produced much of the implementation. I directed the work, questioned and corrected technical choices, explored solutions, shaped the interface and reviewed some calculations and results. The evidence and its limits are documented alongside the code.
+
 ## Screenshots from the original SHERLOQ project
 
-The following desktop screenshots come from [Guido Bartoli’s original repository](https://github.com/GuidoBartoli/sherloq/tree/master/screenshots). They illustrate inherited tools and are credited to the original project; they are not captures of this web interface.
+These desktop screenshots from [Guido Bartoli’s original repository](https://github.com/GuidoBartoli/sherloq/tree/master/screenshots) show inherited SHERLOQ tools. They are credited to the original project and do not show the web interface.
 
 <details>
 <summary>General and Metadata</summary>
@@ -522,15 +540,9 @@ The following desktop screenshots come from [Guido Bartoli’s original reposito
 
 </details>
 
-## Interpretation and privacy
-
-Maps, groups and geometric matches are analysis outputs, not automatic verdicts of manipulation. Responses outside known edits and missed edits must remain visible in example discussions.
-
-This application adds no image-upload endpoint or analysis telemetry. Dependencies are downloaded separately from image processing. This statement does not describe the logs or behavior of a hosting site, its other WordPress plugins, optional font services or GitHub.
-
 ## Credits
 
-Methods, models and shared components are credited once, from oldest to newest. Years refer to the cited publications or original software release.
+SHERLOQ, the integrated research methods and shared components retain their original authors’ credits, notices and licenses. The table below lists methods and models chronologically; years refer to the cited publications or original software release.
 
 <details>
 <summary>Authors of the methods and models — chronological order</summary>
@@ -543,7 +555,7 @@ Methods, models and shared components are credited once, from oldest to newest. 
 | 2007 | **ELA — underlying method** | Neal Krawetz | [Original paper](https://www.blackhat.com/presentations/bh-usa-07/Krawetz/Whitepaper/bh-usa-07-krawetz-WP.pdf) |
 | 2007 | **Tesseract OCR / English and French LSTM data** | Ray Smith and the Tesseract / tessdata_best contributors. Browser runtime: Tesseract.js-core contributors. | [Original paper](https://tesseract-ocr.github.io/docs/tesseracticdar2007.pdf) · [Authors](https://github.com/tesseract-ocr/tesseract/blob/main/AUTHORS) · [Language models](https://github.com/tesseract-ocr/tessdata_best) · [Browser runtime](https://github.com/naptha/tesseract.js-core) |
 | 2008 | **VLFeat** | Andrea Vedaldi, Brian Fulkerson | [Original project](https://www.vlfeat.org/) |
-| 2009 · 2015 · 2018 | **PatchMatch / Zernike matching** | Dense-field detection: Davide Cozzolino, Giovanni Poggi, Luisa Verdoliva. IPOL implementation: Thibaud Ehret. Original PatchMatch: Connelly Barnes, Eli Shechtman, Adam Finkelstein, Dan B Goldman. | [Dense-field method](https://www.iris.unina.it/handle/11588/613096) · [IPOL implementation](https://www.ipol.im/pub/art/2018/213/) · [Original PatchMatch](https://collaborate.princeton.edu/en/publications/patchmatch-a-randomized-correspondence-algorithm-for-structural-i/) |
+| 2009 · 2015 · 2018 | **PatchMatch / Zernike matching** | Dense-field detection: Davide Cozzolino, Giovanni Poggi, Luisa Verdoliva. IPOL implementation: Thibaud Ehret. Original PatchMatch: Connelly Barnes, Eli Shechtman, Adam Finkelstein, Dan B Goldman. | [Dense-field method](https://doi.org/10.1109/TIFS.2015.2455334) · [IPOL implementation](https://www.ipol.im/pub/art/2018/213/) · [Original PatchMatch](https://collaborate.princeton.edu/en/publications/patchmatch-a-randomized-correspondence-algorithm-for-structural-i/) |
 | 2013 | **Structured Forests / edge detection** | Piotr Dollár, C. Lawrence Zitnick | [Original implementation](https://github.com/pdollar/edges) |
 | 2015 · 2018 | **DeepMask** | Pedro O. Pinheiro, Ronan Collobert, Piotr Dollár. PyTorch implementation: Qiang Wang. | [Research and implementation](https://github.com/foolwood/deepmask-pytorch) |
 | 2018 | **ConvCRF** | Marvin T. T. Teichmann, Roberto Cipolla | [Paper](https://arxiv.org/abs/1805.04777) |

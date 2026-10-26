@@ -1,7 +1,15 @@
-import {parameters,channelValue,rows,reflect101,rgbPixels,binaryMask} from './pixel-utils.js';
+import {createCooperator,checkAbort} from './errors.js';
+import {parameters,channelValue,reflect101,rgbPixels,binaryMask} from './pixel-utils.js';
+const COOPERATE=Symbol('bit-plane useful-work cooperation');
+// Preserve native row progress without forcing a timer for every small band.
+async function rows(height,hooks,callback){
+ const cooperate=hooks[COOPERATE];
+ for(let y=0;y<height;y++){await cooperate();callback(y);if((y+1)%32===0||y===height-1)hooks.onProgress?.((y+1)/height);checkAbort(hooks.signal);}
+}
 export const planesParams=(p={})=>parameters(p,{channel:0,bit:0,filter:0},{channel:[0,4],bit:[0,7],filter:[0,2]});
 export const BIT_PLANE_SEMANTICS='Unfiltered bit plane; filter changes display only.';
 export async function renderBitPlane(plane,w,h,filter,hooks={}){
+ if(!hooks[COOPERATE])hooks={...hooks,[COOPERATE]:createCooperator(hooks.signal)};
  const out=new Uint8Array(w*h*3);
  await rows(h,hooks,y=>{
   for(let x=0;x<w;x++){
@@ -19,6 +27,7 @@ export async function renderBitPlane(plane,w,h,filter,hooks={}){
  return out;
 }
 export async function bitPlanes(image,p,hooks={}){
+ hooks={...hooks,[COOPERATE]:createCooperator(hooks.signal)};
  const {width:w,height:h,data:src}=image,plane=new Uint8Array(w*h);
  await rows(h,hooks,y=>{for(let x=0;x<w;x++){const i=y*w+x;plane[i]=(channelValue(src,i*3,p.channel,true)>>p.bit)&1;}});
  const out=await renderBitPlane(plane,w,h,p.filter,hooks);

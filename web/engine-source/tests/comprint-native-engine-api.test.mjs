@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createEngine} from '../src/index.js';
+import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from '../src/source-region-geometry.js';
+import {comprintControlledState as state} from './helpers/comprint-controlled-extension.mjs';
+import manifest from '../../extensions-source/models/manifest.json' with {type:'json'};
+
+test('real EngineAPI and extension bridge preserve one controlled multi-context Comprint population, A/B/A and all owners',async()=>{
+ const engine=createEngine({memoryBudgetBytes:4*1024**3,computeProfile:'maximum'}),width=600,height=260,data=Uint8Array.from({length:width*height*3},(_,i)=>(i*23+(i>>>7)*53)%256),handles=new Set();state.modelCalls.length=0;state.statisticsCalls=0;state.fitIndices.length=0;state.cacheEvictions.length=0;
+ try{
+  const original=await engine.load({id:'comprint-native-source',pixels:{width,height,format:'rgb8',data},bytes:data,provenance:{format:'RGB8',orientation:1}}),regions=await createOriginalSourceRegionsState({sourceSha256:original.sha256,width,height});for(const b of[[8,8,264,252],[320,8,576,252]])await regions.add('acquisition',{x0:b[0],y0:b[1],x1:b[2],y1:b[3]});await regions.add('exclusion',{x0:88,y0:88,x1:120,y1:136});const domain=await compileOriginalSourceRegions(regions.snapshot());
+  await engine.loadExtensionModels({baseURL:new URL('../../extensions-source/',import.meta.url).href,moduleURL:new URL('./helpers/comprint-controlled-extension.mjs',import.meta.url).href,manifest});
+  const task={id:'Comprint-multi-A',imageId:original.id,operation:'jpeg.comprint',params:{},backend:'cpu',sourceRegionDomain:domain.descriptor},first=await engine.run(task);for(const d of[first.surface,first.sourceRegionSourceSurface])if(d)handles.add(d.id);
+  assert.equal(first.status,'ok');assert.equal(first.surface.format,'float64');assert.equal(first.data.method,'comprint');assert.equal(first.data.statistics.replicates,10);assert.equal(first.data.statistics.native_context_grids.length,5);assert.equal(state.statisticsCalls,1);assert.deepEqual([...state.fitIndices].sort((a,b)=>a-b),[0,1,2,3,4,5,6,7,8,9]);const initialCalls=state.modelCalls.length;assert.equal(initialCalls,5);const read=async r=>(await engine.readPlane({surfaceId:r.surface.id,revision:r.surface.revision,rect:{x:0,y:0,width:r.surface.width,height:r.surface.height}})).plane.data;const firstPlane=await read(first);
+  const warm=await engine.run({...task,id:'Comprint-warm-A'});for(const d of[warm.surface,warm.sourceRegionSourceSurface])if(d)handles.add(d.id);assert.equal(state.modelCalls.length,initialCalls);assert.equal(state.statisticsCalls,1);assert.deepEqual(warm.data,first.data);
+  await regions.add('exclusion',{x0:400,y0:20,x1:420,y1:60});const changed=await compileOriginalSourceRegions(regions.snapshot()),b=await engine.run({...task,id:'Comprint-B',sourceRegionDomain:changed.descriptor});for(const d of[b.surface,b.sourceRegionSourceSurface])if(d)handles.add(d.id);assert.equal(state.statisticsCalls,2);const calls=state.modelCalls.length;
+  const again=await engine.run({...task,id:'Comprint-return-A'});for(const d of[again.surface,again.sourceRegionSourceSurface])if(d)handles.add(d.id);if(state.modelCalls.length!==calls)assert(state.cacheEvictions.some(e=>e.modelCalls>=initialCalls&&e.key.includes('extensions/')),'Recomputation requires actual shared-budget cache eviction');assert.deepEqual(await read(again),firstPlane);assert.deepEqual(again.data.statistics.native_context_grids,first.data.statistics.native_context_grids);assert.deepEqual(again.data.statistics.normalization,first.data.statistics.normalization);
+  for(const id of handles)await engine.releaseSurface(id);handles.clear();await engine.unload(original.id);await engine.unloadExtensionModels();const memory=engine.capabilities().memory;assert.equal(memory.retainedBytes,0);assert.equal(memory.cacheBytes,0);assert.equal(memory.activeReservationBytes,0);assert(state.workers.every(w=>w.dead));
+ }finally{state.gate=null;for(const id of handles)await engine.releaseSurface(id);await engine.dispose();}
+});

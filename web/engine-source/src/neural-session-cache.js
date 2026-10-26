@@ -1,4 +1,4 @@
-import {requireValue} from './errors.js';
+import {EngineError,requireValue,serializeEngineError} from './errors.js';
 /** Inactive exact ORT sessions only. The pool funds this allowance in addition
  * to the current graph and reclaims the complete idle worker under pressure.
  * No tensor, graph, operator or provider changes on a cache hit. */
@@ -14,7 +14,7 @@ export function createNeuralSessionCache(){
    while(items.size&&bytes+cost>maximum)await evict();
    items.set(key,{value,bytes:cost});bytes+=cost;return true;
   },
-  async clear(){while(items.size)await evict();},
+  async clear(){const errors=[];while(items.size)try{await evict();}catch(error){errors.push(error);}if(errors.length)throw new EngineError('NEURAL_CLEANUP_FAILED','Cached neural session cleanup failed.',{cause:errors[0],details:{cleanupErrors:errors.map(error=>serializeEngineError(error,'NEURAL_CLEANUP_FAILED'))}});},
   snapshot(){return {sessions:items.size,bytes,hits,evictions};}
  };
 }

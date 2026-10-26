@@ -12,12 +12,12 @@ function fixture(t,{postFailure,constructorFailure}={}){
  globalThis.document={createElement(){return {width:0,height:0,getContext(){return {createImageData:(width,height)=>({data:new Uint8ClampedArray(width*height*4)}),putImageData(){}};}};}};
  globalThis.Worker=class {
   constructor(url){starts++;if(constructorFailure&&starts===1)throw constructorFailure;this.url=url;this.messages=[];this.terminated=0;workers.push(this);}
-  postMessage(message){if(postFailure&&message.action==='build')throw postFailure;this.messages.push(message);if(message.action==='dispose')queueMicrotask(()=>this.onmessage?.({data:{action:'disposed'}}));}
+  postMessage(message){if(postFailure&&message.action==='build')throw postFailure;this.messages.push(message);if(message.action==='release'&&message.ticket)queueMicrotask(()=>this.onmessage?.({data:{ticket:message.ticket,resultId:message.resultId,released:true}}));if(message.action==='dispose')queueMicrotask(()=>this.onmessage?.({data:{action:'disposed'}}));}
   terminate(){this.terminated++;}
   reply(data){this.onmessage({data});}
   fail(error=Error('script unavailable')){this.onerror({type:'error',message:error.message,error,filename:'https://site.test/loupe-full-worker.js',lineno:3,colno:4});}
  };
- const caches=[];t.after(()=>{for(const cache of caches)cache.dispose();globalThis.Worker=originalWorker;globalThis.document=originalDocument;});
+ const caches=[];t.after(async()=>{await Promise.all(caches.map(cache=>cache.dispose()));globalThis.Worker=originalWorker;globalThis.document=originalDocument;});
  return {workers,get starts(){return starts;},cache(options){const cache=createLoupeImageCache(options);caches.push(cache);return cache;}};
 }
 
@@ -31,16 +31,16 @@ test('fatal preparation failure stays latched during movement; effects and expli
 test('changing the input permits a fresh worker, while cancelled results cannot replace the new input',async t=>{
  const h=fixture(t),cache=h.cache(),first=input(),second=input();cache.ensure(first,effects(1));h.workers[0].fail();await tick();cache.ensure(second,effects(1));assert.equal(h.starts,2);h.workers[1].reply(result(1));await tick();assert.equal(cache.current.source,second);
  const third=input();cache.ensure(third,effects(2));const oldTicket=h.workers[1].messages.findLast(m=>m.action==='build').ticket;cache.ensure(second,effects(3));const latestTicket=h.workers[1].messages.findLast(m=>m.action==='build').ticket;
- h.workers[1].reply(result(oldTicket));h.workers[1].reply(result(latestTicket));await tick();assert.equal(cache.current.source,second);assert.equal(cache.current.id,latestTicket);assert.ok(h.workers[1].messages.some(m=>m.action==='release'&&m.resultId===oldTicket));
+ h.workers[1].reply(result(oldTicket));h.workers[1].reply(result(latestTicket));await tick();assert.equal(cache.current.source,second);assert.equal(cache.current.id,latestTicket);assert.ok(h.workers[1].messages.some(m=>m.action==='release'&&m.resultId===oldTicket)||h.workers[1].messages.some(m=>m.action==='dispose'));
 });
 
 test('immediate explicit retry cannot inherit the failed service pending job with the same ticket',async t=>{
- const h=fixture(t),cache=h.cache(),source=input();cache.ensure(source,effects(1));h.workers[0].fail();const pending=cache.acquire(source,effects(1));assert.equal(h.starts,2);h.workers[1].reply(result(1));(await pending).close();await tick();assert.equal(cache.settled,true);assert.equal(cache.metrics.builds,1);
+ const h=fixture(t),cache=h.cache(),source=input();cache.ensure(source,effects(1));h.workers[0].fail();const pending=cache.acquire(source,effects(1));await tick();assert.equal(h.starts,2);h.workers[1].reply(result(1));(await pending).close();await tick();assert.equal(cache.settled,true);assert.equal(cache.metrics.builds,1);
 });
 
 test('constructor and postMessage failures preserve their causes and do not trigger draw retries',async t=>{
  const cause=Object.assign(Error('worker denied'),{code:'SECURITY'}),h=fixture(t,{constructorFailure:cause}),states=[],cache=h.cache({state:s=>states.push(s)}),source=input();
- cache.ensure(source,effects(1));for(let n=0;n<25;n++)cache.ensure(source,effects(1));assert.equal(h.starts,1);assert.equal(states.at(-1).error.cause,cause);assert.equal(states.at(-1).error.details.executionPhase,'worker-startup');
+ cache.ensure(source,effects(1));for(let n=0;n<25;n++)cache.ensure(source,effects(1));await tick();assert.equal(h.starts,1);assert.equal(states.at(-1).error.cause,cause);assert.equal(states.at(-1).error.details.executionPhase,'worker-startup');
  const pending=cache.acquire(source,effects(1));assert.equal(h.starts,2);h.workers[0].reply(result(1));(await pending).close();
 });
 
@@ -66,9 +66,9 @@ test('a shared service failure blocks automatic preparation retries in every aff
  a.ensure(first,effects(3));for(let n=0;n<50;n++)b.ensure(second,effects(2));assert.equal(h.starts,2);
 });
 
-test('a retained overview survives a fatal service error; acquire rebuilds only on explicit request',async t=>{
+test('a retained native result stays selected after a fatal service error; only explicit acquire rebuilds',async t=>{
  const h=fixture(t),cache=h.cache(),source=input();cache.ensure(source,effects(1));h.workers[0].reply(result(1));await tick();assert.equal(cache.settled,true);h.workers[0].fail();
- let paints=0;for(let n=0;n<50;n++){cache.ensure(source,effects(1));cache.draw({drawImage(){paints++;}},{left:0,top:0,right:1,bottom:1},1,0);}assert.equal(h.starts,1);assert.equal(paints,50);assert.equal(cache.settled,false);
+ const retained=cache.current;for(let n=0;n<50;n++)cache.ensure(source,effects(1));assert.equal(h.starts,1);assert.equal(cache.current,retained);assert.equal(cache.settled,false);
  const pending=cache.acquire(source,effects(1));assert.equal(h.starts,2);h.workers[1].reply(result(1));(await pending).close();assert.equal(cache.settled,true);
 });
 

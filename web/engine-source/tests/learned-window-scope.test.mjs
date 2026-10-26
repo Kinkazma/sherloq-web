@@ -1,0 +1,16 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {Budget} from '../src/cache.js';
+import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from '../src/source-region-geometry.js';
+import {createNeuralCloneWindowRun} from '../src/clone-neural-window-runner.js';
+import {prepareCloneAnalysisWindows} from '../src/clone-analysis-windows.js';
+import {createLearnedSparseWindowCallback} from '../src/learned-sparse-native-windows.js';
+const poly=b=>[[b[0],b[1]],[b[2],b[1]],[b[2],b[3]],[b[0],b[3]]],sha='a'.repeat(64);
+async function setup(compare){
+ const budget=new Budget(128*1024**2),state=await createOriginalSourceRegionsState({sourceSha256:sha,width:80,height:40}),domain=await compileOriginalSourceRegions(state.snapshot()),calls=[];
+ const regions=[{id:'left-selection',x0:0,y0:0,x1:40,y1:40},{id:'right-selection',x0:40,y0:0,x1:80,y1:40},{id:'explicit-envelope',role:'envelope',x0:0,y0:0,x1:80,y1:40}],scope={schema:'sherloq.scientific-scope/1',coordinates:'original-pixels',width:80,height:40,sourceSha256:sha,fingerprint:'three-parent-jobs',status:'ready',regions,searchRegions:regions,excluded:[],text:{status:'complete',polygons:[]}},params={algorithm:'XFeat',limit:6000,compare,regions:compare?[poly([0,0,40,40]),poly([40,0,80,40])]:[],threshold:.7,model:'Affine'},task={operation:'tampering.copyMove.sparse',cloneWindowMode:'independent',backend:'webgpu',params,scientificScope:scope},original={sha256:sha,surface:{descriptor:{id:'original',format:'rgb8',width:80,height:40},readWindow(){throw Error('No RGB/NN is required by this dispatch control');}}};
+ const callback=createLearnedSparseWindowCallback({original,budget,profile:{maxWorkers:10},engineFactory(){return{learned:{extract(){throw Error('No learned extractor authorized');},dispose(){}},async analyze(input,hooks){calls.push({input:structuredClone(input),backend:hooks.backend});return{status:'no-regions',params:input,points:new Float64Array(0),pairs:new Float64Array(0),groups:[],models:[],colors:new Uint8Array(0),bases:[],pair_search_regions:new Int32Array(0),metadata:{},release(){}};},dispose(){}};}});
+ const carrier=createNeuralCloneWindowRun({domain,task},{budget,runWindow:callback,admitIndependent:()=>true,prepareWindows:async(...args)=>{const p=await prepareCloneAnalysisWindows(...args);await callback.retainWindows(p);return p;}});return{budget,params,task,calls,callback,carrier};
+}
+test('one canonical learned window never re-expands into its parent search list; explicit native comparison pair remains intact',async()=>{
+ for(const compare of [false,true]){const f=await setup(compare);try{const before=structuredClone(f.task),answer=await f.carrier.execute();assert.equal(answer.windowResults.length,3);assert.equal(f.calls.length,3);for(const [index,c]of f.calls.entries()){assert.equal(c.input.regions.length,compare?2:0);assert.equal(c.input.limit,6000);assert.equal(c.input.compare,compare);assert.equal(c.input.threshold,.7);assert.equal(c.input.model,'Affine');assert.equal(c.backend,'webgpu');if(compare)assert.deepEqual(c.input.regions[0],poly(index===1?[-40,0,0,40]:[0,0,40,40]));}assert.deepEqual(f.task,before);}finally{await f.carrier.dispose();await f.callback.dispose();assert.equal(f.budget.total(),0);}}
+});

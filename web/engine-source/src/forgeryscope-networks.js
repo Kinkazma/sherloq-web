@@ -1,3 +1,4 @@
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {extractAlikedSegmented} from './aliked-segmented.js';
 import {EngineError,requireValue,checkAbort,checkpoint} from './errors.js';
 import {decodeForgeryscopeYolo,parseForgeryscopePanels,classifyForgeryscopePanels} from './forgeryscope-yolo.js';
@@ -19,7 +20,9 @@ export function cropForgeryscopeRGB(image,box){
  * contract; absence is an explicit error, never an ALIKED substitute.
  */
 export class ForgeryscopeNetworks {
-  constructor({pool,preparation,budget,assets,sift,alikedSegments=false}){this.pool=pool;this.preparation=preparation;this.budget=budget;this.assets=assets;this.sift=sift;this.alikedSegments=alikedSegments;this.detectionKeys=new Set();}
+  constructor({pool,preparation,budget,assets,sift,alikedSegments=false}){this.pool=pool;this.preparation=preparation;this.budget=budget;this.assets=assets;this.sift=sift;this.alikedSegments=alikedSegments;this.detectionKeys=new Set();this.alikedOwners=new Set();this.failedAlikedOwners=new Set();this.disposed=false;}
+  retireAlikedOwner(owner){if(!owner||!this.alikedOwners.has(owner))return;const pending=owner.release();if(!pending){this.alikedOwners.delete(owner);this.failedAlikedOwners.delete(owner);return;}return Promise.resolve(pending).then(()=>{this.alikedOwners.delete(owner);this.failedAlikedOwners.delete(owner);});}
+  dispose(){this.disposed=true;for(const owner of this.alikedOwners)owner.cancel();if(this.disposal)return this.disposal;if(!this.alikedOwners.size)return;this.disposal=retireCompositeOwners([...this.alikedOwners].map(owner=>()=>this.retireAlikedOwner(owner))).finally(()=>{this.disposal=undefined;});return this.disposal;}
   clearDetectionCache(){for(const key of this.detectionKeys)this.budget.remove(key);this.detectionKeys.clear();}
   async detectRows(image,kind,options={}){
     requireValue(['panels','lanes'].includes(kind),'Invalid YOLO profile.');checkAbort(options.signal);
@@ -62,7 +65,12 @@ export class ForgeryscopeNetworks {
     }catch(e){run?.release();throw e;}finally{release();}
   }
   async extractBlot(image,transform='original',options={}){
-    if(this.alikedSegments&&(options.segmentedAliked||image.width*image.height>262144)){requireValue(transform==='original','Blot extraction uses original orientation.');return extractAlikedSegmented(image,{pool:this.pool,preparation:this.preparation,budget:this.budget,...options});}
+    if(this.alikedSegments&&(options.segmentedAliked||image.width*image.height>262144)){
+      requireValue(!this.disposed&&transform==='original','Blot extraction requires a live parent and original orientation.');
+      if(this.failedAlikedOwners.size)await retireCompositeOwners([...this.failedAlikedOwners].map(owner=>()=>this.retireAlikedOwner(owner)));checkAbort(options.signal);if(this.disposed)throw new EngineError('DISPOSED','Forgeryscope networks disposed.');let owner,releasing;
+      try{const result=await extractAlikedSegmented(image,{pool:this.pool,preparation:this.preparation,budget:this.budget,...options,onOwner:value=>{owner=value;this.alikedOwners.add(value);options.onOwner?.(value);}});checkAbort(options.signal);if(this.disposed)throw new EngineError('DISPOSED','Forgeryscope networks disposed.');return {...result,release:()=>{if(releasing)return releasing;const pending=this.retireAlikedOwner(owner);if(!pending)return;releasing=Promise.resolve(pending).finally(()=>{releasing=undefined;});return releasing;}};}
+      catch(primary){if(owner)this.failedAlikedOwners.add(owner);await retireCompositeOwners([()=>this.retireAlikedOwner(owner)],{primary});throw primary;}
+    }
     const {width:w,height:h}=image,n=w*h,owned=[],releaseInput=this.budget.reserve(n*12+512*32);let complete=false;
     const keep=async(name,feeds,workspaceBytes,outputBytes)=>{const r=await this.pool.run(name,feeds,{...options,workspaceBytes,outputBytes,cpuRequired:true});owned.push(r);return r.result;};
     try{

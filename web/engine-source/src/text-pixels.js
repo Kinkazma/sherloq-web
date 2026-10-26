@@ -1,4 +1,4 @@
-import {requireValue,checkAbort,createCooperator} from './errors.js';
+import {requireValue,checkAbort,createCooperator,serializeEngineError} from './errors.js';
 import {validateRgbRows} from './rgb-row-source.js';
 import {gray} from './pixel-utils.js';
 
@@ -12,14 +12,14 @@ export async function visitTextPixels(image,[x,y,r,b],visit,{signal}={}){
  validateTextImage(image);requireValue([x,y,r,b].every(Number.isSafeInteger)&&x>=0&&y>=0&&r<=image.width&&b<=image.height&&r>x&&b>y,'Invalid text pixel rectangle.');
  const width=r-x,height=b-y,windowed=typeof image.readWindow==='function',stride=windowed?width:image.width,step=Math.max(1,Math.min(32,Math.floor(1024**2/(stride*3)))),cooperate=createCooperator(signal);
  for(let top=0;top<height;top+=step){
-  await cooperate();const rows=Math.min(step,height-top);let lease;
+  await cooperate();const rows=Math.min(step,height-top);let lease,primaryError;
   try{
    let data,left=x;
    if(windowed){lease=await image.readWindow({x,y:y+top,width,height:rows},{signal});data=validateRgbRows(lease,width,rows);left=0;}
    else if(typeof image.readRows==='function'){lease=await image.readRows(y+top,rows,{signal});data=validateRgbRows(lease,image.width,rows);}
    else data=image.data.subarray((y+top)*image.width*3,(y+top+rows)*image.width*3);
    checkAbort(signal);await visit(data,{top,rows,stride,left,width});
-  }finally{lease?.release();}
+  }catch(error){primaryError=error;throw error;}finally{try{await lease?.release();}catch(error){if(!primaryError)throw error;primaryError.details={...primaryError.details,cleanupErrors:[...(primaryError.details?.cleanupErrors??[]),serializeEngineError(error)]};}}
  }
  checkAbort(signal);
 }

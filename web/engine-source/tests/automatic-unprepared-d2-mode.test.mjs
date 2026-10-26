@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {fixture,poly} from './helpers/automatic-complete-fixture.mjs';
+import {EngineError} from '../src/errors.js';
+test('unprepared automatic transmits effective requested mode to D2 task and hooks, without qualifying its producer',async t=>{
+ const f=await fixture({hole:null}),calls=[],{automaticNativeCloneWindows}=await import('../src/automatic-unprepared-clones.js');
+ t.mock.module('../src/automatic-unprepared-clones.js',{namedExports:{automaticNativeCloneWindows,createAutomaticUnpreparedClones:()=>({clearCheckpoint(){},analyze(){throw new EngineError('CONTROLLED_NATIVE','No Dense/SIFT/OCR calculation');},dispose(){}})}});
+ const {createAutomaticRuntime}=await import('../src/automatic-runtime.js'),adapter={configured:()=>true,async runOwned(task,_image,hooks){calls.push({taskMode:task.cloneWindowMode,hookMode:hooks.cloneWindowMode});throw new EngineError('CONTROLLED_D2','No model call; current D2 independent/global semantics are not qualified by this transport control');}},runtime=createAutomaticRuntime({budget:f.budget,profile:{id:'maximum',maxWorkers:10},version:'mode-transport-only',getLanguage:()=>({data:Uint8Array.of(0),sha256:'b'.repeat(64)}),getD2prl:()=>adapter});
+ try{let previous;for(const mode of ['independent','global']){const result=await runtime.run({id:mode,imageId:'original',operation:'analysis.clones',cloneWindowMode:mode,params:{selection:{regions:[poly(8,8,56,72)],envelope:null,disabled:[]},excludedFeatures:['m2.forgeryscope']}},f.image);assert.equal(result.data.state.errors.d2prl.code,'CONTROLLED_D2');assert.equal(result.provenance.requestedCloneWindowMode,mode);if(previous)assert.notEqual(result.analysisId,previous);previous=result.analysisId;}assert.deepEqual(calls,[{taskMode:'independent',hookMode:'independent'},{taskMode:'global',hookMode:'global'}]);}finally{await runtime.dispose();assert.equal(f.budget.total(),0);}
+});

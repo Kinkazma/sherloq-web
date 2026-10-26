@@ -1,4 +1,4 @@
-import {rectangleComplement,rectanglePolygon} from './batch-scope-geometry.js';
+import {rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js';
 
 // The preview uses the exact exclusion polygons consumed by the analysis.
 // Only their presentation differs: unclassified margins have no red outline.
@@ -84,24 +84,50 @@ export function paintScientificScopeRows(pixels,scope,{rect,width,height,palette
  return {width:rect.width,height:rect.height,format:'rgb8',data};
 }
 
-/** Encode annotations into an actual full-resolution PNG using native libpng
- * narrow reads. The caller owns cleanup after URL revocation. No global image
- * cache or Canvas is allocated; previews should be requested only when visible.
- * Injection hooks allow tests to qualify readers without running ML models. */
-export async function createScientificScopePreview(image,{scope=image.preparation,signal,computeProfile='maximum',clientFactory,rasterFactory,palette=SCIENTIFIC_SCOPE_PREVIEW_PALETTE,onProgress=()=>{}}={}){
+// The same preview producer is used by the modal and the visible batch cards.
+// This small parent ledger keeps a rejected retirement reachable for the next
+// explicit replacement/close attempt. A fulfilled cleanup has a void contract.
+export function createScientificScopePreviewRetirement(){
+ const owners=new Map();
+ const key=value=>typeof value==='function'?value:value?.cleanup;
+ function own(value){const cleanup=key(value);if(typeof cleanup!=='function')throw TypeError('A scope preview cleanup owner is required.');if(!owners.has(cleanup))owners.set(cleanup,{cleanup,owner:value,retiring:false,task:null,failed:false,failure:undefined});return cleanup;}
+ function mark(value){const cleanup=own(value);owners.get(cleanup).retiring=true;return cleanup;}
+ function release(value){const cleanup=mark(value),entry=owners.get(cleanup);if(entry.task)return entry.task;entry.failed=false;const task=Promise.resolve().then(()=>entry.cleanup.call(entry.owner)).then(()=>{owners.delete(cleanup);});entry.task=task;task.then(()=>{},error=>{if(entry.task===task){entry.task=null;entry.failed=true;entry.failure=error;}});return task;}
+ async function drain({all=false,keep,retry=true}={}){const retained=key(keep);let failed=false,primary;for(const [cleanup,entry]of [...owners])if(cleanup!==retained&&(all||entry.retiring)){try{if(!retry&&entry.failed)throw entry.failure;await release(cleanup);}catch(error){if(!failed){failed=true;primary=error;}}}if(failed)throw primary;}
+ return {own,mark,release,drain,get pending(){return owners.size;}};
+}
+
+/** Encode the same full-resolution native PNG. Its borrowed file keeps the
+ * decoding client alive until raster cleanup acknowledges all export leases.
+ * onOwner is synchronous, before imports/creation, so a failed construction
+ * remains owned even when its primary rejection is 0, false or frozen. */
+export async function createScientificScopePreview(image,{scope=image.preparation,signal,computeProfile='maximum',clientFactory,rasterFactory,palette=SCIENTIFIC_SCOPE_PREVIEW_PALETTE,onProgress=()=>{},onOwner}={}){
  const width=image?.width,height=image?.height;if(!Number.isSafeInteger(width)||width<1||!Number.isSafeInteger(height)||height<1||!(image.blob instanceof Blob))throw previewInvalid('L’image originale de l’aperçu est absente.');signal?.throwIfAborted();
  if(scope&&(scope.width!==width||scope.height!==height))throw previewInvalid('Les coordonnées de préparation ne correspondent pas à l’image originale.');
- clientFactory??=(await import('./tool-client.js')).createToolClient;rasterFactory??=(await import('./raster-export-client.js')).exportPresentationRaster;
- let client,result,failure;const cancel=()=>client?.cancel?.();
+ let client,result,rasterOwner,completed=false,finish,task,closed=false,rasterClosed=false,clientClosed=false,cleanupFailed=false,cleanupFailure;
+ const ended=new Promise(resolve=>finish=()=>{if(!completed){completed=true;resolve();}}),cancel=()=>client?.cancel?.();
+ const cleanup=()=>{if(closed)return Promise.resolve();if(task)return task;cleanupFailed=false;const attempt=(async()=>{await ended;if(!rasterClosed){if(result?.cleanup)await result.cleanup();else await rasterOwner?.abort?.();rasterClosed=true;result=null;rasterOwner=null;}if(!clientClosed){await client?.dispose();clientClosed=true;client=null;}closed=true;cleanupFailure=undefined;})();task=attempt;attempt.then(()=>{task=null;},error=>{task=null;cleanupFailed=true;cleanupFailure=error;});return attempt;};
+ const owner={cleanup,get closed(){return closed;},get cleanupFailed(){return cleanupFailed;},get cleanupFailure(){return cleanupFailure;}};
  try{
+  onOwner?.(owner);
+  clientFactory??=(await import('./tool-client.js')).createToolClient;rasterFactory??=(await import('./raster-export-client.js')).exportPresentationRaster;
   client=await clientFactory({computeProfile:typeof computeProfile==='function'?computeProfile():computeProfile});signal?.addEventListener('abort',cancel,{once:true});signal?.throwIfAborted();
   const source=await client.load({id:'scope-preview-'+crypto.randomUUID(),blob:image.blob});signal?.throwIfAborted();
   if(source.surface?.width!==width||source.surface?.height!==height||source.surface?.format!=='rgb8')throw previewInvalid('La source native décodée ne correspond pas à cet aperçu.');
   const identities=[source.sha256,image.sourceSha256,scope?.sourceSha256].filter(v=>v!==undefined&&v!==null);if(!identities.length||identities.some(v=>typeof v!=='string'||!/^[a-f0-9]{64}$/.test(v)||v!==identities[0]))throw previewInvalid('L’identité de préparation diffère de la source originale.');
   const surface={width,height,format:'rgb8',async readPixels(rect){signal?.throwIfAborted();const original=await client.readWindow(source.surface,rect);signal?.throwIfAborted();return paintScientificScopeRows(original,scope,{rect,width,height,palette});}};
-  result=await rasterFactory(surface,{format:'png',compression:6},{signal,onProgress,reserve:bytes=>client.reserveExport(bytes,source.surface)});signal?.throwIfAborted();
+  result=await rasterFactory(surface,{format:'png',compression:6},{signal,onProgress,reserve:bytes=>client.reserveExport(bytes,source.surface),onOwner:value=>{rasterOwner=value;}});signal?.throwIfAborted();
   if(!(result?.blob instanceof Blob)||result.blob.size<1)throw previewInvalid('Le PNG annoté n’a pas été créé.');
-  return {blob:result.blob.type==='image/png'?result.blob:result.blob.slice(0,result.blob.size,'image/png'),width,height,metadata:{schema:'sherloq.scientific-scope-preview/1',sourceSha256:identities[0],scopeFingerprint:scope?.fingerprint??null,coordinates:'original-pixels',width,height,presentationOnly:true,annotationsEncoded:true,sourcePixels:'immutable',fullResolution:true,palette:structuredClone(palette)},cleanup:result.cleanup??(async()=>{})};
- }catch(error){failure=error;await result?.cleanup?.();throw error;}
- finally{signal?.removeEventListener('abort',cancel);try{await client?.dispose();}catch(error){if(failure)failure.cleanupError=error;else{await result?.cleanup?.();throw error;}}}
+  return {blob:result.blob.type==='image/png'?result.blob:result.blob.slice(0,result.blob.size,'image/png'),width,height,metadata:{schema:'sherloq.scientific-scope-preview/1',sourceSha256:identities[0],scopeFingerprint:scope?.fingerprint??null,coordinates:'original-pixels',width,height,presentationOnly:true,annotationsEncoded:true,sourcePixels:'immutable',fullResolution:true,palette:structuredClone(palette)},cleanup};
+ }catch(error){finish();try{await cleanup();}catch{}throw error;}
+ finally{finish();signal?.removeEventListener('abort',cancel);}
+}
+
+/** A lightweight vector frame remains live even while a native PNG annotation
+ * is displayed. Pointer events stay on the actual acquisition/exclusion zones. */
+export function appendScientificScopeEnvelope(svg,scope,{width=scope?.width,height=scope?.height,envelope=scientificScopeEnvelope(scope,{width,height}),language='fr'}={}){
+ if(!envelope)return null;const document=svg.ownerDocument,node=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+ node.setAttribute('points',envelope.polygon.map(point=>point.join(',')).join(' '));node.setAttribute('data-scope-envelope',[envelope.x0,envelope.y0,envelope.x1,envelope.y1].join(','));
+ node.setAttribute('class','batch-scope-envelope');node.setAttribute('vector-effect','non-scaling-stroke');node.setAttribute('fill','none');node.setAttribute('stroke','var(--accent, #328cff)');node.setAttribute('stroke-width','1.5');node.setAttribute('stroke-dasharray','6 4');node.style.pointerEvents='none';
+ const title=document.createElementNS('http://www.w3.org/2000/svg','title');title.textContent=language==='en'?'Derived frame of active pixels':'Cadre englobant des pixels actifs';node.append(title);svg.append(node);return node;
 }

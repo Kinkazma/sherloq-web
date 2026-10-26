@@ -18,7 +18,7 @@ export function ritaSourceTensors(image,{budget}={}){
  const rgb={channels:3,width:pw,height:ph,async readRows(top,rows,{signal}={}){
   requireValue(Number.isSafeInteger(top)&&Number.isSafeInteger(rows)&&top>=0&&rows>0&&top<=ph-rows,'Invalid RITA source rows.');checkAbort(signal);
   const mapped=new Array(rows);let first=height,last=0;for(let y=0;y<rows;y++){const at=ritaReflectIndex(top+y,height);mapped[y]=at;if(at<first)first=at;if(at>last)last=at;}
-  const part=await surface.readWindow({x:0,y:first,width,height:last-first+1},{signal});let release;
+  const part=await surface.readWindow({x:0,y:first,width,height:last-first+1},{signal});let release,failed=false,primary;
   try{
    const pixels=part.pixels??part,channels=pixels.data.length/(width*(last-first+1));requireValue(channels===3||channels===4,'RITA source must be RGB8/RGBA8.');release=budget.reserve(rows*pw*12);const n=rows*pw,data=new Float32Array(n*3),bytes=pixels.data instanceof Uint8Array||pixels.data instanceof Uint8ClampedArray;
    for(let y=0;y<rows;y++){
@@ -30,7 +30,13 @@ export function ritaSourceTensors(image,{budget}={}){
     }
    }
    return {data,dims:[1,3,rows,pw],release};
-  }catch(error){release?.();throw error;}finally{part.release?.();}
+  }catch(error){failed=true;primary=error;release?.();throw error;}finally{
+   try{await part.release?.();if(!failed)checkAbort(signal);}catch(cleanup){
+    // A normalized row is not published if its Original owner cannot retire.
+    if(!failed){release?.();throw cleanup;}
+    if(primary&&typeof primary==='object'&&Object.isExtensible(primary))try{primary.details={...primary.details,sourceWindowCleanup:{code:cleanup?.code??null,message:cleanup?.message??String(cleanup)}};}catch{}
+   }
+  }
  }};
  return {rgb,width,height,paddedWidth:pw,paddedHeight:ph,metadata:{method:'rita',source_shape:[height,width],padded_shape:[ph,pw],padding_right_bottom:[pw-width,ph-height],normalization:{divisor:255,mean:[.485,.456,.406],std:[.229,.224,.225]},rescaled:false,geometricAdaptation:'native reflect32; dynamic feature splits and final align-corners resize'}};
 }

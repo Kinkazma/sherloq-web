@@ -10,7 +10,8 @@ export async function renderSeparationCache(image,p,cached,{budget,signal,onProg
  try{
   planning=budget.reserve(overhead+3);output=await createSegmentedBytes(n*3,{budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal});planning();planning=null;
   const blockBytes=Math.min(CHUNK-CHUNK%3,n*3,Math.floor((budget.limit-budget.retained-budget.active-overhead)/3)*3);if(blockBytes<3)throw new EngineError('MEMORY_LIMIT','Cached separation display does not fit the shared budget.');
-  staging=budget.reserve(overhead+blockBytes);const bytes=new Uint8Array(blockBytes),tables=p.denoised?null:p.levels===0?Array.from({length:3},(_,c)=>equalizeHistogramLut(base.histograms.subarray(c*256,(c+1)*256),n)):[Uint8Array.from({length:256},(_,i)=>Math.min(255,Math.trunc(255*i/p.levels)))];let readMs=0,writeMs=0,postprocessMs=0,blocks=0;
+  // The page reader/writer owns its IO lease; this plan keeps it available.
+  staging=budget.reserve(overhead-ioBytes+blockBytes);const bytes=new Uint8Array(blockBytes),tables=p.denoised?null:p.levels===0?Array.from({length:3},(_,c)=>equalizeHistogramLut(base.histograms.subarray(c*256,(c+1)*256),n)):[Uint8Array.from({length:256},(_,i)=>Math.min(255,Math.trunc(255*i/p.levels)))];let readMs=0,writeMs=0,postprocessMs=0,blocks=0;
   for(let offset=0;offset<n*3;offset+=blockBytes){
    await controlCheckpoint(signal);const part=bytes.subarray(0,Math.min(blockBytes,n*3-offset));let began=performance.now();await base.read(part,offset);readMs+=performance.now()-began;
    began=performance.now();if(tables)for(let i=0;i<part.length;i++)part[i]=tables.length===1?tables[0][part[i]]:tables[(offset+i)%3][part[i]];postprocessMs+=performance.now()-began;

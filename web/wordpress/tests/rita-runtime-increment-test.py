@@ -37,6 +37,9 @@ class RitaRuntimeIncrementTest(unittest.TestCase):
         if workspace_path.exists():
             for r in json.loads(workspace_path.read_text())['baseline']['snapshots']:
                 latest.setdefault(r['file'], (REPO / r['copy']).read_bytes())
+        review=json.loads((REPO/'web/wordpress/runtime-patches/review-20261021.json').read_text())
+        for r in review['baseline']['snapshots']:
+            latest.setdefault(r['file'],(REPO/r['copy']).read_bytes())
         for name in names:
             target = self.repo / name
             target.parent.mkdir(parents=True, exist_ok=True)

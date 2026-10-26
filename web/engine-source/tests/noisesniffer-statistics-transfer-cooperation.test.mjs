@@ -1,0 +1,78 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {Budget} from '../src/cache.js';
+import {contiguousSurface} from '../src/image-sources.js';
+import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from '../src/source-region-geometry.js';
+import {createSourceRegionView} from '../src/source-region-view.js';
+import {sourceRegionNoisesnifferStatistics} from '../src/source-region-noisesniffer-statistics.js';
+import {createFloatPlane} from '../src/segmented-float-plane.js';
+import {createSegmentedBytes} from '../src/segmented-bytes.js';
+import {createCooperator} from '../src/errors.js';
+import {createIndexedDbSession} from '../src/indexeddb-storage.js';
+import {createStrictColdNoisesnifferPreview} from '../src/noisesniffer-strict-cold-preview.js';
+
+const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return{promise,resolve};};
+async function fixture(){
+ const width=55,height=41,budget=new Budget(192*1024**2),data=Uint8Array.from({length:width*height*3},(_,i)=>23+(i*73+Math.floor(i/11)*19)%210),state=await createOriginalSourceRegionsState({width,height,sourceSha256:'c'.repeat(64)});
+ await state.add('acquisition',{x0:3,y0:4,x1:23,y1:38});await state.add('acquisition',{x0:30,y0:7,x1:52,y1:36});await state.add('exclusion',{x0:8,y0:14,x1:10,y1:17});const domain=await compileOriginalSourceRegions(state.snapshot()),surface=contiguousSurface({width,height,format:'rgb8',data},budget),original={sha256:'c'.repeat(64),surface},view=await createSourceRegionView({...surface,sha256:original.sha256},domain.descriptor,{budget});
+ return{budget,domain,original,view,async close(){await view.dispose();await surface.dispose();assert.equal(budget.total(),0);}};
+}
+async function clock(fn,{now=()=>0}={}){
+ const prior=Object.getOwnPropertyDescriptor(performance,'now'),timer=globalThis.setTimeout,calls=[];Object.defineProperty(performance,'now',{configurable:true,value:now});globalThis.setTimeout=function(f,ms,...args){if(typeof f==='function'&&Number(ms??0)===0)calls.push(new Error().stack??'');return timer.call(globalThis,f,ms,...args);};
+ try{return await fn(calls);}finally{globalThis.setTimeout=timer;if(prior)Object.defineProperty(performance,'now',prior);else delete performance.now;}
+}
+test('small strict statistics share bounded cooperation instead of one timer per partial plane and visit',async()=>{
+ const h=await fixture();let stats;try{await clock(async calls=>{stats=await sourceRegionNoisesnifferStatistics(h.original,h.view,h.domain,3,{budget:h.budget});assert(stats.validCount>0);assert.equal(calls.length,0,'Bounded tiny native statistics should not force20storage timers');});}finally{await stats?.dispose();await h.close();}
+});
+test('float transfer cooperative option is per call; default partial transfers keep their existing checkpoints',async()=>{
+ const budget=new Budget(1024**2),plane=await createFloatPlane(5,3,{budget}),a=new AbortController(),b=new AbortController(),values=Float64Array.of(1,2,3,4);let callbacks=0;
+ try{await clock(async timers=>{const cooperate=createCooperator(a.signal);await plane.write(values,1,0,2,2,{signal:a.signal,cooperate:async signal=>{assert.equal(signal,a.signal);callbacks++;await cooperate();}});assert.equal(timers.length,0);assert.equal(callbacks,1);a.abort();assert.deepEqual(await plane.read(1,0,2,2,{signal:b.signal,cooperate:createCooperator(b.signal)}),values);assert.equal(timers.length,0);const before=timers.length;assert.deepEqual(await plane.read(1,0,2,2),values);assert.equal(timers.length-before,1);await plane.write(values,1,0,2,2);assert.equal(timers.length-before,2);assert.equal(plane.maximum,4);});}finally{await plane.dispose();assert.equal(budget.total(),0);}
+});
+for(const action of ['read','write'])test('float '+action+' checks a microtask cancellation after a fast cooperative await',async()=>{
+ const budget=new Budget(1024**2),plane=await createFloatPlane(5,3,{budget}),controller=new AbortController(),values=Float64Array.of(1,2,3,4);await plane.write(values,1,0,2,2);const cooperate=async()=>{queueMicrotask(()=>controller.abort());};
+ try{await assert.rejects(action==='read'?plane.read(1,0,2,2,{signal:controller.signal,cooperate}):plane.write(Float64Array.of(9,9,9,9),1,0,2,2,{signal:controller.signal,cooperate}),e=>e.code==='CANCELLED');assert.deepEqual(await plane.read(1,0,2,2),values);}finally{await plane.dispose();assert.equal(budget.total(),0);}
+});
+test('store visit uses the current cooperative callback, preserves frozen rejection and retries its intact bytes',async()=>{
+ const budget=new Budget(1024**2),store=await createSegmentedBytes(12,{budget}),bytes=Uint8Array.from({length:12},(_,i)=>i);await store.write(bytes);const error=Object.freeze(new Error('cooperative ACK refused'));let callbacks=0,visited=0;
+ try{await assert.rejects(store.visit(()=>visited++,{blockBytes:4,cooperate:()=>{callbacks++;throw error;}}),e=>e===error);assert.equal(callbacks,1);assert.equal(visited,0);assert.equal(budget.active,0);const out=[];await clock(async timers=>{await store.visit(part=>out.push(...part),{blockBytes:4,cooperate:createCooperator()});assert.equal(timers.length,0);});assert.deepEqual(Uint8Array.from(out),bytes);assert.equal(budget.active,0);await clock(async timers=>{await store.visit(()=>{}, {blockBytes:4});assert.equal(timers.length,3);});}finally{await store.dispose();assert.equal(budget.total(),0);}
+});
+test('store visit checks cancellation after a fast cooperative await before calling its visitor',async()=>{
+ const budget=new Budget(1024**2),store=await createSegmentedBytes(12,{budget}),controller=new AbortController();let visited=0;try{await assert.rejects(store.visit(()=>visited++,{signal:controller.signal,cooperate:async()=>queueMicrotask(()=>controller.abort())}),e=>e.code==='CANCELLED');assert.equal(visited,0);assert.equal(budget.active,0);}finally{await store.dispose();assert.equal(budget.total(),0);}
+});
+test('strict statistics preserve a refused owned plane and retry its exact retirement ACK',async()=>{
+ const h=await fixture();let stats,originalDispose,store,calls=0,refuse=true;const failure=Object.freeze(new Error('owned plane ACK refused'));
+ try{stats=await sourceRegionNoisesnifferStatistics(h.original,h.view,h.domain,3,{budget:h.budget});store=stats.means.store;originalDispose=store.dispose.bind(store);store.dispose=()=>{calls++;return refuse?Promise.reject(failure):originalDispose();};await assert.rejects(stats.dispose(),e=>e===failure);assert(h.budget.retained>=store.byteLength);refuse=false;await stats.dispose();assert.equal(calls,2);}finally{refuse=false;await originalDispose?.();await stats?.dispose();await h.close();}
+});
+test('strict statistics wait for their current source ACK before requesting another native core',async()=>{
+ const h=await fixture(),entered=deferred(),gate=deferred();let stats,reads=0,releases=0,operation;const base=h.view.readWindow.bind(h.view),view={...h.view,async readWindow(...args){reads++;const frame=await base(...args);return{...frame,release(){releases++;entered.resolve();const p=gate.promise.then(()=>frame.release());void p.catch(()=>{});return p;}};}};
+ try{operation=clock(async()=>{stats=await sourceRegionNoisesnifferStatistics(h.original,view,h.domain,3,{budget:h.budget});});await entered.promise;for(let i=0;i<16;i++)await Promise.resolve();assert.equal(reads,1,'A pending native ACK must hold the core transaction');gate.resolve();await operation;assert(releases>1);}finally{gate.resolve();await operation?.catch(()=>{});await stats?.dispose();await h.close();}
+});
+test('cancellation during a source ACK waits for that ACK and never publishes statistics',async()=>{
+ const h=await fixture(),entered=deferred(),gate=deferred(),controller=new AbortController(),base=h.view.readWindow.bind(h.view);let stats,operation,settled=false;const view={...h.view,async readWindow(...args){const frame=await base(...args);return{...frame,release(){entered.resolve();return gate.promise.then(()=>frame.release());}};}};
+ try{operation=clock(async()=>{stats=await sourceRegionNoisesnifferStatistics(h.original,view,h.domain,3,{budget:h.budget,signal:controller.signal});});void operation.then(()=>settled=true,()=>settled=true);await entered.promise;controller.abort();for(let i=0;i<16;i++)await Promise.resolve();assert.equal(settled,false);gate.resolve();await assert.rejects(operation,e=>e.code==='CANCELLED');assert.equal(stats,undefined);}finally{gate.resolve();await operation?.catch(()=>{});await stats?.dispose();await h.close();}
+});
+test('a frozen native primary survives a refused source ACK, which stays reachable for retry',async()=>{
+ const h=await fixture(),entered=deferred(),gate=deferred(),base=h.view.readWindow.bind(h.view),pending=[],primary=Object.freeze(new Error('native transaction primary')),ack=Object.freeze(new Error('source ACK refused'));let refuse=true,operation,settled=false,stats;const view={...h.view,async readWindow(...args){const frame=await base(...args),entry={calls:0,async release(){entry.calls++;entered.resolve();await gate.promise;if(refuse)throw ack;await frame.release();}};pending.push(entry);return{...frame,release(){const p=entry.release();void p.catch(()=>{});return p;}};}};
+ try{operation=clock(async()=>{stats=await sourceRegionNoisesnifferStatistics(h.original,view,h.domain,3,{budget:h.budget,onProgress(){throw primary;}});});void operation.then(()=>settled=true,()=>settled=true);await entered.promise;for(let i=0;i<16;i++)await Promise.resolve();assert.equal(settled,false);gate.resolve();await assert.rejects(operation,e=>e===primary);assert.equal(stats,undefined);assert.equal(pending.length,1);assert.equal(pending[0].calls,1);refuse=false;await pending[0].release();assert.equal(pending[0].calls,2);}finally{gate.resolve();refuse=false;await operation?.catch(()=>{});for(const p of pending)await p.release();await stats?.dispose();await h.close();}
+});
+test('concurrent strict statistics retirement callers share one pending ACK and retry only the refused plane',async()=>{
+ const h=await fixture(),entered=deferred(),gate=deferred(),failure=Object.freeze(new Error('plane ACK refused'));let stats,store,originalDispose,refuse=true,calls=0;
+ try{stats=await sourceRegionNoisesnifferStatistics(h.original,h.view,h.domain,3,{budget:h.budget});store=stats.variance.store;originalDispose=store.dispose.bind(store);store.dispose=async()=>{calls++;entered.resolve();await gate.promise;if(refuse)throw failure;return originalDispose();};const a=stats.dispose(),b=stats.dispose(),answers=Promise.allSettled([a,b]);await entered.promise;assert.equal(a,b);gate.resolve();const result=await answers;assert(result.every(x=>x.status==='rejected'&&x.reason===failure));assert.equal(calls,1);refuse=false;await stats.dispose();assert.equal(calls,2);}finally{gate.resolve();refuse=false;await originalDispose?.();await stats?.dispose();await h.close();}
+});
+for(const ArrayType of [Float32Array,Float64Array])test(ArrayType.name+' transfer bytes and128row cadence survive cooperative and default paths',async()=>{
+ const budget=new Budget(1024**2),a=await createFloatPlane(5,260,{budget,ArrayType}),b=await createFloatPlane(5,260,{budget,ArrayType}),values=ArrayType.from({length:2*257},(_,i)=>i===0?-0:i===1?NaN:i===2?Infinity:(i-100)*.1);let pauses=0;
+ try{await a.write(values,1,1,2,257);await clock(async calls=>{await b.write(values,1,1,2,257,{cooperate:async()=>{pauses++;}});assert.equal(pauses,3);assert.equal(calls.length,0);});const x=await a.read(0,0,5,260),y=await b.read(0,0,5,260);assert.deepEqual(new Uint8Array(y.buffer),new Uint8Array(x.buffer));assert(Number.isNaN(a.maximum)&&Number.isNaN(b.maximum));assert.deepEqual(new Uint8Array((await b.read(1,1,2,257,{cooperate:createCooperator()})).buffer),new Uint8Array(values.buffer));}finally{await a.dispose();await b.dispose();assert.equal(budget.total(),0);}
+});
+test('invalid cooperative options reject before float or store I/O',async()=>{
+ const budget=new Budget(1024**2),plane=await createFloatPlane(5,3,{budget}),store=await createSegmentedBytes(12,{budget});let touched=0;const read=plane.store.readInto.bind(plane.store),write=plane.store.write.bind(plane.store);plane.store.readInto=(...args)=>{touched++;return read(...args);};plane.store.write=(...args)=>{touched++;return write(...args);};
+ try{for(const cooperate of [null,false,1,'callback',{}]){await assert.rejects(plane.read(1,0,2,2,{cooperate}),e=>e.code==='INVALID_INPUT');await assert.rejects(plane.write(new Float64Array(4),1,0,2,2,{cooperate}),e=>e.code==='INVALID_INPUT');await assert.rejects(store.visit(()=>touched++,{cooperate}),e=>e.code==='INVALID_INPUT');}assert.equal(touched,0);assert.equal(budget.active,0);}finally{await store.dispose();await plane.dispose();assert.equal(budget.total(),0);}
+});
+test('real cached statistics survive A/B/A transactions after each previous request signal is aborted',async()=>{
+ const h=await fixture(),owner=createStrictColdNoisesnifferPreview({budget:h.budget}),params={blockSize:3,cellSize:10,samplesPerBin:100,lowFrequencyFraction:.7,lowNoiseFraction:.5,view:'regions'},preview={maxSide:64,maxPixels:10000,maxWorkingBytes:128*1024**2};let first;
+ try{for(const [index,p]of[params,{...params,lowNoiseFraction:.6},params].entries()){const controller=new AbortController();let statisticsEvents=0;const r=await owner.preview({original:h.original,domain:h.domain,params:p,preview,signal:controller.signal,onProgress:e=>{if(e.phase.startsWith('source-region-noisesniffer-'))statisticsEvents++;}});if(index===0){assert.equal(r.metrics.cold,true);assert(statisticsEvents>0);first=r.pixels.data.slice();}else{assert.equal(r.metrics.cold,false);assert.equal(r.metrics.setupMilliseconds,0);assert.equal(statisticsEvents,0);if(index===2)assert.deepEqual(r.pixels.data,first);}controller.abort();}}finally{await owner.dispose();await h.close();}
+});
+if(globalThis.indexedDB)test('real IndexedDB strict statistics preserve all plane bytes and retry a refused disk ACK',async()=>{
+ const h=await fixture(),session=await createIndexedDbSession({budget:h.budget}),prior=Object.getOwnPropertyDescriptor(h.budget,'isBackingUnderPressure');let memory,disk,restore,refuse=true,calls=0;const failure=Object.freeze(new Error('IndexedDB plane ACK refused'));
+ const collect=async stats=>{const valid=new Uint8Array(stats.valid.byteLength);await stats.valid.readInto(valid);return{valid,means:await stats.means.read(0,0,stats.width*3,stats.height),variance:await stats.variance.read(0,0,stats.width,stats.height*3),metrics:stats.metrics,validCount:stats.validCount,extrema:stats.extrema};};
+ try{memory=await sourceRegionNoisesnifferStatistics(h.original,h.view,h.domain,3,{budget:h.budget});const expected=await collect(memory);await memory.dispose();memory=null;h.original.session=session;Object.defineProperty(h.budget,'isBackingUnderPressure',{configurable:true,value:()=>true});disk=await sourceRegionNoisesnifferStatistics(h.original,h.view,h.domain,3,{budget:h.budget});assert.equal(disk.valid.storage,'temporary');assert.deepEqual(await collect(disk),expected);const store=disk.variance.store;restore=store.dispose.bind(store);store.dispose=()=>{calls++;return refuse?Promise.reject(failure):restore();};await assert.rejects(disk.dispose(),e=>e===failure);assert(session.snapshot().arrays>0);refuse=false;await disk.dispose();assert.equal(calls,2);assert.equal(session.snapshot().arrays,0);}finally{refuse=false;await restore?.();await disk?.dispose();await memory?.dispose();if(prior)Object.defineProperty(h.budget,'isBackingUnderPressure',prior);else delete h.budget.isBackingUnderPressure;await session.dispose();await h.close();}
+});

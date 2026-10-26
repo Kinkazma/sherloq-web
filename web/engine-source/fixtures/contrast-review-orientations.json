@@ -1,0 +1,297 @@
+{
+  "schema": "contrast-review-orientations/1",
+  "opencv": "4.11.0",
+  "numpy": "1.26.4",
+  "nativeWidth": 67,
+  "nativeHeight": 71,
+  "cases": [
+    {
+      "orientation": 1,
+      "width": 67,
+      "height": 71,
+      "inputSha256": "f670bc6eba3c871c0e5433675e667b232dd5e1f2d8cb133bde29f0644696517c",
+      "expected": [
+        {
+          "block": 32,
+          "shape": [
+            4,
+            4,
+            3
+          ],
+          "mapSha256": "a663897cb512cc6cdcd0746586e634cbef4b9fa7348a88b15586ad78b6748726",
+          "views": [
+            "cb1079771d63bf5ede2b6b1a0cfc0c70d8efb1fcb4231b06a028c5c0d46ae887",
+            "854083ecde1d07adc5a64a1f6de4ddb0e1f2014ffd2c9351ea66885129822538",
+            "84503f61d647c7ced29d0bba51113bf7b07c4d73939abfbeacb9c79808127182"
+          ]
+        },
+        {
+          "block": 64,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "mapSha256": "ad8eae2abaab1c99b04cc6b3ba05b5d0f6941dc8753d6e84dee1f6bd5ce42226",
+          "views": [
+            "cb1079771d63bf5ede2b6b1a0cfc0c70d8efb1fcb4231b06a028c5c0d46ae887",
+            "84caa1d7acb6dcb9f325267e21c2e641cf51975ad2c27ec385091b2ce834c4c5",
+            "daeb59eb94c38f0532f57ba2f45f425a81d1d7138c0f3e74ed4a7234c9f4d15d"
+          ]
+        }
+      ]
+    },
+    {
+      "orientation": 2,
+      "width": 67,
+      "height": 71,
+      "inputSha256": "b341664781d4ed3f31a0bceca76750a4ab7c824d3f76a07f1ce49de531aecd01",
+      "expected": [
+        {
+          "block": 32,
+          "shape": [
+            4,
+            4,
+            3
+          ],
+          "mapSha256": "054b663335cab805d15a79d60320364517559599293e0c8e57f848fcdcc2ddbd",
+          "views": [
+            "cb1079771d63bf5ede2b6b1a0cfc0c70d8efb1fcb4231b06a028c5c0d46ae887",
+            "7b9e2ebe0114a0caabb77cedcc06482329be58e1fe04212dde0308a5b4d72dbb",
+            "cf795475c9e9e2e57a542d384bcfad506505481fd24adaaf47763665c221dc38"
+          ]
+        },
+        {
+          "block": 64,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "mapSha256": "31a334badd175892507080bfaa913ce2952ee9fee25aa1649b8c0ac4278e3471",
+          "views": [
+            "cb1079771d63bf5ede2b6b1a0cfc0c70d8efb1fcb4231b06a028c5c0d46ae887",
+            "1e83e7cfe320cb95210959d16f3becc0d035b465480103a9d88a631059d78ff4",
+            "8ba0ec899fa896939bf2e7d475f0fa05f8a77d3d4afc9ecee5e36b8538785629"
+          ]
+        }
+      ]
+    },
+    {
+      "orientation": 3,
+      "width": 67,
+      "height": 71,
+      "inputSha256": "a6d77c5a823cd1df1a8a9f0a6db257bcc358473e9a4f7ba6d3cb6374198bd362",
+      "expected": [
+        {
+          "block": 32,
+          "shape": [
+            4,
+            4,
+            3
+          ],
+          "mapSha256": "1382bdba9f130685aacd43e12b19e139e9ef0093b3303b4e8d5ea1031867ba73",
+          "views": [
+            "cb1079771d63bf5ede2b6b1a0cfc0c70d8efb1fcb4231b06a028c5c0d46ae887",
+            "bd81609778e727af7ddaf58cf808698e0272484eb1a447ea3eac2eede7888943",
+            "968757dce1ae43af65ecbeb87a39fcec10786cc1fdd34dae289cfb695f5972db"
+          ]
+        },
+        {
+          "block": 64,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "mapSha256": "b99f240fb5978b7685a9aec8170c1b49fa02301675cbe722d9f57afd4ff15c2b",
+          "views": [
+            "cb1079771d63bf5ede2b6b1a0cfc0c70d8efb1fcb4231b06a028c5c0d46ae887",
+            "3182a78e5a6455f91ca1f5eeeafa5a2cf1b851982df1b0e30085b76cdb0c4417",
+            "0f8906931a553351c9d9ab3ea6502e26f4b540be75e89c9f946b2683ed64db7a"
+          ]
+        }
+      ]
+    },
+    {
+      "orientation": 4,
+      "width": 67,
+      "height": 71,
+      "inputSha256": "62162c222278b8b536fdbf89209f3aabc3d90281eb4f978f8a5b540641103b26",
+      "expected": [
+        {
+          "block": 32,
+          "shape": [
+            4,
+            4,
+            3
+          ],
+          "mapSha256": "a1399484d33fe0031a4fd0580053cf55a9f6052d559c90d5d385020b63bfc28c",
+          "views": [
+            "cb1079771d63bf5ede2b6b1a0cfc0c70d8efb1fcb4231b06a028c5c0d46ae887",
+            "ff8fed69ead8494a28d2b00370843ffbf7374ad74d852b915a6f06aa4a43c0f5",
+            "ff618a03a605db7bf4fde9f3f72632737d2e274c578582064e68c9083cc8c133"
+          ]
+        },
+        {
+          "block": 64,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "mapSha256": "853ae367ad203d7b19543f341d8ab2968f77ca4cc379cac8f88de8c8e0647fd8",
+          "views": [
+            "cb1079771d63bf5ede2b6b1a0cfc0c70d8efb1fcb4231b06a028c5c0d46ae887",
+            "858baac23728182223633229316d4afb6dcc58f19dd6008a748b92f7a8bb93ec",
+            "30b396381908c60f52d7edb9df5d67d8b7be123a923ba136746c9f52cebc64bc"
+          ]
+        }
+      ]
+    },
+    {
+      "orientation": 5,
+      "width": 71,
+      "height": 67,
+      "inputSha256": "8b0ad4a0f65c26e90c697aaf34937a6a22e2a7cbe000f74a8618e23e518b27d5",
+      "expected": [
+        {
+          "block": 32,
+          "shape": [
+            4,
+            4,
+            3
+          ],
+          "mapSha256": "00075c3857cb258d0e9b1f8332bae261b7239a436efe7c86bf341bd4c875255c",
+          "views": [
+            "e4efe071fef448ce1a25113c8a3948eadfa183742e4564a035cac2e1d812cb45",
+            "c799aa102ed6271db6c6429fe489e8cdaff793aaa955ab411329303e9c852feb",
+            "dc1d7cda073f949027aeb99a6c5e416bb050552ba31fc6604500c1fd42e68610"
+          ]
+        },
+        {
+          "block": 64,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "mapSha256": "cc8dc5abf84881b09a76c583c5570d8951e9763c0df06abfff0b3c61532ea464",
+          "views": [
+            "e4efe071fef448ce1a25113c8a3948eadfa183742e4564a035cac2e1d812cb45",
+            "f400d6636172cd773719fcf8787b469be449c6d89e88b2340067eeb83a8c01ae",
+            "e26706034b6b6d192cc79c67640e263b85e513a8bac123bb1832c796e50a514b"
+          ]
+        }
+      ]
+    },
+    {
+      "orientation": 6,
+      "width": 71,
+      "height": 67,
+      "inputSha256": "bec6fb0ab489d88e70046d7d3ee771e0fe5d7bc7279477ab136977b6d5a2ee82",
+      "expected": [
+        {
+          "block": 32,
+          "shape": [
+            4,
+            4,
+            3
+          ],
+          "mapSha256": "9e06a74d0d064ca68841b62d2fa51bdd90c90ccc4cd577ee362382e9031af690",
+          "views": [
+            "e4efe071fef448ce1a25113c8a3948eadfa183742e4564a035cac2e1d812cb45",
+            "d2d6fae4e3c59f48190cc7c03a7254e528204281977992cf94adceb4c2886ad9",
+            "787721711a7ed3fe5d439f759887915e6b506f450a44ba2108673229c22982ec"
+          ]
+        },
+        {
+          "block": 64,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "mapSha256": "08e7923076605da32b14082d962e5262b7f049530d7963d86ac155e2adc88534",
+          "views": [
+            "e4efe071fef448ce1a25113c8a3948eadfa183742e4564a035cac2e1d812cb45",
+            "bac7dd79b26447b2d6787ccc17f013673a03ba870539681c614ea9ff3cd248c0",
+            "60766bf72d3cac33899f462239677a3725a978af8b5e78912d62449d6cfea5a9"
+          ]
+        }
+      ]
+    },
+    {
+      "orientation": 7,
+      "width": 71,
+      "height": 67,
+      "inputSha256": "5a61ce7e4b2f0ad1c05ca9f006c5c76dae7c6d14c3c56eed07d7315f8bd93173",
+      "expected": [
+        {
+          "block": 32,
+          "shape": [
+            4,
+            4,
+            3
+          ],
+          "mapSha256": "7dd5aae5d8c079f4de2c11551cfb4154d5f45bb9ef44a66d1317086b28a75352",
+          "views": [
+            "e4efe071fef448ce1a25113c8a3948eadfa183742e4564a035cac2e1d812cb45",
+            "d34063d2e020595a1496ad36c154c7c5dcb5e606ff07b16942f525ad713afb44",
+            "93c300fd75371448b1797f74280f855e2c8323ff67c03d6edb051a67b59b0168"
+          ]
+        },
+        {
+          "block": 64,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "mapSha256": "0400cc0e88f0035e95890a04ee0842f2cae621c98bc44d5f951e489befaf2711",
+          "views": [
+            "e4efe071fef448ce1a25113c8a3948eadfa183742e4564a035cac2e1d812cb45",
+            "5c469aa52873a1a1f7a857ed62d0925e927d63969dc236c8a46952f464879686",
+            "3dcfc497964b6753e888adf5b721f7e1c948e6c22abc4de2ced5630c58853460"
+          ]
+        }
+      ]
+    },
+    {
+      "orientation": 8,
+      "width": 71,
+      "height": 67,
+      "inputSha256": "929fe4c99cf2ff78498040a9fcaeb1ba4071ed75f2b4475a4a682a7ffc0a8626",
+      "expected": [
+        {
+          "block": 32,
+          "shape": [
+            4,
+            4,
+            3
+          ],
+          "mapSha256": "497248e65f051e7f7bcbd9a9d492c262011a994241dfa085d19adb3a6e70c47f",
+          "views": [
+            "e4efe071fef448ce1a25113c8a3948eadfa183742e4564a035cac2e1d812cb45",
+            "94896940793151098bdd17c1799475b24b045c615f838ab924a7cce15c258c04",
+            "2cce8b8008f389e59646dd4db39d23eb3ec11f7e0e98e2486d81b41eef0819d8"
+          ]
+        },
+        {
+          "block": 64,
+          "shape": [
+            3,
+            3,
+            3
+          ],
+          "mapSha256": "1ff01a7952f89da2d4f59ed1c11d23570528443a80f9dee054744b9025279fa5",
+          "views": [
+            "e4efe071fef448ce1a25113c8a3948eadfa183742e4564a035cac2e1d812cb45",
+            "4f2c8272648434dc31e22c7cf01763b6c77b4fd31f751cad953b0103d624c528",
+            "1331bb08946ae86abef7faf6ff8e48cbe208b412c8115080f7e5b86d7badca40"
+          ]
+        }
+      ]
+    }
+  ]
+}

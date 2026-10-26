@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.21.0";
+import "../../runtime-context.js?v=0.25.0";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {createExtensionResultRecord} from './extensions-result-surfaces.js';
 import {persistExtensionResult} from './extensions-plane-cache.js';
@@ -26,8 +26,8 @@ export function createExtensionsAdapter({budget,scheduler,profile,version,publis
   const ids=[...published].filter(([,owner])=>imageId===undefined||owner===imageId).map(([id])=>id);
   for(const id of ids)if(published.has(id))await releaseSurface(id);
   for(const[key,entry]of cache)if(imageId===undefined||entry.imageId===imageId){cache.delete(key);await entry.value.release();}
-  for(const[id,session]of sessions)if(imageId===undefined||id===imageId){sessions.delete(id);await session.dispose();}
   await engine?.clearCache();
+  for(const[id,session]of sessions)if(imageId===undefined||id===imageId){sessions.delete(id);await session.dispose();}
  }
  return {
   configured:()=>!!engine,
@@ -68,7 +68,7 @@ export function createExtensionsAdapter({budget,scheduler,profile,version,publis
     if(!format&&missing.length){let bytes=image.bytes,part;if(!bytes&&image.source?.read){part=await image.source.read(0,Math.min(8,image.source.byteLength),{signal});bytes=part.bytes;}
      try{format=bytes?.[0]===255&&bytes?.[1]===216?'JPEG':bytes?.[0]===137&&bytes?.[1]===80?'PNG':bytes?.[0]===73&&bytes?.[1]===73||bytes?.[0]===77&&bytes?.[1]===77?'TIFF':'UNKNOWN';}finally{part?.release();}
     }
-    const source={width:descriptor.width,height:descriptor.height,sourceSha256:image.sha256,sourceFormat:format,exifOrientation:image.provenance?.orientation??1,decodeProvenance:image.provenance,encodedBytes:image.bytes,sourceBlob:image.blob,source:image.source,getTemporarySession,
+    const source={width:descriptor.width,height:descriptor.height,sourceSha256:image.sha256,sourceFormat:format,exifOrientation:image.provenance?.orientation??1,decodeProvenance:image.provenance,encodedBytes:image.bytes,sourceBlob:image.blob,source:image.source,getTemporarySession,comprintNativeContexts:image.comprintNativeContexts,doctamperNativeContexts:image.doctamperNativeContexts,doctamperOriginal:image.doctamperOriginal,retainAnalysisSource:image.retainAnalysisSource?.bind(image),
      async readWindow(rect,hooks={}){checkAbort(signal);const part=await image.surface.readWindow(rect,{...hooks,signal:hooks.signal??signal});reads++;maxWindowBytes=Math.max(maxWindowBytes,part.pixels.data.byteLength);return part;}
     };
     const resultsByMethod=new Map(),ledgers=new Map(),seen=new Set();

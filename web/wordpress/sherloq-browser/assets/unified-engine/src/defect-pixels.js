@@ -1,5 +1,6 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {parameters,rows,rgbPixels} from './pixel-utils.js';
+import {checkAbort} from './errors.js';
 export const defectParams=(p={})=>parameters(p,{radius:1,threshold:32,spread:32,kind:0,mode:0},{radius:[1,2],threshold:[1,255],spread:[0,255],kind:[0,2],mode:[0,2]});
 // Caller excludes the global image border and supplies the complete halo.
 // The same window supplies the median only when a channel is a candidate.
@@ -22,7 +23,8 @@ export function defectChannel(src,w,x,y,c,p,window){
 export async function defectPixels(image,p,hooks={}){
  const {width:w,height:h,data:src}=image,n=w*h,flags=new Uint8Array(src.length),pixelMask=new Uint8Array(n),median=new Uint8Array(src.length),out=p.mode===1?new Uint8Array(src.length):src.slice();
  const window=new Uint8Array((2*p.radius+1)**2);let count=0,channels=0;
- await rows(h,hooks,y=>{
+ const stage=(low,high)=>({...hooks,onProgress:f=>hooks.onProgress?.(low+(high-low)*f)});
+ await rows(h,stage(0,.55),y=>{
   if(y<p.radius||y>=h-p.radius)return;
   for(let x=p.radius;x<w-p.radius;x++){
    const i=y*w+x;
@@ -37,6 +39,7 @@ export async function defectPixels(image,p,hooks={}){
  });
  // Compact integer rows preserve native CSV order y,x,B,G,R without retaining a second source image.
  const candidates=new Uint32Array(channels*6);let offset=0;
- await rows(h,hooks,y=>{for(let x=0;x<w;x++)for(let c=2;c>=0;c--){const i=(y*w+x)*3+c;if(flags[i]){candidates.set([x,y,c,flags[i],src[i],median[i]],offset);offset+=6;}}});
+ await rows(h,stage(.55,1),y=>{for(let x=0;x<w;x++)for(let c=2;c>=0;c--){const i=(y*w+x)*3+c;if(flags[i]){candidates.set([x,y,c,flags[i],src[i],median[i]],offset);offset+=6;}}});
+ checkAbort(hooks.signal);
  return {pixels:rgbPixels(image,out),masks:{candidates:{width:w,height:h,format:'mask8',data:pixelMask,range:[0,3],semantics:'Bit 1=hot, bit 2=dead; 3=both across RGB channels; border excluded.'}},data:{flags:{width:w,height:h,format:'rgb-flags8',data:flags,channelOrder:'RGB'},count,candidateColumns:['x','y','rgbChannelIndex','flag','originalValue','replacementValue'],candidates},semantics:'Isolated pixel candidates, not a diagnosis of sensor defects. Correction replaces candidate channels only; original stays unchanged.'};
 }

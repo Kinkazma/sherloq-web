@@ -30,6 +30,7 @@ export async function createIndexedDbSession({signal,maximumBytes=Infinity,budge
  const alive=()=>{if(disposed)throw new EngineError('DISPOSED','Temporary session disposed.');};
  function queue(fn){const p=tail.then(fn);tail=p.catch(()=>{});return p;}
  function transaction(mode,action){return new Promise((resolve,reject)=>{let tx,result,cause;try{tx=db.transaction('chunks',mode);tx.oncomplete=()=>resolve(result);tx.onabort=()=>reject(failure(cause??tx.error));tx.onerror=()=>{};action(tx.objectStore('chunks'),value=>{result=value;},error=>{cause=error;tx.abort();});}catch(e){if(tx)try{tx.abort();}catch{}reject(failure(e));}});}
+ function disposeSession(){if(disposing)return disposing;disposed=true;const task=(async()=>{await tail;db.close();await removeIndexedDbSession(id);arrays.clear();reserved=0;if(cacheEnabled)budget.clearPrefix(cachePrefix);})();disposing=task;void task.catch(()=>{if(disposing===task)disposing=null;});return task;}
  function range(record,offset,length){alive();if(record.closed)throw new EngineError('DISPOSED','Temporary array closed.');requireValue(Number.isSafeInteger(offset)&&offset>=0&&offset<=record.byteLength-length,'Invalid temporary byte range.');}
  return {
   id,backend:'indexeddb',capability:{available:true,asynchronous:true,quotaBytes:estimate.quota??null,usageBytes:estimate.usage??null,estimateIsReservation:false,backingMedium:'browser-managed; not guaranteed disk'},
@@ -55,9 +56,9 @@ export async function createIndexedDbSession({signal,maximumBytes=Infinity,budge
       }else await transaction('readwrite',(store,set,abort)=>{const r=store.get([record.id,index]);r.onsuccess=()=>{try{const page=r.result??allocateTypedArray(Uint8Array,size,{label:'indexeddb-page'});page.set(byteView(source,done,n),within);store.put(page,[record.id,index]);}catch(e){abort(e);}};});
      }finally{release();}done+=n;}});},
     flush:()=>queue(()=>{}),
-    dispose(){if(disposed)return disposing;if(record.removing)return record.removing;record.closed=true;record.removing=queue(async()=>{try{await transaction('readwrite',store=>store.delete(IDBKeyRange.bound([record.id,0],[record.id,Number.MAX_SAFE_INTEGER])));arrays.delete(record.id);reserved-=byteLength;}finally{if(cacheEnabled)budget.clearPrefix(arrayPrefix(record));record.cacheKeys?.clear();}});return record.removing;}
+    dispose(){if(!arrays.has(record.id))return;if(disposed)return disposeSession();if(record.removing)return record.removing;record.closed=true;const task=queue(async()=>{await transaction('readwrite',store=>store.delete(IDBKeyRange.bound([record.id,0],[record.id,Number.MAX_SAFE_INTEGER])));arrays.delete(record.id);reserved-=byteLength;if(cacheEnabled)budget.clearPrefix(arrayPrefix(record));record.cacheKeys?.clear();});record.removing=task;void task.catch(()=>{if(record.removing===task)record.removing=null;});return task;}
    };
   },
-  dispose(){if(disposing)return disposing;disposed=true;disposing=(async()=>{await tail;try{db.close();await removeIndexedDbSession(id);arrays.clear();reserved=0;}finally{if(cacheEnabled)budget.clearPrefix(cachePrefix);}})();return disposing;}
+  dispose:disposeSession
  };
 }

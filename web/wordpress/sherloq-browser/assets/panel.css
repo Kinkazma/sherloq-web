@@ -63,3 +63,10 @@
 .embedded-panel .energy-biome-grid .energy-four output{display:inline}
 .embedded-panel .energy-biome-grid .energy-pair input[type=range]{width:100%!important;min-width:0;flex:1}
 .embedded-panel .energy-histogram-selectors select{font-size:10px;min-height:21px;padding:1px 3px}
+
+/* Source-region commands stay with the current tool, never in a second sidebar. */
+.panel-actions .individual-region-inline{display:inline-flex;align-items:center;gap:6px;padding:0;border:0;flex-wrap:wrap}
+.panel-actions .individual-region-inline[hidden]{display:none!important}
+.individual-region-inline .detection-text-option{padding:0;font-size:11px}
+.individual-region-inline .individual-region-history{display:inline-flex;gap:4px}
+.individual-region-inline .individual-region-history[hidden]{display:none!important}

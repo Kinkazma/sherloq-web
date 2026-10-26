@@ -1,3 +1,5 @@
+import {EngineError} from './errors.js';
+import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {sharedSegmentedReader} from './shared-segmented-reader.js';
 import {createRebindableByteReader} from './rebindable-byte-reader.js';
 
@@ -27,35 +29,37 @@ export function readSharedDenseInput(value){
 // Portable immutable publication also covers OPFS and IndexedDB. Workers keep
 // their own handles or a batched broker channel; paging no longer forces the
 // whole hypothesis onto the coordinator's JavaScript event loop.
-export async function exportPortableDenseInput(input,{budget,signal,forceBroker=false,cache,control,immediateControl=false}={}){
- const {exportByteStore}=await import('./portable-byte-store.js'),pins=[],ids=new Map(),stores=[],transfer=[],transports=[];
- let released=false;
+export async function exportPortableDenseInput(input,{budget,signal,forceBroker=false,cache,control,immediateControl=false,onRetirementOwner}={}){
+ const pins=[],ids=new Map(),stores=[],transfer=[],transports=[],publications=new Set();let exportByteStore,released=false,retiring=false,connection,finish,forget;const construction=new Promise(resolve=>finish=resolve);
+ const dropPins=async()=>{const results=await Promise.allSettled(pins.map(async(pin,id)=>{if(!pin)return;await acknowledgeDenseRetirement(()=>pin.release());if(pins[id]===pin){pins[id]=null;stores[id]=null;}}));const failure=results.find(value=>value.status==='rejected');if(failure)throw failure.reason;};
+ const dropConnection=onceDenseRetirement(()=>connection?.release()),close=onceDenseRetirement(async()=>{await construction;await Promise.allSettled([...publications]);await retireDenseOwners([dropConnection,dropPins]);pins.length=0;stores.length=0;ids.clear();released=true;forget?.();forget=null;});
+ const owner={dispose(){retiring=true;return close();}};
  const store=async value=>{
   if(value==null)return null;if(ids.has(value))return ids.get(value);
   const id=stores.length;ids.set(value,id);stores.push(null);pins.push(null);let ready;const initialized=new Promise(resolve=>{ready=resolve;});
-  const publish=async()=>{const pin=await exportByteStore(value,{budget,signal,forceBroker,revocable:control?consumer:undefined});pins[id]=pin;stores[id]={...pin.descriptor,cacheStoreId:cache?.storeId(value)};transports[id]=pin.descriptor.kind;return pin;};
+  const publish=()=>{const task=(async()=>{const pin=await exportByteStore(value,{budget,signal,forceBroker,revocable:control?consumer:undefined,onRetirementOwner});pins[id]=pin;stores[id]={...pin.descriptor,cacheStoreId:cache?.storeId(value)};transports[id]=pin.descriptor.kind;return pin;})();publications.add(task);void task.finally(()=>publications.delete(task)).catch(()=>{});return task;};
   const consumer={
    immediateQuiescence:immediateControl,
-   async quiesce({immediate=false}={}){await initialized;if(released||!pins[id])return true;try{if(await control({action:'detach',id,immediate})===false)return false;}catch(error){if(released)return true;throw error;}if(released)return true;await pins[id]?.release();pins[id]=null;stores[id]=null;return true;},
-   async resume(){if(released||pins[id])return;const pin=await publish();if(released){await pin.release();pins[id]=null;stores[id]=null;return;}await control({action:'attach',id,descriptor:stores[id]},pin.transfer);if(stores[id]?.kind!=='shared')connection?.activate?.();},
+   async quiesce({immediate=false}={}){await initialized;if(released||!pins[id])return true;if(retiring)return false;try{if(await control({action:'detach',id,immediate})===false)return false;}catch(error){if(released)return true;throw error;}if(released)return true;const pin=pins[id];await acknowledgeDenseRetirement(()=>pin?.release());if(pins[id]===pin){pins[id]=null;stores[id]=null;}return true;},
+   async resume(){if(released||retiring||pins[id])return;const pin=await publish();if(released||retiring){await acknowledgeDenseRetirement(()=>pin.release());if(pins[id]===pin){pins[id]=null;stores[id]=null;}return;}await control({action:'attach',id,descriptor:stores[id]},pin.transfer);if(stores[id]?.kind!=='shared')connection?.activate?.();},
   };
   try{const pin=await publish();transfer.push(...pin.transfer);return id;}finally{ready();}
  };
  const descriptor=async value=>{if(value.kind!=='compact-sift')return {store:await store(value)};const result=Object.fromEntries(attributes.map(key=>[key,value[key]]));for(const key of planes)result[key]=await store(value[key]);return result;};
- let connection;
- try{const first=await descriptor(input.first),second=input.second&&input.second!==input.first?await descriptor(input.second):first,mask=await store(input.mask),axes=input.axes?await Promise.all(input.axes.map(store)):null;
+ try{forget=onRetirementOwner?.(owner);({exportByteStore}=await import('./portable-byte-store.js'));const first=await descriptor(input.first),second=input.second&&input.second!==input.first?await descriptor(input.second):first,mask=await store(input.mask),axes=input.axes?await Promise.all(input.axes.map(store)):null;
   if(cache){connection=cache.connect({dormant:stores.every(value=>value.kind==='shared'||value.segments)});transfer.push(...connection.transfer);}
-  return {value:{first,second,mask,stores,width:input.width,height:input.height,dimensions:input.dimensions,axes,cache:connection?.descriptor},transfer,get transports(){return transports.slice();},async release(){if(released)return;released=true;connection?.release();await Promise.allSettled(pins.map(pin=>pin?.release()));pins.length=0;stores.length=0;ids.clear();}};
- }catch(error){released=true;connection?.release();await Promise.allSettled(pins.map(pin=>pin?.release()));throw error;}
+  return {value:{first,second,mask,stores,width:input.width,height:input.height,dimensions:input.dimensions,axes,cache:connection?.descriptor},transfer,get transports(){return transports.slice();},release:owner.dispose};
+ }catch(error){finish();await cleanupDenseOwners(()=>owner.dispose(),{failed:true,primary:error});throw error;}finally{finish();if(!retiring){forget?.();forget=null;}}
 }
-export async function readPortableDenseInput(value,{budget}={}){
- const {readByteStore}=await import('./portable-byte-store.js'),{createSharedReadCacheClient}=await import('./shared-read-cache.js'),stores=[],cache=createSharedReadCacheClient(value.cache);
- const read=async item=>{const reader=await readByteStore(item,{budget});return cache&&reader.storage!=='memory'?cache.wrap(item.cacheStoreId,reader):reader;};
- try{for(let id=0;id<value.stores.length;id++){stores.push(createRebindableByteReader(await read(value.stores[id]),id));value.stores[id]=null;}
+export async function readPortableDenseInput(value,{budget,onRetirementOwner}={}){
+ const stores=[];let cache,finish,forget,closing=false,disposed=false;const construction=new Promise(resolve=>finish=resolve),dropCache=onceDenseRetirement(()=>cache?.dispose()),dropStores=onceDenseRetirement(()=>retireDenseOwners(stores)),close=onceDenseRetirement(async()=>{await construction;await dropCache();await dropStores();disposed=true;forget?.();forget=null;}),owner={dispose(){closing=true;return close();}};
+ try{forget=onRetirementOwner?.(owner);const {readByteStore}=await import('./portable-byte-store.js'),{createSharedReadCacheClient}=await import('./shared-read-cache.js');cache=createSharedReadCacheClient(value.cache);
+  const read=async item=>{const reader=await readByteStore(item,{budget,onRetirementOwner});return cache&&reader.storage!=='memory'?cache.wrap(item.cacheStoreId,reader):reader;};
+  for(let id=0;id<value.stores.length;id++){stores.push(createRebindableByteReader(await read(value.stores[id]),id));value.stores[id]=null;}
+  const attach=async(id,descriptor)=>{if(disposed||closing){descriptor.port?.close();throw new EngineError('BUSY','Dense input is retiring; attachment was not adopted.');}let reader,finishRead,forgetRead,adopted=false;const reading=new Promise(resolve=>finishRead=resolve),late={dispose:onceDenseRetirement(async()=>{await reading;await acknowledgeDenseRetirement(()=>reader?.dispose());forgetRead?.();forgetRead=null;})};try{forgetRead=onRetirementOwner?.(late);reader=await read(descriptor);finishRead();if(disposed||closing){await late.dispose();throw new EngineError('BUSY','Dense input retired before the replacement reader could be adopted.');}else{stores[id].attach(reader);adopted=true;}}catch(error){finishRead();await cleanupDenseOwners(()=>late.dispose(),{failed:true,primary:error});throw error;}finally{finishRead();if(adopted){forgetRead?.();forgetRead=null;}}};
   const descriptor=d=>{if(d.kind!=='compact-sift')return stores[d.store];const out={...d};for(const key of planes)out[key]=d[key]===null?undefined:stores[d[key]];return out;};
-  let disposed=false;return {first:descriptor(value.first),second:value.second===value.first?descriptor(value.first):descriptor(value.second),mask:stores[value.mask],width:value.width,height:value.height,dimensions:value.dimensions,axes:value.axes?.map(id=>stores[id]),readCache:cache,
+  return {first:descriptor(value.first),second:value.second===value.first?descriptor(value.first):descriptor(value.second),mask:stores[value.mask],width:value.width,height:value.height,dimensions:value.dimensions,axes:value.axes?.map(id=>stores[id]),readCache:cache,
    async detach(ids){await Promise.all(ids.map(id=>stores[id]?.detach()));},
-   async attach(entries){for(const {id,descriptor} of entries){const reader=await read(descriptor);if(disposed)await reader.dispose();else stores[id].attach(reader);}},
-   async dispose(){if(disposed)return;disposed=true;await cache?.dispose();await Promise.allSettled(stores.map(store=>store.dispose()));}};
- }catch(error){await cache?.dispose();await Promise.allSettled(stores.map(store=>store.dispose()));throw error;}
+   async attach(entries){for(const {id,descriptor} of entries)await attach(id,descriptor);},dispose:owner.dispose};
+ }catch(error){finish();await cleanupDenseOwners(()=>owner.dispose(),{failed:true,primary:error});throw error;}finally{finish();if(!closing){forget?.();forget=null;}}
 }

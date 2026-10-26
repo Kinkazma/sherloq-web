@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "build": "scripts/build-copy-geometry.py",
+  "maximumMemoryBytes": 2147483648,
+  "files": {
+    "copy-geometry.js": {
+      "bytes": 38582,
+      "sha256": "13e5492d2fc88d080c91bae7bca400cc567079c325d679416d05f27619593ed1"
+    },
+    "copy-geometry.wasm": {
+      "bytes": 1789381,
+      "sha256": "43ea475bd16cb3b861e458c332679a83c20f32ef50a0f2000c81877ee46ed079"
+    }
+  }
+}

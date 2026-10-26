@@ -45,3 +45,5 @@ export {runComprintFingerprint,runComprintFingerprintSource} from './comprint-in
 
 export {createComprintParallelStatistics as createComprintStatistics} from './comprint-parallel-statistics.js';
 export {estimateComprintStatisticsPlan} from './comprint-streaming-statistics.js';
+
+export {runComprintNativeContexts} from './comprint-native-contexts.js';

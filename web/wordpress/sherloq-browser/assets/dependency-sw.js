@@ -1,4 +1,4 @@
-import {validateManifest,remoteBase,sha256,dependencyResponse,publicDependencyEntries} from './dependency-core.js';
+import {validateManifest,remoteBase,sha256,dependencyResponse,localOnlyDependencyResponse,publicDependencyEntries} from './dependency-core.js';
 import {createChunkLoader} from './dependency-store.js';
 import {resourceTarStream,indexResourceTar,archiveChunkReader} from './dependency-tar.js';
 import {readOfflineShell,offlineShellParts} from './offline-kit-core.js';
@@ -79,8 +79,8 @@ self.addEventListener('message',event=>{
  const waiters=pendingDownloads.get(id);pendingDownloads.delete(id);for(const resume of waiters||[])resume();
 });
 async function recoverChunk(event,path,load,hash,identity){
- const key=event.request.url,client=await self.clients.get(event.clientId);
- const session=sessionFor(client);
+ const key=event.request.url,owner=routing.ownerForRequest(event);
+ const session=owner?.session;
  for(;;){let cause;
   for(let attempt=1;attempt<=3;attempt++)try{
    const bytes=await load(hash,entry=>void notifyDependency(event,{...entry,file:path},identity));
@@ -96,9 +96,9 @@ async function recoverChunk(event,path,load,hash,identity){
  }
 }
 async function notifyDependency(event,entry,identity=manifestHash){
- try{const client=await self.clients.get(event.clientId);if(!client)return;const session=sessionFor(client);if(!session)return;
+ try{const owner=routing.ownerForRequest(event),session=owner?.session;if(!session)return;
  const message={type:'dependency-diagnostic',session,event:{...entry,source:'service-worker',manifest:identity}};
- if(client.type==='window')client.postMessage(message);else for(const window of await self.clients.matchAll({type:'window'}))if(sessionFor(window)===session)window.postMessage(message);
+ for(const window of await self.clients.matchAll({type:'window'}))if(sessionFor(window)===session)window.postMessage(message);
  }catch{}
 }
 self.addEventListener('fetch',event=>{
@@ -128,6 +128,7 @@ self.addEventListener('fetch',event=>{
   // Bundled runtime modules are also served through their pinned descriptor.
   // The loader verifies local bytes, then uses the original SHA chunk when a
   // directory replacement has supplied a different version of that module.
+  if(file?.localOnly===true&&file.chunks.length===1)return localOnlyDependencyResponse(file,manifest,load,event.request,{path,identity,observe:entry=>void notifyDependency(event,{...entry,file:path},identity)});
   if(file)return dependencyResponse(file,manifest,h=>recoverChunk(event,path,load,h,identity),event.request);
   if(manifest.slots.some(s=>path.startsWith(s+'/')))return new Response('Dependency absent from the locked delivery',{status:404});
   return localResponse(event.request);

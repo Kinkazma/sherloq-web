@@ -1,7 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createPdfReaderSession,renderPdfReaderPage} from '../sherloq-browser/assets/pdf-reader-session.js';
-import {createBatchImporter} from '../sherloq-browser/assets/batch-import.js';
+import './helpers/pdf-node-environment.mjs';
+const {createPdfReaderSession,renderPdfReaderPage}=await import('../sherloq-browser/assets/pdf-reader-session.js');
+const {OPS:PDF_OPS}=await import('../sherloq-browser/assets/batch-vendor/pdf.mjs');
+const {createBatchImporter}=await import('../sherloq-browser/assets/batch-import.js');
+// Model the qualified PDF.js RenderTask contract rather than executing image
+// callbacks synchronously before its display list can be certified.
+function paintPage(logicalImageOperators,paint,{renderImageOperators=logicalImageOperators}={}){
+ const list=indices=>{const length=Math.max(0,...indices)+1,fnArray=Array(length).fill(PDF_OPS.save),argsArray=Array.from({length},()=>[]);for(const index of indices){fnArray[index]=PDF_OPS.paintImageXObject;argsArray[index]=['transient-'+index,8,9];}return{fnArray,argsArray,lastChunk:true};};
+ const logical=list(logicalImageOperators),display=list(renderImageOperators);
+ return{pageNumber:1,getOperatorList:async()=>logical,getViewport:()=>({width:10,height:10,transform:[2,0,0,-2,0,10]}),render(options){
+  let resolve,reject,done=false;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;}),task={promise,_internalRenderTask:{operatorList:display},onContinue:null,cancel(){if(done)return;done=true;reject(new DOMException('PDF task cancelled.','AbortError'));}};
+  queueMicrotask(()=>{if(done)return;const run=()=>{if(done)return;try{paint(options,display);done=true;resolve();}catch(error){done=true;reject(error);}};if(task.onContinue)task.onContinue(run);else run();});return task;
+ }};
+}
 const pdf=()=>new File(['%PDF-1.7\n'],'sixteen.pdf',{type:'application/pdf'});
 function store(){const files=new Map();let closed=false;return{files,get:path=>files.get(path),set:async(path,blob)=>files.set(path,blob),delete:path=>files.delete(path),clear:async()=>files.clear(),dispose:async()=>{closed=true;files.clear();},get closed(){return closed;}};}
 function libraries(count,events){const page=n=>({pageNumber:n,getOperatorList:async()=>({fnArray:[],argsArray:[]}),getTextContent:async()=>({items:[]}),cleanup(){events.push(['cleanup',n]);}});return async()=>({pdf:{PDFDocument:{load:async()=>({context:{enumerateIndirectObjects:()=>[]}})},PDFRawStream:class{}},pdfjs:{OPS:{},getDocument:()=>({promise:Promise.resolve({numPages:count,getPage:async n=>{events.push(['get',n]);return page(n);}}),destroy:async()=>events.push(['destroy'])})}});}
@@ -18,11 +30,11 @@ test('canvas allocation failure and render limit never leak admission',async()=>
 
 test('image-free background is requested after the complete page, deduplicated and filtered by native operator',async()=>{
  const f=fakeImporter(1),calls=[];let delivered=false;
- const session=await createPdfReaderSession({importerFactory:f.factory,renderPage:async(page,options)=>{calls.push(options);if(options.operationsFilter){assert(delivered);assert.equal(options.operationsFilter(11),false);assert.equal(options.operationsFilter(12),true);}return render(page);},onPage:async(record,owner)=>{delivered=true;const first=owner.requestCleanBackground(1),second=owner.requestCleanBackground(1);assert.equal(first,second);await first;},onBackground:async(record,owner)=>{assert.equal(await(await owner.background(1,{clean:true})).text(),'page1');}});
+ const session=await createPdfReaderSession({importerFactory:f.factory,renderPage:async(page,options)=>{calls.push(options);if(options.imageOperationsFilter){assert(delivered);assert.equal(options.imageOperationsFilter(11),false);assert.equal(options.imageOperationsFilter(12),true);}return render(page);},onPage:async(record,owner)=>{delivered=true;const first=owner.requestCleanBackground(1),second=owner.requestCleanBackground(1);assert.equal(first,second);await first;},onBackground:async(record,owner)=>{assert.equal(await(await owner.background(1,{clean:true})).text(),'page1');}});
  await session.open(pdf());assert.equal(calls.length,2);assert.deepEqual(session.pages[0].cleanBackground.omittedOperators,[11]);assert.throws(()=>session.requestCleanBackground(1),{code:'PDF_PAGE_CLOSED'});await session.dispose();
 });
 test('optional clean-background failure preserves the complete page and does not silently substitute it',async()=>{
- const f=fakeImporter(1),session=await createPdfReaderSession({importerFactory:f.factory,renderPage:async(page,options)=>{if(options.operationsFilter)throw Error('optional render failed');return render(page);},onPage:(record,owner)=>{owner.requestCleanBackground(record.page);}});
+ const f=fakeImporter(1),session=await createPdfReaderSession({importerFactory:f.factory,renderPage:async(page,options)=>{if(options.imageOperationsFilter)throw Error('optional render failed');return render(page);},onPage:(record,owner)=>{owner.requestCleanBackground(record.page);}});
  await session.open(pdf());assert.equal(session.state,'ready');assert.match(session.pages[0].cleanBackgroundError.message,/optional render/);assert.equal(await(await session.background(1)).text(),'page1');await assert.rejects(session.background(1,{clean:true}),{code:'PDF_BACKGROUND_UNAVAILABLE'});await session.dispose();
 });
 
@@ -65,13 +77,13 @@ test('paint certificate excludes complex contexts and records only unambiguous n
 
 test('certified synchronous paint hook runs on the actual page canvas only for known images',async()=>{
  const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js');const context={getImageData:()=>({data:new Uint8ClampedArray(16)})},seen=[];
- const page={getViewport:()=>({width:10,height:10,transform:[2,0,0,-2,0,10]}),render:options=>{assert.equal(options.operationsFilter(2),true);assert.equal(options.operationsFilter(3),false);assert.equal(options.operationsFilter(4),true);return{promise:Promise.resolve(),cancel(){}};}};
+ const page=paintPage([3,4],options=>{assert.equal(options.operationsFilter(2),true);assert.equal(options.operationsFilter(3),false);assert.equal(options.operationsFilter(4),true);});
  const answer=await renderPdfReaderWindow(page,{bounds:[0,0,2,2],paintCapabilities:{schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3,4]},paintImage:(index,ctx)=>{assert.equal(ctx,context);seen.push(index);return index===3;},canvasFactory:()=>({getContext:()=>context})});assert.deepEqual(seen,[3,4]);await answer.release();
  let admitted=0;await assert.rejects(renderPdfReaderWindow(page,{bounds:[0,0,2,2],paintCapabilities:{schema:'pdf-simple-image-paint/1',simpleImagePainting:false},paintImage:()=>true,reserveRender:()=>admitted++}),{code:'PDF_IMAGE_PAINT_UNSUPPORTED'});assert.equal(admitted,0);
 });
 
 test('async image paint cannot silently omit an original operator and returns both leases',async()=>{
- const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js');let bytes=0;const page={getViewport:()=>({width:10,height:10,transform:[2,0,0,-2,0,10]}),render:options=>{options.operationsFilter(3);return{promise:Promise.resolve()};}};
+ const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js');let bytes=0;const page=paintPage([3],options=>{options.operationsFilter(3);});
  await assert.rejects(renderPdfReaderWindow(page,{bounds:[0,0,2,2],paintCapabilities:{schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3]},paintImage:()=>Promise.resolve(true),canvasFactory:()=>({getContext:()=>({})}),reserveRender:async n=>{bytes+=n;return()=>bytes-=n;}}),{code:'PDF_IMAGE_PAINT_ASYNC'});assert.equal(bytes,0);
 });
 
@@ -84,7 +96,44 @@ test('abort while awaiting scratch release rejects instead of publishing a stale
 test('retained image capture preserves graphics state, removes opacity from clip only, and owns three RGBA layers',async()=>{
  const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js');let admitted=0,mode='prefix',alpha=.4,saved;
  const values={prefix:[10,20,30,255],clip:[255,255,255,255],empty:[0,0,0,0],suffix:[80,90,100,128]},ctx={get globalAlpha(){return alpha;},set globalAlpha(v){alpha=v;},getImageData:()=>({data:Uint8ClampedArray.from(values[mode])}),createImageData:()=>({data:new Uint8ClampedArray(4)}),putImageData(){mode='empty';},save(){saved=alpha;},restore(){alpha=saved;},fillRect(){assert.equal(alpha,1);mode='clip';}};
- const page={getViewport:()=>({width:10,height:10,transform:[2,0,0,-2,0,10]}),render:options=>{assert.equal(options.background,'rgba(0,0,0,0)');assert.equal(options.operationsFilter(3),false);assert.equal(alpha,.4);mode='suffix';return{promise:Promise.resolve(),cancel(){}};}};
+ const page=paintPage([3],options=>{assert.equal(options.background,'rgba(0,0,0,0)');assert.equal(options.operationsFilter(3),false);assert.equal(alpha,.4);mode='suffix';});
  const answer=await renderPdfReaderWindow(page,{bounds:[0,0,1,1],captureImageLayers:{operator:3},paintCapabilities:{schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3]},canvasFactory:()=>({getContext:(kind,opts)=>{assert.equal(opts.alpha,true);return ctx;}}),reserveRender:async n=>{admitted+=n;return()=>admitted-=n;}});assert.equal(answer.layers.imageAlpha,.4);assert.deepEqual([...answer.layers.prefix.data],values.prefix);assert.deepEqual([...answer.layers.clip.data],values.clip);assert.deepEqual([...answer.layers.suffix.data],values.suffix);assert.equal(admitted,16);await answer.release();assert.equal(admitted,0);
 });
-test('retained layers fail explicitly for multiple image operators and release admissions',async()=>{const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js');let bytes=0;await assert.rejects(renderPdfReaderWindow({getViewport:()=>({transform:[1,0,0,1,0,0]})},{bounds:[0,0,1,1],captureImageLayers:{operator:3},paintCapabilities:{schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3,4]},canvasFactory:()=>({getContext:()=>({})}),reserveRender:async n=>{bytes+=n;return()=>bytes-=n;}}),{code:'PDF_IMAGE_LAYERS_UNSUPPORTED'});assert.equal(bytes,0);});
+test('retained layers fail explicitly for multiple image operators and release admissions',async()=>{const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js');let bytes=0;await assert.rejects(renderPdfReaderWindow(paintPage([3,4],()=>{}),{bounds:[0,0,1,1],captureImageLayers:{operator:3},paintCapabilities:{schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3,4]},canvasFactory:()=>({getContext:()=>({})}),reserveRender:async n=>{bytes+=n;return()=>bytes-=n;}}),{code:'PDF_IMAGE_LAYERS_UNSUPPORTED'});assert.equal(bytes,0);});
+
+
+test('image-free full-page rendering maps logical images while generic filters keep real display indices',async()=>{
+ const logical=[],actual=[];let bytes=0;
+ const page=paintPage([3],options=>{assert.equal(options.operationsFilter(3),true,'non-image at the old logical offset stays untouched');assert.equal(options.operationsFilter(4),false,'actual display image is omitted');},{renderImageOperators:[4]});
+ const canvas={width:0,height:0,getContext:()=>({}),convertToBlob:async()=>new Blob(['clean'],{type:'image/png'})};
+ const answer=await renderPdfReaderPage(page,{paintCapabilities:{schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3]},imageOperationsFilter:index=>(logical.push(index),false),operationsFilter:index=>(actual.push(index),true),canvasFactory:(w,h)=>Object.assign(canvas,{width:w,height:h}),reserveRender:n=>{bytes+=n;return()=>bytes-=n;}});
+ assert.deepEqual(logical,[3]);assert.deepEqual(actual,[3,4]);assert.equal(await answer.blob.text(),'clean');assert.equal(bytes,0);assert.equal(canvas.width,1);
+});
+
+test('window image mapping never changes the index passed to an independent operations filter',async()=>{
+ const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js'),logical=[],actual=[];
+ const page=paintPage([3],options=>{assert.equal(options.operationsFilter(3),true);assert.equal(options.operationsFilter(4),false);},{renderImageOperators:[4]});
+ const answer=await renderPdfReaderWindow(page,{bounds:[0,0,2,2],paintCapabilities:{schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3]},paintImage:index=>(logical.push(index),true),operationsFilter:index=>(actual.push(index),true),canvasFactory:()=>({getContext:()=>({getImageData:()=>({data:new Uint8ClampedArray(16)})})})});
+ assert.deepEqual(logical,[3]);assert.deepEqual(actual,[3,4]);await answer.release();
+});
+
+test('cancelling one pending PDF operator consumer preserves the shared plan and does not reserve pixels early',async()=>{
+ const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js');
+ const page=paintPage([3],options=>{assert.equal(options.operationsFilter(4),false);},{renderImageOperators:[4]}),list=await page.getOperatorList();let resolveList,reads=0,admitted=0;
+ const gate=new Promise(resolve=>resolveList=resolve);page.getOperatorList=()=>{reads++;return gate;};
+ const caps={schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3]},controller=new AbortController(),options={bounds:[0,0,2,2],paintCapabilities:caps,paintImage:()=>true,canvasFactory:()=>({getContext:()=>({getImageData:()=>({data:new Uint8ClampedArray(16)})})}),reserveRender:n=>{admitted+=n;return()=>admitted-=n;}};
+ const first=renderPdfReaderWindow(page,{...options,signal:controller.signal}),second=renderPdfReaderWindow(page,options);await new Promise(resolve=>setImmediate(resolve));assert.equal(admitted,0,'validation happens before native pixel admission');controller.abort(new DOMException('old page selection','AbortError'));await assert.rejects(first,{name:'AbortError'});assert.equal(admitted,0);resolveList(list);const answer=await second;assert.equal(reads,1,'a cancelled consumer must not discard the independent shared plan');assert.equal(answer.pixels.data.length,12);await answer.release();assert.equal(admitted,0);
+});
+
+test('a logical image certificate cannot be reused for another PDF page owner',async()=>{
+ const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js'),caps={schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3]};
+ const options={bounds:[0,0,2,2],paintCapabilities:caps,paintImage:()=>true,canvasFactory:()=>({getContext:()=>({getImageData:()=>({data:new Uint8ClampedArray(16)})})})},first=paintPage([3],o=>o.operationsFilter(3)),second=paintPage([3],o=>o.operationsFilter(3));
+ const answer=await renderPdfReaderWindow(first,options);await answer.release();await assert.rejects(renderPdfReaderWindow(second,options),{code:'PDF_RENDER_OPERATORS_UNSUPPORTED'});
+});
+
+test('returning to a previously qualified page reuses its operator plan across new window paints',async()=>{
+ const {renderPdfReaderWindow}=await import('../sherloq-browser/assets/pdf-reader-session.js');let plans=0,renders=0;
+ const page=paintPage([3],options=>{renders++;options.operationsFilter(4);},{renderImageOperators:[4]}),get=page.getOperatorList;page.getOperatorList=()=>{plans++;return get();};
+ const caps={schema:'pdf-simple-image-paint/1',simpleImagePainting:true,imageOperators:[3]},options={bounds:[0,0,2,2],paintCapabilities:caps,paintImage:()=>true,canvasFactory:()=>({getContext:()=>({getImageData:()=>({data:new Uint8ClampedArray(16)})})})};
+ const first=await renderPdfReaderWindow(page,options);await first.release();const second=await renderPdfReaderWindow(page,{...options,bounds:[4,5,2,2]});await second.release();assert.equal(plans,1);assert.equal(renders,2);
+});

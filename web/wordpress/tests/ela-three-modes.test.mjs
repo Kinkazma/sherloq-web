@@ -27,11 +27,12 @@ test('score rendering rejects invalid maps and an in-flight cancellation without
 });
 
 function controls(){
+ let clock=0,next=0;const waits=new Map(),frames=new Map();const interactiveControlOptions={now:()=>clock,delay:(fn,ms)=>{const id=++next;waits.set(id,{fn,at:clock+ms});return id;},cancelDelay:id=>waits.delete(id),schedule:fn=>{const id=++next;frames.set(id,fn);return id;},cancelScheduled:id=>frames.delete(id)};const advance=ms=>{clock+=ms;for(const[id,item]of [...waits])if(item.at<=clock){waits.delete(id);item.fn();}for(const[id,fn]of [...frames]){frames.delete(id);fn();}};
  globalThis.Option=class{constructor(text,value){this.text=text;this.value=value;}};
- const nodes=new Map(),$=id=>{if(!nodes.has(id))nodes.set(id,{value:'',min:0,max:1000,listeners:new Map(),addEventListener(type,fn){const list=this.listeners.get(type)??[];list.push(fn);this.listeners.set(type,list);},removeEventListener(type,fn){this.listeners.set(type,(this.listeners.get(type)??[]).filter(item=>item!==fn));},emit(type,event={}){for(const fn of this.listeners.get(type)??[])fn(event);},replaceChildren(){},reportValidity:()=>true});return nodes.get(id);};
- let science=0,views=0,saves=0;
- const ui=createEnergyUI({$,t:value=>value,changed:()=>science++,viewChanged:()=>views++,persist:()=>saves++});
- return{$,ui,get science(){return science;},get views(){return views;},get saves(){return saves;}};
+ const nodes=new Map(),$=id=>{if(!nodes.has(id))nodes.set(id,{value:'',min:0,max:1000,type:id.endsWith('-number')||['energy-quality','energy-block','energy-minimum'].includes(id)?'number':'range',tagName:['energy-profile','energy-view','energy-score-view','energy-score-field'].includes(id)?'SELECT':'INPUT',dataset:{},attributes:new Map(),setAttribute(name,value){this.attributes.set(name,String(value));if(['min','max','step'].includes(name))this[name]=String(value);},getAttribute(name){return this.attributes.get(name)??(['min','max'].includes(name)?String(this[name]):null);},removeAttribute(name){this.attributes.delete(name);},listeners:new Map(),addEventListener(type,fn){const list=this.listeners.get(type)??[];list.push(fn);this.listeners.set(type,list);},removeEventListener(type,fn){this.listeners.set(type,(this.listeners.get(type)??[]).filter(item=>item!==fn));},emit(type,event={}){for(const fn of this.listeners.get(type)??[])fn(event);},replaceChildren(){},reportValidity:()=>true});return nodes.get(id);};
+ let science=0,views=0,saves=0;const requests=[];
+ const ui=createEnergyUI({$,t:value=>value,changed:()=>science++,viewChanged:event=>{views++;requests.push(event??{});},persist:()=>saves++,interactiveControlOptions});
+ return{$,ui,advance,requests,get science(){return science;},get views(){return views;},get saves(){return saves;}};
 }
 test('fresh ELA opens in Classic, Energy defaults to Unified/map/zero and explicit restored choices retain their recipes',()=>{
  const fresh=defaultSettings(),h=controls();assert.equal(fresh.preferences.elaMode,'classic');assert.deepEqual(fresh.energy,validEnergySettings());
@@ -48,7 +49,7 @@ test('LOW/HIGH and the score slider change only presentation and preserve the na
  const h=controls(),old=validEnergySettings({selected:'manual',values:{histogramLow:37,histogramHigh:953,shadow:71,highlight:26},quality:75,block:32,minimum:7,view:'labels',opacity:49,profiles:[],scoreField:'high'});h.ui.load(old);
  const native=h.ui.prepare('biomes').params,biomes=h.ui.presentation('biomes'),token=h.ui.prepare('biomes').token;
  assert.deepEqual(h.ui.presentation('scores'),{view:'scores',field:'high',threshold:0,scoreView:'map'});
- h.$('energy-score-threshold').value='.73';h.$('energy-score-threshold').oninput();h.$('energy-score-field').value='low';h.$('energy-score-field').onchange();
+ h.$('energy-score-threshold').value='.73';h.$('energy-score-threshold').oninput();h.$('energy-score-threshold').onchange();h.$('energy-score-field').value='low';h.$('energy-score-field').onchange();
  assert.equal(h.science,0);assert.equal(h.views,2);assert.equal(h.saves,2);assert.deepEqual(h.ui.prepare('scores').params,native);assert.deepEqual(h.ui.prepare('scores').token,token);assert.deepEqual(h.ui.presentation('biomes'),biomes);
  assert.deepEqual(h.ui.bundle().values,old.values);assert.deepEqual(h.ui.bundle().profiles,old.profiles);assert.deepEqual(h.ui.presentation('scores'),{view:'scores',field:'low',threshold:.73,scoreView:'map'});
 });
@@ -64,7 +65,7 @@ test('Both keeps its signed range; Unified and individual levels use positive bo
  h.$('energy-score-threshold-number').value='-1.27';h.$('energy-score-threshold-number').oninput();assert.equal(h.ui.bundle().scoreThreshold,-1.27);
  h.ui.observePresentation({view:'scores',field:'both',observedMaximum:2.13,observedMaxima:{high:.51,low:2.13},signedRanges:{high:{minimum:-2.13,maximum:.51},low:{minimum:-.51,maximum:2.13}}});assert.equal(Number(h.$('energy-score-threshold').min),-2.13);assert.equal(Number(h.$('energy-score-threshold').max),2.13);assert.equal(h.ui.bundle().scoreThreshold,-1.27);
  h.$('energy-score-field').value='unified';h.$('energy-score-field').onchange();assert.equal(h.ui.bundle().scoreThreshold,0);assert.equal(Number(h.$('energy-score-threshold').min),0);assert.equal(Number(h.$('energy-score-threshold').max),2.13);
- const views=h.views;for(const input of ['-1','3']){h.$('energy-score-threshold-number').value=input;h.$('energy-score-threshold-number').oninput();assert.equal(h.ui.bundle().scoreThreshold,0);assert.equal(Number(h.$('energy-score-threshold-number').value),0);}assert.equal(h.views,views);
+ const views=h.views;for(const input of ['-1','3']){h.$('energy-score-threshold-number').value=input;h.$('energy-score-threshold-number').oninput();assert.equal(h.ui.bundle().scoreThreshold,0,'invalid typing never changes the retained threshold');h.$('energy-score-threshold-number').onchange();assert.equal(h.ui.bundle().scoreThreshold,0);assert.equal(Number(h.$('energy-score-threshold-number').value),0);}assert.equal(h.views,views);
  h.$('energy-score-threshold-number').value='1.8';h.$('energy-score-threshold-number').oninput();h.$('energy-score-field').value='high';h.$('energy-score-field').onchange();assert.equal(h.ui.bundle().scoreThreshold,.51);assert.equal(Number(h.$('energy-score-threshold').max),.51);assert.equal(Number(h.$('energy-score-threshold').min),0);assert.deepEqual(h.ui.prepare('scores').params,original.params);assert.equal(h.science,0);
  h.ui.load({...h.ui.bundle(),scoreField:'high',scoreView:'overlay'});assert.equal(h.$('energy-score-field').value,'high');assert.equal(h.$('energy-score-view').value,'overlay');assert.equal(h.ui.bundle().scoreThreshold,.51);
 });
@@ -81,20 +82,24 @@ test('dual score and source overlay choices remain independent of Biome settings
  assert.deepEqual(h.ui.prepare('scores').presentation,{view:'scores',field:'both',threshold:0,scoreView:'overlay'});assert.deepEqual(h.ui.prepare('scores').params,before.params);assert.deepEqual(h.ui.presentation('biomes'),before.presentation);assert.equal(h.ui.bundle().opacity,old.opacity);assert.equal(h.science,0);assert.equal(h.views,2);
  h.ui.load(JSON.parse(JSON.stringify(h.ui.bundle())));assert.equal(h.$('energy-score-view').value,'overlay');assert.equal(h.$('energy-score-field').value,'both');assert.equal(h.$('energy-view').value,old.view);
 });
-test('slider gesture drafts produce bounded previews, commit exactly once and remove lifecycle listeners on dispose',()=>{
- const h=controls(),requests=[];let scientific=0;const ui=createEnergyUI({$:h.$,t:key=>key,changed:()=>scientific++,persist(){},viewChanged:options=>requests.push(options??{})}),range=h.$('energy-score-threshold');
- range.emit('pointerdown',{button:0,isPrimary:true});range.value='.3';range.oninput();range.value='.8';range.oninput();
- assert.deepEqual(requests.slice(-2),[{preview:{maxWidth:320,maxHeight:320}},{preview:{maxWidth:320,maxHeight:320}}]);range.emit('pointerup');range.emit('change');range.emit('blur');assert.deepEqual(requests.at(-1),{});assert.equal(requests.length,3);
- range.emit('keydown',{key:'ArrowRight'});range.value='1.1';range.oninput();range.emit('keyup',{key:'ArrowRight'});assert.equal(requests.length,5);assert.deepEqual(requests.at(-1),{});assert.equal(scientific,0);
- const before=requests.length;ui.dispose();range.emit('pointerdown',{button:0});range.value='1.3';range.oninput();assert.deepEqual(requests.at(-1),{});assert.equal(requests.length,before+1,'disposed global gesture listeners cannot create a preview');h.ui.dispose();
+test('brief clicks commit native only; held score gestures preview adaptively, commit once and detach on dispose',()=>{
+ const h=controls(),range=h.$('energy-score-threshold');
+ range.emit('pointerdown',{button:0,isPrimary:true,pointerId:1});range.value='.3';range.oninput();assert.deepEqual(h.requests,[],'short click has no provisional work');range.emit('pointerup',{pointerId:1});range.onchange();range.emit('blur');assert.deepEqual(h.requests,[{}],'one native presentation after brief click');
+ range.emit('pointerdown',{button:0,isPrimary:true,pointerId:2});range.value='.8';range.oninput();assert.equal(h.requests.length,1);h.advance(120);assert.deepEqual(h.requests.at(-1),{preview:{adaptive:true}});range.emit('pointerup',{pointerId:2});range.onchange();range.emit('blur');assert.deepEqual(h.requests.at(-1),{});assert.equal(h.requests.length,3,'one preview and one native commit');
+ range.emit('keydown',{key:'ArrowRight'});range.value='1';range.oninput();h.advance(120);assert.deepEqual(h.requests.at(-1),{preview:{adaptive:true}});range.emit('keyup',{key:'ArrowRight'});assert.deepEqual(h.requests.at(-1),{});assert.equal(h.requests.length,5);assert.equal(h.science,0,'presentation gestures never rerun scientific analysis');
+ const before=h.requests.length;h.ui.dispose();range.emit('pointerdown',{button:0});range.value='.7';range.oninput();range.onchange();assert.equal(h.requests.length,before,'disposed handlers cannot publish preview or final');
 });
+
 
 const bundle=()=>({schema:'sherloq.settings/1',profiles:[],current:{...defaults},activeProfile:'native',preferences:{theme:'dark',language:'fr',layout:'tabs',computeProfile:'maximum',regionMode:'whole',favorite:false,showZones:true,toolsVisible:true,inspectorVisible:true,elaMode:'energy'},energy:validEnergySettings()});
 test('old Energy preferences retain the previous Biome meaning; new score presentation settings round-trip and recover independently',()=>{
  assert.equal(validElaMode('energy'),'biomes');for(const mode of ['classic','scores','biomes'])assert.equal(validElaMode(mode),mode);assert.throws(()=>validElaMode('labels'));
  const old=bundle(),oldRecipe=structuredClone(old.energy);assert.equal(validateSettings(old).preferences.elaMode,'biomes');assert.deepEqual(validateSettings(old).energy,oldRecipe);
  const newSettings={...old,preferences:{...old.preferences,elaMode:'scores'},energy:{...old.energy,scoreField:'both',scoreThreshold:1.23,scoreView:'overlay'}};
- assert.deepEqual(validateSettings(JSON.parse(JSON.stringify(newSettings))),{...newSettings,preferences:{...newSettings.preferences,navigationMode:'auto'}});
+ assert.deepEqual(validateSettings(JSON.parse(JSON.stringify(newSettings))),{...newSettings,preferences:{...newSettings.preferences,navigationMode:'auto',allSliders:true}});
+ // Published UI default is enabled; an explicit saved opt-out stays disabled.
+ assert.equal(validateSettings({...newSettings,preferences:{...newSettings.preferences,allSliders:false}}).preferences.allSliders,false);
+ assert.equal(recoverSettings({...newSettings,preferences:{...newSettings.preferences,allSliders:false}}).value.preferences.allSliders,false);
  const recovered=recoverSettings({...newSettings,energy:{...newSettings.energy,quality:999}}).value;
  assert.equal(recovered.energy.scoreThreshold,1.23);assert.equal(recovered.energy.scoreField,'both');assert.equal(recovered.preferences.elaMode,'scores');assert.equal(recovered.energy.scoreView,'overlay');
  assert.equal(validEnergySettings({...old.energy,scoreField:'both',scoreThreshold:-1}).scoreThreshold,-1);for(const value of [Infinity,NaN])assert.throws(()=>validEnergySettings({...old.energy,scoreThreshold:value}));assert.throws(()=>validEnergySettings({...old.energy,scoreField:'scope'}));

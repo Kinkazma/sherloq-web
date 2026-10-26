@@ -29,11 +29,11 @@ for(const rollback of [0,128])test(`D2 policy refusal requests admission credit 
 });
 
 for(const kind of ['feature','neural','prepare'])test(`${kind} admission includes borrowed inputs and native heap growth atomically`,async()=>{
- const page=16*1024**2,items=kind==='neural'?448**2:256*1024,borrowed=kind==='prepare'?448*448*3:items*8,peak=page+borrowed,budget=new Budget(page+peak-1),requests=[],reserve=budget.reserve.bind(budget);let allocations=0;
+ const page=16*1024**2,items=kind==='neural'?448**2:256*1024,borrowed=kind==='prepare'?448*2*3:items*8,peak=page+borrowed,budget=new Budget(page+peak-1),requests=[],reserve=budget.reserve.bind(budget);let allocations=0;
  budget.reserve=bytes=>{requests.push(bytes);return reserve(bytes);};
- const heap=new ArrayBuffer(page),factory=async()=>({HEAPU8:new Uint8Array(heap),HEAPF32:new Float32Array(heap),_malloc(){allocations++;throw Error('Native allocation before complete admission');},_free(){}});
+ const heap=new ArrayBuffer(page),factory=async()=>({HEAPU8:new Uint8Array(heap),HEAPF32:new Float32Array(heap),_malloc(){allocations++;throw Error('Native allocation before complete admission');},_free(){},_d2prl_noaa_rows(){return 1;}});
  const helper=await(kind==='feature'?createFeatureMath:kind==='neural'?createNeuralMath:createPreparation)(factory,{budget});
- try{const data=new Float32Array(items);const run=kind==='feature'?()=>helper.run('magnitude',{input:data,imag:data}):kind==='neural'?()=>helper.run('Mul',[{data,shape:[1,1,448,448]},{data,shape:[1,1,448,448]}]):()=>helper.run({rgb:new Uint8Array(borrowed),width:448,height:448});await assert.rejects(run(),{code:'MEMORY_LIMIT'});assert.deepEqual(requests,[page,peak]);assert.equal(allocations,0);assert.equal(budget.total(),page);}finally{helper.dispose();}
+ try{const data=new Float32Array(items);const run=kind==='feature'?()=>helper.run('magnitude',{input:data,imag:data}):kind==='neural'?()=>helper.run('Mul',[{data,shape:[1,1,448,448]},{data,shape:[1,1,448,448]}]):()=>helper.run({rgb:new Uint8Array(448*448*3),width:448,height:448});await assert.rejects(run(),{code:'MEMORY_LIMIT'});assert.deepEqual(requests,[page,peak]);assert.equal(allocations,0);assert.equal(budget.total(),page);}finally{helper.dispose();}
  assert.equal(budget.total(),0);
 });
 

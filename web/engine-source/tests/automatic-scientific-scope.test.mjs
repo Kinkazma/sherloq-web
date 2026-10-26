@@ -12,7 +12,7 @@ import {automaticAiSnapshot} from '../src/automatic-ai-snapshot.js';
 import {createAutomaticDetectorProviders} from '../src/automatic-detector-providers.js';
 import {createAutomaticRuntime} from '../src/automatic-runtime.js';
 import {SparseCopyEngine} from '../src/sparse-copy.js';
-import {DenseCopyEngine} from '../src/dense-copy.js';
+import {StrictDenseCopyEngine} from '../src/dense-strict-copy.js';
 import {EngineError} from '../src/errors.js';
 
 const sha='a'.repeat(64),poly=([a,b,c,d])=>[[a,b],[c,b],[c,d],[a,d]],width=80,height=24;
@@ -48,19 +48,19 @@ test('automatic sparse provider supplies exact prepared scope to prevent another
 
 test('public Automatic runtime derives selection from a prepared scope without any fallback detection and rejects a source mismatch',async t=>{
  const budget=new Budget(8*1024**2),s=scope(),image={sha256:sha,pixels:{width,height,format:'rgb8',data:new Uint8Array(width*height*3)},provenance:{}},seen={};
- t.mock.method(DenseCopyEngine.prototype,'analyze',async function(params){seen.dense=structuredClone(params);throw new EngineError('TEST_DENSE_REACHED','Native scope dispatch reached');});
+ t.mock.method(StrictDenseCopyEngine.prototype,'analyze',async function(params){seen.dense=structuredClone(params);throw new EngineError('TEST_DENSE_REACHED','Native scope dispatch reached');});
  t.mock.method(SparseCopyEngine.prototype,'analyze',async function(params,hooks){seen.sparse=structuredClone(params);assert.equal(hooks.scientificScope.fingerprint,s.fingerprint);throw new EngineError('TEST_SPARSE_REACHED','Prepared scope dispatch reached');});
  const adapter={configured(){return true;},async runOwned(task){seen.d2=structuredClone(task);throw new EngineError('TEST_D2_REACHED','Scientific native request reached');},readRawOwned(){throw Error('No fabricated raw model grids');}},runtime=createAutomaticRuntime({budget,profile:{maxWorkers:10},version:'scope-contract',getLanguage:()=>({sha256:'c'.repeat(64)}),getD2prl:()=>adapter}),task={id:'automatic',imageId:'i',operation:'analysis.clones',params:{scientificScope:s}};
  try{
-  const output=await runtime.run(task,image);assert.deepEqual(output.selection,{regions:s.regions.map(r=>r.polygon),envelope:null,disabled:[]});assert.deepEqual(seen.dense.regions,s.searchRegions.map(r=>r.polygon));assert.deepEqual(seen.sparse.excluded,s.excluded);assert.deepEqual(seen.d2.params.scientificScope,s);assert.deepEqual(seen.d2.regions.map(r=>r.bounds),[[1,0,26,23],[48,0,76,23]]);assert.equal(output.data.state.states.forgeryscope,'failed','Forgeryscope remained enabled and explicitly reported its unloaded model');
+  const output=await runtime.run(task,image);assert.deepEqual(output.selection,{regions:s.regions.map(r=>r.polygon),envelope:null,disabled:[]});assert.deepEqual(seen.dense.regions,s.searchRegions.map(r=>r.polygon));assert.deepEqual(seen.sparse.excluded,s.excluded);assert.deepEqual(seen.d2.params.scientificScope,s);assert.deepEqual(seen.d2.regions.map(r=>[r.kind,r.bounds]),[['region',[1,0,26,23]],['region',[48,0,76,23]],['envelope',[1,0,76,23]]]);assert.equal(output.data.state.states.forgeryscope,'failed','Forgeryscope remained enabled and explicitly reported its unloaded model');
   await assert.rejects(runtime.run({...task,id:'bad',params:{scientificScope:{...s,sourceSha256:'d'.repeat(64)}}},image),{code:'INVALID_INPUT'});
  }finally{await runtime.dispose();}assert.equal(budget.total(),0);
 });
 
 test('public runtime forwards scope and installed-feature policy together, and policy changes invalidate reuse without changing source or capacity',async t=>{
  const budget=new Budget(8*1024**2),s=scope(),profile={maxWorkers:10},image={sha256:sha,pixels:{width,height,format:'rgb8',data:new Uint8Array(width*height*3)},provenance:{}},seen={dense:0,sparse:0,d2:0},sourceBefore=image.pixels.data.slice();
- t.mock.method(DenseCopyEngine.prototype,'analyze',async function(params){seen.dense++;assert.deepEqual(params.regions,s.searchRegions.map(r=>r.polygon));assert.deepEqual(params.excluded,s.excluded);assert.equal(params.iterations,8);throw new EngineError('TEST_DENSE_REACHED','Protocol fixture, no native extraction');});
- t.mock.method(SparseCopyEngine.prototype,'analyze',async function(params,hooks){seen.sparse++;assert.deepEqual(hooks.scientificScope,s);assert.equal(params.algorithm,'SIFT-G2NN');assert.equal(params.limit,6000);throw new EngineError('TEST_SPARSE_REACHED','Protocol fixture, no native extraction');});
+ t.mock.method(StrictDenseCopyEngine.prototype,'analyze',async function(params){seen.dense++;assert.deepEqual(params.regions,s.searchRegions.map(r=>r.polygon));assert.deepEqual(params.excluded,s.excluded);assert.equal(params.iterations,8);throw new EngineError('TEST_DENSE_REACHED','Protocol fixture, no native extraction');});
+ t.mock.method(SparseCopyEngine.prototype,'analyze',async function(params,hooks){seen.sparse++;assert.deepEqual(hooks.scientificScope,s);assert.equal(params.algorithm,'SIFT + G2NN + RANSAC + Panels + Text');assert.equal(params.limit,6000);throw new EngineError('TEST_SPARSE_REACHED','Protocol fixture, no native extraction');});
  const adapter={configured:()=>true,async runOwned(task){seen.d2++;assert.deepEqual(task.params.scientificScope,s);throw new EngineError('TEST_D2_REACHED','Protocol fixture, no model inference');},readRawOwned(){throw Error('No inference or fabricated grids');}},runtime=createAutomaticRuntime({budget,profile,version:'combined-contract',getLanguage:()=>({sha256:'c'.repeat(64)}),getD2prl:()=>adapter}),task={id:'combined',imageId:'i',operation:'analysis.clones',params:{scientificScope:s,excludedFeatures:['ai.clones.d2prl','m2.forgeryscope']}};
  try{
   const first=await runtime.run(task,image);assert.equal(first.data.state.states.d2prl,'feature-uninstalled');assert.equal(first.data.state.states.forgeryscope,'feature-uninstalled');assert.deepEqual(seen,{dense:1,sparse:1,d2:0});
@@ -79,11 +79,11 @@ test('scoped Forgeryscope consumes original RGB once, uses prepared panels, and 
   result=await analyzeAutomaticForgeryscope({pixels,sha256:sha},p,{analyzer,budget});assert.equal(result.layout,'segmented');assert.equal(result.metadata.zones[0].panel_selection.classificationRepeated,false);assert.equal(result.metadata.zones[0].filtered_evidence.comparisons.length,1);assert.deepEqual(seen,['micro_overlap_embedder']);assert.deepEqual(pixels.data,original);
   const raw=new Uint8Array(width*height);await result.stores.branch_microscopy.readInto(raw);assert.equal(raw[4*width+10],1,'Native envelope still contains the raw exclusion hole');assert.equal(result.provenance.exclusion_policy.includes('original-rgb'),true);
   again=await analyzeAutomaticForgeryscope({pixels,sha256:sha},p,{analyzer,budget});assert.equal(again.metadata.zones[0].scientific_scope.fingerprint,s.fingerprint);const saved=new Uint8Array(width*height);await again.stores.branch_microscopy.readInto(saved);assert.deepEqual(saved,raw);assert.equal(seen.length,2,'Borrowed contiguous surfaces have unique identities; no fake cache claim');
- }finally{await result?.release();await again?.release();analyzer.clearCache();}assert.equal(budget.total(),0);assert.deepEqual(pixels.data,original);
+ }finally{await result?.release();await again?.release();await analyzer.clearCache();}assert.equal(budget.total(),0);assert.deepEqual(pixels.data,original);
 });
 
 test('scoped raw Forgeryscope similarity and lanes never vote; only correctly pinned supported geometry does',async()=>{
- const wasmBinary=new Uint8Array(await readFile(new URL('../vendor/clone-entries/clone-entries.wasm',import.meta.url))),budget=new Budget(128*1024**2),fp=scope().fingerprint;
+ const wasmBinary=new Uint8Array(await readFile(new URL(import.meta.resolve('../vendor/clone-entries/clone-entries.wasm')))),budget=new Budget(128*1024**2),fp=scope().fingerprint;
  const geometric={accepted:true,supported:true,branch:'microscopy',inliers:9,score:.8,polygon0:poly([0,0,10,10]),polygon1:poly([50,0,60,10]),scientificScope:{qualified:true,featureFiltering:{fingerprint:fp}}},raw={...geometric,supported:false,branch:'blots',scientificScope:{qualified:false}},lanes={...geometric,branch:'lanes'},zone={origin:[0,0],scientific_scope:{fingerprint:fp},comparisons:[geometric,raw],lane_pairs:[lanes],filtered_evidence:{scopeFingerprint:fp,comparisons:[geometric,raw],lanePairs:[]}},before=structuredClone(zone);
  const result=await forgeryscopeEntries({metadata:{zones:[zone]}},{budget,wasmBinary});try{assert.equal(result.entries.length,1);assert.equal(result.entries[0].provenance.evidence,'geometry');assert.equal(result.entries[0].provenance.branch,'microscopy');assert.deepEqual(zone,before);}finally{result.release();}assert.equal(budget.total(),0);
  zone.filtered_evidence.scopeFingerprint='other';const none=await forgeryscopeEntries({metadata:{zones:[zone]}},{budget,wasmBinary});assert.deepEqual(none.entries,[]);none.release();assert.equal(budget.total(),0);
@@ -94,4 +94,9 @@ test('fully cancelled Automatic D2PRL exports a genuine zero-grid analysis with 
  let runs=0,raws=0;const provider=createAutomaticD2prlProvider({image:{sha256:sha},imageId:'i',adapter:{async runOwned(){runs++;return {data,release(){}};},readRawOwned(){raws++;throw Error('No cancelled raw grids exist');}}}),p=plan(),output=await provider.run(p.jobs[3],{plan:p});
  const prepared=await provider.prepare(output.value,{d2Minimum:17},{plan:p});assert.deepEqual(prepared.value.entries,[]);prepared.release();const raw=provider.readRaw(output.value),snapshot=automaticAiSnapshot('d2prl',output.value.result,{raw:raw.value.result});assert.deepEqual(snapshot.raw_probabilities.shape,[0,3,448,448]);assert.equal(snapshot.raw_probabilities.count,0);const zero=new Uint8Array(0);await snapshot.raw_probabilities.read(zero,0,0);raw.release();output.release();assert.equal(runs,1);assert.equal(raws,0);
  assert.throws(()=>automaticAiSnapshot('d2prl',{...data,metadata:{...metadata,scientificScope:undefined}},{raw:raw.value.result}),{code:'INVALID_INPUT'});
+});
+
+test('an explicitly empty prepared clone scope never starts OCR or any detector, even when text is pending',async()=>{
+ const budget=new Budget(8*1024**2),s={...scope(),status:'excluded',regions:[],searchRegions:[],text:{status:'pending'}},image={sha256:sha,pixels:{format:'rgb8',width,height,data:new Uint8Array(width*height*3)}},runtime=createAutomaticRuntime({budget,profile:{maxWorkers:10},version:'empty-prepared',getLanguage:()=>null,getD2prl:()=>null});
+ try{const output=await runtime.run({id:'empty',imageId:'i',operation:'analysis.clones',params:{scientificScope:s}},image);assert.equal(output.data.entries.length,0);assert.ok(Object.values(output.data.state.states).every(state=>state==='no-active-zones'));assert.equal(output.status,'ok');}finally{await runtime.dispose();}assert.equal(budget.total(),0);
 });

@@ -1,3 +1,4 @@
+import {createContextEnergyParameterPreview} from './energy-context-parameter-preview.js';
 import {energyFieldAvailable,sampleEnergyField} from './energy-native-fields.js';
 import {renderEnergy} from './energy-render.js';
 import {EngineError,serializeEngineError} from './unified-engine/src/errors.js';
@@ -8,7 +9,8 @@ const fail=(code,message)=>{throw new EngineError(code,message);};
 const check=signal=>{if(signal?.aborted)fail('CANCELLED','Cancelled');};
 // The temporary arrays belong only to an explicitly provisional presentation.
 // The retained native analysis and its planes are read, never rewritten.
-export function createEnergyParameterPreview({engine,readOriginal,dependencies={},adaptive=createAdaptivePreview()}={}){
+export function createEnergyParameterPreview(options={}){return createContextEnergyParameterPreview({...options,loadCodec:async()=>options.dependencies?.jpegCodec??(await import('./unified-engine/src/jpeg.js')).jpegCodec,createSingle:child=>createSingleEnergyParameterPreview({...options,...child,dependencies:{...options.dependencies,...child.dependencies}}),fallback:createSingleEnergyParameterPreview(options)});}
+function createSingleEnergyParameterPreview({engine,readOriginal,dependencies={},adaptive=createAdaptivePreview()}={}){
  const render=dependencies.renderEnergy??renderEnergy;
  let modules,initializationMilliseconds=0;
  async function operations(){if(modules)return modules;const start=performance.now();modules=Promise.all([
@@ -30,6 +32,7 @@ export function createEnergyParameterPreview({engine,readOriginal,dependencies={
   catch(error){await release(logLease,error);logLease=null;throw error;}finally{initializationMilliseconds+=performance.now()-start;}
  }
  async function codec(){
+  if(dependencies.sharedCodec)return dependencies.sharedCodec();
   if(!codecLease)codecLease=await engine.reserveExternalMemory({bytes:32*MiB});
   if(codecPromise)return codecPromise;const start=performance.now();codecPromise=dependencies.jpegCodec?Promise.resolve(dependencies.jpegCodec):import('./unified-engine/src/jpeg.js').then(m=>m.jpegCodec);try{return await codecPromise;}finally{initializationMilliseconds+=performance.now()-start;}
  }

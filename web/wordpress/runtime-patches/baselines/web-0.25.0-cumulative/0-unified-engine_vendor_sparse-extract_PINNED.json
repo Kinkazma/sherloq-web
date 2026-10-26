@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "build": "scripts/build-sparse-extract.py",
+  "qualification": "ORB/AKAZE kernel objects reused; CM2 integration under verification; SIFT residual metadata and BRISK differences unresolved",
+  "objects": {
+    "cloning-orb-reference.o": "bf216302ad1fd3b01e562906fb4904b09a2d006a697e7555fd9d4de0b7dc58ea",
+    "akaze-area-AKAZEFeatures.o": "260f3c7f8fce882325b1952718847c97defea98a4383ec5ad64b3d1382d43407",
+    "akaze-area-nldiffusion_functions.o": "9b2b05cfb211118931af58865a632fedeae7c5983ed1c9820329742241376802",
+    "akaze-area-fed.o": "d679c3810322e2c4214f094fa79e9c56939d8c439c5aeb45f6e8205920a58f15",
+    "sift-native.o": "16bab580429626bc48077c2e0ba2f530b07b3b8d13796397e7c43c1d6cf72016",
+    "brisk-native.o": "5eb23ad559bfc6faaf7e46ede99364c57bb45cfecc9632b40c6dbb33a0ff20c9"
+  },
+  "files": {
+    "sparse-extract.js": {
+      "bytes": 31740,
+      "sha256": "f3fb1b6ff8ca343fb3a4aa732004df40e9a545d18f96188a935339d86b81c05b"
+    },
+    "sparse-extract.wasm": {
+      "bytes": 1819044,
+      "sha256": "c7f22c579bbe9a24a27b0f23f8957e1d150b128e2be9d387dea270eab024152e"
+    }
+  }
+}

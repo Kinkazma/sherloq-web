@@ -1,4 +1,4 @@
-import {requireValue,checkpoint,controlCheckpoint,checkAbort} from './errors.js';
+import {EngineError,requireValue,checkpoint,controlCheckpoint,checkAbort} from './errors.js';
 import {PRNU_SCHEMA} from './prnu.js';import {prnuCameraLabel,validLabel,hdf5NameOrder} from './prnu-builder.js';
 import {createBlobSource} from './blob-source.js';import {loadSegmentedJpeg,disposeSegmentedImage} from './image-sources.js';
 import {createTemporarySession} from './temporary-storage.js';import {createFloatPlane} from './segmented-float-plane.js';
@@ -22,6 +22,7 @@ export async function buildPrnuStoredSnapshot(input,querySha256,{budget,signal,o
     await checkpoint(signal);source=createBlobSource(item.blob,{budget});const digest=await source.sha256({signal});if(digest===querySha256){skippedImages.push({name:item.name,reason:'query excluded from training'});continue;}
     const signature=await source.read(0,Math.min(2,source.byteLength),{signal});try{requireValue(signature.bytes[0]===255&&signature.bytes[1]===216,'Unreadable JPEG signature.');}finally{signature.release();}
     image=await loadSegmentedJpeg(item.blob,{budget,signal,getTemporarySession:ensure});
+    if(image.sha256!==digest)throw new EngineError('SOURCE_CHANGED','The decoded PRNU training image no longer matches its captured original identity.');
     residual=await segmentedPrnuResidual({surface:image.surface,get session(){return session;},ensureTemporarySession:ensure},{budget,signal,storage,pool,onProgress:p=>onStage?.({...p,camera:name,fileName:item.name,fileIndex:done,fileCount:total})});owned.add(residual);
     const count=trainingManifest.length+1;
     if(!mean){mean=residual;residual=null;}

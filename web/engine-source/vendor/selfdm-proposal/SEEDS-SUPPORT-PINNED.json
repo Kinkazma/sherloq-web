@@ -1,0 +1,65 @@
+{
+  "schema": "sherloq.selfdm-seeds-support-output/1",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "inputs": {
+    "seeds-support-methods.inc": {
+      "bytes": 5963,
+      "sha256": "ffba0864ad138e47aa6517da00b7f80d265ad2809e2cb08acb165aa42d86ed40"
+    },
+    "proposal-colour-support.cpp": {
+      "bytes": 11403,
+      "sha256": "2a9a20150c599023cd45a528598beb803a95bad2c402c998d1f712a68f944a0e"
+    },
+    "seeds-support-wrapper.cpp": {
+      "bytes": 4535,
+      "sha256": "66e58a9878ab8f07b825edc63e956754aab753a090f94e6092a88ff1d396ac65"
+    },
+    "seeds-support.cpp": {
+      "bytes": 47576,
+      "sha256": "969c2d42b32ed18c64ba76fdf54253aadf2b3959b0cc954289bf84383f4f4cf5"
+    },
+    "licenses/OpenCV-4.11.0-LICENSE.txt": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "licenses/OpenCV-Contrib-4.11.0-LICENSE.txt": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "licenses/Emscripten-LICENSE.txt": {
+      "bytes": 5093,
+      "sha256": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86"
+    },
+    "licenses/Emscripten-SDK-LICENSE.txt": {
+      "bytes": 1326,
+      "sha256": "99d9a9616fbde3f5ee22a71d8645799a8522d48526130c5ba6dc27ad15ce01f1"
+    },
+    "licenses/zlib-LICENSE.txt": {
+      "bytes": 1002,
+      "sha256": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243"
+    },
+    "upstream/resize.cpp": {
+      "bytes": 171784,
+      "sha256": "a98a932f750a80856a190529adec9439da21b5ef2b2d73fd47635430a979553d"
+    },
+    "upstream/seeds.cpp": {
+      "bytes": 45580,
+      "sha256": "ef04fc840b02c1d8e48cf32f8c2ffe87dd724122a5f99e7b8ea3e13588d74d1b"
+    },
+    "upstream/seeds-wrapper.cpp": {
+      "bytes": 4326,
+      "sha256": "ace723103ba9a1a55068d690c3025e350b34962f9164e7d5e3b8d8ee9d3aa576"
+    }
+  },
+  "outputs": {
+    "seeds-support.mjs": {
+      "bytes": 26502,
+      "sha256": "bf56424492f691b9885096a252786e98e25e0cccbd817a8163f58b7b3796a5ae"
+    },
+    "seeds-support.wasm": {
+      "bytes": 981811,
+      "sha256": "47c1f0dbd2cbde50f7b6c4dae5b3cd884503d18d96d49dbe1870d7be22dccf23"
+    }
+  },
+  "sourcePathPolicy": "Portable relative diagnostic names; native mathematical sources and arithmetic flags unchanged."
+}

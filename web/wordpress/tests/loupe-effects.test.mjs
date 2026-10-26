@@ -21,7 +21,7 @@ test('bounded local pipeline stacks effects, reuses upstream work and retains al
  await assert.rejects(process({id:'wrong',effects}),/expired/);await assert.rejects(process({id:'large',frames:frames.map(f=>({...f,width:1025})),effects}),/Invalid loupe/);
 });
 test('slider bursts keep only one pending job and reuse worker input for new parameters',async()=>{
- const messages=[];let worker,terminated=0;const queue=createLoupeEffectQueue(()=>worker={postMessage:job=>messages.push(job),terminate(){terminated++;}});const capture=()=>[{data:new Uint8ClampedArray(4)}];
- const a=queue.run('first',{},capture,1),obsolete=queue.run('discard',{},capture,1),latest=queue.run('last',{},capture,1);assert.equal(await obsolete,null);assert.equal(messages.length,1);worker.onmessage({data:{ticket:messages[0].ticket,frames:[]}});await a;assert.equal(messages.length,2);assert.equal(messages[1].id,'last');worker.onmessage({data:{ticket:messages[1].ticket,frames:[]}});await latest;
- const same=queue.run('last',{changed:true},()=>{throw Error('unneeded readback');},1);assert.equal(messages[2].frames,null);worker.onmessage({data:{ticket:messages[2].ticket,frames:[]}});await same;queue.dispose();assert.equal(terminated,1);
+ const messages=[];let worker,terminated=0;const queue=createLoupeEffectQueue(()=>worker={postMessage:job=>messages.push(job),terminate(){terminated++;}});const frames=()=>Array.from({length:3},()=>({width:1,height:1,data:new Uint8ClampedArray(4)})),capture=frames;
+ const a=queue.run('first',{},capture,1),obsolete=queue.run('discard',{},capture,1),latest=queue.run('last',{},capture,1);assert.equal(await obsolete,null);assert.equal(messages.length,1);worker.onmessage({data:{ticket:messages[0].ticket,frames:frames()}});await a;assert.equal(messages.length,2);assert.equal(messages[1].id,'last');worker.onmessage({data:{ticket:messages[1].ticket,frames:frames()}});await latest;
+ const same=queue.run('last',{changed:true},()=>{throw Error('unneeded readback');},1);assert.equal(messages[2].frames,null);worker.onmessage({data:{ticket:messages[2].ticket,frames:frames()}});await same;queue.dispose();assert.equal(terminated,1);
 });

@@ -1,3 +1,5 @@
+import {createSHA256} from '../vendor/hash-wasm/hashes.js';
+import {captureOwnedSourcePrefixIntegrity} from './source-prefix-integrity.js';
 import {heicCell,heicGrid} from './heic-grid.js';
 import {serializeEngineError,deserializeEngineError,EngineError,requireValue} from './errors.js';
 import {extendedImageFormat,isoChroma,webpChroma} from './media-format.js';
@@ -16,9 +18,12 @@ async function magick(){
  // frameCount below selects one frame without preventing those temporary images.
  m.ResourceLimits.disk=0n;m.ResourceLimits.listLength=16n;m.ResourceLimits.width=65500n;m.ResourceLimits.height=65500n;return m;
 }
-async function decode({blob,name,inspectOnly=false}){
- const bytes=new Uint8Array(await blob.arrayBuffer()),format=extendedImageFormat(bytes,name);
+async function decode({blob,name,inspectOnly=false,sourceSha256}){
+ const bytes=new Uint8Array(await blob.arrayBuffer());
+ if(sourceSha256!==undefined){requireValue(typeof sourceSha256==='string'&&/^[a-f0-9]{64}$/i.test(sourceSha256),'Invalid encoded source identity.');const digest=await createSHA256();digest.update(bytes);if(digest.digest('hex')!==sourceSha256.toLowerCase())throw new EngineError('SOURCE_CHANGED','The encoded bytes consumed by the image inspector do not match the loaded original source.');}
+ const format=extendedImageFormat(bytes,name);
  requireValue(format,'This image encoding is not supported by the extended image reader.');
+ const captured=inspectOnly?null:await captureOwnedSourcePrefixIntegrity(bytes,{reserveMemory:()=>()=>{},onProgress:fraction=>progress('original-sha256',fraction)});
  const m=await magick(),settings=new m.MagickReadSettings({format:m.MagickFormat[format]??format,frameIndex:0,frameCount:1});
  const info=m.MagickImageInfo.create(bytes,settings),swapped=info.orientation>=5&&info.orientation<=8;
  const header={format:format.toLowerCase(),sourceWidth:info.width,sourceHeight:info.height,width:swapped?info.height:info.width,height:swapped?info.width:info.height,orientation:info.orientation||1,chroma:format==='WEBP'?webpChroma(bytes):isoChroma(bytes)};
@@ -35,7 +40,7 @@ async function decode({blob,name,inspectOnly=false}){
    if(!profile&&cicp?.split(/[\/,]/)[1]==='16')pqToSdr(rgb,cicp);
    await request('decoded-band',{bytes:rgb,y,rows},[rgb.buffer]);progress('decode',(y+rows)/image.height);
   }
- });return {header,provenance};
+ });return {header,provenance,sourceIntegrity:captured.manifest,...(admission.retainOriginal?{originalBytes:bytes}:{})};
 }
 function pqToSdr(rgb,cicp){
  const bt2020=cicp.split(/[\/,]/)[0]==='9',m1=2610/16384,m2=2523/32,c1=3424/4096,c2=2413/128,c3=2392/128;

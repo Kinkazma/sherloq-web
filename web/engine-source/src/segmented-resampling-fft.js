@@ -1,9 +1,9 @@
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';
 import {resamplingStreamMath,resamplingStreamHeapBytes} from './resampling-stream-math.js';
 import {createComplexPlane} from './segmented-complex-plane.js';
-export async function segmentedResamplingFft(input,{budget,signal,onProgress,blockPixels=65536,pool,...storage}={}){
+export async function segmentedResamplingFft(input,{budget,signal,onProgress,blockPixels=65536,pool,accountedHeapBytes=0,...storage}={}){
  const {width,height}=input;requireValue(width<=16384&&height<=16384,'Resampling FFT exceeds the native adapter axis limit.');
- const heap=Math.max(12*1024**2,resamplingStreamHeapBytes()),room=budget.limit-budget.retained-budget.active,block=Math.min(blockPixels,Math.floor((room-heap-2*1024**2)/128));if(block<Math.max(width,height))throw new EngineError('MEMORY_LIMIT','One full resampling FFT axis must fit.');
+ const heap=Math.max(0,Math.max(12*1024**2,resamplingStreamHeapBytes())-accountedHeapBytes),room=budget.limit-budget.retained-budget.active,block=Math.min(blockPixels,Math.floor((room-heap-2*1024**2)/128));if(block<Math.max(width,height))throw new EngineError('MEMORY_LIMIT','One full resampling FFT axis must fit.');
  const release=budget.reserve(heap+block*128);let output,done=false;
  const execute=options=>pool?pool.run(options):(async()=>{for(let i=0;i<options.count;i++){checkAbort(signal);await options.consume(await options.local(await options.prepare(i)),i);}})();
  try{const math=await resamplingStreamMath();output=await createComplexPlane(width,height,{...storage,budget,signal,ArrayType:Float64Array,chunkBytes:Math.max(8192,block*16)});

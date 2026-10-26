@@ -1,16 +1,24 @@
+import {createD2prlResultOwnership} from './result-ownership.js';
+import {noisesnifferOwnerRetirement as retirement} from '../../src/noisesniffer-owner-retirement.js';
+import {scientificJsonBound} from '../../src/scientific-json.js';
 import {retainD2prlCheckpoint} from './checkpoint.js';
 // Experimental zone/session controller. The injected infer() must be the real
 // qualified model pipeline; this controller never invents neural scores.
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
 const SIDE = 448, RAW_BYTES = 3 * SIDE * SIDE * 4;
 let sequence = 0;
+async function retireOwners(callbacks,failure){
+ for(const callback of callbacks)try{await callback();}catch(error){if(failure===undefined)failure=error;else if(failure&&typeof failure==='object')try{failure.details={...failure.details,cleanupFailures:[...(failure.details?.cleanupFailures??[]),{code:error?.code??'CLEANUP_FAILED',message:String(error?.message??error)}]};}catch{}}
+ return failure;
+}
 export function createD2prlAnalysis({budget, infer, project, modelId, releaseInferenceCheckpoint=()=>{}}) {
   requireValue(budget && typeof infer === 'function' && typeof project?.run === 'function' && typeof modelId === 'string' && modelId.length > 0, 'Model, projector and shared budget required');
   const prefix = 'd2prl-session-' + (++sequence) + ':';
-  let revision = 0, current, tail = Promise.resolve(), disposed = false, last, retained, checkpoint;
-  const clearCheckpoint=async()=>{await project.releaseCheckpoint?.();if(!checkpoint)return;const old=checkpoint;checkpoint=null;old.pinned.forEach(free=>free());old.inserted.forEach(key=>budget.remove(key));for(const key of old.inferenceKeys)releaseInferenceCheckpoint(key);};
-  const clearRetained=()=>{const old=retained;retained=null;old?.releases.forEach(free=>free());};
-  const retainedValues=context=>retained?.analysisId===context.analysisId?retained.values:null;
+  let revision = 0, current, tail = Promise.resolve(), disposed = false, last, lastMetadataRelease, retained, checkpoint, disposal;
+  const ownership=createD2prlResultOwnership({budget,rawBytes:RAW_BYTES});
+  const clearCheckpoint=async()=>{const old=checkpoint;checkpoint=null;const failure=await retireOwners([()=>project.releaseCheckpoint?.(),...(old?.pinned??[]),...(old?.inserted??[]).map(key=>()=>budget.remove(key)),...[...(old?.inferenceKeys??[])].map(key=>()=>releaseInferenceCheckpoint(key))]);if(failure!==undefined)throw failure;};
+  const clearRetained=async()=>{const old=retained;if(!old)return;await old.release();if(retained===old)retained=null;};
+  const retainedValues=context=>retained?.analysisId===context.analysisId?retained.values:ownership.values(context.analysisId);
   const geometry = (width, height, zones, exclusions, mode, segmented = false) => {
     requireValue([width, height].every(n => Number.isInteger(n) && n > 0 && n <= (segmented ? 131072 : 8192)) && (segmented || width * height <= 32 * 1024 ** 2), 'D2PRL source geometry');
     requireValue(mode === 'whole-image' || mode === 'regions', 'Explicit zone mode');
@@ -27,19 +35,23 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
     const check = () => {checkAbort(controller.signal); if (id !== revision || disposed) throw new EngineError('CANCELLED', 'Superseded D2PRL result');};
     const progress = event => {check(); options.onProgress?.({...event, revision: id}); check();};
     const task = (async () => {
-      try {await previous; check(); return await work({signal: controller.signal, check, progress, revision: id,checkpointKey:options.checkpointKey,resourceOperation:options.resourceOperation});}
-      catch(error){if(id===revision&&(error?.code==='CANCELLED'||controller.signal.aborted))await clearCheckpoint();throw error;}
+      try {await previous; check(); await ownership.drain();check();return await work({signal: controller.signal, check, progress, revision: id,checkpointKey:options.checkpointKey,resourceOperation:options.resourceOperation});}
+      catch(error){if(id===revision&&(error?.code==='CANCELLED'||controller.signal.aborted))await retireOwners([clearCheckpoint],error);throw error;}
       finally {options.signal?.removeEventListener('abort', externalAbort); if (current === controller) current = null;}
     })();
     tail = task.catch(() => {}); return task;
   };
-  const projectResult = async (context, values, minimum, exclusions, job, counts) => {
+  const projectResult = async (context, values, minimum, exclusions, job, counts,{publish=true,funding=[]}={}) => {
     const result = await project.run({width: context.width, height: context.height, layout: context.layout, mode: context.mode, minimum, exclusions, zones: context.zones.map((zone, i) => ({...zone, raw: values[i].raw}))}, {signal: job.signal,checkpointKey:job.checkpointKey,resourceOperation:job.resourceOperation, onProgress: event => job.progress({...event, stage: 'projection'})});
-    try {
+    let raw,record;try {
       job.check(); const resultId = prefix + job.revision, analysisId = context.analysisId ?? resultId;
       result.metadata = {...result.metadata,...(context.scientificScope?{scientificScope:structuredClone(context.scientificScope)}:{}), modelId, backend: context.backend, pixelSha256: context.pixelSha256, resultId, analysisId, revision: job.revision, sourceProvenance: context.provenance, vote_policy: 'one-model-union', inference_performed: counts.inferences > 0, inferences: counts.inferences, cache_hits: counts.cacheHits, zones: result.metadata.zones.map((zone, i) => ({...zone, kind: context.zones[i].kind, decision: structuredClone(values[i].decision), execution: structuredClone(values[i].execution)}))};
-      last = {...context, resultId, analysisId, exclusions: exclusions.map(r => [...r]), resultMetadata: structuredClone(result.metadata)}; return result;
-    } catch (error) {await result.release(); throw error;}
+      const snapshot={...context,resultId,analysisId,exclusions:exclusions.map(r=>[...r]),resultMetadata:structuredClone(result.metadata)};
+      raw=ownership.bank(analysisId,values,funding);const dispose=result.dispose??result.release;
+      record=ownership.register({resultId,context:snapshot,metadata:result.metadata,raw,dispose:()=>dispose.call(result)});raw=null;
+      if(publish){const free=budget.reserve(4096+2*scientificJsonBound(snapshot));let next;try{next=structuredClone(snapshot);}catch(error){free();throw error;}lastMetadataRelease?.();lastMetadataRelease=free;last=next;}
+      return{...result,release:record.retirement,dispose:record.retirement};
+    } catch (error) {await retireOwners(record?[record.retirement]:[()=>result.release(),()=>raw?.release()],error); throw error;}
   };
   return {
     run({pixels, inputSource, zones, mode = 'regions', exclusions = [], minimum = 500, backend = 'gpu', provenance = null, retainRaw = false,scientificScope}, options) {
@@ -51,10 +63,11 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
       // already admitted request. Borrowed RGB must stay unchanged until the
       // request settles; its snapshot is copied under the budget after queuing.
       const context = {width, height, layout:segmented?'segmented':'contiguous', mode, backend, provenance: structuredClone(provenance), zones: zones.map(z => ({id: z.id, kind: z.kind, bounds: [...z.bounds]}))};
-      exclusions = exclusions.map(r => [...r]); last = null; clearRetained();
+      exclusions = exclusions.map(r => [...r]);
       return start(async job => {
-        let pinned=[],inserted=[],values=[],sourceRelease,complete=false,retain=false;
+        let pinned=[],inserted=[],values=[],sourceRelease,complete=false,retain=false,failure,projectedResult;
         try {
+          await clearRetained();last=null;lastMetadataRelease?.();lastMetadataRelease=null;
           let source;if(segmented)context.pixelSha256=await inputSource.sha256({signal:job.signal,onProgress:job.progress});else{sourceRelease=budget.reserve(pixels.data.byteLength*3);source=pixels.data.slice();const digest=await crypto.subtle.digest('SHA-256',source);context.pixelSha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');}job.check();
           const identity=JSON.stringify([options?.checkpointKey,modelId,backend,context.pixelSha256,context.width,context.height,context.zones,...(scientificScope?[scientificScope.metadata.fingerprint,context.zones.map(z=>scientificScope.grids.get(z.id)?.identity)]:[])]);
           if(checkpoint&&checkpoint.identity!==identity)await clearCheckpoint();
@@ -67,7 +80,7 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
             let value=values[i]??budget.get(zone.cacheKey);
             if(value){if(!values[i])pinned.push(budget.reserve(RAW_BYTES));cacheHits++;}
             else {
-              const cropRelease = segmented?null:budget.reserve(width * height * 3); let output;
+              const cropRelease = segmented?null:budget.reserve(width * height * 3); let output,inferenceFailure;
               try {
                 let input;if(segmented)input=inputSource.region(zone.bounds);else{const rgb = new Uint8Array(width * height * 3); let stamp = performance.now();
                 for (let y = 0; y < height; y++) {
@@ -81,37 +94,41 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
                 requireValue(output?.raw instanceof Float32Array && output.raw.length === RAW_BYTES / 4 && typeof output.release === 'function', 'Actual native-grid model output required');
                 pinned.push(budget.reserve(RAW_BYTES)); value = {raw: output.raw, decision: structuredClone(output.decision), execution: structuredClone(output.execution), byteLength: RAW_BYTES};
                 budget.put(zone.cacheKey, value); if (budget.get(zone.cacheKey) === value) inserted.push(zone.cacheKey); inferences++;
-              } finally {output?.release(); cropRelease?.();}
+              } catch(error){inferenceFailure=error;throw error;} finally {const failure=await retireOwners([()=>output?.release(),()=>cropRelease?.()],inferenceFailure);if(inferenceFailure===undefined&&failure!==undefined)throw failure;}
             }
             values[i]=value; job.progress({phase: 'zone-complete', zone: zone.id, completed: i + 1, total: context.zones.length, inferences, cacheHits});
           }
-          if(scientificScope)context.scientificScope=structuredClone(scientificScope.metadata);const result = await projectResult(context, values, minimum, exclusions, job, {inferences, cacheHits}); if(retainRaw)retained={analysisId:last.analysisId,values,releases:pinned.splice(0)}; complete = true; return result;
-        }catch(error){retain=retainD2prlCheckpoint(error,job.signal,options?.checkpointKey);throw error;}
-        finally{if(!retain){if(complete&&checkpoint)checkpoint.inserted=[];await clearCheckpoint();}sourceRelease?.();}
+          if(scientificScope)context.scientificScope=structuredClone(scientificScope.metadata);const result = projectedResult = await projectResult(context, values, minimum, exclusions, job, {inferences, cacheHits},{funding:pinned}); if(retainRaw){const loan=ownership.bank(result.metadata.analysisId,values);retained={analysisId:result.metadata.analysisId,values,release:retirement([()=>loan.release()])};} complete = true; return result;
+        }catch(error){failure=error;retain=retainD2prlCheckpoint(error,job.signal,options?.checkpointKey);throw error;}
+        finally{const retiredFailure=await retireOwners([async()=>{if(!retain){if(complete&&checkpoint)checkpoint.inserted=[];await clearCheckpoint();}},()=>sourceRelease?.()],failure);if(retiredFailure!==undefined){const finalFailure=await retireOwners([()=>projectedResult?.release(),()=>{if(projectedResult&&last?.resultId===projectedResult.metadata?.resultId){last=null;lastMetadataRelease?.();lastMetadataRelease=null;}return projectedResult&&retained?.analysisId===projectedResult.metadata?.analysisId?clearRetained():undefined;}],retiredFailure);if(failure===undefined)throw finalFailure;}}
       }, options);
     },
-    refilter({resultId, analysisId, minimum = 500, exclusions, retainRaw = false}, options) {
-      requireValue(last && (analysisId === undefined ? resultId === last.resultId : resultId === undefined && analysisId === last.analysisId), 'Current completed D2PRL analysis required'); requireValue(typeof retainRaw==='boolean' && Number.isInteger(minimum) && minimum >= 0 && minimum <= 5000, 'Component minimum');
+    refilter({resultId, analysisId, minimum = 500, exclusions, retainRaw = false,publish=true}, options) {
+      requireValue(last && (analysisId === undefined ? resultId === last.resultId : resultId === undefined && analysisId === last.analysisId), 'Current completed D2PRL analysis required'); requireValue(typeof publish==='boolean'&&typeof retainRaw==='boolean' && Number.isInteger(minimum) && minimum >= 0 && minimum <= 5000, 'Component minimum');
       const context = structuredClone(last); exclusions = (exclusions ?? context.exclusions).map(r => [...r]); geometry(context.width, context.height, context.zones, exclusions, context.mode, context.layout==='segmented');
       return start(async job => {
         const values = retainedValues(context) ?? context.zones.map(z => budget.get(z.cacheKey));
         if (values.some(v => !v)) throw new EngineError('CACHE_MISS', 'Native grids were evicted; explicit analysis is required');
-        const free = budget.reserve(RAW_BYTES * values.length);let transferred=false;
-        try {const result=await projectResult(context, values, minimum, exclusions, job, {inferences: 0, cacheHits: values.length});if(retainRaw&&!retainedValues(context)){retained={analysisId:last.analysisId,values,releases:[free]};transferred=true;}return result;}
-        finally {if(!transferred)free();}
+        const loan=ownership.bank(context.analysisId,values);
+        try {const result=await projectResult(context, values, minimum, exclusions, job, {inferences: 0, cacheHits: values.length},{publish});if(publish&&retainRaw&&retained?.analysisId!==context.analysisId){await clearRetained();const kept=ownership.bank(context.analysisId,values);retained={analysisId:context.analysisId,values,release:retirement([()=>kept.release()])};}return result;}
+        finally {await loan.release();}
       }, options);
     },
+    rememberResultProvenance(resultId,provenance){ownership.provenance(resultId,provenance);},
+    resolveResultAnalysisId(resultId){return ownership.result(resultId)?.context.analysisId;},
     readRaw(resultId) {
-      requireValue(!disposed && !current && last && resultId === last.resultId, 'Current completed D2PRL result required');
-      const values = retainedValues(last) ?? last.zones.map(zone => budget.get(zone.cacheKey));
-      if (values.some(value => !value)) throw new EngineError('CACHE_MISS', 'Native grids were evicted; explicit analysis is required');
-      const release = budget.reserve(RAW_BYTES * values.length * 2);
-      try {
-        return {width: last.width, height: last.height, rawGrids: values.map((value, i) => ({id: last.zones[i].id, kind: last.zones[i].kind, bounds: [...last.zones[i].bounds], raw: value.raw.slice()})), metadata: {...structuredClone(last.resultMetadata), raw_shape: [3, SIDE, SIDE], raw_planes: ['union-probability', 'target-residual', 'source-residual'], raw_filter_applied: false}, release};
-      } catch (error) {release(); throw error;}
+      requireValue(!disposed && !current,'D2PRL analysis busy or disposed');
+      if(ownership.retiring(resultId))throw new EngineError('CACHE_MISS','The requested D2PRL result is retiring');
+      const saved=ownership.result(resultId),context=saved?.context??(last?.resultId===resultId?last:null);
+      requireValue(context,'Live or current completed D2PRL result required');
+      const values = saved?.raw.value??retainedValues(context)??context.zones.map(zone=>budget.get(zone.cacheKey));
+      if(values.some(value=>!value))throw new EngineError('CACHE_MISS','Native grids were evicted; explicit analysis is required');
+      const release=budget.reserve(RAW_BYTES*values.length*2);
+      try{return{width:context.width,height:context.height,rawGrids:values.map((value,i)=>({id:context.zones[i].id,kind:context.zones[i].kind,bounds:[...context.zones[i].bounds],raw:value.raw.slice()})),metadata:{...structuredClone(saved?.metadata??context.resultMetadata),raw_shape:[3,SIDE,SIDE],raw_planes:['union-probability','target-residual','source-residual'],raw_filter_applied:false},...(saved?.provenance?{resultProvenance:structuredClone(saved.provenance)}:{}),release};}
+      catch(error){release();throw error;}
     },
     async releaseCheckpoint(key){requireValue(!current,'D2PRL analysis busy');if(key===undefined||checkpoint?.key===key)await clearCheckpoint();},
     cancel() {current?.abort(); revision++;},
-    async dispose() {if (disposed) return; disposed = true; current?.abort(); revision++; await tail; last = null; clearRetained();await clearCheckpoint();budget.clearPrefix(prefix);}
+    dispose() {if(disposal)return disposal;disposed=true;current?.abort();revision++;disposal=(async()=>{await tail;last=null;lastMetadataRelease?.();lastMetadataRelease=null;const failure=await retireOwners([clearRetained,()=>ownership.drain(),clearCheckpoint,()=>budget.clearPrefix(prefix)]);if(failure!==undefined)throw failure;})().catch(error=>{disposal=null;throw error;});return disposal;}
   };
 }

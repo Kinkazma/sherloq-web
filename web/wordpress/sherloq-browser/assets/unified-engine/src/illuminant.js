@@ -1,6 +1,6 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {parameters,roundEven} from './pixel-utils.js';
-import {checkpoint} from './errors.js';
+import {createCooperator,checkAbort} from './errors.js';
 import {VIRIDIS} from './viridis.js';
 export const illuminantParams=(p={})=>parameters(p,{block:128,method:1,linear:true,exclude:true,mode:0},{method:[0,2],mode:[0,2]},{block:[32,64,128,256]},['linear','exclude']);
 // NumPy's contiguous float64 pairwise sum, with the same eight accumulators.
@@ -27,18 +27,19 @@ export function illuminantCellDisplay(unit,count,area,valid,globalRGB,p){
  return {angle,color:colors};
 }
 export async function illuminant(image,p,hooks={}){
+ const cooperate=createCooperator(hooks.signal);
  const {width,height,data:input}=image,cols=Math.ceil(width/p.block),rows=Math.ceil(height/p.block),cells=cols*rows;
  const histogram=new Uint32Array(cells*768),globalHist=new Float64Array(768),areas=new Uint32Array(cells),counts=new Uint32Array(cells);
- for(let y=0;y<height;y++){if(y%32===0)await checkpoint(hooks.signal);for(let x=0;x<width;x++){
+ for(let y=0;y<height;y++){if(y%32===0)await cooperate();for(let x=0;x<width;x++){
   const i=(y*width+x)*3,cell=Math.floor(y/p.block)*cols+Math.floor(x/p.block);areas[cell]++;
   if(p.exclude&&(Math.min(input[i],input[i+1],input[i+2])<=8||Math.max(input[i],input[i+1],input[i+2])>=250))continue;
   counts[cell]++;for(let c=0;c<3;c++){histogram[cell*768+c*256+input[i+c]]++;globalHist[c*256+input[i+c]]++;}
  }hooks.onProgress?.(.5*(y+1)/height);}
  const estimate=illuminantEstimator(p);
  const globalRGB=estimate(globalHist,counts.reduce((a,b)=>a+b,0)),rgb=new Float64Array(cells*3),angles=new Float64Array(cells),valid=new Uint8Array(cells),colors=new Uint8Array(cells*3);
- for(let cell=0;cell<cells;cell++){if(cell%32===0)await checkpoint(hooks.signal);const unit=estimate(histogram.subarray(cell*768,(cell+1)*768),counts[cell]);valid[cell]=Number(counts[cell]>=Math.min(16,areas[cell])&&Math.max(...unit)>0);if(!valid[cell])unit.fill(0);rgb.set(unit,cell*3);
+ for(let cell=0;cell<cells;cell++){if(cell%32===0)await cooperate();const unit=estimate(histogram.subarray(cell*768,(cell+1)*768),counts[cell]);valid[cell]=Number(counts[cell]>=Math.min(16,areas[cell])&&Math.max(...unit)>0);if(!valid[cell])unit.fill(0);rgb.set(unit,cell*3);
   const display=illuminantCellDisplay(unit,counts[cell],areas[cell],valid[cell],globalRGB,p);angles[cell]=display.angle;colors.set(display.color,cell*3);
  }
- const data=new Uint8Array(input.length);for(let y=0;y<height;y++){if(y%32===0)await checkpoint(hooks.signal);for(let x=0;x<width;x++){const cell=Math.floor(y/p.block)*cols+Math.floor(x/p.block);data.set(colors.subarray(cell*3,cell*3+3),(y*width+x)*3);}hooks.onProgress?.(.5+.5*(y+1)/height);}
- return {pixels:{width,height,format:'rgb8',data},data:{rows,cols,block:p.block,rgb,counts,areas,valid,globalRGB,angles},semantics:'Local Minkowski illuminant colour estimates; surface colours also influence the result. Invalid cells remain explicit. No light direction or authenticity verdict.'};
+ const data=new Uint8Array(input.length);for(let y=0;y<height;y++){if(y%32===0)await cooperate();for(let x=0;x<width;x++){const cell=Math.floor(y/p.block)*cols+Math.floor(x/p.block);data.set(colors.subarray(cell*3,cell*3+3),(y*width+x)*3);}hooks.onProgress?.(.5+.5*(y+1)/height);}
+ checkAbort(hooks.signal);return {pixels:{width,height,format:'rgb8',data},data:{rows,cols,block:p.block,rgb,counts,areas,valid,globalRGB,angles},semantics:'Local Minkowski illuminant colour estimates; surface colours also influence the result. Invalid cells remain explicit. No light direction or authenticity verdict.'};
 }

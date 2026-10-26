@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {allocateWasmMemory,copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 
@@ -79,6 +79,7 @@ export async function createGeometryKernel({signal,reserveMemory,heapBytes=256*1
       try{const ip=put(image.data),kp=putPoints(),mp=put(pairs),cp=put(colors);
         return {
           group(rows,base,flags){checkAbort(signal);let rp=0,bp=0;try{rp=module._malloc(Math.max(8,rows.byteLength));bp=module._malloc(8);if(!rp||!bp)throw wasmAllocationFailure(module,'Sparse group allocation failed.',undefined);module.HEAPU8.set(new Uint8Array(rows.buffer,rows.byteOffset,rows.byteLength),rp);module.HEAPU8.set(base,bp);if(!module._copy_draw_group(ip,image.width,image.height,kp,mp,rp,rows.length,cp,bp,flags))throw new EngineError('RENDER_FAILED','Native sparse drawing failed.');}finally{if(rp)module._free(rp);if(bp)module._free(bp);}},
+          colors(values){requireValue(!closed&&values instanceof Uint8Array&&values.length===colors.length,'Invalid sparse presentation palette.');module.HEAPU8.set(values,cp);},
           polygon(polygon){const coords=Int32Array.from(polygon.flat(),Math.trunc);let p=0;try{p=module._malloc(Math.max(8,coords.byteLength));if(!p)throw wasmAllocationFailure(module,'Sparse polygon allocation failed.',Math.max(8,coords.byteLength));module.HEAPU8.set(new Uint8Array(coords.buffer),p);if(!module._copy_draw_polygon(ip,image.width,image.height,p,polygon.length))throw new EngineError('RENDER_FAILED','Native polygon drawing failed.');}finally{if(p)module._free(p);}},
           pixels(){requireValue(!closed,'Renderer disposed.');return copyTypedArray(module.HEAPU8.subarray(ip,ip+image.data.byteLength),{label:'copy-geometry-output'});},dispose
         };

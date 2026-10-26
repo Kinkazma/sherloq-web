@@ -1,3 +1,4 @@
+import{segmentationExclusionsAvailable}from'./unified-engine/src/segmentation-window-capabilities.js';
 import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js';
 // UI descriptors only. Scientific validation remains in the frozen worker.
 import {toolGroups} from './tool-tree.js';
@@ -33,7 +34,7 @@ const fields={
  'jpeg.ghosts':{low:range(0,100),high:range(0,100),step:range(1,20),x:range(0,7),y:range(0,7)},
  'jpeg.zero':{view:indexed(['Régions','Votes de grille','Votes JPEG99','Grilles différentes','Grilles manquantes'])},
  'tampering.contrast':{block:select([32,64,128,256]),mode:indexed(['Erreur d’histogramme','Similarité des canaux','Indicateur joint'])},
- 'tampering.copyMove.brisk':{response:range(0,100),matching:range(0,100),distance:range(0,100),minimum:range(1,1000)},
+ 'tampering.copyMove.brisk':{response:range(0,100),matching:range(1,100),distance:range(1,100),minimum:range(1,20)},
  'tampering.resampling':{stage:select(['probability','fourier']),size:select([3,5]),'fourier.window':select(['hanning','radial']),'fourier.highpass':select(['simple','radial']),'fourier.gamma':range(0,5,.1)},
  'various.median':{variance:range(0,100),threshold:range(0,1,.01)},
  'various.illuminant':{block:select([32,64,128,256]),method:indexed(['Gray World','Shades of Gray (p=6)','White Patch']),mode:indexed(['Couleur de l’illuminant','Écart à l’illuminant global','Pixels valides'])},
@@ -46,10 +47,14 @@ const labels={channel:'Canal',start:'Borne basse',end:'Borne haute',mode:'Mode',
 const hidden=new Set(['modelId','referenceImageId','databaseId','maskImageId','bounds','regions','excluded','guides','exclusions','selectionPresent','refilterOf','reprojectOf','zoneIds','layout','rect','fourierRegions','trustAnchors']);
 const extra={
  'file.similarity':{},'m2.trufor':{},'m2.rita':{},'m2.catnet':{},'m2.cfa':{variant:'Original',block:32,tile:512},
- 'tampering.copyMove.sparse':{algorithm:'PatchMatch Zernike',limit:6000,radius:600,minimum:5,threshold:.3,tolerance:50,model:'Similarity',geometricThreshold:3,geometricMinimum:6,compare:false,reflections:false,autoRadius:true,compact:true,independent:true,patch:8,iterations:8,texture:2,longSide:832,rotationMode:'none',...SSG_DEFAULTS},
+ 'tampering.copyMove.sparse':{algorithm:'Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror',limit:6000,radius:600,minimum:5,threshold:.3,tolerance:50,model:'Similarity',geometricThreshold:3,geometricMinimum:6,compare:false,reflections:false,autoRadius:true,compact:true,independent:true,patch:8,iterations:8,texture:2,longSide:832,rotationMode:'none',...SSG_DEFAULTS},
  'ai.sources.safire':{side:16,groups:3,kind:'kmeans',eps:.2,minimum:1,binary:false},'ai.localization.focal':{},'ai.localization.adaifl':{},'ai.clones.d2prl':{minimum:500}
 };
 for(const [id,params] of Object.entries(extra))defaults[id]={params,exports:['json']};
+// Native sparse evidence already has a complete Core NPZ adapter.
+defaults['tampering.copyMove.sparse'].exports.push('npz');
+// Six projected D2PRL scientific fields; not the native448 raw-bank archive.
+defaults['ai.clones.d2prl'].exports.push('npz');
 // Display-only defaults; neither value is sent as a scientific model parameter.
 defaults['m2.rita'].view={mode:'overlay',threshold:.5};
 for(const tool of EXTENSION_TOOLS)defaults[tool.id]={params:{},exports:tool.kind==='global'?['json']:['json','npz']};
@@ -70,9 +75,16 @@ export function neuralSelection(rectangles=[],scope='whole',segmentation=false){
  if(!rectangles.length)throw new Error('Dessinez au moins un rectangle dans « Calques et zones ».');
  const bounds=rectangles.map(r=>[r.x0,r.y0,r.x1,r.y1]);
  if(scope==='exclude'){
-  if(segmentation)throw new Error('Les exclusions sont disponibles avec D2PRL.');
+  if(segmentation){
+   if(segmentation===true)throw new Error('Les exclusions sont disponibles avec D2PRL.');
+   if(!segmentationExclusionsAvailable(segmentation))throw new Error('Les exclusions internes ne sont pas disponibles pour cette variante et ce backend.');
+  }
   return {params:{selectionPresent:false,exclusions:bounds},regions:[]};
  }
  if(scope!=='regions')throw new Error('Sélection de zones inconnue.');
  return {params:{selectionPresent:true},regions:bounds.map((bounds,i)=>({id:rectangles[i].id||'region-'+i,kind:'region',bounds}))};
 }
+
+// Scientific operation aliases may share one visible tool entry. Export
+// capabilities belong to the computed operation, not its menu container.
+export function toolOperationExports(operation){return [...(defaults[operation]?.exports??[])];}

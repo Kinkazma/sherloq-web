@@ -1,0 +1,22 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {FocalEngine} from '../src/focal.js';
+class WorkerFixture extends EventTarget {
+ constructor(){super();this.terminated=0;this.posts=[];}
+ postMessage(job){if(this.postError)throw this.postError;this.posts.push(job);}
+ terminate(){this.terminated++;}
+ send(data){this.onmessage?.({data});}
+}
+function fixture(){const e=new FocalEngine({format:'rgb8',width:1,height:1,data:new Uint8Array(3)},{reserve(){return()=>{};},clearPrefix(){}},{maxWorkers:8});const w=new WorkerFixture();e.worker=w;return {e,w};}
+async function expectFailure(data,job={task:'init'}){const {e,w}=fixture();let answer,error;const p=e.rpc(job).then(x=>answer=x,x=>error=x);try{w.send(data);}catch{}await Promise.resolve();e.stop();await p;assert.equal(answer,undefined);assert.equal(error?.code,'WORKER_MESSAGE_FAILED');assert.equal(w.onmessage,null);assert.equal(w.onerror,null);assert.equal(w.terminated,1);e.stop();assert.equal(w.terminated,1);}
+for(const [name,value] of [['null',null],['array',[]],['empty',{}],['not-ready',{ready:false}],['bad-error',{error:null}],['string-error',{error:'out of memory'}]])test('reject malformed '+name,()=>expectFailure(value));
+test('messageerror rejects and detaches',async()=>{const {e,w}=fixture(),p=e.rpc({task:'init'});w.dispatchEvent(new Event('messageerror'));await assert.rejects(p,{code:'WORKER_MESSAGE_FAILED'});assert.equal(w.onmessage,null);assert.equal(w.onmessageerror,null);e.stop();});
+test('runtime failure cleans every handler',async()=>{const {e,w}=fixture(),p=e.rpc({task:'init'});w.onerror({message:'fixture runtime'});await assert.rejects(p,{code:'WORKER_FAILED'});assert.equal(w.onmessage,null);assert.equal(w.onerror,null);e.stop();});
+test('post failure keeps native cause',async()=>{const {e,w}=fixture();w.postError=Object.assign(Error('clone'),{name:'DataCloneError'});await assert.rejects(e.rpc({task:'init'}),{name:'DataCloneError'});assert.equal(w.onmessage,null);e.stop();});
+test('single pending call, cancellation settles once',async()=>{const {e,w}=fixture(),p=e.rpc({task:'init'});await assert.rejects(e.rpc({task:'init'}),{code:'BUSY'});e.stop();await assert.rejects(p,{code:'CANCELLED'});assert.equal(w.onmessage,null);assert.equal(w.onerror,null);});
+test('valid init and stage serialize without changing bytes',async()=>{const {e,w}=fixture(),ready={ready:true};const p=e.rpc({task:'init'});w.send(ready);assert.equal(await p,ready);assert.equal(w.onmessage,null);const answer={metadata:{stage:'block-00',provider:'wasm',heapBytes:65536,threads:8}};const q=e.rpc({task:'stage',stage:'block-00'});w.send(answer);assert.equal(await q,answer);e.stop();});
+for(const [name,patch] of [['nan',{heapBytes:NaN}],['null',{heapBytes:null}],['stage',{stage:'neck'}],['threads',{threads:0}],['provider',{provider:'other'}]])test('reject stage metadata '+name,()=>expectFailure({metadata:{stage:'block-00',provider:'wasm',heapBytes:65536,threads:8,...patch}},{task:'stage',stage:'block-00'}));
+test('reject malformed native cluster geometry',()=>expectFailure({metadata:{stage:'cluster',provider:'wasm',heapBytes:65536,threads:8},map:new Float32Array(4095),features:new Float32Array(4096*288)},{task:'stage',stage:'cluster'}));
+test('valid native cluster outputs remain borrowed exact arrays',async()=>{const {e,w}=fixture(),map=new Float32Array(4096),features=new Float32Array(4096*288),answer={metadata:{stage:'cluster',provider:'wasm',heapBytes:65536,threads:8},map,features};const p=e.rpc({task:'stage',stage:'cluster'});w.send(answer);const got=await p;assert.equal(got.map,map);assert.equal(got.features,features);e.stop();});
+test('serialized memory allocation cause is preserved',async()=>{const {e,w}=fixture(),p=e.rpc({task:'init'});w.send({error:{code:'MEMORY_LIMIT',message:'native allocation',details:{allocation:{kind:'wasm',bytes:128}}}});await assert.rejects(p,e=>e.code==='MEMORY_LIMIT'&&e.details.allocation.kind==='wasm');assert.equal(w.onmessage,null);e.stop();});
+test('idle worker crash remains visible to the next stage',async()=>{const {e,w}=fixture(),p=e.rpc({task:'init'});w.send({ready:true});await p;const crash=new Event('error');Object.defineProperty(crash,'message',{value:'idle runtime fixture'});w.dispatchEvent(crash);let rejected;const next=e.rpc({task:'stage',stage:'block-00'}).catch(error=>{rejected=error;});await Promise.resolve();e.stop();await next;assert.equal(rejected?.code,'WORKER_FAILED');assert.equal(w.terminated,1);});

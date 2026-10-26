@@ -8,7 +8,7 @@ export function dependencyWorkerManifest(worker,expected){
 
 export function createDependencyClientRouting({scope,manifest,clients,cacheStorage=globalThis.caches}){
  scope=new URL(scope);if(!/^[a-f0-9]{64}$/.test(manifest||''))throw Error('Dependency routing manifest identity missing');
- const memory=new Map();let cachePromise;
+ const memory=new Map(),requestOwners=new WeakMap();let cachePromise;
  const cache=()=>cachePromise??=Promise.resolve().then(()=>{if(!cacheStorage?.open)throw Error('Persistent SHERLOQ resource routing unavailable');return cacheStorage.open('sherloq-dependency-client-versions-v1');}).catch(error=>{cachePromise=null;throw error;});
  const session=client=>{try{const value=new URL(client?.url).searchParams.get('sherloqSession');return /^[a-f0-9-]{36}$/.test(value||'')?value:null;}catch{return null;}};
  const scoped=client=>{try{const url=new URL(client?.url);return url.origin===scope.origin&&url.href.startsWith(scope.href)||client?.type!=='window'&&url.protocol==='blob:'&&url.origin===scope.origin;}catch{return false;}};
@@ -30,14 +30,16 @@ export function createDependencyClientRouting({scope,manifest,clients,cacheStora
    // runtime-context creates the new document's session during its bootstrap.
    if(event.resultingClientId)await pin({id:event.resultingClientId},manifest,{replace:true,sessionId:null});return manifest;
   }
-  const client=event.clientId?await clients.get(event.clientId):null;
-  let record=await lookup(client||{id:event.clientId});
+  // A loading module worker may not yet be exposed by Clients.get. Its
+  // immutable owner was persisted before the root script response was sent.
+  let record=await read('client',event.clientId);
+  if(!record){const client=event.clientId?await clients.get(event.clientId):null;record=await lookup(client||{id:event.clientId});}
   if(!record)record=await read('session',session({url:event.request.url}));
   if(!record){if(!event.clientId&&!event.resultingClientId)return manifest;throw Error('Pinned SHERLOQ resource identity unavailable; reload this window.');}
   // The first worker script fetch is issued by its creator. Persist ownership
   // for resultingClientId before any imported module can request its bytes.
   if(event.resultingClientId)await pin({id:event.resultingClientId,url:event.request.url},record.manifest,{sessionId:record.session});
-  return record.manifest;
+  requestOwners.set(event,record);return record.manifest;
  }
  async function prepareCoexistence(source,previousManifest,{verify,confirm}={}){
   if(!scoped(source)||source.type&&source.type!=='window'||!(await confirm(source)))throw Error('Only a bootstrapping SHERLOQ window may request resource activation');
@@ -57,5 +59,5 @@ export function createDependencyClientRouting({scope,manifest,clients,cacheStora
   if((await clients.matchAll({type:'all',includeUncontrolled:true})).some(client=>scoped(client)&&!retained.has(client.id)))throw Error('A SHERLOQ window opened during resource preparation; retrying activation');
   return retained;
  }
- return {pin,lookup,forRequest,prepareCoexistence};
+ return {pin,lookup,forRequest,ownerForRequest:event=>requestOwners.get(event)??null,prepareCoexistence};
 }

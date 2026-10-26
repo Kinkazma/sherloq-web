@@ -1,0 +1,17 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {Budget} from '../src/cache.js';import {ALIKED_MODELS} from '../src/aliked-assets.js';
+import {createAlikedStrictPoolRuntime} from '../src/aliked-strict-pool-runtime.js';
+const MiB=1024**2;
+// Byte-size/identity placeholders exercise transport only. The mock pool never
+// imports ORT, fetches a graph or performs inference on these zero-filled bytes.
+const placeholders=()=>Object.fromEntries(Object.entries(ALIKED_MODELS['aliked-n16'].graphs).map(([name,id])=>[name,{sha256:id.sha256,data:new Uint8Array(id.bytes)}]));
+test('ALIKED session facade binds its existing real-Worker pool to the prepaid arena and preserves literal tensors/provider (0NN)',async()=>{
+ const arena=new Budget(256*MiB),models=placeholders(),calls=[],profile={id:'maximum',maxWorkers:10};let factories=0,poolClosed=0,outputs=0;
+ const runtime=createAlikedStrictPoolRuntime({provider:'webgpu',profile,models,poolFactory(b,p,options){factories++;assert.strictEqual(b,arena);assert.strictEqual(p,profile);assert.equal(options.resourceOwner,'aliked-strict-native');assert.equal(options.retryableAlikedRetirement,true);return{async run(name,inputs,settings){calls.push({name,inputs,settings});outputs++;const free=arena.reserve(24);return{result:{features:{type:'float32',dims:[1,1,1,4],data:Float32Array.of(-0,.25,-.5,1)},scores:{type:'float32',dims:[1,1,1,2],data:Float32Array.of(.2,.3)}},metrics:{provider:'webgpu',threads:1,wasmHeapBytes:16*MiB},release(){outputs--;free();}};},async disposeGracefully(){poolClosed++;},dispose(){throw Error('Unacknowledged endpoint forbidden');}};}});
+ assert.equal(factories,0);const owner=runtime.bindRuntimeBudget(arena),data=new Float32Array(new Uint32Array([0x80000000,0x3e800000,0xbf000000,0x3f800000]).buffer),inputs={image:new runtime.ort.Tensor('float32',data,[1,1,1,4])},session=await runtime.ort.InferenceSession.create(models.dense.data,{executionProviders:['webgpu'],graphOptimizationLevel:'all',preferredOutputLocation:{features:'gpu-buffer',scores:'cpu'}});
+ try{const out=await session.run(inputs);assert.equal(calls.length,1);assert.strictEqual(calls[0].inputs.image.data,data);assert.equal(calls[0].settings.backend,'webgpu');assert.equal(runtime.ort.env.wasm.numThreads,1);assert.equal(runtime.getActualHeapBytes(),16*MiB);assert.equal(runtime.metadata().graphForwards,1);assert.deepEqual(runtime.metadata().actualThreadGrants,[1]);assert.deepEqual(new Uint32Array(out.features.data.buffer),new Uint32Array(data.buffer));assert.equal(outputs,1);for(const t of Object.values(out))t.dispose();assert.equal(outputs,1,'Native session owns its returned output loan through consumer cleanup');}
+ finally{await session.release();assert.equal(outputs,0);await owner.dispose();assert.equal(poolClosed,1);assert.equal(arena.total(),0);}
+});
+test('ALIKED runtime construction remains model/worker-free until native stage admission (0NN)',async()=>{
+ let factories=0;const runtime=createAlikedStrictPoolRuntime({provider:'wasm',profile:{maxWorkers:10},models:placeholders(),poolFactory(){factories++;throw Error('No pool before admission');}});assert.equal(factories,0);assert.equal(runtime.ort.env.wasm.numThreads,globalThis.crossOriginIsolated?8:1);await assert.rejects(runtime.ort.InferenceSession.create(new Uint8Array(),{executionProviders:['wasm']}));await runtime.dispose();assert.equal(factories,0);
+});

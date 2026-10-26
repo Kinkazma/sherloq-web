@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {EngineError,requireValue,checkAbort,normalizeResourceError} from './errors.js';
 const PAGE=65536,MIN_BANK=16*1024**2,ALIGN=8;
 const ownedBuffers=new WeakSet();
@@ -40,6 +40,10 @@ export function createWasmTensorArena({budget,memoryFactory=descriptor=>new WebA
    function giveBack(){if(!bank)return;unpin?.();bank.live--;if(!bank.live)bank.backing?.setReclaimable(true);bank.free.push({offset,bytes:extent});bank.free.sort((a,b)=>a.offset-b.offset);for(let i=1;i<bank.free.length;){const a=bank.free[i-1],b=bank.free[i];if(a.offset+a.bytes===b.offset){a.bytes+=b.bytes;bank.free.splice(i,1);}else i++;}data=null;if(disposed)retire(bank);else reuse?.changed();bank=null;}
    return{get data(){requireValue(live,'Released tensor');return data;},byteLength:bytes,release(){if(!live)return;live=false;giveBack();}};
   },
+  // Every live tensor owns its backing pin until giveBack unpins it. No
+  // independent backing loan escapes this arena; live===0 is the same
+  // ownership predicate used by retire(), not a speculative memory credit.
+  get reclaimableIdleBytes(){return[...banks].reduce((sum,bank)=>sum+(bank.live===0?bank.bytes:0),0);},
   reclaimIdle(bytes=Infinity){return reclaim(bytes);},
   snapshot(){return{banks:banks.size,residentBytes:total(),liveTensors:[...banks].reduce((n,b)=>n+b.live,0),allocations,reuses,peakBytes};},
   dispose(){if(disposed)return;disposed=true;unregister?.();unregisterAsync?.();reuse?.release();reclaim();}

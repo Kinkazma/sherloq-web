@@ -1,0 +1,4 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {catnetNativeContextSummary} from '../sherloq-browser/assets/catnet-native-contexts-ui.js';
+test('partial block notice has a stable kind for both scientific source modes and languages',()=>{for(const jpeg_source of ['original','companion_q100_444'])for(const language of ['fr','en']){const out={operation:'m2.catnet',metrics:{selectedPixels:132,analysedPixels:69,unanalysablePixels:63},data:{metadata:{fragmented:true,jpeg_source,fragments:[{},{}]}}};const rows=catnetNativeContextSummary(out,language),partial=rows.find(row=>row.kind==='partial-blocks');assert.ok(partial);assert.equal(partial,rows[1]);assert.match(partial.text,/63/);if(jpeg_source==='companion_q100_444')assert.match(partial.text,/compa/);out.metrics.analysedPixels=132;out.metrics.unanalysablePixels=0;assert.equal(catnetNativeContextSummary(out,language).some(row=>row.kind==='partial-blocks'),false);}});

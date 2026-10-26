@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {byteRange,byteLength as rangeLength,byteView} from './memory-range.js';
 // Job-scoped origin-private storage. Requires a dedicated worker for sync I/O.
 // No user-visible file picker, persistence request, remote endpoint or native mmap.
@@ -24,15 +24,15 @@ export async function createTemporarySession({signal,maximumBytes=Infinity,id:re
  // real I/O quota failures remain authoritative and are never hidden.
  const estimatedAvailable=capability.quotaBytes===null||capability.usageBytes===null?Infinity:Math.max(0,capability.quotaBytes-capability.usageBytes),limit=maximumBytes,files=new Map(),pending=new Set();let reserved=0,peak=0,serial=0,disposed=false,disposing;
  function alive(){if(disposed)throw new EngineError('DISPOSED','Temporary session disposed.');}
- function close(record){let first;for(const part of record.parts)if(!part.closed)try{part.handle.close();part.closed=true;}catch(error){first??=error;}if(first)throw first;record.closed=true;}
- function remove(record){if(record.removing)return record.removing;if(!files.has(record.id))return Promise.resolve();record.removing=(async()=>{try{close(record);for(const part of record.parts)await directory.removeEntry(part.name);files.delete(record.id);reserved-=record.byteLength;}catch(error){throw storageError(error);}})();return record.removing;}
+ function close(record){let failed=false,first;for(const part of record.parts)if(!part.closed)try{if(part.handle){const answer=part.handle.close();if(answer===0||answer===false)throw answer;}part.closed=true;}catch(error){if(!failed){failed=true;first=error;}}if(failed)throw first;record.closed=true;}
+ function remove(record){if(record.removing)return record.removing;if(!files.has(record.id))return Promise.resolve();const task=(async()=>{try{close(record);for(const part of record.parts)if(!part.removed){await directory.removeEntry(part.name);part.removed=true;}files.delete(record.id);reserved-=record.byteLength;}catch(error){if(error===0||error===false)throw error;throw storageError(error);}})();record.removing=task;void task.catch(()=>{if(record.removing===task)record.removing=null;});return task;}
  return {
   id,capability,
   snapshot:()=>({reservedBytes:reserved,peakReservedBytes:peak,estimatedAvailableBytes:Number.isFinite(estimatedAvailable)?estimatedAvailable:null,estimateIsAdmissionLimit:false,logicalLimitBytes:Number.isFinite(limit)?limit:null,openFiles:files.size,physicalFiles:[...files.values()].reduce((n,r)=>n+r.parts.filter(p=>!p.closed).length,0),maximumPhysicalFileBytes:FILE_BYTES}),
   async create(byteLength,{signal}={}){
    alive();checkAbort(signal);requireValue(Number.isSafeInteger(byteLength)&&byteLength>=0,'Invalid temporary array length.');if(byteLength>limit-reserved)throw new EngineError('STORAGE_QUOTA','Planned temporary arrays exceed the explicit storage allowance.');
    reserved+=byteLength;peak=Math.max(peak,reserved);const name='array-'+(++serial);
-   const operation=(async()=>{const parts=[];
+   const operation=(async()=>{const parts=[],record={id:name,parts,byteLength,closed:false,sealed:false};files.set(name,record);
    try{
     for(let index=0;index<Math.max(1,Math.ceil(byteLength/FILE_BYTES));index++){
      alive();checkAbort(signal);const part={name:index?name+'-'+index:name,handle:null,closed:false};
@@ -41,7 +41,6 @@ export async function createTemporarySession({signal,maximumBytes=Infinity,id:re
      const length=Math.min(FILE_BYTES,byteLength-index*FILE_BYTES);part.handle.truncate(length);
      const actual=part.handle.getSize();if(actual!==length)throw new EngineError('STORAGE_IO','Temporary file size differs after allocation: requested '+length+', actual '+actual+', logical array '+byteLength+', reserved '+reserved+'.');
     }
-     const record={id:name,parts,byteLength,closed:false,sealed:false};files.set(name,record);
      let opening;
      async function seal(){
       alive();if(record.closed)throw new EngineError('DISPOSED','Temporary array closed.');
@@ -61,9 +60,9 @@ export async function createTemporarySession({signal,maximumBytes=Infinity,id:re
      async exportReadOnly(){await seal();if(!parts.every(part=>part.handle.mode==='read-only'))return null;return {kind:'opfs-readonly',byteLength,fileBytes:FILE_BYTES,files:parts.map(part=>part.file),sessionId:id,arrayId:name};},
      flush(){alive();if(record.closed)throw new EngineError('DISPOSED','Temporary array closed.');if(record.sealed)return;try{for(const part of parts)part.handle.flush();}catch(error){throw storageError(error);}},
      dispose:()=>remove(record)};
-   }catch(error){for(const part of parts){try{if(part.handle&&!part.closed){part.handle.close();part.closed=true;}}catch{}try{await directory.removeEntry(part.name);}catch{}}reserved-=byteLength;throw storageError(error);}})();pending.add(operation);operation.then(()=>pending.delete(operation),()=>pending.delete(operation));return operation;
+   }catch(error){const primary=error===0||error===false?error:storageError(error);try{await remove(record);}catch(cleanup){if(primary&&typeof primary==='object')primary.details={...primary.details,temporaryArrayRetirementPending:true};}throw primary;}})();pending.add(operation);operation.then(()=>pending.delete(operation),()=>pending.delete(operation));return operation;
   },
-  dispose(){if(disposing)return disposing;disposed=true;disposing=(async()=>{await Promise.allSettled([...pending]);await Promise.allSettled([...files.values()].map(r=>r.removing).filter(Boolean));let first;for(const r of files.values())if(!r.closed)try{close(r);}catch(e){first??=e;}try{await parent.removeEntry(id,{recursive:true});files.clear();reserved=0;}catch(e){first??=e;}if(first)throw storageError(first);})();return disposing;}
+  dispose(){if(disposing)return disposing;disposed=true;const task=(async()=>{await Promise.allSettled([...pending]);await Promise.allSettled([...files.values()].map(r=>r.removing).filter(Boolean));let failed=false,first;for(const r of files.values())if(!r.closed)try{close(r);}catch(e){if(!failed){failed=true;first=e;}}if(failed){if(first===0||first===false)throw first;throw storageError(first);}try{await parent.removeEntry(id,{recursive:true});}catch(error){if(error===0||error===false)throw error;throw storageError(error);}files.clear();reserved=0;})();disposing=task;void task.catch(()=>{if(disposing===task)disposing=null;});return task;}
  };
 }
 export async function removeTerminatedTemporarySession(id){

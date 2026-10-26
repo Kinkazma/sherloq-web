@@ -1,11 +1,11 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.25.0";
 import {deserializeEngineError} from './errors.js';
 import {serializeEngineError} from './errors.js';
 import {EngineError,checkAbort} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 /** Lazy result windows. Configuration contains URLs/data, never callbacks. */
 export async function createM2WorkerClient(config,{workerFactory=url=>new Worker(url,{type:'module'})}={}){
- const worker=workerFactory(new URL('./m2-worker.js',import.meta.url)),pending=new Map();let next=1,disposed=false,disposing;
+ const worker=workerFactory(new URL('./m2-worker.js',import.meta.url)),pending=new Map();let next=1,disposed=false,disposing,gracefulClosing=false,gracefulHostAcknowledged=false,gracefulHostValue,gracefulCompletion;
  const rejectAll=error=>{for(const p of pending.values()){p.cleanup();p.reject(error);}pending.clear();};
  const stop=error=>{disposed=true;protocol.dispose();worker.onerror=null;worker.terminate();rejectAll(error);};
  const callbackFailed=(id,p,error)=>{if(pending.get(id)!==p)return;p.callbackError??=error;protocol.post({id:next++,operation:'cancel',args:{requestId:id}});};
@@ -24,22 +24,29 @@ export async function createM2WorkerClient(config,{workerFactory=url=>new Worker
  },{label:'m2-client',onFailure:stop});
  worker.onerror=event=>protocol.fail(new EngineError('WORKER_FAILED',event?.message||'M2 worker failed.',{cause:event?.error,details:{workerEvent:{type:event?.type,filename:event?.filename,line:event?.lineno,column:event?.colno}}}));
  function request(operation,args={},options={}){
-  if(disposed)return Promise.reject(new EngineError('DISPOSED','M2 worker client disposed.'));
+  if(disposed||gracefulClosing&&!['dispose','memory'].includes(operation))return Promise.reject(new EngineError('DISPOSED','M2 worker client disposed.'));
   try{checkAbort(options.signal);}catch(e){return Promise.reject(e);}
   const id=next++;
   return new Promise((resolve,reject)=>{
    const abort=()=>{const p=pending.get(id);if(p)try{callbackFailed(id,p,new EngineError('CANCELLED','M2 analysis cancelled.'));}catch(error){protocol.fail(error);}},cleanup=()=>options.signal?.removeEventListener('abort',abort);
    pending.set(id,{operation,resolve,reject,cleanup,onProgress:options.onProgress,callbacks:new Set()});options.signal?.addEventListener('abort',abort,{once:true});
-   try{protocol.post({id,operation,args},options.transfer??[]);}catch(e){pending.delete(id);cleanup();reject(e);}
+   try{protocol.post({id,operation,args},options.transfer??[]);options.onPosted?.();}catch(e){pending.delete(id);cleanup();reject(e);}
   });
  }
  let ready;try{ready=await request('initialize',config);}catch(e){stop(e);throw e;}
+ // Opt-in dependency retirement: a rejected host ACK must keep the Worker alive.
+ function disposeGracefully(afterHostAcknowledged){
+  if(disposing)return disposing;if(disposed)return Promise.resolve();gracefulClosing=true;
+  if(afterHostAcknowledged)gracefulCompletion=afterHostAcknowledged;
+  const task=(async()=>{if(!gracefulHostAcknowledged){gracefulHostValue=await request('dispose',{gracefulNativeSources:true});gracefulHostAcknowledged=true;}await gracefulCompletion?.();gracefulCompletion=undefined;stop(new EngineError('CANCELLED','M2 worker disposed.'));return gracefulHostValue;})();
+  disposing=task.then(value=>value,error=>{disposing=undefined;throw error;});return disposing;
+ }
  return {
-  ready,
+  ready,disposeGracefully,
   reserveExternalMemory:args=>request('reserveExternalMemory',args),
   releaseExternalMemory:id=>request('releaseExternalMemory',{id}),
   analyze(method,image,params={},options={}){return request('analyze',{method,image,params,backend:options.backend??'auto'},{...options,transfer:options.transferSource?[image.data.buffer]:[]});},
-  analyzeBlob(method,blob,params={},options={}){return request('analyzeBlob',{method,blob,params,backend:options.backend??'auto'},options);},
+  analyzeBlob(method,blob,params={},options={}){return request('analyzeBlob',{method,blob,params,backend:options.backend??'auto',...(options.expectedSourceSha256===undefined?{}:{expectedSourceSha256:options.expectedSourceSha256}),...(method==='composite'&&options.sourceRegionDomain?{sourceRegionDomain:options.sourceRegionDomain}:{})},options);},
   analyzeNativeSource(method,image,params={},options={}){return request('analyzeNativeSource',{method,image,params,backend:options.backend??'auto'},{...options,transfer:[image.port]});},
   readArray(resultId,field,offset,count){return request('readArray',{resultId,field,offset,count});},
   async metadata(result){const chunks=[];for(let offset=0;offset<result.metadataBytes;offset+=ready.windowBytes)chunks.push(await request('readMetadata',{resultId:result.id,offset,count:Math.min(ready.windowBytes,result.metadataBytes-offset)}));const data=new Uint8Array(result.metadataBytes);let at=0;for(const c of chunks){data.set(c,at);at+=c.length;}return JSON.parse(new TextDecoder().decode(data));},
@@ -55,6 +62,6 @@ export async function createM2WorkerClient(config,{workerFactory=url=>new Worker
    catch(e){try{await writer?.abort(e);}catch{}throw e;}finally{writer?.releaseLock();await request('releaseExport',{exportId:output.id});}
   },
   release(resultId){return request('releaseResult',{resultId});},clearCache(){return request('clearCache');},memory(){return request('memory');},
-  dispose(){if(disposing)return disposing;if(disposed)return Promise.resolve();const cleaned=request('dispose');disposed=true;disposing=cleaned.finally(()=>stop(new EngineError('CANCELLED','M2 worker disposed.')));return disposing;}
+  dispose(){if(gracefulClosing)return disposeGracefully();if(disposing)return disposing;if(disposed)return Promise.resolve();const cleaned=request('dispose');disposed=true;disposing=cleaned.finally(()=>stop(new EngineError('CANCELLED','M2 worker disposed.')));return disposing;}
  };
 }

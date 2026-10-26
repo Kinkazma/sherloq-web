@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {parameters,gray,rows} from './pixel-utils.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {cloningHeapBytes,cloningImageHeapBound,cloningPagedHeapBound,cloningPointHeapBound,cloningCountHeapBound,cloningDetect,cloningSelect,cloningDescribeBrisk,cloningMatches,cloningNormFunction,cloningRegionCount,cloningRenderer} from './cloning-math.js';
@@ -52,6 +52,13 @@ export async function cloningData(image,p,hooks={},context,algorithm='ORB'){
     return cloningDetect(grayImage,mask,image.width,image.height,{signal:hooks.signal,account,algorithm,pointsOnly:algorithm==='BRISK'});
   });hooks.onProgress?.(.2);
   const selected=await memo('selected/'+p.response,'cloningSelectionMs',async()=>{reserveHeap(cloningPointHeapBound(detected.points.length/7));const selected=await cloningSelect(detected,p.response,{signal:hooks.signal,account});return detected.pointsOnly?cloningDescribeBrisk(selected,grayImage,image.width,image.height,{signal:hooks.signal,account}):selected;});hooks.onProgress?.(.25);
+  return cloningSelectedData(image,p,hooks,context,{algorithm,selected,total:detected.total,pagedMetadata:detected.pagedMetadata,metrics,memo,reserveHeap});
+}
+/** Shared unchanged global reductions after native feature selection/description.
+ * Strict context adapters own observations and descriptors, then use this same
+ * ordered matcher, geometry and region heuristic across all acquisitions. */
+export async function cloningSelectedData(image,p,hooks,context,{algorithm,selected,total,pagedMetadata,metrics,memo,reserveHeap}){
+  const account=context.reserveMemory;
   reserveHeap(cloningPointHeapBound(selected.points.length/7,{matching:true,descriptorSize:selected.descriptorSize}));
   const matchKey=p.response+'/'+p.matching+'/'+(context.backend??'cpu'),raw=await memo('matches/'+matchKey,'cloningMatchingMs',()=>cloningMatches(selected.descriptors,p.matching/100*255,{...stage(hooks,.25,.5),account,descriptorSize:selected.descriptorSize,backend:context.backend??'cpu',metrics}));hooks.onProgress?.(.5);
   const geometryKey=matchKey+'/'+p.distance;let geometryComputed=false;
@@ -64,8 +71,9 @@ export async function cloningData(image,p,hooks={},context,algorithm='ORB'){
   });
   checkAbort(hooks.signal);hooks.onProgress?.(1);
   const clusters=geometry.lengths.reduce((sum,n)=>sum+(n>=p.minimum),0);
-  return {data:{algorithm,points:selected.points,matches:geometry.matches,groupLengths:geometry.lengths,groupIndices:geometry.groups,minimum:p.minimum,stats:{total:detected.total,filtered:selected.points.length/7,matches:geometry.matches.length/3,clusters,regions}},engineMetrics:{...metrics,...(detected.pagedMetadata?{cloningPagedExtraction:detected.pagedMetadata}:{}),...(algorithm==='BRISK'?{cloningDescriptorPolicy:'selected-response-native'}:{}),cloningGeometryStrategy:geometry.strategy,backend:metrics.hammingBackend==='webgpu'?'hybrid':'cpu',kernel:'copy-move-'+algorithm.toLowerCase()+'-reference',workers:Math.max(1,groupMetrics.cloningGroupWorkers),...groupMetrics},semantics:`Historical ${algorithm} keypoints, ordered Hamming matches and overlapping geometric groups. Region count is a directional clustering heuristic, not a number of proven forgeries. ${algorithm==='BRISK'?'Portable libm angle differences from the pinned native build remain documented.':'This explicit operation does not substitute for the historical BRISK default.'}`};
+  return {data:{algorithm,points:selected.points,matches:geometry.matches,groupLengths:geometry.lengths,groupIndices:geometry.groups,minimum:p.minimum,stats:{total,filtered:selected.points.length/7,matches:geometry.matches.length/3,clusters,regions}},engineMetrics:{...metrics,...(pagedMetadata?{cloningPagedExtraction:pagedMetadata}:{}),...(algorithm==='BRISK'?{cloningDescriptorPolicy:'selected-response-native'}:{}),cloningGeometryStrategy:geometry.strategy,backend:metrics.hammingBackend==='webgpu'?'hybrid':'cpu',kernel:'copy-move-'+algorithm.toLowerCase()+'-reference',workers:Math.max(1,groupMetrics.cloningGroupWorkers),...groupMetrics},semantics:`Historical ${algorithm} keypoints, ordered Hamming matches and overlapping geometric groups. Region count is a directional clustering heuristic, not a number of proven forgeries. ${algorithm==='BRISK'?'Portable libm angle differences from the pinned native build remain documented.':'This explicit operation does not substitute for the historical BRISK default.'}`};
 }
+
 export async function cloningView(result,p,hooks={},context){
   const renderer=await cloningRenderer(context.image,hooks),data=result.data,geometry={matches:data.matches,lengths:data.groupLengths,groups:data.groupIndices},commands=new Int32Array(128*8);
   try{

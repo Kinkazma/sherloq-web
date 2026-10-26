@@ -1,3 +1,4 @@
+import {denseConstructionOwner,cleanupDenseOwners,retireDenseOwners} from './dense-owner-retirement.js';
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {allocateOwnedTypedArray} from './allocation.js';
 import {wasmRange,closeMemoryRanges} from './memory-range.js';
@@ -8,12 +9,12 @@ import {createSegmentedBytes} from './segmented-bytes.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {ElasticWorkerPool} from './elastic-worker-pool.js';
 import {densePreparationMigrationBytes} from './dense-preparation-plan.js';
-export async function createPagedRegionsMask(width,height,{method=0,patch=8,targetPatch=patch,regions=[],excluded=[],budget,storage='auto',temporarySession,getTemporarySession,signal}={}){
+export async function createPagedRegionsMask(width,height,{method=0,patch=8,targetPatch=patch,regions=[],excluded=[],budget,storage='auto',temporarySession,getTemporarySession,signal,onRetirementOwner}={}){
  const shape=denseDescriptorShape(width,height,method,Math.max(patch,targetPatch));denseSearchContexts(regions);denseSearchContexts(excluded);
  requireValue(regions.length<=2,'At most two dense regions per context.');
  const paths=[...regions,...excluded],count=paths.reduce((n,p)=>n+p.length,0),pageBytes=4096,cachePages=32,workspace=16*1024**2+count*160+cachePages*(pageBytes+32);
  if(workspace>120*1024**2)throw new EngineError('MEMORY_LIMIT','Polygon edges exceed the current native allowance.');
- checkAbort(signal);const release=budget.reserve(workspace),pointers=[];let mask,m,success=false;
+ checkAbort(signal);const pointers=[];let mask,m,success=false,failed=false,primary;const owner=denseConstructionOwner([],{onRetirementOwner},()=>mask?.dispose()),release=budget.reserve(workspace);
  try{
   mask=await createSegmentedBytes(shape.width*shape.height,{budget,storage,shared:true,temporarySession,getTemporarySession,signal,owner:'patchmatch',label:'dense-eligibility'});
   const {default:create}=await import('../vendor/dense-paged/dense-paged.js');m=await create();let last=performance.now();
@@ -23,9 +24,9 @@ export async function createPagedRegionsMask(width,height,{method=0,patch=8,targ
   const points=new Float64Array(count*2),polygons=new Int32Array(paths.length*2);let at=0;
   paths.forEach((poly,i)=>{polygons[i*2]=at;polygons[i*2+1]=poly.length;for(const [x,y] of poly){requireValue(Number.isFinite(x)&&Number.isFinite(y)&&Math.abs(x)<0x3fffffff&&Math.abs(y)<0x3fffffff,'Invalid dense polygon coordinate.');points[at*2]=x;points[at*2+1]=y;at++;}});
   const pp=put(points),polys=put(polygons),error=put(new Uint8Array(1024)),values=[width,height,shape.width,shape.height,shape.shift,pp,polys,paths.length,regions.length,pageBytes,cachePages,error];
-  const code=await m.ccall('dense_paged_regions','number',values.map(()=> 'number'),values,{async:true});if(m.ioError)throw m.ioError;if(code)throw new EngineError('NUMERIC_RANGE',m.UTF8ToString(error));checkAbort(signal);await mask.flush();success=true;
-  return {...shape,mask,metrics:{workspaceBytes:workspace,heapBytes:m.HEAPU8.byteLength},dispose:()=>mask.dispose()};
- }finally{if(m){closeMemoryRanges(m);for(const p of pointers)m._free(p);m.pageIO=null;m.checkpoint=null;}if(!success)await mask?.dispose();release();}
+  const code=await m.ccall('dense_paged_regions','number',values.map(()=> 'number'),values,{async:true});if(m.ioError)throw m.ioError;if(code)throw new EngineError('NUMERIC_RANGE',m.UTF8ToString(error));checkAbort(signal);await mask.flush();owner.publish();success=true;
+  return {...shape,mask,metrics:{workspaceBytes:workspace,heapBytes:m.HEAPU8.byteLength},dispose:owner.dispose};
+ }catch(error){failed=true;primary=error;throw error;}finally{if(m){closeMemoryRanges(m);for(const p of pointers)m._free(p);m.pageIO=null;m.checkpoint=null;}try{if(!success)await cleanupDenseOwners(()=>owner.dispose(),{failed,primary});}finally{release();}}
 }
 
 export async function preparePagedEligibility(image,{region=null,method=0,patch=8,targetPatch=patch,regions=[],excluded=[],texture=2,budget,storage='auto',temporarySession=image.session,getTemporarySession=image.ensureTemporarySession,signal,onProgress,checkpoint,onCheckpoint,maxWorkers=globalThis.navigator?.hardwareConcurrency??1,workerFactory=()=>new Worker(new URL('./dense-texture-worker.js',import.meta.url),{type:'module'})}={}){

@@ -18,7 +18,7 @@ em++ native/adjust-bands.cpp "$OPENCV_BUILD_ROOT/cv/lib/libopencv_imgproc.a" "$O
  -O3 -ffp-contract=off -fexceptions -ffile-prefix-map="$PWD/"= -fdebug-prefix-map="$PWD/"= \
  -sMODULARIZE=1 -sEXPORT_ES6=1 -sENVIRONMENT=web,worker,node -sALLOW_MEMORY_GROWTH=0 \
  -sINITIAL_MEMORY=67108864 -sMAXIMUM_MEMORY=67108864 -sABORTING_MALLOC=0 -sFILESYSTEM=0 -sDISABLE_EXCEPTION_CATCHING=0 \
- -sEXPORTED_RUNTIME_METHODS='["HEAPU8"]' -sEXPORTED_FUNCTIONS='["_malloc","_free","_adjust_local_rows","_adjust_tile_histogram","_adjust_tables","_adjust_map_rows","_adjust_otsu"]' -o vendor/adjust/adjust.js
+ -sEXPORTED_RUNTIME_METHODS='["HEAPU8"]' -sEXPORTED_FUNCTIONS='["_malloc","_free","_adjust_local_rows","_adjust_tile_histogram","_adjust_tables","_adjust_map_rows","_adjust_otsu","_adjust_tables_scoped","_adjust_map_rows_scoped","_adjust_local_rows_scoped","_adjust_local_rows_scoped_masked","_adjust_map_rows_scoped_observed"]' -o vendor/adjust/adjust.js
 cp vendor/opencv/LICENSE vendor/adjust/LICENSE
 cp vendor/quality/LICENSE vendor/adjust/LICENSE-MUSL.txt
 python3 - <<'PY'

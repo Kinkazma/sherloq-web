@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.25.0";
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {compileOriginalSourceRegions} from './source-region-geometry.js';
 import {sourceRegionDomainShape,sourceRegionUnlocalizedInput} from './source-region-capabilities.js';
@@ -12,6 +12,8 @@ export function assertM2SourceRegionTask(task,domain){
  const method=String(task.operation??'').replace(/^m2\./,''),shape=sourceRegionDomainShape(domain),unlocalized=sourceRegionUnlocalizedInput(task);
  if(shape==='empty')throw new EngineError('SOURCE_SCOPE_EMPTY','The source selection admits no original pixels.');
  if(shape==='identity')return{method,shape,adapter:'original-identity'};
+ if(method==='catnet'&&['rectangle','native-regions','membership'].includes(shape)&&!unlocalized)return{method,shape,adapter:'catnet-original-stored-block-contexts'};
+ if(['cfa','trufor','rita'].includes(method)&&['native-regions','membership'].includes(shape)&&!unlocalized)return{method,shape,adapter:method+'-strict-native-contexts'};
  if(shape!=='rectangle'||!M2_NATIVE_RECTANGLE_METHODS.includes(method)||unlocalized)throw new EngineError('SOURCE_SCOPE_UNSUPPORTED',method==='catnet'?'CAT-Net requires a qualified JPEG/DCT crop adapter aligned to the RGB grid.':'This M2 method has no qualified native adapter for this source domain or independent coordinates.',{details:{method,shape,reason:method==='catnet'?'DCT_CROP_UNQUALIFIED':shape==='membership'?'MEMBERSHIP_UNQUALIFIED':'INPUT_UNLOCALIZED',unlocalizedInput:unlocalized}});
  return{method,shape,adapter:'m2-native-rgb-rectangle'};
 }
@@ -20,12 +22,13 @@ export function assertM2SourceRegionTask(task,domain){
 export async function receiveM2SourceRegionInput(method,input,{budget,signal,params={}}={}){
  let source,metadataLease;
  try{
-  checkAbort(signal);const metadataBytes=sourceRegionTransportBytes(input?.sourceRegionDomain);
+  checkAbort(signal);const metadataBytes=sourceRegionTransportBytes(input?.sourceRegionDomain,{allowAliases:true});
   // Normalization, bounded scanline intersections and fingerprint serialization
   // are admitted before they allocate copies of the transported geometry.
   metadataLease=budget.reserve(metadataBytes*8+65536);const domain=await compileOriginalSourceRegions(input?.sourceRegionDomain);checkAbort(signal);
   metadataLease();metadataLease=budget.reserve(metadataBytes*2);
   const capability=assertM2SourceRegionTask({operation:'m2.'+method,params},domain);
+  if(!['identity','rectangle'].includes(capability.shape))throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','The rectangle consumer cannot admit a multi-context source.');
   if(!M2_NATIVE_RECTANGLE_METHODS.includes(method)||input?.purpose!=='analysis-rectangle'||input.analysisContext!=='admitted-native-rectangle'||input.preparationContext!==undefined||input.sha256!==domain.sourceSha256||input.width!==domain.width||input.height!==domain.height||input.origin?.[0]!==domain.origin[0]||input.origin?.[1]!==domain.origin[1])throw new EngineError('SOURCE_REGIONS_INVALID','M2 native input differs from its admitted original-source rectangle.');
   source=receiveNativeSourceChannel(input,{budget,signal});
   const descriptor={id:'m2-source-region-'+domain.fingerprint,revision:1,width:domain.width,height:domain.height,format:'rgb8'};

@@ -62,11 +62,11 @@ test('Actual panel chooses overlay, switches views without inference and preserv
  window.HTMLInputElement.prototype.reportValidity=()=>true;
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value||this.options[0]?.value||'';},set(v){for(const o of this.options)o.toggleAttribute('selected',o.value===String(v));}});
  globalThis.Option=function(text,value){const o=document.createElement('option');o.textContent=text;o.value=value;return o;};
- const shown=[],settings=[];const ui=createToolWorkspace({document,language:()=> 'fr',getClient:async()=>({}),run(){},cancel(){},showSurface:d=>shown.push(d),download(){},notify(){},onSettings:v=>settings.push(v)});
+ const shown=[],settings=[],interactive=[];const ui=createToolWorkspace({document,language:()=> 'fr',getClient:async()=>({}),run(){},cancel(){},showSurface:d=>shown.push(d),download(){},notify(){},onSettings:v=>settings.push(v),onInteractive:v=>interactive.push(v)});
  ui.select('ai.clones.d2prl');assert.equal(document.getElementById('tool-neural-method').options.length,17);assert.equal(ui.params().minimum,500);
  await ui.render(result());assert.equal(shown.at(-1).cloneView,'overlay');const layers=document.getElementById('tool-layer');layers.value='2';layers.onchange();assert.equal(shown.at(-1).cloneView,'mask');assert.deepEqual(settings.at(-1),{presentationOnly:true});
  await ui.render(result());assert.equal(shown.at(-1).cloneView,'mask');assert.equal(ui.serialize().uiOptions.neuralView,'mask');
- const min=document.getElementById('tool-param-minimum');min.value='750';min.onchange();assert.equal(ui.params().minimum,750);assert.equal(settings.at(-1).presentationOnly,false);
+ const min=document.getElementById('tool-param-minimum');min.value='750';min.onchange();assert.equal(ui.params().minimum,750);assert.equal(interactive.at(-1).phase,'commit');assert.equal(interactive.at(-1).operation,'ai.clones.d2prl');assert.equal(interactive.at(-1).params.minimum,750);
  const method=document.getElementById('tool-neural-method');method.value='forgeryscope-auto';method.onchange();assert.equal(ui.operation(),'m2.forgeryscope');assert.deepEqual(ui.params(),{profile:'auto'});assert.deepEqual(ui.taskRegions([]),[]);assert.equal(min.parentElement.hidden,true);
  for(const key of ['mgcfdn-st','cmseg-generalization','selfdm-map','selfdm-proposal']){const option=[...method.options].find(o=>o.value===key);assert.equal(option.dataset.newFeature,'yellow');assert.match(option.textContent,/202[256]/);}
  const backend=document.getElementById('tool-backend'),gpu=[...backend.options].find(option=>option.value==='webgpu');backend.value='webgpu';backend.onchange();

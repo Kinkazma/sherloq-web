@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.25.0";
 import {removeTerminatedTemporarySession} from './temporary-storage.js';
 import {resolveComputeProfile} from './profiles.js';
 import {readExtensionMemoryHints} from './browser-memory.js';
@@ -24,7 +24,7 @@ export function createWorkerEngine(options={}) {
   catch{/* Optional observation failure retains the last policy; useful work continues. */}
   finally{memoryReading=false;if(active&&!disposed&&worker===created&&generation===memoryGeneration)memoryTimer=setTimeout(refreshMemory,2000);}
  }
- const pending=new Map(),storageOwners=new Map(),shutdownWaiters=[];let cleanupPending=Promise.resolve();
+ const pending=new Map(),storageOwners=new Map(),shutdownWaiters=[],externalCacheOwners=new Map();let cleanupPending=Promise.resolve();
  async function cleanOwners(owners){const failures=[];for(const [id,record] of owners)for(const backend of record.backend?[record.backend]:['opfs','indexeddb'])try{await removeTerminatedTemporarySession(id,backend);}catch(e){failures.push({id,backend,code:e.code??e.name,message:e.message});}return failures;}
  function reset(error,{storageClosed=false,preserveUnsentOwners=false,preserveActive=false,imagesCleared=true}={}) {
   clearTimeout(memoryTimer);memoryGeneration++;
@@ -32,10 +32,11 @@ export function createWorkerEngine(options={}) {
   if(error.details?.retainedAnalysis){const {retainedAnalysis,...details}=error.details;error.details=details;}
   clearTimeout(cancellationTimer);cancellationError=null;
   worker?.terminate();worker=null;ready=null;
+  const external=[...externalCacheOwners.values()];externalCacheOwners.clear();if(external.length)cleanupPending=cleanupPending.then(()=>Promise.allSettled(external.map(retire=>retire())));
   const waiting=[...pending.values()],kept=preserveUnsentOwners?[...storageOwners].filter(([,record])=>!record.sent&&!record.backend):[],keptIds=new Set(kept.map(([id])=>id)),owners=storageClosed?[]:[...storageOwners].filter(([id])=>!keptIds.has(id));pending.clear();storageOwners.clear();for(const [id,record]of kept)storageOwners.set(id,record);if(!preserveActive)active=false;
   const rejectAll=failures=>{if(failures?.length)error.temporaryCleanupFailures=failures;for(const p of waiting){p.cleanup();p.reject(error);}for(const resolve of shutdownWaiters.splice(0))resolve(failures??[]);};
   if(owners.length){cleanupPending=cleanupPending.then(()=>cleanOwners(owners));cleanupPending.then(rejectAll);}
-  else rejectAll();return cleanupPending;
+  else if(external.length)cleanupPending.then(()=>rejectAll());else rejectAll();return cleanupPending;
  }
 
  function stopWithStorageClose(error){
@@ -51,9 +52,10 @@ export function createWorkerEngine(options={}) {
   return new Promise((resolve,reject)=>{
    let cooperativeTimer;
    const abort=()=>{
-    if(method==='previewParameters'&&worker){const error=new EngineError('CANCELLED','Provisional parameter view cancelled cooperatively.');error.imagesCleared=false;const entry=pending.get(sequence);if(!entry)return;entry.cancelled=error;try{worker.postMessage({method:'cancel-task',sequence});}catch(cause){error.cause=cause;reset(error);}return;}
+    const retainedD2Preview=method==='run'&&args[0]?.operation==='ai.clones.d2prl'&&args[0]?.retainedD2Preview===true&&typeof args[0]?.params?.refilterOf==='string'&&args[0].params.refilterOf.trim().length>0;
+    if((retainedD2Preview||['previewParameters','localizeRetainedParameters','renderRetainedNativeParameters'].includes(method))&&worker){const error=new EngineError('CANCELLED','Provisional parameter view cancelled cooperatively.');error.imagesCleared=false;const entry=pending.get(sequence);if(!entry)return;entry.cancelled=error;entry.retainedFinal=retainedD2Preview||['localizeRetainedParameters','renderRetainedNativeParameters'].includes(method);try{worker.postMessage({method:'cancel-task',sequence});}catch(cause){error.cause=cause;reset(error);}return;}
     if(method==='capabilities'){const p=pending.get(sequence);if(p){pending.delete(sequence);p.cleanup();p.reject(new EngineError('CANCELLED','Diagnostic read cancelled.'));}return;}
-    const automatic=['resumeAutomatic','updateAutomatic','renderAutomatic','exportAutomatic'].includes(method)||method==='run'&&['analysis.complete','analysis.clones'].includes(args[0]?.operation);
+    const automatic=['resumeAutomatic','updateAutomatic','renderAutomatic','previewAutomaticD2','exportAutomatic'].includes(method)||method==='run'&&['analysis.complete','analysis.clones'].includes(args[0]?.operation);
     const extensions=['loadExtensionModels','runExtensions'].includes(method)||method==='run'&&['ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint'].includes(args[0]?.operation);
     const model=method==='run'&&['ai.clones.d2prl','ai.clones.segmentation','tampering.copyMove.sparse','ai.sources.safire','ai.localization.focal','ai.localization.adaifl'].includes(args[0]?.operation);
     if(worker&&(automatic||extensions||model&&!storageOwners.size)){
@@ -77,7 +79,7 @@ export function createWorkerEngine(options={}) {
   if(disposed)throw new EngineError('DISPOSED','Engine disposed.');
   if(!worker){
    const workerURL=new URL('./worker.js',import.meta.url);try{worker=new Worker(workerURL,{type:'module'});}catch(cause){throw new EngineError('WORKER_FAILED',cause?.message||'Browser engine worker could not be created.',{cause,details:{phase:'worker-create',workerURL:workerURL.href}});}const created=worker;
-   const control=data=>{if(worker!==created)return true;if(data.shutdownPhase){if(cancellationError)(cancellationError.cancellationPhases??=[]).push(data.shutdownPhase);return true;}if(typeof data.storageClosed==='boolean'){if(cancellationError){const error=cancellationError;error.cancellationMode=data.storageClosed?'storage-closed-before-worker-termination':'forced-after-storage-close-failure';reset(error,{storageClosed:data.storageClosed});}return true;}if(data.storageSession){let owner=storageOwners.get(data.storageSession.id);if(!owner){owner={dynamic:true};storageOwners.set(data.storageSession.id,owner);}owner.backend=data.storageSession.backend;return true;}return false;};
+   const control=data=>{if(worker!==created)return true;if(data.externalCacheReclaim){const request=data.externalCacheReclaim;if(!Number.isSafeInteger(request.ticket)||request.ticket<1||typeof request.id!=='string'||!request.id||!Number.isSafeInteger(request.bytes)||request.bytes<1)throw workerMessageFailure('engine-client','message','invalid-external-cache-reclaim');const retire=externalCacheOwners.get(request.id),reply=(error,hasFailure=false)=>{if(worker!==created)return;try{created.postMessage({method:'external-cache-retired',sequence:request.ticket,args:hasFailure?[{error:serializeEngineError(error)}]:[]});}catch(cause){failed(new EngineError('WORKER_MESSAGE_FAILED','External cache acknowledgement could not be sent.',{cause}));}};void Promise.resolve().then(()=>{if(!retire)throw new EngineError('EXTERNAL_CACHE_OWNER_MISSING','External cache owner is unavailable.');return retire();}).then(()=>{externalCacheOwners.delete(request.id);reply();},error=>reply(error,true));return true;}if(data.shutdownPhase){if(cancellationError)(cancellationError.cancellationPhases??=[]).push(data.shutdownPhase);return true;}if(typeof data.storageClosed==='boolean'){if(cancellationError){const error=cancellationError;error.cancellationMode=data.storageClosed?'storage-closed-before-worker-termination':'forced-after-storage-close-failure';reset(error,{storageClosed:data.storageClosed});}return true;}if(data.storageSession){let owner=storageOwners.get(data.storageSession.id);if(!owner){owner={dynamic:true};storageOwners.set(data.storageSession.id,owner);}owner.backend=data.storageSession.backend;return true;}return false;};
    const failed=error=>{if(worker!==created)return;if(!initialized&&!sentWork){reset(error,{preserveUnsentOwners:true,preserveActive:true,imagesCleared:false});return;}error.imagesCleared=true;if(storageOwners.size){
     // The failed useful-message channel is latched closed. A separate guarded
     // shutdown receiver must still consume its storage-close acknowledgement.
@@ -86,7 +88,7 @@ export function createWorkerEngine(options={}) {
    installWorkerMessageProtocol(worker,data=>{if(worker!==created||control(data))return;if(data.fatal){failed(deserializeEngineError(data.fatal));return;}if(cancellationError)return;if(!Number.isSafeInteger(data.sequence)||!['progress','result','error'].some(key=>Object.hasOwn(data,key)))throw workerMessageFailure('engine-client','message','invalid-response');const p=pending.get(data.sequence);if(!p)return;if(data.progress){p.onProgress?.(data.progress);return;}pending.delete(data.sequence);p.cleanup();if(p.cancelled){
     // Completion can win the race with the cancellation control message.
     // Its published owned result is a success, not a new cancelled checkpoint.
-    if(!data.error&&p.automatic){p.resolve(data.result);return;}
+    if(!data.error&&(p.automatic||p.retainedFinal)){p.resolve(data.result);return;}
     const error=data.error?deserializeEngineError(data.error):p.cancelled;error.imagesCleared=false;
     p.reject(error);return;
    }data.error?p.reject(deserializeEngineError(data.error)):p.resolve(data.result);},{label:'engine-client',onFailure:failed});
@@ -125,6 +127,7 @@ export function createWorkerEngine(options={}) {
   resumeAutomatic:(request,hooks)=>call('resumeAutomatic',[request],hooks),
   updateAutomatic:(request,hooks)=>call('updateAutomatic',[request],hooks),
   renderAutomatic:(request,hooks)=>call('renderAutomatic',[request],hooks),
+  previewAutomaticD2:(request,hooks)=>call('previewAutomaticD2',[request],hooks),
   exportAutomatic:(request,hooks)=>call('exportAutomatic',[request],hooks),
   releaseAutomatic:()=>call('releaseAutomatic'),
   inspectMetadata:(input,hooks)=>call('inspectMetadata',[input],hooks),
@@ -137,7 +140,7 @@ export function createWorkerEngine(options={}) {
   readDisplay:(request,hooks)=>call('readDisplay',[request],hooks),
   readPlane:(request,hooks)=>call('readPlane',[request],hooks),
   readPixels:(request,hooks)=>call('readPixels',[request],hooks),readFlags:(request,hooks)=>call('readFlags',[request],hooks),readTable:(request,hooks)=>call('readTable',[request],hooks),readTableCsv:(request,hooks)=>call('readTableCsv',[request],hooks),readNpz:(request,hooks)=>call('readNpz',[request],hooks),releaseTable:id=>call('releaseTable',[id]),readMask:(request,hooks)=>call('readMask',[request],hooks),originalBlob:id=>call('originalBlob',[id]),deriveOriginal:(request,hooks)=>call('deriveOriginal',[request],hooks),readOriginal:(id,range,hooks)=>call('readOriginal',[id,range],hooks),
-  load:(input,hooks)=>call('load',[input],hooks),previewParameters:(task,{preview={},...hooks}={})=>call('previewParameters',[task,preview],hooks),run:(task,hooks)=>call('run',[task],hooks),
+  load:(input,hooks)=>call('load',[input],hooks),previewParameters:(task,{preview={},...hooks}={})=>call('previewParameters',[task,preview],hooks),localizeRetainedParameters:(task,hooks)=>call('localizeRetainedParameters',[task],hooks),renderRetainedNativeParameters:(input,hooks)=>call('renderRetainedNativeParameters',[input],hooks),run:(task,hooks)=>call('run',[task],hooks),
   async loadPrnuDatabase(input,hooks){const id='job-'+crypto.randomUUID(),record={imageId:input.id,backend:null};storageOwners.set(id,record);try{const result=await call('loadPrnuDatabase',[{...input,temporarySessionId:id}],hooks);if(!result.metrics.temporaryBackend)storageOwners.delete(id);return result;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},
   loadMedianModel:(input,hooks)=>call('loadMedianModel',[input],hooks),
   loadQualityModel:(input,hooks)=>call('loadQualityModel',[input],hooks),
@@ -150,6 +153,9 @@ export function createWorkerEngine(options={}) {
   async buildPrnuDatabase(input,hooks){const id='job-'+crypto.randomUUID(),record={imageId:input.id,backend:null};storageOwners.set(id,record);try{const result=await call('buildPrnuDatabase',[{...input,temporarySessionId:id}],hooks);if(!result.metrics.temporaryBackend)storageOwners.delete(id);return result;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},exportPrnuDatabase:(id,hooks)=>call('exportPrnuDatabase',[id],hooks),
   async exportSurface(request,hooks){const id='job-'+crypto.randomUUID(),record={exportId:null,backend:null};storageOwners.set(id,record);try{const result=await call('exportSurface',[{...request,temporarySessionId:id}],hooks);if(result.metrics.storage==='temporary')record.exportId=result.id;else storageOwners.delete(id);return result;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},
   async exportResultFile(result,request={},hooks){const id='job-'+crypto.randomUUID(),record={exportId:null,backend:null};storageOwners.set(id,record);try{const output=await call('exportResultFile',[result,{...request,temporarySessionId:id}],hooks);if(output.metrics.storage==='temporary')record.exportId=output.id;else storageOwners.delete(id);return output;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},
+  async reserveExternalCache(request,{onReclaim}={}){if(typeof onReclaim!=='function')throw new EngineError('INVALID_INPUT','External cache retirement callback required.');const entry=await call('reserveExternalCache',[request]);if(!entry||typeof entry.id!=='string'||!entry.id||entry.bytes!==request.bytes){const error=new EngineError('WORKER_MESSAGE_FAILED','Invalid external cache reservation response.');if(storageOwners.size&&worker)await stopWithStorageClose(error);else await reset(error);throw error;}let flight;externalCacheOwners.set(entry.id,()=>flight??=(async()=>onReclaim())().catch(error=>{flight=null;throw error;}));return entry;},
+  updateExternalCache:request=>call('updateExternalCache',[request]),
+  async releaseExternalCache(id){const answer=await call('releaseExternalCache',[id]);externalCacheOwners.delete(id);return answer;},
   reserveExternalMemory:request=>call('reserveExternalMemory',[request]),
   releaseExternalMemory:id=>call('releaseExternalMemory',[id]),
   readExport:(request,hooks)=>call('readExport',[request],hooks),

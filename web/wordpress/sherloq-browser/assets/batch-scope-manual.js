@@ -1,10 +1,14 @@
-import {clipPolygon,rectangleComplement,rectanglePolygon} from './batch-scope-geometry.js';
+import {compileOriginalSourceRegions} from './original-source-regions.js';
+import {clipPolygon,rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js';
 import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js';
 
 export const MANUAL_SCOPE_SCHEMA='sherloq.batch-manual-scope/1';
 const MAX_ZONES=8192,MAX_VERTICES=131072,MAX_ACTIONS=512;
 const invalid=message=>Object.assign(Error(message),{code:'BATCH_SCOPE_EDIT_INVALID'});
 const copy=value=>structuredClone(value),key=JSON.stringify;
+// Property insertion order is transport metadata, not a difference in human
+// geometry. The original fingerprint is still verified against its exact bytes.
+const structuralKey=value=>JSON.stringify(value,(_name,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(name=>[name,item[name]])):item);
 const bounds=polygon=>({x0:Math.min(...polygon.map(p=>p[0])),y0:Math.min(...polygon.map(p=>p[1])),x1:Math.max(...polygon.map(p=>p[0])),y1:Math.max(...polygon.map(p=>p[1]))});
 const validHash=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
 function zoneGeometry(zone){return {x0:zone.x0,y0:zone.y0,x1:zone.x1,y1:zone.y1,polygon:copy(zone.polygon)};}
@@ -89,7 +93,8 @@ export function manualDraftScope(draft,base={}){
  validateDraft(draft);const explicit=draft.zones.filter(z=>z.kind==='exclusion').map(z=>copy(z.polygon));
  const candidates=draft.zones.filter(z=>z.kind==='acquisition').map(z=>({x0:z.x0,y0:z.y0,x1:z.x1,y1:z.y1,polygon:copy(z.polygon),type:z.type??'microscopy',label:z.label??labelType(z.type),manual:z.origin==='human',zoneId:z.id}));
  const regions=candidates.filter(r=>!covered(r,explicit)),types=new Set(regions.map(r=>r.type)),family=types.size>1?'mixed':types.size?[...types][0]:'unknown',excluded=[...new Map([...explicit,...rectangleComplement(regions,draft.width,draft.height)].map(p=>[key(p),p])).values()];
- return {...base,...SCIENTIFIC_SCOPE_POLICY,sourceSha256:draft.sourceSha256,width:draft.width,height:draft.height,status:regions.length?'ready':'excluded',family,regions,searchRegions:regions.map(copy),excluded,cancelledRegions:candidates.filter(r=>!regions.includes(r)).map(r=>({zoneId:r.zoneId,rectangle:[r.x0,r.y0,r.x1,r.y1],reason:'fully-excluded-by-human-scope'}))};
+ const envelope=scientificScopeEnvelope({...base,regions,excluded,width:draft.width,height:draft.height,sourceSha256:draft.sourceSha256}),searchRegions=regions.map(copy);if(base.individual?.includeEnvelope!==false&&regions.length>1&&envelope&&!regions.some(r=>key(r.polygon)===key(envelope.polygon)))searchRegions.push({...copy(envelope),role:'cross-panel-search'});
+ return {...base,...SCIENTIFIC_SCOPE_POLICY,sourceSha256:draft.sourceSha256,width:draft.width,height:draft.height,status:regions.length&&envelope?'ready':'excluded',family,regions,searchRegions,envelope,excluded,cancelledRegions:candidates.filter(r=>!regions.includes(r)).map(r=>({zoneId:r.zoneId,rectangle:[r.x0,r.y0,r.x1,r.y1],reason:'fully-excluded-by-human-scope'}))};
 }
 /** Return a new serializable scope. The image, its Blob, native maps and model
  * outputs are untouched. Explicit human approval can resolve an unknown class;
@@ -104,9 +109,6 @@ export async function applyManualScopeDraft(image,draft,{reviewedAt=new Date().t
  next.annotations=null;next.warnings=[];next.coverage={acquisitions:'human-reviewed-zones',undetectedAreas:'excluded-unclassified',exhaustive:false};
  const previousActions=draft.previousActions??[],allActions=[...previousActions,...draft.actions],truncatedActions=(draft.previousTruncatedActions??0)+(draft.truncatedActions??0)+Math.max(0,allActions.length-MAX_ACTIONS);
  next.manual={schema:MANUAL_SCOPE_SCHEMA,version:1,actor:'human',reviewedAt,coordinates:'original-pixels',edgeConvention:'half-open-rectangles',sourceSha256:draft.sourceSha256,width,height,baseFingerprint:draft.baseFingerprint,...(typeof image.hash==='string'?{pixelHash:image.hash}:{}),originalStatus:base.manual?.originalStatus??base.status??'unprepared',originalPanels:copy(rawPanels),zones:copy(draft.zones),actions:copy(allActions.slice(-MAX_ACTIONS)),...(truncatedActions?{truncatedActions}:{}),originalPixelsPreserved:true};
- // Search the whole admitted union as well as individual panels; exclusions
- // still determine membership and are never repainted into the source.
- if(next.regions.length>1){const envelope=bounds(next.regions.flatMap(r=>r.polygon));if(!next.regions.some(r=>key(rectanglePolygon(envelope))===key(r.polygon)))next.searchRegions.push({...envelope,polygon:rectanglePolygon(envelope),envelope:true,role:'cross-panel-search'});}
  next.fingerprint=await scopeFingerprint(next);return next;
 }
 
@@ -115,6 +117,8 @@ export async function applyManualScopeDraft(image,draft,{reviewedAt=new Date().t
 export async function restoreManualScientificScope(image){
  const scope=image?.preparation;if(scope?.manual?.schema!==MANUAL_SCOPE_SCHEMA||scope.manual.actor!=='human')return null;
  const m=scope.manual,{width,height}=dimensions(image);if(m.pixelHash!==undefined&&m.pixelHash!==image.hash||identity(image)!==m.sourceSha256||scope.sourceSha256!==m.sourceSha256||m.width!==width||m.height!==height||scope.width!==width||scope.height!==height||scope.coordinates!=='original-pixels'||!['ready','excluded'].includes(scope.status)||scope.text?.status!=='complete'||!validHash(scope.fingerprint))throw invalid('La préparation manuelle importée ne correspond pas à la source.');
- const draft={schema:MANUAL_SCOPE_SCHEMA,version:1,coordinates:'original-pixels',sourceSha256:m.sourceSha256,width,height,baseFingerprint:m.baseFingerprint,zones:copy(m.zones),nextId:m.zones.length+1,actions:copy(m.actions??[]),changed:true};validateDraft(draft);const rebuilt=manualDraftScope(draft);
- if(key(scope.regions)!==key(rebuilt.regions)||key(scope.excluded)!==key(rebuilt.excluded)||scope.status!==rebuilt.status||await scopeFingerprint(scope)!==scope.fingerprint)throw invalid('L’empreinte ou les zones de la préparation manuelle importée ont changé.');return scope;
+ const draft={schema:MANUAL_SCOPE_SCHEMA,version:1,coordinates:'original-pixels',sourceSha256:m.sourceSha256,width,height,baseFingerprint:m.baseFingerprint,zones:copy(m.zones),nextId:m.zones.length+1,actions:copy(m.actions??[]),changed:true};validateDraft(draft);
+ for(const ceiling of [scope.originalSourceRegions,scope.sourceRegionCeiling,scope.sourceRegionDomain?.ceiling].filter(Boolean)){let domain;try{domain=await compileOriginalSourceRegions(ceiling);}catch{throw invalid('Le plafond des zones manuelles importées est invalide.');}if(domain.sourceSha256!==m.sourceSha256||domain.sourceWidth!==width||domain.sourceHeight!==height)throw invalid('Le plafond des zones manuelles importées appartient à une autre source.');}
+ const rebuilt=manualDraftScope(draft,scope);
+ if(structuralKey(scope.regions)!==structuralKey(rebuilt.regions)||structuralKey(scope.excluded)!==structuralKey(rebuilt.excluded)||scope.status!==rebuilt.status||await scopeFingerprint(scope)!==scope.fingerprint)throw invalid('L’empreinte ou les zones de la préparation manuelle importée ont changé.');return scope;
 }

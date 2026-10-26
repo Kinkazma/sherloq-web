@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.22.0";
+import "../../runtime-context.js?v=0.25.0";
 import {Budget} from './cache.js';
 import {resolveComputeProfile} from './profiles.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';
@@ -8,8 +8,14 @@ import {ritaSessionCachePlan} from './rita-cache-plan.js';
 import {ritaSourceTensors,ritaInitialMask} from './rita-source-tensors.js';
 import {ritaSegmentedNetwork} from './rita-segmented-network.js';
 import {renderRitaWindow} from './rita-render.js';
-import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
+import {EngineError,requireValue,checkAbort,controlCheckpoint,serializeEngineError} from './errors.js';
 const MiB=1024**2,f=Math.fround;
+// One storage retirement may report an error after releasing its backing.
+// Remaining owners must still retire; never replace the original task failure.
+async function retireRitaOwners(actions){
+ const failures=[];for(const action of actions)try{await action();}catch(error){failures.push(error);}
+ if(failures.length){const first=failures[0];if(failures.length>1&&first&&typeof first==='object'&&Object.isExtensible(first))first.details={...first.details,additionalCleanupErrors:failures.slice(1).map(error=>serializeEngineError(error))};throw first;}
+}
 const readonly=t=>Object.freeze({channels:t.channels,width:t.width,height:t.height,length:t.length,byteLength:t.byteLength,elementType:'Float32Array',get storage(){return t.storage;},readInto:t.readInto.bind(t),readBytes:t.readBytes.bind(t)});
 /** Equal-logit ties preserve PyTorch argmax's lowest class index. The visual
  * score is a pairwise margin, not a calibrated probability of manipulation. */
@@ -25,19 +31,19 @@ export function ritaSelectedStep(firstColumnEosStep,steps){requireValue(Number.i
 export function createRitaAnalyzer({segments,runtimes,budget,computeProfile='aggressive',resourceHints,createPool,network=ritaSegmentedNetwork}={}){
  requireValue(segments?.stages?.length===4,'Native segmented RITA manifest required.');const profile=resolveComputeProfile(computeProfile,resourceHints);budget??=new Budget(profile.memoryBudgetBytes);
  const manifest=structuredClone(segments);manifest.checkpointSha256??=manifest.checkpoint_sha256;const pool=createPool?createPool(budget,profile,{assets:manifest.assets,runtimes}):new NeuralGraphPool(budget,profile,{assets:manifest.assets,runtimes,resourceOwner:'rita',modelCacheBytes:0});let active,disposed=false,cached;
- async function unpin(item){if(--item.references===0){try{for(const t of item.tensors)await t.dispose();if(item.retainedStep){await item.retainedStep.network.release();await item.retainedStep.classes.dispose();}}finally{await item.session?.dispose();}}}
+ async function unpin(item){if(--item.references===0)await retireRitaOwners([...item.tensors.map(t=>()=>t.dispose()),...(item.retainedStep?[()=>item.retainedStep.network.release(),()=>item.retainedStep.classes.dispose()]:[]),()=>item.session?.dispose()]);}
  async function retireCachedResult(){const old=cached;cached=null;if(old)await unpin(old);}
- async function clearCache(){await retireCachedResult();pool.clear();}
+ async function clearCache(){await retireRitaOwners([retireCachedResult,()=>pool.clear()]);}
  function acquire(item,hit,image){item.references++;let released=false;return {data:{...item.data,metadata:structuredClone(item.data.metadata)},provenance:{...structuredClone(item.provenance),...(image?{sourceSurfaceIdentity:image.surface.descriptor.id+'/'+image.surface.descriptor.revision}:{})},metrics:{cache:{result:hit},execution:structuredClone(item.executions),executionResources:structuredClone(item.executionResources),temporaryStorage:item.session?{backend:item.session.backend,...item.session.snapshot()}:null,preflightExecutions:0,memory:budget.snapshot()},async release(){if(released)return;released=true;await unpin(item);}};}
  return {
   async analyze(image,params={},options={}){
    if(disposed)throw new EngineError('DISPOSED','RITA analyzer disposed.');if(active)throw new EngineError('BUSY','RITA analysis already running.');requireValue(image.surface&&Object.keys(params).every(k=>k==='threshold')&&(params.threshold===undefined||Number.isFinite(params.threshold)&&params.threshold>=0&&params.threshold<=1),'RITA requires an original source surface; threshold is a visual setting.');
    const d=image.surface.descriptor,immutable=options.immutableSource===true&&image.segmented&&/^[a-f0-9]{64}$/.test(image.sha256),identity=immutable?['original-blob',image.sha256,d.width,d.height,d.format??null]:[image.sha256,d.id,d.revision,d.width,d.height],key=JSON.stringify([...identity,options.backend??'auto',manifest.checkpointSha256]),controller=new AbortController(),abort=()=>controller.abort();let finish;const done=new Promise(resolve=>finish=resolve);active={abort,done};options.signal?.addEventListener('abort',abort,{once:true});if(options.signal?.aborted)abort();const signal=controller.signal;
-   let session,sessionPending,committed=false,retainedStep,sessionCachePlan;const tensors=new Set(),steps=new Set(),invariantFeatures=new Map();
+   let session,sessionPending,committed=false,retainedStep,sessionCachePlan,primaryError;const tensors=new Set(),steps=new Set(),invariantFeatures=new Map();
    const getTemporarySession=async()=>{if(session)return session;if(!sessionPending)sessionPending=createTemporarySession({budget,signal}).then(s=>session=s);return sessionPending;};
    const make=async(c,h,w)=>{const storage=c*h*w*4>Math.min(budget.limit/12,Math.max(0,budget.limit-budget.total())/4)?'temporary':'memory',t=await createNeuralTensor(c,h,w,{budget,signal,storage,getTemporarySession,owner:'rita',label:'rita-scientific-plane',cooperation:'bounded'});tensors.add(t);return t;};
    const drop=async t=>{if(tensors.delete(t))await t.dispose();};
-   const dropStep=async step=>{if(steps.delete(step)){await step.network.release();await drop(step.classes);}};
+   const dropStep=async step=>{if(steps.delete(step)){await retireRitaOwners([()=>step.network.release(),()=>drop(step.classes)]);}};
    try{
     checkAbort(signal);if(cached?.key===key)return acquire(cached,true,image);await retireCachedResult();sessionCachePlan=ritaSessionCachePlan(manifest,{width:d.width,height:d.height,budgetBytes:budget.limit,backend:options.backend??'auto',cpuOnly:pool.cpuOnly});pool.modelCacheBytes=sessionCachePlan.modelCacheBytes;const source=ritaSourceTensors(image,{budget}),{paddedWidth:pw,paddedHeight:ph,width,height}=source,n=pw*ph,records=[];let previous,chosen,firstColumnEosStep;
     const hints={manifest,pool,budget,getTemporarySession,signal,invariantFeatures,backend:options.backend??'auto',onProgress:options.onProgress};
@@ -66,15 +72,17 @@ export function createRitaAnalyzer({segments,runtimes,budget,computeProfile='agg
     map.markCold?.();official.markCold?.();labels.markCold?.();logits.markCold?.();if(reuseNative){retainedStep=chosen;steps.delete(chosen);tensors.delete(chosen.classes);}else await dropStep(chosen);checkAbort(signal);const metadata={...source.metadata,coordinateSpace:'source-pixels',attention:'global RGB/mask token field',storage:'lossless segmented float32',dtype:'float32',maximumSteps:10,generatedSteps:records.length,selectedStep:selection.index,selectedStepSigned:selection.signed,firstColumnEosStep:firstColumnEosStep??null,excludedLabel:maximum,selectedNativeBackingsReused:reuseNative,selection:'first padded column with>=90%EOS; preceding step, negative index selects last',scoreSemantics:'uncalibrated logistic margin: strongest other class minus excluded-label logit; threshold0.5 exactly reproduces the official categorical mask',threshold:.5};
     const executions=records.flatMap(r=>r.executions),executionResources={sessionCachePlan,requestedWorkers:profile.maxWorkers,maximumCpuGranted:Math.max(0,...records.map(r=>r.executionResources?.maximumCpuGranted??0)),maximumGpuGranted:Math.max(0,...records.map(r=>r.executionResources?.maximumGpuGranted??0)),maximumWasmThreads:Math.max(0,...records.map(r=>r.executionResources?.maximumWasmThreads??0)),sessionCacheHits:records.reduce((n,r)=>n+(r.executionResources?.sessionCacheHits??0),0),maximumSessionCacheBytes:Math.max(0,...records.map(r=>r.executionResources?.maximumSessionCacheBytes??0)),gpuBufferLedgerObserved:records.some(r=>r.executionResources?.gpuBufferLedgerObserved===true),maximumWorkerGpuBufferBytes:Math.max(0,...records.map(r=>r.executionResources?.maximumWorkerGpuBufferBytes??0)),maximumWorkerGpuAdmissionBytes:Math.max(0,...records.map(r=>r.executionResources?.maximumWorkerGpuAdmissionBytes??0)),unmeasuredGpuTextureStorage:records.some(r=>r.executionResources?.unmeasuredGpuTextureStorage===true),driverPrivateBytes:null,queryTransportJobs:records.reduce((n,r)=>n+(r.executionResources?.queryTransportJobs??0),0),queryLogicalExecutions:records.reduce((n,r)=>n+(r.executionResources?.queryLogicalExecutions??0),0)},item={key,references:1,tensors:[...tensors],retainedStep,get session(){return session;},executions,executionResources,data:{width,height,segmented:true,map:readonly(map),official_mask:readonly(official),labels:readonly(labels),logits:readonly(logits),metadata},provenance:{originalSourceSha256:image.sha256??null,sourceSurfaceIdentity:d.id+'/'+d.revision,checkpointSha256:manifest.checkpointSha256,provider:[...new Set(executions.map(e=>e.provider))].join('+'),qualification:manifest.qualification??'native geometric adaptation; see numerical qualification'}};
     cached=item;committed=true;tensors.clear();return acquire(item,false);
-   }finally{
-    try{if(!committed){for(const step of [...steps])await dropStep(step);for(const t of [...tensors])await drop(t);if(retainedStep){await retainedStep.network.release();await retainedStep.classes.dispose();}}}
-    finally{try{for(const feature of new Set(invariantFeatures.values()))await feature.dispose();invariantFeatures.clear();if(!committed)await session?.dispose();}finally{active=null;options.signal?.removeEventListener('abort',abort);finish();}}
+   }catch(error){primaryError=error;throw error;}finally{
+    const actions=committed?[]:[...[...steps].map(step=>()=>dropStep(step)),...[...tensors].map(t=>()=>drop(t)),...(retainedStep?[()=>retainedStep.network.release(),()=>retainedStep.classes.dispose()]:[])];
+    actions.push(...[...new Set(invariantFeatures.values())].map(feature=>()=>feature.dispose()),()=>invariantFeatures.clear());if(!committed)actions.push(()=>session?.dispose());
+    try{await retireRitaOwners(actions);}catch(cleanup){if(!primaryError)throw cleanup;if(primaryError&&typeof primaryError==='object'&&Object.isExtensible(primaryError))primaryError.details={...primaryError.details,cleanup:serializeEngineError(cleanup)};}
+    finally{active=null;options.signal?.removeEventListener('abort',abort);finish();}
    }
   },
   render(image,result,view,options={}){return renderRitaWindow(image,result,view,undefined,{...options,budget});},
   renderWindow(image,result,view,rect,options={}){return renderRitaWindow(image,result,view,rect,{...options,budget});},
   clearCache,
-  async dispose(){if(disposed)return;disposed=true;active?.abort();await active?.done;await clearCache();pool.dispose();},
+  async dispose(){if(disposed)return;disposed=true;active?.abort();await retireRitaOwners([()=>active?.done,clearCache,()=>pool.dispose()]);},
   memory(){return budget.snapshot();}
  };
 }

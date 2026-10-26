@@ -1,3 +1,6 @@
+import {forgeryscopeNativeYoloAvailability} from './forgeryscope-native-availability.js';
+import {certifiedForgeryscopeSource,readForgeryscopeBoundedCrop,prepareForgeryscopeBoundedPanels} from './forgeryscope-bounded-source.js';
+import {retireForgeryscopeOwners} from './forgeryscope-owner-retirement.js';
 import {forgeryscopeMaskField} from './forgeryscope-segmented-result.js';
 import {checkAbort,checkpoint,requireValue} from './errors.js';
 import {selectForgeryscopePanels,planForgeryscopeComparisons,classifyForgeryscopeMatch,laneOverlapGroups,bestLaneMatches,writeLaneUnion,FORGERYSCOPE_PROFILES,FORGERYSCOPE_THRESHOLDS} from './forgeryscope-decisions.js';
@@ -12,21 +15,24 @@ import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scop
  * The caller must release the returned admitted dense outputs after export/view.
  */
 export async function analyzeForgeryscope(image,{networks,budget,pool,profile='auto',panels:manualPanels,exclusions=[],scientificScope,signal,onProgress,backend='auto',segmentedResult=false,inputAlreadyBudgeted=false}={}){
-  requireValue(image.data instanceof Uint8Array&&Number.isSafeInteger(image.width)&&Number.isSafeInteger(image.height)&&image.width>0&&image.height>0&&image.data.length===image.width*image.height*3,'Forgeryscope requires original RGB8.');
+  const bounded=certifiedForgeryscopeSource(image);
+  requireValue((bounded||image.data instanceof Uint8Array)&&Number.isSafeInteger(image.width)&&Number.isSafeInteger(image.height)&&image.width>0&&image.height>0&&(bounded||image.data.length===image.width*image.height*3),'Forgeryscope requires original RGB8.');
   requireValue(Object.hasOwn(FORGERYSCOPE_PROFILES,profile),'Invalid Forgeryscope profile.');
   requireValue(profile!=='auto'||manualPanels===undefined,'Auto classifies its own panels; use a standalone profile for paired panels.');
   const scope=compileForgeryscopeScientificScope(scientificScope,{width:image.width,height:image.height,sourceSha256:image.sha256});
-  const options={signal,backend,onProgress,segmentedAliked:segmentedResult,...(scope?{scientificScope:scope}:{})},n=image.width*image.height,inputBytes=inputAlreadyBudgeted?0:image.data.byteLength,outputBytes=n*(profile==='auto'?(segmentedResult?6:10):(segmentedResult?2:6));
+  const options={signal,backend,onProgress,segmentedAliked:segmentedResult,...(scope?{scientificScope:scope}:{})},n=image.width*image.height,inputBytes=bounded||inputAlreadyBudgeted?0:image.data.byteLength,outputBytes=n*(profile==='auto'?(segmentedResult?6:10):(segmentedResult?2:6));
   // Admit the full live envelope before allocating either half. A retry must
   // not mistake rolling back its own input credit for new room for the output.
   const releaseInput=budget.reserve(inputBytes+outputBytes),releaseOutput=releaseInput.split(outputBytes);let complete=false;
   try{
+  let evaluatedModelContexts=0;const unavailableContexts=[];
   const mask=new Uint8Array(n),candidates=new Uint8Array(n),auto=profile==='auto';
   const geometric=auto?new Uint8Array(n):null,branches=auto?Object.fromEntries(['microscopy','blots','lanes'].map(name=>[name,new Uint8Array(n)])):null;
   const meta={profile:FORGERYSCOPE_PROFILES[profile],public_simplified:true,panels:[],comparisons:[],embedding_candidates:[],manual_panels:manualPanels!==undefined,status:'no_panels',thresholds:{...FORGERYSCOPE_THRESHOLDS},competition_ensemble:false,segmentation_fallback:false};
   if(scope){meta.scientific_scope={schema:scope.schema,fingerprint:scope.fingerprint,coordinates:'original-pixels',width:scope.width,height:scope.height,sourceSha256:scope.sourceSha256,regions:structuredClone(scientificScope.regions),excluded:structuredClone(scientificScope.excluded),geometry:{keypointsExcludedBeforeMatching:true,policy:'feature-center',originalPixelsPreserved:true,nativeExtractionSettingsPreserved:true},embeddings:{filtered:false,qualifiedForScopedSignal:false},lanes:{filtered:false,qualifiedForScopedSignal:false},masks:{originalBranchOutputsPreserved:true,geometric:'envelopes from scoped feature matches, not exact pixel segmentation',exclusionHolesApplied:false}};meta.filtered_evidence={scopeFingerprint:scope.fingerprint,comparisons:[],lanePairs:[],policy:'Only supported geometry after scoped keypoint filtering; raw similarity and lane evidence do not corroborate the scoped signal.'};}
   const progress=(phase,completed,total)=>{checkAbort(signal);onProgress?.({phase,completed,total,fraction:total?completed/total:0});};
-  function crop(box){
+  async function crop(box){
+    if(bounded)return readForgeryscopeBoundedCrop(image,box,{signal});
     const bytes=Math.max(0,Math.trunc(box[2])-Math.trunc(box[0]))*Math.max(0,Math.trunc(box[3])-Math.trunc(box[1]))*3,release=budget.reserve(bytes);
     try{const result={...cropForgeryscopeRGB(image,box),release};if(scope){const norm=(x,n)=>Math.max(0,Math.min(n,(x=Math.trunc(x))<0?n+x:x));result.scientificOrigin=[norm(box[0],image.width),norm(box[1],image.height)];}return result;}catch(e){release();throw e;}
   }
@@ -34,12 +40,12 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
     const release=budget.reserve(items.length*4096),values=new Float32Array(items.length*1024);let completed=false,batchSize=Math.min(8,items.length);
     try{
       for(let start=0;start<items.length;){
-        const batch=[],count=Math.min(batchSize,items.length-start);let embedded;
+        const batch=[],count=Math.min(batchSize,items.length-start);let embedded,primary;
         try{
-          for(let j=0;j<count;j++)batch.push(load(items[start+j]));
-          embedded=await networks.embed(batch,name,options);values.set(embedded.vectors,start*1024);start+=count;progress('embedding:'+name,start,items.length);
-        }catch(error){if(['MEMORY_LIMIT','MEMORY_ALLOCATION'].includes(error.code)&&count>1){batchSize=Math.max(1,Math.floor(count/2));continue;}throw error;}
-        finally{embedded?.release();for(const b of batch)b.release();}
+          for(let j=0;j<count;j++)batch.push(await load(items[start+j]));
+          embedded=await networks.embed(batch,name,options);evaluatedModelContexts+=batch.length;values.set(embedded.vectors,start*1024);start+=count;progress('embedding:'+name,start,items.length);
+        }catch(error){primary=error;if(['MEMORY_LIMIT','MEMORY_ALLOCATION'].includes(error.code)&&count>1){batchSize=Math.max(1,Math.floor(count/2));continue;}throw error;}
+        finally{await retireForgeryscopeOwners([()=>embedded?.release(),...batch.map(b=>()=>b.release())],primary?{primary}:{});}
       }
       completed=true;return {values,release};
     }finally{if(!completed)release();}
@@ -59,19 +65,20 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
   async function lanes(panels){
     const lanes=[];
     for(let p=0;p<panels.length;p++)if(panels[p][0]==='Blots'){
-      const c=crop(panels[p].slice(-4));
+      if(bounded){const bounds=panels[p].slice(-4).map(Math.trunc),origin=image.provenance.origin,unavailable=forgeryscopeNativeYoloAvailability(bounds[2]-bounds[0],bounds[3]-bounds[1],{stage:'lane-detection',bounds,originalBounds:bounds.map((v,i)=>v+origin[i%2]),panel:p});if(unavailable){unavailableContexts.push(unavailable);continue;}}
+      const c=await crop(panels[p].slice(-4));let primary;
       try{
-        const boxes=await networks.detect(c,'lanes',options);
+        const boxes=await networks.detect(c,'lanes',options);evaluatedModelContexts++;
         for(const b of boxes)lanes.push({panel_idx:p,bbox:b.slice(0,4),global_idx:lanes.length,panel_bbox:panels[p]});
-      }finally{c.release();}
+      }catch(error){primary=error;throw error;}finally{await retireForgeryscopeOwners([()=>c.release()],primary?{primary}:{});}
     }
     if(!lanes.length)return {lanes,matches:[]};
-    const vectors=await vectorsFor(lanes,'wblot_lane_embedder',lane=>{
-      const p=crop(panels[lane.panel_idx].slice(-4));let release;
+    const vectors=await vectorsFor(lanes,'wblot_lane_embedder',async lane=>{
+      const p=await crop(panels[lane.panel_idx].slice(-4));let release,primary;
       try{
         const b=lane.bbox.map(Math.trunc);release=budget.reserve(Math.max(0,b[2]-b[0])*Math.max(0,b[3]-b[1])*3);
         return {...cropForgeryscopeRGB(p,b),release};
-      }catch(e){release?.();throw e;}finally{p.release();}
+      }catch(e){primary=e;release?.();throw e;}finally{await retireForgeryscopeOwners([()=>p.release()],primary?{primary}:{});}
     });
     let row;const normalizedRelease=budget.reserve(vectors.values.byteLength);
     try{
@@ -86,15 +93,17 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
     // acquisitions (and any explicit human edits). Do not redetect those ROIs
     // or turn text polygons into whole-panel exclusions. Auto's unscoped
     // detector, profiles and thresholds keep their original contract.
-    const scopedPanels=scope&&auto?scientificScope.regions.map(region=>{
+    const nativePanels=bounded?await prepareForgeryscopeBoundedPanels(image,{networks,...options}):null;
+    const scopedPanels=scope&&auto&&!bounded?scientificScope.regions.map(region=>{
       const label=({microscopy:'Microscopy',gel:'Blots',photography:'Body Imaging'})[region.type]??region.label??region.type;
       requireValue(['Microscopy','Blots','Body Imaging'].includes(label),'Prepared acquisition class required for scoped Forgeryscope Auto.');
       return [label,Number.isFinite(region.confidence)?region.confidence:1,region.x0,region.y0,region.x1,region.y1];
     }):null;
-    const selection=selectForgeryscopePanels(scopedPanels??manualPanels??await networks.detect(image,'panels',options),{profile,exclusions}),panels=selection.panels;
+    const selection=selectForgeryscopePanels(nativePanels?.panels??scopedPanels??manualPanels??await networks.detect(image,'panels',options),{profile,exclusions}),panels=selection.panels;
     requireValue(auto||panels.length<=64,'More than 64 panels: select smaller source regions.');
     Object.assign(meta,{panels,excluded_panels:selection.excludedPanels,excluded_boxes:exclusions});
     if(scopedPanels)meta.panel_selection={source:'prepared-scientific-acquisitions',fingerprint:scope.fingerprint,classificationRepeated:false,unsupportedClasses:scopedPanels.filter(p=>!['Microscopy','Blots'].includes(p[0])).map(p=>p[0]),cnnContext:'Original crop RGB remains available to embeddings and feature extraction; scientific exclusions apply to geometric keypoints before matching.'};
+    if(nativePanels){for(const row of nativePanels.metadata.classification)if(row.status==='not-evaluable')unavailableContexts.push(row);else if(row.source==='native-panel-detector')evaluatedModelContexts++;meta.strict_native_contexts=nativePanels.metadata;meta.panel_selection={source:'strict-native-acquisition-fragments',classificationRepeated:nativePanels.metadata.classification.some(v=>v.source==='native-panel-detector'&&v.status!=='not-evaluable'),cnnContext:nativePanels.metadata.cnnContext};if(meta.scientific_scope){meta.scientific_scope.embeddings={filtered:true,qualifiedForScopedSignal:true,policy:'native-RGB-fragments-before-every-model'};meta.scientific_scope.lanes={filtered:true,qualifiedForScopedSignal:true,policy:'native-RGB-fragments-before-every-model'};meta.filtered_evidence.policy='Native decisions from admitted RGB fragments before models; raw geometric hull semantics unchanged.';}}
     if(auto)Object.assign(meta,{merged_groups:[],lane_search:false,lane_matches:0});
     progress('panels',1,1);
     if(!panels.length||(!auto&&profile!=='lanes'&&panels.length<2))meta.status=panels.length?'insufficient_panels':'no_panels';
@@ -109,9 +118,9 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
       const accepted=[];
       for(let i=0;i<plan.comparisons.length;i++){
         await checkpoint(signal);progress('geometry',i,plan.comparisons.length);
-        const pair=plan.comparisons[i],a=crop(panels[pair.panel0].slice(-4));let b;
+        const pair=plan.comparisons[i],a=await crop(panels[pair.panel0].slice(-4));let b,primary;
         try{
-          b=crop(panels[pair.panel1].slice(-4));
+          b=await crop(panels[pair.panel1].slice(-4));
           const match=await networks.match(a,b,pair.label,options),info=duplicateEvidence(match,panels[pair.panel0],panels[pair.panel1],pair.panel0,pair.panel1);
           if(!info)continue;
           const decision=classifyForgeryscopeMatch(info.match_result,pair.label,{profile});
@@ -119,9 +128,9 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
           if(decision.candidate)await writeDuplicateUnion(candidates,image.width,image.height,info,{signal});
           if(auto&&decision.supported)await writeDuplicateUnion(geometric,image.width,image.height,info,{signal});
           const comparison={panel0:pair.panel0,panel1:pair.panel1,...decision,inliers:info.match_result.inliers,score:info.match_result.mean_match_score,matrix:info.match_result.H??null,polygon0:info.poly_coords0,polygon1:info.poly_coords1,fallback:info.match_result.fallback??null};
-          if(scope){const qualified=decision.supported&&match.scopeFiltering?.fingerprint===scope.fingerprint;comparison.scientificScope={qualified,featureFiltering:match.scopeFiltering??null,reason:qualified?'scoped geometric features':'Raw similarity or unsupported geometry is not scoped evidence.'};if(qualified)meta.filtered_evidence.comparisons.push({...comparison,accepted:true});}
+          if(scope){const qualified=(decision.supported&&match.scopeFiltering?.fingerprint===scope.fingerprint)||(bounded&&decision.accepted);comparison.scientificScope={qualified,featureFiltering:match.scopeFiltering??null,...(bounded?{stage:'native-fragments-before-models',contextFingerprint:nativePanels.metadata.contextFingerprint}:{}),reason:bounded?'All compared native model inputs contain admitted pixels only; the native geometric/similarity decision is unchanged.':qualified?'scoped geometric features':'Raw similarity or unsupported geometry is not scoped evidence.'};if(qualified)meta.filtered_evidence.comparisons.push({...comparison,accepted:true});}
           meta.comparisons.push(comparison);
-        }finally{a.release();b?.release();}
+        }catch(error){primary=error;throw error;}finally{await retireForgeryscopeOwners([()=>a.release(),()=>b?.release()],primary?{primary}:{});}
       }
       if(auto)meta.merged_groups=(await forgeryscopeCliqueGroups(accepted,{signal})).map(g=>({panel_ids:g.panel_ids,n_pairs:g.n_pairs,total_inliers:g.total_inliers,avg_match_score:g.avg_match_score,polygons:g.all_poly_coords}));
       if(plan.laneSearch){
@@ -132,6 +141,7 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
           for(let i=0;i<n;i++){candidates[i]|=target[i];mask[i]|=target[i];}
           const polygon=([x,y,r,b])=>[[x,y],[r,y],[r,b],[x,b]];
           meta.lane_pairs=result.matches.map((m,i)=>({panel0:m.panel_idx1,panel1:m.panel_idx2,score:m.similarity,evidence:'embedding',polygon0:polygon(m.bbox1_absolute),polygon1:polygon(m.bbox2_absolute),display_polygon0:polygon(display.pairs[i].box0??m.bbox1_absolute),display_polygon1:polygon(display.pairs[i].box1??m.bbox2_absolute)}));
+          if(bounded&&scope)meta.filtered_evidence.lanePairs=meta.lane_pairs.map(pair=>({...pair,scientificScope:{qualified:true,stage:'native-fragments-before-models',contextFingerprint:nativePanels.metadata.contextFingerprint}}));
         }
       }
       if(auto)for(const box of exclusions){
@@ -140,6 +150,7 @@ export async function analyzeForgeryscope(image,{networks,budget,pool,profile='a
       }
       meta.status=mask.some(Boolean)?'ok':!auto&&candidates.some(Boolean)?'candidates':'empty';
     }
+    if(unavailableContexts.length){const status=evaluatedModelContexts?'partial':'not-evaluable';meta.nativeContextAvailability={schema:'sherloq.native-context-availability/1',code:'NATIVE_CONTEXT_NOT_EVALUABLE',status,notEvaluableContexts:unavailableContexts.length,classification:unavailableContexts.filter(v=>v.stage==='panel-classification').length,lanes:unavailableContexts.filter(v=>v.stage==='lane-detection').length};meta.warnings=unavailableContexts;if(status==='not-evaluable')meta.status='not_evaluable';}
     meta.mask_semantics=auto?'published pipeline: microscopy geometry, blot and lane similarity evidence':profile==='lanes'?'embedding-supported lane candidates; no geometric verification':'geometric overlap envelopes, not pixel segmentation';
     progress('complete',1,1);checkAbort(signal);
     const result={mask,map:segmentedResult?forgeryscopeMaskField(mask,{floating:true}):Float32Array.from(mask),candidates,metadata:meta,release:releaseOutput};

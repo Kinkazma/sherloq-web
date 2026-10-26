@@ -1,0 +1,19 @@
+// DOM/controller checks only; native engines and browser qualification are separate.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseHTML} from 'linkedom';
+import {parameterPreviewPolicy} from '../../sherloq-browser/assets/parameter-preview-policy.js';
+import {createToolWorkspace} from '../../sherloq-browser/assets/tool-workspace.js';
+const tick=()=>new Promise(resolve=>setImmediate(resolve));
+export function fixture(id,sourceContext={}, {allowRun=false}={}){
+ const {document,window}=parseHTML('<html><body><section id="analysis-controls"></section><div id="viewport"></div></body></html>'),frames=new Map(),timers=new Map(),events=[],settings=[],surfaces=[],tableReads=[],runs=[];let seq=0,prepares=0,time=0;
+ Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value||this.options[0]?.value||'';},set(v){for(const o of this.options)o.toggleAttribute('selected',o.value===String(v));}});
+ window.HTMLElement.prototype.getBoundingClientRect=()=>({width:800,height:600,left:0,top:0});window.HTMLElement.prototype.reportValidity=()=>true;window.HTMLElement.prototype.checkValidity=()=>true;
+ window.HTMLCanvasElement.prototype.getContext=function(){const canvas=this;return new Proxy({createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)}),fillRect(...args){(canvas.drawRects??=[]).push(args);}},{get:(value,key)=>value[key]??(()=>{})});};
+ for(const[key,value]of Object.entries({document,window,Option:class{constructor(text,value){const option=document.createElement('option');option.textContent=text;option.value=value;return option;}},requestAnimationFrame:fn=>{frames.set(++seq,fn);return seq;},cancelAnimationFrame:id=>frames.delete(id),ResizeObserver:class{observe(){}disconnect(){}},devicePixelRatio:1}))Object.defineProperty(globalThis,key,{value,writable:true,configurable:true});
+ const timing={now:()=>time,delay:(fn,ms)=>{timers.set(++seq,{at:time+ms,fn});return seq;},cancelDelay:id=>timers.delete(id)},advance=(ms=120)=>{const until=time+ms;for(;;){const next=[...timers.entries()].filter(([,timer])=>timer.at<=until).sort((a,b)=>a[1].at-b[1].at)[0];if(!next)break;time=next[1].at;timers.delete(next[0]);next[1].fn();}time=until;};
+ const client={async prepareDisplayPreview(){prepares++;},async planDisplayPreview(display){prepares++;return{...display,responsePreview:true,previewStep:2};},async readTable(table,offset=0,limit=65536){const length=Math.max(0,Math.min(limit,table.rowCount-offset)),data=new Float32Array(length*6);for(let row=0;row<length;row++)for(let c=0;c<6;c++)data[row*6+c]=((offset+row)*6+c)%97/96;tableReads.push({offset,length,totalRows:table.rowCount});return{offset,length,totalRows:table.rowCount,data};}};
+ const ui=createToolWorkspace({document,getSourceContext:()=>sourceContext,interactiveControlOptions:timing,language:()=> 'fr',getClient:async()=>client,run(){if(!allowRun)throw Error('No native run expected from controls');runs.push(ui.params());},cancel(){},showSurface:surface=>surfaces.push(surface),download(){},notify(){},onSettings:event=>settings.push(event??{}),onInteractive:event=>events.push(event)});
+ ui.select(id);const emit=(target,type,properties={})=>target.dispatchEvent(Object.assign(new window.Event(type,{bubbles:true}),properties));
+ return{ui,client,document,window,events,settings,surfaces,frames,tableReads,runs,input:key=>document.querySelector('#tool-param-'+key),emit,set(input,value){input.value=String(value);emit(input,'input');},draw(ms=120){advance(ms);const list=[...frames.values()];frames.clear();for(const fn of list)fn();},get prepares(){return prepares;}};
+}

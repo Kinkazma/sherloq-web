@@ -1,21 +1,24 @@
 let serial=0;
 // One immutable, bounded provisional frame. It uses native logical coordinates
 // but never asks a worker for pixels after a newer preview has replaced them.
-export function createPreviewSurface(pixels,{document=globalThis.document}={}){
+export function createPreviewSurface(pixels,{document=globalThis.document,background,backgroundOrigin=[0,0]}={}){
  const {width:sampleWidth,height:sampleHeight,logicalWidth:width,logicalHeight:height,format,data,preview}=pixels??{};
  if(preview!==true||format!=='rgb8'||![sampleWidth,sampleHeight].every(v=>Number.isSafeInteger(v)&&v>=1&&v<=2048)||![width,height].every(v=>Number.isSafeInteger(v)&&v>=1)||sampleWidth>width||sampleHeight>height||!(data instanceof Uint8Array)||data.length!==sampleWidth*sampleHeight*3)throw Object.assign(Error('Invalid bounded preview surface.'),{code:'INVALID_INPUT'});
- const canvas=document.createElement('canvas');canvas.width=sampleWidth;canvas.height=sampleHeight;
- try{const ctx=canvas.getContext('2d'),image=ctx.createImageData(sampleWidth,sampleHeight);for(let a=0,b=0;a<data.length;a+=3,b+=4){image.data[b]=data[a];image.data[b+1]=data[a+1];image.data[b+2]=data[a+2];image.data[b+3]=255;}ctx.putImageData(image,0,0);}
- catch(error){canvas.width=canvas.height=0;throw error;}
+ const membership=pixels.membership;if(membership!==undefined&&(!(membership instanceof Uint8Array)||membership.length!==sampleWidth*sampleHeight||membership.some(v=>v!==0&&v!==1)))throw Object.assign(Error('Invalid bounded preview membership.'),{code:'INVALID_INPUT'});
+ if(background&&(!Array.isArray(backgroundOrigin)||backgroundOrigin.length!==2||!backgroundOrigin.every(v=>Number.isSafeInteger(v)&&v>=0)||backgroundOrigin[0]+width>background.width||backgroundOrigin[1]+height>background.height||typeof background.fork!=='function'))throw Object.assign(Error('Invalid Original preview underlay.'),{code:'INVALID_INPUT'});
+ const underlay=background?.fork();if(background&&!underlay)throw Object.assign(Error('Original preview underlay is no longer available.'),{code:'PREVIEW_UNAVAILABLE'});
+ let canvas;try{canvas=document.createElement('canvas');canvas.width=sampleWidth;canvas.height=sampleHeight;const ctx=canvas.getContext('2d'),image=ctx.createImageData(sampleWidth,sampleHeight);for(let a=0,b=0;a<data.length;a+=3,b+=4){image.data[b]=data[a];image.data[b+1]=data[a+1];image.data[b+2]=data[a+2];image.data[b+3]=membership?255*membership[a/3]:255;}ctx.putImageData(image,0,0);}
+ catch(error){if(canvas)canvas.width=canvas.height=0;try{underlay?.close();}catch{}throw error;}
  let references=0;
  const unavailable=async()=>{throw Object.assign(Error('A provisional frame cannot provide native pixels or exports.'),{code:'PREVIEW_NOT_EXPORTABLE'});};
- function retain(){references++;let released=false;return{width,height,previewOnly:true,
+ const sourceBounds=b=>b?{left:b.left+backgroundOrigin[0],top:b.top+backgroundOrigin[1],right:b.right+backgroundOrigin[0],bottom:b.bottom+backgroundOrigin[1]}:{left:backgroundOrigin[0],top:backgroundOrigin[1],right:backgroundOrigin[0]+width,bottom:backgroundOrigin[1]+height};
+ function retain(){references++;let released=false,closing;return{width,height,previewOnly:true,
   get byteLength(){return released?0:sampleWidth*sampleHeight*4;},
-  prepare:()=>!released,
-  draw(ctx){if(released)return;ctx.save();ctx.beginPath();ctx.rect(0,0,width,height);ctx.clip();ctx.drawImage(canvas,0,0,width,height);ctx.restore();},
+  prepare:(bounds,scale)=>!released&&underlay?.prepare?.(sourceBounds(bounds),scale)!==false,
+  draw(ctx,bounds,scale){if(released)return;ctx.save();try{ctx.beginPath();ctx.rect(0,0,width,height);ctx.clip();if(underlay){ctx.save();try{ctx.translate(-backgroundOrigin[0],-backgroundOrigin[1]);underlay.draw(ctx,sourceBounds(bounds),scale);}finally{ctx.restore();}}ctx.drawImage(canvas,0,0,width,height);}finally{ctx.restore();}},
   readPixels:unavailable,readDisplayPixels:unavailable,
   fork(){return released?null:retain();},freeze(){return released?null:retain();},
-  close(){if(released)return;released=true;if(!--references)canvas.width=canvas.height=0;}
+  close(){if(released)return;if(closing)return closing;const finish=()=>{released=true;if(!--references)canvas.width=canvas.height=0;};if(references>1){finish();return;}const ack=underlay?.close();if(ack?.then){closing=Promise.resolve(ack).then(finish,error=>{closing=null;throw error;});return closing;}finish();}
  };}
  return retain();
 }
@@ -42,7 +45,7 @@ export function createRemoteSurface(display,cache,request,changed,onError=()=>{}
    const canvas=document.createElement('canvas');canvas.width=pixels.width;canvas.height=pixels.height;
    const context=canvas.getContext('2d'),image=context.createImageData(pixels.width,pixels.height);
    for(let a=0,b=0;a<pixels.data.length;a+=3,b+=4){image.data[b]=pixels.data[a];image.data[b+1]=pixels.data[a+1];image.data[b+2]=pixels.data[a+2];image.data[b+3]=255;}
-   context.putImageData(image,0,0);cache.put(key,canvas);frame=tile;failed=null;changed();
+   context.putImageData(image,0,0);cache.put(key,canvas,()=>{if(closed)return;frame=null;failed=null;changed();});frame=tile;failed=null;changed();
   }).catch(error=>{if(!closed&&identity(wanted)===id){failed=id;onError(error);}}).finally(()=>{pending=null;pump();});
  }
  const surface={width,height,byteLength:0,display,

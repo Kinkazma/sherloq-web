@@ -1,4 +1,12 @@
-import {parameters,channelValue,rows,rgbPixels,binaryMask,normalizeU8} from './pixel-utils.js';
+import {createCooperator,checkAbort} from './errors.js';
+import {parameters,channelValue,rgbPixels,binaryMask,normalizeU8} from './pixel-utils.js';
+const COOPERATE=Symbol('minmax useful-work cooperation');
+// Share bounded useful-work cooperation across the phases of one render.
+// Progress keeps the original row cadence; a small row never forces a timer.
+async function rows(height,hooks,callback){
+ const cooperate=hooks[COOPERATE];
+ for(let y=0;y<height;y++){await cooperate();callback(y);if((y+1)%32===0||y===height-1)hooks.onProgress?.((y+1)/height);checkAbort(hooks.signal);}
+}
 export const minmaxParams=(p={})=>parameters(p,{channel:0,minimum:1,maximum:0,filter:0},{channel:[0,4],minimum:[0,4],maximum:[0,4],filter:[0,5]});
 export const MINMAX_PALETTE=[[255,0,0],[0,255,0],[0,0,255],[255,255,255],[0,0,0]];
 async function density(mask,w,h,radius,hooks){
@@ -17,6 +25,7 @@ async function density(mask,w,h,radius,hooks){
  return normalizeU8(values,127);
 }
 export async function localExtrema(image,p,hooks={}){
+ if(!hooks[COOPERATE])hooks={...hooks,[COOPERATE]:createCooperator(hooks.signal)};
  const {width:w,height:h,data:src}=image,n=w*h,values=new Uint32Array(n),low=new Uint8Array(n),high=new Uint8Array(n);
  await rows(h,hooks,y=>{for(let x=0;x<w;x++){const i=y*w+x;values[i]=channelValue(src,i*3,p.channel);}});
  await rows(h,hooks,y=>{
@@ -30,6 +39,7 @@ export async function localExtrema(image,p,hooks={}){
  return {low,high};
 }
 export async function minmax(image,p,hooks={}){
+ hooks={...hooks,[COOPERATE]:createCooperator(hooks.signal)};
  const {width:w,height:h,data:src}=image,out=new Uint8Array(src.length),{low,high}=await localExtrema(image,p,hooks);
  if(!p.filter){
   await rows(h,hooks,y=>{for(let x=0;x<w;x++){const i=y*w+x;if(low[i]||high[i])out.set(MINMAX_PALETTE[low[i]?p.minimum:p.maximum],i*3);}});

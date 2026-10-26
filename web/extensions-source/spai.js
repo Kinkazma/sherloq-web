@@ -88,7 +88,10 @@ export async function extractPatchSource(image,origin,padding,{signal}={}){
  const shortX=image.width<224,shortY=image.height<224;
  const rect={x:shortX?0:origin[1],y:shortY?0:origin[0],width:shortX?image.width:224,height:shortY?image.height:224};
  const window=await readRGBWindow(image,rect,{signal});
- try{return extractPatch(window.pixels,[shortY?origin[0]:0,shortX?origin[1]:0],[shortY?padding[0]:0,shortX?padding[1]:0]);}finally{window.release();}
+ let raw,failure;
+ try{raw=extractPatch(window.pixels,[shortY?origin[0]:0,shortX?origin[1]:0],[shortY?padding[0]:0,shortX?padding[1]:0]);}catch(error){failure=error;}
+ try{await window.release();}catch(error){if(failure===undefined)failure=error;}
+ if(failure!==undefined)throw failure;check(signal);return raw;
 }
 async function digestPixels(p,supplied){if(supplied)return supplied;const b=new Uint8Array(p.data.buffer,p.data.byteOffset,p.data.byteLength),h=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(h),x=>x.toString(16).padStart(2,'0')).join('');}
 export async function prepare(image,{memo,signal,onProgress,digest,scheduler,budget,maxWorkers,streaming,batchSize=16,encoderBatchSize=1}={}){

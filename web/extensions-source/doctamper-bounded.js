@@ -7,6 +7,13 @@ const MEAN=[.485,.455,.406].map(Math.fround),STD=[.229,.224,.225].map(Math.froun
 const now=()=>globalThis.performance?.now()??Date.now();
 function check(signal){if(signal?.aborted)throw signal.reason??new DOMException('Aborted','AbortError');}
 function requireValue(value,message){if(!value)throw Error(message);}
+// Retirement may need a worker/storage acknowledgement. Retire every owner,
+// preserve an existing computation error, and never publish an unretired lease.
+async function retireCallbacks(callbacks,failure){
+ for(const callback of callbacks)try{await callback();}catch(error){if(failure===undefined)failure=error;else if(failure&&typeof failure==='object')try{(failure.cleanupErrors??=[]).push({code:error?.code??'CLEANUP_FAILED',message:String(error?.message??error)});}catch{}}
+ return failure;
+}
+function retirementAbort(signal,failure){if(failure!==undefined)return failure;try{check(signal);}catch(error){return error;}}
 function sourceReader(image){
  const width=image.width??image.surface?.descriptor?.width,height=image.height??image.surface?.descriptor?.height;
  requireValue(Number.isSafeInteger(width)&&Number.isSafeInteger(height)&&width>0&&height>0&&Number.isSafeInteger(width*height),'DTD source dimensions required.');
@@ -34,7 +41,7 @@ export async function prepareBounded(image,{signal,onProgress,budget,scheduler,g
  let sourceFormat=String(image.sourceFormat??image.provenance?.format??'').toUpperCase();const orientation=image.exifOrientation??image.provenance?.orientation??1,encoded=image.encodedBytes??image.source;
  if(!sourceFormat&&encoded){
   if(encoded instanceof Uint8Array)sourceFormat=encoded[0]===255&&encoded[1]===216?'JPEG':'';
-  else if(typeof encoded.read==='function'){const part=await encoded.read(0,Math.min(2,encoded.byteLength),{signal});try{if(part.bytes[0]===255&&part.bytes[1]===216)sourceFormat='JPEG';}finally{part.release?.();}}
+  else if(typeof encoded.read==='function'){const part=await encoded.read(0,Math.min(2,encoded.byteLength),{signal});try{if(part.bytes[0]===255&&part.bytes[1]===216)sourceFormat='JPEG';}finally{await part.release?.();}check(signal);}
  }
  const native=sourceFormat==='JPEG'&&encoded&&orientation===1&&Math.min(width,height)>=TILE;
  requireValue(native?typeof nativeCategorySource==='function':typeof workingDCT==='function',native?'Bounded native JPEG category extractor required; recompression is not accepted.':'Bounded DTD requires the Q90 working JPEG codec.');
@@ -61,7 +68,7 @@ async function patchFeedsAttempt(prepared,patch,{signal,resourceOperation}={}){
  prepared.assertAlive();check(signal);const {width,height,source,budget}=prepared,[x,y]=patch.box,n=TILE*TILE;
  requireValue(x%8===0&&y%8===0,'DTD working JPEG tiles must preserve the native 8x8 block phase.');
  const lease=await prepared.scheduler?.acquire({cpu:1,bytes:8*MiB,domains:{'array-buffer':8*MiB},signal,operation:resourceOperation,resourceOwner:'doctamper-inference',label:'DTD-tile-preparation'});
- let reserve,part,categoryPart,backing;let released=false;
+ let reserve,part,categoryPart,backing,answer,failure;let released=false;
  const release=()=>{if(released)return;released=true;backing?.();reserve?.();};
  try{
   reserve=lease?lease.retainMemory(8*MiB):budget?.reserve(8*MiB);
@@ -79,7 +86,7 @@ async function patchFeedsAttempt(prepared,patch,{signal,resourceOperation}={}){
    const gray=allocateTypedArray(Uint8Array,n,{label:'DTD-tile-gray'});gray.fill(255);
    for(let row=0;row<h;row++)for(let col=0;col<w;col++){const at=(row*w+col)*channels;gray[row*TILE+col]=pillowLuma(pixels.data[at],pixels.data[at+1],pixels.data[at+2]);}
    // The source decoder window no longer needs to stay live through the codec.
-   part.release?.();part=null;
+   const completedSource=part;part=null;await completedSource.release?.();
    const extracted=await prepared.workingDCT({width:TILE,height:TILE,data:gray,format:'gray8'},{quality:90,grayscale:true,signal});check(signal);
    const coefficients=extracted.coefficients??extracted.coeff??extracted.data,stride=extracted.stride??TILE;
    table=extracted.quantizationTable??extracted.table??extracted.qt;
@@ -89,27 +96,32 @@ async function patchFeedsAttempt(prepared,patch,{signal,resourceOperation}={}){
   requireValue(table?.length===64&&Array.from(table).every(v=>Number.isInteger(v)&&v>=0&&v<=63),'DTD luminance QT outside embedding range0..63.');
   for(let i=0;i<64;i++)qt[i]=BigInt(table[i]);
   if(budget)backing=registerArrayViews(budget,{rgb,dct,qt},{owner:'doctamper-inference',label:'tile-feeds'});
-  return {feeds:{rgb:{data:rgb,dims:[1,3,TILE,TILE],type:'float32'},dct:{data:dct,dims:[1,TILE,TILE],type:'int64'},qt:{data:qt,dims:[1,1,8,8],type:'int64'}},release};
- }catch(error){release();throw error;}finally{part?.release?.();categoryPart?.release?.();lease?.release();}
+  answer={feeds:{rgb:{data:rgb,dims:[1,3,TILE,TILE],type:'float32'},dct:{data:dct,dims:[1,TILE,TILE],type:'int64'},qt:{data:qt,dims:[1,1,8,8],type:'int64'}},release};
+ }catch(error){failure=error;}finally{
+  failure=retirementAbort(signal,await retireCallbacks([()=>part?.release?.(),()=>categoryPart?.release?.(),()=>lease?.release()],failure));
+  if(failure!==undefined)failure=await retireCallbacks([release],failure);
+ }
+ if(failure!==undefined)throw failure;return answer;
 }
 function outputArray(Type,length,budget,label){return budget?allocateOwnedTypedArray(Type,length,{budget,owner:'doctamper-result',label}):{data:allocateTypedArray(Type,length,{label}),release(){}};}
 
 export async function analyzeBounded(prepared,{runtime,asset=MODEL_ASSET,signal,onProgress,threshold=.5,render=false,concurrency=1,prefetch=true}={}){
  prepared.assertAlive();requireValue(typeof runtime?.infer==='function','Shared runtime.infer required.');requireValue(threshold>=0&&threshold<=1,'Invalid display threshold.');check(signal);
- const started=now(),{width,height,budget}=prepared,n=width*height;let scoreOwner,validOwner,displayOwner,success=false,pendingInput;
+ const started=now(),{width,height,budget}=prepared,n=width*height;let scoreOwner,validOwner,displayOwner,success=false,pendingInput,failure;
  requireValue(Number.isInteger(concurrency)&&concurrency>=1&&concurrency<=2,'DTD supports one or two explicitly admitted tile jobs.');
  requireValue(!render||n<=16*1024**2,'Large DTD presentation must render bounded windows, not global RGBA copies.');
  let inferenceMs=0,prepareMs=0,inflightRequests=0,peakInflightRequests=0;
  try{
   await runWithResourceRecovery(()=>{let score;try{score=outputArray(Float32Array,n,budget,'foreground-score-map');const valid=outputArray(Uint8Array,n,budget,'foreground-validity');scoreOwner=score;validOwner=valid;}catch(error){score?.release();throw error;}},{budget,signal,owner:'doctamper-result',operation:'DTD-result-allocation'});scoreOwner.data.fill(NaN);
   const makeInput=async patch=>{const before=now();try{return {input:await patchFeedsBounded(prepared,patch,{signal})};}catch(error){return {error};}finally{prepareMs+=now()-before;}};
-  const infer=async(input,patch)=>{let output,mapOwner,success=false;inflightRequests++;peakInflightRequests=Math.max(peakInflightRequests,inflightRequests);try{
+  const infer=async(input,patch)=>{let output,mapOwner,answer,failure;inflightRequests++;peakInflightRequests=Math.max(peakInflightRequests,inflightRequests);try{
    // Admit/allocate the small postprocess map before useful neural work. Its
    // lifetime includes out-of-order waits, and ends at ordered commit.
    const createMap=()=>outputArray(Float32Array,TILE*TILE,budget,'tile-foreground-map');
    try{mapOwner=createMap();}catch(error){let original=error;mapOwner=await runWithResourceRecovery(()=>{if(original){const failure=original;original=null;throw failure;}return createMap();},{budget,signal,owner:'doctamper-inference',operation:'DTD-tile-map-allocation'});}
-   const before=now();output=await runtime.infer(asset,input.feeds,{signal,cache:false});inferenceMs+=now()-before;check(signal);foregroundFromLogits(output.logits??output.outputs?.logits,mapOwner.data);success=true;return {patch,map:mapOwner.data,release:mapOwner.release};
-  }finally{inflightRequests--;output?.release?.();input.release();if(!success)mapOwner?.release();}};
+   const before=now();output=await runtime.infer(asset,input.feeds,{signal,cache:false});inferenceMs+=now()-before;check(signal);foregroundFromLogits(output.logits??output.outputs?.logits,mapOwner.data);answer={patch,map:mapOwner.data,release:mapOwner.release};
+  }catch(error){failure=error;}finally{inflightRequests--;failure=retirementAbort(signal,await retireCallbacks([()=>output?.release?.(),()=>input.release()],failure));if(failure!==undefined)failure=await retireCallbacks([()=>mapOwner?.release()],failure);}
+  if(failure!==undefined)throw failure;return answer;};
   const commit=({patch,map,release})=>{try{const [x,y,x1,y1]=patch.box,w=Math.min(x1,width)-x,h=Math.min(y1,height)-y;for(let row=0;row<h;row++){scoreOwner.data.set(map.subarray(row*TILE,row*TILE+w),(y+row)*width+x);validOwner.data.fill(255,(y+row)*width+x,(y+row)*width+x+w);}}finally{release();}};
 
   let completed=0;
@@ -150,14 +162,18 @@ export async function analyzeBounded(prepared,{runtime,asset=MODEL_ASSET,signal,
   let released=false;Object.defineProperty(result,'release',{value:()=>{if(released)return;released=true;scoreOwner.release();validOwner.release();displayOwner?.release?.();}});
   if(render){const display=await renderBoundedWindow(prepared,result,{x:0,y:0,width,height},{signal,threshold});displayOwner=display;Object.assign(result,display);}
   success=true;return result;
- }finally{if(pendingInput){const state=await pendingInput;state.input?.release();}if(!success){scoreOwner?.release();validOwner?.release();displayOwner?.release?.();}}
+ }catch(error){failure=error;throw error;}finally{
+  const originalFailure=failure;failure=retirementAbort(signal,await retireCallbacks([async()=>{if(pendingInput){const state=await pendingInput;await state.input?.release();}}],failure));
+  if(!success||failure!==undefined)failure=await retireCallbacks([()=>scoreOwner?.release(),()=>validOwner?.release(),()=>displayOwner?.release?.()],failure);
+  if(originalFailure===undefined&&failure!==undefined)throw failure;
+ }
 }
 
 /** Window-only presentation; changing threshold/colors does not run the model.
  * Caller owns this small RGBA/mask window. Source windows are always released. */
 export async function renderBoundedWindow(prepared,result,{x,y,width,height},{signal,threshold=.5,overlay=true}={}){
  prepared.assertAlive();check(signal);requireValue(width*height<=16*1024**2,'DTD render window exceeds16MP; use smaller presentation windows.');requireValue([x,y,width,height].every(Number.isSafeInteger)&&x>=0&&y>=0&&width>0&&height>0&&x+width<=prepared.width&&y+height<=prepared.height,'Invalid DTD presentation window.');
- const owners=[];let sourcePart,success=false;
+ const owners=[];let sourcePart,presentation,failure;
  const allocate=(Type,count,label)=>{const owner=outputArray(Type,count,prepared.budget,label);owners.push(owner);return owner.data;};
  try{
   const mask=allocate(Uint8Array,width*height,'window-mask'),heatmapRGBA=allocate(Uint8ClampedArray,width*height*4,'window-heatmap'),overlayRGBA=overlay?allocate(Uint8ClampedArray,width*height*4,'window-overlay'):null;
@@ -168,6 +184,7 @@ export async function renderBoundedWindow(prepared,result,{x,y,width,height},{si
    if(!valid)continue;mask[j]=s>=threshold?255:0;heatmapRGBA[4*j]=Math.round(s*255);heatmapRGBA[4*j+2]=Math.round((1-s)*255);heatmapRGBA[4*j+3]=255;
    if(overlay){const alpha=.5*s;overlayRGBA[4*j]=Math.floor(overlayRGBA[4*j]*(1-alpha)+255*alpha);overlayRGBA[4*j+1]=Math.floor(overlayRGBA[4*j+1]*(1-alpha));overlayRGBA[4*j+2]=Math.floor(overlayRGBA[4*j+2]*(1-alpha));}
   }}
-  const presentation={mask,heatmapRGBA,...(overlay?{overlayRGBA}:{})};let released=false;Object.defineProperty(presentation,'release',{value:()=>{if(released)return;released=true;for(const owner of owners)owner.release();}});success=true;return presentation;
- }finally{sourcePart?.release?.();if(!success)for(const owner of owners)owner.release();}
+  presentation={mask,heatmapRGBA,...(overlay?{overlayRGBA}:{})};let released=false;Object.defineProperty(presentation,'release',{value:()=>{if(released)return;released=true;for(const owner of owners)owner.release();}});
+ }catch(error){failure=error;}finally{failure=retirementAbort(signal,await retireCallbacks([()=>sourcePart?.release?.()],failure));if(failure!==undefined)failure=await retireCallbacks(owners.map(owner=>()=>owner.release()),failure);}
+ if(failure!==undefined)throw failure;return presentation;
 }

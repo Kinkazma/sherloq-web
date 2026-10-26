@@ -5,11 +5,14 @@ import {createComplexPlane} from './segmented-complex-plane.js';
 import {createFloatPlane} from './segmented-float-plane.js';
 // SciPy's global real FFT convolution with the 3x3 all-ones kernel. The
 // packed half spectrum is stored globally; all transforms span complete axes.
-export async function segmentedPrnuCorrelation(input,{budget,signal,onProgress,blockPixels=65536,pool,...storage}={}){
+// accountedHeapBytes is a live caller reservation for this same native runtime.
+// Its credit changes neither native dimensions nor arithmetic or sample order.
+export async function segmentedPrnuCorrelation(input,{budget,signal,onProgress,blockPixels=65536,pool,accountedHeapBytes=0,...storage}={}){
  const {width:sw,height:sh}=input,width=prnuPaddedLength(sw+2),height=prnuPaddedLength(sh+2),cw=Math.floor(width/2)+1;
  requireValue(Number.isSafeInteger(blockPixels)&&blockPixels>0&&blockPixels<=262144,'Invalid PRNU strip size.');
- const heap=Math.max(24*1024**2,prnuStreamHeapBytes()),room=budget.limit-budget.retained-budget.active,block=Math.min(blockPixels,Math.floor((room-heap-2*1024**2)/160));if(block<2*Math.max(width,height))throw new EngineError('MEMORY_LIMIT','Two complete PRNU axes must fit.');
- const release=budget.reserve(heap+block*160),options={...storage,budget,signal,ArrayType:Float64Array,chunkBytes:Math.max(8192,block*16)};let rows,columns,output,done=false;
+ requireValue(Number.isSafeInteger(accountedHeapBytes)&&accountedHeapBytes>=0,'Invalid admitted PRNU heap credit.');
+ const heap=Math.max(24*1024**2,prnuStreamHeapBytes()),credit=Math.min(heap,accountedHeapBytes),room=budget.limit-budget.retained-budget.active+credit,block=Math.min(blockPixels,Math.floor((room-heap-2*1024**2)/160));if(block<2*Math.max(width,height))throw new EngineError('MEMORY_LIMIT','Two complete PRNU axes must fit.');
+ const release=budget.reserve(heap-credit+block*160),options={...storage,budget,signal,ArrayType:Float64Array,chunkBytes:Math.max(8192,block*16)};let rows,columns,output,done=false;
  const progress=(phase,completed,total)=>onProgress?.({phase,completed,total}),step=n=>Math.max(2,Math.floor(block/n/2)*2);
  const execute=options=>pool?pool.run(options):(async()=>{for(let i=0;i<options.count;i++){checkAbort(signal);await options.consume(await options.local(await options.prepare(i)),i);}})();
  try{

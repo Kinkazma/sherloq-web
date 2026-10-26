@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.25.0";
+import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,countedDenseOwner,denseConstructionOwner,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {wasmRange,byteView,closeMemoryRanges} from './memory-range.js';
 // Native global traversal with bounded caches and externally stored planes.
 // Input stores are borrowed; returned planes are owned until dispose(). No
@@ -12,7 +13,7 @@ import {serializeDenseError} from './dense-memory-error.js';
 import {denseWriteBatchBytes} from './dense-write-batch.js';
 export async function runPagedDenseField({first,second=first,mask,width,height,dimensions=12,axes=null}, {
  budget,temporarySession,getTemporarySession,storage='auto',pageBytes=4096,cachePages,
- residentPool,residentSiftBounds,pagedSiftBounds,initialBatchPixels,workspaceBytes,parallelism=1,maxParallelism=parallelism,acquireCpu,recoverMemory,releaseWorkspace,fieldWorkerFactory,distanceBatch,reserveGpuStaging,reuseGpuTransport=false,readCache,inputBarrier,inputReaders,reverseWindowPixels,minimum=5,radius=600,iterations=8,compare=false,seed=729,gap=[0,0],signal,onProgress
+ residentPool,residentSiftBounds,pagedSiftBounds,initialBatchPixels,workspaceBytes,parallelism=1,maxParallelism=parallelism,acquireCpu,recoverMemory,releaseWorkspace,fieldWorkerFactory,distanceBatch,reserveGpuStaging,reuseGpuTransport=false,readCache,inputBarrier,inputReaders,reverseWindowPixels,minimum=5,radius=600,iterations=8,compare=false,seed=729,gap=[0,0],signal,onProgress,onRetirementOwner
 }={}){
  const n=width*height,compact=first?.kind==='compact-sift';if(compact)dimensions=128;
  requireValue(Number.isSafeInteger(width)&&Number.isSafeInteger(height)&&width>0&&height>0&&n<=0x7fffffff&&[12,128].includes(dimensions),'Invalid paged dense shape.');
@@ -57,9 +58,8 @@ export async function runPagedDenseField({first,second=first,mask,width,height,d
  let memory=plan();
  if(automaticBounds&&pagedSiftBounds&&second.hist.byteLength<=memory.cachePages*pageBytes){pagedSiftBounds=false;lengths[16]=0;memory=plan();}
  ({cachePages,initialBatchPixels}=memory);const {cacheBytes,initialCachePages,initialCacheBytes,batchBytes,workspaceBytes:workspace}=memory;
- checkAbort(signal);const reservationBytes=parallel?kernelBytes*initialWorkers+poolBytes:workspace,release=budget.reserve(reservationBytes),owned=[];
+ checkAbort(signal);const reservationBytes=parallel?kernelBytes*initialWorkers+poolBytes:workspace,owned=[];let m,heap,errorPointer,countPointer,metadataPointer,weightsPointer,metadata,weights,parallelMetrics,parallelCleanup,parallelReservationOwned=false,success=false,failed=false,primary;const owner=denseConstructionOwner(owned,{onRetirementOwner},async()=>{await acknowledgeDenseRetirement(()=>parallelCleanup?.dispose());await retireDenseOwners(owned);}),release=budget.reserve(reservationBytes);
  const metrics={workspaceBytes:workspace,initialBatchPixels,batchBytes,residentPool,residentPoolBytes,residentSiftBoundsBytes,pagedSiftBounds,cacheBytes,pageBytes,cachePages,initialCachePages,initialCacheBytes,cachePolicy:'reuse-after-initialization',reads:0,writes:0,readBytes:0,writeBytes:0,heapBytes:0};
- let m,heap,errorPointer,countPointer,metadataPointer,weightsPointer,metadata,weights,parallelMetrics,success=false;
  const allocate=async bytes=>{const s=await createSegmentedBytes(bytes,{budget,temporarySession,getTemporarySession,storage,shared:true,signal,owner:'patchmatch',label:'dense-field-plane'});owned.push(s);return s;};
  try{
   const targets=await allocate(n*4),distancesSquared=await allocate(n*4),pool0=await allocate(residentPool?0:n*4),pool1=await allocate(residentPool?0:n*4);
@@ -75,7 +75,7 @@ export async function runPagedDenseField({first,second=first,mask,width,height,d
    if(compact){metadata=new Int32Array([first,second].flatMap(f=>[f.width,f.height,f.patch,f.offset,f.viewWidth,+f.mirror,+f.quarter,1]));metadata[15]=1+(residentSiftBounds?2:0)+(pagedSiftBounds?4:0);weights=new Float32Array([...first.weights,...second.weights]);}
    const values=[width,height,dimensions,+compare,minimum,radius,iterations,seed,...gap,+!!axes,pageBytes,initialCachePages,0,0,0,0,+residentPool,initialBatchPixels,cachePages,1,reverseCapacity,+symmetric];
    const {runParallelDenseField}=await import('./dense-field-parallel.js');
-   parallelMetrics=await runParallelDenseField({values,stores,metadata,weights,distanceBatch,reserveGpuStaging,reuseGpuTransport,gpuBatchPixels,transportBytesPerKernel,bootstrapStaging,budget,kernelBytes,initialWorkers,maximum:maxParallelism,acquireCpu,recoverMemory,releaseWorkspace,releaseInitialWorkspace:bytes=>release.split(bytes)(),signal,onProgress,workerFactory:fieldWorkerFactory,readCache,inputBarrier,inputReaders,cachePages,validateCachePages:pages=>planDensePageMemory({lengths,pageBytes,availableBytes:kernelBytes-bootstrapStaging-gpuNativeBytes-transportBytesPerKernel,residentBytes:poolBytes,n,dimensions,cachePages:pages,initialBatchPixels:0}),bootBytes:poolBytes});
+   parallelMetrics=await runParallelDenseField({values,stores,metadata,weights,distanceBatch,reserveGpuStaging,reuseGpuTransport,gpuBatchPixels,transportBytesPerKernel,bootstrapStaging,budget,kernelBytes,initialWorkers,maximum:maxParallelism,acquireCpu,recoverMemory,releaseWorkspace,releaseInitialWorkspace:bytes=>release.split(bytes)(),signal,onProgress,workerFactory:fieldWorkerFactory,readCache,inputBarrier,inputReaders,cachePages,validateCachePages:pages=>planDensePageMemory({lengths,pageBytes,availableBytes:kernelBytes-bootstrapStaging-gpuNativeBytes-transportBytesPerKernel,residentBytes:poolBytes,n,dimensions,cachePages:pages,initialBatchPixels:0}),bootBytes:poolBytes,onRetirementOwner:cleanup=>{parallelCleanup=cleanup;cleanup.adoptReservation(release);parallelReservationOwned=true;return()=>{if(parallelCleanup===cleanup)parallelCleanup=null;};}});
   }else{
   const {default:create}=await import('../vendor/dense-paged/dense-paged.js');
   heap=createDensePagedHeap(budget,parallel?kernelBytes:workspace);m=await create({wasmMemory:heap.memory});m.distanceBatch=typeof distanceBatch==='function'?job=>{const ranges=['queryDescriptors','candidateDescriptors','best'].map(key=>wasmRange(m,job[key].byteOffset,job[key].byteLength)),{pairCount,dimensions,distanceDimensions}=job;return Promise.resolve().then(()=>{const [queryDescriptors,candidateDescriptors,best]=ranges.map(range=>{const bytes=byteView(range);return new Float32Array(bytes.buffer,bytes.byteOffset,bytes.byteLength/4);});return distanceBatch({pairCount,dimensions,distanceDimensions,queryDescriptors,candidateDescriptors,best});});}:undefined;let lastYield=performance.now();
@@ -124,12 +124,11 @@ export async function runPagedDenseField({first,second=first,mask,width,height,d
   const comparisons=parallelMetrics?.comparisons??(BigInt(m.HEAPU32[countPointer/4])+(BigInt(m.HEAPU32[countPointer/4+1])<<32n));
   if(parallelMetrics){const {comparisons:parallelComparisons,...execution}=parallelMetrics;metrics.parallel=execution;metrics.reservationBytes=parallelMetrics.reservedWorkspaceBytes;metrics.reverseScratchBytes=reverseCapacity*8;metrics.gpuNativeScratchBytes=gpuNativeBytes;metrics.symmetricReverse=symmetric;await stores[17].dispose();await stores[18].dispose();}
   metrics.heapBytes=parallelMetrics?parallelMetrics.kernels.reduce((sum,kernel)=>sum+kernel.heapBytes,0):m.HEAPU8.byteLength;metrics.workspaceBytes=parallelMetrics?parallelMetrics.reservedWorkspaceBytes:heap.reservedBytes;metrics.plannedWorkspaceBytes=workspace;metrics.siftBoundRejections=parallelMetrics?parallelMetrics.kernels.reduce((sum,kernel)=>sum+(kernel.siftBoundRejections??0),0):(m.siftBoundRejections??0);
-  await pool0.dispose();await pool1.dispose();success=true;
-  let disposed=false;
-  return {width,height,targets,distancesSquared,allowed,ownsAllowed,comparisons,metrics,descriptorStorage:compact?'paged-compact-sift':'paged-global',async dispose(){if(disposed)return;disposed=true;await Promise.all([targets.dispose(),distancesSquared.dispose(),ownsAllowed?allowed.dispose():undefined]);}};
- }finally{
+  await pool0.dispose();await pool1.dispose();owner.publish();success=true;
+  
+  return {width,height,targets,distancesSquared,allowed,ownsAllowed,comparisons,metrics,descriptorStorage:compact?'paged-compact-sift':'paged-global',dispose:owner.dispose};
+ }catch(error){failed=true;primary=error;throw error;}finally{
   if(m){closeMemoryRanges(m);if(errorPointer)m._free(errorPointer);if(countPointer)m._free(countPointer);if(metadataPointer)m._free(metadataPointer);if(weightsPointer)m._free(weightsPointer);m.pageIO=null;m.checkpoint=null;}
-  if(!success)await Promise.allSettled(owned.map(s=>s.dispose()));
-  heap?.dispose();release();
+  try{if(!success)await cleanupDenseOwners(()=>owner.dispose(),{failed,primary});}finally{heap?.dispose();if(!parallelReservationOwned)release();}
  }
 }

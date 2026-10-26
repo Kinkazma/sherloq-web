@@ -1,5 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
-import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
+import "../../runtime-context.js?v=0.25.0";
+import {requireValue,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
 import {validatePixels} from './ela.js';
 import {parameters,gray,roundEven} from './pixel-utils.js';
 import {MEDIAN_FORMATS,MEDIAN_HEAP_LIMIT,medianBlockFeatures} from './median-features.js';
@@ -57,13 +57,13 @@ export async function medianAnalyze(image,model,{signal,onProgress,batchSize=32,
 // Specialized OpenCV 4.11 INTER_LINEAR uint8 enlargement at the native factor64.
 // Fixed 11-bit coefficients and separate vertical truncations are significant.
 // Compute only the requested crop; no enlarged padded intermediate is necessary.
-export async function medianEnlargeRows(grid,geometry,{signal,start=0,rows=geometry.imageHeight-start}={}){
+export async function medianEnlargeRows(grid,geometry,{signal,start=0,rows=geometry.imageHeight-start,cooperate=createCooperator(signal)}={}){
  const {width:gw,height:gh,imageWidth:w,imageHeight:h}=geometry;
  requireValue(Number.isSafeInteger(start)&&Number.isSafeInteger(rows)&&start>=0&&rows>0&&start<=h-rows,'Invalid median render rows.');
  const output=new Uint8Array(w*rows*3),left=new Uint32Array(w),weight=new Uint16Array(w);
  for(let x=0;x<w;x++){const position=Math.fround((x+.5)/64-.5),base=Math.floor(position);left[x]=Math.max(0,Math.min(gw-1,base));weight[x]=base<0||base>=gw-1?0:(position-base)*2048;}
  for(let y=start;y<start+rows;y++){
-  if((y-start)%32===0)await controlCheckpoint(signal);
+  if((y-start)%32===0)await cooperate();
   const position=Math.fround((y+.5)/64-.5),base=Math.floor(position),wy=(position-base)*2048,top=Math.max(0,Math.min(gh-1,base))*gw*3,bottom=Math.max(0,Math.min(gh-1,base+1))*gw*3;
   for(let x=0;x<w;x++){const a=left[x]*3,b=Math.min(gw-1,left[x]+1)*3,wx=weight[x];for(let c=0;c<3;c++){
    const s0=(grid[top+a+c]*(2048-wx)+grid[top+b+c]*wx)>>4,s1=(grid[bottom+a+c]*(2048-wx)+grid[bottom+b+c]*wx)>>4;
@@ -73,14 +73,14 @@ export async function medianEnlargeRows(grid,geometry,{signal,start=0,rows=geome
 }
 export const medianEnlarge=(grid,geometry,options)=>medianEnlargeRows(grid,geometry,options);
 
-export async function medianGrid(analysis,input={}, {signal}={}){
+export async function medianGrid(analysis,input={}, {signal,cooperate=createCooperator(signal)}={}){
  const p=medianParams(input),{geometry,probabilities,variances}=analysis,{width,height}=geometry,n=width*height;
  requireValue(probabilities instanceof Float32Array&&variances instanceof Float64Array&&probabilities.length===n&&variances.length===n,'Invalid median score grid.');
  const filtered=new Float32Array(n),valid=new Uint8Array(n),decisions=new Uint8Array(n),rgb=new Uint8Array(n*3),neighbors=new Float32Array(9);let sum=0,count=0;
  // NumPy compares a float32 array with a scalar converted to float32.
  const threshold=Math.fround(p.threshold);
  for(let y=0;y<height;y++){
-  if(y%32===0)await controlCheckpoint(signal);
+  if(y%32===0)await cooperate();
   for(let x=0;x<width;x++){
    const i=y*width+x;requireValue(Number.isFinite(probabilities[i])&&probabilities[i]>=0&&probabilities[i]<=1&&Number.isFinite(variances[i])&&variances[i]>=0,'Non-finite or out-of-range median grid.');
    if(p.speckle){let k=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)neighbors[k++]=probabilities[Math.max(0,Math.min(height-1,y+dy))*width+Math.max(0,Math.min(width-1,x+dx))];neighbors.sort();filtered[i]=neighbors[4];}else filtered[i]=probabilities[i];
@@ -93,6 +93,7 @@ export async function medianGrid(analysis,input={}, {signal}={}){
  checkAbort(signal);return {rgb,filtered,valid,decisions,mean:count?sum/count:0,validBlocks:count};
 }
 export async function medianRender(analysis,input={},hooks={}){
+ hooks={...hooks,cooperate:hooks.cooperate??createCooperator(hooks.signal)};
  const {rgb,...result}=await medianGrid(analysis,input,hooks),geometry=analysis.geometry;
  return {...result,pixels:{width:geometry.imageWidth,height:geometry.imageHeight,format:'rgb8',data:await medianEnlarge(rgb,geometry,hooks)}};
 }

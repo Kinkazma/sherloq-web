@@ -1,7 +1,16 @@
 import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js';
+import {loupeStepDefaults,loupeStepGroupDefaults,validateLoupeStepGroups,validateLoupeStepSettings} from './loupe-step-controls.js';
 // Stored locally when possible and included in portable workspace settings.
 export const exportDefaults=Object.freeze({format:'webp',quality:90,webpQuality:90,heicQuality:90,webpLossless:true,avifLossless:false,heicLossless:false,pngCompression:6,tiffCompression:'deflate',chroma:'source',resize:false,width:0,height:0,resizeAxis:'width',resizeAlgorithm:'auto'});
-export const loupeDefaults=Object.freeze({enabled:false,diameter:300,transition:60,proportional:true,zoom:200,unlock:false,markers:true,ringStyle:'dashed',ringWidth:1,ringOpacity:100,ringColor:'#edf6dc',sweepTarget:'gamma',sweepSpeed:2,effects:effectDefaults});
+export const loupeDefaults=Object.freeze({enabled:false,diameter:300,transition:60,proportional:true,zoom:200,unlock:false,markers:true,ringStyle:'dashed',ringWidth:1,ringOpacity:100,ringColor:'#edf6dc',sweepTarget:'gamma',sweepSpeed:2,stepTarget:loupeStepDefaults.target,stepSize:loupeStepDefaults.step,stepGroups:loupeStepGroupDefaults,effects:effectDefaults});
+export const placementLoupeDefaults=Object.freeze({diameter:90,transition:20,zoom:300});
+export const placementLoupeMinimumZoom=101;
+export function validatePlacementLoupeSettings(input={}){
+ if(!input||typeof input!=='object'||Array.isArray(input))throw Error('Invalid placement magnifier settings');const value={...placementLoupeDefaults,...input},validated=validateLoupeSettings({...value,proportional:false,unlock:true});
+ // Placement controls use integer percentages; old valid values below 101%
+ // migrate to a strictly magnifying scale relative to the current camera.
+ validated.zoom=Math.max(placementLoupeMinimumZoom,Math.round(validated.zoom));return Object.fromEntries(Object.keys(placementLoupeDefaults).map(key=>[key,validated[key]]));
+}
 const object=value=>value&&typeof value==='object'&&!Array.isArray(value);
 function integer(value,min,max,name){if(!Number.isInteger(value)||value<min||value>max)throw Error('Invalid '+name);return value;}
 export function validateExportSettings(input={}){
@@ -30,6 +39,8 @@ export function validateLoupeSettings(input={}){
  for(const key of ['enabled','unlock','markers','proportional'])if(typeof v[key]!=='boolean')throw Error('Invalid '+key);
  if(!['solid','dashed'].includes(v.ringStyle)||!/^#[a-f\d]{6}$/i.test(v.ringColor))throw Error('Invalid magnifier rings');
  if(v.sweepTarget==='enabled'||!Object.hasOwn(effectDefaults.adjust,v.sweepTarget))throw Error('Invalid magnifier sweep target');
+ validateLoupeStepSettings({target:v.stepTarget,step:v.stepSize});
+ v.stepGroups=validateLoupeStepGroups(v.stepGroups,{target:v.stepTarget,step:v.stepSize});
  v.effects=validateLoupeEffects(v.effects);
  return Object.fromEntries(Object.keys(loupeDefaults).map(k=>[k,v[k]]));
 }
@@ -40,7 +51,7 @@ export function loupeGeometry(settings,screen=globalThis.screen){
 export function validateMediaPreferences(input={}){
  if(!object(input))throw Error('Invalid media preferences');
  const font=input.font??'iowan';if(!['iowan','montserrat'].includes(font))throw Error('Invalid interface font');
- return{font,exports:validateExportSettings(input.exports),quickExport:validateExportSettings(input.quickExport),loupe:validateLoupeSettings(input.loupe)};
+ return{font,exports:validateExportSettings(input.exports),quickExport:validateExportSettings(input.quickExport),loupe:validateLoupeSettings(input.loupe),placementLoupe:validatePlacementLoupeSettings(input.placementLoupe)};
 }
 export function typingEvent(event){return (event.composedPath?.()??[event.target]).some(e=>['INPUT','TEXTAREA','SELECT'].includes(e?.tagName)||e?.isContentEditable||e?.getAttribute?.('contenteditable')==='true');}
 export function loupeSettingsKey(event){return shortcutKey(event,'r');}

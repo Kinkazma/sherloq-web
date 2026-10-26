@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {adaptD2PRLFragmentRoleGraph,D2PRL_ROLE_SOURCE_BYTES,D2PRL_ROLE_SOURCE_SHA256,D2PRL_FRAGMENT_ROLE_GRAPHS} from '../src/d2prl-fragment-role-graph.js';
+import {readOnnxGraph,onnxFields} from '../src/onnx-scoped-graph.js';
+const path=process.env.SHERLOQ_D2PRL_ROLE_ONNX,sha=v=>createHash('sha256').update(v).digest('hex');
+const source=path?new Uint8Array(await readFile(path)):null;
+const expected={features:{sha:'5620275d0ab8d2b1070c784fd6b58b85364000bad4e9aa4a9173fd43b0066ee6',nodes:59,initializers:42},classifier:{sha:'2ab676d68f773656420697aa2411464eeecf2f529c3924875bf795f914c8b555',nodes:18,initializers:18}};
+for(const part of ['features','classifier'])test('the real '+part+' cut preserves the exact original nodes and learned tensor payloads',{skip:!source},async()=>{
+ const original=readOnnxGraph(source),nodes=new Map(original.nodes.map(n=>[n.name,n.raw])),initializers=new Map(original.initializers.map(i=>[i.name,i.raw])),answer=await adaptD2PRLFragmentRoleGraph(source,{part}),graph=readOnnxGraph(answer.bytes),contract=D2PRL_FRAGMENT_ROLE_GRAPHS[part];assert.equal(sha(source),D2PRL_ROLE_SOURCE_SHA256);assert.equal(sha(answer.bytes),expected[part].sha,'Independent Python ONNX checker accepted this exact output.');assert.equal(graph.nodes.length,expected[part].nodes);assert.equal(graph.initializers.length,expected[part].initializers);assert.deepEqual(graph.inputs,[contract.input]);for(const node of graph.nodes)assert.deepEqual(node.raw,nodes.get(node.name),node.name);for(const initializer of graph.initializers)assert.deepEqual(initializer.raw,initializers.get(initializer.name),initializer.name);const produced=new Set([...graph.inputs,...graph.initializers.map(i=>i.name)]);for(const node of graph.nodes){for(const input of node.inputs)assert.ok(!input||produced.has(input),input);for(const output of node.outputs)produced.add(output);}assert.ok(produced.has(contract.output));assert.equal(onnxFields(answer.bytes).filter(f=>f.number===7).length,1);assert.equal(answer.metadata.scope.includes('separate qualification'),true);assert.equal(sha(source),D2PRL_ROLE_SOURCE_SHA256);
+});
+test('unknown cuts, truncation and a same-sized corrupted model fail before extracting graphs',async()=>{await assert.rejects(adaptD2PRLFragmentRoleGraph(new Uint8Array(3),{part:'features'}));await assert.rejects(adaptD2PRLFragmentRoleGraph(new Uint8Array(D2PRL_ROLE_SOURCE_BYTES),{part:'unknown'}));const bytes=new Uint8Array(D2PRL_ROLE_SOURCE_BYTES);await assert.rejects(adaptD2PRLFragmentRoleGraph(bytes,{part:'features'}),/SHA-256 differs/);});

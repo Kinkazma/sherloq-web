@@ -1,0 +1,16 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile}from'node:fs/promises';
+import {createM2WorkerClient}from'../src/m2-worker-client.js';
+// Controlled decoder/analyzer prove the protocol and ownership boundaries only.
+// Real decoder and unchanged NN cases are qualified separately in browsers.
+async function fixture({sha='b'.repeat(64),gate,failDecode=false}={}){
+ const key='__m2OwnerTest'+crypto.randomUUID().replaceAll('-',''),sourceUrl=new URL(import.meta.resolve('../src/m2-worker-host.js'));let source=await readFile(sourceUrl,'utf8');
+ const stub=`export async function loadM2SegmentedOriginal(...a){return globalThis.${key}.load(...a)};export async function disposeSegmentedImage(...a){return globalThis.${key}.dispose(...a)};`;
+ source=source.replace(/from '\.\/image-sources\.js'/,"from 'data:text/javascript;base64,"+Buffer.from(stub).toString('base64')+"'");source=source.replace(/from\s*(['"])(\.\/[^'"]+)\1/g,(_,q,s)=>'from '+JSON.stringify(new URL(s,sourceUrl).href));
+ let decodeCalls=0,analyzeCalls=0,disposed=0,next=0,budget;const messages=[],images=[],optionsSeen=[];globalThis[key]={async load(blob,options){decodeCalls++;budget=options.budget;const release=budget.reserve(3072),image={width:32,height:32,sha256:sha,surface:{descriptor:{width:32,height:32,format:'rgb8'}},release};images.push(image);if(gate)await gate.promise;if(failDecode){release();throw Object.assign(Error('decode failure'),{code:'UNSUPPORTED_FORMAT'});}return image;},async dispose(image){disposed++;image.release();}};
+ const {createM2WorkerHost}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+ const host=createM2WorkerHost({post:m=>messages.push(m),analyzerFactories:{trufor:({budget:b})=>({async analyze(image,params,options){optionsSeen.push(options);analyzeCalls++;const release=b.reserve(4096);return{data:{width:32,height:32,map:new Float32Array(1024),score:1},provenance:{originalSourceSha256:image.sha256},release};},clearCache(){},dispose(){}})}});
+ const request=async(operation,args={},id=++next)=>{await host.handle({id,operation,args});return messages.find(m=>m.id===id&&!m.progress);};await request('initialize',{memoryBudgetBytes:128*1024**2,computeProfile:'maximum',methods:{trufor:{}}});
+ return{host,request,messages,optionsSeen,get decodeCalls(){return decodeCalls},get analyzeCalls(){return analyzeCalls},get disposed(){return disposed},get budget(){return budget},async close(){await request('dispose');delete globalThis[key];}};
+}
+
+test('only the actual original-Blob route grants immutable-source cache identity',async()=>{const h=await fixture();try{const blob=new Blob(['fixture']);const a=await h.request('analyzeBlob',{method:'trufor',blob,expectedSourceSha256:'b'.repeat(64)});assert(a.value);assert.equal(h.optionsSeen[0].immutableSource,true);await h.request('releaseResult',{resultId:a.value.id});const b=await h.request('analyze',{method:'trufor',image:{width:32,height:32,data:new Uint8Array(32*32*3)}});assert(b.value);assert.equal(Object.hasOwn(h.optionsSeen[1],'immutableSource'),false);await h.request('releaseResult',{resultId:b.value.id});assert.equal(h.budget.total(),0);}finally{await h.close();}});

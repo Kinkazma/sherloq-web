@@ -1,7 +1,7 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {prnuNccStored,PRNU_NCC_WORKSPACE_BYTES} from './prnu-ncc.js';
 export {prnuNcc} from './prnu-ncc.js';
-import {EngineError,requireValue,checkpoint} from './errors.js';
+import {EngineError,requireValue,checkpoint,createCooperator,checkAbort} from './errors.js';
 import {cvPrnuResidual} from './opencv.js';
 import {parameters} from './pixel-utils.js';
 import {PRNU_TWIDDLES} from './prnu-twiddles.js';
@@ -41,9 +41,10 @@ export async function prnuMean(residuals,{signal}={}){
 export async function identifyPrnu(image,database,querySha256,hooks={}){
  requireValue(database?.cameras?.length>0,'A PRNU fingerprint database is required.');
  for(const camera of database.cameras)requireValue(!camera.trainingManifest?.some(x=>x.sha256===querySha256),'The query belongs to the PRNU training set. Use a held-out image.');
+ const cooperate=hooks.cooperate??createCooperator(hooks.signal);
  let started=performance.now();const residual=await(hooks.memo?hooks.memo('residual',()=>cvPrnuResidual(image,hooks)):cvPrnuResidual(image,hooks)),scores=[];hooks.onTiming?.('residualMs',performance.now()-started);started=performance.now();
- for(const camera of database.cameras){await checkpoint(hooks.signal);const score=await prnuNccStored(residual,camera.fingerprint,{signal:hooks.signal,admit:hooks.admit});if(!Number.isFinite(score))throw new EngineError('NUMERIC_RANGE','PRNU correlation is undefined for the numeric range of this fingerprint.');scores.push({camera:camera.name,score});hooks.onProgress?.(scores.length/database.cameras.length);}
- scores.sort((a,b)=>b.score-a.score);hooks.onTiming?.('matchingMs',performance.now()-started);const top=scores[0].score,gap=top-(scores[1]?.score??0),reachesExperimentalThreshold=top>=PRNU_THRESHOLD;
+ for(const camera of database.cameras){await cooperate();const score=await prnuNccStored(residual,camera.fingerprint,{signal:hooks.signal,admit:hooks.admit,cooperate});if(!Number.isFinite(score))throw new EngineError('NUMERIC_RANGE','PRNU correlation is undefined for the numeric range of this fingerprint.');scores.push({camera:camera.name,score});hooks.onProgress?.(scores.length/database.cameras.length);}
+ checkAbort(hooks.signal);scores.sort((a,b)=>b.score-a.score);hooks.onTiming?.('matchingMs',performance.now()-started);const top=scores[0].score,gap=top-(scores[1]?.score??0),reachesExperimentalThreshold=top>=PRNU_THRESHOLD;
  return {scores:scores.map((x,i)=>({...x,rank:i+1,scoreText:formatPrnuScore(x.score),gapText:i===0&&scores.length>1?formatPrnuScore(gap):''})),threshold:PRNU_THRESHOLD,reachesExperimentalThreshold,highestCandidate:reachesExperimentalThreshold?scores[0].camera:null,scoreGap:gap,gapAboveHistoricalDisplayCutoff:gap>.01,legacy:database.legacy,trainingMembershipVerified:database.trainingMembershipVerified,residualMethod:residual.method,noisePower:residual.noisePower,semantics:'Historical Wiener-residual NCC, with an uncalibrated experimental threshold. The highest candidate is not a calibrated camera identification or an authenticity verdict.'};
 }
 export async function prnuData(image,p,hooks,context){

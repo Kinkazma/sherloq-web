@@ -1,3 +1,4 @@
+import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,denseConstructionOwner} from './dense-owner-retirement.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {checkAbort} from './errors.js';
 
@@ -6,7 +7,8 @@ import {checkAbort} from './errors.js';
 // once in bounded sequential chunks; publication occurs only after completion.
 export async function storeColdDenseField(field,options){
  if(options.storage!=='temporary')return field;
- const names=['targets','distancesSquared',...(field.ownsAllowed?['allowed']:[])],owned=[];let success=false;
+ const names=['targets','distancesSquared',...(field.ownsAllowed?['allowed']:[])],owned=[],drops=new Map();let success=false;
+ const retireStore=store=>{if(!drops.has(store))drops.set(store,onceDenseRetirement(()=>store.dispose()));return drops.get(store);},copies=denseConstructionOwner([],{onRetirementOwner:options.onRetirementOwner},()=>retireDenseOwners(owned.map(retireStore))),dropField=onceDenseRetirement(()=>field.dispose());
  try{
   const replacements={};
   for(const name of names){
@@ -18,8 +20,8 @@ export async function storeColdDenseField(field,options){
   }
   // Shared worker outputs have one common output reservation. The temporary
   // copies above replace all its owned planes together before dropping it.
-  if(!owned.length){success=true;return field;}
-  const replacedAll=owned.length===names.length;if(replacedAll)await field.dispose();
-  let disposed=false;success=true;return {...field,...replacements,async dispose(){if(disposed)return;disposed=true;await Promise.all(owned.map(store=>store.dispose()));if(!replacedAll)await field.dispose();}};
- }finally{if(!success)await Promise.allSettled(owned.map(store=>store.dispose()));}
+  if(!owned.length){copies.publish();success=true;return field;}
+  const replacedAll=owned.length===names.length;if(replacedAll)await dropField();
+  copies.publish();success=true;return {...field,...replacements,dispose:onceDenseRetirement(async()=>{await copies.dispose();if(!replacedAll)await dropField();})};
+ }finally{if(!success)await acknowledgeDenseRetirement(()=>copies.dispose());}
 }

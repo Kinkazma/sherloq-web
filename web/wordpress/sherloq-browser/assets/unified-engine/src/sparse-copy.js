@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.25.0";
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {EfficientLoFtrEngine} from './efficient-loftr.js';
 import {efficientLoFtrParams} from './efficient-loftr-input.js';
 import {ssgFullParams} from './ssg-full-input.js';
@@ -37,9 +38,18 @@ let nextId=0;
 // Internal complete classical pipeline. Only ORB/AKAZE extraction currently has
 // exact image evidence; unresolved numerical profiles remain explicit in output.
 export class SparseCopyEngine{
- constructor(image,budget,profile){this.image=image;this.budget=budget;this.profile=profile;this.features=new SparseFeatureEngine(budget,profile);this.learned=new LearnedFeatureEngine(budget,profile);this.glue=new SparseGlueEngine(budget,profile);this.ocr=new TextRegionEngine(budget,profile);this.prefix='m3-sparse-'+(++nextId)+'/';this.running=false;this.disposed=false;this.lifetime=new AbortController();this.counts={detections:0,matchings:0,groupings:0,ocr:0};}
+ constructor(image,budget,profile){this.image=image;this.budget=budget;this.profile=profile;this.features=new SparseFeatureEngine(budget,profile);this.learned=new LearnedFeatureEngine(budget,profile);this.glue=new SparseGlueEngine(budget,profile);this.ocr=new TextRegionEngine(budget,profile);this.prefix='m3-sparse-'+(++nextId)+'/';this.running=false;this.disposed=false;this.lifetime=new AbortController();this.counts={detections:0,matchings:0,groupings:0,ocr:0};this.fitInputs=new WeakMap();this.nextFitInput=0;}
  clearCheckpoint(key){return this.features.clearCheckpoint?.(key);}
- async dispose(){this.disposed=true;this.lifetime.abort();await this.efficient?.dispose();await this.ssg?.dispose();const features=this.features.dispose();this.learned.dispose();this.glue.dispose();this.ocr.dispose();if(!this.running)this.budget.clearPrefix(this.prefix);await features;await this.finished;this.budget.clearPrefix(this.prefix);}
+ dispose(){
+  this.disposed=true;this.lifetime.abort();if(this.disposal)return this.disposal;
+  const call=retire=>{try{return Promise.resolve(retire());}catch(error){return Promise.reject(error);}},pending=[()=>this.efficient?.dispose(),()=>this.ssg?.dispose(),()=>this.features.dispose(),()=>this.learned.dispose(),()=>this.glue.dispose(),()=>this.ocr.dispose(),()=>this.finished].map(call);
+  this.disposal=(async()=>{const outcomes=await Promise.allSettled(pending);await retireCompositeOwners(outcomes.map(outcome=>()=>{if(outcome.status==='rejected')throw outcome.reason;}));this.budget.clearPrefix(this.prefix);})().finally(()=>{this.disposal=undefined;});return this.disposal;
+ }
+ async localizeRetained(input={},hooks={}){
+  if(this.running||this.disposed||!this.image||input.algorithm!=='SSG'||!this.ssg)return null;
+  const signal=hooks.signal?AbortSignal.any([hooks.signal,this.lifetime.signal]):this.lifetime.signal;checkAbort(signal);this.running=true;let finish;this.finished=new Promise(resolve=>finish=resolve);
+  try{this.ssg.image=this.image;return await this.ssg.localizeRetained(input,{...hooks,signal});}finally{this.running=false;finish();}
+ }
  async analyze(input={},hooks={}){
   if(input.algorithm==='SSG'){
    requireValue(!this.running&&!this.disposed,'Sparse engine busy or disposed.');
@@ -63,23 +73,30 @@ export class SparseCopyEngine{
   const cache=sparseStageCache(this.budget,this.prefix,{signal,byteLength:payloadBytes,hits:stageCache}),memo=(name,compute)=>cache.memo(name,compute);
   const geometry=async()=>kernel??=await createGeometryKernel({signal,reserveMemory:admit});
   try{
-   let regions=p.regions,excluded=p.excluded,preprocessing=null;const scope=hooks.scientificScope;
+   let regions=p.regions,excluded=p.excluded,preprocessing=null;const scope=hooks.scientificScope,acquisitionsOnly=scope?.nativePreparation==='acquisitions-only'&&!!scope.nativeSourceRegions;
    if(scope){
     compileForgeryscopeScientificScope(scope,{width:this.image.width,height:this.image.height,sourceSha256:hooks.sourceSha256});
-    requireValue(scope.status==='ready'&&scope.text?.status==='complete'&&scope.regions.length>0,'Scientific preparation is incomplete; whole-image fallback is forbidden.');
+    requireValue(scope.status==='ready'&&(acquisitionsOnly||scope.text?.status==='complete')&&scope.regions.length>0,'Scientific preparation is incomplete; whole-image fallback is forbidden.');
     regions=p.regions=(scope.searchRegions??scope.regions).map(r=>r.polygon??[[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]]);excluded=p.excluded=scope.excluded;
-    preprocessing={version:3,reflections:p.reflections,automatic_panels:false,panels:regions,envelope:null,text_engine:scope.text.metadata?.model?.id??'PP-OCRv6_small_det',text_exclusions:scope.text.polygons??[],graph_exclusion:true,scientific_scope:{schema:scope.schema,fingerprint:scope.fingerprint,models:scope.models,coordinates:scope.coordinates,policy:'original-pixel feature exclusions; no source painting'},ocr:scope.text.metadata};
+    if(!acquisitionsOnly)preprocessing={version:3,reflections:p.reflections,automatic_panels:false,panels:regions,envelope:null,text_engine:scope.text.metadata?.model?.id??'PP-OCRv6_small_det',text_exclusions:scope.text.polygons??[],graph_exclusion:true,scientific_scope:{schema:scope.schema,fingerprint:scope.fingerprint,models:scope.models,coordinates:scope.coordinates,policy:'original-pixel feature exclusions; no source painting'},ocr:scope.text.metadata};
    }
-   if(p.algorithm===PANELS&&!scope){
+   if(p.algorithm===PANELS&&(!scope||acquisitionsOnly)){
+    if(hooks.strictPanelsPreparation){
+     const receipt=hooks.strictPanelsPreparation;
+     requireValue(receipt.status==='ok'||receipt.status==='no-regions','Strict Panels preparation is incomplete.');
+     if(receipt.status==='no-regions'){const value={status:'no-regions',regions:[],preprocessing:receipt.preprocessing},free=this.budget.reserve(payloadBytes(value));try{const copy=structuredClone(value);return{...copy,release:free};}catch(error){free();throw error;}}
+     regions=receipt.regions;excluded=receipt.excluded;preprocessing=receipt.preprocessing;
+    }else{
     const auto=!regions.length&&!p.compare;let panels=[],envelope=null;
     if(auto){panels=await memo('panels',()=>detectPanels(this.image,{signal,account:admit,onProgress:f=>report('panels',f*.04)}));envelope=enclosingCopyRegions(panels);if(!panels.length){report('no-regions',1);return {status:'no-regions',regions:[],preprocessing:{automatic_panels:true,panels:[],envelope:null},release(){}};}regions=[...panels];if(!regions.some(poly=>JSON.stringify(poly)===JSON.stringify(envelope)))regions.push(envelope);}
     requireValue(language?.data instanceof Uint8Array&&typeof language.sha256==='string','Panels + Text requires explicit verified English OCR weights.');
     const text=await memo('text/'+language.sha256,async()=>{this.counts.ocr++;const result=await this.ocr.detect(this.image,{language,signal,onProgress:e=>report('ocr',.04+e.fraction*.06,e)});let transferred=false;try{const value={boxes:result.boxes,polygons:result.polygons,metadata:result.metadata};result.release();transferred=true;admit(payloadBytes(value));return value;}finally{if(!transferred)result.release();}});
     excluded=[...excluded,...text.polygons];preprocessing={version:2,reflections:p.reflections,implementation:'SHERLOQ alternative, not the luc_pub competition ensemble',automatic_panels:auto,panels,envelope,text_engine:'Tesseract / eng / PSM 11',text_boxes:text.boxes,text_exclusions:text.polygons,graph_exclusion:false,ocr:text.metadata};
    }
+   }
    const glue=p.algorithm.includes('LightGlue')||p.algorithm.includes('LighterGlue'),glueKind=p.algorithm.startsWith('XFeat')?'xfeat':p.algorithm.startsWith('SIFT')?'sift':'aliked',glueModel=hooks.models?.[glueKind+'-glue-paged']??hooks.models?.[glueKind+'-glue'],matchingIdentity=glue?[hooks.backend??'auto',glueModel?.sha256]:null;
    const g2nn=p.algorithm===CLASSIC||p.algorithm===PANELS,family=g2nn?'SIFT-G2NN':p.algorithm==='SIFT + LightGlue'?'SIFT-LightGlue':p.algorithm==='RootSIFT'?'SIFT':p.algorithm.replace(' + LightGlue','').replace(' + LighterGlue',''),independent=g2nn&&(p.algorithm===PANELS||p.independent),policy=copyDistancePolicy(p,regions),axes=compactCopyAxes(this.image.width,this.image.height,p.compact&&!p.compare?p.guides:[],{reserveMemory:admit});
-   const learned=['XFeat','ALIKED','ALIKED rotation'].includes(family),featureModel=family==='XFeat'?(hooks.models?.['xfeat-paged']??hooks.models?.xfeat):hooks.models?.[family==='ALIKED rotation'?'aliked-n16rot':'aliked-n16'],featureIdentity=learned?[hooks.backend??'auto',family==='XFeat'?featureModel?.sha256:Object.entries(featureModel?.graphs??{}).sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>[k,v.sha256])]:family.startsWith('SIFT')?[hooks.backend??'auto']:null;
+   const learned=['XFeat','ALIKED','ALIKED rotation'].includes(family),featureModel=family==='XFeat'?(hooks.models?.['xfeat-paged']??hooks.models?.xfeat):hooks.models?.[family==='ALIKED rotation'?'aliked-n16rot':'aliked-n16'],featureIdentityBase=learned?[hooks.backend??'auto',family==='XFeat'?featureModel?.sha256:Object.entries(featureModel?.graphs??{}).sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>[k,v.sha256])]:family.startsWith('SIFT')?[hooks.backend??'auto']:null,featureIdentity=hooks.sourceContextFingerprint===undefined?featureIdentityBase:[featureIdentityBase,hooks.sourceContextFingerprint];
    const extract=async reflected=>memo('features/'+JSON.stringify([family, featureIdentity,p.limit,regions,excluded,independent,reflected]),async()=>{this.counts.detections++;const r=await (learned?this.learned:this.features).extract(this.image,{model:featureModel,backend:hooks.backend??'auto',storageContext:hooks.storageContext,checkpointKey:hooks.checkpointKey,family,limit:p.limit,regions,excluded,independent,reflected,signal,onProgress:e=>report(reflected?'reflection-extraction':'extracting',reflected ? .56+e.fraction*.14:.1+e.fraction*.25,e)});let transferred=false;try{const {release,transferBacking,reservedBytes,...value}=r;if(transferBacking){cache.adopt(value,transferBacking());releases.push(release);transferred=true;admit(Math.max(0,payloadBytes(value)-(reservedBytes??0)));}else{r.release();transferred=true;admit(payloadBytes(value));}return value;}finally{if(!transferred)r.release();}});
    const base=await extract(false);let desc=base.descriptors;
    if(p.algorithm==='XFeat'&&base.points.length<=100*7)this.lastNativeDistanceMetrics=null;
@@ -93,10 +110,21 @@ export class SparseCopyEngine{
     const grouped=await memo('groups/'+JSON.stringify([p.algorithm,featureIdentity,matchingIdentity,p.limit,regions,excluded,independent,policy,p.minimum,p.threshold,p.compare,p.compact,p.guides,reflection,p.tolerance]),async()=>{this.counts.groupings++;return pairedBiomes(features.points,matched.pairs,p.tolerance,{signal,reserveMemory:admit,pairSearchRegions:matched.pairSearchRegions,onProgress:f=>report(reflection?'reflection-grouping':'grouping',groupStart+f*groupSpan*.25)});});
     const model=reflection&&p.model==='None'?'Affine':p.model;
     report(reflection?'reflection-geometry':'fitting',groupStart+groupSpan*.3);
-    let verified=await verifyCopyGeometry(features.points,matched.pairs,grouped,{model,threshold:p.geometricThreshold,minimum:p.geometricMinimum,reflection,signal,reserveMemory:admit,kernel:model==='None'?null:await geometry(),onProgress:f=>report(reflection?'reflection-geometry':'fitting',groupStart+groupSpan*(.3+.7*f))});
-    if(g2nn&&model!=='None')verified=filterSiftModels(verified.groups,verified.models);
-    if(reflection){const selected=verified.models.map((m,i)=>m.matrix[0][0]*m.matrix[1][1]-m.matrix[0][1]*m.matrix[1][0]<0?i:-1).filter(i=>i>=0);verified={groups:selected.map(i=>verified.groups[i]),models:selected.map(i=>({...verified.models[i],variant:'reflection'}))};}
-    return verified;
+    const fit=async()=>{
+     let verified=await verifyCopyGeometry(features.points,matched.pairs,grouped,{model,threshold:p.geometricThreshold,minimum:p.geometricMinimum,reflection,signal,reserveMemory:admit,kernel:model==='None'?null:await geometry(),onProgress:f=>report(reflection?'reflection-geometry':'fitting',groupStart+groupSpan*(.3+.7*f))});
+     if(g2nn&&model!=='None')verified=filterSiftModels(verified.groups,verified.models);
+     if(reflection){const selected=verified.models.map((m,i)=>m.matrix[0][0]*m.matrix[1][1]-m.matrix[0][1]*m.matrix[1][0]<0?i:-1).filter(i=>i>=0);verified={groups:selected.map(i=>verified.groups[i]),models:selected.map(i=>({...verified.models[i],variant:'reflection'}))};}
+     return verified;
+    };
+    // The immutable image owner already namespaces feature/match/group stages.
+    // Keep every geometric input and verified source/scope identity in this key;
+    // callers without a source digest retain the existing uncached fit path.
+    if(model==='None'||typeof hooks.sourceSha256!=='string'||!/^[a-f0-9]{64}$/i.test(hooks.sourceSha256))return fit();
+    // Stage buffers are immutable and private; identity changes on eviction or
+    // recomputation, even if the requested backend still says "auto". Never
+    // reuse an old fit against newly materialized coordinates or group rows.
+    const inputId=value=>{let id=this.fitInputs.get(value);if(id===undefined){id=++this.nextFitInput;this.fitInputs.set(value,id);}return id;};
+    return memo('fits/'+JSON.stringify([inputId(features.points),inputId(matched.pairs),inputId(grouped),hooks.sourceSha256,this.image.width,this.image.height,scope?.fingerprint??null,p.algorithm,featureIdentity,matchingIdentity,p.limit,regions,excluded,independent,policy,p.minimum,p.threshold,p.compare,p.compact,p.guides,reflection,p.tolerance,model,p.geometricThreshold,p.geometricMinimum]),fit);
    };
    let fitted=await groupAndFit(base,matched,false),result={points:base.points,pairs:matched.pairs,pair_search_regions:matched.pairSearchRegions,...fitted,total_features:base.totalFeatures,candidate_comparisons:matched.candidateComparisons};
    report('geometry',p.reflections ? .55 : .9);
@@ -113,7 +141,7 @@ export class SparseCopyEngine{
    let colors=copyPalette(result.groups,result.pairs,p.threshold,{reserveMemory:admit}),partitions=[];
    if(p.algorithm===PANELS){const refined=await refineCopyBiomes(result.points,result.pairs,result.groups,result.models,colors.colors,colors.bases,p.tolerance,{signal,reserveMemory:admit,pairSearchRegions:result.pair_search_regions});result={...result,groups:refined.groups,models:refined.models};colors={colors:refined.colors,bases:refined.bases};partitions=refined.provenance;}
    const output={status:'ok',...result,...colors,biome_partitions:partitions,params:p,regions,compare:p.compare,backend:base.metadata.provider==='webgpu'||matched.backend==='hybrid'?'hybrid':'cpu',feature_policy:independent?'independent_roi_v2':'global',distance_policy:{radii:policy.radii,comparison_radius:policy.radius,gap:policy.gap,compact_guides:p.compact&&!p.compare?p.guides:[]},preprocessing,self_match_filter:selfFilter,rejected_biomes:rejected,metadata:{extraction:base.metadata,matching:matched.metadata,stageCache,counts:{...this.counts},preflightExecutions:0,coordinates:'original-pixel-centres',colorOrder:'BGR',qualification:'native-comparisons-documented'}};
-   const bytes=payloadBytes(output);freeUnreturned=this.budget.reserve(bytes);const owned=structuredClone(output),freeOutput=freeUnreturned;let released=false;checkAbort(signal);report('complete',1);freeUnreturned=null;
+   const bytes=payloadBytes(output);freeUnreturned=this.budget.reserve(bytes);const owned=structuredClone(output),freeOutput=freeUnreturned;let released=false;checkAbort(signal);report('complete',1);checkAbort(signal);freeUnreturned=null;
    return {...owned,release(){if(!released){released=true;freeOutput();}}};
   }finally{freeUnreturned?.();kernel?.dispose();releases.forEach(f=>f());cache.finish({publish:!this.disposed});this.running=false;finish();}
  }

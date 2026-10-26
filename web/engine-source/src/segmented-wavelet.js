@@ -1,4 +1,4 @@
-import {WaveletStripPool} from './wavelet-strip-pool.js';
+import {WaveletStripPool,retireWaveletPlans,appendWaveletCleanup} from './wavelet-strip-pool.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {waveletParams} from './wavelets.js';
 import {waveletStreamMath,waveletStreamHeapBytes} from './wavelet-stream-math.js';
@@ -6,18 +6,19 @@ import {createFloatPlane} from './segmented-float-plane.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface} from './rgb-surface.js';
 
-export async function segmentedWavelet(image,params,{budget,signal,onProgress,cache,blockPixels=65536,storage='auto',profile={}}={}){
+export async function segmentedWavelet(image,params,{budget,signal,onProgress,cache,blockPixels=65536,storage='auto',profile={},accountedHeapBytes=0}={}){
  const p=waveletParams(params),{width,height}=image.surface.descriptor;
  requireValue(Number.isInteger(blockPixels)&&blockPixels>0&&blockPixels<=262144,'Invalid wavelet strip size.');
  if(cache&&cache.wavelet!==p.wavelet)throw new EngineError('INVALID_INPUT','Wavelet cache does not match.');
- const heap=Math.max(8*1024**2,waveletStreamHeapBytes()),room=budget.limit-budget.retained-budget.active;
+ const nativeHeap=Math.max(8*1024**2,waveletStreamHeapBytes());requireValue(Number.isSafeInteger(accountedHeapBytes)&&accountedHeapBytes>=0&&accountedHeapBytes<=nativeHeap,'Invalid already accounted wavelet heap.');const heap=nativeHeap-accountedHeapBytes,room=budget.limit-budget.retained-budget.active;
  const block=Math.min(blockPixels,Math.floor((room-heap-4*1024**2)/192));
  if(block<Math.max(width,height))throw new EngineError('MEMORY_LIMIT','One complete wavelet axis must fit in the streaming workspace.');
- const release=budget.reserve(heap+block*192),owned=new Set(),pool=new WaveletStripPool(budget,{...profile,adaptive:image.waveletScheduling??=(new Map())});let output,newCache;
+ const release=budget.reserve(heap+block*192),owned=new Set(),pool=new WaveletStripPool(budget,{...profile,adaptive:image.waveletScheduling??=(new Map())});let output,newCache,candidateSurface,returning=false,failed=false,primary,released=false;
+ const cleanupOwner=pool.ownCleanup(async capture=>{await retireWaveletPlans(owned,capture);if(!returning){if(candidateSurface){await candidateSurface.dispose();candidateSurface=null;}if(output){await output.dispose();output=null;}await newCache?.dispose();}if(!released){release();released=true;}});
  const coefficientStorage=storage==='auto'&&image.ensureTemporarySession&&width*height*16>(room-heap-block*192)/3?'temporary':storage;
  const options={budget,signal,storage:coefficientStorage,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,chunkBytes:Math.max(8192,block*8)};
  const plane=async(w,h)=>{const v=await createFloatPlane(w,h,options);owned.add(v);return v;};
- const drop=async v=>{if(owned.delete(v))await v.dispose();};
+ const drop=async v=>{if(owned.has(v)){await v.dispose();owned.delete(v);}};
  const progress=(phase,completed,total)=>onProgress?.({phase,completed,total});
  try{
   const math=await waveletStreamMath(),info=math.info(p.wavelet,width,height),filter=info.filterLength;
@@ -50,8 +51,8 @@ export async function segmentedWavelet(image,params,{budget,signal,onProgress,ca
     const [h,d]=await down(hi,1,`decompose-${level}-high`);await drop(hi);
     details.push([h,v,d]);a=ll;
    }
-   const planes=[a,...details.flat()];let disposed=false;
-   newCache={wavelet:p.wavelet,width,height,maximumLevel:info.maximumLevel,a,details,async dispose(){if(disposed)return;disposed=true;await Promise.all(planes.map(v=>v.dispose()));}};cache=newCache;
+   const planes=[a,...details.flat()],cachePlanes=new Set(planes),cacheOwner=pool.ownCleanup(capture=>retireWaveletPlans(cachePlanes,capture));
+   newCache={wavelet:p.wavelet,width,height,maximumLevel:info.maximumLevel,a,details,dispose(){return cacheOwner.retire({endpoints:true});}};for(const v of planes)owned.delete(v);cache=newCache;
   }
   let a=cache.a;const maximum=cache.maximumLevel,level=p.threshold===0?0:Math.min(p.level??(maximum?Math.max(1,Math.floor(maximum/2)):0),maximum);
   for(let i=maximum-1;i>=0;i--){
@@ -66,7 +67,7 @@ export async function segmentedWavelet(image,params,{budget,signal,onProgress,ca
   for(let y=0;y<height;y+=rows){await controlCheckpoint(signal);const h=Math.min(rows,height-y),values=await a.read(0,y,width,h,{signal}),bytes=new Uint8Array(values.length*3);for(let i=0;i<values.length;i++)bytes.fill(values[i],i*3,i*3+3);await output.write(bytes,y*width*3);progress('render',Math.min(height,y+rows),height);}
   await output.flush();checkAbort(signal);
   if(newCache)for(const v of [cache.a,...cache.details.flat()])owned.delete(v);
-  const surface=createRgbSurface(output,{width,height,budget});output=null;
+  const surface=createRgbSurface(output,{width,height,budget});candidateSurface=surface;output=null;returning=true;
   return {surface,waveletCache:cache,data:{width,height,wavelet:p.wavelet,maximumLevel:maximum,effectiveLevel:level},semantics:'Native blue channel, global symmetric float64 PyWavelets axes and per-band thresholds; segmented reconstruction cropped and truncated to RGB8.',metrics:{...pool.metrics(),blockPixels:block,coefficientsCached:!newCache,maximumLevel:maximum,retainedResultBytes:width*height*3}};
- }catch(error){await output?.dispose();throw error;}finally{pool.clear();await Promise.all([...owned].map(v=>v.dispose()));release();}
+ }catch(error){failed=true;primary=error;throw error;}finally{try{await cleanupOwner.retire({endpoints:true});}catch(cleanup){returning=false;if(failed)appendWaveletCleanup(primary,cleanup);else throw cleanup;}}
 }

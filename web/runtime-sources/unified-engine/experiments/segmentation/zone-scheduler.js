@@ -24,7 +24,7 @@ export async function runSegmentationZones({count, lanes, run, signal}) {
   signal?.addEventListener('abort', abort, {once:true});
   if (signal?.aborted) abort();
   const values = new Array(count), finished = new Set();
-  let next = 0, active = 0, observed = 0, pressure = false, failure, backoffs = 0;
+  let next = 0, active = 0, observed = 0, pressure = false, hasFailure=false, failure, backoffs = 0;
   const execute = async (index, lane) => {
     checkAbort(controller.signal); active++; observed = Math.max(observed, active);
     try {values[index] = await run(index, lane, controller.signal); finished.add(index);}
@@ -32,16 +32,16 @@ export async function runSegmentationZones({count, lanes, run, signal}) {
   };
   try {
     await Promise.all(lanes.map(async lane => {
-      while (next < count && !pressure && !failure) {
+      while (next < count && !pressure && !hasFailure) {
         const index = next++;
         try {await execute(index, lane);}
         catch (error) {
-          if (error.code === 'MEMORY_LIMIT' && lanes.length > 1 && !controller.signal.aborted) {pressure = true; backoffs++;}
-          else if (!failure) {failure = error; controller.abort();}
+          if (error?.code === 'MEMORY_LIMIT' && lanes.length > 1 && !controller.signal.aborted) {pressure = true; backoffs++;}
+          else if (!hasFailure) {hasFailure=true;failure = error; controller.abort();}
         }
       }
     }));
-    if (failure) throw failure;
+    if (hasFailure) throw failure;
     checkAbort(controller.signal);
     if (pressure) for (let index = 0; index < count; index++) if (!finished.has(index)) await execute(index, lanes[0]);
     return {values, concurrency: {requested: lanes.length, observed, memoryBackoffs: backoffs, internalThreadsPerWorker: 1}};

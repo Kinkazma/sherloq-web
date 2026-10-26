@@ -17,7 +17,12 @@ export function createCfaAnalyzer({assets,runtimes,budget,computeProfile='aggres
    const controller=new AbortController(),abort=()=>controller.abort();active=controller;options.signal?.addEventListener('abort',abort,{once:true});if(options.signal?.aborted)abort();const hooks={...options,signal:controller.signal};
    let inputLease,workingLease,cacheLease,release;
    try{
-    checkAbort(hooks.signal);inputLease=budget.reserve(source?0:n*6);const digest=source?dimensions.id+'/'+dimensions.revision:await hash(image.data),asset=assets[variant],key='m2/cfa/'+JSON.stringify([digest,width,height,block,tile,asset.sha256,asset.program?.sha256,runtimes,options.backend??'auto']);
+    checkAbort(hooks.signal);inputLease=budget.reserve(source?0:n*6);
+    const surfaceIdentity=source?dimensions.id+'/'+dimensions.revision:null;
+    // A coherent native original is recreated with a fresh surface UUID per load.
+    // Custom/ROI surfaces retain their own revision identity.
+    const originalSource=source&&image.kind==='image'&&image.segmented&&image.source&&image.store&&/^[a-f0-9]{64}$/i.test(image.sha256??'')&&image.provenance?.layout==='segmented-scanlines';
+    const digest=source?(originalSource?JSON.stringify(['encoded',image.sha256,dimensions.sourceWidth,dimensions.sourceHeight,dimensions.orientation,image.provenance.decoder,image.provenance.format??'jpeg']):surfaceIdentity):await hash(image.data),asset=assets[variant],key='m2/cfa/'+JSON.stringify([digest,width,height,block,tile,asset.sha256,asset.program?.sha256,runtimes,options.backend??'auto']);
     let stored=budget.get(key)?.value,cached=!!stored;
     if(cached)cacheLease=budget.reserve(bytes(stored.data));
     else{
@@ -46,9 +51,9 @@ export function createCfaAnalyzer({assets,runtimes,budget,computeProfile='aggres
      const outcomes=await Promise.allSettled(Array.from({length:Math.min(profile.maxWorkers,jobs.length)},async()=>{while(next<jobs.length){const job=jobs[next++];try{await compute(job);}catch(e){controller.abort();throw e;}completed++;hooks.onProgress?.({phase:'cfa-tiles',completed,total:jobs.length,fraction:completed/jobs.length});}}));
      const failed=outcomes.find(x=>x.status==='rejected');if(failed)throw failed.reason;
      checkAbort(hooks.signal);const post=cfaPostprocess(probabilities,cells);
-     stored={data:{width,height,probabilities,grids:post.grids,local_grid:post.local,suspicion:post.suspicion,gridShape:[ny,nx],metadata:{method:'adaptive_cfa',variant,best_grid:post.best,block,origin:[4,4],valid_shape:[ny*block,nx*block],image_shape:[height,width],tile,actual_tiles:executions.map(x=>x.rect)}},provenance:{sourceRGBSha256:source?null:digest,sourceSurfaceIdentity:source?digest:null,originalSourceSha256:source?image.sha256??null:null,modelSha256:asset.sha256,programSha256:asset.program?.sha256,checkpointSha256:asset.checkpointSha256,provider:[...new Set(executions.map(e=>e.provider))].join('+'),qualification:'public-output-corpus; native CPU reference and hybrid GPU convolution'},execution:{tiles:executions,preflightExecutions:0}};
+     stored={data:{width,height,probabilities,grids:post.grids,local_grid:post.local,suspicion:post.suspicion,gridShape:[ny,nx],metadata:{method:'adaptive_cfa',variant,best_grid:post.best,block,origin:[4,4],valid_shape:[ny*block,nx*block],image_shape:[height,width],tile,actual_tiles:executions.map(x=>x.rect)}},provenance:{sourceRGBSha256:source?null:digest,sourceSurfaceIdentity:surfaceIdentity,originalSourceSha256:source?image.sha256??null:null,modelSha256:asset.sha256,programSha256:asset.program?.sha256,checkpointSha256:asset.checkpointSha256,provider:[...new Set(executions.map(e=>e.provider))].join('+'),qualification:'public-output-corpus; native CPU reference and hybrid GPU convolution'},execution:{tiles:executions,preflightExecutions:0}};
     }
-    checkAbort(hooks.signal);const size=bytes(stored.data);release=budget.reserve(size);const result=structuredClone(stored);
+    checkAbort(hooks.signal);const size=bytes(stored.data);release=budget.reserve(size);const result=structuredClone(stored);if(originalSource){result.provenance.sourceSurfaceIdentity=surfaceIdentity;result.provenance.originalSourceSha256=image.sha256;}
     if(!cached){budget.put(key,{value:stored,byteLength:size});keys.add(key);}
     return {...result,metrics:{...result.execution,cache:{result:cached},memory:budget.snapshot()},release};
    }catch(e){release?.();throw e;}finally{workingLease?.();cacheLease?.();inputLease?.();active=null;options.signal?.removeEventListener('abort',abort);}

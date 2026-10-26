@@ -62,11 +62,35 @@ export function createChunkLoader(manifest,{base,scope,fetcher=fetch,folder=()=>
   if(c&&!localSource&&cacheWrites)await c.put(url,new Response(bytes)).catch(()=>{});
   report({level:'info',kind:'dependency.verified',receivedBytes:bytes.length,receivedSha256:h});return bytes;
  }
- return function load(h,observe){
+ function load(h,observe){
   if(active.has(h))return active.get(h);
   if(!Object.hasOwn(manifest.chunks,h))return Promise.reject(Error('Unknown dependency chunk'));
   const job=(async()=>{const bytes=manifest.chunks[h];await new Promise(resolve=>{waiters.push({bytes,resolve});pump();});
    try{return await read(h,observe);}finally{running--;reserved-=bytes;pump();}
   })().finally(()=>active.delete(h));active.set(h,job);return job;
+ }
+ // A pre-response chunk has a real borrower, unlike legacy load() results.
+ // Shared bytes and each response's metadata stay inside the same128MiB cap.
+ const preloads=new Map(),cancelled=()=>new DOMException('Dependency preload cancelled','AbortError');
+ function admission(bytes,readSlot){
+  let queued,admitted=false,freed=false,rejectAdmission;
+  const task=bytes?new Promise((resolve,reject)=>{rejectAdmission=reject;queued={bytes,resolve:()=>{queued=null;admitted=true;if(!readSlot)running--;resolve();}};waiters.push(queued);}):Promise.resolve();task.catch(()=>{});
+  return{task,cancel(){if(queued){const index=waiters.indexOf(queued);if(index>=0)waiters.splice(index,1);queued=null;rejectAdmission(cancelled());}},release(){if(admitted&&!freed){freed=true;reserved-=bytes;pump();}}};
+ }
+ load.acquire=function(h,observe,{metadataBytes=0}={}){
+  if(!Object.hasOwn(manifest.chunks,h)||!Number.isSafeInteger(metadataBytes)||metadataBytes<0||metadataBytes>16384)throw TypeError('Invalid owned dependency chunk admission');
+  let record=preloads.get(h);
+  if(!record){
+   const credit=admission(manifest.chunks[h],true);record={refs:0,data:null,credit};preloads.set(h,record);
+   record.task=(async()=>{await credit.task;try{if(!record.refs)throw cancelled();record.data=await read(h,observe);}finally{running--;pump();}})();record.task.catch(()=>{});
+  }
+  const metadata=admission(metadataBytes,false);record.refs++;pump();let released=false,retirement;
+  const owner={ready:async()=>{await metadata.task;await record.task;if(released)throw cancelled();return owner;},get bytes(){if(released||!record.data)throw Error('Owned dependency chunk is not readable');return record.data;},release(){
+   if(retirement)return retirement;released=true;metadata.cancel();record.refs--;const last=!record.refs;
+   if(last){if(preloads.get(h)===record)preloads.delete(h);record.credit.cancel();}
+   return retirement=(async()=>{await Promise.allSettled([metadata.task]);metadata.release();if(last){await Promise.allSettled([record.task]);record.data=null;record.credit.release();}})();
+  }};return owner;
  };
+ load.ownershipSnapshot=()=>({reservedBytes:reserved,running,queued:waiters.length,ownedChunks:preloads.size,owners:[...preloads.values()].reduce((n,value)=>n+value.refs,0),byteBudget});
+ return load;
 }

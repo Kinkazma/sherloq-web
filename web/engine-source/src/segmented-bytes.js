@@ -70,9 +70,10 @@ export async function createSegmentedBytes(byteLength,{budget,chunkBytes=4*1024*
    let operation;try{operation=this.migrate('temporary',{...options,reserve:undefined,signal:options.signal??signal,[ALLOCATION_RECOVERY]:error});}catch(failure){allocationRecovery.status='failed';throw failure;}
    operation.then(()=>{allocationRecovery.status='completed';},()=>{allocationRecovery.status='failed';});return operation;
   },
-  async visit(visitor,{signal,offset=0,length=byteLength-offset,blockBytes=chunkBytes}={}){
-   range(offset,length);requireValue(Number.isSafeInteger(blockBytes)&&blockBytes>0,'Invalid traversal block size.');let at=offset;const size=Math.min(blockBytes,length),workspace=allocateOwnedTypedArray(Uint8Array,size,{budget,owner,label:label+'-visit'});let buffer;
-   try{buffer=workspace.data;while(at<offset+length){await controlCheckpoint(signal);const part=buffer.subarray(0,Math.min(size,offset+length-at));await this.readInto(part,at);await visitor(part,at);checkAbort(signal);at+=part.length;}}finally{workspace.release();}
+  // Optional cooperation belongs only to this traversal, not the cached store.
+  async visit(visitor,{signal,offset=0,length=byteLength-offset,blockBytes=chunkBytes,cooperate}={}){
+   range(offset,length);requireValue(Number.isSafeInteger(blockBytes)&&blockBytes>0,'Invalid traversal block size.');requireValue(cooperate===undefined||typeof cooperate==='function','Invalid segmented traversal cooperator.');let at=offset;const size=Math.min(blockBytes,length),workspace=allocateOwnedTypedArray(Uint8Array,size,{budget,owner,label:label+'-visit'});let buffer;
+   try{buffer=workspace.data;while(at<offset+length){if(cooperate)checkAbort(signal);await (cooperate??controlCheckpoint)(signal);if(cooperate)checkAbort(signal);const part=buffer.subarray(0,Math.min(size,offset+length-at));await this.readInto(part,at);await visitor(part,at);checkAbort(signal);at+=part.length;}}finally{workspace.release();}
   },
   flush(){alive();if(migration)throw new EngineError('BUSY','Cannot flush a migrating segmented array.');return disk?track(disk.flush()):undefined;},
   exportSharedReadOnly(){
@@ -159,7 +160,7 @@ export async function createSegmentedBytes(byteLength,{budget,chunkBytes=4*1024*
   markCold(value=true){alive();cold=!!value;for(const entry of backings.values())entry.release?.setReclaimable(cold);return this;},
   dispose(){
    if(disposing)return disposing;disposed=true;unregisterReclaimer?.();
-   disposing=(async()=>{if(migration)await Promise.allSettled([migration]);if(pending.size)await Promise.allSettled([...pending]);if(pins)await new Promise(resolve=>{pinsReleased=resolve;});retireBanks();try{await disk?.dispose();}finally{await migrationWorkspace?.release();migrationWorkspace=null;}})();return disposing;
+   const task=(async()=>{if(migration)await Promise.allSettled([migration]);if(pending.size)await Promise.allSettled([...pending]);if(pins)await new Promise(resolve=>{pinsReleased=resolve;});let failed=false,failure;for(const retire of[()=>retireBanks(),async()=>{if(disk){await disk.dispose();disk=null;}},async()=>{if(migrationWorkspace){await migrationWorkspace.release();migrationWorkspace=null;}}])try{await retire();}catch(error){if(!failed){failed=true;failure=error;}else if(failure&&typeof failure==='object')try{(failure.cleanupErrors??=[]).push({code:error?.code,message:String(error?.message??error)});}catch{}}if(failed)throw failure;})();disposing=task;void task.catch(()=>{if(disposing===task)disposing=null;});return task;
   }
  };
  // Finished result planes may leave RAM without giving up their ownership or

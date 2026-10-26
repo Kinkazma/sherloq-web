@@ -11,11 +11,11 @@ export async function readRGBWindow(source,rect,{signal}={}){
  }
  const read=source.readWindow??source.surface?.readWindow?.bind(source.surface);
  if(!read)throw Error('Source must provide RGB8 pixels or readWindow');
- const window=await read(rect,{signal});let released=false;
+ const window=await read(rect,{signal});let released=false,retirement;
  try{
   const pixels=window.pixels??window;
   if(pixels.width!==width||pixels.height!==height||!(pixels.data instanceof Uint8Array)||pixels.data.length!==width*height*3)throw Error('Invalid RGB8 source window');
   if(signal?.aborted)throw signal.reason??new DOMException('Aborted','AbortError');
-  return {pixels,release(){if(released)return;released=true;window.release?.();}};
- }catch(error){window.release?.();throw error;}
+  return {pixels,release(){if(!released){released=true;retirement=window.release?.();}return retirement;}};
+ }catch(error){try{await window.release?.();}catch(cleanupError){if(error&&typeof error==='object')try{error.cleanupError={code:cleanupError?.code??'CLEANUP_FAILED',message:String(cleanupError?.message??cleanupError)};}catch{}}throw error;}
 }

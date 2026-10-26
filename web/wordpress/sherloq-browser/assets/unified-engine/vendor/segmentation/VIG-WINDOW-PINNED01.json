@@ -1,0 +1,28 @@
+{
+  "schema": "vig-window-kernels/1",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "heapBytes": 67108864,
+  "precision": "FP32",
+  "learnedInferenceCalls": 0,
+  "sources": {
+    "experiments/segmentation/vig-window-math.cpp": "a73c328a376970738e081d1d50a48284b369864cc7e384cd682f7fea903aec81",
+    "experiments/segmentation/vig-math.cpp": "e2552034f4b2f370ff3d1103b7a55dacb0b882d2ffa862dda8a2be2dbca87a7b",
+    "experiments/segmentation/vig-exp.h": "fd0e1684e6c2ada4a8044f2f2f43b81fcaed1bc63b1c1dad9e3275f8abb22f06",
+    "experiments/segmentation/vig-exp-table.h": "836ee95bb30123b5d442b50e015fbf14c9fe5a8a2c45b908f7928f47059d66cf",
+    "experiments/d2prl/convolution-cpu.cpp": "6a2f8107272e7363a3b6ffb1c4934f4b83e4653dac0c0c8c611ba2cab7bf51fe",
+    "experiments/d2prl/fma-simd.h": "fee2445e13b8321920d0672ebc568eb6c3a04a12ae7b702cc5fda928b36e31b2",
+    "experiments/d2prl/resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d"
+  },
+  "files": {
+    "vig-window-math.js": {
+      "bytes": 8843,
+      "sha256": "dc83c56b66573489bab11229cccbc1e436b354e1fd30ceb41d8fb1e130a30b1c"
+    },
+    "vig-window-math.wasm": {
+      "bytes": 39550,
+      "sha256": "ae3ab94b42b4eecd17c01b18bb4579449cedd2542b1e573fefbadb1ef0b283c6"
+    }
+  },
+  "scope": "Additive population/row-layout adaptation. Original arithmetic included byte intact. No learned weights or tensors loaded.",
+  "reconstructionScript": "scripts/build-vig-window-kernels.py"
+}

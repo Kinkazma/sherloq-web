@@ -1,19 +1,19 @@
 {
   "schema": 1,
   "sources": {
-    "native/research-post.cpp": "239404e8ae5ab895e1f34f0b2306e7c7a60586c81b66c9820ba133519497bfd7",
+    "native/research-post.cpp": "a3d2e59b41837de59b34851bd4816185a4c219266c7a9ad950200b7bf9c53de2",
     "experiments/d2prl/sum.cpp": "cfdeb89413564462516320f964ea7a8ad0334fa981591b77134f0a62cf05fba7",
     "experiments/d2prl/dlf.cpp": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
     "experiments/d2prl/reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
   },
   "files": {
     "post.wasm": {
-      "bytes": 17212,
-      "sha256": "00c3d2ff841401b879a0bdad5a33f1f3d7bf829df9d81e71b1622440805b853c"
+      "bytes": 19454,
+      "sha256": "c5b80335d6d7e482b4e30d56e21e0c92bdf87e572ec0635fc34e935951c5cb0c"
     },
     "post.js": {
-      "bytes": 9019,
-      "sha256": "8957231b8a7d523f12a8023cd0bb8a906aaf60e93a363561a51bc8f8362eb51b"
+      "bytes": 9112,
+      "sha256": "48a307dec1b93272a1aecd8b5a7b24343da46884c8aec67c24983519bbae247a"
     },
     "SLEEF-PINNED.json": {
       "bytes": 893,

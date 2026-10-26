@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {deserializeWorkerError} from './errors.js';
 import {scheduledWorkerCall,cancelScheduledWorkerCalls} from './scheduled-worker-call.js';
 import {extractXfeatPaged} from './xfeat-paged.js';
@@ -14,9 +15,14 @@ const MiB=1024**2;
 // bytes. A path, a claimed checkpoint name, or matching shapes are not enough.
 export const XFEAT_MODEL=Object.freeze({bytes:2678811,sha256:'b7c5ba6f2f007d2b7462f32ffc9f537e4d78918d6e5ea8dd39de2caef6426319',weightSha256:'0f5187fd7bedd26c7fe6acc9685444493a165a35ecc087b33c2db3627f3ea10b'});
 export class LearnedFeatureEngine{
- constructor(budget,profile){requireValue(budget&&typeof budget.reserve==='function'&&profile&&Number.isInteger(profile.maxWorkers)&&profile.maxWorkers>0,'Learned features require a shared budget and worker profile.');this.budget=budget;this.resourceOwner='sift';this.profile=profile;this.running=false;this.disposed=false;this.worker=null;this.reject=null;}
- stop(){cancelScheduledWorkerCalls(this);this.pagedAbort?.abort();this.worker?.terminate();this.worker=null;this.reject?.(new EngineError('CANCELLED','Learned feature work stopped.'));this.reject=null;}
- dispose(){this.disposed=true;this.stop();}
+ constructor(budget,profile){requireValue(budget&&typeof budget.reserve==='function'&&profile&&Number.isInteger(profile.maxWorkers)&&profile.maxWorkers>0,'Learned features require a shared budget and worker profile.');this.budget=budget;this.resourceOwner='sift';this.profile=profile;this.running=false;this.disposed=false;this.worker=null;this.reject=null;this.preparers=new Set();}
+ stop(){cancelScheduledWorkerCalls(this);this.pagedAbort?.abort();this.rowAbort?.abort();for(const owner of this.preparers)owner.cancel();this.worker?.terminate();this.worker=null;this.reject?.(new EngineError('CANCELLED','Learned feature work stopped.'));this.reject=null;}
+ retirePreparers(options={}){return retireCompositeOwners([...this.preparers].map(owner=>async()=>{await owner.release();this.preparers.delete(owner);}),options);}
+ dispose(){
+  this.disposed=true;this.stop();if(this.disposal)return this.disposal;
+  if(!this.running&&!this.preparers.size)return;
+  this.disposal=(async()=>{await this.finished;await this.retirePreparers();})().finally(()=>{this.disposal=undefined;});return this.disposal;
+ }
  async extract(image,{family='XFeat',limit=6000,regions=[],excluded=[],signal,onProgress,model,backend='auto'}={}){
   requireValue(!this.running&&!this.disposed&&typeof Worker!=='undefined','Learned feature engine unavailable or busy.');
   const aliked=family==='ALIKED'||family==='ALIKED rotation',kind=family==='ALIKED rotation'?'aliked-n16rot':'aliked-n16';
@@ -24,17 +30,27 @@ export class LearnedFeatureEngine{
   requireValue(image?.format==='rgb8'&&Number.isInteger(image.width)&&image.width>=(aliked?1:32)&&image.width<=16384&&Number.isInteger(image.height)&&image.height>=(aliked?1:32)&&image.height<=16384&&(typeof image.readRows==='function'||image.data instanceof Uint8Array&&image.data.length===image.width*image.height*3),'Invalid RGB image dimensions for the learned extractor.');
   requireValue(Number.isInteger(limit)&&limit>=100&&limit<=20000,'Invalid learned point count.');
   for(const polys of [regions,excluded])requireValue(Array.isArray(polys)&&polys.length<=10000&&polys.every(p=>Array.isArray(p)&&p.length>=3&&p.length<=100000&&p.every(xy=>Array.isArray(xy)&&xy.length===2&&xy.every(x=>Number.isFinite(x)&&Math.abs(x)<2**30))),'Invalid learned feature polygons.');
+  // A failed prior release remains part of this engine's ownership. Publish
+  // the barrier synchronously before waiting, and retire it before admitting
+  // another request's model, RGB preparation or worker.
+  checkAbort(signal);
+  if(this.preparers.size){
+   const controller=new AbortController();signal=signal?AbortSignal.any([signal,controller.signal]):controller.signal;this.rowAbort=controller;this.running=true;let finish;this.finished=new Promise(resolve=>finish=resolve);
+   try{await this.retirePreparers();checkAbort(signal);if(this.disposed)throw new EngineError('CANCELLED','Learned engine disposed.');}
+   finally{this.rowAbort=null;this.running=false;finish();}
+  }
   if(family==='XFeat'&&model?.sha256===XFEAT_PAGED_MODEL.sha256){
-   const controller=new AbortController(),abort=()=>controller.abort();this.pagedAbort=controller;this.running=true;signal?.addEventListener('abort',abort,{once:true});if(signal?.aborted)abort();
+   const controller=new AbortController(),abort=()=>controller.abort();this.pagedAbort=controller;this.running=true;let finish;this.finished=new Promise(resolve=>finish=resolve);signal?.addEventListener('abort',abort,{once:true});if(signal?.aborted)abort();
    try{return await extractXfeatPaged(image,{budget:this.budget,profile:this.profile,model,limit,regions,excluded,backend,signal:controller.signal,onProgress});}
    catch(error){checkAbort(controller.signal);throw error;}
-   finally{signal?.removeEventListener('abort',abort);this.pagedAbort=null;this.running=false;}
+   finally{signal?.removeEventListener('abort',abort);this.pagedAbort=null;this.running=false;finish();}
   }
   const identities=aliked?ALIKED_MODELS[kind].graphs:{xfeat:XFEAT_MODEL},supplied=aliked?model?.graphs:{xfeat:model};for(const [name,identity] of Object.entries(identities))requireValue(supplied?.[name]?.data instanceof Uint8Array&&supplied[name].sha256===identity.sha256,'Explicit pinned learned ONNX graphs are required.');checkAbort(signal);
-  const n=image.width*image.height,zoneCount=Math.max(1,regions.length),releaseModel=this.budget.reserve(Object.values(supplied).reduce((sum,g)=>sum+g.data.byteLength*2,8*MiB)),abort=()=>this.stop();this.running=true;signal?.addEventListener('abort',abort,{once:true});let freeResult,prepared,returned=false;
+  const externalSignal=signal,controller=new AbortController();signal=externalSignal?AbortSignal.any([externalSignal,controller.signal]):controller.signal;this.rowAbort=controller;
+  const n=image.width*image.height,zoneCount=Math.max(1,regions.length),releaseModel=this.budget.reserve(Object.values(supplied).reduce((sum,g)=>sum+g.data.byteLength*2,8*MiB)),abort=()=>this.stop();this.running=true;let finish;this.finished=new Promise(resolve=>finish=resolve);externalSignal?.addEventListener('abort',abort,{once:true});let freeResult,prepared,returned=false,failed=false,primary;
   try{
    for(const [name,identity] of Object.entries(identities))await verifyM3Bytes(supplied[name].data,identity,signal);checkAbort(signal);if(this.disposed)throw new EngineError('CANCELLED','Learned engine disposed.');
-   if(aliked)prepared=await prepareAlikedRows(researchRows(image),{budget:this.budget,signal,onProgress:e=>onProgress?.({...e,fraction:e.fraction*.08})});
+   if(aliked)prepared=await prepareAlikedRows(researchRows(image),{budget:this.budget,signal,onOwner:owner=>this.preparers.add(owner),onProgress:e=>onProgress?.({...e,fraction:e.fraction*.08})});
    let provider=backend==='cpu'?'wasm':backend==='webgpu'||typeof navigator.gpu!=='undefined'?'webgpu':'wasm';
    const [aw,ah]=aliked?alikedShape(image.width,image.height):[image.width,image.height],an=aw*ah,prepareHeapBytes=aliked?Math.ceil((an*36+32*MiB)/65536)*65536:0;requireValue(!aliked||(aw>=1&&ah>=1&&prepareHeapBytes<=2048*MiB),'Image exceeds the ALIKED preparation capacity.');
    const roundHeap=b=>Math.ceil(b/(64*MiB))*64*MiB,maskHeapBytes=Math.max(32*MiB,Math.ceil((n*2+32*MiB)/65536)*65536);let maximumHeapBytes=Math.min(2048*MiB,roundHeap(128*MiB+(aliked?an*(provider==='webgpu'?128:1536):n*512)));let executions=0,retries=0;const failures=[];
@@ -54,6 +70,11 @@ export class LearnedFeatureEngine{
      if(error.code==='MEMORY_LIMIT'&&maximumHeapBytes<2048*MiB&&retries<3){maximumHeapBytes=Math.min(2048*MiB,maximumHeapBytes*2);retries++;continue;}throw error;
     }finally{this.reject=null;this.worker?.terminate();this.worker=null;freeWorker();}
    }
-  }finally{prepared?.release();signal?.removeEventListener('abort',abort);this.stop();releaseModel();if(!returned)freeResult?.();this.running=false;}
+  }catch(error){failed=true;primary=error;throw error;}
+  finally{
+   let cleanupFailed=false;
+   try{await this.retirePreparers(failed?{primary}:{});if(!failed)checkAbort(signal);}catch(error){cleanupFailed=true;throw error;}
+   finally{externalSignal?.removeEventListener('abort',abort);this.stop();releaseModel();if(!returned||cleanupFailed)freeResult?.();this.rowAbort=null;this.running=false;finish();}
+  }
  }
 }

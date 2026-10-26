@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners} from './dense-owner-retirement.js';
 import {allocateOwnedTypedArray} from './allocation.js';
 import {EngineError,requireValue,checkAbort,isResumableResourceError,normalizeResourceError} from './errors.js';
 import {denseDescriptorShape} from './dense-math.js';
@@ -20,9 +21,11 @@ export async function preparePagedSift(image,{patch=8,support=patch,mirror=false
  const workspace=Math.max(kernelEnvelope,16*1024**2+bufferBytes+checkpointBytes);
  const dataBytes=width*height*64+dw*dh*(18+(fullBounds?128:0));
  const migrationBytes=()=>densePreparationMigrationBytes(budget,Math.max(width*height*32,fullBounds?dw*dh*128:0),{storage,temporarySession,getTemporarySession});
- const identity=JSON.stringify([region,patch,support,mirror,quarter,fullBounds]);requireValue(!checkpoint||checkpoint.identity===identity&&checkpoint.source===image.surface&&!checkpoint.disposed,'SIFT preparation checkpoint identity changed');
+ const identity=JSON.stringify([region,patch,support,mirror,quarter,fullBounds]);requireValue(!checkpoint||checkpoint.identity===identity&&checkpoint.source===image.surface&&!checkpoint.disposed&&!checkpoint.retiring,'SIFT preparation checkpoint identity changed');
  const state=checkpoint??{identity,source:image.surface,stores:{},phases:{},bitmaps:[],weights:null,owned:[],disposed:false};
- state.dispose??=async()=>{if(state.disposed)return;state.disposed=true;try{const settled=await Promise.allSettled(state.owned.map(store=>store.dispose())),failure=settled.find(value=>value.status==='rejected');if(failure)throw failure.reason;}finally{for(const owner of state.bitmaps)owner.release();state.owned=[];state.stores={};state.phases={};state.bitmaps=[];state.source=null;}};
+ const drops=state.retirementOwners??=new Map(),pendingRetirements=state.pendingRetirements??=new Set(),retireStore=store=>{let drop=drops.get(store);if(!drop){drop=onceDenseRetirement(()=>store.dispose());drops.set(store,drop);}pendingRetirements.add(store);return Promise.resolve(drop()).then(()=>{pendingRetirements.delete(store);});};
+ state.dispose??=onceDenseRetirement(async()=>{state.retiring=true;await retireDenseOwners(state.owned.map(store=>()=>retireStore(store)));for(const owner of state.bitmaps){if(!drops.has(owner))drops.set(owner,onceDenseRetirement(()=>owner.release()));await drops.get(owner)();}state.disposed=true;state.owned=[];state.stores={};state.phases={};state.bitmaps=[];state.source=null;drops.clear();pendingRetirements.clear();});
+ for(const store of [...pendingRetirements])await retireStore(store);
  onCheckpoint?.(state);
  const desired=(checkpoint?0:dataBytes)+workspace+ioAllowance+migrationBytes();
  await budget.reclaim(desired<=budget.limit?desired:workspace+ioAllowance,{signal});
@@ -59,7 +62,7 @@ export async function preparePagedSift(image,{patch=8,support=patch,mirror=false
     if(target!==(kind==='full'?bounds:boundSamples)&&boundsFallback)return;
     if(!optionalFailure(e))throw e;state.boundsFallback=boundsFallback=e.code;(state.retired??=new Set()).add(kind==='full'?'bounds':'boundSamples');
     if(kind==='full'){bounds=null;fullBounds=false;}else boundSamples=null;
-    await target.dispose();
+    await retireStore(target);
    }
   };
   planning();planLive=false;
@@ -92,8 +95,8 @@ export async function preparePagedSift(image,{patch=8,support=patch,mirror=false
   },async(index,r,{reserveIO})=>{const x=index%across*block,y=Math.floor(index/across)*block,cw=Math.min(block,dw-x),ch=Math.min(block,dh-y);
    for(let row=0;row<ch;row++){const dest=(y+row)*dw+x;await norms.write(new Uint8Array(r.norms.buffer,row*cw*12,cw*12),dest*12,{reserve:reserveIO});await turns.write(r.turns.subarray(row*cw,(row+1)*cw),dest,{reserve:reserveIO});await diverse.write(r.diverse.subarray(row*cw,(row+1)*cw),dest,{reserve:reserveIO});if(bounds)await writeBound('full',r.bounds.subarray(row*cw*128,(row+1)*cw*128),dest*128,false,reserveIO);if(boundSamples)await writeBound('sample',r.boundSamples.subarray(row*cw*4,(row+1)*cw*4),dest*4,false,reserveIO);}
   });
-  for(const s of [hist,norms,turns,diverse])await s.flush();await writeBound('full',null,0,true);await writeBound('sample',null,0,true);checkAbort(signal);await vertical.dispose();success=true;
+  for(const s of [hist,norms,turns,diverse])await s.flush();await writeBound('full',null,0,true);await writeBound('sample',null,0,true);checkAbort(signal);await retireStore(vertical);success=true;
   const execution=pool.snapshot();
   return {kind:'compact-sift',hist,norms,turns,diverse,bounds,boundSamples,weights,width,height,patch,offset:3*(support-patch)/2,viewWidth:shape.width,viewHeight:shape.height,mirror,quarter,origin:[originX,originY],metrics:{workers:execution.peakComputing,preparation,execution,workspaceBytes:execution.peakWorkers*workspace,heapBytes:execution.heapBytes,allocationRecoveries:recoveries(),boundsFallback,fullBounds,storedBytes:width*height*32+dw*dh*(14+(boundSamples?4:0)+(bounds?128:0))},dispose:state.dispose};
- }catch(error){const failure=normalizeResourceError(error);keep=!!onCheckpoint&&isResumableResourceError(failure)&&!signal?.aborted;throw failure;}finally{pool.dispose();if(planLive)planning();if(!success&&!keep)await state.dispose();}
+ }catch(error){const failure=error===0||error===false?error:normalizeResourceError(error);keep=!!onCheckpoint&&isResumableResourceError(failure)&&!signal?.aborted;throw failure;}finally{pool.dispose();if(planLive)planning();if(!success&&!keep)await state.dispose();}
 }

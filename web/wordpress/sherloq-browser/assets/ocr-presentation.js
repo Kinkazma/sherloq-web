@@ -55,3 +55,13 @@ export function renderOcrText(document,parent,output,{threshold=0,language='fr',
  text.readOnly=true;text.value=value;text.rows=Math.max(3,Math.min(12,value.split('\n').length+1));text.setAttribute('aria-label',title.textContent);text.placeholder=fr?'Aucun texte reconnu avec ce seuil.':'No text recognized at this threshold.';
  const summary=document.createElement('span');summary.textContent=fr?`${count} zone${count>1?'s':''}`:`${count} region${count!==1?'s':''}`;header.append(title,summary);if(copyButton)header.append(copy);section.append(header,text);parent.append(section);return section;
 }
+
+/** Current display settings are separate from immutable recognition parameters.
+ * A stale surface must never annotate another source or another OCR job. */
+export function ocrPresentationSnapshot(display,report,sourceSha256){
+ if(report?.operation!=='various.ocr'||!display?.ocrPresentation||display.responsePreview||display.id!=='ocr-view-'+report.id||!sourceSha256||report.provenance?.originalSha256!==sourceSha256)return null;
+ const fingerprint=display.sourceRegionDomain?.fingerprint??null,expected=report.provenance?.sourceRegionDomain?.fingerprint??report.provenance?.ocr?.sourceRegionFingerprint??null;
+ if(fingerprint!==expected)return null;
+ const p=display.ocrPresentation;
+ return {threshold:ocrThreshold(p.threshold),view:p.view??'overlay',width:display.width,height:display.height,visibleRegions:visibleOcrRegions({regions:p.regions},p.threshold).length,sourceSha256,...(fingerprint?{sourceRegionFingerprint:fingerprint}:{}),policy:'Presentation only; native recognition parameters, text, confidence and geometry remain unchanged.'};
+}

@@ -13,10 +13,10 @@ test('invalid edits, memory refusal and cancellation release reservations',async
  const controller=new AbortController(),patches=Array.from({length:256},(_,i)=>p(i));await assert.rejects(deriveOriginalBytes(new Blob(['0'.repeat(256)]),patches,{budget,signal:controller.signal,onProgress:()=>controller.abort()}),{code:'CANCELLED'});assert.equal(budget.active,0);
  const empty=await deriveOriginalBytes(source,[{offset:0,deleteCount:10,bytes:new Uint8Array()}],{budget});assert.equal(empty.blob.size,0);
 });
-test('large immutable Blob is sliced without arrayBuffer materialization',async()=>{
- class NoReadBlob extends Blob {arrayBuffer(){throw Error('full read forbidden');}}
+test('large direct Blob output is refused before materialization when not admitted',async()=>{
+ class NoReadBlob extends Blob {arrayBuffer(){throw Error('unadmitted full read forbidden');}}
  const source=new NoReadBlob(Array(256).fill(new Blob([new Uint8Array(65536)]))),budget=new Budget(16384);
- const result=await deriveOriginalBytes(source,[{offset:source.size-1,deleteCount:1,bytes:bytes('!')}],{budget});assert.equal(result.sizeBytes,16777216);assert.equal(await result.blob.slice(-1).text(),'!');assert.equal(result.metrics.sourceCopyBytes,0);assert.ok(budget.peak<16384);
+ await assert.rejects(deriveOriginalBytes(source,[{offset:source.size-1,deleteCount:1,bytes:bytes('!')}],{budget}),{code:'MEMORY_LIMIT'});assert.equal(budget.total(),0);
 });
 test('public engine preserves source and caches and can reuse after cancellation',async()=>{
  const engine=createEngine({cpuKernel:'single'}),source=bytes('0123456789');

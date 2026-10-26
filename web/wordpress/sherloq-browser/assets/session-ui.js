@@ -1,7 +1,7 @@
 import {sessionLog} from './session-log.js';
 import {runtimeContext,diagnostic} from './runtime-context.js';
 import {createExportSink} from './export-sink.js';
-import {createDownloadManager} from './download-manager.js';
+import {createDownloadManager,withDownloadCleanupFailure} from './download-manager.js';
 import {getDocumentDownloadShelf} from './download-shelf.js';
 const documentDownloads=new WeakMap();
 const sessionControls=new WeakMap();
@@ -32,28 +32,33 @@ export async function runSessionExport(task,{document=globalThis.document,button
  }finally{if(button){button.disabled=wasDisabled;button.textContent=label;}}
 }
 export async function downloadSession({log=sessionLog,document=globalThis.document,urlAPI=URL,schedule=setTimeout,button,feedback,emit=diagnostic,sinkFactory=createExportSink,report,name,download,downloadManager,operation='session-log'}={}){
- return runSessionExport(async progress=>{
-  let output,blob,info;
-  const cleanup=async()=>{try{await output?.cleanup?.();}catch(error){emit({level:'warning',kind:'session.export.cleanup.error',operation,phase:'temporary-file-cleanup',session:log?.id,error});}};
+ let legacyCleanup;
+ const outcome=await runSessionExport(async progress=>{
+  let output,blob,info,pendingSink;
+  let cleanupTask;const cleanup=()=>{if(cleanupTask)return cleanupTask;return cleanupTask=Promise.resolve().then(async()=>{if(pendingSink){await pendingSink.abort();pendingSink=null;}await output?.cleanup?.();output=null;blob=null;}).catch(error=>{cleanupTask=null;try{emit({level:'warning',kind:'session.export.cleanup.error',operation,phase:'temporary-file-cleanup',session:log?.id,error});}catch{}throw error;});};
   if(log?.exportTo){
-   progress('prepare-session-file');const sink=await sinkFactory({memoryBudgetBytes:4*1024**3,mime:'application/json'});
-   try{if(report){progress('serialize-report');const {sessionLog:ignored,...payload}=report,text=JSON.stringify(payload);await sink.write(new TextEncoder().encode(text.slice(0,-1)+(text==='{}'?'':',')+'"sessionLog":'));}progress('stream-session-log');info=await log.exportTo(sink);if(report)await sink.write(new TextEncoder().encode('}'));progress('finish-session-file');output=await sink.finish();blob=output.blob;}
-   catch(error){await sink.abort().catch(()=>{});throw error;}
+   progress('prepare-session-file');
+   try{const sink=await sinkFactory({memoryBudgetBytes:4*1024**3,mime:'application/json',onOwner:owner=>{pendingSink=owner;}});pendingSink=sink;await sink.ready?.();if(report){progress('serialize-report');const {sessionLog:ignored,...payload}=report,text=JSON.stringify(payload);await sink.write(new TextEncoder().encode(text.slice(0,-1)+(text==='{}'?'':',')+'"sessionLog":'));}progress('stream-session-log');info=await log.exportTo(sink);if(report)await sink.write(new TextEncoder().encode('}'));progress('finish-session-file');output=await sink.finish();pendingSink=null;blob=output.blob;}
+   catch(error){legacyCleanup=cleanup;try{await cleanup();}catch(secondary){throw withDownloadCleanupFailure(error,secondary,{downloadCleanupPending:true});}throw error;}
   }else{progress('read-session-log');const value=await log.report();progress('serialize-session-log');blob=new Blob([JSON.stringify(report?{...report,sessionLog:value}:value,null,2)],{type:'application/json'});info={session:value.session,eventCount:value.eventCount};}
   progress('download-dispatch');
-  const filename=name??'SHERLOQ-session-'+info.session+'.json';
-  let receipt,dispatched=false,ownershipTransferred=false;
+  const filename=name??'SHERLOQ-session-'+info.session+'.json',bytes=blob.size;
+  let receipt,dispatched=false,ownershipTransferred=false,failed=false,primary;
   try{
    const send=download??((value,file,options)=>(downloadManager??sessionDownloadManager(document,{urlAPI})).download(value,file,options));
    receipt=await send(blob,filename,{cleanup,storage:output?.storage,mime:'application/json'});dispatched=true;
-   return {...info,bytes:blob.size,format:'json',...(ownedDownload(receipt)?{downloadLease:receipt.id,downloadState:receipt.state}:{})};
-  }catch(error){receipt=error.downloadLease;ownershipTransferred=error.downloadOwnershipTransferred===true;throw error;}
+   return {...info,bytes,format:'json',...(ownedDownload(receipt)?{downloadLease:receipt.id,downloadState:receipt.state}:{})};
+  }catch(error){failed=true;primary=error;receipt=error?.downloadLease;ownershipTransferred=error?.downloadOwnershipTransferred===true;throw error;}
   finally{
    // Legacy callbacks do not accept ownership. A manager receipt transfers both
    // the URL and the backing file; it must never race a separate cleanup timer.
-   if(!ownedDownload(receipt)&&!ownershipTransferred){if(dispatched)schedule(()=>void cleanup(),60000);else await cleanup();}
+   if(!ownedDownload(receipt)&&!ownershipTransferred){legacyCleanup=cleanup;if(dispatched)schedule(()=>void cleanup().catch(()=>{}),60000);else try{await cleanup();}catch(secondary){if(failed)throw withDownloadCleanupFailure(primary,secondary,{downloadCleanupPending:true});throw secondary;}}
   }
  },{document,button,feedback,emit,log,operation});
+ // Legacy callbacks do not own the file. Keep an explicit retry handle in their
+ // returned outcome, outside journal serialization, including a delayed refusal.
+ if(legacyCleanup)Object.defineProperty(outcome,'releaseTemporaryFile',{value:legacyCleanup});
+ return outcome;
 }
 export function mountSessionControls(document=globalThis.document,{download,log=sessionLog}={}){
  let state=sessionControls.get(document);if(!state){state={download};sessionControls.set(document,state);}else if(download!==undefined)state.download=download;
@@ -63,5 +68,5 @@ export function mountSessionControls(document=globalThis.document,{download,log=
  const banner=document.createElement('aside');banner.id='dependency-retry';banner.className='dependency-retry';banner.hidden=true;document.body.append(banner);
  const update=()=>{save.textContent=fr()?'Exporter le journal complet de la session…':'Export complete session log…';banner.replaceChildren();const waiting=log.waiting;banner.hidden=!waiting.length;if(!waiting.length)return;const text=document.createElement('span');text.textContent=fr()?'Téléchargement interrompu. L’image et le calcul sont conservés.':'Download interrupted. The image and calculation are preserved.';banner.append(text);
  for(const entry of waiting){const b=document.createElement('button');b.className='primary';b.textContent=(fr()?'Réessayer : ':'Retry: ')+entry.key.split('/').at(-1);b.onclick=()=>runtimeContext.resume(entry.key);banner.append(b);}const exportButton=document.createElement('button');exportButton.textContent=fr()?'Exporter le journal':'Export log';exportButton.onclick=()=>void downloadSession({document,button:exportButton,download:state.download,log});banner.append(exportButton);};
- log.subscribe(e=>{if(['dependency.wait','dependency.ready','dependency.retry','dependency.cancelled'].includes(e.kind))update();});const Observer=document.defaultView?.MutationObserver??globalThis.MutationObserver;if(Observer)new Observer(update).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});update();
+ log.subscribe(e=>{if(['dependency.wait','dependency.ready','dependency.retry','dependency.cancelled','dependency.resumed','dependency.owner-retired'].includes(e.kind))update();});const Observer=document.defaultView?.MutationObserver??globalThis.MutationObserver;if(Observer)new Observer(update).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});update();
 }

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {requireValue} from './errors.js';
 import {automaticSnapshotArray as array} from './automatic-npz-stream.js';
 
@@ -41,6 +41,11 @@ export function automaticPointSnapshot(value,{nativeParams}={}) {
   if(Object.hasOwn(output,key)||key==='release'||data===undefined)continue;
   if(infrastructure.has(key)){browser[key]=data;continue;}
   if(key==='pair_algorithms'){output[key]=typed(data,Uint8Array,[m],key);continue;}
+  // Canonical I/G presentation retains every untouched native bank. Reuse
+  // this same ndarray contract recursively; never flatten stores or rasterize.
+  if(key==='windowResults'){requireValue(Array.isArray(data),'Native window results required.');output[key]=data.map(entry=>automaticWindowSnapshot(entry,nativeParams));continue;}
+  if(key==='globalResult'){output[key]=data===null?null:automaticWindowSnapshot(data,nativeParams);continue;}
+  if(key==='dense_windows'){requireValue(Array.isArray(data),'Native Dense window results required.');output[key]=data.map(entry=>{requireValue(entry&&typeof entry==='object'&&!Array.isArray(entry)&&Object.hasOwn(entry,'raw'),'Native Dense window description and explicit raw data required.');const {raw,...description}=entry;return {...description,raw:automaticPointSnapshot(raw,{nativeParams})};});continue;}
   if(key==='dense_maps'){requireValue(Array.isArray(data),'Dense field list required.');const maps=data.map(f=>denseMap(f,nativeParams[0]));output[key]=maps.map(f=>f.result);browser.dense_fields=maps.map(f=>f.browser);continue;}
   requireValue(!ArrayBuffer.isView(data),'Unrecognized classical scientific array: '+key);output[key]=data;
  }
@@ -49,4 +54,10 @@ export function automaticPointSnapshot(value,{nativeParams}={}) {
  // including allowed bitmasks and sampled display rows, without altering native
  // scientific array names or claiming native device/timing metadata.
  output.browser_details=browser;return output;
+}
+
+function automaticWindowSnapshot(entry,nativeParams){
+ requireValue(entry&&typeof entry==='object'&&!Array.isArray(entry)&&Object.hasOwn(entry,'dataNatif'),'Native window description and explicit native data required.');
+ const {dataNatif,...description}=entry;
+ return {...description,dataNatif:dataNatif===null?null:automaticPointSnapshot(dataNatif,{nativeParams})};
 }

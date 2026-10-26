@@ -2,7 +2,7 @@ import {samplePixels} from './display-sampling.js';
 import {isCameraRaw} from './media-format.js';
 import {loadExtendedImage} from './media-image-source.js';
 import {inspectTiffSource} from './tiff-header-source.js';
-import {disposePixelStoreCaches} from './pixel-store-cache.js';
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {decodePagedJpegRows} from './jpeg-dct-paged.js';
 import {prepareOrientedSourceCache} from './oriented-source-cache.js';
 import {inspectPngSource} from './png-header-source.js';
@@ -20,6 +20,7 @@ export async function loadSegmentedJpeg(blob,{budget,signal,onProgress,temporary
   return sessionPending;
  }
  try{
+  const sha256=await source.sha256({signal,onProgress:fraction=>onProgress?.({phase:'original-sha256',fraction})});checkAbort(signal);
   const header=await inspectJpegBlob(source,{signal}),n=header.sourceWidth*header.sourceHeight,
    coefficientBytes=header.progressive?Math.ceil(header.sourceWidth/8)*Math.ceil(header.sourceHeight/8)*64*6:0,
    paged=header.progressive||blob.size+32*1024**2>512*1024**2,
@@ -28,15 +29,28 @@ export async function loadSegmentedJpeg(blob,{budget,signal,onProgress,temporary
   if(!fits)await ensureTemporarySession({signal});
   store=await createSegmentedBytes(n*3,{budget,storage:fits?'memory':'temporary',temporarySession:session,signal});
   const started=performance.now(),decode=paged?await decodePagedJpegRows(source,header,store,{budget,signal,getTemporarySession:()=>ensureTemporarySession({signal}),onProgress}):await decodeJpegRows(source,header,store,{budget,signal,onProgress:f=>onProgress?.({phase:'decode',fraction:f})}),decodeMs=performance.now()-started;
-  const sha256=await source.sha256({signal,onProgress:f=>onProgress?.({phase:'original-sha256',fraction:f})});checkAbort(signal);
+  checkAbort(signal);
   surface=createRgbSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget});
   const oriented=await prepareOrientedSourceCache(surface,{budget,temporarySession:session,signal,onProgress});surface=oriented.surface;
   const provenance={decoder:JPEG_ID,chroma:header.chroma,...(paged?{coefficientStorage:'global-virtual-arrays',coefficientCacheBytes:8*1024**2}:{}),layout:'segmented-scanlines',orientation:header.orientation,orientationApplied:true,sourceSize:[header.sourceWidth,header.sourceHeight],icc:header.icc?'present, not applied (native policy)':'absent',depth:8,alpha:'absent',interpolation:'none'};
   return {kind:'image',segmented:true,ownsTemporarySession:!providedSession,source,store,surface,get session(){return session;},ensureTemporarySession,sha256,provenance,retainedBytes:0,metrics:{decodeMs,...decode,...oriented.metrics,storage:store.storage,temporaryBackend:session?.backend??null,temporaryFallback:session?.fallback??null,temporaryBytes:session?store.byteLength+(oriented.metrics.orientationCacheBytes??0):0,originalBlobBytes:blob.size,originalBlobResidency:'browser-managed; not measured as zero RAM'}};
  }catch(error){try{try{await surface?.dispose();if(!surface)await store?.dispose();}finally{if(!providedSession)await session?.dispose();}}catch(cleanup){error.temporaryCleanupError={code:cleanup.code??'STORAGE_IO',message:cleanup.message};}finally{source.dispose();}throw error;}
 }
-export async function disposeSegmentedImage(record){
- let failure;try{await disposePixelStoreCaches(record);}catch(e){failure=e;}for(const resource of [record.plotsCache,record.emCache,record.waveletCache,record.blockingCache,record.frequencyCache,record.prnuCache,record.resamplingCache,record.noisesnifferCache,record.stereoCache,record.thumbnailAnalysis,record.energyCache,record.zeroAnalysis,record.rgbRecompression,record.surface,record.ownsTemporarySession!==false?record.session:null,record.source])try{await resource?.dispose();}catch(e){failure??=e;}if(failure)throw failure;
+const segmentedImageRetirements=new WeakMap();
+export function disposeSegmentedImage(record){
+ let state=segmentedImageRetirements.get(record);if(!state){state={dependencies:new Map(),surfaces:new Map(),sessions:new Map(),sources:new Map(),task:null};segmentedImageRetirements.set(record,state);}if(state.task)return state.task;
+ const remember=(owners,owner,onDone)=>{
+  if(typeof owner?.dispose!=='function'||owners.has(owner))return;
+  let done=false,pending;owners.set(owner,()=>{if(done)return;if(pending)return pending;const task=Promise.resolve().then(()=>owner.dispose()).then(()=>{done=true;onDone?.();});pending=task;void task.finally(()=>{if(pending===task)pending=null;}).catch(()=>{});return task;});
+ };
+ for(const [key,owner]of record.pixelStoreCaches??[])remember(state.dependencies,owner,()=>{if(record.pixelStoreCaches?.get(key)===owner)record.pixelStoreCaches.delete(key);});
+ for(const key of ['plotsCache','emCache','waveletCache','blockingCache','frequencyCache','prnuCache','resamplingCache','noisesnifferCache','noisesnifferColdPreview','stereoCache','thumbnailAnalysis','energyCache','ghostCache','ghostProxyCache','zeroAnalysis','rgbRecompression']){
+  const owner=record[key];remember(state.dependencies,owner,()=>{if(record[key]===owner)record[key]=null;});
+ }
+ remember(state.surfaces,record.surface);if(record.ownsTemporarySession!==false)remember(state.sessions,record.session);remember(state.sources,record.source);
+ // Cache owners may still owe source-window ACKs. Their Original surface,
+ // temporary backing and encoded source stay alive until those debts retire.
+ const task=(async()=>{await retireCompositeOwners([...state.dependencies.values()]);await retireCompositeOwners([...state.surfaces.values()]);await retireCompositeOwners([...state.sessions.values()]);await retireCompositeOwners([...state.sources.values()]);})();state.task=task;void task.finally(()=>{if(state.task===task)state.task=null;}).catch(()=>{});return task;
 }
 export async function loadSegmentedPng(blob,{header,animationDetected=false,budget,signal,onProgress,temporarySessionId,onTemporarySession}={}){
  if(animationDetected)throw new EngineError('UNSUPPORTED_FORMAT','Animated PNG needs a separately qualified segmented frame policy.');
@@ -45,10 +59,12 @@ export async function loadSegmentedPng(blob,{header,animationDetected=false,budg
   checkAbort(taskSignal);if(session)return session;if(!sessionPending)sessionPending=(async()=>{const value=await createTemporarySession({budget,signal:taskSignal,id:temporarySessionId});session=value;onTemporarySession?.({id:value.id,backend:value.backend});return value;})().finally(()=>{sessionPending=null;});return sessionPending;
  }
  try{
+  const sha256=await source.sha256({signal,onProgress:fraction=>onProgress?.({phase:'original-sha256',fraction})});checkAbort(signal);
+  const inspected=await inspectPngSource(source,{signal,account:n=>budget.reserve(n)});header=inspected.header;if(inspected.metrics.animationDetected)throw new EngineError('UNSUPPORTED_FORMAT','Animated PNG needs a separately qualified segmented frame policy.');
   const n=header.sourceWidth*header.sourceHeight,plan=pngStreamPlan(header.sourceWidth,header.sourceHeight),fits=n*3+plan.workingBytes+2*1024**2<=budget.limit-budget.retained-budget.active;
   if(!fits)await ensureTemporarySession({signal});store=await createSegmentedBytes(n*3,{budget,storage:fits?'memory':'temporary',temporarySession:session,signal});
   const started=performance.now(),decode=await decodePngRows(source,header,store,{budget,signal,onProgress:f=>onProgress?.({phase:'decode',fraction:f})}),decodeMs=performance.now()-started;
-  const sha256=await source.sha256({signal,onProgress:f=>onProgress?.({phase:'original-sha256',fraction:f})});checkAbort(signal);
+  checkAbort(signal);
   surface=createRgbSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget});
   const oriented=await prepareOrientedSourceCache(surface,{budget,temporarySession:session,signal,onProgress});surface=oriented.surface;
   const provenance={decoder:'libpng-1.6.43/emscripten-4.0.15/scanlines-v1',format:'png',layout:'segmented-scanlines',orientation:header.orientation,orientationApplied:true,sourceSize:[header.sourceWidth,header.sourceHeight],sourceDepth:header.depth,analysisDepth:8,interlace:header.interlace,icc:header.icc?'present, not applied (native policy)':'absent',alpha:header.alpha?'present, native IMREAD_COLOR conversion; not retained':'absent',interpolation:'none',frames:'static PNG'};
@@ -61,10 +77,12 @@ export async function loadSegmentedTiff(blob,{header,budget,signal,onProgress,te
   checkAbort(taskSignal);if(session)return session;if(!sessionPending)sessionPending=(async()=>{const value=await createTemporarySession({budget,signal:taskSignal,id:temporarySessionId});session=value;onTemporarySession?.({id:value.id,backend:value.backend});return value;})().finally(()=>{sessionPending=null;});return sessionPending;
  }
  try{
+  const sha256=await source.sha256({signal,onProgress:fraction=>onProgress?.({phase:'original-sha256',fraction})});checkAbort(signal);
+  ({header}=await inspectTiffSource(source,{signal,account:n=>budget.reserve(n)}));
   const n=header.sourceWidth*header.sourceHeight,plan=tiffStreamPlan(header),fits=n*3+plan.workingBytes+2*1024**2<=budget.limit-budget.retained-budget.active;
   if(!fits)await ensureTemporarySession({signal});store=await createSegmentedBytes(n*3,{budget,storage:fits?'memory':'temporary',temporarySession:session,signal});
   const started=performance.now(),decode=await decodeTiffBlocks(source,header,store,{budget,signal,onProgress:f=>onProgress?.({phase:'decode',fraction:f})}),decodeMs=performance.now()-started;
-  const sha256=await source.sha256({signal,onProgress:f=>onProgress?.({phase:'original-sha256',fraction:f})});checkAbort(signal);
+  checkAbort(signal);
   surface=createRgbSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:1,budget});
   const provenance={decoder:'libtiff-4.6.0/emscripten-4.0.15/blocks-v1',format:'tiff',...(header.bigTiff?{container:'BigTIFF'}:{}),layout:'segmented-strips-tiles',orientation:header.orientation,orientationApplied:true,tiffOrientation:'native strip/tile transforms and placement',sourceSize:[header.sourceWidth,header.sourceHeight],sourceDepth:header.depth,analysisDepth:8,icc:header.icc?'present, not applied (native policy)':'absent',alpha:header.alpha?'present, native IMREAD_COLOR conversion; not retained':'absent',interpolation:'none',frames:'first image only'};
   return {kind:'image',segmented:true,source,store,surface,get session(){return session;},ensureTemporarySession,sha256,provenance,retainedBytes:0,metrics:{decodeMs,...decode,storage:store.storage,temporaryBackend:session?.backend??null,temporaryFallback:session?.fallback??null,temporaryBytes:session?store.byteLength:0,originalBlobBytes:blob.size,originalBlobResidency:'browser-managed; not measured as zero RAM'}};

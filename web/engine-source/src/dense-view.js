@@ -1,3 +1,4 @@
+import {selectSparseTraceRows,traceSelectionSummary,sparseTraceDrawCommands} from './sparse-trace-selection.js';
 import {renderPagedDenseCopy} from './dense-paged-view.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {createDenseRegions} from './dense-regions.js';
@@ -13,11 +14,12 @@ function sides(points,pairs,rows){
 const distinct=a=>{const keys=new Set();for(let i=0;i<a.length;i+=2)keys.add(round(a[i])+','+round(a[i+1]));return keys.size;};
 export async function renderDenseCopy(image,result,input={}, {budget,signal,onProgress}={}){
  if(image.surface)return renderPagedDenseCopy(image,result,input,{budget,signal,onProgress});
- const p={low:0,high:100000,minimum:4,chosen:[],hidden:[],circles:true,lines:true,points:false,areas:true,...input};
+ const p={low:0,high:100000,minimum:4,chosen:[],hidden:[],circles:true,lines:true,points:false,areas:true,traceOverlap:0,...input};
  requireValue(Number.isFinite(p.low)&&p.low>=0&&Number.isFinite(p.high)&&p.high>=p.low&&Number.isInteger(p.minimum)&&p.minimum>=1,'Invalid dense view filter.');
+ requireValue(Number.isInteger(p.traceOverlap)&&p.traceOverlap>=0&&p.traceOverlap<=100,'Invalid trace overlap percentage.');
  for(const key of ['chosen','hidden'])requireValue(Array.isArray(p[key])&&p[key].every(i=>Number.isSafeInteger(i)&&i>=0),'Invalid dense selected group.');
  for(const key of ['circles','lines','points','areas'])requireValue(typeof p[key]==='boolean','Invalid dense drawing switch.');
- const release=budget.reserve(48*1024**2+image.data.length*4+result.points.byteLength+result.pairs.length*64+4096);let renderer,drop;
+ const release=budget.reserve(48*1024**2+image.data.length*4+result.points.byteLength+result.pairs.length*64+4096);let renderer,drop,trace;
  try{
   checkAbort(signal);const native=await createDenseRegions();checkAbort(signal);renderer=native.renderer(image,result.points,result.pairs,result.colors);
   const chosen=new Set(p.chosen),hidden=new Set(p.hidden),visible=[],legend=[],selectedGroups=[],flags=(p.circles?1:0)|(p.lines?2:0)|(p.points?4:0)|(p.areas?8:0);
@@ -26,11 +28,15 @@ export async function renderDenseCopy(image,result,input={}, {budget,signal,onPr
    const [a,b]=sides(result.points,result.pairs,rows);if(Math.min(distinct(a),distinct(b))<p.minimum)continue;
    if(result.mirror_policy&&group[0]>=result.mirror_policy.base_pair_count&&renderer.overlap(Float32Array.from(a,round),Float32Array.from(b,round))>=result.mirror_policy.maximum_overlap)continue;
    legend.push([index,rows.length,group.length]);if(hidden.has(index)||chosen.size&&!chosen.has(index))continue;
-   visible.push([index,rows.length]);selectedGroups.push({index,rows});renderer.group(rows,result.bases[index],flags);
+   visible.push([index,rows.length]);selectedGroups.push({index,rows});
   }
+  let traceSelection;const traceFlags=flags&7;
+  for(const group of selectedGroups)if(flags&8)renderer.group(group.rows,result.bases[group.index],8);
+  if(!traceFlags)traceSelection=traceSelectionSummary(result,selectedGroups,[],p.traceOverlap,{selectionSkipped:true});
+  else{trace=await selectSparseTraceRows(result,selectedGroups,p.traceOverlap,{reserveMemory:n=>budget.reserve(n),signal});traceSelection=trace.metadata;renderer.colors(trace.colors);for(const command of sparseTraceDrawCommands(trace,traceFlags)){checkAbort(signal);renderer.group(command.rows,result.bases[selectedGroups[command.group].index],command.flags);}}
   checkAbort(signal);drop=budget.reserve(image.data.length+result.pairs.length*4+4096);const pixels={format:'rgb8',width:image.width,height:image.height,data:renderer.pixels()};let released=false;
-  return {pixels,visible,legend,selectedGroups,style:p,release(){if(released)return;released=true;drop();}};
- }catch(error){drop?.();throw error;}finally{renderer?.dispose();release();}
+  return {pixels,visible,legend,selectedGroups,style:p,traceSelection,release(){if(released)return;released=true;drop();}};
+ }catch(error){drop?.();throw error;}finally{trace?.release?.();renderer?.dispose();release();}
 }
 
 export const denseViewHelpers=Object.freeze({round,sides,distinct});

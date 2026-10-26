@@ -1,26 +1,31 @@
-import {appendScientificScopePreview,createScientificScopePreview} from './batch-scope-preview.js';
+import {createPlacementPointerLoupe} from './placement-pointer-loupe.js';
+import {scopeFingerprint} from './batch-scientific-preparation.js';
+import {EngineError,checkAbort} from './unified-engine/src/errors.js';
+import {scientificScopeEnvelope} from './batch-scope-geometry.js';
+import {appendScientificScopePreview,createScientificScopePreview,createScientificScopePreviewRetirement,appendScientificScopeEnvelope} from './batch-scope-preview.js';
 import {createManualScopeDraft,addManualScopeZone,updateManualScopeZone,removeManualScopeZone,restoreManualScopeZone,manualDraftScope,applyManualScopeDraft,normalizeScopeRectangle} from './batch-scope-manual.js';
+import {initializeSubimagesSelection,updateSubimagesSelection,subimagesSelectionMode} from './subimages-selection-intent.js';
 import {batchPairSelection} from './batch-catalog.js';
 import {bindViewerNavigation} from './viewer-input.js';
 
 const ns='http://www.w3.org/2000/svg',clone=value=>structuredClone(value),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-const strings={fr:{title:'Zones de l’image',modify:'Modifier les zones',preview:'Aperçu annoté',select:'Sélection / déplacer',acquisition:'Ajouter une acquisition',exclusion:'Ajouter une exclusion',remove:'Supprimer la zone',undo:'Annuler le geste',redo:'Rétablir',fit:'Ajuster',original:'100 %',save:'Valider',cancel:'Annuler',close:'Fermer',coordinates:'Coordonnées facultatives',apply:'Appliquer les coordonnées',legend:'Vert : acquisition · Rouge : exclusion · Gris : non classé · Jaune : à vérifier',hint:'Souris / trackpad : mêmes gestes que SHERLOQ · Espace + glisser : déplacer la vue',editing:'Dessinez, déplacez ou redimensionnez les zones. Les pixels originaux restent inchangés.',png:'Aperçu PNG en résolution originale · Clic droit pour enregistrer l’image annotée.',loading:'Création de l’aperçu PNG annoté…',pair:'Choisissez deux acquisitions pour EfficientLoFTR.',pairCount:'acquisitions sélectionnées sur 2',unavailable:'L’aperçu PNG est indisponible',microscopy:'Microscopie',gel:'Gel / blot',photography:'Photographie',empty:'Sélectionnez une zone pour ajuster ses coordonnées.'},en:{title:'Image regions',modify:'Edit regions',preview:'Annotated preview',select:'Select / move',acquisition:'Add acquisition',exclusion:'Add exclusion',remove:'Delete region',undo:'Undo gesture',redo:'Redo',fit:'Fit',original:'100%',save:'Apply',cancel:'Cancel',close:'Close',coordinates:'Optional coordinates',apply:'Apply coordinates',legend:'Green: acquisition · Red: exclusion · Gray: unclassified · Yellow: review needed',hint:'Mouse / trackpad: SHERLOQ navigation · Space + drag: pan',editing:'Draw, move or resize regions. Original pixels remain unchanged.',png:'Full-resolution annotated PNG · Right-click to save the annotated image.',loading:'Creating annotated PNG preview…',pair:'Choose two acquisitions for EfficientLoFTR.',pairCount:'acquisitions selected out of 2',unavailable:'PNG preview is unavailable',microscopy:'Microscopy',gel:'Gel / blot',photography:'Photography',empty:'Select a region to adjust its coordinates.'}};
+const strings={fr:{title:'Zones de l’image',modify:'Modifier les zones',preview:'Aperçu annoté',select:'Sélection / déplacer',acquisition:'Ajouter une acquisition',exclusion:'Ajouter une exclusion',remove:'Supprimer la zone',undo:'Annuler le geste',redo:'Rétablir',fit:'Ajuster',original:'100 %',save:'Valider',cancel:'Annuler',close:'Fermer',coordinates:'Coordonnées facultatives',apply:'Appliquer les coordonnées',legend:'Vert : acquisition · Rouge : exclusion · Gris : non classé · Jaune : à vérifier',hint:'Souris / trackpad : mêmes gestes que SHERLOQ · Espace + glisser : déplacer la vue',editing:'Dessinez, déplacez ou redimensionnez les zones. Les pixels originaux restent inchangés.',png:'Aperçu PNG en résolution originale · Clic droit pour enregistrer l’image annotée.',loading:'Création de l’aperçu PNG annoté…',pair:'Choisissez deux acquisitions pour EfficientLoFTR.',pairCount:'acquisitions sélectionnées sur 2',unavailable:'L’aperçu PNG est indisponible',microscopy:'Microscopie',gel:'Gel / blot',photography:'Photographie',empty:'Sélectionnez une zone pour ajuster ses coordonnées.',automatic:'Détecter automatiquement',subimages:'Détecter les sous-images',detecting:'Détection des zones…',unavailableDetection:'Détection non disponible dans ce contexte.'},en:{title:'Image regions',modify:'Edit regions',preview:'Annotated preview',select:'Select / move',acquisition:'Add acquisition',exclusion:'Add exclusion',remove:'Delete region',undo:'Undo gesture',redo:'Redo',fit:'Fit',original:'100%',save:'Apply',cancel:'Cancel',close:'Close',coordinates:'Optional coordinates',apply:'Apply coordinates',legend:'Green: acquisition · Red: exclusion · Gray: unclassified · Yellow: review needed',hint:'Mouse / trackpad: SHERLOQ navigation · Space + drag: pan',editing:'Draw, move or resize regions. Original pixels remain unchanged.',png:'Full-resolution annotated PNG · Right-click to save the annotated image.',loading:'Creating annotated PNG preview…',pair:'Choose two acquisitions for EfficientLoFTR.',pairCount:'acquisitions selected out of 2',unavailable:'PNG preview is unavailable',microscopy:'Microscopy',gel:'Gel / blot',photography:'Photography',empty:'Select a region to adjust its coordinates.',automatic:'Detect automatically',subimages:'Detect subimages',detecting:'Detecting regions…',unavailableDetection:'Detection is unavailable in this context.'}};
 
 /** Metadata-only editor. Changes are committed exclusively by Valider/Apply;
  * onSave receives (scope, originalImage, {pairSelection}), never a copied image.
  * open({selectionPurpose:'pair',pairSelection}) enables the exact-two-ROI picker.
  * previewFactory/computeProfile are passed through to native PNG generation. */
-export function createBatchScopeEditor({document=globalThis.document,image,language='fr',onSave=()=>{},onPairSelection,classifyAcquisitions=true,previewFactory=createScientificScopePreview,computeProfile='maximum',getNavigationMode=()=> 'auto',urlApi=globalThis.URL,onError=()=>{}}={}){
+export function createBatchScopeEditor({document=globalThis.document,image,language='fr',onSave=()=>{},onPairSelection,onDetectAutomatically,onDetectSubimages,classifyAcquisitions=true,subimagesSelection={positiveMode:'selected',afterLastAcquisitionDelete:'selected'},previewFactory=createScientificScopePreview,computeProfile='maximum',getNavigationMode=()=> 'auto',urlApi=globalThis.URL,onError=()=>{},placementLoupe={}}={}){
  if(!document||!image)throw Error('Image and document are required for the scope editor.');const t=strings[language==='en'?'en':'fr'];
  const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;};
  const dialog=make('dialog','batch-scope-editor'),header=make('header','batch-scope-editor-header'),title=make('h2','',t.title),name=make('p','muted',image.name??image.id??''),closeButton=make('button','',t.close);dialog.dataset.classifyAcquisitions=String(classifyAcquisitions);closeButton.type='button';closeButton.setAttribute('aria-label',t.close);header.append(title,name,closeButton);
  const toolbar=make('div','batch-scope-editor-toolbar'),button=(name,label)=>{const node=make('button','',label);node.type='button';node.dataset.scopeAction=name;toolbar.append(node);return node;};
- const modify=button('modify',t.modify),select=button('select',t.select),addAcquisition=button('acquisition',t.acquisition),addExclusion=button('exclusion',t.exclusion),undo=button('undo',t.undo),redo=button('redo',t.redo),remove=button('delete',t.remove),fitButton=button('fit',t.fit),zoomOut=button('zoom-out','−'),zoom=make('output','batch-scope-editor-zoom','100 %'),zoomIn=button('zoom-in','+'),oneToOne=button('one-to-one',t.original);toolbar.insertBefore(zoom,zoomIn);
+ const detectAutomatically=button('detect-automatically',t.automatic),detectSubimages=button('detect-subimages',t.subimages),modify=button('modify',t.modify),select=button('select',t.select),addAcquisition=button('acquisition',t.acquisition),addExclusion=button('exclusion',t.exclusion),undo=button('undo',t.undo),redo=button('redo',t.redo),remove=button('delete',t.remove),fitButton=button('fit',t.fit),zoomOut=button('zoom-out','−'),zoom=make('output','batch-scope-editor-zoom','100 %'),zoomIn=button('zoom-in','+'),oneToOne=button('one-to-one',t.original);toolbar.insertBefore(zoom,zoomIn);const miniLoupe=button('mini-loupe',language==='en'?'Mini magnifier · L':'Mini-loupe · L');miniLoupe.setAttribute('aria-keyshortcuts','L');
  const acquisitionType=make('select');acquisitionType.setAttribute('aria-label',language==='en'?'Acquisition type':'Type d’acquisition');for(const [value,label]of [['microscopy',t.microscopy],['gel',t.gel],['photography',t.photography]]){const option=make('option','',label);option.value=value;acquisitionType.append(option);}toolbar.insertBefore(acquisitionType,addExclusion);
  const content=make('div','batch-scope-editor-content'),viewer=make('div','batch-scope-editor-viewport'),plane=make('div','batch-scope-editor-plane'),img=make('img','batch-scope-editor-image');img.alt=name.textContent;img.draggable=false;
  const svg=document.createElementNS(ns,'svg');svg.classList.add('batch-scope-editor-overlay');svg.setAttribute('viewBox',`0 0 ${image.width} ${image.height}`);svg.setAttribute('aria-label',t.title);
  const layer=name=>{const group=document.createElementNS(ns,'g');group.classList.add('batch-scope-editor-'+name+'-layer');svg.append(group);return group;};
- const annotationLayer=layer('annotation'),hitLayer=layer('hit'),pairLayer=layer('pair'),highlightLayer=layer('highlight'),handleLayer=layer('handle'),drawingLayer=layer('drawing');
+ const annotationLayer=layer('annotation'),envelopeLayer=layer('envelope'),hitLayer=layer('hit'),pairLayer=layer('pair'),highlightLayer=layer('highlight'),handleLayer=layer('handle'),drawingLayer=layer('drawing');
  const hitNodes=new Map(),handleNodes=new Map();
  for(const handle of ['nw','n','ne','e','se','s','sw','w']){const node=document.createElementNS(ns,'rect');node.dataset.scopeHandle=handle;node.classList.add('batch-scope-editor-handle');node.style.pointerEvents='none';handleLayer.append(node);handleNodes.set(handle,node);}
  plane.append(img,svg);viewer.append(plane);viewer.tabIndex=0;
@@ -31,17 +36,26 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
  const legend=make('p','batch-scope-editor-legend',t.legend),status=make('p','batch-scope-editor-status',t.hint);status.setAttribute('role','status');status.setAttribute('aria-live','polite');
  const footer=make('footer','batch-scope-editor-footer'),cancel=make('button','',t.cancel),save=make('button','primary',t.save);cancel.type=save.type='button';cancel.dataset.scopeAction='cancel';save.dataset.scopeAction='save';footer.append(cancel,save);dialog.append(header,toolbar,content,legend,status,footer);
  dialog.setAttribute('aria-label',t.title);dialog.setAttribute('aria-modal','true');
- let draft,editing=false,opened=false,disposed=false,tool='select',selected=null,hovered=null,focused=null,purpose=null,pairIds=[],past=[],future=[],gesture=null,scale=1,fitScale=1,pan={x:0,y:0},space=false,rawUrl,previewUrl,previewResult,previewController,previewQueue=Promise.resolve(),previewSequence=0,encoded=false,busy=false,focusBefore,clickCandidate=null,clickBaseline=null,coordinateSignature=null;
+ let placement=null,closePending=false;const previewOwners=createScientificScopePreviewRetirement();
+ let draft,editing=false,opened=false,disposed=false,tool='select',selected=null,hovered=null,focused=null,purpose=null,pairIds=[],past=[],future=[],gesture=null,scale=1,fitScale=1,pan={x:0,y:0},space=false,rawUrl,previewUrl,previewResult,previewController,previewQueue=Promise.resolve(),previewSequence=0,encoded=false,busy=false,focusBefore,clickCandidate=null,clickBaseline=null,coordinateSignature=null,envelopeDraft=null,envelopeAction=null,envelopeScope=null,envelope=null;
  plane.style.width=image.width+'px';plane.style.height=image.height+'px';svg.setAttribute('width',image.width);svg.setAttribute('height',image.height);
  const zone=()=>draft?.zones.find(z=>z.id===selected);
  const say=(text,error=false)=>{status.textContent=text;status.classList.toggle('batch-scope-editor-error',error);};
- function transform(){plane.style.transform=`translate(${pan.x}px,${pan.y}px) scale(${scale})`;zoom.textContent=Math.round(scale*100)+' %';renderOverlay();}
+ function transform(){void placement?.refresh();plane.style.transform=`translate(${pan.x}px,${pan.y}px) scale(${scale})`;zoom.textContent=Math.round(scale*100)+' %';renderOverlay();}
  function fit(){const box=viewer.getBoundingClientRect();fitScale=Math.max(.0001,Math.min((box.width||800)/image.width,(box.height||500)/image.height)*.95);scale=fitScale;pan={x:((box.width||800)-image.width*scale)/2,y:((box.height||500)-image.height*scale)/2};transform();}
- function zoomAt(factor,clientX,clientY){const box=viewer.getBoundingClientRect(),x=clientX??box.left+box.width/2,y=clientY??box.top+box.height/2,local={x:x-box.left,y:y-box.top},next=clamp(scale*factor,Math.max(.0001,fitScale/4),32);pan={x:local.x-(local.x-pan.x)*next/scale,y:local.y-(local.y-pan.y)*next/scale};scale=next;transform();}
+ function zoomAt(factor,clientX,clientY){const box=viewer.getBoundingClientRect(),x=clientX??box.left+box.width/2,y=clientY??box.top+box.height/2,local={x:x-box.left,y:y-box.top},next=clamp(scale*factor,Math.max(.0001,Math.min(1,fitScale/4)),32);pan={x:local.x-(local.x-pan.x)*next/scale,y:local.y-(local.y-pan.y)*next/scale};scale=next;transform();}
  function point(event){const box=viewer.getBoundingClientRect();return {x:clamp((event.clientX-box.left-pan.x)/scale,0,image.width),y:clamp((event.clientY-box.top-pan.y)/scale,0,image.height)};}
- const snapshot=()=>clone(draft);
+ const preparationBases=new WeakMap(),automaticDrafts=new WeakSet(),detectionTasks=new Set();let detectionController=null,detectionSequence=0,closeCompletion=Promise.resolve();
+ const baseScope=()=>preparationBases.get(draft)??image.preparation,currentImage=()=>({...image,preparation:baseScope()});
+ // Each draft owns its compact preparation metadata. History and in-progress
+ // gestures therefore restore both geometry and its original detector/model provenance.
+ const cloneDraft=value=>{const next=clone(value);preparationBases.set(next,preparationBases.get(value)??image.preparation);if(automaticDrafts.has(value))automaticDrafts.add(next);return next;};
+ const snapshot=()=>cloneDraft(draft);
+ const detectedUnedited=()=>automaticDrafts.has(draft)&&draft.actions.every(action=>['detect-automatically','detect-subimages'].includes(action.operation)&&action.actor==='system');
+ const stagedScope=()=>detectedUnedited()?Promise.resolve(baseScope()):applyManualScopeDraft(currentImage(),draft);
  function remember(){past.push(snapshot());if(past.length>50)past.shift();future=[];}
  function updateControls(){
+  for(const node of toolbar.querySelectorAll('button'))node.disabled=false;
   const chosen=zone();modify.textContent=editing?t.preview:t.modify;modify.setAttribute('aria-pressed',String(editing));
   for(const [node,value]of [[select,'select'],[addAcquisition,'acquisition'],[addExclusion,'exclusion']]){node.hidden=!editing;node.setAttribute('aria-pressed',String(tool===value));}
   acquisitionType.hidden=!editing||!classifyAcquisitions;undo.hidden=redo.hidden=remove.hidden=!editing;undo.disabled=!past.length;redo.disabled=!future.length;remove.disabled=!chosen;details.hidden=!editing;applyCoordinates.disabled=!chosen;
@@ -51,7 +65,7 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
   // Keep unapplied values until the selected zone or its actual bounds change.
   if(chosen){if(nextCoordinateSignature!==coordinateSignature){inputs.x.value=String(chosen.x0);inputs.y.value=String(chosen.y0);inputs.width.value=String(chosen.x1-chosen.x0);inputs.height.value=String(chosen.y1-chosen.y0);}coordinateHint.textContent=(chosen.kind==='acquisition'?t.acquisition:t.exclusion)+' · '+chosen.id;}else coordinateHint.textContent=t.empty;coordinateSignature=nextCoordinateSignature;
   pairNote.hidden=purpose!=='pair';pairNote.textContent=t.pair+' '+pairIds.length+' '+t.pairCount;save.hidden=!editing&&purpose!=='pair'&&!draft?.changed;cancel.textContent=editing||purpose==='pair'?t.cancel:t.close;save.disabled=busy||purpose==='pair'&&pairIds.length!==2;
-  viewer.dataset.editing=String(editing);viewer.dataset.scopeTool=tool;dialog.dataset.selectionPurpose=purpose??'scope';list.hidden=!editing&&purpose!=='pair';
+  miniLoupe.hidden=!editing;miniLoupe.setAttribute('aria-pressed',String(placement?.enabled!==false));void placement?.refresh();viewer.dataset.editing=String(editing);viewer.dataset.scopeTool=tool;dialog.dataset.selectionPurpose=purpose??'scope';list.hidden=!editing&&purpose!=='pair';
   // Presentation order only: keep scientific polygon order and stable zone IDs.
   const textZone=z=>z.role==='text'||z.label==='Text',priority=z=>z.kind==='acquisition'?0:textZone(z)?2:1;
   const ordered=(draft?.zones??[]).map((z,index)=>({z,index})).sort((a,b)=>priority(a.z)-priority(b.z)||a.index-b.index).map(({z})=>z);
@@ -64,17 +78,24 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
     item.addEventListener('focus',()=>{focused=z.id;highlightRows();renderOverlay();});item.addEventListener('blur',()=>{if(focused===z.id)focused=null;highlightRows();renderOverlay();});
     item.onclick=()=>{selected=z.id;const current=draft.zones.find(zone=>zone.id===z.id);if(purpose==='pair'&&current?.kind==='acquisition')togglePair(z.id);renderOverlay();updateControls();};
    }
-   item.textContent=(z.kind==='acquisition'?'▧ ':'⊘ ')+(!classifyAcquisitions&&z.kind==='acquisition'?(language==='en'?'Acquisition':'Acquisition'):(names[z.label]??z.label??z.kind))+' · '+z.id;item.dataset.zoneKind=z.kind;item.dataset.zoneRole=z.role??'acquisition';item.dataset.zonePriority=String(priority(z));item.setAttribute('aria-pressed',String(z.id===selected));
+   item.textContent=(z.kind==='acquisition'?'▧ ':'⊘ ')+(!classifyAcquisitions&&z.kind==='acquisition'&&!(['Microscopy','Blots','Body Imaging'].includes(z.label))?'Acquisition':(names[z.label]??z.label??z.kind))+' · '+z.id;item.dataset.zoneKind=z.kind;item.dataset.zoneRole=z.role??'acquisition';item.dataset.zonePriority=String(priority(z));item.setAttribute('aria-pressed',String(z.id===selected));
    // Most updates move/resize the same zone. Do not replace its focused row or
    // discard hover merely to refresh optional coordinates.
    if(list.children[index]!==item)list.insertBefore(item,list.children[index]??null);
   }
+  detectAutomatically.disabled=busy||typeof onDetectAutomatically!=='function';detectSubimages.disabled=busy||typeof onDetectSubimages!=='function';for(const [node,callback]of [[detectAutomatically,onDetectAutomatically],[detectSubimages,onDetectSubimages]])node.title=typeof callback==='function'?'':t.unavailableDetection;
+  if(busy){for(const node of toolbar.querySelectorAll('button'))node.disabled=true;for(const input of Object.values(inputs))input.disabled=true;applyCoordinates.disabled=true;}
   if(hovered&&!ids.has(hovered))hovered=null;if(focused&&!ids.has(focused))focused=null;highlightRows();
  }
  function highlightRows(){for(const item of list.children)item.dataset.highlighted=String(item.dataset.zoneId===hovered||item.dataset.zoneId===focused);}
+ function currentEnvelope(){
+  const action=draft?.actions.at(-1);if(envelopeDraft!==draft||envelopeAction!==action){envelopeDraft=draft;envelopeAction=action;envelopeScope=manualDraftScope(draft,baseScope());envelope=Object.hasOwn(envelopeScope,'envelope')?envelopeScope.envelope:scientificScopeEnvelope(envelopeScope,{width:image.width,height:image.height});}
+  return envelope;
+ }
  function renderOverlay(){
-  annotationLayer.replaceChildren();pairLayer.replaceChildren();highlightLayer.replaceChildren();drawingLayer.replaceChildren();if(!draft)return;
-  if(!encoded)appendScientificScopePreview(annotationLayer,editing||draft.changed?manualDraftScope(draft,image.preparation):image.preparation??manualDraftScope(draft),{width:image.width,height:image.height,id:'editor-'+image.id});
+  annotationLayer.replaceChildren();envelopeLayer.replaceChildren();pairLayer.replaceChildren();highlightLayer.replaceChildren();drawingLayer.replaceChildren();if(!draft)return;
+  const derived=currentEnvelope();if(!encoded)appendScientificScopePreview(annotationLayer,editing||draft.changed?envelopeScope:baseScope()??envelopeScope,{width:image.width,height:image.height,id:'editor-'+image.id});
+  appendScientificScopeEnvelope(envelopeLayer,envelopeScope,{width:image.width,height:image.height,envelope:derived,language});
   // Native click/dblclick recognition requires the actual target to survive
   // pointer-down/up, preview completion, focus highlights and camera changes.
   const zoneIds=new Set(draft.zones.map(z=>z.id));for(const [id,node]of hitNodes)if(!zoneIds.has(id)){node.remove();hitNodes.delete(id);}
@@ -102,23 +123,35 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
   const nearby=handlePoints(z).map(([name,hx,hy])=>({name,dx:Math.abs(x-hx),dy:Math.abs(y-hy)})).filter(h=>h.dx<=radius&&h.dy<=radius).sort((a,b)=>a.dx*a.dx+a.dy*a.dy-b.dx*b.dx-b.dy*b.dy);return nearby[0]?.name??null;
  }
  function togglePair(id){if(pairIds.includes(id))pairIds=pairIds.filter(x=>x!==id);else if(pairIds.length<2)pairIds.push(id);else say(t.pair,true);}
- async function cleanupPreview(){if(previewUrl){urlApi.revokeObjectURL(previewUrl);previewUrl=null;}const result=previewResult;previewResult=null;await result?.cleanup?.();}
+ const reportPreviewError=error=>{say(t.unavailable+' : '+(error?.message??String(error)),true);onError(error);};
+ async function cleanupCurrentPreview(){if(previewResult)await previewOwners.release(previewResult);if(previewUrl){urlApi.revokeObjectURL(previewUrl);previewUrl=null;}previewResult=null;}
+ async function cleanupPreview(){await previewOwners.drain({all:true});if(previewUrl){urlApi.revokeObjectURL(previewUrl);previewUrl=null;}previewResult=null;}
  function requestPreview(){
-  if(!opened||disposed)return Promise.resolve();const sequence=++previewSequence;previewController?.abort();const controller=previewController=new AbortController(),scope=editing||draft.changed?manualDraftScope(draft,image.preparation):image.preparation;
+  if(!opened||disposed)return Promise.resolve();const sequence=++previewSequence;previewController?.abort();const controller=previewController=new AbortController(),scope=editing||draft.changed?manualDraftScope(draft,baseScope()):baseScope();
   encoded=false;img.src=rawUrl;renderOverlay();say(t.loading);
   const operation=previewQueue.catch(()=>{}).then(async()=>{
    if(controller.signal.aborted||!opened)return;
-   let result;try{result=await previewFactory(image,{scope,signal:controller.signal,computeProfile});if(controller.signal.aborted||!opened||sequence!==previewSequence){await result.cleanup?.();return;}
-    if(!(result.blob instanceof Blob))throw Error('Annotated preview is not a Blob.');await cleanupPreview();previewResult=result;previewUrl=urlApi.createObjectURL(result.blob);img.src=previewUrl;encoded=true;renderOverlay();say((editing?t.editing+' ':'')+t.png);
-   }catch(error){if(result&&result!==previewResult)await result.cleanup?.();if(controller.signal.aborted||!opened)return;say(t.unavailable+' : '+error.message,true);onError(error);}
+   let result,owned,cleanupAttempted=false;try{
+    await previewOwners.drain();if(controller.signal.aborted||!opened)return;
+    result=await previewFactory(image,{scope,signal:controller.signal,computeProfile,onOwner:value=>{owned=value;previewOwners.own(value);}});previewOwners.own(result);
+    if(controller.signal.aborted||!opened||sequence!==previewSequence){cleanupAttempted=true;await previewOwners.release(result);return;}
+    if(!(result.blob instanceof Blob))throw Error('Annotated preview is not a Blob.');await cleanupCurrentPreview();previewResult=result;previewUrl=urlApi.createObjectURL(result.blob);img.src=previewUrl;encoded=true;renderOverlay();say((editing?t.editing+' ':'')+t.png);
+   }catch(error){
+    // Construction already made its one cleanup attempt. Keep any refused
+    // owner for a later explicit gesture/close, without replacing the primary.
+    if(owned)previewOwners.mark(owned);
+    if(result&&result!==previewResult&&!cleanupAttempted){try{await previewOwners.release(result);}catch{}}
+    if(controller.signal.aborted||!opened)return;reportPreviewError(error);
+   }
   });previewQueue=operation;return operation;
  }
  function changed(){pairIds=pairIds.filter(id=>draft.zones.some(z=>z.id===id&&z.kind==='acquisition'));renderOverlay();updateControls();void requestPreview();}
- function edit(action){try{remember();action();changed();}catch(error){if(past.length)draft=past.pop();say(error.message,true);updateControls();}}
- modify.onclick=()=>{editing=!editing;gesture=null;tool='select';updateControls();renderOverlay();void requestPreview();};
+ function edit(action){if(busy)return;try{remember();action();updateSubimagesSelection(draft,past.at(-1));changed();}catch(error){if(past.length)draft=past.pop();say(error.message,true);updateControls();}}
+ miniLoupe.onclick=()=>placement?.toggle();
+ modify.onclick=()=>{if(busy)return;editing=!editing;gesture=null;tool='select';updateControls();renderOverlay();void requestPreview();};
  for(const [node,next]of [[select,'select'],[addAcquisition,'acquisition'],[addExclusion,'exclusion']])node.onclick=()=>{tool=next;updateControls();};
  remove.onclick=()=>{if(zone())edit(()=>{removeManualScopeZone(draft,selected);selected=null;});};
- undo.onclick=()=>{if(!past.length)return;future.push(snapshot());draft=past.pop();if(!zone())selected=null;changed();};redo.onclick=()=>{if(!future.length)return;past.push(snapshot());draft=future.pop();if(!zone())selected=null;changed();};
+ undo.onclick=()=>{if(busy||!past.length)return;future.push(snapshot());draft=past.pop();if(!zone())selected=null;changed();};redo.onclick=()=>{if(busy||!future.length)return;past.push(snapshot());draft=future.pop();if(!zone())selected=null;changed();};
  applyCoordinates.onclick=()=>{if(!zone())return;edit(()=>{const x=Number(inputs.x.value),y=Number(inputs.y.value),w=Number(inputs.width.value),h=Number(inputs.height.value);if(!(w>0&&h>0))throw Error('La largeur et la hauteur doivent être positives.');updateManualScopeZone(draft,selected,{x0:x,y0:y,x1:x+w,y1:y+h},{operation:'coordinates'});});};
  fitButton.onclick=fit;zoomIn.onclick=()=>zoomAt(1.25);zoomOut.onclick=()=>zoomAt(.8);oneToOne.onclick=()=>zoomAt(1/scale);
  // Use the exact wheel/trackpad/Safari/touch interpretation used by the
@@ -150,7 +183,7 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
  function panOverride(value){
   const transfer=value&&gesture&&gesture.kind!=='pan'?gesture:null;
   if(transfer){gesture=null;if(transfer.before)draft=transfer.before;clickCandidate=clickBaseline=null;}
-  space=value;viewer.dataset.panOverride=String(value);viewer.style.cursor=value?'grab':'';
+  space=value;void placement?.refresh();viewer.dataset.panOverride=String(value);viewer.style.cursor=value?'grab':'';
   // Space pressed during an unfinished mouse rectangle hands that pointer to
   // the shared navigator. No half-drawn region is committed on pointer-up.
   if(transfer){const client=transfer.client;for(const listener of navigationListeners)if(listener.type==='pointerdown')listener.handler({type:'pointerdown',button:0,pointerType:'mouse',pointerId:transfer.pointerId,clientX:client.x,clientY:client.y,target:viewer,preventDefault(){}});if(opened){renderOverlay();updateControls();void requestPreview();}}
@@ -181,19 +214,23 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
   else gesture={kind:'pan',pointerId:event.pointerId,x:event.clientX,y:event.clientY,pan:{...pan}};
   viewer.setPointerCapture?.(event.pointerId);updateControls();renderOverlay();
  });
- viewer.addEventListener('pointermove',event=>{
+ function updateGesturePoint(event){
   if(!gesture){if(!space&&event.pointerType!=='touch'){const handle=handleAt(event);viewer.style.cursor=handle?handle+'-resize':'';}return;}if(gesture.pointerId!==undefined&&gesture.pointerId!==event.pointerId)return;gesture.client={x:event.clientX,y:event.clientY};const p=point(event);if(gesture.kind==='pan'){pan={x:gesture.pan.x+event.clientX-gesture.x,y:gesture.pan.y+event.clientY-gesture.y};transform();return;}
   if(gesture.kind==='draw'){gesture.current=p;renderOverlay();return;}
   const z=gesture.initial,dx=p.x-gesture.start.x,dy=p.y-gesture.start.y;if(Math.hypot(dx,dy)<.5&&!gesture.moved)return;gesture.moved=true;encoded=false;img.src=rawUrl;
   let rectangle;if(gesture.kind==='move'){const ox=clamp(Math.round(dx),-z.x0,image.width-z.x1),oy=clamp(Math.round(dy),-z.y0,image.height-z.y1);rectangle={x0:z.x0+ox,y0:z.y0+oy,x1:z.x1+ox,y1:z.y1+oy};}
   else{rectangle={x0:z.x0,y0:z.y0,x1:z.x1,y1:z.y1};if(gesture.handle.includes('w'))rectangle.x0=p.x;if(gesture.handle.includes('e'))rectangle.x1=p.x;if(gesture.handle.includes('n'))rectangle.y0=p.y;if(gesture.handle.includes('s'))rectangle.y1=p.y;}
-  try{draft=clone(gesture.before);updateManualScopeZone(draft,z.id,rectangle,{operation:gesture.kind});renderOverlay();updateControls();}catch{}
- });
+  try{draft=cloneDraft(gesture.before);updateManualScopeZone(draft,z.id,rectangle,{operation:gesture.kind});renderOverlay();updateControls();}catch{}
+ }
+ viewer.addEventListener('pointermove',updateGesturePoint);
  function finishGesture(event,cancelled=false){
-  if(!gesture||gesture.pointerId!==undefined&&gesture.pointerId!==event.pointerId)return;const current=gesture;gesture=null;viewer.releasePointerCapture?.(event.pointerId);
+  if(!gesture||gesture.pointerId!==undefined&&gesture.pointerId!==event.pointerId)return;
+  // Pointer-up can carry the last editing point without a preceding move.
+  if(!cancelled&&['draw','move','resize'].includes(gesture.kind))updateGesturePoint(event);
+  const current=gesture;gesture=null;viewer.releasePointerCapture?.(event.pointerId);
   if(cancelled){if(current.before)draft=current.before;clickCandidate=clickBaseline=null;renderOverlay();updateControls();void requestPreview();return;}
   if(current.kind==='draw'){const end=current.current??current.start;if(Math.abs(end.x-current.start.x)>=1&&Math.abs(end.y-current.start.y)>=1)edit(()=>{selected=addManualScopeZone(draft,tool,{x0:current.start.x,y0:current.start.y,x1:end.x,y1:end.y},{type:classifyAcquisitions?acquisitionType.value:'acquisition'}).id;});else{renderOverlay();void requestPreview();}}
-  else if(current.before&&current.moved){past.push(current.before);if(past.length>50)past.shift();future=[];changed();}
+  else if(current.before&&current.moved){past.push(current.before);if(past.length>50)past.shift();future=[];updateSubimagesSelection(draft,current.before);changed();}
   else if(purpose==='pair'&&current.initial?.kind==='acquisition'){togglePair(current.initial.id);updateControls();renderOverlay();}
   clickCandidate=current.interaction??null;
  }
@@ -217,23 +254,39 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
  // While it is being replaced, avoid saving a stale/original image as annotated.
  img.addEventListener('contextmenu',event=>{if(!encoded){event.preventDefault();say(t.loading);}});
  dialog.addEventListener('keydown',event=>{
-  if(event.key==='Escape'){event.preventDefault();void close();return;}if(editableTarget(event.target))return;
+  if(placement?.keydown(event))return;
+  if(event.key==='Escape'){event.preventDefault();void close().catch(reportPreviewError);return;}if(editableTarget(event.target))return;
   if(event.code==='Space'){panOverride(true);event.preventDefault();return;}if(!editing)return;
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'){event.preventDefault();(event.shiftKey?redo:undo).click();}
   if((event.key==='Delete'||event.key==='Backspace')&&zone()){event.preventDefault();remove.click();}
- });dialog.addEventListener('keyup',event=>{if(event.code==='Space'){panOverride(false);event.preventDefault();}});dialog.addEventListener('cancel',event=>{event.preventDefault();void close();});
- closeButton.onclick=cancel.onclick=()=>close();
+ });dialog.addEventListener('keyup',event=>{if(event.code==='Space'){panOverride(false);event.preventDefault();}});dialog.addEventListener('cancel',event=>{event.preventDefault();void close().catch(reportPreviewError);});
+ async function detect(kind,callback){
+  if(!opened||disposed||busy||typeof callback!=='function')return;cancelInteractions();const sequence=++detectionSequence,controller=detectionController=new AbortController(),previous=draft,sourceIdentity=[image.blob,image.id,image.sourceSha256,image.width,image.height];busy=true;updateControls();say(t.detecting);
+  const current=()=>!disposed&&opened&&sequence===detectionSequence&&draft===previous&&sourceIdentity.every((value,index)=>value===[image.blob,image.id,image.sourceSha256,image.width,image.height][index]);
+  const task=(async()=>{try{
+   const scope=await stagedScope();checkAbort(controller.signal);if(!current())throw new EngineError('CANCELLED','Region detection source changed.');
+   const answer=await callback({image,scope,draft:snapshot(),sourceSelectionMode:subimagesSelectionMode(draft),signal:controller.signal,onProgress:()=>{if(current())say(t.detecting);}});checkAbort(controller.signal);if(!current())throw new EngineError('CANCELLED','Region detection source changed.');
+   const next=answer?.scope??answer;if(!next||next.sourceSha256!==scope.sourceSha256||next.width!==image.width||next.height!==image.height||await scopeFingerprint(next)!==next.fingerprint)throw new EngineError('INVALID_INPUT','Detected regions do not match the original source or their fingerprint.');
+   checkAbort(controller.signal);if(!current())throw new EngineError('CANCELLED','Region detection source changed.');
+   const nextDraft=createManualScopeDraft({...image,preparation:next});if(answer?.unchanged===true){say(typeof answer.notice==='string'?answer.notice:t.hint);return;}
+   remember();initializeSubimagesSelection(nextDraft,{...draft.subimagesSelection,positiveMode:'selected'});preparationBases.set(nextDraft,clone(next));automaticDrafts.add(nextDraft);draft=nextDraft;draft.changed=true;draft.actions.push({operation:kind==='automatic'?'detect-automatically':'detect-subimages',actor:'system',coordinates:'original-pixels'});editing=true;tool='select';selected=hovered=focused=null;pairIds=[];coordinateSignature=null;changed();if(typeof answer?.notice==='string')say(answer.notice);
+  }catch(error){if(controller.signal.aborted||!current()||error.code==='CANCELLED')return;say(error.message,true);onError(error);}finally{if(detectionController===controller)detectionController=null;if(sequence===detectionSequence){busy=false;if(opened)updateControls();}}})();
+  detectionTasks.add(task);try{await task;}finally{detectionTasks.delete(task);}
+ }
+ detectAutomatically.onclick=()=>detect('automatic',onDetectAutomatically);detectSubimages.onclick=()=>detect('subimages',onDetectSubimages);
+ closeButton.onclick=cancel.onclick=()=>{void close().catch(reportPreviewError);};
  save.onclick=async()=>{
   if(busy)return;busy=true;updateControls();try{
-   const scope=await applyManualScopeDraft(image,draft);let pairSelection;
+   const scope=await stagedScope();if(scope!==baseScope()&&baseScope()?.annotations&&scope.manual)scope.manual.originalAnnotations=clone(baseScope().annotations);let pairSelection;
    if(purpose==='pair'){if(pairIds.length!==2)throw Error(t.pair);const rectangles=pairIds.map(id=>normalizeScopeRectangle(draft.zones.find(z=>z.id===id),draft));pairSelection=batchPairSelection({...image,preparation:scope},rectangles,'manual');}
    await onSave(scope,image,{...(pairSelection?{pairSelection}:{})});if(pairSelection)await onPairSelection?.(pairSelection,image,scope);await close();
   }catch(error){say(error.message,true);onError(error);}finally{busy=false;if(opened)updateControls();}
  };
- async function close(){if(!opened)return;opened=false;editing=false;cancelInteractions();previewSequence++;previewController?.abort();if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open');dialog.remove();await previewQueue.catch(()=>{});await cleanupPreview();if(rawUrl){urlApi.revokeObjectURL(rawUrl);rawUrl=null;}focusBefore?.focus?.();}
+ function close(){if(closePending)return closeCompletion;if(!opened&&!placement&&!previewOwners.pending&&!rawUrl)return Promise.resolve();opened=false;editing=false;detectionSequence++;detectionController?.abort();cancelInteractions();previewSequence++;previewController?.abort();if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open');dialog.remove();closePending=true;return closeCompletion=(async()=>{await Promise.allSettled([...detectionTasks]);await previewQueue.catch(()=>{});await cleanupPreview();if(placement){await placement.dispose();placement=null;}if(rawUrl){urlApi.revokeObjectURL(rawUrl);rawUrl=null;}focusBefore?.focus?.();})().finally(()=>{closePending=false;});}
  async function open(options={}){
-  if(disposed)throw Error('Scope editor disposed.');if(opened)await close();draft=createManualScopeDraft(image);editing=options.editing===true;tool=['select','acquisition','exclusion'].includes(options.tool)?options.tool:'select';selected=hovered=focused=null;purpose=options.selectionPurpose==='pair'?'pair':null;pairIds=[];past=[];future=[];gesture=null;coordinateSignature=null;panOverride(false);encoded=false;busy=false;focusBefore=document.activeElement;
+  if(disposed)throw Error('Scope editor disposed.');await close();if(disposed)throw Error('Scope editor disposed.');draft=createManualScopeDraft(image);initializeSubimagesSelection(draft,typeof subimagesSelection==='function'?subimagesSelection():subimagesSelection);preparationBases.set(draft,image.preparation);editing=options.editing===true;tool=['select','acquisition','exclusion'].includes(options.tool)?options.tool:'select';selected=hovered=focused=null;purpose=options.selectionPurpose==='pair'?'pair':null;pairIds=[];past=[];future=[];gesture=null;coordinateSignature=null;panOverride(false);encoded=false;busy=false;focusBefore=document.activeElement;
   if(options.zoneId!==undefined){if(!draft.zones.some(z=>z.id===options.zoneId))throw Error('The requested region is not present in this image.');selected=focused=options.zoneId;}
+  placement=createPlacementPointerLoupe(viewer,{image,getCamera:()=>({scale,x:pan.x,y:pan.y}),isEditing:()=>opened&&editing&&!busy&&!space,...placementLoupe,onEnabled:value=>{miniLoupe.setAttribute('aria-pressed',String(value));},onError:error=>{say(error?.message??String(error),true);onError(error);}});
   const previous=options.pairSelection??image.pairSelection;if(purpose==='pair'&&previous?.pixelHash===image.hash&&previous.width===image.width&&previous.height===image.height)for(const r of previous.regions??[]){let z=draft.zones.find(z=>z.kind==='acquisition'&&['x0','y0','x1','y1'].every(k=>Math.floor(z[k])===r[k]||Math.ceil(z[k])===r[k]));if(!z){z=addManualScopeZone(draft,'acquisition',r);draft.changed=false;draft.actions=[];}if(!pairIds.includes(z.id))pairIds.push(z.id);}
   rawUrl=urlApi.createObjectURL(image.blob);img.src=rawUrl;document.body.append(dialog);opened=true;if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');updateControls();fit();const focusedRow=selected?[...list.children].find(row=>row.dataset.zoneId===selected):null;(focusedRow??viewer).focus();await requestPreview();return dialog;
  }

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {m3ImageShape} from './m3-image-shape.js';
 import {TypedPages} from './m3-typed-pages.js';
@@ -71,16 +71,16 @@ export async function cloningDetect(gray,mask,width,height,{signal,account=()=>{
     return {points:copyTypedArray(m.HEAPF64.subarray(at,at+count*7),{label:'cloning-math-output'}),descriptors:pointsOnly?new Uint8Array():copyTypedArray(m.HEAPU8.subarray(m._cloning_descriptors(),m._cloning_descriptors()+count*descriptorSize),{label:'cloning-math-output'}),total:count,descriptorSize,...(pointsOnly?{pointsOnly:true}:{})};
   }finally{m._cloning_release();if(source)m._free(source);if(region)m._free(region);}
 }
-export async function cloningSelect(detected,response,{signal,account=()=>{}}={}){
+export async function cloningSelect(detected,response,{signal,account=()=>{},includeIndices=false}={}){
   const {points,descriptors,descriptorSize=32}=detected,count=points.length/7;
   requireValue([32,61,64].includes(descriptorSize)&&points instanceof Float64Array&&Number.isSafeInteger(count)&&descriptors instanceof Uint8Array&&descriptors.length===(detected.pointsOnly?0:count*descriptorSize)&&Number.isFinite(response)&&response>=0&&response<=100,'Invalid copy/move selection.');
   const m=await moduleFor(signal);let source=0,indices=0;
   try{
     source=stage(m,points);indices=allocation(m,count*4);
     const length=m._cloning_select(source,count,response,indices);nativeResult(length>=0,'Copy/move response selection failed.');
-    account(length*(56+(detected.pointsOnly?0:descriptorSize)));const selected=new Float64Array(length*7),desc=new Uint8Array(detected.pointsOnly?0:length*descriptorSize);
-    for(let i=0;i<length;i++){const from=m.HEAPU32[indices/4+i];selected.set(points.subarray(from*7,from*7+7),i*7);if(!detected.pointsOnly)desc.set(descriptors.subarray(from*descriptorSize,from*descriptorSize+descriptorSize),i*descriptorSize);}
-    checkAbort(signal);return {points:selected,descriptors:desc,descriptorSize,...(detected.pointsOnly?{pointsOnly:true}:{})};
+    account(length*(56+(detected.pointsOnly?0:descriptorSize)+(includeIndices?4:0)));const selected=new Float64Array(length*7),desc=new Uint8Array(detected.pointsOnly?0:length*descriptorSize),sourceIndices=includeIndices?new Uint32Array(length):null;
+    for(let i=0;i<length;i++){const from=m.HEAPU32[indices/4+i];if(sourceIndices)sourceIndices[i]=from;selected.set(points.subarray(from*7,from*7+7),i*7);if(!detected.pointsOnly)desc.set(descriptors.subarray(from*descriptorSize,from*descriptorSize+descriptorSize),i*descriptorSize);}
+    checkAbort(signal);return {points:selected,descriptors:desc,descriptorSize,...(detected.pointsOnly?{pointsOnly:true}:{}),...(sourceIndices?{sourceIndices}:{})};
   }finally{if(source)m._free(source);if(indices)m._free(indices);}
 }
 // Native orientation and descriptors depend on each selected point and the

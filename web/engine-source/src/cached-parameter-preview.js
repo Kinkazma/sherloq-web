@@ -1,9 +1,10 @@
-import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
+import {EngineError,requireValue,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
 import {samplePixels} from './display-sampling.js';
 import {ZERO_PALETTE} from './zero-palette.js';
 import {zeroParams} from './zero.js';
 import {stereoParams} from './stereogram.js';
 import {cvStereoPrepare,cvStereoView} from './opencv.js';
+import {retireCompositeOwners} from './composite-owner-release.js';
 const MiB=1024**2;
 export const previewUnavailable=message=>{throw new EngineError('PREVIEW_UNAVAILABLE',message);};
 export function previewRoom(budget){return Math.max(0,budget.limit-(budget.retained??0)-(budget.active??0)-(budget.cacheBytes??0));}
@@ -21,13 +22,43 @@ export function cachedPreviewGeometry(width,height,preview={},budget,{bytesPerPi
  return{x:0,y:0,w:width,h:height,step,width:w,height:h,pixels:w*h,bytes,reservedBytes,nestedReaderBytes,admittedPixels};
 }
 const prepaid=()=>()=>{},prepaidBudget={reserve:prepaid};
-export async function sampleCachedSource(image,tile,{signal}={}){
- let frame;if(image.surface?.readSampledWindow)frame=await image.surface.readSampledWindow(tile,{signal,reserve:prepaid,budget:prepaidBudget});
- else if(image.pixels)frame=await samplePixels(image.pixels,tile,{signal});
- else previewUnavailable('The retained source has no sampled reader.');
- try{checkAbort(signal);return{...frame.pixels,data:frame.pixels.data.slice()};}finally{frame.release?.();}
+// A failed source ACK remains attached to the exact source/master identity.
+// Source owners must also call retireCachedPreviewSamples before forgetting
+// their record or closing a retained-view master. No AbortSignal is retained.
+const pendingSamples=new WeakMap(),sampleOwner=owner=>owner?.surface??owner;
+export function hasCachedPreviewSamples(owner){return !!pendingSamples.get(sampleOwner(owner))?.size;}
+export async function retireCachedPreviewSamples(owner){
+ const pending=pendingSamples.get(sampleOwner(owner));if(!pending)return;
+ await retireCompositeOwners([...pending].map(entry=>()=>entry.retire()));
 }
-async function sampleLease(master,tile,signal){const lease=master.lease();try{if(!lease.readSampledWindow)previewUnavailable('The retained view has no sampled reader.');const frame=await lease.readSampledWindow(tile,{signal,reserve:prepaid,budget:prepaidBudget});try{checkAbort(signal);return{...frame.pixels,data:frame.pixels.data.slice()};}finally{frame.release?.();}}finally{await lease.dispose();}}
+function retainSample(owner){
+ const key=sampleOwner(owner);requireValue(key&&typeof key==='object','A cached sample requires its source owner.');
+ let pending=pendingSamples.get(key);if(!pending){pending=new Set();pendingSamples.set(key,pending);}
+ let finish;const ready=new Promise(resolve=>finish=resolve),entry={frame:null,parent:null,retiring:null,complete:false,finish,
+  retire(){
+   if(entry.complete)return;if(entry.retiring)return entry.retiring;
+   const task=(async()=>{await ready;if(entry.frame){await entry.frame.release?.();entry.frame=null;}if(entry.parent){await entry.parent.dispose();entry.parent=null;}entry.complete=true;pending.delete(entry);if(!pending.size&&pendingSamples.get(key)===pending)pendingSamples.delete(key);})();
+   entry.retiring=task;void task.finally(()=>{if(entry.retiring===task)entry.retiring=null;}).catch(()=>{});return task;
+  }
+ };pending.add(entry);return entry;
+}
+async function copyCachedSample(owner,read,{signal,lease}={}){
+ checkAbort(signal);await retireCachedPreviewSamples(owner);checkAbort(signal);
+ const entry=retainSample(owner);let primary,pixels;
+ try{entry.parent=lease?.();entry.frame=await read(entry.parent);checkAbort(signal);pixels={...entry.frame.pixels,data:entry.frame.pixels.data.slice()};}
+ catch(error){primary=error;throw error;}
+ finally{entry.finish();await retireCompositeOwners([()=>entry.retire()],primary?{primary}:{});}
+ checkAbort(signal);return pixels;
+}
+export async function sampleCachedSource(image,tile,{signal}={}){
+ const surface=image.surface,pixels=image.pixels;
+ return copyCachedSample(surface??image,()=>{
+  if(surface?.readSampledWindow)return surface.readSampledWindow(tile,{signal,reserve:prepaid,budget:prepaidBudget});
+  if(pixels)return samplePixels(pixels,tile,{signal});
+  previewUnavailable('The retained source has no sampled reader.');
+ },{signal});
+}
+async function sampleLease(master,tile,signal){return copyCachedSample(master,lease=>{if(!lease.readSampledWindow)previewUnavailable('The retained view has no sampled reader.');return lease.readSampledWindow(tile,{signal,reserve:prepaid,budget:prepaidBudget});},{signal,lease:()=>master.lease()});}
 const done=(pixels,g,metrics,details={})=>({pixels:{...pixels,logicalWidth:g.w,logicalHeight:g.h},exact:false,metrics:{cacheOnly:true,nativeAnalysisCalls:0,inferenceCalls:0,scientificFinalChanged:false,admittedPreviewBytes:g.bytes,sampleDimensions:[pixels.width,pixels.height],...metrics},preview:{provisional:true,...details}});
 /** ZERO drafts borrow only the existing native analysis. They never rerun grid
  * voting, JPEG99, region detection, or a forensic analysis of resized bytes. */
@@ -46,23 +77,23 @@ export async function previewCachedZero(image,analysis,input,preview,{budget,sig
    }
   }
   checkAbort(signal);return done({width:g.width,height:g.height,format:'rgb8',data},g,{exactNativeSamples:true,view:p.view},{view:p.view,nativeMissingGrid:p.missing});
- }finally{await unpin?.();release();}
+ }finally{try{await unpin?.();}finally{release();}}
 }
 /** A draft keeps the detected native period fixed. New Farneback work is
  * confined to the sampled aligned pair; the native flow cache is never changed. */
 export async function previewCachedStereo(image,cache,input,preview,{budget,signal}={}){
- const p=stereoParams(input),descriptor=image.surface?.descriptor??image.pixels,width=descriptor?.width,height=descriptor?.height,offset=cache?.offset;
+ const cooperate=createCooperator(signal),p=stereoParams(input),descriptor=image.surface?.descriptor??image.pixels,width=descriptor?.width,height=descriptor?.height,offset=cache?.offset;
  if(!cache||!Number.isInteger(offset)||offset<0)previewUnavailable('A retained native stereogram period is required.');requireValue(offset<width,'Invalid retained stereo period.');
  const g=cachedPreviewGeometry(width-offset,height,preview,budget,{bytesPerPixel:p.mode>=2?256:96,fixedBytes:32*MiB+Math.max(Math.max(width,height)*32,MiB)}),release=reservePreview(budget,g.reservedBytes);let pixels;
  try{
-  checkAbort(signal);const nativeView=cache.views?.get(p.mode);if(nativeView){pixels=await sampleLease(nativeView,g,signal);return done(pixels,g,{exactNativeSamples:true,viewCached:true,proxyFlow:false},{nativeOffset:offset,mode:p.mode});}
+  checkAbort(signal);const nativeView=cache.views?.get(p.mode);if(nativeView){pixels=await sampleLease(nativeView,g,signal);checkAbort(signal);return done(pixels,g,{exactNativeSamples:true,viewCached:true,proxyFlow:false},{nativeOffset:offset,mode:p.mode});}
   let pattern;if(cache.views?.get(0))pattern=await sampleLease(cache.views.get(0),g,signal);else if(cache.pattern){const frame=await samplePixels(cache.pattern,g,{signal});try{pattern={...frame.pixels,data:frame.pixels.data.slice()};}finally{frame.release?.();}}else previewUnavailable('The retained native stereo pattern is unavailable.');
   let flow,proxyFlow=false;if(p.mode>=2){
-   if(cache.flow?.values){flow=new Float32Array(g.pixels);for(let y=0;y<g.height;y++){if(y%32===0)await controlCheckpoint(signal);for(let x=0;x<g.width;x++)flow[y*g.width+x]=cache.flow.values[y*g.step*g.w+x*g.step];}}
-   else if(cache.flow?.plane){flow=new Float32Array(g.pixels);for(let y=0;y<g.height;y++){await controlCheckpoint(signal);const row=await cache.flow.plane.read(0,y*g.step,g.w,1,{signal});for(let x=0;x<g.width;x++)flow[y*g.width+x]=row[x*g.step];}}
+   if(cache.flow?.values){flow=new Float32Array(g.pixels);for(let y=0;y<g.height;y++){await cooperate();for(let x=0;x<g.width;x++)flow[y*g.width+x]=cache.flow.values[y*g.step*g.w+x*g.step];}}
+   else if(cache.flow?.plane){flow=new Float32Array(g.pixels);for(let y=0;y<g.height;y++){await cooperate();const row=await cache.flow.plane.read(0,y*g.step,g.w,1,{signal});for(let x=0;x<g.width;x++)flow[y*g.width+x]=row[x*g.step];}}
    else{
     const tile={x:0,y:0,w:g.w,h:g.h,step:g.step},left=await sampleCachedSource(image,tile,{signal}),right=await sampleCachedSource(image,{...tile,x:offset},{signal}),combined={width:g.width*2,height:g.height,format:'rgb8',data:new Uint8Array(g.pixels*6)};
-    for(let y=0;y<g.height;y++){combined.data.set(left.data.subarray(y*g.width*3,(y+1)*g.width*3),y*g.width*6);combined.data.set(right.data.subarray(y*g.width*3,(y+1)*g.width*3),y*g.width*6+g.width*3);}flow=(await cvStereoPrepare(combined,2,g.width,{signal})).values;proxyFlow=true;
+    for(let y=0;y<g.height;y++){await cooperate();combined.data.set(left.data.subarray(y*g.width*3,(y+1)*g.width*3),y*g.width*6);combined.data.set(right.data.subarray(y*g.width*3,(y+1)*g.width*3),y*g.width*6+g.width*3);}flow=(await cvStereoPrepare(combined,2,g.width,{signal})).values;proxyFlow=true;
    }
   }
   pixels=await cvStereoView(pattern,p.mode,flow,{signal});checkAbort(signal);return done(pixels,g,{exactNativeSamples:p.mode===0,viewCached:false,proxyFlow},{nativeOffset:offset,mode:p.mode,periodSearchCalls:0,flowSampling:'bounded aligned native-pair samples'});

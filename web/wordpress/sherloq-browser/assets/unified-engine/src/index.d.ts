@@ -87,6 +87,7 @@ export interface OperationParams {
 }
 export interface OriginalBytePatch {offset:number;deleteCount:number;bytes:Uint8Array;}
 export interface DerivedOriginal {blob:Blob;sizeBytes:number;originalSizeBytes:number;edits:{offset:number;deleteCount:number;insertedBytes:number;outputOffset:number}[];provenance:Record<string,unknown>;metrics:Record<string,unknown>;}
+export interface DerivedOriginalArchive extends Omit<DerivedOriginal,'blob'> {archive:{id:string;revision:number;mime:'application/octet-stream';format:'bin';byteLength:number;sha256:string;imageId:string;provenance:Record<string,unknown>;metrics:Record<string,unknown>};}
 export interface RasterExportRequest {surfaceId:string;revision:number;format?:'png'|'webp'|'avif'|'heic'|'tiff';compression?:number;quality?:number;chroma?:'420'|'422'|'444';lossless?:boolean;adaptive?:boolean;maximumMegapixels?:number;resize?:{width?:number;height?:number;algorithm?:'auto'|'lanczos3'|'area'|'nearest'};render?:{range?:[number,number];palette?:number[][];red?:boolean;overlaySurfaceId?:string;opacity?:number};maxBytes?:number;storage?:'auto'|'temporary';}
 export interface RasterExport {id:string;revision:number;mime:'image/png'|'image/webp'|'image/avif'|'image/heic'|'image/tiff';format:'png'|'webp'|'avif'|'heic'|'tiff';width:number;height:number;byteLength:number;sha256:string;imageId:string;sourceSurfaceId:string;sourceSurfaceRevision:number;sourceFormat:'rgb8'|'mask8'|'rgb-flags8';provenance:Record<string,unknown>;metrics:Record<string,unknown>;}
 export interface ScientificExportRequest {surfaceId:string;revision:number;format:'npz';storage?:'auto'|'memory'|'temporary';maxBytes?:number;temporarySessionId?:string;}
@@ -94,7 +95,7 @@ export interface ScientificExport extends Omit<RasterExport,'mime'|'format'|'sou
 export interface PrnuDatabaseExport {id:string;revision:number;mime:'application/x-hdf5';format:'hdf5';byteLength:number;sha256:string;imageId:string;provenance:Record<string,unknown>;metrics:Record<string,unknown>;}
 export type SurfaceExport = RasterExport|ScientificExport;
 export interface RasterExportPageRequest {exportId:string;revision:number;offset?:number;length?:number;}
-export interface RasterExportPage {exportId:string;revision:number;offset:number;bytes:Uint8Array;totalBytes:number;nextOffset:number;done:boolean;mime:'image/png'|'image/webp'|'image/avif'|'image/heic'|'image/tiff'|'application/zip'|'application/json'|'application/x-hdf5';}
+export interface RasterExportPage {exportId:string;revision:number;offset:number;bytes:Uint8Array;totalBytes:number;nextOffset:number;done:boolean;mime:'image/png'|'image/webp'|'image/avif'|'image/heic'|'image/tiff'|'application/zip'|'application/json'|'application/x-hdf5'|'application/octet-stream';}
 export interface Progress { id:string; phase:string; fraction?:number; completed?:number;total?:number;revision?:number;zone?:string;completedZones?:number;totalZones?:number;message?:string; }
 export interface Hooks { signal?:AbortSignal; onProgress?:(event:Progress)=>void; }
 export interface Input { id:string; bytes:Uint8Array; mime?:string; name?:string; lastModified?:number; pixels?:Pixels; provenance?:Record<string,unknown>; }
@@ -125,8 +126,8 @@ export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'aut
  readTableCsv(request:TableWindow,hooks?:Hooks):Promise<TableCsvPage>;
  releaseTable(id:string):Promise<void>;
  releaseSurface(id:string):Promise<void>;
- inspectMetadata(input:{blob:Blob;mode?:'dump'|'location'|'headers'|'thumbnail';name?:string;mime?:string;lastModified?:number},hooks?:Hooks):Promise<{data:Record<string,unknown>;file:Record<string,unknown>;mode:string;warnings:string;metrics:Record<string,unknown>;semantics:string}>;
- inspectHeaders(input:{blob:Blob;name?:string;mime?:string;lastModified?:number},hooks?:Hooks):Promise<{header:Record<string,unknown>;file:Record<string,unknown>;metrics:Record<string,unknown>;semantics:string}>;
+ inspectMetadata(input:{blob:Blob;sourceSha256?:string;mode?:'dump'|'location'|'headers'|'thumbnail';name?:string;mime?:string;lastModified?:number},hooks?:Hooks):Promise<{data:Record<string,unknown>;file:Record<string,unknown>;mode:string;warnings:string;metrics:Record<string,unknown>;semantics:string}>;
+ inspectHeaders(input:{blob:Blob;imageId?:string;name?:string;mime?:string;lastModified?:number},hooks?:Hooks):Promise<{header:Record<string,unknown>;file:Record<string,unknown>;metrics:Record<string,unknown>;semantics:string}>;
  loadOcrModels(configuration:Record<string,unknown>,hooks?:Hooks):Promise<{configured:boolean}>;
  unloadOcrModels():Promise<void>;
  previewParameters(task:Task,options?:{preview?:{maxSide?:number;maxPixels?:number;maxWorkingBytes?:number;targetMs?:number}}&Hooks):Promise<unknown>;
@@ -139,7 +140,8 @@ export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'aut
  readExport(request:RasterExportPageRequest,hooks?:Hooks):Promise<RasterExportPage>;
  releaseExport(id:string):Promise<void>;
  originalBlob(id:string):Blob;
- deriveOriginal(request:{imageId:string;patches:OriginalBytePatch[]},hooks?:Hooks):Promise<DerivedOriginal>;
+ deriveOriginal(request:{imageId:string;patches:OriginalBytePatch[];output?:'blob';storage?:'auto'|'temporary';temporarySessionId?:string},hooks?:Hooks):Promise<DerivedOriginal>;
+ deriveOriginal(request:{imageId:string;patches:OriginalBytePatch[];output:'archive';storage?:'auto'|'temporary';temporarySessionId?:string},hooks?:Hooks):Promise<DerivedOriginalArchive>;
  readOriginal(id:string,range?:{offset?:number;length?:number},hooks?:Hooks):Promise<{offset:number;bytes:Uint8Array;totalBytes:number}>;
  loadPrnuDatabase(input:{id:string;fingerprintStorage?:'auto'|'memory'|'temporary';temporarySessionId?:string}&({bytes:Uint8Array;blob?:Blob}|{blob:Blob;bytes?:Uint8Array}),hooks?:Hooks):Promise<Record<string,unknown>>;
  loadMedianModel(input:{id:string;blob:Blob},hooks?:Hooks):Promise<Record<string,unknown>>;
@@ -159,9 +161,9 @@ export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'aut
  loadD2prlModel(input:D2prlManifest,hooks?:Hooks):Promise<Record<string,unknown>>;
  loadSegmentationModel(input:SegmentationModelInput,hooks?:Hooks):Promise<Record<string,unknown>>;
  unloadSegmentationModel():Promise<void>;
- readSegmentationRaw(request:{imageId:string;resultId:string}):Result;
+ readSegmentationRaw(request:{imageId:string;resultId:string}):Result|Promise<Result>;
  unloadD2prlModel():Promise<void>;
- readD2prlRaw(request:{imageId:string;resultId:string}):Result;
+ readD2prlRaw(request:{imageId:string;resultId:string}):Result|Promise<Result>;
  buildPrnuDatabase(input:{id:string;queryImageId:string;singleCamera?:string;outputLayout?:'auto'|'bytes'|'pages';fingerprintStorage?:'auto'|'memory'|'temporary';temporarySessionId?:string;files:(File|{name:string;blob:Blob})[]},hooks?:Hooks):Promise<Record<string,unknown>>;
  createPrnuDatabaseExport(id:string,hooks?:Hooks):Promise<PrnuDatabaseExport>;
  exportPrnuDatabase(id:string):{mime:'application/x-hdf5';bytes:Uint8Array};

@@ -1,8 +1,9 @@
-import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
+import {EngineError,requireValue,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
 import {illuminantEstimator,illuminantCellDisplay} from './illuminant.js';
 import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurface} from './rgb-surface.js';
 
 export async function segmentedIlluminant(image,p,{budget,signal,onProgress,rowsPerBlock,cacheKey}={}){
+ const cooperate=createCooperator(signal);
  const {width:w,height:h}=image.surface.descriptor,cols=Math.ceil(w/p.block),rows=Math.ceil(h/p.block),cells=cols*rows,dataBytes=cells*41+24;
  requireValue(Number.isSafeInteger(dataBytes)&&Number.isSafeInteger(w*h*3),'Illuminant geometry exceeds exact integer addressing.');
  requireValue(rowsPerBlock===undefined||Number.isSafeInteger(rowsPerBlock)&&rowsPerBlock>0,'Invalid illuminant row group.');checkAbort(signal);
@@ -22,7 +23,7 @@ export async function segmentedIlluminant(image,p,{budget,signal,onProgress,rows
    for(let row=0;row<rows;row++){
     histogram.fill(0);localCounts.fill(0);const y0=row*p.block,y1=Math.min(h,y0+p.block);
     for(let y=y0;y<y1;y+=group){
-     await controlCheckpoint(signal);let window;
+     await cooperate();let window;
      try{
       window=await image.surface.readWindow({x:0,y,width:w,height:Math.min(group,y1-y)},{signal});reads++;const input=window.pixels.data;
       for(let dy=0;dy<window.pixels.height;dy++)for(let x=0;x<w;x++){
@@ -46,13 +47,13 @@ export async function segmentedIlluminant(image,p,{budget,signal,onProgress,rows
   // Keep the private analysis immutable: a mode change may reuse it later.
   const owned=structuredClone(analysis),renderStarted=performance.now();
   for(let cell=0;cell<cells;cell++){
-   if(cell%1024===0)await controlCheckpoint(signal);
+   if(cell%1024===0)await cooperate();
    const display=illuminantCellDisplay(analysis.rgb.subarray(cell*3,cell*3+3),analysis.counts[cell],analysis.areas[cell],analysis.valid[cell],analysis.globalRGB,p);
    owned.angles[cell]=display.angle;colors.set(display.color,cell*3);
   }
   const colorRow=new Uint8Array(w*3);let lastCellRow=-1;
   for(let y=0;y<h;y+=group){
-   await controlCheckpoint(signal);const count=Math.min(group,h-y),bytes=new Uint8Array(w*count*3);
+   await cooperate();const count=Math.min(group,h-y),bytes=new Uint8Array(w*count*3);
    for(let dy=0;dy<count;dy++){
     const cellRow=Math.floor((y+dy)/p.block);
     if(cellRow!==lastCellRow){for(let x=0;x<w;x++){const cell=cellRow*cols+Math.floor(x/p.block);colorRow[x*3]=colors[cell*3];colorRow[x*3+1]=colors[cell*3+1];colorRow[x*3+2]=colors[cell*3+2];}lastCellRow=cellRow;}

@@ -1,5 +1,6 @@
 import {scientificZipPlan,scientificZipLocal,scientificZipCentral,scientificZipEnd} from './unified-engine/src/scientific-zip.js';
 import {createBatchTemporaryDirectory} from './batch-artifacts.js';
+import {createIndexedDbExportWriter} from './indexeddb-export-writer.js';
 const table=Uint32Array.from({length:256},(_,n)=>{for(let i=0;i<8;i++)n=n&1?0xedb88320^(n>>>1):n>>>1;return n>>>0;});
 export const ZIP_CHUNK_BYTES=1024**2;
 // One input window and one disk-backed output; ZIP64 is inherited from the
@@ -23,8 +24,17 @@ export async function writeBatchZip(entries,writer,{signal,onProgress=()=>{},zip
  }catch(error){await writer.abort().catch(()=>{});throw error;}
 }
 export async function diskBatchZip(entries,options={}){
- const temporary=await createBatchTemporaryDirectory();
- try{const handle=await temporary.directory.getFileHandle('archive.zip',{create:true});await writeBatchZip(entries,await handle.createWritable(),options);return {blob:await handle.getFile(),storage:'opfs',cleanup:()=>temporary.cleanup()};}
+ let temporary,handle,writer;
+ try{temporary=await createBatchTemporaryDirectory();handle=await temporary.directory.getFileHandle('archive.zip',{create:true});writer=await handle.createWritable();}
+ catch(setupError){
+  if(temporary)try{await temporary.cleanup();}catch(cleanup){if(setupError&&typeof setupError==='object')try{setupError.cleanupFailures=[...(setupError.cleanupFailures??[]),{code:cleanup?.code??cleanup?.name??'CLEANUP_FAILED',message:String(cleanup?.message??cleanup)}];}catch{}throw setupError;}
+  if(options.signal?.aborted)options.signal.throwIfAborted();
+  if(setupError.code==='STORAGE_QUOTA'||setupError.name==='QuotaExceededError'||typeof options.reserve!=='function')throw setupError;
+  let writer;
+  try{writer=await createIndexedDbExportWriter({signal:options.signal,mime:'application/zip',reserve:options.reserve});await writeBatchZip(entries,writer,options);return await writer.finish();}
+  catch(error){try{await writer?.abort(error);}catch(cleanup){if(error&&typeof error==='object')try{error.cleanupFailures=[...(error.cleanupFailures??[]),{code:cleanup?.code??cleanup?.name??'CLEANUP_FAILED',message:String(cleanup?.message??cleanup)}];}catch{}}throw error;}
+ }
+ try{await writeBatchZip(entries,writer,options);return {blob:await handle.getFile(),storage:'opfs',cleanup:()=>temporary.cleanup()};}
  catch(error){await temporary.cleanup().catch(()=>{});throw error;}
 }
 // Resume reads the directory and individual payloads from file slices.

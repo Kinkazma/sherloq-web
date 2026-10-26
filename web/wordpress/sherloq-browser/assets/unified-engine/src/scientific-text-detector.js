@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.17.0";
+import "../../runtime-context.js?v=0.25.0";
 /* Detector-only scientific text exclusions, PP-OCRv6 small.
  * Pre/postprocessing specifications: PaddleOCR (PaddlePaddle Authors),
  * Apache-2.0, https://github.com/PaddlePaddle/PaddleOCR and RapidOCR
@@ -6,7 +6,9 @@ import "../../runtime-context.js?v=0.17.0";
  * This implementation uses connected-component convex hulls and a direct
  * rectangle offset; it does not claim bit parity with OpenCV/PyClipper.
  */
-import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
+import {EngineError,requireValue,checkAbort,createCooperator,serializeEngineError} from './errors.js';
+async function retireTextSource(lease,primary){try{await lease?.release?.();}catch(error){if(!primary)throw error;primary.details={...primary.details,cleanupErrors:[...(primary.details?.cleanupErrors??[]),serializeEngineError(error)]};}}
+
 
 export const SCIENTIFIC_TEXT_MODEL=Object.freeze({
  id:'PP-OCRv6_small_det',file:'PP-OCRv6_det_small.onnx',bytes:9929594,
@@ -51,12 +53,12 @@ async function borrowedPixels(image,tile,signal){
  const [x,y,r,b]=tile,width=r-x,height=b-y;
  if(typeof image.readWindow==='function'){
   const lease=await image.readWindow({x,y,width,height},{signal});const data=lease.pixels?.data??lease.data??lease.pixels??lease;
-  if(!(data instanceof Uint8Array||data instanceof Uint8ClampedArray)||data.length!==width*height*3){lease.release?.();throw new EngineError('INVALID_INPUT','Text window is not original RGB8 pixels.');}
+  if(!(data instanceof Uint8Array||data instanceof Uint8ClampedArray)||data.length!==width*height*3){const error=new EngineError('INVALID_INPUT','Text window is not original RGB8 pixels.');await retireTextSource(lease,error);throw error;}
   return {data,release:()=>lease.release?.()};
  }
  if(typeof image.readRows==='function'){
   const data=new Uint8Array(width*height*3),cooperate=createCooperator(signal);
-  for(let top=0;top<height;top+=32){await cooperate();const rows=Math.min(32,height-top),lease=await image.readRows(y+top,rows,{signal});try{const rgb=lease.pixels?.data??lease.data??lease.pixels??lease;requireValue(rgb instanceof Uint8Array&&rgb.length===image.width*rows*3,'Text row source is not original RGB8 pixels.');for(let row=0;row<rows;row++)data.set(rgb.subarray((row*image.width+x)*3,(row*image.width+r)*3),(top+row)*width*3);}finally{lease.release?.();}}
+  for(let top=0;top<height;top+=32){await cooperate();const rows=Math.min(32,height-top),lease=await image.readRows(y+top,rows,{signal});try{const rgb=lease.pixels?.data??lease.data??lease.pixels??lease;requireValue(rgb instanceof Uint8Array&&rgb.length===image.width*rows*3,'Text row source is not original RGB8 pixels.');for(let row=0;row<rows;row++)data.set(rgb.subarray((row*image.width+x)*3,(row*image.width+r)*3),(top+row)*width*3);}finally{await lease.release?.();}}
   return {data,release:()=>{}};
  }
  requireValue(image.data instanceof Uint8Array||image.data instanceof Uint8ClampedArray,'Text detector requires RGB8 pixels or bounded source windows.');
@@ -71,7 +73,7 @@ export async function prepareScientificTextInput(image,tile,{signal,budget}={}){
  requireValue(image?.format==='rgb8'&&Number.isSafeInteger(image.width)&&Number.isSafeInteger(image.height),'Text detector requires original RGB8 pixels.');
  const [x,y,r,b]=tile,width=r-x,height=b-y,[rw,rh]=resizeShape(width,height),count=rw*rh;
  requireValue(width>0&&height>0&&x>=0&&y>=0&&r<=image.width&&b<=image.height,'Invalid text source window.');
- const release=budget?.reserve(count*12+width*height*3)??(()=>{});let source,complete=false;
+ const release=budget?.reserve(count*12+width*height*3)??(()=>{});let source,complete=false,primaryError;
  try{
   source=await borrowedPixels(image,tile,signal);checkAbort(signal);const data=new Float32Array(count*3),cooperate=createCooperator(signal);
   for(let yy=0;yy<rh;yy++){
@@ -81,8 +83,8 @@ export async function prepareScientificTextInput(image,tile,{signal,budget}={}){
     for(let c=0;c<3;c++){const channel=2-c,tl=source.data[(y0*width+x0)*3+channel],tr=source.data[(y0*width+x1)*3+channel],bl=source.data[(y1*width+x0)*3+channel],br=source.data[(y1*width+x1)*3+channel];const value=tl*(1-fx)*(1-fy)+tr*fx*(1-fy)+bl*(1-fx)*fy+br*fx*fy;data[c*count+at]=(value/255-SCIENTIFIC_TEXT_MODEL.mean[c])/SCIENTIFIC_TEXT_MODEL.std[c];}
    }
   }
-  complete=true;return {tensor:{data,dims:[1,3,rh,rw],type:'float32'},width:rw,height:rh,tile,release};
- }finally{source?.release();if(!complete)release();}
+  const retired=source;source=null;await retired.release();checkAbort(signal);complete=true;return {tensor:{data,dims:[1,3,rh,rw],type:'float32'},width:rw,height:rh,tile,release};
+ }catch(error){primaryError=error;throw error;}finally{try{await retireTextSource(source,primaryError);}finally{if(!complete)release();}}
 }
 
 /** Connected text components are converted into oriented minimum rectangles.

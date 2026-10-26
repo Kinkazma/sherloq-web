@@ -1,3 +1,6 @@
+import {isEnergyContextCollection,selectEnergyContext,createEnergyContextView} from './energy-context-selection.js';
+import {readEnergyWindow} from './energy-native-fields.js';
+import {createElaNativeContextAuto} from './ela-auto-native-contexts.js';
 import {energyFrameBudget,assertEnergyFrameBudget} from './energy-frame-budget.js';
 import {renderEnergySurface} from './energy-surface-render.js';
 import {energyHistogramAnalysis} from './energy-native-fields.js';
@@ -12,11 +15,13 @@ import {resolveComputeProfile} from './resource-policy.js';
 import {energyExportChunks} from './streaming-export.js';
 import {validateParams} from './unified-engine/src/ela.js';
 import {estimateElaClassicAuto,calibrateElaClassicDisplay} from './ela-auto-estimate.js';
-import {createEnergyHistogram} from './energy-histogram.js';
+import {createContextEnergyHistogram as createEnergyHistogram} from './energy-context-histogram.js';
 import {createAdaptivePreview} from './adaptive-preview.js';
+let contextEnergyView,energyContextKey=null;
 let engine,lastEnergy=null,lastClassic=null,lastPixels=null,energyMaxima={},energySignedRanges={},parameterDraft=false,parameterDraftKind=null,parameterPreview=null,controller,displayRevision=0,queue=Promise.resolve(),consumerBudget=0,failed=false;
-let automaticSource=null,automaticEstimate=null;
+let automaticSource=null,automaticEstimate=null,automaticNativeContextOwner=null;
 let histogramOwner=null;
+const resultSourceOwners=[];
 const descriptors=new Map(),acks=new Map();
 const adaptivePreview=createAdaptivePreview({persist:false});
 const previewNow=()=>globalThis.performance?.now?.()??Date.now();
@@ -63,27 +68,42 @@ function energySourceDescriptor(analysis){
 async function previewSourceDomain(imageId,input){
  const original=descriptors.get(imageId);if(!original)throw new EngineError('INVALID_INPUT','The native source is unavailable.');if(!input)return null;
  const domain=await compileOriginalSourceRegions(input);if(domain.sourceSha256!==original.sha256||domain.sourceWidth!==original.width||domain.sourceHeight!==original.height)throw new EngineError('SOURCE_REGIONS_INVALID','The preview belongs to another original source.');
- if(!['identity','rectangle'].includes(sourceRegionDomainShape(domain)))throw new EngineError('SOURCE_SCOPE_PREVIEW_UNSUPPORTED','A provisional raster cannot read excluded samples inside the source envelope.');return domain;
+ return domain;
 }
-async function energyView(presentation,preview){
- const desc=energySourceDescriptor(lastEnergy);
+function energyContextOptions(payload={}){if(!isEnergyContextCollection(lastEnergy))return{};const selection=selectEnergyContext(lastEnergy,payload),key=lastEnergy.id+'/'+(selection.context?.id??'empty');if(key!==energyContextKey){energyMaxima={};energySignedRanges={};energyContextKey=key;}return{sourceFragment:selection.context?.id??undefined,planFingerprint:selection.planFingerprint};}
+async function energyView(presentation,preview,selection={}){
+ const desc=energySourceDescriptor(lastEnergy),scoped=isEnergyContextCollection(lastEnergy),picked=scoped?energyContextOptions(selection):null;
  const choice=preview?adaptivePreviewPlan(preview,presentation?.view==='scores'&&presentation?.field==='both'?desc.width*2:desc.width,desc.height,'ela/view/'+(presentation?.view??'overlay')+'/'+(presentation?.field??'high')+'/'+(presentation?.scoreView??'map')):null,started=previewNow();
  // Rendering consumes source rows without an imagePixels full-raster copy.
  const bounds=choice?{maxWidth:choice.side,maxHeight:choice.side}:null;assertEnergyFrameBudget(energyFrameBudget({width:desc.width,height:desc.height,presentation,previousBytes:lastPixels?.data?.byteLength??0,preview:bounds}),consumerBudget);
  const source={width:desc.width,height:desc.height,readPixels:rect=>windowPixels(desc.surface,rect),readSampled:async tile=>(await engine.readDisplay({surfaceId:desc.surface.id,revision:desc.surface.revision,tile},{signal:controller.signal})).pixels},options={engine,signal:controller.signal,preview:choice?{...preview,maxWidth:choice.side,maxHeight:choice.side}:undefined,observedMaxima:energyMaxima,signedRanges:energySignedRanges};
- const pixels=lastEnergy.planeSurfaces?await renderEnergySurface(lastEnergy,source,presentation,{...options,rgbBudgetReserved:true}):await renderEnergy(lastEnergy.data,source,presentation,options);
+ const pixels=scoped?await (contextEnergyView??=createEnergyContextView({engine,readOriginal:async(analysis,tile,signal)=>{const original=energySourceDescriptor(analysis);return(await engine.readDisplay({surfaceId:original.surface.id,revision:original.surface.revision,tile},{signal})).pixels;}})).render(lastEnergy,presentation,{...options,...picked}):lastEnergy.planeSurfaces?await renderEnergySurface(lastEnergy,source,presentation,{...options,rgbBudgetReserved:true}):await renderEnergy(lastEnergy.data,source,presentation,options);
  if(choice)pixels.adaptivePreview=observePreview(choice,started,pixels);
  if(!pixels.preview){if(pixels.presentation?.observedMaxima)Object.assign(energyMaxima,pixels.presentation.observedMaxima);if(pixels.presentation?.signedRanges)Object.assign(energySignedRanges,pixels.presentation.signedRanges);}return pixels;
 }
-async function disposeParameterPreview(){const owner=parameterPreview;parameterPreview=null;await owner?.dispose();}
-async function disposeEnergyHistogram(){const owner=histogramOwner;histogramOwner=null;await owner?.dispose();}
+async function disposeParameterPreview(){const owner=parameterPreview;await owner?.dispose();if(parameterPreview===owner)parameterPreview=null;}
+async function disposeEnergyHistogram(){const owner=histogramOwner;await owner?.dispose();if(histogramOwner===owner)histogramOwner=null;}
 function nativeEnergyHistogram(){
  return histogramOwner??=createEnergyHistogram({engine,bins:256,maximumWindowBytes:1024**2,readOriginal:async(analysis,rect,signal)=>{
   const descriptor=energySourceDescriptor(analysis);
   return(await engine.readPixels({surfaceId:descriptor.surface.id,revision:descriptor.surface.revision,rect},{signal})).pixels;
  }});
 }
-async function releaseClassicSurface(){const previous=lastClassic;lastClassic=null;if(previous?.surface)await engine.releaseSurface(previous.surface.id);}
+function classicOwnedSurfaceIds(owner){return new Set([owner?.surface?.id,(resultSourceOwners.includes(owner?.comparisonSurface?.id)?null:owner?.comparisonSurface?.id),...(owner?.auxiliarySurfaces??[]).map(surface=>surface.id)].filter(Boolean));}
+async function releaseClassicOwner(owner,keep){const retained=classicOwnedSurfaceIds(keep);let failure;for(const id of classicOwnedSurfaceIds(owner))if(!retained.has(id))try{await engine.releaseSurface(id);}catch(error){failure??=error;}if(failure)throw failure;}
+async function releaseClassicSurface(keep){const previous=lastClassic;lastClassic=null;await releaseClassicOwner(previous,keep);}
+const energyExportOwners=new Set();
+async function closeEnergyExport(owner){if(owner.pending)return owner.pending;const task=(async()=>{await owner.ready;if(owner.descriptor)await engine.releaseExport(owner.descriptor.id);energyExportOwners.delete(owner);})();owner.pending=task;void task.finally(()=>{if(owner.pending===task)owner.pending=null;}).catch(()=>{});return task;}
+async function retireEnergyExports(){let failed=false,primary;for(const owner of energyExportOwners)try{await closeEnergyExport(owner);}catch(error){if(!failed){failed=true;primary=error;}}if(failed)throw primary;}
+const energyRetirements=new WeakMap();
+async function releaseEnergySurfaces(analysis=lastEnergy){
+ if(!analysis)return;await retireEnergyExports();await contextEnergyView?.dispose();contextEnergyView=null;let item=energyRetirements.get(analysis);if(!item){const original=descriptors.get(analysis.imageId)?.surface?.id,ids=new Set([analysis.surface?.id,...Object.values(analysis.planeSurfaces??{}).map(value=>value?.id),...Object.values(analysis.maskSurfaces??{}).map(value=>value?.id),analysis.sourceRegionSourceSurface?.id].filter(id=>id&&id!==original&&!resultSourceOwners.includes(id)));item={ids};energyRetirements.set(analysis,item);}if(item.pending)return item.pending;
+ const task=(async()=>{let failed=false,primary;for(const id of item.ids)try{await engine.releaseSurface(id);item.ids.delete(id);}catch(error){if(!failed){failed=true;primary=error;}}if(failed)throw primary;if(lastEnergy===analysis){lastEnergy=null;energyContextKey=null;}})();item.pending=task;void task.finally(()=>{if(item.pending===task)item.pending=null;}).catch(()=>{});return task;
+}
+function retainResultSource(analysis){const id=analysis.sourceRegionSourceSurface?.id,original=descriptors.get(analysis.imageId)?.surface?.id;if(id&&id!==original&&!resultSourceOwners.includes(id))resultSourceOwners.push(id);}
+async function releaseRetiredResultSources(keep=1){
+ let failure;while(resultSourceOwners.length>keep){const id=resultSourceOwners.shift();try{await engine.releaseSurface(id);}catch(error){failure??=error;}}if(failure)throw failure;
+}
 function energyParameterPreview(){return parameterPreview??=createEnergyParameterPreview({engine,readOriginal:async(analysis,tile,signal)=>{const descriptor=energySourceDescriptor(analysis);return(await engine.readDisplay({surfaceId:descriptor.surface.id,revision:descriptor.surface.revision,tile},{signal})).pixels;}});}
 function previewBounds(preview={}){const {maxWidth=2048,maxHeight=2048}=preview;if(![maxWidth,maxHeight].every(v=>Number.isSafeInteger(v)&&v>=1&&v<=2048))throw new EngineError('INVALID_INPUT','Invalid parameter preview bounds.');return Math.min(maxWidth,maxHeight);}
 function adaptivePreviewPlan(preview,width,height,key){const bound=previewBounds(preview),maxPixels=Math.min(2048**2,Math.floor(Math.max(0,consumerBudget-(lastPixels?.data?.byteLength??0))/6));if(maxPixels<1)throw new EngineError('UI_MEMORY_BUDGET','No admitted memory for a provisional preview.');return adaptivePreview.plan({key,width,height,maxSide:bound,maxPixels,feedback:preview?.adaptiveFeedback});}
@@ -101,6 +121,11 @@ async function automaticEla(payload,id){
  const params=validateParams(payload.params),original=descriptors.get(payload?.imageId),source=automaticSource,signal=controller.signal;
  if(!source||!(source.blob instanceof Blob)||source.blob.size<=0||source.imageId!==payload.imageId||source.sourceSha256!==payload.sourceSha256||!original||original.sha256!==payload.sourceSha256||typeof payload.sourceSha256!=='string'||!/^[a-f0-9]{64}$/.test(payload.sourceSha256)||![original.width,original.height].every(v=>Number.isSafeInteger(v)&&v>0)||original.surface?.width!==original.width||original.surface?.height!==original.height)throw new EngineError('INVALID_INPUT','Automatic ELA requires the current native source, exact dimensions and SHA256.');
  if(signal.aborted)throw cancelled();
+ if(payload.sourceRegionDomain){
+  automaticNativeContextOwner??=createElaNativeContextAuto({engine,maximumContiguousBytes:consumerBudget});
+  const protectedSurfaceIds=[lastClassic?.surface?.id,lastClassic?.comparisonSurface?.id,...(lastClassic?.auxiliarySurfaces??[]).map(s=>s.id),lastEnergy?.surface?.id,...Object.values(lastEnergy?.planeSurfaces??{}).map(s=>s?.id),lastEnergy?.sourceRegionSourceSurface?.id,...resultSourceOwners].filter(Boolean);
+  return automaticNativeContextOwner.estimate(payload,{original,source,id,signal,protectedSurfaceIds,onProgress:progress=>self.postMessage({id,progress})});
+ }
  let region,descriptor=original,output,surface,pixelLease,sampleLease,sampleOwner,failure;
  try{
  // Header evidence belongs to the original encoded file. Pixel evidence and
@@ -116,7 +141,7 @@ async function automaticEla(payload,id){
  let estimate,headerMetrics;
  if(cached){({estimate,headerMetrics}=automaticEstimate);}
  else{
-  const inspected=await engine.inspectHeaders({blob:source.blob},{signal});
+  const inspected=await engine.inspectHeaders({blob:source.blob,imageId:payload.imageId},{signal});
   estimate=await estimateElaClassicAuto({width:descriptor.width,height:descriptor.height,sourceSha256:payload.sourceSha256,header:inspected.header,readRect:(rect,hooks)=>engine.readPixels({surfaceId:descriptor.surface.id,revision:descriptor.surface.revision,rect},hooks)},{signal,onProgress:progress=>self.postMessage({id,progress}),reserveMemory:async bytes=>{const lease=await engine.reserveExternalMemory({bytes});return()=>engine.releaseExternalMemory(lease.id);}});
   if(signal.aborted)throw cancelled();
   headerMetrics=inspected.metrics;automaticEstimate={imageId:payload.imageId,sourceSha256:payload.sourceSha256,width:descriptor.width,height:descriptor.height,domainKey,estimate,headerMetrics};
@@ -172,8 +197,11 @@ async function handle({id,action,payload,options}){
   if(action==='capabilities'){self.postMessage({id,result:await engine.capabilities()});return;}
   controller=new AbortController();let result;
   if(action==='load'){
+   const previousAutomaticOwner=automaticNativeContextOwner;automaticNativeContextOwner=null;await previousAutomaticOwner?.dispose();
    await disposeParameterPreview();
    await disposeEnergyHistogram();
+   await releaseEnergySurfaces();
+   await releaseRetiredResultSources(0);
    result=await engine.loadBlob(payload,{signal:controller.signal,onProgress:progress=>self.postMessage({id,progress})});
    await releaseClassicSurface();
    automaticSource=payload.blob?{imageId:payload.id,sourceSha256:result.sha256,blob:payload.blob}:null;automaticEstimate=null;
@@ -195,32 +223,38 @@ else if(action==='export-energy'){
    if(!lastEnergy||payload.resultId!==lastEnergy.id)throw Error('Stale energy result');
    if(parameterDraft)throw new EngineError('PREVIEW_NOT_EXPORTABLE','Changed analysis parameters are provisional; finish the exact calculation before exporting raw energy.');
    let part=0,bytes=0;
-   for await(const chunk of energyExportChunks(lastEnergy,payload.format)){
+   const selected=energyContextOptions(payload);await retireEnergyExports();let nativeExport,exportOwner,exportFailed=false;try{if(isEnergyContextCollection(lastEnergy)&&payload.format==='npz'){exportOwner={descriptor:null};energyExportOwners.add(exportOwner);exportOwner.ready=Promise.resolve().then(()=>engine.exportSurface({surfaceId:lastEnergy.surface.id,revision:lastEnergy.surface.revision,format:'npz',storage:'temporary'},{signal:controller.signal})).then(value=>(nativeExport=exportOwner.descriptor=value),error=>{energyExportOwners.delete(exportOwner);throw error;});nativeExport=await exportOwner.ready;}
+   const chunks=nativeExport?(async function*(){for(let offset=0;offset<nativeExport.byteLength;offset+=1024**2){const {bytes}=await engine.readExport({exportId:nativeExport.id,revision:nativeExport.revision,offset,length:Math.min(1024**2,nativeExport.byteLength-offset)},{signal:controller.signal});yield bytes;}})():energyExportChunks(lastEnergy,payload.format,{engine,signal:controller.signal});
+   for await(const chunk of chunks){
     if(controller.signal.aborted)throw cancelled();const data=chunk.slice(),sequence=++part;
     await new Promise((resolve,reject)=>{acks.set(id,{sequence,resolve,reject});self.postMessage({id,chunk:data,sequence},[data.buffer]);});bytes+=chunk.length;
    }
-   result={streamed:true,bytesWritten:bytes,mime:payload.format==='npz'?'application/zip':'application/json'};
+   result={streamed:true,bytesWritten:bytes,mime:payload.format==='npz'?'application/zip':'application/json',...selected};}catch(error){exportFailed=true;throw error;}finally{if(exportOwner)try{await closeEnergyExport(exportOwner);}catch(error){if(!exportFailed)throw error;}}
   }else if(action==='view-energy'){
    if(!lastEnergy||payload.resultId!==lastEnergy.id)throw Error('Stale energy result');
-   const pixels=await energyView(payload.presentation,payload.preview);result={display:resultDisplay(pixels),...(pixels.presentation?{presentation:pixels.presentation}:{}),...(pixels.adaptivePreview?{metrics:{adaptivePreview:pixels.adaptivePreview}}:{})};
+   const pixels=await energyView(payload.presentation,payload.preview,payload),snapshot=pixels.preview?immutablePreviewPixels(pixels):null;result={display:resultDisplay(pixels),...(snapshot?{pixels:snapshot}:{}),...(pixels.presentation?{presentation:pixels.presentation}:{}),...(pixels.adaptivePreview?{metrics:{adaptivePreview:pixels.adaptivePreview}}:{})};
+   // A successful exact view restores the retained scientific recipe after a
+   // cancelled parameter gesture. A sampled view or failed render stays dirty.
+   if(!pixels.preview){parameterDraft=false;parameterDraftKind=null;}
   }else if(action==='energy-histogram'){
    if(!lastEnergy||payload?.resultId!==lastEnergy.id||payload.imageId!==lastEnergy.imageId)throw new EngineError('HISTOGRAM_NATIVE_REQUIRED','An exact current native Energy result and source are required.');
    energySourceDescriptor(lastEnergy);
    if(parameterDraft)throw new EngineError('PREVIEW_NOT_EXPORTABLE','Finish the exact calculation before requesting histograms of changed analysis parameters.');
-   result={histogram:await nativeEnergyHistogram().get(energyHistogramAnalysis(lastEnergy,engine),{signal:controller.signal,referencePanelId:payload.referencePanelId,qualityIndex:payload.qualityIndex,panelId:null})};
+   result={histogram:await nativeEnergyHistogram().get(isEnergyContextCollection(lastEnergy)?lastEnergy:energyHistogramAnalysis(lastEnergy,engine),{signal:controller.signal,referencePanelId:payload.referencePanelId,qualityIndex:payload.qualityIndex,...energyContextOptions(payload),sourceFragment:payload.sourceFragment,panelId:null})};
   }else if(action==='estimate-ela-auto'){
    result=await automaticEla(payload,id);
   }else if(action==='commit-energy-ela'){
-   const ela=validateParams(payload.params),requested=sharedEnergyParams(payload.energyParams),native=lastEnergy?.provenance?.params,quality=lastEnergy?.data?.metadata?.quality;
+   const ela=validateParams(payload.params),requested=sharedEnergyParams(payload.energyParams),native=lastEnergy?.provenance?.params,quality=isEnergyContextCollection(lastEnergy)?selectEnergyContext(lastEnergy,payload).context?.nativeMetadata?.quality:lastEnergy?.data?.metadata?.quality;
    const fields=['block','minimum','profile','histogramLow','histogramHigh','shadow','highlight'];const normalizedNative=native?sharedEnergyParams(native):null;
    if(!lastEnergy||payload.resultId!==lastEnergy.id||payload.imageId!==lastEnergy.imageId||!descriptors.has(payload.imageId))throw new EngineError('INVALID_INPUT','Stale energy source or result for ELA presentation commit.');
    if(parameterDraftKind==='energy'||!Number.isInteger(quality)||quality<1||quality>100||ela.quality!==quality||requested.quality!==quality||!native||!fields.every(key=>requested[key]===normalizedNative[key]))throw new EngineError('ENERGY_BASE_CHANGED','The ELA quality or scientific energy recipe changed; an exact native calculation is required.');
-   const pixels=await energyView(payload.presentation);result={display:resultDisplay(pixels),...(pixels.presentation?{presentation:pixels.presentation}:{}),elaParameters:ela,reusedNativeEnergy:true,baseQuality:quality};
+   const pixels=await energyView(payload.presentation,undefined,payload);result={display:resultDisplay(pixels),...(pixels.presentation?{presentation:pixels.presentation}:{}),elaParameters:ela,reusedNativeEnergy:true,baseQuality:quality};
    parameterDraft=false;parameterDraftKind=null;
   }else if(action==='preview-energy-parameters'){
    if(!lastEnergy||payload.resultId!==lastEnergy.id)throw new EngineError('INVALID_INPUT','Stale energy result for parameter preview.');
+   const domain=await previewSourceDomain(lastEnergy.imageId,payload.sourceRegionDomain);if((domain?.fingerprint??null)!==(lastEnergy.sourceRegionDomain?.fingerprint??null))throw new EngineError('DRAFT_BASE_MISMATCH','The draft domain differs from its retained native Energy contexts.');
    previewBounds(payload.preview);parameterDraft=true;parameterDraftKind='energy';
-   const draft=await energyParameterPreview().render(lastEnergy,{params:payload.params,presentation:payload.presentation,preview:{...payload.preview,maxWorkingBytes:previewWorkingBytes(),maxPixels:Math.min(2048**2,Math.floor(Math.max(0,consumerBudget-(lastPixels?.data?.byteLength??0))/6))},signal:controller.signal});
+   const draft=await energyParameterPreview().render(lastEnergy,{...energyContextOptions(payload),params:payload.params,presentation:payload.presentation,preview:{...payload.preview,maxWorkingBytes:previewWorkingBytes(),maxPixels:Math.min(2048**2,Math.floor(Math.max(0,consumerBudget-(lastPixels?.data?.byteLength??0))/6))},signal:controller.signal});
    const pixels=immutablePreviewPixels(draft.pixels);result={display:resultDisplay(draft.pixels),presentation:draft.presentation,draft:draft.draft,pixels,...(draft.metrics?{metrics:draft.metrics}:{})};
   }else if(action==='preview-classic'){
    const original=descriptors.get(payload.imageId),domain=await previewSourceDomain(payload.imageId,payload.sourceRegionDomain),descriptor=domain?{...original,width:domain.width,height:domain.height}:original;previewBounds(payload.preview);
@@ -229,29 +263,37 @@ else if(action==='export-energy'){
    const plan=adaptivePreviewPlan(payload.preview,descriptor.width,descriptor.height,'ela/classic/'+(lastClassic?.quality===payload.params?.quality?'retained':'recompress')),side=plan.side,started=previewNow();
    const draft=await engine.previewElaClassic({imageId:payload.imageId,params:payload.params,side,...(domain?{sourceRegionDomain:domain.descriptor}:{})},{signal:controller.signal}),pixels=draft.pixels;
    if(!pixels||pixels.width>side||pixels.height>side||pixels.format!=='rgb8'||pixels.data?.length!==pixels.width*pixels.height*3||draft.logicalWidth!==descriptor.width||draft.logicalHeight!==descriptor.height)throw new EngineError('INVALID_INPUT','Classic preview dimensions differ from its native source.');
-   const backing={...pixels,logicalWidth:descriptor.width,logicalHeight:descriptor.height,preview:true},snapshot=immutablePreviewPixels(backing);result={display:resultDisplay(backing),presentation:{...draft.presentation,preview:true},pixels:snapshot,...(draft.sourceRegionDomain?{sourceRegionDomain:draft.sourceRegionDomain,sourceRegionOrigin:draft.sourceRegionOrigin}:{}),metrics:{adaptivePreview:observePreview(plan,started,backing)}};
+   const backing={...pixels,logicalWidth:descriptor.width,logicalHeight:descriptor.height,preview:true},snapshot=immutablePreviewPixels(backing);result={display:resultDisplay(backing),presentation:{...draft.presentation,preview:true},pixels:snapshot,...(draft.sourceRegionDomain?{sourceRegionDomain:draft.sourceRegionDomain,sourceRegionOrigin:draft.sourceRegionOrigin}:{}),metrics:{...draft.metrics,adaptivePreview:observePreview(plan,started,backing)}};
   }else if(action==='run'){
    await disposeParameterPreview();
+   await disposeEnergyHistogram();
    const {presentation,...task}=payload;lastPixels=null;
    const original=descriptors.get(payload.imageId),domain=payload.sourceRegionDomain?await compileOriginalSourceRegions(payload.sourceRegionDomain):null,descriptor=domain?{width:domain.width,height:domain.height}:original;
    if(!original||domain&&(domain.sourceSha256!==original.sha256||domain.sourceWidth!==original.width||domain.sourceHeight!==original.height))throw new EngineError('SOURCE_REGIONS_INVALID','The calculation belongs to another original source.');
    const segmentedEnergy=payload.operation==='ela.energy'&&domain&&sourceRegionDomainShape(domain)!=='identity',required=segmentedEnergy?energyFrameBudget({width:descriptor.width,height:descriptor.height,presentation}).requiredBytes:descriptor.width*descriptor.height*(payload.operation==='ela.energy'?40:3);
    if(required>consumerBudget)throw Object.assign(Error('Result and presentation buffers exceed currently available memory; this operation still requires resident result arrays'),{code:'RESULT_MEMORY_BUDGET'});
-   lastEnergy=null;energyMaxima={};energySignedRanges={};
+   await releaseEnergySurfaces();await releaseRetiredResultSources();energyMaxima={};energySignedRanges={};
    const output=await engine.run(task,{signal:controller.signal,onProgress:progress=>self.postMessage({id,progress})});
    let nextClassic=null,published=false,failure;
    try{
-   if(output.operation==='ela.classic')nextClassic={id:output.id,imageId:output.imageId,quality:output.provenance?.params?.quality,...(output.layout==='surface'&&output.surface?{surface:output.surface}:{})};
+   if(output.operation==='ela.classic'){const comparison=output.sourceRegionSourceSurface,originalSurface=descriptors.get(output.imageId)?.surface;nextClassic={id:output.id,imageId:output.imageId,auxiliarySurfaces:Object.values(output.planeSurfaces??{}),quality:output.provenance?.params?.quality,...(output.layout==='surface'&&output.surface?{surface:output.surface}:{}),...(comparison?.id&&comparison.id!==originalSurface?.id?{comparisonSurface:comparison}:{})};}
    if(controller.signal.aborted)throw cancelled();
    if(payload.operation==='ela.energy'){
     lastEnergy=output;const rendered=await energyView(presentation),display=resultDisplay(rendered);
-    const {data,pixels,...meta}=output;result={...meta,data:{metadata:data.metadata,regions:data.regions,regionColors:data.regionColors},display,...(rendered.presentation?{presentation:rendered.presentation}:{})};
+    const {data,pixels,...meta}=output;result={...meta,data:{width:data.width,height:data.height,metadata:data.metadata,regions:data.regions,regionColors:data.regionColors,...(data.contextLayout?{contextLayout:data.contextLayout,contexts:data.contexts,coverage:data.coverage}:{})},display,...(rendered.presentation?{presentation:rendered.presentation}:{})};
    }else {const {pixels,...meta}=output;result={...meta,display:output.layout==='surface'&&output.surface?{...output.surface,kind:'native-result'}:resultDisplay(pixels)};}
-   if(lastClassic?.surface?.id!==nextClassic?.surface?.id)await releaseClassicSurface();
+   await releaseClassicSurface(nextClassic);
+   // Keep the current comparison alias and one preceding successful source.
+   // A new run implies the UI adopted the preceding reply; failed runs retain
+   // its still-visible comparison source. Scientific plane handles are separate.
+   retainResultSource(output);
+   // Successful publication transfers comparison ownership to the bounded
+   // source registry. A failed unpublished Classic owner keeps its own alias.
+   if(nextClassic)delete nextClassic.comparisonSurface;
    lastClassic=nextClassic;published=true;
    parameterDraft=false;parameterDraftKind=null;
    }catch(error){failure=error;throw error;}
-   finally{if(!published&&nextClassic?.surface)try{await engine.releaseSurface(nextClassic.surface.id);}catch(cleanup){if(!failure)throw cleanup;failure.details={...failure.details,cleanup:serializeEngineError(cleanup)};}}
+   finally{if(!published)for(const cleanup of [()=>nextClassic&&releaseClassicOwner(nextClassic,lastClassic),()=>output.operation==='ela.energy'&&releaseEnergySurfaces(output)])try{await cleanup();}catch(cleanup){if(!failure)throw cleanup;failure.details={...failure.details,cleanup:serializeEngineError(cleanup)};}}
   }else throw Error('Unknown worker action');
   self.postMessage({id,result},result?.pixels?.data?[result.pixels.data.buffer]:[]);
  }catch(error){if(!failed)self.postMessage({id,error:serializeEngineError(error)});}

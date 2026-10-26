@@ -1,0 +1,322 @@
+{
+  "schema": "echo-review-native-orientation/1",
+  "width": 41,
+  "height": 37,
+  "inputSha256": "6edb493a8a06d7b5728670f6a322ef59b35ccf940903e4a3e9a52c53540f017d",
+  "opencv": "4.11.0",
+  "numpy": "1.26.4",
+  "cases": [
+    {
+      "orientation": 1,
+      "width": 41,
+      "height": 37,
+      "expected": [
+        {
+          "params": {
+            "radius": 1,
+            "contrast": 0,
+            "grayscale": false
+          },
+          "sha256": "36f59bd58c9c09148b3794770379ace46b39d11b13217518bae13a3f9cc6851e"
+        },
+        {
+          "params": {
+            "radius": 4,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "7ed2c3aaa78d5b7393cbda744fcb8210d1bb8a959dafa4a152e9c4d35c3e6dac"
+        },
+        {
+          "params": {
+            "radius": 5,
+            "contrast": 100,
+            "grayscale": false
+          },
+          "sha256": "9b68da5e25348cd66a01d969a3d2c0053632114d26b99df0d90adeb67b3ed348"
+        },
+        {
+          "params": {
+            "radius": 15,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "66842b01ed42b4fc7d10986dc6fa86e4ef446d3faf33170fbe60467dbf251875"
+        }
+      ]
+    },
+    {
+      "orientation": 2,
+      "width": 41,
+      "height": 37,
+      "expected": [
+        {
+          "params": {
+            "radius": 1,
+            "contrast": 0,
+            "grayscale": false
+          },
+          "sha256": "70f8dfee1d04218f79dbef52bcb6e6f5b27eef5b459f0cdd1cc9d061b43c455d"
+        },
+        {
+          "params": {
+            "radius": 4,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "34512972f325b95c7d64f97566454bcec1095fd3e46b7fb470943c06ceface75"
+        },
+        {
+          "params": {
+            "radius": 5,
+            "contrast": 100,
+            "grayscale": false
+          },
+          "sha256": "9b68da5e25348cd66a01d969a3d2c0053632114d26b99df0d90adeb67b3ed348"
+        },
+        {
+          "params": {
+            "radius": 15,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "8d0cdaa68463170d8342563d5d261185484ee5014fb0c359a794f8afe7237c53"
+        }
+      ]
+    },
+    {
+      "orientation": 3,
+      "width": 41,
+      "height": 37,
+      "expected": [
+        {
+          "params": {
+            "radius": 1,
+            "contrast": 0,
+            "grayscale": false
+          },
+          "sha256": "d5f9dd1c240a3fa4feeb4ae76a3a8913bcbe8c4fcb0161f31e26d322a0218da8"
+        },
+        {
+          "params": {
+            "radius": 4,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "ed5ee357a8551a92eb2cff0ab272e88221776a37d1bd6e7920bbdf97aa832874"
+        },
+        {
+          "params": {
+            "radius": 5,
+            "contrast": 100,
+            "grayscale": false
+          },
+          "sha256": "9b68da5e25348cd66a01d969a3d2c0053632114d26b99df0d90adeb67b3ed348"
+        },
+        {
+          "params": {
+            "radius": 15,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "9d4b0340d03061e5795fc3fdcd8ff7e5d863ccb679cd72e05126b817af5e6528"
+        }
+      ]
+    },
+    {
+      "orientation": 4,
+      "width": 41,
+      "height": 37,
+      "expected": [
+        {
+          "params": {
+            "radius": 1,
+            "contrast": 0,
+            "grayscale": false
+          },
+          "sha256": "abf1667a81a9ace47f6a14c78ba06a7929f8b05b7ee6e2b4d3198b4974d3c664"
+        },
+        {
+          "params": {
+            "radius": 4,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "013f1ace84d3981fb0ddd4c12c052930fef08691e6a733829c2d46bbce155734"
+        },
+        {
+          "params": {
+            "radius": 5,
+            "contrast": 100,
+            "grayscale": false
+          },
+          "sha256": "9b68da5e25348cd66a01d969a3d2c0053632114d26b99df0d90adeb67b3ed348"
+        },
+        {
+          "params": {
+            "radius": 15,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "b8e0c8201752cc09b5653dc510675d9d91f49d7a3af64392e25ae8320bc5bb1b"
+        }
+      ]
+    },
+    {
+      "orientation": 5,
+      "width": 37,
+      "height": 41,
+      "expected": [
+        {
+          "params": {
+            "radius": 1,
+            "contrast": 0,
+            "grayscale": false
+          },
+          "sha256": "b50fa1a2222942f2f3bd6bc375826e0655f736868c6b1e852d799ae41b0dce92"
+        },
+        {
+          "params": {
+            "radius": 4,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "17230f9edd784d96c34904d4754ab6015831fa7dc1f058d91f960a74fb082c5c"
+        },
+        {
+          "params": {
+            "radius": 5,
+            "contrast": 100,
+            "grayscale": false
+          },
+          "sha256": "9b68da5e25348cd66a01d969a3d2c0053632114d26b99df0d90adeb67b3ed348"
+        },
+        {
+          "params": {
+            "radius": 15,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "1dc722c57fabf12633d171d46722a9ef699ced6d0ea071ed161355630067ce41"
+        }
+      ]
+    },
+    {
+      "orientation": 6,
+      "width": 37,
+      "height": 41,
+      "expected": [
+        {
+          "params": {
+            "radius": 1,
+            "contrast": 0,
+            "grayscale": false
+          },
+          "sha256": "c50f335a2b70f07d6ac159109958dd23c1199a8243126dfbf6e9ec203b71ff08"
+        },
+        {
+          "params": {
+            "radius": 4,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "5e179e4def642fc376c127670ce27e5b30e6366c6581abfe423a31f22ba0a9cd"
+        },
+        {
+          "params": {
+            "radius": 5,
+            "contrast": 100,
+            "grayscale": false
+          },
+          "sha256": "9b68da5e25348cd66a01d969a3d2c0053632114d26b99df0d90adeb67b3ed348"
+        },
+        {
+          "params": {
+            "radius": 15,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "f92d9d7c9a9fd1277d2d7730747828e001f201939f8378c906b12bc363d94345"
+        }
+      ]
+    },
+    {
+      "orientation": 7,
+      "width": 37,
+      "height": 41,
+      "expected": [
+        {
+          "params": {
+            "radius": 1,
+            "contrast": 0,
+            "grayscale": false
+          },
+          "sha256": "6b5ec05f5a6d4ac756855e6cd307c721335ff597c850e02d78999320191d228f"
+        },
+        {
+          "params": {
+            "radius": 4,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "1d22e60ac01e914b4b7e34b197b58058c642ff66a34704ed5b68eaccd2732a65"
+        },
+        {
+          "params": {
+            "radius": 5,
+            "contrast": 100,
+            "grayscale": false
+          },
+          "sha256": "9b68da5e25348cd66a01d969a3d2c0053632114d26b99df0d90adeb67b3ed348"
+        },
+        {
+          "params": {
+            "radius": 15,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "2ed4234eb0d54b165fa12c0d70a31875c0957f885ca2cf0d459441cdd018887e"
+        }
+      ]
+    },
+    {
+      "orientation": 8,
+      "width": 37,
+      "height": 41,
+      "expected": [
+        {
+          "params": {
+            "radius": 1,
+            "contrast": 0,
+            "grayscale": false
+          },
+          "sha256": "081f3ef92039ea90752f4919f257bca4a008f72613a0a9a8e69187479041a52f"
+        },
+        {
+          "params": {
+            "radius": 4,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "b5b44a1a7e08468c0a03759595889ad71ef227082e0484ba91d8577299ba862e"
+        },
+        {
+          "params": {
+            "radius": 5,
+            "contrast": 100,
+            "grayscale": false
+          },
+          "sha256": "9b68da5e25348cd66a01d969a3d2c0053632114d26b99df0d90adeb67b3ed348"
+        },
+        {
+          "params": {
+            "radius": 15,
+            "contrast": 85,
+            "grayscale": true
+          },
+          "sha256": "b2c34c12f3dd7acd011598f0d6ed4d84bee5e5b8bd2d05baeb8b3b977148d646"
+        }
+      ]
+    }
+  ]
+}

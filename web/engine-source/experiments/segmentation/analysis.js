@@ -2,6 +2,8 @@
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
 import {segmentationZoneConcurrency, runSegmentationZones} from './zone-scheduler.js';
 import {getExecutionScheduler} from '../../src/execution-scheduler.js';
+import {retireCompositeOwners} from '../../src/composite-owner-release.js';
+import{sourceRegionTransportBytes}from'../../src/source-region-transport.js';
 let sequence = 0;
 function commonNeuralExecution(runs, values, concurrency, budget) {
   const cvPools=runs.filter(run=>run.metrics?.cv).map(run=>({zoneIds:run.zoneIds,zoneIndex:run.zoneIndex,laneIndex:run.laneIndex,pools:structuredClone(run.metrics.cv),scope:'Cumulative counters for this pipeline instance after the request; admitted worker counts, not physical CPU utilization'}));
@@ -46,7 +48,27 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
   const sourceResolution=model.family==='selfdm-proposal';
   const bytesForZone=zone=>sourceResolution?(zone.bounds[2]-zone.bounds[0])*(zone.bounds[3]-zone.bounds[1])*4:rawBytes;
   const lanes = [{prepare, inference}];
-  let revision = 0, current, tail = Promise.resolve(), last, disposed = false;
+  let revision = 0, current, tail = Promise.resolve(), last, disposed = false, closing = false, closeTask;
+  const windowContexts=new Map();let windowIndexRelease;
+  const windowContext=id=>{const key=windowContexts.get(id);return key?budget.get(key)?.value:null;};
+  const admitWindow=id=>{if(!id)return;if(!windowContexts.has(id)&&windowContexts.size>=256)throw new EngineError('SOURCE_REGION_NATIVE_ZONE_LIMIT','At most256 autonomous native window contexts may be retained; retire prior contexts before new analysis.');windowIndexRelease??=budget.reserve(65536);};
+  const rememberWindow=context=>{
+    const id=context.analysisWindowIdentity;if(!id)return false;
+    admitWindow(id);const key=prefix+'window:'+id;
+    budget.put(key,{value:context,byteLength:256+2*sourceRegionTransportBytes(context,{allowUndefined:true,allowAliases:true})});windowContexts.set(id,key);return !!budget.get(key);
+  };
+  const retiringLanes = new Map();
+  async function retireLane(lane) {
+    requireValue(lane !== lanes[0], 'The main segmentation lane belongs to the caller');
+    let owners = retiringLanes.get(lane);
+    if (!owners) {
+      owners = new Map([['inference', () => lane.inference.dispose()], ['prepare', () => lane.prepare.dispose()]]);
+      retiringLanes.set(lane, owners);
+    }
+    await retireCompositeOwners([...owners].map(([key, retire]) => async () => {await retire(); owners.delete(key);}));
+    retiringLanes.delete(lane);
+    const index = lanes.indexOf(lane); if (index > 0) lanes.splice(index, 1);
+  }
   const validate = (width, height, zones, mode, segmented = false) => {
     requireValue([width, height].every(v => Number.isInteger(v) && v > 0 && v <= (segmented ? 131072 : 8192)) && (segmented || width * height <= 32 * 1024 ** 2), 'Source geometry');
     requireValue(['regions', 'whole-image'].includes(mode) && Array.isArray(zones) && zones.length > 0 && zones.length <= 256, 'Explicit active zones');
@@ -59,7 +81,7 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
     if (mode === 'whole-image') requireValue(zones.length === 1 && JSON.stringify(zones[0].bounds) === JSON.stringify([0, 0, width, height]), 'Whole source required');
   };
   const start = (work, options = {}) => {
-    requireValue(!disposed, 'Segmentation session disposed'); current?.abort(); const controller = new AbortController(), id = ++revision, previous = tail; current = controller;
+    requireValue(!disposed && !closing, 'Segmentation session disposed'); current?.abort(); const controller = new AbortController(), id = ++revision, previous = tail; current = controller;
     const abort = () => controller.abort(); options.signal?.addEventListener('abort', abort, {once: true}); if (options.signal?.aborted) controller.abort();
     const check = () => {checkAbort(controller.signal); if (id !== revision || disposed) throw new EngineError('CANCELLED', 'Superseded segmentation result');};
     const progress = event => {check(); options.onProgress?.({...event, revision: id}); check();};
@@ -86,18 +108,21 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
       job.check(); const resultId = prefix + job.revision, analysisId = context.analysisId ?? resultId;
       result.metadata = {...result.metadata, modelId: model.id, variant: model.variant, backend: inference.backend ?? 'cpu', execution: {...context.execution, projectionReleasedSessionBytes: releasedSessionBytes}, timings: {...counts.timings, projectionMs: performance.now() - projectionStarted}, pixelSha256: context.pixelSha256, resultId, analysisId, revision: job.revision, sourceProvenance: context.provenance, inferences: counts.inferences, cache_hits: counts.cacheHits, inference_performed: counts.inferences > 0, zones: result.metadata.zones.map((zone, i) => ({...zone, kind: context.zones[i].kind}))};
       if(values.some(value=>value.pipelineMetadata))result.metadata.nativePipelines=context.zones.map((zone,i)=>({zoneId:zone.id,...structuredClone(values[i].pipelineMetadata)}));
-      last = {...context, allZones: context.allZones ?? context.zones, resultId, analysisId, resultMetadata: structuredClone(result.metadata)}; return result;
-    } catch (error) {await result.release(); throw error;}
+      last = {...context, allZones: context.allZones ?? context.zones, resultId, analysisId, resultMetadata: structuredClone(result.metadata)};if(context.analysisWindowIdentity)rememberWindow(last);return result;
+    } catch (error) {await retireCompositeOwners([() => result.release()], {primary:error}); throw error;}
   };
   return {
     get idleInferenceBytes() {return lanes.reduce((sum,lane)=>sum+(lane.inference.residentBytes??0),0);},
-    run({pixels, inputSource, zones, mode = 'regions', exclusions = [], compare = false, provenance = null, scientificScope}, options) {
+    run({pixels, inputSource, zones, mode = 'regions', exclusions = [], compare = false, provenance = null, scientificScope,analysisWindowIdentity}, options) {
+      requireValue(!disposed && !closing, 'Segmentation session disposed');
+      requireValue(analysisWindowIdentity===undefined||/^[a-f0-9]{64}$/.test(analysisWindowIdentity),'Exact native window identity required');
+      admitWindow(analysisWindowIdentity);
       const segmented=!!inputSource,width=segmented?inputSource.width:pixels?.width,height=segmented?inputSource.height:pixels?.height;
       requireValue(segmented ? pixels===undefined && typeof inputSource.region==='function' && typeof inputSource.sha256==='function' : pixels?.data instanceof Uint8Array && pixels.data.buffer instanceof ArrayBuffer && pixels.data.length === pixels.width * pixels.height * 3, 'Contiguous qualified RGB8 required');
       requireValue(Array.isArray(exclusions) && !exclusions.length && compare === false, 'Exclusions and Compare are unsupported by native CMSeg/MGCF');
       validate(width, height, zones, mode, segmented);
       requireValue(scientificScope===undefined||scientificScope?.sourceScope&&typeof scientificScope.identity==='string'&&scientificScope.metadata?.width===width&&scientificScope.metadata?.height===height,'Prepared segmentation scientific scope required');
-      const context = {width, height, layout:segmented?'segmented':'contiguous', mode, provenance: structuredClone(provenance), ...(scientificScope?{scientificScope:{scope:structuredClone(scientificScope.sourceScope),width,height,sourceSha256:scientificScope.metadata.sourceSha256,identity:scientificScope.identity,policy:'native-candidate-domain-v2'}}:{}), zones: zones.map(z => ({id: z.id, kind: z.kind, bounds: [...z.bounds]}))}; last = null;
+      const context = {...(analysisWindowIdentity?{analysisWindowIdentity}:{}),width, height, layout:segmented?'segmented':'contiguous', mode, provenance: structuredClone(provenance), ...(scientificScope?{scientificScope:{scope:structuredClone(scientificScope.sourceScope),width,height,sourceSha256:scientificScope.metadata.sourceSha256,identity:scientificScope.identity,policy:'native-candidate-domain-v2'}}:{}), zones: zones.map(z => ({id: z.id, kind: z.kind, bounds: [...z.bounds]}))}; last = null;
       return start(async job => {
         const pinned = [], inserted = []; let sourceRelease, complete = false;
         try {
@@ -114,8 +139,11 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
             if (!group) {group = {index:i, indices:[]}; byKey.set(zone.cacheKey, group); groups.push(group);}
             group.indices.push(i);
           }
+          // A prior downsizing failure may have retired only part of a lane.
+          // Finish those ACKs before selecting or reusing any execution lane.
+          for (const lane of [...retiringLanes.keys()]) await retireLane(lane);
           const wanted = createLane ? segmentationZoneConcurrency({budget,model,lanes,zones:groups.map(g=>context.zones[g.index]),segmented}) : 1;
-          while (lanes.length > wanted) {const lane = lanes.pop(); await lane.inference.dispose(); lane.prepare.dispose();}
+          while (lanes.length > wanted) await retireLane(lanes.at(-1));
           while (lanes.length < wanted) lanes.push(createLane());
           const zoneStarted = performance.now();
           const scheduled = await runSegmentationZones({count:groups.length,lanes,signal:job.signal,run:async (groupIndex,lane,signal) => {
@@ -157,26 +185,42 @@ export function createSegmentationAnalysis({budget, prepare, inference, project,
         } finally {if (!complete) inserted.forEach(key => budget.remove(key)); pinned.forEach(free => free()); sourceRelease?.();}
       }, options);
     },
-    reproject({analysisId, zoneIds}, options) {
-      requireValue(last && analysisId === last.analysisId && Array.isArray(zoneIds) && zoneIds.length > 0 && new Set(zoneIds).size === zoneIds.length, 'Current analysis and nonempty unique zone subset required');
-      const context = structuredClone(last), selected = new Set(zoneIds); requireValue(zoneIds.every(id => context.allZones.some(zone => zone.id === id)), 'Only cached analysis zones may be requested');
+    reproject({analysisId, zoneIds,analysisWindowIdentity}, options) {
+      const selected=analysisWindowIdentity?windowContext(analysisWindowIdentity):last;
+      if(analysisWindowIdentity&&!selected)throw new EngineError('CACHE_MISS','Autonomous window context evicted; explicit analysis required');
+      requireValue(!disposed && !closing && selected && analysisId === selected.analysisId && Array.isArray(zoneIds) && zoneIds.length > 0 && new Set(zoneIds).size === zoneIds.length, 'Current analysis and nonempty unique zone subset required');
+      const context = structuredClone(selected), selectedIds = new Set(zoneIds); requireValue(zoneIds.every(id => context.allZones.some(zone => zone.id === id)), 'Only cached analysis zones may be requested');
       if(context.execution?.sessionCache)for(const key of ['creations','reuses','pressureEvictions'])context.execution.sessionCache[key]=0;
       if(context.execution?.parameterCache)for(const key of ['hits','misses','hitBytes','fetchBytes','evictions'])context.execution.parameterCache[key]=0;
-      context.zones = context.allZones.filter(z => selected.has(z.id)); validate(context.width, context.height, context.zones, context.mode, context.layout==='segmented');
+      context.zones = context.allZones.filter(z => selectedIds.has(z.id)); validate(context.width, context.height, context.zones, context.mode, context.layout==='segmented');
       return start(async job => {
         const values = context.zones.map(z => budget.get(z.cacheKey)); if (values.some(v => !v)) throw new EngineError('CACHE_MISS', 'Model grids evicted; explicit analysis required');
         if(model.family?.startsWith('selfdm'))Object.assign(context.execution,commonNeuralExecution([],values,{requested:0,observed:0,memoryBackoffs:0},budget));
         const release = budget.reserve(values.reduce((sum,v)=>sum+v.raw.byteLength,0)); try {return await finish(context, values, job, {inferences: 0, cacheHits: values.length});} finally {release();}
       }, options);
     },
-    readRaw(resultId) {
-      requireValue(!disposed && !current && last?.resultId === resultId, 'Current completed result required');
-      const values = last.zones.map(z => budget.get(z.cacheKey)); if (values.some(v => !v)) throw new EngineError('CACHE_MISS', 'Model grids evicted; explicit analysis required');
+    readRaw(resultId,{analysisWindowIdentity}={}) {
+      const context=analysisWindowIdentity?windowContext(analysisWindowIdentity):last;
+      if(analysisWindowIdentity&&!context)throw new EngineError('CACHE_MISS','Autonomous window context evicted; explicit analysis required');
+      requireValue(!disposed && !closing && !current && context?.resultId === resultId, 'Current completed result required');
+      const values = context.zones.map(z => budget.get(z.cacheKey)); if (values.some(v => !v)) throw new EngineError('CACHE_MISS', 'Model grids evicted; explicit analysis required');
       const release = budget.reserve(values.reduce((sum,v)=>sum+v.raw.byteLength,0)*2);
-      try {return {width: last.width, height: last.height, rawGrids: values.map((v, i) => ({id: last.zones[i].id, kind: last.zones[i].kind, bounds: [...last.zones[i].bounds], raw: v.raw.slice(),...(sourceResolution?{raw_shape:[1,v.rawHeight,v.rawWidth]}:{})})), metadata: {...structuredClone(last.resultMetadata), ...(sourceResolution?{raw_shapes:values.map(v=>[1,v.rawHeight,v.rawWidth])}:{raw_shape: [model.kind === 'softmax' ? 3 : 1, model.side, model.side]}), raw_filter_applied: false}, release};}
+      try {return {width: context.width, height: context.height, rawGrids: values.map((v, i) => ({id: context.zones[i].id, kind: context.zones[i].kind, bounds: [...context.zones[i].bounds], raw: v.raw.slice(),...(sourceResolution?{raw_shape:[1,v.rawHeight,v.rawWidth]}:{})})), metadata: {...structuredClone(context.resultMetadata), ...(sourceResolution?{raw_shapes:values.map(v=>[1,v.rawHeight,v.rawWidth])}:{raw_shape: [model.kind === 'softmax' ? 3 : 1, model.side, model.side]}), raw_filter_applied: false}, release};}
       catch (error) {release(); throw error;}
     },
+    windowMetadata(identity){return windowContext(identity)?.windowMetadata;},
+    retainWindowMetadata(identity,metadata){const context=windowContext(identity);if(!context)return false;return rememberWindow({...context,windowMetadata:structuredClone(metadata)});},
     cancel() {current?.abort(); revision++;},
-    async dispose() {if (disposed) return; disposed = true; current?.abort(); revision++; await tail; for (const lane of lanes.splice(1)) {await lane.inference.dispose(); lane.prepare.dispose();} budget.clearPrefix(prefix); last = null;}
+    dispose() {
+      if (closeTask) return closeTask; if (disposed) return Promise.resolve();
+      closing = true; current?.abort(); revision++;
+      const task = closeTask = Promise.resolve().then(async () => {
+        await tail;
+        const owned = new Set([...lanes.slice(1), ...retiringLanes.keys()]);
+        await retireCompositeOwners([...owned].map(lane => () => retireLane(lane)).concat(() => {budget.clearPrefix(prefix);windowContexts.clear();windowIndexRelease?.();windowIndexRelease=undefined;last = null;}));
+        disposed = true;
+      });
+      task.then(() => {}, () => {if (closeTask === task) closeTask = null;}); return task;
+    }
   };
 }

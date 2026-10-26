@@ -30,7 +30,7 @@ export async function streamAutomaticNpz(snapshot,provenance,request={},hooks={}
   if(value?.[ARRAY]){arrays.push({...value,key:name});return {array:name};}
   if(value===null||['string','number','boolean','bigint'].includes(typeof value))return value;
   requireValue(value&&typeof value==='object'&&!ancestors.has(value),'Unsupported or cyclic automatic snapshot at '+name+' ('+typeof value+').');
-  requireValue(Array.isArray(value)||Object.getPrototypeOf(value)===Object.prototype||Object.getPrototypeOf(value)===null,'Wrap every native ndarray with automaticSnapshotArray; other values must be plain records or lists.');
+  requireValue(Array.isArray(value)||Object.getPrototypeOf(value)===Object.prototype||Object.getPrototypeOf(value)===null,'Wrap every native ndarray with automaticSnapshotArray; other values must be plain records or lists at '+name+'.');
   ancestors.add(value);let result;
   if(Array.isArray(value))result=Array.from(value,(v,i)=>encode(v,name+'_'+i,depth+1));
   // Unset optional record properties have no JSON/Python counterpart. Omit
@@ -39,7 +39,7 @@ export async function streamAutomaticNpz(snapshot,provenance,request={},hooks={}
   ancestors.delete(value);return result;
  }
  try {
-  const metadata=encode(snapshot),result=await streamScientificNpz(arrays,metadata,provenance,{...request,metadataSerialization:'python',progressPhase:'automatic-npz'},hooks);
+  const metadata=encode(snapshot),encodedProvenance=encode(provenance,'provenance'),result=await streamScientificNpz(arrays,metadata,encodedProvenance,{...request,metadataSerialization:'python',progressPhase:'automatic-npz'},hooks);
   let disposal;
   return {...result,dispose(){return disposal??=Promise.resolve().then(async()=>{try{await result.store.dispose();}finally{await result.session?.dispose();}});}};
  } finally {for(const release of releases)release();}

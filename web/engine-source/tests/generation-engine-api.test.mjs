@@ -1,0 +1,15 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {createEngine} from '../src/index.js';
+import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from '../src/source-region-geometry.js';
+import {generationControlledState} from './helpers/generation-controlled-extension.mjs';
+import manifest from '../../extensions-source/models/manifest.json' with {type:'json'};
+test('actual EngineAPI routes strict B-Free contexts through the real extension bridge, caches A/B/A and retires context/source owners',async()=>{
+ const engine=createEngine({memoryBudgetBytes:4*1024**3,computeProfile:'maximum'}),data=Uint8Array.from({length:100*80*3},(_,i)=>(i*23+(i>>>7)*53)%256),handles=new Set();generationControlledState.calls.length=0;
+ try{const original=await engine.load({id:'bfree-context-source',pixels:{width:100,height:80,format:'rgb8',data},bytes:data,provenance:{format:'RGB8',orientation:1}}),state=await createOriginalSourceRegionsState({sourceSha256:original.sha256,width:100,height:80});for(const b of [[1,1,33,33],[60,2,92,34]])await state.add('acquisition',{x0:b[0],y0:b[1],x1:b[2],y1:b[3]});const domain=await compileOriginalSourceRegions(state.snapshot());
+  await engine.loadExtensionModels({baseURL:new URL('../../extensions-source/',import.meta.url).href,moduleURL:new URL('./helpers/generation-controlled-extension.mjs',import.meta.url).href,manifest});
+  const task={id:'B-Free-multi',imageId:original.id,operation:'ai.generation.bfree',params:{},backend:'cpu',sourceRegionDomain:domain.descriptor},a=await engine.run(task);handles.add(a.sourceRegionSourceSurface.id);assert.equal(a.data.independentNativeContexts,true);assert.equal(a.data.fragments.length,2);assert.equal(a.data.scores,undefined);assert.equal(generationControlledState.calls.length,2);assert.notEqual(a.data.fragments[0].data.scores.global_logit,a.data.fragments[1].data.scores.global_logit);
+  const warm=await engine.run({...task,id:'B-Free-warm'});handles.add(warm.sourceRegionSourceSurface.id);assert.deepEqual(warm.data.fragments.map(f=>f.data),a.data.fragments.map(f=>f.data));assert.equal(generationControlledState.calls.length,2);
+  await state.add('exclusion',{x0:10,y0:1,x1:14,y1:33});const changed=await compileOriginalSourceRegions(state.snapshot()),b=await engine.run({...task,id:'B-Free-B',sourceRegionDomain:changed.descriptor});handles.add(b.sourceRegionSourceSurface.id);assert(b.data.fragments.some(f=>!f.evaluable));const calls=generationControlledState.calls.length,again=await engine.run({...task,id:'B-Free-return-A'});handles.add(again.sourceRegionSourceSurface.id);assert.deepEqual(again.data.fragments.map(f=>f.data),a.data.fragments.map(f=>f.data));assert.equal(generationControlledState.calls.length,calls);
+  for(const id of handles){await engine.releaseSurface(id);}handles.clear();await engine.unload(original.id);await engine.unloadExtensionModels();const memory=engine.capabilities().memory;assert.equal(memory.retainedBytes,0);assert.equal(memory.cacheBytes,0);assert.equal(memory.activeReservationBytes,0);
+ }finally{for(const id of handles)await engine.releaseSurface(id);await engine.dispose();}
+});

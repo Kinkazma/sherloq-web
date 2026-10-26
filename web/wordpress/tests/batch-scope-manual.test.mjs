@@ -58,3 +58,18 @@ test('legacy archives establish the current geometry as their baseline and rejec
  const legacy=createManualScopeDraft(i),z=legacy.zones[0],baseline=structuredClone(z.polygon);assert.deepEqual(z.originalGeometry.polygon,baseline);assert.notDeepEqual(baseline,d.zones[0].originalGeometry.polygon);updateManualScopeZone(legacy,z.id,{x0:20,y0:20,x1:50,y1:50});restoreManualScopeZone(legacy,z.id);assert.deepEqual(z.polygon,baseline);
  const bad=structuredClone(i);bad.preparation.manual.zones[0].originalGeometry={x0:-1,y0:0,x1:20,y1:20,polygon:[[-1,0],[20,0],[20,20],[-1,20]]};assert.throws(()=>createManualScopeDraft(bad),/origine/);await assert.rejects(restoreManualScientificScope(bad),/origine/);
 });
+
+
+import {createOriginalSourceRegionsState} from '../sherloq-browser/assets/original-source-regions.js';
+import {originalBatchScientificScope} from '../sherloq-browser/assets/original-source-regions-batch.js';
+test('fresh Original selections restore despite a different insertion order of region properties',async()=>{
+ const i=image(),state=await createOriginalSourceRegionsState(i);await state.add('acquisition',{x0:5,y0:10,x1:40,y1:65},{id:'positive'});await state.add('exclusion',{x0:10,y0:20,x1:15,y1:25},{id:'hole'});i.originalSourceRegions=state.snapshot();i.preparation=await originalBatchScientificScope(i);assert.equal(i.preparation.fingerprint,await scopeFingerprint(i.preparation));const before=structuredClone(i.preparation);assert.equal(await restoreManualScientificScope(i),i.preparation);assert.deepEqual(i.preparation,before);
+ for(const tamper of [scope=>scope.regions[0].x0++,scope=>scope.regions[0].zoneId='different',scope=>scope.excluded[0][0][0]++,scope=>scope.fingerprint='0'.repeat(64)]){const forged={...i,preparation:structuredClone(before)};tamper(forged.preparation);await assert.rejects(restoreManualScientificScope(forged),{code:'BATCH_SCOPE_EDIT_INVALID'});}
+ const res = {...i,preparation:structuredClone(before)};res.preparation.regions[0].zoneId='re-signed-inconsistent-id';res.preparation.fingerprint=await scopeFingerprint(res.preparation);await assert.rejects(restoreManualScientificScope(res),{code:'BATCH_SCOPE_EDIT_INVALID'});
+});
+
+
+test('a valid manual acquisition outside its immutable ceiling restores as excluded without a false fingerprint failure',async()=>{
+ const i=await fixture(),ceiling=await createOriginalSourceRegionsState(i);await ceiling.add('acquisition',{x0:60,y0:10,x1:95,y1:70});i.preparation.sourceRegionCeiling=ceiling.snapshot();i.preparation.fingerprint=await scopeFingerprint(i.preparation);const draft=createManualScopeDraft(i);updateManualScopeZone(draft,draft.zones[0].id,{x0:6,y0:10,x1:40,y1:65});i.preparation=await applyManualScopeDraft(i,draft);assert.equal(i.preparation.status,'excluded');assert.equal(i.preparation.envelope,null);assert.equal(await restoreManualScientificScope(i),i.preparation);
+ const forged=structuredClone(i);forged.preparation.sourceRegionCeiling.zones[0].x0=50;await assert.rejects(restoreManualScientificScope(forged),{code:'BATCH_SCOPE_EDIT_INVALID'});
+});

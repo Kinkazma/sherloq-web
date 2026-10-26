@@ -45,7 +45,7 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
  async function analyze(id,args){
   const native=!!args.image;
   try{requireValue(args.method==='scientific-preparation'&&(native||args.blob instanceof Blob),'A scientific preparation native source or image Blob is required.');
-   if(native)requireValue(args.params?.textOnly===true&&args.image.preparationContext==='envelope-not-scientific-membership','Native preparation windows currently support explicit text detection only.');
+   if(native)requireValue(typeof args.params?.textOnly==='boolean'&&args.image.preparationContext==='envelope-not-scientific-membership','Native preparation windows require explicit classification/text options and preparation-envelope context.');
   }catch(error){if(native)args.image.port?.close?.();throw error;}
   requireValue(['auto','cpu','webgpu'].includes(args.backend??'auto'),'Invalid preparation backend.');
   requireValue(args.params?.detectText===undefined||typeof args.params.detectText==='boolean','detectText must be a boolean.');
@@ -93,7 +93,7 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
  }
  async function dispose(){
   closed=true;for(const controller of pending.values())controller.abort();await Promise.all([...operations]);let failure;
-  for(const cleanup of [()=>panelAnalyzer?.dispose(),()=>textPool?.dispose(),()=>{for(const id of [...results.keys()])releaseResult(id);}])try{await cleanup();}catch(error){failure??=error;}
+  for(const cleanup of [()=>panelAnalyzer?.dispose(),()=>textPool?.disposeGracefully?textPool.disposeGracefully():textPool?.dispose(),()=>{for(const id of [...results.keys()])releaseResult(id);}])try{await cleanup();}catch(error){failure??=error;}
   if(failure)throw failure;return memory();
  }
  async function handle(message){

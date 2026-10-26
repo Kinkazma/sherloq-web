@@ -1,0 +1,32 @@
+{
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "build": "scripts/build-akaze-paged-study.py --runtime --fast-fma; --runtime --reference",
+  "source": "415418044fd9d5440fe91cbddcd2308e56f92e8de6406f2aa88389aef01f4a6f",
+  "files": {
+    "akaze-paged.js": {
+      "bytes": 28937,
+      "sha256": "82569ff63e45a46bca9d473adcf137b50e7dea4c3908caeca278668aae68e8c0"
+    },
+    "akaze-paged.wasm": {
+      "bytes": 963085,
+      "sha256": "2b1a16b7c885fc02d181c05e14365bd625b179beeecd5ea4a3fa55c721a0464a"
+    },
+    "reference.js": {
+      "bytes": 28933,
+      "sha256": "cf0ad7f0fc4c166e34e9092b5b163291e083f90e9551827372ea54d42f85547d"
+    },
+    "reference.wasm": {
+      "bytes": 957539,
+      "sha256": "e41b095fff9f2b634ae691ea5621b61e0dd98864eed30b64567478de83390142"
+    }
+  },
+  "supportSources": {
+    "experiments/m3/akaze-paged-filters.cpp": "f92cbc2ad27d6b686ad7792a49fcea13e269ec1640a31017c78bbb4a5825c039",
+    "experiments/m3/akaze-paged-fma.cpp": "99d7bec3053d20822fb61882828325d8dbe99ff3d2ffaccdce1a742ee39ca9e3",
+    "experiments/m3/akaze-paged-area.cpp": "560181f007f9b283d0850f046270cb9cc590df7f8e48b3be39ab3a3960b2420c",
+    "experiments/cloning/akaze-angles.cpp": "10d52e76d3d8c92147e126726f0c4c80fae36278a88e90c778d57388dfb7f892",
+    "experiments/cloning/akaze-filters.cpp": "1857edc2227aadf414114ac90ba6c5d22bb3c029e9ca6536226d7572046823c1",
+    "experiments/cloning/akaze-separable.cpp": "da9c38048c47fd14af39a70c5836dbe919700ad6875b3b832d76df3d9c927f42"
+  }
+}

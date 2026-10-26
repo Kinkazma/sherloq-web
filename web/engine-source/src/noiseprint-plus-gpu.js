@@ -1,3 +1,4 @@
+import {disposeGpuDeviceGracefully} from './neural-worker-cleanup.js';
 import {requestStorageDevice,storageDeviceLimits} from './gpu-limits.js';
 import {closeGpuErrorScopes} from './gpu-error-scope.js';
 import {copyTypedArray} from './allocation.js';
@@ -32,6 +33,7 @@ export async function createNoiseprintPlusGPU(){
   const module=device.createShaderModule({code:declarations+`@compute @workgroup_size(128) fn main(@builtin(global_invocation_id) gid:vec3<u32>){let id=gid.x+gid.y*65535u*128u;if(id>=p.x*p.y*${co}u){return;}`+body+'}'});
   const value=await device.createComputePipelineAsync({layout:'auto',compute:{module,entryPoint:'main'}});pipelines.set(key,value);return value;
  }
+ let gracefulDisposal;
  return {
   async run(program,weights,input,{globalHeight=input.dims[2],offsetY=0,globalWidth=input.dims[3],offsetX=0}={}){
    if(disposed)throw new EngineError('DISPOSED','Noiseprint++ GPU disposed.');
@@ -83,6 +85,6 @@ export async function createNoiseprintPlusGPU(){
     scoped=false;const failure=await closeGpuErrorScopes(device,{label:'noiseprint-plus-gpu.js',validationCode:'NEURAL_EXECUTION'});if(failure)throw failure;
     success=true;return {data,dims:[1,1,h,w],metrics:{...metrics}};
    }catch(error){if(scoped){scoped=false;throw await closeGpuErrorScopes(device,{cause:error,label:'noiseprint-plus-gpu.js',validationCode:'NEURAL_EXECUTION'});}throw error;}finally{if(!success)clearWeights();try{if(scoped){await device.popErrorScope();await device.popErrorScope();}}finally{busy=false;}}
-  },get residentBytes(){return [...(resident?.initializers?.values()??[]),...Object.values(arena?.buffers??{})].reduce((total,b)=>total+b.size,0);},get metrics(){return {...metrics,deviceLimits:storageDeviceLimits(device)};},dispose(){if(disposed)return;disposed=true;clearWeights();pipelines.clear();device.destroy();}
+  },get residentBytes(){return [...(resident?.initializers?.values()??[]),...Object.values(arena?.buffers??{})].reduce((total,b)=>total+b.size,0);},get metrics(){return {...metrics,deviceLimits:storageDeviceLimits(device)};},disposeGracefully(){if(busy)return Promise.reject(new EngineError('BUSY','An active Noiseprint++ GPU job cannot be disposed cooperatively.'));return gracefulDisposal??=(async()=>{disposed=true;const actions=[...[...new Set([...(resident?.initializers?.values()??[]),...Object.values(arena?.buffers??{})])].map(buffer=>()=>buffer.destroy()),()=>{arena=null;resident=null;pipelines.clear();}];return disposeGpuDeviceGracefully(device,actions);})();},dispose(){if(disposed)return;disposed=true;clearWeights();pipelines.clear();device.destroy();}
  };
 }

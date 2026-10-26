@@ -1,3 +1,5 @@
+import {doctamperNativeSummary} from './doctamper-native-summary.js';
+import {comprintNativeSummary} from './comprint-native-summary.js';
 // UI metadata only. The core owns decoding, model loading, scheduling and results.
 // Sizes identify the exported ONNX files, not a claim about cached resources.
 export const EXTENSION_MODEL_ASSETS=Object.freeze({
@@ -56,7 +58,7 @@ export function extensionProgressText(event,language='fr'){
 }
 export function extensionSummary(output,language='fr'){
  if(!isExtensionTool(output?.operation))return null;
- if(output.status!=='error')return [];
+ if(output.status!=='error')return [...comprintNativeSummary(output,language),...doctamperNativeSummary(output,language)];
  const tool=extensionTool(output.operation);
  return [{label:tool?.[language!=='en'?'fr':'en']??output.operation,status:output.status,text:(output.error?.code??'ERROR')+' · '+(output.error?.message??'')}];
 }

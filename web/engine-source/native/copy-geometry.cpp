@@ -55,8 +55,8 @@ int copy_draw_group(unsigned char* rgb,int width,int height,const double* points
   for(int i=0;i<count;i++){
    int row=rows[i],ia=int(pairs[row*4]),ib=int(pairs[row*4+1]);cv::Point a(cvRound(points[ia*7]),cvRound(points[ia*7+1])),b(cvRound(points[ib*7]),cvRound(points[ib*7+1]));cv::Scalar color(colors[row*3+2],colors[row*3+1],colors[row*3]);
    if(flags&2)cv::line(output,a,b,color,1,cv::LINE_AA);
-   if(flags&1){cv::circle(output,a,std::max(2,cvRound(points[ia*7+2]/2)),color,1,cv::LINE_AA);cv::circle(output,b,std::max(2,cvRound(points[ib*7+2]/2)),color,1,cv::LINE_AA);}
-   if(flags&4){cv::circle(output,a,2,color,-1,cv::LINE_AA);cv::circle(output,b,2,color,-1,cv::LINE_AA);}
+   if(flags&1){if(!(flags&16))cv::circle(output,a,std::max(2,cvRound(points[ia*7+2]/2)),color,1,cv::LINE_AA);if(!(flags&32))cv::circle(output,b,std::max(2,cvRound(points[ib*7+2]/2)),color,1,cv::LINE_AA);}
+   if(flags&4){if(!(flags&16))cv::circle(output,a,2,color,-1,cv::LINE_AA);if(!(flags&32))cv::circle(output,b,2,color,-1,cv::LINE_AA);}
   }return 1;
  }catch(...){return 0;}
 }

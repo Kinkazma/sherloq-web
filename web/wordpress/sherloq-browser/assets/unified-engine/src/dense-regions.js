@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort,normalizeResourceError,resourceAllocationKind} from './errors.js';
 import {denseDescriptorShape} from './dense-math.js';
@@ -61,6 +61,7 @@ export async function createDenseRegions(options={}){
     return {
      overlap(a,b){requireValue(!disposed&&a.length===b.length&&a.length<=pairs.length/2,'Invalid dense hulls.');m.HEAPF32.set(a,ap/4);m.HEAPF32.set(b,bp/4);const value=m._sherloq_dense_overlap(ap,bp,a.length/2);if(value<0)throw new EngineError('GEOMETRY_FAILED','Dense hull intersection failed.');return value;},
      group(selected,color,flags){requireValue(!disposed&&selected.every(i=>i>=0&&i<pairs.length/4)&&color.length===3,'Invalid dense drawing group.');m.HEAPU8.set(new Uint8Array(Uint32Array.from(selected).buffer),rows);m.HEAPU8.set(color,base);if(!m._sherloq_dense_draw_group(ip,image.width,image.height,pp,mp,rows,selected.length,cp,base,flags))throw new EngineError('GEOMETRY_FAILED','Dense drawing failed.');},
+     colors(values){requireValue(!disposed&&values instanceof Uint8Array&&values.length===colors.length,'Invalid dense presentation palette.');m.HEAPU8.set(values,cp);},
      write(bytes,offset=0){requireValue(!disposed&&stored&&bytes instanceof Uint8Array&&Number.isSafeInteger(offset)&&offset>=0&&offset+bytes.length<=byteLength,'Invalid renderer input page.');m.HEAPU8.set(bytes,ip+offset);},
      pixels(offset=0,length=byteLength-offset){requireValue(!disposed&&Number.isSafeInteger(offset)&&Number.isSafeInteger(length)&&offset>=0&&length>=0&&offset+length<=byteLength,'Invalid renderer output page.');return copyTypedArray(m.HEAPU8.subarray(ip+offset,ip+offset+length),{label:'dense-regions-output'});},
      dispose(){if(disposed)return;disposed=true;for(const p of pointers)m._free(p);}

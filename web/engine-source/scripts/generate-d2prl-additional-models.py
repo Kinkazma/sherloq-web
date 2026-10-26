@@ -10,7 +10,7 @@ from torchvision import transforms as T
 import torch.utils.model_zoo
 root=Path(__file__).resolve().parents[1];sys.path.insert(0,str(root.parent/'source'))
 from gui.sherloq_app.core.d2prl import load,postprocess
-parser=argparse.ArgumentParser();parser.add_argument('--case',choices=['jpeg','flat'],required=True);args=parser.parse_args();out=root/'.build/d2prl-additional'/args.case;out.mkdir(parents=True,exist_ok=True)
+parser=argparse.ArgumentParser();parser.add_argument('--case',choices=['jpeg','flat'],required=True);args=parser.parse_args();out=root/'.build/d2prl-additional-noaa'/args.case;out.mkdir(parents=True,exist_ok=True)
 def denied(*a,**k):raise RuntimeError('Offline reference prohibits downloads')
 torch.hub.download_url_to_file=denied;torch.utils.model_zoo.load_url=denied;torch.set_num_threads(8);assert torch.__version__.split('+')[0]=='2.8.0'
 loaded=load('cpu');model=loaded['model'];base=root/'.build/d2prl-model';foundation=json.loads((base/'reference.json').read_text());union=json.loads((root/'.build/d2prl-union/reference.json').read_text());handles=[];dlf_values={};unet_values=[];dedicated=[]
@@ -20,7 +20,7 @@ if args.case=='jpeg':
  encoded=np.fromfile(root/'.build/d2prl-source/source.jpg',np.uint8);rgb=cv.cvtColor(cv.imdecode(encoded,cv.IMREAD_COLOR),cv.COLOR_BGR2RGB)
 else:
  rgb=np.zeros((381,513,3),np.uint8);ok,encoded=cv.imencode('.png',cv.cvtColor(rgb,cv.COLOR_RGB2BGR));assert ok
-image=T.Resize((448,448))(T.ToTensor()(rgb))[None];ref=dict(schema=1,scope='Additional generated source '+args.case+', native CPU448/40/seed22. Numerical reference only.',torch=torch.__version__,referenceThreads=8,weights=foundation['weights'],original=save('original',encoded),source=save('source-rgb',rgb),input=save('rgb448',image),features=[],patchmatch=[])
+image=T.Resize((448,448),antialias=False)(T.ToTensor()(rgb))[None];ref=dict(schema=1,preprocessing='d2prl-tensor-bilinear448-noaa-v1',scope='Additional generated source '+args.case+', native CPU448/40/seed22. Numerical reference only.',torch=torch.__version__,referenceThreads=8,weights=foundation['weights'],original=save('original',encoded),source=save('source-rgb',rgb),input=save('rgb448',image),features=[],patchmatch=[])
 handles.append(model.patchmatch.register_forward_pre_hook(lambda m,a:ref.update(features=[save('native-feature-'+str(i),v) for i,v in enumerate(a)])))
 handles.append(model.patchmatch.register_forward_hook(lambda m,a,r:ref.update(patchmatch=[save('native-patchmatch-'+str(i),v) for i,v in enumerate(r)])))
 for k in [7,9,11]:

@@ -32,10 +32,18 @@ export async function segmentedPixelStats(image,params,{budget,signal,onProgress
 // Live returned results are owned, not evictable cache entries. They survive
 // later tasks until explicitly released or until their source is unloaded.
 export function createResultSurfaces(surfaces){
- const results=new Map();
- async function remove(id){
+ const results=new Map(),retiring=new Map();
+ function remove(id){
   const record=results.get(id);if(!record)throw new EngineError('NOT_FOUND','Result surface no longer exists.');
-  results.delete(id);surfaces.delete(id);await record.surface.dispose();
+  const pending=retiring.get(id);if(pending)return pending;
+  // Keep the only owner addressable until its asynchronous cleanup succeeds.
+  // A rejected ACK can then be retried, and concurrent callers retire it once.
+  const task=Promise.resolve().then(()=>record.surface.dispose()).then(()=>{
+   if(results.get(id)===record){results.delete(id);surfaces.delete(id);}
+  });
+  retiring.set(id,task);
+  void task.finally(()=>{if(retiring.get(id)===task)retiring.delete(id);}).catch(()=>{});
+  return task;
  }
  return {
   publish(imageId,record){const id=record.surface.descriptor.id;requireValue(!surfaces.has(id),'Duplicate result surface.');results.set(id,{imageId,...record});surfaces.set(id,{imageId,record});return record.surface.descriptor;},

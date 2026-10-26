@@ -73,7 +73,8 @@ test('Both retains the validated two-panel pixels at zero, negative and boundary
 });
 
 test('bad preview bounds, invalid overlay pixels and cancelled reads never publish an approximate result',async()=>{
- for(const preview of [{maxWidth:513,maxHeight:320},{maxWidth:0,maxHeight:320},{maxWidth:320,maxHeight:0},{maxWidth:3.2,maxHeight:320}])await assert.rejects(renderEnergy(scores(),null,{view:'scores',field:'unified'},{preview}),/Invalid energy preview bounds/);
+ const legal=await renderEnergy(scores(),null,{view:'scores',field:'unified'},{preview:{maxWidth:2048,maxHeight:2048}});assert.equal(legal.preview,false);assert.deepEqual(legal.data,(await renderEnergy(scores(),null,{view:'scores',field:'unified'})).data,'raised adaptive bound still returns the exact native raster when it fits');
+ for(const preview of [{maxWidth:2049,maxHeight:320},{maxWidth:0,maxHeight:320},{maxWidth:320,maxHeight:0},{maxWidth:3.2,maxHeight:320}])await assert.rejects(renderEnergy(scores(),null,{view:'scores',field:'unified'},{preview}),/Invalid energy preview bounds/);
  await assert.rejects(renderEnergy(scores(),{width:4,height:2,readPixels:async()=>({data:new Uint8Array(1)})},{view:'scores',field:'unified',scoreView:'overlay'}),/Invalid original RGB rows/);
  const controller=new AbortController(),data=scores(),before=data.energy_low_score.slice();await assert.rejects(renderEnergy(data,{width:4,height:2,async readSampled(){controller.abort();return{width:2,height:1,data:new Uint8Array(6)};}},{view:'scores',field:'unified',scoreView:'overlay'},{preview:{maxWidth:4,maxHeight:1},signal:controller.signal}),{code:'CANCELLED'});assert.deepEqual(data.energy_low_score,before);
 });

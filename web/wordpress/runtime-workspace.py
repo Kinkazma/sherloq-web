@@ -14,9 +14,14 @@ encode = lambda x: (json.dumps(x, ensure_ascii=False, sort_keys=True, separators
 digest = lambda x: hashlib.sha256(x).hexdigest()
 
 
-def reviewed_workspace_increment(root):
+def reviewed_workspace_increment(root, latest_predecessor=None):
     root = Path(root)
     repository = root.parents[1]
+    if latest_predecessor is None and (root/'runtime-patches/review-20261021.json').exists():
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('review_predecessor',root/'runtime-review.py')
+        layer=importlib.util.module_from_spec(spec);spec.loader.exec_module(layer)
+        _,latest_predecessor=layer.reviewed_review_increment(root)
     path = root / 'runtime-patches/workspace-20261020.json'
     if not path.exists():
         return None, {}
@@ -27,7 +32,7 @@ def reviewed_workspace_increment(root):
     def read(name):
         if not isinstance(name, str) or PurePosixPath(name).is_absolute() or '\\' in name or any(p in ['', '.', '..'] for p in name.split('/')):
             raise ValueError('Unsafe workspace source path')
-        return (repository / name).read_bytes()
+        return latest_predecessor[name] if latest_predecessor and name in latest_predecessor else (repository / name).read_bytes()
 
     def verify(ref, location=None):
         data = read(location or ref['file'])
@@ -121,4 +126,4 @@ def reviewed_workspace_increment(root):
     for kind in locks:
         if receipt['locks'][kind]['file'] != baseline['locks'][kind]['file'] or encode(locks[kind]) != verify(receipt['locks'][kind]):
             raise ValueError('Workspace changes undeclared runtime locks')
-    return receipt, previous
+    return receipt, {**(latest_predecessor or {}), **previous}

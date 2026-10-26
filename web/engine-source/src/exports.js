@@ -1,3 +1,4 @@
+import {appendNativeJpegContextCsv} from './jpeg-context-csv.js';
 import {Budget} from './cache.js';
 import {segmentationNpz} from '../experiments/segmentation/npz.js';
 import {zeroNpz,noisesnifferNpz,energyNpz,elaCellNpz,d2prlNpz,m3Npz} from './npz.js';
@@ -36,13 +37,17 @@ export function exportAnalysis(result,{format='json',maxBytes=32*1024**2}={}){
    const d=result.data,quote=value=>'"'+String(value).replaceAll('"','""')+'"';
    for(const item of d.scores)line([item.rank,quote(item.camera),item.score,d.threshold,Number(item.score>=d.threshold),Number(d.trainingMembershipVerified)]);
   }else if(result.operation==='comparison.image'){
-   line(['metric','value','status','detail']);
-   const d=result.data,quote=value=>'"'+String(value??'').replaceAll('"','""')+'"';
-   for(const metric of ['rmse','sam','ergas','mb','pfe','psnr','ssim','msssim','rase','scc','uqi','vifp','ssimul','butter','hist_0','hist_1','hist_4','hist_2','hist_3','hist_5']){
-    if(Object.hasOwn(d.values,metric))line([metric,d.values[metric],'defined',quote(d.warnings?.[metric])]);
-    else if(Object.hasOwn(d.errors,metric))line([metric,'','undefined',quote(d.errors[metric])]);
-   }
-   if(d.metricsRequested){line(['histogramCorrelationFullBins',d.histogramCorrelationFullBins,'defined','']);line(['histogramCorrelationBinDivisor',d.histogramCorrelationBinDivisor,'defined','']);}
+   const d=result.data,quote=value=>'"'+String(value??'').replaceAll('"','""')+'"',contextual=!!d.pairedDomain&&Array.isArray(d.contexts)&&d.contexts.length>1;
+   line(contextual?['metric','value','status','detail','scope','context_index','original_x0','original_y0','original_x1','original_y1']:['metric','value','status','detail']);
+   const rows=(owner,suffix=[])=>{for(const metric of ['rmse','sam','ergas','mb','pfe','psnr','ssim','msssim','rase','scc','uqi','vifp','ssimul','butter','hist_0','hist_1','hist_4','hist_2','hist_3','hist_5']){
+    if(Object.hasOwn(owner.values??{},metric))line([metric,owner.values[metric],'defined',quote(owner.warnings?.[metric]),...suffix]);
+    else if(Object.hasOwn(owner.errors??{},metric))line([metric,'','undefined',quote(owner.errors[metric]),...suffix]);
+   }};
+   rows(d,contextual?['global','','','','','']:[]);
+   if(d.metricsRequested){const suffix=contextual?['global','','','','','']:[];line(['histogramCorrelationFullBins',d.histogramCorrelationFullBins,'defined','',...suffix]);line(['histogramCorrelationBinDivisor',d.histogramCorrelationBinDivisor,'defined','',...suffix]);}
+   if(contextual)for(let i=0;i<d.contexts.length;i++){const context=d.contexts[i];rows(context,['native-context',i+1,...context.bounds]);}
+  }else if(appendNativeJpegContextCsv(result,line)){
+   // Independent native contexts already wrote their actual populations.
   }else if(result.operation==='jpeg.recompression'){
    line(['jpeg_quality','mean_absolute_pixel_error_0_255']);for(let i=0;i<result.data.qualities.length;i++)line([result.data.qualities[i],result.data.raw[i]]);
   }else if(result.operation==='jpeg.quality'){

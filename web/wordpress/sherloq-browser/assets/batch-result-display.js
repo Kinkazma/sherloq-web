@@ -1,6 +1,7 @@
 import {readBatchZip} from './batch-zip.js';
 import {createToolClient} from './tool-client.js';
 import {createExportSink} from './export-sink.js';
+import {exportSinkScopeFor} from './export-sink-owner.js';
 import {BATCH_CORROBORATION_PALETTE} from './batch-corroboration-export.js';
 import {batchBiomeCandidates,batchBiomeCapabilities,loadBatchNativeBiomes,batchBiomePreview,batchBiomeWindow,batchBiomeMetadata} from './batch-native-biomes.js';
 import {Budget} from './unified-engine/src/cache.js';
@@ -92,7 +93,7 @@ function previewRgba(buckets,palette){
 export function createBatchResultDisplay({artifacts,computeProfile='maximum',toolFactory=createToolClient,dependencies={},maxOpenArtifacts=4}={}){
  requireDisplay(artifacts&&typeof artifacts.get==='function'&&typeof artifacts.set==='function'&&typeof artifacts.has==='function','A result artifact store is required.');
  requireDisplay(Number.isSafeInteger(maxOpenArtifacts)&&maxOpenArtifacts>0&&maxOpenArtifacts<=8,'Invalid opened result artifact cache extent.');
- const records=new Map(),pending=new Set(),lifetime=new AbortController();let closed=false,touch=0;
+ const records=new Map(),pending=new Set(),lifetime=new AbortController();let closed=false,touch=0,disposal;
  const alive=()=>{if(closed)throw new EngineError('DISPOSED','Result display service disposed.');};
  const signalFor=signal=>signal?AbortSignal.any([signal,lifetime.signal]):lifetime.signal;
  const tracked=fn=>{const operation=Promise.resolve().then(fn);pending.add(operation);operation.finally(()=>pending.delete(operation)).catch(()=>{});return operation;};
@@ -156,7 +157,9 @@ export function createBatchResultDisplay({artifacts,computeProfile='maximum',too
   const existing=image.resultDisplay;
   if(existing?.schema===BATCH_RESULT_DISPLAY_SCHEMA&&existing.presentation?.cacheKey===cacheKey&&existing.files?.length===1&&artifacts.has(existing.files[0]))return {...existing,path:existing.files[0],blob:await artifacts.get(existing.files[0])};
   const budget=dependencies.budgetFactory?.()??new Budget(256*MiB),rasterFactory=dependencies.rasterFactory??createRasterExports,sinkFactory=dependencies.sinkFactory??createExportSink;
+  const scope=exportSinkScopeFor(artifacts);await scope.retryFailed();const owner=scope.begin();
   let client,raster,output,sink,transfer,releaseTransfer;
+  owner.after(async()=>{if(releaseTransfer){await releaseTransfer();releaseTransfer=null;}});owner.after(async()=>{if(output){await raster.release(output.id);output=null;}});owner.after(()=>client?.dispose());
   const path='resultats/'+image.id+'/vue-resultat.png';
   try{
    client=await toolFactory({computeProfile:typeof computeProfile==='function'?computeProfile():computeProfile});
@@ -179,15 +182,13 @@ export function createBatchResultDisplay({artifacts,computeProfile='maximum',too
     }};
     raster=rasterFactory(budget);output=await raster.create(surface,{format:'png',storage:'temporary'},{signal,imageId:image.id,originalSha256:record.sourceSha256,...(dependencies.wasmBinary?{wasmBinary:dependencies.wasmBinary}:{})});
    }finally{signal.removeEventListener('abort',abort);}
-   releaseTransfer=budget.reserve(Math.min(CHUNK,output.byteLength));sink=await sinkFactory({memoryBudgetBytes:0,signal,mime:'image/png'});
+   releaseTransfer=budget.reserve(Math.min(CHUNK,output.byteLength));sink=await owner.open(sinkFactory,{memoryBudgetBytes:0,signal,mime:'image/png'});
    for(let at=0;at<output.byteLength;at+=CHUNK){await controlCheckpoint(signal);const bytes=(await raster.read({exportId:output.id,revision:output.revision,offset:at,length:Math.min(CHUNK,output.byteLength-at)},{signal})).bytes;await sink.write(bytes);}
-   checkAbort(signal);transfer=await sink.finish();requireDisplay(transfer.blob instanceof Blob&&transfer.blob.size===output.byteLength,'Rendered result transfer size differs.');checkAbort(signal);
+   checkAbort(signal);transfer=owner.finish(sink,await sink.finish());requireDisplay(transfer.blob instanceof Blob&&transfer.blob.size===output.byteLength,'Rendered result transfer size differs.');checkAbort(signal);
    await artifacts.set(path,transfer.blob.slice(0,transfer.blob.size,'image/png'));
    const result={schema:BATCH_RESULT_DISPLAY_SCHEMA,version:2,mode:preferences.mode,opacity:preferences.opacity,width:record.width,height:record.height,scopeFingerprint:record.scopeFingerprint,sourceSha256:record.sourceSha256,scientificArrays:record.path??geometry.geometrySources[0].path,files:[path],pendingRendering:false,presentation:{cacheKey,operation:geometry?'render-existing-paired-native-biomes':'render-existing-scientific-counts',scientificValuesChanged:false,sourcePixelsChanged:false,...(biomeMetadata?{biomes:biomeMetadata}:{}),scientificPalette:array?.palette??displayed.palette??null,currentOpacity:preferences.opacity,maximum:displayed.metadata.maximum,methods:geometry?.methods??array.metadata.methods,previewAggregation:geometry?biomeMetadata.previewAggregation:displayed.metadata.previewAggregation},png:{byteLength:output.byteLength,sha256:output.sha256}};
-   image.resultDisplay=result;return {...result,path,blob:await artifacts.get(path)};
-  }finally{
-   try{if(transfer)await transfer.cleanup?.();else await sink?.abort();}finally{releaseTransfer?.();try{if(output)await raster.release(output.id);}finally{await client?.dispose();}}
-  }
+   owner.complete();await owner.retire();image.resultDisplay=result;return {...result,path,blob:await artifacts.get(path)};
+  }catch(error){return owner.fail(error);}
  }
  return {
   describe(image){try{alive();const expected=identity(image,artifacts),record=records.get(image.id),native=record?.biomeValue,biomeCapability=native?{available:true,reason:null,methods:native.methods,groupCount:native.groupCount}:record?.biomeError?{available:false,reason:record.biomeError.message,methods:[],groupCount:0}:batchBiomeCapabilities(image,artifacts),capabilities={corroboration:{available:!!expected.path,reason:expected.path?null:'Aucune carte numérique de corroboration archivée.'},biomes:biomeCapability};let preferences=batchResultDisplayPreferences(image),reason;
@@ -196,6 +197,6 @@ export function createBatchResultDisplay({artifacts,computeProfile='maximum',too
   preparePreview(image,options={}){return tracked(async()=>{const record=recordFor(image),signal=signalFor(options.signal);return using(record,async()=>{const value=await preview(record,{...options,signal}),geometry=await biomes(record,signal);checkAbort(signal);return {width:value.width,height:value.height,corroboration:value.buckets?{rgba:previewRgba(value.buckets,value.palette)}:null,biomes:geometry?{rgba:batchBiomePreview(geometry,{width:value.width,height:value.height,originalWidth:record.width,originalHeight:record.height},{signal,budget:new Budget(256*MiB)}),metadata:batchBiomeMetadata(geometry)}:null,metadata:{...value.metadata,capabilities:this.describe(image).capabilities,...(record.biomeError?{biomesUnavailable:record.biomeError.message}:{})}};});});},
   ensureRendered(image,{mode,opacity,signal}={}){return tracked(async()=>{const record=recordFor(image),preferences=batchResultDisplayPreferences(image,{...(mode===undefined?{}:{mode}),...(opacity===undefined?{}:{opacity})}),activeSignal=signalFor(signal);const next=record.renderQueue.then(()=>using(record,()=>full(image,record,preferences,activeSignal)));record.renderQueue=next.catch(()=>{});return next;});},
   snapshot(){return {openedCountArtifacts:[...records.values()].filter(r=>r.openedReady).length,cachedPreviewBytes:[...records.values()].reduce((n,r)=>n+(r.previewValue?.buckets.byteLength??0),0),retainedFullCountGrids:0,retainedPreviewRgbaBytes:0};},
-  async dispose(){if(closed)return;closed=true;lifetime.abort();await Promise.allSettled([...pending]);records.clear();},
+  dispose(){if(disposal)return disposal;closed=true;lifetime.abort();return disposal=(async()=>{await Promise.allSettled([...pending]);await exportSinkScopeFor(artifacts).drainActive();records.clear();})().catch(error=>{disposal=null;throw error;});},
  };
 }

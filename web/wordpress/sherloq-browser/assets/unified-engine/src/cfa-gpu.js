@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {disposeGpuDeviceGracefully} from './neural-worker-cleanup.js';
 import {requestStorageDevice,storageDeviceLimits} from './gpu-limits.js';
 import {closeGpuErrorScopes} from './gpu-error-scope.js';
 import {copyTypedArray} from './allocation.js';
@@ -9,7 +10,7 @@ export async function createCfaGPU(){
  const adapter=await navigator.gpu?.requestAdapter({powerPreference:'high-performance'});if(!adapter)throw new EngineError('GPU_UNAVAILABLE','No CFA WebGPU adapter.');
  const device=await requestStorageDevice(adapter),pipelines=new Map();
  const buffers=new Map(),transient=new Set(),available=[],metrics={bufferAllocations:0,uploadedWeightBytes:0,readbackBytes:0,uploadedInputBytes:0,residentOperations:0},clear=()=>{for(const b of buffers.values())b.destroy();for(const b of transient)b.destroy();buffers.clear();transient.clear();available.length=0;};
- let model,modelWeights,busy=false,disposed=false,graphShape,graphOpen=false;
+ let model,modelWeights,busy=false,disposed=false,graphShape,graphOpen=false,gracefulDisposal;
  function buffer(key,size,data,usage=GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,immutable=false){
   if(size>device.limits.maxBufferSize||((usage&GPUBufferUsage.STORAGE)&&size>device.limits.maxStorageBufferBindingSize))throw new EngineError('MEMORY_LIMIT','CFA GPU buffer exceeds device limits; subdivide useful tile.',{details:{admissionScope:'fixed',requestedBytes:size,maximumBytes:Math.min(device.limits.maxBufferSize,device.limits.maxStorageBufferBindingSize)}});
   let b=buffers.get(key),created=false;
@@ -88,5 +89,5 @@ export async function createCfaGPU(){
    const encoder=device.createCommandEncoder(),pass=encoder.beginComputePass();pass.setPipeline(pipeline);pass.setBindGroup(0,device.createBindGroup({layout:pipeline.getBindGroupLayout(0),entries:[x,w,b,out,params].map((buffer,binding)=>({binding,resource:{buffer}}))}));const count=Math.ceil(bytes/4/128);pass.dispatchWorkgroups(Math.min(count,65535),Math.ceil(count/65535));pass.end();if(resident){device.queue.submit([encoder.finish()]);metrics.residentOperations++;success=true;return output;}encoder.copyBufferToBuffer(out,0,read,0,bytes);device.queue.submit([encoder.finish()]);await read.mapAsync(GPUMapMode.READ,0,bytes);let result;try{result=copyTypedArray(new Float32Array(read.getMappedRange(0,bytes)),{label:'neural-gpu-readback'});metrics.readbackBytes+=bytes;}finally{read.unmap();}
    scoped=false;const failure=await closeGpuErrorScopes(device,{label:'cfa-gpu.js',validationCode:'NEURAL_EXECUTION'});if(failure)throw failure;success=true;return result;
   }catch(error){if(scoped){scoped=false;throw await closeGpuErrorScopes(device,{cause:error,label:'cfa-gpu.js',validationCode:'NEURAL_EXECUTION'});}throw error;}finally{if(!success)clear();try{if(scoped){await device.popErrorScope();await device.popErrorScope();}}finally{busy=false;}}
- },dispose(){if(disposed)return;disposed=true;clear();pipelines.clear();device.destroy();}};return api;
+ },disposeGracefully(){if(busy||graphOpen)return Promise.reject(new EngineError('BUSY','An active CFA GPU job cannot be disposed cooperatively.'));return gracefulDisposal??=(async()=>{disposed=true;const actions=[...[...new Set([...buffers.values(),...transient])].map(buffer=>()=>buffer.destroy()),()=>{buffers.clear();transient.clear();available.length=0;pipelines.clear();}];return disposeGpuDeviceGracefully(device,actions);})();},dispose(){if(disposed)return;disposed=true;clear();pipelines.clear();device.destroy();}};return api;
 }

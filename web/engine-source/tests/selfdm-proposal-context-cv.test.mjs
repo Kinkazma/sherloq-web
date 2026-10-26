@@ -1,0 +1,23 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {Budget} from '../src/cache.js';
+import {proposalDeepMaskWindows,proposalSourcePatch} from '../src/selfdm-proposal-pyramid.js';
+import {createSelfDMProposalContextCv} from '../src/selfdm-proposal-context-cv.js';
+function context({refuse=false}={}){
+ let reads=0,held=0,closed=false;const budget=new Budget(64*1024**2),width=24,height=20;
+ const c={id:'context',bounds:[100,80,124,100],nativeContext:{async readRows(y,rows){assert.equal(closed,false);assert.equal(rows,1);reads++;held++;const free=budget.reserve(width*3),data=Uint8Array.from({length:width*3},(_,at)=>(y*31+at)&255);let done=false;return{pixels:{format:'rgb8',width,height:1,data},async release(){if(refuse)throw 0;if(!done){done=true;free();held--}}}}}};
+ const n=proposalDeepMaskWindows(width,height,1),window={...n.windows[0],sourcePatch:proposalSourcePatch(width,height,n.ow,n.oh,n.windows[0])};window.nativeInputBytes=window.width*window.height*12;window.nativeSourceBytes=window.sourcePatch.width*window.sourcePatch.height*3;window.nativeHeapBytes=Math.ceil((16*1024**2+window.nativeInputBytes+window.nativeSourceBytes)/1048576)*1048576;
+ return{budget,c,window,scale:{index:5,scale:1},setRefuse:v=>refuse=v,state:()=>({reads,held,closed}),close(){closed=true}};
+}
+function poolHarness(){const created=[],jobs=[];return{created,jobs,factory(budget,options){const pool={options,clears:0,refuse:false,async run({prepare,consume}){const job=await prepare(0);jobs.push(job);let raw;if(job.command==='pyramid')raw={data:new Float32Array(job.window.width*job.window.height*3),shape:[1,3,job.window.height,job.window.width],heapBytes:job.heapBytes};else raw={found:1,box:Int32Array.of(0,0,4,5),heapBytes:job.heapBytes};pool.last=raw;await consume(raw)},clear(){pool.clears++;if(pool.refuse)throw 0},metrics(){return{clears:pool.clears}}};created.push(pool);return pool}}}
+test('pyramid uses the exact native context dimensions/patch, CPU profile and adopts transferred output without another copy',async()=>{
+ const s=context(),h=poolHarness(),client=createSelfDMProposalContextCv({budget:s.budget,profile:{maxWorkers:10},poolFactory:h.factory});
+ const loan=await client.pyramid(s.c,s.scale,s.window);assert.equal(loan.raw,h.created[0].last);assert.equal(loan.raw.data,h.created[0].last.data);const job=h.jobs[0];assert.equal(job.width,24);assert.equal(job.height,20);assert.deepEqual(job.patch,s.window.sourcePatch);assert.equal(h.created[0].options.maxWorkers,10);assert.equal(h.created[0].options.workerHeapBytes,s.window.nativeHeapBytes);assert.equal(s.state().held,0);assert.equal(s.state().reads,s.window.sourcePatch.height);assert.ok(s.budget.total()>0);await loan.release();assert.equal(s.budget.total(),0);await client.dispose();assert.equal(h.created[0].clears,1);assert.equal(s.state().closed,false);await assert.rejects(client.pyramid(s.c,s.scale,s.window),/disposed/);
+});
+test('a refused source ACK0 retains its loan/source until parent retry, with no CV invocation',async()=>{
+ const s=context({refuse:true}),h=poolHarness(),client=createSelfDMProposalContextCv({budget:s.budget,profile:{maxWorkers:10},poolFactory:h.factory});let loan;
+ await assert.rejects(client.pyramid(s.c,s.scale,s.window,{onOwner:v=>loan=v}),e=>e===0);assert.equal(h.jobs.length,0);assert.equal(s.state().held,1);assert.equal(loan.state().released,false);await assert.rejects(client.dispose(),e=>e===0);assert.equal(h.created[0].clears,0);assert.equal(s.state().closed,false);s.setRefuse(false);await client.dispose();assert.equal(loan.state().released,true);assert.equal(s.state().held,0);assert.equal(s.budget.total(),0);assert.equal(h.created[0].clears,1);
+});
+test('pool ACK0 keeps the remaining native pool and does not repeat an already retired predecessor',async()=>{
+ const s=context(),h=poolHarness(),client=createSelfDMProposalContextCv({budget:s.budget,profile:{maxWorkers:10},poolFactory:h.factory});const a=await client.pyramid(s.c,s.scale,s.window),b=await client.maskBox({data:new Float32Array(112**2),contextBounds:s.c.bounds,scale:0,slot:0,cols:2});await a.release();await b.release();h.created[1].refuse=true;const x=client.dispose(),y=client.dispose();assert.equal(x,y);await assert.rejects(x,e=>e===0);assert.equal(h.created[0].clears,1);assert.equal(h.created[1].clears,1);assert.equal(client.metrics().closed,false);assert.equal(Object.keys(client.metrics().pools).length,1);h.created[1].refuse=false;await client.dispose();assert.equal(h.created[0].clears,1);assert.equal(h.created[1].clears,2);assert.equal(client.metrics().closed,true);assert.equal(s.budget.total(),0);
+});

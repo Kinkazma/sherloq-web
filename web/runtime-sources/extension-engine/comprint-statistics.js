@@ -1,4 +1,4 @@
-import "../runtime-context.js?v=0.21.0";
+import "../runtime-context.js?v=0.25.0";
 /** Browser-only Comprint preprocessing and statistics bridge.
  * The network uses ONNX Runtime Web; postprocess uses the exact original
  * SPAM/PCA/EM functions inside Pyodide WASM, not an installed Python runtime.
@@ -46,3 +46,5 @@ export {runComprintFingerprint,runComprintFingerprintSource} from './comprint-in
 
 export {createComprintParallelStatistics as createComprintStatistics} from './comprint-parallel-statistics.js';
 export {estimateComprintStatisticsPlan} from './comprint-streaming-statistics.js';
+
+export {runComprintNativeContexts} from './comprint-native-contexts.js';

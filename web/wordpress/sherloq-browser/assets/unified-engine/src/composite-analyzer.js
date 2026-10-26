@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {COMPOSITE_STATISTICS_POLICY,COMPOSITE_STATISTICS_REVISION,compositePolicyMetadata} from './composite-policy.js';
 import {createCompositeSegmentedAnalyzer} from './composite-segmented-analyzer.js';
 import {renderCompositeSegmented} from './composite-segmented-display.js';
@@ -16,10 +16,10 @@ const bytesOf=value=>ArrayBuffer.isView(value)?value.byteLength:value&&typeof va
 export function createCompositeAnalyzer({assets,runtimes,statisticsRuntime,segmentedStorage,budget,computeProfile='aggressive',resourceHints}={}){
   statisticsRuntime=structuredClone(statisticsRuntime);runtimes=structuredClone(runtimes);assets=structuredClone(assets);const configuration=JSON.stringify([assets,runtimes]);
  const profile=resolveComputeProfile(computeProfile,resourceHints);budget??=new Budget(profile.memoryBudgetBytes);
- const pool=new NeuralGraphPool(budget,profile,{assets,runtimes}),statistics=new NativeStatistics(budget,statisticsRuntime),keys=new Set();let active,disposed=false;const segmented=createCompositeSegmentedAnalyzer({assets,pool,statistics,profile,budget,storage:segmentedStorage??'auto'});
+ const pool=new NeuralGraphPool(budget,profile,{assets,runtimes}),statistics=new NativeStatistics(budget,statisticsRuntime),keys=new Set();let active,disposed=false,disposal,closing=false;const segmented=createCompositeSegmentedAnalyzer({assets,pool,statistics,profile,budget,storage:segmentedStorage??'auto'});
  return {
   async analyze(image,{quality=0,stage='map',memoryBounded}={},options={}){
-   if(disposed)throw new EngineError('DISPOSED','Composite analyzer disposed.');if(active)throw new EngineError('BUSY','Composite analysis already running.');
+   if(disposed||closing)throw new EngineError('DISPOSED','Composite analyzer disposed.');if(active)throw new EngineError('BUSY','Composite analysis already running.');
    if(image.surface){active={abort(){}};try{return await segmented.analyze(image,{quality,stage,memoryBounded},options);}finally{active=null;}}
    const {width,height}=image,n=width*height;
    requireValue(Number.isSafeInteger(n)&&Number.isInteger(width)&&Number.isInteger(height)&&width>0&&height>0&&image.data instanceof Uint8Array&&image.data.length===n*3,'RGB8 image required.');
@@ -72,7 +72,7 @@ export function createCompositeAnalyzer({assets,runtimes,statisticsRuntime,segme
   },
   exportNpz(result){const bound=bytesOf(result)+65536,release=budget.reserve(bound);try{return {...compositeNpz(result,bound),release};}catch(e){release();throw e;}},
   async clearCache(){for(const k of keys)budget.remove(k);keys.clear();pool.clear();statistics.clear();await segmented.clearCache();},
-  async dispose(){if(disposed)return;disposed=true;active?.abort();await segmented.dispose();await this.clearCache();pool.dispose();statistics.dispose();},
+  dispose(){if(disposed)return Promise.resolve();if(disposal)return disposal;closing=true;active?.abort();const task=(async()=>{await segmented.dispose();await this.clearCache();await pool.dispose();await statistics.dispose();disposed=true;})();disposal=task.finally(()=>{disposal=null;});return disposal;},
   memory(){return budget.snapshot();}
  };
 }

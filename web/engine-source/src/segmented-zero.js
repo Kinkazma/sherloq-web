@@ -1,3 +1,4 @@
+import {createZeroRetirement} from './zero-native-context-plan.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {segmentedZeroVotes} from './zero-stream.js';
 import {segmentedZeroRegions} from './zero-region-stream.js';
@@ -6,18 +7,30 @@ import {ZERO_PALETTE} from './zero-palette.js';
 const semantics='ZERO local JPEG grid votes and globally significant foreign/missing-grid regions; processing clues, not an authenticity verdict. Grid log10 NFA is not a manipulation probability.';
 function constantStore(n,value){return {byteLength:n,storage:'constant',readInto(target){target.fill(value);},dispose(){}};}
 function maskedVotes(store,original,main,budget){return {byteLength:store.byteLength,storage:store.storage,async readInto(target,offset=0){const release=budget.reserve(Math.min(target.length,65536));try{const prior=new Uint8Array(Math.min(target.length,65536));await store.readInto(target,offset);for(let at=0;at<target.length;at+=prior.length){const part=prior.subarray(0,Math.min(prior.length,target.length-at));await original.readInto(part,offset+at);for(let i=0;i<part.length;i++)if(part[i]===main)target[at+i]=255;}}finally{release();}}};}
-export async function createSegmentedZeroAnalysis(image,p,{budget,signal,onProgress,storage='auto',reference=false,maxWorkers=1,adaptive}={}){
- let original,companion,foreign,missing;const width=image.surface.descriptor.width,height=image.surface.descriptor.height,n=width*height;
+export async function createSegmentedZeroAnalysis(image,p,{budget,signal,onProgress,storage='auto',reference=false,maxWorkers=1,adaptive,onOwner}={}){
+ const retirement=createZeroRetirement({signal,onOwner});signal=retirement.signal;let finish;retirement.waitUntil(new Promise(r=>finish=r));
+ let original,companion,foreign,missing;
+ const storeAcks=new WeakMap();
+ const rememberStore=store=>{if(!store||storeAcks.has(store))return;const dispose=store.dispose;let done=false,pending;const retire=()=>{if(done)return Promise.resolve();if(pending)return pending;const task=Promise.resolve().then(()=>dispose.call(store)).then(()=>{done=true;});pending=task;void task.finally(()=>{if(pending===task)pending=null;}).catch(()=>{});return task;};storeAcks.set(store,retire);store.dispose=retire;};
+ const retireStores=async stores=>{let failed=false,primary;for(const store of stores)try{rememberStore(store);await store?.dispose();}catch(error){if(!failed){failed=true;primary=error;}}if(failed)throw primary;};
+ const retireVotes=value=>value?retireStores([value.luminance,value.votes]):undefined;
+ // The historical region wrapper releases bookkeeping in finally and marks
+ // itself closed before child ACK. Pre-retire both stores so that wrapper is
+ // entered only after their true ACK, retaining its credits on refusal.
+ const retireRegions=async value=>{if(value){await retireStores([value.mask,value.maskReg]);await value.dispose();}};
+ retirement.add(()=>retireVotes(original));retirement.add(()=>retireVotes(companion));retirement.add(()=>retireRegions(foreign));retirement.add(()=>retireRegions(missing));const width=image.surface.descriptor.width,height=image.surface.descriptor.height,n=width*height;
  try{
   original=await segmentedZeroVotes(image,{budget,signal,onProgress,storage,reference,maxWorkers,adaptive});const options={budget,signal,onProgress,storage,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession};
   foreign=await segmentedZeroRegions(original.votes,width,height,{...options,gridToExclude:original.main_grid});
   if(p.missing&&original.main_grid>=0){companion=await segmentedZeroVotes(image,{budget,signal,onProgress,companion:true,storage,reference,maxWorkers,adaptive});missing=await segmentedZeroRegions(companion.votes,width,height,{...options,gridMax:0,excludeVotes:original.votes,excludeGrid:original.main_grid});}
   const zero=constantStore(n,0),unknown=constantStore(n,255),planes={luminance:original.luminance,luminance_jpeg:companion?.luminance??zero,votes:original.votes,votes_jpeg:companion?maskedVotes(companion.votes,original.votes,original.main_grid,budget):unknown,mask_f:foreign.mask,mask_f_reg:foreign.maskReg,mask_m:missing?.mask??zero,mask_m_reg:missing?.maskReg??zero};let hasRegion=false;
   const scanRelease=budget.reserve(Math.min(n,65536));try{const bytes=new Uint8Array(Math.min(n,65536));for(const store of [planes.mask_f_reg,planes.mask_m_reg]){if(hasRegion)break;for(let at=0;at<n;at+=bytes.length){await controlCheckpoint(signal);const part=bytes.subarray(0,Math.min(bytes.length,n-at));await store.readInto(part,at);if(part.some(v=>v!==0)){hasRegion=true;break;}}}}finally{scanRelease();}
-  checkAbort(signal);let references=1,closed=false,cacheReleased=false;const owners=[original,companion,foreign,missing].filter(Boolean),metadata={method:'ZERO IPOL 2021/390',main_grid:original.main_grid,foreign_regions:foreign.regions,missing_regions:missing?.regions??[],jpeg99_used:p.missing,missing_grid_analyzed:!!companion,reference};
-  const release=async()=>{if(closed)return;if(--references===0){closed=true;const results=await Promise.allSettled(owners.map(o=>o.dispose()));const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;}};
-  return {width,height,planes,metadata,grid_log10_nfa:original.grid_log10_nfa,hasRegion,missingEnabled:p.missing,metrics:{kernel:'zero-global-segmented',workers:Math.max(original.metrics.workers,companion?.metrics.workers??1),original:original.metrics,jpeg99:companion?.metrics??null,foreign:foreign.metrics,missing:missing?.metrics??null},retain(){if(closed)throw new EngineError('DISPOSED','ZERO analysis disposed.');references++;let done=false;return async()=>{if(done)return;done=true;await release();};},dispose:async()=>{if(!cacheReleased){cacheReleased=true;await release();}}};
- }catch(error){await Promise.allSettled([original,companion,foreign,missing].filter(Boolean).map(o=>o.dispose()));throw error;}
+  checkAbort(signal);let references=1,retiring=false;const metadata={method:'ZERO IPOL 2021/390',main_grid:original.main_grid,foreign_regions:foreign.regions,missing_regions:missing?.regions??[],jpeg99_used:p.missing,missing_grid_analyzed:!!companion,reference};
+  const release=()=>{if(references)return Promise.resolve();retiring=true;return retirement.dispose();};
+  const lease=()=>{let requested=false;return()=>{if(!requested){requested=true;references--;}return release();};};
+  const cacheRelease=lease(),retain=()=>{if(retiring)throw new EngineError('DISPOSED','ZERO analysis disposed.');references++;return lease();};
+  return {width,height,planes,metadata,grid_log10_nfa:original.grid_log10_nfa,hasRegion,missingEnabled:p.missing,metrics:{kernel:'zero-global-segmented',workers:Math.max(original.metrics.workers,companion?.metrics.workers??1),original:original.metrics,jpeg99:companion?.metrics??null,foreign:foreign.metrics,missing:missing?.metrics??null},retain,dispose:cacheRelease};
+ }catch(error){finish();try{await retirement.dispose();}catch{}throw error;}finally{finish();}
 }
 function viewStore(analysis,view,budget){const {width,height,planes,hasRegion}=analysis,release=analysis.retain();return {byteLength:width*height*3,storage:'computed',dispose:release,async readInto(target,offset=0){requireValue(offset%3===0&&target.length%3===0,'ZERO RGB reads must align to pixels.');const count=target.length/3,chunk=Math.min(count,65536),free=budget.reserve(chunk*3);try{const a=new Uint8Array(chunk),b=new Uint8Array(chunk),c=new Uint8Array(chunk);for(let at=0;at<count;at+=chunk){const size=Math.min(chunk,count-at),first=a.subarray(0,size),second=b.subarray(0,size),third=c.subarray(0,size),position=offset/3+at;
    if(view===1||view===2){await planes[view===1?'votes':'votes_jpeg'].readInto(first,position);for(let i=0;i<size;i++){const out=(at+i)*3,v=first[i];target[out]=v<64?ZERO_PALETTE[v*3]:0;target[out+1]=v<64?ZERO_PALETTE[v*3+1]:0;target[out+2]=v<64?ZERO_PALETTE[v*3+2]:0;}}

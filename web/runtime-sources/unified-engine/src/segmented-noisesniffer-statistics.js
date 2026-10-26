@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {noisesnifferOwnerRetirement} from './noisesniffer-owner-retirement.js';
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';
 import {WaveletStripPool} from './wavelet-strip-pool.js';
 import {noisesnifferStreamMath,noisesnifferStreamHeapBytes} from './noisesniffer-stream-math.js';
@@ -38,6 +39,6 @@ export async function segmentedNoisesnifferStatistics(image,w,{budget,signal,onP
     consume:async(r,i)=>{checkAbort(signal);const x=i%nx*bw,y=Math.floor(i/nx)*bh,tw=Math.min(bw,width-x),th=Math.min(bh,height-y),left=Math.max(x,4),top=Math.max(y,4),right=Math.min(x+tw,cols+4),bottom=Math.min(y+th,rows+4);if(left<right&&top<bottom){const values=new Float64Array((right-left)*(bottom-top)*3);for(let yy=top;yy<bottom;yy++)values.set(r.means.subarray(((yy-y)*tw+left-x)*3,((yy-y)*tw+right-x)*3),(yy-top)*(right-left)*3);await means.write(values,(left-4)*3,top-4,(right-left)*3,bottom-top,{signal});}progress('noisesniffer-means-fft',++done,nx*ny);}
    });
   }
-  let disposed=false;return {width:cols,height:rows,blockSize:w,validCount,valid,means,variance,extrema,metrics:{...pool.metrics(),stripRows},async dispose(){if(disposed)return;disposed=true;await Promise.all(owned.map(x=>x.dispose()));}};
+  return {width:cols,height:rows,blockSize:w,validCount,valid,means,variance,extrema,metrics:{...pool.metrics(),stripRows},dispose:noisesnifferOwnerRetirement(owned.map(store=>()=>store.dispose()))};
  }catch(error){await Promise.allSettled(owned.map(x=>x.dispose()));throw error;}finally{pool?.clear();allowance();}
 }

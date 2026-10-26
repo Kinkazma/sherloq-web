@@ -1,6 +1,7 @@
 import {INFERNO} from './unified-engine/src/research-palette.js';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
 import {neuralScientificScopeIdentity} from './unified-engine/src/neural-scientific-scope.js';
+import {cloneAnalysisWindowDisplays} from './neural-window-presentation.js';
 
 export const NEURAL_METHODS = [
  ['cmseg-generalization','CMSeg-Net 2025 generalization'],['cmseg-addnoise','CMSeg-Net 2025 addnoise'],
@@ -32,6 +33,7 @@ export function forgeryscopeParams(method,scope,rectangles,language='fr') {
 }
 const LABELS={overlay:['Superposition','Overlay'],map:['Carte brute (non filtrée)','Raw map (unfiltered)'],mask:['Masque filtré','Filtered mask'],source:['Source','Source'],target:['Cible','Target'],candidates:['Suggestions','Suggestions'],branch_microscopy:['Microscopie','Microscopy'],branch_blots:['Blots','Blots'],branch_lanes:['Pistes','Lanes'],geometric:['Correspondances géométriques','Geometric matches']};
 export function neuralDisplays(output,language='fr') {
+ if(output?.operation==='ai.clones.segmentation'&&['independent','global'].includes(output.cloneWindowMode)&&Array.isArray(output.windowResults))return cloneAnalysisWindowDisplays(output,neuralDisplays,language);
  const m2=output.operation==='m2.forgeryscope';
  if(!m2&&!['ai.clones.d2prl','ai.clones.segmentation'].includes(output.operation))return null;
  const fields=m2?output.m2Result.fields:{map:output.surface,...output.planeSurfaces,...output.maskSurfaces};
@@ -39,7 +41,7 @@ export function neuralDisplays(output,language='fr') {
  const base=m2?{id:'forgeryscope-'+output.m2Result.id,revision:1,width:output.m2Result.width,height:output.m2Result.height}:output.surface;
  return ['overlay','map','mask','source','target','candidates','branch_microscopy','branch_blots','branch_lanes','geometric']
  .filter(view=>view==='overlay'||fields[view]&&(view!=='candidates'||m2))
- .map(view=>({label:LABELS[view][language==='fr'?0:1],display:{...base,id:base.id+':clone:'+view,format:'rgb8',cloneView:view,cloneFields:fields,cloneMasked:output.operation==='ai.clones.d2prl'||m2,...(m2?{m2Result:output.m2Result.id}:{})}}));
+ .map(view=>({label:LABELS[view][language==='fr'?0:1],display:{...base,id:base.id+':clone:'+view,format:'rgb8',cloneView:view,cloneFields:fields,cloneMasked:output.operation==='ai.clones.d2prl'||m2,...((output.operation==='ai.clones.d2prl'||m2)&&output.sourceRegionSourceSurface?{sourceRegionSourceSurface:output.sourceRegionSourceSurface,sourceRegionOrigin:output.sourceRegionOrigin,sourceRegionDomain:output.sourceRegionDomain}:{}),...(m2?{m2Result:output.m2Result.id}:{})}}));
 }
 // The presentation is bounded by the viewport/export window. No retained full RGB copy.
 export function composeCloneFrame({width,height,base,values,support,mask,view,masked=false}) {

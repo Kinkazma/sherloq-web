@@ -1,0 +1,3644 @@
+{
+  "schema": "pca-review-native-reference/1",
+  "numpy": "1.26.4",
+  "opencv": "4.11.0",
+  "sources": {
+    "source/gui/sherloq_app/core/pca.py": "b77d4b6f6bcc950b79855854056eee56bb43d8bdca15ccaa2efd0646816388ae",
+    "source/gui/sherloq_app/core/utility.py": "4c70b30cfb1f8bebcdae85fa95f39a77d267081bc9509d67b661c9e9600a5fbc"
+  },
+  "formula": "rgb[i]=(i*73+floor(i/7)*19)%256",
+  "cases": [
+    {
+      "name": "single",
+      "width": 1,
+      "height": 1,
+      "rgb": null,
+      "constantRgb": null,
+      "inputSha256": "a390f30a68a228f47a9d06a2444900b88e3d8e9f454f81c25aa214f57f83cbba",
+      "basis": [
+        146.0,
+        73.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "basisSha256": "2511824623c70aa023c8585ac0adba5b60a6f128ad96317658f324b3d1611baf",
+      "expected": [
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c"
+        }
+      ]
+    },
+    {
+      "name": "pair",
+      "width": 2,
+      "height": 1,
+      "rgb": null,
+      "constantRgb": null,
+      "inputSha256": "d00b3c39146060fa317fca498f66a6645399bbf3aae3723304c2a38b882991d8",
+      "basis": [
+        127.5,
+        54.5,
+        109.5,
+        -0.1643243894873015,
+        -0.16432438948730152,
+        0.97262273777619,
+        0.9737123476096946,
+        0.13065643135295432,
+        0.1865828530667489,
+        -0.1577395293895697,
+        0.9777148827576145,
+        0.13853464874254645,
+        12674.75,
+        2.0671553385675385e-15,
+        -1.1575399306018357e-13
+      ],
+      "basisSha256": "de82a16554c2d7097e74ead3d942da57753f27532e96597e2d51e111b37d2fd7",
+      "expected": [
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "ce8bee525d6736e9825261b19a9b51719f9dc4bb728e95cf7067a2142b03b362"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "ce8bee525d6736e9825261b19a9b51719f9dc4bb728e95cf7067a2142b03b362"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "2984cf67e0e2686932b68c3b21436c8947bcfdea8862a8a2140bdfabdda23fc1"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "69e4feee9a9dde3fea79f57bf1ac68614581c26bc7562a37ffafce61095e7f61"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "26e46e8ac5853ad1ecff3c0abfe57a2dfbdac8d8dc5cc32e1537bd1abc86958e"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "137a6802a6e14a03cf08ce53aab0612b47e36aee2d9f363022815871f9c94b94"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "9c3b103d32dca5d43b4b3750776bb0232a4535bc184e595ec54bc5872d806d53"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "9c3b103d32dca5d43b4b3750776bb0232a4535bc184e595ec54bc5872d806d53"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "d23a26793d0863269a32a6be24f9e54c0ab8e460d0a993f7dfa78ba777f181d2"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "d23a26793d0863269a32a6be24f9e54c0ab8e460d0a993f7dfa78ba777f181d2"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "ce8bee525d6736e9825261b19a9b51719f9dc4bb728e95cf7067a2142b03b362"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "ce8bee525d6736e9825261b19a9b51719f9dc4bb728e95cf7067a2142b03b362"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "69e4feee9a9dde3fea79f57bf1ac68614581c26bc7562a37ffafce61095e7f61"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "69e4feee9a9dde3fea79f57bf1ac68614581c26bc7562a37ffafce61095e7f61"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "137a6802a6e14a03cf08ce53aab0612b47e36aee2d9f363022815871f9c94b94"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "137a6802a6e14a03cf08ce53aab0612b47e36aee2d9f363022815871f9c94b94"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "51a94781d7e42914a76909ca48c6cf4ccee23d302d462502a110dcb6b8299ce4"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "c9359acde68018d3c4865e6d410b760136d724aaf5b724ea37a4e7753bffc5f8"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "e48fbd669ce1d2ff539c662c49b6b203a1888b03acf08c69ab334c39cc02e343"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "a8e3f2685bf025c8cc90ef35169bd36ea928c8506b5acafd0f935fd31383b9ae"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "ce8bee525d6736e9825261b19a9b51719f9dc4bb728e95cf7067a2142b03b362"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "ce8bee525d6736e9825261b19a9b51719f9dc4bb728e95cf7067a2142b03b362"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "2984cf67e0e2686932b68c3b21436c8947bcfdea8862a8a2140bdfabdda23fc1"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "69e4feee9a9dde3fea79f57bf1ac68614581c26bc7562a37ffafce61095e7f61"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "26e46e8ac5853ad1ecff3c0abfe57a2dfbdac8d8dc5cc32e1537bd1abc86958e"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "137a6802a6e14a03cf08ce53aab0612b47e36aee2d9f363022815871f9c94b94"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "4e06cf90a8b015a48427687f5a502727ab920405fd02f5b5350cdfd159546ee6"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "137a6802a6e14a03cf08ce53aab0612b47e36aee2d9f363022815871f9c94b94"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "61a6890cdde363cc94780022cb1dfe3e43adba34596d523f1e034f50b4a2cc72"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "69e4feee9a9dde3fea79f57bf1ac68614581c26bc7562a37ffafce61095e7f61"
+        }
+      ]
+    },
+    {
+      "name": "triple",
+      "width": 3,
+      "height": 1,
+      "rgb": null,
+      "constantRgb": null,
+      "inputSha256": "c5c2f75fe8c5cc2cd625aa9afcce796724e92cf3760ef4d87ea050bbb4e34854",
+      "basis": [
+        115.33333333333333,
+        42.33333333333333,
+        133.66666666666666,
+        -0.20704429861543727,
+        -0.20704429861543722,
+        0.9561722213187763,
+        0.6761158616767113,
+        0.6761158616767114,
+        0.29280485511397647,
+        -0.7071067811865478,
+        0.7071067811865477,
+        -8.588260897797474e-17,
+        10001.083971834967,
+        208.91602816503342,
+        3.1459217086514124e-14
+      ],
+      "basisSha256": "11186782637189ffe67fcafce459c1a9f26db8989faf20c0354ddea20e13173e",
+      "expected": [
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "1d088a122888325a3a32da5095a0f52f06303e3998d9e97289eeefae2d2c596f"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "7b8e3d419c22669e55cdf4719ab28ae9d7a19fc41b3506e409d5dc69c0cb1261"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "5a2a549857bff2dc52654d7fc9cba9c2eddd56ef080070f470ce038339e46e75"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "71cec23c9bb9f221ff430b2c6eef919958c67a6f99664db3785f872037a8b893"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "83127d147a6fa86a93dac24b4818c0105961b51a57f4a3f9397987640753cdf3"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "abeddee98a9e6fcb8c7442278eed8284c234525c00a2adf5610477cf60a075c6"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "ba7e59d5221b3fce1edaba284de1912150439ba90aba8d66a351e3389e2f3b77"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "a38f459d049d93e24ae9ec5a1b2efefd0245a8412a48eab76fd0c9b9e73e0801"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "2bd6fe890ed3c32cef185a800831fc97df0e33228e7b8da62900238a81242804"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "54191b77cfd6254d49c95fc4cd9ddd0c240e79e2ff9201bc97501ffb13f730f2"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "cd87315ccd4cefbed9204a85cd091b74883127dff6879a76ba06144af8334155"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "463a12baab4107d9511acfa0b5000fb0dab3e169d130bd27f4934c5a062290d6"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "c838a7578c0bcf0153b43beaaf338dc51f7843f4fbc28b31cd09de43fd79035e"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "71cec23c9bb9f221ff430b2c6eef919958c67a6f99664db3785f872037a8b893"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "886a4ec66e297cef399171abcef17340c54cb7260f69d256b24974dd29f9ba12"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "7b8e3d419c22669e55cdf4719ab28ae9d7a19fc41b3506e409d5dc69c0cb1261"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "8599fb92e44c79f198a7aaa2ce9c3f08fa7afeb58b31532b503729aaa13a2770"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "cf42b94e5b6865cd593aa4683a35c758aabc5cfed577632f201064b050097eab"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "055db341848c8a8510a78d83acce8112e9dedf315d4acb006a230090307291df"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "e640174fb0eaccd08d84e24da00b290f7f46cb98fc4c9f870de5db0a7ec80c56"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "346e9f632202ed06c0e5370f371d320e0c6e3c40ce15ff846862a22a16a95ef1"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "461c992a4e1a4baef428410a2b85155c27e7c09b273b415e2cf6a995938d93c8"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "8f75cb3369e11edc6101733d0df6bbb9c2f1a621694bac33bf4915a19aec064f"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "3626ac31c95bc963b1c6e4dad52500915cafcaeb46ff01145c39938d3ee0c631"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "7ed9903383b6bedb7c2deb44088f815349051ec5833c78d5c08d9b47b8c13d85"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "71cec23c9bb9f221ff430b2c6eef919958c67a6f99664db3785f872037a8b893"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "25170370c89614203ac7856fe33be3f33d8c5a04c33a989457370e3e293dffc3"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "7b8e3d419c22669e55cdf4719ab28ae9d7a19fc41b3506e409d5dc69c0cb1261"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "5cf32985fc9256787721333bcdb17f5e3077ad9784e04e78e744a410e431c506"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a38f459d049d93e24ae9ec5a1b2efefd0245a8412a48eab76fd0c9b9e73e0801"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "8107e6a909cbcfe1dbfae2a6c1bf91d906d02c7da091ecf029b1dd7841086e91"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "abeddee98a9e6fcb8c7442278eed8284c234525c00a2adf5610477cf60a075c6"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "78f5627986b7f4f698830afc68a2bdf71ff38a8821aed86a4af1042aead8c606"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a1e46589835249b93d385b2f481377abe225b45c70631b230459887e68636568"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "33367ab7b63ccdc89fbc6b76e25323183f92d21975c7592c89f49a0741a8a3b3"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "60d0b3fca3525b3c25ad6ea2013d5eb4b76a08460c4cec8ebc8c772098a6b892"
+        }
+      ]
+    },
+    {
+      "name": "four",
+      "width": 2,
+      "height": 2,
+      "rgb": null,
+      "constantRgb": null,
+      "inputSha256": "78ccb4c37704a0f3e3ccb4935d5566975d9df6f654fbd21337dbc10cec31b5c6",
+      "basis": [
+        100.0,
+        91.0,
+        141.25,
+        -0.3077910915200633,
+        0.9206590662680617,
+        0.24010732533454335,
+        -0.1764262394155456,
+        -0.3032077463594996,
+        0.9364501292611808,
+        0.9349537026112984,
+        0.24586977497450466,
+        0.25575306005483067,
+        8025.048058996007,
+        7495.59591021124,
+        120.04353079275216
+      ],
+      "basisSha256": "b8143f802e857a6c715e1b63488edc28c5912300a2b739e78d0023757661a8fc",
+      "expected": [
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "e64c36020e8b708b3ddd38f7d11401d7d9134c43f9f72fa5d1830a29eae072ba"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "11f8629664554cc7847825160cf5f5f01369e3602e1ff376122cf2c2444ce328"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "0f19d48da2026948ebd321543329b2ab4ea423511cfc37cb627100f4d68f2a42"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "fed4cdda978b06214ad6dea4811cf16384d583c01bbb3afa8e39685b700fe7c9"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "6efe6c6d26a0f7b82cb8581376401295acfa73c68bdc0b50f9368437c13d2f04"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "fbaf381cf1bd2417922e02837420e225e8182dfc96a92660f8b3e3c85df24555"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "a20c978fc04f0be8768759c299feb496f61a4eff690806e1301c7778e508ed0a"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "d20ac260add425c4b179b86696b2a4aa49144cbbedfedbc856dae0194fa14b69"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "c43015b270f2d917c8b964f74ac25a13d952c285b4694adbc74faf22d2b80cce"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "5e964ee07b58d926f72a012ab00f53a9a0f8e4ce4c05e7e5a8bbb1532dc76e66"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "c5c829245d96e662fd11ff9f72068e151d64c484818b0876b488072e6ac6f61e"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "d1ebf281a125c12c9bd1cb438d4c8501d7ab7f691b06613a67ed794b766827dc"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a50f2cc9ca487a538a614d1c07ee9346d32034d435c292caf7cbca2bc01d5afe"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "4483a4492b07ff01844e15b98169d0ceb7524f917e62d43798390ecefdebdf08"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "74ccd21a7f2e527d5acbe5641926df7b21b510900fbe13b0d496c2ffd6aee4b3"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "97ea9a6ebe9bdff382cbd2a63c144d2d1e8b5220271fc3be96a15f6917f5ed03"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "6175b2985a7c38e8c125e863895eb407fcfc3dd75a9ca52ce5bc80dfb24ac8fc"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "c728c9a8782df4fd20eb53e17a7973c3549d95b2b5e0ca40265d11beb987c3bd"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "6ee91e0d0c923c83327d0cb1df92678f39ac7b7a32b54943a9c9478665f0a7db"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "cf497e2be7779df92997295dc06db3dc0e6544a3c5333e9f414e9af865e46d4f"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "6dd0be69bda32efb02404aadafdb4377dd43a65ea5e663eeec6c4dec23d91847"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "c107cb620080369052ff47ae3c13f7695798f810a305a4a9892f1e2a57c4ca34"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "3667dc1132cd346c468660070fea8f678b29619afe58b7f5e1cb536340ba1cfe"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "dbaa7f47f65c9be19bd674eb5b62b663e9d448e357e4b641e4dba0637ddead3a"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "2cc72075b318058573cc8fabd75ee782508d8e0a8611742f46eb24b35614d1cc"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "c041ebd484792b591dc9670f61052aed649a497b9e2ece30a8497e6a58670e45"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "4161b9f6cf05c75b056a857427c66159eb66377f45aa3bd1f4920b22f8b65e14"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "edb4f1508e60cc632f8b0a1e8624146ee86d5e2458e24bf9eaa0f7269a3d0728"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "2bb2cc1901b472ecb30a862d37ccd294b926f9377da0055cfccb909ce7da12b3"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a475069994b3f7c2ce7edac775c5787352cd3183e91c95e497108c72a57ccb8e"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "c1593a1a4326d53f0ca37d26d5897bc7882ad3bd6f8386dc71fc2fb08bb813e9"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "e349d4149bdc5edd0b1e35442a600207ee29fc011ee894eda6b6f8b70b6e8244"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "155bb5d86dcc971a9b00f566df0b087e715fb186e8d8f2250db5ccc6905d19e0"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "605d4b880ef477573e5a56f3457b76f80ad539d2470fc264719b9f273bab72aa"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "9599b6039db8e4f983ed5b513eb231afd4a304cc973f5811fc6617f425c4113f"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "dd1e80c0d6d23239647d43e62cb815f4fe0f30ecf9980001aaab88a734b2aaf4"
+        }
+      ]
+    },
+    {
+      "name": "texture",
+      "width": 41,
+      "height": 37,
+      "rgb": null,
+      "constantRgb": null,
+      "inputSha256": "6edb493a8a06d7b5728670f6a322ef59b35ccf940903e4a3e9a52c53540f017d",
+      "basis": [
+        127.28543177323664,
+        127.50692155570204,
+        127.72841133816742,
+        0.707111399013815,
+        9.273123870936907e-06,
+        -0.7071021632683177,
+        -0.3416074643226095,
+        0.8755646618658101,
+        -0.34160044380955806,
+        0.6191104987833775,
+        0.4831009447370384,
+        0.6191249207473227,
+        7868.362663047592,
+        6520.050979694975,
+        1994.9157513491787
+      ],
+      "basisSha256": "da90569bdafde2a94445c6abc3a6f225078397fe4ad6da2f193bce14d9ec846e",
+      "expected": [
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "f41a349436113b1d0b5652855fd572d6b57c8af7fd1b48c4ea3e10222b25631c"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "d7586865cbc4d2454cacaba184d796aec23539376594b10c980a9f3c25ab150e"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "6ffada32313e83d8e4c7594f7846ed310447d1065748e042d1838b935384510f"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "cbaf549cb22a6354bdeb40cfb6a1a1e66d29927da19de4552391ea5bdae9201f"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "411b600c64a44609227abec88e364b9b3befbe10b102b0098adcba464bf83929"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "5efbd77fd7f5eff98e5d4200dce51af150681173c8d373670f22a343a45ebf44"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "af80ba65fae40eba5fc76887f2150765597be6584565f0b631d564ceca445aff"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "10697b8f55ba1cbe0b3a25f97a6a4d61469176e72bc8839971f3b4cf0f6de654"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "0f1a54cecb9c2cab65c5f2c348b8622f205165a4127d4bdecf1d439ba1b60c27"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "bb9da2450276cfa46f9b8ce2906eaacf32d3f3c69816c016e8fde368ca3695ef"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "b2cd4017af2f3313efd0945d3782fde8a73916bf8f79dce9cbcf6e9ce30aa913"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "9c67a52fd6f544f68c5360d312a9d8c7f264fb492b77c6461770f1b0a318eea9"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "4efae24b95d2ea81fd6a9727d66a11eb78a7965e49968f1aabebe6665610f910"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "8dd5872b614303e8b010aa882e4d3d2383f95b47d0edd7ca4ad6c4feaa54bda9"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "2d9b84a78290ca66c028d903220333c8f50c59e1a132d223aacdaba1fcdcf8be"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "d18c27a934b60250c2c8b3e3bfea34fc6d17a79e3996a2e36a186d2e2f85bcac"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "8387f67ada63e86f2b469871c024068ac5655f770a7ecaba7a05a9f7f0ca1c7e"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "5191578ca9868a34b68586dabcc3777ec9744424c158f297495b32de76b41b0d"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "53dbb9ecd3f1bfc7fe2a299db3fbc6174b207ce9bc90a8fbbcb569f04c79f782"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "3d45d36e191f36b34500600fa93286d57dfc446372a77316654c61297d602af5"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "fc0bbd67d3bd638b7b430307b33c6f434ce75e3d01b6e63dc2814f342758e4eb"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "bed4917b8fa03fdde68de5435263b04014c4f6168ce496aeca3937bf153eb453"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "7c62f8da3e02db1e40a3dd543c9a7466ee2e535e58b109e392dccc93c4e1dea3"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "d244a9e31b83ba2274ebc4a403fb6d3aeeec2889e3929cef51764af70a9730a4"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "c5a2f5d46f6ef7c8df7bf56eb8ffec57c47db5029bb58aefaca3dfd833429bbc"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "8a3a0a9ad048e5ac84caae3489fde072674c2c9bf0e4aa1be20b58e0ab9e0d91"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "a11dbe051631432804f405feefe9ee37e8bfb59dd4e91c884bc08c4f90a52506"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "45a1c47604b35fb40b294d7a104b57c6ea5b9621003afd3717f5b4e05143bb09"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "5fbe502de76845fc4ca8974eef6235d6b3a481cd04dfa7f9c2bb5f3620873c62"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "fb833f7874d5980f2c862471b624d79d1b8e5ab54a43bcf8fce49e48ce0e38c9"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "b88adab6436258b5f37bd92d9c4cc9d21549de47437cf9e0d11c37190e29ae40"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "f025e0e02d17d81ca336513695eebd7321e5df135caf1eaffa1e3cb82aca1397"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "8cb40a4602e8e419be3f8ef6c1c368477aa505ade4615fa6d237ff6383258ae5"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "9064af0f650b4770bc402f28b73f84140750c16b2c9825b095b6d24e584d6ca7"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "75d262fc1d12acf835c1b77184f6296fcdd93187021b97e02edec42b8720cf16"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "885f7173224f265e081df8316f0a0d6f18534034c5ea58a944a41bc5dae524a2"
+        }
+      ]
+    },
+    {
+      "name": "constant",
+      "width": 13,
+      "height": 11,
+      "rgb": null,
+      "constantRgb": [
+        20,
+        100,
+        200
+      ],
+      "inputSha256": "d7961ed2fb3e8cc6621e832b311766325b7498f12f497c0cb67c24382c6003cb",
+      "basis": [
+        200.0,
+        100.0,
+        20.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "basisSha256": "483d6ce1e5b941dc589e47e4344807a8680251fa29abf7c3dea3d91ce6f24966",
+      "expected": [
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "a6df5cb2b51fa56609c7daf08d28f0e41801b96f9514a9d179992a63afd516b5"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "87e6e207009f7d596e787ed1bf2cbb6daa2ac03f52ae7440466a5cf522f75796"
+        }
+      ]
+    },
+    {
+      "name": "cube-equal-eigenvalues",
+      "width": 4,
+      "height": 2,
+      "rgb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        255,
+        0,
+        255,
+        0,
+        0,
+        255,
+        255,
+        255,
+        0,
+        0,
+        255,
+        0,
+        255,
+        255,
+        255,
+        0,
+        255,
+        255,
+        255
+      ],
+      "constantRgb": null,
+      "inputSha256": "e2421f1fa3b3d94e7d127f28de7825c9192041154c7d137bbc28b0da4da95591",
+      "basis": [
+        127.5,
+        127.5,
+        127.5,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        16256.25,
+        16256.25,
+        16256.25
+      ],
+      "basisSha256": "e5c39e69be1b25c5b19b6ad01420a5636a322347f757b0a75338508b03dac78e",
+      "expected": [
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "44a5f7891570e5631e8c91c85186e6633f4ab5364f644040b2a00126a07985b6"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "44a5f7891570e5631e8c91c85186e6633f4ab5364f644040b2a00126a07985b6"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "7e5950ac70bd2a05fde5dd7bfe1338cec3cd841ff65ac3c5bcd9b971b06cd5e9"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "7e5950ac70bd2a05fde5dd7bfe1338cec3cd841ff65ac3c5bcd9b971b06cd5e9"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "cb3e39bc27c6cc064d9b81d7697f3568bd89cef7db2cf539fb09d452543ed534"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "cb3e39bc27c6cc064d9b81d7697f3568bd89cef7db2cf539fb09d452543ed534"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "036daaa7a9206930afe747734f39a91972625c08a0a6a01901170b0557d7f8f8"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "036daaa7a9206930afe747734f39a91972625c08a0a6a01901170b0557d7f8f8"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "e9ccb78950fc001e076d5e8c8e27ad0ff132c23f8db3681b728c68d895f7ac63"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "e9ccb78950fc001e076d5e8c8e27ad0ff132c23f8db3681b728c68d895f7ac63"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "44a5f7891570e5631e8c91c85186e6633f4ab5364f644040b2a00126a07985b6"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "44a5f7891570e5631e8c91c85186e6633f4ab5364f644040b2a00126a07985b6"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "bb7225a7f17013b2dc539d18e680ad12fad49964ce9132e2f1d9fc82cb1ae504"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "bb7225a7f17013b2dc539d18e680ad12fad49964ce9132e2f1d9fc82cb1ae504"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "eec36502da799ca5c5b6d8a545dad1e52f54ffdd2ad498e7481e3a69219e39c2"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "eec36502da799ca5c5b6d8a545dad1e52f54ffdd2ad498e7481e3a69219e39c2"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "0cffbae881fe5af80f047ae65519a61ef686251d3db011b0dd0ba8ba2f94d405"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "0cffbae881fe5af80f047ae65519a61ef686251d3db011b0dd0ba8ba2f94d405"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "c8a3471474f36932d8493acefdcd10103b9606224d2290c2594bd785dab0c652"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "c8a3471474f36932d8493acefdcd10103b9606224d2290c2594bd785dab0c652"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "44a5f7891570e5631e8c91c85186e6633f4ab5364f644040b2a00126a07985b6"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "44a5f7891570e5631e8c91c85186e6633f4ab5364f644040b2a00126a07985b6"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "5b786102982eaf11f4ca28f1e83c3ccc6b7ae5e3cf0d3d47cfa3c8161569380e"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "5b786102982eaf11f4ca28f1e83c3ccc6b7ae5e3cf0d3d47cfa3c8161569380e"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "c653af5d2c3f465dc907dac24828321a50cc1acfa36453cbe71600a3ccc91700"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "c653af5d2c3f465dc907dac24828321a50cc1acfa36453cbe71600a3ccc91700"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "012d43c985627f1135b665d560000441280652cf184bffbffc3417ede7f21dcc"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "012d43c985627f1135b665d560000441280652cf184bffbffc3417ede7f21dcc"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "6fb468c4cc0471d4dc5b899dc7e27b7aaf355bc7ff161d1b2ac5f67ff784349e"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "6fb468c4cc0471d4dc5b899dc7e27b7aaf355bc7ff161d1b2ac5f67ff784349e"
+        }
+      ]
+    },
+    {
+      "name": "collinear-gray",
+      "width": 17,
+      "height": 13,
+      "rgb": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        6,
+        6,
+        6,
+        7,
+        7,
+        7,
+        8,
+        8,
+        8,
+        9,
+        9,
+        9,
+        10,
+        10,
+        10,
+        11,
+        11,
+        11,
+        12,
+        12,
+        12,
+        13,
+        13,
+        13,
+        14,
+        14,
+        14,
+        15,
+        15,
+        15,
+        16,
+        16,
+        16,
+        17,
+        17,
+        17,
+        18,
+        18,
+        18,
+        19,
+        19,
+        19,
+        20,
+        20,
+        20,
+        21,
+        21,
+        21,
+        22,
+        22,
+        22,
+        23,
+        23,
+        23,
+        24,
+        24,
+        24,
+        25,
+        25,
+        25,
+        26,
+        26,
+        26,
+        27,
+        27,
+        27,
+        28,
+        28,
+        28,
+        29,
+        29,
+        29,
+        30,
+        30,
+        30,
+        31,
+        31,
+        31,
+        32,
+        32,
+        32,
+        33,
+        33,
+        33,
+        34,
+        34,
+        34,
+        35,
+        35,
+        35,
+        36,
+        36,
+        36,
+        37,
+        37,
+        37,
+        38,
+        38,
+        38,
+        39,
+        39,
+        39,
+        40,
+        40,
+        40,
+        41,
+        41,
+        41,
+        42,
+        42,
+        42,
+        43,
+        43,
+        43,
+        44,
+        44,
+        44,
+        45,
+        45,
+        45,
+        46,
+        46,
+        46,
+        47,
+        47,
+        47,
+        48,
+        48,
+        48,
+        49,
+        49,
+        49,
+        50,
+        50,
+        50,
+        51,
+        51,
+        51,
+        52,
+        52,
+        52,
+        53,
+        53,
+        53,
+        54,
+        54,
+        54,
+        55,
+        55,
+        55,
+        56,
+        56,
+        56,
+        57,
+        57,
+        57,
+        58,
+        58,
+        58,
+        59,
+        59,
+        59,
+        60,
+        60,
+        60,
+        61,
+        61,
+        61,
+        62,
+        62,
+        62,
+        63,
+        63,
+        63,
+        64,
+        64,
+        64,
+        65,
+        65,
+        65,
+        66,
+        66,
+        66,
+        67,
+        67,
+        67,
+        68,
+        68,
+        68,
+        69,
+        69,
+        69,
+        70,
+        70,
+        70,
+        71,
+        71,
+        71,
+        72,
+        72,
+        72,
+        73,
+        73,
+        73,
+        74,
+        74,
+        74,
+        75,
+        75,
+        75,
+        76,
+        76,
+        76,
+        77,
+        77,
+        77,
+        78,
+        78,
+        78,
+        79,
+        79,
+        79,
+        80,
+        80,
+        80,
+        81,
+        81,
+        81,
+        82,
+        82,
+        82,
+        83,
+        83,
+        83,
+        84,
+        84,
+        84,
+        85,
+        85,
+        85,
+        86,
+        86,
+        86,
+        87,
+        87,
+        87,
+        88,
+        88,
+        88,
+        89,
+        89,
+        89,
+        90,
+        90,
+        90,
+        91,
+        91,
+        91,
+        92,
+        92,
+        92,
+        93,
+        93,
+        93,
+        94,
+        94,
+        94,
+        95,
+        95,
+        95,
+        96,
+        96,
+        96,
+        97,
+        97,
+        97,
+        98,
+        98,
+        98,
+        99,
+        99,
+        99,
+        100,
+        100,
+        100,
+        101,
+        101,
+        101,
+        102,
+        102,
+        102,
+        103,
+        103,
+        103,
+        104,
+        104,
+        104,
+        105,
+        105,
+        105,
+        106,
+        106,
+        106,
+        107,
+        107,
+        107,
+        108,
+        108,
+        108,
+        109,
+        109,
+        109,
+        110,
+        110,
+        110,
+        111,
+        111,
+        111,
+        112,
+        112,
+        112,
+        113,
+        113,
+        113,
+        114,
+        114,
+        114,
+        115,
+        115,
+        115,
+        116,
+        116,
+        116,
+        117,
+        117,
+        117,
+        118,
+        118,
+        118,
+        119,
+        119,
+        119,
+        120,
+        120,
+        120,
+        121,
+        121,
+        121,
+        122,
+        122,
+        122,
+        123,
+        123,
+        123,
+        124,
+        124,
+        124,
+        125,
+        125,
+        125,
+        126,
+        126,
+        126,
+        127,
+        127,
+        127,
+        128,
+        128,
+        128,
+        129,
+        129,
+        129,
+        130,
+        130,
+        130,
+        131,
+        131,
+        131,
+        132,
+        132,
+        132,
+        133,
+        133,
+        133,
+        134,
+        134,
+        134,
+        135,
+        135,
+        135,
+        136,
+        136,
+        136,
+        137,
+        137,
+        137,
+        138,
+        138,
+        138,
+        139,
+        139,
+        139,
+        140,
+        140,
+        140,
+        141,
+        141,
+        141,
+        142,
+        142,
+        142,
+        143,
+        143,
+        143,
+        144,
+        144,
+        144,
+        145,
+        145,
+        145,
+        146,
+        146,
+        146,
+        147,
+        147,
+        147,
+        148,
+        148,
+        148,
+        149,
+        149,
+        149,
+        150,
+        150,
+        150,
+        151,
+        151,
+        151,
+        152,
+        152,
+        152,
+        153,
+        153,
+        153,
+        154,
+        154,
+        154,
+        155,
+        155,
+        155,
+        156,
+        156,
+        156,
+        157,
+        157,
+        157,
+        158,
+        158,
+        158,
+        159,
+        159,
+        159,
+        160,
+        160,
+        160,
+        161,
+        161,
+        161,
+        162,
+        162,
+        162,
+        163,
+        163,
+        163,
+        164,
+        164,
+        164,
+        165,
+        165,
+        165,
+        166,
+        166,
+        166,
+        167,
+        167,
+        167,
+        168,
+        168,
+        168,
+        169,
+        169,
+        169,
+        170,
+        170,
+        170,
+        171,
+        171,
+        171,
+        172,
+        172,
+        172,
+        173,
+        173,
+        173,
+        174,
+        174,
+        174,
+        175,
+        175,
+        175,
+        176,
+        176,
+        176,
+        177,
+        177,
+        177,
+        178,
+        178,
+        178,
+        179,
+        179,
+        179,
+        180,
+        180,
+        180,
+        181,
+        181,
+        181,
+        182,
+        182,
+        182,
+        183,
+        183,
+        183,
+        184,
+        184,
+        184,
+        185,
+        185,
+        185,
+        186,
+        186,
+        186,
+        187,
+        187,
+        187,
+        188,
+        188,
+        188,
+        189,
+        189,
+        189,
+        190,
+        190,
+        190,
+        191,
+        191,
+        191,
+        192,
+        192,
+        192,
+        193,
+        193,
+        193,
+        194,
+        194,
+        194,
+        195,
+        195,
+        195,
+        196,
+        196,
+        196,
+        197,
+        197,
+        197,
+        198,
+        198,
+        198,
+        199,
+        199,
+        199,
+        200,
+        200,
+        200,
+        201,
+        201,
+        201,
+        202,
+        202,
+        202,
+        203,
+        203,
+        203,
+        204,
+        204,
+        204,
+        205,
+        205,
+        205,
+        206,
+        206,
+        206,
+        207,
+        207,
+        207,
+        208,
+        208,
+        208,
+        209,
+        209,
+        209,
+        210,
+        210,
+        210,
+        211,
+        211,
+        211,
+        212,
+        212,
+        212,
+        213,
+        213,
+        213,
+        214,
+        214,
+        214,
+        215,
+        215,
+        215,
+        216,
+        216,
+        216,
+        217,
+        217,
+        217,
+        218,
+        218,
+        218,
+        219,
+        219,
+        219,
+        220,
+        220,
+        220
+      ],
+      "constantRgb": null,
+      "inputSha256": "58ff6a9fd6df9b085832ad5997dacb8d30baec14b1a9f8f627f8f990794baa57",
+      "basis": [
+        110.00000000000001,
+        110.00000000000001,
+        110.00000000000001,
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258,
+        -0.7886751345948128,
+        0.21132486540518705,
+        0.5773502691896258,
+        0.21132486540518705,
+        -0.7886751345948128,
+        0.5773502691896258,
+        12210.000000000002,
+        1.718430856728577e-13,
+        -1.718430856728577e-13
+      ],
+      "basisSha256": "0e63133f1e70a68aa3b7139cb97ad95e6fffb1f2aeb5faa4df91d0209c06ff96",
+      "expected": [
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "7f816d5a0b0f5c62fc94c4aad8e990f17c93abb8bdafbe2c172187754521c99b"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "7f816d5a0b0f5c62fc94c4aad8e990f17c93abb8bdafbe2c172187754521c99b"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "dbbadd0c7b00da292ac2fe7a7f8ba303d2e8faed3b1dc595e5393e70716f8e68"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "dbbadd0c7b00da292ac2fe7a7f8ba303d2e8faed3b1dc595e5393e70716f8e68"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "90d2e7dae1cb0a5ae87ba9e1f005d80f16259f4007c02d3d3f8bf73d825a7b94"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "6dae2fe3bc6db2a23aaa92641dea790b6e3f1ed3c1baf1fba03d2188d7387f2e"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "f312d4b1ad91544ff6621f81ec3dae6a4325c4d69a7fcd144bba6113abdab435"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "c82a20de349e1226a479469fb5a99faab81661f5b02286fe910877580d5f7811"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "7f816d5a0b0f5c62fc94c4aad8e990f17c93abb8bdafbe2c172187754521c99b"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "7f816d5a0b0f5c62fc94c4aad8e990f17c93abb8bdafbe2c172187754521c99b"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "dbbadd0c7b00da292ac2fe7a7f8ba303d2e8faed3b1dc595e5393e70716f8e68"
+        },
+        {
+          "params": {
+            "component": 0,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "dbbadd0c7b00da292ac2fe7a7f8ba303d2e8faed3b1dc595e5393e70716f8e68"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "e6dda069948b6fa2de11437973f8d6a3b99cd1efe468b73f543f01822b452222"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "4964d3b8311f920a20bb0f9d89b1d5b3737a76f913e3041eb720b0bc28af38e0"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "6e136f4a8a778cb4adcf09f8d1d9b716ada139d4137253e0657332188d70d2a1"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "75c805997b8324abb0429fc4161a467d7a2be51cb54f5584fa32f3cd4bb33514"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "ec59c3f078a35ac833e88b3229f4f71041547ef468719c9183264406912800c4"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "5ce1baa58f32d849437291053a93bb68c88aaf6dace336be64d78fb6c9cdc6f7"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "e31f542e528609c8f0b90d0d179f79807e171eedf0735ce8aebd44aec34b2934"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "a80e93c44212a9ed69f31bbfb1a6990a949d903bbdb57d893f60d8f87acb9b2c"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "ef49c996313760eb3a8dae8fd32629f7f41ceaeffb2fca02db8cac7a581334ac"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "f3105decdbd96bf212623bacb2443c448a9c818a201dc6c26e8d84a114d4646a"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "9ed4b5e20b20d9aa8ce25aa68840bb3614a9d32c531d7c0ccc6bbcd45080a5e1"
+        },
+        {
+          "params": {
+            "component": 1,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "3c120d1b8a5554b4200f2c071ace11ab80669ecdd916b876aec51d4d53a95547"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "e6dda069948b6fa2de11437973f8d6a3b99cd1efe468b73f543f01822b452222"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "4964d3b8311f920a20bb0f9d89b1d5b3737a76f913e3041eb720b0bc28af38e0"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "6e136f4a8a778cb4adcf09f8d1d9b716ada139d4137253e0657332188d70d2a1"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "distance",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "75c805997b8324abb0429fc4161a467d7a2be51cb54f5584fa32f3cd4bb33514"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "2dbd586d87c550a2fa0be442ebd561fd46259b4953fca6485e565062967fe91a"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "468edd231978816ef2a80e18b12373aaf0c829f554590b039ae963f3f8641d00"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "c881314c1b5a65a093cc78bc0ebe4d94fa42b5af4d600db59edfb6e013c590bd"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "project",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "406be02b48848f5e63e9c3440ac7349fa6ab88f37527d4facfa759628db14d1f"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": false
+          },
+          "sha256": "c180f123fc510c1c5355f57db2db1785d00d802bbb8c532cdad8563bbc10d2be"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": false,
+            "equalize": true
+          },
+          "sha256": "fdbf8b07f2a674b086cf8da02d5dc31426bc22cefd34780816f4d02cce8de7e2"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": false
+          },
+          "sha256": "1954a389dde2cc96892a4a79936282652545a090bfc78220c3380022fa342c4e"
+        },
+        {
+          "params": {
+            "component": 2,
+            "mode": "crossprod",
+            "invert": true,
+            "equalize": true
+          },
+          "sha256": "7dd6f2fb8717e68f3505e26627863bf5d7378aa2cbe005622a418ac486c45c37"
+        }
+      ]
+    }
+  ],
+  "legacyWasmDeviations": [
+    {
+      "fixture": "triple",
+      "params": {
+        "component": 2,
+        "mode": "distance",
+        "invert": false,
+        "equalize": false
+      },
+      "desktopSha256": "7ed9903383b6bedb7c2deb44088f815349051ec5833c78d5c08d9b47b8c13d85",
+      "maintainedWasmSha256": "188889fa40ffc6659ee1f7b70ce057c0e4c470520756d54ac97b57f92c9b8806",
+      "maxAbsoluteChannelDifference": 1
+    },
+    {
+      "fixture": "triple",
+      "params": {
+        "component": 2,
+        "mode": "distance",
+        "invert": true,
+        "equalize": false
+      },
+      "desktopSha256": "25170370c89614203ac7856fe33be3f33d8c5a04c33a989457370e3e293dffc3",
+      "maintainedWasmSha256": "d3543e19bddcfa283c163ed4db3dbad8c30d88b4121f649cc73313411633ebfb",
+      "maxAbsoluteChannelDifference": 1
+    },
+    {
+      "fixture": "collinear-gray",
+      "params": {
+        "component": 1,
+        "mode": "project",
+        "invert": false,
+        "equalize": false
+      },
+      "desktopSha256": "ec59c3f078a35ac833e88b3229f4f71041547ef468719c9183264406912800c4",
+      "maintainedWasmSha256": "ff9fdf00eedf0ae40167a75533fba69477598873f8acb89f666ce3ab0ede58cb",
+      "maxAbsoluteChannelDifference": 12
+    },
+    {
+      "fixture": "collinear-gray",
+      "params": {
+        "component": 1,
+        "mode": "project",
+        "invert": false,
+        "equalize": true
+      },
+      "desktopSha256": "5ce1baa58f32d849437291053a93bb68c88aaf6dace336be64d78fb6c9cdc6f7",
+      "maintainedWasmSha256": "cb730082332961dfc45f5ac459e51d34fa71bc5f9fd64ab2c331d0fcb441deb1",
+      "maxAbsoluteChannelDifference": 2
+    },
+    {
+      "fixture": "collinear-gray",
+      "params": {
+        "component": 1,
+        "mode": "project",
+        "invert": true,
+        "equalize": false
+      },
+      "desktopSha256": "e31f542e528609c8f0b90d0d179f79807e171eedf0735ce8aebd44aec34b2934",
+      "maintainedWasmSha256": "26611b1ff1b6739e9cfa56ce94376302eb3c71cff0994fd947e190bd99831ca8",
+      "maxAbsoluteChannelDifference": 12
+    },
+    {
+      "fixture": "collinear-gray",
+      "params": {
+        "component": 1,
+        "mode": "project",
+        "invert": true,
+        "equalize": true
+      },
+      "desktopSha256": "a80e93c44212a9ed69f31bbfb1a6990a949d903bbdb57d893f60d8f87acb9b2c",
+      "maintainedWasmSha256": "7984f9fa67679d0be115055069d2bd2035de8250278948ec84e1970810c1042f",
+      "maxAbsoluteChannelDifference": 3
+    },
+    {
+      "fixture": "collinear-gray",
+      "params": {
+        "component": 2,
+        "mode": "project",
+        "invert": false,
+        "equalize": false
+      },
+      "desktopSha256": "2dbd586d87c550a2fa0be442ebd561fd46259b4953fca6485e565062967fe91a",
+      "maintainedWasmSha256": "01e1fa3c94abfa6bb85c420bc611a26a29584ad440d485abc377882a8ebb11a7",
+      "maxAbsoluteChannelDifference": 45
+    },
+    {
+      "fixture": "collinear-gray",
+      "params": {
+        "component": 2,
+        "mode": "project",
+        "invert": false,
+        "equalize": true
+      },
+      "desktopSha256": "468edd231978816ef2a80e18b12373aaf0c829f554590b039ae963f3f8641d00",
+      "maintainedWasmSha256": "11a78ecd04b70a89d135b1b307d8af54d71f259d7f8c6f792eab1cbae0168bbf",
+      "maxAbsoluteChannelDifference": 24
+    },
+    {
+      "fixture": "collinear-gray",
+      "params": {
+        "component": 2,
+        "mode": "project",
+        "invert": true,
+        "equalize": false
+      },
+      "desktopSha256": "c881314c1b5a65a093cc78bc0ebe4d94fa42b5af4d600db59edfb6e013c590bd",
+      "maintainedWasmSha256": "9f455bb09f1e5be6c5082aef76c740e1e2240081d8680e572501faba02a7d7e9",
+      "maxAbsoluteChannelDifference": 45
+    },
+    {
+      "fixture": "collinear-gray",
+      "params": {
+        "component": 2,
+        "mode": "project",
+        "invert": true,
+        "equalize": true
+      },
+      "desktopSha256": "406be02b48848f5e63e9c3440ac7349fa6ab88f37527d4facfa759628db14d1f",
+      "maintainedWasmSha256": "cb7d50890e45699cd6933d942d2cf9da0ab64e3ee2b0bb25db4f5442fadf63a9",
+      "maxAbsoluteChannelDifference": 26
+    }
+  ],
+  "legacyWasmDeviationsStatus": "Pre-existing in the maintained WebAssembly kernel; measured, not corrected or accepted as desktop bit parity."
+}

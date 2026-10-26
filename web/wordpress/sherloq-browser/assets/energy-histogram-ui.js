@@ -15,9 +15,15 @@ function binnedQuantile(hist,q){
  const rank=(hist.count-1)*q,lo=Math.floor(rank),a=order(lo),b=order(Math.min(lo+1,hist.count-1));return a+(b-a)*(rank-lo);
 }
 
+export function nativeEnergyContextUnavailableText(context,language='fr'){
+ if(context?.evaluable!==false)return null;
+ const dimensions=Array.isArray(context.nativeDimensions)&&context.nativeDimensions.length===2?' · '+context.nativeDimensions.join('×'):'';
+ return(language==='fr'?'Aucun score : aucun rectangle entièrement admis ne satisfait le minimum natif de 25 cellules complètes.':'No score: no wholly admitted rectangle meets the native minimum of 25 complete cells.')+dimensions;
+}
+
 // This view only consumes small native histograms. Provisional percentile cuts
 // are explicitly estimated from these bins; no image pixels are sampled here.
-export function createEnergyHistogramUI({root,document=root?.ownerDocument??globalThis.document,t=key=>labels[key]??key,onSelection=()=>{}}){
+export function createEnergyHistogramUI({root,document=root?.ownerDocument??globalThis.document,t=key=>labels[key]??key,onSelection=()=>{},contextHost=null}){
  const find=id=>root?.getElementById?.(id)??root?.querySelector?.('#'+id);
  const host=find('energy-histograms')??(root?.id==='energy-histograms'?root:null);
  // Embedded panels pass a scoped document facade; SVG creation belongs to the
@@ -29,16 +35,17 @@ export function createEnergyHistogramUI({root,document=root?.ownerDocument??glob
  const element=(tag,attrs={},text)=>{const node=document.createElement(tag);for(const [key,value]of Object.entries(attrs))node.setAttribute(key,String(value));if(text!==undefined)node.textContent=text;return node;};
  const svgElement=(tag,attrs={},text)=>{const node=document.createElementNS(SVG,tag);for(const [key,value]of Object.entries(attrs))node.setAttribute(key,String(value));if(text!==undefined)node.textContent=text;return node;};
  const header=element('div',{class:'energy-histogram-selectors'}),panelLabel=element('label'),qualityLabel=element('label');
+ const contextLabel=element('label'),context=element('select',{id:'energy-histogram-context'}),contextText=element('span');contextLabel.append(contextText,context);contextLabel.hidden=true;(contextHost??header).append(contextLabel);
  const panel=element('select',{id:'energy-histogram-panel'}),quality=element('select',{id:'energy-histogram-quality'}),status=element('p',{id:'energy-histogram-status',class:'energy-histogram-status','role':'status'});
  panelLabel.append(element('span',{'data-histogram-label':'energyHistogramPanel'},tr('energyHistogramPanel')),panel);qualityLabel.append(element('span',{},'Q'),quality);header.append(panelLabel,qualityLabel);
  function card(kind,key){const node=element('section',{class:'energy-histogram-card','data-histogram':kind}),heading=element('div',{class:'energy-histogram-heading'}),title=element('strong',{'data-histogram-label':key},tr(key)),scale=element('span',{'data-histogram-label':'energyHistogramLog'},tr('energyHistogramLog')),svg=svgElement('svg',{id:'energy-histogram-'+kind,viewBox:`0 0 ${plot.width} ${plot.height}`,role:'img',preserveAspectRatio:'none'}),detail=element('p',{id:'energy-histogram-'+kind+'-detail',class:'energy-histogram-detail'});heading.append(title,scale);node.append(heading,svg,detail);return {node,svg,detail};}
  const reference=card('reference','energyHistogramReference'),scores=card('scores','energyHistogramScores');
  host.replaceChildren(header,reference.node,scores.node,status);host.setAttribute('aria-label',tr('energyHistogramTitle'));
- let native=null,selection={referencePanelId:null,qualityIndex:null},requested=null,binnedGesture=false,locked=false,disposed=false;
+ let native=null,contextList=[],selection={referencePanelId:null,qualityIndex:null},requested=null,binnedGesture=false,locked=false,disposed=false;
  const listeners=[];
  function listen(node,type,handler){node.addEventListener(type,handler);listeners.push(()=>node.removeEventListener(type,handler));}
- function controls(){panel.disabled=locked||!native?.panels.length;quality.disabled=locked||!native?.source.qualities.length;host.setAttribute('aria-busy',String(locked));}
- function statusText(){status.textContent=tr(!native?'energyHistogramEmpty':requested?.draft?'energyHistogramDraft':locked?'energyHistogramLoading':'energyHistogramNative');}
+ function controls(){context.disabled=locked||!contextList.length;panel.disabled=locked||!native?.panels.length;quality.disabled=locked||!native?.source.qualities.length;host.setAttribute('aria-busy',String(locked));}
+ function statusText(){if(native?.contextStatus?.evaluable===false){status.textContent=nativeEnergyContextUnavailableText(native.contextStatus,document.documentElement?.lang);return;}status.textContent=tr(!native?'energyHistogramEmpty':requested?.draft?'energyHistogramDraft':locked?'energyHistogramLoading':'energyHistogramNative');}
  function number(value,fallback){return Number.isFinite(value)?value:fallback;}
  function histogram(input,available=true){
   if(!available)return null;
@@ -72,7 +79,8 @@ export function createEnergyHistogramUI({root,document=root?.ownerDocument??glob
  }
  function renderMarkers(){
   if(!native)return;
-  const ref=native.reference,score=native.scores,energy=native.metadata?.energy??{},params=requested?.params??{},draft=requested?.draft===true;
+  const ref=native.reference,score=native.scores,energy=native.metadata?.energy??{},rawParams=requested?.params??{},params=native.contextStatus&&rawParams.profile!=='manual'?{}:rawParams,draft=requested?.draft===true;
+  if(native.contextStatus?.evaluable===false){for(const item of[reference,scores])item.svg.querySelector('[data-layer="markers"]')?.replaceChildren();reference.detail.textContent=tr('energyHistogramNoReference');scores.detail.textContent=document.documentElement?.lang==='fr'?'Aucun score calculé dans ce contexte.':'No score was computed in this context.';statusText();return;}
   const quantiles=[number(params.histogramLow,number(energy.quantiles?.[0],ref?.quantiles?.[0]??.1)*1000)/1000,number(params.histogramHigh,number(energy.quantiles?.[1],ref?.quantiles?.[1]??.9)*1000)/1000];
   const thresholds=[number(params.shadow,number(energy.thresholds?.[0],0)*10)/10,number(params.highlight,number(energy.thresholds?.[1],0)*10)/10];
   const nativePercentiles=ref?.quantiles??energy.quantiles??[],changed=quantiles.some((q,i)=>q!==nativePercentiles[i]);
@@ -99,23 +107,25 @@ export function createEnergyHistogramUI({root,document=root?.ownerDocument??glob
   statusText();
  }
  function options(){
+  const contexts=contextList;contextText.textContent=document.documentElement?.lang==='fr'?'Contexte':'Context';contextLabel.hidden=!contexts.length;context.replaceChildren(...contexts.map((c,i)=>element('option',{value:c.id},`${document.documentElement?.lang==='fr'?'Contexte':'Context'} ${i+1} · ${c.bounds[2]-c.bounds[0]}×${c.bounds[3]-c.bounds[1]}${c.evaluable?'':document.documentElement?.lang==='fr'?' · non évaluable':' · not evaluable'}`)));context.value=selection.sourceFragment??'';
   panel.replaceChildren(...(native?.panels??[]).map(p=>element('option',{value:p.id},`${tr('energyHistogramPanel')} ${p.id} · ${p.bbox[2]-p.bbox[0]}×${p.bbox[3]-p.bbox[1]}`)));
   quality.replaceChildren(...(native?.source.qualities??[]).map((q,i)=>element('option',{value:i},String(q))));panel.value=selection.referencePanelId===null?'':String(selection.referencePanelId);quality.value=selection.qualityIndex===null?'':String(selection.qualityIndex);panel.setAttribute('aria-label',tr('energyHistogramPanel'));quality.setAttribute('aria-label','JPEG Q');controls();
  }
- function change(){if(disposed||locked||!native)return;selection={referencePanelId:Number(panel.value),qualityIndex:Number(quality.value)};onSelection({...selection});}
- listen(panel,'change',change);listen(quality,'change',change);controls();statusText();
+ function change(){if(disposed||locked||!native)return;selection={referencePanelId:Number(panel.value),qualityIndex:Number(quality.value),...(native.contexts?.length?{sourceFragment:context.value}:{})};onSelection({...selection});}
+ listen(context,'change',()=>{if(disposed||locked||!contextList.length)return;selection={referencePanelId:null,qualityIndex:null,sourceFragment:context.value};onSelection({...selection});});listen(panel,'change',change);listen(quality,'change',change);controls();statusText();
  return {
   update(data){
    if(disposed)return false;
-   if(data===null||data===undefined){native=null;requested=null;binnedGesture=false;selection={referencePanelId:null,qualityIndex:null};options();curve(reference,null,'reference');curve(scores,null,'scores');reference.detail.textContent='';scores.detail.textContent='';statusText();return true;}
+   if(data===null||data===undefined){native=null;contextList=[];requested=null;binnedGesture=false;selection={referencePanelId:null,qualityIndex:null};options();curve(reference,null,'reference');curve(scores,null,'scores');reference.detail.textContent='';scores.detail.textContent='';statusText();return true;}
    if(data.schema!==schema||data.source?.native!==true||!Array.isArray(data.source.qualities)||!Array.isArray(data.panels))throw new TypeError('Native energy-histogram/1 data required.');
-   const next={source:{...data.source,qualities:[...data.source.qualities]},selection:{...data.selection},panels:data.panels.map(p=>({id:p.id,bbox:[...p.bbox]})),reference:histogram(data.reference,data.reference?.available===true),scores:histogram(data.scores),metadata:{energy:{...data.metadata?.energy,quantiles:[...(data.metadata?.energy?.quantiles??[])],thresholds:[...(data.metadata?.energy?.thresholds??[])]}}};
-   native=next;selection={...next.selection};requested=null;binnedGesture=false;options();curve(reference,next.reference,'reference');curve(scores,next.scores,'scores');renderMarkers();return true;
+   const next={contexts:data.contexts?.map(c=>({...c,bounds:[...c.bounds]})),contextStatus:data.contextStatus?{...data.contextStatus}:undefined,source:{...data.source,qualities:[...data.source.qualities]},selection:{...data.selection},panels:data.panels.map(p=>({id:p.id,bbox:[...p.bbox]})),reference:histogram(data.reference,data.reference?.available===true),scores:histogram(data.scores),metadata:{energy:{...data.metadata?.energy,quantiles:[...(data.metadata?.energy?.quantiles??[])],thresholds:[...(data.metadata?.energy?.thresholds??[])]}}};
+   native=next;contextList=next.contexts??[];selection={...next.selection};requested=null;binnedGesture=false;options();curve(reference,next.reference,'reference');curve(scores,next.scores,'scores');renderMarkers();return true;
   },
+  setContexts(contexts=[],selected){if(disposed)return false;if(!Array.isArray(contexts)||contexts.some(c=>typeof c.id!=='string'||!Array.isArray(c.bounds)))throw new TypeError('Exact native Energy contexts required.');contextList=contexts.map(c=>({...c,bounds:[...c.bounds]}));selection={referencePanelId:null,qualityIndex:null,sourceFragment:contextList.some(c=>c.id===selected)?selected:contextList[0]?.id??null};native=null;requested=null;options();curve(reference,null,'reference');curve(scores,null,'scores');statusText();return true;},
   markers(params={},metadata={}, {draft=false}={}){if(disposed)return false;if(!draft)binnedGesture=false;requested={params:{...params},metadata,draft:Boolean(draft)};renderMarkers();return true;},
   selected(){return {...selection};},
   lock(value=true){if(disposed)return;locked=Boolean(value);controls();statusText();},
   translate(){if(disposed)return;host.setAttribute('aria-label',tr('energyHistogramTitle'));for(const node of host.querySelectorAll('[data-histogram-label]'))node.textContent=tr(node.getAttribute('data-histogram-label'));options();if(native){curve(reference,native.reference,'reference');curve(scores,native.scores,'scores');renderMarkers();}else statusText();},
-  dispose(){if(disposed)return;disposed=true;for(const remove of listeners.splice(0))remove();native=null;requested=null;host.replaceChildren();}
+  dispose(){if(disposed)return;disposed=true;for(const remove of listeners.splice(0))remove();native=null;requested=null;host.replaceChildren();contextLabel.remove();}
  };
 }

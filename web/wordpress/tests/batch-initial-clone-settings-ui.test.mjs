@@ -15,6 +15,7 @@ const selectedRecipe = () => {
 const savedSettings = () => ({recipes: [selectedRecipe()], options: {basis: 'clones', threshold: 1, reuse: true}});
 const valid = input => {
   if (input.disabled || input.type !== 'number') return true;
+  if (input._customValidationMessage) return false;
   if (input.value === '') return !input.required;
   const value = Number(input.value); if (!Number.isFinite(value)) return false;
   if (input.min !== undefined && input.min !== '' && value < Number(input.min)) return false;
@@ -29,6 +30,7 @@ async function fixture({saved, configuration, configurationAfterImport, actualRu
   globalThis.document = document; let stored = saved ? JSON.stringify(saved) : null;
   globalThis.localStorage = {getItem: key => key === settingsKey ? stored : null, setItem(key, value) {if (key === settingsKey) stored = value;}};
   globalThis.fetch = async () => ({ok: true, json: async () => ({engineVersion: 'ui-protocol', engineCommit: 'pinned', runtimeSourceIncrementSha256: 'pinned'})});
+  window.HTMLInputElement.prototype.setCustomValidity = function (message) {this._customValidationMessage = String(message);};
   window.HTMLInputElement.prototype.checkValidity = window.HTMLInputElement.prototype.reportValidity = function () {return valid(this);};
   Object.defineProperty(window.HTMLSelectElement.prototype, 'value', {configurable: true,
     get() {return [...this.options].find(option => option.hasAttribute('selected'))?.value ?? this.options[0]?.value ?? '';},

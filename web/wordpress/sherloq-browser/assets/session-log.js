@@ -1,4 +1,4 @@
-import {runtimeContext,diagnostic,diagnosticValue,normalizeDiagnosticEvent} from './runtime-context.js';
+import {runtimeContext,diagnostic,diagnosticValue,normalizeDiagnosticEvent} from './runtime-context.js?v=0.25.0';
 export function createSessionEventSummary(){
  const levels={},kinds={},operations=new Map(),unresolvedFailures=new Set(),requests=new Map(),automaticContexts=new Map(),automaticRuns=new Map();let errors=0,warnings=0;
  const automatic=operation=>['analysis.complete','analysis.clones'].includes(operation);
@@ -12,6 +12,7 @@ export function createSessionEventSummary(){
   const id=typeof progress.id==='string'?progress.id:request?.method==='run'?request.key:current?.id??requestKey(event);
   const key=JSON.stringify([item.operation,id]);let run=automaticRuns.get(key);
   if(!run){run={id,state:'running',eventIndex:event.index,time:event.time,groups:{},failures:[]};automaticRuns.set(key,run);(item.automaticRuns??=[]).push(run);}
+  if(run.executionState&&run.executionState!=='running')return;
   for(const [group,state]of Object.entries(states)){
    const previous=run.groups[group],reportedAttempt=snapshot.attempts?.[group];
    const attempt=Number.isSafeInteger(reportedAttempt)&&reportedAttempt>0?reportedAttempt:previous?.attempt??1;
@@ -44,6 +45,12 @@ export function createSessionEventSummary(){
   item.lastEventIndex=event.index;item.lastEventTime=event.time;
   if(event.kind==='tool.open')item.closed=false;if(event.kind==='tool.close')item.closed=true;
   if(automatic(operation)&&progress?.phase==='automatic-state')automaticSnapshot(item,event,progress);
+  const latestRun=item.automaticRuns?.at(-1),execution=event.execution;
+  if(automatic(operation)&&event.kind==='automatic.execution'&&execution?.schema==='sherloq.automatic-execution/1'&&['running','completed','partial','failed','suspended','cancelled'].includes(execution.state)&&latestRun&&execution.runId===latestRun.id&&Number.isFinite(execution.elapsedMs)&&execution.elapsedMs>=0&&(execution.settledAt===null||Number.isFinite(execution.settledAt))){
+   latestRun.executionState=execution.state;latestRun.state=execution.state==='failed'?'error':['suspended','cancelled'].includes(execution.state)?'suspended':execution.state;
+   latestRun.elapsedMs=execution.elapsedMs;latestRun.settledAt=execution.settledAt;latestRun.lastEventIndex=event.index;latestRun.lastEventTime=event.time;
+   item.state=latestRun.state;item.readiness=latestRun.state==='running'?'busy':latestRun.state==='error'?'unknown':'ready';
+  }
   if(event.kind==='operation.status'){
    item.lastStatus=event.message;
    if(/^(?:Chargement|Loading)(?:$|[\s.·…])/.test(event.message))item.readiness='busy';
@@ -61,25 +68,40 @@ export function createSessionEventSummary(){
    if(/^(?:Calcul terminé|Calculation complete|Calculation finished|Analysis complete|Analyse automatique terminée|Automatic analysis complete)(?:$|[\s.·])/.test(event.message)){
     // Exporting retained results may emit "Calcul terminé" after a partial
     // analysis. It must not erase failed groups or claim a full analysis.
-    if(run?.state==='suspended'&&run.unfinishedGroups){item.state='suspended';item.readiness='ready';}
+    if(run?.state==='error'){item.state='error';item.readiness='unknown';}
+    else if(run?.state==='suspended'&&run.unfinishedGroups){item.state='suspended';item.readiness='ready';}
     else if(run?.unfinishedGroups){item.state='partial';item.readiness='ready';run.state='partial';}
     else{item.state='completed';item.readiness='ready';unresolvedFailures.delete(operation);item.completions.push({eventIndex:event.index,time:event.time});if(run)run.state='completed';}
    }
   }
   if(event.kind==='operation.error'||event.kind==='operation.status'&&event.level==='error'){
    item.state='error';item.readiness='unknown';unresolvedFailures.add(operation);const previous=item.failures.at(-1),code=event.error?.code??'OPERATION_FAILED';
+   // A calculation/presentation failure terminates the active execution even
+   // when every detector group finished. An export failure must not relabel
+   // the already completed scientific run or rewrite its group outcomes.
+   const phase=event.operationContext?.phase??event.operationContext?.progress?.phase,run=item.automaticRuns?.at(-1);
+   if(automatic(operation)&&event.kind==='operation.error'&&['preparation','calculation','presentation'].includes(phase)&&run?.state==='running'){
+    run.state='error';run.executionState='failed';run.failedPhase=phase;run.terminalEventIndex=event.index;run.terminalEventTime=event.time;
+   }
+
    // A detailed error and its immediately displayed status describe one failure.
    if(event.kind==='operation.status'&&previous?.reportedViaStatus===false&&!previous.statusEventIndex&&previous.code===code&&Math.abs(Date.parse(event.time)-Date.parse(previous.time))<=100){previous.statusEventIndex=event.index;return;}
-   item.failures.push({eventIndex:event.index,time:event.time,code,message:event.error?.message??event.message,phase:event.operationContext?.progress?.phase,reportedViaStatus:event.kind==='operation.status'});
+   item.failures.push({eventIndex:event.index,time:event.time,code,message:event.error?.message??event.message,phase,reportedViaStatus:event.kind==='operation.status'});
   }
  }
  return {append,snapshot:()=>({errorEvents:errors,warningEvents:warnings,levels,kinds,operationFailures:[...operations.values()].reduce((n,o)=>n+o.failures.length,0),failedGroups:[...operations.values()].reduce((n,o)=>n+(o.failedGroups??0),0),groupFailureAttempts:[...operations.values()].reduce((n,o)=>n+(o.groupFailureAttempts??0),0),operations:[...operations.values()],failureCountsMeaning:'errorEvents counts raw error-level events; groupFailureAttempts counts distinct structured group failures by run/group/attempt; failedGroups counts currently failed groups in each automatic operation’s latest run. Their causes remain recorded even when the raw events were informational.',readinessMeaning:'The interface reported readiness; it does not establish a completed analysis or resolve an earlier failure.',completionMeaning:'The interface reported completion; scientific parity and archive integrity are not inferred.'})};
 }
 export function summarizeSessionEvents(events){const summary=createSessionEventSummary();for(const event of events)summary.append(event);return summary.snapshot();}
 export function createSessionLog({id=crypto.randomUUID(),indexedDB=globalThis.indexedDB,keyRange=globalThis.IDBKeyRange,environment={},clock=()=>new Date().toISOString()}={}){
- const started=clock(),listeners=new Set(),recent=[],waiting=new Map();let serial=0,errors=0,groupFailure=false,pending=[],fallback=[],writing=Promise.resolve(),timer,storageError=null;
+ const started=clock(),listeners=new Set(),recent=[],waiting=new Map();
+ const uuid=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
+ const ownedWait=entry=>{const o=entry.dependencyWaitOwner;return o?.schema==='sherloq.dependency-wait-owner/1'&&o.context===entry.context&&uuid.test(o.context??'')&&Number.isSafeInteger(o.requestId)&&o.requestId>0&&(o.familyId===null||uuid.test(o.familyId??''))&&typeof entry.key==='string'?o:null;};
+ const waitKey=(entry,o)=>JSON.stringify(o?['owned',o.familyId,o.context,o.requestId,entry.key]:['legacy',entry.key]);
+ function updateWaiting(entry){const o=ownedWait(entry),typed=Object.hasOwn(entry,'dependencyWaitOwner');if(entry.kind==='dependency.wait'){if(o||!typed)waiting.set(waitKey(entry,o),entry);}else if(['dependency.ready','dependency.cancelled','dependency.resumed'].includes(entry.kind)){if(o)waiting.delete(waitKey(entry,o));else if(!typed)waiting.delete(waitKey(entry,null));}else if(entry.kind==='dependency.owner-retired'&&uuid.test(entry.familyId??'')&&entry.retirement==='worker-terminate-returned'&&entry.diagnosticRetirementOnly===true&&entry.resourceAcknowledged===false){for(const[k,value]of waiting)if(ownedWait(value)?.familyId===entry.familyId)waiting.delete(k);}}
+ function waitingSummary(){const groups=new Map();for(const entry of waiting.values()){const old=groups.get(entry.key);if(old)old.waitOwnerCount++;else groups.set(entry.key,{...entry,waitOwnerCount:1});}return[...groups.values()];}
+ let serial=0,errors=0,groupFailure=false,pending=[],fallback=[],writing=Promise.resolve(),timer,storageError=null;
  const database=indexedDB?new Promise((resolve,reject)=>{const r=indexedDB.open('sherloq-session-'+id,1);r.onupgradeneeded=()=>r.result.createObjectStore('events',{keyPath:'index'});r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);r.onblocked=()=>reject(Error('Diagnostic storage blocked'));}).catch(e=>{storageError=e.message;return null;}):Promise.resolve(null);
- function append(event){const entry={time:clock(),...diagnosticValue(normalizeDiagnosticEvent(event)),index:++serial};if(entry.level==='error'&&entry.error?.code!=='CANCELLED')errors++;const progress=entry.progress??entry.operationContext?.progress;if(progress?.phase==='automatic-state'&&progress.state?.states&&typeof progress.state.states==='object'&&!Array.isArray(progress.state.states)&&Object.entries(progress.state.states).some(([group,state])=>state==='failed'&&progress.state.errors?.[group]?.code!=='CANCELLED'))groupFailure=true;if(entry.kind==='dependency.wait')waiting.set(entry.key,entry);if(entry.kind==='dependency.ready'||entry.kind==='dependency.cancelled')waiting.delete(entry.key);pending.push(entry);recent.push(entry);if(recent.length>100)recent.shift();if(pending.length>=64)void flush();else timer??=setTimeout(()=>{timer=null;void flush();},200);for(const fn of listeners)fn(entry);return entry;}
+ function append(event){const entry={time:clock(),...diagnosticValue(normalizeDiagnosticEvent(event)),index:++serial};if(entry.level==='error'&&entry.error?.code!=='CANCELLED')errors++;const progress=entry.progress??entry.operationContext?.progress;if(progress?.phase==='automatic-state'&&progress.state?.states&&typeof progress.state.states==='object'&&!Array.isArray(progress.state.states)&&Object.entries(progress.state.states).some(([group,state])=>state==='failed'&&progress.state.errors?.[group]?.code!=='CANCELLED'))groupFailure=true;updateWaiting(entry);pending.push(entry);recent.push(entry);if(recent.length>100)recent.shift();if(pending.length>=64)void flush();else timer??=setTimeout(()=>{timer=null;void flush();},200);for(const fn of listeners)fn(entry);return entry;}
  function flush(){clearTimeout(timer);timer=null;const batch=pending;pending=[];if(!batch.length)return writing;
   writing=writing.then(async()=>{const db=await database;if(!db){fallback.push(...batch);return;}try{await new Promise((resolve,reject)=>{const tx=db.transaction('events','readwrite');for(const e of batch)tx.objectStore('events').put(e);tx.oncomplete=resolve;tx.onabort=tx.onerror=()=>reject(tx.error);});}catch(e){storageError=e.message;fallback.push(...batch);}});return writing;
  }
@@ -105,10 +127,10 @@ export function createSessionLog({id=crypto.randomUUID(),indexedDB=globalThis.in
   const value=summary.snapshot(),errorCount=value.errorEvents,tail={eventCount:count,errorCount,documentedFailures:errorCount+value.operations.reduce((n,operation)=>n+operation.failures.filter(f=>f.reportedViaGroup&&f.code!=='CANCELLED').length,0),documentedFailuresMeaning:failuresMeaning,storageError,summary:value};
   await write('],'+JSON.stringify(tail).slice(1));await flushOutput();return {session:id,eventCount:count,errorCount,bytes};
  }
- const api={id,append,flush,exportTo,subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},get hasErrors(){return errors>0||groupFailure;},get length(){return serial;},get recent(){return structuredClone(recent);},get waiting(){return [...waiting.values()];},async report(){const logs=await events(),summary=summarizeSessionEvents(logs);return {schema:'sherloq.session/1',session:id,started,exported:clock(),environment:diagnosticValue(environment),eventCount:logs.length,errorCount:errors,documentedFailures:errors+summary.operations.reduce((n,operation)=>n+operation.failures.filter(f=>f.reportedViaGroup&&f.code!=='CANCELLED').length,0),documentedFailuresMeaning:failuresMeaning,storageError,summary,events:logs};},async close(){await flush();(await database)?.close();}};
+ const api={id,append,flush,exportTo,subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},get hasErrors(){return errors>0||groupFailure;},get length(){return serial;},get recent(){return structuredClone(recent);},get waiting(){return waitingSummary();},async report(){const logs=await events(),summary=summarizeSessionEvents(logs);return {schema:'sherloq.session/1',session:id,started,exported:clock(),environment:diagnosticValue(environment),eventCount:logs.length,errorCount:errors,documentedFailures:errors+summary.operations.reduce((n,operation)=>n+operation.failures.filter(f=>f.reportedViaGroup&&f.code!=='CANCELLED').length,0),documentedFailuresMeaning:failuresMeaning,storageError,summary,events:logs};},async close(){await flush();(await database)?.close();}};
  append({time:started,level:'info',kind:'session.start',environment});return api;
 }
 const n=globalThis.navigator;
-export const sessionLog=typeof document!=='undefined'?createSessionLog({id:runtimeContext.session,environment:{uiVersion:'0.17.3',engineVersion:'0.37.0-methods.1',userAgent:n?.userAgent,platform:n?.platform,languages:n?.languages,hardwareConcurrency:n?.hardwareConcurrency,crossOriginIsolated:globalThis.crossOriginIsolated}}):null;
+export const sessionLog=typeof document!=='undefined'?createSessionLog({id:runtimeContext.session,environment:{uiVersion:'0.25.0',engineVersion:'0.37.0-methods.1',userAgent:n?.userAgent,platform:n?.platform,languages:n?.languages,hardwareConcurrency:n?.hardwareConcurrency,crossOriginIsolated:globalThis.crossOriginIsolated}}):null;
 if(sessionLog){runtimeContext.subscribe(e=>sessionLog.append(e));globalThis.addEventListener('pagehide',()=>{diagnostic({level:'info',kind:'session.pagehide'});void sessionLog.flush();});}
 export async function reportWithSession(report={}){return {...report,sessionLog:await sessionLog?.report()};}

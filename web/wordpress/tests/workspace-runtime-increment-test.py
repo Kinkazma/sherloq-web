@@ -25,10 +25,12 @@ class WorkspaceIncrementTest(unittest.TestCase):
         names.update(r['file'] for r in self.receipt['locks'].values())
         for record in self.receipt['files']:
             names.update(record[key] for key in ['source', 'asset', 'mirror'])
+        review=json.loads((REPO/'web/wordpress/runtime-patches/review-20261021.json').read_text())
+        prior={r['file']:r['copy'] for r in review['baseline']['snapshots']}
         for name in names:
             p = self.repo / name
             p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_bytes((REPO / name).read_bytes())
+            p.write_bytes((REPO / prior.get(name,name)).read_bytes())
 
     def write_receipt(self):
         (self.repo / self.name).write_bytes(layer.encode(self.receipt))

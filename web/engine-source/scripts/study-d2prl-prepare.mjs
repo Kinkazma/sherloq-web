@@ -22,7 +22,7 @@ try {
   await page.goto('http://127.0.0.1:' + server.address().port);
   const report = await page.evaluate(async () => {
     const {Budget} = await import('/src/cache.js'), {createPreparation} = await import('/experiments/d2prl/prepare.js'), {default: factory} = await import('/.build/d2prl-prepare/prepare.js');
-    const base = '/.build/d2prl-prepare/', reference = await (await fetch(base + 'reference.json')).json();
+    const base = '/.build/d2prl-prepare-noaa/', reference = await (await fetch(base + 'reference.json')).json();
     const hash = async data => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', data)), x => x.toString(16).padStart(2, '0')).join('');
     const read = async e => { const r = await fetch(base + e.file); if (!r.ok) throw Error('Missing fixture'); const b = await r.arrayBuffer(); if (await hash(b) !== e.sha256) throw Error('Fixture identity'); return b; };
     const budget = new Budget(256 * 1024 ** 2), engine = await createPreparation(factory, {budget}), records = [];
@@ -48,6 +48,6 @@ try {
       return {schema: 1, status: records.every(r => !r.different && !r.nonfinite) && Object.values(lifecycle).every(Boolean) ? 'passed' : 'rejected', scope: reference.scope, records, lifecycle, peakAccountedBytes: budget.peak};
     } finally { engine.dispose(); }
   });
-  report.browser = browser.version(); report.build = JSON.parse(await readFile(path.join(root, '.build/d2prl-prepare/build.json'))); report.wrapperSha256 = hash(await readFile(path.join(root, 'experiments/d2prl/prepare.js'))); report.referenceSha256 = hash(await readFile(path.join(root, '.build/d2prl-prepare/reference.json')));
-  await writeFile(path.join(root, 'docs/d2prl-prepare-' + name + '-proof.json'), JSON.stringify(report, null, 2) + '\n'); console.log(JSON.stringify({status: report.status, cases: report.records.length, lifecycle: report.lifecycle, failures: report.records.filter(r => r.different || r.nonfinite)})); if (report.status !== 'passed') process.exitCode = 1;
+  report.browser = browser.version(); report.build = JSON.parse(await readFile(path.join(root, '.build/d2prl-prepare/build.json'))); report.wrapperSha256 = hash(await readFile(path.join(root, 'experiments/d2prl/prepare.js'))); report.referenceSha256 = hash(await readFile(path.join(root, '.build/d2prl-prepare-noaa/reference.json')));
+  await writeFile(path.join(root, 'docs/d2prl-prepare-noaa-' + name + '-proof.json'), JSON.stringify(report, null, 2) + '\n'); console.log(JSON.stringify({status: report.status, cases: report.records.length, lifecycle: report.lifecycle, failures: report.records.filter(r => r.different || r.nonfinite)})); if (report.status !== 'passed') process.exitCode = 1;
 } finally { await browser?.close(); await new Promise(r => server.close(r)); }

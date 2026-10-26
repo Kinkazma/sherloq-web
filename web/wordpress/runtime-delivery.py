@@ -22,6 +22,14 @@ _workspace_spec = importlib.util.spec_from_file_location('runtime_workspace', Pa
 _workspace = importlib.util.module_from_spec(_workspace_spec)
 _workspace_spec.loader.exec_module(_workspace)
 
+_review_spec = importlib.util.spec_from_file_location('runtime_review', Path(__file__).with_name('runtime-review.py'))
+_review = importlib.util.module_from_spec(_review_spec)
+_review_spec.loader.exec_module(_review)
+
+_cumulative_spec=importlib.util.spec_from_file_location('runtime_cumulative',Path(__file__).with_name('runtime-cumulative.py'))
+_cumulative=importlib.util.module_from_spec(_cumulative_spec)
+_cumulative_spec.loader.exec_module(_cumulative)
+
 # These model manifests pin the original factory bytes, and their callers pass
 # a separately fetched, SHA-verified wasmBinary. Rewriting the loader would
 # break that second identity and offers no additional download protection.
@@ -162,7 +170,9 @@ class QualifiedRuntimeOverlay:
         self.files = {}
         self.receipts = []
         self.extra_resources = {}
-        workspace, workspace_predecessor = _workspace.reviewed_workspace_increment(root)
+        cumulative,cumulative_predecessor=_cumulative.reviewed_cumulative_increment(root)
+        review, review_predecessor = _review.reviewed_review_increment(root,cumulative_predecessor)
+        workspace, workspace_predecessor = _workspace.reviewed_workspace_increment(root, review_predecessor)
         interactive, interactive_predecessor = _interactive.reviewed_interactive_increment(root, workspace_predecessor)
         rita, rita_predecessor = _rita.reviewed_rita_increment(root, interactive_predecessor)
         extension, latest_predecessor = _extensions.reviewed_extensions_increment(root, rita_predecessor)
@@ -267,6 +277,12 @@ class QualifiedRuntimeOverlay:
             self.receipts.append(workspace)
             self.files.update((record['file'], record) for record in workspace['files'])
             self.extra_resources.update((record['file'], record['after']) for record in workspace['resources'])
+        if review is not None:
+            self.receipts.append(review)
+            self.files.update((record['file'],record) for record in review['files'])
+        if cumulative is not None:
+            self.receipts.append(cumulative)
+            self.files.update((record['file'],record) for record in cumulative['files'])
 
     def apply(self, relative, source, adapted):
         record = self.files.get(relative)

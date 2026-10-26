@@ -13,9 +13,9 @@
 .tool-fields input[type=number]{width:76px}.tool-fields select{max-width:230px}
 .tool-attachments{display:flex;gap:10px;flex-wrap:wrap;font-size:12px}.tool-attachments p{margin:4px}
 .tool-exports{display:flex;gap:5px;flex-wrap:wrap}#tool-layer{max-width:180px}
-.trufor-palette-legend{display:inline-flex;flex-direction:column;gap:2px;min-width:130px;width:160px;font-size:10px;vertical-align:middle}
+.trufor-palette-legend{display:inline-flex;flex-direction:column;gap:2px;min-width:160px;width:200px;max-width:100%;font-size:10px;vertical-align:middle}
 .trufor-palette-bar{display:block;height:9px;border-radius:3px;background:linear-gradient(90deg in srgb,#070F27 0%,#2A2A6D 25%,#CF423B 50%,#FBB135 75%,#FFF8C9 100%)}
-.trufor-palette-ticks{display:flex;justify-content:space-between}
+.trufor-palette-ticks{display:flex;justify-content:space-between;gap:8px;font-variant-numeric:tabular-nums}.trufor-palette-ticks>span{white-space:nowrap}
 #tool-results{position:absolute;inset:0;overflow:auto;background:var(--bg,#202124);color:var(--ink,#222);padding:10px;z-index:4;user-select:text;touch-action:pan-x pan-y;overscroll-behavior:contain;cursor:auto}
 #tool-results table{border-collapse:collapse;font-size:12px;margin:10px 0;max-width:100%}#tool-results th,#tool-results td{padding:5px 8px;text-align:left;vertical-align:top;border:1px solid #9996;overflow-wrap:anywhere}#tool-results td p{margin:0}#tool-results th{font-weight:600}
 #tool-results figure{margin:10px 0}#tool-results canvas{position:static!important;width:100%;max-width:900px;height:auto!important;display:block!important}#tool-results iframe{width:100%;min-height:450px;border:0;background:white}
@@ -89,3 +89,33 @@
 .ocr-result{display:grid;gap:.5rem;min-width:0}.ocr-result-heading{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}.ocr-result-heading>button{margin-left:auto}.ocr-result textarea{box-sizing:border-box;width:100%;min-height:6em;max-height:40vh;resize:vertical;color:inherit;background:var(--panel-bg,var(--bg));border:1px solid var(--border,#7776);border-radius:.35rem;padding:.6rem;line-height:1.45}
 
 .ocr-detection-settings{border:1px solid var(--border,#7776);border-radius:.35rem;padding:.35rem .5rem}.ocr-detection-settings>summary{cursor:pointer}.ocr-detection-settings[open]{display:flex;gap:.7rem;flex-wrap:wrap}.ocr-detection-settings[open]>summary{flex-basis:100%}
+
+/* Flat native digest presentation; shipped CSS respects the application CSP. */
+#tool-results .file-digest-panel{max-width:100%;min-width:0}#tool-results .file-digest-panel h3{margin:.8rem 0 .45rem}#tool-results .file-digest-panel table{width:100%;table-layout:fixed;border-collapse:collapse}#tool-results .file-digest-panel th,#tool-results .file-digest-panel td{padding:.45rem .6rem;vertical-align:top;text-align:left}#tool-results .file-digest-panel th{width:11rem;max-width:30%;overflow-wrap:normal;word-break:normal}#tool-results .file-digest-panel td{overflow-wrap:anywhere;word-break:normal}#tool-results .file-digest-panel code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;white-space:normal;font-size:.9em}#tool-results .file-digest-panel details{margin:.8rem 0}#tool-results .file-digest-panel summary{cursor:pointer}#tool-results .file-digest-panel p{margin:.4rem 0 .7rem}@media(max-width:600px){#tool-results .file-digest-panel th{width:8rem}}
+
+/* Clones 2 only: scientific controls fold without changing their live nodes. */
+#tool-controls .sparse-parameters{min-width:0;max-width:100%}
+#tool-controls .sparse-parameters>summary{cursor:pointer}
+#tool-controls .sparse-parameters-content{display:flex;align-items:center;flex-wrap:wrap;gap:5px 10px}
+#tool-controls .sparse-result-controls{display:flex;align-items:center;flex-wrap:wrap;gap:5px}
+#tool-controls .sparse-result-toggle{display:contents}
+#tool-controls .sparse-visible-filters{display:contents}
+#tool-controls .sparse-filters>label.sparse-toggle{box-shadow:inset 0 0 0 1px var(--line,#9996);border-radius:3px}
+
+/* Current Clones 2 traces share the summary's top row, never a paragraph. */
+#tool-controls .sparse-settings-row{display:flex;align-items:flex-start;gap:10px;min-width:0;max-width:100%}
+#tool-controls .sparse-settings-row>.sparse-parameters{flex:0 1 auto}
+#tool-controls .sparse-settings-row>.sparse-trace-status{display:inline-flex;align-items:baseline;flex:0 1 auto;gap:4px;min-width:0;margin:0;font-size:11px;line-height:1.4}
+#tool-controls .sparse-settings-row>.sparse-trace-status>strong{white-space:nowrap}
+#tool-controls .sparse-parameters>summary{width:max-content;max-width:100%;padding:3px 7px;border:1px solid #b6a14d;border-radius:4px;font-size:13px;font-weight:600;background:color-mix(in srgb,#d6bc55 7%,var(--panel,#292a2d))}
+#tool-controls .sparse-filter-actions{display:inline-flex;align-items:center;gap:5px;margin-left:auto}
+#tool-controls .sparse-result-controls>.sparse-advanced-filter{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;font-size:11px}
+#tool-controls .sparse-result-controls #sparse-view-minimum{width:64px}
+
+/* Clones 2: Detector remains available and expanded settings use their full height. */
+#tool-controls.sparse-clone-controls{height:auto;max-height:none;overflow:visible;flex-shrink:0}
+.embedded-panel #tool-controls.sparse-clone-controls{max-height:none;overflow:visible}
+#tool-controls .sparse-detector{display:inline-flex;min-width:0;max-width:100%}
+#tool-controls .sparse-detector>label{min-width:0;max-width:100%;flex-wrap:wrap}
+#tool-controls .sparse-detector select{min-width:0;max-width:100%}
+#tool-controls .sparse-parameters .tool-fields{height:auto;max-height:none;overflow:visible}

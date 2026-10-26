@@ -9,7 +9,7 @@ export async function fetchVerifiedAsset(spec, {signal, fetcher = fetch} = {}) {
   const details = {requestedUrl: spec.url, expectedBytes: spec.bytes, expectedSha256: spec.sha256, ...(spec.id ? {assetId: spec.id} : {})};
   let response;
   try {response = await fetcher(spec.url, {signal});}
-  catch (cause) {throw new EngineError(signal?.aborted ? 'CANCELLED' : 'NETWORK_TRANSIENT', 'Asset request failed.', {cause, details});}
+  catch (cause) {if(!signal?.aborted&&cause?.code==='MODEL_LOCAL_REQUIRED')throw cause;throw new EngineError(signal?.aborted ? 'CANCELLED' : 'NETWORK_TRANSIENT', 'Asset request failed.', {cause, details});}
   Object.assign(details, {receivedUrl: response.url || spec.url, status: response.status});
   if (!response.ok) throw new EngineError('ASSET_HTTP', 'Asset request returned HTTP ' + response.status + '.', {details});
   if (!response.body?.getReader) throw new EngineError('ASSET_BODY', 'Asset response has no readable body.', {details});
@@ -19,7 +19,7 @@ export async function fetchVerifiedAsset(spec, {signal, fetcher = fetch} = {}) {
     for (;;) {
       checkAbort(signal); let chunk;
       try {chunk = await reader.read();}
-      catch (cause) {throw new EngineError(signal?.aborted ? 'CANCELLED' : 'NETWORK_TRANSIENT', 'Asset download interrupted.', {cause, details: {...details, receivedBytes: offset}});}
+      catch (cause) {if(!signal?.aborted&&cause?.code==='MODEL_LOCAL_REQUIRED')throw cause;throw new EngineError(signal?.aborted ? 'CANCELLED' : 'NETWORK_TRANSIENT', 'Asset download interrupted.', {cause, details: {...details, receivedBytes: offset}});}
       if (chunk.done) {completed = true; break;}
       if (!(chunk.value instanceof Uint8Array) || offset + chunk.value.length > bytes.length) throw new EngineError('MODEL_IDENTITY', 'Asset exceeds its pinned length.', {details: {...details, receivedBytes: offset + (chunk.value?.length ?? 0)}});
       bytes.set(chunk.value, offset); offset += chunk.value.length;

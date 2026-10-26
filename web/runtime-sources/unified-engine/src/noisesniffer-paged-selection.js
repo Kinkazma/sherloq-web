@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.25.0";
+import {noisesnifferScientificPatches} from './noisesniffer-scientific-patches.js';
+import {noisesnifferOwnerRetirement} from './noisesniffer-owner-retirement.js';
 import {noisesnifferStd8} from './noisesniffer-std8.js';
 import {noisesnifferPackedFlags} from './noisesniffer-packed-flags.js';
 import {noisesnifferStoredPatches} from './noisesniffer-stored-patches.js';
@@ -6,7 +8,7 @@ import {numpyPagedSort} from './numpy-paged-sort.js';
 import {gatherDenseValues} from './dense-paged-links.js';
 import {numpyArgsort} from './numpy-argsort.js';
 import {numpySum} from './numpy-sum.js';
-import {controlCheckpoint,checkAbort} from './errors.js';
+import {controlCheckpoint,createCooperator,checkAbort} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 const bankers=x=>{const f=Math.floor(x);return x-f===.5?f+f%2:Math.round(x);};
 export function noisesnifferPagedSelectionWorkspace(width,height,p,validCount=(width-p.blockSize+1)*(height-p.blockSize+1)){
@@ -14,6 +16,7 @@ export function noisesnifferPagedSelectionWorkspace(width,height,p,validCount=(w
  return 20*1024**2+Math.max(1,b)*160+width*(p.blockSize+256)*12+width*32*40+cells*16;
 }
 export async function pagedNoisesnifferSelection(image,p,stats,{budget,signal,onProgress,storage='auto',basisRecorder}={}){
+ const cooperate=createCooperator(signal);
  const {width,height}=image.surface.descriptor,w=p.blockSize,cols=stats.width,rows=stats.height,N=cols*rows,count=stats.validCount,owned=[],scratch=[],release=budget.reserve(noisesnifferPagedSelectionWorkspace(width,height,p,count));
  const options={budget,signal,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,storage:storage==='auto'?'temporary':storage,chunkBytes:262144};let packed;
  try{
@@ -25,14 +28,14 @@ export async function pagedNoisesnifferSelection(image,p,stats,{budget,signal,on
   const save=async page=>{if(page.dirty)await flagStore.write(page.bytes,page.offset);};
   const mark=async(ids,bit,counts)=>{for(const id of ids){checkAbort(signal);if(packed)packed.mark(id,bit);else{const pageId=Math.floor(id/pageSize);let page=pages.get(pageId);if(!page){if(pages.size===pageCount){const first=pages.keys().next().value;await save(pages.get(first));pages.delete(first);}const offset=pageId*pageSize,bytes=new Uint8Array(Math.min(pageSize,N-offset));await flagStore.readInto(bytes,offset);page={offset,bytes,dirty:false};}else pages.delete(pageId);pages.set(pageId,page);page.bytes[id-page.offset]|=bit;page.dirty=true;}counts[Math.floor(Math.floor(id/cols)/p.cellSize)*gw+Math.floor(id%cols/p.cellSize)]++;if(performance.now()-stamp>=20){await controlCheckpoint(signal);stamp=performance.now();}}};
   const b=Math.floor(count/Math.max(1,bankers(count/p.samplesPerBin))),bins=count?bankers(count/b):0,block=new Float64Array(w*w),squares=new Float64Array(w*w);
-  const sortMetrics=[],standard=w===8?await noisesnifferStd8(image,{...options,onProgress}):null,patches=standard?null:noisesnifferStoredPatches(image,w,{signal});if(standard)scratch.push(standard);
+  const sortMetrics=[],strict=typeof image.readScientificPatch==='function'?noisesnifferScientificPatches(image,w,{signal}):null,standard=!strict&&w===8?await noisesnifferStd8(image,{...options,onProgress}):null,patches=strict??(standard?null:noisesnifferStoredPatches(image,w,{signal}));if(standard)scratch.push(standard);if(strict)scratch.push(strict);
   for(let c=0;c<3&&count;c++){
    let offset=0;
-   for(let y=0;y<rows;y+=32){await controlCheckpoint(signal);const h=Math.min(32,rows-y),valid=new Uint8Array(cols*h),means=await stats.means.read(0,y,cols*3,h,{signal}),values=new Float64Array(cols*h),ids=new Uint32Array(cols*h);await stats.valid.readInto(valid,y*cols);let length=0;for(let i=0;i<valid.length;i++)if(valid[i]){values[length]=means[i*3+c];ids[length++]=y*cols+i;}await keys.write(new Uint8Array(values.buffer,0,length*8),offset*8);await order.write(new Uint8Array(ids.buffer,0,length*4),offset*4);offset+=length;}
+   for(let y=0;y<rows;y+=32){await cooperate();checkAbort(signal);const h=Math.min(32,rows-y),valid=new Uint8Array(cols*h),means=await stats.means.read(0,y,cols*3,h,{signal}),values=new Float64Array(cols*h),ids=new Uint32Array(cols*h);await stats.valid.readInto(valid,y*cols);let length=0;for(let i=0;i<valid.length;i++)if(valid[i]){values[length]=means[i*3+c];ids[length++]=y*cols+i;}await keys.write(new Uint8Array(values.buffer,0,length*8),offset*8);await order.write(new Uint8Array(ids.buffer,0,length*4),offset*4);offset+=length;}
    sortMetrics.push(await numpyPagedSort(keys,order,{budget,signal,onProgress}));
    onProgress?.({phase:'noisesniffer-sort',completed:c* bins,total:3*bins});
    for(let bin=0;bin<bins;bin++){
-    await controlCheckpoint(signal);const ids=new Int32Array((bin===bins-1?count:(bin+1)*b)-bin*b);await order.readInto(new Uint8Array(ids.buffer),bin*b*4);const v=await gatherDenseValues({byteLength:N*4,readInto:(bytes,offset)=>stats.variance.store.readInto(bytes,c*N*4+offset)},ids,Float32Array,{signal}),chosen=Uint32Array.from(numpyArgsort(v).subarray(0,Math.trunc(b*p.lowFrequencyFraction)),i=>ids[i]),std=new Float64Array(chosen.length),spatial=Uint32Array.from({length:chosen.length},(_,i)=>i);spatial.sort((a,b)=>chosen[a]-chosen[b]);let flat=0;
+    await cooperate();checkAbort(signal);const ids=new Int32Array((bin===bins-1?count:(bin+1)*b)-bin*b);await order.readInto(new Uint8Array(ids.buffer),bin*b*4);const v=await gatherDenseValues({byteLength:N*4,readInto:(bytes,offset)=>stats.variance.store.readInto(bytes,c*N*4+offset)},ids,Float32Array,{signal}),chosen=Uint32Array.from(numpyArgsort(v).subarray(0,Math.trunc(b*p.lowFrequencyFraction)),i=>ids[i]),std=new Float64Array(chosen.length),spatial=Uint32Array.from({length:chosen.length},(_,i)=>i);spatial.sort((a,b)=>chosen[a]-chosen[b]);let flat=0;
     // Gather spatially adjacent patches once, retaining their original bin order.
     if(standard){std.set(await gatherDenseValues(standard.store,Int32Array.from(chosen,i=>i*3+c),Float64Array,{signal}));for(const value of std)if(value===0)flat++;}
     else if(patches){std.set(await patches.std(chosen,cols,c));for(const value of std)if(value===0)flat++;}
@@ -44,8 +47,8 @@ export async function pagedNoisesnifferSelection(image,p,stats,{budget,signal,on
     onProgress?.({phase:'noisesniffer-select',completed:c*bins+bin+1,total:3*bins});
    }
   }
-  patches?.clear();
-  if(packed)await packed.flush(flagStore,{signal});else for(const page of pages.values()){await controlCheckpoint(signal);await save(page);}pages.clear();await Promise.all(owned.map(s=>s.flush()));checkAbort(signal);let disposed=false;
-  return {metrics:{sorts:sortMetrics,layout:'paged-global',membershipStorage:packed?'packed-two-bit':'paged-byte',membershipPackedBytes:packed?.byteLength??0,standardDeviation:standard?.metrics??{method:'native-patch-sums'}},selected,low_noise:low,flags:flagStore,selectedCount,lowCount,gridWidth:gw,gridHeight:gh,all_blocks,low_noise_blocks,async dispose(){if(disposed)return;disposed=true;await Promise.all(owned.map(s=>s.dispose()));}};
+  await patches?.clear();
+  if(packed)await packed.flush(flagStore,{signal});else for(const page of pages.values()){await cooperate();checkAbort(signal);await save(page);}pages.clear();await Promise.all(owned.map(s=>s.flush()));checkAbort(signal);
+  return {metrics:{sorts:sortMetrics,layout:'paged-global',membershipStorage:packed?'packed-two-bit':'paged-byte',membershipPackedBytes:packed?.byteLength??0,standardDeviation:standard?.metrics??{method:'native-patch-sums'}},selected,low_noise:low,flags:flagStore,selectedCount,lowCount,gridWidth:gw,gridHeight:gh,all_blocks,low_noise_blocks,dispose:noisesnifferOwnerRetirement(owned.map(store=>()=>store.dispose()))};
  }catch(error){await Promise.allSettled(owned.map(s=>s.dispose()));throw error;}finally{packed?.dispose();await Promise.allSettled(scratch.map(s=>s.dispose()));release();}
 }

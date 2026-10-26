@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {automaticViewSelection} from './automatic-visible-entries.js';
 import {EngineError,requireValue} from './errors.js';
 import {automaticAnalysisPlan} from './automatic-analysis-plan.js';
 import {createAutomaticAnalysisSession} from './automatic-analysis-session.js';
@@ -11,10 +12,10 @@ import {createRgbSurface} from './rgb-surface.js';
 
 /** Integration facade. Engines and the immutable source are caller-owned and
  * must share budget. Actual dependencies are injected, never substituted. */
-export async function createAutomaticAnalyzer({image,imageId,selection,budget,engines={},complete=false,cpu=false,d2Minimum=500,excludedFeatures=[],scientificScope,maxConcurrent=5,sparseOptions={},ela={},entryWasmBinary,compositionWasmBinary}={}) {
+export async function createAutomaticAnalyzer({image,imageId,selection,budget,engines={},complete=false,cpu=false,d2Minimum=500,excludedFeatures=[],scientificScope,cloneWindowMode='independent',maxConcurrent=5,sparseOptions={},ela={},entryWasmBinary,compositionWasmBinary}={}) {
  const dimensions=image?.surface?.descriptor??image?.pixels??image,{width,height}=dimensions??{};
  requireValue(dimensions?.format==='rgb8'&&typeof budget?.reserve==='function'&&selection,'Qualified original RGB source, explicit selection and shared budget required.');
- const plan=automaticAnalysisPlan({...selection,width,height,complete,cpu,d2Minimum,excludedFeatures,...(scientificScope?{scientificScope}:{})}),view=createAutomaticAnalysisView({complete,width,height});view.setD2prlMinimum(d2Minimum);
+ const plan=automaticAnalysisPlan({...selection,width,height,complete,cpu,cloneWindowMode,d2Minimum,excludedFeatures,...(scientificScope?{scientificScope}:{})}),view=createAutomaticAnalysisView({complete,width,height});view.setD2prlMinimum(d2Minimum);
  let surface,elaProvider,session,closed=false,disposal;
  try{
   const providers=createAutomaticDetectorProviders({image,budget,dense:engines.dense,sparse:engines.sparse,geometry:engines.geometry,forgeryscope:engines.forgeryscope,sparseOptions,wasmBinary:entryWasmBinary});
@@ -28,7 +29,7 @@ export async function createAutomaticAnalyzer({image,imageId,selection,budget,en
     surface=createRgbSurface({byteLength:pixels.data.byteLength,storage:'memory',readInto(out,offset){out.set(pixels.data.subarray(offset,offset+out.length));}},{width,height,budget,ownsStore:false});
     elaImage={...image,surface};
    }
-   elaProvider=createAutomaticElaProvider({...ela,image:elaImage,budget,wasmBinary:entryWasmBinary});providers.ela=elaProvider;
+   elaProvider=engines.ela??createAutomaticElaProvider({...ela,image:elaImage,budget,wasmBinary:entryWasmBinary});providers.ela=elaProvider;
   }
   session=createAutomaticAnalysisSession({plan,providers,budget,maxConcurrent});
   const open=()=>{if(closed)throw new EngineError('DISPOSED','Automatic analyzer disposed.');};
@@ -37,10 +38,12 @@ export async function createAutomaticAnalyzer({image,imageId,selection,budget,en
    view,plan:structuredClone(plan),snapshot:()=>session.snapshot(),
    run(hooks){open();return session.run(hooks);},resume(request,hooks){open();return session.resume(request,hooks);},cancel(){session.cancel();},
    prepare(input,hooks){open();return session.prepare(filters(input),hooks);},
+   previewD2FilterIdentity(){open();return session.previewD2FilterIdentity();},
+   async prepareD2Preview({minimum,filters:committedFilters,expectedView}={},hooks){open();const committedView=view.getState();requireValue(expectedView&&JSON.stringify(expectedView)===JSON.stringify(committedView),'Automatic preview view differs from its committed owner.');const calculatedView={...structuredClone(committedView),d2prlMinimum:minimum};let lease;try{lease=await session.prepareD2Preview({minimum,filters:committedFilters},hooks);requireValue(JSON.stringify(view.getState())===JSON.stringify(committedView),'Automatic preview view changed during preparation.');const selected=automaticViewSelection(lease.entries,calculatedView,{complete:plan.complete});const output={...lease,selectedEntries:selected.entries,calculatedView};lease=null;return output;}finally{await lease?.release();}},
    visible(frame){open();requireValue(Array.isArray(frame?.entries),'Owned automatic frame required.');return view.visible(frame.entries);},
    acquireResults(){open();return session.acquireResults();},
    export(options={},request={},hooks={}){open();return exportAutomaticSession(session,{...options,image,view:view.getState(),filters:filters(options.filters)},request,{...hooks,budget,wasmBinary:compositionWasmBinary});},
-   dispose(){if(disposal)return disposal;closed=true;disposal=(async()=>{try{await session.dispose();}finally{try{await elaProvider?.dispose();}finally{await surface?.dispose();}}})();return disposal;}
+   dispose(){if(disposal)return disposal;closed=true;disposal=(async()=>{await session.dispose();await elaProvider?.dispose();await surface?.dispose();})().catch(error=>{disposal=undefined;throw error;});return disposal;}
   };
  }catch(error){try{await session?.dispose();}finally{try{await elaProvider?.dispose();}finally{await surface?.dispose();}}throw error;}
 }

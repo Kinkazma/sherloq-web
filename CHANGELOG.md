@@ -2,6 +2,20 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.25.0 — Native regions, PDF magnifiers and retained results · 2026-10-26
+
+- Treat selected acquisitions as independent native windows by default, with an explicit union mode. Preserve original coordinates and exclusions through computation, retained results, presentation and standard exports; report unsupported native contexts explicitly.
+- Share region editing between Original image, individual tools and batch processing. Preserve local selections independently and leave automatic text exclusion disabled by default.
+- Restore PDF page inspection, embedded-image transitions, magnifier effects and global adjustments. Add a separate placement magnifier whose enlargement follows the current image zoom.
+- Preserve multi-digit input, exact numeric bounds, explicit saved zero values and per-family step settings. Start new magnifier step controls at 10 and reactivate them after image replacement.
+- Reuse admitted native preparation, source statistics, model stages and display fields across compatible controls. Coalesce obsolete previews and keep native final calculations distinct from provisional views.
+- Keep Biomes as the default clone view. Add finer optional trace layers, length and overlap filters, distributed pair selection and stable pair colours without modifying the Biome groups or their colours.
+- Reconnect native source contexts, populations, exclusions and projections across classical operators, JPEG/CFA/noise analysis, learned matching, clone segmentation and neural forensic maps. Preserve model weights and numerical settings.
+- Strengthen ownership, worker transport, cancellation and resource retirement; retain the primary error when cleanup also fails.
+- Preserve partial automatic analyses and typed window-bank outputs in standard archives. Offer an explicit whole-image retry when a selected domain is unsupported, without changing the original selection after refusal.
+- Show Comprint display thresholds on the same relative 0–100% scale as its heatmap. Keep raw compression distances unchanged and structured preview details in diagnostics.
+- Rebuild native support resources with portable source references and retained licences. Extend verified runtime, shell, catalogue and local-update inventories coherently.
+
 ## 0.24.0 — Source regions, OCR and PDF inspection · 2026-10-20
 
 - Add a compact RGB/HSV orientation cube with six face choices, drag rotation and 3D axis alignment. Preserve original colours, initial framing and reliable gesture completion.

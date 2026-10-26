@@ -39,3 +39,38 @@ export function adjustOtsu(histogram,count,hooks={}){
 }
 
 export function releaseAdjustWasm(){ready=null;pending=null;}
+
+// Membership-aware CLAHE uses exactly the native clipping, rounding and FMA
+// interpolation, with tile populations that omit excluded observations.
+export function adjustScopedClaheTables(histograms,areas,level,hooks={}){
+ requireValue(histograms instanceof Int32Array&&histograms.length===16384&&areas instanceof Int32Array&&areas.length===64&&Number.isInteger(level)&&level>=2&&level<=5,'Invalid scoped CLAHE histograms.');
+ for(let tile=0;tile<64;tile++){const bins=histograms.subarray(tile*256,(tile+1)*256);requireValue(areas[tile]>=0&&bins.every(v=>v>=0)&&bins.reduce((a,b)=>a+b,0)===areas[tile],'Scoped CLAHE counts differ from their native observations.');}
+ return invoke([histograms,areas],16384,(m,[h,a],o)=>m._adjust_tables_scoped(h,a,level,o),hooks);
+}
+export function adjustScopedMapRows(bytes,width,rows,x,y,nativeWidth,pw,ph,kind,tables,hooks={}){
+ requireValue(bytes instanceof Uint8Array&&bytes.length===width*rows*3&&[width,rows,x,y,nativeWidth,pw,ph].every(v=>Number.isSafeInteger(v)&&v<=2147483647)&&width>0&&rows>0&&x>=0&&y>=0&&x+width<=nativeWidth&&nativeWidth<=pw&&y+rows<=ph&&pw>0&&pw%8===0&&ph>0&&ph%8===0&&[1,2,3,4,5].includes(kind)&&tables instanceof Uint8Array&&tables.length===(kind===1?256:16384),'Invalid scoped native adjustment display.');
+ if(adjustWorkspace(width,rows)>ADJUST_HEAP_BYTES)throw new EngineError('MEMORY_LIMIT','Scoped adjustment display exceeds its fixed heap.');
+ return invoke([bytes,tables],bytes.length,(m,[a,t],o)=>m._adjust_map_rows_scoped(a,width,rows,x,y,nativeWidth,pw,ph,kind,t,o),hooks);
+}
+
+export async function adjustScopedLocalRows(image,p,start,rows,x,nativeWidth,hooks={}){
+ requireValue([image.width,image.height,start,rows,x,nativeWidth].every(Number.isSafeInteger)&&image.width>0&&image.height>0&&start>=0&&rows>0&&start+rows<=image.height&&x>=0&&nativeWidth>0&&x+image.width<=nativeWidth&&image.data instanceof Uint8Array&&image.data.length===image.width*image.height*3,'Invalid scoped adjustment window.');
+ if(adjustWorkspace(image.width,image.height)>ADJUST_HEAP_BYTES)throw new EngineError('MEMORY_LIMIT','Scoped adjustment window exceeds its fixed heap.');
+ const params=Float64Array.from(['brightness','saturation','hue','gamma','shadows','highlights','sweep','width','sharpen','threshold','equalize','invert'],k=>Number(p[k])),limits=[[-255,255],[-255,255],[0,180],[1,50],[-100,100],[-100,100],[0,255],[0,255],[0,100],[0,255],[0,5],[0,1]];requireValue(params.every((v,i)=>Number.isInteger(v)&&v>=limits[i][0]&&v<=limits[i][1]),'Invalid adjustment parameters.');
+ return invoke([image.data,params],image.width*rows*3,(m,[a,b],o)=>m._adjust_local_rows_scoped(a,image.width,image.height,start,rows,x,nativeWidth,b,o),hooks);
+}
+
+// A masked Gaussian observes only selected RGB. Zero entries are absent
+// observations, not black samples; complete support keeps native arithmetic.
+export async function adjustScopedMaskedLocalRows(image,mask,p,start,rows,x,nativeWidth,hooks={}){
+ requireValue([image.width,image.height,start,rows,x,nativeWidth].every(Number.isSafeInteger)&&image.width>0&&image.height>0&&start>=0&&rows>0&&start+rows<=image.height&&x>=0&&nativeWidth>0&&x+image.width<=nativeWidth&&image.data instanceof Uint8Array&&image.data.length===image.width*image.height*3&&mask instanceof Uint8Array&&mask.length===image.width*image.height&&mask.every(v=>v===0||v===1),'Invalid masked adjustment window.');
+ if(image.width*image.height*112+4*1024**2+256*1024>ADJUST_HEAP_BYTES)throw new EngineError('MEMORY_LIMIT','Masked adjustment window exceeds its fixed heap.');
+ const params=Float64Array.from(['brightness','saturation','hue','gamma','shadows','highlights','sweep','width','sharpen','threshold','equalize','invert'],k=>Number(p[k])),limits=[[-255,255],[-255,255],[0,180],[1,50],[-100,100],[-100,100],[0,255],[0,255],[0,100],[0,255],[0,5],[0,1]];requireValue(params.every((v,i)=>Number.isInteger(v)&&v>=limits[i][0]&&v<=limits[i][1]),'Invalid adjustment parameters.');
+ return invoke([image.data,mask,params],image.width*rows*3,(m,[a,membership,b],o)=>m._adjust_local_rows_scoped_masked(a,membership,image.width,image.height,start,rows,x,nativeWidth,b,o),hooks);
+}
+export function adjustScopedObservedMapRows(bytes,width,rows,x,y,nativeWidth,pw,ph,kind,tables,areas,hooks={}){
+ requireValue(bytes instanceof Uint8Array&&bytes.length===width*rows*3&&[width,rows,x,y,nativeWidth,pw,ph].every(v=>Number.isSafeInteger(v)&&v<=2147483647)&&width>0&&rows>0&&x>=0&&y>=0&&x+width<=nativeWidth&&nativeWidth<=pw&&y+rows<=ph&&pw>0&&pw%8===0&&ph>0&&ph%8===0&&[1,2,3,4,5].includes(kind)&&tables instanceof Uint8Array&&tables.length===(kind===1?256:16384)&&(kind===1?areas===null:areas instanceof Int32Array&&areas.length===64&&areas.every(v=>v>=0)),'Invalid observed native adjustment display.');
+ if(adjustWorkspace(width,rows)>ADJUST_HEAP_BYTES)throw new EngineError('MEMORY_LIMIT','Observed adjustment display exceeds its fixed heap.');
+ if(kind===1)return adjustScopedMapRows(bytes,width,rows,x,y,nativeWidth,pw,ph,kind,tables,hooks);
+ return invoke([bytes,tables,areas],bytes.length,(m,[a,t,populations],o)=>m._adjust_map_rows_scoped_observed(a,width,rows,x,y,nativeWidth,pw,ph,kind,t,populations,o),hooks);
+}

@@ -3,10 +3,11 @@ import {EngineError} from './unified-engine/src/errors.js';
 
 // Reuse the native geometric detector. These are editable panel proposals,
 // neither scientific classification nor evidence of a clone.
-export async function detectIndividualSubimages(client,{width,height,sourceSha256,neural=false}={}){
+export async function detectIndividualSubimages(client,{width,height,sourceSha256,neural=false,maxRegions=100}={}){
  if(!Number.isSafeInteger(width)||!Number.isSafeInteger(height)||width<=0||height<=0)throw new EngineError('INVALID_INPUT','Original image dimensions are required for subimage selection.');
+ if(!Number.isSafeInteger(maxRegions)||maxRegions<1||maxRegions>8192)throw new EngineError('INVALID_INPUT','Invalid geometric proposal metadata limit.');
  const data=await client.detectSubimages();
- if(!data||!Array.isArray(data.regions)||data.regions.length>100)throw new EngineError('INVALID_INPUT','Invalid subimage detector regions.');
+ if(!data||!Array.isArray(data.regions)||data.regions.length>maxRegions)throw new EngineError('INVALID_INPUT','Invalid subimage detector regions.');
  if(data.boundsConvention&&data.boundsConvention!=='half-open')throw new EngineError('INVALID_INPUT','Subimage detector bounds must be half-open.');
  const ids=new Set();
  for(const region of data.regions){

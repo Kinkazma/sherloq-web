@@ -1,3 +1,5 @@
+import {sourceRegionPixelEnvelope} from './unified-engine/src/source-region-geometry.js';
+
 // Geometry only: source pixels and PDF streams are never painted or replaced.
 export const rectanglePolygon=({x0,y0,x1,y1})=>[[x0,y0],[x1,y0],[x1,y1],[x0,y1]];
 export function inversePlacement(matrix){
@@ -44,4 +46,24 @@ export function rectangleComplement(regions,width,height){
   if(edge<width)out.push(rectanglePolygon({x0:edge,y0,x1:width,y1}));
  }
  return out;
+}
+
+function scopeEnvelopeCeilings(scope,width,height){
+ const snapshots=[],seen=new Set(),domains=new Set();if(scope?.originalSourceRegions)snapshots.push(scope.originalSourceRegions);
+ let domain=scope?.sourceRegionCeiling??scope?.sourceRegionDomain?.ceiling;
+ while(domain){if(domains.has(domain)||domains.size>=256)throw new TypeError('Invalid source-region envelope ceiling chain.');domains.add(domain);snapshots.push(domain.snapshot??domain);domain=domain.ceiling;}
+ return snapshots.flatMap(snapshot=>{
+  if(snapshot.width!==width||snapshot.height!==height||typeof snapshot.enabled!=='boolean'||!['whole','selected'].includes(snapshot.positiveMode)||!Array.isArray(snapshot.zones)||scope.sourceSha256&&snapshot.sourceSha256!==scope.sourceSha256)throw new TypeError('The envelope ceiling belongs to another source.');
+  const signature=JSON.stringify(snapshot);if(seen.has(signature))return[];seen.add(signature);
+  return[{polygons:!snapshot.enabled||snapshot.positiveMode==='whole'?[rectanglePolygon({x0:0,y0:0,x1:width,y1:height})]:snapshot.zones.filter(zone=>zone.enabled&&zone.kind==='acquisition').map(zone=>zone.polygon??rectanglePolygon(zone)),exclusions:snapshot.enabled?snapshot.zones.filter(zone=>zone.enabled&&zone.kind==='exclusion').map(zone=>zone.polygon??rectanglePolygon(zone)):[]}];
+ });
+}
+
+/** Derived crop frame of admitted native pixels. It is never an acquisition,
+ * a selectable zone, or a replacement for the exact exclusion polygons. */
+export function scientificScopeEnvelope(scope,{width=scope?.width,height=scope?.height}={}){
+ const regions=(scope?.regions??[]).filter(region=>!region.envelope&&region.enabled!==false),polygons=regions.map(region=>region.polygon??rectanglePolygon(region));
+ const exclusions=(scope?.excluded??[]).filter(region=>region?.enabled!==false).map(region=>Array.isArray(region)?region:region.polygon??rectanglePolygon(region));
+ const {rect,countIncluded}=sourceRegionPixelEnvelope({width,height,polygons,exclusions,ceilings:scopeEnvelopeCeilings(scope,width,height)});
+ return rect?{...rect,polygon:rectanglePolygon(rect),envelope:true,derived:true,role:'source-envelope',countIncluded}:null;
 }

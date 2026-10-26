@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {declaredCloneScopeRegions} from './clone-scope-declarations.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 
 // clone_detectors.boxes_for: pixel-centre rectangles -> clipped half-open boxes.
@@ -28,8 +29,10 @@ export function localAiExclusions(box,excluded){
 /** Prepare the existing D2PRL adapter contract without reading or masking RGB. */
 export function automaticD2prlRequest(plan,{id,imageId}={}){
  const job=plan.jobs.find(j=>j.id==='d2prl');requireValue(job&&typeof id==='string'&&typeof imageId==='string','D2PRL job and request identity required');if(!job.enabled)return null;
- const {boxes,excluded}=automaticAiSelection(plan.width,plan.height,job.params);
- return {id,imageId,operation:'ai.clones.d2prl',backend:plan.cpu?'cpu':'auto',params:{minimum:job.minimum,exclusions:excluded,selectionPresent:true,...(plan.scientificScope?{scientificScope:structuredClone(plan.scientificScope)}:{})},regions:boxes.map((bounds,index)=>({id:'automatic-zone-'+index,kind:'region',bounds}))};
+ const {boxes:originalBoxes,excluded}=automaticAiSelection(plan.width,plan.height,job.params);
+ const nativeRegions=plan.scientificScope?.nativeSourceRegions?declaredCloneScopeRegions(plan.scientificScope):null;
+ const boxes=nativeRegions?nativeRegions.map(r=>{const b=[Math.max(0,Math.floor(r.x0)),Math.max(0,Math.floor(r.y0)),Math.min(plan.width,Math.ceil(r.x1)),Math.min(plan.height,Math.ceil(r.y1))];requireValue(b[2]-b[0]>=8&&b[3]-b[1]>=8,'Scientific native AI regions require at least 8 pixels; do not discard smaller acquisitions');return b;}):originalBoxes;
+ return {id,imageId,operation:'ai.clones.d2prl',cloneWindowMode:plan.cloneWindowMode??'independent',backend:plan.cpu?'cpu':'auto',params:{minimum:job.minimum,exclusions:excluded,selectionPresent:true,...(plan.scientificScope?{scientificScope:structuredClone(plan.scientificScope)}:{})},regions:boxes.map((bounds,index)=>({id:'automatic-zone-'+index,kind:nativeRegions?.[index]?.kind==='envelope'||nativeRegions?.[index]?.envelope===true?'envelope':'region',bounds}))};
 }
 /** Returns an owned crop: exclusions are blackened ONLY for Forgeryscope. */
 export async function readAutomaticForgeryscopeCrop(image,box,excluded,{budget,signal}={}){

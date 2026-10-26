@@ -1,3 +1,4 @@
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {externalMaskContours} from './external-mask-contours.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';import {createCloneEntryGeometry} from './clone-entry-geometry.js';import {createSegmentedBytes} from './segmented-bytes.js';import {segmentElaCells} from './ela-cell-tools.js';import {segmentSegmentedEnergy} from './energy-segment-stream.js';import {energyColor} from './energy-segment.js';import {roundEven,ELA_SOURCE} from './clone-relations.js';import {createSHA256} from '../vendor/hash-wasm/hashes.js';
 const MiB=1024**2;
@@ -6,13 +7,15 @@ function cellColor(key){const h=parseInt(key.slice(-8),16)/2**32,i=Math.floor(h*
 /** Re-segment globally prepared cell/Ghost/background and energy profiles under
  * a native automatic selection. Never recompute reference statistics on ROIs.
  * Input providers remain caller-owned; returned labels, scope and entries are owned. */
-export async function composeAutomaticEla(cellBase,energyBase,{budget,regions,excluded=[],threshold=2,minimum=3,energyThresholds,signal,onProgress,storage='auto',temporarySession,getTemporarySession,wasmBinary}={}){
+export async function composeAutomaticEla(cellBase,energyBase,{budget,regions,excluded=[],threshold=2,minimum=3,energyThresholds,signal,onProgress,storage='auto',temporarySession,getTemporarySession,wasmBinary,onRetirementOwner}={}){
  const {width,height,rows,cols}=cellBase??{},block=cellBase?.metadata?.block,n=rows*cols;
  requireValue([width,height,rows,cols,block].every(x=>Number.isInteger(x)&&x>0)&&rows===Math.floor(height/block)&&cols===Math.floor(width/block)&&cellBase.supported instanceof Uint8Array&&cellBase.supported.length===n&&Array.isArray(regions)&&Array.isArray(excluded),'Prepared global cells and source scope required');
  requireValue(!energyBase||(energyBase.width===width&&energyBase.height===height&&energyBase.metadata?.block===block&&JSON.stringify(energyBase.metadata.qualities)===JSON.stringify(cellBase.metadata.qualities)),'Cell/energy source geometry or quality profiles differ');
  requireValue(Number.isFinite(threshold)&&threshold>0&&Number.isInteger(minimum)&&minimum>=1&&(!energyThresholds||(Array.isArray(energyThresholds)&&energyThresholds.length===2&&energyThresholds.every(x=>Number.isFinite(x)&&x>=0))),'Invalid automatic ELA thresholds/support');
- const leases=[],admit=bytes=>{const release=budget.reserve(bytes);leases.push(release);return release;},options={budget,storage,temporarySession,getTemporarySession,signal};let kernel,scope,allowed,energy,complete=false;const entries=[];
+ const leases=[],admit=bytes=>{const release=budget.reserve(bytes);leases.push(release);return release;},options={budget,storage,temporarySession,getTemporarySession,signal};let kernel,scope,allowed,energy,complete=false,closing=false,disposal,finish,failed=false,primary;const entries=[],constructionDone=new Promise(resolve=>finish=resolve);
+ const owner={dispose(){if(disposal)return disposal;closing=true;disposal=constructionDone.then(async()=>{await retireCompositeOwners([()=>scope?.release(),()=>kernel?.dispose(),()=>energy?.dispose(),()=>allowed?.dispose()]);for(const free of leases)free();}).catch(error=>{disposal=undefined;throw error;});return disposal;}};
  try{
+  onRetirementOwner?.(owner);
   admit(n*2+MiB+[cellBase.metadata,energyBase?.metadata,regions,excluded].reduce((sum,v)=>sum+(JSON.stringify(v)?.length??0)*8,0)+65536);
   kernel=await createCloneEntryGeometry({budget,maxRasterPixels:width*height,maxVertices:Math.max(3,...regions.concat(excluded).map(p=>p.length)),signal,wasmBinary});
   allowed=await createSegmentedBytes(width*height,options);scope=await kernel.scope({width,height,block,regions,excluded},(bytes,offset)=>allowed.write(bytes,offset),{signal});await allowed.flush();const supported=Uint8Array.from(cellBase.supported,(x,i)=>x&&scope.cells[i]?1:0);scope.release();scope=null;kernel.dispose();kernel=null;
@@ -34,7 +37,7 @@ export async function composeAutomaticEla(cellBase,energyBase,{budget,regions,ex
    }
   }
   kernel.dispose();kernel=null;const metadata={...structuredClone(cellBase.metadata),threshold,minimum_cells:minimum,energy_thresholds:{low:limits[0],high:limits[1]},regions:allRegions,analysis_scope:'full_image_reference_profiles_selected_complete_cells',energy_analysis_scope:'detected_panel_reference_selected_pixels',selected_regions:structuredClone(regions),excluded_regions:structuredClone(excluded),...(energyBase?{energy:structuredClone(energyBase.metadata.energy)}:{})};
-  onProgress?.({phase:'automatic-ela-entries',fraction:1});checkAbort(signal);complete=true;let disposed=false;
-  return {width,height,rows,cols,supported,labels:cells.labels,energy_labels:energy?.labels,energy_allowed:allowed,entries,metadata,async dispose(){if(disposed)return;disposed=true;try{const results=await Promise.allSettled([energy?.dispose(),allowed.dispose()]),failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;}finally{for(const release of leases)release();}}};
- }finally{scope?.release();kernel?.dispose();if(!complete){await Promise.allSettled([energy?.dispose(),allowed?.dispose()]);for(const release of leases)release();}}
+  onProgress?.({phase:'automatic-ela-entries',fraction:1});checkAbort(signal);requireValue(!closing,'Automatic ELA selection was retired during construction.');complete=true;
+  return {width,height,rows,cols,supported,labels:cells.labels,energy_labels:energy?.labels,energy_allowed:allowed,entries,metadata,dispose:owner.dispose};
+ }catch(error){failed=true;primary=error;throw error;}finally{finish();if(!complete)await retireCompositeOwners([()=>owner.dispose()],failed?{primary}:{});}
 }

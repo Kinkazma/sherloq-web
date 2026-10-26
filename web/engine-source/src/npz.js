@@ -1,3 +1,8 @@
+import {sparseWindowNpzMetadata} from './sparse-window-npz.js';
+import {catnetStrictNpzEntries} from './catnet-strict-npz.js';
+import {ritaStrictNpzEntries} from './rita-strict-npz.js';
+import {truforStrictNpzEntries} from './trufor-strict-npz.js';
+import {cfaStrictNpzEntries} from './cfa-strict-npz.js';
 import {EngineError,requireValue} from './errors.js';
 // NumPy NPY 1.0 in a stored ZIP; shapes/types retained, no pickle payloads.
 // Specification: https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html
@@ -60,6 +65,7 @@ export function d2prlNpz(result,maxBytes){
  return writeNpz(result,maxBytes,entries);
 }
 export function ritaNpz(result,maxBytes,writer=writeNpz){
+ if(result.data?.metadata?.fragmented){requireValue(writer!==writeNpz,'Segmented RITA contexts require asynchronous streaming.');return writer(result,maxBytes,ritaStrictNpzEntries(result));}
  const d=result.data,n=d?.width*d?.height,entries=[];
  requireValue(Number.isSafeInteger(n)&&n>0,'Invalid RITA source geometry.');
  for(const key of ['map','official_mask','labels','logits']){
@@ -71,6 +77,7 @@ export function ritaNpz(result,maxBytes,writer=writeNpz){
  return writer(result,maxBytes,entries);
 }
 export function truforNpz(result,maxBytes,writer=writeNpz){
+ if(result.data?.metadata?.fragmented)return writer(result,maxBytes,truforStrictNpzEntries(result));
  const d=result.data,n=d.width*d.height,entries=[];
  requireValue(Number.isSafeInteger(n)&&n>0,'Invalid TruFor geometry.');
  for(const [key,field] of [['map','map'],['conf','confidence'],['np++','noiseprint_pp']]){
@@ -97,6 +104,7 @@ export function compositeNpz(result,maxBytes,writer=writeNpz){
  return writer(result,maxBytes,entries);
 }
 export function catnetNpz(result,maxBytes,writer=writeNpz){
+ if(result.data?.metadata?.fragmented){requireValue(writer!==writeNpz,'Segmented CAT-Net fields require asynchronous streaming.');return writer(result,maxBytes,catnetStrictNpzEntries(result));}
  const d=result.data,entries=[];
  for(const [key,shape] of [['map',[d.height,d.width]],['native_map',d.nativeShape]]){
   const value=d[key],segmented=typeof value?.readBytes==='function';requireValue((value instanceof Float32Array||segmented&&writer!==writeNpz)&&Array.isArray(shape)&&shape.length===2&&shape.reduce((a,b)=>a*b,1)===value.length,'Invalid CAT-Net export; segmented results require asynchronous streaming.');
@@ -128,6 +136,7 @@ function writeNpz(result,maxBytes,entries){
 // Shared NPY1.0 framing for progressive scientific exports (M5/8d4ce76).
 export {header as npyHeader};
 export function cfaNpz(result,maxBytes,writer=writeNpz){
+ if(result.data?.metadata?.fragmented)return writer(result,maxBytes,cfaStrictNpzEntries(result));
  const d=result.data,[h,w]=d.gridShape,entries=[];
  for(const [key,shape]of [['probabilities',[4,4,h,w]],['grids',[4,h,w]],['local_grid',[h,w]],['suspicion',[h,w]]]){
   const value=d[key],floating=key!=='local_grid';requireValue(value instanceof(floating?Float32Array:Uint8Array)&&value.length===shape.reduce((a,b)=>a*b,1),'Invalid CFA export.');
@@ -154,7 +163,8 @@ export function m3Npz(result,maxBytes){
   add('points',d.points,[d.points.length/7,7]);add('pairs',d.pairs,[d.pairs.length/4,4]);add('colors_bgr',d.colors,[d.colors.length/3,3]);add('pair_search_regions',d.pair_search_regions,[d.pair_search_regions.length],true);
   if(d.mask!==undefined){requireValue(d.mask instanceof Uint8Array&&Number.isSafeInteger(d.width)&&d.width>0&&Number.isSafeInteger(d.height)&&d.height>0,'Native sparse localization mask required.');add('mask',d.mask,[d.height,d.width]);}
   const pairScore=d.params.algorithm==='EfficientLoFTR'?'confidence':d.params.algorithm==='SSG'?'accepted_match':'descriptor_distance';
-  metadata={...d.metadata,version:2,algorithm:d.params.algorithm,parameters:d.params,zones:d.regions,compare:d.compare,points:Array.from({length:d.points.length/7},(_,i)=>Array.from(d.points.subarray(i*7,i*7+7))),pairs:Array.from({length:d.pairs.length/4},(_,i)=>Array.from(d.pairs.subarray(i*4,i*4+4))),pair_columns:['point_a','point_b',pairScore,'length_px'],biomes:d.groups.map(g=>Array.from(g)),colors_bgr:Array.from({length:d.colors.length/3},(_,i)=>Array.from(d.colors.subarray(i*3,i*3+3))),biome_colors_bgr:d.bases,geometric_models:d.models,display:result.style,visible_biomes:result.visible,preprocessing:d.preprocessing,distance_policy:d.distance_policy,biome_partitions:d.biome_partitions,self_match_filter:d.self_match_filter,rejected_biomes:d.rejected_biomes,feature_policy:d.feature_policy,backend:d.backend,pair_search_regions:Array.from(d.pair_search_regions),...(d.mask?{mask_shape:[d.height,d.width],mask_coordinates:'original-image-pixels',mask_values:'0=outside localization; nonzero=localized region'}:{}),limits:'Potential correspondences, not proof of forgery. Biome hulls are not exact segmentations.'};
+  const{presentationMetadata,...nativeWindows}=d.cloneWindowMode?sparseWindowNpzMetadata(d,(key,value,shape,descr)=>entries.push({key,value,header:header(descr,shape),bytes:value.byteLength,floating:value instanceof Float32Array||value instanceof Float64Array})):{};
+  metadata={...(presentationMetadata??d.metadata),...nativeWindows,version:2,algorithm:d.params.algorithm,parameters:d.params,zones:d.regions,compare:d.compare,points:Array.from({length:d.points.length/7},(_,i)=>Array.from(d.points.subarray(i*7,i*7+7))),pairs:Array.from({length:d.pairs.length/4},(_,i)=>Array.from(d.pairs.subarray(i*4,i*4+4))),pair_columns:['point_a','point_b',pairScore,'length_px'],biomes:d.groups.map(g=>Array.from(g)),colors_bgr:Array.from({length:d.colors.length/3},(_,i)=>Array.from(d.colors.subarray(i*3,i*3+3))),biome_colors_bgr:d.bases,geometric_models:d.models,display:result.style,visible_biomes:result.visible,preprocessing:d.preprocessing,distance_policy:d.distance_policy,biome_partitions:d.biome_partitions,self_match_filter:d.self_match_filter,rejected_biomes:d.rejected_biomes,feature_policy:d.feature_policy,backend:d.backend,pair_search_regions:Array.from(d.pair_search_regions),...(d.mask?{mask_shape:[d.height,d.width],mask_coordinates:'original-image-pixels',mask_values:'0=outside localization; nonzero=localized region'}:{}),limits:'Potential correspondences, not proof of forgery. Biome hulls are not exact segmentations.'};
  }else{
   const shape=d.metadata.native_shape;add('map',d.map,shape);
   if(d.mask)add('mask',d.mask,shape);

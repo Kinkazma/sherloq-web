@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
+import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {deserializeWorkerError} from './errors.js';
 import {prepareResearchRows} from './m3-research-rows.js';
 import {ADAIFL_MODEL} from './adaifl-assets.js';export {ADAIFL_MODEL};
@@ -6,9 +7,34 @@ import {EngineError,requireValue,checkAbort} from './errors.js';import {verifyM3
 const MiB=1024**2,stages=['embedding',...Array.from({length:12},(_,i)=>'block-'+String(i).padStart(2,'0')),'decoder'];let next=0;
 export class AdaiflEngine{
  constructor(image,budget,profile){requireValue(image?.format==='rgb8'&&Number.isInteger(image.width)&&image.width>0&&Number.isSafeInteger(image.width*image.height*3)&&Number.isInteger(image.height)&&image.height>0&&(typeof image.readRows==='function'||image.data instanceof Uint8Array&&image.data.length===image.width*image.height*3),'ADAIFL requires RGB8 pixels.');requireValue(budget&&typeof budget.reserve==='function'&&profile&&Number.isInteger(profile.maxWorkers)&&profile.maxWorkers>0,'ADAIFL requires shared memory admission and worker profile.');this.image=image;this.budget=budget;this.profile=profile;this.prefix='m3-adaifl-'+(++next)+'/';this.lifetime=new AbortController();this.disposed=false;this.running=false;}
- stop(){this.worker?.terminate();this.worker=null;this.reject?.(new EngineError('CANCELLED','ADAIFL stopped.'));this.reject=null;}
+ stop(){const worker=this.worker;this.worker=null;const lifetime=this.workerLifetime;if(lifetime){lifetime.worker.removeEventListener?.('error',lifetime.fail);this.workerLifetime=null;}worker?.terminate();this.reject?.(new EngineError('CANCELLED','ADAIFL stopped.'));this.reject=null;}
  dispose(){this.disposed=true;this.lifetime.abort();this.stop();this.budget.clearPrefix(this.prefix);}
- rpc(job){return new Promise((resolve,reject)=>{this.reject=reject;this.worker.onmessage=({data})=>{this.reject=null;data.error?reject(deserializeWorkerError(data.error,data.message)):resolve(data);};this.worker.onerror=e=>reject(new EngineError('WORKER_FAILED',e.message));this.worker.postMessage(job);});}
+ rpc(job){return new Promise((resolve,reject)=>{
+  if(this.reject){reject(new EngineError('BUSY','ADAIFL worker already has a pending request.'));return;}
+  const worker=this.worker;if(!worker){reject(new EngineError('CANCELLED','ADAIFL worker is unavailable.'));return;}
+  // A runtime failure may arrive while the next pinned graph is loading.
+  // Keep its cause for the worker lifetime, not only an individual RPC.
+  if(this.workerLifetime?.worker!==worker){
+   const prior=this.workerLifetime;prior?.worker.removeEventListener?.('error',prior.fail);
+   const lifetime={worker,error:null};lifetime.fail=event=>{lifetime.error??=new EngineError('WORKER_FAILED',event?.message??'ADAIFL worker failed.');if(this.worker===worker)this.reject?.(lifetime.error);};
+   worker.addEventListener?.('error',lifetime.fail);this.workerLifetime=lifetime;
+  }
+  const lifetime=this.workerLifetime;if(lifetime.error){reject(lifetime.error);return;}
+  let settled=false,protocol,workerError;
+  const finish=(fn,value)=>{if(settled)return;settled=true;protocol?.dispose();if(worker.onerror===workerError)worker.onerror=null;if(this.reject===fail)this.reject=null;fn(value);},fail=error=>finish(reject,error),bad=reason=>{throw workerMessageFailure('ADAIFL','message',reason);};
+  this.reject=fail;
+  protocol=installWorkerMessageProtocol(worker,data=>{
+   if(data.error!==undefined){if(!data.error||typeof data.error!=='object'||Array.isArray(data.error)||typeof data.error.message!=='string')bad('invalid-error');fail(deserializeWorkerError(data.error,data.message));return;}
+   if(job.task==='init'){if(data.ready!==true)bad('invalid-ready');}
+   else{
+    const m=data.metadata;if(!m||m.stage!==job.stage||!['wasm','webgpu'].includes(m.provider)||!Number.isSafeInteger(m.heapBytes)||m.heapBytes<1||!Number.isSafeInteger(m.threads)||m.threads<1)bad('invalid-stage-metadata');
+    if(job.stage==='decoder'&&(!(data.map instanceof Float32Array)||data.map.length!==4096||!(data.mask instanceof Uint8Array)||data.mask.length!==4096))bad('invalid-decoder-geometry');
+   }
+   finish(resolve,data);
+  },{label:'ADAIFL',onFailure:fail});
+  workerError=lifetime.fail;worker.onerror=workerError;
+  try{protocol.post(job);}catch(error){fail(error);}
+ });}
  async analyze(params={},hooks={}){
   requireValue(!this.running&&!this.disposed&&typeof Worker!=='undefined'&&params&&Object.keys(params).length===0,'ADAIFL unavailable, busy, or unsupported parameters.');const {model,backend='auto',onProgress}=hooks,signal=hooks.signal?AbortSignal.any([hooks.signal,this.lifetime.signal]):this.lifetime.signal;requireValue(['auto','cpu','webgpu'].includes(backend),'Invalid ADAIFL backend.');
   for(const stage of stages){const g=model?.graphs?.[stage],identity=ADAIFL_MODEL.graphs[stage];requireValue(g&&g.sha256===identity.sha256&&(g.data instanceof Uint8Array||typeof g.url==='string'),'ADAIFL requires every pinned graph as explicit bytes or URL.');}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.25.0";
 import {noisesnifferParams,noisesnifferRegions} from './noisesniffer.js';
 import {noisesnifferBasisKey} from './noisesniffer-selection-basis.js';
 import {noisesnifferStreamMath} from './noisesniffer-stream-math.js';
@@ -13,9 +13,11 @@ async function stored(store,format,width,height,g,signal){const part=await sampl
  * changed grouping borrows native sorted candidates without DCT, sorting or
  * patch extraction. A cold basis is rejected so its caller can explicitly use
  * a distinct derived source rather than mislabel stale statistics as current. */
-export async function previewCachedNoisesniffer(image,cache,input,preview,{budget,signal,onProgress}={}){
+export async function previewCachedNoisesniffer(image,cache,input,preview,{budget,signal,onProgress,sourceRegion}={}){
  const p=noisesnifferParams(input),analysis=cache?.analysis,descriptor=image.surface?.descriptor??image.pixels,width=descriptor?.width,height=descriptor?.height,basis=cache?.basis,exactNative=same(analysis?.data?.metadata?.parameters,parameters(p));
  if(!analysis||!exactNative&&basis?.key!==noisesnifferBasisKey(p))previewUnavailable('The requested native Noisesniffer selection basis is not retained.');
+ const domain=sourceRegion?.domain,original=sourceRegion?.original;
+ if(cache.sourceRegionIdentity){const expected=domain&&JSON.stringify(p.blockSize===8?[domain.sourceSha256,domain.fingerprint,'observed-native-FFT-contexts-v1']:[domain.sourceSha256,domain.fingerprint]);if(!domain||!original||cache.sourceRegionIdentity!==expected||!cache.stats?.coverage||domain.width!==width||domain.height!==height)previewUnavailable('The retained Noisesniffer coverage belongs to another source domain.');}
  const g=cachedPreviewGeometry(width,height,preview,budget,{bytesPerPixel:512,fixedBytes:8*1024**2+Math.max(width*32,(basis?.b??0)*12)}),release=reservePreview(budget,g.reservedBytes),cooperate=createCooperator(signal);let held,pixels,details;
  try{
   checkAbort(signal);held=analysis.owner.lease();
@@ -31,6 +33,14 @@ export async function previewCachedNoisesniffer(image,cache,input,preview,{budge
    else{let retainedCells=0;const regions=await noisesnifferRegions(width,height,p.blockSize,cellSize,p.lowNoiseFraction,{gridWidth:gw,gridHeight:gh,all_blocks,low_noise_blocks},{signal,tail:(await noisesnifferStreamMath()).tail,materializeMask:false,retainRegion:n=>{retainedCells+=n;if(retainedCells>Math.max(4,g.pixels*4))throw new EngineError('MEMORY_LIMIT','The provisional Noisesniffer region list exceeds its admitted preview workspace.');}});pixels=p.view==='mask'?{width:g.width,height:g.height,format:'rgb8',data:new Uint8Array(g.pixels*3)}:await sampleCachedSource(image,g,{signal});for(let y=0;y<g.height;y++){await cooperate();for(let x=0;x<g.width;x++){const at=(y*g.width+x)*3,on=regions.grid[Math.floor(y*g.step/cellSize)*gw+Math.floor(x*g.step/cellSize)]!==0;if(p.view==='mask')pixels.data.fill(on?255:0,at,at+3);else if(on)for(let c=0;c<3;c++)pixels.data[at+c]=Math.trunc(Math.fround(pixels.data[at+c]*Math.fround(.55))+(c===0?255*.45:0));}}}
    details={exactNativeSamples:!approximate,groupingApproximate:approximate,nativeBlockSize:p.blockSize,previewCellSize:cellSize,nativeCellSize:p.cellSize,sampledCandidateCount:sampled,nativeCandidateCount:basis.candidateCount,binStep};
   }
+  // Coverage belongs to the native statistics, not to the provisional cell
+  // grid. Presentation may read Original outside coverage; those observations
+  // never enter candidates, bins, DCT, FFT or region growth above.
+  if(cache.sourceRegionIdentity){
+   const coverage=await stored(cache.stats.coverage,'mask8',width,height,g,signal),background=await sampleCachedSource(original,{...g,x:domain.origin[0],y:domain.origin[1]},{signal});let admitted=0;
+   for(let i=0;i<g.pixels;i++){if((i&4095)===0)await cooperate();if(coverage.data[i])admitted++;else pixels.data.set(background.data.subarray(i*3,i*3+3),i*3);}
+   details={...details,strictSourceRegions:true,sourceRegionFingerprint:domain.fingerprint,sampledAnalysedPixels:admitted,sampledOriginalPixels:g.pixels-admitted};
+  }
   checkAbort(signal);onProgress?.({phase:'noisesniffer-preview',completed:1,total:1});checkAbort(signal);return{pixels:{...pixels,logicalWidth:width,logicalHeight:height},exact:false,metrics:{cacheOnly:true,nativeAnalysisCalls:0,inferenceCalls:0,statisticsCalls:0,sortCalls:0,patchCalls:0,scientificFinalChanged:false,admittedPreviewBytes:g.bytes,sampleDimensions:[g.width,g.height],...details},preview:{provisional:true,...details}};
- }finally{await held?.dispose();release();}
+ }finally{try{await held?.dispose();}finally{release();}}
 }

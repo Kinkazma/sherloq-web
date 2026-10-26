@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.25.0";
+import {noisesnifferOwnerRetirement} from './noisesniffer-owner-retirement.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {noisesnifferPackedFlags} from './noisesniffer-packed-flags.js';
 import {checkAbort,createCooperator,requireValue} from './errors.js';
@@ -6,7 +7,7 @@ const bankers=x=>{const f=Math.floor(x);return x-f===.5?f+f%2:Math.round(x);};
 export const noisesnifferBasisKey=p=>JSON.stringify([p.blockSize,p.samplesPerBin,p.lowFrequencyFraction]);
 export const noisesnifferSelectionKey=p=>JSON.stringify([p.blockSize,p.samplesPerBin,p.lowFrequencyFraction,p.lowNoiseFraction]);
 export async function createNoisesnifferSelectionBasis(image,p,stats,options){
- const count=stats.validCount,b=Math.floor(count/Math.max(1,bankers(count/p.samplesPerBin))),bins=count?bankers(count/b):0,capacity=Math.min(count*3,bins*3*Math.trunc(b*p.lowFrequencyFraction)),owned=[];let offset=0,closed=false;
+ const count=stats.validCount,b=Math.floor(count/Math.max(1,bankers(count/p.samplesPerBin))),bins=count?bankers(count/b):0,capacity=Math.min(count*3,bins*3*Math.trunc(b*p.lowFrequencyFraction)),owned=[];let offset=0;
  // A channel/bin contributes at most trunc(b*n) candidates; the disjoint
  // bins also contain at most validCount IDs per channel. Both bounds hold
  // before the flat-bin gate, without changing its native decision or order.
@@ -16,7 +17,7 @@ export async function createNoisesnifferSelectionBasis(image,p,stats,options){
    async record(index,ids,flat){checkAbort(options.signal);requireValue(index>=0&&index<bins*3&&ids instanceof Uint32Array,'Invalid native selection-basis record.');const meta=Float64Array.of(offset,ids.length,flat);if(ids.length)await candidates.write(new Uint8Array(ids.buffer,ids.byteOffset,ids.byteLength),offset*4);await records.write(new Uint8Array(meta.buffer),index*24);offset+=ids.length;},
    async read(index,{signal}={}){checkAbort(signal);const meta=new Float64Array(3);await records.readInto(new Uint8Array(meta.buffer),index*24);const ids=new Uint32Array(meta[1]);if(ids.length)await candidates.readInto(new Uint8Array(ids.buffer),meta[0]*4);checkAbort(signal);return{ids,flat:meta[2]};},
    async finish(){await Promise.all(owned.map(store=>store.flush()));checkAbort(options.signal);this.candidateCount=offset;return this;},
-   async dispose(){if(closed)return;closed=true;await Promise.all(owned.map(store=>store.dispose()));}
+   dispose:noisesnifferOwnerRetirement(owned.map(store=>()=>store.dispose()))
   };
  }catch(error){await Promise.allSettled(owned.map(store=>store.dispose()));throw error;}
 }
@@ -31,8 +32,8 @@ export async function selectNoisesnifferBasis(image,p,basis,{budget,signal,onPro
   const mark=async(ids,bit,counts)=>{for(const id of ids){if((visited++&1023)===0)await cooperate();if(packed)packed.mark(id,bit);else{const pageId=Math.floor(id/pageSize);let page=pages.get(pageId);if(!page){if(pages.size===pageCount){const first=pages.keys().next().value;await save(pages.get(first));pages.delete(first);}const offset=pageId*pageSize,bytes=new Uint8Array(Math.min(pageSize,N-offset));await flags.readInto(bytes,offset);page={offset,bytes,dirty:false};}else pages.delete(pageId);pages.set(pageId,page);page.bytes[id-page.offset]|=bit;page.dirty=true;}counts[Math.floor(Math.floor(id/basis.width)/p.cellSize)*gw+Math.floor(id%basis.width/p.cellSize)]++;}};
   const limit=Math.trunc(basis.b*p.lowFrequencyFraction*p.lowNoiseFraction);
   for(let index=0;index<basis.bins*3;index++){await cooperate();const {ids,flat}=await basis.read(index,{signal});if(flat<limit){const low=ids.subarray(0,limit);await selected.write(new Uint8Array(ids.buffer),selectedCount*4);await low_noise.write(new Uint8Array(low.buffer,low.byteOffset,low.byteLength),lowCount*4);selectedCount+=ids.length;lowCount+=low.length;await mark(ids,1,all_blocks);await mark(low,2,low_noise_blocks);}onProgress?.({phase:'noisesniffer-select-cached',completed:index+1,total:basis.bins*3});}
-  if(packed)await packed.flush(flags,{signal});else for(const page of pages.values()){await cooperate();await save(page);}await Promise.all(owned.map(store=>store.flush()));checkAbort(signal);let disposed=false;
-  return{selected,low_noise,flags,selectedCount,lowCount,gridWidth:gw,gridHeight:gh,all_blocks,low_noise_blocks,metrics:{basisCached:true,statisticsCalls:0,sortCalls:0,patchCalls:0},async dispose(){if(disposed)return;disposed=true;await Promise.all(owned.map(store=>store.dispose()));}};
+  if(packed)await packed.flush(flags,{signal});else for(const page of pages.values()){await cooperate();await save(page);}await Promise.all(owned.map(store=>store.flush()));checkAbort(signal);
+  return{selected,low_noise,flags,selectedCount,lowCount,gridWidth:gw,gridHeight:gh,all_blocks,low_noise_blocks,metrics:{basisCached:true,statisticsCalls:0,sortCalls:0,patchCalls:0},dispose:noisesnifferOwnerRetirement(owned.map(store=>()=>store.dispose()))};
  }catch(error){await Promise.allSettled(owned.map(store=>store.dispose()));throw error;}finally{packed?.dispose();release();}
 }
 export async function countNoisesnifferSelection(image,p,selection,{budget,signal,onProgress}={}){

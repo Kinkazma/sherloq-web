@@ -19,7 +19,9 @@ export function createOrientationCube({document,points,columns,style,camera,onFa
  const element=node('div','scatter-orientation'),owner=element.ownerDocument??document,svgNode=tag=>owner.createElementNS('http://www.w3.org/2000/svg',tag),canvas=node('canvas','scatter-cube-cloud'),svg=svgNode('svg'),faces=svgNode('g'),choices=node('details','scatter-cube-choices'),summary=node('summary','scatter-cube-summary'),menu=node('div','scatter-cube-menu');
  element.setAttribute('role','group');canvas.setAttribute('aria-hidden','true');svg.classList.add('scatter-cube');svg.setAttribute('viewBox','0 0 120 120');svg.setAttribute('aria-label','');svg.append(faces);choices.append(summary,menu);element.append(canvas,svg,choices);
  const context=canvas.getContext('2d'),rows=[],listeners=[],polygons=new Map(),labels=new Map(),buttons=new Map();let disposed=false,drag=null,suppressClick=false,faceOrder='';
- const stride=Math.max(1,Math.ceil(points.count/768));for(let index=0;index<points.count;index+=stride)rows.push(points.values.subarray(index*6,index*6+6));
+ let sampledValues=null,sampledCount=-1;
+ function refreshRows(){if(sampledValues===points.values&&sampledCount===points.count)return;rows.length=0;sampledValues=points.values;sampledCount=points.count;const stride=Math.max(1,Math.ceil(points.count/768));for(let index=0;index<points.count;index+=stride)rows.push(points.values.subarray(index*6,index*6+6));}
+ refreshRows();
  const listen=(el,type,fn,options)=>{el.addEventListener(type,fn,options);listeners.push(()=>el.removeEventListener(type,fn,options));},stop=e=>{e.preventDefault();e.stopPropagation();};
  function releasePress(){const pressed=drag;drag=null;if(pressed)try{if(svg.hasPointerCapture?.(pressed.id)!==false)svg.releasePointerCapture?.(pressed.id);}catch{}return pressed;}
  function choose(id){if(disposed)return;releasePress();choices.open=false;onFace(id);}
@@ -42,7 +44,7 @@ export function createOrientationCube({document,points,columns,style,camera,onFa
  // a verified viewport exit cancels; leaving the little SVG remains a drag.
  listen(win,'pointerout',e=>{if(drag&&e.pointerId===drag.id&&e.relatedTarget==null&&outsideViewport(e))cancel();},true);
  listen(win,'blur',cancel);listen(owner,'visibilitychange',()=>{if(owner.hidden)cancel();});listen(owner,'pointerdown',e=>{if(choices.open&&!(e.composedPath?.().includes(choices)??choices.contains(e.target)))choices.open=false;});listen(svg,'dblclick',e=>stop(e));
- function draw(){if(disposed)return;const p=style(),fr=language()==='fr';element.hidden=p.kind!=='3d';if(element.hidden){choices.open=false;return;}
+ function draw(){if(disposed)return;refreshRows();const p=style(),fr=language()==='fr';element.hidden=p.kind!=='3d';if(element.hidden){choices.open=false;return;}
   element.setAttribute('aria-label',fr?'Cube d’orientation':'Orientation cube');summary.textContent='⌄';summary.setAttribute('aria-label',fr?'Choisir une face':'Choose a face');summary.title=fr?'Choisir une face':'Choose a face';
   const size=120,dpr=Math.min(globalThis.devicePixelRatio||1,2);if(canvas.width!==size*dpr||canvas.height!==size*dpr){canvas.width=size*dpr;canvas.height=size*dpr;}context.setTransform(dpr,0,0,dpr,0,0);context.clearRect(0,0,size,size);context.globalAlpha=Math.max(0,Math.min(1,p.alpha??1))*.48;
   for(const row of rows){const q=projectOrientationPoint([row[p.x],row[p.y],row[p.z]],camera,size);context.fillStyle=p.colored?`rgb(${row[0]*255},${row[1]*255},${row[2]*255})`:'#338cd9';context.fillRect(q.x,q.y,1.1,1.1);}context.globalAlpha=1;

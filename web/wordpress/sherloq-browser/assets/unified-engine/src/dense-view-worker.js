@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.25.0";
 import {serializeEngineError} from './errors.js';
 import {createDenseRegions} from './dense-regions.js';
 let math,renderer;
@@ -7,6 +7,7 @@ self.onmessage=async({data:p})=>{try{let result;
  else if(p.command==='write'){renderer.write(p.bytes,p.offset);result={};}
  else if(p.command==='overlap')result={overlap:renderer.overlap(p.a,p.b)};
  else if(p.command==='group'){renderer.group(p.rows,p.color,p.flags);result={heapBytes:math.heapBytes};}
+ else if(p.command==='colors'){renderer.colors(p.colors);result={heapBytes:math.heapBytes};}
  else if(p.command==='read')result={bytes:renderer.pixels(p.offset,p.length),heapBytes:math.heapBytes};
  else throw Error('Unknown dense renderer command');
  self.postMessage({result},result.bytes?[result.bytes.buffer]:[]);

@@ -1,4 +1,4 @@
-import "../runtime-context.js?v=0.21.0";
+import "../runtime-context.js?v=0.25.0";
 /** Complete B-Free browser preprocessing and five-window logit reduction. No Python. */
 import {readRGBWindow} from './source-window.js';
 const VERSION = 'bfree-official-grid14-five504-v1';
@@ -8,7 +8,7 @@ function check(signal) { if (signal?.aborted) { const e = new Error('Cancelled')
 function pixels(image) {
   const {width, height, data} = image;
   const channels = data?.length / (width * height);
-  if (!Number.isInteger(width) || !Number.isInteger(height) || ![3,4].includes(channels) || data.BYTES_PER_ELEMENT !== 1) throw new TypeError('Expected RGB/RGBA uint8 image pixels');
+  if (!Number.isInteger(width) || !Number.isInteger(height) || ![3,4].includes(channels) || !(data instanceof Uint8Array || data instanceof Uint8ClampedArray)) throw new TypeError('Expected RGB/RGBA uint8 image pixels');
   if (width < 14 || height < 14) throw new RangeError('B-Free needs at least one complete 14-pixel patch on each axis');
   return {width,height,data,channels};
 }
@@ -23,7 +23,7 @@ export async function prepare(image, {memo, signal, onProgress, digest} = {}) {
   if(!Number.isSafeInteger(p.width)||!Number.isSafeInteger(p.height)||p.width<14||p.height<14)throw Error('Invalid B-Free geometry');
   const identity=digest??p.sourceSha256;if(!identity&&!p.data)throw Error('Window source identity required');
   const key = `${VERSION}:${p.width}x${p.height}:${await digestPixels(p,identity)}`;
-  if (memo?.has(key)) return memo.get(key);
+  check(signal); if (memo?.has(key)) return memo.get(key);
   const gh = Math.floor(p.height/14), gw = Math.floor(p.width/14);
   // Upstream repeat_wrap trims BOTH axes to 36 if either is shorter than 36.
   const short = gh<36 || gw<36, eh=short?36:gh, ew=short?36:gw;
@@ -48,9 +48,9 @@ export async function prepare(image, {memo, signal, onProgress, digest} = {}) {
         }
       }
     }
-    }finally{window?.release();}
+    }finally{await window?.release();}
     patches.push({feeds:{images:{data:out,dims:[1,3,504,504],type:'float32'}},origin_embedding_grid:origins[n]});
-    onProgress?.({phase:'preprocess',completed:n+1,total:5});
+    onProgress?.({phase:'preprocess',completed:n+1,total:5}); check(signal);
   }
   const prepared={method:'bfree',version:VERSION,key,patches,width:p.width,height:p.height,preprocessing:'Official 14-pixel embedding grid, five 504² windows, no resizing'};
   memo?.set(key,prepared);return prepared;
@@ -66,9 +66,9 @@ export async function runPrepared(prepared,{loadSession,infer},{memo,signal,onPr
   if(!logits) {
     const session=await loadSession('bfree-encoder-v1','models/bfree/encoder.onnx');logits=[];
     for(let i=0;i<prepared.patches.length;i++) {
-      check(signal);const outputs=await infer(session,prepared.patches[i].feeds);
+      check(signal);const outputs=await infer(session,prepared.patches[i].feeds); check(signal);
       const tensor=outputs.logits??Object.values(outputs)[0];logits.push(Number(tensor.data[0]));
-      onProgress?.({phase:'inference',completed:i+1,total:5});
+      onProgress?.({phase:'inference',completed:i+1,total:5}); check(signal);
     }
     memo?.set(cacheKey,logits);
   }

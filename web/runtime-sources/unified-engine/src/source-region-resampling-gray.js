@@ -1,0 +1,15 @@
+import "../../runtime-context.js?v=0.25.0";
+import {ownFileGrayCleanup} from './file-gray-retirement.js';
+import {createResamplingGray} from './resampling-gray-source.js';
+import {requireValue,checkAbort,controlCheckpoint,EngineError} from './errors.js';
+// Decode the original native file-gray channel. Only admitted observations may
+// enter normalization, EM neighborhoods or Fourier windows; RGB is never regrayed.
+export async function createSourceRegionResamplingGray({original,view,domain,budget,signal,onProgress,decodeGray}){
+ requireValue(original.sha256===domain.sourceSha256&&original.surface.descriptor.width===domain.sourceWidth&&original.surface.descriptor.height===domain.sourceHeight,'Native file-gray source differs from its source-region identity.');let raw,done=false,reads=0,minimum=255,maximum=0,count=0;const owner=ownFileGrayCleanup(original,{budget,cleanup:async()=>{if(raw){await raw.dispose();raw=null;}}});
+ try{raw=await createResamplingGray(original,{budget,signal,raw:true,decodeGray,onProgress});checkAbort(signal);requireValue(raw.width===domain.sourceWidth&&raw.height===domain.sourceHeight,'Original native file-gray dimensions differ.');
+  const readRaw=(x,y,width,height,{signal:extra}={})=>owner.read(async()=>{checkAbort(extra);requireValue([x,y,width,height].every(Number.isSafeInteger)&&x>=0&&y>=0&&width>0&&height>0&&x+width<=domain.width&&y+height<=domain.height,'Invalid admitted native file-gray window.');for(let row=y;row<y+height;row++){const intervals=domain.rowIntervals(row).filter(([a,b])=>a<x+width&&b>x);requireValue(intervals.length===1&&intervals[0][0]<=x&&intervals[0][1]>=x+width,'A native file-gray reader cannot cross excluded observations.');}reads++;const part=await raw.surface.readWindow({x:domain.origin[0]+x,y:domain.origin[1]+y,width,height},{signal:extra});try{checkAbort(extra);return part;}catch(error){part.release();throw error;}});
+  for(const r of view.admittedRectangles())for(let y=r.y;y<r.y+r.height;y++)for(let x=r.x;x<r.x+r.width;x+=32768){await controlCheckpoint(signal);const width=Math.min(32768,r.x+r.width-x),part=await readRaw(x,y,width,1,{signal});try{for(const v of part.pixels.data){minimum=Math.min(minimum,v);maximum=Math.max(maximum,v);count++;}}finally{part.release();}onProgress?.({phase:'source-region-gray-extrema',completed:count,total:domain.countIncluded});}
+  requireValue(count===domain.countIncluded,'Native file-gray normalization omitted admitted observations.');const normalization=Object.freeze({minimum,maximum,scope:'whole admitted native original-file grayscale membership'}),span=maximum-minimum;
+  done=true;return{width:domain.width,height:domain.height,normalization,get reads(){return reads;},readRaw,async read(x,y,width,height,hooks){const part=await readRaw(x,y,width,height,hooks);try{return Float64Array.from(part.pixels.data,v=>span?(v-minimum)/span:0);}finally{part.release();}},dispose(){return owner.retire();}};
+ }catch(error){return owner.fail(error);}
+}

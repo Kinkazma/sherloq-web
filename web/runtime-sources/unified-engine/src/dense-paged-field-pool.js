@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.25.0";
+import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,countedDenseOwner,denseConstructionOwner,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {reclaimForResourceRecovery} from './resource-recovery.js';
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';
 import {EngineError,checkAbort} from './errors.js';
@@ -15,7 +16,7 @@ import {serializeDenseError,deserializeDenseError} from './dense-memory-error.js
 const MiB=1024**2;
 
 export class DensePagedFieldPool{
- constructor(budget,{maxWorkers=globalThis.navigator?.hardwareConcurrency??1,workerFactory=()=>new Worker(new URL('./dense-paged-field-worker.js',import.meta.url),{type:'module'}),forceBroker=false}={}){this.budget=budget;this.maxWorkers=maxWorkers;this.workerFactory=workerFactory;this.forceBroker=forceBroker;this.active=new Set();this.peakWorkers=0;this.jobs=0;this.adaptive=new AdaptiveConcurrency();this.cache=getSharedReadCache(budget);}
+ constructor(budget,{maxWorkers=globalThis.navigator?.hardwareConcurrency??1,workerFactory=()=>new Worker(new URL('./dense-paged-field-worker.js',import.meta.url),{type:'module'}),forceBroker=false,onRetirementOwner}={}){this.onRetirementOwner=onRetirementOwner;this.pendingInputRetirements=new Set();this.pendingTaskRetirements=new Set();this.budget=budget;this.maxWorkers=maxWorkers;this.workerFactory=workerFactory;this.forceBroker=forceBroker;this.active=new Set();this.peakWorkers=0;this.jobs=0;this.adaptive=new AdaptiveConcurrency();this.cache=getSharedReadCache(budget);}
  start(input,options={}){
   const key=[input.width,input.height,input.dimensions,input.first.kind,options.iterations,options.radius,input.first.patch,input.second?.patch,input.first.quarter,input.second?.mirror].join(':'),scheduling=this.adaptive.select(key,this.maxWorkers,this.budget,()=>0);
   if(this.active.size>=scheduling.count)return null;
@@ -27,10 +28,10 @@ export class DensePagedFieldPool{
   const boundBytes=compact?second.boundSamples?.byteLength??0:0,residentSiftBounds=!!boundBytes&&boundBytes<=Math.min(512*MiB,(cap-16*MiB-poolBytes)*.45);
   const lengths=[compact?input.first.hist.byteLength:n*dimensions*4,compact?second.hist.byteLength:n*dimensions*4,n,n*4,n*4,0,0,input.width*4,input.height*4,...(compact?[input.first.norms.byteLength,second.norms.byteLength,input.first.turns.byteLength,second.turns.byteLength,input.first.diverse.byteLength,second.diverse.byteLength,0,0]:[])];
   let plan;try{plan=planDensePageMemory({lengths,availableBytes:cap,residentBytes:poolBytes+(residentSiftBounds?boundBytes:0),n,dimensions,pageBytes:options.pageBytes,cachePages:options.cachePages,initialBatchPixels:options.initialBatchPixels});}catch(error){if(error.code==='MEMORY_LIMIT')return null;throw error;}
-  let workspaceBytes=Math.min(cap,Math.max(minimum,plan.workspaceBytes+4*MiB)),releaseOutput;const workspaceReleases=[];
-  try{releaseOutput=this.budget.reserve(outputReservation);workspaceReleases.push(this.budget.reserve(workspaceBytes));}catch(error){releaseOutput?.();if(error.code==='MEMORY_LIMIT')return null;throw error;}
-  const task={worker:null,reject:null,sessionId:'job-'+crypto.randomUUID(),session:null};const operation=this.budget.beginOperation?.({owner:'patchmatch',id:'field:'+task.sessionId,parent:options.resourceOperation});this.active.add(task);this.peakWorkers=Math.max(this.peakWorkers,this.active.size);this.jobs++;
-  const promise=(async()=>{let lease,leaseId=0,gpuLease,gpuMemoryRelease,coordinatorCpuLease,coordinatorYielded=false,exported,delivered=false,adoptedSession=false,destinationSession,gpuTail=Promise.resolve();const owned=[],requests=new Set(),gpuStaging=new Map(),controller=new AbortController(),signal=options.signal?AbortSignal.any([options.signal,controller.signal]):controller.signal,scheduler=getExecutionScheduler(this.budget,{maxWorkers:this.maxWorkers}),abort=()=>{resumeStartup?.();resumeStartup=null;task.worker?.terminate();task.reject?.(new EngineError('CANCELLED','Dense field worker stopped.'));};
+  let workspaceBytes=Math.min(cap,Math.max(minimum,plan.workspaceBytes+4*MiB)),releaseOutput,releaseRetirementMetadata;const workspaceReleases=[];
+  try{releaseOutput=this.budget.reserve(outputReservation);workspaceReleases.push(this.budget.reserve(workspaceBytes));releaseRetirementMetadata=this.budget.reserve(4096);}catch(error){releaseOutput?.();for(const release of workspaceReleases)release();if(error.code==='MEMORY_LIMIT')return null;throw error;}
+  const task={worker:null,reject:null,retirementPending:false,unavailable:false,sessionId:'job-'+crypto.randomUUID(),session:null};const operation=this.budget.beginOperation?.({owner:'patchmatch',id:'field:'+task.sessionId,parent:options.resourceOperation});this.active.add(task);this.peakWorkers=Math.max(this.peakWorkers,this.active.size);this.jobs++;
+  const promise=(async()=>{let lease,leaseId=0,gpuLease,gpuMemoryRelease,coordinatorCpuLease,coordinatorYielded=false,exported,delivered=false,adoptedSession=false,destinationSession,gpuTail=Promise.resolve(),failed=false,primary,inputOwner,outputOwner,taskOwner,forgetTask;const owned=[],requests=new Set(),gpuStaging=new Map(),controller=new AbortController(),signal=options.signal?AbortSignal.any([options.signal,controller.signal]):controller.signal,scheduler=getExecutionScheduler(this.budget,{maxWorkers:this.maxWorkers}),abort=()=>{resumeStartup?.();resumeStartup=null;if(task.retireWaiting)return;task.unavailable=true;task.worker?.terminate();task.reject?.(new EngineError('CANCELLED','Dense field worker stopped.'));task.retireWaiting?.reject(new EngineError('CANCELLED','Dense output retirement stopped.'));};
    let inputSerial=0,gpuRetireSerial=0,inputClosed=false,launch,resumeStartup;const suspendedInputs=new Set(),usefulProgress=new Map();const launched=new Promise(resolve=>{launch=resolve;}),inputRequests=new Map(),gpuRetireWaiters=new Map();
    const retireGpuStaging=async entry=>{if(inputClosed||signal.aborted||!task.worker)return false;const token=++gpuRetireSerial;const retired=await new Promise((resolve,reject)=>{gpuRetireWaiters.set(token,{resolve,reject});try{task.worker.postMessage({gpuRetire:{token,requestId:entry.id}});}catch(error){gpuRetireWaiters.delete(token);reject(error);}});gpuRetireWaiters.delete(token);if(retired){gpuStaging.delete(entry.id);entry.release();}return retired;};
    let denseGpuInputPublication,denseGpuResultTransfer;
@@ -47,14 +48,27 @@ export class DensePagedFieldPool{
    const updateResourceActivity=()=>{for(const current of [lease,gpuLease,coordinatorCpuLease])current?.setResourceBlocked?.(resourceBlocks>0);operation?.setState(resourceBlocks?'recovery':suspendedInputs.size?'io':lease||gpuLease||coordinatorCpuLease?'compute':'ready',{resource:resourceBlocks?'memory':suspendedInputs.size?'input-migration':null});};
    const whileResourceBlocked=async work=>{resourceBlocks++;updateResourceActivity();try{return await work();}finally{resourceBlocks--;updateResourceActivity();}};
    signal?.addEventListener('abort',abort,{once:true});
-   const cleanupSession=async()=>{if(task.session){await removeTerminatedTemporarySession(task.session.id,task.session.backend);return;}await Promise.allSettled(['opfs','indexeddb'].map(backend=>removeTerminatedTemporarySession(task.sessionId,backend)));};
+   const cleanupSession=async()=>{if(!task.worker&&!task.session)return;if(task.session){await removeTerminatedTemporarySession(task.session.id,task.session.backend);return;}await retireDenseOwners(['opfs','indexeddb'].map(backend=>()=>removeTerminatedTemporarySession(task.sessionId,backend)));};
+   const retireStores=onceDenseRetirement(()=>retireDenseOwners(owned)),retireDestination=onceDenseRetirement(()=>destinationSession?.dispose()),retireSession=onceDenseRetirement(cleanupSession),retireOutput=onceDenseRetirement(async()=>{await retireStores();await retireDestination();await retireSession();releaseOutput();});
+   const finalize=onceDenseRetirement(async()=>{
+    if(task.retirementPending){
+     if(task.unavailable)throw new EngineError('WORKER_FAILED','Dense field worker is unavailable; descendant cleanup ACK cannot be confirmed.',{details:{denseRetirementPending:true,workerTerminationRequested:true}});
+     await new Promise((resolve,reject)=>{let settled=false;const finish=(callback,value)=>{if(settled)return;settled=true;clearTimeout(timer);task.retireWaiting=null;callback(value);},timer=setTimeout(()=>{task.unavailable=true;task.worker?.terminate();finish(reject,new EngineError('WORKER_FAILED','Dense field cleanup response timed out; termination is not a cleanup ACK.',{details:{denseRetirementPending:true,workerTerminationRequested:true}}));},10000);task.retireWaiting={resolve:()=>{task.retirementPending=false;finish(resolve);},reject:error=>finish(reject,error)};try{task.worker.postMessage({retireOutput:{token:1}});}catch(error){task.unavailable=true;task.worker?.terminate();finish(reject,error);}});
+    }
+    controller.abort();signal?.removeEventListener('abort',abort);task.worker?.terminate();for(const kind of [...remoteBackings.keys()])observeBacking(kind,0);inputClosed=true;for(const waiting of gpuRetireWaiters.values())waiting.resolve(false);gpuRetireWaiters.clear();resumeStartup?.();resumeStartup=null;launch();for(const waiting of inputRequests.values())waiting.resolve();inputRequests.clear();await Promise.allSettled([...requests]);gpuLease?.release();gpuMemoryRelease?.();for(const entry of gpuStaging.values())entry.release();gpuStaging.clear();coordinatorCpuLease?.release();for(const release of workspaceReleases)release();lease?.release();this.active.delete(task);
+    await acknowledgeDenseRetirement(()=>inputOwner?.dispose());if(!delivered)await acknowledgeDenseRetirement(()=>outputOwner?outputOwner.dispose():retireOutput());else{if(!adoptedSession)await retireSession();outputOwner.publish();}sharedGpu?.release();operation?.release();this.pendingTaskRetirements.delete(taskOwner);releaseRetirementMetadata();forgetTask?.();forgetTask=null;
+   });
    try{
+    taskOwner={dispose:finalize,get state(){return{retirementPending:task.retirementPending,unavailable:task.unavailable,workerPresent:!!task.worker};}};this.pendingTaskRetirements.add(taskOwner);forgetTask=this.onRetirementOwner?.(taskOwner);
+    inputOwner=denseConstructionOwner([],{onRetirementOwner:this.onRetirementOwner},async()=>{await acknowledgeDenseRetirement(()=>exported?.release());this.pendingInputRetirements.delete(inputOwner);});this.pendingInputRetirements.add(inputOwner);
+    outputOwner=denseConstructionOwner(owned,{onRetirementOwner:this.onRetirementOwner},retireOutput);
     if(options.reuseGpuTransport===true&&options.enableDenseGpu===true)({denseGpuInputPublication,denseGpuResultTransfer}=await import('./dense-gpu-transport.js'));
     if(options.enableDenseGpu===true)try{sharedGpu=borrowDenseGpuService(this.budget);}catch(error){if(error.code!=='MEMORY_LIMIT')throw error;}
-    operation?.setState('io',{resource:'input-publication'});exported=await exportPortableDenseInput(input,{budget:this.budget,signal,forceBroker:this.forceBroker,cache:this.cache,control:controlInput,immediateControl:true});checkAbort(signal);
+    operation?.setState('io',{resource:'input-publication'});exported=await exportPortableDenseInput(input,{budget:this.budget,signal,forceBroker:this.forceBroker,cache:this.cache,control:controlInput,immediateControl:true,onRetirementOwner:this.onRetirementOwner});checkAbort(signal);
     for(;;){lease=await scheduler.acquire({cpu:1,signal,resourceOwner:'patchmatch',operation,label:'dense-paged-field'});checkAbort(signal);if(!suspendedInputs.size)break;lease.release();lease=null;await new Promise(resolve=>{resumeStartup=resolve;});checkAbort(signal);}task.worker=this.workerFactory();const started=performance.now(),concurrency=this.active.size;
     const remote=await new Promise((resolve,reject)=>{task.reject=reject;const protocol=installWorkerMessageProtocol(task.worker,data=>{
      if(data.backing){try{observeBacking('array-buffer',data.backing.arrayBufferBytes);observeBacking('wasm',data.backing.wasmBytes);}catch(error){reject(error);return;}}
+     if(data.outputRetired){const waiter=task.retireWaiting;if(!waiter||data.outputRetired.token!==1)throw new EngineError('WORKER_MESSAGE_FAILED','Unexpected Dense output retirement acknowledgement.');task.retireWaiting=null;data.outputRetired.error?waiter.reject(deserializeDenseError(data.outputRetired.error)):waiter.resolve();return;}
      if(data.inputAck){const waiting=inputRequests.get(data.inputAck.token);inputRequests.delete(data.inputAck.token);if(data.inputAck.error){const error=deserializeDenseError(data.inputAck.error);waiting?.reject(error);reject(error);}else waiting?.resolve(data.inputAck);return;}
      if(data.gpuRetired){gpuRetireWaiters.get(data.gpuRetired.token)?.resolve(data.gpuRetired.retired===true);return;}
      if(data.temporarySession){task.session=data.temporarySession;return;}
@@ -93,46 +107,41 @@ export class DensePagedFieldPool{
      if(data.cpuReturn){if(data.cpuReturn.id===leaseId)lease?.releaseCpu?.(data.cpuReturn.count);return;}
      if(data.cpuRelease){if(data.cpuRelease===leaseId){lease?.release();coordinatorCpuLease?.release();coordinatorCpuLease=null;lease=null;updateResourceActivity();}return;}
      if(data.progress){try{const p=data.progress,key=[p.phase,p.stage,p.iteration??''].join(':');if(Number.isFinite(p.completed)&&p.completed>(usefulProgress.get(key)??0)){usefulProgress.set(key,p.completed);operation?.commit();}this.cache?.rebalance();options.onProgress?.({...data.progress,sharedReadCache:this.cache?.snapshot()??null});}catch(error){reject(error);}return;}
-     if(data.error)reject(deserializeDenseError(data.error));else if(data.result&&typeof data.result==='object')resolve(data.result);else throw new EngineError('WORKER_MESSAGE_FAILED','Unexpected dense field response.');
-    },{label:'dense-paged-field',onFailure:error=>{task.worker?.terminate();for(const waiting of inputRequests.values())waiting.reject(error);inputRequests.clear();reject(error);}});task.worker.onerror=event=>protocol.fail(new EngineError('WORKER_FAILED',event.message||'Dense field worker failed.',{cause:event.error}));
-     const {signal:externalSignal,onProgress:progressHook,budget:budgetOption,temporarySession:sessionOption,getTemporarySession:sessionFactoryOption,resourceOperation:operationOption,...settings}=options;
+     if(data.error){task.retirementPending=data.retirementPending===true;reject(deserializeDenseError(data.error));}else if(data.result&&typeof data.result==='object')resolve(data.result);else throw new EngineError('WORKER_MESSAGE_FAILED','Unexpected dense field response.');
+    },{label:'dense-paged-field',onFailure:error=>{task.unavailable=true;task.retireWaiting?.reject(error);task.retireWaiting=null;task.worker?.terminate();for(const waiting of inputRequests.values())waiting.reject(error);inputRequests.clear();reject(error);}});task.worker.onerror=event=>protocol.fail(new EngineError('WORKER_FAILED',event.message||'Dense field worker failed.',{cause:event.error}));
+     const {signal:externalSignal,onProgress:progressHook,budget:budgetOption,temporarySession:sessionOption,getTemporarySession:sessionFactoryOption,resourceOperation:operationOption,onRetirementOwner:retirementHook,...settings}=options;
      protocol.post({input:exported.value,options:{...settings,residentPool:true,residentSiftBounds,pagedSiftBounds:false,workspaceBytes,parallelism:1,maxParallelism:this.maxWorkers},budgetBytes:workspaceBytes+outputReservation,outputStorage,sessionId:task.sessionId},exported.transfer);
      launch();
     });
-    checkAbort(signal);inputClosed=true;for(const waiting of inputRequests.values())waiting.resolve();inputRequests.clear();const inputTransports=exported.transports;await exported.release();operation?.setState('io',{resource:'output-publication'});task.session??=remote.session;const stores={},ensureDestination=async({signal:migrationSignal}={})=>destinationSession??=await createTemporarySession({budget:this.budget,signal:migrationSignal});
+    checkAbort(signal);inputClosed=true;for(const waiting of inputRequests.values())waiting.resolve();inputRequests.clear();const inputTransports=exported.transports;await inputOwner.dispose();operation?.setState('io',{resource:'output-publication'});task.session??=remote.session;const stores={},ensureDestination=async({signal:migrationSignal}={})=>destinationSession??=await createTemporarySession({budget:this.budget,signal:migrationSignal});
     for(const [name,descriptor] of Object.entries(remote.stores)){
      if(descriptor.kind==='shared'||descriptor.segments){const reservation=releaseOutput.split(descriptor.byteLength),actualBytes=descriptor.segments.reduce((sum,[,bank])=>sum+bank.byteLength,0),reported=remoteBackings.get('array-buffer')?.bytes??0;observeBacking('array-buffer',Math.max(0,reported-actualBytes),{transfer:true});let store;try{store=await adoptSharedSegmentedBytes(descriptor,{budget:this.budget,reservation,owner:'patchmatch',label:'dense-field-output',migrationReserve:bytes=>{const available=workspaceReleases.find(release=>release.bytes>=bytes);if(!available)throw new EngineError('MEMORY_LIMIT','Completed workspace cannot fund migration I/O.');return available.split(bytes);},temporarySession:options.temporarySession,getTemporarySession:options.getTemporarySession??ensureDestination});}catch(error){observeBacking('array-buffer',reported,{transfer:true});reservation();throw error;}store.markCold();owned.push(store);stores[name]=store;continue;}
-     const reader=await readByteStore(descriptor,{budget:this.budget});
+     const reader=await readByteStore(descriptor,{budget:this.budget,onRetirementOwner:this.onRetirementOwner});owned.push(reader);
      if(descriptor.kind==='broker'){
       // Browser fallback: copy the completed owned plane once in useful bounded
       // chunks before retiring its worker. Never keep an idle large Wasm heap
       // alive merely to answer later result/export reads.
-      let release,publicationError;
+      let release,publicationError,publicationFailed=false;
       try{
        await ensureDestination({signal});
        const store=await createSegmentedBytes(reader.byteLength,{budget:this.budget,storage:'temporary',temporarySession:destinationSession,signal});owned.push(store);const size=Math.min(MiB,reader.byteLength);release=this.budget.reserve(size);
        const buffer=new Uint8Array(size);for(let offset=0;offset<reader.byteLength;offset+=size){checkAbort(signal);const part=buffer.subarray(0,Math.min(size,reader.byteLength-offset));await reader.readInto(part,offset);await store.write(part,offset);}await store.flush();stores[name]=store;
-      }catch(error){publicationError=error;throw error;}
-      finally{
-       let cleanupError;try{release?.();}catch(error){cleanupError=error;}try{await reader.dispose();}catch(error){cleanupError??=error;}
-       if(!publicationError&&cleanupError)throw cleanupError;
-      }
-     }else{owned.push(reader);stores[name]=reader;if(descriptor.kind==='opfs-readonly')adoptedSession=true;}
+      }catch(error){publicationFailed=true;publicationError=error;throw error;}
+      finally{release?.();await cleanupDenseOwners(()=>reader.dispose(),{failed:publicationFailed,primary:publicationError});}
+     }else{stores[name]=reader;if(descriptor.kind==='opfs-readonly')adoptedSession=true;}
     }
+    // Broker outputs have been copied into their new owner. Close the old
+    // worker's pins, arrays and temporary session before termination. A worker
+    // termination request is not an IndexedDB connection-closed ACK.
+    if(!adoptedSession&&remote.outputRetirement===true)await new Promise((resolve,reject)=>{task.retireWaiting={resolve,reject};try{task.worker.postMessage({retireOutput:{token:1}});}catch(error){task.retireWaiting=null;reject(error);}});
+    checkAbort(signal);
     const result={...remote,...stores,allowed:remote.ownsAllowed?stores.allowed:input.mask};delete result.stores;delete result.session;
     const usefulMs=performance.now()-started;this.adaptive.observe(key,{count:concurrency,maximum:this.maxWorkers,milliseconds:usefulMs,units:Math.max(1,Number(result.comparisons))});
-    let disposed=false;result.dispose=async()=>{if(disposed)return;disposed=true;try{await Promise.all(owned.map(store=>store.dispose()));await destinationSession?.dispose();if(adoptedSession)await cleanupSession();}finally{releaseOutput();}};
+    result.dispose=outputOwner.dispose;
     result.metrics={...result.metrics,worker:true,sharedInput:inputTransports.every(kind=>kind==='shared'),inputTransports,workerBudgetBytes:workspaceBytes+outputReservation,usefulMs,scheduling,outputStorage,sharedReadCache:this.cache?.snapshot()??null};delivered=true;return result;
-   }finally{
-    controller.abort();signal?.removeEventListener('abort',abort);task.worker?.terminate();for(const kind of [...remoteBackings.keys()])observeBacking(kind,0);inputClosed=true;for(const waiting of gpuRetireWaiters.values())waiting.resolve(false);gpuRetireWaiters.clear();resumeStartup?.();resumeStartup=null;launch();for(const waiting of inputRequests.values())waiting.resolve();inputRequests.clear();await exported?.release();await Promise.allSettled([...requests]);gpuLease?.release();gpuMemoryRelease?.();for(const entry of gpuStaging.values())entry.release();gpuStaging.clear();coordinatorCpuLease?.release();for(const release of workspaceReleases)release();lease?.release();this.active.delete(task);
-    if(!delivered){await Promise.allSettled(owned.map(store=>store.dispose()));await destinationSession?.dispose();}
-    // Shared outputs already own split reservations. Broker/temporary outputs
-    // no longer occupy their worker RAM after copying and terminating it.
-    releaseOutput();
-    try{if(!delivered||!adoptedSession)await cleanupSession();}finally{sharedGpu?.release();operation?.release();}
-   }
+   }catch(error){failed=true;primary=error;throw error;}finally{await cleanupDenseOwners(finalize,{failed,primary});}
   })();
   task.promise=promise;return promise;
  }
- async drain(){await Promise.allSettled([...this.active].map(task=>task.promise));}
+ async drain(){await Promise.allSettled([...this.active].map(task=>task.promise));await retireDenseOwners([...this.pendingTaskRetirements]);await retireDenseOwners([...this.pendingInputRetirements]);}
 }

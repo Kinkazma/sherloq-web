@@ -8,15 +8,24 @@ static double pairwise_em(const double* a,int n){
  int cut=n/2;cut-=cut%8;return pairwise_em(a,cut)+pairwise_em(a+cut,n-cut);
 }
 struct EmStream {
- int width,height,size,n,p,cols,iteration=0,next=0,phase=0,status=1;double sigma=.005,s2=0,ws=0;
- std::vector<double>a,normal,inverse,lanes,out,F,f,weights;
- EmStream(int w,int h,int sz):width(w),height(h),size(sz),n((w-sz+1)*(h-sz+1)),p(sz*sz-1),cols(w-sz+1),a(p),normal(p*p),inverse(p*p),lanes(p*8),out(p){std::copy(p==8?initial8:initial24,(p==8?initial8:initial24)+p,a.begin());}
+ int width,height,size,n,p,cols,iteration=0,next=0,phase=0,status=1,gramEnd=0;double sigma=.005,s2=0,ws=0;
+ std::vector<double>a,normal,normalPartial,inverse,lanes,out,F,f,weights;
+ EmStream(int w,int h,int sz):width(w),height(h),size(sz),n((w-sz+1)*(h-sz+1)),p(sz*sz-1),cols(w-sz+1),a(p),normal(p*p),normalPartial(p*p),inverse(p*p),lanes(p*8),out(p){std::copy(p==8?initial8:initial24,(p==8?initial8:initial24)+p,a.begin());}
+ // Native Gram sub-reductions are defined on the complete global fit. A
+ // transport page may end inside one: carry its FMA accumulator, and add it to
+ // normal only at the same global boundary. Never read beyond the current F.
+ int gramLength(int remaining)const{if(remaining>=256)return 128;if(remaining>128)return 1LL*n*p*p>262144?(remaining+1)/2:((remaining/2+7)/8)*8;return remaining;}
  void features(const double* gray,int first,int count,int top){F.resize(count*p);f.resize(count);for(int i=0;i<count;i++){int y=(first+i)/cols-top,x=(first+i)%cols,column=0;for(int dy=0;dy<size;dy++)for(int dx=0;dx<size;dx++)if(dy!=size/2||dx!=size/2)F[i*p+column++]=gray[(y+dy)*width+x+dx];f[i]=gray[(y+size/2)*width+x+size/2];}}
  int batch(const double* gray,const double* oldweights,int first,int count,int top){
   if(status!=1||first!=next||count!=std::min(8192,n-first))return -1;features(gray,first,count,top);
-  if(phase==0){if(first==0){if(!std::isfinite(sigma)||sigma<=0)return status=-2;s2=ws=0;std::fill(normal.begin(),normal.end(),0.);}
+  if(phase==0){if(first==0){if(!std::isfinite(sigma)||sigma<=0)return status=-2;s2=ws=0;std::fill(normal.begin(),normal.end(),0.);std::fill(normalPartial.begin(),normalPartial.end(),0.);gramEnd=gramLength(n);}
    weights.resize(count);for(int i=0;i<count;i++){double total=a[0]*F[i*p];for(int k=1;k<p;k++)total+=a[k]*F[i*p+k];double sq=em_square(f[i]-total),g=em_exp(-sq/sigma);weights[i]=g/(g+.1);s2+=weights[i]*sq;}ws+=pairwise_em(weights.data(),count);
-   for(int y=0;y<p;y++)for(int x=0;x<p;x++){double value=normal[y*p+x];for(int at=0;at<count;){int length=n-first-at;if(length>=256)length=128;else if(length>128)length=(1LL*n*p*p>262144?(length+1)/2:((length/2+7)/8)*8);double sum=0;for(int k=at;k<at+length;k++){double v=(F[k*p+y]*weights[k])*weights[k];sum=std::fma(v,F[k*p+x],sum);}value+=sum;at+=length;}normal[y*p+x]=value;}
+   int followingEnd=gramEnd;
+   for(int y=0;y<p;y++)for(int x=0;x<p;x++){double value=normal[y*p+x],sum=normalPartial[y*p+x];int end=gramEnd;
+    for(int at=0;at<count;){const int stop=std::min(count,end-first);for(int k=at;k<stop;k++){double v=(F[k*p+y]*weights[k])*weights[k];sum=std::fma(v,F[k*p+x],sum);}at=stop;
+     if(first+at==end){value+=sum;sum=0;if(end<n)end+=gramLength(n-end);}
+    }normal[y*p+x]=value;normalPartial[y*p+x]=sum;followingEnd=end;
+   }gramEnd=followingEnd;
   }else{
    int main=std::min(count,(n/32)*32-first);main=std::max(0,main);
    for(int row=0;row<p;row++){

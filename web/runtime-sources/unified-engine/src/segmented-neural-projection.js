@@ -1,13 +1,15 @@
+import "../../runtime-context.js?v=0.25.0";
 import {allocateOwnedTypedArray} from './allocation.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {isResumableResourceError} from './errors.js';
+import {retireCompositeOwners} from './composite-owner-release.js';
 import{EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError}from'./errors.js';
 import{createSegmentedBytes}from'./segmented-bytes.js';import{segmentationProbabilities}from'../experiments/segmentation/probabilities.js';
 import{compileForgeryscopeScientificScope}from'./forgeryscope-scientific-scope.js';
 const BLOCK=1048576;
 // The output stores are private until every native zone and exclusion succeeds.
 // This performs projection/composition only; raw grids come from real inference.
-export async function segmentedNeuralProjection({family,width,height,zones,side,kind,mode='regions',exclusions=[],minimum=500,compare=false,scientificScope},{budget,spatial,postprocess,signal,onProgress,temporarySession,getTemporarySession,storage='auto',checkpoint,onCheckpoint,resourceOperation}={}){
+export async function segmentedNeuralProjection({family,width,height,zones,side,kind,mode='regions',exclusions=[],minimum=500,compare=false,scientificScope},{budget,spatial,postprocess,signal,onProgress,temporarySession,getTemporarySession,storage='auto',checkpoint,onCheckpoint,onRetirementOwner,resourceOperation}={}){
  const d2=family==='d2prl',roles=d2||kind==='softmax',n=width*height,grid=side*side;
  requireValue(['d2prl','segmentation'].includes(family)&&[width,height].every(v=>Number.isSafeInteger(v)&&v>0&&v<=131072)&&Number.isSafeInteger(n*15),'Neural source geometry');
  requireValue(d2?side===448&&typeof postprocess?.run==='function':[256,512].includes(side)&&['sigmoid','softmax'].includes(kind)&&(kind!=='softmax'||side===256),'Native neural grid domain');
@@ -24,12 +26,29 @@ export async function segmentedNeuralProjection({family,width,height,zones,side,
  const maximumGrid=Math.max(grid,...zones.map(z=>z.rawWidth!==undefined?z.rawWidth*z.rawHeight:grid));
  const transient=(d2?512*1024**2+2*grid*12+2*grid*16:maximumGrid*(roles?29:13))+4*Math.max(width,Math.min(BLOCK,n))+16384;
  const identity=JSON.stringify([family,width,height,side,kind,mode,minimum,exclusions,zones.map(z=>[z.id,z.bounds,z.rawWidth??side,z.rawHeight??side]),...(scientificScope?[scientificScope.identity,scientificScope.policy]:[])]);
- requireValue(!checkpoint||checkpoint.identity===identity&&!checkpoint.disposed,'Projection checkpoint identity');
+ requireValue(!checkpoint||checkpoint.identity===identity&&!checkpoint.disposed&&!checkpoint.retiring&&!checkpoint.complete,'Projection checkpoint identity');
  const state=checkpoint??{identity,rawSources:zones.map(z=>z.raw),stores:{},zoneMetadata:[],zone:0,plane:0,row:0,exclusion:0,exclusionRow:0,exclusionField:0,scanOffset:0,present:false,processed:null,prepared:null,metadataRetained:false,disposed:false};
  requireValue(state.rawSources.every((raw,i)=>raw===zones[i].raw),'Projection checkpoint raw grids changed');
  const {stores,zoneMetadata}=state,scheduler=getExecutionScheduler(budget),operation=budget.beginOperation?.({owner:family,id:'neural-projection',parent:resourceOperation});
- let planning,working,complete=false,keep=false,composition,analyzed;const started=performance.now();let projectionMs=0,compositionMs=0,postprocessMs=0,blocks=0;
- const dispose=state.dispose??=async()=>{if(state.disposed)return;state.disposed=true;state.processed?.release();state.maskOwner?.release();state.maskOwner=null;state.processed=state.prepared=null;state.rawSources=[];const results=await Promise.allSettled(Object.values(stores).map(s=>s.dispose()));for(const key of Object.keys(stores))delete stores[key];if(state.metadataRetained){budget.retained-=metadataBytes;state.metadataRetained=false;}const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;};
+ let planning,working,complete=false,keep=false,composition,analyzed,hasPrimary=false,primary;const started=performance.now();let projectionMs=0,compositionMs=0,postprocessMs=0,blocks=0;
+ const dispose=state.dispose??=()=>{
+  if(state.retirementTask)return state.retirementTask;
+  if(state.disposed)return Promise.resolve();
+  // A refused ACK is still an owned resource. Retrying must keep that exact
+  // owner, and two callers must await the same unfinished retirement.
+  state.retiring=true;state.rawSources=[];state.prepared=null;state.rawBorrow?.();state.rawBorrow=null;
+  const task=state.retirementTask=Promise.resolve().then(async()=>{
+   await retireCompositeOwners([
+    async()=>{await state.processed?.release();state.processed=null;},
+    async()=>{await state.maskOwner?.release();state.maskOwner=null;},
+    ...Object.entries(stores).map(([key,store])=>async()=>{await store.dispose();if(stores[key]===store)delete stores[key];})
+   ]);
+   state.prepared=null;state.rawSources=[];
+   if(state.metadataRetained){budget.retained-=metadataBytes;state.metadataRetained=false;}
+   state.disposed=true;
+  });
+  task.then(()=>{},()=>{if(state.retirementTask===task)state.retirementTask=null;});return task;
+ };
  const report=()=>onCheckpoint?.(state);
  async function writeRectangle(store,bytes,bytesPerPixel,x0,y0,w,h){
   if(x0===0&&w===width){await store.write(bytes,y0*width*bytesPerPixel);return;}
@@ -48,11 +67,17 @@ export async function segmentedNeuralProjection({family,width,height,zones,side,
   compositionMs+=performance.now()-at;blocks++;return foreground;
  }
  try{
-  if(!state.metadataRetained){budget.retain(metadataBytes);state.metadataRetained=true;}report();operation?.setState('io');planning=budget.reserve(workBytes+borrowedBytes+transient);
+  // This owner transfer does not enable checkpoint/resume semantics. Even a
+  // non-resumable failed construction remains reachable by its parent.
+  onRetirementOwner?.(state);
+  if(!state.metadataRetained){budget.retain(metadataBytes);state.metadataRetained=true;}
+  // A resumable checkpoint may outlive eviction of its producer's grid cache.
+  // Own that borrow once across attempts, rather than only during this call.
+  state.rawBorrow??=budget.reserve(borrowedBytes);report();operation?.setState('io');planning=budget.reserve(workBytes+transient);
   // Materialize real scratch before optional result banks can consume the room.
   composition=allocateOwnedTypedArray(Uint8Array,4*Math.max(width,Math.min(BLOCK,n)),{budget,reserve:b=>planning.split(b),owner:family,label:'neural-composition',operation});
   analyzed=allocateOwnedTypedArray(Uint8Array,Math.max(width,Math.min(BLOCK,n)),{budget,reserve:b=>planning.split(b),owner:family,label:'neural-analyzed',operation});
-  for(const key of fields)if(!stores[key]){stores[key]=await createSegmentedBytes(n*elementBytes(key),{budget,temporarySession,getTemporarySession,storage,signal,owner:family,label:'neural-'+key});report();}planning();planning=null;working=budget.reserve(Math.max(0,workBytes-composition.data.byteLength-analyzed.data.byteLength)+borrowedBytes);
+  for(const key of fields)if(!stores[key]){stores[key]=await createSegmentedBytes(n*elementBytes(key),{budget,temporarySession,getTemporarySession,storage,signal,owner:family,label:'neural-'+key});report();}planning();planning=null;working=budget.reserve(Math.max(0,workBytes-composition.data.byteLength-analyzed.data.byteLength));
   for(let index=state.zone;index<zones.length;index++){const z=zones[index],native=z.rawWidth!==undefined,gridWidth=native?z.rawWidth:side,gridHeight=native?z.rawHeight:side;
    checkAbort(signal);let processed=state.processed,prepared=state.prepared;const at=performance.now();let present=state.zonePresent??false;
    {
@@ -72,6 +97,14 @@ export async function segmentedNeuralProjection({family,width,height,zones,side,
   for(let offset=state.scanOffset;offset<n&&!present;offset+=maskBuffer.length){await controlCheckpoint(signal);const part=maskBuffer.subarray(0,Math.min(maskBuffer.length,n-offset));await stores.mask.readInto(part,offset);present=part.some(Boolean);state.present=present;state.scanOffset=offset+part.length;report();}
   const allNative=zones.every(z=>z.rawWidth!==undefined);const metadata={boxes:zones.map(z=>[...z.bounds]),zones:zoneMetadata,...(d2?{exclusions:exclusions.map(b=>[...b]),min_component:minimum,exclusion_policy:'output-only-native-d2prl'}:{channel_order:roles?['target','source','background']:['union_probability'],threshold:.5,threshold_rule:roles?'target>=0.5 OR source>=0.5':'probability>0.5',raw_filter_applied:false}),status:present?'ok':'empty',probability_interpolation:allNative?'none':'bilinear',mask_interpolation:allNative?'none':'nearest',inference_performed:false};
   if(scope)metadata.scientificProjection={fingerprint:scope.fingerprint,coordinates:'original-pixels',analyzedMeaning:'Original native/CNN context coverage; actual candidate admission is recorded in native pipeline receipts',scopeAppliedBeforeComposition:true};
-  checkAbort(signal);complete=true;return{width,height,stores,metadata,dispose,metrics:{totalMs:performance.now()-started,projectionMs,compositionMs,postprocessMs,blocks,metadataBytes,storage:Object.fromEntries(fields.map(k=>[k,stores[k].storage])),resultBytes:fields.reduce((s,k)=>s+n*elementBytes(k),0)}};
- }catch(error){const failure=normalizeResourceError(error);keep=!!onCheckpoint&&isResumableResourceError(failure)&&!signal?.aborted;if(keep)report();throw failure;}finally{composition?.release();analyzed?.release();planning?.();working?.();operation?.release();if(!complete&&!keep)await dispose();}
+  // Completed stores own their projected values. Their source grids are only
+  // borrowed for resumable, incomplete work and must not outlive that cache.
+  checkAbort(signal);state.complete=true;state.rawSources=[];complete=true;return{width,height,stores,metadata,dispose,metrics:{totalMs:performance.now()-started,projectionMs,compositionMs,postprocessMs,blocks,metadataBytes,storage:Object.fromEntries(fields.map(k=>[k,stores[k].storage])),resultBytes:fields.reduce((s,k)=>s+n*elementBytes(k),0)}};
+ }catch(error){const failure=normalizeResourceError(error);hasPrimary=true;primary=failure;keep=!!onCheckpoint&&!!state.rawBorrow&&isResumableResourceError(failure)&&!signal?.aborted;if(keep)report();throw failure;}finally{
+  await retireCompositeOwners([
+   ()=>composition?.release(),()=>analyzed?.release(),()=>planning?.(),()=>working?.(),()=>operation?.release(),
+   complete?()=>{state.rawBorrow?.();state.rawBorrow=null;}:undefined,
+   !complete&&!keep?dispose:undefined
+  ],hasPrimary?{primary}:{});
+ }
 }

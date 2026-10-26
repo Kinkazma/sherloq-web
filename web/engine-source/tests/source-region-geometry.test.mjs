@@ -22,9 +22,9 @@ test('exclusion-only scope uses whole mode while disabling it retains its geomet
  await state.toggle(true);assert.equal(state.snapshot().fingerprint,active.fingerprint);assert.ok(state.snapshot().revision>active.revision);
 });
 
-test('selected scope remains explicitly empty after deleting, clearing or disabling its final positive',async()=>{
- const state=await createOriginalSourceRegionsState(source);await state.add('acquisition',rect(2,2,6,6),{id:'a'});await state.setZoneEnabled('a',false);let domain=await compileOriginalSourceRegions(state.snapshot());assert.equal(domain.empty,true);assert.equal(domain.rect,null);assert.equal(domain.countIncluded,0);
- await state.undo();await state.remove('a');assert.equal(state.snapshot().positiveMode,'selected');assert.equal((await compileOriginalSourceRegions(state.snapshot())).empty,true);await state.undo();await state.clear();assert.equal((await compileOriginalSourceRegions(state.snapshot())).empty,true);await state.undo();assert.equal(state.snapshot().zones[0].id,'a');
+test('disable retains an explicitly empty selection; removing or clearing the final acquisition restores whole source atomically',async()=>{
+ const state=await createOriginalSourceRegionsState(source);await state.add('acquisition',rect(2,2,6,6),{id:'a'});await state.setZoneEnabled('a',false);let domain=await compileOriginalSourceRegions(state.snapshot());assert.equal(domain.empty,true);assert.equal(domain.rect,null);assert.equal(domain.countIncluded,0);assert.equal(state.snapshot().positiveMode,'selected');
+ await state.undo();const selected=state.snapshot();await state.remove('a');assert.equal(state.snapshot().positiveMode,'whole');assert.equal((await compileOriginalSourceRegions(state.snapshot())).countIncluded,120);await state.undo();assert.equal(state.snapshot().fingerprint,selected.fingerprint);await state.clear();assert.equal(state.snapshot().positiveMode,'whole');assert.equal((await compileOriginalSourceRegions(state.snapshot())).countIncluded,120);await state.undo();assert.equal(state.snapshot().zones[0].id,'a');assert.equal(state.snapshot().positiveMode,'selected');
 });
 
 test('delete, enabled toggle and clear share undo/redo history without losing IDs or geometry',async()=>{

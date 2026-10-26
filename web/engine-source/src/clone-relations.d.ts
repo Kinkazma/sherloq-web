@@ -18,3 +18,6 @@ export function annotateRelations(entries:CloneEntry[],scope:{regions?:Polygon[]
 export function pairRelations(input:{points:number[][];pairs:number[][];regions?:Polygon[]}):[number,number][];
 export function visibleCloneEntries(entries:CloneEntry[],options?:CloneViewOptions):CloneEntry[];
 export function biomePaintOrder(entries:CloneEntry[]):CloneEntry[];
+
+/** Prepared geometry of an immutable analysis plan. Entries and returned metadata remain fresh. */
+export function createCloneRelationAnnotator(plan:{regions?:Polygon[];envelope?:Polygon|null;width:number;height:number}):(entries:CloneEntry[])=>CloneEntry[];

@@ -1,11 +1,12 @@
+import {watchCanvas2D} from './canvas-context-recovery.js';
 // Presentation only. Full RGB8 pixels remain the analysis/export reference.
 const MiB=1024**2;
 export class TileCache {
- constructor(limit=32*MiB){if(!Number.isSafeInteger(limit)||limit<MiB)throw new Error('Invalid tile budget');this.limit=limit;this.bytes=0;this.entries=new Map();}
+ constructor(limit=32*MiB,onInvalidated=()=>{}){if(!Number.isSafeInteger(limit)||limit<MiB)throw new Error('Invalid tile budget');this.limit=limit;this.onInvalidated=onInvalidated;this.bytes=0;this.entries=new Map();}
  get(key){const v=this.entries.get(key);if(v){this.entries.delete(key);this.entries.set(key,v);}return v?.canvas;}
- take(key){const v=this.entries.get(key);if(!v)return null;this.entries.delete(key);this.bytes-=v.bytes;return v.canvas;}
- put(key,canvas){this.drop(key);const bytes=canvas.width*canvas.height*4;while(this.bytes+bytes>this.limit&&this.entries.size)this.drop(this.entries.keys().next().value);if(bytes>this.limit)throw new Error('Display tile exceeds budget');this.entries.set(key,{canvas,bytes});this.bytes+=bytes;}
- drop(key){const v=this.entries.get(key);if(!v)return;this.bytes-=v.bytes;v.canvas.width=v.canvas.height=0;this.entries.delete(key);}
+ take(key){const v=this.entries.get(key);if(!v)return null;this.entries.delete(key);this.bytes-=v.bytes;v.graphics?.dispose();return v.canvas;}
+ put(key,canvas,onInvalidated){this.drop(key);const bytes=canvas.width*canvas.height*4;while(this.bytes+bytes>this.limit&&this.entries.size)this.drop(this.entries.keys().next().value);if(bytes>this.limit)throw new Error('Display tile exceeds budget');const entry={canvas,bytes};this.entries.set(key,entry);this.bytes+=bytes;entry.graphics=watchCanvas2D(canvas,{onLost:()=>{if(this.entries.get(key)!==entry)return;this.drop(key);onInvalidated?.();this.onInvalidated();}});}
+ drop(key){const v=this.entries.get(key);if(!v)return;this.bytes-=v.bytes;v.graphics?.dispose();v.canvas.width=v.canvas.height=0;this.entries.delete(key);}
  release(prefix){for(const key of this.entries.keys())if(key.startsWith(prefix))this.drop(key);}
 }
 let sequence=0;

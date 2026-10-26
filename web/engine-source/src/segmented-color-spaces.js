@@ -19,7 +19,8 @@ export async function segmentedColorSpaces(image,params,{budget,signal,onProgres
   const available=budget.limit-budget.retained-budget.active-overhead-Math.max(w,h)*3;
   const rows=Math.min(h,rowsPerBlock??Math.max(1,Math.floor(262144/w)),Math.floor(available/(w*67)));
   if(rows<1)throw new EngineError('MEMORY_LIMIT','One oriented color-space row does not fit the shared budget.');
-  staging=budget.reserve(overhead+w*rows*64);
+  // Storage reserves its own IO pages. Keep their planned allowance free.
+  staging=budget.reserve(overhead-ioBytes+w*rows*64);
   let completed=0;
   await pool.run({count:Math.ceil(h/rows),pixels:w*rows,key:'color/'+w+'/'+rows,signal,prepareBytes:w*(rows+1)*3,
    prepare:async i=>{const at=performance.now(),y=i*rows,height=Math.min(rows,h-y),window=await image.surface.readWindow({x:0,y,width:w,height},{signal});try{readMs+=performance.now()-at;return {op:'color',rgb:window.pixels.data,width:w,height,params};}finally{window.release();}},

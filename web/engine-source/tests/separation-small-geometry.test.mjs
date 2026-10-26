@@ -1,0 +1,7 @@
+import test from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';
+import{Budget}from'../src/cache.js';import{contiguousSurface}from'../src/image-sources.js';import{segmentedSeparation}from'../src/segmented-separation.js';import{OPENCV_OPERATIONS}from'../src/opencv-operations.js';import{initSeparationWasm}from'../src/separation-math.js';import{initCvWasm}from'../src/opencv.js';
+await initSeparationWasm({wasmBinary:await readFile(new URL(import.meta.resolve('../vendor/separation/separation.wasm')))});await initCvWasm({wasmBinary:await readFile(new URL(import.meta.resolve('../vendor/opencv/opencv.wasm')))});const op=OPENCV_OPERATIONS['noise.separation'];
+for(const[width,height]of[[1,1],[1,17],[19,1],[17,13]])test('native single-row bands retain exact filter borders at'+width+'x'+height,async()=>{
+ const source={width,height,format:'rgb8',data:Uint8Array.from({length:width*height*3},(_,i)=>i*31^(i>>>3))},budget=new Budget(128*1024**2),image={surface:contiguousSurface(source,budget)};
+ for(let mode=0;mode<5;mode++)for(const denoised of[false,true])for(const grayscale of[false,true]){const p=op.validate({mode,radius:10,sigma:200,levels:0,grayscale,denoised}),expected=await op.compute(source,p,{}),result=await segmentedSeparation(image,p,{budget,rowsPerBlock:1}),frame=await result.surface.readWindow();try{assert.deepEqual(frame.pixels,expected.pixels,JSON.stringify(p));}finally{frame.release();await result.surface.dispose();}assert.equal(budget.total(),0);}
+});

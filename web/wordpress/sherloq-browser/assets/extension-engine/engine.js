@@ -1,4 +1,4 @@
-import "../runtime-context.js?v=0.21.0";
+import "../runtime-context.js?v=0.25.0";
 import {Budget} from '../unified-engine/src/cache.js';
 import {resolveComputeProfile} from '../unified-engine/src/profiles.js';
 import {getExecutionScheduler} from '../unified-engine/src/execution-scheduler.js';
@@ -8,7 +8,10 @@ import {allocateOwnedTypedArray} from '../unified-engine/src/allocation.js';
 import {runWithResourceRecovery} from '../unified-engine/src/resource-recovery.js';
 import {createBlobSourceAnalysis} from './blob-source-analysis.js';
 import {estimateComprintStatisticsPlan} from './comprint-streaming-statistics.js';
+import {comprintContextGeometry,estimateComprintContextStatisticsPlan} from './comprint-context-population.js';
 import {boundedDigest} from './bounded-digest.js';
+import {createDocTamperCategoryCache} from './doctamper-native-category-cache.js';
+import {runDocTamperNativeContexts} from './doctamper-native-contexts.js';
 const MiB=1024**2;
 const digest=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new Uint8Array(data.buffer,data.byteOffset,data.byteLength)))].map(x=>x.toString(16).padStart(2,'0')).join('');
 const aborted=signal=>{if(signal?.aborted)throw signal.reason??new DOMException('Aborted','AbortError');};
@@ -71,9 +74,10 @@ function modelResident(asset,backend){
  return heap+asset.bytes*2+(gpu?asset.bytes+workspace:0)+4*MiB;
 }
 export function estimatePipelineBytes(method,stage,image,{assets,backend='auto',statistics={},maxWorkers=6,maxGpuJobs=2}={}){
- const n=image.width*image.height,models=Object.values(assets).filter(a=>a.method===method);
+ const n=method==='comprint'&&image.comprintNativeContexts?comprintContextGeometry(image.comprintNativeContexts).pixels:image.width*image.height,models=Object.values(assets).filter(a=>a.method===method);
  if(!models.length)return 0; // Synthetic dependency-injected contract modules.
  if(stage==='statistics'){
+  if(image.comprintNativeContexts)return estimateComprintContextStatisticsPlan(image.comprintNativeContexts,{mainHeapBytes:statistics.mainHeapBytes,chunkedEM:statistics.chunkedEM??true,maxWorkers:1}).minimumBytes;
   if(!image.data||n>4_000_000){
    // Admission funds one useful exact EM worker, not every potential lane.
    // The statistics implementation adds lanes only with real shared headroom.
@@ -103,6 +107,7 @@ export async function createExtensionEngine({budget,scheduler,profile=resolveCom
  const core=new URL('../unified-engine/',import.meta.url),absolute=p=>new URL(p,baseURL).href;
  runtimes??={wasm:{factoryUrl:absolute('runtime/cpu-factory.mjs'),ortUrl:new URL('vendor/m3-ort/ort.wasm.min.mjs',core).href,wasmUrl:new URL('vendor/d2prl/ort-wasm-simd-threaded.wasm',core).href},webgpu:{factoryUrl:absolute('runtime/gpu-factory.mjs'),ortUrl:new URL('vendor/segmentation/ort.all.min.mjs',core).href,wasmUrl:new URL('vendor/segmentation/ort-wasm-simd-threaded.jsep.wasm',core).href}};
  const assets=Object.fromEntries(Object.entries(manifest.assets).map(([k,a])=>[k,{...a,url:absolute(a.url)}])),pools=new Map(),memo=new SharedMemo(budget),modules=new Map();
+ const doctamperCategories=createDocTamperCategoryCache({budget});
  const spaiEncoder=assets['models/spai/encoder.onnx'];if(spaiEncoder?.workspaceByBatch){spaiEncoder.effectiveBatchSize=budget.limit>=6*1024**3&&spaiEncoder.workspaceByBatch[4]?4:1;spaiEncoder.gpuWorkspaceBytes=spaiEncoder.workspaceByBatch[spaiEncoder.effectiveBatchSize];}
  let disposed=false,disposal,codec,codecPromise,codecRetirement,codecUsers=0,comprintStatistics,statisticsResidentBytes=0,statisticsActive=0;
  const codecIdleWaiters=new Set();
@@ -206,12 +211,14 @@ export async function createExtensionEngine({budget,scheduler,profile=resolveCom
     releaseBuffers=retainSourceBuffers?.();
     const work=memo.scope(prefix,{signal:workSignal}),neural=memo.scope('extensions/network',{signal:workSignal}),localMemo=new Map();let pipeline,preparedRelease,workingRelease,resultRelease,codecUseRelease;
     try{
-     pipeline=await admit(method,'neural',image,{backend,signal:workSignal,onProgress});
-     backend=pipeline.backend??backend;
+     const dtdNoInference=method==='doctamper'&&Array.isArray(image.doctamperNativeContexts)&&!image.doctamperNativeContexts.some(c=>c.evaluable);
+     if(!dtdNoInference){pipeline=await admit(method,'neural',image,{backend,signal:workSignal,onProgress});backend=pipeline.backend??backend;}
      const mod=await moduleFor(method);aborted(workSignal);let prepared;const bounded=!image.data||image.width*image.height>4_000_000;
      if(method==='comprint'&&!bounded)prepared=await work.get(prepKey,()=>mod.prepareComprintInput(image.data,image.width,image.height));
      else if(method==='comprint')prepared={width:image.width,height:image.height};
-     else if(method==='doctamper'&&bounded&&mod.prepareBounded){
+     else if(method==='doctamper'&&image.doctamperNativeContexts){
+      prepared={image};if(image.doctamperNativeContexts.some(c=>c.evaluable)){const borrowed=await borrowCodec();codecUseRelease=borrowed.release;prepared.codec=borrowed.value;}
+     }else if(method==='doctamper'&&bounded&&mod.prepareBounded){
       const borrowed=await borrowCodec(),currentCodec=borrowed.value;codecUseRelease=borrowed.release;prepared=await mod.prepareBounded(image,{signal:workSignal,onProgress,budget,scheduler,workingDCT:currentCodec.workingDCT,nativeCategorySource:currentCodec.nativeCategorySource,getTemporarySession:image.getTemporarySession});preparedRelease=()=>prepared.release?.();
      }else if(method==='doctamper'){
       const borrowed=await borrowCodec(),currentCodec=borrowed.value;codecUseRelease=borrowed.release;
@@ -224,8 +231,16 @@ export async function createExtensionEngine({budget,scheduler,profile=resolveCom
      const calls={loadSession:async(id,path)=>({path,id}),infer:(asset,feeds,options={})=>inference(asset?.path??asset,feeds,{backend,signal:workSignal,onProgress,scope:neural,execution,pipeline,...options})};
      let result;
      if(method==='bfree'||method==='spai')result=await mod.runPrepared(prepared,calls,{memo:localMemo,signal:workSignal,onProgress,source:image,scheduler,budget,maxWorkers:profile.maxWorkers,encoderBatchSize:method==='spai'&&(backend==='webgpu'||backend==='auto'&&Boolean(globalThis.navigator?.gpu))?(spaiEncoder?.effectiveBatchSize??1):1});
+     else if(method==='doctamper'&&image.doctamperNativeContexts)result=await runDocTamperNativeContexts(image,{runtime:{infer:calls.infer},asset:'models/doctamper/doctamper.onnx',categoryCache:doctamperCategories,nativeCategorySource:prepared.codec?.nativeCategorySource,workingDCT:prepared.codec?.workingDCT,budget,scheduler,signal:workSignal,onProgress});
      else if(method==='doctamper')result=await (bounded&&mod.analyzeBounded?mod.analyzeBounded:mod.analyze)(prepared,{runtime:{infer:calls.infer},asset:'models/doctamper/doctamper.onnx',signal:workSignal,onProgress,budget,render:false});
-     else if(method==='comprint'){
+     else if(method==='comprint'&&image.comprintNativeContexts){
+      const gpu=backend==='webgpu'||backend==='auto'&&Boolean(globalThis.navigator?.gpu),concurrency=gpu?Math.max(1,Math.min(2,profile.maxWorkers,scheduler.capacity?.cpu??profile.maxWorkers,scheduler.capacity?.gpu??maxGpuJobs)):1;
+      result=await mod.runComprintNativeContexts(image,{infer:calls.infer,budget,signal:workSignal,onProgress,concurrency,digest:data=>boundedDigest(data,{budget,scheduler,signal:workSignal,onProgress}),memoStatistics:(key,compute)=>work.get('statistics/'+assets['models/comprint/comprint.onnx'].sha256+'/'+key,compute),analyzeContexts:async(contexts,settings)=>{
+       pipeline.release();pipeline=undefined;pipeline=await admit(method,'statistics',image,{backend,signal:settings.signal,onProgress});
+       if(!comprintStatistics)comprintStatistics=mod.createComprintStatistics({maxWorkers:profile.maxWorkers,...statistics,budget,scheduler});
+       return comprintStatistics.analyzeContexts(contexts,settings);
+      },beforeRaster:numerical=>{statisticsResidentBytes=numerical.metadata?.resourceAdmission?.residentBytes??statisticsResidentBytes;pipeline?.release();pipeline=undefined;}});
+     }     else if(method==='comprint'){
       if(bounded)workingRelease=budget.reserve(image.width*image.height*8);
       const gpu=backend==='webgpu'||backend==='auto'&&Boolean(globalThis.navigator?.gpu),concurrency=gpu?Math.max(1,Math.min(2,profile.maxWorkers,scheduler.capacity?.cpu??profile.maxWorkers,scheduler.capacity?.gpu??maxGpuJobs)):1;
       const fingerprint=await (bounded?mod.runComprintFingerprintSource(image,{infer:calls.infer,asset:'models/comprint/comprint.onnx',signal:workSignal,onProgress,budget,scheduler,maxWorkers:profile.maxWorkers,concurrency}):mod.runComprintFingerprint(prepared,{infer:calls.infer,asset:'models/comprint/comprint.onnx',signal:workSignal,onProgress,budget,scheduler,maxWorkers:profile.maxWorkers,concurrency}));
@@ -302,7 +317,7 @@ export async function createExtensionEngine({budget,scheduler,profile=resolveCom
   analyzeSource(source,options={}){
    const d=source.surface?.descriptor??source.descriptor??source;
    const read=source.readWindow?.bind(source)??source.surface?.readWindow?.bind(source.surface);
-   return api.analyze({width:d.width,height:d.height,readWindow:read,retainAnalysisSource:source.retainAnalysisSource?.bind(source),sourceSha256:source.sourceSha256??source.sha256,sourceFormat:source.sourceFormat??source.provenance?.format,source:source.source??source.sourceFile,sourceBlob:source.sourceBlob??source.blob,encodedBytes:source.encodedBytes,exifOrientation:source.exifOrientation??source.provenance?.orientation??1,decodeProvenance:source.decodeProvenance??source.provenance,getTemporarySession:source.getTemporarySession??source.ensureTemporarySession},options);
+   return api.analyze({width:d.width,height:d.height,readWindow:read,retainAnalysisSource:source.retainAnalysisSource?.bind(source),sourceSha256:source.sourceSha256??source.sha256,sourceFormat:source.sourceFormat??source.provenance?.format,source:source.source??source.sourceFile,sourceBlob:source.sourceBlob??source.blob,encodedBytes:source.encodedBytes,exifOrientation:source.exifOrientation??source.provenance?.orientation??1,decodeProvenance:source.decodeProvenance??source.provenance,comprintNativeContexts:source.comprintNativeContexts,doctamperNativeContexts:source.doctamperNativeContexts,doctamperOriginal:source.doctamperOriginal,getTemporarySession:source.getTemporarySession??source.ensureTemporarySession},options);
   },
   /** onDecodedImage borrows a bounded presentation RGB only during its
    * awaited callback. originalWidth/Height and samplingStep identify exact
@@ -312,12 +327,12 @@ export async function createExtensionEngine({budget,scheduler,profile=resolveCom
    blobAnalysis??=createBlobSourceAnalysis({...blobSourceOptions,budget,analyzeSource:(source,settings)=>api.analyzeSource(source,settings)});
    return blobAnalysis.analyze(blob,options);
   },
-  snapshot(){return {metrics:structuredClone(metrics),memo:{...memo.metrics},execution:scheduler.snapshot(),pipelines:admission.snapshot(),memory:budget.snapshot()};},
-  clearCache(){memo.clear();},
+  snapshot(){return {metrics:structuredClone(metrics),memo:{...memo.metrics},doctamperCategories:doctamperCategories.snapshot(),execution:scheduler.snapshot(),pipelines:admission.snapshot(),memory:budget.snapshot()};},
+  async clearCache(){memo.clear();await doctamperCategories.clear();},
   dispose(){
    if(disposal)return disposal;disposed=true;const cleanups=[];
    const clean=fn=>{try{cleanups.push(Promise.resolve(fn()));}catch(error){cleanups.push(Promise.reject(error));}};
-   clean(()=>blobAnalysis?.dispose());clean(()=>admission.dispose());clean(()=>unclaimStatistics?.());clean(()=>unclaimCodec?.());clean(()=>memo.dispose());for(const pool of pools.values())clean(()=>pool.dispose());clean(()=>comprintStatistics?.dispose());clean(()=>disposeCodec());
+   clean(()=>blobAnalysis?.dispose());clean(()=>admission.dispose());clean(()=>unclaimStatistics?.());clean(()=>unclaimCodec?.());clean(()=>memo.dispose());clean(()=>doctamperCategories.dispose());for(const pool of pools.values())clean(()=>pool.dispose());clean(()=>comprintStatistics?.dispose());clean(()=>disposeCodec());
    // The module import may still be pending. Dispose its preprocessing pool as
    // soon as it becomes available, including FFT workers and shared buffers.
    for(const method of ['spai']){const pending=modules.get(method);if(pending)cleanups.push(pending.then(mod=>mod.disposePreprocessing?.(scheduler),()=>{}));}

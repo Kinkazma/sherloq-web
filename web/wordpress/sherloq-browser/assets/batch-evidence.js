@@ -1,3 +1,5 @@
+import {nativeContextMapEvidence} from './native-context-map-evidence.js';
+import {catnetNativeMapEvidence} from './catnet-batch-evidence.js';
 import {Budget} from './unified-engine/src/cache.js';
 import {createCloneCorroboration} from './unified-engine/src/clone-corroboration.js';
 import {automaticPointEntries} from './unified-engine/src/automatic-point-entries.js';
@@ -114,6 +116,8 @@ export async function cloneEvidence(output,recipe,client,image,context,signal){
  return {...owned,evidencePreparation,entries:owned.entries.map(e=>({...e,methodKey}))};
 }
 export async function mapEvidence(output,recipe,client,image,signal){
+ if((output.operation==='m2.trufor'&&output.data?.metadata?.fragmented)||(output.operation==='jpeg.comprint'&&output.metrics?.sourceRegionPolicy==='native-comprint-contexts-global-statistics'))return nativeContextMapEvidence(output,recipe,client,image,{scope:imageScope(image,output,client),signal});
+ if(output?.operation==='m2.catnet'&&output.data?.metadata?.fragmented)return catnetNativeMapEvidence(output,recipe,client,image,{scope:imageScope(image,output,client),signal});
  const map=output.surface??output.planeSurfaces?.map;
  if(!map&&!output.m2Result?.fields?.map)throw Error('Carte scientifique absente.');
  const scope=imageScope(image,output,client),threshold=Number(recipe.signal.threshold),minimum=Number(recipe.signal.minimumPixels);let pixels=0,max=0,eligiblePixels=0,rawPixels=0,rawMaximum=0,left=image.width,top=image.height,right=-1,bottom=-1;

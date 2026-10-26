@@ -21,8 +21,20 @@ export function pngExportPlan({width,height,format}){
  return {channels,rows,rowBytes,bound,heapMaximumBytes,workingBytes:heapMaximumBytes+8*MiB+OUTPUT_CHUNK};
 }
 export function createRasterExports(budget,{onTemporarySession}={}){
- const records=new Map();
- async function dispose(record){if(record.dispose)return record.dispose();try{await record.store.dispose();}finally{await record.session?.dispose();}}
+ const records=new Map(),retiring=new Map(),retirement=new WeakMap();
+ async function dispose(record){
+  if(record.dispose)return record.dispose();
+  let state=retirement.get(record);if(!state){state={store:false,session:false};retirement.set(record,state);}
+  // Temporary backing must remain alive while its store still owes an ACK.
+  if(!state.store){await record.store.dispose();state.store=true;}
+  if(!state.session){await record.session?.dispose();state.session=true;}
+ }
+ function remove(id,record){
+  if(retiring.has(id))return retiring.get(id);
+  record.retirementStarted=true;
+  const task=Promise.resolve().then(()=>dispose(record)).then(()=>{if(records.get(id)===record)records.delete(id);});
+  retiring.set(id,task);void task.finally(()=>{if(retiring.get(id)===task)retiring.delete(id);}).catch(()=>{});return task;
+ }
  return {
   async create(surface,request,{signal,onProgress,imageId,originalSha256,wasmBinary}={}){
    if(['avif','webp','heic','tiff'].includes(request.format)){const record=await encodeMediaRaster(surface,request,{budget,signal,onProgress,onTemporarySession,imageId,originalSha256});records.set(record.descriptor.id,record);return structuredClone(record.descriptor);}
@@ -55,11 +67,11 @@ export function createRasterExports(budget,{onTemporarySession}={}){
    try{result=await (extensions?streamExtensionsNpz:dense?streamDenseNpz:m3?streamM3ResearchNpz:neural?streamNeuralNpz:energy?streamEnergyNpz:streamZeroNpz)(record.extensionsAnalysis??record.denseAnalysis??record.m3Research??record.neuralAnalysis??record.energyAnalysis??record.zeroAnalysis,record.provenance,request,{budget,signal,onProgress,onTemporarySession});const descriptor={id:crypto.randomUUID(),revision:1,mime:result.mime,format:'npz',width:record.surface.descriptor.width,height:record.surface.descriptor.height,byteLength:result.byteLength,sha256:result.sha256,imageId,sourceSurfaceId:record.surface.descriptor.id,sourceSurfaceRevision:record.surface.descriptor.revision,provenance:{originalSha256,operation:extensions||neural||m3||dense?record.provenance.operation:energy?'ela.energy':'jpeg.zero',coordinates:record.surface.descriptor.coordinates??'full-resolution',arrays:extensions?'Native extension float64/float32 planes and uint8 masks; no pickle':dense?'Native points, pairs, groups and complete dense fields; no pickle':m3?'Native research grids, features and labels; no pickle':neural?'Native float32 probability/role planes and uint8 masks; no pickle':energy?'Native float32 energy/scores and int32 scopes/labels; no pickle':'Native float64 luminance/NFA and int32 votes/masks; no pickle'},metrics:{...result.metrics,memory:budget.snapshot()}};onProgress?.({phase:'complete',fraction:1});checkAbort(signal);records.set(descriptor.id,{descriptor,store:result.store,session:result.session});published=true;return structuredClone(descriptor);}finally{if(result&&!published)await dispose(result);}
   },
   async read({exportId,revision,offset=0,length},{signal}={}){
-   const record=records.get(exportId);if(!record)throw new EngineError('NOT_FOUND','Raster export no longer exists.');const totalBytes=record.descriptor.byteLength;requireValue(revision===record.descriptor.revision,'Stale raster export revision.');length??=Math.min(MiB,totalBytes-offset);requireValue(Number.isSafeInteger(offset)&&Number.isSafeInteger(length)&&offset>=0&&length>=0&&length<=4*MiB&&offset<=totalBytes-length,'Invalid raster export page; maximum4MiB.');await controlCheckpoint(signal);const release=budget.reserve(length);
+   const record=records.get(exportId);if(!record)throw new EngineError('NOT_FOUND','Raster export no longer exists.');if(record.retirementStarted)throw new EngineError('DISPOSED','Raster export is closing; retry its release.');const totalBytes=record.descriptor.byteLength;requireValue(revision===record.descriptor.revision,'Stale raster export revision.');length??=Math.min(MiB,totalBytes-offset);requireValue(Number.isSafeInteger(offset)&&Number.isSafeInteger(length)&&offset>=0&&length>=0&&length<=4*MiB&&offset<=totalBytes-length,'Invalid raster export page; maximum4MiB.');await controlCheckpoint(signal);const release=budget.reserve(length);
    try{const bytes=new Uint8Array(length);await record.store.readInto(bytes,offset);checkAbort(signal);return {exportId,revision,offset,bytes,totalBytes,nextOffset:offset+length,done:offset+length===totalBytes,mime:record.descriptor.mime};}finally{release();}
   },
-  async release(id){const record=records.get(id);if(!record)throw new EngineError('NOT_FOUND','Raster export no longer exists.');records.delete(id);await dispose(record);},
-  async clear(){const all=[...records.values()];records.clear();const results=await Promise.allSettled(all.map(dispose));const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;},
+  async release(id){const record=records.get(id);if(!record)throw new EngineError('NOT_FOUND','Raster export no longer exists.');await remove(id,record);},
+  async clear(){const results=await Promise.allSettled([...records].map(([id,record])=>remove(id,record)));const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;},
   get size(){return records.size;}
  };
 }
