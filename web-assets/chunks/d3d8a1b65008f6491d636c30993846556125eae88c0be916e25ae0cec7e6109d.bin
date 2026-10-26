@@ -1,0 +1,11 @@
+import "../../runtime-context.js?v=0.25.0";
+import {streamScientificNpz} from './scientific-npz-stream.js';
+function entries(analysis,prefix=''){
+ const {width,height}=analysis,n=width*height;return ['energy_planes','energy_low_score','energy_high_score','energy_scope','energy_labels'].map(key=>({key:prefix+key,count:key==='energy_planes'?3*n:n,elementBytes:4,descr:['energy_scope','energy_labels'].includes(key)?'<i4':'<f4',shape:key==='energy_planes'?[3,height,width]:[height,width],async read(bytes,first,length){if(key!=='energy_planes')return analysis[key].readInto(bytes,first*4);let copied=0;while(copied<length){const at=first+copied,plane=Math.floor(at/n),offset=at%n,count=Math.min(length-copied,n-offset);await analysis.energy_planes[plane].readInto(bytes.subarray(copied*4,(copied+count)*4),offset*4);copied+=count;}}}));
+ }
+export async function streamEnergyNpz(analysis,provenance,request,hooks={}){
+ const release=analysis.retain?.();let failed=false,result,transferred=false,finish,pending;const ready=new Promise(r=>finish=r),archive={dispose(){if(pending)return pending;const task=(async()=>{await ready;if(!transferred&&result){await result.store?.dispose();await result.session?.dispose();result=null;}})();pending=task;void task.finally(()=>{if(pending===task)pending=null;}).catch(()=>{});return task;}};analysis.onExportOwner?.(archive);
+ try{let arrays,metadata;if(analysis.kind!=='separate-native-energy-contexts/2'){arrays=entries(analysis);metadata=analysis.metadata;}else{arrays=analysis.contexts.flatMap((c,i)=>entries(c.analysis,'context_'+i+'_'));metadata={...analysis.metadata,coverage:analysis.coverage,contexts:analysis.contexts.map((c,i)=>({id:c.id,bounds:c.bounds,originalBounds:c.originalBounds,prefix:'context_'+i+'_',metadata:c.analysis.metadata,energy_summary:c.energy_summary,regions:c.regions,regionColors:c.regionColors}))};}
+ result=await streamScientificNpz(arrays,metadata,provenance,{...request,progressPhase:'energy-npz'},hooks);await release?.();transferred=true;return result;
+ }catch(error){failed=true;throw error;}finally{if(!transferred)try{await release?.();}catch(error){if(!failed)throw error;}finally{finish();}else finish();}
+}

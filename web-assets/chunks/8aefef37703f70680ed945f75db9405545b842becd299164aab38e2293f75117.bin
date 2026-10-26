@@ -1,0 +1,934 @@
+{
+  "schema": 1,
+  "scope": "Portable runtime without model weights; private package supplied separately by verified manifest. No runtime calibration. ORT512/roles256 JS heap-max and growth match their actual existing linear-memory cap; near-cap allocation history may differ. WASM bytes unchanged.",
+  "rolesRuntime": {
+    "schema": 1,
+    "runtimeId": "ort130-wasm-512mib",
+    "upstreamVersion": "1.30.0",
+    "memoryMaximumBytes": 536870912,
+    "scope": "Linear-memory maximum512MiB and JS heap-max/growth clamped to the same ceiling. Allocation history near the cap may differ. WASM/numerical operators unchanged; explicit refusal beyond the cap; actual heap capacity is not RSS.",
+    "upstreamFactorySha256": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b",
+    "wasmSha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2",
+    "factory": "factory.mjs",
+    "files": {
+      "ort-wasm-simd-threaded.mjs": {
+        "bytes": 24377,
+        "sha256": "c58b7d2aab041b4a19f4c941050fde7c09a46b6e156105659d7945183de8334e"
+      },
+      "factory.mjs": {
+        "bytes": 221,
+        "sha256": "85a4d82bcb5311dc399ee4c1d0e86b8514ac94220c92a41f8e84d14be7c78415"
+      }
+    }
+  },
+  "builds": {
+    "prepare": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "920a994cbabbeb2beb0a990f5d255c94c806eaa89d657ffd081cdd48bcc22df2",
+      "files": {
+        "prepare.js": {
+          "bytes": 7717,
+          "sha256": "f3e956c0d33f834e5b01ba80eaf0db2ee8ee604b652e80bbea9fcd0245b4138f"
+        },
+        "prepare.wasm": {
+          "bytes": 10921,
+          "sha256": "bb39ccd9bac8c419aa016c72b517caed9457d1b3c03bd34bf8786c12f0b768aa"
+        }
+      }
+    },
+    "feature-math": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sources": {
+        "feature-math.cpp": "783ee56177651072361971e9b303f822ff9d16ca42de7326d9bd8ea6cda89548",
+        "resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d"
+      },
+      "files": {
+        "feature-math.js": {
+          "bytes": 7869,
+          "sha256": "bd7ba0e57605fba924c05cec583b4683efec0d17e78029368baa678645640717"
+        },
+        "feature-math.wasm": {
+          "bytes": 9735,
+          "sha256": "7a6f800fa4ae9762ab4c50b7cefbf9b8984799b478926ddac7db62bc22832d13"
+        }
+      }
+    },
+    "neural-math": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sources": {
+        "neural-math.cpp": "c80a9b3ee54ff3e0cb6192ff705b5c28dda6ff7e3dc601c26415a29417698cbe",
+        "feature-math.cpp": "783ee56177651072361971e9b303f822ff9d16ca42de7326d9bd8ea6cda89548",
+        "resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d",
+        "mean.cpp": "412d2558fd3d0152bac9f6f4dde7caca25363387ec9759c1779acb56ee7de72e",
+        "sum.cpp": "cfdeb89413564462516320f964ea7a8ad0334fa981591b77134f0a62cf05fba7",
+        "sigmoid.cpp": "3c0ac4c7a75ad0ce0de91b77cfe8ba4f529ca319fa43c027d23a0ea0789eef59",
+        "dlf.cpp": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+        "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+      },
+      "files": {
+        "neural-math.js": {
+          "bytes": 8221,
+          "sha256": "5a91c4b590eb2935263481ff15ba85097123ff57558aa30cc079983d6f64fe59"
+        },
+        "neural-math.wasm": {
+          "bytes": 16718,
+          "sha256": "b3dbf2d834b62b9a1ad05632756a361add03a19913355b3f80741464cc6c9324"
+        }
+      }
+    },
+    "dlf": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "055451b2e2486e4028117f1ed0cbdcbd08d4210795ad52069ac96dd03248433f",
+      "referenceExpSha256": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e",
+      "files": {
+        "dlf.js": {
+          "bytes": 7514,
+          "sha256": "cabc6b8e47cb47810df72537660134c55793de8bf5f37d1f7229f0c46ecf9048"
+        },
+        "dlf.wasm": {
+          "bytes": 7963,
+          "sha256": "f9234954d2463339e1745cb1e4449e434e084b9c69dbbdd202dd13b635f3888c"
+        }
+      }
+    },
+    "convolution-cpu": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "memoryMaximumBytes": 268435456,
+      "threads": 1,
+      "sources": {
+        "convolution-cpu.cpp": "6a2f8107272e7363a3b6ffb1c4934f4b83e4653dac0c0c8c611ba2cab7bf51fe",
+        "fma-simd.h": "fee2445e13b8321920d0672ebc568eb6c3a04a12ae7b702cc5fda928b36e31b2"
+      },
+      "files": {
+        "convolution.js": {
+          "bytes": 7491,
+          "sha256": "46b5404857b9f855e2dd1743040b3a6575ef5384e038941ba9baf7c61ad8c8a2"
+        },
+        "convolution.wasm": {
+          "bytes": 12677,
+          "sha256": "ad15173f57becc35c489be555c566a3120dd94ada11cfc39d12b2e0bb2ec9eab"
+        }
+      }
+    },
+    "evaluator-tiled": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sources": {
+        "evaluator-tiled.cpp": "f1d89ef902cdd517d1eae45bf3b873231d3f2440fcd2bb107b96b59f7637b255",
+        "evaluator.cpp": "e53d58085d325bd2a741202407b44f819b02cbcc1efee4fe67e1b27f265bdf1d",
+        "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+      },
+      "files": {
+        "evaluator-tiled.js": {
+          "bytes": 7839,
+          "sha256": "9dd63733d7e78b2834b9afc8ccf8f07d853dd191181e739a6b4ca1ef3141467a"
+        },
+        "evaluator-tiled.wasm": {
+          "bytes": 16172,
+          "sha256": "41165efcd4e56bdad5e1cefe9806cf61a9eec24af600d76ba468c8ed3a4dfa98"
+        }
+      }
+    },
+    "postprocess": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "d4c04fa19132e2cfad1e67debb42a721928a037d8480d5d1935d7a90956d075a",
+      "objects": {
+        "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+        "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+        "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+      },
+      "files": {
+        "postprocess.js": {
+          "bytes": 26716,
+          "sha256": "d97047b84961cf61c38ae2b879413cc79bef9d123e279ef13fb68f3d0530e6e8"
+        },
+        "postprocess.wasm": {
+          "bytes": 760829,
+          "sha256": "427e23c7d7f63288d2ada235da1b7b26d1e6df6ea52dd9de61ee58301e7d444d"
+        }
+      }
+    },
+    "spatial": {
+      "schema": 1,
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+      "sourceSha256": "30d43e9225f6fa21320578c2bed424c5e7eeea08c3d0f791a0990075738aca2d",
+      "objects": {
+        "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+        "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+        "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+      },
+      "files": {
+        "spatial.js": {
+          "bytes": 23738,
+          "sha256": "f3906c052cddc62ab68fa985b6f59b731a50c614b2cca36fad788f3ff617d896"
+        },
+        "spatial.wasm": {
+          "bytes": 556176,
+          "sha256": "d951569ef9f4690c3543e61139778d015ff911c782caf50c7494902584353503"
+        }
+      }
+    },
+    "evaluator-pixel-major": {
+      "schema": 1,
+      "status": "qualified-exact-direct-model",
+      "descriptorLayout": "HWC-uint16",
+      "buildScript": "scripts/build-d2prl-evaluator-original-cache.mjs",
+      "stageScript": "scripts/stage-d2prl-evaluator-fast.mjs",
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.11 (a0014542110d6078c3a1a7941fa1ddb3a2281f16)",
+      "sources": {
+        "original": {
+          "evaluator-tiled.cpp": "f1d89ef902cdd517d1eae45bf3b873231d3f2440fcd2bb107b96b59f7637b255",
+          "evaluator.cpp": "e53d58085d325bd2a741202407b44f819b02cbcc1efee4fe67e1b27f265bdf1d",
+          "reference-exp.h": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+        },
+        "candidate": {
+          "pixel-major-combined.cpp": "46834aef3021d4c637adf8b7231b5470529ddb34f6d263f115a5b100125a34d4",
+          "pixel-major-combined-tiled.cpp": "bf25aa5dbc7f6407dadeb74c425d6e75e1deb9ca521f84db53efb012a76f62d1"
+        }
+      },
+      "files": {
+        "pixel-major-combined.js": {
+          "bytes": 7382,
+          "sha256": "61b2d84203358f4ec1e1f0dabcbe7238764289e5d67236162a615f70dd0f30d7"
+        },
+        "pixel-major-combined.wasm": {
+          "bytes": 15723,
+          "sha256": "11ad5dc8226e0190c1930a6593fc349895f58a60d28717c34d650c54ef025878"
+        }
+      },
+      "qualification": {
+        "directModel": {
+          "bytes": 483982,
+          "sha256": "aea606368aaf99da3db20b8fdc85bcbfc84daa4abddb8e5bd88e9f3892081352",
+          "status": "passed-exact-parity",
+          "reference": "eb0cc7518c58b98a905abe031f7a3228d0a2d3df",
+          "modelSha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "runs": 8,
+          "repetitions": 2,
+          "temperatures": [
+            "cold-context-new-model",
+            "warm-retained-model"
+          ],
+          "jobs": [
+            {
+              "id": "pinned-positive-rgb",
+              "source": {
+                "bytes": 608007,
+                "sha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd",
+                "shape": [
+                  389,
+                  521,
+                  3
+                ]
+              }
+            }
+          ],
+          "summary": [
+            {
+              "case": [
+                "pinned-positive-rgb",
+                "webgpu",
+                "maximum",
+                8589934592,
+                "cold-context-new-model"
+              ],
+              "pairs": 2,
+              "exact": true,
+              "globalGainQualified": true,
+              "pairedMedianGainPercent": 49.19607218307738
+            },
+            {
+              "case": [
+                "pinned-positive-rgb",
+                "webgpu",
+                "maximum",
+                8589934592,
+                "warm-retained-model"
+              ],
+              "pairs": 2,
+              "exact": true,
+              "globalGainQualified": true,
+              "pairedMedianGainPercent": 52.170207110780794
+            }
+          ]
+        },
+        "smallParity": {
+          "bytes": 247364,
+          "sha256": "5ab6073503196e57820bd97730868bff0ea57b06410448bd261329c43d223c12",
+          "status": "passed-small-corpus-bit-parity",
+          "cases": 52,
+          "totalElements": 1662364
+        },
+        "nativeCorpus": {
+          "bytes": 121227,
+          "sha256": "00c230472ea2aaaf76abee14b41ff3ed3da38a4b2c46c72a53b66080669bdb7e",
+          "status": "passed-available-native-corpora",
+          "coverageComplete": false,
+          "evaluatorCases": 264,
+          "evaluatorElements": 723784,
+          "softmaxStatus": "passed",
+          "missing": [
+            {
+              "reference": "reference.json",
+              "name": "zernike-448-5-noise",
+              "side": 448,
+              "files": [
+                "zernike-448-5-noise-features.bin",
+                "zernike-448-5-noise-offset_x.bin",
+                "zernike-448-5-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "reference.json",
+              "name": "zernike-448-13-noise",
+              "side": 448,
+              "files": [
+                "zernike-448-13-noise-features.bin",
+                "zernike-448-13-noise-offset_x.bin",
+                "zernike-448-13-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "reference.json",
+              "name": "cnn-448-5-noise",
+              "side": 448,
+              "files": [
+                "cnn-448-5-noise-features.bin",
+                "cnn-448-5-noise-offset_x.bin",
+                "cnn-448-5-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "reference.json",
+              "name": "cnn-448-13-noise",
+              "side": 448,
+              "files": [
+                "cnn-448-13-noise-features.bin",
+                "cnn-448-13-noise-offset_x.bin",
+                "cnn-448-13-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "zernike-448-5-noise",
+              "side": 448,
+              "files": [
+                "zernike-448-5-noise-features.bin",
+                "zernike-448-5-noise-offset_x.bin",
+                "zernike-448-5-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "zernike-448-13-noise",
+              "side": 448,
+              "files": [
+                "zernike-448-13-noise-features.bin",
+                "zernike-448-13-noise-offset_x.bin",
+                "zernike-448-13-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "cnn-448-5-noise",
+              "side": 448,
+              "files": [
+                "cnn-448-5-noise-features.bin",
+                "cnn-448-5-noise-offset_x.bin",
+                "cnn-448-5-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "cnn-448-13-noise",
+              "side": 448,
+              "files": [
+                "cnn-448-13-noise-features.bin",
+                "cnn-448-13-noise-offset_x.bin",
+                "cnn-448-13-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "zernike-448-5-noise-threads1",
+              "side": 448,
+              "files": [
+                "zernike-448-5-noise-features.bin",
+                "zernike-448-5-noise-offset_x.bin",
+                "zernike-448-5-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "zernike-448-13-noise-threads1",
+              "side": 448,
+              "files": [
+                "zernike-448-13-noise-features.bin",
+                "zernike-448-13-noise-offset_x.bin",
+                "zernike-448-13-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "cnn-448-5-noise-threads1",
+              "side": 448,
+              "files": [
+                "cnn-448-5-noise-features.bin",
+                "cnn-448-5-noise-offset_x.bin",
+                "cnn-448-5-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "cnn-448-13-noise-threads1",
+              "side": 448,
+              "files": [
+                "cnn-448-13-noise-features.bin",
+                "cnn-448-13-noise-offset_x.bin",
+                "cnn-448-13-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "zernike-448-5-noise-threads8",
+              "side": 448,
+              "files": [
+                "zernike-448-5-noise-features.bin",
+                "zernike-448-5-noise-offset_x.bin",
+                "zernike-448-5-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "zernike-448-13-noise-threads8",
+              "side": 448,
+              "files": [
+                "zernike-448-13-noise-features.bin",
+                "zernike-448-13-noise-offset_x.bin",
+                "zernike-448-13-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "cnn-448-5-noise-threads8",
+              "side": 448,
+              "files": [
+                "cnn-448-5-noise-features.bin",
+                "cnn-448-5-noise-offset_x.bin",
+                "cnn-448-5-noise-offset_y.bin"
+              ]
+            },
+            {
+              "reference": "thread-reference.json",
+              "name": "cnn-448-13-noise-threads8",
+              "side": 448,
+              "files": [
+                "cnn-448-13-noise-features.bin",
+                "cnn-448-13-noise-offset_x.bin",
+                "cnn-448-13-noise-offset_y.bin"
+              ]
+            }
+          ]
+        },
+        "runtimeCandidate": {
+          "files": 1000,
+          "sha256": "4d7429d83b30986eab0ceeb1427d714bfe85d2b36c9df5dc40852ed04daffedc"
+        },
+        "scope": "Exact current-engine three-raw/decision parity and paired global gain for the recorded jobs, profiles, backends, budgets and cold/warm cases; native corpus omissions remain explicit. No universal detector-accuracy or physical-RAM claim."
+      }
+    },
+    "roles-256-d2prl": {
+      "schema": 1,
+      "status": "qualified-exact-current-engine-memory-cap",
+      "runtimeId": "ort130-wasm-256mib-d2prl",
+      "memoryMaximumBytes": 268435456,
+      "upstreamVersion": "1.30.0",
+      "buildScript": "scripts/build-d2prl-role-runtime-256.mjs",
+      "factory": "factory-roles256.mjs",
+      "loader": "ort-wasm-simd-threaded-roles256.mjs",
+      "sharedWasm": "ort-wasm-simd-threaded.wasm",
+      "wasmSha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2",
+      "source": {
+        "file": "ort-wasm-simd-threaded.mjs",
+        "bytes": 24380,
+        "sha256": "7ec2e1087a815e79222ade487a3dfa738aa0c606df4ca2314bd90d1735a8a420"
+      },
+      "modelIdentity": {
+        "bytes": 19943135,
+        "sha256": "33b7b17588e96a2bcda1e1d8de203770bd782d0edc1c0ad890ee9fe425f1365b",
+        "inputs": [
+          "rgb",
+          "x_cor",
+          "y_cor",
+          "x_cor2",
+          "y_cor2",
+          "union"
+        ],
+        "outputs": [
+          "target",
+          "source"
+        ]
+      },
+      "files": {
+        "ort-wasm-simd-threaded-roles256.mjs": {
+          "bytes": 24380,
+          "sha256": "62dc5bef5c2cab005cf7f6c025e3222b16066e6f0631c9e304ddcaf06ba4e28f"
+        },
+        "factory-roles256.mjs": {
+          "bytes": 573,
+          "sha256": "3327cd4e63ed23e9426040c665c96db732ddf63864f2b438da1798842b27a15a"
+        }
+      },
+      "scope": "D2PRL fixed448 roles only. Exactly one JS memory maximum changes512MiB to256MiB; original loader/factory and numerical WASM untouched. Parent policy saving256MiB does not establish RSS savings.",
+      "qualification": {
+        "directModel": {
+          "bytes": 506574,
+          "sha256": "a65426c157fa62362ee0c24905d3e046602432516a6519f17cbab5860b6eb8d2",
+          "status": "passed-exact-parity",
+          "reference": "snapshot:6112190595c411e6591192270af8694c3d288d4902864da3f5d77a8f3ba0ad57",
+          "referenceKind": "frozen-current-engine-source",
+          "modelSha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+          "runs": 8,
+          "matchedPairs": 4,
+          "repetitions": 2,
+          "temperatures": [
+            "cold-context-new-model",
+            "warm-retained-model"
+          ],
+          "rolesMemoryMiB": 256,
+          "jobs": [
+            {
+              "id": "pinned-positive-rgb",
+              "source": {
+                "bytes": 608007,
+                "sha256": "1238856164fe1cde39f48ca43729fc0d5c2058eaab31502712a5762cc6ed41fd",
+                "shape": [
+                  389,
+                  521,
+                  3
+                ]
+              }
+            }
+          ],
+          "threeRawAndDecisionsExact": true,
+          "finalOwnershipZero": true,
+          "globalSpeedQualified": false,
+          "referenceFile": ".build/d2prl-optimization/2026-10-12T21-16-12.477Z-56197/report.json"
+        },
+        "rolePair": {
+          "bytes": 4004,
+          "sha256": "5c3a3d9bb6c7900e2e9ab129f137aaeb5042a72cf39b9342d45d0b60cbcff59e",
+          "status": "passed-real-role-pair-parity",
+          "cases": 3,
+          "runs": 6,
+          "inputsPreserved": true,
+          "policySavingBytes": 268435456,
+          "records": [
+            {
+              "kind": "positive",
+              "heapBytes": [
+                170524672,
+                170524672
+              ],
+              "policyPeakBytes": [
+                595513055,
+                327077599
+              ],
+              "targetSourceSha256": [
+                "3ce5e566e5ce4d2b2bc597b55d25b8363aaf3fe4f75ae195d1f6192b49d9aaf0",
+                "5535ee30ce9e981c43eeffc09c1a7f24a407ce37fa7b988f6388b5d73ba50eb5"
+              ]
+            },
+            {
+              "kind": "jpeg",
+              "heapBytes": [
+                170524672,
+                170524672
+              ],
+              "policyPeakBytes": [
+                595513055,
+                327077599
+              ],
+              "targetSourceSha256": [
+                "9d9b36ab74f9390c0ec3589156f72b02e13947194ccacd08c4f7635c0fc5d135",
+                "d2f340b2a5b16da478973536292ade10715511b3f1473d35cd26aedb0c052a1e"
+              ]
+            },
+            {
+              "kind": "flat",
+              "heapBytes": [
+                170524672,
+                170524672
+              ],
+              "policyPeakBytes": [
+                595513055,
+                327077599
+              ],
+              "targetSourceSha256": [
+                "15bc52c273656a157c0f72457110a521fc8351e6943ebd2cf5fdb0101e42e7ad",
+                "125c62526cce3e4b947fa527adf081ae0394d1ef0fbeb74db5ce742574533cf3"
+              ]
+            }
+          ],
+          "referenceFile": ".build/d2prl-roles-runtime-256/roles-proof.json"
+        },
+        "scope": "Fixed448 D2PRL role model only. Exact paired full three-raw/decision comparison and real512/256 role parity. Admission policy saving256MiB; registered heap remains measured separately. No speed-gain or physical-RAM/RSS qualification. The experimental evaluator in the direct report is not qualified by this memory proof."
+      }
+    },
+    "evaluator-table-simd4-exact-subnormal": {
+      "schema": 2,
+      "status": "qualified-exact-current-public-api-half-round-table",
+      "revision": "half-round-table-v1",
+      "descriptorLayout": "HWC-uint16",
+      "buildScript": ".build/d2prl-half-round-table/prepare-build.py",
+      "stageScript": "scripts/stage-d2prl-runtime.py",
+      "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.11 (a0014542110d6078c3a1a7941fa1ddb3a2281f16)",
+      "compilerProvenance": {
+        "kind": "inferred-from-recorded-command-and-byte-identical-control",
+        "buildTimeVersionCaptured": false,
+        "legacyCompiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.11 (a0014542110d6078c3a1a7941fa1ddb3a2281f16)",
+        "commandTool": "em++",
+        "controlFiles": {
+          "table-simd4-exact-subnormal.js": {
+            "bytes": 7747,
+            "sha256": "cda1e5e9d64566652c12d6eb5589b8f8621fcdc519897b47344dc2e9dfc0759a"
+          },
+          "table-simd4-exact-subnormal.wasm": {
+            "bytes": 18586,
+            "sha256": "54944c22b79e25068908af4c0885a4b0cf2131cf943b77f176683cbef50f8fb5"
+          }
+        }
+      },
+      "sources": {
+        "baselineTable": "38edcd7a5ab6ce5a2e81c71df8c2a2c04a4c31ba9589a237cf034cec991d3096",
+        "originalCandidate": {
+          "table-simd4-exact-subnormal.cpp": "7a8ede16ef8cc00da922ed2b00d6287c95efd4e6e5cf2fc7bd2f1280fd4d50eb",
+          "table-simd4-exact-subnormal-tiled.cpp": "2797c1ed1f6245d8a55ed266f63b2f5d5c4e17f9836c6c4069c55914eefc2122"
+        },
+        "candidate": {
+          "table-simd4-exact-subnormal.cpp": {
+            "referenceFile": ".build/d2prl-half-round-table/candidate/table-simd4-exact-subnormal.cpp",
+            "bytes": 11498,
+            "sha256": "aa1b85fedb3a440ce879d9f1365211fe91f0cdd6cb6110cc364b355bfe1c45ab"
+          },
+          "table-simd4-exact-subnormal-tiled.cpp": {
+            "referenceFile": ".build/d2prl-half-round-table/candidate/table-simd4-exact-subnormal-tiled.cpp",
+            "bytes": 738,
+            "sha256": "2797c1ed1f6245d8a55ed266f63b2f5d5c4e17f9836c6c4069c55914eefc2122"
+          },
+          "reference-exp.h": {
+            "referenceFile": ".build/d2prl-half-round-table/candidate/reference-exp.h",
+            "bytes": 1282,
+            "sha256": "63ec2b5a527d4429bbd1bfa1547cbbea440c097e02b1e4deab285b44fa60c24e"
+          },
+          "prepare-build.py": {
+            "referenceFile": ".build/d2prl-half-round-table/prepare-build.py",
+            "bytes": 5065,
+            "sha256": "20db78126f0995c9dc8d02dc37453109fe84bc80420088e7f74d872c7aea3654"
+          }
+        }
+      },
+      "files": {
+        "table-simd4-exact-subnormal.js": {
+          "bytes": 7747,
+          "sha256": "cda1e5e9d64566652c12d6eb5589b8f8621fcdc519897b47344dc2e9dfc0759a"
+        },
+        "table-simd4-exact-subnormal.wasm": {
+          "bytes": 19584,
+          "sha256": "1e94c50c2a89ead1f7e595e042966345ce20fe366a4b4c5e0f58a1e180695ee3"
+        }
+      },
+      "scientificContract": {
+        "modelSha256": "8d040659ccfebb62fea155ed98f6d0effc563bfbf8c6a8df225c1c814257a51b",
+        "sharedBudgetBytes": 3221225472,
+        "cpuWorkersMaximum": 4,
+        "gpuWorkersMaximum": 1,
+        "rolesMemoryMaximumBytes": 268435456,
+        "nativeSide": 448,
+        "iterations": 40,
+        "seed": 22,
+        "referenceThreads": 8,
+        "newTables": 0,
+        "newHeapOrWorkspace": false,
+        "roundingAndReductionOrderChanged": false
+      },
+      "qualification": {
+        "evidence": {
+          "sourceBuild": {
+            "referenceFile": ".build/d2prl-half-round-table/source-build-proof.json",
+            "bytes": 7330,
+            "sha256": "76e55d9ab43ef066e330e63b6a5a14ff106f45676cd8bf7bcea4d43fd2ded907"
+          },
+          "nativeParity": {
+            "referenceFile": ".build/d2prl-half-round-table/native-parity.json",
+            "bytes": 105362,
+            "sha256": "9aedb414cf5c8674de9a21352dafcf52accb19539f584b3bd1a6e7d6acf2b216"
+          },
+          "publicModel": {
+            "referenceFile": ".build/d2prl-half-round-table/real-model-qualification.json",
+            "bytes": 431879,
+            "sha256": "8051fb1e6e04e950c91cb2738a166ccafadb3314df3a96db6a2429a7b3842863"
+          },
+          "largeQualification": {
+            "referenceFile": ".build/d2prl-half-round-table/large-qualification.json",
+            "bytes": 13247,
+            "sha256": "3929259d6090f3caffdbf20de1259a3e53b69a040f646aa994565e2a98685a7b"
+          },
+          "large30": {
+            "referenceFile": ".build/d2prl-half-round-table/large30-resume1/large-report.json",
+            "bytes": 2001694,
+            "sha256": "9a4c30ade2042bd86fea41353b73848129be0adbb4208dad051792df54e4265d"
+          },
+          "large96": {
+            "referenceFile": ".build/d2prl-half-round-table/large96-qualification1/large-report.json",
+            "bytes": 2133255,
+            "sha256": "20f7049c269604cfff7dff7525a51775ef856c304bc184d2b477497c4de5c97a"
+          },
+          "postInstallSmoke": {
+            "referenceFile": ".build/d2prl-half-round-table/post-install-smoke1/post-install-smoke-report.json",
+            "bytes": 78615,
+            "sha256": "cc633537796cca37448604d545d619f0ed480d512f59ca4b15d6d3aa7e6b846d"
+          }
+        },
+        "nativeParity": {
+          "status": "passed-current-vendor-control-candidate-bit-parity",
+          "cases": 174,
+          "allHeapsWithinOriginalABI": true,
+          "sourceSha256": "aa1b85fedb3a440ce879d9f1365211fe91f0cdd6cb6110cc364b355bfe1c45ab"
+        },
+        "publicModel": {
+          "status": "passed-current-complete-public-model-lut-parity-and-balanced-timings",
+          "parityRecords": 2,
+          "timingRecords": 4,
+          "balancedPairs": 2,
+          "rawOutputsMasksViewsNPZAndRefiltersExact": true,
+          "allFinalOwnersLeasesBackingsZero": true,
+          "analysisMedianPairedGainPercent": 10.229296471911164
+        },
+        "largeSizes": [
+          {
+            "sizeMP": 30,
+            "status": "passed-current-large-public-engine",
+            "balancedPairs": 2,
+            "exactAllScientificRepetitions": true,
+            "analysisMedianPairedGainPercent": 9.297308822792626,
+            "independentNpz": [
+              "passed",
+              "passed",
+              "passed",
+              "passed"
+            ],
+            "hostCleanup": {
+              "status": "closed",
+              "failures": []
+            }
+          },
+          {
+            "sizeMP": 96,
+            "status": "passed-current-large-public-engine-with-native-diagnostic-unavailable",
+            "balancedPairs": 2,
+            "exactAllScientificRepetitions": true,
+            "analysisMedianPairedGainPercent": 9.32466744410345,
+            "independentNpz": [
+              "passed",
+              "passed",
+              "passed",
+              "passed"
+            ],
+            "hostCleanup": {
+              "status": "closed",
+              "failures": []
+            }
+          }
+        ],
+        "nativeTorch96": {
+          "status": "unavailable-pinned-files-missing-no-comparison",
+          "qualified": false,
+          "missing": [
+            {
+              "expectedBytes": 2408448,
+              "expectedSha256": "e3bad27163e2ff123fb8ffa9d6e19b31cbd57422f1d90adbebd5e409d8e7ab1e",
+              "status": "absent-not-compared"
+            },
+            {
+              "expectedBytes": 2408448,
+              "expectedSha256": "b79181d6a57e28a097724aeebda7ae23fb6e82cc67c24af5896eedf8540548ff",
+              "status": "absent-not-compared"
+            },
+            {
+              "expectedBytes": 2408448,
+              "expectedSha256": "0bd6f8cf68034cc974f5262235306acca6f4e96ba6b9568aa40a67de84499aae",
+              "status": "absent-not-compared"
+            }
+          ]
+        },
+        "postInstallSmoke": {
+          "status": "passed-installed-public-api-no-remapping",
+          "installed": true,
+          "exact": true,
+          "remapping": false,
+          "injection": false,
+          "speedClaim": false,
+          "hostCleanup": {
+            "status": "closed",
+            "failures": []
+          }
+        },
+        "scope": "SHA-bound half-round-table-v1 only. Exact current public API parity on the recorded pinned source and 30/96MP fixtures; two balanced timing pairs per fixture. No universal gain or detector-accuracy claim. Historical native Torch96 binaries remain absent and unqualified. Compiler version is an explicit inference, not a captured build-time version."
+      }
+    }
+  },
+  "files": {
+    "prepare.js": {
+      "bytes": 7717,
+      "sha256": "f3e956c0d33f834e5b01ba80eaf0db2ee8ee604b652e80bbea9fcd0245b4138f"
+    },
+    "prepare.wasm": {
+      "bytes": 10921,
+      "sha256": "bb39ccd9bac8c419aa016c72b517caed9457d1b3c03bd34bf8786c12f0b768aa"
+    },
+    "feature-math.js": {
+      "bytes": 7869,
+      "sha256": "bd7ba0e57605fba924c05cec583b4683efec0d17e78029368baa678645640717"
+    },
+    "feature-math.wasm": {
+      "bytes": 9735,
+      "sha256": "7a6f800fa4ae9762ab4c50b7cefbf9b8984799b478926ddac7db62bc22832d13"
+    },
+    "neural-math.js": {
+      "bytes": 8221,
+      "sha256": "5a91c4b590eb2935263481ff15ba85097123ff57558aa30cc079983d6f64fe59"
+    },
+    "neural-math.wasm": {
+      "bytes": 16718,
+      "sha256": "b3dbf2d834b62b9a1ad05632756a361add03a19913355b3f80741464cc6c9324"
+    },
+    "dlf.js": {
+      "bytes": 7514,
+      "sha256": "cabc6b8e47cb47810df72537660134c55793de8bf5f37d1f7229f0c46ecf9048"
+    },
+    "dlf.wasm": {
+      "bytes": 7963,
+      "sha256": "f9234954d2463339e1745cb1e4449e434e084b9c69dbbdd202dd13b635f3888c"
+    },
+    "convolution.js": {
+      "bytes": 7491,
+      "sha256": "46b5404857b9f855e2dd1743040b3a6575ef5384e038941ba9baf7c61ad8c8a2"
+    },
+    "convolution.wasm": {
+      "bytes": 12677,
+      "sha256": "ad15173f57becc35c489be555c566a3120dd94ada11cfc39d12b2e0bb2ec9eab"
+    },
+    "evaluator-tiled.js": {
+      "bytes": 7839,
+      "sha256": "9dd63733d7e78b2834b9afc8ccf8f07d853dd191181e739a6b4ca1ef3141467a"
+    },
+    "evaluator-tiled.wasm": {
+      "bytes": 16172,
+      "sha256": "41165efcd4e56bdad5e1cefe9806cf61a9eec24af600d76ba468c8ed3a4dfa98"
+    },
+    "postprocess.js": {
+      "bytes": 26716,
+      "sha256": "d97047b84961cf61c38ae2b879413cc79bef9d123e279ef13fb68f3d0530e6e8"
+    },
+    "postprocess.wasm": {
+      "bytes": 760829,
+      "sha256": "427e23c7d7f63288d2ada235da1b7b26d1e6df6ea52dd9de61ee58301e7d444d"
+    },
+    "spatial.js": {
+      "bytes": 23738,
+      "sha256": "f3906c052cddc62ab68fa985b6f59b731a50c614b2cca36fad788f3ff617d896"
+    },
+    "spatial.wasm": {
+      "bytes": 556176,
+      "sha256": "d951569ef9f4690c3543e61139778d015ff911c782caf50c7494902584353503"
+    },
+    "SLEEF-LICENSE.txt": {
+      "bytes": 1338,
+      "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+    },
+    "SLEEF-PINNED.json": {
+      "bytes": 893,
+      "sha256": "6fb8b8fd323de870baf1e9673636b76541aa3cd6125358619a936015a9c81224"
+    },
+    "PYTORCH-LICENSE.txt": {
+      "bytes": 3464,
+      "sha256": "a8a2c6b67cf8a597ffaa5c82380a6bd1b82629c0417e00673d8013d662eb500a"
+    },
+    "MT19937-LICENSE.txt": {
+      "bytes": 1869,
+      "sha256": "2cc7d0a3801ea88ad6f41ff04fe220250a12c13a5d88286fdd0da6d88e8176cf"
+    },
+    "MUSL-LICENSE.txt": {
+      "bytes": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    },
+    "ort-wasm-simd-threaded.mjs": {
+      "bytes": 24377,
+      "sha256": "c58b7d2aab041b4a19f4c941050fde7c09a46b6e156105659d7945183de8334e"
+    },
+    "factory.mjs": {
+      "bytes": 221,
+      "sha256": "85a4d82bcb5311dc399ee4c1d0e86b8514ac94220c92a41f8e84d14be7c78415"
+    },
+    "ort-wasm-simd-threaded.wasm": {
+      "bytes": 14239897,
+      "sha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2"
+    },
+    "ort.wasm.min.mjs": {
+      "bytes": 50126,
+      "sha256": "219e6a1fc8a9938268d18efca3c91d310bd2f4a59bbd13744df5b2b7fc6cee3b"
+    },
+    "ONNXRUNTIME-LICENSE.txt": {
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    "ONNXRUNTIME-ThirdPartyNotices.txt": {
+      "bytes": 338088,
+      "sha256": "143764b952fdb1a7c69ce653bfba74a7744d6a8a573bfb73e235fba356c83de3"
+    },
+    "ONNXRUNTIME-SOURCES.json": {
+      "bytes": 469,
+      "sha256": "070fa05b30ea0b9893bb24de4ae498f6c2ecfe12635577bd1468cfd11dc2f174"
+    },
+    "pixel-major-combined.js": {
+      "bytes": 7382,
+      "sha256": "61b2d84203358f4ec1e1f0dabcbe7238764289e5d67236162a615f70dd0f30d7"
+    },
+    "pixel-major-combined.wasm": {
+      "bytes": 15723,
+      "sha256": "11ad5dc8226e0190c1930a6593fc349895f58a60d28717c34d650c54ef025878"
+    },
+    "ort-wasm-simd-threaded-roles256.mjs": {
+      "bytes": 24377,
+      "sha256": "470cd17fcd837fd3c451b010a0f348dbd70222c21c408141df37fb060f689903"
+    },
+    "factory-roles256.mjs": {
+      "bytes": 573,
+      "sha256": "3327cd4e63ed23e9426040c665c96db732ddf63864f2b438da1798842b27a15a"
+    },
+    "table-simd4-exact-subnormal.js": {
+      "bytes": 7747,
+      "sha256": "cda1e5e9d64566652c12d6eb5589b8f8621fcdc519897b47344dc2e9dfc0759a"
+    },
+    "table-simd4-exact-subnormal.wasm": {
+      "bytes": 19584,
+      "sha256": "1e94c50c2a89ead1f7e595e042966345ce20fe366a4b4c5e0f58a1e180695ee3"
+    }
+  },
+  "preparation": {
+    "id": "d2prl-tensor-bilinear448-noaa-v1",
+    "side": 448,
+    "antialias": false,
+    "alignCorners": false,
+    "order": "RGB8 -> ToTensor-equivalent NCHW float32/255 -> bilinear Tensor Resize448",
+    "releasedTorchvision": "0.11.1",
+    "scope": "Released Tensor Resize antialias behavior restored; old AA references retain historical scope, no claim of complete model-output requalification."
+  }
+}
