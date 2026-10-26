@@ -1,1 +1,1 @@
-{"channel":"stable","release":{"sha256":"932d196ddab4ca50282bb941d05a2d6315f9f91a18966e14988ac537558c0f2b","size":2480,"url":"https://raw.githubusercontent.com/Kinkazma/sherloq-web/3b3899cebfc39fd5770795c2dff28e0b8739d259/releases/0.25.0.json"},"schema":"sherloq.release-channel/1"}
+{"channel":"stable","release":{"sha256":"dd637faae1c182b4f5556ef00bec2d2236ec0d776a8981f0f9c8375f4e5cd4f4","size":2480,"url":"https://raw.githubusercontent.com/Kinkazma/sherloq-web/82b8dd76bcd6c624163159b9dc5591ad92571937/releases/0.25.0.json"},"schema":"sherloq.release-channel/1"}
