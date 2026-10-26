@@ -17,3 +17,7 @@ The gallery contains illustrative engine results rather than a performance or ac
 The experimental B-Free, SPAI and DTD tools retain their method-specific limitations. An image-wide AI score is not an authenticity confidence or a localization of partial edits. Spatial outputs from different methods do not share an interchangeable meaning. See the method documents, example captions and component notices.
 
 [Source identities](SOURCE-IDENTITY.json) · [Reconstruction](BUILD.md) · [Runtime receipts](RUNTIME-INCREMENTS.md) · [Change history](../CHANGELOG.md)
+
+## Startup maintenance
+
+The supplied startup qualification covers permanently pending optional cache operations, stalled metadata bodies, preserved failure causes, retries, compatible-worker refresh and closing a source during deferred initialization. Publication verifies that the metadata helper is included in reconstructed classic workers and that renewed interface inventories match the staged files. These corrections address demonstrated indefinite-wait paths; browser scheduling can still delay worker launch and JavaScript timers. No universal startup time bound is claimed.

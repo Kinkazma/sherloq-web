@@ -1,12 +1,12 @@
 {
   "schema": "sherloq.publication-identity/1",
-  "ui_commit": "ed5df811639f039f1c20af545668464dbde3a72c",
+  "ui_commit": "4366882064c36bfbd865c4c362d8bf7b141f9e28",
   "ui_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "ui_version": "0.25.0",
   "engine_commit": "ed5df811639f039f1c20af545668464dbde3a72c",
   "engine_commit_repository": "https://github.com/Kinkazma/sherloq-web",
   "engine_version": "0.37.0-methods.1",
-  "source_revision": "ed5df811639f039f1c20af545668464dbde3a72c",
+  "source_revision": "4366882064c36bfbd865c4c362d8bf7b141f9e28",
   "engine_base_commit": "e6662876ccf67761443720e8c9e528419cb2e1b5",
   "engine_source_increment_sha256": "440210e4665b4a62114cc5028b045414a0901aab55d39ab465136a7067b3e88c",
   "runtime_receipt_sha256": "6c66a9689c841d9fbe678a718202a2da50a54fb815116b767fa4f51c6b353c48",
@@ -63,8 +63,8 @@
     "pdf_inspection": "Retained PDF frames, embedded images, inspection and placement magnifiers."
   },
   "previous_publication": {
-    "version": "0.24.0",
-    "commit": "941a16b48b9d7f7ddf8722623a77f0e1510642b3"
+    "version": "0.25.0",
+    "commit": "4f5ee8c7ebe78fb72e528139bc49b5537d4a2e43"
   },
   "d2prl_increment_sha256": "ab77ee77b286abd9866e68f433121149f835f96764c18e33c0fffe200ec6c6a8",
   "d2prl_qualification": "Supplied 30/96 MP native-array/mask, refilter and paged export checks passed. Detailed qualification files remain local.",
@@ -72,16 +72,16 @@
   "resource_commit": "89379d05463ff444a5e8a621ec63cdbcac1ac19a",
   "resource_origin": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/89379d05463ff444a5e8a621ec63cdbcac1ac19a/web-assets/",
   "deployment_manifest_sha256": "d2e830f50f7e7ce804b8bbc2c209db33d965459665945ee71c58700fed7f89f1",
-  "ui_source_commit": "ed5df811639f039f1c20af545668464dbde3a72c",
-  "batch_interface_source_commit": "ed5df811639f039f1c20af545668464dbde3a72c",
+  "ui_source_commit": "4366882064c36bfbd865c4c362d8bf7b141f9e28",
+  "batch_interface_source_commit": "4366882064c36bfbd865c4c362d8bf7b141f9e28",
   "selection_overlay": "web/wordpress/runtime-patches/feature-selection-overlay-0.18.0.json",
   "local_update_contract": "docs/LOCAL-UPDATES.md",
   "selection_overlay_source_commit": "088326bf98e50787f7626190b0059e61b27349b9",
   "scientific_baseline_engine_commit": "5d39aebd7194662be47bccc89b7bbb160a7ae7ba",
   "scientific_baseline_manifest_sha256": "a488d0a8cba3120ea52cc497beadf6cf68758394cb2db81c81ab6c47890a6081",
-  "local_source_inventory_commit": "f942f7d23a5af68168cbb09f21f687e4908bdf05",
-  "local_update_shell_sha256": "e78af335749b8cae291fb7ae1e44ed9c4040c605e5c91ce1294074c82e59b84f",
-  "local_update_source_root": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/f942f7d23a5af68168cbb09f21f687e4908bdf05/web/local-sources/0.25.0/",
+  "local_source_inventory_commit": "c3d47493e0281621f7aab7d5df989f7e5bcf3b3c",
+  "local_update_shell_sha256": "f0bb55eb70f324e9e7047bc227b0e7f10d3fc808eff67140bbaed7a1a215ec89",
+  "local_update_source_root": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/c3d47493e0281621f7aab7d5df989f7e5bcf3b3c/web/local-sources/0.25.0/",
   "batch_scientific_increment_sha256": "01e747c1d6973fccef363b90ec8cd0a56ed2eb82ccc623a33a8c0d3d9d5f6037",
   "batch_scientific_increment": "web/wordpress/runtime-patches/batch-scientific-regions-20261013.json",
   "batch_scientific_source_commit": "4027ccbd051c7f071a8a8f8885c68d401ce47dbf",
@@ -95,8 +95,8 @@
   "browser_extensions_increment_sha256": "a426c99923011e5a86f7e2d76d0c2f53616c6d7c5d227aab479d6b9043b74a6b",
   "browser_extensions_source_commit": "100d1803accc6ce23af1182f942536facb1f957e",
   "ela_result_ownership_included": true,
-  "offline_shell_sha256": "e78af335749b8cae291fb7ae1e44ed9c4040c605e5c91ce1294074c82e59b84f",
-  "local_inventory_commit": "f942f7d23a5af68168cbb09f21f687e4908bdf05",
+  "offline_shell_sha256": "f0bb55eb70f324e9e7047bc227b0e7f10d3fc808eff67140bbaed7a1a215ec89",
+  "local_inventory_commit": "c3d47493e0281621f7aab7d5df989f7e5bcf3b3c",
   "rita_runtime_increment": "web/wordpress/runtime-patches/rita-20261019.json",
   "rita_runtime_increment_sha256": "fb2e6e61642c390ac557c971acd5efb924b4e4982e2fefc56db860ae702d763f",
   "rita_source_commit": "f80cf88aa0814798894c69921025f3034bd643a0",
@@ -105,5 +105,7 @@
   "workspace_runtime_increment": "web/wordpress/runtime-patches/workspace-20261020.json",
   "workspace_runtime_increment_sha256": "d5e434fe329d15c79bb89294561243eb61ba5d90ba956a78272eb600e8bbb908",
   "cumulative_runtime_increment": "web/wordpress/runtime-patches/cumulative-20261026.json",
-  "cumulative_runtime_increment_sha256": "7579825ea179c69bf87f0fb7aae0aa99f92220c165d0184b27be6909b33c5b75"
+  "cumulative_runtime_increment_sha256": "7579825ea179c69bf87f0fb7aae0aa99f92220c165d0184b27be6909b33c5b75",
+  "startup_source_commit": "4366882064c36bfbd865c4c362d8bf7b141f9e28",
+  "startup_maintenance": "Optional verified inventory cache, bounded bootstrap metadata, deferred workspace modules and content-derived worker revisions. Product version is unchanged; local shell identity is renewed."
 }
