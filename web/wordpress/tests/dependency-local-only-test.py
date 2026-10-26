@@ -97,7 +97,7 @@ with tempfile.TemporaryDirectory() as directory:
     # Finalizing twice must not accumulate old test manifests or private files.
     sources = frozen / 'public/web/wordpress/sherloq-browser'
     (sources / 'assets').mkdir(exist_ok=True)
-    for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'dependency-manifest.js', 'dependency-sw.js', 'offline-browser-store.js', 'offline-browser-sw.js']:
+    for name in ['dependency-core.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'bootstrap-metadata.js', 'dependency-manifest.js', 'dependency-sw.js', 'offline-browser-store.js', 'offline-browser-sw.js']:
         (sources / 'assets' / name).write_text('')
     # The current worker bundle also declares this small production helper.
     # Exercise its real source without changing optional-model policy fixtures.

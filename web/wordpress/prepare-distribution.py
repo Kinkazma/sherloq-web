@@ -283,7 +283,7 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     # Classic SW works in Firefox/WebKit too. Only module syntax is removed from
     # these reviewed dependency files; runtime bytes remain untouched.
     worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '')
-                       for name in ['dependency-core.js', 'extension-resource-client.js', 'extension-resource-relay.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'dependency-manifest.js', 'dependency-client-routing.js', 'dependency-sw.js'])
+                       for name in ['dependency-core.js', 'extension-resource-client.js', 'extension-resource-relay.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'bootstrap-metadata.js', 'dependency-manifest.js', 'dependency-client-routing.js', 'dependency-sw.js'])
     put(plugin / 'assets/dependency-sw.js', worker.encode())
     offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'extension-resource-client.js', 'extension-resource-relay.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
     put(plugin / 'assets/offline-browser-sw.js', offline_worker.encode())
@@ -295,7 +295,7 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
         if previous.stem != digest(previous.read_bytes()):
             raise ValueError('Compatibility manifest identity mismatch: ' + previous.name)
         put(plugin / ('assets/dependency-manifest-' + previous.name), previous.read_bytes())
-    put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'workerVersion': version, 'manifest': identity}))
+    put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'workerVersion': version+'-'+hashlib.sha256(worker.encode()).hexdigest()[:16], 'manifest': identity}))
     if (sources/'assets/local-management-ui.js').is_file():
         catalog = _features.generate(manifest, output/'public/web/wordpress/feature-inputs', sources/'assets')
         put(plugin / 'assets/feature-catalog.json', encode(catalog))

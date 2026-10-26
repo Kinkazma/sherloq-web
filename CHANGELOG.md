@@ -4,6 +4,9 @@ Implementation changes and their verification are recorded here. The [README](RE
 
 ## 0.25.0 — Native regions, PDF magnifiers and retained results · 2026-10-26
 
+- Let optional manifest-cache operations fall through to verified HTTP instead of waiting indefinitely. Bound small startup metadata transfers, preserve timeout causes and allow a fresh retry after failure.
+- Discover revised worker scripts without delaying compatible windows or forcing active calculations to migrate. Defer analysis and offline-management modules until needed, and record startup phases.
+
 - Treat selected acquisitions as independent native windows by default, with an explicit union mode. Preserve original coordinates and exclusions through computation, retained results, presentation and standard exports; report unsupported native contexts explicitly.
 - Share region editing between Original image, individual tools and batch processing. Preserve local selections independently and leave automatic text exclusion disabled by default.
 - Restore PDF page inspection, embedded-image transitions, magnifier effects and global adjustments. Add a separate placement magnifier whose enlargement follows the current image zoom.

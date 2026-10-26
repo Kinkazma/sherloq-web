@@ -1,3 +1,4 @@
+import {startupPhase} from './startup-diagnostics.js';
 import {sessionLog} from './session-log.js';
 import {diagnostic} from './runtime-context.js';
 import {mountSessionControls,downloadSession} from './session-ui.js';
@@ -16,16 +17,22 @@ async function start(){
  if(running)return;running=true;if(app)app.inert=true;show('installing');
  let stage='modules';
  try{
-  const {prepareDependencies}=await import('./dependency-bootstrap.js');
+  const {prepareDependencies}=await startupPhase('bootstrap-modules',()=>import('./dependency-bootstrap.js'));
+  let config;
   stage='dependencies';
   for(let attempt=0;;attempt++){
-   try{await prepareDependencies({onStatus:show});break;}
+   try{config=await startupPhase('dependencies',()=>prepareDependencies({onStatus:show}));break;}
    catch(error){if(attempt>=2)throw error;show('retrying');await new Promise(resolve=>setTimeout(resolve,1000*2**attempt));}
   }
-  stage='workspace';show('opening');const {mountWorkspace}=await import('./workspace.js');
-  const {initializeLocalManagement}=await import('./local-management-ui.js');
-  const localManagement=await initializeLocalManagement();
-  mountWorkspace(document,{localManagement});if(app)app.inert=false;notice?.remove();document.documentElement.dataset.workspaceReady='true';
+  stage='workspace';show('opening');const {mountWorkspace}=await startupPhase('workspace-modules',()=>import('./workspace.js'));
+  // Online WordPress has no local installation to manage. Offline variants
+  // still apply their persisted feature policy before any tools are mounted.
+  let localManagement;
+  if(config?.offline===true)localManagement=await startupPhase('local-management',async()=>{
+   const {initializeLocalManagement}=await import('./local-management-ui.js');
+   return initializeLocalManagement({config});
+  });
+  await startupPhase('workspace-mount',()=>mountWorkspace(document,{localManagement}));if(app)app.inert=false;notice?.remove();document.documentElement.dataset.workspaceReady='true';
  }catch(error){
   // A rejected ES module graph stays rejected for this document. Only the
   // dependency preparation can retry in place; import/mount failures need a

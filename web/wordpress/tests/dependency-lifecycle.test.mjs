@@ -21,8 +21,11 @@ test('waits for exact version and only acknowledges activation during bootstrap'
  probe(service.controller);assert.equal(responses,0);probe(registration.waiting);assert.equal(responses,1);
  service.controller=registration.waiting;service.dispatchEvent(new Event('controllerchange'));await pending;probe(registration.waiting);assert.equal(responses,1);
 });
-test('the same immutable resources start immediately despite a different UI worker release, without registering or activating another worker',async()=>{
- const {service}=fixture(),hash='a'.repeat(64),target=new URL('https://example.test/assets/dependency-sw.js?manifest='+hash+'&release=new');service.controller=new Worker('https://example.test/assets/dependency-sw.js?manifest='+hash+'&release=old');let registers=0;service.register=async()=>{registers++;throw Error('Existing resource identity needs no replacement');};await connectDependencyWorker(service,target);assert.equal(registers,0);assert.deepEqual(service.controller.messages,[]);
+test('the same resources start immediately while a revised worker is discovered without forced activation',async()=>{
+ const {service}=fixture(),hash='a'.repeat(64),target=new URL('https://example.test/assets/dependency-sw.js?manifest='+hash+'&release=new');service.controller=new Worker('https://example.test/assets/dependency-sw.js?manifest='+hash+'&release=old');let registers=0;service.register=()=>{registers++;return new Promise(()=>{});};await connectDependencyWorker(service,target);assert.equal(registers,1);assert.deepEqual(service.controller.messages,[]);
+});
+test('a failed background worker refresh never rejects a compatible window',async()=>{
+ const {service}=fixture(),hash='a'.repeat(64),target=new URL('https://example.test/assets/dependency-sw.js?manifest='+hash+'&release=new'),events=[];service.controller=new Worker('https://example.test/assets/dependency-sw.js?manifest='+hash+'&release=old');const error=Error('refresh network');service.register=async()=>{throw error;};await connectDependencyWorker(service,target,{onDiagnostic:e=>events.push(e)});await turn();assert.equal(events.at(-1).phase,'refresh-failed');assert.equal(events.at(-1).error,error);assert.deepEqual(service.controller.messages,[]);
 });
 test('a newer resource worker receives the predecessor identity and reports activation failures instead of leaving a stuck startup',async()=>{
  const {service,registration}=fixture(),before='a'.repeat(64),after='b'.repeat(64),target=new URL('https://example.test/assets/dependency-sw.js?manifest='+after);service.controller=registration.active=new Worker('https://example.test/assets/dependency-sw.js?manifest='+before);registration.waiting=new Worker(target.href);registration.installing=null;
@@ -34,4 +37,19 @@ test('failed installation reports an actionable error and can register again',as
 });
 test('redundant installer does not leave a never-settling bootstrap',async()=>{
  const {service,registration}=fixture();const pending=connectDependencyWorker(service,expected);await turn();registration.installing.state='redundant';registration.installing.dispatchEvent(new Event('statechange'));await assert.rejects(pending,/installation failed/);
+});
+
+
+test('startup diagnostics distinguish registration, installation and control without changing activation',async()=>{
+ const {service,registration}=fixture(),events=[];
+ const pending=connectDependencyWorker(service,expected,{onDiagnostic:e=>events.push(e),pollMs:10000});await turn();
+ assert.deepEqual(events.slice(0,3).map(e=>e.phase),['register','registered','worker-state']);
+ registration.installing.state='installed';registration.waiting=registration.installing;registration.installing.dispatchEvent(new Event('statechange'));
+ assert.ok(events.some(e=>e.phase==='worker-state'&&e.state==='installed'));
+ service.controller=registration.waiting;service.dispatchEvent(new Event('controllerchange'));await pending;
+ assert.equal(events.at(-1).phase,'controlled');assert.ok(events.every(e=>Number.isFinite(e.durationMs)&&e.durationMs>=0));
+});
+test('an observer failure cannot break the existing startup protocol',async()=>{
+ const {service,registration}=fixture();service.controller=registration.installing;
+ await connectDependencyWorker(service,expected,{onDiagnostic(){throw Error('observer unavailable');}});
 });

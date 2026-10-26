@@ -2,14 +2,16 @@ import {dependencyWorkerManifest} from './dependency-client-routing.js';
 // A late first installation resumes this page. A newer resource worker pins
 // mounted windows and their descendants before taking over; it does not ask
 // those windows to unload sources or finish their current calculations.
-export function connectDependencyWorker(serviceWorker, expected, {workerType='module',onStatus=()=>{},slowAfterMs=15000,pollMs=2000}={}) {
+export function connectDependencyWorker(serviceWorker, expected, {workerType='module',onStatus=()=>{},onDiagnostic=()=>{},slowAfterMs=15000,pollMs=2000}={}) {
  return new Promise((resolve,reject)=>{
   let registration,finished=false,checking=false;
+  const started=performance.now(),states=new WeakMap();
+  const report=(phase,worker,error)=>{try{onDiagnostic({phase,state:worker?.state,scriptURL:worker?.scriptURL,durationMs:performance.now()-started,...(error?{error}:{})});}catch{}};
   const observed=new Set(),matches=worker=>worker?.scriptURL===expected.href,identity=dependencyWorkerManifest(expected.href,expected),compatible=worker=>matches(worker)||!!identity&&dependencyWorkerManifest(worker,expected)===identity;
   const cleanup=()=>{clearTimeout(slow);clearInterval(poll);serviceWorker.removeEventListener('controllerchange',check);serviceWorker.removeEventListener('message',probe);registration?.removeEventListener('updatefound',check);for(const worker of observed)worker.removeEventListener('statechange',check);};
-  const finish=error=>{if(finished)return;finished=true;cleanup();error?reject(error):resolve();};
+  const finish=error=>{if(finished)return;finished=true;report(error?'failed':'controlled',serviceWorker.controller,error);cleanup();error?reject(error):resolve();};
   const probe=event=>{if(finished||!matches(event.source))return;if(event.data?.type==='dependency-bootstrap-ready')event.ports?.[0]?.postMessage({ready:true});else if(event.data?.type==='dependency-activation-error')finish(Error(event.data.error||'SHERLOQ resource activation failed.'));};
-  const observe=worker=>{if(worker&&!observed.has(worker)){observed.add(worker);worker.addEventListener('statechange',check);}};
+  const observe=worker=>{if(!worker)return;if(!observed.has(worker)){observed.add(worker);worker.addEventListener('statechange',check);}if(states.get(worker)!==worker.state){states.set(worker,worker.state);report('worker-state',worker);}};
   function check(){
    if(finished||checking)return;checking=true;
    try{
@@ -24,9 +26,16 @@ export function connectDependencyWorker(serviceWorker, expected, {workerType='mo
   const slow=setTimeout(()=>{if(!finished)onStatus('slow');},slowAfterMs),poll=setInterval(check,pollMs);
   serviceWorker.addEventListener('controllerchange',check);serviceWorker.addEventListener('message',probe);
   onStatus('installing');
-  if(compatible(serviceWorker.controller)){finish();return;}
-  Promise.resolve().then(()=>serviceWorker.register(expected,{type:workerType,scope:'./',updateViaCache:'none'})).then(value=>{
-   if(finished)return;registration=value;registration.addEventListener('updatefound',check);check();
+  if(compatible(serviceWorker.controller)){
+   // The current immutable resources can serve this window immediately. Still
+   // discover a revised worker script: otherwise an unchanged resource hash
+   // would suppress every future worker fix. Let normal lifecycle activation
+   // replace it when old clients close; never force mounted jobs to migrate.
+   if(!matches(serviceWorker.controller))Promise.resolve().then(()=>serviceWorker.register(expected,{type:workerType,scope:'./',updateViaCache:'none'})).then(value=>report('refresh-registered',value.installing||value.waiting||value.active),error=>report('refresh-failed',serviceWorker.controller,error));
+   finish();return;
+  }
+  Promise.resolve().then(()=>{report('register');return serviceWorker.register(expected,{type:workerType,scope:'./',updateViaCache:'none'});}).then(value=>{
+   if(finished)return;registration=value;report('registered',registration.installing||registration.waiting||registration.active);registration.addEventListener('updatefound',check);check();
   },finish);
  });
 }

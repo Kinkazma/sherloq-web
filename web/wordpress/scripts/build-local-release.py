@@ -116,7 +116,7 @@ def stage(args):
         if b'private-report' in data: raise ValueError('Private overlay is not a public local interface')
         if source.suffix=='.html': data=data.replace(b"connect-src 'self'",b"connect-src 'self' https://raw.githubusercontent.com")
         put(assets/name,data)
-    for worker,names in [('offline-browser-sw.js',OFFLINE_MODULES),('dependency-sw.js',['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','dependency-manifest.js','dependency-client-routing.js','dependency-sw.js'])]:
+    for worker,names in [('offline-browser-sw.js',OFFLINE_MODULES),('dependency-sw.js',['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','bootstrap-metadata.js','dependency-manifest.js','dependency-client-routing.js','dependency-sw.js'])]:
         # Reviewed classic script bundle, also valid as a module bridge. The
         # build validates lexical collisions rather than hiding parser errors.
         code='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in names)

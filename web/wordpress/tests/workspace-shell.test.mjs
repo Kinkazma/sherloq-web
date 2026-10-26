@@ -5,12 +5,12 @@ import {parseHTML,DOMParser} from 'linkedom';
 import {mountWorkspace} from '../sherloq-browser/assets/workspace.js';
 const html=await readFile(new URL(import.meta.resolve('../sherloq-browser/assets/app.html')),'utf8');
 const panel=await readFile(new URL(import.meta.resolve('../sherloq-browser/assets/panel.html')),'utf8');
-function setup(){
+function setup({fetcher=async()=>({ok:true,text:async()=>panel})}={}){
  const {document,window}=parseHTML(html),controllers=new Map();
  Object.defineProperty(window.HTMLSelectElement.prototype,'value',{configurable:true,get(){return [...this.options].find(o=>o.hasAttribute('selected'))?.value||this.options[0]?.value||'';},set(value){for(const o of this.options)o.toggleAttribute('selected',o.value===String(value));}});
  const frames=[];for(const [key,value]of Object.entries({document,window,DOMParser,location:{hash:'#lang=fr',href:'http://localhost/app.html',origin:'http://localhost'},localStorage:{getItem:()=>null,setItem(){}},requestAnimationFrame:fn=>(frames.push(fn),frames.length),confirm:()=>true}))Object.defineProperty(globalThis,key,{value,configurable:true,writable:true});
  let stopped=0,loads=0;
- const workspace=mountWorkspace(document,{fetcher:async()=>({ok:true,text:async()=>panel}),panelFactory(_,{toolId,sourceOnly,requestExport,regionParent}){
+ const workspace=mountWorkspace(document,{fetcher,panelFactory(_,{toolId,sourceOnly,requestExport,regionParent}){
   let file=null,adopted=null;const id=sourceOnly?'original':toolId;
   const c={busy:false,async load(value){loads++;file=value;},adopt(input){adopted=input;regionParent.hidden=!['tampering.copyMove.sparse','ai.clones.d2prl'].includes(toolId);regionParent.textContent='regions-'+toolId;},input(){return adopted||{file,imageId:'shared-original',hash:'a'.repeat(64),source:{width:100,height:100,draw(){},close(){}},description:'fixture transport'};},snapshot(){return {busy:c.busy,hasResult:false,hasReport:false,status:'ready',progress:0,zoom:100};},activate(){},settings(){return {};},applySettings(value){c.applied=value;},setHighlight(value){c.highlight=value;},setLoupe(value){c.loupe={...value};},exportImage(settings){if(settings){c.exported=settings;return;}return requestExport(settings=>{c.exported=settings;});},setLanguage(){},setTheme(){},setNavigation(){},setComputeProfile(){},dispose(){stopped++;},fit(){},zoomBy(){}};controllers.set(id,c);return c;
  }});
@@ -101,4 +101,21 @@ test('Close analyses restores an original view that was hidden while results sta
 test('Confirmed Close all uses source-preserving close; replacing the image still clears the old source',async()=>{
  const h=setup();await h.workspace.openImage(new Blob(['first']));await h.workspace.openTool('file.hex');const source=h.workspace.state.documents.get('original');h.document.getElementById('close-dialog').close=()=>{};h.document.getElementById('confirm-close').onclick();await new Promise(r=>setImmediate(r));assert.equal(h.workspace.state.documents.get('original'),source);assert.equal(h.workspace.state.documents.size,1);
  await h.workspace.openImage(new Blob(['second']));assert.notEqual(h.workspace.state.documents.get('original'),source);assert.deepEqual(h.counts(),{loads:2,stopped:2});await h.workspace.closeAll();
+});
+
+
+test('empty workspace defers the panel template until the first source is requested',async()=>{
+ let fetches=0;const h=setup({fetcher:async()=>{fetches++;return {ok:true,text:async()=>panel};}});
+ h.flush();await new Promise(r=>setImmediate(r));assert.equal(fetches,0);
+ await h.workspace.openImage(new Blob(['transport']));assert.equal(fetches,1);
+ await h.workspace.openTool('file.hex');assert.equal(fetches,1);assert.equal(h.counts().loads,1);
+ await h.workspace.closeAll();
+});
+test('closing the source while its lazy template is loading cannot mount or resurrect a panel',async()=>{
+ let release;const h=setup({fetcher:()=>new Promise(resolve=>release=()=>resolve({ok:true,text:async()=>panel}))});
+ const opening=h.workspace.openImage(new Blob(['transport']));
+ for(let n=0;n<100&&!release;n++)await new Promise(r=>setImmediate(r));assert.ok(release);
+ const closing=h.workspace.closeAll();assert.equal(h.workspace.state.documents.size,0);release();
+ await Promise.all([opening,closing]);h.flush();assert.equal(h.workspace.state.documents.size,0);
+ assert.equal(h.document.querySelectorAll('.document-window').length,0);assert.equal(h.controllers.size,0);assert.equal(h.counts().loads,0);
 });
