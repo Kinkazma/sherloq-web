@@ -1,0 +1,66 @@
+@import url('web-ui.css');
+@import url('panel-sliders.css');
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent;color:var(--ink)}
+body.standalone{background:var(--bg)}button,input,select{font-family:inherit}a{color:var(--accent)}
+.app-icon{width:24px;height:24px;flex:none}.brand{margin:0}.muted{font-size:11px;color:var(--muted)}
+#view{position:absolute;inset:0;overflow:visible}#base{position:absolute;inset:0;width:100%;height:100%;visibility:hidden;pointer-events:none}.standalone #base{visibility:visible}
+.standalone #view{touch-action:none;user-select:none}.standalone[data-navigation=true] #view{cursor:grab}.standalone[data-navigation=true] #view:active{cursor:grabbing}
+.pointer-loupe{position:absolute;z-index:2;pointer-events:none;contain:strict}.pointer-loupe-rings{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:3;pointer-events:none}.pointer-loupe-rings circle{fill:none;vector-effect:non-scaling-stroke}
+#bar{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--panel);z-index:6}#status{margin-right:auto;max-width:60vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}body:not(.standalone) #bar{display:none}#choose{cursor:pointer;border:1px solid var(--line);border-radius:4px;padding:5px 8px;background:var(--raised)}#file{display:none}
+#panel{overflow:auto;top:12px;max-height:calc(100dvh - 76px);z-index:7}#panel header{position:sticky;top:-12px}#panel header .app-icon{width:22px;height:22px}#panel input[type=number]{width:62px;min-width:0}#panel input[type=color]{width:42px}#panel select{min-width:0;max-width:100%}#geometry>label{display:grid;grid-template-columns:minmax(0,1fr) 96px;align-items:center;gap:8px;margin:8px 0;font-size:12px}#geometry input[type=checkbox]{justify-self:start}#geometry input:not([type=checkbox]),#geometry select{width:100%}#help{line-height:1.5;border-top:1px solid var(--line);padding-top:8px;margin-bottom:0}#control-target{flex:1}#control-value{min-width:40px;text-align:center;font-variant-numeric:tabular-nums}
+.loupe-effect-grid input[type=range]{accent-color:var(--accent)}.loupe-effect-grid>label>span{min-width:0!important}.loupe-effect-grid>label input[type=number]{width:50px!important;padding:4px}.loupe-effect-actions button{min-height:27px}.loupe-sidebar details>label{font-size:12px}
+#pdf-images{position:fixed;left:0;top:51px;bottom:0;width:220px;overflow:auto;padding:10px;border-right:1px solid var(--line);background:var(--panel);z-index:5}#pdf-images button{display:block;width:100%;margin-bottom:10px;text-align:left}#pdf-images img{max-width:100%;max-height:150px;display:block;margin:auto}.pdf-mode #view{left:220px}.pdf-mode #status{max-width:40vw}
+html:has(body.options){background:var(--bg);overflow:auto}body.options{overflow:visible;max-width:800px;height:auto;min-height:100%;margin:auto;background:var(--bg);padding:24px}.options form{margin-top:20px}.options h1{font-size:18px}.options label{align-items:center;flex-wrap:wrap;margin:12px 0}.options label>span:first-child{width:220px}.options input[type=url],.options input[type=text]{flex:1;min-width:160px;padding:6px 8px;border:1px solid var(--line);border-radius:4px;background:var(--raised);color:inherit}.options fieldset{border:1px solid var(--line);border-radius:6px;padding:16px;margin:20px 0;background:var(--panel)}.options legend{font-size:14px;font-weight:600;padding:0 6px}.options output{display:block;line-height:1.5;margin:8px 0}.options p{color:var(--muted);font-size:12px}.options [data-shortcut]{max-width:170px}.error{color:#e8817b}.warning{color:var(--accent)}.options nav{display:flex;gap:8px;align-items:center}.options nav h1{margin-right:auto}.options nav .app-icon{width:28px;height:28px}
+@media(max-width:440px){.loupe-effect-grid>label{grid-template-columns:100px minmax(60px,1fr) 50px}.loupe-effect-grid input[type=range]{min-width:30px!important}.options{padding:12px!important}.options label>span:first-child{width:100%}}
+html:root:has(body:not(.options)){background:transparent}
+html:root:has(body:not(.standalone):not(.options)){color-scheme:normal}
+.loupe-sidebar{color-scheme:dark}:root[data-theme=light] .loupe-sidebar{color-scheme:light}
+
+.binding-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:8px 0}.binding-row input[type=number]{width:55px}.binding-row input[type=text]{min-width:60px;max-width:110px}.binding-row select{max-width:210px}
+#panel .compact-actions{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}#panel .source-url{display:block;width:100%;font-size:10px;box-sizing:border-box}#panel .bookmark-fields{display:flex;gap:6px;margin:6px 0}#panel .bookmark-fields select{width:45%}
+.collection .compact-actions{display:flex;flex-wrap:wrap;gap:8px}.collection-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:flex-start}.collection-item>img{max-width:150px;max-height:120px;object-fit:contain}.collection-item>div{min-width:0;flex:1}.collection-item code{font-size:10px;display:block;overflow-wrap:anywhere;margin:8px 0}.collection-source{overflow-wrap:anywhere;white-space:pre-line;font-size:11px}.collection-item p{margin:4px 0}
+
+/* Readable controls use the same SHERLOQ fonts and palette at a normal text size. */
+:root{font-size:17px}
+#panel{width:min(580px,calc(100vw - 24px));padding:16px;font-size:17px;line-height:1.4;scrollbar-gutter:stable}
+#panel>header{top:-16px;padding:12px 0;gap:10px}#panel h2{font-size:21px}#panel header .app-icon{width:26px;height:26px}
+#panel summary{font-size:18px;line-height:1.4;padding:6px 0}#panel details{padding:10px 0}
+#panel button,#panel select,#panel input{font-size:17px}#panel button,#panel select,#panel input:not([type=range]):not([type=checkbox]){min-height:38px}
+#panel button{padding:7px 10px}#panel .icon-button{width:38px;height:38px;padding:0}
+#panel .loupe-effect-grid{gap:10px;padding-top:10px}#panel .loupe-effect-grid>label{grid-template-columns:170px minmax(90px,1fr) 76px;gap:10px;font-size:17px;line-height:1.35}
+#panel .loupe-effect-grid>label input[type=number]{width:76px!important;padding:6px}#panel .loupe-effect-grid input[type=range]{height:32px;min-width:0!important}
+#panel input[type=checkbox]{width:18px;height:18px}#panel .loupe-effect summary label{gap:9px}
+#panel .loupe-effect-actions{gap:8px}#panel .loupe-effect-actions button{font-size:16px;min-height:38px}
+#panel .loupe-effect-status,#panel [data-media],#panel details>label,#geometry>label{font-size:17px}
+#panel input[type=number]{width:86px}#geometry>label{grid-template-columns:minmax(0,1fr) 112px;gap:12px;margin:12px 0}
+#panel .muted,#help{font-size:16px;line-height:1.5}#panel .source-url{font-size:14px}#panel .compact-actions{gap:8px;margin:10px 0}
+body.options{max-width:1000px;font-size:17px;line-height:1.5}.options legend{font-size:19px}.options p{font-size:16px}.options label>span:first-child{width:260px}
+.options button,.options input,.options select{font-size:17px;min-height:38px}.options input[type=checkbox]{min-height:0;width:18px;height:18px}.options .icon-button{width:38px;height:38px}.options .theme-button{font-size:16px}
+.binding-row{gap:10px;margin:12px 0}.binding-row input[type=number]{width:75px}.binding-row input[type=text]{max-width:130px}.binding-row select{max-width:260px}
+.collection-item code{font-size:13px}.collection-source{font-size:15px}
+@media(max-width:600px){#panel{width:calc(100vw - 24px);padding:12px}#panel>header{top:-12px}#panel h2{font-size:19px}#panel .loupe-effect-grid>label{grid-template-columns:minmax(0,1fr) 76px;gap:6px}#panel .loupe-effect-grid>label>span{grid-column:1/-1}#panel .loupe-effect-grid>label>input[type=range]{grid-column:1}#panel .loupe-effect-grid>label>input[type=number]{grid-column:2}#panel .loupe-effect-grid select{grid-column:1/-1}.options label>span:first-child{width:100%}}
+
+#pdf-pages{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#pdf-pages a{padding:6px;border:1px solid var(--line);border-radius:4px;color:var(--ink);text-decoration:none}#pdf-progress{font-size:16px;line-height:1.4}
+
+#ocr-confirm{max-width:min(540px,calc(100vw - 40px));padding:24px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font-family:inherit;font-size:17px}#ocr-confirm::backdrop{background:#0008}#ocr-confirm h2{font-size:21px;margin-top:0}#ocr-confirm p{font-size:17px;line-height:1.5}#ocr-confirm button{font-family:inherit;font-size:17px;min-height:38px;padding:8px 12px}
+
+#ocr-confirm .compact-actions{display:flex;gap:12px;justify-content:flex-end}
+
+#control-group{flex:1}
+#preset-control{display:flex;align-items:center;gap:12px;margin:14px 0;font-size:17px}#loupe-preset{min-width:0;flex:1}
+.standalone #panel{top:64px}
+#panel .hover-slider-inline{grid-column:2;min-width:0}
+#panel .hover-slider-rail,#panel .hover-slider-auto-zone{height:32px}
+#panel .hover-slider-auto-zone{font-size:14px;font-family:inherit}
+#panel .hover-slider-rail>input[type=range],.hover-slider-popup input[type=range]{padding:0;border:0;min-width:0!important}
+.hover-slider-popup{font-family:inherit;font-size:16px;min-height:36px}
+.hover-slider-popup .hover-slider-value{font-family:inherit;font-size:16px}
+@media(max-width:600px){#panel .loupe-effect-grid>label>.hover-slider-inline{grid-column:1}}
+
+.options.privacy p{font-size:16px;line-height:1.6;color:var(--ink)}.privacy h3{font-size:18px;margin-top:26px}.privacy article{margin-top:28px}
+
+/* The same ? button and restrained help dialog as SHERLOQ web. */
+#view:focus{outline:none}
+.sherloq-product-help{box-sizing:border-box;width:min(900px,94vw);max-width:94vw;max-height:90dvh;overflow:auto;padding:22px;color:var(--ink);background:var(--bg,#252629);border:1px solid #777;border-radius:10px;font:inherit;font-size:17px;line-height:1.55}
+.sherloq-product-help::backdrop{background:rgb(0 0 0 / .6)}.sherloq-product-help header{display:flex;justify-content:space-between;align-items:center;gap:20px}.sherloq-product-help h2{font-size:22px;margin:0}.sherloq-product-help dl{display:grid;grid-template-columns:minmax(80px,auto) 1fr;gap:12px 20px}.sherloq-product-help dt{font-weight:600}.sherloq-product-help dd{margin:0}.sherloq-product-help .icon-button{width:38px;height:38px;font-size:20px}
+@media(max-width:500px){.sherloq-product-help dl{grid-template-columns:1fr;gap:4px}.sherloq-product-help dd{margin-bottom:12px}}

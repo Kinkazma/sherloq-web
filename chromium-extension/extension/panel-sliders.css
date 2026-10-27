@@ -1,0 +1,56 @@
+.hover-slider-popup{position:fixed;inset:auto;margin:0;z-index:2147483000;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center;padding:4px 7px;border:1px solid color-mix(in srgb,currentColor 20%,transparent);border-radius:6px;background:var(--raised,#282a30);color:var(--ink,#f4f4f6);box-shadow:0 2px 7px #0004;font:11px/1.2 system-ui,sans-serif;pointer-events:auto;user-select:none;color-scheme:inherit}
+.hover-slider-popup[hidden]{display:none!important}.hover-slider-popup::backdrop{background:transparent;pointer-events:none}.hover-slider-header{display:contents}.hover-slider-name,.hover-slider-limits{display:none}.hover-slider-value{grid-column:2;grid-row:1;width:8ch;min-width:8ch;max-width:8ch;overflow:hidden;text-overflow:ellipsis;text-align:right;font:500 11px/1.2 ui-monospace,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hover-slider-rail{position:relative;grid-column:1;grid-row:1;display:grid;grid-template-columns:minmax(0,1fr);align-items:center;height:20px;min-width:0;touch-action:none;cursor:ew-resize;user-select:none}
+.hover-slider-rail[data-has-automatic="true"]{grid-template-columns:52px 17px minmax(16px,1fr)}.hover-slider-auto-zone{position:relative;grid-column:1;grid-row:1;box-sizing:border-box;width:52px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:flex-start;padding-left:2px;color:inherit;font:500 11px/1.2 system-ui,sans-serif;white-space:nowrap}.hover-slider-auto-zone[hidden]{display:none}.hover-slider-auto-zone:after{content:"";position:absolute;right:-9px;top:4px;height:12px;border-right:1px solid color-mix(in srgb,currentColor 32%,transparent)}.hover-slider-auto-label{display:block;max-width:32px;overflow:hidden}.hover-slider-rail[data-automatic="true"] .hover-slider-auto-zone{background:color-mix(in srgb,var(--accent,#99b8ff) 18%,transparent)}
+.hover-slider-range{grid-column:1;grid-row:1;appearance:none;-webkit-appearance:none;width:100%;height:20px;min-width:0;margin:0;padding:0;background:transparent;color:inherit;cursor:ew-resize;touch-action:none;outline-offset:1px}.hover-slider-rail[data-has-automatic="true"]>.hover-slider-range{grid-column:3}.hover-slider-range::-webkit-slider-runnable-track{height:4px;border-radius:3px;background:color-mix(in srgb,currentColor 28%,transparent)}.hover-slider-range::-moz-range-track{height:4px;border-radius:3px;background:color-mix(in srgb,currentColor 28%,transparent)}.hover-slider-range::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:14px;height:14px;margin-top:-5px;border:0;background:transparent;box-shadow:none}.hover-slider-range::-moz-range-thumb{width:14px;height:14px;border:0;background:transparent;box-shadow:none}.hover-slider-thumb{position:absolute;z-index:1;top:50%;width:12px;height:12px;box-sizing:border-box;border:1px solid color-mix(in srgb,var(--accent,#99b8ff) 60%,currentColor);border-radius:50%;background:var(--accent,#99b8ff);box-shadow:0 1px 2px #0005;transform:translate(-50%,-50%);pointer-events:none}.hover-slider-rail[data-degenerate="true"]>.hover-slider-range{max-width:14px}.hover-slider-rail[data-degenerate="true"] .hover-slider-range::-webkit-slider-runnable-track{background:transparent}.hover-slider-rail[data-degenerate="true"] .hover-slider-range::-moz-range-track{background:transparent}
+.hover-slider-expand{display:none;grid-row:1;appearance:none;border:0;background:transparent;color:inherit;padding:0;width:14px;height:20px;border-radius:3px;font-size:16px;cursor:pointer}.hover-slider-popup[data-extensible="true"]{grid-template-columns:14px minmax(0,1fr) 14px auto;gap:3px}.hover-slider-popup[data-extensible="true"]>.hover-slider-rail{grid-column:2}.hover-slider-popup[data-extensible="true"] .hover-slider-value{grid-column:4}.hover-slider-popup[data-extensible="true"] .hover-slider-expand{display:block}.hover-slider-expand-low{grid-column:1}.hover-slider-expand-high{grid-column:3}.hover-slider-expand:hover,.hover-slider-expand:focus-visible{background:var(--hover,#ffffff1c)}.hover-slider-expand[hidden]{visibility:hidden}.hover-slider-range:disabled,.hover-slider-expand:disabled{opacity:.45;cursor:wait}.hover-slider-inline{display:grid;width:100%;min-width:0}.hover-slider-inline>.hover-slider-original[hidden]{display:none!important}
+:root[data-theme="light"] .hover-slider-popup{background:var(--raised,#fff);color:var(--ink,#202124);border-color:var(--line,#c9cdd2);color-scheme:light;box-shadow:0 2px 7px #0002}:root[data-theme="light"] .hover-slider-expand:hover,:root[data-theme="light"] .hover-slider-expand:focus-visible{background:var(--hover,#e2e6eb)}
+
+/* Own only the presentation range sizes, including inside media/embedded panels. */
+.hover-slider-popup .hover-slider-rail>input.hover-slider-range[type=range],.hover-slider-inline .hover-slider-rail>input.hover-slider-range[type=range]{box-sizing:border-box;min-width:0!important;width:100%!important;max-width:100%!important}
+.hover-slider-popup .hover-slider-rail[data-degenerate="true"]>input.hover-slider-range[type=range],.hover-slider-inline .hover-slider-rail[data-degenerate="true"]>input.hover-slider-range[type=range]{width:14px!important;max-width:14px!important}
+
+/* Superposed optional popup; opening clicks still target the native field. */
+.hover-slider-popup{grid-template-columns:minmax(0,1fr) 18px auto}
+.hover-slider-popup[data-opening="true"]{pointer-events:none}
+/* Explicit widgets stay reachable; the opening rail still passes through. */
+.hover-slider-popup[data-opening="true"] .hover-slider-nudges>button,.hover-slider-popup[data-opening="true"] .hover-slider-value,.hover-slider-popup[data-opening="true"] .hover-slider-value-editor,.hover-slider-popup[data-opening="true"] .hover-slider-expand{pointer-events:auto}
+.hover-slider-popup .hover-slider-value{grid-column:3}
+.hover-slider-nudges{grid-column:2;grid-row:1;display:grid;grid-template-rows:1fr 1fr;height:24px;min-width:18px;gap:0}
+.hover-slider-nudges>button{appearance:none;box-sizing:border-box;min-width:18px;min-height:0;margin:0;padding:0;border:1px solid color-mix(in srgb,currentColor 30%,transparent);border-radius:2px;background:transparent;color:inherit;font:10px/1 system-ui;cursor:pointer}
+.hover-slider-nudges>button:hover,.hover-slider-nudges>button:focus-visible{background:var(--hover,#ffffff1c)}
+.hover-slider-nudges>button:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.hover-slider-nudges>button:disabled{opacity:.45;cursor:default}
+.hover-slider-popup[data-extensible="true"]{grid-template-columns:14px minmax(0,1fr) 14px 18px auto}
+.hover-slider-popup[data-extensible="true"] .hover-slider-nudges{grid-column:4}
+.hover-slider-popup[data-extensible="true"] .hover-slider-value{grid-column:5}
+
+/* Text entry occupies the same value slot; rails and fine nudges stay in place. */
+.hover-slider-value[hidden]{display:none!important}
+.hover-slider-value-editor{box-sizing:border-box;min-width:0;max-width:100%;padding:0 2px;border:1px solid var(--accent,#99b8ff);border-radius:2px;background:var(--raised,#282a30);color:inherit;font:inherit;user-select:text;cursor:text}
+.hover-slider-value-editor.hover-slider-value{font:500 11px/1.2 ui-monospace,monospace}
+output.hover-slider-value{cursor:text}
+output.hover-slider-value:focus-visible{outline:1px solid var(--accent,#99b8ff);outline-offset:1px}
+
+/* Inline native ranges keep one existing row: rail, fine arrows, value. */
+.native-range-controls{display:inline-grid;grid-template-columns:minmax(0,1fr) 14px max-content;align-items:center;gap:3px;min-width:0;max-width:100%;vertical-align:middle;flex:1 1 auto}
+.native-range-controls>input[type=range],.native-range-controls>.hover-slider-rail{grid-column:1;grid-row:1;min-width:0;width:100%!important;max-width:100%;margin:0}
+.native-range-nudges{grid-column:2;grid-row:1;display:inline-grid;grid-template-rows:1fr 1fr;height:20px;width:14px;align-self:center}
+.native-range-controls>.native-range-nudges>button{appearance:none;box-sizing:border-box;min-width:0;min-height:0;width:14px;height:10px;padding:0;margin:0;border:1px solid color-mix(in srgb,currentColor 30%,transparent);border-radius:2px;background:transparent;color:inherit;font:9px/1 system-ui;cursor:pointer}
+.native-range-nudges>button:disabled{opacity:.45;cursor:default}.native-range-nudges>button:focus-visible,.native-range-value:focus-visible{outline:1px solid var(--accent,#99b8ff);outline-offset:1px}
+.native-range-controls>.native-range-value{grid-column:3;grid-row:1;float:none;white-space:nowrap;margin:0;font-variant-numeric:tabular-nums;cursor:text}
+.native-range-controls>.hover-slider-value-editor{grid-column:3;grid-row:1;min-width:0;margin:0}
+.native-range-controls>.native-range-value[hidden]{display:none!important}
+
+/* Extension settings retain SHERLOQ's inline widgets at the panel text size. */
+#panel [data-settings-slider-row],#panel .loupe-effect-grid>label[data-settings-slider-row]{grid-template-columns:170px minmax(0,1fr);gap:10px}
+#panel [data-settings-slider-row]>.native-range-controls{grid-column:2;grid-row:auto;width:100%;min-width:0}
+#panel .native-range-controls{grid-template-columns:minmax(0,1fr) 16px max-content;gap:6px;font:inherit}
+#panel .native-range-controls>.native-range-value{font:inherit;min-width:5ch;text-align:right;line-height:32px;user-select:text}
+#panel .native-range-controls>.native-range-nudges{width:16px;height:24px}
+#panel .native-range-controls>.native-range-nudges>button{min-width:0;min-height:0;width:16px;height:12px;padding:0;font:10px/1 system-ui}
+#panel .native-range-controls>.hover-slider-value-editor{width:8ch!important;max-width:8ch;font:inherit;min-height:32px;padding:2px 4px}
+#panel .native-range-controls>input[type=range]{min-height:32px;padding:0;border:0}
+#panel .native-range-controls>.hover-slider-rail{height:32px}
+#panel .native-range-controls .hover-slider-auto-zone{font-family:inherit;font-size:14px;height:32px}
+@media(max-width:600px){#panel [data-settings-slider-row],#panel .loupe-effect-grid>label[data-settings-slider-row]{grid-template-columns:minmax(0,1fr)}#panel [data-settings-slider-row]>.native-range-controls{grid-column:1/-1}#panel [data-settings-slider-row]>span:not(.native-range-controls){grid-column:1/-1}}

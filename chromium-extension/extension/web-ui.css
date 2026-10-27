@@ -1,0 +1,32 @@
+:root,:host{color-scheme:dark;--bg:#202124;--panel:#292a2d;--raised:#333438;--canvas:#17181a;--ink:#e8eaed;--muted:#aeb2b9;--line:#44464b;--hover:#3c3e43;--accent:#9ec5fa;--selected:#34475f;--on-accent:#162432;font-family:"iowan-old-style-bt","Iowan Old Style Local","Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;font-size:13px;color:var(--ink);background:var(--bg)}
+:root[data-theme=light],:host([data-theme=light]){color-scheme:light;--bg:#efefef;--panel:#fafafa;--raised:#fff;--canvas:#d5d7da;--ink:#202124;--muted:#59606a;--line:#c9cdd2;--hover:#e2e6eb;--accent:#32659a;--selected:#dce9f6;--on-accent:#fff}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+button,input,select{font:inherit;color:inherit}
+button,select,input[type=number]{background:var(--raised);border:1px solid var(--line);border-radius:4px;padding:5px 8px;min-height:29px}
+button{cursor:pointer;white-space:nowrap}
+button:hover:not(:disabled){background:var(--hover)}
+button:disabled{opacity:.45;cursor:default}
+button[aria-pressed=true],button[aria-selected=true]{background:var(--selected);color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible,#viewport:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=checkbox]{accent-color:var(--accent)}
+label{display:flex;align-items:center;gap:6px}
+p{line-height:1.45}
+.brand{font-size:18px;letter-spacing:.04em;margin-right:12px;white-space:nowrap}
+.theme-button{display:inline-flex;gap:7px;align-items:center;min-height:34px;padding:0 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--panel);font-size:12px;font-weight:600;cursor:pointer}
+.theme-button:hover{color:var(--ink);border-color:currentColor}
+.theme-button>span:first-child{color:var(--accent);font-size:15px;line-height:1}
+.icon-button{display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid var(--line);border-radius:50%;color:var(--ink);background:var(--panel);text-decoration:none;cursor:pointer}
+.muted{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+@font-face{font-family:Montserrat;src:url('./fonts/montserrat-latin-400-normal.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:Montserrat;src:url('./fonts/montserrat-latin-700-normal.woff2') format('woff2');font-style:normal;font-weight:700;font-display:swap}
+html,body,button,input,select,textarea{font-family:var(--ui-font,"iowan-old-style-bt","Iowan Old Style",Georgia,serif)!important}
+.loupe-sidebar{position:fixed;inset:58px 12px auto auto;margin:0;width:min(420px,calc(100vw - 24px));max-height:calc(100dvh - 82px);padding:12px;z-index:100;box-shadow:0 8px 30px #0007;background:var(--bg,#242628);color:var(--ink,#eee);border:1px solid var(--line,#777);border-radius:8px}
+.loupe-sidebar[data-side=left]{left:12px;right:auto}.loupe-sidebar>header{display:flex;gap:8px;align-items:center;position:sticky;top:-12px;padding:10px 0;background:var(--bg,#242628);z-index:1}.loupe-sidebar h2{font-size:17px;margin:0;flex:1}
+.loupe-sidebar details{border-top:1px solid var(--line,#777);padding:8px 0}.loupe-sidebar summary{cursor:pointer;font-weight:600}.loupe-sidebar details>label{display:flex;align-items:center;gap:7px;margin:8px 0;flex-wrap:wrap}.loupe-sidebar details>label>span:first-child{min-width:100px}
+.loupe-sidebar .loupe-effect{border-top:0;padding:5px 0}.loupe-effect summary label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}.loupe-effect-grid{display:grid;gap:6px;padding-top:8px}.loupe-effect-grid>label{display:grid;grid-template-columns:112px minmax(100px,1fr) 50px;align-items:center;gap:6px;font-size:12px}
+.loupe-effect-grid input[type=range]{min-width:90px!important;width:100%!important;margin:0}.loupe-effect-grid input[type=number]{width:48px;box-sizing:border-box}.loupe-effect-grid select{grid-column:2/4;width:100%;min-width:0}.loupe-effect-grid .effect-checkbox{display:flex;gap:8px}.loupe-effect-grid .effect-checkbox input{order:-1}
+.loupe-effect-status{display:block;font-size:12px;min-height:1.4em;text-align:left!important;opacity:.8}.loupe-sidebar [data-media=hint]{font-size:11px}.loupe-sidebar .dialog-actions{margin-top:6px}.loupe-sidebar [data-media=effectsHint]{font-size:12px}
+
+.loupe-effect-actions{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:7px}.loupe-effect-actions button{font-size:12px}.loupe-effect-actions select{width:100%;margin-top:4px}
+:root[data-font=montserrat],:host([data-font=montserrat]){--ui-font:Montserrat,Arial,sans-serif}

@@ -1,0 +1,6 @@
+{
+  "extensionName": {"message": "SHERLOQ — Magnifier"},
+  "extensionDescription": {"message": "Inspect images and PDFs with the SHERLOQ magnifier. Adjustments, sweeps, image selection and optional local OCR."},
+  "actionTitle": {"message": "Enable / disable the SHERLOQ magnifier"},
+  "commandDescription": {"message": "Enable / disable the magnifier"}
+}

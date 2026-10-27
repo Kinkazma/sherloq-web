@@ -1,0 +1,44 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="icons/favicon.svg" type="image/svg+xml"><title>SHERLOQ · Réglages</title><link rel="stylesheet" href="renderer.css"></head><body class="options">
+<nav><img class="app-icon" src="icons/favicon.svg" alt=""><h1 class="brand">SHERLOQ</h1><button id="quick-help" class="icon-button" aria-label="Aide" title="Aide">?</button><button id="theme" class="icon-button" aria-label="Thème">◐</button><button id="language" class="theme-button" aria-label="Langue">EN</button></nav>
+<output id="notice" role="status"></output>
+<form id="preferences">
+<fieldset><legend data-fr="Ouvrir l’image" data-en="Open image"></legend>
+<label><span data-fr="SHERLOQ web" data-en="SHERLOQ web"></span><input name="webURL" type="url" required></label>
+<label><span data-fr="SHERLOQ local" data-en="Local SHERLOQ"></span><input name="localURL" type="url" placeholder="http://… ou file:///…"></label>
+<p data-fr="Ouvrez votre version emportée, puis copiez ici son adresse. Pour une adresse file:///, activez aussi « Autoriser l’accès aux URL de fichier » dans les détails de l’extension." data-en="Open your portable version and paste its address here. For file:/// addresses, also enable “Allow access to file URLs” in the extension details."></p>
+<p data-fr="La bibliothèque de cette version locale est utilisée en priorité. Sinon, l’extension réemploie les ressources conservées par SHERLOQ web dans ce profil de navigateur, y compris son dossier de calcul déjà autorisé. Les poids disponibles sont lus sur place ; l’OCR ne télécharge les éléments manquants qu’après votre accord." data-en="This local version’s library takes priority. Otherwise, the extension reuses resources saved by SHERLOQ web in this browser profile, including its already-authorized calculation folder. Available models are read in place; OCR downloads missing resources only after your approval."></p>
+</fieldset>
+<fieldset><legend data-fr="Raccourcis" data-en="Shortcuts"></legend>
+<label><span data-fr="Activer l’extension" data-en="Activate extension"></span><output id="activation"></output></label>
+<button id="browser-shortcuts" type="button" data-fr="Modifier dans Chromium…" data-en="Change in Chromium…"></button>
+<p data-fr="Chromium gère ce raccourci et son attribution. L’extension ne peut pas l’écrire à votre place ni lire les raccourcis des autres extensions. Un raccourci non attribué est signalé ci-dessus." data-en="Chromium manages this shortcut and its assignment. The extension cannot change it for you or read other extensions’ shortcuts. An unassigned shortcut is reported above."></p>
+<p data-fr="Les commandes suivantes agissent uniquement lorsque la loupe est active, hors des champs de saisie. Cliquez dans une case puis tapez votre combinaison." data-en="The commands below work only while the magnifier is active, outside text fields. Click a box and press your key combination."></p>
+<label><span data-fr="Désactiver la loupe" data-en="Deactivate magnifier"></span><input data-shortcut="close" type="text" aria-label="Désactiver la loupe"></label>
+<label><span data-fr="Réglages" data-en="Settings"></span><input data-shortcut="settings" type="text" aria-label="Réglages"></label>
+<label><span data-fr="Balayage" data-en="Sweep"></span><input data-shortcut="sweep" type="text" aria-label="Balayage"></label>
+<label><span data-fr="Original, touche maintenue" data-en="Original, hold key"></span><input data-shortcut="original" type="text" aria-label="Original"></label>
+<label><span data-fr="Diminuer le réglage" data-en="Decrease parameter"></span><input data-shortcut="decrease" type="text" aria-label="Diminuer le réglage"></label>
+<label><span data-fr="Augmenter le réglage" data-en="Increase parameter"></span><input data-shortcut="increase" type="text" aria-label="Augmenter le réglage"></label>
+<label><span data-fr="Marquer le réglage affiché" data-en="Bookmark displayed settings"></span><input data-shortcut="mark" type="text"></label>
+<label><span data-fr="OCR de la loupe" data-en="Lens OCR"></span><input data-shortcut="ocr" type="text"></label>
+<label><span data-fr="Exporter l’image affichée" data-en="Export displayed image"></span><input data-shortcut="export" type="text"></label>
+<label><span data-fr="Ajouter à la sélection" data-en="Add to selection"></span><input data-shortcut="basket" type="text"></label>
+<label><span data-fr="Repère précédent" data-en="Previous bookmark"></span><input data-shortcut="previousMark" type="text"></label>
+<label><span data-fr="Repère suivant" data-en="Next bookmark"></span><input data-shortcut="nextMark" type="text"></label>
+<details><summary data-fr="Paires de touches par paramètre" data-en="Key pairs per parameter"></summary><div id="bindings"></div><button id="add-binding" type="button" data-fr="Ajouter une paire" data-en="Add a pair"></button></details>
+<output id="conflicts" aria-live="polite"></output>
+<button id="reset-shortcuts" type="button" data-fr="Rétablir les touches par défaut" data-en="Restore default keys"></button>
+</fieldset>
+<fieldset><legend data-fr="Affichage" data-en="Appearance"></legend>
+<label><span data-fr="Police" data-en="Typeface"></span><select name="font"><option value="iowan">Iowan Old Style</option><option value="montserrat">Montserrat</option></select></label>
+<label><span data-fr="Langue" data-en="Language"></span><select name="language"><option value="auto">Auto</option><option value="fr">Français</option><option value="en">English</option></select></label>
+<label><span data-fr="Thème" data-en="Theme"></span><select name="theme"><option value="auto">Auto</option><option value="light">Clair / Light</option><option value="dark">Sombre / Dark</option></select></label>
+</fieldset>
+<button type="submit" data-fr="Enregistrer" data-en="Save"></button>
+</form>
+<p><a href="renderer.html" data-fr="Ouvrir un PDF ou une image…" data-en="Open a PDF or image…"></a></p>
+<button id="restart" type="button" data-fr="↻ Redémarrer l’extension" data-en="↻ Restart extension"></button>
+<p><a href="collection.html" data-fr="Ouvrir la sélection d’images" data-en="Open image selection"></a></p>
+<button id="clear-cache" type="button" data-fr="Supprimer les images temporaires" data-en="Delete temporary images"></button>
+<footer><p><a href="https://gaeldauchy.com/sherloq/" target="_blank" rel="noopener noreferrer">SHERLOQ web</a> · <a id="project-source" href="https://github.com/Kinkazma/sherloq-web" target="_blank" rel="noopener noreferrer" data-fr="Code source · GitHub" data-en="Source code · GitHub"></a> · <a href="privacy.html" data-fr="Confidentialité" data-en="Privacy"></a></p><p data-fr="SHERLOQ est un logiciel libre. Le code de l’extension, les instructions de reconstruction et les licences ont leur place dans le dépôt du projet." data-en="SHERLOQ is free software. The project repository is the home for the extension source code, build instructions and licenses."></p></footer>
+<script type="module" src="options.js"></script></body></html>

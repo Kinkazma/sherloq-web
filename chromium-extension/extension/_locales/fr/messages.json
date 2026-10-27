@@ -1,0 +1,6 @@
+{
+  "extensionName": {"message": "SHERLOQ — Loupe"},
+  "extensionDescription": {"message": "Inspectez les images et les PDF avec la loupe SHERLOQ. Réglages, balayage, sélection d’images et OCR local facultatif."},
+  "actionTitle": {"message": "Activer / désactiver la loupe SHERLOQ"},
+  "commandDescription": {"message": "Activer / désactiver la loupe"}
+}

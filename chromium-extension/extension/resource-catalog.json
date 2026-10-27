@@ -1,0 +1,106 @@
+{
+  "schema": "sherloq.extension-resources/1",
+  "files": [
+    {
+      "group": "pdf",
+      "path": "unified-assets/forgeryscope/yolo_panel_extractor.onnx",
+      "bytes": 236553563,
+      "sha256": "4d21992065489d4b60c794b9b564f7e0f799ef92b8c12729294cf528d036841d",
+      "chunks": [
+        {
+          "hash": "7b4d47b5ba1221a441086476de36dd3005a04bb1c6e0f576134d62680113e94d",
+          "bytes": 100000000
+        },
+        {
+          "hash": "e5c7deea77232675c551df851155f4c14a0c6e585ba12346774384f5a581d8b4",
+          "bytes": 100000000
+        },
+        {
+          "hash": "3ed506329b693e444eb3526575892a3661ed464b0470617ee5f00acd88c1a794",
+          "bytes": 36553563
+        }
+      ],
+      "base": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/6de2a62a119b19cacd25c6e05af071e7f28f651d/web-assets/"
+    },
+    {
+      "group": "ocr",
+      "file": "ppocrv6-medium/det/inference.onnx",
+      "bytes": 62032837,
+      "sha256": "eb13b44b25bb36f89528b68720af8a61d9cf381176107f465db1757b65d086e1",
+      "path": "ocr-assets/ppocrv6-medium/det/inference.onnx",
+      "chunks": [
+        {
+          "hash": "eb13b44b25bb36f89528b68720af8a61d9cf381176107f465db1757b65d086e1",
+          "bytes": 62032837
+        }
+      ],
+      "base": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/89379d05463ff444a5e8a621ec63cdbcac1ac19a/web-assets/"
+    },
+    {
+      "group": "ocr",
+      "file": "ppocrv6-medium/rec/inference.onnx",
+      "bytes": 76554979,
+      "sha256": "9c09abf0957f7968c7586464b7397b84ad2387a0497a351af40e9acc71b673ba",
+      "path": "ocr-assets/ppocrv6-medium/rec/inference.onnx",
+      "chunks": [
+        {
+          "hash": "9c09abf0957f7968c7586464b7397b84ad2387a0497a351af40e9acc71b673ba",
+          "bytes": 76554979
+        }
+      ],
+      "base": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/89379d05463ff444a5e8a621ec63cdbcac1ac19a/web-assets/"
+    },
+    {
+      "group": "ocr",
+      "file": "pp-lcnet-line-orientation/inference.onnx",
+      "bytes": 6777816,
+      "sha256": "38aa97cd4be591e0ad304e659f07ba30d946f27a63315433f6659c69c8778345",
+      "path": "ocr-assets/pp-lcnet-line-orientation/inference.onnx",
+      "chunks": [
+        {
+          "hash": "38aa97cd4be591e0ad304e659f07ba30d946f27a63315433f6659c69c8778345",
+          "bytes": 6777816
+        }
+      ],
+      "base": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/89379d05463ff444a5e8a621ec63cdbcac1ac19a/web-assets/"
+    },
+    {
+      "group": "ocr",
+      "file": "ppocrv6-medium/rec/dictionary.json",
+      "bytes": 112366,
+      "sha256": "679f4f4cbbb4f762e84fae998e02c08a556afbd115968104ca3b4aeee5cb2b19",
+      "path": "ocr-assets/ppocrv6-medium/rec/dictionary.json",
+      "chunks": [
+        {
+          "hash": "679f4f4cbbb4f762e84fae998e02c08a556afbd115968104ca3b4aeee5cb2b19",
+          "bytes": 112366
+        }
+      ],
+      "base": "https://raw.githubusercontent.com/Kinkazma/sherloq-web/89379d05463ff444a5e8a621ec63cdbcac1ac19a/web-assets/"
+    }
+  ],
+  "ocr": {
+    "assets": {
+      "det": {
+        "file": "ppocrv6-medium/det/inference.onnx",
+        "bytes": 62032837,
+        "sha256": "eb13b44b25bb36f89528b68720af8a61d9cf381176107f465db1757b65d086e1"
+      },
+      "rec": {
+        "file": "ppocrv6-medium/rec/inference.onnx",
+        "bytes": 76554979,
+        "sha256": "9c09abf0957f7968c7586464b7397b84ad2387a0497a351af40e9acc71b673ba"
+      },
+      "ori": {
+        "file": "pp-lcnet-line-orientation/inference.onnx",
+        "bytes": 6777816,
+        "sha256": "38aa97cd4be591e0ad304e659f07ba30d946f27a63315433f6659c69c8778345"
+      }
+    },
+    "dictionary": {
+      "file": "ppocrv6-medium/rec/dictionary.json",
+      "bytes": 112366,
+      "sha256": "679f4f4cbbb4f762e84fae998e02c08a556afbd115968104ca3b4aeee5cb2b19"
+    }
+  }
+}

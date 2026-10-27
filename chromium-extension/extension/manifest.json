@@ -1,0 +1,115 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "0.5.4",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
+  "homepage_url": "https://gaeldauchy.com/sherloq/",
+  "minimum_chrome_version": "120",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "contextMenus",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "file:///*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_icon": {
+      "16": "icons/favicon-16.png",
+      "32": "icons/favicon-32.png",
+      "48": "icons/favicon-48.png",
+      "128": "icons/favicon-128.png"
+    }
+  },
+  "options_page": "options.html",
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+L",
+        "mac": "Command+Shift+K"
+      },
+      "description": "__MSG_commandDescription__"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; worker-src 'self'; connect-src 'self' http: https: file:; img-src 'self' data: blob: http: https: file:; style-src 'self' 'unsafe-inline'; frame-ancestors http: https: file:"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "renderer.html",
+        "renderer.js",
+        "renderer.css",
+        "candidates.js",
+        "geometry.js",
+        "db.js",
+        "settings.js",
+        "shortcuts.js",
+        "vendor/*",
+        "fonts/*",
+        "controls.js",
+        "panel-controls.js",
+        "presets.js",
+        "transfer-file.js",
+        "panel-sliders.js",
+        "panel-sliders.css",
+        "settings-sliders.js",
+        "viewer-navigation.js",
+        "loupe-screen.js",
+        "native-effects-controls.js",
+        "web-ui.css",
+        "toolbar.css",
+        "icons/*",
+        "image-memory.js",
+        "native-media-settings.js",
+        "native-pointer-loupe.js",
+        "native-effects.js",
+        "native-effects-worker.js",
+        "step-playback.js",
+        "native-scan.js",
+        "inspection.js",
+        "native-export.js",
+        "collection.js",
+        "collection-metadata.js",
+        "library-tabs.js",
+        "local-library.js",
+        "web-folder.js",
+        "recent-selection.js",
+        "native-tile-plan.js",
+        "native-tile-worker.js",
+        "native-regional-image.js",
+        "pdf-layout.js",
+        "pdf-subimages.js",
+        "pdf-subimage-memory.js",
+        "pdf-image-context.js",
+        "ocr.js",
+        "ocr-worker.js",
+        "ocr-native/*",
+        "pdf-models/*",
+        "help.js",
+        "pdf-scope-version.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "file:///*"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icons/favicon-16.png",
+    "32": "icons/favicon-32.png",
+    "48": "icons/favicon-48.png",
+    "128": "icons/favicon-128.png"
+  }
+}

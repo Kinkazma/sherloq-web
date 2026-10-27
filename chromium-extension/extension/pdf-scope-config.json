@@ -1,0 +1,44 @@
+{
+  "asset": {
+    "id": "yolo_panel_extractor",
+    "checkpointSha256": "f686674cfb06e73c0e95791cd5ba73823a2cccc918b0bd67f6418e41f88d057f",
+    "file": "yolo_panel_extractor.onnx",
+    "bytes": 236553563,
+    "sha256": "4d21992065489d4b60c794b9b564f7e0f799ef92b8c12729294cf528d036841d",
+    "classes": {
+      "0": "Blots",
+      "1": "Graphs",
+      "2": "Microscopy",
+      "3": "Body Imaging",
+      "4": "Flow Cytometry"
+    },
+    "stride": 32
+  },
+  "resources": [
+    {
+      "file": "wasm-factory.mjs",
+      "bytes": 354,
+      "sha256": "d7b2ab91c390777d54371768de4f3d53bc9457ad75fbd6168eeb87d16e0e042a"
+    },
+    {
+      "file": "ort-wasm-simd-threaded.mjs",
+      "bytes": 24413,
+      "sha256": "166572df3e99b82d7cbcabbd7bb51388ebb83b3368799bc7f4dea4e99759c769"
+    },
+    {
+      "file": "ort-wasm-simd-threaded.wasm",
+      "bytes": 14239897,
+      "sha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2"
+    },
+    {
+      "file": "ort.wasm.min.mjs",
+      "bytes": 50126,
+      "sha256": "219e6a1fc8a9938268d18efca3c91d310bd2f4a59bbd13744df5b2b7fc6cee3b"
+    },
+    {
+      "file": "prepare.wasm",
+      "bytes": 1829422,
+      "sha256": "12d76086017a72e763fe0a3990a2aab43bf76af4dda6e83e027aae8a16088289"
+    }
+  ]
+}
