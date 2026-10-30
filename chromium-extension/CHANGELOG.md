@@ -1,5 +1,10 @@
 # Historique de l’extension Chromium
 
+## 0.5.8
+
+- Ouverture des adresses PDF avant l’injection de la loupe dans le document, pour les lecteurs intégrés qui acceptent l’injection sans déclencher le lecteur SHERLOQ.
+- Détection des PDF sans extension de fichier avant le chargement des modules de l’interface. Les PDF incorporés transmettent leur propre adresse.
+
 ## 0.5.7
 
 - Ajout de deux préréglages fournis : « AHE+GAMMA » (AHE 8 × 8 et gamma × 10 à 20, seuls) et « AHE+GAMMA+ÉGALISATION » (mêmes valeurs, avec la loupe améliorée en égalisation). Le balayage de niveau reste désactivé. La géométrie personnelle de la loupe est conservée.

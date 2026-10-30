@@ -1,5 +1,14 @@
 (() => {
   const prepareOnly = globalThis.__sherloqPrepareOnly; delete globalThis.__sherloqPrepareOnly;
+  // PDFs without a filename extension still need this early route. A native
+  // viewer can run this script but block imports, so do not load UI modules first.
+  const pdfNode=document.querySelector('embed[type="application/pdf"],object[type="application/pdf"]');
+  if(!prepareOnly&&(document.contentType==='application/pdf'||pdfNode)){
+    let url=location.href;
+    if(document.contentType!=='application/pdf')try{const source=new URL(pdfNode.getAttribute('src')||pdfNode.getAttribute('data')||url,url);if(['http:','https:','file:'].includes(source.protocol))url=source.href;}catch{}
+    void chrome.runtime.sendMessage({type:'pdf',url}).then(response=>{if(!response?.ok)throw Error(response?.error||'Extension indisponible.');}).catch(error=>console.error('SHERLOQ',error));
+    return;
+  }
   if (globalThis.__sherloqContent) { if (!prepareOnly) globalThis.__sherloqContent.toggle(); return; }
   let keyLibrary, appearanceLibrary, geometryLibrary, sizingLibrary, requested=false,activating=false,stateVersion=0;
   const heldAdjustments=new Set();

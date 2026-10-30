@@ -5,6 +5,7 @@ import {putJob, getJob, pruneJobs, deleteJob,updateJob} from './db.js';
 import {transferMetadata} from './transfer-file.js';
 import {resolveImage, fetchResource, fileName} from './resources.js';
 import {readNamedPresets,addNamedPreset,removeNamedPreset,presetStorageKey} from './preset-library.js';
+import {activateTab} from './tab-activation.js';
 
 const own = name => chrome.runtime.getURL(name), pendingImports = new Map(), deliveries = new Map(), imageRequests = new Map();
 installResourceFetch();
@@ -33,14 +34,8 @@ async function inspectPDF(url, tab) {
   finally{await releaseTransferPins([job.id],token);}
 }
 export async function toggle(tab) {
-  if (!tab?.id) return;
-  try {
-    const result = await chrome.scripting.executeScript({target: {tabId: tab.id, allFrames: true}, files: ['content.js']});
-    if (!result.length) throw Error(protectedPage);
-  } catch (error) {
-    if (/\.pdf(?:[?#]|$)/i.test(tab.url || '')) return inspectPDF(tab.url, tab);
-    throw Error(protectedPage);
-  }
+  return activateTab(tab,{openPDF:inspectPDF,protectedPage,
+    inject:tabId=>chrome.scripting.executeScript({target:{tabId,allFrames:true},files:['content.js']})});
 }
 async function showError(error, tabId) {
   await chrome.action.setBadgeBackgroundColor({color: '#8c382f', tabId});

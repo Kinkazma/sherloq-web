@@ -30,8 +30,8 @@
     },
     {
       "file": "extension/background.js",
-      "bytes": 20298,
-      "sha256": "0e07d0e097742473a757bc44e2f56d08ff25ba4bb6bcf1b24d09278d0e3a4205"
+      "bytes": 20168,
+      "sha256": "0320c593e3140d150f48f86db124f6bde67cf3a2399d4b2fac16df65a962f085"
     },
     {
       "file": "extension/candidates.js",
@@ -60,8 +60,8 @@
     },
     {
       "file": "extension/content.js",
-      "bytes": 25199,
-      "sha256": "ea56c59c2edbb48f177f19cd424640bf2e757916ffb89747f0f162fc3aed7856"
+      "bytes": 25994,
+      "sha256": "a2576795c92eb272a6c1850eedae1b65066a648135af4118578e167c46d7bdda"
     },
     {
       "file": "extension/controls.js",
@@ -169,7 +169,7 @@
     {
       "file": "extension/manifest.json",
       "bytes": 3171,
-      "sha256": "812d8d1c0cab8ba5bec23b97a2d2dc222a56d66649b481caae69a44ef8e8c94f"
+      "sha256": "13557844be60202e7f7a50340190a79544d71bf831bf17b10445e60e8d2c8b4a"
     },
     {
       "file": "extension/native-effects-controls.js",
@@ -459,6 +459,11 @@
       "file": "extension/step-playback.js",
       "bytes": 2166,
       "sha256": "4d3f74c46e31694a38eb47bf0bdb38b9d3986e92cf86662cdf52a7ef281f1947"
+    },
+    {
+      "file": "extension/tab-activation.js",
+      "bytes": 827,
+      "sha256": "cd690e83ee9d7392d36d953ad27d732e5e4fc5944fc68c143bb5359bc6511618"
     },
     {
       "file": "extension/toolbar.css",
