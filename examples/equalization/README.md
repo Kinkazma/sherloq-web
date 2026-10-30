@@ -78,3 +78,9 @@ Expand a group to compare its results. Each image keeps the same coordinates and
 </details>
 
 DHE and BPDHE are experimental digital reconstructions. [Method conventions and original references](METHODS.md).
+
+## Image source
+
+Reinehr et al., *Scientific Reports* **8**, 9821 (2018), Figure 4A (page 6, third image in the upper row). [Archived PDF](sources/reinehr-2018-s100b/s41598-018-28183-6.pdf#page=6) · [Original article](https://doi.org/10.1038/s41598-018-28183-6) · [Full attribution and CC BY 4.0 licence](sources/reinehr-2018-s100b/README.md).
+
+The examples show a crop and the named display adjustments. The archived PDF is unchanged.

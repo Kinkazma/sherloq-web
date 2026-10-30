@@ -1,0 +1,29 @@
+{
+  "pmcid": "PMC6026137",
+  "articleVersion": 1,
+  "doi": "10.1038/s41598-018-28183-6",
+  "title": "S100B immunization triggers NFκB and complement activation in an autoimmune glaucoma model",
+  "authors": [
+    "Sabrina Reinehr",
+    "Jacqueline Reinhard",
+    "Marcel Gandej",
+    "Ivo Gottschalk",
+    "Gesa Stute",
+    "Andreas Faissner",
+    "H. Burkhard Dick",
+    "Stephanie C. Joachim"
+  ],
+  "journal": "Scientific Reports",
+  "publicationYear": 2018,
+  "licence": "CC BY 4.0",
+  "licenceURL": "https://creativecommons.org/licenses/by/4.0/",
+  "copyright": "© The Author(s) 2018",
+  "downloadSource": "https://pmc-oa-opendata.s3.amazonaws.com/PMC6026137.1/PMC6026137.1.pdf?md5=cc65f1e4cfb301af8a8f46fdd869f8a2",
+  "sourceCredit": "PubMed Central / US National Library of Medicine",
+  "retrievedDate": "2026-10-31",
+  "archivalSnapshot": true,
+  "pdfModified": false,
+  "file": "s41598-018-28183-6.pdf",
+  "bytes": 4043953,
+  "sha256": "fa7ce16bbf3eaffef000ec2d94cdc2328f701e0326fa75cab6fb84aab4029ed2"
+}
