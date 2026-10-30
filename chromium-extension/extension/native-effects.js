@@ -1,6 +1,6 @@
 import {nativeTiles,tileId} from './native-tile-plan.js';
-// Scientific processing uses the maintained native-image engine. No reduced input or overview.
-let shared=null;
+// Native and gesture-preview surfaces use separate workers and source ownership.
+const services=new Map();
 function encodedError(error,seen=new Set()){
  if(seen.has(error))return {code:'WORKER_FAILED',message:'Circular error cause'};seen.add(error);
  const value={name:error?.name??'Error',code:error?.code??'WORKER_FAILED',message:error?.message??String(error),stack:error?.stack};
@@ -8,15 +8,15 @@ function encodedError(error,seen=new Set()){
  if(error?.cause!==undefined)value.cause=encodedError(error.cause,seen);return value;
 }
 function receivedError(value){const error=Object.assign(Error(value?.message??String(value)),value&&typeof value==='object'?value:{});if(value?.cause!==undefined)error.cause=receivedError(value.cause);return error;}
-function service(){
- if(shared)return shared;
+function service(lane='native'){
+ if(services.has(lane))return services.get(lane);
  const sourceURL=new URL('./native-effects-worker.js',import.meta.url);let worker;
  try{worker=new Worker(sourceURL,{type:'module'});}catch(cause){throw Object.assign(Error('Loupe preparation worker could not start.',{cause}),{code:'WORKER_FAILED',details:{sourceURL:String(sourceURL),executionPhase:'worker-startup'}});}
  const pending=new Map(),sources=new Map(),listeners=new Map();let serial=0,users=0,failed=null;
- const fail=error=>{if(failed)return;failed=error;for(const job of pending.values())job.reject(error);pending.clear();worker.terminate();if(shared===api)shared=null;};
+ const fail=error=>{if(failed)return;failed=error;for(const job of pending.values())job.reject(error);pending.clear();worker.terminate();if(services.get(lane)===api)services.delete(lane);};
  const transportError=(message,cause,details={})=>Object.assign(Error(message,{cause}),{code:'WORKER_MESSAGE_FAILED',details:{sourceURL:String(sourceURL),...details}});
  const send=message=>{if(failed)return false;if(message.action==='release')sources.delete(message.resultId);try{worker.postMessage(message);return true;}catch(cause){fail(transportError('Loupe worker message could not be sent.',cause,{action:message.action,executionPhase:'message-send'}));return false;}};
- const api={get failed(){return failed;},retain(){users++;return api;},call(action,payload={},source){if(failed)return {ticket:0,promise:Promise.reject(failed)};const ticket=++serial;if(source)sources.set(ticket,source);const promise=new Promise((resolve,reject)=>{pending.set(ticket,{resolve,reject,source});send({action,ticket,...payload});});return{ticket,promise};},send,subscribe(id,callback){listeners.set(id,callback);return()=>listeners.delete(id);},release(){if(users<=0||--users)return;if(shared===api)shared=null;send({action:'dispose'});}};
+ const api={get failed(){return failed;},retain(){users++;return api;},call(action,payload={},source){if(failed)return {ticket:0,promise:Promise.reject(failed)};const ticket=++serial;if(source)sources.set(ticket,source);const promise=new Promise((resolve,reject)=>{pending.set(ticket,{resolve,reject,source});send({action,ticket,...payload});});return{ticket,promise};},send,subscribe(id,callback){listeners.set(id,callback);return()=>listeners.delete(id);},release(){if(users<=0||--users)return;if(services.get(lane)===api)services.delete(lane);send({action:'dispose'});}};
  async function supplySource(data){
   try{const input=sources.get(data.ticket);if(!input)throw Object.assign(Error('Source released'),{code:'CANCELLED'});const pixels=await input.readPixels(data.rect);if(failed)return;try{worker.postMessage({action:'source',read:data.read,pixels},[pixels.data.buffer]);}catch(cause){fail(transportError('Loupe source pixels could not be transferred.',cause,{executionPhase:'source-transfer'}));}}
   catch(error){send({action:'source',read:data.read,error:encodedError(error)});}
@@ -34,7 +34,7 @@ function service(){
  };
  worker.onerror=event=>fail(Object.assign(Error(event.message||'Loupe preparation worker failed',{cause:event.error}),{code:'WORKER_FAILED',details:{sourceURL:event.filename||String(sourceURL),line:event.lineno,column:event.colno,executionPhase:event.stage??'worker-event'}}));
  worker.onmessageerror=event=>fail(transportError('Loupe worker response could not be decoded.',event.error,{executionPhase:'message-receive'}));
- shared=api;return api;
+ services.set(lane,api);return api;
 }
 const cancelled=()=>Object.assign(Error('Préparation remplacée'),{code:'CANCELLED'});
 const effectKey=effects=>JSON.stringify(Object.fromEntries(Object.entries(effects).filter(([,p])=>p.enabled)));
@@ -82,14 +82,14 @@ function nativeSurface(result,input,api,changed){
  }
  return {acquire,release,suspend(){suspended=true;api.send({action:'suspend',resultId:result.resultId});},resume(){suspended=false;}};
 }
-export function createLoupeImageCache({changed=()=>{}}={}){
+export function createLoupeImageCache({changed=()=>{},lane='native'}={}){
  let api=null,source=null,current=null,building=null,closed=false;
  function cancel(){current?.surface.suspend();if(building){building.api.send({action:'cancel',ticket:building.ticket});building=null;}}
  return {cancel,async acquire(input,effects,onChange=changed){
   const key=effectKey(effects);if(closed)throw cancelled();
   if(current?.source===input&&current.key===key){current.surface.resume();return current.surface.acquire(onChange);}
   if(source!==input||building?.key!==key)cancel();source=input;
-  if(!building){api??=service().retain();const job=api.call('build',{width:input.width,height:input.height,effects,allowedTiles:input.allowedTiles},input),record={...job,key,api};building=record;
+  if(!building){api??=service(lane).retain();const job=api.call('build',{width:input.width,height:input.height,effects,allowedTiles:input.allowedTiles,...(lane==='preview'&&input.inlinePixels?{inlinePixels:input.inlinePixels}:{})},input),record={...job,key,api};building=record;
    record.done=job.promise.then(result=>{if(closed||building!==record){api.send({action:'release',resultId:result.resultId});throw cancelled();}
     const output=nativeSurface(result,input,api,changed);current?.surface.release();current={key,source:input,surface:output};return current;
    }).finally(()=>{if(building===record)building=null;});record.done.catch(()=>{});

@@ -24,9 +24,14 @@
       "sha256": "894f41d3c70248df7e6180a24f032d7f826c74b41a00482e1180a941bdb35d58"
     },
     {
+      "file": "extension/adaptive-histogram.js",
+      "bytes": 3054,
+      "sha256": "c36834a0feff9211766ad91f26bd8a7801386a375c2645e0affabb608bf1427f"
+    },
+    {
       "file": "extension/background.js",
-      "bytes": 19438,
-      "sha256": "647fccc5a32e91c64477b2904fc2af8ec011a77135ac5a988159e7e3ee7788c4"
+      "bytes": 20298,
+      "sha256": "0e07d0e097742473a757bc44e2f56d08ff25ba4bb6bcf1b24d09278d0e3a4205"
     },
     {
       "file": "extension/candidates.js",
@@ -60,13 +65,18 @@
     },
     {
       "file": "extension/controls.js",
-      "bytes": 3541,
-      "sha256": "6f5e4ad8181a8edb57d7b8f55f3c14ef349eb69c328d7473e2e89a204b72e80e"
+      "bytes": 3829,
+      "sha256": "617701922feb16fbd9fe44b90c11b21938648ecaf14c5dc5b215cc25d09f8e96"
     },
     {
       "file": "extension/db.js",
       "bytes": 2499,
       "sha256": "c93a021b6eed1fad532a988fc76fec57202d30f718749d954a810cf48d019972"
+    },
+    {
+      "file": "extension/effects-settings.js",
+      "bytes": 2057,
+      "sha256": "36169bb00df94a5865f4b3438ca59cd1c34b8bd5461921dae4b775a4b4c9caa1"
     },
     {
       "file": "extension/fonts/Montserrat-OFL.txt",
@@ -128,18 +138,23 @@
     },
     {
       "file": "extension/image-memory.js",
-      "bytes": 4682,
-      "sha256": "d86999087d58e03cc92026743212381e6234940515b10e65a83031b1d42657b1"
+      "bytes": 4669,
+      "sha256": "e1a7a5d04b4cc3d338c9049d4b308a198e65234376d4f51cfeed481f49b438a0"
     },
     {
       "file": "extension/inspection.js",
-      "bytes": 9796,
-      "sha256": "224830e083450b2313aa8639be8c9aebb2249b08a2d2e3d87fd6a880211a26ac"
+      "bytes": 9940,
+      "sha256": "a546e59783a163c48a7cf071aedfd391e9b8f2dc06441d3a6d54181109594ba7"
     },
     {
       "file": "extension/library-tabs.js",
       "bytes": 3080,
       "sha256": "e434d14fb6702f346b972f6f9dda69beba575792640167219d954d6e66e2441d"
+    },
+    {
+      "file": "extension/live-preview.js",
+      "bytes": 3562,
+      "sha256": "fefe9deb822def116bca3a04b30a79a186cfd387492c3c322f8a215ce872b5d5"
     },
     {
       "file": "extension/local-library.js",
@@ -153,13 +168,13 @@
     },
     {
       "file": "extension/manifest.json",
-      "bytes": 2992,
-      "sha256": "a0db3315629eef1e57e7dcb46750dfb4b6e0e6df1925ce81869cbaa7f3524626"
+      "bytes": 3171,
+      "sha256": "812d8d1c0cab8ba5bec23b97a2d2dc222a56d66649b481caae69a44ef8e8c94f"
     },
     {
       "file": "extension/native-effects-controls.js",
-      "bytes": 7905,
-      "sha256": "7e946cd0e13aae7fdf56e0d292514f7c044853caad6c271d298afcfbee0f801b"
+      "bytes": 9835,
+      "sha256": "e1c5fec842bd4116d5538b71683f91f988bb7735d80907b5bb3da1764c9d7f59"
     },
     {
       "file": "extension/native-effects-worker.js",
@@ -168,8 +183,8 @@
     },
     {
       "file": "extension/native-effects.js",
-      "bytes": 12192,
-      "sha256": "e24393ba1f5db3dc8dd91993219318450fc7e9ddd393975c9d5ab6831b81415b"
+      "bytes": 12377,
+      "sha256": "853799078430e9b03ad4cf80d5289253f59452d9f9b94c5f0dea6284c60f057b"
     },
     {
       "file": "extension/native-export.js",
@@ -178,8 +193,8 @@
     },
     {
       "file": "extension/native-media-settings.js",
-      "bytes": 5684,
-      "sha256": "46a3a31c54c4d8dfe663ed4e69a612d49a5f79a94f2bfe4a2e60d2c7df76c1b5"
+      "bytes": 5671,
+      "sha256": "14f2ef2ffdf9d5983dc0314925a6bc24cb5497a909e56b294cf613e5d0dad9e1"
     },
     {
       "file": "extension/native-neural-worker.js",
@@ -188,13 +203,13 @@
     },
     {
       "file": "extension/native-pointer-loupe.js",
-      "bytes": 14865,
-      "sha256": "f17f2b870da5b61539809b2f4fa800cc373f3cb36b1326de9bc4937796b91c42"
+      "bytes": 15107,
+      "sha256": "438ffd6da186fac5be17523fc5e02440468e0eed6d5152eda6e840df483539cb"
     },
     {
       "file": "extension/native-regional-image.js",
-      "bytes": 7008,
-      "sha256": "c92c3a2ebbf2e9809ce292ceec4cdca4bd28f70087e4a408f6dc045581f553ce"
+      "bytes": 7741,
+      "sha256": "48fe51ae4e767917b6ad5d3656a3427948c05cae0b61a76dc0ad8f5099fea829"
     },
     {
       "file": "extension/native-runtime.js",
@@ -203,8 +218,8 @@
     },
     {
       "file": "extension/native-scan.js",
-      "bytes": 2615,
-      "sha256": "4214a0730c5d9bab02b6101c88fc9a9689275f8071a127ed1a343d7a653fee5c"
+      "bytes": 2602,
+      "sha256": "ec794fec4baf2a675eb5c5828db2650fd578dffab1dd5b7e5795f81e1778f557"
     },
     {
       "file": "extension/native-tile-plan.js",
@@ -213,8 +228,8 @@
     },
     {
       "file": "extension/native-tile-worker.js",
-      "bytes": 10195,
-      "sha256": "477cd9ac9dc410012062ce1b88a2a469a46ac2afa524096458a85c89a746f8c1"
+      "bytes": 11447,
+      "sha256": "a0761320190df44557666c4f03cb3f0bd95efd8d34a8cc67ad5f9b9f8526e61d"
     },
     {
       "file": "extension/ocr-native/ppocr-analyzer.js",
@@ -351,9 +366,24 @@
       "sha256": "0f1ee9399447cc98527591f4bd49d31f41505c5115f498a7f896d43e498970a2"
     },
     {
+      "file": "extension/preset-controls.js",
+      "bytes": 5116,
+      "sha256": "fe49ba5927d22da5f08c5fcbbe5d4ab30baaf61380e13a4a998c174ac188a012"
+    },
+    {
+      "file": "extension/preset-library.js",
+      "bytes": 1544,
+      "sha256": "eaf2da7e201cd122ec89b57f7d98029165c6322818d43c8363787ec1b5f40c86"
+    },
+    {
       "file": "extension/presets.js",
-      "bytes": 1090,
-      "sha256": "3ffa5949c40f8a4e745276cb27c3837f5aabb5f0f5f755625be7bc1a61559bb4"
+      "bytes": 1596,
+      "sha256": "531dd39a3940e5991f0b76f6aba375da73b92a3940516adbb255d739dba3532a"
+    },
+    {
+      "file": "extension/preview-memory.js",
+      "bytes": 3628,
+      "sha256": "0aff7d1b6a264a090b2493727296e2673acaa976e3de24088996fc2b1f548c2f"
     },
     {
       "file": "extension/privacy.html",
@@ -377,18 +407,18 @@
     },
     {
       "file": "extension/renderer.css",
-      "bytes": 10418,
-      "sha256": "955ab8136aa681d62b8f9b8895428e82aaef67cd926cc12e0e562fc93e496199"
+      "bytes": 11160,
+      "sha256": "c8806fe1018df027db1d835e23902683b185e900e5cd911943a1c09e984ab9b4"
     },
     {
       "file": "extension/renderer.html",
-      "bytes": 3921,
-      "sha256": "dac7a488c757b361e1c38efdc739bebeaf0f168c5b1ce1cfcad1d484244d2ecd"
+      "bytes": 4548,
+      "sha256": "10a728d8292a826630de66a1fe65d92b8154d03ea15cb3e7cf6e3aa0b21ced3e"
     },
     {
       "file": "extension/renderer.js",
-      "bytes": 52937,
-      "sha256": "e34377a40bff1e76c648f21e6d947787829e9eb70cb9d9fc7cb883af218fd0b7"
+      "bytes": 57279,
+      "sha256": "aa147872e788daaa161e06022c00827712f7d443d87840b11d36a46ce3438806"
     },
     {
       "file": "extension/resource-bridge.js",
@@ -422,8 +452,8 @@
     },
     {
       "file": "extension/shortcuts.js",
-      "bytes": 3750,
-      "sha256": "a379949df3e4844e9af401fc0eada9ebad8e9b517353c391cb0f586e31f4d1cd"
+      "bytes": 3737,
+      "sha256": "4fa8d42a32b40885f592ef15d151395f82020775339536db95d405552b87c528"
     },
     {
       "file": "extension/step-playback.js",

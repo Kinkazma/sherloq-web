@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "0.5.4",
+  "version": "0.5.7",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "homepage_url": "https://gaeldauchy.com/sherloq/",
@@ -97,7 +97,13 @@
         "ocr-native/*",
         "pdf-models/*",
         "help.js",
-        "pdf-scope-version.js"
+        "pdf-scope-version.js",
+        "effects-settings.js",
+        "adaptive-histogram.js",
+        "preset-library.js",
+        "preset-controls.js",
+        "preview-memory.js",
+        "live-preview.js"
       ],
       "matches": [
         "http://*/*",

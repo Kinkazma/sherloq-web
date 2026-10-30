@@ -8,6 +8,29 @@ Application web : https://gaeldauchy.com/sherloq/
 
 Code et licences : https://github.com/Kinkazma/sherloq-web
 
+## Égalisation dans la loupe
+
+Dans Réglages globaux, le sélecteur Égalisation propose Histogramme, CLAHE et AHE.
+Le curseur règle la limite de contraste de CLAHE (0,5 à 40) ou le nombre de tuiles
+par axe d’AHE (2 à 16). Chaque méthode conserve sa valeur. Le préréglage
+« AHE au maximum » active seulement AHE en 16 × 16, sans changer la taille,
+la transition ou le grossissement de la loupe. Les sous-images PDF conservent
+leurs histogrammes indépendants. Le préréglage « AHE+GAMMA » combine AHE en
+8 × 8 et gamma × 10 à 20. « AHE+GAMMA+ÉGALISATION » y ajoute l’égalisation de la
+loupe améliorée.
+
+## Préréglages et prévisualisation
+
+Le bouton + enregistre les effets actuels sous le nom choisi. Le bouton − supprime
+le préréglage personnel sélectionné, après confirmation. Ces préréglages restent
+dans le navigateur ; ils ne changent pas le diamètre, la transition ou le zoom.
+
+Pendant le déplacement d’un curseur d’effet, la loupe affiche les résultats sans
+attendre le relâchement. La définition de l’aperçu s’adapte pour viser 200 ms de
+réponse en moyenne, selon le calcul et la machine. Si la définition complète tient
+dans ce délai, elle est conservée. Le relâchement déclenche le rendu définitif en
+pleine définition. Les aperçus temporaires ne servent pas à l’export ou à l’OCR.
+
 ## Installer depuis les sources
 
 Récupérez ce dossier `chromium-extension` du dépôt. Dans Chrome ou Opera, ouvrez

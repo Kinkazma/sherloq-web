@@ -7,6 +7,13 @@ export function installNativeTileWorker(scope,{loadModule=url=>import(url)}={}){
  const post=message=>scope.postMessage(message),errorReply=(ticket,error,fatal=false)=>post({ticket,error:encode(error),...(fatal?{fatal:true}:{})});
  function load(){return loading??=Promise.all(['./native-regional-image.js','./vendor/unified-engine/src/temporary-storage.js','./vendor/unified-engine/src/cache.js'].map(name=>{const sourceURL=new URL(name,import.meta.url).href;return Promise.resolve().then(()=>loadModule(sourceURL)).catch(cause=>{throw Object.assign(Error('Loupe processing module could not load.',{cause}),{code:'WORKER_MODULE_LOAD',details:{sourceURL,executionPhase:'initialization'}});});})).then(([image,temp,cache])=>runtime={create:image.createRegionalLoupeImage,temporary:temp.createTemporarySession,budget:new cache.Budget(128*1024**2)});}
  const temporarySession=()=>session??=runtime.temporary({budget:runtime.budget});
+ // Preview work yields without the nested-timer clamp for each small domain.
+ // Native processing keeps its existing cancellation checkpoints.
+ const previewYield=async signal=>{if(signal?.aborted)throw cancelled();if(scope.scheduler?.postTask)await scope.scheduler.postTask(()=>{}, {priority:'background'});else await new Promise(resolve=>setTimeout(resolve,0));if(signal?.aborted)throw cancelled();};
+ function inlineSource(pixels,width,height){
+  if(pixels?.width!==width||pixels?.height!==height||pixels?.format!=='rgb8'||!(pixels.data instanceof Uint8Array)||pixels.data.length!==width*height*3)throw Error('Invalid preview source');
+  return (rect,{signal}={})=>{if(signal?.aborted)throw cancelled();const data=new Uint8Array(rect.width*rect.height*3);for(let y=0;y<rect.height;y++){const start=((rect.y+y)*width+rect.x)*3;data.set(pixels.data.subarray(start,start+rect.width*3),y*rect.width*3);}return Promise.resolve({pixels:{width:rect.width,height:rect.height,format:'rgb8',data},release(){}});};
+ }
  function sourceWindow(ticket,rect,signal){
   if(signal?.aborted)return Promise.reject(cancelled());const read=++serial;
   return new Promise((resolve,reject)=>{const cleanup=()=>signal?.removeEventListener('abort',abort),abort=()=>{reads.delete(read);cleanup();reject(cancelled());};reads.set(read,{resolve:pixels=>{cleanup();resolve({pixels,release(){}});},reject:error=>{cleanup();reject(error);}});signal?.addEventListener('abort',abort,{once:true});post({action:'source',ticket,read,rect});});
@@ -35,8 +42,8 @@ export function installNativeTileWorker(scope,{loadModule=url=>import(url)}={}){
    try{
     if(task.kind==='build'){
      const {message}=task.build;task.build.started=true;if(controller.signal.aborted)throw cancelled();await load();if(controller.signal.aborted)throw cancelled();
-     const {width,height}=message;const surface=runtime.create({descriptor:{width,height,format:'rgb8'},readWindow:(rect,{signal}={})=>sourceWindow(message.ticket,rect,signal)},message.effects,{temporarySession});
-     const record={id:message.ticket,surface,width,height,all:nativeTiles(width,height).filter(r=>!message.allowedTiles||message.allowedTiles.includes(tileId(r))),order:[],cache:new Map(),bytes:0,done:new Set(),priority:new Set(),priorityAt:0,background:false,suspended:false,closed:false};records.set(record.id,record);post({ticket:message.ticket,resultId:record.id,metrics:metrics(record)});
+     const {width,height}=message,preview=!!message.inlinePixels;const surface=runtime.create({descriptor:{width,height,format:'rgb8'},readWindow:preview?inlineSource(message.inlinePixels,width,height):(rect,{signal}={})=>sourceWindow(message.ticket,rect,signal)},message.effects,{temporarySession,...(preview?{checkpoint:previewYield}:{})});
+     const record={id:message.ticket,surface,width,height,preview,all:nativeTiles(width,height).filter(r=>!message.allowedTiles||message.allowedTiles.includes(tileId(r))),order:[],cache:new Map(),bytes:0,done:new Set(),priority:new Set(),priorityAt:0,background:false,suspended:false,closed:false};records.set(record.id,record);post({ticket:message.ticket,resultId:record.id,metrics:metrics(record)});
     }else{
      const {record}=task;if(record.closed||controller.signal.aborted)throw cancelled();
      if(task.kind==='read'){const pixels=await window(record,task.message.rect,controller.signal);scope.postMessage({ticket:task.message.ticket,pixels},[pixels.data.buffer]);}
@@ -46,7 +53,7 @@ export function installNativeTileWorker(scope,{loadModule=url=>import(url)}={}){
    finally{if(task.kind==='build')builds.delete(task.build.message.ticket);active=null;}
    // A bounded native tile is the longest non-preemptible arithmetic section.
    // Let priority/cancel messages run before choosing the next section.
-   await new Promise(resolve=>setTimeout(resolve,0));
+   if(task.kind==='build'?!!task.build.message.inlinePixels:task.record.preview)await previewYield();else await new Promise(resolve=>setTimeout(resolve,0));
   }}finally{running=false;if(disposed)await disposeAll();}
  }
  function kick(){if(wake!==null)return;wake=setTimeout(()=>{wake=null;void pump().catch(error=>errorReply(undefined,error,true));},0);}

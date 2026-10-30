@@ -1,5 +1,5 @@
 import {createLoupeImageCache} from './native-effects.js';
-import {hasLoupeEffects} from './vendor/loupe-effects-settings.js';
+import {hasLoupeEffects} from './effects-settings.js';
 import {getJob} from './db.js';
 
 // Four native images at most (the selected image plus three neighbours).

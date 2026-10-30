@@ -1,6 +1,6 @@
-import {effectRanges} from './vendor/loupe-effects-settings.js';
+import {effectRanges,CLAHE,legacyClips} from './effects-settings.js';
 export const controlFields = [
- ['adjust.brightness','Luminosité','Brightness'],['adjust.saturation','Saturation','Saturation'],['adjust.hue','Teinte','Hue'],['adjust.gamma','Gamma × 10','Gamma × 10'],['adjust.shadows','Ombres','Shadows'],['adjust.highlights','Hautes lumières','Highlights'],['adjust.sweep','Niveau','Level'],['adjust.width','Largeur de niveau','Level width'],['adjust.sharpen','Netteté','Sharpening'],['adjust.threshold','Seuil','Threshold'],['adjust.equalize','Égalisation','Equalization'],['enhance.percent','Écrêtage (%)','Clipping (%)'],['sweep.position','Balayage · niveau','Sweep · level'],['sweep.width','Balayage · largeur','Sweep · width'],['sweep.opacity','Balayage · intensité','Sweep · strength']
+ ['adjust.brightness','Luminosité','Brightness'],['adjust.saturation','Saturation','Saturation'],['adjust.hue','Teinte','Hue'],['adjust.gamma','Gamma × 10','Gamma × 10'],['adjust.shadows','Ombres','Shadows'],['adjust.highlights','Hautes lumières','Highlights'],['adjust.sweep','Niveau','Level'],['adjust.width','Largeur de niveau','Level width'],['adjust.sharpen','Netteté','Sharpening'],['adjust.threshold','Seuil','Threshold'],['adjust.equalize','Égalisation','Equalization'],['adjust.claheClip','CLAHE · limite de contraste','CLAHE · contrast limit'],['adjust.aheTiles','AHE · tuiles par axe','AHE · tiles per axis'],['enhance.percent','Écrêtage (%)','Clipping (%)'],['sweep.position','Balayage · niveau','Sweep · level'],['sweep.width','Balayage · largeur','Sweep · width'],['sweep.opacity','Balayage · intensité','Sweep · strength']
 ];
 export const controlGroupDefaults=Object.freeze({
  adjust:Object.freeze({target:'adjust.sweep',step:10}),
@@ -42,5 +42,6 @@ export function nudge(preferences,direction,binding){
  const [group,key]=(binding?.target||preferences.controlTarget).split('.'),bounds=effectRanges[group]?.[key];
  if(!bounds||!preferences.loupe.effects[group].enabled)return null;
  const before=preferences.loupe.effects[group][key],value=Math.max(bounds[0],Math.min(bounds[1],before+Math.sign(direction)*(binding?.step||preferences.controlStep)));
- return {...preferences,loupe:{...preferences.loupe,effects:{...preferences.loupe.effects,[group]:{...preferences.loupe.effects[group],[key]:value}}}};
+ const method=group==='adjust'&&key==='claheClip'&&legacyClips[preferences.loupe.effects.adjust.equalize]?{equalize:CLAHE}:{};
+ return {...preferences,loupe:{...preferences.loupe,effects:{...preferences.loupe.effects,[group]:{...preferences.loupe.effects[group],...method,[key]:value}}}};
 }

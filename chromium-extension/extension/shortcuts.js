@@ -1,4 +1,4 @@
-import {effectRanges} from './vendor/loupe-effects-settings.js';
+import {effectRanges} from './effects-settings.js';
 export const shortcutDefaults = Object.freeze({close: 'L', settings: 'R', sweep: 'B', original: 'O', decrease: ':', increase: '=', mark: 'M', export: 'E', basket: 'A', previousMark: '[', nextMark: ']', ocr:'Shift+O'});
 const modifiers = ['Control', 'Meta', 'Alt', 'Shift'];
 export function eventShortcut(event) {

@@ -4,6 +4,7 @@ import {readSettings, destinationURL} from './settings.js';
 import {putJob, getJob, pruneJobs, deleteJob,updateJob} from './db.js';
 import {transferMetadata} from './transfer-file.js';
 import {resolveImage, fetchResource, fileName} from './resources.js';
+import {readNamedPresets,addNamedPreset,removeNamedPreset,presetStorageKey} from './preset-library.js';
 
 const own = name => chrome.runtime.getURL(name), pendingImports = new Map(), deliveries = new Map(), imageRequests = new Map();
 installResourceFetch();
@@ -18,14 +19,18 @@ async function remember(value, sender, id = crypto.randomUUID()) {
 async function inspectPDF(url, tab) {
   const {blob, url: finalURL} = await fetchResource(url);
   if (!(await blob.slice(0, 5).text()).startsWith('%PDF-')) throw Error('Ce lien ne contient pas de PDF.');
-  const source={blob,url:finalURL,kind:'pdf',sourcePage:url,name:fileName(url,'application/pdf')},job=await remember(source,{tab});
-  // Retain the source before the reader loads it. The original tab may close
-  // as soon as the new tab appears, including during module initialization.
-  const reader=await chrome.tabs.create({url:'about:blank'});
+  // Keep the PDF alive even if its source tab closes before create() resolves.
+  const token=crypto.randomUUID(),until=Date.now()+120_000;
+  const source={blob,url:finalURL,kind:'pdf',sourcePage:url,name:fileName(url,'application/pdf'),transferPins:{[token]:until},transferUntil:until},job=await remember(source,{tab});
+  let reader;
   try{
+   // Open the final URL in one operation. Some embedded Chromium browsers
+   // cannot address a newly created blank tab through tabs.update().
+   reader=await chrome.tabs.create({url:own('renderer.html')+'?job='+job.id});
    await updateJob(job.id,current=>({...source,...current,id:job.id,tabId:tab.id,created:current?.created??Date.now(),cacheOwnerTabId:reader.id}));
-   return await chrome.tabs.update(reader.id,{url:own('renderer.html')+'?job='+job.id});
-  }catch(error){await chrome.tabs.remove(reader.id).catch(()=>{});throw error;}
+   return reader;
+  }catch(error){if(reader)await chrome.tabs.remove(reader.id).catch(()=>{});await deleteJob(job.id);throw error;}
+  finally{await releaseTransferPins([job.id],token);}
 }
 export async function toggle(tab) {
   if (!tab?.id) return;
@@ -74,7 +79,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   })().catch(error => showError(error, tab?.id));
 });
 
-let collectionWrite=Promise.resolve();
+let collectionWrite=Promise.resolve(),presetWrite=Promise.resolve();
+function changePreset(message){const task=presetWrite.then(async()=>{const records=await readNamedPresets(),id=message.type==='preset-save'?'user-'+crypto.randomUUID():message.id,next=message.type==='preset-save'?addNamedPreset(records,message,id):removeNamedPreset(records,id);await chrome.storage.local.set({[presetStorageKey]:next});return {id};});presetWrite=task.catch(()=>{});return task;}
 function addCollected(id){const task=collectionWrite.then(()=>collect(id)).then(async id=>{await chrome.storage.local.set({collectionRevision:crypto.randomUUID()});return {id,count:(await collection()).length};});collectionWrite=task.catch(()=>{});return task;}
 async function openJob(id, destination, ids, batch=false) {
   const selected=ids||[id],files=[],sources=[],pinned=[],token=crypto.randomUUID(),until=Date.now()+10*60_000;
@@ -173,6 +179,7 @@ chrome.runtime.onMessage.addListener((message, sender, reply) => {
       const write=(stateWrites.get(key)||Promise.resolve()).then(async()=>{if(version!==stateVersions.get(key))return;if(message.active)await chrome.storage.session.set({[key]:{tabId:sender.tab.id,frameId:sender.frameId}});else await chrome.storage.session.remove(key);});stateWrites.set(key,write);await write;return {};
     }
     if(message.type==='restart')return restart();
+    if(extension&&['preset-save','preset-remove'].includes(message.type))return changePreset(message);
     if(message.type==='resource-shared-chunk'&&content)return sharedChunk(message,sender);
     if(message.type==='resource-presence'&&extension&&['pdf','ocr'].includes(message.group))return resourcePresence(message.group);
     if(message.type==='resource-ensure'&&extension&&['pdf','ocr'].includes(message.group))return ensureResources(message.group);
