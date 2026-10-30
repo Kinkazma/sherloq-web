@@ -1,0 +1,166 @@
+[
+  {
+    "id": "BBHE",
+    "title": "Contrast Enhancement Using Brightness Preserving Bi-Histogram Equalization",
+    "authors": [
+      "Yeong-Taeg Kim"
+    ],
+    "year": 1997,
+    "doi": "10.1109/30.580378",
+    "url": "https://doi.org/10.1109/30.580378"
+  },
+  {
+    "id": "DSIHE",
+    "title": "Image enhancement based on equal area dualistic sub-image histogram equalization method",
+    "authors": [
+      "Yu Wang",
+      "Qian Chen",
+      "Baeomin Zhang"
+    ],
+    "year": 1999,
+    "doi": "10.1109/30.754419",
+    "url": "https://doi.org/10.1109/30.754419"
+  },
+  {
+    "id": "MMBEBHE",
+    "title": "Minimum Mean Brightness Error Bi-Histogram Equalization in Contrast Enhancement",
+    "authors": [
+      "Soong-Der Chen",
+      "Abd. Rahman Ramli"
+    ],
+    "year": 2003,
+    "doi": "10.1109/TCE.2003.1261234",
+    "url": "https://doi.org/10.1109/TCE.2003.1261234"
+  },
+  {
+    "id": "RMSHE",
+    "title": "Contrast enhancement using recursive mean-separate histogram equalization for scalable brightness preservation",
+    "authors": [
+      "Soong-Der Chen",
+      "Abd.R. Ramli"
+    ],
+    "year": 2003,
+    "doi": "10.1109/TCE.2003.1261233",
+    "url": "https://doi.org/10.1109/TCE.2003.1261233"
+  },
+  {
+    "id": "RSIHE",
+    "title": "Recursive sub-image histogram equalization applied to gray scale images",
+    "authors": [
+      "K.S. Sim",
+      "C.P. Tso",
+      "Y.Y. Tan"
+    ],
+    "year": 2007,
+    "doi": "10.1016/j.patrec.2007.02.003",
+    "url": "https://doi.org/10.1016/j.patrec.2007.02.003"
+  },
+  {
+    "id": "RSWHE",
+    "title": "Recursively Separated and Weighted Histogram Equalization for Brightness Preservation and Contrast Enhancement",
+    "authors": [
+      "Mary Kim",
+      "Min Gyo Chung"
+    ],
+    "year": 2008,
+    "doi": "10.1109/TCE.2008.4637632",
+    "url": "https://doi.org/10.1109/TCE.2008.4637632"
+  },
+  {
+    "id": "DHE",
+    "title": "A Dynamic Histogram Equalization for Image Contrast Enhancement",
+    "authors": [
+      "M. Abdullah-Al-Wadud",
+      "Md. Hasanul Kabir",
+      "M. Ali Akber Dewan",
+      "Oksam Chae"
+    ],
+    "year": 2007,
+    "doi": "10.1109/TCE.2007.381734",
+    "url": "https://doi.org/10.1109/TCE.2007.381734"
+  },
+  {
+    "id": "BPDHE",
+    "title": "Brightness Preserving Dynamic Histogram Equalization for Image Contrast Enhancement",
+    "authors": [
+      "Haidi Ibrahim",
+      "Nicholas Sia Pik Kong"
+    ],
+    "year": 2007,
+    "doi": "10.1109/TCE.2007.4429280",
+    "url": "https://doi.org/10.1109/TCE.2007.4429280"
+  },
+  {
+    "id": "WTHE",
+    "title": "Fast Image/Video Contrast Enhancement Based on Weighted Thresholded Histogram Equalization",
+    "authors": [
+      "Qing Wang",
+      "Rabab Ward"
+    ],
+    "year": 2007,
+    "doi": "10.1109/TCE.2007.381756",
+    "url": "https://doi.org/10.1109/TCE.2007.381756"
+  },
+  {
+    "id": "ESIHE",
+    "title": "Image enhancement using Exposure based Sub Image Histogram Equalization",
+    "authors": [
+      "Kuldeep Singh",
+      "Rajiv Kapoor"
+    ],
+    "year": 2014,
+    "doi": "10.1016/j.patrec.2013.08.024",
+    "url": "https://doi.org/10.1016/j.patrec.2013.08.024"
+  },
+  {
+    "id": "CVC",
+    "title": "Contextual and Variational Contrast Enhancement",
+    "authors": [
+      "T. Celik",
+      "T. Tjahjadi"
+    ],
+    "year": 2011,
+    "doi": "10.1109/TIP.2011.2157513",
+    "url": "https://doi.org/10.1109/TIP.2011.2157513"
+  },
+  {
+    "id": "AHE",
+    "title": "Adaptive histogram equalization and its variations",
+    "authors": [
+      "Stephen M. Pizer",
+      "E. Philip Amburn",
+      "John D. Austin",
+      "Robert Cromartie",
+      "Ari Geselowitz",
+      "Trey Greer",
+      "Bart ter Haar Romeny",
+      "John B. Zimmerman",
+      "Karel Zuiderveld"
+    ],
+    "year": 1987,
+    "doi": "10.1016/S0734-189X(87)80186-X",
+    "url": "https://doi.org/10.1016/S0734-189X(87)80186-X"
+  },
+  {
+    "id": "CLAHE",
+    "title": "Contrast Limited Adaptive Histogram Equalization",
+    "authors": [
+      "Karel Zuiderveld"
+    ],
+    "year": 1994,
+    "doi": "10.1016/B978-0-12-336156-1.50061-6",
+    "url": "https://doi.org/10.1016/B978-0-12-336156-1.50061-6"
+  },
+  {
+    "id": "AGCWD",
+    "title": "Efficient Contrast Enhancement Using Adaptive Gamma Correction With Weighting Distribution",
+    "authors": [
+      "Shih-Chia Huang",
+      "Fan-Chieh Cheng",
+      "Yi-Sheng Chiu"
+    ],
+    "year": 2013,
+    "doi": "10.1109/TIP.2012.2226047",
+    "url": "https://doi.org/10.1109/TIP.2012.2226047"
+  }
+]

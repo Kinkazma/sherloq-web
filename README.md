@@ -72,17 +72,19 @@ The local version works like a standalone desktop application, with straightforw
 
 ## What I added
 
-Alongside SHERLOQ’s inherited tools, I integrated the following methods and added or restored the views listed below:
+Alongside SHERLOQ’s inherited tools, I integrated the following methods and added or restored the views listed below. They share the browser workspace, with source-region selection and batch processing available for supported analyses.
 
-- **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG.
-- **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM.
-- **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression.
-- **Text recognition and document inspection:** PP-OCRv6, Tesseract and DTD / DocTamper.
-- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA.
-- **Experimental AI detectors:** B-Free and SPAI.
-- **Compression fingerprints:** Comprint.
-- **Display equalization:** a shared method menu with remembered settings for histogram, adaptive, bi-histogram, recursive and weighted methods.
-- **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, and ELA energy/territory views.
+- **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG. Inspect correspondences within an image or between selected acquisitions.
+- **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM. Inspect localization maps in the original image coordinates, including local and global searches where supported.
+- **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression, for inspecting noise inconsistencies, sensor patterns and compression traces.
+- **Text recognition and document inspection:** PP-OCRv6 and Tesseract for OCR; DTD / DocTamper for locating possible text edits.
+- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA. Compare their different localization or source-clustering responses with the input image.
+- **Experimental AI detectors:** B-Free and SPAI, with whole-image scores and the published evaluation results shown alongside their limitations.
+- **Compression fingerprints:** Comprint, with compression-distance maps, colour overlays, display thresholds and opacity controls.
+- **Display equalization:** a shared menu covering Histogram, CLAHE, AHE, bi-histogram, recursive, weighted, dynamic, exposure-based and contextual methods, plus adaptive gamma correction. Each view remembers a separate setting for each method.
+- **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, ELA energy and Biome territory views, and a choice between Sobel and Krawetz luminance gradients.
+
+The workspace also provides CPU/GPU execution choices, lightweight adjustment previews and retained results. For retained maps, changing the view or opacity reuses the computed response. Independent source regions and exclusions carry through supported analyses, batch recipes and saved results.
 
 B-Free, SPAI and DTD are experimental and hidden by default. Enable them through **Settings → Enable experimental tools**.
 
@@ -531,6 +533,23 @@ B-Free and SPAI assess AI-image signals. Even a correct AI label does not establ
 | Overall image accuracy | 58.34% |
 
 [Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
+
+</details>
+
+### Display equalization
+
+**AHE** enhances local contrast. **CLAHE** limits its amplification to keep local contrast under control. Both are available through the shared equalization menu.
+
+Other methods: **Histogram**, **BBHE**, **DSIHE**, **MMBEBHE**, **RMSHE**, **RSIHE**, **RSWHE**, **DHE**, **BPDHE**, **WTHE**, **ESIHE**, **CVC** and **AGCWD**. [Compare all equalization methods](examples/equalization/README.md).
+
+<details>
+<summary>Original, CLAHE, CLAHE + gamma and AHE — compact example</summary>
+
+| Original | CLAHE | CLAHE + gamma | AHE |
+| --- | --- | --- | --- |
+| ![Original microscopy crop](examples/equalization/images/original.webp) | ![CLAHE with contrast limit 5](examples/equalization/images/clahe.webp) | ![CLAHE with contrast limit 5 and gamma 5](examples/equalization/images/clahe-gamma.webp) | ![AHE with 8 tiles per axis](examples/equalization/images/ahe.webp) |
+
+The same microscopy crop in each view. CLAHE + gamma uses gamma 5 (50 in the global-adjustment field), with CLAHE’s contrast limit kept at 5. These adjustments change the display, not the source image or detector inputs.
 
 </details>
 
