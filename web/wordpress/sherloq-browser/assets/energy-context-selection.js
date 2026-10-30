@@ -1,5 +1,5 @@
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
-import {renderEnergySurface} from './energy-surface-render.js';
+import {renderEnergySurface} from './energy-surface-render.js?v=0.30.0';
 import{EngineError,checkAbort}from'./unified-engine/src/errors.js';
 export const ENERGY_CONTEXT_LAYOUT='separate-native-energy-contexts/2';
 export const energyContextFields=Object.freeze(['energy_low_score','energy_high_score','energy_scope','energy_labels','energy_plane_0','energy_plane_1','energy_plane_2']);

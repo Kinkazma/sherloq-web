@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort} from './errors.js';
 import {joinEfficientLoFtrContextSequences,splitEfficientLoFtrContextMessages,planEfficientLoFtrContextFineRows} from './efficient-loftr-context-bank.js';
 import {joinEfficientLoFtrContextCoarseFeatures,splitEfficientLoFtrNormalizedCoarse,joinEfficientLoFtrContextFinePatches} from './efficient-loftr-coarse-fine-bank.js';

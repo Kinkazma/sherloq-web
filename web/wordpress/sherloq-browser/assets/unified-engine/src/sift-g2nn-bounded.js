@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {wasmAllocationFailure} from './allocation.js';
 import {EngineError,checkAbort,controlCheckpoint} from './errors.js';
 import {TypedPages,finishCorrespondences} from './m3-typed-pages.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {inspectJpegBlob} from './jpeg.js';
 import {inspectPngSource} from './png-header-source.js';
 import {inspectTiffSource} from './tiff-header-source.js';

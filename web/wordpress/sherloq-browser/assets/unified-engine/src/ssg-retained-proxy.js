@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 // Provisional scalar presentation only. Never a scientific result/export.
 import {allocateOwnedTypedArray,allocateWasmMemory} from './allocation.js';
 import {requireValue,checkAbort,EngineError,controlCheckpoint} from './errors.js';

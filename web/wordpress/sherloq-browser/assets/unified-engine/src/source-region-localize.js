@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {certifyNativeRequestedGeometry} from './source-region-requested-geometry.js';
 import {strictSparseDefaultTask} from './sparse-strict-defaults.js';
 import {strictDenseDefaultTask} from './dense-strict-contexts.js';

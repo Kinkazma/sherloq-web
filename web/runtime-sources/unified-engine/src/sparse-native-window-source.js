@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {sparseStrictImageRecord} from './sparse-strict-source.js';
 import {createCompiledStrictDenseSource} from './dense-strict-source.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';

@@ -1,8 +1,8 @@
 // Adapter for createPdfReaderSession's existing renderPage dependency.
 // It does not mount UI, alter an image source, or start a scientific model.
-import {version,build} from './pdf-native-library.js';
-import {IMPORT_LIMITS} from './batch-import.js';
-import {createRetainedPdfFirstPage} from './pdf-retained-first-page.js';
+import {version,build} from './pdf-native-library.js?v=0.30.0';
+import {IMPORT_LIMITS} from './batch-import.js?v=0.30.0';
+import {createRetainedPdfFirstPage} from './pdf-retained-first-page.js?v=0.30.0';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
 const cancelled=()=>Object.assign(new Error('Retained PDF reader renderer released.'),{code:'CANCELLED'});
 const check=signal=>{if(signal?.aborted)throw signal.reason??cancelled();};

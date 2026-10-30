@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {recompressionLosses} from './jpeg-recompression.js';
 import {parameters,roundEven} from './pixel-utils.js';import {jpegHeader} from './image-headers.js';import {checkAbort,requireValue} from './errors.js';
 import {normalizeQualityCurve} from './quality-arithmetic.js';

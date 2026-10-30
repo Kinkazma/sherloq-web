@@ -44,7 +44,7 @@ export function disposeSegmentedImage(record){
   let done=false,pending;owners.set(owner,()=>{if(done)return;if(pending)return pending;const task=Promise.resolve().then(()=>owner.dispose()).then(()=>{done=true;onDone?.();});pending=task;void task.finally(()=>{if(pending===task)pending=null;}).catch(()=>{});return task;});
  };
  for(const [key,owner]of record.pixelStoreCaches??[])remember(state.dependencies,owner,()=>{if(record.pixelStoreCaches?.get(key)===owner)record.pixelStoreCaches.delete(key);});
- for(const key of ['plotsCache','emCache','waveletCache','blockingCache','frequencyCache','prnuCache','resamplingCache','noisesnifferCache','noisesnifferColdPreview','stereoCache','thumbnailAnalysis','energyCache','ghostCache','ghostProxyCache','zeroAnalysis','rgbRecompression']){
+ for(const key of ['plotsCache','emCache','waveletCache','blockingCache','frequencyCache','prnuCache','resamplingCache','fourierPresentationGpu','fourierPreview','noisesnifferCache','noisesnifferColdPreview','stereoCache','thumbnailAnalysis','energyCache','energyScoreGpu','ghostCache','biomesCache','ghostCellRetirements','ghostProxyCache','zeroPreview','zeroAnalysis','doubleJpegOwner','rgbRecompression']){
   const owner=record[key];remember(state.dependencies,owner,()=>{if(record[key]===owner)record[key]=null;});
  }
  remember(state.surfaces,record.surface);if(record.ownsTemporarySession!==false)remember(state.sessions,record.session);remember(state.sources,record.source);

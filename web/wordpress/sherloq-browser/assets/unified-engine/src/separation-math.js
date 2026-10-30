@@ -1,9 +1,11 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {wasmAllocationFailure,nativeModuleFailure,copyTypedArray} from './allocation.js';
 import {EngineError,requireValue,checkAbort,checkpoint} from './errors.js';
 export const SEPARATION_HEAP_BYTES=64*1024**2;let pending,ready;
 export async function initSeparationWasm({wasmBinary}={}){const {default:create}=await import('../vendor/separation/separation.js');pending=create(wasmBinary?{wasmBinary}:{});ready=await pending;return ready;}
 export const separationHeapBytes=()=>ready?.HEAPU8.buffer.byteLength??0;
+// Passive owner snapshot: no initialization, allocation or calibration.
+export const separationRuntimeState=()=>({phase:ready?'ready':pending?'pending':'cold',heapBytes:separationHeapBytes()});
 async function instance(){try{return ready??(pending?await pending:await initSeparationWasm());}catch(cause){pending=null;throw nativeModuleFailure(cause,'Local separation arithmetic module could not load.');}}
 // NLM uses the native7x7 template and21x21 search regardless of UI strength.
 export const separationHalo=p=>p.mode===4?13:p.radius;
@@ -12,7 +14,7 @@ export async function separationRows(image,p,start,rows,hooks={}){return runRows
 export async function separationObservedRows(image,p,start,rows,membership,hooks={}){return runRows(image,p,start,rows,{...hooks,membership});}
 export async function separationNlmRows(image,p,start,rows,hooks={}){return runRows(image,p,start,rows,{...hooks,nlmRowsOnly:true});}
 export async function separationNlmPoints(image,p,hooks={}){return runRows(image,p,13,1,{...hooks,nlmPoints:true});}
-async function runRows(image,p,start,rows,{signal,membership,nlmRowsOnly=false,nlmPoints=false,nativeOriginX=0,nativeWidth=image.width}={}){
+async function runRows(image,p,start,rows,{signal,membership,nlmRowsOnly=false,nlmPoints=false,nativeOriginX=0,nativeWidth=image.width,cooperate}={}){
  requireValue(p&&Number.isInteger(p.mode)&&p.mode>=0&&p.mode<=4&&Number.isInteger(p.radius)&&p.radius>=1&&p.radius<=10&&Number.isInteger(p.sigma)&&p.sigma>=1&&p.sigma<=200&&typeof p.grayscale==='boolean','Invalid separation filter parameters.');
  requireValue([image.width,image.height,start,rows].every(Number.isSafeInteger)&&image.width>0&&image.height>0&&start>=0&&rows>0&&start+rows<=image.height&&image.data instanceof Uint8Array&&image.data.length===image.width*image.height*3,'Invalid separation row window.');
  if(membership!==undefined)requireValue(p.mode<4&&membership instanceof Uint8Array&&membership.length===image.width*image.height&&membership.every(v=>v===0||v===1),'Invalid observed separation membership.');
@@ -20,7 +22,7 @@ async function runRows(image,p,start,rows,{signal,membership,nlmRowsOnly=false,n
  if(nlmPoints)requireValue(p.mode===4&&image.height===27&&image.width%27===0,'Native NLM points require complete27pixel boundary patches.');
  if(nlmRowsOnly)requireValue(p.mode===4,'Row-only NLM requires native mode4.');
  if(separationWorkspace(image.width,image.height,p)>SEPARATION_HEAP_BYTES)throw new EngineError('MEMORY_LIMIT','Separation row window exceeds its fixed64MiB arithmetic heap.');
- await checkpoint(signal);const m=await instance();checkAbort(signal);let source=0,out=0,mask=0;
+ if(p.mode===4)requireValue(cooperate===undefined||typeof cooperate==='function','Invalid NLM cooperation callback.');await(p.mode===4&&cooperate?cooperate():checkpoint(signal));checkAbort(signal);const m=await instance();checkAbort(signal);let source=0,out=0,mask=0;
  try{
   source=m._malloc(image.data.length);out=m._malloc(image.width*rows*3);if(!source||!out)throw wasmAllocationFailure(m,'Separation staging exceeds the fixed64MiB heap.',!source?image.data.length:image.width*rows*3);m.HEAPU8.set(image.data,source);
   if(membership){mask=m._malloc(membership.length);if(!mask)throw wasmAllocationFailure(m,'Separation membership staging exceeds the fixed64MiB heap.',membership.length);m.HEAPU8.set(membership,mask);}

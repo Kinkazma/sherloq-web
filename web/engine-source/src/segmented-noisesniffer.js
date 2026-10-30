@@ -11,14 +11,14 @@ import {createRgbSurface} from './rgb-surface.js';
 import {retainResult} from './retained-result.js';
 import {EngineError,createCooperator,checkAbort,requireValue} from './errors.js';
 const semantics='Corrected IPOL Noisesniffer with global means, native unstable global sorting and ordered region growth. Significant regions are noise-consistency evidence, not a manipulation probability. Empty selections are inconclusive.';
-export async function segmentedNoisesniffer(image,params,{budget,signal,onProgress,cache,storage='auto',profile={},accountedHeapBytes=0}={}){
+export async function segmentedNoisesniffer(image,params,{budget,signal,onProgress,cache,storage='auto',profile={},accountedHeapBytes=0,backend='auto'}={}){
  requireValue(Number.isSafeInteger(accountedHeapBytes)&&accountedHeapBytes>=0&&accountedHeapBytes<=noisesnifferStreamHeapBytes(),'Invalid already-accounted native Noisesniffer heap.');
  const cooperate=createCooperator(signal);
  const started=performance.now(),p=noisesnifferParams(params),{width,height}=image.surface.descriptor,w=p.blockSize,selectionKey=noisesnifferSelectionKey(p),key=JSON.stringify([selectionKey,p.cellSize]),options={budget,signal,storage,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,chunkBytes:262144};
  let stats=cache?.stats,basis=cache?.basis,stage=cache?.selectionStage,createdStats=false,createdBasis=false,createdStage=false,mask,distribution,newAnalysis,lease,surface,output,resident,countsRelease,regionRetained=0;
- const statsCached=stats?.blockSize===w,analysisCached=statsCached&&cache?.key===key&&!!cache.analysis,selectionCached=statsCached&&stage?.key===selectionKey,basisCached=statsCached&&basis?.key===noisesnifferBasisKey(p),stages={};
+ const statsCached=stats?.blockSize===w&&(stats.requestedBackend===undefined||stats.requestedBackend===backend),analysisCached=statsCached&&cache?.key===key&&!!cache.analysis,selectionCached=statsCached&&stage?.key===selectionKey,basisCached=statsCached&&basis?.key===noisesnifferBasisKey(p),stages={};
  try{
-  if(!statsCached){const t=performance.now();stats=await segmentedNoisesnifferStatistics(image,w,{budget,signal,onProgress,storage,profile,reserveAfter:Math.min(noisesnifferSelectionWorkspace(width,height,p),noisesnifferPagedSelectionWorkspace(width,height,p)+32*1024**2)+8*1024**2});createdStats=true;stages.statisticsMs=performance.now()-t;}
+  if(!statsCached){const t=performance.now();stats=await segmentedNoisesnifferStatistics(image,w,{budget,signal,onProgress,storage,profile,backend,reserveAfter:Math.min(noisesnifferSelectionWorkspace(width,height,p),noisesnifferPagedSelectionWorkspace(width,height,p)+32*1024**2)+8*1024**2});createdStats=true;stages.statisticsMs=performance.now()-t;}
   if(!basisCached)basis=null;if(!selectionCached)stage=null;
   resident=budget.reserve(Math.max(0,Math.max(8*1024**2,noisesnifferStreamHeapBytes())-accountedHeapBytes));let analysis=analysisCached?cache.analysis:null;
   if(!analysis){

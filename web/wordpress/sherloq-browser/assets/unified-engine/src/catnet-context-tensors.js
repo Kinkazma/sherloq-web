@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,EngineError,checkAbort}from'./errors.js';
 import{catnetRawBoundsToOriginal,catnetObservedOriginalPixels}from'./catnet-strict-contexts.js';
 /** Borrow native Original RGB and stored original coefficient categories.

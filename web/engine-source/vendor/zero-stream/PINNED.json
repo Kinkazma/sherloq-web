@@ -1,16 +1,27 @@
 {
   "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
   "license": "AGPL-3.0-or-later",
+  "referenceSource": "ZERO IPOL2021/390; original source unmodified",
   "source": {
     "vendor/zero/zero.c": "f4fa0091e17cb292414b2bb451e3720c24f4d5227d918ff3730fea4de48f3d36",
-    "native/zero-fast.c": "95692da9c7aa509fdc68b539d72f30176e17c8d427903d24d2d1a1455913dfcc",
+    "native/zero-fast.c": "c8e164cf0943377824ab2083605a088e2637814d3e087f2a58310b1403f85b34",
+    "native/zero-regions-fast.c": "064ef8426dce2d7b52392a6154eb29d17394f5f4cc0ce05b176745d9bde15d3d",
+    "native/zero-gpu-refine.c": "3495277925f5bcfd076dca2025fd872e340db980cf1f8c075d9fdf0347bfe938",
+    "native/zero-fma64-simd.c": "7ae69551dd45a1e63d8b869463afafbb14c6c7c516b3563235ada9a83cb8f0bd",
+    "native/zero-fma64-scalar.c": "bd0abcb91fc6c6a96a139081d422d27a7e21f708a51f0c4f7c46d3c7c942d786",
+    "native/zero-loader.js": "549dc9879965c8d03d0c502f9d72aea24329f62ea9b3f72d943015b72321a841",
     "native/zero-stream.c": "17b8a8c39544bc922f3afb961feb8b3cf0f430b67015df228ae870c6db71fcd2",
-    "native/zero-cosines.h": "73d175fb473a14f5dfa641f572c3bbeff824301055489df79dd8b0fbeaf853af"
+    "native/zero-cosines.h": "73d175fb473a14f5dfa641f572c3bbeff824301055489df79dd8b0fbeaf853af",
+    "scripts/build-zero-kernels.py": "9a4fb4bd9fb288d4b7e22912c6b4ff94327799d40dc0210d68aeae45254b4e0d"
   },
-  "arithmetic": "Original FMA contraction explicit; existing separated-threshold vote filter unchanged",
+  "arithmetic": "Original FMA64 threshold decisions; separated binary64 filter, bounded word-set components, exact native-border closing; SIMD f64FMA admitted only by numerical qualification of its actual instruction site",
+  "diagnosticWrappedCounter": false,
   "files": {
-    "zero-stream.js": "3ca473fcdcf382355ea7d833aa7533374dde7738b16ea3d15b184529b11a9c16",
-    "zero-stream.wasm": "bc3e24572ed5ac7ee55ea8b160489d431b2b78ee5b985829b6eefc56a6249ab8",
-    "LICENSE": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+    "LICENSE": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+    "zero-stream.js": "dcf76b6d064acf2e945680e03aaddcd27358a7af8be917b297c273f0ed6273e4",
+    "zero-stream-simd.wasm": "db1130444c0f7e705e0d425998fa23168df4e25f4f6086eceb2682e9cc667d8a",
+    "zero-stream-simd.js": "88c562ca1d88da9855d496b12cc0a8f170463047e1259901706b7c43493413a7",
+    "zero-stream.wasm": "9e06c2d47026715c6fc802afe2de03419a42e60acd35d92558674e474752565c",
+    "zero-stream-scalar.js": "3deaa09c60d97384167b038d905621a1aa53f60a9648558c1ef636d83e45e543"
   }
 }

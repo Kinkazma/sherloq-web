@@ -1,19 +1,20 @@
-import {createScientificScopePreviewRetirement} from './batch-scope-preview.js';
-import {preparationMatchesSourceEnvelope} from './scientific-preparation-envelope.js';
-import {createScopeDetectionActions} from './scope-detection-actions.js';
-import {initializeSubimagesSelection,subimagesSelectionMode} from './subimages-selection-intent.js';
-import {scientificScopeEnvelope} from './batch-scope-geometry.js';
-import {compileOriginalSourceRegions} from './original-source-regions.js';
-import {createBatchScopeEditor} from './batch-scope-editor.js';
-import {createManualScopeDraft,restoreManualScopeZone,applyManualScopeDraft,manualDraftScope,restoreManualScientificScope} from './batch-scope-manual.js';
-import {createBatchPreparationClient,reprojectNativeTextPreparation} from './batch-preparation-client.js';
-import {detectIndividualSubimages} from './individual-subimages.js';
-import {createIndividualScientificScope,individualScopeRectangles,scopeIndividualTask} from './individual-scientific-scope.js';
-import {createDetectionRegionsPanel} from './detection-regions-panel.js';
-import {detectionBiomes} from './detection-biomes.js';
-import {scopeFingerprint,SCIENTIFIC_SCOPE_POLICY} from './batch-scientific-preparation.js';
-import {clipPolygon} from './batch-scope-geometry.js';
-import {SCIENTIFIC_TEXT_MODEL} from './scientific-text-detector.js';
+import {individualSourceSelectionPolicy,markInitialIndividualSourceSelection} from './individual-source-selection.js?v=0.30.0';
+import {createScientificScopePreviewRetirement} from './batch-scope-preview.js?v=0.30.0';
+import {preparationMatchesSourceEnvelope} from './scientific-preparation-envelope.js?v=0.30.0';
+import {createScopeDetectionActions} from './scope-detection-actions.js?v=0.30.0';
+import {initializeSubimagesSelection,subimagesSelectionMode} from './subimages-selection-intent.js?v=0.30.0';
+import {scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
+import {compileOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
+import {createBatchScopeEditor} from './batch-scope-editor.js?v=0.30.0';
+import {createManualScopeDraft,restoreManualScopeZone,applyManualScopeDraft,manualDraftScope,restoreManualScientificScope} from './batch-scope-manual.js?v=0.30.0';
+import {createBatchPreparationClient,reprojectNativeTextPreparation} from './batch-preparation-client.js?v=0.30.0';
+import {detectIndividualSubimages} from './individual-subimages.js?v=0.30.0';
+import {createIndividualScientificScope,individualScopeRectangles,scopeIndividualTask} from './individual-scientific-scope.js?v=0.30.0';
+import {createDetectionRegionsPanel} from './detection-regions-panel.js?v=0.30.0';
+import {detectionBiomes} from './detection-biomes.js?v=0.30.0';
+import {scopeFingerprint,SCIENTIFIC_SCOPE_POLICY} from './batch-scientific-preparation.js?v=0.30.0';
+import {clipPolygon} from './batch-scope-geometry.js?v=0.30.0';
+import {SCIENTIFIC_TEXT_MODEL} from './scientific-text-detector.js?v=0.30.0';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
 
 const copy=v=>structuredClone(v);
@@ -69,7 +70,7 @@ export function createIndividualRegionController({document,parent,panelMode='leg
   const zones=scope&&source()?.blob?createManualScopeDraft(currentImage()).zones:[];
   panel.update({zones,biomes:visibleGroups(),resultIdentity:identity,canUndo:past.length>0,canRedo:future.length>0});
  }
- async function ensureScope(){await prepareSourceScope();if(disposed)throw new EngineError('CANCELLED','Individual source adoption cancelled.');if(!scope){scope=await createIndividualScientificScope(currentImage(),{manualFullSource:true,excludeTexts:false});}return scope;}
+ async function ensureScope(){await prepareSourceScope();if(disposed)throw new EngineError('CANCELLED','Individual source adoption cancelled.');if(!scope){const image=currentImage(),initial=await createIndividualScientificScope(image,{manualFullSource:true,excludeTexts:false}),draft=createManualScopeDraft({...image,preparation:initial});const next=markInitialIndividualSourceSelection(initial,draft);next.fingerprint=await scopeFingerprint(next);if(disposed)throw new EngineError('CANCELLED','Individual source adoption cancelled.');scope=next;}return scope;}
  async function edit({kind, id, tool='select'}={}){
   if(disposed)return;const editTicket=++editorEpoch;await retiredEditors.drain();await retireEditor(editor);editor=null;
   if(disposed||editTicket!==editorEpoch)return;
@@ -94,7 +95,7 @@ export function createIndividualRegionController({document,parent,panelMode='leg
   await ensureScope();if(disposed||editTicket!==editorEpoch)return;const editImage=currentImage(),base=scope,epoch=cancellationEpoch;
   const isCurrent=()=>{const now=source();return !disposed&&editTicket===editorEpoch&&epoch===cancellationEpoch&&scope===base&&now&&now.blob===editImage.blob&&now.id===editImage.id&&now.sourceSha256===editImage.sourceSha256&&now.width===editImage.width&&now.height===editImage.height;};
   const actions=detectionActionsFactory({getClient,computeProfile,excludeTexts:()=>excludeTexts,language,preparationClientFactory,isCurrent});
-  editor=scopeEditorFactory({document:realDocument,image:editImage,subimagesSelection:{positiveMode:'selected',afterLastAcquisitionDelete:'selected'},language:language(),classifyAcquisitions:false,computeProfile:computeProfile(),getNavigationMode:navigationMode,onError,...actions,
+  editor=scopeEditorFactory({document:realDocument,image:editImage,subimagesSelection:individualSourceSelectionPolicy(base),language:language(),classifyAcquisitions:false,computeProfile:computeProfile(),getNavigationMode:navigationMode,onError,...actions,
    onSave:next=>adoptEditedScope(next,isCurrent),
   });await editor.open({editing:true,tool,zoneId:id});
  }
@@ -106,7 +107,7 @@ export function createIndividualRegionController({document,parent,panelMode='leg
   try{
    await retiredEditors.drain();await retireEditor(editor);editor=null;await ensureScope();if(disposed||ticket!==editorEpoch||epoch!==cancellationEpoch)throw new EngineError('CANCELLED','Individual region detection cancelled.');local=controller=new AbortController();const signal=local.signal;
    const image=currentImage(),base=scope,isCurrent=()=>{const now=!disposed&&source();return !disposed&&!signal.aborted&&ticket===editorEpoch&&epoch===cancellationEpoch&&scope===base&&now&&now.blob===image.blob&&now.id===image.id&&now.sourceSha256===image.sourceSha256&&now.width===image.width&&now.height===image.height&&(now.sourceRegionCeiling?.fingerprint??null)===(image.sourceRegionCeiling?.fingerprint??null);};
-   const draft=createManualScopeDraft(image);initializeSubimagesSelection(draft,{positiveMode:'selected',afterLastAcquisitionDelete:'selected'});const staged=await applyManualScopeDraft(image,draft);checkAbort(signal);if(!isCurrent())throw new EngineError('CANCELLED','The image or its regions changed during region detection.');
+   const draft=createManualScopeDraft(image);initializeSubimagesSelection(draft,individualSourceSelectionPolicy(base));const staged=await applyManualScopeDraft(image,draft);checkAbort(signal);if(!isCurrent())throw new EngineError('CANCELLED','The image or its regions changed during region detection.');
    const actions=detectionActionsFactory({getClient,computeProfile,excludeTexts:()=>excludeTexts,language,preparationClientFactory,isCurrent}),callback=kind==='automatic'?actions.onDetectAutomatically:actions.onDetectSubimages;
    const answer=await callback({image,scope:staged,draft:copy(draft),sourceSelectionMode:subimagesSelectionMode(draft),signal,onProgress});checkAbort(signal);if(!isCurrent())throw new EngineError('CANCELLED','The image or its regions changed during region detection.');
    const next=answer?.scope??answer;if(!next||next.sourceSha256!==image.sourceSha256||next.width!==image.width||next.height!==image.height||await scopeFingerprint(next)!==next.fingerprint)throw new EngineError('INVALID_INPUT','Detected regions do not match the original source or their fingerprint.');checkAbort(signal);if(!isCurrent())throw new EngineError('CANCELLED','The image or its regions changed during region detection.');if(answer?.unchanged===true)return scope;

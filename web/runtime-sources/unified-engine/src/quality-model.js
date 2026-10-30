@@ -1,3 +1,3 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {compileNumericTreeModel} from './numeric-tree-model.js';
 export const compileQualityModel=(bytes,options)=>compileNumericTreeModel(bytes,{...options,kind:'jpeg-quality'});

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {Budget} from './cache.js';
 import {prepareEfficientLoFtrLiteralContext} from './efficient-loftr-literal-contexts.js';
 import {transformEfficientLoFtr} from './efficient-loftr-input.js';

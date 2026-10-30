@@ -92,9 +92,12 @@ def build(installed, chunks, output, shell_only=False):
         target = assets/name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(installed/name, target)
-    worker='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in ['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','bootstrap-metadata.js','dependency-manifest.js','dependency-client-routing.js','dependency-sw.js'])
+    def worker_source(name,worker):
+        entry=ROOT/'service-worker-source'/name
+        return entry if name==worker and entry.is_file() else assets/name
+    worker='\n'.join(re.sub(r'^import .*;\n','',worker_source(name,'dependency-sw.js').read_text(),flags=re.M).replace('export ','') for name in ['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','bootstrap-metadata.js','dependency-manifest.js','dependency-client-routing.js','dependency-sw.js'])
     (assets/'dependency-sw.js').write_text(worker)
-    offline_worker='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in ['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','feature-catalog.js','local-update-store.js','offline-browser-store.js','offline-browser-sw.js'])
+    offline_worker='\n'.join(re.sub(r'^import .*;\n','',worker_source(name,'offline-browser-sw.js').read_text(),flags=re.M).replace('export ','') for name in ['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','feature-catalog.js','local-update-store.js','offline-browser-store.js','offline-browser-sw.js'])
     (assets/'offline-browser-sw.js').write_text(offline_worker)
     shell=offline.write_shell(plugin,manifest,config['manifest'],version)
     if shell_only:return

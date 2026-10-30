@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 // Product orchestration candidate. Arithmetic copied byte-for-byte from frozen
 // head02; the diagnostic root-reservation gate is replaced by the live native
 // executor's model/source/admission policy. No capability is registered here.

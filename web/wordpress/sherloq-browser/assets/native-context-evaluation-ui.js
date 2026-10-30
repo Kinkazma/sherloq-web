@@ -1,5 +1,5 @@
-import {doctamperNativeSummary} from './doctamper-native-summary.js';
-import {catnetNativeContextSummary} from './catnet-native-contexts-ui.js';
+import {doctamperNativeSummary} from './doctamper-native-summary.js?v=0.30.0';
+import {catnetNativeContextSummary} from './catnet-native-contexts-ui.js?v=0.30.0';
 /** A handled native request can contain unevaluable contexts. This notice is
  * independent of scientific scores and must also be shown outside JSON. */
 export function nativeContextEvaluationNotice(output,language='fr'){

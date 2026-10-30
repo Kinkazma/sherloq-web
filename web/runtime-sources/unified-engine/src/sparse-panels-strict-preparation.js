@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{prepareSparseStrictNativeContext}from'./sparse-strict-source.js';
 import{createOriginalSourceRegionsState,compileOriginalSourceRegions}from'./source-region-geometry.js';
 import{prepareSourceRegionOcr,analyzeSourceRegionOcr}from'./source-region-ocr.js';

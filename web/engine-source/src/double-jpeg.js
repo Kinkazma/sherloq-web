@@ -17,11 +17,12 @@ function pairwise(a,start=0,n=a.length){
  if(n<=128){const r=Array.from(a.subarray(start,start+8));let i=8;for(;i<n-n%8;i+=8)for(let j=0;j<8;j++)r[j]+=a[start+i+j];let sum=((r[0]+r[1])+(r[2]+r[3]))+((r[4]+r[5])+(r[6]+r[7]));for(;i<n;i++)sum+=a[start+i];return sum;}
  let cut=Math.floor(n/2);cut-=cut%8;return pairwise(a,start,cut)+pairwise(a,start+cut,n-cut);
 }
-export async function histogramEvidence(h,q2,workspace){
+export async function histogramEvidence(h,q2,workspace,hooks={}){
  requireValue(h.length===256&&Number.isInteger(q2)&&q2>=1&&q2<=65535&&Array.from(h).every(x=>Number.isSafeInteger(x)&&x>=0&&x<=0xffffffff),'Expected 256 nonnegative histogram bins and a positive quantization step.');
  const owned=!workspace;workspace??=await jpegHistogramWorkspace();try{
  let best={score:0,candidate_step:null,current_step:q2,samples:0,expected_gap_fraction:null,observed_gap_fraction:null,eligible:false};
  for(let q1=Math.max(3,2*q2);q1<=Math.min(128,8*q2);q1++){
+  if(hooks.cooperate)await hooks.cooperate();
   const allowed=quantizationLattice(q1,q2),minimum=Math.max(3,Math.ceil(q1/q2));let n=0,nonzero=0,gapCount=0;for(let k=minimum;k<=128;k++){n+=h[k];nonzero+=h[k]!==0;if(!allowed[k])gapCount+=h[k];}if(n<1000||nonzero<12)continue;
   const smooth=workspace.smooth(h,GAUSSIAN_WEIGHTS[GAUSSIAN_INDEX[q1+'/'+q2]]),all=smooth.slice(minimum,129),gaps=Float64Array.from(Array.from({length:129-minimum},(_,k)=>minimum+k).filter(k=>!allowed[k]),k=>smooth[k]);
   const expected=pairwise(gaps)/Math.max(1,pairwise(all));if(expected<.25)continue;const observed=gapCount/n,score=Math.max(0,1-observed/expected);
@@ -37,7 +38,7 @@ export async function doubleJpegHistogramResult(hist,hooks={},context){
  const started=context.started??performance.now(),records=[],workspace=await jpegHistogramWorkspace();
  try{
  for(let i=0;i<9;i++){
-  await checkpoint(hooks.signal);const offset=4+i*258,q2=hist[offset],histogram=hist.slice(offset+2,offset+258),record={...await histogramEvidence(histogram,q2,workspace),frequency:DCT_FREQUENCIES[i].slice(),histogram,ignored_tail:hist[offset+1]};record.candidate_lattice=record.eligible?quantizationLattice(record.candidate_step,q2):null;records.push(record);hooks.onProgress?.((i+1)/9);
+  if(hooks.cooperate)await hooks.cooperate();else await checkpoint(hooks.signal);const offset=4+i*258,q2=hist[offset],histogram=hist.slice(offset+2,offset+258),record={...await histogramEvidence(histogram,q2,workspace,hooks),frequency:DCT_FREQUENCIES[i].slice(),histogram,ignored_tail:hist[offset+1]};record.candidate_lattice=record.eligible?quantizationLattice(record.candidate_step,q2):null;records.push(record);hooks.onProgress?.((i+1)/9);
  }
  const votes=records.filter(r=>r.eligible&&r.score>=.8).length,eligible=records.filter(r=>r.eligible).length;
  return {data:{version:'aligned-lattice-v1',verdict:votes>=3?'compatible_traces':'inconclusive',reason:votes>=3?'lattice_depletion':eligible<3?'insufficient_histograms':'no_strong_consensus',supporting_frequencies:votes,eligible_frequencies:eligible,tested_frequencies:9,threshold:.8,required_frequencies:3,source_sha256:context.sourceSha256,dimensions:[hist[0],hist[1]],complete_blocks:hist[2],progressive:!!hist[3],codec:JPEG_ID,records,limitations:DOUBLE_JPEG_LIMITATIONS,seconds:(performance.now()-started)/1000},layers:[],semantics:'Exact original-file luminance DCT histograms; experimental aligned lattice depletion evidence. Score is not a probability, candidate step is not recovered JPEG quality, and the verdict is not an authenticity assessment.'};

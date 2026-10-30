@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {mediaCodecJob} from './media-codec-client.js';
 import {createBlobSource} from './blob-source.js';
 import {sourcePrefixMetadataBytes} from './source-prefix-integrity.js';

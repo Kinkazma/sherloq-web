@@ -1,4 +1,7 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {retireCompositeOwners} from './composite-owner-release.js';
+import {equalizationPlan} from './equalization-settings.js';
+import {equalizationSurface} from './equalization-presentation.js';
 import {magnifierRegion,magnifierLuts} from './magnifier.js';
 import {gray} from './pixel-utils.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
@@ -7,6 +10,12 @@ import {controlCheckpoint,checkAbort,EngineError,normalizeResourceError,createCo
 // The histogram belongs to the entire selected oriented region. Row grouping
 // is storage only; clipping and per-channel/global-gray LUT semantics are native.
 export async function segmentedMagnifierLarge(image,p,{budget,signal,onProgress,cacheKey}={}){
+ if(Object.hasOwn(p,'equalization')){
+  const plan=equalizationPlan('inspection.magnifier',p),native=await segmentedMagnifierLarge(image,plan.base,{budget,signal,onProgress,cacheKey});
+  if(!plan.post)return native;
+  let next;try{next=await equalizationSurface(native.surface,plan,{budget,signal,onProgress,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession});await native.surface.dispose();return {...native,...next,metrics:{...native.metrics,...next.metrics}};}
+  catch(error){await retireCompositeOwners([()=>native.surface.dispose(),()=>next?.surface.dispose()],{primary:error});throw error;}
+ }
  const {bounds,width,height}=magnifierRegion(image.surface.descriptor,p),[left,top]=bounds,n=width*height,key=cacheKey&&cacheKey+image.surface.descriptor.id+'/'+image.surface.descriptor.revision+'/'+JSON.stringify(bounds)+'/histogram',cached=key&&budget.get(key),rows=Math.min(height,Math.max(1,Math.floor(262144/width))),release=budget.reserve(16384+width*(rows+1)*3);let store,reads=0;
  const start=performance.now(),cooperate=createCooperator(signal);try{await controlCheckpoint(signal);store=await createSegmentedBytes(n*3,{budget,signal,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession});const hist=cached?.value??Array.from({length:4},()=>new Uint32Array(256));
   if(!cached)for(let y=0;y<height;y+=rows){await cooperate();const h=Math.min(rows,height-y),part=await image.surface.readWindow({x:left,y:top+y,width,height:h},{signal});try{const v=part.pixels.data;for(let i=0;i<v.length;i+=3){hist[0][v[i]]++;hist[1][v[i+1]]++;hist[2][v[i+2]]++;hist[3][gray(v[i],v[i+1],v[i+2])]++;}reads++;}finally{part.release();}onProgress?.({phase:'histogram',fraction:.5*(y+h)/height});}

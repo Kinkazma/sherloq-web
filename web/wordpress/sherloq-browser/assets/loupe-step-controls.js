@@ -1,5 +1,5 @@
-import {bindSliderReset} from './slider-reset.js';
-import {effectRanges,validateLoupeEffects} from './loupe-effects-settings.js';
+import {bindSliderReset} from './slider-reset.js?v=0.30.0';
+import {effectRanges,validateLoupeEffects} from './loupe-effects-settings.js?v=0.30.0';
 
 export const loupeStepFields=Object.freeze([
  ['adjust.brightness','Luminosité','Brightness'],['adjust.saturation','Saturation','Saturation'],['adjust.hue','Teinte','Hue'],['adjust.gamma','Gamma × 10','Gamma × 10'],['adjust.shadows','Ombres','Shadows'],['adjust.highlights','Hautes lumières','Highlights'],['adjust.sweep','Niveau','Level'],['adjust.width','Largeur de niveau','Level width'],['adjust.sharpen','Netteté','Sharpening'],['adjust.threshold','Seuil','Threshold'],['adjust.equalize','Égalisation','Equalization'],['enhance.percent','Écrêtage (%)','Clipping (%)'],['sweep.position','Balayage · niveau','Sweep · level'],['sweep.width','Balayage · largeur','Sweep · width'],['sweep.opacity','Balayage · intensité','Sweep · strength']

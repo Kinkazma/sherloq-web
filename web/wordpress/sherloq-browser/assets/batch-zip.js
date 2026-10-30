@@ -1,6 +1,6 @@
 import {scientificZipPlan,scientificZipLocal,scientificZipCentral,scientificZipEnd} from './unified-engine/src/scientific-zip.js';
-import {createBatchTemporaryDirectory} from './batch-artifacts.js';
-import {createIndexedDbExportWriter} from './indexeddb-export-writer.js';
+import {createBatchTemporaryDirectory} from './batch-artifacts.js?v=0.30.0';
+import {createIndexedDbExportWriter} from './indexeddb-export-writer.js?v=0.30.0';
 const table=Uint32Array.from({length:256},(_,n)=>{for(let i=0;i<8;i++)n=n&1?0xedb88320^(n>>>1):n>>>1;return n>>>0;});
 export const ZIP_CHUNK_BYTES=1024**2;
 // One input window and one disk-backed output; ZIP64 is inherited from the

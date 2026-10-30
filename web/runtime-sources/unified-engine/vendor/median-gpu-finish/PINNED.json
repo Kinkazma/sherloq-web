@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "method": "Original median-filter feature equations; OpenCV4.11 binary64 divide/mean; GPU maps supplied exact binary64. Classifier unchanged.",
+  "memory": {
+    "bytes": 16777216,
+    "growth": false
+  },
+  "files": {
+    "native/median-gpu-finish.cpp": {
+      "bytes": 2115,
+      "sha256": "5367a46bd221699aa96ea7c748bba2ff8ef73485435516f5782349283bf85ac0"
+    },
+    "scripts/build-median-gpu-finish.sh": {
+      "bytes": 1890,
+      "sha256": "82fbd7c0ed02e46f0d839add1cb6677a3ffbea5fa38007e668ffcc2df2a589aa"
+    },
+    "vendor/median-gpu-finish/finish.js": {
+      "bytes": 20488,
+      "sha256": "e44b08d984f43624e8618dc2fee55322ffe708e445b5e91a7fec1e9dfd08edf6"
+    },
+    "vendor/median-gpu-finish/finish.wasm": {
+      "bytes": 319876,
+      "sha256": "45ca5b1a7cb46ed71aed1a041250edd89cd44a8943f1808959dd2925903ea91c"
+    },
+    "vendor/median-gpu-finish/LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "vendor/median-gpu-finish/LICENSE-MUSL.txt": {
+      "bytes": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    },
+    "vendor/median-gpu-finish/NOTICE-OPENCV-LEGACY.txt": {
+      "bytes": 6637,
+      "sha256": "9153bb7093ae49f71977905457cd4a6ff2347616428ca659bc783569d9f609ed"
+    }
+  }
+}

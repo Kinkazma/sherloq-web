@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,normalizeResourceError} from './errors.js';
 
 // Reinstallation replaces the old error listener, as IDL properties do.

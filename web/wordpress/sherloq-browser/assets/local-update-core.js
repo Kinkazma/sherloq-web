@@ -1,11 +1,11 @@
-import {localActivityBusy,setLocalActivityFrozen} from './local-activity.js';
-import {sha256,validateManifest,remoteBase} from './dependency-core.js';
-import {createChunkLoader,libraryFile,libraryValue} from './dependency-store.js';
-import {indexResourceTar,archiveChunkReader,importLibraryFile} from './dependency-tar.js';
-import {validateOfflineShell} from './offline-kit-core.js';
-import {offlineCacheName,offlineChunkURL,offlineHeaders,offlineMime,OFFLINE_CHUNKS,offlinePlan,saveOfflineShell,readOfflineInstallation,prepareOfflineBrowser} from './offline-browser-store.js';
-import {validateFeatureCatalog,requiredFeatureChunks,normalizeFeatureState,selectActiveFiles} from './feature-catalog.js';
-import {browserUpdateStore,journal,activateCandidate,rollbackReference} from './local-update-store.js';
+import {localActivityBusy,setLocalActivityFrozen} from './local-activity.js?v=0.30.0';
+import {sha256,validateManifest,remoteBase} from './dependency-core.js?v=0.30.0';
+import {createChunkLoader,libraryFile,libraryValue} from './dependency-store.js?v=0.30.0';
+import {indexResourceTar,archiveChunkReader,importLibraryFile} from './dependency-tar.js?v=0.30.0';
+import {validateOfflineShell} from './offline-kit-core.js?v=0.30.0';
+import {offlineCacheName,offlineChunkURL,offlineHeaders,offlineMime,OFFLINE_CHUNKS,offlinePlan,saveOfflineShell,readOfflineInstallation,prepareOfflineBrowser} from './offline-browser-store.js?v=0.30.0';
+import {validateFeatureCatalog,requiredFeatureChunks,normalizeFeatureState,selectActiveFiles} from './feature-catalog.js?v=0.30.0';
+import {browserUpdateStore,journal,activateCandidate,rollbackReference} from './local-update-store.js?v=0.30.0';
 export const STABLE_UPDATE_CHANNEL='https://raw.githubusercontent.com/Kinkazma/sherloq-web/main/releases/stable.json';
 const HASH=/^[a-f0-9]{64}$/,META_LIMIT=8_000_000;
 export function immutablePublicURL(value){const u=new URL(value);if(u.protocol!=='https:'||u.hostname!=='raw.githubusercontent.com'||!/^\/Kinkazma\/sherloq-web\/[a-f0-9]{40}\//.test(u.pathname)||u.username||u.password||u.search||u.hash)throw Error('Release files require immutable public GitHub URLs');return u.href;}

@@ -1,4 +1,4 @@
-import {imageAccept} from './media-settings.js';
+import {imageAccept} from './media-settings.js?v=0.30.0';
 
 const imageExtensions = new Set(imageAccept.split(',').filter(value => value.startsWith('.')).map(value => value.toLowerCase()));
 const batchSelector = '#batch-dialog,dialog.batch-dialog,.batch-drop,[data-batch-drop],[data-batch-dialog]';

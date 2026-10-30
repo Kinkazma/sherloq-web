@@ -9,6 +9,8 @@ extern "C" int stereoPagedAllocate(double bytes);
 extern "C" void stereoPagedDrop(int id);
 extern "C" void stereoPagedTransfer(int id,double offset,int length,void* pointer,int write);
 extern "C" void stereoPagedCheck(int row,int total);
+extern "C" int stereoPagedGpuBlur(int input,int output,int width,int height,int size,const float* kernel,int kind);
+extern "C" bool stereoPagedGpuEnabled();
 namespace cv {
 // A complete logical matrix. Row pointers remain valid until their cache slot
 // is replaced. 96 rows cover every simultaneous stencil in the native method
@@ -32,6 +34,10 @@ class PagedMat {
  template<class T>T* ptr(int y=0){static_assert(sizeof(T)==4);return reinterpret_cast<T*>(row(y,true));}
  template<class T>const T* ptr(int y=0)const{static_assert(sizeof(T)==4);return reinterpret_cast<const T*>(row(y,false));}
  void flush(){for(auto&r:cache)save(r);}
+ int backingStore(){flush();return id;}
+ // A completed external write replaces the complete logical matrix. No row
+ // may retain a pre-write view after the GPU transport has been acknowledged.
+ void invalidateCachedRows(){for(auto&r:cache){r.y=-1;r.dirty=false;}}
  void release(){if(id>=0){stereoPagedDrop(id);id=-1;}cache.clear();cache.shrink_to_fit();rows=cols=0;kind=-1;}
  void zero(){for(int y=0;y<rows;y++){std::fill_n(ptr<float>(y),cols*channels(),0.f);stereoPagedCheck(y,rows);}}
 };

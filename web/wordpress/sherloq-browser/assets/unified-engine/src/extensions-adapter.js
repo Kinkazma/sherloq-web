@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {createExtensionResultRecord} from './extensions-result-surfaces.js';
 import {persistExtensionResult} from './extensions-plane-cache.js';
@@ -30,6 +30,7 @@ export function createExtensionsAdapter({budget,scheduler,profile,version,publis
   for(const[id,session]of sessions)if(imageId===undefined||id===imageId){sessions.delete(id);await session.dispose();}
  }
  return {
+  usefulSnapshot:()=>engine?.usefulSnapshot?.()??{models:{},phase:'unknown'},
   configured:()=>!!engine,
   capabilities:()=>extensionCapabilities(!!engine),
   snapshot:()=>({configured:!!engine,active,publishedSurfaces:published.size,ownedTemporarySessions:sessions.size,pendingTemporarySessions:sessionFlights.size,resultStorage,pagedThresholdPixels:pagedThreshold,coreCache:{...metrics,entries:cache.size,temporaryBytes:[...cache.values()].reduce((n,e)=>n+e.value.byteLength,0)},...engine?.snapshot?.()}),

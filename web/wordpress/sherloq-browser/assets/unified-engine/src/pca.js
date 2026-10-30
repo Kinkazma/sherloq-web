@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {parameters} from './pixel-utils.js';import {cvPcaModel,cvPcaView} from './opencv.js';
 const modes=['distance','project','crossprod'];
 export const pcaParams=(p={})=>parameters(p,{component:0,mode:'distance',invert:false,equalize:false},{component:[0,2]},{mode:modes},['invert','equalize']);

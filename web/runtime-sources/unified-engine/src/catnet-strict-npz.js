@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue}from'./errors.js';import{npyHeader}from'./npz.js';
 /** Hidden numeric API only. These vectors retain each native scientific grid;
  * no NPZ/JSON action is added to the application interface. */

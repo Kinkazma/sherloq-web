@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {streamedImageHashes} from './digest-stream.js';
 import {extraImageHashes} from './digest-extra.js';
 import {filenameBallistics,signatureMime} from './source-file.js';

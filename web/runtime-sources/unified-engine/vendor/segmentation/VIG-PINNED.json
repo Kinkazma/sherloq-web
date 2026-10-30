@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "heapBytes": 67108864,
+  "files": {
+    "vig-math.js": "c02f70d067bca9db9fce7648b7821729da189d867dc7aa25040b26f68809b8b7",
+    "vig-math.wasm": "654867b0121c6c082a30b6306f671feb757d1db1ef01d0008c3c23c73b600928"
+  },
+  "sources": {
+    "experiments/segmentation/vig-math.cpp": "e2552034f4b2f370ff3d1103b7a55dacb0b882d2ffa862dda8a2be2dbca87a7b",
+    "experiments/segmentation/vig-exp.h": "fd0e1684e6c2ada4a8044f2f2f43b81fcaed1bc63b1c1dad9e3275f8abb22f06",
+    "experiments/segmentation/vig-exp-table.h": "836ee95bb30123b5d442b50e015fbf14c9fe5a8a2c45b908f7928f47059d66cf",
+    "experiments/d2prl/convolution-cpu.cpp": "6a2f8107272e7363a3b6ffb1c4934f4b83e4653dac0c0c8c611ba2cab7bf51fe",
+    "experiments/d2prl/fma-simd.h": "fee2445e13b8321920d0672ebc568eb6c3a04a12ae7b702cc5fda928b36e31b2",
+    "experiments/d2prl/resize.cpp": "f826329313861ca50cbf8637420807754c67cbeab1eb3f192672de4be944a91d",
+    "scripts/build-vig-kernels.py": "0a071d32427fb37ea9b826a390bb4dfbf2bb455eb07f9b53f3cd7e7cca81f7df"
+  },
+  "references": [
+    "https://github.com/pytorch/pytorch/blob/v2.8.0/aten/src/ATen/native/TopKImpl.h",
+    "https://github.com/pytorch/pytorch/blob/v2.8.0/aten/src/ATen/cpu/vec/vec128/vec128_float_neon.h"
+  ],
+  "license": "../d2prl/PYTORCH-LICENSE.txt",
+  "scope": "Fixed VIG CPU arithmetic, independently generated exp2 table and explicit reference polynomial, no platform dispatch or captured activations; complete-model qualification required."
+}

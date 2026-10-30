@@ -4,12 +4,23 @@ const f=Math.fround;
 function allocateFloats(count,allocation='d2prl-candidates'){
  try{return new Float32Array(count);}catch(error){throw normalizeResourceError(error,{requestedBytes:count*4,allocationKind:'array-buffer',allocation});}
 }
+// Eight periodic index vectors cost32*side bytes. The owning PatchMatch
+// workspace separately funds512 bytes of geometry metadata. Partial allocation
+// remains attached to that owner and is reused if an allocation is retried.
+function completePeriodicGeometry(geometry,onAllocate=()=>{}){
+ if(geometry.ready)return geometry;const {side,columns,rows}=geometry,shifts=[-2,-1,1,2];
+ for(let j=0;j<4;j++)for(const vectors of[columns,rows])if(!vectors[j]){
+  try{vectors[j]=new Int32Array(side);}catch(error){throw normalizeResourceError(error,{requestedBytes:side*4,allocationKind:'array-buffer',allocation:'d2prl-propagation-geometry'});}onAllocate(vectors[j].byteLength);
+ }
+ for(let i=0;i<side;i++)for(let j=0;j<4;j++){const at=(i-shifts[j]+side*2)%side;columns[j][i]=at;rows[j][i]=at*side;}
+ geometry.ready=true;return geometry;
+}
 // One pair of useful candidate planes. A caller must finish consuming a pair
 // before begin() reuses it. Partial growth remains owned across a failed retry;
 // no allocation is made before an actual transformation needs that capacity.
 export function createCandidateWorkspace(side){
- requireValue(Number.isInteger(side)&&side>=2&&side<=448,'Unsupported D2PRL grid');
- const maximum=13*side*side,planes=[];let cursor=0,disposed=false,allocations=0,allocatedBytes=0;
+ requireValue(Number.isInteger(side)&&side>=2&&side<=1792,'Unsupported D2PRL grid');
+ const maximum=13*side*side,planes=[];let cursor=0,disposed=false,allocations=0,allocatedBytes=0,geometry,geometryAllocations=0,geometryAllocatedBytes=0;
  return{
   begin(){requireValue(!disposed,'Candidate workspace disposed');cursor=0;},
   allocate(count){
@@ -18,12 +29,16 @@ export function createCandidateWorkspace(side){
    if(!plane||plane.length<count){plane=allocateFloats(count,'d2prl-candidate-workspace');planes[index]=plane;allocations++;allocatedBytes+=plane.byteLength;}
    return plane.length===count?plane:plane.subarray(0,count);
   },
-  snapshot(){return{allocations,allocatedBytes,residentBytes:planes.reduce((sum,plane)=>sum+plane.byteLength,0)};},
-  dispose(){planes.length=0;disposed=true;}
+  geometry(requestedSide=side){
+   requireValue(!disposed&&requestedSide===side,'Candidate geometry owner or grid differs');
+   geometry??={side,columns:[],rows:[],ready:false};return completePeriodicGeometry(geometry,bytes=>{geometryAllocations++;geometryAllocatedBytes+=bytes;allocatedBytes+=bytes;});
+  },
+  snapshot(){const geometryResidentBytes=geometry?[...geometry.columns,...geometry.rows].reduce((sum,vector)=>sum+(vector?.byteLength??0),0):0;return{allocations,allocatedBytes,residentBytes:planes.reduce((sum,plane)=>sum+plane.byteLength,0)+geometryResidentBytes,...(geometry||geometryAllocations?{geometry:{allocations:geometryAllocations,allocatedBytes:geometryAllocatedBytes,residentBytes:geometryResidentBytes,requiredCreditBytes:32*side+512,metadataAllowanceBytes:512,ready:geometry?.ready===true}}:{})};},
+  dispose(){planes.length=0;geometry=null;disposed=true;}
  };
 }
 function setup(side,hooks={}){
- requireValue(Number.isInteger(side)&&side>=2&&side<=448,'Unsupported D2PRL grid');let stamp=performance.now();
+ requireValue(Number.isInteger(side)&&side>=2&&side<=1792,'Unsupported D2PRL grid');let stamp=performance.now();
  return{n:side*side,allocate(count){checkAbort(hooks.signal);hooks.account?.(count*4);try{return hooks.allocate?hooks.allocate(count):allocateFloats(count);}catch(error){throw normalizeResourceError(error,{requestedBytes:count*4,allocationKind:'array-buffer',allocation:'d2prl-candidates'});}},async checkpoint(){checkAbort(hooks.signal);if(performance.now()-stamp>=8){await controlCheckpoint(hooks.signal);stamp=performance.now();}},done(){checkAbort(hooks.signal);}};
 }
 async function validate(pair,n,checkpoint,count=1){
@@ -55,8 +70,22 @@ export async function wrapOffsets(pair,side,hooks={}){
  for(let q=0;q<count;q++)for(let i=0;i<s.n;i++){const j=q*s.n+i;out.x[j]=wrap(pair.x[j],i%side);out.y[j]=wrap(pair.y[j],Math.floor(i/side));if((i&8191)===0)await s.checkpoint();}s.done();return out;
 }
 export async function propagateOffsets(pair,side,hooks={}){
- const s=setup(side,hooks);await validate(pair,s.n,s.checkpoint);const out={x:s.allocate(13*s.n),y:s.allocate(13*s.n)},directions=[[0,1],[0,-1],[1,0],[-1,0]],extended=[...directions,[1,1],[-1,-1],[1,-1],[-1,1]];
- for(let i=0;i<s.n;i++){const x=i%side,y=Math.floor(i/side),at=(dy,dx)=>((y-dy+side*2)%side)*side+(x-dx+side*2)%side;for(const axis of ['x','y']){const a=pair[axis],b=out[axis];b[i]=a[i];for(let j=0;j<4;j++){const [dy,dx]=directions[j];b[(j+1)*s.n+i]=a[at(dy,dx)];}for(let j=0;j<8;j++){const [dy,dx]=extended[j];b[(j+5)*s.n+i]=f(f(2*a[at(dy,dx)])-a[at(2*dy,2*dx)]);}}if((i&8191)===0)await s.checkpoint();}s.done();return out;
+ const s=setup(side,hooks);await validate(pair,s.n,s.checkpoint);s.done();let geometry;
+ if(hooks.geometry)geometry=hooks.geometry(side);else{hooks.account?.(32*side+512);geometry=completePeriodicGeometry({side,columns:[],rows:[],ready:false});}
+ requireValue(geometry?.ready===true&&geometry.side===side&&geometry.columns?.length===4&&geometry.rows?.length===4&&[...geometry.columns,...geometry.rows].every(v=>v instanceof Int32Array&&v.length===side),'Owned periodic propagation geometry required');s.done();
+ const n=s.n,out={x:s.allocate(13*n),y:s.allocate(13*n)},[cp2,cp1,cm1,cm2]=geometry.columns,[rp2,rp1,rm1,rm2]=geometry.rows;
+ for(let i=0;i<n;i++){
+  const x=i%side,y=Math.floor(i/side),r=i-x,cMinus1=cm1[x],cPlus1=cp1[x],cMinus2=cm2[x],cPlus2=cp2[x],rMinus1=rm1[y],rPlus1=rp1[y],rMinus2=rm2[y],rPlus2=rp2[y],
+   a1=r+cMinus1,a2=r+cPlus1,a3=rMinus1+x,a4=rPlus1+x,a5=rMinus1+cMinus1,a6=rPlus1+cPlus1,a7=rMinus1+cPlus1,a8=rPlus1+cMinus1,
+   b1=r+cMinus2,b2=r+cPlus2,b3=rMinus2+x,b4=rPlus2+x,b5=rMinus2+cMinus2,b6=rPlus2+cPlus2,b7=rMinus2+cPlus2,b8=rPlus2+cMinus2;
+  for(let axis=0;axis<2;axis++){
+   const a=axis===0?pair.x:pair.y,b=axis===0?out.x:out.y;
+   b[i]=a[i];b[n+i]=a[a1];b[2*n+i]=a[a2];b[3*n+i]=a[a3];b[4*n+i]=a[a4];
+   b[5*n+i]=f(f(2*a[a1])-a[b1]);b[6*n+i]=f(f(2*a[a2])-a[b2]);b[7*n+i]=f(f(2*a[a3])-a[b3]);b[8*n+i]=f(f(2*a[a4])-a[b4]);
+   b[9*n+i]=f(f(2*a[a5])-a[b5]);b[10*n+i]=f(f(2*a[a6])-a[b6]);b[11*n+i]=f(f(2*a[a7])-a[b7]);b[12*n+i]=f(f(2*a[a8])-a[b8]);
+  }
+  if((i&8191)===0)await s.checkpoint();
+ }s.done();return out;
 }
 export async function nonlocalOffsets(pair,side,random,hooks={}){
  const s=setup(side,hooks);await validate(pair,s.n,s.checkpoint);const out={x:s.allocate(s.n),y:s.allocate(s.n)},nx=await random.values(s.n,hooks),ny=await random.values(s.n,hooks);

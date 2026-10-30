@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,checkAbort} from './errors.js';
 
 const schema='sherloq.native-region-membership/1',hash=/^[a-f0-9]{64}$/;

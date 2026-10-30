@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort} from './errors.js';
 // Search jobs retain the human acquisition identities. Descriptor preparation
 // uses the exact admitted RGB rectangles separately; neither a search envelope

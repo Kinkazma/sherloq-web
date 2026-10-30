@@ -1,0 +1,32 @@
+{
+  "scope": "Additional PGM-only runtime, complete official cores remain separate. These exact source overlays and the pinned upstream source tree reconstruct the Native JSPI hook and ordered row implementation.",
+  "tesseractJsCore": "7.0.0",
+  "coreCommit": "acffef2b66eb44a31df297e11d905f4b39001068",
+  "tesseractCommit": "2a9c1c49c360462733c386d2a44fcd22c4e21411",
+  "leptonicaCommit": "4af068b56a9674da915debea4ed7e1b9885b17e8",
+  "emscriptenVersion": "4.0.15",
+  "nativeVersion": "5.1.0-288-g2a9c1",
+  "FAST_FLOAT": true,
+  "files": [
+    {
+      "path": "native/CMakeLists.txt",
+      "bytes": 41019,
+      "sha256": "c7ffe93e9bb7e53c7f28f43cebb02851970b02ffaae778e78e50d014d8b12597"
+    },
+    {
+      "path": "native/src/lstm/lstm.cpp",
+      "bytes": 35146,
+      "sha256": "88e5693353693fb418c02006a156d385fbfc59a0d626d7298f7192a95ea5bafd"
+    },
+    {
+      "path": "native/src/lstm/weightmatrix.cpp",
+      "bytes": 17654,
+      "sha256": "9851464e20070cd224afd27607ee6d18c6592d801f65315e4a890f66179787c1"
+    },
+    {
+      "path": "native/src/lstm/matrix-rows-exact.h",
+      "bytes": 2698,
+      "sha256": "e688564e90461cac73519679857e59e0c2d7dcc486ef44b5698670990fa275eb"
+    }
+  ]
+}

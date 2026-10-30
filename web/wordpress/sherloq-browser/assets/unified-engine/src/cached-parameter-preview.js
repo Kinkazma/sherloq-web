@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
 import {samplePixels} from './display-sampling.js';
 import {ZERO_PALETTE} from './zero-palette.js';

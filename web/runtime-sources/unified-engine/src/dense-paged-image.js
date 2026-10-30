@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,denseConstructionOwner} from './dense-owner-retirement.js';
 import {byteView,byteLength} from './memory-range.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint,serializeEngineError} from './errors.js';
@@ -7,6 +7,7 @@ import {preparePagedEligibility} from './dense-paged-regions.js';
 import {preparePagedZernike} from './dense-paged-zernike.js';
 import {preparePagedSift} from './dense-paged-sift.js';
 import {runPagedDenseField} from './dense-paged.js';
+import {tryRunStoredDensePmGpu} from './dense-pm-stored.js';
 import {runPagedDenseCoherence} from './dense-paged-coherence.js';
 import {samplePagedDenseLinks} from './dense-paged-links.js';
 import {createSegmentedBytes,markColdStoredResults} from './segmented-bytes.js';
@@ -65,7 +66,7 @@ export class PagedDenseImageEngine{
    if(this.selection&&this.selection.key!==JSON.stringify([p,hooks.backend??null])){await this.retireSlot('selection');}
    const outputPlan=planDenseOutputStorage(jobs,{coherence:p.coherence,availableBytes:this.budget.limit-this.budget.retained-this.budget.active}),{storage}=outputPlan;
    const options={budget:this.budget,storage:'auto',temporarySession:this.image.session,getTemporarySession:this.image.ensureTemporarySession,signal,onProgress:hooks.onProgress,maxWorkers:this.profile.maxWorkers??globalThis.navigator?.hardwareConcurrency??1};
-   const fieldOptions={...options,storage,enableDenseGpu:this.profile.enableDenseGpu===true&&hooks.backend!=='cpu'};
+   const fieldOptions={...options,storage,backend:hooks.backend??'auto',enableDenseGpu:this.profile.enableDenseGpu===true&&hooks.backend!=='cpu'};
    if(cached)raw=this.cached;
    else{
     if(this.cached)await this.retireSlot('cached');
@@ -99,7 +100,7 @@ export class PagedDenseImageEngine{
        else{first=source.first;second=pass.reflection?source.second:source.first;}
        resourceOperation=this.budget.beginOperation?.({owner:'patchmatch',id:'dense-image-field:'+jobIndex});
        const input={first,second,mask:eligibility.mask,width:eligibility.width,height:eligibility.height,dimensions:eligibility.dimensions,axes:job.options.axes?.map(plane)},settings={...fieldOptions,...job.options,resourceOperation};
-       let operation=state.owners.has(jobIndex)?Promise.resolve(state.owners.get(jobIndex)):pool.start(input,settings);
+       let operation;if(state.owners.has(jobIndex))operation=Promise.resolve(state.owners.get(jobIndex));else{const gpuField=await tryRunStoredDensePmGpu(input,settings);operation=gpuField?Promise.resolve(gpuField):pool.start(input,settings);}
        while(!operation&&pending.size){await waitForRoom(resourceOperation);operation=pool.start(input,settings);}
        if(!operation){resourceOperation?.setState('io');try{await this.budget.reclaim?.(64*1024**2,{signal,owner:'patchmatch',operation:resourceOperation});}finally{resourceOperation?.setState('ready');}operation=pool.start(input,settings);}
        const localField=async()=>{const lease=await getExecutionScheduler(this.budget,{maxWorkers:options.maxWorkers}).acquire({cpu:1,signal,label:'dense-paged-local-memory-limited',resourceOwner:'patchmatch',operation:resourceOperation});try{return await runPagedDenseField(input,settings);}finally{lease.release();}};
@@ -158,7 +159,7 @@ export class PagedDenseImageEngine{
    }
    if(this.disposed||generation!==this.generation)throw new EngineError('CANCELLED','Dense generation superseded.');
    checkAbort(signal);if(!selectionOwned)selection.retain();selectionOwned=false;const lease=selection;delivered=true;
-   return {status:'raw-dense-evidence',fields,params:p,profile:plan,searchContexts:contexts,distancePolicy:policy,coordinates:'original-source-pixels',semantics:'Full stored dense fields; native global search and selection; geometry/detail required before biome claims.',metrics:{preflightExecutions:0,completedJobs:jobs.length,stored:true,parallel:raw.execution,cache:{field:!!cached,refilter:!!cached},generation,memory:this.budget.snapshot()},release:onceDenseRetirement(()=>lease.release())};
+   return {status:'raw-dense-evidence',fields,params:p,profile:plan,searchContexts:contexts,distancePolicy:policy,coordinates:'original-source-pixels',semantics:'Full stored dense fields; native global search and selection; geometry/detail required before biome claims.',metrics:{preflightExecutions:0,completedJobs:jobs.length,completedGpuJobs:cached?0:raw.fields.filter(field=>field.metrics?.execution?.backend?.startsWith('webgpu')).length,fieldExecutions:raw.fields.map(field=>({pass:field.pass.id,context:field.context,reusedField:!!cached,descriptors:'native-cpu',coherence:'native-cpu',matching:field.metrics?.execution??{backend:'native-paged'}})),stored:true,parallel:raw.execution,cache:{field:!!cached,refilter:!!cached},generation,memory:this.budget.snapshot()},release:onceDenseRetirement(()=>lease.release())};
   }finally{try{if(!delivered&&selectionOwned){this.pendingSelection??={release:onceDenseRetirement(()=>selection.release()),get retiring(){return true;}};await this.retireSlot('pendingSelection');}}finally{this.stop=null;this.busy=false;finished();}}
  }
 }

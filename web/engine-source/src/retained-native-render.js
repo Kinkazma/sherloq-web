@@ -53,14 +53,14 @@ async function medianRecord(analysis,params,context,{budget,signal,owner}){
  hold();owner.credits.delete(hold);return{surface,maskRecords:{valid:{surface:valid},decisions:{surface:decisions}},data,masks};
 }
 
-export async function renderRetainedNativeTables({task,image,original,domain,view,retained,budget,signal,onOwner}){
+export async function renderRetainedNativeTables({task,image,original,domain,view,retained,budget,signal,onOwner,traceCommands}){
  const owner=createNativeRenderOwner(onOwner),started=performance.now();checkAbort(signal);
  requireValue(retained&&retained.operation===task.operation&&retained.sourceSha256===original.sha256,'Retained render belongs to another operation or Original.');
  requireValue((retained.domainFingerprint??null)===(domain?.fingerprint??null),'Retained render belongs to another source domain.');
  const data=retained.data,d=image.surface?.descriptor??image.pixels;requireValue(d&&Number.isSafeInteger(d.width)&&Number.isSafeInteger(d.height),'Retained render source is invalid.');
  if(task.operation==='tampering.copyMove.sparse'){
   requireValue((data?.points instanceof Float64Array||data?.points instanceof Float32Array)&&data.points.length%7===0&&data.pairs instanceof Float64Array&&data.pairs.length%4===0&&Array.isArray(data.groups)&&data.colors instanceof Uint8Array,'Complete native sparse tables are required for exact rendering.');
-  const raw={...data},record=await createSparseSurface(image,raw,task.view??{},{budget,signal});owner.resources.add(record.surface);const presented={...raw,metadata:{...raw.metadata,presentation:{...raw.metadata?.presentation,traceSelection:record.traceSelection}}};retainData(record.surface,presented,budget);
+  const raw={...data},record=await createSparseSurface(image,raw,task.view??{},{budget,signal,...(traceCommands?{traceCommands,onOwner:value=>owner.resources.add(value)}:{})});owner.resources.add(record.surface);const presented={...raw,metadata:{...raw.metadata,presentation:{...raw.metadata?.presentation,traceSelection:record.traceSelection}}};retainData(record.surface,presented,budget);
   return{owner,record:{...record,data:presented},answer:{id:task.id,imageId:task.imageId,operation:task.operation,status:'ok',data:presented,style:record.style,visible:record.visible,legend:record.legend,selectedGroups:record.selectedGroups,provenance:{...retained.provenance,params:retained.params},metrics:{nativeAnalysisCalls:0,inferenceCalls:0,retainedNativeTables:true,totalMs:performance.now()-started}}};
  }
  requireValue(task.operation==='various.median','Only native sparse presentation and median retained grids use this endpoint.');const p=medianParams(task.params);

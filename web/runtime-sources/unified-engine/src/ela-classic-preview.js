@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.23.0";
+import "../../runtime-context.js?v=0.30.0";
 // Optional presentation samples. The native JPEG and full-resolution ELA path
 // remain authoritative; no full-resolution residual or signed plane is retained.
 import {requireValue,checkAbort,checkpoint} from './errors.js';

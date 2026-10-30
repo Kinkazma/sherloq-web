@@ -1,8 +1,13 @@
-import {selectResamplingPreviewOutput,resamplingMagnitudeCacheKey,copyResamplingMagnitudePage} from './resampling-context-parameter-preview.js';
-import {validateClassicalContextPreview,CLASSICAL_CONTEXT_PREVIEW_BYTES} from './classical-context-preview.js';
-import {renderMedianContextPreview,MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES} from './median-context-preview.js';
+import {Budget} from './unified-engine/src/cache.js';
+import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
+import {equalizationPixels} from './unified-engine/src/equalization-pixels.js';
+import {clipTraceLineToCircles} from './unified-engine/src/copy-draw-geometry.js';
+import {biomeAreaPreviewBytes,retainedBiomeAreaGroups} from './biome-area-retained-preview.js?v=0.30.0';
+import {selectResamplingPreviewOutput,resamplingMagnitudeCacheKey,copyResamplingMagnitudePage} from './resampling-context-parameter-preview.js?v=0.30.0';
+import {validateClassicalContextPreview,CLASSICAL_CONTEXT_PREVIEW_BYTES} from './classical-context-preview.js?v=0.30.0';
+import {renderMedianContextPreview,MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES} from './median-context-preview.js?v=0.30.0';
 import {selectSparseTraceRows,traceSelectionSummary,sparseTraceDrawCommands,nativeTraceCircle,tracePaletteWorkingBytes} from './unified-engine/src/sparse-trace-selection.js';
-import {paintSsgRetainedMask} from './ssg-retained-mask-presentation.js';
+import {paintSsgRetainedMask} from './ssg-retained-mask-presentation.js?v=0.30.0';
 import {createCooperator} from './unified-engine/src/errors.js';
 import {histogramSummary} from './unified-engine/src/histogram.js';
 import {roundEven} from './unified-engine/src/pixel-utils.js';
@@ -12,9 +17,9 @@ import {GRAY_PALETTE} from './unified-engine/src/gray-palette.js';
 import {GHOST_PALETTES} from './unified-engine/src/ghost-palettes.js';
 import {INFERNO,SAFIRE_COLORS} from './unified-engine/src/research-palettes.js';
 import {illuminantCellDisplay} from './unified-engine/src/illuminant.js';
-import {detectionBiomes} from './detection-biomes.js';
-import {composeBiomeWindow} from './detection-biome-presentation.js';
-import {createAdaptivePreview} from './adaptive-preview.js';
+import {detectionBiomes} from './detection-biomes.js?v=0.30.0';
+import {composeBiomeWindow} from './detection-biome-presentation.js?v=0.30.0';
+import {createAdaptivePreview} from './adaptive-preview.js?v=0.30.0';
 import {renderResearch as renderNativeResearch} from './unified-engine/src/research-view.js';
 
 const MAX_SIDE=2048,LEGACY_SIDE=256,MAX_CELLS=131072,CLONE_TRACE_BYTES=8192*6144+2048*32+16384+tracePaletteWorkingBytes(2048,8192);
@@ -68,6 +73,13 @@ function frame(g,data){return {width:g.width,height:g.height,format:'rgb8',data,
 const gray=(data,i)=>.299*data[i*3]+.587*data[i*3+1]+.114*data[i*3+2];
 function sampleIndex(g,x,y,width=g.w){return y*g.step*width+x*g.step;}
 function paintPoint(data,g,x,y,color,radius=0){x=roundEven(x/g.step);y=roundEven(y/g.step);const r=Math.max(0,Math.min(32,roundEven(radius/g.step)));if(x+r<0||x-r>=g.width||y+r<0||y-r>=g.height)return;for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++)if(r===0||Math.abs(Math.hypot(dx,dy)-r)<.8){const xx=x+dx,yy=y+dy;if(xx>=0&&xx<g.width&&yy>=0&&yy<g.height)data.set(color,(yy*g.width+xx)*3);}}
+// Clone circles retain their visible Native radius, without the old32px
+// proxy cap. Pixel work stays inside the already admitted display frame.
+function paintTraceCircle(data,g,circle,color){
+ const x=roundEven(circle.x/g.step),y=roundEven(circle.y/g.step),r=Math.max(0,roundEven(circle.radius/g.step));
+ const y0=Math.max(0,y-r),y1=Math.min(g.height-1,y+r),x0=Math.max(0,x-r),x1=Math.min(g.width-1,x+r);
+ for(let py=y0;py<=y1;py++)for(let px=x0;px<=x1;px++)if(r===0||Math.abs(Math.hypot(px-x,py-y)-r)<.8)data.set(color,(py*g.width+px)*3);
+}
 function paintLine(data,g,ax,ay,bx,by,color){const dx=(bx-ax)/g.step,dy=(by-ay)/g.step,steps=Math.min(512,Math.max(1,Math.ceil(Math.max(Math.abs(dx),Math.abs(dy)))));for(let i=0;i<=steps;i++)paintPoint(data,g,ax+(bx-ax)*i/steps,ay+(by-ay)*i/steps,color);}
 async function classicalClones(a,d,p,g){
  if(!array(d.points)||d.points.length%7||!array(d.matches)||d.matches.length%3||d.matches.length>2048*3||!array(d.groupLengths)||!array(d.groupIndices)||d.groupIndices.length>8192||d.groupLengths.length>2048||p.showPoints&&d.points.length>4096*7)return null;
@@ -125,7 +137,7 @@ export async function renderRetainedWindow({display,tile={},readSource,signal}={
   else throw invalid('Unsupported retained presentation.');
  }}abort(signal);return {width:g.width,height:g.height,format:'rgb8',data};
 }
-export function retainedPreviewWorkingBytes({maxSide=LEGACY_SIDE,plan,operation,medianContexts=false,classicalContexts=false}={}){const classicalBytes=classicalContexts?CLASSICAL_CONTEXT_PREVIEW_BYTES:0,contextBytes=medianContexts&&operation==='various.median'?MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES:0,traceBytes=['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?CLONE_TRACE_BYTES:0;if(plan){if(plan.token?.schema!=='adaptive-preview-token/1'||![plan.width,plan.height,plan.side,plan.pixels].every(Number.isSafeInteger)||plan.side<1||plan.side>MAX_SIDE||plan.pixels<1||plan.pixels>MAX_SIDE**2)throw invalid('Invalid retained preview plan.');return plan.pixels*40+MAX_CELLS*16+65536+traceBytes+contextBytes+classicalBytes;}if(!Number.isInteger(maxSide)||maxSide<1||maxSide>MAX_SIDE)throw invalid('Invalid retained preview bound.');return maxSide*maxSide*40+MAX_CELLS*16+65536+traceBytes+contextBytes+classicalBytes;}
+export function retainedPreviewWorkingBytes({maxSide=LEGACY_SIDE,plan,operation,params,view,output,medianContexts=false,classicalContexts=false}={}){const equalizationBytes=operation==='colors.pca'&&equalizationPlan('colors.pca',params??output?.provenance?.params??{})?.post?4*1024**2:0,areaBytes=equalizationBytes+biomeAreaPreviewBytes({operation,view,output}),classicalBytes=classicalContexts?CLASSICAL_CONTEXT_PREVIEW_BYTES:0,contextBytes=medianContexts&&operation==='various.median'?MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES:0,traceBytes=['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)?CLONE_TRACE_BYTES:0;if(plan){if(plan.token?.schema!=='adaptive-preview-token/1'||![plan.width,plan.height,plan.side,plan.pixels].every(Number.isSafeInteger)||plan.side<1||plan.side>MAX_SIDE||plan.pixels<1||plan.pixels>MAX_SIDE**2)throw invalid('Invalid retained preview plan.');return plan.pixels*40+MAX_CELLS*16+65536+traceBytes+contextBytes+classicalBytes+areaBytes;}if(!Number.isInteger(maxSide)||maxSide<1||maxSide>MAX_SIDE)throw invalid('Invalid retained preview bound.');return maxSide*maxSide*40+MAX_CELLS*16+65536+traceBytes+contextBytes+classicalBytes+areaBytes;}
 function median(d,p,g,signal){
  const q=d.geometry,n=q?.width*q?.height;if(!Number.isSafeInteger(n)||n<1||n>MAX_CELLS||!finiteArray(d.probabilities,n)||!finiteArray(d.variances,n))return null;
  const rgb=new Uint8Array(n*3),neighbors=new Float32Array(9),threshold=Math.fround(p.threshold??.4),variance=p.variance??5;
@@ -143,6 +155,7 @@ function illuminant(d,p,g,signal){
  const data=new Uint8Array(g.width*g.height*3);for(let y=0;y<g.height;y++){abort(signal);for(let x=0;x<g.width;x++){const cell=Math.min(d.rows-1,Math.floor(y*g.step/b))*d.cols+Math.min(d.cols-1,Math.floor(x*g.step/b)),at=(y*g.width+x)*3;if(mode===2)data.fill(clamp(d.counts[cell]/d.areas[cell]*255),at,at+3);else if(!d.valid[cell])data.fill(64,at,at+3);else if(mode===1){const [r,gg,bb]=d.rgb.subarray(cell*3,cell*3+3),[R,G,B]=d.globalRGB,cross=[gg*B-bb*G,bb*R-r*B,r*G-gg*R],angle=Math.atan2(Math.hypot(...cross),r*R+gg*G+bb*B)*180/Math.PI,index=clamp(angle/90*255)*3;data.set(VIRIDIS.slice(index,index+3),at);}else{const max=Math.max(...d.rgb.subarray(cell*3,cell*3+3));for(let c=0;c<3;c++){let v=d.rgb[cell*3+c]/max;if(p.linear!==false)v=v<=.0031308?12.92*v:1.055*v**(1/2.4)-.055;data[at+c]=clamp(v*255);}}}}return frame(g,data);
 }
 async function pca(a,d,p,g){
+ const plan=equalizationPlan('colors.pca',p);if(plan){const pixels=await pca(a,d,plan.base,g);if(!pixels||!plan.post)return pixels;const budget=new Budget(4*1024**2+pixels.data.length*3);try{return await equalizationPixels(pixels,plan,{budget,signal:a.signal});}finally{budget.clear();}}
  if(!finiteArray(d.mean,3)||!finiteArray(d.eigenvectors,9))return null;const base=await sourceFrame(a,g);if(!base)return null;const component=p.component??0,mode=p.mode??'distance';if(![0,1,2].includes(component)||!['distance','project','crossprod'].includes(mode))throw invalid('Invalid PCA preview view.');
  const v=Array.from(d.eigenvectors).slice(component*3,component*3+3),channels=mode==='crossprod'?3:1,values=new Float64Array(g.width*g.height*channels),lo=Array(channels).fill(Infinity),hi=Array(channels).fill(-Infinity);
  for(let i=0;i<g.width*g.height;i++){const delta=[base.data[i*3+2]-d.mean[0],base.data[i*3+1]-d.mean[1],base.data[i*3]-d.mean[2]],cross=[delta[1]*v[2]-delta[2]*v[1],delta[2]*v[0]-delta[0]*v[2],delta[0]*v[1]-delta[1]*v[0]],result=mode==='project'?[delta[0]*v[0]+delta[1]*v[1]+delta[2]*v[2]]:mode==='distance'?[Math.hypot(...cross)/(Math.hypot(...v)||1)]:cross;for(let c=0;c<channels;c++){values[i*channels+c]=result[c];lo[c]=Math.min(lo[c],result[c]);hi[c]=Math.max(hi[c],result[c]);}}
@@ -189,7 +202,7 @@ export async function renderRetainedPreview(args={}){
  if(operation==='jpeg.ghosts'){width=d.cols;height=d.rows;}
  if(!Number.isInteger(width)||!Number.isInteger(height))return null;
  const plan=a.adaptivePlan;if(plan&&(plan.token?.schema!=='adaptive-preview-token/1'||plan.logicalWidth!==width||plan.logicalHeight!==height||!Number.isSafeInteger(plan.step)||plan.step<1||plan.width!==Math.ceil(width/plan.step)||plan.height!==Math.ceil(height/plan.step)||plan.side!==Math.max(plan.width,plan.height)||plan.side>MAX_SIDE||plan.pixels!==plan.width*plan.height||plan.pixels>MAX_SIDE**2))throw invalid('Retained preview plan differs from its source.');
- const g=plan?{x:0,y:0,w:width,h:height,step:plan.step,width:plan.width,height:plan.height}:geometry(width,height,a.maxSide??LEGACY_SIDE);let pixels,traceSelection;
+ const g=plan?{x:0,y:0,w:width,h:height,step:plan.step,width:plan.width,height:plan.height}:geometry(width,height,a.maxSide??LEGACY_SIDE);let pixels,traceSelection,biomeArea;
  if(operation==='various.median')pixels=Array.isArray(d.fragments)?await renderMedianContextPreview({output,source:a.medianSource,params,domain:a.medianDomain,geometry:g,signal:a.signal,readSource:()=>{if(a.isCurrent&&!a.isCurrent())throw Object.assign(Error('Median retained source changed.'),{code:'CANCELLED'});return sourceFrame(a,g);}}):median(d,params,g,a.signal);
  else if(operation==='tampering.contrast')pixels=contrast(d,params,g,a.signal);
  else if(operation==='various.illuminant')pixels=illuminant(d,params,g,a.signal);
@@ -204,20 +217,20 @@ export async function renderRetainedPreview(args={}){
  }
  else if(operation==='tampering.copyMove.sparse'||operation==='tampering.copyMove.dense'){
   const style=a.view??{};if(!d.pairs||d.pairs.length>2048*4||d.groups?.length>2048)return null;let memberships=0;for(const group of d.groups??[]){memberships+=group.length;if(memberships>8192)return null;}let selectedRows=0;for(const group of output.selectedGroups??[]){selectedRows+=group.rows?.length??0;if(selectedRows>8192)return null;}
-  const base=await sourceFrame(a,g);if(!base)return null;const groups=detectionBiomes(output,{style}).groups;pixels=a.ssgMaskDraft?frame(g,style.areas===false?base.data:paintSsgRetainedMask(base.data,g,a.ssgMaskDraft,{sourceSha256:output.provenance?.originalSha256,domainFingerprint:output.sourceRegionDomain?.fingerprint??null})):style.areas===false?frame(g,base.data):frame(g,(a.composeBiomes??composeBiomeWindow)(base,groups,g,{signal:a.signal,scope:a.view?.scope,source:{width,height,sha256:output.provenance?.originalSha256}}).data);
+  const base=await sourceFrame(a,g);if(!base)return null;const groups=detectionBiomes(output,{style,nativeParentsOnly:true}).groups,area=await retainedBiomeAreaGroups({output,groups,view:style,width,height,signal:a.signal});biomeArea=area.metadata;pixels=a.ssgMaskDraft?frame(g,style.areas===false?base.data:paintSsgRetainedMask(base.data,g,a.ssgMaskDraft,{sourceSha256:output.provenance?.originalSha256,domainFingerprint:output.sourceRegionDomain?.fingerprint??null})):style.areas===false?frame(g,base.data):frame(g,(a.composeBiomes??composeBiomeWindow)(base,area.groups,g,{signal:a.signal,scope:a.view?.scope,source:{width,height,sha256:output.provenance?.originalSha256}}).data);
   const traceGroups=groups.map(group=>({rows:group.pairIndexIds})),overlap=style.traceOverlap??0;let trace;
   try{
    // The caller admits retainedPreviewWorkingBytes({operation}) before rendering.
    // Existing proxy limits cap this temporary index at8192 occurrences.
-   if(style.circles||style.lines||style.points)trace=await selectSparseTraceRows(d,traceGroups,overlap,{signal:a.signal,reserveMemory:bytes=>{if(bytes>CLONE_TRACE_BYTES)throw invalid('Clone trace preview exceeded its admitted workspace.');return()=>{};}});
+   if(style.circles||style.lines||style.points)trace=await selectSparseTraceRows(d,traceGroups,overlap,{signal:a.signal,circleScale:style.circleScale??100,reserveMemory:bytes=>{if(bytes>CLONE_TRACE_BYTES)throw invalid('Clone trace preview exceeded its admitted workspace.');return()=>{};}});
    traceSelection=trace?{...trace.metadata,provisional:true}:traceSelectionSummary(d,traceGroups,[],overlap,{provisional:true,selectionSkipped:true});
    const traceFlags=(style.circles?1:0)|(style.lines?2:0)|(style.points?4:0),cooperate=createCooperator(a.signal);
-   if(trace)for(const command of sparseTraceDrawCommands(trace,traceFlags))for(const row of command.rows){await cooperate();const ai=d.pairs[row*4],bi=d.pairs[row*4+1],first=nativeTraceCircle(d.points,ai),second=nativeTraceCircle(d.points,bi),color=Array.from(trace.colors.subarray(row*3,row*3+3)).reverse(),flags=command.flags;if(flags&2)paintLine(pixels.data,g,first.x,first.y,second.x,second.y,color);if(flags&1){if(!(flags&16))paintPoint(pixels.data,g,first.x,first.y,color,first.radius);if(!(flags&32))paintPoint(pixels.data,g,second.x,second.y,color,second.radius);}if(flags&4){if(!(flags&16))paintPoint(pixels.data,g,first.x,first.y,color);if(!(flags&32))paintPoint(pixels.data,g,second.x,second.y,color);}}
+   if(trace)for(const command of sparseTraceDrawCommands(trace,traceFlags))for(const row of command.rows){await cooperate();const ai=d.pairs[row*4],bi=d.pairs[row*4+1],first=nativeTraceCircle(d.points,ai,style.circleScale??100),second=nativeTraceCircle(d.points,bi,style.circleScale??100),color=Array.from(trace.colors.subarray(row*3,row*3+3)).reverse(),flags=command.flags;if(flags&2){const clipped=style.clipLinesToCircles&&style.circles?clipTraceLineToCircles(first,second):{a:[first.x,first.y],b:[second.x,second.y]};if(clipped)paintLine(pixels.data,g,...clipped.a,...clipped.b,color);}if(flags&1){if(!(flags&16))paintTraceCircle(pixels.data,g,first,color);if(!(flags&32))paintTraceCircle(pixels.data,g,second,color);}if(flags&4){if(!(flags&16))paintPoint(pixels.data,g,first.x,first.y,color);if(!(flags&32))paintPoint(pixels.data,g,second.x,second.y,color);}}
 
   }finally{trace?.release?.();}
  }
- abort(a.signal);if(!pixels)return null;const milliseconds=now()-started,adaptivePreview=plan?{token:plan.token,milliseconds,setupMilliseconds:0,cold:false,pixels:pixels.width*pixels.height}:null;
+ abort(a.signal);if(!pixels)return null;if(['tampering.copyMove.sparse','tampering.copyMove.dense'].includes(operation)&&((a.view?.circleScale??100)!==100||a.view?.clipLinesToCircles))traceSelection={...traceSelection,circleScale:a.view?.circleScale??100,clipLinesToCircles:!!a.view?.clipLinesToCircles,effectiveClipLinesToCircles:!!a.view?.clipLinesToCircles&&!!a.view?.circles};if(biomeArea)traceSelection={...traceSelection,biomeArea};const milliseconds=now()-started,adaptivePreview=plan?{token:plan.token,milliseconds,setupMilliseconds:0,cold:false,pixels:pixels.width*pixels.height}:null;
  if(plan)adaptive.observe(plan,{milliseconds,pixels:pixels.width*pixels.height});
- return {pixels,...(traceSelection?{traceSelection}:{}),logicalWidth:width,logicalHeight:height,provisional:true,exact:false,approximate:true,exportable:false,...(a.ssgMaskDraft?{approximation:a.ssgMaskDraft.provenance?.approximation,params:a.ssgMaskDraft.params}:{}),metrics:{nativeAnalysisCalls:0,inferenceCalls:0,maximumFramePixels:g.width*g.height,...(adaptivePreview?{adaptivePreview}:{})}};
+ return {pixels,...(biomeArea?{operation}:{}),...(traceSelection?{traceSelection}:{}),logicalWidth:width,logicalHeight:height,provisional:true,exact:false,approximate:true,exportable:false,...(a.ssgMaskDraft?{approximation:a.ssgMaskDraft.provenance?.approximation,params:a.ssgMaskDraft.params}:{}),metrics:{nativeAnalysisCalls:0,inferenceCalls:0,...(biomeArea?{retainedBiomeArea:true}:{}),maximumFramePixels:g.width*g.height,...(adaptivePreview?{adaptivePreview}:{})}};
 }
 export const previewRetainedParameters=renderRetainedPreview;

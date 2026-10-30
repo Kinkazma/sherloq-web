@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.30.0";
 import {inspectJpeg,inspectJpegBlob} from './jpeg.js';
 import {checkAbort} from './errors.js';
 

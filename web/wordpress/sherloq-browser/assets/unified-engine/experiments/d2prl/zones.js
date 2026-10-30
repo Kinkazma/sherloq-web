@@ -1,10 +1,11 @@
+import {d2prlInputSide} from './input-side.js';
 // Independent cached model grids -> source-coordinate maps and masks.
 // Exclusions follow the native D2PRL output-mask policy; they do not blacken
 // inference crops. Refiltering calls no neural model and retains no fake scores.
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
-const SIDE = 448, N = SIDE * SIDE;
-export function createD2prlZones({budget, postprocess, spatial}) {
-  let busy = false;
+
+export function createD2prlZones({inputSide=448,budget, postprocess, spatial}) {
+  const SIDE=d2prlInputSide(inputSide),N=SIDE*SIDE;let busy = false;
   return {
     async run({width, height, zones, exclusions = [], minimum = 500, mode = 'regions'}, {signal, onProgress} = {}) {
       if (busy) throw new EngineError('BUSY', 'D2PRL zone projection busy');
@@ -23,13 +24,13 @@ export function createD2prlZones({budget, postprocess, spatial}) {
         const n = width * height, map = new Float32Array(n), mask = new Uint8Array(n), target = new Float32Array(n), source = new Float32Array(n), analyzed = new Uint8Array(n), candidates = new Uint8Array(n), metadata = [];
         for (let index = 0; index < zones.length; index++) {
           const zone = zones[index], [x0, y0, x1, y1] = zone.bounds, w = x1 - x0, h = y1 - y0;
-          const processed = await postprocess.run({raw: zone.raw, minimum}, {signal});
+          const processed = await postprocess.run({raw: zone.raw,width:SIDE,height:SIDE, minimum}, {signal});
           try {
             let present = false;
             for (const value of processed.masks.subarray(0, N)) if (value) { present = true; break; }
             for (let plane = 0; plane < 4; plane++) {
               const input = plane === 0 ? zone.raw.subarray(0, N) : processed.masks.subarray((plane - 1) * N, plane * N);
-              const resized = await spatial.run({input, outWidth: w, outHeight: h, nearest: plane !== 0}, {signal});
+              const resized = await spatial.run({input,width:SIDE,height:SIDE, outWidth: w, outHeight: h, nearest: plane !== 0}, {signal});
               try {
                 const dest = [map, mask, target, source][plane];
                 for (let y = 0; y < h; y++) {

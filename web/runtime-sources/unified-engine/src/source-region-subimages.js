@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {subimageParams,subimageData} from './auto-zones.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {requireValue,checkAbort,createCooperator,EngineError} from './errors.js';

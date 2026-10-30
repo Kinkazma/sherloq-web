@@ -1,0 +1,15 @@
+import "../../runtime-context.js?v=0.30.0";
+import{requireValue}from'./errors.js';
+const SCRATCH=4194304n,LIMIT=512n*1024n**2n,CPU=89592572n,GPU=61042997n+28852562n;
+export const MGCFDN_ST_WINDOW_BASE_CREDIT=Number(3n*GPU+SCRATCH),MGCFDN_ST_WINDOW_REWRITE_CREDIT=Number(2n*GPU+SCRATCH);
+const safe=n=>{requireValue(n>=0n&&n<=BigInt(Number.MAX_SAFE_INTEGER),'ST graph admission overflow');return Number(n);};
+export function mgcfdnStWindowBaseCredit(backend){requireValue(['cpu','webgpu'].includes(backend),'Original ST backend');return safe(3n*(backend==='webgpu'?GPU:CPU)+SCRATCH);}
+export function mgcfdnStWindowStageWorkspace(feeds){let bytes=0n;for(const t of Object.values(feeds)){requireValue(t.data instanceof Float32Array,'Original ST FP32 feeds');bytes+=BigInt(t.data.byteLength);}return safe(2n*bytes+SCRATCH);}
+export function planMgcfdnStWindowMemory(featureCells,backend='webgpu'){
+ requireValue(['cpu','webgpu'].includes(backend)&&Number.isSafeInteger(featureCells)&&featureCells>=1600&&featureCells%1600===0,'Original ST M1600F and backend required');const M=BigInt(featureCells),local=1600n,B=backend==='webgpu'?GPU:CPU;
+ const feeds={encoder:4n*3n*256n**2n,normalize:4n*640n*local,'global-consistency':4n*(2n*640n*M+4n*M),'global-pools':4n*(640n+40n)*M,'context-f3':4n*((640n+40n)*local+40n+640n),'global-attention':4n*(256n*M+M*M),'context-decode':4n*(40n+256n+256n+40n)*local};
+ const copied={encoder:4n*640n*local,normalize:4n*640n*local,'global-consistency':4n*(40n*M+M*M),'global-pools':4n*(40n+640n),'context-f3':4n*(40n+256n)*local,'global-attention':4n*256n*M,'context-decode':2n*3n*4n*256n**2n};
+ const prior={encoder:0n,normalize:copied.encoder,'global-consistency':0n,'global-pools':copied['global-consistency'],'context-f3':copied['global-consistency']+copied['global-pools'],'global-attention':copied['global-consistency'],'context-decode':copied['global-consistency']+copied['global-attention']};
+ const stages=Object.entries(feeds).map(([label,bytes])=>({label,feedBytes:safe(bytes),workspaceBytes:safe(2n*bytes+SCRATCH),copiedOutputBytes:safe(copied[label]),priorCopiedOutputBytes:safe(prior[label]),simultaneousBridgeBytes:safe(prior[label]+2n*bytes+SCRATCH+copied[label])})),maximumStageWorkspaceBytes=Math.max(...stages.map(s=>s.workspaceBytes)),maximumSimultaneousBridgeBytes=Math.max(...stages.map(s=>s.simultaneousBridgeBytes)),baseCredit=3n*B+SCRATCH,rewriteCredit=2n*B+SCRATCH,graphBudget=baseCredit+rewriteCredit+BigInt(maximumSimultaneousBridgeBytes);
+ return Object.freeze({schema:'mgcfdn-st-one-window-js-admission/1',featureCells,baseCreditBytes:safe(baseCredit),rewriteCreditBytes:safe(rewriteCredit),retainedGraphCreditBytes:safe(baseCredit+rewriteCredit),maximumStageWorkspaceBytes,maximumSimultaneousBridgeBytes,graphBudgetBytes:safe(graphBudget),residentBytes:safe((backend==='webgpu'?2n:1n)*LIMIT+3n*B+graphBudget),stages:Object.freeze(stages.map(Object.freeze)),nativeWasmMaximumBytes:Number(LIMIT),nativeGpuMaximumBytes:backend==='webgpu'?Number(LIMIT):0,precision:'float32',featureSide:40,inputSide:256,topk:40,probabilityChannels:3,nativeStageBackends:backend==='webgpu'?['webgpu','wasm']:['wasm']});
+}

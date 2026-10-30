@@ -1,12 +1,9 @@
 import {requireValue,checkAbort,createCooperator} from './errors.js';
-import {roundEven} from './copy-geometry.js';
+import {nativeTraceCircle,traceCircleScale} from './copy-draw-geometry.js';
 import {buildSparseTracePalette,tracePaletteWorkingBytes} from './sparse-trace-palette.js';
 
 // Display geometry only: the native OpenCV rounding, radius and line endpoints.
-export function nativeTraceCircle(points,index){
- const at=index*7,x=roundEven(points[at]),y=roundEven(points[at+1]),radius=Math.max(2,roundEven(points[at+2]/2));
- requireValue([x,y,radius].every(Number.isSafeInteger),'Invalid native trace circle.');return{x,y,radius};
-}
+export {nativeTraceCircle} from './copy-draw-geometry.js';
 export function circleOverlapFraction(a,b){
  const r=a.radius,s=b.radius,d=Math.hypot(a.x-b.x,a.y-b.y);
  if(d>=r+s)return 0;if(d<=Math.abs(r-s))return 1;
@@ -33,12 +30,12 @@ export function traceSelectionSummary(result,groups,drawn,overlapPercent,extra={
  for(const rows of drawn)for(const row of rows){shown.add(row);drawnOccurrences++;}
  return{schema:'sparse-trace-selection/2',overlapPercent,nativePairs:result.pairs.length/4,eligiblePairs:eligible.size,drawnPairs:shown.size,eligiblePairOccurrences:occurrences,drawnPairOccurrences:drawnOccurrences,eligibleEndpointOccurrences:2*occurrences,drawnEndpointOccurrences:2*drawnOccurrences,policy:overlapPercent===100?'all-native-pairs-distinct-glyphs':'balanced-shared-glyph-circle-overlap',order:'round-robin-native-groups-and-geometric-strata; small-area-then-geometric-ties',exactMaximum:false,nativeRowsUnchanged:true,...extra};
 }
-async function prepareTracePrefix(result,groups,cooperate,signal,baseline){
+async function prepareTracePrefix(result,groups,cooperate,signal,baseline,circleScale){
   const started=performance.now(),endpoints=new Map();
   const rowGeometry=row=>{
    requireValue(Number.isSafeInteger(row)&&row>=0&&row<result.pairs.length/4,'Native trace row exceeds its pair table.');let c=endpoints.get(row);if(c)return c;
    const a=result.pairs[row*4],b=result.pairs[row*4+1];requireValue(Number.isSafeInteger(a)&&a>=0&&a<result.points.length/7&&Number.isSafeInteger(b)&&b>=0&&b<result.points.length/7,'Native trace endpoint exceeds its point table.');
-   const first=nativeTraceCircle(result.points,a),second=nativeTraceCircle(result.points,b),canonical=ordered(first,second);c={row,first,second,canonical,area:first.radius**2+second.radius**2};endpoints.set(row,c);return c;
+   const first=nativeTraceCircle(result.points,a,circleScale),second=nativeTraceCircle(result.points,b,circleScale),canonical=ordered(first,second);c={row,first,second,canonical,area:first.radius**2+second.radius**2};endpoints.set(row,c);return c;
   };
   // The colour graph uses full native groups, not a filtered/chosen subset.
   for(const group of result.groups??groups.map(g=>g.rows))for(const row of group){await cooperate();rowGeometry(row);}
@@ -72,14 +69,14 @@ function createTraceState(order,groups,cooperate,snapshot){
  * Exact shared glyphs create no additional area. The same balanced 0% base is
  * retained at every positive threshold. No nesting of positive sets is claimed.
  */
-export async function selectSparseTraceRows(result,groups,overlapPercent,{reserveMemory,signal,tracePrefixCache}={}){
- requireValue(Number.isInteger(overlapPercent)&&overlapPercent>=0&&overlapPercent<=100,'Invalid trace overlap percentage.');requireValue(typeof reserveMemory==='function','Trace selection requires shared admission.');checkAbort(signal);
+export async function selectSparseTraceRows(result,groups,overlapPercent,{reserveMemory,signal,tracePrefixCache,circleScale=100}={}){
+ traceCircleScale(circleScale);requireValue(Number.isInteger(overlapPercent)&&overlapPercent>=0&&overlapPercent<=100,'Invalid trace overlap percentage.');requireValue(typeof reserveMemory==='function','Trace selection requires shared admission.');checkAbort(signal);
  const bytes=traceSelectionWorkingBytes(result,groups),release=tracePrefixCache?.reserveFrame?await tracePrefixCache.reserveFrame(bytes,reserveMemory,{signal}):reserveMemory(bytes);let complete=false;const started=performance.now();
  try{
   const cooperate=createCooperator(signal);let prefixLease;
   try{
-   prefixLease=overlapPercent!==100?await tracePrefixCache?.acquire(result,groups,traceSelectionWorkingBytes(result,groups),()=>prepareTracePrefix(result,groups,cooperate,signal,true),{signal}):null;
-   const prefix=prefixLease?.value??await prepareTracePrefix(result,groups,cooperate,signal,false),{endpoints,order,queues,cellSize}=prefix;
+   prefixLease=overlapPercent!==100?await tracePrefixCache?.acquire(result,groups,traceSelectionWorkingBytes(result,groups),()=>prepareTracePrefix(result,groups,cooperate,signal,true,circleScale),{signal,circleScale}):null;
+   const prefix=prefixLease?.value??await prepareTracePrefix(result,groups,cooperate,signal,false,circleScale),{endpoints,order,queues,cellSize}=prefix;
    const reused=prefixLease?.reused===true,palette=prefixLease?{...prefix.palette,metadata:structuredClone(prefix.palette.metadata)}:prefix.palette,colors=prefixLease?new Uint8Array(palette.colors):palette.colors;if(reused)palette.metadata.milliseconds=0;
    const geometryMs=reused?0:prefix.geometryMs,selectionStarted=reused?performance.now():prefix.selectionStarted,state=createTraceState(order,groups,cooperate,prefixLease?prefix.zero:undefined),{accepted,insert,pass}=state;
    let baselinePairs=prefixLease?prefix.baselinePairs:0;
@@ -98,7 +95,7 @@ export async function selectSparseTraceRows(result,groups,overlapPercent,{reserv
    }
    for(const [flags,list]of buckets)commands.push({group,flags,rows:Uint32Array.from(list)});perGroup.push({index:groups[group].index??group,eligible:groups[group].rows.length,drawn:rows[group].length,strata:queues[group].strata.length});
   }
-  const metadata=traceSelectionSummary(result,groups,rows,overlapPercent,{palette:palette.metadata,sharedMarkerOwner:'smallest-selected-canonical-link; native-row/group/occurrence/endpoint-ties',colorsNativeUnchanged:true,biomesNativeUnchanged:true,uniqueCircleGlyphs:circles.size,uniqueCentreGlyphs:centres.size,uniqueLineGlyphs:lines.size,baselinePairs,maximalForOrder:true,positiveSetsNested:false,baseZeroRetained:true,cellSize,perGroup,comparisons:state.comparisons,cellsVisited:state.cellsVisited,...(prefixLease?{prefixReuse:{schema:'dense-trace-prefix/1',reused,counterSemantics:'comparisons/cellsVisited are logical full-selection totals including the retained zero prefix',currentWork:{comparisons:state.comparisons-(reused?prefix.zero.comparisons:0),cellsVisited:state.cellsVisited-(reused?prefix.zero.cellsVisited:0)},reusedWork:{comparisons:reused?prefix.zero.comparisons:0,cellsVisited:reused?prefix.zero.cellsVisited:0},preparationTiming:{geometryMs:prefix.geometryMs,paletteMs:prefix.palette.metadata.milliseconds,totalMs:prefix.preparationMs}}}:{}),timing:{geometryMs,paletteMs:palette.metadata.milliseconds,selectionAndCommandsMs:performance.now()-selectionStarted,totalMs:performance.now()-started}});
+  const metadata=traceSelectionSummary(result,groups,rows,overlapPercent,{...(circleScale!==100?{circleScale}:{}),palette:palette.metadata,sharedMarkerOwner:'smallest-selected-canonical-link; native-row/group/occurrence/endpoint-ties',colorsNativeUnchanged:true,biomesNativeUnchanged:true,uniqueCircleGlyphs:circles.size,uniqueCentreGlyphs:centres.size,uniqueLineGlyphs:lines.size,baselinePairs,maximalForOrder:true,positiveSetsNested:false,baseZeroRetained:true,cellSize,perGroup,comparisons:state.comparisons,cellsVisited:state.cellsVisited,...(prefixLease?{prefixReuse:{schema:'dense-trace-prefix/1',reused,counterSemantics:'comparisons/cellsVisited are logical full-selection totals including the retained zero prefix',currentWork:{comparisons:state.comparisons-(reused?prefix.zero.comparisons:0),cellsVisited:state.cellsVisited-(reused?prefix.zero.cellsVisited:0)},reusedWork:{comparisons:reused?prefix.zero.comparisons:0,cellsVisited:reused?prefix.zero.cellsVisited:0},preparationTiming:{geometryMs:prefix.geometryMs,paletteMs:prefix.palette.metadata.milliseconds,totalMs:prefix.preparationMs}}}:{}),timing:{geometryMs,paletteMs:palette.metadata.milliseconds,selectionAndCommandsMs:performance.now()-selectionStarted,totalMs:performance.now()-started}});
   checkAbort(signal);complete=true;return{rows,colors,commands,metadata,release};
   }finally{prefixLease?.release();}
  }finally{if(!complete)release?.();}

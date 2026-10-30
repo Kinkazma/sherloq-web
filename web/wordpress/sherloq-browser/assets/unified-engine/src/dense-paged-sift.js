@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners} from './dense-owner-retirement.js';
 import {allocateOwnedTypedArray} from './allocation.js';
 import {EngineError,requireValue,checkAbort,isResumableResourceError,normalizeResourceError} from './errors.js';

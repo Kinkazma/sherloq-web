@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{encodeMgcfdnWorkerError,trackMgcfdnBudget}from'./mgcfdn-window-gpu-diagnostics.js';
 import{planTntWindowHeadMemory}from'./mgcfdn-tnt-window-head-memory.js';
 import{createTntWindowHeadStageRuntime,TNT_WINDOW_HEAD_PINS}from'./mgcfdn-tnt-window-head-stage.js';

@@ -1,3 +1,7 @@
+import {equalizationState} from './unified-engine/src/equalization-settings.js';
+import {validateCloneProfilesTransport} from './clone-profiles.js?v=0.30.0';
+import {validateAdaptiveState} from './unified-engine/src/adaptive-runtime.js';
+import {validateBackendChoices} from './backend-mode-preferences.js?v=0.30.0';
 export const defaults={quality:75,scale:50,contrast:20,linear:false,grayscale:false};
 export function validElaMode(value){
  const mode=value==='energy'?'biomes':value;
@@ -8,7 +12,7 @@ export function validParams(p){
  if(!p||typeof p!=='object')throw new Error('Invalid params');
  for(const k of ['quality','scale','contrast'])if(!Number.isInteger(p[k])||p[k]<(k==='contrast'?0:1)||p[k]>100)throw new Error('Invalid '+k);
  for(const k of ['linear','grayscale'])if(typeof p[k]!=='boolean')throw new Error('Invalid '+k);
- return Object.fromEntries(Object.keys(defaults).map(k=>[k,p[k]]));
+ return {...Object.fromEntries(Object.keys(defaults).map(k=>[k,p[k]])),...(p.equalization!==undefined?{equalization:equalizationState(p.equalization)}:{})};
 }
 export function validateSettings(value){
  if(!value||value.schema!=='sherloq.settings/1')throw new Error('Expected sherloq.settings/1');
@@ -32,9 +36,14 @@ export function validateSettings(value){
  for(const k of ['favorite','showZones','toolsVisible','inspectorVisible']){if(typeof q[k]!=='boolean')throw new Error('Invalid '+k);preferences[k]=q[k];}
  if(!['native','manual',...ids].includes(value.activeProfile))throw new Error('Invalid active profile');
  const composite=validCompositeSettings(value.composite);
- return{...(value.individual?{individual:validIndividualSettings(value.individual)}:{}),...(value.automatic?{automatic:validAutomaticSettings(value.automatic)}:{}),...(value.composite?{composite:{quality:composite.quality,stage:composite.stage,view:composite.view}}:{}),schema:'sherloq.settings/1',profiles,preferences,current:validParams(value.current),activeProfile:value.activeProfile,...(value.energy?{energy:validEnergySettings(value.energy)}:{})};
+ return{...(value.adaptiveRuntime?{adaptiveRuntime:validateAdaptiveState(value.adaptiveRuntime)}:{}),...(value.individual?{individual:validIndividualSettings(value.individual)}:{}),...(value.automatic?{automatic:validAutomaticSettings(value.automatic)}:{}),...(value.composite?{composite:{quality:composite.quality,stage:composite.stage,view:composite.view}}:{}),schema:'sherloq.settings/1',profiles,preferences,current:validParams(value.current),activeProfile:value.activeProfile,...(value.energy?{energy:validEnergySettings(value.energy)}:{})};
 }
 export function settingsFilename(date=new Date()){return 'SHERLOQ-reglages-'+date.toISOString().replace(/[:.]/g,'-')+'.json';}
+
+// Fixed UI snapshot; the scientific engine receives the existing manual recipe.
+export const energyProfilePresets=Object.freeze({
+ 'variant-4':Object.freeze({name:'Variante-4 / Variant-4',values:Object.freeze({histogramLow:30,histogramHigh:520,shadow:10,highlight:50}),quality:85,view:'overlay',opacity:70})
+});
 
 export function validEnergySettings(input){
  const v=input??{selected:'standard',values:{histogramLow:10,histogramHigh:990,shadow:50,highlight:50},quality:0,block:32,minimum:3,view:'overlay',opacity:70,profiles:[]};
@@ -43,7 +52,7 @@ export function validEnergySettings(input){
  const parameters=x=>{if(!Number.isInteger(x.quality)||x.quality<0||x.quality>100||![16,32,64,96].includes(x.block)||!Number.isInteger(x.minimum)||x.minimum<1||x.minimum>1000)throw Error('Invalid energy parameters');return{quality:x.quality,block:x.block,minimum:x.minimum};};
  if(!Array.isArray(v.profiles)||v.profiles.length>100)throw Error('Invalid energy profiles');const ids=new Set(),names=new Set();
  const profiles=v.profiles.map(p=>{if(!p||typeof p.id!=='string'||!/^profile-[\w-]{1,80}$/.test(p.id)||ids.has(p.id)||typeof p.name!=='string'||!p.name.trim()||p.name.length>80||names.has(p.name.trim()))throw Error('Invalid energy profile');ids.add(p.id);names.add(p.name.trim());return{id:p.id,name:p.name.trim(),values:values(p.values),...parameters(p)};});
- if(!['standard','conservative','sensitive','manual',...ids].includes(v.selected)||!['overlay','labels'].includes(v.view)||!Number.isInteger(v.opacity)||v.opacity<0||v.opacity>100)throw Error('Invalid energy view or profile');
+ if(!['standard','conservative','sensitive','manual',...Object.keys(energyProfilePresets),...ids].includes(v.selected)||!['overlay','labels'].includes(v.view)||!Number.isInteger(v.opacity)||v.opacity<0||v.opacity>100)throw Error('Invalid energy view or profile');
  const scoreField=v.scoreField??'unified',storedScoreThreshold=v.scoreThreshold??0,scoreThreshold=scoreField==='both'?storedScoreThreshold:Math.max(0,storedScoreThreshold),scoreView=v.scoreView??'map';
  if(!['low','high','both','unified'].includes(scoreField)||!Number.isFinite(storedScoreThreshold)||!['map','overlay'].includes(scoreView))throw Error('Invalid energy score presentation');
  return{selected:v.selected,values:values(v.values),...parameters(v),view:v.view,opacity:v.opacity,scoreField,scoreThreshold,scoreView,profiles};
@@ -66,8 +75,9 @@ export function validAutomaticSettings(input = {}) {
 
 export function validIndividualSettings(value){
  if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length>64)throw Error('Invalid tool settings');
- const copy=(v,depth=0)=>{if(Array.isArray(v)){if(depth>4||v.length>1000)throw Error('Invalid tool parameter array');return v.map(x=>copy(x,depth+1));}if(v===null||typeof v==='boolean'||typeof v==='string'&&v.length<=4096||typeof v==='number'&&Number.isFinite(v))return v;if(depth>4||!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).length>64)throw Error('Invalid tool parameter');return Object.fromEntries(Object.entries(v).map(([k,item])=>{if(!/^[a-zA-Z][a-zA-Z0-9.]*$/.test(k)||['constructor','prototype','__proto__'].includes(k))throw Error('Invalid tool parameter name');return [k,copy(item,depth+1)];}));};
- return copy(value);
+ const hasCloneProfiles=!!value.uiOptions&&Object.hasOwn(value.uiOptions,'cloneProfiles'),profileLibrary=hasCloneProfiles?validateCloneProfilesTransport(value.uiOptions.cloneProfiles):null;if(hasCloneProfiles){value={...value,uiOptions:{...value.uiOptions}};delete value.uiOptions.cloneProfiles;}
+ const copy=(v,depth=0)=>{if(Array.isArray(v)){if(depth>4||v.length>1000)throw Error('Invalid tool parameter array');return v.map(x=>copy(x,depth+1));}if(v===null||typeof v==='boolean'||typeof v==='string'&&v.length<=4096||typeof v==='number'&&Number.isFinite(v))return v;if(depth>4||!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).length>64)throw Error('Invalid tool parameter');return Object.fromEntries(Object.entries(v).map(([k,item])=>{if(!/^[a-zA-Z][a-zA-Z0-9.]*$/.test(k)||['constructor','prototype','__proto__'].includes(k))throw Error('Invalid tool parameter name');return [k,k==='equalization'?equalizationState(item):copy(item,depth+1)];}));};
+ const out=copy(value);if(hasCloneProfiles)out.uiOptions.cloneProfiles=profileLibrary;if(out.uiOptions?.backendChoices!==undefined)out.uiOptions.backendChoices=validateBackendChoices(out.uiOptions.backendChoices);return out;
 }
 
 // Import and release migration recover each field independently. The strict
@@ -78,7 +88,7 @@ export function recoverSettings(input,{fallback=defaultSettings()}={}){
  if(value.schema!=='sherloq.settings/1')throw Error('Expected sherloq.settings/1');
  const out=structuredClone(base),issue=(path,error,kind='incompatible')=>issues.push({path,kind,message:error?.message||String(error)});
  const fields=(source,target,validate,path)=>{if(!source||typeof source!=='object'||Array.isArray(source)){if(source!==undefined)issue(path,'Invalid object');return target;}for(const [key,item]of Object.entries(source)){if(!Object.hasOwn(target,key)){issue(path+'.'+key,'Preserved in recovery backup','unknown');continue;}const candidate={...target,[key]:item};try{target=validate(candidate);}catch(error){issue(path+'.'+key,error);}}return target;};
- out.current=fields(value.current,{...out.current},validParams,'current');
+ out.current=fields(value.current,{...out.current,...(value.current?.equalization!==undefined?{equalization:equalizationState(out.current.equalization)}:{})},validParams,'current');
  // Profiles keep their identity, name and every compatible parameter. An
  // unusable identity is retained only in the recovery copy, never invented.
  const hasProfiles=Array.isArray(value.profiles),ids=new Set(hasProfiles?[]:base.profiles.map(profile=>profile.id)),names=new Set(hasProfiles?[]:base.profiles.map(profile=>profile.name));out.profiles=hasProfiles?[]:structuredClone(base.profiles);
@@ -86,7 +96,7 @@ export function recoverSettings(input,{fallback=defaultSettings()}={}){
   const path='profiles.'+index;
   if(index>=100||!p||typeof p.id!=='string'||!/^profile-[\w-]{1,80}$/.test(p.id)||ids.has(p.id)||typeof p.name!=='string'||!p.name.trim()||p.name.length>80||names.has(p.name.trim())||p.operation!=='ela.classic'){issue(path,'Invalid profile identity, name or operation');continue;}
   ids.add(p.id);names.add(p.name.trim());const prior=base.profiles.find(item=>item.id===p.id);
-  out.profiles.push({id:p.id,name:p.name.trim(),operation:'ela.classic',params:fields(p.params,{...(prior?.params||defaults)},validParams,path+'.params')});
+  out.profiles.push({id:p.id,name:p.name.trim(),operation:'ela.classic',params:fields(p.params,{...(prior?.params||defaults),...(p.params?.equalization!==undefined?{equalization:equalizationState(prior?.params?.equalization)}:{})},validParams,path+'.params')});
   for(const key of Object.keys(p))if(!['id','name','operation','params'].includes(key))issue(path+'.'+key,'Preserved in recovery backup','unknown');
  }else if(value.profiles!==undefined)issue('profiles','Invalid profiles');
  // Validate UI fields without making a bad boolean/theme discard other fields.
@@ -107,9 +117,10 @@ export function recoverSettings(input,{fallback=defaultSettings()}={}){
     for(const key of ['quality','block','minimum'])if(p[key]!==undefined)try{Object.assign(candidate,profileCheck({...candidate,[key]:p[key]}));}catch(error){issue(path+'.'+key,error);}
     energyIds.add(p.id);energyNames.add(p.name.trim());energy.profiles.push(candidate);
    }else if(v.profiles!==undefined)issue('energy.profiles','Invalid energy profiles');
-   if(['standard','conservative','sensitive','manual',...energyIds].includes(v.selected))energy.selected=v.selected;else if(v.selected!==undefined){energy.selected='manual';issue('energy.selected','Energy profile unavailable');}else if(!['standard','conservative','sensitive','manual',...energyIds].includes(energy.selected))energy.selected='manual';
+   if(['standard','conservative','sensitive','manual',...Object.keys(energyProfilePresets),...energyIds].includes(v.selected))energy.selected=v.selected;else if(v.selected!==undefined){energy.selected='manual';issue('energy.selected','Energy profile unavailable');}else if(!['standard','conservative','sensitive','manual',...Object.keys(energyProfilePresets),...energyIds].includes(energy.selected))energy.selected='manual';
   }out.energy=energy;
  }
- for(const key of Object.keys(value))if(!['schema','profiles','current','activeProfile','preferences','individual','automatic','composite','energy','exportedAt'].includes(key))issue(key,'Preserved in recovery backup','unknown');
+ if(value.adaptiveRuntime!==undefined){try{out.adaptiveRuntime=validateAdaptiveState(value.adaptiveRuntime);}catch(error){issue('adaptiveRuntime',error);}}
+ for(const key of Object.keys(value))if(!['adaptiveRuntime','schema','profiles','current','activeProfile','preferences','individual','automatic','composite','energy','exportedAt'].includes(key))issue(key,'Preserved in recovery backup','unknown');
  return {value:validateSettings(out),issues};
 }

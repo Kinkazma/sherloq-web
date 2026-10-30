@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "algorithm": "libjpeg-turbo-3.0.3 integer ISLOW grayscale, native tables, exact integral loss reduction",
+  "primitiveSource": "vendor/ela-gpu/ela-jpeg.wgsl",
+  "primitiveSourceSha256": "8f2b8ac22eaffa23abca3aed2d29c6bbe0c5d38a28a92a2897c3aa3ed912a029",
+  "files": {
+    "jpeg-gray-curve.wgsl": {
+      "bytes": 4670,
+      "sha256": "6e926cb850ba12ee6ad4d0a1c97edcc98f92fd16254275eaa04f88ba40d70d33"
+    }
+  }
+}

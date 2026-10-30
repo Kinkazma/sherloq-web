@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten 4.0.15",
+  "optimizations": 5,
+  "arithmetic": "-O3 -ffp-contract=off; explicit native float32/float64 fma order",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/echo.cpp": {
+      "bytes": 3790,
+      "sha256": "a5b4c41b8f59807d558111bba5982f53043d4038de58ed019ad0533e1a6d57c8"
+    },
+    "scripts/build-echo.sh": {
+      "bytes": 1594,
+      "sha256": "9a9b69a5328b70a2c237c03fbc883e0f14c3508eddb6b666380513a407e12a9b"
+    },
+    "vendor/echo/echo.js": {
+      "bytes": 10446,
+      "sha256": "c6c15cef155a42eb39baf938615320685eff4b69f9e790a7e676f6906b8363c9"
+    },
+    "vendor/echo/echo.wasm": {
+      "bytes": 18959,
+      "sha256": "ad09f13111099a42c5de54481af821c8ee23ad761d88805a183c92f5de80ce5a"
+    },
+    "vendor/quality/musl-fma.c": {
+      "bytes": 3764,
+      "sha256": "1e0c6bacd92cbbadb32d1f83defd52cd863fd766b7938efabafcef9f067d5860"
+    }
+  }
+}

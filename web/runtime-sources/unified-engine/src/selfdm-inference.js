@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.30.0";
 import {NeuralGraphPool} from './neural-graph-pool.js';
 import {EngineError, requireValue, checkAbort} from './errors.js';
 import {createSelfDMScientificScopeInput} from './selfdm-scientific-scope.js';

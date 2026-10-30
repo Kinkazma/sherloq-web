@@ -1,0 +1,18 @@
+{
+  "schema": "sherloq.native-ghost-jpeg-gpu/1",
+  "source": {
+    "file": "ela-gpu/ela-jpeg-archive.wgsl",
+    "sha256": "4f2d232d11aa81f1f89dcde68a2888a97164c1cd8429171d659f306b32fd6a21"
+  },
+  "files": {
+    "ghost-jpeg.wgsl": {
+      "bytes": 8070,
+      "sha256": "5f5cb82b5cc8faff29e8400cc2ff6b0afed6d70c779e87154db7fbb452c2e3f1"
+    },
+    "ghost-jpeg-exact.wgsl": {
+      "bytes": 11388,
+      "sha256": "50222040e87d6b37b5c690d8cac32a463a58307a477380703dc91c52d9cef4c8"
+    }
+  },
+  "precision": "Native integer ISLOW420 RGB; ordinary shader integer reduction plus bounded Native replay. Experimental exact shader keeps IEEEbinary64 Native NumPy arithmetic order for every mean before caching."
+}

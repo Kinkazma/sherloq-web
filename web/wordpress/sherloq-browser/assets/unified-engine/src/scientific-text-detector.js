@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 /* Detector-only scientific text exclusions, PP-OCRv6 small.
  * Pre/postprocessing specifications: PaddleOCR (PaddlePaddle Authors),
  * Apache-2.0, https://github.com/PaddlePaddle/PaddleOCR and RapidOCR

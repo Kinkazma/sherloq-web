@@ -1,7 +1,8 @@
 import {INFERNO} from './unified-engine/src/research-palette.js';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
 import {neuralScientificScopeIdentity} from './unified-engine/src/neural-scientific-scope.js';
-import {cloneAnalysisWindowDisplays} from './neural-window-presentation.js';
+import {cloneAnalysisWindowDisplays} from './neural-window-presentation.js?v=0.30.0';
+import {d2prlInputSide} from './d2prl-input-size.js?v=0.30.0';
 
 export const NEURAL_METHODS = [
  ['cmseg-generalization','CMSeg-Net 2025 generalization'],['cmseg-addnoise','CMSeg-Net 2025 addnoise'],
@@ -71,5 +72,5 @@ export async function sampleCloneField(client,display,field,tile) {
 export const d2AnalysisKey = task => {
  const scope=task.params?.scientificScope;
  const identity=scope?neuralScientificScopeIdentity(scope,{width:scope.width,height:scope.height,sourceSha256:scope.sourceSha256}):null;
- return JSON.stringify([task.imageId,task.backend??'auto',task.regions??[],task.params?.selectionPresent??false,identity,...(task.sourceRegionDomain?[task.sourceRegionDomain.fingerprint]:[])]);
+ return JSON.stringify([task.imageId,task.backend??'auto',d2prlInputSide(task.params?.inputSide),task.regions??[],task.params?.selectionPresent??false,identity,...(task.sourceRegionDomain?[task.sourceRegionDomain.fingerprint]:[])]);
 };

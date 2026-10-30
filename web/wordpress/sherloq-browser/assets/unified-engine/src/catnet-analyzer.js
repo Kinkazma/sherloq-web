@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {catnetMapGeometry} from './catnet-map-geometry.js';
 import {createCatnetSegmentedAnalyzer,renderCatnetSegmented} from './catnet-segmented-analyzer.js';
 import {Budget} from './cache.js';import {resolveComputeProfile} from './profiles.js';

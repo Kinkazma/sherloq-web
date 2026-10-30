@@ -6,7 +6,7 @@ function same(a,b){
  if(ArrayBuffer.isView(a)){if(a.byteLength!==b.byteLength)return false;const x=new Uint8Array(a.buffer,a.byteOffset,a.byteLength),y=new Uint8Array(b.buffer,b.byteOffset,b.byteLength);return x.every((v,i)=>v===y[i]);}
  const keys=Object.keys(a);return keys.length===Object.keys(b).length&&keys.every(key=>Object.hasOwn(b,key)&&same(a[key],b[key]));
 }
-const viewKey=view=>{const {traceOverlap,...key}=view;return key;};
+const viewKey=view=>{const {traceOverlap,clipLinesToCircles,...key}=view;return key;};
 const groupKey=groups=>groups.map(({index,rows})=>({index,rows:Array.from(rows)}));
 // A single, explicitly financed presentation prefix belongs to one live native
 // archive. A failed retirement remains reachable and cannot become a reader.
@@ -33,9 +33,9 @@ export function createDenseTracePrefixCache({result,budget}){
     // Reuse no credit until the idle entry's actual retirement ACK.
     await retire(current);checkAbort(signal);return reserve(bytes);
    }
-  },async acquire(native,groups,bytes,build,{signal}={}){
+  },async acquire(native,groups,bytes,build,{signal,circleScale=100}={}){
    requireValue(native===result&&!closing,'Dense trace prefix native owner has retired or changed.');checkAbort(signal);
-   const key=viewKey(view),selected=groupKey(groups);
+   const key={...viewKey(view),traceCircleScale:circleScale},selected=groupKey(groups);
    for(;;){
     const current=entry;
     if(current&&(current.retiring||!same(current.view,key)||!same(current.groups,selected))){await retire(current);checkAbort(signal);requireValue(!closing,'Dense trace prefix owner is retiring.');continue;}

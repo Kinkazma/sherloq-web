@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort}from'./errors.js';
 /** Packed transport of independent immutable native maps. It is deliberately
  * not an RGB image or a reconstructed global HRNet grid. */

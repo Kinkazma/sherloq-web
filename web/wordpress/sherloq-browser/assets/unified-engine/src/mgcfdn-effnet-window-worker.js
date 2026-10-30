@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {encodeMgcfdnWorkerError,trackMgcfdnBudget} from './mgcfdn-window-gpu-diagnostics.js';
 import {planMgcfdnEffnetWindowMemory} from './mgcfdn-effnet-window-memory.js';
 import {Budget} from './cache.js';

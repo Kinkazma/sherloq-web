@@ -1,15 +1,15 @@
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {createScopeDetectionActions} from './scope-detection-actions.js';
-import {originalSourceRegionOptions,validateOriginalSourceRegionOptions} from './original-source-region-options.js';
-import {createOriginalSourceRegionsState} from './original-source-regions.js';
-import {createDetectionRegionsPanel} from './detection-regions-panel.js';
-import {createBatchScopeEditor} from './batch-scope-editor.js';
-import {createBatchPreparationClient} from './batch-preparation-client.js';
-import {detectIndividualSubimages} from './individual-subimages.js';
-import {createIndividualScientificScope} from './individual-scientific-scope.js';
-import {createManualScopeDraft,applyManualScopeDraft} from './batch-scope-manual.js';
-import {initializeSubimagesSelection,subimagesSelectionMode} from './subimages-selection-intent.js';
-import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js';
+import {createScopeDetectionActions} from './scope-detection-actions.js?v=0.30.0';
+import {originalSourceRegionOptions,validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.30.0';
+import {createOriginalSourceRegionsState} from './original-source-regions.js?v=0.30.0';
+import {createDetectionRegionsPanel} from './detection-regions-panel.js?v=0.30.0';
+import {createBatchScopeEditor} from './batch-scope-editor.js?v=0.30.0';
+import {createBatchPreparationClient} from './batch-preparation-client.js?v=0.30.0';
+import {detectIndividualSubimages} from './individual-subimages.js?v=0.30.0';
+import {createIndividualScientificScope} from './individual-scientific-scope.js?v=0.30.0';
+import {createManualScopeDraft,applyManualScopeDraft} from './batch-scope-manual.js?v=0.30.0';
+import {initializeSubimagesSelection,subimagesSelectionMode} from './subimages-selection-intent.js?v=0.30.0';
+import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
 
 const copy=value=>structuredClone(value),cancelled=()=>Object.assign(Error('Source-region operation cancelled.'),{code:'CANCELLED'});
 const words={fr:{enabled:'Utiliser ces zones',disable:'Désactiver les zones',reenable:'Activer les zones',automatic:'Détecter automatiquement',subimages:'Détecter les sous-images',detect:'Détecter les zones',batch:'Ouvrir dans le lot',clear:'Supprimer toutes les zones',active:'Activée',remove:'Supprimer',empty:'Toute l’image',selectedEmpty:'Aucune acquisition active',detecting:'Détection des zones…',disabled:'Zones désactivées ; géométrie conservée',texts:'Exclure automatiquement les textes (OCR)'},en:{enabled:'Use these regions',disable:'Disable regions',reenable:'Enable regions',automatic:'Detect automatically',subimages:'Detect subimages',detect:'Detect regions',batch:'Open in batch',clear:'Delete all regions',active:'Enabled',remove:'Delete',empty:'Whole image',selectedEmpty:'No active acquisition',detecting:'Detecting regions…',disabled:'Regions disabled; geometry retained',texts:'Exclude texts automatically (OCR)'}};

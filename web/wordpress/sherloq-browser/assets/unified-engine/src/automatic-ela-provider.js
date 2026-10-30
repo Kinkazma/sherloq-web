@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {retainAutomaticElaValue as resource} from './automatic-ela-owner.js';
 import {noisesnifferOwnerRetirement as ownerRetirement} from './noisesniffer-owner-retirement.js';
 import {retireCompositeOwners} from './composite-owner-release.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {segmentedMagnifierLarge} from './segmented-magnifier-large.js';
 import {magnifier,magnifierRegion} from './magnifier.js';
 import {EngineError,requireValue,checkAbort,normalizeResourceError} from './errors.js';

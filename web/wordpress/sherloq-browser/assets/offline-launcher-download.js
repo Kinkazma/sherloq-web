@@ -1,8 +1,8 @@
-import {sha256} from './dependency-core.js';
-import {offlineLauncherHTML,validateOfflineShell} from './offline-kit-core.js';
-import {offlineCacheName} from './offline-browser-store.js';
-import {readVerifiedResponse} from './local-update-core.js';
-import {getDocumentDownloadShelf} from './download-shelf.js';
+import {sha256} from './dependency-core.js?v=0.30.0';
+import {offlineLauncherHTML,validateOfflineShell} from './offline-kit-core.js?v=0.30.0';
+import {offlineCacheName} from './offline-browser-store.js?v=0.30.0';
+import {readVerifiedResponse} from './local-update-core.js?v=0.30.0';
+import {getDocumentDownloadShelf} from './download-shelf.js?v=0.30.0';
 
 export async function createOfflineLauncherDownload(plan,{language='fr',fetcher=globalThis.fetch,storage=globalThis.caches,crypto=globalThis.crypto,signal}={}){
  if(!plan?.shellBytes||!plan.manifestBytes||await sha256(plan.shellBytes)!==plan.identity)throw Error('Offline launcher shell identity differs');

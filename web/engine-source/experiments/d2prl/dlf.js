@@ -1,9 +1,11 @@
+import {d2prlInputSide} from './input-side.js';
 import {createWasmTensorArena} from '../../src/wasm-tensor-arena.js';
 // Ordered DLF wrapper for composition. No checkpoint or reference activations.
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
-const HEAP = 16 * 1024 ** 2, SIDE = 448, N = SIDE * SIDE;
-export async function createDlf(factory, {budget,arena,operation:recover=(_label,work)=>work()} = {}) {
+const PAGE = 16 * 1024 ** 2;
+export async function createDlf(factory, {budget,arena,inputSide=448,operation:recover=(_label,work)=>work()} = {}) {
   requireValue(budget && typeof budget.reserve === 'function', 'Shared budget required');
+  const SIDE=d2prlInputSide(inputSide),N=SIDE*SIDE,HEAP=SIDE===448?PAGE:Math.ceil((16*N+4*11*11*4+PAGE)/PAGE)*PAGE;
   const ownsArena=!arena;
   let resident; let backing;let module, busy = false, disposed = false;
   try { resident=budget.reserve(HEAP);arena??=createWasmTensorArena({budget});module = await factory(); requireValue(module.HEAPU8.length <= HEAP, 'DLF initial heap'); }

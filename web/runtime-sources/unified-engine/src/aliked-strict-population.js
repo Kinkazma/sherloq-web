@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {alikedNativeParameters} from './aliked-native-parameters.js';
 import {allocateOwnedTypedArray} from './allocation.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 
@@ -6,8 +7,8 @@ import {requireValue,checkAbort,createCooperator} from './errors.js';
  * scores and native local NMS, never independently selected feature banks.
  * meanReducer is deliberately required for fragments: a Float64 weighted mean
  * of per-context means would invent equivalence with native FP32 ReduceMean. */
-export async function selectAlikedCommonPopulation(coverage,outputs,{budget,selector,meanReducer,allowedAtSource=()=>true,signal,onMeanPopulation}={}){
- requireValue(coverage?.contexts&&outputs?.length===coverage.contexts.length&&budget?.reserve&&selector?.select,'Complete raw ALIKED contexts and native selector are required.');const cooperate=createCooperator(signal),owned=[];let complete=false,native;
+export async function selectAlikedCommonPopulation(coverage,outputs,{budget,selector,meanReducer,allowedAtSource=()=>true,signal,onMeanPopulation,detectionThreshold=.2}={}){
+ alikedNativeParameters({detectionThreshold});requireValue(coverage?.contexts&&outputs?.length===coverage.contexts.length&&budget?.reserve&&selector?.select,'Complete raw ALIKED contexts and native selector are required.');const cooperate=createCooperator(signal),owned=[];let complete=false,native;
  const isAllowed=(x,y)=>{const value=allowedAtSource(x,y);requireValue(typeof value==='boolean','ALIKED candidate membership must be a synchronous boolean.');return +value;};
  const make=(Type,n,label)=>{const owner=allocateOwnedTypedArray(Type,n,{budget,owner:'aliked-common-population',label});owned.push(owner);return owner.data;};
  try{
@@ -24,10 +25,10 @@ export async function selectAlikedCommonPopulation(coverage,outputs,{budget,sele
   else{
    // This is only a selector index carrier. No RGB/feature/NMS graph sees this
    // layout. One interior cell per row retains canonical native peak order;
-   // the original C++ selector performs the sole0.2/fallback/20000 decision.
+   // the original C++ selector performs the sole selected-threshold/fallback/20000 decision.
    const width=5,height=peaks+4,cells=width*height,ps=make(Float32Array,cells,'native selector score carrier'),pn=make(Float32Array,cells,'already-native NMS carrier'),pm=make(Uint8Array,cells,'native selector candidate carrier');for(let i=0;i<peaks;i++){const j=(i+2)*5+2;ps[j]=score[i];pn[j]=nms[i];pm[j]=allowed[i];}native=selector.select(ps,pn,pm,width,height,reduction.value);selected=make(Int32Array,native.indices.length,'one native global20000 selected peak mapping');for(let i=0;i<selected.length;i++){const id=(native.indices[i]-12)/5;requireValue(Number.isInteger(id)&&id>=0&&id<peaks,'Native common selector returned a carrier padding cell.');selected[i]=id;}
   }
-  native.release();native=null;const metadata={preparedSamples:samples,rawOwnedInteriorPeaks:peaks,detectorMean:reduction.value,meanReduction:structuredClone(reduction),diagnosticFloat64Mean:samples?diagnosticSum/samples:0,globalDetectorCount:selected.length,nativeCap:20000,threshold:Math.fround(.2),fallbackPolicy:'one decision across all owned native NMS, before candidate masks and one global20000cap',population:'owned prepared samples, preserving native local resize multiplicity',order:'context order then native prepared row/column; exact native std::sort tie behavior',equivalence:'fragmented common-population adaptation requires separate native qualification'};let disposed=false;complete=true;
+  native.release();native=null;const metadata={preparedSamples:samples,rawOwnedInteriorPeaks:peaks,detectorMean:reduction.value,meanReduction:structuredClone(reduction),diagnosticFloat64Mean:samples?diagnosticSum/samples:0,globalDetectorCount:selected.length,nativeCap:20000,threshold:Math.fround(detectionThreshold),fallbackPolicy:'one decision across all owned native NMS, before candidate masks and one global20000cap',population:'owned prepared samples, preserving native local resize multiplicity',order:'context order then native prepared row/column; exact native std::sort tie behavior',equivalence:'fragmented common-population adaptation requires separate native qualification'};let disposed=false;complete=true;
   return{coverage,contexts,localIds,selected,population,metadata,dispose(){if(disposed)return;disposed=true;for(const o of owned)o.release();}};
  }finally{native?.release();if(!complete)for(const o of owned)o.release();}
 }

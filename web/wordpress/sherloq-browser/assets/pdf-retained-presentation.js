@@ -1,6 +1,6 @@
 // Exact prepared windows shared by the page view and pointer loupe.
 // No page bitmap/canonical raster is used as a fine source.
-import {createRetainedProgramWindowCache} from './pdf-retained-display-cache.js';
+import {createRetainedProgramWindowCache} from './pdf-retained-display-cache.js?v=0.30.0';
 import {retainResult} from './unified-engine/src/retained-result.js';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
 import {createCooperator} from './unified-engine/src/errors.js';

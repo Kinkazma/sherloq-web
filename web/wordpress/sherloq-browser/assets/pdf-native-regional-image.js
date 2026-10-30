@@ -1,3 +1,5 @@
+import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
+import {createEqualizationRegionalEffects} from './equalization-regional-effects.js?v=0.30.0';
 import {Budget} from './unified-engine/src/cache.js';
 import {createSegmentedBytes} from './unified-engine/src/segmented-bytes.js';
 import {createRgbSurface} from './unified-engine/src/rgb-surface.js';
@@ -5,7 +7,7 @@ import {adjustLocalRows,adjustTileHistogram,adjustClaheTables,adjustMapRows,adju
 import {magnifierLuts} from './unified-engine/src/magnifier.js';
 import {gray,equalizeHistogramLut} from './unified-engine/src/pixel-utils.js';
 import {checkAbort,controlCheckpoint} from './unified-engine/src/errors.js';
-import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js';
+import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.30.0';
 
 // Both maintained HSV conversions have explicit 8/16-pixel prefix rules.
 // Interior windows preserve those rules with16-aligned sides. At the native
@@ -18,7 +20,10 @@ export function alignedLoupeWindow(width,left,right,halo=0){
 // The same maintained arithmetic, on requested native windows with the full
 // sharpening halo. Global histogram domains remain the entire image.
 export function createRegionalLoupeImage(source,effects,{temporarySession,budget:sharedBudget,memoryBudgetBytes=128*1024**2}={}){
- const p=validateLoupeEffects(effects),{width,height}=source.descriptor,a=adjustmentParameters(p.adjust),halo=p.adjust.enabled?Math.floor(a.sharpen/4):0,budget=sharedBudget??new Budget(memoryBudgetBytes);
+ const p=validateLoupeEffects(effects),budget=sharedBudget??new Budget(memoryBudgetBytes),adjustPlan=p.adjust.enabled?equalizationPlan('inspection.adjust',adjustmentParameters(p.adjust)):null,enhancePlan=p.enhance.enabled?equalizationPlan('inspection.magnifier',p.enhance):null;
+ if(adjustPlan?.post||enhancePlan?.post)return createEqualizationRegionalEffects(source,p,{budget,temporarySession});
+ if(adjustPlan){const enabled=p.adjust.enabled;p.adjust={...adjustPlan.base,enabled};}if(enhancePlan){const enabled=p.enhance.enabled;p.enhance={...enhancePlan.base,enabled};}
+ const {width,height}=source.descriptor,a=adjustmentParameters(p.adjust),halo=p.adjust.enabled?Math.floor(a.sharpen/4):0;
  const padding=width%8!==0||height%8!==0,pw=padding?width+8-width%8:width,ph=padding?height+8-height%8:height;
  const globalAdjust=p.adjust.enabled&&(a.equalize>0||a.threshold===0),globalEnhance=p.enhance.enabled;
  const maxRows=p.adjust.enabled?Math.floor((ADJUST_HEAP_BYTES-4*1024**2-256*1024)/(width*48))-2*halo:128,rows=Math.min(128,Math.max(1,maxRows));

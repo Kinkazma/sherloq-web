@@ -6,7 +6,7 @@
 #include "sigmoid.cpp"
 #include "sum.cpp"
 extern "C" int d2prl_pointwise(const float* a,const float* b,int channels,int plane,int bc,int bp,int operation,int global_offset,int vector_prefix,float* output){
- if(channels<1||channels>4096||plane<1||plane>448*448||operation<0||operation>3)return 0;
+ if(channels<1||channels>4096||plane<1||plane>1792*1792||operation<0||operation>3)return 0;
  if(operation&&((bc!=1&&bc!=channels)||(bp!=1&&bp!=plane)))return 0;
  for(int c=0;c<channels;c++)for(int i=0;i<plane;i++){
   const int at=c*plane+i;const float av=a[at],bv=operation?b[(bc==1?0:c)*bp+(bp==1?0:i)]:0.f;
@@ -18,12 +18,12 @@ extern "C" int d2prl_pointwise(const float* a,const float* b,int channels,int pl
  }return 1;
 }
 extern "C" int d2prl_nearest2(const float* input,int channels,int h,int w,float* output){
- if(channels<1||channels>4096||h<1||w<1||h>224||w>224)return 0;
+ if(channels<1||channels>4096||h<1||w<1||h>896||w>896)return 0;
  const int oh=h*2,ow=w*2;
  for(int c=0;c<channels;c++)for(int y=0;y<oh;y++)for(int x=0;x<ow;x++)output[(c*oh+y)*ow+x]=input[(c*h+y/2)*w+x/2];return 1;
 }
 extern "C" int d2prl_maxpool(const float* input,int channels,int h,int w,int kernel,int stride,int pad,int ceil_mode,float* output){
- if(channels<1||channels>4096||h<1||w<1||h>448||w>448||kernel<1||kernel>3||stride<1||stride>2||pad<0||pad>1)return 0;
+ if(channels<1||channels>4096||h<1||w<1||h>1792||w>1792||kernel<1||kernel>3||stride<1||stride>2||pad<0||pad>1)return 0;
  int oh=(h+2*pad-kernel+(ceil_mode?stride-1:0))/stride+1,ow=(w+2*pad-kernel+(ceil_mode?stride-1:0))/stride+1;
  if((oh-1)*stride>=h+pad)oh--;if((ow-1)*stride>=w+pad)ow--;if(oh<1||ow<1)return 0;
  for(int c=0;c<channels;c++)for(int y=0;y<oh;y++)for(int x=0;x<ow;x++){

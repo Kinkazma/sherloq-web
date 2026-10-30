@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
 import {bitPlanes,planesParams,BIT_PLANE_SEMANTICS} from './bit-planes.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

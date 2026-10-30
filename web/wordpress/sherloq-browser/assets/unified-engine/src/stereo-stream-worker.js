@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {installTransformStripWorker} from './transform-strip-worker.js';
 import {createStereoStream} from './stereo-stream-kernel.js';
 let ready;

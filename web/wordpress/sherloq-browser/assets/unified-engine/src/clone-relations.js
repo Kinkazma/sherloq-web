@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 export const SIFT_SOURCE = 'SIFT + G2NN + RANSAC + Panels + Text';
 export const CLASSICAL_SOURCES = Object.freeze(['PatchMatch Zernike', 'PatchMatch SIFT', SIFT_SOURCE]);

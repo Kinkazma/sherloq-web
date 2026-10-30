@@ -19,7 +19,7 @@ export class ElasticWorkerPool {
  drop(slot,error){if(!this.slots.includes(slot))return;slot.worker?.terminate();for(const buffer of slot.buffers?.values()??[])buffer.dispose();slot.reject?.(error??new EngineError('CANCELLED','Elastic worker retired.'));slot.reject=null;this.slots.splice(this.slots.indexOf(slot),1);slot.release?.();slot.backing?.();if(slot.heapBytes)this.budget.notifyBackingRelease?.('wasm',slot.heapBytes);}
  bufferGrowth(slot){return this.workBuffers.reduce((bytes,item)=>bytes+(slot?.buffers?.get(item.name)?.byteLength>=item.bytes?0:item.bytes),0);}
  snapshot(){return {...this.metrics,residentWorkers:this.slots.length,residentAllowanceBytes:this.slots.length*this.workerBytes+this.slots.reduce((sum,slot)=>sum+[...slot.buffers.values()].reduce((n,buffer)=>n+buffer.byteLength,0),0),maximum:this.maximum,policy:'per-useful-tile CPU admission; reclaimable persistent workers'};}
- async run(total,{prepare,consume,consumeIdempotent=false,isCommitted=()=>false,onCommitted,signal,onProgress,phase=this.label}={}){
+ async run(total,{prepare,consume,consumeChunk,consumeIdempotent=false,isCommitted=()=>false,onCommitted,signal,onProgress,phase=this.label}={}){
   requireValue(Number.isSafeInteger(total)&&total>=0&&typeof prepare==='function'&&typeof consume==='function'&&typeof consumeIdempotent==='boolean'&&!this.running&&!this.disposed,'Invalid elastic tile run.');
   checkAbort(signal);this.running=true;const controller=new AbortController(),joined=signal?AbortSignal.any([signal,controller.signal]):controller.signal;this.controller=controller;let next=0,completed=0,active=0,pumping=false,failure;for(let index=0;index<total;index++)if(isCommitted(index))completed++;
   const stop=()=>{for(const slot of [...this.slots])if(slot.busy)this.drop(slot,new EngineError('CANCELLED','Elastic tile run cancelled.'));};joined.addEventListener('abort',stop,{once:true});
@@ -46,10 +46,18 @@ export class ElasticWorkerPool {
      hooks={signal:joined,reserveInput:io?.reserve,reserveIO:io?.reserve,resourceOperation:operation,buffers,takeBackBuffer:(name,buffer)=>{requireValue(slot.buffers.has(name),'Unknown returned worker buffer.');slot.buffers.get(name).takeBack(buffer);}};operation?.setState('io');
      let start=performance.now();input=await prepare(index,hooks);this.metrics.preparationMs+=performance.now()-start;checkAbort(joined);
      cpu=await this.scheduler.acquire({cpu:1,signal:joined,operation,resourceOwner:this.resourceOwner,label:phase});checkAbort(joined);
-     stage='compute';start=performance.now();this.metrics.computing++;this.metrics.peakComputing=Math.max(this.metrics.peakComputing,this.metrics.computing);let result;
+     stage='compute';start=performance.now();this.metrics.computing++;this.metrics.peakComputing=Math.max(this.metrics.peakComputing,this.metrics.computing);let result,chunkWrites=Promise.resolve();
      try{
       result=await new Promise((resolve,reject)=>{
-       slot.reject=reject;const protocol=installWorkerMessageProtocol(slot.worker,data=>{if(data.progress)return;if(!Object.hasOwn(data,'error')&&(!data.result||typeof data.result!=='object'))throw new EngineError('WORKER_MESSAGE_FAILED','Unexpected elastic worker response.');slot.reject=null;data.error?reject(deserializeEngineError(data.error)):resolve(data.result);},{label:this.label,onFailure:error=>{slot.worker?.terminate();slot.reject=null;reject(error);}});
+       const rejectAfterChunks=error=>{void chunkWrites.catch(()=>{}).then(()=>reject(error));};slot.reject=rejectAfterChunks;const protocol=installWorkerMessageProtocol(slot.worker,async data=>{if(data.progress)return;
+        if(data.chunk){
+         requireValue(typeof consumeChunk==='function'&&Number.isSafeInteger(data.chunk.token),'Unexpected elastic worker chunk.');
+         chunkWrites=(async()=>{
+          try{checkAbort(joined);await consumeChunk(index,data.chunk,hooks);checkAbort(joined);protocol.post({chunkAck:data.chunk.token});}
+          catch(error){if(!joined.aborted)protocol.post({chunkAck:data.chunk.token,error:serializeEngineError(error)});throw error;}
+         })();return chunkWrites;
+        }
+        if(!Object.hasOwn(data,'error')&&(!data.result||typeof data.result!=='object'))throw new EngineError('WORKER_MESSAGE_FAILED','Unexpected elastic worker response.');slot.reject=null;data.error?rejectAfterChunks(deserializeEngineError(data.error)):resolve(data.result);},{label:this.label,onFailure:error=>{slot.worker?.terminate();slot.reject=null;rejectAfterChunks(error);}});
        slot.worker.onerror=event=>protocol.fail(new EngineError('WORKER_FAILED',event.message||'Elastic worker failed.',{cause:event.error}));
        protocol.post(input.message,input.transfer??[]);
       });

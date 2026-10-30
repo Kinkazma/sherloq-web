@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {inspectStructureSource} from './metadata-structure-source.js';
 import {exiftoolParams} from './exiftool.js';
 import {c2paParams} from './c2pa-report.js';

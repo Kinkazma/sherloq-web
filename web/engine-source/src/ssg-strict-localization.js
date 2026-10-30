@@ -1,13 +1,14 @@
+import {createSsgLocalizationModule} from './ssg-localization-module.js';
 import {allocateOwnedTypedArray,allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {ssgResizeCoefficients} from './ssg-full-input.js';
 import {requireValue,checkAbort,EngineError,controlCheckpoint} from './errors.js';
 
-async function factory(options){const url=new URL(options.ssgShared?'../vendor/ssg-strict/localization-shared.mjs':'../vendor/ssg-strict/localization.mjs',import.meta.url);return(await import(url.href)).default({...options,mainScriptUrlOrBlob:globalThis.process?.versions?.node?decodeURIComponent(url.pathname):url.href});}
+async function factory(options){return createSsgLocalizationModule('ssg-strict',options);}
 async function workspace(bytes,{budget,profile,signal,moduleFactory=factory},body){
  const maximum=Math.ceil((bytes+64*1024**2)/65536)*65536;if(!Number.isSafeInteger(maximum)||maximum>2*1024**3)throw new EngineError('MEMORY_LIMIT','SSG observed-support workspace exceeds its native wasm32 arena.',{details:{requestedBytes:maximum,allocationKind:'wasm'}});
  const shared=globalThis.crossOriginIsolated===true&&typeof SharedArrayBuffer==='function'&&profile.maxWorkers>1;let release,lease,runtime,primary,failed=false;const pointers=[];
- try{checkAbort(signal);release=budget.reserve(maximum);const memory=allocateWasmMemory({initial:512,maximum:maximum/65536,...(shared?{shared:true}:{})},{label:'SSG strict native global workspace'});runtime=await moduleFactory({wasmMemory:memory,maximumHeapBytes:maximum,ssgShared:shared,workerCount:shared?profile.maxWorkers-1:1});
+ try{checkAbort(signal);release=budget.reserve(maximum);const memory=allocateWasmMemory({initial:512,maximum:maximum/65536,...(shared?{shared:true}:{})},{label:'SSG strict native global workspace'});runtime=await moduleFactory({wasmMemory:memory,maximumHeapBytes:maximum,ssgShared:shared,ssgUseSimd:profile?.cpuKernel!=='reference',workerCount:shared?profile.maxWorkers-1:1});
   const allocate=bytes=>{if(!bytes)return 0;const p=runtime._malloc(bytes);if(!p)throw wasmAllocationFailure(runtime,'SSG strict native input allocation failed.',bytes);pointers.push(p);return p;},put=(array,Type)=>{const p=allocate(array.byteLength);if(p)new Type(runtime.HEAPU8.buffer,p,array.length).set(array);return p;},checked=(status,label)=>{if(status===-2)throw wasmAllocationFailure(runtime,'SSG '+label+' native allocation failed.');requireValue(status===0,'Invalid SSG '+label+' native status.');checkAbort(signal);};
   lease=await getExecutionScheduler(budget,{maxWorkers:profile.maxWorkers}).acquire({cpu:shared?profile.maxWorkers:1,signal,label:'ssg-strict-global-localization',resourceOwner:'ssg'});runtime._ssg_full_set_team(shared?profile.maxWorkers:1);checkAbort(signal);
   return await body({runtime,allocate,put,checked,maximum,heapBytes:memory.buffer.byteLength,cpuTeam:shared?profile.maxWorkers:1});

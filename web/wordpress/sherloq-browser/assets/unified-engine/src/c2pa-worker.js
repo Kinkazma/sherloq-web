@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,serializeEngineError,normalizeResourceError} from './errors.js';
 import {buildSourcePrefixIntegrity,createSourcePrefixVerifier} from './source-prefix-integrity.js';
 // Rust allocation traps can escape wasm-bindgen's async promise boundary.

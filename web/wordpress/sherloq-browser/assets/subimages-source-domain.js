@@ -1,6 +1,6 @@
-import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from './original-source-regions.js';
-import {scopeFingerprint} from './batch-scientific-preparation.js';
-import {scientificScopeRgbExclusions} from './scientific-scope-rgb-selection.js';
+import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
+import {scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
+import {scientificScopeRgbExclusions} from './scientific-scope-rgb-selection.js?v=0.30.0';
 import {requireValue,checkAbort,EngineError} from './unified-engine/src/errors.js';
 
 /** Unlike batch classifier preparation, the simple geometric detector can use

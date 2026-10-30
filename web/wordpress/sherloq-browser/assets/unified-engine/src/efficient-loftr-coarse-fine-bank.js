@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 const raw=a=>new Uint8Array(a.buffer,a.byteOffset,a.byteLength),words=a=>new Uint32Array(a.buffer,a.byteOffset,a.length);
 function bank(layout,side){requireValue(layout?.schema==='sherloq.efficient-loftr-context-bank-layout/26'&&!layout.closed&&(side===0||side===1)&&layout.banks[side]?.side===side,'Live native local context dictionary required.');return layout.banks[side];}

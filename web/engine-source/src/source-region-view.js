@@ -34,24 +34,24 @@ export async function createSourceRegionView(source,input,{budget,signal,maxRead
   }
   yield* active.values();
  }
- async function native(rect,extra){
+ async function native(rect,extra,{reserve,adoptSource}={}){
   alive(extra);const readSignal=signal&&extra?AbortSignal.any([controller.signal,signal,extra]):signal||extra?AbortSignal.any([controller.signal,signal??extra]):controller.signal;
-  const window=await source.readWindow({...rect,x:rect.x+domain.origin[0],y:rect.y+domain.origin[1]},{signal:readSignal}),lease=retain({},()=>window.release?.());
-   try{alive(extra);requireValue(window.pixels?.format==='rgb8'&&window.pixels.width===rect.width&&window.pixels.height===rect.height&&window.pixels.data?.length===rect.width*rect.height*3,'The native source returned another pixel grid.');return{...window,release:lease.release};}
+  const window=await source.readWindow({...rect,x:rect.x+domain.origin[0],y:rect.y+domain.origin[1]},{signal:readSignal,...(reserve?{reserve}:{})}),lease=retain({},()=>window.release?.());
+   try{adoptSource?.(lease);alive(extra);requireValue(window.pixels?.format==='rgb8'&&window.pixels.width===rect.width&&window.pixels.height===rect.height&&window.pixels.data?.length===rect.width*rect.height*3,'The native source returned another pixel grid.');return{...window,release:lease.release};}
    catch(error){await retireCompositeOwners([()=>lease.release()],{primary:error});throw error;}
  }
  function retain(value,release){let done=false,retiring;const lease={...value,release(){
   if(done||retiring)return retiring;
   const answer=release?.();
-  if(answer&&typeof answer.then==='function'){retiring=Promise.resolve(answer).then(()=>{done=true;held.delete(lease);},error=>{retiring=undefined;throw error;});return retiring;}
-  done=true;held.delete(lease);return answer;
+  if(answer&&typeof answer.then==='function'){retiring=Promise.resolve(answer).then(value=>{if(value===0||value===false)throw new EngineError('BUSY','Source loan retirement awaits acknowledgement');done=true;held.delete(lease);},error=>{retiring=undefined;throw error;}).catch(error=>{retiring=undefined;throw error;});return retiring;}
+  if(answer===0||answer===false)throw new EngineError('BUSY','Source loan retirement awaits acknowledgement');done=true;held.delete(lease);return answer;
  }};held.add(lease);return lease;}
  const api={
   descriptor:Object.freeze({width:domain.width,height:domain.height,format:'rgb8',sourceRegionDomain:domain.descriptor}),
   domain,originalSource:source,encodedOriginal:source.encodedOriginal??source.blob??source.bytes,
   contains:domain.contains,rowIntervals:domain.rowIntervals,
   includesRectangle(value){return admitted(rectangle(value,{admit:false}));},
-  async readWindow(value,{signal:extra}={}){alive(extra);const rect=rectangle(value);if(!admitted(rect))throw new EngineError('SOURCE_REGION_PARTIAL_WINDOW','This operation must use admitted spans or its explicit membership-aware adapter.');const finish=begin();let window;try{window=await native(rect,extra);alive(extra);return{...window,origin:[rect.x,rect.y],originalOrigin:domain.toOriginal([rect.x,rect.y])};}catch(error){await retireCompositeOwners([()=>window?.release()],{primary:error});throw error;}finally{finish();}},
+  async readWindow(value,{signal:extra,reserve,adoptSource}={}){alive(extra);const rect=rectangle(value);if(!admitted(rect))throw new EngineError('SOURCE_REGION_PARTIAL_WINDOW','This operation must use admitted spans or its explicit membership-aware adapter.');const finish=begin();let window;try{window=await native(rect,extra,{reserve,adoptSource});alive(extra);return{...window,origin:[rect.x,rect.y],originalOrigin:domain.toOriginal([rect.x,rect.y])};}catch(error){await retireCompositeOwners([()=>window?.release()],{primary:error});throw error;}finally{finish();}},
   async visitIncluded(visitor,{signal:extra,windowPixels=maxReadPixels}={}){
    alive(extra);requireValue(typeof visitor==='function'&&Number.isSafeInteger(windowPixels)&&windowPixels>0&&windowPixels<=maxReadPixels,'Invalid included-window visitor.');
    const finish=begin();try{const full={x:0,y:0,width:domain.width,height:domain.height};let completed=0;
@@ -62,10 +62,10 @@ export async function createSourceRegionView(source,input,{budget,signal,maxRead
    }
    alive(extra);return{completed,total:domain.countIncluded};}finally{finish();}
   },
-  async readMaskedWindow(value,{signal:extra}={}){
+  async readMaskedWindow(value,{signal:extra,reserve,adoptSource}={}){
    alive(extra);const rect=rectangle(value),count=rect.width*rect.height,finish=begin();let release,committed=false;
-   try{release=budget?.reserve(count*4);const data=new Uint8Array(count*3),membership=new Uint8Array(count);let included=0;
-    for(const part of rectangles(rect)){const window=await native(part,extra);let failed=false,primary;try{for(let row=0;row<part.height;row++){const at=(part.y+row-rect.y)*rect.width+part.x-rect.x;data.set(window.pixels.data.subarray(row*part.width*3,(row+1)*part.width*3),at*3);membership.fill(1,at,at+part.width);included+=part.width;}}catch(error){failed=true;primary=error;throw error;}finally{await retireCompositeOwners([()=>window.release()],failed?{primary}:{});}}
+   try{requireValue(reserve===undefined||typeof reserve==='function','A source reservation allocator is required.');requireValue(adoptSource===undefined||typeof adoptSource==='function','A source loan adopter is required.');release=reserve?reserve(count*4):budget?.reserve(count*4);const data=new Uint8Array(count*3),membership=new Uint8Array(count);let included=0;
+    for(const part of rectangles(rect)){const window=await native(part,extra,{reserve,adoptSource});let failed=false,primary;try{for(let row=0;row<part.height;row++){const at=(part.y+row-rect.y)*rect.width+part.x-rect.x;data.set(window.pixels.data.subarray(row*part.width*3,(row+1)*part.width*3),at*3);membership.fill(1,at,at+part.width);included+=part.width;}}catch(error){failed=true;primary=error;throw error;}finally{await retireCompositeOwners([()=>window.release()],failed?{primary}:{});}}
     alive(extra);const lease=retain({pixels:{width:rect.width,height:rect.height,format:'rgb8-membership',data,membership},included,origin:[rect.x,rect.y],originalOrigin:domain.toOriginal([rect.x,rect.y]),semantics:'Only membership=1 entries are observations; other storage slots are not black image pixels.'},release);committed=true;return lease;
    }finally{try{if(!committed)release?.();}finally{finish();}}
   },

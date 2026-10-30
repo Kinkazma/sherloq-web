@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "reference": "libjpeg-turbo-3.0.3/ISLOW/baseline420",
+  "method": "native-integer-color-downsample-FDCT-quantize-IDCT-fancyupsample-color-and-exact-ELA-LUT",
+  "entropy": "lossless roundtrip fused only for pixel-only consumers; encoded evidence remains native",
+  "files": {
+    "ela-jpeg.wgsl": {
+      "bytes": 7240,
+      "sha256": "8f2b8ac22eaffa23abca3aed2d29c6bbe0c5d38a28a92a2897c3aa3ed912a029"
+    },
+    "ela-jpeg-archive.wgsl": {
+      "bytes": 8264,
+      "sha256": "4f2d232d11aa81f1f89dcde68a2888a97164c1cd8429171d659f306b32fd6a21"
+    }
+  }
+}

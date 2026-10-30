@@ -1,5 +1,5 @@
-import {doctamperNativeSummary} from './doctamper-native-summary.js';
-import {comprintNativeSummary} from './comprint-native-summary.js';
+import {doctamperNativeSummary} from './doctamper-native-summary.js?v=0.30.0';
+import {comprintNativeSummary} from './comprint-native-summary.js?v=0.30.0';
 // UI metadata only. The core owns decoding, model loading, scheduling and results.
 // Sizes identify the exported ONNX files, not a claim about cached resources.
 export const EXTENSION_MODEL_ASSETS=Object.freeze({

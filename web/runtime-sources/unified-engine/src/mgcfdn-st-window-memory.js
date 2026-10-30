@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue}from'./errors.js';
 const SCRATCH=4194304n,LIMIT=512n*1024n**2n,CPU=89592572n,GPU=61042997n+28852562n;
 export const MGCFDN_ST_WINDOW_BASE_CREDIT=Number(3n*GPU+SCRATCH),MGCFDN_ST_WINDOW_REWRITE_CREDIT=Number(2n*GPU+SCRATCH);

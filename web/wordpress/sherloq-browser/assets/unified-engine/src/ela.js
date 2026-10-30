@@ -1,10 +1,13 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
+import {equalizationState} from './equalization-settings.js';
 // Port of core/ela.py and core/utility.py; codec is a separate reference boundary.
 import { requireValue, checkpoint, checkAbort } from './errors.js';
 export const DEFAULT_ELA_PARAMS = Object.freeze({quality:75,scale:50,contrast:20,linear:false,grayscale:false});
 export const DEFAULT_ENERGY_PROFILE = Object.freeze({id:'standard',name:'Conservateur',percentiles:Object.freeze([1,99]),deviations:Object.freeze([5,5]),adaptive:false,available:true});
 export function validateParams(input = {}) {
   requireValue(input && typeof input === 'object' && !Array.isArray(input), 'Parameters must be an object.');
+  if(input.equalization!==undefined)equalizationState(input.equalization);
+  input=Object.fromEntries(Object.entries(input).filter(([k])=>k!=='equalization'));
   requireValue(Object.keys(input).every(k => Object.hasOwn(DEFAULT_ELA_PARAMS,k)), 'Unknown ELA parameter.');
   const p = {...DEFAULT_ELA_PARAMS,...input};
   for (const [key,lo,hi] of [['quality',1,100],['scale',1,100],['contrast',0,100]])

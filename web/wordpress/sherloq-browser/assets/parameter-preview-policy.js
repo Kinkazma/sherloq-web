@@ -1,4 +1,4 @@
-import {toolCatalog,toolFields} from './tool-catalog.js';
+import {toolCatalog,toolFields} from './tool-catalog.js?v=0.30.0';
 
 // A draft is always separate from the native result. Scientific method/model
 // changes and recompressed JPEG evidence are never substituted for the native
@@ -13,6 +13,7 @@ function all(ids,kind,reason,extra={}){for(const id of ids.split(' '))set(id,too
 all('file.digest file.hex file.similarity metadata.structure metadata.exiftool metadata.thumbnail metadata.location metadata.c2pa','none','Byte inspection, metadata and validation are exact actions, not provisional image calculations.',{final:'none'});
 set('file.hex','offset length','explicit','Read the selected original-byte interval exactly on commit; no image proxy or altered bytes.',{final:'native'});
 all('inspection.adjust detail.gradient detail.echo noise.separation colors.space colors.stats','pixel-proxy','A bounded provisional visual transform; the native operation and source remain unchanged at commit.');
+set('detail.gradient','method','explicit','Commit the selected native gradient method automatically; a method choice is not a sampled scientific preview.',{final:'native'});
 all('inspection.magnifier','local','The existing native ROI loupe already handles its small interactive display.',{existing:true,final:'view'});
 all('inspection.histogram','retained','Reuse the exact native four-channel bins; no image scan.',{final:'view',strategy:'histogram'});
 all('colors.pca','retained','Project sampled pixels with the native global PCA basis; no refitting on a proxy.',{strategy:'pca'});
@@ -43,7 +44,7 @@ set('tampering.resampling','fourier.gamma fourier.rescale','retained','Apply dis
 set('tampering.resampling','stage size fourier.window fourier.upsample fourier.center fourier.highpass','explicit','Commit the exact native EM/Fourier method on the current source domain; existing native stages decide cache reuse, without a sampled scientific proxy.',{final:'native'});
 set('tampering.copyMove.brisk','minimum','retained','Filter the complete retained native groups on a bounded draft; native region counting and exact rendering still run on commit.',{strategy:'clones-classical',final:'native'});
 set('tampering.copyMove.brisk','showPoints hideLines','retained','Draw only retained native keypoints and already grouped matches on a bounded source view; no detector or matcher runs.',{strategy:'clones-classical'});
-set('tampering.copyMove.sparse','sparseView.low sparseView.high sparseView.minimum sparseView.circles sparseView.lines sparseView.points sparseView.areas sparseView.textExclusions sparseView.traceOverlap','retained','Repaint retained native matches/paired biome geometry; no matching or model calculation.',{strategy:'clones'});
+set('tampering.copyMove.sparse','sparseView.low sparseView.high sparseView.minimum sparseView.circles sparseView.lines sparseView.points sparseView.areas sparseView.textExclusions sparseView.traceOverlap sparseView.maxBiomeArea sparseView.circleScale sparseView.clipLinesToCircles sparseView.biomeMethod','retained','Repaint retained native matches/paired biome geometry; no matching or model calculation.',{strategy:'clones'});
 set('ai.clones.d2prl','minimum','retained','Temporarily refilter the complete retained native448 banks during a hold, then commit the latest native minimum; a missing or changed checkpoint cannot start inference.',{strategy:'d2prl-refilter',final:'retained-native',nativeBasis:'required',nativeBasisMutableParams:['minimum']});
 set('ai.clones.d2prl','neuralView','local','Switch retained native clone layers through the existing layer selector without inference.',{strategy:'layer',existing:true,final:'view'});
 set('ai.sources.safire ai.localization.focal ai.localization.adaifl','researchView','retained','Recolor native retained maps/labels on a bounded display; native commit only renders the cached analysis.',{strategy:'research',final:'native',nativeBasis:'required',nativeBasisMutableParams:['groups','kind','eps','minimum','binary']});
@@ -66,8 +67,9 @@ export function parameterPreviewPolicy(toolId,key,params){
  if(toolId==='tampering.copyMove.sparse'&&CLASSICAL_NATIVE_METHODS.has(params?.algorithm)&&CLASSICAL_NATIVE_FIELDS.has(key))return CLASSICAL_NATIVE_COMMIT;
  if(toolId==='tampering.copyMove.sparse'&&params?.algorithm==='SSG'&&SSG_RETAINED_LOCALIZATION_FIELDS.includes(key))return SSG_LOCALIZATION;
  const alias=key.startsWith('view.')&&toolId==='tampering.copyMove.sparse'?'sparseView.'+key.slice(5):key==='view.mode'?toolId==='ai.clones.d2prl'?'neuralView':toolId.startsWith('ai.sources.')||toolId.startsWith('ai.localization.')?'researchView':'view':key;
+ if(key==='equalization'&&toolId!=='colors.pca')return rule('pixel-proxy','Bounded equalization draft; the final uses the complete admitted native display domain.',{final:'native'});
  const policy=rules.get(toolId+'\0'+alias)??(toolCatalog[toolId]?EXPLICIT:NONE);
- if(toolId==='tampering.copyMove.sparse'&&policy.strategy==='clones'&&!CLASSICAL_NATIVE_METHODS.has(params?.algorithm))return Object.freeze({...policy,nativeBasis:'required',nativeBasisMutableParams:[]});
+ if(toolId==='tampering.copyMove.sparse'&&policy.strategy==='clones'&&(['view.maxBiomeArea','sparseView.maxBiomeArea','view.circleScale','sparseView.circleScale','view.clipLinesToCircles','sparseView.clipLinesToCircles','view.biomeMethod','sparseView.biomeMethod'].includes(key)||!CLASSICAL_NATIVE_METHODS.has(params?.algorithm)))return Object.freeze({...policy,nativeBasis:'required',nativeBasisMutableParams:[]});
  return policy;
 }
 // A retained presentation/grouping cannot authorize new model work. Its basis

@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {d2prlInputSide} from '../experiments/d2prl/input-side.js';
 import {sparseWindowNpzMetadata} from './sparse-window-npz.js';
 import {catnetStrictNpzEntries} from './catnet-strict-npz.js';
 import {ritaStrictNpzEntries} from './rita-strict-npz.js';
@@ -41,7 +42,7 @@ export function elaCellNpz(result,maxBytes){
  const d=result.data,shape=[d.rows,d.cols],entries=[];
  requireValue(shape.every(v=>Number.isInteger(v)&&v>0),'ELA cell geometry required');
  const dimensions={content:[6],profiles:[3,5],signed_scores:[3,5],quality_scores:[3],background_profiles:[3,3],background_quality_scores:[3],background_signed_scores:[3,3],background_reference:[3,3],ghost_phase:[2],ghost_curves:[71]};
- for(const key of ['score','legacy_score','coherent_score','quality_scores','signed_scores','profiles','content','peer_count','supported','labels','background_profiles','background_score','background_quality_scores','background_signed_scores','background_reference','background_peer_count','background_supported','pre_background_score','ela_score','ghost_score','ghost_quality','ghost_phase','ghost_curves','ghost_peer_count','ghost_supported']){
+ for(const key of ['score','legacy_score','coherent_score','quality_scores','signed_scores','profiles','content','peer_count','supported','labels','background_profiles','background_score','background_quality_scores','background_signed_scores','background_reference','background_peer_count','background_supported','pre_background_score','ela_score','ghost_score','ghost_quality','ghost_phase','ghost_curves','ghost_peer_count','ghost_supported','native_cell_admission']){
   const value=d[key];if(value===undefined)continue;
   const dims=[...shape,...(dimensions[key]??[])],floating=value instanceof Float32Array,descr=floating?'<f4':value instanceof Int32Array?'<i4':value instanceof Int16Array?'<i2':value instanceof Uint8Array?'|u1':null;
   requireValue(descr&&value.length===dims.reduce((a,b)=>a*b,1),'Invalid ELA cell export array');entries.push({key,value,header:header(descr,dims),bytes:value.byteLength,floating});
@@ -53,8 +54,9 @@ export function d2prlNpz(result,maxBytes){
  if(d.rawGrids!==undefined){
   requireValue(Array.isArray(d.rawGrids)&&d.rawGrids.length>0&&d.rawGrids.length<=256,'D2PRL raw grids required');
   for(const [i,grid] of d.rawGrids.entries()){
-   requireValue(grid.raw instanceof Float32Array&&grid.raw.length===3*448**2,'D2PRL raw grid shape');
-   for(const [plane,name] of ['union','target','source'].entries()){const value=grid.raw.subarray(plane*448**2,(plane+1)*448**2);entries.push({key:'raw_'+name+'_'+i,value,header:header('<f4',[448,448]),bytes:value.byteLength,floating:true});}
+   const side=d2prlInputSide(grid.inputSide??d.metadata?.inputSide??d.metadata?.raw_shape?.[1]);
+   requireValue(grid.raw instanceof Float32Array&&grid.raw.length===3*side**2,'D2PRL raw grid shape');
+   for(const [plane,name] of ['union','target','source'].entries()){const value=grid.raw.subarray(plane*side**2,(plane+1)*side**2);entries.push({key:'raw_'+name+'_'+i,value,header:header('<f4',[side,side]),bytes:value.byteLength,floating:true});}
   }
   return writeNpz(result,maxBytes,entries);
  }

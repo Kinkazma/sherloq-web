@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{createForgeryscopeBoundedSource}from'./forgeryscope-bounded-source.js';
 import{retireForgeryscopeOwners}from'./forgeryscope-owner-retirement.js';
 import{createNeuralCloneWindowRun}from'./clone-neural-window-runner.js';

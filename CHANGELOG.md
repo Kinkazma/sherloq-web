@@ -2,6 +2,52 @@
 
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
+## 0.30.0 — GPU execution, equalization and retained workflows · 2026-10-30
+
+### Display equalization
+
+- Replace user-facing equalization controls with one compact method menu and a shared slider that retains a separate value for each method. List Histogram, CLAHE and AHE first.
+- Add bi-histogram, recursive, weighted, dynamic, exposure-based and contextual equalization families, together with adaptive gamma correction. Retain the original references and experimental digital conventions in the [method notes](web/engine-source/docs/equalization.md).
+- Connect the menu to global adjustments, gradients, PCA, reference comparison, signal separation, magnifier effects, classic ELA and their batch recipes. Preserve independent Linear ELA and auto-contrast controls, native analysis caches, source-region membership and existing GPU routes.
+- Keep the original histogram and historical CLAHE settings on their native calculation paths. Apply other selections as bounded presentation transforms without replacing original bytes or scientific fields.
+
+### Sobel and Krawetz luminance gradients
+
+- Add the choice “Gradient de Sobel” / “Gradient de Krawetz” within the existing gradient analysis. Preserve Sobel as the default and retain separate display settings for each method.
+- Reconstruct the Krawetz directional gradient from its published example, with fixed native blue amplitude, optional tone/inversion/equalization, and available-neighbour boundaries.
+- Apply the selected method throughout native, segmented, worker and admitted-region calculations, automatic provisional proxies, batch recipes, provenance and export names. Keep excluded observations outside derivatives and tone histograms.
+
+- Add the ELA Biome preset “Variante-4 / Variant-4” with histogram fields 30 / 520, deviation fields 10 / 50, quality 85 and overlay opacity 70.
+- Preserve full adjustment slider ranges and saved backend preferences.
+
+### GPU computation and retained native results
+
+- Accelerate the shared dense PatchMatch core used by Zernike, SIFT, combined, mirrored and extended profiles. Reuse descriptor transport, norms and matching work while preserving the native search domain and method settings.
+- Avoid a redundant GPU completion wait after successful D2PRL convolution readback. Keep its numerical operators and shared callers; retain failed GPU resources for acknowledged retry in the D2PRL ownership path.
+- Generate D2PRL random candidates directly from native Philox tickets on GPU. Preserve stream state, coordinates, search iterations and retry checkpoints while removing the intermediate noise readback.
+- Avoid uploading metadata unused by unmasked D2PRL evaluation. Keep the numerical shader and full strict or masked metadata unchanged.
+- Add D2PRL input sides 448, 896, 1344 and 1792. Mark larger sides as experimental and retain source-region admission, native parameters and result exports.
+- Correct the dedicated XFeat/LighterGlue caller to retain global attention keys, exclude self-identity in cross attention and apply spatial constraints at final assignment. Preserve the existing ALIKED and SIFT LightGlue callers. Keep admitted CNN contexts aligned to the Original image without reading excluded RGB.
+- Select qualified XFeat/LighterGlue CPU and GPU partitions from completed useful work. Reuse the measured choice and compiled context under explicit memory ownership; preserve an explicit CPU route.
+- Reuse one EfficientLoFTR CPU worker and a bounded cache of unchanged native graph cuts during each analysis. Retain full FP32 populations and outputs; keep GPU execution unavailable until context retirement is qualified.
+- Accelerate classical SIFT, RootSIFT and G2NN extraction and matching, including bounded paged inputs. Retain native geometric verification and existing display controls.
+- Choose median-feature CPU/GPU pages from distinct useful work in the requested analysis, accounting for compilation, consumption and retirement. Preserve GPU memory debts on failed fences or destruction and retry them before admitting new work.
+- Reduce repeated scheduling waits while constructing PRNU fingerprints. Preserve the binary64 running mean, native crop order, training membership, HDF5 exports and sensor-coordinate matching.
+- Group temporary PRNU complex-plane transfers into bounded byte windows. Preserve native FFT values and retain construction, archive and rollback owners until cleanup succeeds.
+- Buffer consecutive PRNU training-mean writes into complete IndexedDB pages under the shared memory budget. Keep the native binary64 recurrence and exact fallback when optional staging cannot be admitted.
+- Cancel PRNU construction cooperatively while preserving the worker, source and previous database. Retain failed temporary-session cleanup for acknowledged retry.
+- Add qualified GPU stages and native CPU optimizations to signal separation, stereogram decoding, reference comparison, Noisesniffer, PRNU, wavelets, resampling, Fourier processing and median-filter detection. Preserve native threshold decisions with exact paths where numerical sensitivity requires them.
+- Reuse native JPEG transforms for quality and recompression analysis. Accelerate Ghost means with the original integer JPEG operators and binary64 reduction order; retain encoded native JPEG data when archive or coefficient evidence is required.
+- Accelerate ZERO and ELA energy analysis while reusing retained fields for presentation. Let classic ELA use the measured automatic backend rather than forcing CPU in the interface.
+- Preserve the native cell population in scoped ELA Biomes: only complete admitted cells enter global peer statistics and segmentation. Export the admitted-cell mask and explicitly distinguish unsupported cells from observations.
+- Perform scientific work on inclusions minus exclusions, preserve original coordinates and reuse complete analysis identities. Keep trace visibility and overlap controls independent from expensive inference and dense matching.
+- Accelerate SSG binary morphology using the same four native periodic lines, complete padding and intermediate crops. Keep the original binary64 fallback for nonbinary and exceptional values; retain SSIM, components and thresholds.
+- Accelerate SSG word-neighbour queries with the same native balanced tree, binary64 distance order and original candidate identities. Retain the scalar reference path and bounded arena ownership.
+- Expose existing CPU/GPU/automatic choices for the newly accelerated families. Keep currently unqualified Plain XFeat and EfficientLoFTR GPU routes unavailable.
+- Reduce per-band projection waits for retained neural results without changing native interpolation, masks or thresholds. Preserve complete result reuse for D2PRL minimum edits.
+- Reuse the owned stores of a verified single full-frame D2PRL projection instead of composing them a second time. Keep native finite-value checks, masks and general multi-region composition.
+- Retire worker, codec, host and GPU resources only after their ownership acknowledgements. Keep failed retirements reachable for retry, retain the primary error and preserve sources and previous results through qualified cooperative cancellations.
+
 ## 0.25.0 — Native regions, PDF magnifiers and retained results · 2026-10-26
 
 - Let optional manifest-cache operations fall through to verified HTTP instead of waiting indefinitely. Bound small startup metadata transfers, preserve timeout causes and allow a fresh retry after failure.

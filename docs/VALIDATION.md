@@ -1,4 +1,17 @@
-# Validation scope
+# Validation and limits
+
+## 0.30 integration
+
+This release combines the accepted GPU/native-context changes, the Sobel/Krawetz selector, ELA display settings and the common equalization menu. Existing model weights and native scientific decisions retain their documented contracts. Equalization is a display transform: it does not substitute transformed pixels for original model inputs or scientific output fields. Legacy histogram/CLAHE paths retain their native computation; research variants and their digital conventions are described in the method notes.
+
+The source integration was accepted after targeted numerical, domain/exclusion, memory-failure recovery, PDF and browser-interaction checks. Reconstruction independently binds the selected canonical inputs, rebuilt worker, executable bytes, resource catalogue and updater shell. Detailed working reports remain private. These checks do not establish universal detector reliability or a speed gain on every device.
+
+D2PRL spatial grids above 448 are experimental. Memory admission and the actual device determine which sizes are available; larger grids are not a guarantee of better detection. The largest grids require substantially more memory. Extended matching and complete automatic-analysis paths can remain expensive on large inputs. XFeat availability does not establish a positive clone result on every image. Biome subdivisions retain their parent model rather than creating independent model fits.
+
+Local updates use the complete SHA-verified manifest, preserve explicit feature exclusions and retain compatible preferences. Source and updater verification do not replace the scientific interpretation limits of individual tools.
+
+## Earlier qualification scope
+
 
 ## Web 0.25.0
 

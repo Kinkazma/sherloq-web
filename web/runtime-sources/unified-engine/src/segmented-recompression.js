@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
+import {observeJpegGrayCpu} from './jpeg-gray-curve-gpu.js';
+import {gpuJpegGrayLosses} from './jpeg-gray-curve-stage.js';
 import {wasmAllocationFailure,allocateWasmMemory} from './allocation.js';
 import {parallelStoredGrayLosses,serialStoredGrayLosses,grayPoolShape} from './jpeg-gray-stream-pool.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';
@@ -39,11 +41,12 @@ async function serialSegmentedLosses(surface,qualities,{budget,signal,onProgress
 }
 
 
-export async function segmentedRecompressionLosses(surface,qualities,options={}){
+async function nativeSegmentedRecompressionLosses(surface,qualities,options={}){
  const {budget,signal,onProgress,onQuality,maxWorkers=1,adaptive=new AdaptiveConcurrency()}=options;
  requireValue(budget&&qualities.length>0&&qualities.every((q,i)=>Number.isInteger(q)&&q>=0&&q<=100&&(!i||q>qualities[i-1])),'Shared budget and ordered qualities required.');
  requireValue(Number.isInteger(maxWorkers)&&maxWorkers>=1,'Positive worker capacity required.');
  requireValue(surface.descriptor.width<=65500&&surface.descriptor.height<=65500,'JPEG dimensions exceed native codec limits.');checkAbort(signal);
+
  // The legacy mem_dest path keeps the entire encoded JPEG and reallocates it.
  // Route potentially larger outputs through bounded external bytes from the
  // first useful quality, preserving global codec state and scalar cache keys.
@@ -63,4 +66,15 @@ export async function segmentedRecompressionLosses(surface,qualities,options={})
  catch(error){checkAbort(signal);if(callbackError||plan.ceiling===1||!isWorkerResourceFailure(error))throw error;adaptive.reduce(key,plan.count,{error});const remaining=qualities.filter(q=>!values.has(q)),completed=values.size;retry={code:error.code??'MEMORY_ALLOCATION',failedWorkers:plan.count,remainingQualities:remaining.length};result=await serialSegmentedLosses(surface,remaining,{budget,signal,onQuality:record,onProgress:f=>progress((completed+f*remaining.length)/qualities.length)});}
  const elapsed=performance.now()-started;adaptive.observe(key,{count:result.metrics.workers,maximum,milliseconds:elapsed,units:shape.width*shape.height*qualities.length});
  return {raw:Float64Array.from(qualities,q=>values.get(q)),metrics:{...result.metrics,recompressions:qualities.length,scheduling:{...plan,preflightExecutions:0,taskExecutions:retry?2:1,retry},kernelMs:elapsed}};
+}
+
+export async function segmentedRecompressionLosses(surface,qualities,options={}){
+ const {budget,backend='auto',profile,signal,onProgress,onQuality}=options;
+ // Native libjpeg clamps Q0 to Q1. Reuse that same completed codec result;
+ // the original/reference route still executes its independent101 qualities.
+ if(options.gpuAllowed&&qualities[0]===0&&qualities[1]===1){const answer=await segmentedRecompressionLosses(surface,qualities.slice(1),{...options,onQuality:(q,value)=>{if(q===1)onQuality?.(0,value);onQuality?.(q,value);}});return{raw:Float64Array.from(qualities,(q,index)=>answer.raw[Math.max(0,index-1)]),metrics:{...answer.metrics,qualityZeroAlias:'native-Q0-clamps-to-Q1'}};}
+ if(options.gpuAllowed&&backend!=='cpu'){const accelerated=await gpuJpegGrayLosses({surface},qualities,{budget,backend,profile,signal,onProgress,onQuality});if(accelerated)return accelerated;}
+ const started=performance.now(),result=await nativeSegmentedRecompressionLosses(surface,qualities,options);
+ if(options.gpuAllowed)observeJpegGrayCpu(budget,surface.descriptor.width*surface.descriptor.height,qualities.length,performance.now()-started,profile);
+ return result;
 }

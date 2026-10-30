@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort}from'./errors.js';
 export const VIG_WINDOW_MATH_HEAP=64*1024**2;
 // Only independent channels/elements/query rows are chunked. Every L2 norm,

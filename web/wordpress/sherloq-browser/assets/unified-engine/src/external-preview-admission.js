@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {observedDerivativeWorkingBytes} from './source-region-observed-derivatives.js';
 import {observedSeparationWorkingBytes} from './source-region-observed-separation.js';
 import {ramByteCacheBytes} from './ram-byte-cache.js';
@@ -24,7 +24,7 @@ export function externalPreviewNativeHeadroom(operation,image,params,{runtimeByt
  return Number.isSafeInteger(bytes)&&bytes>0?{bytes,operation,completeResidentAlternative:true,parallelWorkers:0}:null;
 }
 
-/** Complete RAM alternative for the actual serial strict Sobel adapter only.
+/** Complete RAM alternative for the serial strict Sobel/Krawetz gradient adapter.
  * `domain` has already passed prepareSourceRegionDomain. Rectangle/identity
  * routes use segmentedGradient's useful parallel workers and must still reclaim.
  * This optional cache never changes the adapter's storage/worker decisions. */

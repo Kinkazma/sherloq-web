@@ -1,8 +1,8 @@
-import {startupPhase} from './startup-diagnostics.js';
-import {sessionLog} from './session-log.js';
-import {diagnostic} from './runtime-context.js';
-import {mountSessionControls,downloadSession} from './session-ui.js';
-import {preferenceAccess,capturePreferenceBackup,downloadPreferenceBackup,importPreferenceBackup} from './preferences-recovery.js';
+import {startupPhase} from './startup-diagnostics.js?v=0.30.0';
+import {sessionLog} from './session-log.js?v=0.30.0';
+import {diagnostic} from './runtime-context.js?v=0.30.0';
+import {mountSessionControls,downloadSession} from './session-ui.js?v=0.30.0';
+import {preferenceAccess,capturePreferenceBackup,downloadPreferenceBackup,importPreferenceBackup} from './preferences-recovery.js?v=0.30.0';
 const app=document.getElementById('workspace-app'),notice=document.getElementById('startup-notice');
 const explicit=new URLSearchParams(location.hash.slice(1)).get('lang');let saved;
 try{saved=preferenceAccess.read('sherloq.workspace.preferences').value?.language;}catch{}
@@ -17,19 +17,19 @@ async function start(){
  if(running)return;running=true;if(app)app.inert=true;show('installing');
  let stage='modules';
  try{
-  const {prepareDependencies}=await startupPhase('bootstrap-modules',()=>import('./dependency-bootstrap.js'));
+  const {prepareDependencies}=await startupPhase('bootstrap-modules',()=>import('./dependency-bootstrap.js?v=0.30.0'));
   let config;
   stage='dependencies';
   for(let attempt=0;;attempt++){
    try{config=await startupPhase('dependencies',()=>prepareDependencies({onStatus:show}));break;}
    catch(error){if(attempt>=2)throw error;show('retrying');await new Promise(resolve=>setTimeout(resolve,1000*2**attempt));}
   }
-  stage='workspace';show('opening');const {mountWorkspace}=await startupPhase('workspace-modules',()=>import('./workspace.js'));
+  stage='workspace';show('opening');const {mountWorkspace}=await startupPhase('workspace-modules',()=>import('./workspace.js?v=0.30.0'));
   // Online WordPress has no local installation to manage. Offline variants
   // still apply their persisted feature policy before any tools are mounted.
   let localManagement;
   if(config?.offline===true)localManagement=await startupPhase('local-management',async()=>{
-   const {initializeLocalManagement}=await import('./local-management-ui.js');
+   const {initializeLocalManagement}=await import('./local-management-ui.js?v=0.30.0');
    return initializeLocalManagement({config});
   });
   await startupPhase('workspace-mount',()=>mountWorkspace(document,{localManagement}));if(app)app.inert=false;notice?.remove();document.documentElement.dataset.workspaceReady='true';

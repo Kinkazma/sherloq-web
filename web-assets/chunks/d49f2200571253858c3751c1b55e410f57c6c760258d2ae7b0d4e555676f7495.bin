@@ -1,0 +1,28 @@
+{
+  "compiler": "emscripten-4.0.15",
+  "default": "simd",
+  "fallback": "scalar on compilation failure of the requested real module",
+  "floatingPoint": "strict; no relaxed SIMD; original reduction order and required FMA retained",
+  "files": {
+    "dense.js": {
+      "bytes": 2505,
+      "sha256": "7e04d5531073618f633b828714b386ce79109bad961b03dc088abc3e433c2b1d"
+    },
+    "dense-simd.js": {
+      "bytes": 16435,
+      "sha256": "4ecacfe9e360268799234dc1979a3c44fc9b0c102a274d5d35db83c282ddb906"
+    },
+    "dense.wasm": {
+      "bytes": 123713,
+      "sha256": "850fa8eb40b4219b8a459f3c1106b9cad5b8ab94929c9d9807d05365f9aa9d59"
+    },
+    "dense-scalar.js": {
+      "bytes": 16449,
+      "sha256": "eefa8ebc573ee76cf0d921ffc0cbb91ddc25bd69971c1bdc2a3c4d48d559862b"
+    },
+    "dense-scalar.wasm": {
+      "bytes": 116294,
+      "sha256": "02ab798ab6e2475a1dbcafc9758b0369d3d2fb4a30fb8168f9fdb4c3c4b2861b"
+    }
+  }
+}

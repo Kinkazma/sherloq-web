@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{effnetNativeMeanGraph}from'./mgcfdn-effnet-native-mean-graph.js';
 import {requireValue,checkAbort} from './errors.js';
 import {readOnnxGraph,onnxFields,onnxNode,onnxInput,onnxInitializer} from './onnx-scoped-graph.js';

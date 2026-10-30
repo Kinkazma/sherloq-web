@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue} from './errors.js';
 let ready,pending;

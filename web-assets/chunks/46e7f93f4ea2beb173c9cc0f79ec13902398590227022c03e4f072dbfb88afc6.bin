@@ -1,0 +1,36 @@
+import "../../runtime-context.js?v=0.30.0";
+import{prepareSelfDMWindowContexts,SELFDM_WINDOW_CONTEXT_POLICY}from'./selfdm-window-context-plan.js';
+import{createSelfDMPrepare}from'./selfdm-prepare.js';
+import{createSelfDMWindowNativeStages}from'./selfdm-window-native-stages.js';
+import{createSelfDMWindowFeatureBank,scatterSelfDMWindowCorrelations,selfDMWindowGlobalValue,createSelfDMWindowAttentionBank,createSelfDMWindowCorrelationBank,selfDMWindowQueryRanges,createSelfDMWindowQuery}from'./selfdm-window-context-bank.js';
+import{SELFDM_WINDOW_BANK,SELFDM_WINDOW_GLOBAL,SELFDM_WINDOW_QUERIES}from'./selfdm-window-context-graph.js';
+import{retireCompositeOwners}from'./composite-owner-release.js';
+import{requireValue,checkAbort,EngineError}from'./errors.js';
+/** One native relation bank for ONE canonical analysis window. The owner stays
+ * with its parent until raw/projection copies and all native/source ACKs. No
+ * shared record, gate, cache, pool protocol or operation registry is changed. */
+export function createSelfDMWindowContextRun({original,window,model,modelUrl,backend,cloneWindowMode='independent'},{budget,profile,signal,onOwner,prepareContexts=prepareSelfDMWindowContexts,nativeStagesFactory=createSelfDMWindowNativeStages}={}){
+ requireValue(['cpu','webgpu'].includes(backend)&&['independent','global'].includes(cloneWindowMode)&&budget?.reserve&&profile?.maxWorkers>0,'Native SelfDM backend, actual mode and common profile required');
+ const lifetime=new AbortController(),requestSignal=signal?AbortSignal.any([signal,lifetime.signal]):lifetime.signal,children=new Set(),records=[];let plan,stages,work,active,closing,closed=false,hasFailure=false,failure;
+ const own=value=>{requireValue(value&&typeof(value.release??value.dispose)==='function','SelfDM child owner required');children.add(value);return value;};
+ const retire=async value=>{if(!value||!children.has(value))return;await(value.release??value.dispose).call(value);children.delete(value);};
+ async function retireWork(){await retireCompositeOwners([...children].map(value=>()=>retire(value)));if(stages){await stages.dispose();stages=null;}if(plan){await plan.release();plan=null;}}
+ const runStage=async(stage,input)=>{checkAbort(requestSignal);const value=own(await stages.run(stage,input,{signal:requestSignal}));checkAbort(requestSignal);records.push({stage,...value.metrics,timings:value.timings,graphTransform:value.graphTransform??null});return value;};
+ async function calculate(){try{
+  plan=await prepareContexts({original,window},{budget,lifetimeSignal:requestSignal,onOwner:value=>{plan=value;}});checkAbort(requestSignal);
+  if(plan.status==='empty')return{status:'empty',cloneWindowMode,contexts:[],analysisWindow:{id:window.id,fingerprint:window.fingerprint},provenance:{cloneWindowMode,policy:SELFDM_WINDOW_CONTEXT_POLICY},release:()=>owner.dispose()};
+  if(plan.ordinaryRectangleEligible)throw new EngineError('NATIVE_RECTANGLE_ROUTE_REQUIRED','An intact full-candidate rectangle must keep the existing unchanged SelfDM route');
+  stages=nativeStagesFactory({budget,profile,model,modelUrl,backend});stages.preflight?.(plan);const bank=own(createSelfDMWindowFeatureBank(plan,{budget}));
+  for(const context of plan.contexts){if(!context.count)continue;const prepare=own(createSelfDMPrepare({budget}));let prepared,encoded;try{prepared=own(await prepare.run({width:context.bounds[2]-context.bounds[0],height:context.bounds[3]-context.bounds[1],side:512,readRows:context.readRows},{signal:requestSignal}));encoded=await runStage('encoder',{rgb:{data:prepared.tensor,dims:prepared.shape,type:'float32'}});await bank.consume(context,encoded.result,{signal:requestSignal});await retire(encoded);encoded=null;await retire(prepared);prepared=null;await retire(prepare);}catch(primary){await retireCompositeOwners([()=>retire(encoded),()=>retire(prepared),()=>retire(prepare)],{primary});throw primary;}}
+  const featureInputs=bank.seal(),attended=own(createSelfDMWindowAttentionBank(plan,{budget}));
+  for(const range of selfDMWindowQueryRanges(plan.nativeCandidateRows)){const query=own(createSelfDMWindowQuery(range,{budget})),value=await runStage('attention',{...featureInputs,[SELFDM_WINDOW_QUERIES]:query.tensor});await attended.consume(range,value.result,{signal:requestSignal});await retire(value);await retire(query);}
+  await retire(bank);const attendedInputs=attended.seal(),correlated=own(createSelfDMWindowCorrelationBank(plan,{budget}));
+  for(const range of selfDMWindowQueryRanges(plan.nativeCandidateRows)){const query=own(createSelfDMWindowQuery(range,{budget})),value=await runStage('relations',{...attendedInputs,[SELFDM_WINDOW_QUERIES]:query.tensor});await correlated.consume(range,value.result,{signal:requestSignal});await retire(value);await retire(query);}
+  await retire(attended);const correlations=correlated.seal(),common=await runStage('global',{[SELFDM_WINDOW_BANK]:correlations[SELFDM_WINDOW_BANK]}),globalValue=selfDMWindowGlobalValue(common.result),contexts=[];
+  for(const context of plan.contexts){if(!context.count){contexts.push({context,status:'empty',raw:null});continue;}const spatial=own(scatterSelfDMWindowCorrelations(plan,context,correlations,{budget})),decoded=await runStage('decoder',{[SELFDM_WINDOW_BANK]:spatial.tensor,[SELFDM_WINDOW_GLOBAL]:globalValue});const value=decoded.result.probability;requireValue(value?.data instanceof Float32Array&&JSON.stringify(value.dims)==='[1,1,512,512]'&&value.data.length===512**2&&value.data.every(v=>Number.isFinite(v)&&v>=0&&v<=1),'Native SelfDM512 raw probabilities required');await retire(spatial);contexts.push({context,status:'complete',raw:value.data,shape:[1,1,512,512],nativeExecution:decoded.metrics});}
+  await retire(common);await retire(correlated);checkAbort(requestSignal);
+  return{status:'complete',cloneWindowMode,contexts,analysisWindow:{id:window.id,kind:window.kind,bounds:[...window.bounds],fingerprint:window.fingerprint},provenance:{cloneWindowMode,sourceSha256:original.sha256,modelSha256:model.sha256,policy:SELFDM_WINDOW_CONTEXT_POLICY,contextFingerprint:plan.contextDomain.fingerprint,candidateFingerprint:plan.candidateDomain.fingerprint,nativeContextCount:plan.contexts.length,nativeCandidateRows:plan.nativeCandidateRows,matchingAcrossContextsOfThisWindow:true,matchingAcrossIndependentWindows:false,maskedUncutCnnEquivalent:false,backend},execution:records,memory:budget.snapshot(),release:()=>owner.dispose()};
+ }catch(primary){hasFailure=true;failure=primary;await retireCompositeOwners([retireWork],{primary});throw primary;}}
+ const owner=Object.freeze({execute(){if(closed)return Promise.reject(new EngineError('DISPOSED','SelfDM window context run retired'));if(!work){work=calculate();active=work;void work.finally(()=>active=null).catch(()=>{});}return work;},dispose(){closed=true;lifetime.abort();if(closing)return closing;closing=(async()=>{await Promise.allSettled([active]);await retireWork();})();void closing.finally(()=>closing=null).catch(()=>{});return closing;},state(){return{closed,active:!!active,hasFailure,failure,children:children.size,sourceOwned:!!plan,nativeStagesOwned:!!stages,execution:records};}});
+ onOwner?.(owner);return owner;
+}

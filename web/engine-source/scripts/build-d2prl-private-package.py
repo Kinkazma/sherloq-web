@@ -3,7 +3,7 @@
 Private development package. This does not publish weights or grant a license.
 """
 from pathlib import Path
-import hashlib,json,shutil
+import hashlib,json,shutil,subprocess,sys
 root=Path(__file__).resolve().parents[1];out=root/'.build/d2prl-private-package';(out/'assets').mkdir(parents=True,exist_ok=True)
 sha=lambda b:hashlib.sha256(b).hexdigest()
 read=lambda p:json.loads((root/p).read_text())
@@ -30,3 +30,14 @@ package['modelId']='d2prl-448-40-'+sha(json.dumps(package,sort_keys=True,separat
 b=(json.dumps(package,indent=2)+'\n').encode();(out/'model.json').write_bytes(b)
 (out/'identity.json').write_text(json.dumps(dict(schema=1,file='model.json',bytes=len(b),sha256=sha(b),modelId=package['modelId'],assets=len(assets),assetBytes=sum(v['bytes'] for v in assets.values()),scope='Private model parameters and configuration only; no native expected images/activations, no distribution permission inferred.'),indent=2)+'\n')
 print((out/'identity.json').read_text())
+
+# Experimental spatial graphs share this PRIVATE parameter directory. They are
+# not embedded in vendor/, source-manifest.json, or the portable runtime.
+# The existing448 model.json and its identity stay byte-for-byte unchanged.
+subprocess.run([sys.executable,str(root/'scripts/build-d2prl-spatial-roles.py'),
+ '--base',str(root),'--model',str(out/role_asset['file']),
+ '--output-dir',str(out/'assets')],check=True)
+spatial=json.loads((root/'vendor/d2prl/dynamic/spatial-roles.json').read_text())
+spatial['scope']='Private converted learned parameters; no redistribution permission inferred.'
+for record in spatial['records'].values():record['file']='assets/'+record['file']
+(out/'spatial-assets.json').write_text(json.dumps(spatial,indent=2)+'\n')

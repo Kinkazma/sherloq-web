@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort,controlCheckpoint}from'./errors.js';
 import{retireCompositeOwners}from'./composite-owner-release.js';
 import{MGCFDN_VIG_WINDOW_SOURCE_SHA256,MGCFDN_VIG_WINDOW_TRANSFORM}from'./mgcfdn-vig-window-head-graph.js';

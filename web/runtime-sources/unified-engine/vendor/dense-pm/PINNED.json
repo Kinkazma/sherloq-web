@@ -1,0 +1,17 @@
+{
+  "source": "Native bridge.cpp live ordered reverse, float32 contraction off",
+  "files": {
+    "dense-pm-reverse.cpp": {
+      "bytes": 11921,
+      "sha256": "7ec03ab848d0246d5481574d214210c7c246dbafde6d3fa35b6c8e75e409a8cc"
+    },
+    "dense-pm-reverse.js": {
+      "bytes": 7968,
+      "sha256": "ad6088d1e3356b819e07d48e91e4157a89c1596ea6fb5b3703fff9f1b6c3c340"
+    },
+    "dense-pm-reverse.wasm": {
+      "bytes": 19727,
+      "sha256": "8dc24aa116340f7af7976464589b2c727e41347427fb12ee14e2d709464b4cf0"
+    }
+  }
+}

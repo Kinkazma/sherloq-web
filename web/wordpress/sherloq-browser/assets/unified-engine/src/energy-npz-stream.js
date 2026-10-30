@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {streamScientificNpz} from './scientific-npz-stream.js';
 function entries(analysis,prefix=''){
  const {width,height}=analysis,n=width*height;return ['energy_planes','energy_low_score','energy_high_score','energy_scope','energy_labels'].map(key=>({key:prefix+key,count:key==='energy_planes'?3*n:n,elementBytes:4,descr:['energy_scope','energy_labels'].includes(key)?'<i4':'<f4',shape:key==='energy_planes'?[3,height,width]:[height,width],async read(bytes,first,length){if(key!=='energy_planes')return analysis[key].readInto(bytes,first*4);let copied=0;while(copied<length){const at=first+copied,plane=Math.floor(at/n),offset=at%n,count=Math.min(length-copied,n-offset);await analysis.energy_planes[plane].readInto(bytes.subarray(copied*4,(copied+count)*4),offset*4);copied+=count;}}}));

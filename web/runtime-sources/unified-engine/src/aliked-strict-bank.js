@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateOwnedTypedArray} from './allocation.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {roundEven} from './pixel-utils.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {deserializeEngineError} from './errors.js';
 import {serializeEngineError} from './errors.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';import {inspectExiftool} from './exiftool.js';import {imageCodec} from './codecs.js';import {segmentedThumbnailComparison} from './thumbnail-stream.js';import {createRgbSurface} from './rgb-surface.js';

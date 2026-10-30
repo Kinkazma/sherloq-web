@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{createSegmentationNativeWindows}from'./segmentation-native-windows.js';
 import{createSegmentationIndependentRun}from'./segmentation-independent-run.js';
 import{SEGMENTATION_MODELS}from'../experiments/segmentation/models.js';

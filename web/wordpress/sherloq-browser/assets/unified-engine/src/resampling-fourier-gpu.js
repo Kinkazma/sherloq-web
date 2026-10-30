@@ -1,0 +1,53 @@
+import "../../runtime-context.js?v=0.30.0";
+import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
+import {getExecutionScheduler} from './execution-scheduler.js';
+import {GRAY_PALETTE} from './gray-palette.js';
+import {fourierViewShader} from './resampling-fourier-gpu-shader.js';
+import {initializeGpuOwner,openOwnedGpuDevice,gpuOwnerSync,gpuOwnerAsync,gpuOwnerReserve,gpuOwnerFailure,gpuOwnerMayFallback,retireOwnedGpuDevice,disposeGpuOwner} from './gpu-context-owner.js';
+import {gpuTransaction,retireGpuTransaction,attachGpuCleanup} from './gpu-ack-retirement.js';
+import {ownGpuArrays} from './gpu-owned-arrays.js';
+const MiB=1024**2,PIPELINE_BYTES=4*MiB;
+
+// Magnitudes are native binary64. The qualified DD domain avoids f32 FTZ and
+// bounds the rescaled absolute error. An unadmitted field keeps the CPU method.
+export function fourierGpuScalarDomain(low,high,gamma,rescale){return low===0&&Number.isFinite(high)&&high>=0&&high<=2**24&&(high===0||high>=2**-80)&&Number.isFinite(gamma)&&gamma>=0&&gamma<=5&&(gamma===0||gamma>=2**-80)&&typeof rescale==='boolean';}
+export function fourierGpuInputDomain(value,high){return Number.isFinite(value)&&value>=0&&(value===0||value>=2**-96&&value>=high*2**-80)&&value<=high;}
+export function fourierViewGpuPlan(count,limits){
+ requireValue(Number.isSafeInteger(count)&&count>0,'Invalid Fourier presentation length.');if(count>16777216)throw new EngineError('GPU_LIMIT','Fourier presentation exceeds its qualified GPU transport.');const inputBytes=count*8,outputBytes=count*12,resultBytes=count*11,binding=Math.min(limits.maxBufferSize,limits.maxStorageBufferBindingSize),axis=limits.maxComputeWorkgroupsPerDimension,groups=Math.ceil(count/128),groupsX=Math.min(groups,axis),groupsY=Math.ceil(groups/groupsX);
+ if(Math.max(inputBytes,outputBytes)>binding||groupsY>axis)throw new EngineError('GPU_LIMIT','Complete Fourier presentation exceeds GPU transport.');
+ return{count,inputBytes,outputBytes,resultBytes,groupsX,groupsY,temporaryBytes:inputBytes*2+outputBytes*3+4096};
+}
+export class FourierViewGpu{
+ constructor(budget){requireValue(budget?.reserve,'Fourier presentation GPU requires its shared budget.');initializeGpuOwner(this,budget,'resampling-fourier');this.pipelineEntry=null;this.pipelineFee=null;}
+ mayFallback(error){return gpuOwnerMayFallback(this,error);}
+ get retirementPending(){return this.retirementNeeded||this.pending.size>0||this.pendingResults.size>0||this.orphanPipelineFees.size>0;}
+ initialize(signal){if(this.closed)throw new EngineError('DISPOSED','Fourier presentation GPU closed.');if(this.ready)return this.ready;this.pipelineFee??=gpuOwnerReserve(this,PIPELINE_BYTES);this.orphanPipelineFees.add(this.pipelineFee);return this.ready=openOwnedGpuDevice(this,signal,a=>({maxBufferSize:Math.min(a.limits.maxBufferSize,256*MiB),maxStorageBufferBindingSize:Math.min(a.limits.maxStorageBufferBindingSize,256*MiB)})).catch(error=>{this.ready=null;throw error;});}
+ async preparePipeline(signal){
+  if(this.pipelineEntry)return this.pipelineEntry;const free=this.pipelineFee;requireValue(typeof free==='function','Fourier device/program credit is required before compilation.');
+  const start=performance.now(),module=gpuOwnerSync(this,()=>this.device.createShaderModule({code:fourierViewShader}),signal),info=await gpuOwnerAsync(this,()=>module.getCompilationInfo(),signal);if(info.messages.some(m=>m.type==='error'))throw gpuOwnerFailure(this,new EngineError('GPU_FAILED',info.messages.filter(m=>m.type==='error').map(m=>m.message).join('\n')));
+  const pipeline=await gpuOwnerAsync(this,()=>this.device.createComputePipelineAsync({layout:'auto',compute:{module,entryPoint:'main'}}),signal);checkAbort(signal);return{pipeline,free,compileMs:performance.now()-start};
+ }
+ async render(input,{low=0,high,gamma=4,rescale=true,signal,onSubmitted}={}){
+  requireValue(input instanceof Float64Array&&input.length>0,'Native Fourier magnitude array required.');requireValue(fourierGpuScalarDomain(low,high,gamma,rescale),'Fourier presentation is outside its qualified DD domain.');checkAbort(signal);if(this.closed)throw new EngineError('DISPOSED','Fourier presentation GPU closed.');if(this.busy)throw new EngineError('BUSY','Fourier presentation GPU is busy.');
+  this.busy=true;this.fallbackFailures=new WeakSet();const cooperate=createCooperator(signal),record=gpuTransaction(this),started=performance.now();let owned,published=false,failed=false,primary;
+  const api=fn=>gpuOwnerSync(this,fn,signal),asyncApi=fn=>gpuOwnerAsync(this,fn,signal);
+  try{
+   if(input.length>16777216)throw gpuOwnerFailure(this,new EngineError('GPU_LIMIT','Fourier magnitude requires the unchanged CPU presentation transport.'));
+   for(let i=0;i<input.length;i++){if(!fourierGpuInputDomain(input[i],high))throw gpuOwnerFailure(this,new EngineError('GPU_LIMIT','Fourier magnitude requires the unchanged CPU presentation domain.'));if((i&8191)===0)await cooperate();}
+   if(this.pending.size>1||this.pendingResults.size||this.lost||this.retirementNeeded||this.orphanPipelineFees.size){this.pending.delete(record);await retireOwnedGpuDevice(this);this.pending.add(record);}
+   record.lease=await getExecutionScheduler(this.budget).acquire({cpu:0,gpu:1,signal,resourceOwner:'resampling-fourier',label:'fourier-DD-presentation'});await this.initialize(signal);record.device=this.device;const device=this.device;let plan;try{plan=fourierViewGpuPlan(input.length,device.limits);}catch(error){throw gpuOwnerFailure(this,error);}
+   record.workspace=gpuOwnerReserve(this,plan.temporaryBytes+plan.resultBytes);record.outputFree=record.workspace.split(plan.resultBytes);api(()=>device.pushErrorScope('validation'));record.scopes++;api(()=>device.pushErrorScope('out-of-memory'));record.scopes++;const building=!this.pipelineEntry,entry=await this.preparePipeline(signal),pipeline=entry.pipeline;
+   const make=(size,usage,label)=>{const buffer=api(()=>device.createBuffer({size,usage})),backing={bytes:size,destroyed:false,release:null};record.buffers.set(buffer,backing);backing.release=this.budget.registerBacking?.('gpu',size,{owner:'resampling-fourier',label});return buffer;};
+   const source=make(plan.inputBytes,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'fourier-native-magnitude'),parameters=make(16,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'fourier-DD-parameters'),palette=make(1024,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'fourier-native-palette'),output=make(plan.outputBytes,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC,'fourier-DD-result'),uniform=make(16,GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST,'fourier-presentation-shape'),read=make(plan.outputBytes,GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST,'fourier-presentation-readback');
+   api(()=>device.queue.writeBuffer(source,0,input));api(()=>device.queue.writeBuffer(parameters,0,Float64Array.of(high,gamma)));api(()=>device.queue.writeBuffer(palette,0,Uint32Array.from(GRAY_PALETTE)));api(()=>device.queue.writeBuffer(uniform,0,Uint32Array.of(input.length,plan.groupsX,Number(rescale),0)));
+   const encoder=api(()=>device.createCommandEncoder());api(()=>{const pass=encoder.beginComputePass();pass.setPipeline(pipeline);pass.setBindGroup(0,device.createBindGroup({layout:pipeline.getBindGroupLayout(0),entries:[source,parameters,palette,output,uniform].map((buffer,binding)=>({binding,resource:{buffer}}))}));pass.dispatchWorkgroups(plan.groupsX,plan.groupsY);pass.end();encoder.copyBufferToBuffer(output,0,read,0,plan.outputBytes);});checkAbort(signal);api(()=>device.queue.submit([encoder.finish()]));onSubmitted?.();await asyncApi(()=>read.mapAsync(GPUMapMode.READ));record.mapping={buffer:read,mapped:true,release:null};const mapped=api(()=>read.getMappedRange());record.mapping.release=this.budget.registerBacking?.('gpu-mapped',plan.outputBytes,{owner:'resampling-fourier',label:'fourier-DD-mapped',identity:mapped});
+   const words=new Uint32Array(mapped),values=new Float64Array(mapped,0,input.length).slice(),pixels=new Uint8Array(input.length*3);let refinedPixels=0,refinedValues=0;for(let i=0;i<input.length;i++){const packed=words[input.length*2+i];let gray=packed&255;if(packed&768){refinedPixels++;const exact=Math.pow(high>low?(input[i]-low)/(high-low):0,gamma)*(rescale?high:1);if(packed&512){values[i]=exact;refinedValues++;}gray=GRAY_PALETTE[Math.max(0,Math.min(255,Math.floor(exact*256)))];}const at=i*3;pixels[at]=gray;pixels[at+1]=gray;pixels[at+2]=gray;if((i&8191)===0)await cooperate();}api(()=>read.unmap());record.mapping.mapped=false;await record.mapping.release?.();record.mapping=null;
+   while(record.scopes){const error=await asyncApi(()=>device.popErrorScope());record.scopes--;if(error)throw gpuOwnerFailure(this,new EngineError('GPU_FAILED',error.message));}await asyncApi(()=>device.queue.onSubmittedWorkDone());record.drained=true;checkAbort(signal);if(this.lost)throw gpuOwnerFailure(this,new EngineError('GPU_FAILED','Fourier presentation device lost.'));
+   if(building){this.pipelineEntry=entry;this.orphanPipelineFees.delete(entry.free);this.pipelineFee=null;}const owners=[];owned=ownGpuArrays({values,pixels},record.outputFree,owners,this.budget,{metrics:{backend:'webgpu',fourierPresentationGpuCalls:1,fourierPresentationGpuPixels:input.length,fourierPresentationRefinedPixels:refinedPixels,fourierPresentationRefinedValues:refinedValues,fourierPresentationCompileMs:building?entry.compileMs:0,fourierPresentationMs:performance.now()-started,arithmetic:'DD-f32 native-magnitude presentation; unchanged CPU palette repair at ambiguous thresholds',maximumAbsoluteErrorBound:1e-4}},this.pendingResults);record.outputFree=null;this.pendingResults.add(owned);for(const array of[values,pixels])owners.push({bytes:array.byteLength,release:this.budget.registerBacking?.('array-buffer',array.byteLength,{owner:'resampling-fourier',label:'fourier-presentation-result',identity:array.buffer})});published=true;return owned;
+  }catch(error){failed=true;primary=error;throw error;}
+  finally{let cleanupFailed=false,cleanup;try{await retireGpuTransaction(this,record);}catch(error){cleanupFailed=true;cleanup=error;}try{if(owned&&(!published||failed||cleanupFailed))await owned.release();else if(owned)this.pendingResults.delete(owned);}catch(error){if(!cleanupFailed){cleanupFailed=true;cleanup=error;}}this.busy=false;if(cleanupFailed){if(failed)attachGpuCleanup(primary,cleanup);else throw cleanup;}}
+ }
+ async retirePipelines(){if(this.pipelineEntry){await this.pipelineEntry.free();this.pipelineEntry=null;}this.pipelineFee=null;}
+ retire(){if(this.busy)throw new EngineError('BUSY','Fourier presentation must drain before retirement.');return retireOwnedGpuDevice(this);}
+ dispose(){return disposeGpuOwner(this);}
+}

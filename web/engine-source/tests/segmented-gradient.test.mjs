@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';
 import {Budget} from '../src/cache.js';import {createSegmentedBytes} from '../src/segmented-bytes.js';import {createRgbSurface} from '../src/rgb-surface.js';import {orientRgb} from '../src/image-headers.js';
 import {initCvWasm} from '../src/opencv.js';import {OPENCV_OPERATIONS} from '../src/opencv-operations.js';import {initGradientWasm} from '../src/gradient-math.js';import {segmentedGradient} from '../src/segmented-gradient.js';
-await initGradientWasm({wasmBinary:await readFile(new URL('../vendor/gradient/gradient.wasm',import.meta.url))});await initCvWasm({wasmBinary:await readFile(new URL('../vendor/opencv/opencv.wasm',import.meta.url))});
+await initGradientWasm({wasmBinary:await readFile(new URL('../vendor/gradient/gradient.wasm',import.meta.url))});await initCvWasm({wasmBinary:await readFile(new URL(import.meta.resolve('../vendor/opencv/opencv.wasm')))});
 const operation=OPENCV_OPERATIONS['detail.gradient'],hash=data=>createHash('sha256').update(data).digest('hex'),reference=JSON.parse(await readFile(new URL('../fixtures/opencv-reference.json',import.meta.url)));
 async function source(pixels,{orientation=1,limit=128*1024**2}={}){const budget=new Budget(limit),store=await createSegmentedBytes(pixels.data.length,{budget,chunkBytes:113});await store.write(pixels.data);return{budget,image:{store,surface:createRgbSurface(store,{...pixels,budget,orientation})}};}
 test('All 640 native gradient variants preserve global maxima, normalization and equalization across seven-row strips',async()=>{

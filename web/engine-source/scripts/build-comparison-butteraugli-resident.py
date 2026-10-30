@@ -1,0 +1,28 @@
+from pathlib import Path
+import os,re,subprocess,json,shutil
+root=Path(__file__).resolve().parents[1];base=Path(os.environ.get('COMPARISON_BASE',root));
+def source(name):
+ p=root/name
+ return p if p.exists() else base/name
+compiler=Path(os.environ['EMSDK'])/'upstream/emscripten/em++';out=root/'vendor/comparison-butteraugli-resident';out.mkdir(exist_ok=True);build=root/'.build/butteraugli-resident';build.mkdir(exist_ok=True)
+
+# Regenerate the public paged axis adaptation, then select the original
+# contiguous Image storage for this resident build. No learned parameters.
+subprocess.run(['python3',str(root/'scripts/adapt-butteraugli-paged.py')],cwd=root,check=True)
+resident_source=root/'vendor/comparison-butteraugli-resident-source';resident_source.mkdir(exist_ok=True)
+text=(root/'vendor/comparison-butteraugli-paged-source/butteraugli.cc').read_text()
+text=text.replace('#include "butteraugli.h"', '#include "butteraugli.h"\n#include <emscripten.h>\nEM_ASYNC_JS(int,butterDenseCheck,(const char* phase,int completed,int total),{try{await Module.checkpoint(UTF8ToString(phase),completed,total);return 0;}catch(e){Module.ioError=e;return 1;}});\nstatic void check(const char* phase,int row,int total){if(butterDenseCheck(phase,row,total))throw std::runtime_error("Butteraugli stopped");}')
+(resident_source/'butteraugli.cc').write_text(text)
+(resident_source/'butteraugli.h').write_bytes(source('vendor/comparison/butteraugli/butteraugli.h').read_bytes())
+
+s=source('vendor/comparison/butteraugli/butteraugli_main.cc').read_text();(root/'.build/butteraugli-paged-heatmap.h').write_text(s[s.index('static void ScoreToRgb'):s.index('void CreateHeatMapImage')])
+llvm=build/'kernel.ll';obj=build/'kernel.o';flags=['-I'+str(base/'native'),'-std=c++17','-O3','-msimd128','-fexceptions','-ffile-prefix-map='+str(root)+'/=']
+subprocess.run([str(compiler),*flags,'-ffp-contract=on','-S','-emit-llvm',str(root/'vendor/comparison-butteraugli-resident-source/butteraugli.cc'),'-o',str(llvm)],check=True)
+s=llvm.read_text();s=re.sub(r'@llvm.fmuladd.(v\d+f\d+)',r'@llvm.fma.\1',s)
+for suffix,ret,fn in [('f32','float','sherloq_stereo_fma'),('f64','double','sherloq_stereo_fma64')]:
+ s=s.replace('@llvm.fmuladd.'+suffix,'@'+fn).replace('@llvm.fma.'+suffix,'@'+fn)
+ seen=set();s='\n'.join(l for l in s.splitlines() if not(l.startswith('declare '+ret+' @'+fn) and (l in seen or seen.add(l))))+'\n'
+ s=re.sub(r'declare '+ret+' @'+fn+r'\('+ret+', '+ret+', '+ret+r'\) #\d+',f'declare {ret} @{fn}({ret}, {ret}, {ret})',s)
+llvm.write_text(s);subprocess.run([str(compiler),'-O3','-msimd128','-c',str(llvm),'-o',str(obj)],check=True)
+subprocess.run([str(compiler),str(root/'native/comparison-butteraugli-resident.cpp'),str(obj),*flags,'-ffp-contract=off','-sDISABLE_EXCEPTION_CATCHING=0','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sASYNCIFY=1','-sASYNCIFY_STACK_SIZE=524288','-sSTACK_SIZE=1048576','-sALLOW_MEMORY_GROWTH=1','-sINITIAL_MEMORY=8388608','-sMAXIMUM_MEMORY=1073741824','-sMEMORY_GROWTH_GEOMETRIC_STEP=0','-sMEMORY_GROWTH_LINEAR_STEP=1048576','-sABORTING_MALLOC=0','-sFILESYSTEM=0','-sEXPORTED_FUNCTIONS='+json.dumps(['_malloc','_free','_comparison_butteraugli_resident','_comparison_butteraugli_score','_comparison_butteraugli_gpu_enabled']),'-sEXPORTED_RUNTIME_METHODS='+json.dumps(['ccall','UTF8ToString','HEAPU8']),'-o',str(out/'comparison-butteraugli-resident.js')],check=True)
+shutil.copyfile(source('vendor/opencv/LICENSE'),out/'LICENSE-APACHE.txt');(out/'NOTICES.txt').write_text('\n'.join(source('vendor/comparison/butteraugli/butteraugli.cc').read_text().splitlines()[:16]))

@@ -1,5 +1,5 @@
-import {isEnergyContextCollection,selectEnergyContext,energyContextFields} from './energy-context-selection.js';
-import {readEnergyWindow} from './energy-native-fields.js';
+import {isEnergyContextCollection,selectEnergyContext,energyContextFields} from './energy-context-selection.js?v=0.30.0';
+import {readEnergyWindow} from './energy-native-fields.js?v=0.30.0';
 // Lossless NPY/ZIP64 and JSON writers. Memory use is one bounded chunk; the
 // caller provides backpressure and a file/Blob sink. No analysis is rerun.
 const encoder=new TextEncoder(),CHUNK=1024*1024;

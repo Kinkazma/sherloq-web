@@ -9,20 +9,20 @@
       "sha256": "7e04d5531073618f633b828714b386ce79109bad961b03dc088abc3e433c2b1d"
     },
     "dense-simd.js": {
-      "bytes": 16138,
-      "sha256": "f1e9cf196b57ce5e5d5a08e1619965334e12b565d1b1f0e97c5e818315b0c53a"
+      "bytes": 16435,
+      "sha256": "4ecacfe9e360268799234dc1979a3c44fc9b0c102a274d5d35db83c282ddb906"
     },
     "dense.wasm": {
-      "bytes": 122511,
-      "sha256": "8885b43a9da885399d8c76f0d586a69901fd17f7cc0e1b8f477a0d7d87855905"
+      "bytes": 123713,
+      "sha256": "850fa8eb40b4219b8a459f3c1106b9cad5b8ab94929c9d9807d05365f9aa9d59"
     },
     "dense-scalar.js": {
-      "bytes": 16152,
-      "sha256": "04d0a3a773443a99462cd8c4e8b1ed9553cf3376ee3455e7b4aaeb0a7b645f52"
+      "bytes": 16449,
+      "sha256": "eefa8ebc573ee76cf0d921ffc0cbb91ddc25bd69971c1bdc2a3c4d48d559862b"
     },
     "dense-scalar.wasm": {
-      "bytes": 116650,
-      "sha256": "fe2b49935fa50e0f12565dc783f455d99931e029414282b93c1f545f1eaa61b6"
+      "bytes": 116294,
+      "sha256": "02ab798ab6e2475a1dbcafc9758b0369d3d2fb4a30fb8168f9fdb4c3c4b2861b"
     }
   }
 }

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {installTransformStripWorker} from './transform-strip-worker.js';
 import {frequencyStreamMath,frequencyStreamHeapBytes} from './frequency-stream-math.js';
 installTransformStripWorker(async data=>{const math=await frequencyStreamMath();let values;

@@ -37,5 +37,5 @@ async function createOpfsBatchArtifactStore(options={}){
 // Retry only setup: an open OPFS store never migrates after a write failure.
 export async function createBatchArtifactStore(options={}){
  try{return await createOpfsBatchArtifactStore(options);}
- catch(error){if(error.code!=='STORAGE_IO'||!(options.indexedDB??globalThis.indexedDB))throw error;const{createIndexedDbBatchArtifactStore}=await import('./batch-artifacts-idb.js');return createIndexedDbBatchArtifactStore({...options,fallback:{from:'opfs',code:error.code,message:error.message}});}
+ catch(error){if(error.code!=='STORAGE_IO'||!(options.indexedDB??globalThis.indexedDB))throw error;const{createIndexedDbBatchArtifactStore}=await import('./batch-artifacts-idb.js?v=0.30.0');return createIndexedDbBatchArtifactStore({...options,fallback:{from:'opfs',code:error.code,message:error.message}});}
 }

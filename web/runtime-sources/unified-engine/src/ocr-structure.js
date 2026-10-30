@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 
 export const OCR_PSM=Object.freeze([3,4,6,7,8,10,11,13]);

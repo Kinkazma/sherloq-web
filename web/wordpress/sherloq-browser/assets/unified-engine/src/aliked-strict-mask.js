@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import createMasks from '../vendor/sparse-extract/sparse-extract.js';
 import {SPARSE_EXTRACT_WASM} from './sparse-extract-assets.js';
 import {fetchM3Asset} from './m3-asset.js';

@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {attachGpuCleanup} from './gpu-ack-retirement.js';
 import {jpegQuality,qualityParams} from './jpeg-quality.js';
 import {jpegRecompression,recompressionParams} from './jpeg-recompression.js';
 import {segmentedRecompressionLosses} from './segmented-recompression.js';
@@ -20,10 +21,10 @@ export function nativeJpegCurveContextAdmission(rect){const dimensions=Number.is
  * Combining their normalized minima would invent another detector. */
 export async function sourceRegionJpegCurve({task,original,view,domain,budget,signal,onProgress,profile={},cpuKernel='auto',references=[]}){
  const quality=task.operation==='jpeg.quality';requireValue(quality||task.operation==='jpeg.recompression','Unsupported native JPEG curve operation.');
- if(!['cpu','auto'].includes(task.backend??'auto'))throw new EngineError('SOURCE_SCOPE_BACKEND_UNSUPPORTED','Native JPEG curves use their unchanged CPU codecs.');
+ if(!['cpu','webgpu','auto'].includes(task.backend??'auto'))throw new EngineError('SOURCE_SCOPE_BACKEND_UNSUPPORTED','Native JPEG curves use their unchanged CPU codecs.');
  const p=quality?qualityParams(task.params):recompressionParams(task.params),reference=quality&&p.modelId!==null?references[0]:null;
  if(quality&&p.modelId!==null)requireValue(reference?.id===p.modelId&&reference.kind==='jpeg-quality-model'&&/^[a-f0-9]{64}$/.test(reference.sha256??'')&&typeof reference.model?.predict==='function','A verified loaded JPEG-quality model reference is required.');
- const leases=[],fragments=[],adaptive=adaptiveFor(budget),prefix=task.imageId+'\0source-region/jpeg-gray-context-v1/'+domain.fingerprint+'/',started=performance.now();let total=0,evaluated=0,recompressions=0,cacheHits=0,workers=0,failure;
+ const leases=[],fragments=[],adaptive=adaptiveFor(budget),prefix=task.imageId+'\0source-region/jpeg-gray-context-v1/'+domain.fingerprint+'/',started=performance.now();let total=0,evaluated=0,recompressions=0,cacheHits=0,workers=0,gpuContexts=0,failure,failed=false;
  try{
   leases.push(budget.reserve(65536+Math.max(0,QUALITY_HEAP_LIMIT-qualityHeapBytes())));
   const header=quality?await inspectOriginalJpeg(original,{signal}):undefined;
@@ -40,21 +41,21 @@ export async function sourceRegionJpegCurve({task,original,view,domain,budget,si
     const key=contextPrefix+'losses',bytes=256+key.length*2+101*9,lease=budget.reserve(bytes);
     try{
      const bank=budget.get(key)?.value??{values:new Float64Array(101),valid:new Uint8Array(101)},entry={value:bank,byteLength:bytes},missing=[];
-     for(const q of qualities){if(bank.valid[q])cacheHits++;else missing.push(q);}
+     if(cpuKernel!=='reference'&&bank.valid[1]&&!bank.valid[0]){bank.values[0]=bank.values[1];bank.valid[0]=1;}for(const q of qualities){if(bank.valid[q])cacheHits++;else missing.push(q);}
      let metrics={workers:0,kernel:'jpeg-context-cached-losses',recompressions:0};
-     if(missing.length){const answer=await segmentedRecompressionLosses(image.surface,missing,{image,budget,signal,maxWorkers:cpuKernel==='auto'?profile.maxWorkers??1:1,adaptive,onProgress:f=>hooks.onProgress?.((qualities.length-missing.length+f*missing.length)/qualities.length),onQuality:(q,value)=>{bank.values[q]=value;bank.valid[q]=1;budget.put(key,entry,[task.imageId]);}});metrics=answer.metrics;recompressions+=metrics.recompressions??missing.length;workers=Math.max(workers,metrics.workers??0);}
+     if(missing.length){const answer=await segmentedRecompressionLosses(image.surface,missing,{image,budget,signal,backend:task.backend??'auto',gpuAllowed:cpuKernel!=='reference',profile,maxWorkers:cpuKernel==='auto'?profile.maxWorkers??1:1,adaptive,onProgress:f=>hooks.onProgress?.((qualities.length-missing.length+f*missing.length)/qualities.length),onQuality:(q,value)=>{bank.values[q]=value;bank.valid[q]=1;budget.put(key,entry,[task.imageId]);}});metrics=answer.metrics;recompressions+=metrics.recompressions??missing.length;workers=Math.max(workers,metrics.workers??0);}
      return{raw:Float64Array.from(qualities,q=>bank.values[q]),metrics};
     }finally{lease();}
    };
-   let native,nativeFailure;
+   let native,nativeFailure,nativeFailed=false;
    try{native=await(quality?jpegQuality:jpegRecompression)(image.surface.descriptor,p,{signal,onProgress:f=>onProgress?.({phase:'source-region-jpeg-curve',sourceFragment:metadata.id,contextFraction:f,completed:evaluated,total:domain.countIncluded})},context);checkAbort(signal);}
-   catch(error){nativeFailure=error;throw error;}
-   finally{try{await image.rgbRecompression?.dispose();}catch(error){if(nativeFailure)nativeFailure.details={...nativeFailure.details,cleanup:{code:error.code,message:error.message}};else throw error;}}
-   leases.push(budget.reserve(2048+payloadBytes(native.data)*2));fragments.push({...metadata,status:'analysed',data:structuredClone(native.data),nativeMetrics:structuredClone(native.engineMetrics)});evaluated+=rect.width*rect.height;
+   catch(error){nativeFailed=true;nativeFailure=error;throw error;}
+   finally{try{await image.rgbRecompression?.dispose();}catch(error){if(nativeFailed)attachGpuCleanup(nativeFailure,error);else throw error;}}
+   if(native.engineMetrics?.backend==='webgpu')gpuContexts++;leases.push(budget.reserve(2048+payloadBytes(native.data)*2));fragments.push({...metadata,status:'analysed',data:structuredClone(native.data),nativeMetrics:structuredClone(native.engineMetrics)});evaluated+=rect.width*rect.height;
   }
   checkAbort(signal);requireValue(total===domain.countIncluded,'Native JPEG contexts must cover every admitted observation.');
   const available=fragments.filter(f=>f.evaluable),unavailable=fragments.length-available.length,status=!available.length?'native-not-evaluable':unavailable?'partially-evaluable':'evaluated',data={independentNativeContexts:true,sourceRegionEvaluation:status,sourceDimensions:[domain.width,domain.height],fragments,...(available.length===1?available[0].data:{})};
-  return{id:task.id,imageId:task.imageId,operation:task.operation,status:'ok',data,layers:[],semantics:'Each exact admitted RGB rectangle retains its unchanged native grayscale JPEG losses, native local codec phase and edge padding. Curves, normalized minima and optional predictions remain separate per context. Original encoded quantization tables are common file evidence; the admitted crop is never re-encoded to invent tables.',warnings:unavailable?[{code:'NATIVE_CONTEXT_NOT_EVALUABLE',count:unavailable,allContexts:!available.length,message:'Some contexts exceed the native JPEG codec dimensions. No curve or estimate is supplied for them.'}]:[],metrics:{selectedPixels:domain.countIncluded,analysedPixels:evaluated,unanalysablePixels:domain.countIncluded-evaluated,sourceRegionEvaluation:status,fragmentCount:fragments.length,evaluatedContexts:available.length,nonEvaluableContexts:unavailable,recompressions,workers,scalarCacheHits:cacheHits,cache:{analysis:recompressions===0,result:false},totalMs:performance.now()-started},provenance:{params:p,backend:'cpu',sourceRegionDomain:domain.descriptor,independentNativeContexts:true,excludedParticipation:'absent-before-gray-JPEG-losses-normalization-and-model',originalEncodedBytesPreserved:true,...(reference?{references:[{id:reference.id,kind:reference.kind,originalSha256:reference.sha256}]}:{})}};
- }catch(error){failure=normalizeResourceError(error);throw failure;}
- finally{let cleanup;for(const release of leases)try{release();}catch(error){cleanup??=error;}if(cleanup){if(failure)failure.details={...failure.details,cleanup:{code:cleanup.code,message:cleanup.message}};else throw cleanup;}}
+  return{id:task.id,imageId:task.imageId,operation:task.operation,status:'ok',data,layers:[],semantics:'Each exact admitted RGB rectangle retains its unchanged native grayscale JPEG losses, native local codec phase and edge padding. Curves, normalized minima and optional predictions remain separate per context. Original encoded quantization tables are common file evidence; the admitted crop is never re-encoded to invent tables.',warnings:unavailable?[{code:'NATIVE_CONTEXT_NOT_EVALUABLE',count:unavailable,allContexts:!available.length,message:'Some contexts exceed the native JPEG codec dimensions. No curve or estimate is supplied for them.'}]:[],metrics:{selectedPixels:domain.countIncluded,analysedPixels:evaluated,unanalysablePixels:domain.countIncluded-evaluated,sourceRegionEvaluation:status,fragmentCount:fragments.length,evaluatedContexts:available.length,nonEvaluableContexts:unavailable,recompressions,workers,gpuContexts,scalarCacheHits:cacheHits,cache:{analysis:recompressions===0,result:false},totalMs:performance.now()-started},provenance:{params:p,backend:gpuContexts?'webgpu':'cpu',sourceRegionDomain:domain.descriptor,independentNativeContexts:true,excludedParticipation:'absent-before-gray-JPEG-losses-normalization-and-model',originalEncodedBytesPreserved:true,...(reference?{references:[{id:reference.id,kind:reference.kind,originalSha256:reference.sha256}]}:{})}};
+ }catch(error){failed=true;failure=normalizeResourceError(error);throw failure;}
+ finally{let cleanup;for(const release of leases)try{release();}catch(error){cleanup??=error;}if(cleanup){if(failed)attachGpuCleanup(failure,cleanup);else throw cleanup;}}
 }

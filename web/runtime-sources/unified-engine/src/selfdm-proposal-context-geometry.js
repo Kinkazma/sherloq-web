@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,EngineError} from './errors.js';
 import {SELFDM_WINDOW_CONTEXT_POLICY} from './selfdm-window-context-plan.js';
 import {proposalDeepMaskWindows,proposalSourcePatch} from './selfdm-proposal-pyramid.js';
@@ -16,14 +16,16 @@ const roundMiB=n=>Math.ceil(n/MiB)*MiB;
 export async function prepareSelfDMProposalContextGeometry(sourcePlan,{budget,signal,cloneWindowMode}={}) {
  requireValue(sourcePlan?.policy===SELFDM_WINDOW_CONTEXT_POLICY&&sourcePlan.contextDomain?.descriptor&&sourcePlan.candidateDomain?.descriptor&&Array.isArray(sourcePlan.contexts)&&budget?.reserve&&['independent','global'].includes(cloneWindowMode),'Verified native source contexts, budget and actual clone mode required');
  checkAbort(signal);
- // Validate every native scale before metadata allocation, RGB or any graph.
+ // Validate every evaluable native scale before metadata allocation or RGB.
+ // A narrow admitted fragment can have an empty low-resolution scale.
+ // Record it explicitly; do not pad/rescale it or abort valid neighbouring scales.
  for(const context of sourcePlan.contexts){
   const b=context.bounds;
   requireValue(Array.isArray(b)&&b.length===4&&b.every(Number.isSafeInteger)&&b[2]>b[0]&&b[3]>b[1],'Literal native context bounds required');
   const width=b[2]-b[0],height=b[3]-b[1];
   for(let index=0;index<7;index++){
    const scale=2**(-2.5+index*.5),ow=Math.floor(width*scale),oh=Math.floor(height*scale);
-   if(!ow||!oh)throw new EngineError('NATIVE_PROPOSAL_CONTEXT_GEOMETRY','A literal context produces a zero-sized native DeepMask scale; no scale was skipped or clamped.',{details:{contextId:context.id,bounds:[...b],scaleIndex:index,scale,width,height,outputWidth:ow,outputHeight:oh,beforeRgbAndAnyEncoder:true}});
+   if(!ow||!oh)continue;
    requireValue(Number.isSafeInteger((ow+160)*(oh+160)*12),'Native DeepMask context scale exceeds exact geometry');
   }
  }
@@ -39,6 +41,7 @@ export async function prepareSelfDMProposalContextGeometry(sourcePlan,{budget,si
    checkAbort(signal);const width=context.bounds[2]-context.bounds[0],height=context.bounds[3]-context.bounds[1],scales=[];
    for(let index=0;index<7;index++){
     checkAbort(signal);const scale=2**(-2.5+index*.5),ow=Math.floor(width*scale),oh=Math.floor(height*scale),pw=ow+160,ph=oh+160,rows=Math.ceil(ph/16)-9,cols=Math.ceil(pw/16)-9;
+    if(!ow||!oh){scales.push({index,scale,ow,oh,rows:0,cols:0,windows:[],status:'not-evaluable',reason:'native-scale-has-no-pixels'});continue;}
     const windowBound=pw<=704&&ph<=704?1:Math.ceil(rows/16)*Math.ceil(cols/16);
     requireValue(Number.isSafeInteger(windowBound)&&windowBound>0&&Number.isSafeInteger(windowBound*1024),'Native pyramid metadata exceeds exact admission');
     credits.push(budget.reserve(windowBound*1024));
@@ -51,7 +54,7 @@ export async function prepareSelfDMProposalContextGeometry(sourcePlan,{budget,si
      requireValue([heapBytes,workspaceBytes,outputBytes].every(Number.isSafeInteger),'Native DeepMask buffer admission exceeds exact integers');
      windows.push({...window,sourcePatch:patch,nativeInputBytes:inputBytes,nativeSourceBytes:sourceBytes,nativeHeapBytes:heapBytes,nativeWorkspaceBytes:workspaceBytes,nativeOutputBytes:outputBytes});
     }
-    scales.push({index,scale,ow,oh,rows:geometry.rows,cols:geometry.cols,windows});
+    scales.push({index,scale,ow,oh,status:'ready',rows:geometry.rows,cols:geometry.cols,windows});
    }
    contexts.push({id:context.id,bounds:[...context.bounds],nativeContext:context,scales});
   }

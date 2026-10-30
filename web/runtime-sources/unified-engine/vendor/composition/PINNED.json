@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "opencv": "4.11.0",
+  "sourceSha256": "3b2496e6d2cc932c03b4d9e06cc238fe573c1d698669cc6c64b653a32e4bfb57",
+  "objects": {
+    "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+  },
+  "files": {
+    "composition.js": {
+      "bytes": 21720,
+      "sha256": "4a73051fa8c3ae23241f993671036b530b2a233b31e95d5a5a4c63622489fcb0"
+    },
+    "composition.wasm": {
+      "bytes": 381405,
+      "sha256": "cd4af1114fbb9e149b3832676ba4c6ac87425f07c7f6d501c48163d79d2416af"
+    }
+  }
+}

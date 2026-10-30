@@ -1,0 +1,14 @@
+{
+  "scope": "Original complete-axis PyWavelets stream plus exact detail-only stencil and independent native CV8U affine interval exports; original full functions retained",
+  "pywaveletsVersion": "1.5.0",
+  "archiveSha256": "5aedfa9bd629f104a04fda88b92582bda38ab22282ce5048b5760b5d18e83fc9",
+  "emscriptenVersion": "4.0.15",
+  "files": {
+    "vendor/wavelet-stream/wavelet-stream.js": "a6ec6dc0465a6ade676f6bf291c3db88396e64ef538f70ee970dce0dab2be58c",
+    "vendor/wavelet-stream/wavelet-stream.wasm": "0f5122c14eabb9e11f5d81684ed92f6c3d08dbb23e99d880fe57fd47848dbe27",
+    "native/wavelet-stream.cpp": "0b6a9500fd6551fb3f0d054b17d293289a481df066fb731515ae407f4f36927b",
+    "native/wavelets.cpp": "7a71d3c4c3432744f1e32c9440255c388524051892b8599e201e6b342abefb4d",
+    "scripts/build-wavelet-stream.sh": "b9f7240e5dcf6290d3c04ad20fc17e62b00d0b52cd775b73dda75474a2caaa07"
+  },
+  "updatedAt": "2026-10-27T17:51:04.797224+00:00"
+}

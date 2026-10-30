@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createDenseTracePrefixCache} from './dense-trace-prefix-cache.js';
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {createDenseScopedWindowProduct,DENSE_SCOPED_RECIPE} from './dense-scoped-window-product.js';
@@ -53,13 +53,32 @@ export function createDenseAdapter({budget,profile,version,publishResult,create=
  const records=new Map();
  function privateSurfaceOwner(r){
   const free=budget.reserve(4096),holder={native:null,renderOwner:null,surfaceDispose:null,surfaceId:null,renderComplete:Promise.resolve()};
-  const dropNative=onceDenseRetirement(()=>holder.native?.release());holder.release=onceDenseRetirement(async()=>{await holder.renderComplete;await acknowledgeDenseRetirement(()=>holder.renderOwner?holder.renderOwner.dispose():holder.surfaceDispose?.());await dropNative();holder.native=holder.renderOwner=holder.surfaceDispose=null;free();r.pending.delete(holder);if(holder.surfaceId)r.published.delete(holder.surfaceId);});r.pending.add(holder);return holder;
+  const dropNative=onceDenseRetirement(()=>holder.native?.release());holder.release=onceDenseRetirement(async()=>{await holder.renderComplete;await acknowledgeDenseRetirement(()=>holder.renderOwner?holder.renderOwner.dispose():holder.surfaceDispose?.());await dropNative();holder.native=holder.renderOwner=holder.surfaceDispose=null;r.pending.delete(holder);if(holder.surfaceId)r.published.delete(holder.surfaceId);if(r.retireAfterPublished&&!r.clearInProgress&&!r.published.size)await clearImage(r.imageId);free();});r.pending.add(holder);return holder;
  }
- async function clearImage(id){const selected=[...records].filter(([key])=>id===undefined||id===key);for(const [key,r]of selected){r.retiring=true;if(r.scoped){await retireDenseOwners([...r.pending].map(holder=>holder.release));if(r.published.size)requireValue(typeof releasePublished==='function','Scoped Dense public results require their actual parent retirement callback.');for(const surfaceId of [...r.published])await acknowledgeDenseRetirement(()=>releasePublished(surfaceId));await acknowledgeDenseRetirement(()=>r.cached?.releaseCache());await acknowledgeDenseRetirement(()=>r.engine.dispose());records.delete(key);}else{await acknowledgeDenseRetirement(()=>r.cached?.releaseCache());await acknowledgeDenseRetirement(()=>r.engine.dispose());records.delete(key);}}}
+ async function clearImage(id,{preservePublished=false}={}){
+  const selected=[...records].filter(([key])=>id===undefined||id===key);
+  for(const [key,r]of selected){
+   // Method changes cannot retire a frame still owned by their UI caller.
+   // Its last public surface ACK completes the deferred cache retirement.
+   if(preservePublished&&r.scoped&&r.published.size){r.retireAfterPublished=true;continue;}
+   r.retiring=true;r.clearInProgress=true;
+   try{
+    if(r.scoped){
+     await retireDenseOwners([...r.pending].map(holder=>holder.release));
+     if(r.published.size)requireValue(typeof releasePublished==='function','Scoped Dense public results require their actual parent retirement callback.');
+     for(const surfaceId of [...r.published])await acknowledgeDenseRetirement(()=>releasePublished(surfaceId));
+    }
+    await acknowledgeDenseRetirement(()=>r.cached?.releaseCache());
+    await acknowledgeDenseRetirement(()=>r.engine.dispose());
+    records.delete(key);r.retireAfterPublished=false;
+   }finally{r.clearInProgress=false;}
+  }
+ }
+
  async function present(task,image,{signal,onProgress,knownHeapBytes=0,expectedData}={},retainedOnly=false){
   const p=denseCopyParams(task.params),view=sparseCopyViewParams(task.view),backend=task.backend??'auto';const scope=task.scientificScope,scoped=scope!==undefined,mode=task.cloneWindowMode??'independent';if(scoped)requireValue(scope?.status==='ready'&&/^[a-f0-9]{64}$/.test(scope.fingerprint??'')&&['independent','global'].includes(mode),'Certified Dense scope and mode required; no whole fallback.');
   requireValue(['cpu','auto','webgpu'].includes(backend),'Invalid dense backend.');requireValue(!task.regions?.length,'Dense polygons belong in params.regions.');checkAbort(signal);
-  let r=records.get(task.imageId);requireValue(!r?.retiring,'Dense image owner is retiring.');if(retainedOnly)requireValue(r?.cached&&r.image===image&&r.scoped===scoped,'Retained Dense native archive is unavailable.');if(r&&r.scoped!==scoped){await clearImage(task.imageId);r=null;}if(!r){r={engine:scoped?scopedCreate(image,budget,{profile,geometry}):create(image.segmented?image:image.pixels,budget,{profile,geometry}),cached:null,image,scoped,published:new Set(),pending:scoped?new Set():null};records.set(task.imageId,r);}
+  let r=records.get(task.imageId);requireValue(!r?.retiring,'Dense image owner is retiring.');if(retainedOnly)requireValue(r?.cached&&r.image===image&&r.scoped===scoped,'Retained Dense native archive is unavailable.');if(r&&r.scoped!==scoped){await clearImage(task.imageId);r=null;}if(!r){r={imageId:task.imageId,retireAfterPublished:false,engine:scoped?scopedCreate(image,budget,{profile,geometry}):create(image.segmented?image:image.pixels,budget,{profile,geometry}),cached:null,image,scoped,published:new Set(),pending:scoped?new Set():null};records.set(task.imageId,r);}r.retireAfterPublished=false;
   const identity=JSON.stringify(scoped?[DENSE_SCOPED_RECIPE,p,backend,mode,scope.fingerprint,scope,image.sha256,image.sourceRegionDomain?.fingerprint??null,image.sourceRegionOrigin??[0,0]]:[p,backend]),started=performance.now(),phases=retainedOnly?{}:null;let owned,surfaceRecord,privateOwner,published=false,lease,outputLease,failed=false,primary;
   try{
    lease=budget.reserve(knownHeapBytes);

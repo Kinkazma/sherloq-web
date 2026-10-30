@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.22.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createNeuralTensor,noteNeuralTensorTaskYield} from './neural-tensor-store.js';
 import {executionSummary} from './neural-execution-summary.js';
 import {ritaQueryPlan,ritaAttentionBytes} from './rita-query-plan.js';

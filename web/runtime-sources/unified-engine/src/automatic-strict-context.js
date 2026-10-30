@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from './source-region-geometry.js';
 import {prepareNeuralStrictSourceContext} from './neural-strict-source-context.js';
 import {sparseStrictImageRecord} from './sparse-strict-source.js';

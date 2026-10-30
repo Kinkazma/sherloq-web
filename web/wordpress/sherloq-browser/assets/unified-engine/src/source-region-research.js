@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {checkAbort} from './errors.js';
 /** FOCAL/AdaIFL and SAFIRE are qualified by this registration. Their M3 owner
  * enforces strict native fragments before preprocessing or any model call. SAFIRE clusters

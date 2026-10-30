@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {neuralUsefulExecutionSnapshot} from './neural-graph-pool.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {compositeSourceDomain,compositeRegionalImage,compositeRegionalResult} from './composite-regional-source.js';
 import {receiveM2SourceRegionInput} from './m2-source-region-input.js';
@@ -75,7 +76,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
     // A single host job avoids unbounded source clones while inner useful jobs parallelize.
     if(pending.size)throw new EngineError('BUSY','M2 host already has an active analysis.');
     const {method,params={},backend='auto'}=args;let image=args.image;
-    const controller=new AbortController();pending.set(id,controller);let value,metadataLease,analysisFailure,analysisFailed=false,api,cfaNativeOwner=false,nativeSourceAdopted=false,compositeSelection;
+    const controller=new AbortController();pending.set(id,controller);let value,metadataLease,analysisFailure,analysisFailed=false,api,cfaNativeOwner=false,nativeSourceAdopted=false,compositeSelection;const usefulBefore=neuralUsefulExecutionSnapshot(budget);
     try{
      await retireCompositeExports();await retireCfaSources();
      if(operation==='analyzeNativeSource'){
@@ -108,7 +109,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
       else if(typeof v!=='function'&&!['metrics','provenance','execution'].includes(key))information[key]=v;
      }
      if(image.segmented)information.source={dimensions:image.surface.descriptor,provenance:image.provenance,metrics:image.metrics};
-     information.provenance=value.provenance;information.metrics=value.metrics;if(value.mapError)information.mapError=value.mapError;
+     information.provenance=value.provenance;const usefulAfter=neuralUsefulExecutionSnapshot(budget);information.metrics={...value.metrics,...(value.execution?{nativeExecution:value.execution}:{}),providerExecutions:{observed:true,wasm:usefulAfter.wasm-usefulBefore.wasm,webgpu:usefulAfter.webgpu-usefulBefore.webgpu,unknown:usefulAfter.unknown-usefulBefore.unknown}};if(value.mapError)information.mapError=value.mapError;
      const json=JSON.stringify(information);metadataLease=budget.reserve(json.length*3);const metadata=new TextEncoder().encode(json),resultId=next++;
      results.set(resultId,{id:resultId,method,value,api,image,imageLease:release,metadata,metadataLease,references:1,cfaNativeOwner,compositeNativeOwner:compositeSelection?.regional===true});release=null;value=null;metadataLease=null;
      send(id,{id:resultId,method,width:data.width,height:data.height,fields,metadataBytes:metadata.byteLength,memory:memory(),...(compositeSelection?.regional?{sourceRegionDomain:compositeSelection.domain.descriptor,sourceRegionOrigin:[...compositeSelection.domain.origin]}:{})});

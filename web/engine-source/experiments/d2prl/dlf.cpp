@@ -15,7 +15,7 @@ static float exp_signed(float d){
 static float score(float error){const float shifted=error+1e-10f,reciprocal=1.f/shifted,denominator=1.f+exp_signed(-reciprocal),sigmoid=1.f/denominator;return 2.f*sigmoid-1.f;}
 extern "C" void d2prl_dlf_scores(const float* input,int n,float* output){for(int i=0;i<n;i++)output[i]=score(input[i]);}
 extern "C" int d2prl_dlf_range(const float* x,const float* y,const float* weights,int side,int kernel,int begin,int end,float* errors,float* scores){
- if(!x||!y||!weights||!errors||!scores||side!=448||(kernel!=7&&kernel!=9&&kernel!=11)||begin<0||end<begin||end>side*side)return 0;
+ if(!x||!y||!weights||!errors||!scores||(side!=448&&side!=896&&side!=1344&&side!=1792)||(kernel!=7&&kernel!=9&&kernel!=11)||begin<0||end<begin||end>side*side)return 0;
  const int count=kernel*kernel,radius=kernel/2;
  for(int i=begin;i<end;i++){
   const int px=i%side,py=i/side;float a[4]={},b[4]={};int k=0;

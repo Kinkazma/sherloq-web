@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 
 // Qualified adapters change operator wiring, never learned tensor payloads.

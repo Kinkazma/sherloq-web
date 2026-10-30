@@ -1,27 +1,28 @@
-import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js';
+import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.30.0';
+import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.30.0';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {validateOriginalSourceRegionOptions} from './original-source-region-options.js';
-import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js';
-import {diagnostic} from './runtime-context.js';
-import {installHoverSliders} from './hover-sliders.js';
-import {browserLanguage} from './language.js';
-import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js';
-import {mountMediaControls} from './media-controls.js';
-import {createLoupeStepPlayback} from './loupe-step-playback.js';
-import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js';
-import {bindDocumentResize} from './document-resize.js';
-import {toolGroups} from './tool-tree.js';
-import {isExperimentalTool} from './extension-tools.js';
-import {createWorkspaceState} from './workspace-state.js';
-import {validateOriginalSourceRegions} from './original-source-regions.js';
-import {createDownloadShelf} from './download-shelf.js';
-import {mountSessionControls} from './session-ui.js';
-import {recoverSettings,settingsFilename} from './settings.js';
-import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js';
-import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js';
-import {localFeaturePolicy} from './feature-policy.js';
+import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.30.0';
+import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.30.0';
+import {diagnostic} from './runtime-context.js?v=0.30.0';
+import {installHoverSliders} from './hover-sliders.js?v=0.30.0';
+import {browserLanguage} from './language.js?v=0.30.0';
+import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.30.0';
+import {mountMediaControls} from './media-controls.js?v=0.30.0';
+import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.30.0';
+import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.30.0';
+import {bindDocumentResize} from './document-resize.js?v=0.30.0';
+import {toolGroups} from './tool-tree.js?v=0.30.0';
+import {isExperimentalTool} from './extension-tools.js?v=0.30.0';
+import {createWorkspaceState} from './workspace-state.js?v=0.30.0';
+import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
+import {createDownloadShelf} from './download-shelf.js?v=0.30.0';
+import {mountSessionControls} from './session-ui.js?v=0.30.0';
+import {recoverSettings,settingsFilename} from './settings.js?v=0.30.0';
+import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.30.0';
+import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.30.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.30.0';
 
-export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js')).mountPdfReader(options),originalRegionsFactory}={}) {
+export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.30.0')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.30.0')).mountPdfReader(options),originalRegionsFactory}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
 const downloadShelf=createDownloadShelf({document,parent:$('toolbox'),before:$('toolbox').querySelector('.navigation-tools'),language:()=>state.language,onError:error=>notify(error.message)});
@@ -31,10 +32,10 @@ const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id));
 // Keep the existing synchronous factories once their shared module graph is ready.
 let runtimeReady,engineFactory,createBatchScopeEditor;
 function ensureRuntime(){return runtimeReady??=Promise.all([
- import('./app.js'),
- import('./workspace-engine-pool.js'),
- import('./batch-scope-editor.js'),
- import('./original-source-regions-controller.js')
+ import('./app.js?v=0.30.0'),
+ import('./workspace-engine-pool.js?v=0.30.0'),
+ import('./batch-scope-editor.js?v=0.30.0'),
+ import('./original-source-regions-controller.js?v=0.30.0')
 ]).then(([panel,pool,editor,regions])=>{
  panelFactory??=panel.mountAnalysisPanel;originalRegionsFactory??=regions.createOriginalSourceRegionsController;
  createBatchScopeEditor=editor.createBatchScopeEditor;engineFactory=pool.createWorkspaceEnginePool();
@@ -51,7 +52,7 @@ const hoverSliders=installHoverSliders({root:document,enabled:false,language:()=
 const scopeFallbackUI=createWholeSourceFallbackUI({document,language:()=>state.language,getPreferences:()=>scopeFallbacks,setPreferences:value=>{scopeFallbacks=validateWholeSourceFallbacks(value);savePreferences();},toolLabel:id=>tools.find(t=>t.id===id)?.[state.language]??id});
 const scopeFallbackSettingsButton=button(state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…',()=>{closeMenus();scopeFallbackUI.configure();});$('import-settings').after(scopeFallbackSettingsButton);
 let templateReady;
-const template=()=>templateReady??=fetcher(new URL('./panel.html',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
+const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.30.0',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
 function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,allSliders,experimentalTools,scopeFallbacks:validateWholeSourceFallbacks(scopeFallbacks),...media,dependencies:dependencyPreferences()};}
 function setMedia(next){if(!applyingLoupeStep)stepPlayback.reset();media=validateMediaPreferences(next);applyMedia();savePreferences();}
 const comparisonKeys=new Set();let comparisonController=null;let pinnedController=null;
@@ -218,8 +219,8 @@ async function closeDocument(id,{force=false}={}){
  // Remove the view immediately; a queued worker cleanup may wait for another job.
  renderDocuments();await retireEntries(closing);
 }
-async function closeAll({preservePdfs=false}={}){
- generation++;const kept=preservePdfs?entries().filter(record=>record.kind==='pdf'):[],previous=entries().filter(record=>!kept.includes(record));state.clear();for(const record of kept){record.generation=generation;state.open(record.id,record);}sourceEntry=null;sourceInput=null;currentFile=null;pendingSession=null;sessionIntent=null;$('image-file').value='';
+async function closeAll({preservePdfs=false,preserveOriginal=false}={}){
+ generation++;const original=preserveOriginal&&sourceEntry&&!sourceEntry.closed?sourceEntry:null,kept=entries().filter(record=>(preservePdfs&&record.kind==='pdf')||record===original),previous=entries().filter(record=>!kept.includes(record));state.clear();for(const record of kept){record.generation=generation;state.open(record.id,record);}sourceEntry=original;sourceInput=null;currentFile=null;pendingSession=null;sessionIntent=null;$('image-file').value='';
  for(const record of previous){remember(record);record.closed=true;record.element.remove();}
  saveTools();
  renderDocuments();await retireEntries(previous);
@@ -236,14 +237,14 @@ async function closeAnalyses(){
 }
 async function openImage(file,{preservePdfs=true,confirmReplace=true}={}){
  if(!file)return;const epoch=generation,kind=await detectWorkspaceFileKind(file);if(epoch!==generation)return;if(kind==='pdf')return openPDF(file);if(confirmReplace&&currentFile&&!confirm(text('replace')))return;
- const session=pendingSession;await closeAll({preservePdfs});pendingSession??=session;currentFile=file;
- const record=createEntry('original');sourceEntry=record;state.open('original',record);renderDocuments();
+ const session=pendingSession,closing=closeAll({preservePdfs,preserveOriginal:true}),replacementGeneration=generation;await closing;if(replacementGeneration!==generation)return;pendingSession??=session;currentFile=file;
+ const record=sourceEntry??createEntry('original');record.loading=true;sourceEntry=record;state.open('original',record);renderDocuments();
  record.inputReady=record.ready.then(async controller=>{
-  if(!controller)return null;await controller.load(file);
-  if(record.closed||record.generation!==generation)return null;
+  if(!controller||record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;await record.originalRegions?.dispose();if(record.closed||generation!==replacementGeneration)return null;record.originalRegions=null;await controller.load(file);
+  if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;
   sourceInput=controller.input();
   record.originalRegions=originalRegionsFactory({scopeEditorFactory:placementScopeEditor,document,parent:record.originalRegionsElement,presentation:'toolbar',source:()=>{const input=record.controller?.input();return input?.file&&input.source?{blob:input.file,name:input.file.name,id:input.imageId,width:input.source.width,height:input.source.height,sourceSha256:input.hash}:null;},language:()=>state.language,computeProfile:()=>computeProfile,navigationMode:()=>navigationMode,getClient:()=>record.controller.regionDetectionClient(),onHighlight:()=>record.controller?.refreshOriginalRegions?.(),onError:error=>notify(error.message),onOpenBatch:snapshot=>openOriginalInBatch(record,snapshot),onChange:snapshot=>{if(record.closed||record!==sourceEntry)return;sourceInput={...sourceInput,sourceRegions:snapshot};record.controller?.refreshOriginalRegions?.();for(const entry of entries())if(entry!==record&&entry.kind!=='pdf')entry.controller?.markSourceRegionsStale?.(snapshot);scheduleRender();}});
-  await record.originalRegions.ready;if(record.closed||record.generation!==generation){await record.originalRegions.dispose();return null;}sourceInput={...controller.input(),sourceRegions:record.originalRegions.serialize()};record.loading=false;renderDocuments();return sourceInput;
+  await record.originalRegions.ready;if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration){await record.originalRegions.dispose();return null;}sourceInput={...controller.input(),sourceRegions:record.originalRegions.serialize()};record.loading=false;renderDocuments();return sourceInput;
  });
  try{await record.inputReady;if(pendingSession)await applySession(pendingSession);}
  catch(error){record.loading=false;notify(error.message);}
@@ -271,7 +272,7 @@ $('navigation-mode').onchange=()=>{navigationMode=$('navigation-mode').value;for
 $('all-sliders').onchange=()=>{allSliders=$('all-sliders').checked;hoverSliders.setEnabled(allSliders);savePreferences();};
 $('highlight-tools').onchange=()=>{highlight=$('highlight-tools').checked;$('workspace-app').classList.toggle('highlight-new-features',highlight);for(const entry of entries())entry.controller?.setHighlight?.(highlight);savePreferences();};
 $('experimental-tools').onchange=()=>{experimentalTools=$('experimental-tools').checked;syncExperimentalTools();renderCatalog();savePreferences();};
-$('export-settings').onclick=()=>{saveTools();download({schema:'sherloq.workspace/1',preferences:preferences(),tools:savedTools},settingsFilename());closeMenus();};
+$('export-settings').onclick=()=>{saveTools();download({schema:'sherloq.workspace/1',preferences:preferences(),tools:savedTools,adaptiveRuntime:getAdaptivePreferenceStore().exportSettings()},settingsFilename());closeMenus();};
 $('import-settings').onclick=()=>{closeMenus();$('settings-file').value='';$('settings-file').click();};
 $('settings-file').onchange=async e=>{
  const file=e.target.files[0];if(!file)return;
@@ -284,6 +285,7 @@ $('settings-file').onchange=async e=>{
   saveTools();const rescue=await capturePreferenceBackup();rescue.importedSource=value;rescue.importedReport=recovery.issues;downloadPreferenceBackup(document,rescue);
   unknownFavorites=(nextPreferences.favorites||[]).filter(id=>!known.has(id));
   scopeFallbacks=validateWholeSourceFallbacks(nextPreferences.scopeFallbacks);media=nextMedia;savedTools=nextTools;for(const id of Object.keys(nextTools))dirtyTools.add(id);state.restore(candidate.preferences(),[...known]);theme=['light','dark'].includes(nextPreferences.theme)?nextPreferences.theme:theme;computeProfile=['maximum','aggressive'].includes(nextPreferences.computeProfile)?nextPreferences.computeProfile:computeProfile;navigationMode=['auto','mouse','trackpad'].includes(nextPreferences.navigationMode)?nextPreferences.navigationMode:navigationMode;highlight=nextPreferences.highlight===true;allSliders=nextPreferences.allSliders!==false;experimentalTools=nextPreferences.experimentalTools===true;
+  importAdaptiveSettings(recovery.value);
   for(const record of entries())if(savedTools[record.id])record.controller?.applySettings?.(savedTools[record.id]);
   restoreDependencyPreferences(nextPreferences.dependencies);applyPreferences();translate();saveTools();notify(text('loadedSettings')+(recovery.issues.length?' · '+recovery.issues.length+(state.language==='fr'?' entrée(s) conservée(s) dans la sauvegarde de secours.':' entry/entries retained in the recovery backup.'):''));
  }catch(error){notify(error.message);}

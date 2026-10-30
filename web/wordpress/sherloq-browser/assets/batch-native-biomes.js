@@ -1,6 +1,6 @@
-import {readBatchZip} from './batch-zip.js';
-import {createBatchScopeMask} from './batch-scope-mask.js';
-import {isDenseClone} from './clone-methods.js';
+import {readBatchZip} from './batch-zip.js?v=0.30.0';
+import {createBatchScopeMask} from './batch-scope-mask.js?v=0.30.0';
+import {isDenseClone} from './clone-methods.js?v=0.30.0';
 import {sparseCopyViewParams} from './unified-engine/src/sparse-copy-view.js';
 import {biomeSides,distinctCentres,roundEven} from './unified-engine/src/copy-geometry.js';
 import {createCloneEntryGeometry} from './unified-engine/src/clone-entry-geometry.js';
@@ -32,7 +32,7 @@ async function selectiveMetadata(entry,{readNpy,crcUpdate,crcFinish,signal}){
  requireBiome(entry&&entry._data?.compressionMethod===0,'Les groupes natifs doivent être disponibles dans une entrée NPY non compressée.');
  const record=await readNpy(await entry.async('blob'),{signal}),match=/^<U(\d+)$/.exec(record.dtype);
  requireBiome(match&&record.shape.length===0&&record.offset+Number(match[1])*4===record.blob.size,'Métadonnées Unicode sparse natives invalides.');
- const wanted=new Set(['biomes','biome_colors_bgr','display','parameters','self_match_filter','mirror_policy','coordinates','colorOrder','algorithm','pair_columns','visible_biomes']),values={};
+ const wanted=new Set(['biomes','biome_colors_bgr','display','parameters','self_match_filter','mirror_policy','coordinates','colorOrder','algorithm','pair_columns','visible_biomes','presentation','geometric_models']),values={};
  let state='start',key='',keyBytes='',kept='',keep=false,depth=0,string=false,escaped=false,structured=false,crc=crcUpdate(0xffffffff,record.headerBytes),closed=false;
  const finish=()=>{if(keep){requireBiome(!Object.hasOwn(values,key),'Champ natif en doublon.');try{values[key]=JSON.parse(kept);}catch(cause){throw new EngineError('BATCH_BIOMES_UNAVAILABLE','Champ de métadonnées sparse invalide.',{cause});}}kept='';state='after';};
  const append=c=>{if(keep){kept+=c;requireBiome(kept.length<=MAX_SELECTED_JSON,'La géométrie native dépasse le budget de métadonnées.');}};
@@ -89,13 +89,13 @@ async function nativeBiomeRecord(candidate,zip,hooks){
  if(snapshot){
   requireBiome(Array.isArray(snapshot.groups)&&Array.isArray(snapshot.params)&&snapshot.params.length>=18&&typeof snapshot.params[0]==='string','Snapshot dense natif incomplet.');
   biomes=[];for(const ref of snapshot.groups)biomes.push(await groupVector(reference(ref),hooks));pointEntry=reference(snapshot.points);pairEntry=reference(snapshot.pairs);
-  native={biomes,biome_colors_bgr:snapshot.bases,parameters:{minimum:snapshot.params[3]},display:metadata.display,algorithm:snapshot.params[0],group_algorithms:snapshot.group_algorithms,self_match_filter:snapshot.self_match_filter,mirror_policy:snapshot.mirror_policy,pair_columns:['point_a','point_b','descriptor_distance','length_px']};
+  native={biomes,biome_colors_bgr:snapshot.bases,presentation:metadata.presentation??snapshot.metadata?.presentation,geometric_models:snapshot.models,visible_biomes:metadata.visible_biomes,parameters:{minimum:snapshot.params[3]},display:metadata.display,algorithm:snapshot.params[0],group_algorithms:snapshot.group_algorithms,self_match_filter:snapshot.self_match_filter,mirror_policy:snapshot.mirror_policy,pair_columns:['point_a','point_b','descriptor_distance','length_px']};
  }else{
   requireBiome(metadata.schema===1&&metadata.coordinates==='original-source-pixels'&&metadata.params&&Array.isArray(metadata.bases),'Métadonnées de groupes denses natifs absentes.');
   const files=Object.keys(zip.files).filter(name=>/^group_\d+\.npy$/.test(name)).sort((a,b)=>Number(a.match(/\d+/)[0])-Number(b.match(/\d+/)[0]));
   requireBiome(files.length===metadata.bases.length&&files.every((name,i)=>name==='group_'+i+'.npy'),'Indices de groupes denses natifs incomplets.');
   biomes=[];for(const name of files)biomes.push(await groupVector(zip.file(name),hooks));pointEntry=zip.file('points.npy');pairEntry=zip.file('pairs.npy');
-  native={biomes,biome_colors_bgr:metadata.bases,parameters:metadata.params,display:metadata.display,algorithm:metadata.params.profile,group_algorithms:metadata.group_algorithms,self_match_filter:metadata.self_match_filter,mirror_policy:metadata.mirror_policy,pair_columns:['point_a','point_b','descriptor_distance','length_px']};
+  native={biomes,biome_colors_bgr:metadata.bases,presentation:metadata.presentation,geometric_models:metadata.geometric_models??metadata.models,visible_biomes:metadata.visible_biomes,parameters:metadata.params,display:metadata.display,algorithm:metadata.params.profile,group_algorithms:metadata.group_algorithms,self_match_filter:metadata.self_match_filter,mirror_policy:metadata.mirror_policy,pair_columns:['point_a','point_b','descriptor_distance','length_px']};
  }
  return {native,pointEntry,pairEntry,format:snapshot?'dense-native-snapshot':'dense-native-fields'};
 }
@@ -119,6 +119,42 @@ async function nativeDrawingHulls(kernel,method,input,count,group,signal){
  }
  return {polygons,release(){}};
 }
+// Presentation only: validate archived Native-derived geometry instead of
+// rerunning grouping/orientation. Raw arrays and corroboration stay untouched.
+function archivedDerivedBiomes(native,run,view,source,rows,coordinates,expected,signal){
+ const area=native.presentation?.traceSelection?.biomeArea,declared=[run.effectiveView,run.view,run.recipe?.view,native.display].find(v=>v&&Object.hasOwn(v,'biomeMethod'))?.biomeMethod;
+ const methods=['paired-local','paired-envelope','native','compact'];
+ if(declared!==undefined)requireBiome(methods.includes(declared),'Méthode de biomes archivée invalide.');
+ const method=declared??area?.method??(area?.schema==='sparse-biome-area/3'?'compact':'native');
+ requireBiome(methods.includes(method),'Méthode de présentation native invalide.');
+ if(method==='native'||method==='compact'&&(view.maxBiomeArea??100)===100||!area&&declared===undefined){const historicalMethod=method==='compact'?'compact':'native';source.biomeMethod=historicalMethod;source.view={...view,biomeMethod:historicalMethod};source.effectiveMaxBiomeArea=100;source.biomePresentationSource=historicalMethod==='compact'?'compact-legacy100':'historical-native-archive';return null;}
+ requireBiome(area&&['sparse-biome-area/3','sparse-biome-area/4'].includes(area.schema)&&area.derived===true&&Array.isArray(area.partitions),'Présentation dérivée de biomes absente de l’archive.');
+ requireBiome((area.method??(area.schema==='sparse-biome-area/3'?'compact':null))===method&&Number.isInteger(area.percent)&&area.percent===(view.maxBiomeArea??100)&&(area.effectiveMaxBiomeArea??area.percent)===area.percent,'Méthode ou plafond de présentation périmé.');
+ requireBiome(Array.isArray(native.visible_biomes),'Liste native des parents affichés absente.');
+ const visible=new Map();for(const item of native.visible_biomes){requireBiome(Array.isArray(item)&&item.length===2&&Number.isSafeInteger(item[0])&&item[0]>=0&&item[0]<native.biomes.length&&!visible.has(item[0])&&Number.isSafeInteger(item[1])&&item[1]>=0,'Parent natif affiché invalide.');visible.set(item[0],item[1]);}
+ const parentParts=new Map();for(const part of area.partitions){requireBiome(Number.isSafeInteger(part?.parent)&&visible.has(part.parent),'Une partition dérivée ne possède pas de parent natif affiché.');const list=parentParts.get(part.parent)??[];list.push(part);parentParts.set(part.parent,list);}
+ const equalRows=(a,b)=>{const x=a.slice().sort((x,y)=>x-y),y=b.slice().sort((x,y)=>x-y);return x.length===y.length&&x.every((v,i)=>v===y[i]);},validPoint=p=>Array.isArray(p)&&p.length===2&&p.every(Number.isSafeInteger)&&p[0]>=0&&p[0]<expected.width&&p[1]>=0&&p[1]<expected.height,colorValid=c=>Array.isArray(c)&&c.length===3&&c.every(v=>Number.isInteger(v)&&v>=0&&v<=255),out=[];
+ for(const [parent,count]of visible){
+  checkAbort(signal);if(view.hidden.includes(parent)||view.chosen.length&&!view.chosen.includes(parent))continue;
+  const selected=native.biomes[parent].filter(row=>{const pair=rows.get(row);return pair&&pair[3]>=view.low&&pair[3]<=view.high;}),parts=parentParts.get(parent)??[],members=new Set(selected),actual=[];requireBiome(selected.length===count,'Les occurrences affichées diffèrent de leur parent natif.');
+  const ids=new Set();for(const part of parts){requireBiome(Number.isSafeInteger(part.subIndex)&&part.subIndex>=0&&!ids.has(part.subIndex)&&Array.isArray(part.rows)&&part.rows.length&&part.rows.every(row=>Number.isSafeInteger(row)&&members.has(row)),'Indices de partition native invalides.');ids.add(part.subIndex);actual.push(...part.rows);
+   requireBiome(Array.isArray(part.hulls)&&part.hulls.length===2&&part.hulls.every(h=>Array.isArray(h)&&h.length&&h.every(validPoint))&&Array.isArray(part.supportCentres)&&part.supportCentres.length===2&&part.supportCentres.every(side=>Array.isArray(side)&&side.length&&side.every(validPoint)&&new Set(side.map(p=>p.join(','))).size===side.length)&&typeof part.supportOnly==='boolean','Contours ou témoins dérivés invalides.');
+   const centreSets=part.supportCentres.map(side=>new Set(side.map(p=>p.join(',')))),endpoints=new Set();requireBiome(part.hulls.every((h,side)=>h.every(p=>centreSets[side].has(p.join(','))))&&(part.supportOnly||part.hulls.every(h=>h.length>=3)),'Un contour dérivé invente une surface ou un centre natif.');
+   for(const row of part.rows){const pair=rows.get(row),p=coordinates.get(pair[0]),q=coordinates.get(pair[1]),a=roundEven(p[0])+','+roundEven(p[1]),b=roundEven(q[0])+','+roundEven(q[1]);endpoints.add(a);endpoints.add(b);requireBiome(centreSets[0].has(a)&&centreSets[1].has(b)||centreSets[0].has(b)&&centreSets[1].has(a),'Un support dérivé ne couvre pas ses correspondances natives.');}
+   requireBiome(centreSets.every(side=>[...side].every(p=>endpoints.has(p))),'Un support dérivé ajoute un centre étranger.');
+   const model=part.derivedModel;if(model){const original=native.geometric_models?.[parent];requireBiome(original&&model.nativeParentGroupIndex===parent&&model.modelSource==='native-parent'&&model.independentlyRefitted===false&&JSON.stringify(model.matrix)===JSON.stringify(original.matrix),'Le modèle dérivé ne provient pas de son parent natif.');
+    const parentRanks=new Map(native.biomes[parent].map((row,k)=>[row,k]));requireBiome(Array.isArray(original.source_point_indices)&&Array.isArray(original.destination_point_indices)&&original.source_point_indices.length===native.biomes[parent].length&&original.destination_point_indices.length===native.biomes[parent].length,'Les rôles du modèle parent sont absents.');
+    const ids=[model.source_point_indices,model.destination_point_indices];requireBiome(ids.every(side=>Array.isArray(side)&&side.length===part.rows.length),'Les rôles du modèle dérivé sont absents.');
+    for(let i=0;i<part.rows.length;i++){const row=part.rows[i],pair=rows.get(row),a=ids[0][i],b=ids[1][i],rank=parentRanks.get(row);requireBiome((a===pair[0]&&b===pair[1]||a===pair[1]&&b===pair[0])&&a===original.source_point_indices[rank]&&b===original.destination_point_indices[rank],'Les rôles du modèle dérivé diffèrent de son parent natif.');}
+    for(let side=0;side<2;side++){const expectedCentres=new Set(ids[side].map(id=>{const p=coordinates.get(id);return roundEven(p[0])+','+roundEven(p[1]);}));requireBiome(expectedCentres.size===centreSets[side].size&&[...expectedCentres].every(p=>centreSets[side].has(p)),'Les témoins dérivés ne respectent pas les rôles du modèle.');}
+   }
+   const color=part.colorBgr??native.biome_colors_bgr[parent];requireBiome(colorValid(color),'Couleur dérivée native invalide.');
+   out.push({id:run.toolId+':'+method+':'+parent+':'+part.subIndex,method:native.group_algorithms?.[parent]??source.method,profile:source.method,biomeMethod:method,group:parent,subIndex:part.subIndex,colorRgb:[color[2],color[1],color[0]],polygons:structuredClone(part.hulls),supportOnly:part.supportOnly,supportCentres:structuredClone(part.supportCentres),supportReason:part.supportReason,derivedModel:model?structuredClone(model):null,pairs:part.rows.length,nativeRows:part.rows.slice(),pairedSides:2,degenerateSides:part.hulls.flatMap((h,side)=>h.length<3?[side]:[]),geometrySource:source.path});
+  }
+  requireBiome(equalRows(actual,selected),'Les partitions dérivées ne conservent pas les occurrences de leur parent.');
+ }
+ checkAbort(signal);source.biomeMethod=method;source.biomePresentationSource=area.schema;source.effectiveMaxBiomeArea=area.effectiveMaxBiomeArea??area.percent;return out;
+}
 export async function loadBatchNativeBiomes(image,expected,{artifacts,budget,readNpy,readMetadataJson,crcUpdate,crcFinish,signal,geometryFactory=createCloneEntryGeometry}={}){
  const candidates=batchBiomeCandidates(image,artifacts);requireBiome(candidates.length,'Aucun groupe de correspondances natif ne permet une vue Biomes.');
  const releaseWorkspace=budget.reserve(4*MAX_SELECTED_JSON+2*CHUNK);let kernel;const groups=[],sources=[];
@@ -133,15 +169,16 @@ export async function loadBatchNativeBiomes(image,expected,{artifacts,budget,rea
    const zip=await readBatchZip(await artifacts.get(candidate.npz),{maximumEntries:Number.MAX_SAFE_INTEGER});requireBiome(zip,'Archive de correspondances native invalide.');
    const nativeProvenance=await readMetadataJson(zip.file('browser_provenance_json.npy'),{signal});
    requireBiome(nativeProvenance.operation===candidate.operation&&nativeProvenance.originalSha256===expected.sourceSha256&&(!nativeProvenance.decode?.sourceSize||JSON.stringify(nativeProvenance.decode.sourceSize)===JSON.stringify([expected.width,expected.height])),'La provenance NPZ de clones ne correspond pas à l’image originale.');
-   const opened=await nativeBiomeRecord(candidate,zip,{readNpy,readMetadataJson,crcUpdate,crcFinish,signal}),native=opened.native,resolved=resolveBatchBiomeView(native,{...candidate.run,view:candidate.run.view??json.view,effectiveView:candidate.run.effectiveView??json.effectiveView}),view=resolved.view;
+   const effectiveRun={...candidate.run,view:candidate.run.view??json.view,effectiveView:candidate.run.effectiveView??json.effectiveView},opened=await nativeBiomeRecord(candidate,zip,{readNpy,readMetadataJson,crcUpdate,crcFinish,signal}),native=opened.native,resolved=resolveBatchBiomeView(native,effectiveRun),view=resolved.view;
    requireBiome(Array.isArray(native.biomes)&&Array.isArray(native.biome_colors_bgr)&&native.biome_colors_bgr.length===native.biomes.length&&native.biomes.every(g=>Array.isArray(g)&&g.every(Number.isSafeInteger)),'Les indices et couleurs des groupes sparse natifs sont absents.');
    requireBiome(native.algorithm!=='SSG'&&native.pair_columns?.[3]==='length_px','Cette sortie ne définit pas les biomes de correspondances sparse.');
    const {pairEntry,pointEntry}=opened,pairs=await readNpy(await pairEntry?.async('blob'),{signal}),points=await readNpy(await pointEntry?.async('blob'),{signal});
    await validateArrayCrc(pairEntry,pairs,{crcUpdate,crcFinish,signal});await validateArrayCrc(pointEntry,points,{crcUpdate,crcFinish,signal});
    const rows=await selectedRows(pairs,native.biomes.flat(),4,{signal}),pointIds=[];
    for(const pair of rows.values())pointIds.push(pair[0],pair[1]);const coordinates=await selectedRows(points,pointIds,7,{signal});
-   if(!kernel)kernel=await geometryFactory({budget,signal,maxVertices:Math.max(65536,2*Math.max(0,...native.biomes.map(g=>g.length)))});
    const source={path:candidate.npz,json:candidate.json,operation:candidate.operation,...(candidate.operation!==candidate.run.operation?{recipeOperation:candidate.run.operation}:{}),format:opened.format,method:native.algorithm??candidate.run.params.algorithm??candidate.run.params.profile,view:resolved.view,viewSource:resolved.source,matchingMinimum:resolved.matchingMinimum,matchingMinimumSource:resolved.matchingMinimumSource,sourceSha256:expected.sourceSha256,scopeFingerprint:expected.scopeFingerprint};sources.push(source);
+   const derived=archivedDerivedBiomes(native,effectiveRun,view,source,rows,coordinates,expected,signal);if(derived){groups.push(...derived);continue;}
+   if(!kernel)kernel=await geometryFactory({budget,signal,maxVertices:Math.max(65536,2*Math.max(0,...native.biomes.map(g=>g.length)))});
    for(let index=0;index<native.biomes.length;index++){
     await controlCheckpoint(signal);if(view.hidden.includes(index)||view.chosen.length&&!view.chosen.includes(index))continue;
     const selected=native.biomes[index].filter(row=>{const pair=rows.get(row);return pair[3]>=view.low&&pair[3]<=view.high;});if(selected.length<view.minimum)continue;
@@ -186,7 +223,7 @@ export function batchBiomeWindow(geometry,{x=0,y=0,width,height},{signal,budget,
   if(rgb){const at=(row*width+column-x)*3;for(let c=0;c<3;c++)rgb[at+c]=roundEven(rgb[at+c]*(1-alpha)+color[c]*alpha);}
   else{const at=(row*width+column-x)*4,previous=rgba[at+3]/255,next=alpha+previous*(1-alpha);for(let c=0;c<3;c++)rgba[at+c]=Math.round((color[c]*alpha+rgba[at+c]*previous*(1-alpha))/next);rgba[at+3]=Math.round(next*255);}
  };
- try{for(const group of geometry.groups)for(const polygon of group.polygons){
+ try{for(const group of geometry.groups){if(group.supportOnly){for(const side of group.supportCentres??[])for(const [px,py]of side)for(let row=0;row<height;row++){checkAbort(signal);const dy=y+row-py;if(Math.abs(dy)>2)continue;for(let column=Math.max(x,px-2);column<=Math.min(x+width-1,px+2);column++)if((column-px)**2+dy**2<=4)paint(row,column,group.colorRgb,1);}continue;}for(const polygon of group.polygons){
   const minX=Math.min(...polygon.map(p=>p[0]))-1,maxX=Math.max(...polygon.map(p=>p[0]))+1,minY=Math.min(...polygon.map(p=>p[1]))-1,maxY=Math.max(...polygon.map(p=>p[1]))+1;
   for(let row=0;row<height;row++){checkAbort(signal);const originalY=y+row;if(originalY<minY||originalY>maxY)continue;
    for(const [left,right]of spans(polygon,originalY))for(let column=Math.max(x,left);column<=Math.min(x+width-1,right);column++)paint(row,column,group.colorRgb,BATCH_NATIVE_BIOME_STYLE.fillOpacity);
@@ -194,7 +231,7 @@ export function batchBiomeWindow(geometry,{x=0,y=0,width,height},{signal,budget,
    // OpenCV antialiasing fringe is deliberately not claimed bit-identical.
    for(let column=Math.max(x,minX);column<=Math.min(x+width-1,maxX);column++)if(polygon.some((point,i)=>edgeDistanceSquared(column,originalY,point,polygon[(i+1)%polygon.length])<=1))paint(row,column,group.colorRgb,1);
   }
- }return rgb??rgba;}finally{eligible?.release();}
+ }}return rgb??rgba;}finally{eligible?.release();}
 }
 export function batchBiomePreview(geometry,{width,height,originalWidth,originalHeight},{signal,budget}={}){
  const rgba=new Uint8ClampedArray(width*height*4),rows=Math.max(1,Math.min(32,Math.floor(CHUNK/(originalWidth*4))));

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {planDocTamperBlockContexts} from './doctamper-block-contexts.js';
 import {planDocTamperNativeCoverage} from './doctamper-native-coverage.js';
 import {requireValue,checkAbort} from './errors.js';

@@ -39,6 +39,20 @@ extern "C" int dense_compact_prepare(const float* gray,int width,int height,int 
  }catch(const std::exception& e){std::strncpy(error,e.what(),1023);error[1023]=0;return -1;}
 }
 extern "C" int dense_compact_unpack(int slot,int first,int count,float* output){if(slot<0||slot>1||!packed[slot])return -1;const auto& f=packed[slot]->field;if(first<0||count<0||int64_t(first)+count>int64_t(f.view_width)*f.view_height)return -1;for(int i=0;i<count;i++)compact_sift_read(f,first+i,output+size_t(i)*128);return 0;}
+// Reconstruct only admitted native field indices; no index renumbering.
+extern "C" int dense_compact_gather(int slot,const int* indices,int count,float* output){
+ if(slot<0||slot>1||!packed[slot]||count<0||count>8192)return -1;
+ const auto& f=packed[slot]->field;const int64_t n=int64_t(f.view_width)*f.view_height;
+ for(int k=0;k<count;k++)if(indices[k]<0||indices[k]>=n||(k&&indices[k]<=indices[k-1]))return -1;
+ for(int k=0;k<count;k++)compact_sift_read(f,indices[k],output+size_t(k)*128);return 0;
+}
+extern "C" int dense_compact_filter_mask(unsigned char* mask,int second){
+ if(!packed[0]||second<0||second>1||!packed[second])return -1;
+ const auto& a=packed[0]->field;const auto& b=packed[second]->field;
+ if(a.view_width!=b.view_width||a.view_height!=b.view_height)return -1;
+ for(int i=0;i<a.view_width*a.view_height;i++)for(int slot: {0,second}){const auto& value=*packed[slot];const auto& f=value.field;if(f.quarter){int x=i%f.view_width+f.offset,y=i/f.view_width+f.offset;if(f.mirror)x=f.width-3*f.patch-1-x;if(!value.diverse[size_t(y)*(f.width-3*f.patch)+x])mask[i]=0;}}
+ return 0;
+}
 extern "C" int dense_compact_field(unsigned char* mask,int second,int compare,float minimum,float maximum,int iterations,uint32_t seed,int* matches,float* distances,uint64_t* comparisons,char* error,float gapx,float gapy,const float* xmap,const float* ymap,size_t cache_slots){
  if(!packed[0]||second<0||second>1||!packed[second])return -1;auto& a=packed[0]->field;auto& b=packed[second]->field;
  for(int i=0;i<a.view_width*a.view_height;i++)for(int slot: {0,second}){const auto& value=*packed[slot];const auto& f=value.field;if(f.quarter){int x=i%f.view_width+f.offset,y=i/f.view_width+f.offset;if(f.mirror)x=f.width-3*f.patch-1-x;if(!value.diverse[size_t(y)*(f.width-3*f.patch)+x])mask[i]=0;}}

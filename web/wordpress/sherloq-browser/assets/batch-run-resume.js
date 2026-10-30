@@ -1,7 +1,7 @@
-import {compactEvidence} from './batch-evidence.js';
-import {readBatchZip} from './batch-zip.js';
-import {createExportSink} from './export-sink.js';
-import {exportSinkScopeFor} from './export-sink-owner.js';
+import {compactEvidence} from './batch-evidence.js?v=0.30.0';
+import {readBatchZip} from './batch-zip.js?v=0.30.0';
+import {createExportSink} from './export-sink.js?v=0.30.0';
+import {exportSinkScopeFor} from './export-sink-owner.js?v=0.30.0';
 import {npyHeader} from './unified-engine/src/npz.js';
 import {scientificZipPlan,scientificZipLocal,scientificZipCentral,scientificZipEnd} from './unified-engine/src/scientific-zip.js';
 

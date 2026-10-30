@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {MGCFDN_MPDN_WINDOW_BASE_CREDIT,mgcfdnMpdnWindowStageWorkspace} from './mgcfdn-mpdn-window-memory.js';
 import {requireValue,checkAbort} from './errors.js';
 import {retireCompositeOwners} from './composite-owner-release.js';

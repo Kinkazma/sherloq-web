@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 import {deserializeWorkerError} from './errors.js';
 import {prepareResearchRows} from './m3-research-rows.js';

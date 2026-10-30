@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createMgcfdn16WindowFragmentRun} from './mgcfdn16-window-fragment-run.js';
 import {createMgcfdnProductProjection} from './mgcfdn-product-projection.js';
 import {publishNeuralResult} from './publish-neural-result.js';

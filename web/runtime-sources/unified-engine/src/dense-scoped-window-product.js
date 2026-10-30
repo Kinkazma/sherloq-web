@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement} from './dense-owner-retirement.js';
 import {createSparseCloneWindowEngine} from './sparse-clone-window-engine.js';
 import {createDenseNativeWindowCallback} from './dense-native-windows.js';

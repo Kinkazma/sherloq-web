@@ -1,4 +1,4 @@
-import {pdfPagePaintCapabilities} from './batch-import.js';
+import {pdfPagePaintCapabilities} from './batch-import.js?v=0.30.0';
 
 // PDF.js gives getOperatorList() a distinct OPLIST intent. Its numeric offsets
 // and object IDs need not match the display list. Keep this version adapter
@@ -17,7 +17,7 @@ function validateCapabilities(capabilities){
 function sameIndices(a,b){return a.length===b.length&&a.every((value,i)=>value===b[i]);}
 async function pagePlan(page,capabilities){
  let promise=plans.get(capabilities);
- if(!promise){promise=(async()=>{const {OPS,version}=await import('./pdf-native-library.js');if(version!=='5.6.205')throw failure('This PDF.js version has no qualified display operator adapter.');const list=await page.getOperatorList(),actual=pdfPagePaintCapabilities(list,OPS);if(!actual.simpleImagePainting||!sameIndices(actual.imageOperators,capabilities.imageOperators))throw failure('The logical PDF image occurrences do not match their extraction list.');return{page,OPS,logical:[...actual.imageOperators],signatures:actual.imageOperators.map(index=>signature(list,index,OPS))};})();plans.set(capabilities,promise);promise.catch(()=>plans.delete(capabilities));}
+ if(!promise){promise=(async()=>{const {OPS,version}=await import('./pdf-native-library.js?v=0.30.0');if(version!=='5.6.205')throw failure('This PDF.js version has no qualified display operator adapter.');const list=await page.getOperatorList(),actual=pdfPagePaintCapabilities(list,OPS);if(!actual.simpleImagePainting||!sameIndices(actual.imageOperators,capabilities.imageOperators))throw failure('The logical PDF image occurrences do not match their extraction list.');return{page,OPS,logical:[...actual.imageOperators],signatures:actual.imageOperators.map(index=>signature(list,index,OPS))};})();plans.set(capabilities,promise);promise.catch(()=>plans.delete(capabilities));}
  const plan=await promise;if(plan.page!==page||!sameIndices(plan.logical,capabilities.imageOperators))throw failure('The logical PDF image certificate belongs to a different source.');return plan;
 }
 

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "runtimeId": "ort130-wasm-2048mib-d2prl-spatial",
+  "memoryMaximumBytes": 2147483648,
+  "sourceLoaderSha256": "c58b7d2aab041b4a19f4c941050fde7c09a46b6e156105659d7945183de8334e",
+  "wasmUnchanged": true,
+  "files": {
+    "factory-roles2048.mjs": {
+      "bytes": 335,
+      "sha256": "8fd13db01916947077959fe7f9b495bd22ae1776c8b5f30272582e681bee2fbe"
+    },
+    "ort-wasm-simd-threaded-roles2048.mjs": {
+      "bytes": 24381,
+      "sha256": "c1e5b85f15955bad381b67042af4f6fd16603ff2c04d34db6466f878a549a6e7"
+    }
+  }
+}

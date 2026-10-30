@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "files": {
+    "cmseg-winograd.js": "919b2fb7d1980b4f752575f36dba04867f79612958f02f49edf7c0a034c66ffe",
+    "cmseg-winograd.wasm": "51398bea8745b54586e16e72e9c96b333c7e014bcb24e71a9008c81b657d8f9b",
+    "correlation-fma.js": "3aec9e00d6364701d73fbe2eaa894f0c76c4b103b458471513b02d208cd47fbf",
+    "correlation-fma.wasm": "fe3a44357907b250fb00d82c5c6f9474de732e56340ffbfa694cca858efad39b"
+  },
+  "sources": {
+    "experiments/segmentation/cmseg-winograd.cpp": "02266364525a9fd78d08254af74b7297cedd304bf7163170bc8ba4df19686b86",
+    "experiments/segmentation/cmseg-correlation.cpp": "8f65a246e8aabd069e4ff6c29c4d704b01d7c8717039b95e988269fd375aae54",
+    "experiments/d2prl/fma-simd.h": "fee2445e13b8321920d0672ebc568eb6c3a04a12ae7b702cc5fda928b36e31b2",
+    "scripts/build-cmseg-fma-candidate.py": "459baf0684d0cb8c53aac508f175521dc05662f9f44ff80ecf837a8eadf67227",
+    "scripts/build-cmseg-exact-kernels.py": "dc4505045912703a1b8b7cbaa2346584a2789c43d109c7a004eaa3307b751c21"
+  },
+  "nativeReference": "https://github.com/pytorch/pytorch/blob/v2.8.0/aten/src/ATen/native/cpu/DepthwiseConvKernel.cpp",
+  "license": "../d2prl/PYTORCH-LICENSE.txt",
+  "scope": "Native float32 Winograd and ordered FMA; model-specific reference arithmetic, never browser-brand selection."
+}

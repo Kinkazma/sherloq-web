@@ -21,10 +21,10 @@ export async function m2ToolConfiguration(method){
  if(method==='trufor'){const npp=await json(url('trufor-npp/native-manifest.json'));configuration={segments:await segments('trufor-split-value'),runtimes,noiseprint:{asset:{...npp.weights,url:url('trufor-npp/'+npp.weights.file),program:{...npp.program,url:url('trufor-npp/'+npp.program.file)}},runtime:{executor:'noiseprint-plus',factoryUrl:url('cfa-m2/operators.mjs'),wasmUrl:url('cfa-m2/operators.wasm')}}};}
  return configuration;
 }
-export async function m2ToolClient({method,memoryBudgetBytes,computeProfile}){
- return createM2WorkerClient({memoryBudgetBytes,computeProfile,methods:{[method]:await m2ToolConfiguration(method)}});
+export async function m2ToolClient({method,memoryBudgetBytes,computeProfile,configuration}){
+ return createM2WorkerClient({memoryBudgetBytes,computeProfile,methods:{[method]:configuration??await m2ToolConfiguration(method)}});
 }
 export async function scientificPreparationConfiguration(){
- const {SCIENTIFIC_TEXT_MODEL}=await import('./scientific-text-detector.js'),forgeryscope=await m2ToolConfiguration('forgeryscope');
+ const {SCIENTIFIC_TEXT_MODEL}=await import('./scientific-text-detector.js?v=0.30.0'),forgeryscope=await m2ToolConfiguration('forgeryscope');
  return {methods:{forgeryscope},text:{asset:{...SCIENTIFIC_TEXT_MODEL,url:new URL('./batch-models/'+SCIENTIFIC_TEXT_MODEL.file,import.meta.url).href},runtimes:forgeryscope.runtimes}};
 }

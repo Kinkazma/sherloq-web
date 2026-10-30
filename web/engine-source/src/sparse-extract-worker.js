@@ -9,7 +9,14 @@ self.onmessage=async({data})=>{
  let imagePointer=0,maskPointer=0,polygonPointer=0;
  try{
   if(data.kind==='init'){
-   maximumHeapBytes=data.maximumHeapBytes;const {default:create}=await import('../vendor/sparse-extract/sparse-extract.js');module=await create({wasmBinary:boundWasmMemory(data.wasm,data.maximumHeapBytes),print(){},printErr(){}});postMessage({ready:true});return;
+   maximumHeapBytes=data.maximumHeapBytes;module=null;let arithmetic='scalar-reference',precisionFallback=null;
+   if(data.optimizedWasm instanceof Uint8Array&&WebAssembly.validate(data.optimizedWasm)){
+    try{const {default:create}=await import('../vendor/sparse-extract-simd/sparse-extract.js');module=await create({wasmBinary:boundWasmMemory(data.optimizedWasm,data.maximumHeapBytes),print(){},printErr(){}});
+     const differences=module._sparse_fma_qualify();if(differences!==0||module._sparse_fma_enabled()!==1){module=null;precisionFallback={code:'SIMD_FMA_QUALIFICATION',message:'Original scalar feature extraction retained',differences};}else arithmetic='exact-f32-fused-simd-qualified';
+    }catch(error){module=null;precisionFallback={code:'SIMD_UNAVAILABLE',message:'Original scalar feature extraction retained'};}
+   }
+   if(!module){const {default:create}=await import('../vendor/sparse-extract/sparse-extract.js');module=await create({wasmBinary:boundWasmMemory(data.wasm,data.maximumHeapBytes),print(){},printErr(){}});}
+   postMessage({ready:true,arithmetic,precisionFallback});return;
   }
   const {image,regions,excluded,family,limit,zoneCount,independentZone}=data,n=image.width*image.height;
   const allocate=bytes=>{const p=module._malloc(Math.max(8,bytes));if(!p)throw wasmAllocationFailure(module,'WASM memory allocation failed',Math.max(8,bytes));return p;};

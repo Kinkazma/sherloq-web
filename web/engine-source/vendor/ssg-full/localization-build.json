@@ -1,65 +1,31 @@
 {
   "schema": 1,
   "compiler": "Emscripten4.0.15",
-  "definition": "independent SSG full localization; no MATLAB runtime or literal script parity claim",
-  "command": [
-    "em++",
-    "vendor/ssg-full/localization.cpp",
-    "-Ivendor/pocketfft",
-    "-O3",
-    "-std=c++17",
-    "-ffp-contract=off",
-    "-fexceptions",
-    "-sDISABLE_EXCEPTION_CATCHING=0",
-    "-DPOCKETFFT_NO_MULTITHREADING",
-    "-sMODULARIZE=1",
-    "-sEXPORT_ES6=1",
-    "-sENVIRONMENT=node,web,worker",
-    "-sFILESYSTEM=0",
-    "-sIMPORTED_MEMORY=1",
-    "-sALLOW_MEMORY_GROWTH=1",
-    "-sINITIAL_MEMORY=33554432",
-    "-sMAXIMUM_MEMORY=2147483648",
-    "-sABORTING_MALLOC=0",
-    "-sSTACK_SIZE=1048576",
-    "-sEXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_ssg_full_blur\", \"_ssg_full_roi\", \"_ssg_full_localize\", \"_ssg_full_ssim\", \"_ssg_full_salience\", \"_ssg_full_set_team\", \"_ssg_full_shutdown\", \"_ssg_full_morph\", \"_ssg_full_phrases\"]",
-    "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPF64\",\"HEAPU32\"]",
-    "-o",
-    "vendor/ssg-full/localization.mjs"
-  ],
+  "definition": "Same independent SSG operators with exact binary+neutral n4 representation; original Float64 fallback retained, no threshold/SSIM/BFS change",
+  "buildScript": "scripts/build-ssg-localization.py",
+  "sources": {
+    "vendor/ssg-full/localization.cpp": "070fae001e25953e155ff90872c9c336570635670225b0dfb51d499f6b940818",
+    "vendor/ssg-full/n4-binary-bitset.h": "78f3e138baf0f8cc88b30e12f59e7b6b89a2ba5bc6e6dbaeb281448a2f0bd375",
+    "vendor/ssg-full/localization-parallel.h": "2f81c3e28966feeb3d027ff7ce3797cbff17d130f5987556f7b81c6d33e409b9",
+    "vendor/ssg-full/nearest.h": "7612448fba5c2366621e6c6cef16ba6333a557fb6733bd61fd91eaf3b78e9127",
+    "vendor/pocketfft/pocketfft_hdronly.h": "50f4ddbe60432325f560c706b6f1c49f9e0949fc7f20ae6499f2299e37d9790c"
+  },
   "files": {
-    "localization.cpp": {
-      "bytes": 11599,
-      "sha256": "f0cbf4da7e60e9d92602ce95c1225ee73a03821a7746117509a90bf9614edc51"
-    },
-    "localization-parallel.h": {
-      "bytes": 958,
-      "sha256": "2f81c3e28966feeb3d027ff7ce3797cbff17d130f5987556f7b81c6d33e409b9"
-    },
-    "nearest.h": {
-      "bytes": 2091,
-      "sha256": "7612448fba5c2366621e6c6cef16ba6333a557fb6733bd61fd91eaf3b78e9127"
-    },
-    "pocketfft_hdronly.h": {
-      "bytes": 111974,
-      "sha256": "50f4ddbe60432325f560c706b6f1c49f9e0949fc7f20ae6499f2299e37d9790c"
-    },
     "localization.mjs": {
-      "bytes": 15190,
-      "sha256": "44ee3d94235f0fce6963afca38fa0199c6f2dc0b5ab1aaf23abfb2e6bbe4901c"
+      "bytes": 15408,
+      "sha256": "9cd164765bcc2ecc086a615011616b0daee87da45c38b14880f207d12113b79e"
     },
     "localization.wasm": {
-      "bytes": 134278,
-      "sha256": "aba3d03a9c61bb91c646584f004d1412fd6fa38d9a1d1064045d7d582c9fb46b"
+      "bytes": 137111,
+      "sha256": "1e98cc117f0006e3c122cad0c4fe7c3b02b7ddf1a3be363d375321cf98a12424"
     },
     "localization-shared.mjs": {
-      "bytes": 32272,
-      "sha256": "95377b4192776f953736ee24ff60f34183b2729a7e030f51127702bea3988229"
+      "bytes": 32491,
+      "sha256": "6e7a82b2e1d225b1cc398f384882dcba5068642a54cae162d11d47434bd448a8"
     },
     "localization-shared.wasm": {
-      "bytes": 171747,
-      "sha256": "7c0e4456375c65f9acc1e492103d3f840d923965da8a9b7eb4e1e41b338a37f9"
+      "bytes": 174575,
+      "sha256": "71153fc19c573f8767484e22cefe50af692184bc629e939e1dbe896a124ae657"
     }
-  },
-  "commandDirectory": "web/engine-source"
+  }
 }

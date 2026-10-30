@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{catnetCompanionSource}from'./catnet-companion-source.js';
 import{NeuralGraphPool}from'./neural-graph-pool.js';import{resolveComputeProfile}from'./profiles.js';import{createTemporarySession}from'./temporary-storage.js';
 import{catnetSourceTensors}from'./catnet-source-tensors.js';import{catnetSegmentedNetwork}from'./catnet-segmented-network.js';import{catnetOrientTensor}from'./catnet-segmented-analyzer.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{EngineError,requireValue,checkAbort,controlCheckpoint}from'./errors.js';import{rgbRowSource,validateRgbRows}from'./rgb-row-source.js';import{createSHA256}from'../vendor/hash-wasm/hashes.js';
 import {createRgbRowRetirement} from './rgb-row-retirement.js';
 import {retireCompositeOwners} from './composite-owner-release.js';

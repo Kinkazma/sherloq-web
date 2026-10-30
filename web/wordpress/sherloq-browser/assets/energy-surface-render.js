@@ -1,5 +1,5 @@
-import {renderEnergy} from './energy-render.js';
-import {readEnergyWindow,sampleEnergyField} from './energy-native-fields.js';
+import {renderEnergy} from './energy-render.js?v=0.30.0';
+import {readEnergyWindow,sampleEnergyField} from './energy-native-fields.js?v=0.30.0';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
 const fields=view=>view==='scores'?['energy_scope','energy_high_score','energy_low_score']:['energy_labels'];
 const nativePanels=(both,width,height)=>both?{panels:['high','low'].map((field,index)=>({field,x:index*width,y:0,width,height}))}:{};

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 
 // Python json.dumps accepts non-finite floats and arbitrarily large integers.

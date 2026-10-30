@@ -5,7 +5,7 @@
 #include <cmath>
 #include <vector>
 extern "C" int neural_spatial_rows(const float* input,int width,int height,int out_width,int out_height,int first_row,int rows,int nearest,float* output){
- if(!input||!output||width<1||height<1||width>512||height>512||out_width<1||out_height<1||out_width>131072||out_height>131072||first_row<0||rows<1||rows>out_height-first_row||(nearest!=0&&nearest!=1))return 0;
+ if(!input||!output||width<1||height<1||width>1792||height>1792||out_width<1||out_height<1||out_width>131072||out_height>131072||first_row<0||rows<1||rows>out_height-first_row||(nearest!=0&&nearest!=1))return 0;
  for(int i=0;i<width*height;i++)if(!std::isfinite(input[i]))return 0;
  const double sx=1./((double)out_width/width),sy=1./((double)out_height/height);
  if(nearest){

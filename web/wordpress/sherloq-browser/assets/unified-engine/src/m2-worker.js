@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.30.0";
 // Keep module-load failures inside the request protocol. An external worker
 // error event can omit its message and source when a static import fails.
 let loadError,fatal,detachMessageError=()=>{};

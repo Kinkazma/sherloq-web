@@ -57,7 +57,7 @@ export async function runSelfDMProposalContextDeepMask({geometry,backend='auto'}
   // Every sibling acknowledges its input/output before the source can retire.
   await Promise.allSettled(scales);await copyTail;if(failed)throw failure;checkAbort(joined);
   const candidates=banks.finalize();
-  owner.raw={candidates,banks:banks.banks,receipts,metadata:{policy:SELFDM_PROPOSAL_CONTEXT_DEEPMASK,cloneWindowMode:geometry.cloneWindowMode,backendRequested:backend,maximumCores:profile.maxWorkers,contextFingerprint:geometry.provenance.contextFingerprint,candidateFingerprint:geometry.provenance.candidateFingerprint,contexts:geometry.contexts.map(c=>({id:c.id,bounds:[...c.bounds],scales:c.scales.map(s=>({index:s.index,scale:s.scale,rows:s.rows,cols:s.cols,windows:s.windows.length}))})),commonTopKPerScale:500,commonFinalTopK:500,actualNativePipelines:receipts.length,noExtraNormalizationDeduplicationOrThreshold:true}};
+  owner.raw={candidates,banks:banks.banks,receipts,metadata:{policy:SELFDM_PROPOSAL_CONTEXT_DEEPMASK,cloneWindowMode:geometry.cloneWindowMode,backendRequested:backend,maximumCores:profile.maxWorkers,contextFingerprint:geometry.provenance.contextFingerprint,candidateFingerprint:geometry.provenance.candidateFingerprint,contexts:geometry.contexts.map(c=>({id:c.id,bounds:[...c.bounds],scales:c.scales.map(s=>({index:s.index,scale:s.scale,rows:s.rows,cols:s.cols,windows:s.windows.length,status:s.status??'ready',...(s.reason?{reason:s.reason}:{})}))})),commonTopKPerScale:500,commonFinalTopK:500,actualNativePipelines:receipts.length,noExtraNormalizationDeduplicationOrThreshold:true}};
   finished();return owner;
  }catch(primary){finished();await retireCompositeOwners([()=>owner.release()],{primary});throw primary}
  finally{finished()}

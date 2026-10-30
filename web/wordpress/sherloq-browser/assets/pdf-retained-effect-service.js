@@ -3,14 +3,14 @@
 import {createPdfRetainedAdjustMath} from './unified-engine/src/pdf-retained-adjust-math.js';
 import {retainResult} from './unified-engine/src/retained-result.js';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {createCanonicalPdfComposite} from './pdf-canonical-composite.js';
-import {createPdfRetainedEffectContext,pdfEffectReference} from './pdf-retained-effect-context.js';
-import {createPdfRetainedCanonicalBlur} from './pdf-retained-canonical-blur.js';
-import {createPdfRetainedFineEffectMap} from './pdf-retained-fine-effect-map.js';
-import {createRetainedPdfPresentation} from './pdf-retained-presentation.js';
-import {createRetainedPdfExportRaster} from './pdf-retained-export-raster.js';
-import {createRetainedPdfRasterSource} from './pdf-retained-raster-source.js';
-import {validateLoupeEffects,adjustmentParameters} from './loupe-effects-settings.js';
+import {createCanonicalPdfComposite} from './pdf-canonical-composite.js?v=0.30.0';
+import {createPdfRetainedEffectContext,pdfEffectReference} from './pdf-retained-effect-context.js?v=0.30.0';
+import {createPdfRetainedCanonicalBlur} from './pdf-retained-canonical-blur.js?v=0.30.0';
+import {createPdfRetainedFineEffectMap} from './pdf-retained-fine-effect-map.js?v=0.30.0';
+import {createRetainedPdfPresentation} from './pdf-retained-presentation.js?v=0.30.0';
+import {createRetainedPdfExportRaster} from './pdf-retained-export-raster.js?v=0.30.0';
+import {createRetainedPdfRasterSource} from './pdf-retained-raster-source.js?v=0.30.0';
+import {validateLoupeEffects,adjustmentParameters} from './loupe-effects-settings.js?v=0.30.0';
 const cancelled=()=>Object.assign(new Error('Retained PDF effect service released.'),{code:'CANCELLED'});
 const check=signal=>{if(signal?.aborted)throw signal.reason??cancelled();};
 export function createRetainedPdfEffectService(program,rawSource,reference,{budget,changed=()=>{},onError=()=>{},maxStyles=3,maxIdleContexts=3,maxIdleNeighborhoods=2,getTemporarySession,storage='auto',mathFactory=createPdfRetainedAdjustMath,compositeFactory=createCanonicalPdfComposite,contextFactory=createPdfRetainedEffectContext,blurFactory=createPdfRetainedCanonicalBlur,mapFactory=createPdfRetainedFineEffectMap,presentationFactory=createRetainedPdfPresentation,exportFactory=createRetainedPdfExportRaster}={}){

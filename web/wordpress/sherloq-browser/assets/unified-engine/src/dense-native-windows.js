@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createAutomaticPreparedDense as createSingleNativeDense} from './automatic-prepared-dense-native.js';
 import {sparseStrictImageRecord} from './sparse-strict-source.js';
 import {sparseNativeWindowParameters} from './sparse-native-window-source.js';

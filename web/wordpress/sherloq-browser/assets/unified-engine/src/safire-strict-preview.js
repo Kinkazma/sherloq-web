@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateWasmMemory} from './allocation.js';
 import {fetchM3Asset} from './m3-asset.js';
 import {RESEARCH_POST_WASM} from './research-post-assets.js';

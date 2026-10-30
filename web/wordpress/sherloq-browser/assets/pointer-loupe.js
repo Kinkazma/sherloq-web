@@ -1,7 +1,7 @@
-import * as imageMedia from './media-settings.js';
-import {hasLoupeEffects} from './loupe-effects-settings.js';
-import {createPointerLoupe as createNativePointerLoupe,loupeMapping} from './pdf-pointer-loupe.js';
-import {createLoupeImageCache} from './loupe-full-client.js';
+import * as imageMedia from './media-settings.js?v=0.30.0';
+import {hasLoupeEffects} from './loupe-effects-settings.js?v=0.30.0';
+import {createPointerLoupe as createNativePointerLoupe,loupeMapping} from './pdf-pointer-loupe.js?v=0.30.0';
+import {createLoupeImageCache} from './loupe-full-client.js?v=0.30.0';
 export {loupeMapping};
 let serial=0;
 // The renderer, exact native tiles, statistics and seam-free assembly are shared

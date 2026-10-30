@@ -1,8 +1,10 @@
+import {installUsefulGpuDispatchEvidence} from './useful-gpu-dispatch-evidence.js';
+const usefulGpuDispatches=installUsefulGpuDispatchEvidence();
 import {wasmAllocationFailure,copyTypedArray,allocateWasmMemory} from './allocation.js';
 import {serializeEngineError} from './errors.js';
 import {M3_ORT_ASSETS} from './m3-ort-assets.js';import {fetchM3Asset} from './m3-asset.js';import {RESEARCH_PREPARE_WASM} from './research-prepare-assets.js';
 let ort,provider,device,factoryUrl,image,tokens,vit,hrnet,combined,producer;
-self.onmessage=async({data:job})=>{
+self.onmessage=async({data:job})=>{const usefulGpuStart=usefulGpuDispatches?.snapshot();
  let session;
  try{
   if(job.task==='init'){
@@ -23,7 +25,7 @@ self.onmessage=async({data:job})=>{
   // has finished. Releasing that session first invalidates ORT buffer handles.
   await producer?.release();producer=null;
   if(resident){producer=session;session=null;}
-  const {heapBytes}=await import(factoryUrl);const metadata={stage,provider:cpu?'wasm':provider,heapBytes:heapBytes(),threads:ort.env.wasm.numThreads};
+  const {heapBytes}=await import(factoryUrl);const metadata={stage,provider:cpu?'wasm':provider,gpuExecution:usefulGpuDispatches?.since(usefulGpuStart),heapBytes:heapBytes(),threads:ort.env.wasm.numThreads};
   if(stage==='cluster'){
    const labels=Uint8Array.from(result.labels.data,Number),map=Float32Array.from(labels),features=combined.data.slice();for(const t of Object.values(result))t.dispose();combined.dispose();combined=null;await session.release();session=null;postMessage({map,features,metadata},[map.buffer,features.buffer]);
   }else{await session?.release();session=null;if(stage==='fusion'&&gpu){const features=combined.data.slice();combined.dispose();combined=null;postMessage({metadata,features},[features.buffer]);}else postMessage({metadata});}

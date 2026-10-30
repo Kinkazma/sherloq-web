@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {planDocTamperStrictContexts} from './doctamper-strict-plan.js';
 import {createGenerationContextImage} from './source-region-generation.js';
 import {sourceRegionUnlocalizedInput} from './source-region-capabilities.js';

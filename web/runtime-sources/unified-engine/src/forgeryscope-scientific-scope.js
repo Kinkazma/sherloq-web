@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {compileNativeSourceRegionMembership} from './source-region-native-regions.js';
 import {requireValue,checkAbort,checkpoint} from './errors.js';
 

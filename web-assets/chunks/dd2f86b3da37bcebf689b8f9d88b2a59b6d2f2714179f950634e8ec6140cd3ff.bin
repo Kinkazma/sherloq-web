@@ -1,0 +1,18 @@
+{
+  "opencv": "4.11.0",
+  "emscripten": "4.0.15",
+  "method": "Optional ordered-f32 Gaussian callbacks; original Farneback polynomial expansion, matrix updates, f64 solve, iterations, pyramid and resizes retained. CPU module left independent. Optional completed native-blur cost observations; numerical operations unchanged.",
+  "inputs": {
+    "native/stereo-stream-gpu.cpp": "b7338c9afaf03f5827741ef700829313f9937baef912dd0b288c2b52e4ea62db",
+    "native/stereo-stream.cpp": "c73c09b6158aedf9befc8b8409806f4676d1a5ea971ef27b0006addf1fc727bf",
+    "native/stereo.h": "793196411c3c38d5a6be8a1d4077dcd5e8dd8f043f5918e0e58b84ecf31d90a3",
+    "native/stereo-fma.h": "3c7ab85540a6d3ec5ac7bfbee71e3d02c9993acf3a1c3d2a7e4214987be78b2c",
+    "native/stereo-gaussian-simd.h": "56e80f246553b0121ceda0341212be0b3127061223f63515144a86296c5dc7b9",
+    "vendor/stereo-resident-source/farneback-reference.cpp": "8c3aad60e73ef6644926bb84aedb9ed1eb9f30002186e70cfc4f75e5082cc6c8",
+    "cv/lib/libopencv_video.a": "2a110b2073d1a190c840b83a357c6272fc6a78a2b44fb14197be441ad54ad53d",
+    "cv/lib/libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "cv/lib/libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    "cv/3rdparty/lib/libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72",
+    "native/stereo-matrix-simd.h": "8ed9a53bd6550a1e64c4f9d2b7b346c1b03f4e3ddc8cd5e37afc1787df7fa518"
+  }
+}

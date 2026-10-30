@@ -1,7 +1,7 @@
-import {assertBatchScientificScope} from './batch-catalog.js';
-import {scopeFingerprint} from './batch-scientific-preparation.js';
-import {batchBlobSha256} from './batch-run-resume.js';
-import {compileOriginalSourceRegions,createOriginalSourceRegionsState} from './original-source-regions.js';
+import {assertBatchScientificScope} from './batch-catalog.js?v=0.30.0';
+import {scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
+import {batchBlobSha256} from './batch-run-resume.js?v=0.30.0';
+import {compileOriginalSourceRegions,createOriginalSourceRegionsState} from './original-source-regions.js?v=0.30.0';
 import {assertSourceRegionOperation,sourceRegionDomainShape} from './unified-engine/src/source-region-capabilities.js';
 export const LEGACY_BATCH_PIXEL_DOMAIN_VERSION='legacy-batch-pixel-domain/1';
 const operations=new Set(['detail.wavelets','noise.blocking']),hashes=new WeakMap();

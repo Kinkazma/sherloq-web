@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,EngineError} from './errors.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';
 import {selfDMProposalRuntimes} from './selfdm-proposal-assets.js';

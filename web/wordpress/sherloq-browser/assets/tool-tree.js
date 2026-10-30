@@ -1,4 +1,4 @@
-import {EXTENSION_TOOLS} from './extension-tools.js';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.30.0';
 export const toolGroups = [
   {
     "en": "General",

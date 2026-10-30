@@ -1,4 +1,4 @@
-import {displayThreshold,responseColor,responseBlend} from './response-presentation.js';
+import {displayThreshold,responseColor,responseBlend} from './response-presentation.js?v=0.30.0';
 
 export const DEFAULT_DTD_OPACITY=0.7;
 export const DEFAULT_DTD_THRESHOLD=0.5;

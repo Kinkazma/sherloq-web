@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.30.0";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {EngineError, requireValue, checkAbort} from './errors.js';
 const f = Math.fround;
@@ -84,6 +84,8 @@ export function denseResidentHeapBound(width,height,patch,reflection=false){
 
 // One instance per admitted worker/job owner. Calls are synchronous and may
 // not overlap. A worker owner can terminate on cancellation during native work.
+const requireDenseGather=(indices,count)=>requireValue(indices instanceof Int32Array&&indices.length<=8192&&indices.every((v,i)=>v>=0&&v<count&&(!i||v>indices[i-1])),'Invalid active native descriptor indices.');
+
 export async function createDenseMath(options = {}) {
   const {default: create} = await import('../vendor/dense/dense.js');
   const m = await create(options);
@@ -115,6 +117,7 @@ export async function createDenseMath(options = {}) {
       const shape=denseDescriptorShape(width,height,0,patch);requireValue(gray instanceof Float32Array&&gray.length===width*height&&gray.every(Number.isFinite)&&typeof reflection==='boolean','Invalid resident Zernike input.');denseResidentHeapBound(width,height,patch,reflection);checkAbort(signal);residentShape=null;return scope((reserve,stage)=>{const source=stage(gray),error=reserve(1024);status(m._dense_resident_zernike(source,width,height,patch,+reflection,error),error);checkAbort(signal);residentShape=shape;return {...shape};});
     },
     residentUnpack(second,offset,length){requireValue(residentShape&&[0,1].includes(second)&&Number.isSafeInteger(offset)&&Number.isSafeInteger(length)&&offset>=0&&length>=0&&length<=8192&&offset+length<=residentShape.width*residentShape.height,'Invalid resident descriptor page.');return scope(reserve=>{const p=reserve(length*48);requireValue(m._dense_resident_unpack(second,offset,length,p)===0,'Invalid resident descriptor page.');return copyTypedArray(m.HEAPF32.subarray(p/4,p/4+length*12),{label:'dense-math-output'});});},
+    residentGather(second,indices,{signal,destination}={}){requireValue(residentShape&&[0,1].includes(second),'Invalid resident descriptor bank.');requireDenseGather(indices,residentShape.width*residentShape.height);requireValue(destination===undefined||destination instanceof Float32Array&&destination.length===indices.length*12&&(!indices.length||destination.buffer!==indices.buffer&&destination.buffer!==m.HEAPU8.buffer),'Invalid active descriptor destination.');checkAbort(signal);if(!indices.length)return destination??new Float32Array();return scope((reserve,stage)=>{const ids=stage(indices),p=reserve(indices.length*48);requireValue(m._dense_resident_gather(second,ids,indices.length,p)===0,'Active resident descriptor reconstruction failed.');checkAbort(signal);const values=m.HEAPF32.subarray(p/4,p/4+indices.length*12);if(destination){destination.set(values);return destination;}return copyTypedArray(values,{label:'dense-math-output'});});},
     residentRelease(){m._dense_resident_release();residentShape=null;},
     residentField(mask,width,height,{minimum=5,radius=600,iterations=8,compare=false,seed=729,gap=[0,0],axes=null,signal}={}){
       const n=width*height;requireValue(residentShape?.width===width&&residentShape?.height===height&&mask instanceof Uint8Array&&mask.length===n&&mask.every(v=>v<=3),'Resident field shape mismatch.');
@@ -129,6 +132,8 @@ export async function createDenseMath(options = {}) {
       return scope((reserve,stage)=>{const source=stage(gray),error=reserve(1024);status(m._dense_compact_prepare(source,width,height,patch,+reflection,+quarterTurn,support,slot,error),error);checkAbort(signal);compactShapes[slot]=shape;return {...shape};});
     },
     compactUnpack(slot,offset,length){const shape=compactShapes[slot];requireValue(shape&&Number.isSafeInteger(offset)&&Number.isSafeInteger(length)&&offset>=0&&length>=0&&offset+length<=shape.width*shape.height&&length<=8192,'Invalid compact descriptor page.');return scope(reserve=>{const p=reserve(length*128*4);if(m._dense_compact_unpack(slot,offset,length,p))throw new EngineError('INVALID_INPUT','Compact descriptor reconstruction failed.');return copyTypedArray(m.HEAPF32.subarray(p/4,p/4+length*128),{label:'dense-math-output'});});},
+    compactGather(slot,indices,{signal,destination}={}){const shape=compactShapes[slot];requireValue(shape,'Invalid compact descriptor bank.');requireDenseGather(indices,shape.width*shape.height);requireValue(destination===undefined||destination instanceof Float32Array&&destination.length===indices.length*128&&(!indices.length||destination.buffer!==indices.buffer&&destination.buffer!==m.HEAPU8.buffer),'Invalid active descriptor destination.');checkAbort(signal);if(!indices.length)return destination??new Float32Array();return scope((reserve,stage)=>{const ids=stage(indices),p=reserve(indices.length*128*4);requireValue(m._dense_compact_gather(slot,ids,indices.length,p)===0,'Active compact descriptor reconstruction failed.');checkAbort(signal);const values=m.HEAPF32.subarray(p/4,p/4+indices.length*128);if(destination){destination.set(values);return destination;}return copyTypedArray(values,{label:'dense-math-output'});});},
+    compactFilterMask(mask,{second=0,signal}={}){const a=compactShapes[0],b=compactShapes[second];requireValue(a&&b&&[0,1].includes(second)&&a.width===b.width&&a.height===b.height&&mask instanceof Uint8Array&&mask.length===a.width*a.height&&mask.every(v=>v<=3),'Compact eligibility mask shape mismatch.');checkAbort(signal);return scope((reserve,stage)=>{const allowed=stage(mask);requireValue(m._dense_compact_filter_mask(allowed,second)===0,'Compact diversity filtering failed.');checkAbort(signal);return copyTypedArray(m.HEAPU8.subarray(allowed,allowed+mask.length),{label:'dense-math-output'});});},
     compactRelease(){m._dense_compact_release();compactShapes.fill(null);},
     compactField(mask,width,height,{second=0,minimum=5,radius=600,iterations=8,compare=false,seed=729,gap=[0,0],axes=null,cacheSlots=16384,signal}={}) {
       const count=width*height;

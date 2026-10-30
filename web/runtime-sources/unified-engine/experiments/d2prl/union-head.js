@@ -1,10 +1,11 @@
+import {d2prlInputSide} from './input-side.js';
 import {retainD2prlCheckpoint} from './checkpoint.js';
 import {createWasmTensorArena} from '../../src/wasm-tensor-arena.js';
 // Private composed DLF + dedicated union head. Inputs are actual PatchMatch
 // outputs. Only checkpoint parameters are loaded; no expected activation input.
 import {requireValue, checkAbort, EngineError} from '../../src/errors.js';
-const SIDE = 448, N = SIDE * SIDE;
-export function createUnionHead({arena:sharedArena,dlf, convolution, featureMath, neuralMath, budget, layers, batchnorm, dlfWeights, layouts, loadParameter, ownedParameters=false, operation=(_label,work)=>work()}) {
+export function createUnionHead({arena:sharedArena,inputSide=448,dlf, convolution, featureMath, neuralMath, budget, layers, batchnorm, dlfWeights, layouts, loadParameter, ownedParameters=false, operation=(_label,work)=>work()}) {
+  const SIDE=d2prlInputSide(inputSide),N=SIDE*SIDE;
   requireValue(budget && layers?.length === 5 && batchnorm?.length === 4 && typeof loadParameter === 'function', 'Union model dependencies');
   let busy=false,checkpoint;
   const clear=()=>{if(!checkpoint)return;const old=checkpoint;checkpoint=null;old.current?.release();old.pending?.release();old.result?.release();for(const value of old.held)value.release();if(!sharedArena)old.arena.dispose();};

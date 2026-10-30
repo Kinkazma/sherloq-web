@@ -2,12 +2,33 @@ import {combineSparseWindowPresentation} from './sparse-window-presentation.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 
+// Report the provider of the retained matching evidence, never the requested
+// backend. A cache hit can retain GPU fields while completing zero new GPU jobs.
+function matchingBackend(raw){
+ if(typeof raw.backend==='string'&&raw.backend)return raw.backend;
+ const fields=raw.metrics?.fieldExecutions;if(!Array.isArray(fields)||!fields.length)return null;
+ const backends=new Set();for(const field of fields){const backend=field.matching?.backend;if(typeof backend!=='string'||!backend)return null;backends.add(backend);}
+ return backends.size===1?[...backends][0]:'hybrid';
+}
+function executionSummary(native){
+ const windows=native.map(({raw,...window})=>({...window,backend:matchingBackend(raw),metrics:raw.metrics??null})),known=windows.filter(w=>w.backend!==null),backends=new Set(known.map(w=>w.backend));
+ const summary={actualBackend:known.length===windows.length&&backends.size?(backends.size===1?[...backends][0]:'hybrid'):null,backendSemantics:'Native matching evidence provenance; completedGpuJobs counts work in the native request, including zero for retained fields.',windowMetrics:windows,fieldExecutions:[]};
+ for(const {raw,...window}of native)for(const field of raw.metrics?.fieldExecutions??[])summary.fieldExecutions.push({...field,analysisWindow:window});
+ for(const key of ['completedJobs','completedGpuJobs','preflightExecutions']){
+  if(!windows.every(w=>w.metrics?.[key]!==undefined))continue;
+  let total=0;for(const w of windows){const value=w.metrics[key];requireValue(Number.isSafeInteger(value)&&value>=0,'Invalid native Dense execution count.');total+=value;requireValue(Number.isSafeInteger(total),'Dense execution count exceeds the exact integer domain.');}summary[key]=total;
+ }
+ const cache={};for(const key of ['field','refilter'])if(windows.every(w=>typeof w.metrics?.cache?.[key]==='boolean'))cache[key]=windows.every(w=>w.metrics.cache[key]);
+ if(Object.keys(cache).length)summary.cache=cache;return summary;
+}
+
 // Data adaptation only. Full native fields/stores stay borrowed privately from
 // the carrier. Only typed/plain evidence may cross the public worker boundary.
 export async function combineDenseWindowPresentation(answer,options={}){
  const {budget,signal}=options;checkAbort(signal);
  const native=answer.windowResults.filter(w=>w.status==='complete').map(w=>({id:w.id,kind:w.kind,bounds:[...w.bounds],origin:[...w.origin],fingerprint:w.fingerprint,sourceContextIdentity:w.sourceContextIdentity,raw:w.output}));
- let fieldMetadataBytes=0;for(const w of native)for(const f of w.raw.dense_maps)fieldMetadataBytes+=1024+sourceRegionTransportBytes([f.width,f.height,f.shift,f.pass,f.context],{allowAliases:true,allowUndefined:true})*8;requireValue(Number.isSafeInteger(fieldMetadataBytes),'Dense field metadata size is not safe.');
+ const summary=executionSummary(native);
+ let fieldMetadataBytes=sourceRegionTransportBytes(summary,{allowAliases:true,allowUndefined:true})*4;for(const w of native)for(const f of w.raw.dense_maps)fieldMetadataBytes+=1024+sourceRegionTransportBytes([f.width,f.height,f.shift,f.pass,f.context],{allowAliases:true,allowUndefined:true})*8;requireValue(Number.isSafeInteger(fieldMetadataBytes),'Dense field metadata size is not safe.');
  const metadata=budget.reserve(fieldMetadataBytes+65536+sourceRegionTransportBytes(native.map(({raw,...w})=>({...w,params:raw.params,geometry:raw.geometry,mirror_policy:raw.mirror_policy,extension_bins:raw.extension_bins})),{allowAliases:true,allowUndefined:true})*4);
  let presentation,extra,ready=false;
  try{
@@ -28,6 +49,8 @@ export async function combineDenseWindowPresentation(answer,options={}){
   requireValue([data.group_algorithms,data.group_variants,data.group_frames].every(a=>a.length===data.groups.length),'Complete Dense native group metadata is required.');
   data.mirror_policy=maximumOverlap===undefined?null:{normal_preserved:true,base_pair_count:cutoff,maximum_overlap:maximumOverlap,overlap_filter_stage:'display',native_policies:'dense_windows[].raw.mirror_policy retained separately'};
   for(const key of ['dense_count','dense_consistent_count']){data[key]=native.reduce((n,w)=>n+w.raw[key],0);requireValue(Number.isSafeInteger(data[key])&&data[key]>=0,'Dense count exceeds exact public integer domain.');}
+  data.metrics=structuredClone(summary);if(summary.actualBackend!==null)data.backend=summary.actualBackend;else delete data.backend;
+  const actualBackends=new Map(summary.windowMetrics.map(w=>[w.id,w.backend]));data.metadata.nativeWindowBackends=data.metadata.nativeWindowBackends.map(w=>({...w,backend:actualBackends.get(w.id)??null}));
   data.dense_maps=[];data.dense_windows=native;data.geometry=native[0]?.raw.geometry??null;data.extension_bins=null;
   data.metadata.cloneAnalysisWindows.nativeData='windowResults[].dataNatif retains native typed/plain evidence; full Dense maps stay private and are exported under NPZ native_windows with original arrays/stores.';data.metadata.method='dense';data.metadata.denseWindowRecipe='dense-scoped-window/1';data.metadata.denseNativeWindows=native.map(({raw,...w})=>({...w,params:structuredClone(raw.params),geometry:structuredClone(raw.geometry),mirror_policy:structuredClone(raw.mirror_policy),extension_bins:structuredClone(raw.extension_bins),fields:raw.dense_maps.map(f=>({width:f.width,height:f.height,shift:f.shift,pass:f.pass,context:f.context}))}));
   data.metadata.cloneAnalysisWindows.presentationPairOrder='all native normal ranges, then all native mirror ranges; native arrays unchanged';

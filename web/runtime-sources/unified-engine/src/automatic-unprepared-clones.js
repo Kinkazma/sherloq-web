@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {combineDenseWindowPresentation} from './dense-window-presentation.js';
 import {createSparseCloneWindowEngine} from './sparse-clone-window-engine.js';
 import {createSiftNativeWindowCallback} from './sift-native-windows.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import nativeMathFactory from'../vendor/segmentation/tnt-math.js';
 import{validateTntBackbone}from'../experiments/segmentation/tnt-backbone.js';
 import{createTntWindowLinearCpu}from'./mgcfdn-tnt-window-linear-cpu.js';

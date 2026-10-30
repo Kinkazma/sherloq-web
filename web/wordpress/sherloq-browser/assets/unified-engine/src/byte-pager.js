@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 
 // Bounded mutable pages over a segmented byte store. prepare() is synchronous

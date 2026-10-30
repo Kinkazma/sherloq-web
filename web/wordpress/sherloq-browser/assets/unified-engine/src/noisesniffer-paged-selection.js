@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {noisesnifferScientificPatches} from './noisesniffer-scientific-patches.js';
 import {noisesnifferOwnerRetirement} from './noisesniffer-owner-retirement.js';
 import {noisesnifferStd8} from './noisesniffer-std8.js';

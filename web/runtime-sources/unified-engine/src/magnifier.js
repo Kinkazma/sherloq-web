@@ -1,6 +1,6 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {parameters,gray,equalizeHistogramLut} from './pixel-utils.js';import {requireValue,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
-export function magnifierParams(input={}){const p=parameters(input,{mode:'equalize',percent:20,channel:false,bounds:null},{percent:[0,100]},{mode:['equalize','contrast']},['channel']);requireValue(p.bounds===null||(Array.isArray(p.bounds)&&p.bounds.length===4&&p.bounds.every(Number.isSafeInteger)&&p.bounds[2]>=p.bounds[0]&&p.bounds[3]>=p.bounds[1]),'Bounds must be ordered integer half-open coordinates.');return p;}
+export function magnifierParams(input={}){const p=parameters(input,{mode:'equalize',percent:20,channel:false,bounds:null},{percent:[0,100]},{mode:['equalize','contrast','identity']},['channel']);requireValue(p.bounds===null||(Array.isArray(p.bounds)&&p.bounds.length===4&&p.bounds.every(Number.isSafeInteger)&&p.bounds[2]>=p.bounds[0]&&p.bounds[3]>=p.bounds[1]),'Bounds must be ordered integer half-open coordinates.');return p;}
 export function magnifierRegion(image,p){const bounds=(p.bounds??[0,0,image.width,image.height]).map((v,i)=>Math.max(0,Math.min(i%2?image.height:image.width,v)));return{bounds,width:bounds[2]-bounds[0],height:bounds[3]-bounds[1]};}
 export async function magnifier(image,p,hooks={}){
  checkAbort(hooks.signal);const {bounds,width,height}=magnifierRegion(image,p),[x1,y1]=bounds;
@@ -15,6 +15,7 @@ export async function magnifier(image,p,hooks={}){
  checkAbort(hooks.signal);return {pixels:{width,height,format:'rgb8',data},data:{bounds,empty:false},layers:[{id:'inspection.magnifier',kind:'rgb',origin:[x1,y1],range:[0,255]}],semantics:'Native clipped ROI enhancement; no resizing. Region origin is carried separately from its pixels.'};
 }
 export function magnifierLuts(hist,n,p){
+ if(p.mode==='identity')return Array.from({length:3},()=>Uint8Array.from({length:256},(_,i)=>i));
  function table(h){const lut=new Uint8Array(256);let low=0,high=255;while(!h[low])low++;while(!h[high])high--;
   if(p.mode==='equalize')return equalizeHistogramLut(h,n);
   if(p.percent){let sum=0;for(let i=0;i<256;i++){sum+=h[i]/n;if(sum>=p.percent/200){low=i;break;}}sum=0;for(let i=255;i>=0;i--){sum+=h[i]/n;if(sum>=p.percent/200){high=i;break;}}}

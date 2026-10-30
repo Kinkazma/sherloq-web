@@ -1,13 +1,13 @@
-import {nativeTiles,tileId} from './pdf-native-tile-plan.js';
-import {createBatchScopeMask} from './batch-scope-mask.js';
-import {isRecord,positiveId,validRect,validRgb,validError,encodeError,decodeError,protocolFailure} from './loupe-native-protocol.js';
+import {nativeTiles,tileId} from './pdf-native-tile-plan.js?v=0.30.0';
+import {createBatchScopeMask} from './batch-scope-mask.js?v=0.30.0';
+import {isRecord,positiveId,validRect,validRgb,validError,encodeError,decodeError,protocolFailure} from './loupe-native-protocol.js?v=0.30.0';
 // Scientific processing uses the maintained native-image engine. No reduced input or overview.
 const services=new Map();
 const encodedError=encodeError,receivedError=decodeError;
 const asCleanupFailure=value=>value instanceof Error?value:Object.assign(Error('Native loupe cleanup failed.',{cause:value}),{code:'CLEANUP_FAILED'});
 function service(memoryBudgetBytes){
  if(services.has(memoryBudgetBytes))return services.get(memoryBudgetBytes);
- const sourceURL=new URL('./pdf-native-effects-worker.js',import.meta.url);let worker;
+ const sourceURL=new URL('./pdf-native-effects-worker.js?v=0.30.0',import.meta.url);let worker;
  try{worker=new Worker(sourceURL,{type:'module'});}catch(cause){throw Object.assign(Error('Loupe preparation worker could not start.',{cause}),{code:'WORKER_FAILED',details:{sourceURL:String(sourceURL),executionPhase:'worker-startup'}});}
  const pending=new Map(),sources=new Map(),listeners=new Map(),sourceReads=new Map(),sourceFailures=new Map();let serial=0,lastSourceRead=0,users=0,failed=null,phase='open',retired=false,settled=false,closeError=null;
  let closeResolve,closeReject;const closedTask=new Promise((resolve,reject)=>{closeResolve=resolve;closeReject=reject;});closedTask.catch(()=>{});

@@ -1,5 +1,5 @@
-import {sha256,validateManifest} from './dependency-core.js';
-import {optionalBootstrapCache,readBootstrapBytes} from './bootstrap-metadata.js';
+import {sha256,validateManifest} from './dependency-core.js?v=0.30.0';
+import {optionalBootstrapCache,readBootstrapBytes} from './bootstrap-metadata.js?v=0.30.0';
 
 // Immutable manifests outlive a WordPress directory replacement. Keep a
 // verified copy independently of the downloaded libraries, and never latch a

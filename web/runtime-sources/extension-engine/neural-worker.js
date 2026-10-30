@@ -1,3 +1,5 @@
+import {installUsefulGpuDispatchEvidence} from '../unified-engine/src/useful-gpu-dispatch-evidence.js';
+const usefulGpuDispatches=installUsefulGpuDispatchEvidence();
 import "../runtime-context.js?v=0.21.0";
 // Derived from the existing SHERLOQ neural-graph-worker; shared protocol, lifecycle, and numerical runtime retained.
 // Adds WebGPU validation/error scopes around session.run so shader validation failures cannot be published as detections.
@@ -31,7 +33,7 @@ installWorkerMessageProtocol(self,async data=>{
   if(data.command==='resource-ready'){if(!resourceReady)throw workerMessageFailure('neural-endpoint','message','unexpected-resource-ready');const resume=resourceReady;resourceReady=null;resume();return;}
  if(data.command==='execute'){if(!execute)throw workerMessageFailure('neural-endpoint','message','unexpected-execute');const resume=execute;execute=null;resume();return;}
   if(!data.runtime||typeof data.runtime!=='object'||!data.asset||!data.inputs||data.command!==undefined)throw workerMessageFailure('neural-endpoint','message','invalid-job');
-  const initializationStart=performance.now();let initialized=false,phase='initialization';
+  let usefulGpuStart;const initializationStart=performance.now();let initialized=false,phase='initialization';
   const feeds={};let outputs;
   if(['cfa','noiseprint-plus'].includes(data.runtime.executor)){
    try{
@@ -47,7 +49,7 @@ installWorkerMessageProtocol(self,async data=>{
      }
     }
     if(asset.sha256!==data.asset.sha256)throw Error('Worker model changed');
-    await waitForExecution(initialized?performance.now()-initializationStart:0,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';
+    await waitForExecution(initialized?performance.now()-initializationStart:0,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';usefulGpuStart=usefulGpuDispatches?.snapshot();
     self.postMessage({phase:'inference'});let tensor,name;
     if(data.runtime.executor==='cfa'){
      const {runCfaProgram,runCfaProgramHybrid}=await import('../unified-engine/src/cfa-program.js'),options={block:data.inputs.block.data[0],...(data.provider==='webgpu'?{acquireCpu:()=>acquireResource('cpu'),acquireGpu:()=>acquireResource('gpu'),releaseCpu:()=>self.postMessage({releaseExecution:true})}:{})};
@@ -60,7 +62,7 @@ installWorkerMessageProtocol(self,async data=>{
      name='noiseprint';
     }
     if(tensor.data.byteLength>data.outputBytes)throw Error('Model output exceeds admitted size');
-    self.postMessage({result:{[name]:tensor},heapBytes:cfaModule.HEAPU8.byteLength,gpuBytes:cfaGPU?.residentBytes,provider:data.provider,runtime:{executor:data.runtime.executor+'-native-order-v1',gpu:tensor.gpu??tensor.metrics}},[tensor.data.buffer]);
+    self.postMessage({result:{[name]:tensor},heapBytes:cfaModule.HEAPU8.byteLength,gpuBytes:cfaGPU?.residentBytes,provider:data.provider,gpuExecution:usefulGpuDispatches?.since(usefulGpuStart),runtime:{executor:data.runtime.executor+'-native-order-v1',gpu:tensor.gpu??tensor.metrics}},[tensor.data.buffer]);
   }catch(error){self.postMessage({error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
    return;
   }
@@ -87,7 +89,7 @@ installWorkerMessageProtocol(self,async data=>{
       runtimeLifecycle.modelInitializations++;
     }
     if(asset.sha256!==data.asset.sha256)throw Error('Worker model changed');
-    await waitForExecution(initialized?performance.now()-initializationStart:0,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';
+    await waitForExecution(initialized?performance.now()-initializationStart:0,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';usefulGpuStart=usefulGpuDispatches?.snapshot();
     for(const [name,cached]of reusable)if(!Object.hasOwn(data.reusableInputs??{},name)){cached.tensor.dispose();reusable.delete(name);}
     for(const [name,key]of Object.entries(data.reusableInputs??{})){
       let cached=reusable.get(name);
@@ -113,7 +115,7 @@ installWorkerMessageProtocol(self,async data=>{
     }
     phase='output';const {result,transfers,copiedOutputBytes}=neuralOutputTransfer(outputs,feeds,data.outputBytes);
     const gpuMemory=data.provider==='webgpu'?await gpuLedger?.settle():undefined;
-    self.postMessage({result,copiedOutputBytes,heapBytes:runtime.heapBytes(),gpuBytes:gpuMemory?.bufferBytes,gpuMemory,runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle},provider:data.provider},transfers);
+    self.postMessage({result,copiedOutputBytes,heapBytes:runtime.heapBytes(),gpuBytes:gpuMemory?.bufferBytes,gpuMemory,runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle},provider:data.provider,gpuExecution:usefulGpuDispatches?.since(usefulGpuStart)},transfers);
   }catch(error){error=(data.provider==='webgpu'?gpuLedger?.failure():null)??error;const gpuMemory=data.provider==='webgpu'?gpuLedger?.snapshot():undefined;self.postMessage({gpuBytes:gpuMemory?.bufferBytes,gpuMemory,error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
   finally{for(const [name,t]of Object.entries(feeds))if(reusable.get(name)?.tensor!==t)t.dispose();for(const t of Object.values(outputs??{}))t.dispose();}
 },{label:'neural-endpoint',onFailure:error=>self.postMessage({error:serializeEngineError(error)})});

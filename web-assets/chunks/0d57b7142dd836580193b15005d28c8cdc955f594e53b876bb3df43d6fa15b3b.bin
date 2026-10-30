@@ -1,0 +1,10 @@
+{
+  "PyWavelets": "1.5.0",
+  "archiveSha256": "5aedfa9bd629f104a04fda88b92582bda38ab22282ce5048b5760b5d18e83fc9",
+  "waveletFamilies": 59,
+  "filterBanks": "Complete binary64 native dec_lo,dec_hi,rec_lo,rec_hi coefficients; high/low encoding happens only in GPU transport",
+  "files": {
+    "src/wavelet-gpu-banks.js": "e089a8df144316bbca3abc9a942c432d44e5afc1af15a3dea5ed4fc7e5ee0176",
+    "LICENSE": "63fd203c1eab43cc6b6d8435ce3934fe875926f646143178af58adf7f3c9ae97"
+  }
+}

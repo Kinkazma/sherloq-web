@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{createTruforAnalyzer}from'./trufor-analyzer.js';
 import{createTruforStrictAnalyzer}from'./trufor-strict-analyzer.js';
 import{truforStrictResultContext}from'./trufor-strict-result.js';

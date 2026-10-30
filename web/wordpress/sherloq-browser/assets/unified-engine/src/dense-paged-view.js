@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {selectSparseTraceRows,traceSelectionSummary,sparseTraceDrawCommands} from './sparse-trace-selection.js';
 import {deserializeEngineError} from './errors.js';
 import {serializeEngineError} from './errors.js';

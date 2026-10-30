@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {compileOriginalSourceRegions} from './source-region-geometry.js';
 import {createSourceRegionView} from './source-region-view.js';
 import {createMgcfdnContextRows} from './mgcfdn-context-rows.js';

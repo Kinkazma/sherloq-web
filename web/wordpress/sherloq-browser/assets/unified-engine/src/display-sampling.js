@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.21.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {allocateOwnedTypedArray} from './allocation.js';
 import {rasterPresentation} from './raster-presentation.js';

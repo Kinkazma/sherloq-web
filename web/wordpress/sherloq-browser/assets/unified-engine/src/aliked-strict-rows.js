@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateOwnedTypedArray} from './allocation.js';
 import {createRgbRowRetirement} from './rgb-row-retirement.js';
 import {prepareAlikedRows} from './aliked-rows.js';
@@ -22,10 +22,10 @@ export function createAlikedStrictRows(view,rect,{budget,signal,onOwner}={}){
   },owner
  };
 }
-/** No graph inference. The existing aspect1024/Gaussian/bilinear native rows
+/** No graph inference. The existing selected-aspect/Gaussian/bilinear native rows
  * preparer is used unchanged. onOwner captures bridge and preparer owners
  * before construction can await; callers retain them through cleanup ACKs. */
-export function prepareAlikedStrictContext(view,context,{budget,signal,onProgress,wasmBinary,onOwner}={}){
+export function prepareAlikedStrictContext(view,context,{budget,signal,onProgress,wasmBinary,onOwner,inputSide=1024}={}){
  requireValue(context?.nativeInputEvaluable&&typeof onOwner==='function','Native ALIKED input dimensions and synchronous owner capture are required.');
- const rows=createAlikedStrictRows(view,context.rect,{budget,signal,onOwner});return prepareAlikedRows(rows,{budget,signal,onProgress,wasmBinary,onOwner});
+ const rows=createAlikedStrictRows(view,context.rect,{budget,signal,onOwner});return prepareAlikedRows(rows,{budget,signal,onProgress,wasmBinary,onOwner,inputSide});
 }

@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "opencv": "4.11.0",
+  "compiler": "Emscripten4.0.15",
+  "method": "Unchanged native CM2 arithmetic: independent AKAZE pixels and SIFT Gaussian x lanes with the scalar tap order and REFLECT101. Fused SIMD is qualified before use; original scalar CPU resource retained. This is a CPU SIMD resource, not a GPU descriptor claim.",
+  "initialHeapBytes": 33554432,
+  "maximumHeapBytes": 2147483648,
+  "build": "scripts/build-sparse-extract-simd.py",
+  "files": {
+    "native/sparse-fma-shim.cpp": {
+      "bytes": 1385,
+      "sha256": "68278b58687ba6ffb2ef9678100d44c3bbab1de0976c369162565b181fb79098"
+    },
+    "native/sift-gaussian-simd.cpp": {
+      "bytes": 2912,
+      "sha256": "ec12fbba35a36a772a77b30524d3f5d27151579670d73f09e3b572a118a938b7"
+    },
+    "experiments/m3/sift-gaussian.cpp": {
+      "bytes": 1480,
+      "sha256": "e0a90c58b566840720eb07b2190c91bbb9bdc1d3539e425f5dcd3baa5696d4de"
+    },
+    "scripts/build-sparse-extract-simd.py": {
+      "bytes": 5832,
+      "sha256": "89bb00853641cacd409cd56291557919838dd9f8cbd503aa1c6a4610bf859e46"
+    },
+    "native/sparse-extract.cpp": {
+      "bytes": 5663,
+      "sha256": "ec7d44fceba4d56a3c2edd152727120cf57939a44cde1cae8199b46be6165639"
+    },
+    "experiments/cloning/brisk-area.cpp": {
+      "bytes": 4292,
+      "sha256": "77380e8deb693d1566a5dc709a1c8f8f975763ce00816d40a6b6fc00f944a52f"
+    },
+    "experiments/cloning/akaze-angles.cpp": {
+      "bytes": 1146,
+      "sha256": "10d52e76d3d8c92147e126726f0c4c80fae36278a88e90c778d57388dfb7f892"
+    },
+    "experiments/cloning/akaze-area.cpp": {
+      "bytes": 4707,
+      "sha256": "70f1fec819bd4339b4f1a9f90b7e77926ed42014d4cd6d0a61debce12d3eaf62"
+    },
+    "experiments/m3/akaze-paged-filters.cpp": {
+      "bytes": 5959,
+      "sha256": "f92cbc2ad27d6b686ad7792a49fcea13e269ec1640a31017c78bbb4a5825c039"
+    },
+    "scripts/build-sift-arithmetic-study.py": {
+      "bytes": 3277,
+      "sha256": "87026cfcf29fcea37b771225375e4fede1f140bb00b743bd91995b8472dd24f9"
+    },
+    "scripts/build-m3-brisk.py": {
+      "bytes": 4160,
+      "sha256": "29716d5faa6bbcba5e870ea98e47f8929d7d22c119205a81958c951c872e7150"
+    },
+    "vendor/sparse-extract-simd/LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "vendor/sparse-extract-simd/BRISK-LICENSE.txt": {
+      "bytes": 2228,
+      "sha256": "94e2759da0f2226c3c93426070ddd139bc6959b959c619127b46adcddec2a26c"
+    },
+    "vendor/sparse-extract-simd/ORB-LICENSE.txt": {
+      "bytes": 1831,
+      "sha256": "c0a26ec30a6466e2cb8dcc9db16260f01c3f4d91282271103478e0093e671946"
+    },
+    "vendor/sparse-extract-simd/AKAZE-AUTHORS.txt": {
+      "bytes": 2185,
+      "sha256": "273d222d5039949c0f9f2c492b6baf71f6461c8ed1ffe7dd2967fb42b624ebce"
+    },
+    "vendor/sparse-extract-simd/sparse-extract.js": {
+      "bytes": 32095,
+      "sha256": "27230ed68ddb0f2cc3cc661564755a95f5db12aa1d77c4b404095c3eeebf40b4"
+    },
+    "vendor/sparse-extract-simd/SIFT-LICENSE.txt": {
+      "bytes": 4228,
+      "sha256": "35e9191744e99627bca8ade52fe8e55b08e022cf646cb0f141250d53abb3f9f9"
+    },
+    "vendor/sparse-extract-simd/sparse-extract.wasm": {
+      "bytes": 1823927,
+      "sha256": "e6bf2ca6690af95e20d03d07e0e414c7f384aca55925b4caef89acd7b74af185"
+    },
+    "vendor/sparse-extract-simd/AKAZE-AREA-LICENSE.txt": {
+      "bytes": 2224,
+      "sha256": "3540f4621f2ea804dbc271ee623b324fde7fcb79eb2edff14c15a8c84d183499"
+    },
+    "vendor/sparse-extract-simd/AKAZE-FILTERS-LICENSE.txt": {
+      "bytes": 2156,
+      "sha256": "37bad30a26fa41a955d6c0403700a19452ae88e9318c8221bcf42aace0a4508d"
+    },
+    "vendor/sparse-extract-simd/BRISK-AREA-LICENSE.txt": {
+      "bytes": 2224,
+      "sha256": "3540f4621f2ea804dbc271ee623b324fde7fcb79eb2edff14c15a8c84d183499"
+    },
+    "vendor/sparse-extract-simd/MUSL-LICENSE.txt": {
+      "bytes": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    }
+  }
+}

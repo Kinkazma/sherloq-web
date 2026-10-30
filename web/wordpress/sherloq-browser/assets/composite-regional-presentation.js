@@ -1,4 +1,4 @@
-import {createRemoteSurface} from './remote-surface.js';
+import {createRemoteSurface} from './remote-surface.js?v=0.30.0';
 import {EngineError,requireValue} from './unified-engine/src/errors.js';
 /** Presentation only: sample the existing immutable Original handle through its
  * existing RGB reader. No scientific crop/handle or new RPC is manufactured. */

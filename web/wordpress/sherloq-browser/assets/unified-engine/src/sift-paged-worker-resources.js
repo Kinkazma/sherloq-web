@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateTypedArray} from './allocation.js';
 import {EngineError,normalizeResourceError,isRecoverableResourceError,serializeEngineError,deserializeEngineError,resourceAllocationKind} from './errors.js';
 

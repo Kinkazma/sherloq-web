@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {TextRegionEngine} from './text-ocr.js';
 import {createForgeryscopeBoundedSource} from './forgeryscope-bounded-source.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';

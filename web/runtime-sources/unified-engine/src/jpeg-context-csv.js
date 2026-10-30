@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 /** Append actual native observations, retaining their context and Original grid.
  * The caller supplies its usual bounded CSV writer. No result is recomputed. */
 export function appendNativeJpegContextCsv(result,line){

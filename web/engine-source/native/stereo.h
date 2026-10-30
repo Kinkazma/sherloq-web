@@ -8,6 +8,10 @@ extern "C" const double* cv_stereo_timings(){return stereoTimings;}
 // The reference's float Gaussian uses explicit fused SIMD operations. Pin the
 // same contraction order for the Farneback pyramid, independent of WASM SIMD.
 namespace cv {
+#ifdef SHERLOQ_STEREO_GPU
+bool sherloqStereoGpuBlur(const Mat&,Mat&,int,const float*,int);
+void sherloqStereoCpuBlurObserved(int,int,int,int,double);
+#endif
 void sherloqStereoResize(const Mat& input,Mat& output,Size size){
  if(input.size()==size){input.copyTo(output);return;}
  if(input.cols==size.width*2&&input.rows==size.height*2){
@@ -30,7 +34,12 @@ void sherloqStereoResize(const Mat& input,Mat& output,Size size){
 }
 void sherloqStereoGaussian(const Mat& input,Mat& output,Size size,double sigma,double){
  int radius=size.width/2,w=input.cols,h=input.rows;
- Mat weights=getGaussianKernel(size.width,sigma,CV_32F),horizontal(input.size(),CV_32F),result(input.size(),CV_32F),padded;
+ Mat weights=getGaussianKernel(size.width,sigma,CV_32F);
+#ifdef SHERLOQ_STEREO_GPU
+ if(sherloqStereoGpuBlur(input,output,size.width,weights.ptr<float>(),0))return;
+ const double nativeBlurStart=sherloq_stereo_clock();
+#endif
+ Mat horizontal(input.size(),CV_32F),result(input.size(),CV_32F),padded;
  copyMakeBorder(input,padded,0,0,radius,radius,BORDER_REFLECT_101);
  const float* k=weights.ptr<float>();
  for(int y=0;y<h;y++){
@@ -50,6 +59,9 @@ void sherloqStereoGaussian(const Mat& input,Mat& output,Size size,double sigma,d
   }
  }
  output=result;
+#ifdef SHERLOQ_STEREO_GPU
+ sherloqStereoCpuBlurObserved(w,h,size.width,0,sherloq_stereo_clock()-nativeBlurStart);
+#endif
 }
 }
 static int stereoOffset=-1;

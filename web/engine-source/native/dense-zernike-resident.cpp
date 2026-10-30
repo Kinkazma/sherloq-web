@@ -18,4 +18,11 @@ extern "C" int dense_resident_zernike(const float* gray,int width,int height,int
  }catch(const std::exception& e){std::strncpy(error,e.what(),1023);error[1023]=0;dense_resident_release();return -1;}
 }
 extern "C" int dense_resident_unpack(int second,int first,int count,float* output){if(!resident_width||first<0||count<0||size_t(first)+count>size_t(resident_width)*resident_height)return -1;const auto& values=second&&!resident_second.empty()?resident_second:resident_first;std::copy_n(values.data()+size_t(first)*12,size_t(count)*12,output);return 0;}
+extern "C" int dense_resident_gather(int second,const int* indices,int count,float* output){
+ if(!resident_width||second<0||second>1||count<0||count>8192)return -1;
+ const size_t n=size_t(resident_width)*resident_height;
+ for(int k=0;k<count;k++)if(indices[k]<0||size_t(indices[k])>=n||(k&&indices[k]<=indices[k-1]))return -1;
+ const auto& values=second&&!resident_second.empty()?resident_second:resident_first;
+ for(int k=0;k<count;k++)std::copy_n(values.data()+size_t(indices[k])*12,12,output+size_t(k)*12);return 0;
+}
 extern "C" int dense_resident_field(const unsigned char* mask,int compare,float minimum,float maximum,int iterations,uint32_t seed,int* matches,float* distances,uint64_t* comparisons,char* error,float gapx,float gapy,const float* xmap,const float* ymap){if(!resident_width)return -1;return sherloq_patchmatch_bounded(resident_first.data(),resident_second.empty()?resident_first.data():resident_second.data(),mask,resident_width,resident_height,12,compare,minimum,maximum,iterations,seed,matches,distances,comparisons,nullptr,error,gapx,gapy,xmap,ymap);}

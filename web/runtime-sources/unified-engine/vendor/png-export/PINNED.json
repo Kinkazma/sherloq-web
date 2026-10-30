@@ -1,0 +1,21 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "libpng": "1.6.43",
+  "sources": {
+    "png-export.c": "c82b7a4522f39b9f2b25e29969c13909edbb3de4de8740a7aeb9cd79e202770e",
+    "png.h": "4be1482ccb03edbb14998345fa47cfe7ceca0463767032ab728c12f941ae0558",
+    "pnglibconf.h": "3fc519a430e8f5be8b3962483e054373536ceae432168ce171b5c5e19b4694a3",
+    "pngwrite.c": "0e49ca2ad9a92f82323c5c3fb191f50e29cbc5ad27a58c1cc69bce3f23e99602",
+    "pngwutil.c": "341ab864d6f5f402ac012c91226562952831754189177b08c7c81853c4421b5f"
+  },
+  "objects": {
+    "liblibpng.a": "8150b8c8c5793180ac54e292c1f86c212e9c184dfa330814fef4cee769c6c265",
+    "libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+  },
+  "files": {
+    "png-export.wasm": "6742935839e36b6b09a0bb419435d737c4b18539971780247c2957174a64b875",
+    "LICENSE": "7317e078e2d3b5d7ba5a6159e650945153262b44b76f6700f8e9edb261c5143e",
+    "ZLIB-README.txt": "d106dcdb2a0b3087cb3a2380b9f00a0bbadc7eb835cd80408f94a2d78d69727d",
+    "png-export.js": "732ac8a84880f921e93ae99002fa05a2b6835bd79a87dcf037a5133e45c5ae4a"
+  }
+}

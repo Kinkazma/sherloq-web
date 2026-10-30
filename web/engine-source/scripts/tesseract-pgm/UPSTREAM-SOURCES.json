@@ -1,0 +1,143 @@
+{
+  "coreCommit": "acffef2b66eb44a31df297e11d905f4b39001068",
+  "files": [
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/LICENSE",
+      "bytes": 11358,
+      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
+    },
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/README.md",
+      "bytes": 4562,
+      "sha256": "8b24e92f90bac34a54935305b1d99d5b007898d29b03992f605453232468c6fa"
+    },
+    {
+      "path": "build-scripts/build-giflib.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-giflib.sh",
+      "bytes": 515,
+      "sha256": "e4331d50cd4c70438128410c9ea85bb951e0de638c08d9692791b0455d8afeb7"
+    },
+    {
+      "path": "build-scripts/build-leptonica.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-leptonica.sh",
+      "bytes": 1029,
+      "sha256": "d1a31bfa6c47a2db4f621a415799d308b6b85eebe2bbe70a0350fb44a15df451"
+    },
+    {
+      "path": "build-scripts/build-libjpeg.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-libjpeg.sh",
+      "bytes": 544,
+      "sha256": "f201cc4c152c8b2f4b3eb8e98f1b4a79a139a3a24ea783cbd0ea01ba0ebb81ff"
+    },
+    {
+      "path": "build-scripts/build-libpng.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-libpng.sh",
+      "bytes": 560,
+      "sha256": "1fee48e326c5003570b0f95f810892285c14c999a7818d122d9db26481b598bf"
+    },
+    {
+      "path": "build-scripts/build-libtiff.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-libtiff.sh",
+      "bytes": 514,
+      "sha256": "3749810a2d219b61986c31df7d7c3c46e28f14f3abf1064d471a4046fb9361ad"
+    },
+    {
+      "path": "build-scripts/build-libwebp.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-libwebp.sh",
+      "bytes": 1227,
+      "sha256": "3ec8db15e61f8dec95b850404695ec1ac5dcfe7c0d7cbcbbdcb4dc235b10aa0e"
+    },
+    {
+      "path": "build-scripts/build-openlibm.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-openlibm.sh",
+      "bytes": 229,
+      "sha256": "81f52aa043000633cf939340f84acd7bc104cd788116b13d4d55ca45e1dcb9b5"
+    },
+    {
+      "path": "build-scripts/build-tesseract.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-tesseract.sh",
+      "bytes": 1707,
+      "sha256": "73e9f3c6ac911e2e43a0fb2732f7fa44429e1b0f3185b0d4b8dc5bdb5d79f5d4"
+    },
+    {
+      "path": "build-scripts/build-zlib.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/build-zlib.sh",
+      "bytes": 641,
+      "sha256": "434fa59a567b8e354b8d9114b9b2ef7e8b622d0d8b575757d63fa51f7468d9ec"
+    },
+    {
+      "path": "build-scripts/install-deps.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/install-deps.sh",
+      "bytes": 387,
+      "sha256": "e9694f673e0e3f677b2559ae7da4103b9449f4b714dd66c3eaf918d385b7da0f"
+    },
+    {
+      "path": "build-scripts/var.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build-scripts/var.sh",
+      "bytes": 2054,
+      "sha256": "afa32cc3ea8effe04bcc3f7aad0f4315f20f6145f70f98f8515283315223da31"
+    },
+    {
+      "path": "build.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/build.sh",
+      "bytes": 696,
+      "sha256": "e47ead7c2a36307bbecd859f428c1287ab991f0556a81ca61200dca28ac0293a"
+    },
+    {
+      "path": "javascript/README.md",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/javascript/README.md",
+      "bytes": 1152,
+      "sha256": "b311cdd54b5f2bfe79479b9b489c846aeff883650e45747781286cd2f5b4b0f9"
+    },
+    {
+      "path": "javascript/anterior.js",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/javascript/anterior.js",
+      "bytes": 2862,
+      "sha256": "0b17e3b4481bacdbb108799ab2cd509fc27e6feb9d5a67596ce8247bd6d64a8d"
+    },
+    {
+      "path": "javascript/gen-glue.sh",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/javascript/gen-glue.sh",
+      "bytes": 536,
+      "sha256": "76516d55d1f2f96ca6fa5a8afd4270f73ea6ffcb6fc5bbbde48e730f81f72609"
+    },
+    {
+      "path": "javascript/glue.js",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/javascript/glue.js",
+      "bytes": 94917,
+      "sha256": "5cf9ed8d01ec206d4bf770df091c7fd0be7fe889ba0daa6a2f63ad519a657e08"
+    },
+    {
+      "path": "javascript/src/glue.cpp",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/javascript/src/glue.cpp",
+      "bytes": 42214,
+      "sha256": "ce86515bc62b5fa82a297e5a92a64d9534210a055bbf526501d8b13dffd6098c"
+    },
+    {
+      "path": "javascript/src/wrapper.cpp",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/javascript/src/wrapper.cpp",
+      "bytes": 721,
+      "sha256": "a58d5f023f4835b3132bc18169b5ab12eef94c604fdcc1255740eb488f637657"
+    },
+    {
+      "path": "javascript/tesseract.idl",
+      "url": "https://raw.githubusercontent.com/naptha/tesseract.js-core/acffef2b66eb44a31df297e11d905f4b39001068/javascript/tesseract.idl",
+      "bytes": 60958,
+      "sha256": "6051d65f88aa385e93599d956bcd99eab4f78abbd77c1ec58b2a178fc2432f8a"
+    },
+    {
+      "path": "third_party/leptonica",
+      "url": "https://codeload.github.com/DanBloomberg/leptonica/tar.gz/4af068b56a9674da915debea4ed7e1b9885b17e8"
+    },
+    {
+      "path": "third_party/openlibm",
+      "url": "https://codeload.github.com/JuliaMath/openlibm/tar.gz/ae2d91698508701c83cab83714d42a1146dccf85"
+    },
+    {
+      "path": "third_party/tesseract",
+      "url": "https://codeload.github.com/Balearica/tesseract/tar.gz/2a9c1c49c360462733c386d2a44fcd22c4e21411"
+    }
+  ]
+}

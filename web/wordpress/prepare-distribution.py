@@ -198,7 +198,7 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
     # Source and executable metadata keep their distinct reviewed identities.
     put(output / 'public/web/wordpress/runtime-source-lock.json', source_lock_bytes)
     put(output / 'public/web/wordpress/runtime-lock.json', delivered_lock_bytes)
-    for name in ['build.py', 'runtime-delivery.py', 'runtime-extensions.py', 'runtime-rita.py', 'runtime-interactive.py', 'runtime-workspace.py', 'runtime-review.py', 'runtime-cumulative.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
+    for name in ['build.py', 'runtime-delivery.py', 'runtime-snapshot.py', 'runtime-extensions.py', 'runtime-rita.py', 'runtime-interactive.py', 'runtime-workspace.py', 'runtime-review.py', 'runtime-cumulative.py', 'offline-shell.py', 'prepare-distribution.py', 'restore-dependencies.py', 'DISTRIBUTION.md', 'package.json', 'package-lock.json']:
         put(output / 'public/web/wordpress' / name, source_bytes(ROOT / name))
     extensions_receipt = ROOT / 'runtime-patches/browser-extensions-20261015.json'
     if extensions_receipt.is_file():
@@ -221,7 +221,7 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
             put(output / 'public/web/wordpress' / name, source_bytes(source))
     if resource_policy is not None:
         put(output / 'public/web/wordpress/resource-policy.json', encode(resource_policy))
-    for folder in ['tests', 'scripts', 'runtime-patches', 'offline-launcher', 'compatibility-manifests', 'feature-inputs']:
+    for folder in ['tests', 'scripts', 'service-worker-source', 'runtime-patches', 'offline-launcher', 'compatibility-manifests', 'feature-inputs']:
         for source in (ROOT / folder).rglob('*'):
             if source.is_file() and source.suffix in {'.js', '.mjs', '.py', '.json', '.html', '.go', '.mod'} and 'fixtures' not in source.parts:
                 if tracked is None or source.relative_to(ROOT).as_posix() in tracked:
@@ -276,16 +276,19 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
         if data is None:
             data = source.read_bytes()
         if name.startswith('assets/') and name.endswith('.html'):
-            data = data.replace(b"connect-src 'self'", b"connect-src 'self' https://raw.githubusercontent.com")
+            data = data.replace(b"connect-src 'self' https://raw.githubusercontent.com", b"connect-src 'self'").replace(b"connect-src 'self'", b"connect-src 'self' https://raw.githubusercontent.com")
             if local_test:
                 data = data.replace(b"connect-src 'self'", b"connect-src 'self' http://127.0.0.1:* http://localhost:*")
         put(plugin / name, data)
     # Classic SW works in Firefox/WebKit too. Only module syntax is removed from
     # these reviewed dependency files; runtime bytes remain untouched.
-    worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '')
+    def worker_source(name, worker):
+        entry=output/'public/web/wordpress/service-worker-source'/name
+        return entry if name==worker and entry.is_file() else sources/'assets'/name
+    worker = '\n'.join(re.sub(r'^import .*;\n', '', worker_source(name, 'dependency-sw.js').read_text(), flags=re.M).replace('export ', '')
                        for name in ['dependency-core.js', 'extension-resource-client.js', 'extension-resource-relay.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'bootstrap-metadata.js', 'dependency-manifest.js', 'dependency-client-routing.js', 'dependency-sw.js'])
     put(plugin / 'assets/dependency-sw.js', worker.encode())
-    offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', (sources / 'assets' / name).read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'extension-resource-client.js', 'extension-resource-relay.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
+    offline_worker = '\n'.join(re.sub(r'^import .*;\n', '', worker_source(name, 'offline-browser-sw.js').read_text(), flags=re.M).replace('export ', '') for name in ['dependency-core.js', 'extension-resource-client.js', 'extension-resource-relay.js', 'dependency-store.js', 'dependency-tar.js', 'offline-kit-core.js', 'feature-catalog.js', 'local-update-store.js', 'offline-browser-store.js', 'offline-browser-sw.js'])
     put(plugin / 'assets/offline-browser-sw.js', offline_worker.encode())
     put(plugin / ('assets/dependency-manifest-' + identity + '.json'), encode(manifest))
     # An old installed worker requests its own immutable manifest before it can

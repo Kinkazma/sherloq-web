@@ -1,5 +1,6 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createOcrRetirementOwner,retireOcrLeases} from './ocr-owned-retirement.js';
+import {createUsefulOperationEvidence} from './useful-operation-evidence.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {createTesseractOcr} from './tesseract-ocr.js';
@@ -40,7 +41,7 @@ export function createOcrAnalyzer({budget,profile,configuration={},tesseractFact
  }
  function lease(entry,cacheHit){
   entry.refs++;let released=false;
-  return {data:entry.data,metadata:entry.metadata,metrics:{...entry.metrics,cache:{analysis:cacheHit},inferenceExecuted:!cacheHit},release(){if(released)return entry.refs===0?entry.retirement.release():undefined;released=true;return retire(entry);}};
+  return {data:entry.data,metadata:entry.metadata,metrics:{...entry.metrics,...(cacheHit&&entry.metrics.usefulWork?{usefulWork:createUsefulOperationEvidence({...entry.metrics.usefulWork,actualGpuWork:false,actualCpuWork:false,regime:'warm',cache:'hit',origin:entry.metrics.usefulWork})}:{}),cache:{analysis:cacheHit},inferenceExecuted:!cacheHit},release(){if(released)return entry.refs===0?entry.retirement.release():undefined;released=true;return retire(entry);}};
  }
  async function run(image,parameters,hooks){
   const p=ocrParameters(parameters),source=sourceInput(image),backend=hooks.backend??'auto';requireValue(['auto','cpu','webgpu'].includes(backend),'Invalid OCR backend.');
@@ -68,6 +69,7 @@ export function createOcrAnalyzer({budget,profile,configuration={},tesseractFact
   }catch(error){failed=true;primary=error;throw error;}finally{await retireCompositeOwners([...(committed?[]:[()=>nativeOwner?.release(),()=>workspaceOwner?.release()]),()=>retireStrict(strict)],failed?{primary}:{});}
  }
  return {
+  describeUsefulWork(parameters){const p=ocrParameters(parameters);return engines.get(p.algorithm)?.describeUsefulWork?.(p)??null;},
   analyze(image,params={},hooks={}){
    requireValue(!closed&&!running&&!maintenance,'OCR analyzer is closed or already running.');running=true;controller=new AbortController();const signal=hooks.signal?AbortSignal.any([hooks.signal,controller.signal]):controller.signal;
    const task=run(image,params,{...hooks,signal});activeTask=task;
@@ -75,6 +77,6 @@ export function createOcrAnalyzer({budget,profile,configuration={},tesseractFact
   },
   clearCache(){try{requireValue(!running&&!disposal,'OCR recognition is active.');}catch(error){return Promise.reject(error);}if(maintenance)return maintenance;const task=retireCompositeOwners([dropCache,retirePending,...[...engines.values()].map(api=>()=>api.clearCache?.())]);maintenance=task.finally(()=>{maintenance=undefined;});return maintenance;},
   dispose(){closed=true;controller?.abort();if(disposal)return disposal;const task=(async()=>{await activeTask?.catch(()=>{});await maintenance?.catch(()=>{});await retireCompositeOwners([dropCache,retirePending,...[...engines].map(([key,api])=>async()=>{await api.dispose?.();engines.delete(key);})]);})();disposal=task.finally(()=>{disposal=undefined;});return disposal;},
-  snapshot(){return {closed,running,cacheEntries:cache?1:0,analyses:calls,cacheHits:hits,engines:[...engines.keys()]};}
+  snapshot(){return {closed,running,cacheEntries:cache?1:0,analyses:calls,cacheHits:hits,engines:[...engines.keys()],runtimes:Object.fromEntries([...engines].map(([key,api])=>[key,api.snapshot?.()??null]))};}
  };
 }

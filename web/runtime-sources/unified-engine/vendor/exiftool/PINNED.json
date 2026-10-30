@@ -1,0 +1,28 @@
+{
+  "exiftool": "13.55",
+  "sourceUrl": "https://codeload.github.com/exiftool/exiftool/tar.gz/refs/tags/13.55",
+  "sourceSha256": "5c9d422ad128fab728aacc5cc0aa77095d14cde74931389dd961d3d720e6b316",
+  "interpreter": "@6over3/zeroperl-ts 1.0.10",
+  "npmUrl": "https://registry.npmjs.org/@6over3/zeroperl-ts/-/zeroperl-ts-1.0.10.tgz",
+  "integrity": "sha512-d7fBgN1UaP9BR6kZMyNsjIrxPd0QLqqx29VSprhK66m1csm/7E/anr+rEfp3gJDSne5FfDpM6aKtDGHyXG/vYQ==",
+  "upstreamWasmSha256": "a6ae97f184fabc444b0b70d77c3d16475bfb3de16ebfb58ab8b2fbf98a53835e",
+  "patches": [
+    "WASM memory maximum 128 MiB; all other WASM sections unchanged.",
+    "Explicit fetch works in a module worker. Inline source map removed. Standard IO uses upstream outputBuffers=true to preserve binary/UTF-8 bytes.",
+    "ExifTool signal registration omitted for WASI; no metadata extraction changes."
+  ],
+  "libraries": 246,
+  "files": {
+    "APACHE-LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "BZIP2-LICENSE.txt": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3",
+    "EXIFTOOL-README.txt": "4a25f5dfdd2c353123bfe805aec511a574cb695fffc9871defd2e0c4dee86091",
+    "LLVM-LICENSE.txt": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b",
+    "MUSL-LICENSE.txt": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
+    "PERL-ARTISTIC.txt": "dd90d4f42e4dcadf5a7c09eea0189d93c7b37ae560c91f0f6d5233ed3b9292a2",
+    "ZEROPERL-LICENSE.txt": "6fc708729f3370d84e941ec13ce288de2ccfa9508861310ccd1eab13d28dcfc3",
+    "ZLIB-LICENSE.txt": "d106dcdb2a0b3087cb3a2380b9f00a0bbadc7eb835cd80408f94a2d78d69727d",
+    "libraries.pack": "e9a6e3a829326357fade5db3cc5de4d313ce8d0598cbb8c5d1d296fdf9632eed",
+    "zeroperl.js": "3269ad8b9b1dbbe02315934128e6d2587dc0872baf0f891603dc2ff9eee6928e",
+    "zeroperl.wasm": "4f66b81d7aaa5b9ade916694c59695a022267813c7be9b021d5fa847810bb9da"
+  }
+}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {efficientLoFtrParams,efficientLoFtrCrop,efficientLoFtrShape,prepareEfficientLoFtr,mapEfficientLoFtrPoint} from './efficient-loftr-input.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 

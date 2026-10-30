@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "sourceBytes": 19943135,
+  "sourceSha256": "33b7b17588e96a2bcda1e1d8de203770bd782d0edc1c0ad890ee9fe425f1365b",
+  "records": {
+    "896": {
+      "inputSide": 896,
+      "factor": 2,
+      "experimental": true,
+      "file": "roles-896.onnx",
+      "bytes": 18670087,
+      "sha256": "785502b21f30e76ac81db6e8913b20247fadf66cbf3cf7a707321e65d01054e1",
+      "nodes": 388,
+      "initializers": 128,
+      "learnedInitializerPayloadsUnchanged": true,
+      "sourceSha256": "33b7b17588e96a2bcda1e1d8de203770bd782d0edc1c0ad890ee9fe425f1365b",
+      "interpolation": "Original ordered float32 align-corners large-map arithmetic, regenerated coefficient tables; same unmodified base448 graph retained for N=1"
+    },
+    "1344": {
+      "inputSide": 1344,
+      "factor": 3,
+      "experimental": true,
+      "file": "roles-1344.onnx",
+      "bytes": 18737359,
+      "sha256": "d42b4ace5d396c967951e747e2ba493ff6b0bdddc22f183b4548305abd7d371d",
+      "nodes": 388,
+      "initializers": 128,
+      "learnedInitializerPayloadsUnchanged": true,
+      "sourceSha256": "33b7b17588e96a2bcda1e1d8de203770bd782d0edc1c0ad890ee9fe425f1365b",
+      "interpolation": "Original ordered float32 align-corners large-map arithmetic, regenerated coefficient tables; same unmodified base448 graph retained for N=1"
+    },
+    "1792": {
+      "inputSide": 1792,
+      "factor": 4,
+      "experimental": true,
+      "file": "roles-1792.onnx",
+      "bytes": 18804559,
+      "sha256": "7a7e2c3a7da65788d3097c295b50767dec20c5925ffb24852124892f26a4d6fa",
+      "nodes": 388,
+      "initializers": 128,
+      "learnedInitializerPayloadsUnchanged": true,
+      "sourceSha256": "33b7b17588e96a2bcda1e1d8de203770bd782d0edc1c0ad890ee9fe425f1365b",
+      "interpolation": "Original ordered float32 align-corners large-map arithmetic, regenerated coefficient tables; same unmodified base448 graph retained for N=1"
+    }
+  }
+}

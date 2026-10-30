@@ -7,6 +7,7 @@ import {getExecutionScheduler} from './execution-scheduler.js';
 import {neuralGraphTransformAllowance} from './neural-scoped-model.js';
 const MiB=1024**2;
 const executionContexts=new WeakMap();
+export function neuralUsefulExecutionSnapshot(budget){return{observed:true,...(executionContexts.get(budget)?.usefulCompleted??{wasm:0,webgpu:0,unknown:0})};}
 const dataBytes=inputs=>Object.values(inputs).reduce((n,t)=>n+t.data.byteLength,0);
 function atomicAdmission(error,retryBytes){
   if(error?.code==='MEMORY_LIMIT')error.details={...error.details,admission:{...error.details?.admission,retryBytes,scope:'neural-job-and-resident-growth'}};
@@ -21,9 +22,9 @@ export class NeuralGraphPool {
     requireValue(typeof retryableAlikedRetirement==='boolean'&&(!retryableAlikedRetirement||resourceOwner==='aliked-strict-native'),'Retryable idle retirement is reserved to the ALIKED strict pool.');this.retryableAlikedRetirement=retryableAlikedRetirement;
     this.budget=budget;this.profile=profile;this.resourceOwner=resourceOwner;this.assets=structuredClone(assets);this.runtimes=structuredClone(runtimes);this.factory=workerFactory;
     requireValue(Number.isSafeInteger(modelCacheBytes)&&modelCacheBytes>=0,'Invalid neural session cache bound.');this.modelCacheBytes=modelCacheBytes;
-    this.slots=[];this.waiters=new Set();this.disposed=false;this.cpuOnly=false;this.clock=0;this.workerStarts=0;this.peakWorkers=0;this.runtimeReuses=0;this.gpuDeviceLimits=null;
+    this.slots=[];this.waiters=new Set();this.disposed=false;this.cpuOnly=false;this.clock=0;this.workerStarts=0;this.peakWorkers=0;this.runtimeReuses=0;this.gpuDeviceLimits=null;this.usefulExecutions={wasm:0,webgpu:0};
     this.scheduler=getExecutionScheduler(budget,{maxWorkers:profile.maxWorkers});
-    this.contexts=executionContexts.get(budget);if(!this.contexts){this.contexts={pools:new Set(),peakWorkers:0};executionContexts.set(budget,this.contexts);}this.contexts.pools.add(this);
+    this.contexts=executionContexts.get(budget);if(!this.contexts){this.contexts={pools:new Set(),peakWorkers:0};executionContexts.set(budget,this.contexts);}this.contexts.usefulCompleted??={wasm:0,webgpu:0,unknown:0};this.contexts.pools.add(this);
     const reclaimers=['wasm','gpu'].map(kind=>budget.registerReclaimer(bytes=>this.reclaim(bytes,kind),{allocationKind:kind,owner:resourceOwner,label:'idle-neural-'+kind}));this.unreclaim=()=>reclaimers.forEach(release=>release());
   }
   reclaim(bytes,kind){
@@ -51,6 +52,7 @@ export class NeuralGraphPool {
   async clearGracefully(options){const retired=await Promise.allSettled([...this.slots].map(slot=>this.dropGracefully(slot,options))),failures=retired.filter(value=>value.status==='rejected').map(value=>value.reason);if(failures.length)throw failures[0];}
   disposeGracefully(options){if(this.gracefulDisposal)return this.gracefulDisposal;this.disposed=true;const task=(async()=>{let acknowledged=false;try{await this.clearGracefully(options);acknowledged=true;}finally{if(acknowledged||!this.retryableAlikedRetirement){this.unreclaim();this.wake();this.contexts.pools.delete(this);}}})();this.gracefulDisposal=task;if(this.retryableAlikedRetirement)void task.catch(()=>{if(this.gracefulDisposal===task)this.gracefulDisposal=null;});return task;}
   clear(){for(const s of [...this.slots])this.drop(s);}
+  usefulExecutionSnapshot(){return {...this.usefulExecutions};}
   snapshot(){const shared=this.allSlots();return {residentWorkers:this.slots.length,busyWorkers:this.slots.filter(s=>s.busy).length,peakWorkers:this.peakWorkers,workerStarts:this.workerStarts,runtimeReuses:this.runtimeReuses,sharedResidentWorkers:shared.length,sharedBusyWorkers:shared.filter(s=>s.slot.busy).length,sharedPeakWorkers:this.contexts.peakWorkers};}
   dispose(){this.disposed=true;this.clear();this.unreclaim();this.wake();this.contexts.pools.delete(this);}
   async wait(signal,operation,refusal){
@@ -249,8 +251,8 @@ export class NeuralGraphPool {
       // Input clones and readback staging die with the worker's completed job;
       // only the returned buffers remain owned by this lease.
       const outputReservation=releaseJob.split(dataBytes(result.result));releaseJob();releaseJob=outputReservation;
-      slot.reusableInputs={...reusableInputs};slot.reject=null;slot.executionController=null;slot.lastUsed=++this.clock;slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);const outputBacking=registerArrayViews(this.budget,Object.fromEntries(Object.entries(result.result).map(([key,value])=>[key,value.data])),{owner:this.resourceOwner,label:'neural-output/'+name});const outputLease=releaseJob;const releaseOutput=()=>{outputBacking();outputLease();};complete=true;operation?.commit();this.wake();
-      return {...result,release:releaseOutput,metrics:{logicalExecutions:queryBatch?.counts.length??1,milliseconds:performance.now()-started,preflightExecutions:0,memoryMaximumBytes:slot.cap,wasmHeapBytes:result.heapBytes,provider,workers:1,threads:slot.threads??1,threadReconfigured,workerReused,modelReconfigured,pool:this.snapshot(),runtime:result.runtimeLifecycle,modelCacheHit:result.runtimeLifecycle?.sessionCache?.currentHit===true,sessionCacheBytes:slot.modelCacheBytes??0,gpuMemory:result.gpuMemory,...(this.resourceOwner==='rita'&&provider==='webgpu'&&result.gpuDeviceLimits?{gpuDeviceLimits:result.gpuDeviceLimits,minimumObservedGpuDeviceLimits:{...this.gpuDeviceLimits}}:{}),cpuGranted:peakCpuGranted,gpuGranted:peakGpuGranted,reusedInputBytes:reusedBytes,copiedOutputBytes:result.copiedOutputBytes??0}};
+      slot.reusableInputs={...reusableInputs};slot.reject=null;slot.executionController=null;slot.lastUsed=++this.clock;slot.busy=false;slot.backing?.setReclaimable(true);slot.gpuBacking?.setReclaimable(true);const outputBacking=registerArrayViews(this.budget,Object.fromEntries(Object.entries(result.result).map(([key,value])=>[key,value.data])),{owner:this.resourceOwner,label:'neural-output/'+name});const outputLease=releaseJob;const releaseOutput=()=>{outputBacking();outputLease();};complete=true;operation?.commit();this.wake();{const actual=provider==='wasm'?'wasm':result.gpuExecution?.observed===true?(result.gpuExecution.actualGpuWork?'webgpu':'wasm'):'unknown';if(actual!=='unknown')this.usefulExecutions[actual]=Math.min(Number.MAX_SAFE_INTEGER,this.usefulExecutions[actual]+1);this.contexts.usefulCompleted[actual]=Math.min(Number.MAX_SAFE_INTEGER,this.contexts.usefulCompleted[actual]+1);}
+      return {...result,release:releaseOutput,metrics:{logicalExecutions:queryBatch?.counts.length??1,milliseconds:performance.now()-started,preflightExecutions:0,memoryMaximumBytes:slot.cap,wasmHeapBytes:result.heapBytes,provider,actualGpuWork:result.gpuExecution?.actualGpuWork===true,gpuExecution:result.gpuExecution,workers:1,threads:slot.threads??1,threadReconfigured,workerReused,modelReconfigured,pool:this.snapshot(),runtime:result.runtimeLifecycle,modelCacheHit:result.runtimeLifecycle?.sessionCache?.currentHit===true,sessionCacheBytes:slot.modelCacheBytes??0,gpuMemory:result.gpuMemory,...(this.resourceOwner==='rita'&&provider==='webgpu'&&result.gpuDeviceLimits?{gpuDeviceLimits:result.gpuDeviceLimits,minimumObservedGpuDeviceLimits:{...this.gpuDeviceLimits}}:{}),cpuGranted:peakCpuGranted,gpuGranted:peakGpuGranted,reusedInputBytes:reusedBytes,copiedOutputBytes:result.copiedOutputBytes??0}};
     }catch(error){
       error=slot.startupError??error;
       executionLease?.release();executionLease=null;operation?.setState('recovery');this.drop(slot,error);checkAbort(signal);

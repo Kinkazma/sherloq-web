@@ -1,8 +1,8 @@
-import {createContextEnergyParameterPreview} from './energy-context-parameter-preview.js';
-import {energyFieldAvailable,sampleEnergyField} from './energy-native-fields.js';
-import {renderEnergy} from './energy-render.js';
+import {createContextEnergyParameterPreview} from './energy-context-parameter-preview.js?v=0.30.0';
+import {energyFieldAvailable,sampleEnergyField} from './energy-native-fields.js?v=0.30.0';
+import {renderEnergy} from './energy-render.js?v=0.30.0';
 import {EngineError,serializeEngineError} from './unified-engine/src/errors.js';
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.30.0';
 
 const MiB=1024**2;
 const fail=(code,message)=>{throw new EngineError(code,message);};

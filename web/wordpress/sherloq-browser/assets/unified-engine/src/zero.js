@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {nativeModuleFailure,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkpoint,checkAbort} from './errors.js';
 let ready,pending;
@@ -44,7 +44,7 @@ export async function zeroData(image,p,hooks={},context={}){
  zeroAdmission(image);const companion=p.missing?await jpegCodec.recompress444(image,99,hooks):null;
  hooks.onProgress?.(.1);const result=await zeroArrays(image,companion,hooks,{reference:context.cpuKernel==='reference',pool:context.zeroPool});hooks.onProgress?.(1);
  const runtime=result.runtime;delete result.runtime;const masks={};for(const [key,description] of [['mask_f','Foreign-grid detected vote pixels'],['mask_f_reg','Foreign-grid regularized regions'],['mask_m','Missing-grid detected vote pixels'],['mask_m_reg','Missing-grid regularized regions']]){const data=new Uint8Array(image.width*image.height),source=result[key];for(let i=0;i<data.length;i++)data[i]=source[i]>0?1:0;masks[key]=binaryMask(image,data,description+'; evidence, not an authenticity verdict');}
- return {masks,data:{...result,width:image.width,height:image.height,regionBounds:'inclusive xyxy',palette:Uint8Array.from(ZERO_PALETTE)},engineMetrics:{kernel:'zero-'+runtime.kernel,workers:Math.max(1,...runtime.pool.map(x=>x.workers)),thresholdFallbacks:runtime.fallbacks,...(runtime.pool.length?{votePasses:runtime.pool}:{})},semantics:'ZERO local JPEG grid votes, global significance and different/missing-grid regions. Red denotes a foreign grid, blue a missing grid. These are processing clues, not authenticity verdicts; grid log10 NFA is not a manipulation probability.'};
+ return {masks,data:{...result,width:image.width,height:image.height,regionBounds:'inclusive xyxy',palette:Uint8Array.from(ZERO_PALETTE)},engineMetrics:{backend:'cpu',gpuJobs:0,kernel:'zero-'+runtime.kernel,workers:Math.max(1,...runtime.pool.map(x=>x.workers)),thresholdFallbacks:runtime.fallbacks,...(runtime.pool.length?{votePasses:runtime.pool}:{})},semantics:'ZERO local JPEG grid votes, global significance and different/missing-grid regions. Red denotes a foreign grid, blue a missing grid. These are processing clues, not authenticity verdicts; grid log10 NFA is not a manipulation probability.'};
 }
 export async function zeroView(result,p,hooks={}){
  const d=result.data,n=d.width*d.height,data=new Uint8Array(n*3),hasRegion=d.mask_f_reg.some(x=>x>0)||d.mask_m_reg.some(x=>x>0);

@@ -1,3 +1,4 @@
+import {configuredShas} from '../unified-engine/src/useful-owner-facts.js';
 import "../runtime-context.js?v=0.25.0";
 import {Budget} from '../unified-engine/src/cache.js';
 import {resolveComputeProfile} from '../unified-engine/src/profiles.js';
@@ -188,18 +189,18 @@ export async function createExtensionEngine({budget,scheduler,profile=resolveCom
   const count=key==='models/spai/encoder.onnx'?(feeds.x?.dims[0]??1):1,workspaceBytes=gpu?(a.workspaceByBatch?.[count]??a.gpuWorkspaceBytes??a.workspaceBytes):a.workspaceBytes,outputBytes=key==='models/spai/encoder.onnx'?Math.max(a.outputBytes??16*MiB,count*1096*4):(a.outputBytes??16*MiB);
   if(!cache){
    const result=await poolFor(key).run(key,feeds,{backend,signal,onProgress,workspaceBytes,outputBytes,gpuWasmWorkspaceBytes:a.gpuWasmWorkspaceBytes,cpuWorkspaceBytes:a.workspaceBytes});
-   try{validateOutputs(result.result);execution.push({model:key,...result.metrics});metrics.backendExecutions.push({model:key,provider:result.metrics.provider,milliseconds:result.metrics.milliseconds});if(metrics.backendExecutions.length>256)metrics.backendExecutions.shift();Object.defineProperty(result.result,'release',{value:result.release,enumerable:false});return result.result;}catch(error){result.release();throw error;}
+   try{validateOutputs(result.result);execution.push({model:key,modelSha256:a.sha256,...result.metrics});metrics.backendExecutions.push({model:key,provider:result.metrics.provider,milliseconds:result.metrics.milliseconds});if(metrics.backendExecutions.length>256)metrics.backendExecutions.shift();Object.defineProperty(result.result,'release',{value:result.release,enumerable:false});return result.result;}catch(error){result.release();throw error;}
   }
   const identities=await Promise.all(Object.entries(feeds).sort(([a],[b])=>a.localeCompare(b)).map(async([name,t])=>[name,t.dims,t.type??'float32',await digest(t.data)]));aborted(signal);
   const cacheKey='v1/'+a.sha256+'/'+backend+'/'+JSON.stringify(identities);if(budget.get('extensions/network/'+cacheKey))metrics.neuralCacheHits++;
   return scope.get(cacheKey,async sharedSignal=>{
    live();aborted(sharedSignal);const result=await poolFor(key).run(key,feeds,{backend,signal:sharedSignal,onProgress,workspaceBytes,outputBytes,gpuWasmWorkspaceBytes:a.gpuWasmWorkspaceBytes,cpuWorkspaceBytes:a.workspaceBytes});
    // The pool lease remains owned through memo admission, including failures.
-   try{validateOutputs(result.result);execution.push({model:key,...result.metrics});metrics.backendExecutions.push({model:key,provider:result.metrics.provider,milliseconds:result.metrics.milliseconds});if(metrics.backendExecutions.length>256)metrics.backendExecutions.shift();return memo.own(result.result,result.release);}catch(error){result.release();throw error;}
+   try{validateOutputs(result.result);execution.push({model:key,modelSha256:a.sha256,...result.metrics});metrics.backendExecutions.push({model:key,provider:result.metrics.provider,milliseconds:result.metrics.milliseconds});if(metrics.backendExecutions.length>256)metrics.backendExecutions.shift();return memo.own(result.result,result.release);}catch(error){result.release();throw error;}
   });
  }
  async function analyzeOne(image,method,{backend='auto',signal,onProgress,identity,retainSourceBuffers}={}){
-  aborted(signal);const start=performance.now(),prefix='extensions/'+identity,scope=memo.scope(prefix,{signal}),execution=[];let handedOff=false;
+  aborted(signal);const start=performance.now(),prefix='extensions/'+identity,scope=memo.scope(prefix,{signal}),execution=[],usefulMemoHitsBefore=memo.metrics.hits;let handedOff=false;
   try{
    const jpegIdentity=method==='doctamper'&&image.encodedBytes?await digest(image.encodedBytes):'';
    const prepKey='prepare/'+method+'/v2/'+(method==='doctamper'?JSON.stringify([image.sourceFormat,image.exifOrientation,jpegIdentity]):'');
@@ -272,7 +273,7 @@ export async function createExtensionEngine({budget,scheduler,profile=resolveCom
     }finally{try{await releaseSource?.();}finally{releaseBuffers?.();}}
    });
    aborted(signal);handedOff=true;
-   return {value:{...result,metrics:{totalMs:performance.now()-start,execution,cache:{neural:execution.length===0},memory:budget.snapshot()}},release:scope.release,evict:()=>budget.remove(prefix+'/'+resultKey)};
+   return {value:{...result,metrics:{totalMs:performance.now()-start,execution,cache:{neural:execution.length===0,stages:memo.metrics.hits>usefulMemoHitsBefore},memory:budget.snapshot()}},release:scope.release,evict:()=>budget.remove(prefix+'/'+resultKey)};
   }finally{if(!handedOff)scope.release();}
  }
  let blobAnalysis;
@@ -327,6 +328,7 @@ export async function createExtensionEngine({budget,scheduler,profile=resolveCom
    blobAnalysis??=createBlobSourceAnalysis({...blobSourceOptions,budget,analyzeSource:(source,settings)=>api.analyzeSource(source,settings)});
    return blobAnalysis.analyze(blob,options);
   },
+  usefulSnapshot(){return {models:Object.fromEntries(Object.keys(manifest.methods).map(method=>[method,{modelShas:configuredShas(Object.fromEntries(Object.entries(assets).filter(([,a])=>a.method===method))),gpuAvailable:[...pools].filter(([key])=>assets[key].method===method).some(([,p])=>p.cpuOnly!==true)?true:[...pools].some(([key])=>assets[key].method===method)?false:undefined}])),phase:'unknown'};},
   snapshot(){return {metrics:structuredClone(metrics),memo:{...memo.metrics},doctamperCategories:doctamperCategories.snapshot(),execution:scheduler.snapshot(),pipelines:admission.snapshot(),memory:budget.snapshot()};},
   async clearCache(){memo.clear();await doctamperCategories.clear();},
   dispose(){

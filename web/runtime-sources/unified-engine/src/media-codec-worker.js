@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createSHA256} from '../vendor/hash-wasm/hashes.js';
 import {captureOwnedSourcePrefixIntegrity} from './source-prefix-integrity.js';
 import {heicCell,heicGrid} from './heic-grid.js';

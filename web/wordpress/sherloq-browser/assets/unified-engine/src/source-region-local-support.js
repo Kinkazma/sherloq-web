@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 // A support plan is a set of output centres, never a fabricated input raster.
 // Intersections are computed on admitted native row spans, before a kernel can
 // read its halo. The new native envelope edges retain the kernel's border rule.

@@ -2,6 +2,7 @@ import {parameters,rows} from './pixel-utils.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {resamplingFft2,resamplingPyrUp,resamplingHeapBound,resamplingHeapBytes} from './resampling-math.js';
 import {GRAY_PALETTE} from './gray-palette.js';
+import {presentFourierWithGpu} from './resampling-fourier-view-stage.js';
 
 export function resamplingFourierParams(input={}){
  const p=parameters(input,{rect:null,window:'hanning',upsample:true,center:false,highpass:'simple',gamma:4,rescale:true});
@@ -56,14 +57,14 @@ export async function resamplingFourierData(image,p,hooks={},context){
  const gray=await(context.memoImage?context.memoImage('normalized-gray',prepare):prepare()),shape=resamplingFourierGeometry(image.width,image.height,p),key=JSON.stringify([shape.selected,p.window,p.upsample]);
  hooks.onProgress?.(.2);const transform=async()=>{const start=performance.now(),value=await resamplingSpectrum(gray.values,image.width,image.height,{...p,rect:shape.selected,center:false},stage(hooks,.2,.8));metrics.fourierTransformMs=performance.now()-start;return value;},spectrum=await(context.memo?context.memo('spectrum/'+key,transform):transform());
  hooks.onProgress?.(.8);const magnitude=async()=>{const start=performance.now(),value=await resamplingMagnitude(spectrum,p,stage(hooks,.8,1));metrics.fourierMagnitudeMs=performance.now()-start;return value;},base=await(context.memo?context.memo('magnitude/'+key+'/'+p.center+'/'+p.highpass,magnitude):magnitude());checkAbort(hooks.signal);
- return {data:{magnitude:base.values,minimumMagnitude:base.low,maximumMagnitude:base.high,geometry:base.geometry,grayNormalization:{minimum:gray.low,maximum:gray.high,scope:'whole decoded original grayscale image'}},engineMetrics:{...metrics,kernel:'resampling-numpy-fft-cpu',backend:'cpu',workers:1},semantics:'Fourier evidence from an explicitly selected source region. Numeric frequency-grid map and preview are not resampling probabilities or an authenticity decision. Probability-map EM is unavailable in this adapter.'};
+ const{gamma,rescale,...nativeParams}=p;return {fourierNativeIdentity:{sourceSha256:context.sourceSha256,width:image.width,height:image.height,nativeParams:JSON.stringify(nativeParams)},data:{magnitude:base.values,minimumMagnitude:base.low,maximumMagnitude:base.high,geometry:base.geometry,grayNormalization:{minimum:gray.low,maximum:gray.high,scope:'whole decoded original grayscale image'}},engineMetrics:{...metrics,kernel:'resampling-numpy-fft-cpu',backend:'cpu',workers:1},semantics:'Fourier evidence from an explicitly selected source region. Numeric frequency-grid map and preview are not resampling probabilities or an authenticity decision. Probability-map EM is unavailable in this adapter.'};
 }
 export async function resamplingFourierView(result,p,hooks={},context,partialRows){
  const {magnitude,minimumMagnitude:low,maximumMagnitude:high,geometry}=result.data,side=geometry.outputSide;
  // Offline measurements include worker startup; below 1 MP it costs more than
  // useful work. No runtime probe or altered numerical parameters are involved.
- const parallel=magnitude.length>=1024**2?await context?.resamplingViewPool?.run(result.data,p,hooks):null;const values=parallel?.values??new Float64Array(magnitude.length),pixels=parallel?.pixels??new Uint8Array(magnitude.length*3);
- if(!parallel?.values)await rows(partialRows??side,hooks,y=>{for(let x=0;x<side;x++){const i=y*side+x,value=Math.pow(high>low?(magnitude[i]-low)/(high-low):0,p.gamma)*(p.rescale?high:1);values[i]=value;const gray=GRAY_PALETTE[Math.max(0,Math.min(255,Math.floor(value*256)))];pixels.fill(gray,i*3,i*3+3);}});
+ const gpu=await presentFourierWithGpu(magnitude,low,high,p,{provider:context?.fourierViewGpu,backend:context?.backend,signal:hooks.signal}),parallel=gpu?.values?gpu:magnitude.length>=1024**2?await context?.resamplingViewPool?.run(result.data,p,hooks):null;const values=parallel?.values??new Float64Array(magnitude.length),pixels=parallel?.pixels??new Uint8Array(magnitude.length*3);
+ if(!parallel?.values)await rows(partialRows??side,hooks,y=>{for(let x=0;x<side;x++){const i=y*side+x,value=Math.pow(high>low?(magnitude[i]-low)/(high-low):0,p.gamma)*(p.rescale?high:1);values[i]=value;const gray=GRAY_PALETTE[Math.max(0,Math.min(255,Math.floor(value*256)))];const at=i*3;pixels[at]=gray;pixels[at+1]=gray;pixels[at+2]=gray;}});
  result.data.values=values;result.pixels={width:side,height:side,format:'rgb8',data:pixels};result.layers=[{id:'fourier-spectrum',kind:'rgb',origin:[0,0],range:[0,255],coordinateSpace:'frequency-grid',semantics:'Gray LUT preview at fixed0–1 display range; source-region geometry is in data.geometry.'}];
- return parallel?.metrics??{fourierViewWorkers:1};
+ return parallel?.metrics??gpu?.metrics??{fourierViewWorkers:1};
 }

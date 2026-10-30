@@ -1,7 +1,8 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.30.0";
+import {buildSortedCellNeighborhoods} from './copy-spatial-candidates.js';
 import {TypedPages,finishCorrespondences} from './m3-typed-pages.js';
 import {spatialCopyMatches,numpyFloat32Sum,compactCopyPoints} from './copy-spatial.js';
-import {requireValue,checkAbort,controlCheckpoint,EngineError} from './errors.js';
+import {requireValue,checkAbort,controlCheckpoint,EngineError,normalizeResourceError} from './errors.js';
 import {openDistance} from './copy-spatial-native-backend.js';
 const f=Math.fround;
 export async function spatialCopyMatchesInternal(input,options={}){
@@ -23,14 +24,12 @@ async function privateFloatMatch({points,descriptors,descriptorSize,members,zone
   for(let i=0;i<n;i++){const x=cell(coords[i*2]),y=cell(coords[i*2+1]);requireValue(Number.isSafeInteger(x)&&Number.isSafeInteger(y),'Spatial coordinate range exceeded.');const k=address(x,y);if(!grid.has(k))grid.set(k,[]);grid.get(k).push(i);}
   const native=await openDistance(coords,descriptors,descriptorSize,{signal,reserveMemory,variant:nativeVariant});let rows;
   try{
-  const ranks=native.ranks;rows=new TypedPages(Float64Array,5,reserveMemory);const squared=new Float32Array(descriptorSize),round=points instanceof Float32Array&&!axes?f:x=>x;let evaluated=0,checks=0,lastYield=performance.now();
+  const ranks=native.ranks,orderedCells=await buildSortedCellNeighborhoods(grid,ranks,{signal,reserveMemory:bytes=>{try{reserveMemory(bytes);return true;}catch(error){checkAbort(signal);if(['MEMORY_LIMIT','MEMORY_ALLOCATION'].includes(normalizeResourceError(error)?.code))return false;throw error;}},cooperate:()=>controlCheckpoint(signal),check:()=>checkAbort(signal)});rows=new TypedPages(Float64Array,5,reserveMemory);const squared=new Float32Array(descriptorSize),round=points instanceof Float32Array&&!axes?f:x=>x;let evaluated=0,checks=0,lastYield=performance.now();
   const yieldIfNeeded=async()=>{checkAbort(signal);if(performance.now()-lastYield>=8){await controlCheckpoint(signal);lastYield=performance.now();}};
   try{
   for(let i=0;i<n;i++){
-    checkAbort(signal);const x=cell(coords[i*2]),y=cell(coords[i*2+1]),candidates=[];
-    for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++)for(const j of grid.get(address(x+dx,y+dy))??[])if(j>i)candidates.push(j);
-    candidates.sort((a,b)=>ranks[a]-ranks[b]);
-    for(const j of candidates){
+    checkAbort(signal);const x=cell(coords[i*2]),y=cell(coords[i*2+1]),candidates=orderedCells?orderedCells.lists.get(address(x,y)):[];if(!orderedCells){for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++)for(const j of grid.get(address(x+dx,y+dy))??[])if(j>i)candidates.push(j);candidates.sort((a,b)=>ranks[a]-ranks[b]);}
+    for(const j of candidates){if(j<=i)continue;
       const rawX=coords[j*2]-coords[i*2],rawY=coords[j*2+1]-coords[i*2+1];if(rawX*rawX+rawY*rawY>queryRadius*queryRadius)continue;
       let dx=round(rawX),dy=round(rawY),normRound=round;
       if(compare&&(gap[0]||gap[1])){const direction=members[i*2]&&members[j*2+1]?1:-1;dx-=direction*gap[0];dy-=direction*gap[1];normRound=x=>x;}

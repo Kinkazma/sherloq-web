@@ -11,13 +11,33 @@ function live(view,entry){
 // Publish only after the producer's final write. The owner must revoke before
 // returning the allocation to its arena, and must not write through any alias
 // during this lifetime. Wasm provenance alone does not establish this contract.
-export function publishD2prlDescriptor(view){
+function publish(view,funding=null){
  requireValue(view instanceof Uint16Array&&view.length>0,'Half descriptor publication required');
  requireValue(!(typeof SharedArrayBuffer==='function'&&view.buffer instanceof SharedArrayBuffer),'Mutable shared descriptors cannot be published');
  requireValue(!descriptors.has(view),'Descriptor view was already published');
- const entry={active:true,buffer:view.buffer,byteOffset:view.byteOffset,byteLength:view.byteLength,length:view.length,lease:Object.freeze({}),validated:false,pending:null};
+ const entry={active:true,buffer:view.buffer,byteOffset:view.byteOffset,byteLength:view.byteLength,length:view.length,lease:Object.freeze({}),validated:false,pending:null,funding};
  descriptors.set(view,entry);
- return()=>{if(!entry.active)return;entry.active=false;entry.validated=false;};
+ return()=>{entry.active=false;entry.validated=false;retireFunding(entry);};
+}
+
+export function publishD2prlDescriptor(view){return publish(view);}
+
+// Only a bank's existing, separately reserved allocation is eligible. Exact
+// view and budget identity stay in the existing opaque publication registry.
+export function publishD2prlBankDescriptor(view,owned,budget){
+ requireValue(budget?.reserve&&owned?.data===view&&typeof owned.release==='function','An exact funded bank allocation is required');
+ return publish(view,{budget,owned,borrowers:new Set()});
+}
+function retireFunding(entry,lastBorrower){
+ const funding=entry.funding;if(!funding||entry.active||funding.borrowers.size>(lastBorrower?1:0)||!funding.owned)return;
+ const ack=funding.owned.release();requireValue(!(ack&&typeof ack.then==='function'),'Owned bank allocation retirement must be synchronous');if(ack===0||ack===false)throw ack;funding.owned=null;
+}
+export function borrowD2prlDescriptorFunding(view,budget){
+ const entry=descriptors.get(view);if(!entry)return null;live(view,entry);
+ const funding=entry.funding;if(!funding||funding.budget!==budget)return null;
+ requireValue(funding.owned?.data===view,'Funded bank allocation changed');
+ let held=true;const loan=Object.freeze({byteLength:entry.byteLength,release(){if(!held)return;retireFunding(entry,loan);funding.borrowers.delete(loan);held=false;}});
+ funding.borrowers.add(loan);return loan;
 }
 
 // Unpublished external views have no reusable identity. Keep inactive entries

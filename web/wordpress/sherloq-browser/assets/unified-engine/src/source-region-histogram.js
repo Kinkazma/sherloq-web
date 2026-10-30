@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.30.0";
 import {segmentedHistogram} from './segmented-histogram.js';
 import {histogramParams} from './histogram.js';
 

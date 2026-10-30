@@ -1,13 +1,15 @@
-import {validateWholeSourceFallbacks} from './whole-source-fallback.js';
-import {recoverSettings,validParams} from './settings.js';
-import {validateMediaPreferences,validateExportSettings,validateLoupeSettings,validatePlacementLoupeSettings} from './media-settings.js';
-import {libraryValue} from './dependency-store.js';
-import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences} from './local-auto-update.js';
-import {getDocumentDownloadShelf} from './download-shelf.js';
+import {validateAdaptiveState} from './unified-engine/src/adaptive-runtime.js';
+import {ADAPTIVE_STORAGE_KEY,foreignAdaptiveSettings} from './adaptive-preferences.js?v=0.30.0';
+import {validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.30.0';
+import {recoverSettings,validParams} from './settings.js?v=0.30.0';
+import {validateMediaPreferences,validateExportSettings,validateLoupeSettings,validatePlacementLoupeSettings} from './media-settings.js?v=0.30.0';
+import {libraryValue} from './dependency-store.js?v=0.30.0';
+import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences} from './local-auto-update.js?v=0.30.0';
+import {getDocumentDownloadShelf} from './download-shelf.js?v=0.30.0';
 
 const RECOVERY='sherloq.recovery.';
 const isObject=value=>value&&typeof value==='object'&&!Array.isArray(value);
-export const isPreferenceKey=key=>typeof key==='string'&&(/^sherloq\.(settings|workspace\.preferences|workspace\.tools|favorite|classicPreset|batch\.settings|feature-policy|local-feature-policy|featurePolicy|local\.feature-state|local\.feature-policy)$/.test(key)||key==='gd-iso-studio-theme'||key===AUTO_UPDATE_KEY);
+export const isPreferenceKey=key=>typeof key==='string'&&(/^sherloq\.(adaptive-runtime|settings|workspace\.preferences|workspace\.tools|favorite|classicPreset|batch\.settings|feature-policy|local-feature-policy|featurePolicy|local\.feature-state|local\.feature-policy)$/.test(key)||key==='gd-iso-studio-theme'||key===AUTO_UPDATE_KEY);
 const clone=value=>structuredClone(value);
 const safeStorage=()=>{try{return globalThis.localStorage;}catch{return null;}};
 export function mergePreferenceChanges(previous,current,latest={}){
@@ -59,11 +61,13 @@ export function recoverWorkspaceSettings(input,{fallback={schema:'sherloq.worksp
   try{const recovered=recoverSettings(settings,{...(fallback.tools[id]?{fallback:fallback.tools[id]}:{})});tools[id]=recovered.value;issues.push(...recovered.issues.map(issue=>({...issue,path:'tools.'+id+'.'+issue.path})));}
   catch(error){issues.push({path:'tools.'+id,kind:'incompatible',message:error.message});}
  }
- for(const key of Object.keys(input))if(!['schema','preferences','tools','exportedAt','recovery'].includes(key))issues.push({path:key,kind:'unknown',message:'Preserved in recovery backup'});
- return {value:{schema:'sherloq.workspace/1',preferences:recovered.value,tools},issues};
+ let adaptiveRuntime;if(input.adaptiveRuntime!==undefined){try{adaptiveRuntime=validateAdaptiveState(input.adaptiveRuntime);}catch(error){issues.push({path:'adaptiveRuntime',kind:'incompatible',message:error.message});}}
+ for(const key of Object.keys(input))if(!['adaptiveRuntime','schema','preferences','tools','exportedAt','recovery'].includes(key))issues.push({path:key,kind:'unknown',message:'Preserved in recovery backup'});
+ return {value:{schema:'sherloq.workspace/1',preferences:recovered.value,tools,...(adaptiveRuntime?{adaptiveRuntime}:{})},issues};
 }
 function recoverTools(value){const out={},issues=[];if(!isObject(value))throw Error('Invalid stored tool settings');for(const [id,input]of Object.entries(value))try{const recovered=recoverSettings(input);out[id]=recovered.value;issues.push(...recovered.issues.map(issue=>({...issue,path:id+'.'+issue.path})));}catch(error){issues.push({path:id,kind:'incompatible',message:error.message});}return{value:out,issues};}
 export function recoverPreferenceEntry(key,input){
+ if(key===ADAPTIVE_STORAGE_KEY)return {value:validateAdaptiveState(input),issues:[]};
  if(key===AUTO_UPDATE_KEY)return recoverAutoUpdatePreferences(input);
  if(key==='sherloq.settings')return recoverSettings(input);
  if(key==='sherloq.workspace.preferences')return recoverWorkspacePreferences(input);
@@ -118,7 +122,7 @@ export function migratePreferenceBackup(backup,release={}){
  for(const [key,entry]of Object.entries(backup.entries)){
   if(!isPreferenceKey(key)){issues.push({path:key,kind:'unknown',message:'Preserved in recovery backup'});continue;}
   const raw=entry.overlayRaw??entry.raw;if(typeof raw!=='string')continue;
-  try{const result=recoverPreferenceEntry(key,key==='gd-iso-studio-theme'?raw:JSON.parse(raw));entries[key]=key==='gd-iso-studio-theme'?result.value:JSON.stringify(result.value);issues.push(...result.issues.map(issue=>({key,...issue})));}
+  try{const result=recoverPreferenceEntry(key,key==='gd-iso-studio-theme'?raw:JSON.parse(raw));entries[key]=key==='gd-iso-studio-theme'?result.value:JSON.stringify(key===ADAPTIVE_STORAGE_KEY?foreignAdaptiveSettings(result.value):result.value);issues.push(...result.issues.map(issue=>({key,...issue})));}
   catch(error){issues.push({key,path:key,kind:'corrupt',message:error.message});}
  }
  return {schema:'sherloq.preference-migration/1',entries,backup,issues};

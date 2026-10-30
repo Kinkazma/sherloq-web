@@ -1,4 +1,4 @@
-import {runtimeContext,diagnostic,diagnosticValue,normalizeDiagnosticEvent} from './runtime-context.js?v=0.25.0';
+import {runtimeContext,diagnostic,diagnosticValue,normalizeDiagnosticEvent} from './runtime-context.js?v=0.30.0';
 export function createSessionEventSummary(){
  const levels={},kinds={},operations=new Map(),unresolvedFailures=new Set(),requests=new Map(),automaticContexts=new Map(),automaticRuns=new Map();let errors=0,warnings=0;
  const automatic=operation=>['analysis.complete','analysis.clones'].includes(operation);
@@ -131,6 +131,6 @@ export function createSessionLog({id=crypto.randomUUID(),indexedDB=globalThis.in
  append({time:started,level:'info',kind:'session.start',environment});return api;
 }
 const n=globalThis.navigator;
-export const sessionLog=typeof document!=='undefined'?createSessionLog({id:runtimeContext.session,environment:{uiVersion:'0.25.0',engineVersion:'0.37.0-methods.1',userAgent:n?.userAgent,platform:n?.platform,languages:n?.languages,hardwareConcurrency:n?.hardwareConcurrency,crossOriginIsolated:globalThis.crossOriginIsolated}}):null;
+export const sessionLog=typeof document!=='undefined'?createSessionLog({id:runtimeContext.session,environment:{uiVersion:'0.30.0',engineVersion:'0.37.0-methods.1',userAgent:n?.userAgent,platform:n?.platform,languages:n?.languages,hardwareConcurrency:n?.hardwareConcurrency,crossOriginIsolated:globalThis.crossOriginIsolated}}):null;
 if(sessionLog){runtimeContext.subscribe(e=>sessionLog.append(e));globalThis.addEventListener('pagehide',()=>{diagnostic({level:'info',kind:'session.pagehide'});void sessionLog.flush();});}
 export async function reportWithSession(report={}){return {...report,sessionLog:await sessionLog?.report()};}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createAutomaticElaProvider} from './automatic-ela-provider.js';
 import {createAutomaticCompleteElaPresentation} from './automatic-complete-ela-presentation.js';
 import {prepareAutomaticCompleteElaContexts} from './automatic-complete-ela-contexts.js';

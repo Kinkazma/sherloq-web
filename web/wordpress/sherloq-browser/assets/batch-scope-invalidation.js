@@ -1,6 +1,6 @@
-import {archiveBatchAttempt} from './batch-restoration.js';
-import {remapBatchEvidence} from './batch-archive-layout.js';
-import {compactEvidence} from './batch-evidence.js';
+import {archiveBatchAttempt} from './batch-restoration.js?v=0.30.0';
+import {remapBatchEvidence} from './batch-archive-layout.js?v=0.30.0';
+import {compactEvidence} from './batch-evidence.js?v=0.30.0';
 
 const invalid=message=>Object.assign(Error(message),{code:'BATCH_SCOPE_INVALIDATION_FAILED'});
 const copy=value=>structuredClone(value);

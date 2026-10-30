@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createResizedSdrSurface,exportDimensions} from './adaptive-sdr-resize.js';
 import {encodeMediaRaster} from './media-raster-export.js';
 import {allocateWasmMemory,wasmAllocationFailure} from './allocation.js';

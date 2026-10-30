@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface,createMaskSurface} from './rgb-surface.js';

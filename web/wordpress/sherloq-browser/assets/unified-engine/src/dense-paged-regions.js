@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {denseConstructionOwner,cleanupDenseOwners,retireDenseOwners} from './dense-owner-retirement.js';
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {allocateOwnedTypedArray} from './allocation.js';

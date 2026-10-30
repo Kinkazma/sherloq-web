@@ -3,7 +3,7 @@ const cancelled=()=>Object.assign(Error('PDF retained storage closed.'),{code:'C
 const envelope=()=>workerMessageFailure('pdf-retained-storage','message','invalid-response');
 const object=value=>!!value&&typeof value==='object'&&!Array.isArray(value);
 export function createPdfRetainedStorage({memoryBudgetBytes,workerFactory=url=>new Worker(url,{type:'module'})}={}){
- const worker=workerFactory(new URL('./pdf-retained-storage-worker.js',import.meta.url)),pending=new Map(),formats=new Map();let ticket=0,closed=false,closing,failure,retired=false;
+ const worker=workerFactory(new URL('./pdf-retained-storage-worker.js?v=0.30.0',import.meta.url)),pending=new Map(),formats=new Map();let ticket=0,closed=false,closing,failure,retired=false;
  const retire=()=>{if(retired)return;retired=true;protocol.dispose();worker.onerror=null;worker.terminate();};
  function fail(error){if(failure)return;failure=error;for(const job of pending.values())job.reject(error);pending.clear();formats.clear();retire();}
  const protocol=installWorkerMessageProtocol(worker,data=>{

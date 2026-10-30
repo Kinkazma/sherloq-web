@@ -27,7 +27,7 @@
 #include <cstring>
 #include <memory>
 #include <vector>
-#include "../../native/comparison-paged-plane.h"
+#include "comparison-paged-plane.h"
 
 #define BUTTERAUGLI_ENABLE_CHECKS 0
 

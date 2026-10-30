@@ -1,0 +1,21 @@
+import "../../runtime-context.js?v=0.30.0";
+import {allocateOwnedTypedArray} from './allocation.js';
+import {sourceRegionTransportBytes} from './source-region-transport.js';
+import {copyPalette} from './copy-subbiomes.js';
+// Owns result copies only; no native model/feature preparation is reachable.
+export async function createSsgStrictResult(checkpoint,localized,p,{budget,view,candidateDomain,identity,reused=false}={}){
+ const releases=[],admit=n=>{const free=budget.reserve(n);releases.push(free);return free;};let result;
+ try{
+    const features=checkpoint.features,pairs=checkpoint.pairs,n=pairs.length/2,analysis=checkpoint.fields,owners=[],own=(Type,length,label)=>{const o=allocateOwnedTypedArray(Type,length,{budget,owner:'ssg-strict-result',label});owners.push(o);return o.data;};let meta;
+    try{
+     meta=budget.reserve(65536+sourceRegionTransportBytes([checkpoint.metadata,checkpoint.models,p,localized.metadata],{allowAliases:true,allowUndefined:true})*4);
+     const resultPoints=own(Float64Array,features.count*7,'Original native feature points'),resultPairs=own(Float64Array,n*4,'native accepted pair table'),pairOwners=own(Int32Array,n,'comparison ownership'),groups=checkpoint.groups.map(g=>{const out=own(Uint32Array,g.length,'native result groups');out.set(g);return out;});pairOwners.fill(p.compare?0:-1);
+     for(let i=0;i<features.count;i++){resultPoints[i*7]=(features.points[i*3]+.5)/analysis.scaleX-.5;resultPoints[i*7+1]=(features.points[i*3+1]+.5)/analysis.scaleY-.5;resultPoints[i*7+2]=features.points[i*3+2]/Math.sqrt(analysis.scaleX*analysis.scaleY);resultPoints[i*7+4]=1;}
+     for(let i=0;i<n;i++){const a=pairs[i*2]*7,b=pairs[i*2+1]*7;resultPairs.set([pairs[i*2],pairs[i*2+1],1,Math.hypot(resultPoints[a]-resultPoints[b],resultPoints[a+1]-resultPoints[b+1])],i*4);}
+     const models=checkpoint.models.map(model=>{const m=model.matrix,sx=analysis.scaleX,sy=analysis.scaleY,ox=(sx-1)/2,oy=(sy-1)/2;return{...structuredClone(model),matrix:[[m[0][0],m[0][1]*sy/sx,(m[0][2]+m[0][0]*ox+m[0][1]*oy-ox)/sx],[m[1][0]*sx/sy,m[1][1],(m[1][2]+m[1][0]*ox+m[1][1]*oy-oy)/sy],[0,0,1]]};}),colors=copyPalette(groups,resultPairs,1,{reserveMemory:admit}),colorOut=own(Uint8Array,colors.colors.length,'group palette');colorOut.set(colors.colors);
+     const metadata={algorithm:'SSG',completeDetector:true,sourceCommit:'66bb26eca0c7e95c76042d5bcca58f744d70a27d',modelSha256:identity.sha256,counts:structuredClone(checkpoint.metadata.counts),nativeContexts:structuredClone(checkpoint.metadata.fields),wordBank:structuredClone(checkpoint.metadata.bank),stageCache:{nativeCheckpoint:reused,newVlfeat:reused?0:1,newForest:reused?0:checkpoint.metadata.fields.contexts.filter(v=>v.nativePixels>0).length,newMatching:reused?0:1},coordinates:'source-region native pixel centers',origin:[...view.domain.origin],strictSourceRegions:{fingerprint:view.domain.fingerprint,candidateFingerprint:candidateDomain.fingerprint,excludedParticipation:'absent before native normalization, VLFeat, structured forest and all scalar reductions'},scientificDefinitions:{I2NN:'unchanged global paper two-neighbor matcher',salience:'one global observed population',pairConfidence:'unscored accepted match',localization:structuredClone(localized.metadata),scriptParity:false},preflightExecutions:0};
+     const localization=localized;localized=null;let released=false;result={status:'ok',points:resultPoints,pairs:resultPairs,pair_search_regions:pairOwners,groups,models,colors:colorOut,bases:structuredClone(colors.bases),mask:localization.mask,directSsimSupport:localization.directSsimSupport,width:analysis.originalWidth,height:analysis.originalHeight,total_features:features.count,candidate_comparisons:metadata.counts.words+metadata.counts.phrases,params:structuredClone(p),regions:structuredClone(p.regions),compare:p.compare,backend:'cpu',feature_policy:'ssg-paper-v2-strict-global',metadata,release(){if(released)return;released=true;localization.release();for(const owner of owners)owner.release();meta();}};
+    }catch(error){for(const owner of owners)owner.release();meta?.();throw error;}
+  return result;
+ }finally{localized?.release();for(const release of releases)release();}
+}

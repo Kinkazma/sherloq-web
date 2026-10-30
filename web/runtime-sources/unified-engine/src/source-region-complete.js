@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {checkAbort,requireValue} from './errors.js';
 /** The existing Core owns the five native providers and their shared source.
  * SourceRegionRuntime localizes the signed complete task before this dispatch;

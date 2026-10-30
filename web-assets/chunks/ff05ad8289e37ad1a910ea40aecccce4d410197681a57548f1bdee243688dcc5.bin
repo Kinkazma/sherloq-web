@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "reference": "Pinned OpenCV4.11 colour conversions, Gaussian kernel and quantized NLM weight construction; no learned or oracle input/output tables. Bilateral selected precision repairs retain original f32 order.",
+  "memory": {
+    "initialBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/separation-gpu-prepare.cpp": {
+      "bytes": 5693,
+      "sha256": "b20bacda30149b6863f3a48cf918351bec9be0735497b9b082600bf1fe7aa870"
+    },
+    "scripts/build-separation-gpu-prepare.sh": {
+      "bytes": 2295,
+      "sha256": "21cb57bf8fc71b67996345c6222f15fb31c051d432e023c9d18eea41b7e7b57f"
+    },
+    "vendor/separation-gpu-prepare/prepare.js": {
+      "bytes": 23290,
+      "sha256": "200ff9fa2998e8360df60e949246fdcaf69fb4a498e3a5e39d45b802e63074aa"
+    },
+    "vendor/separation-gpu-prepare/prepare.wasm": {
+      "bytes": 625008,
+      "sha256": "30ca029999548fe22b6847830f38e1b1b1dd423832d6521d7d316366b19db058"
+    },
+    "vendor/separation-gpu-prepare/LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "vendor/separation-gpu-prepare/LICENSE-MUSL.txt": {
+      "bytes": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    },
+    "vendor/separation-gpu-prepare/NOTICE-OPENCV-LEGACY.txt": {
+      "bytes": 6637,
+      "sha256": "9153bb7093ae49f71977905457cd4a6ff2347616428ca659bc783569d9f609ed"
+    }
+  }
+}

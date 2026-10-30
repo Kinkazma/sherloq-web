@@ -1,6 +1,6 @@
-import {createExtensionResourceResolver} from './extension-resource-relay.js';
-import {readPinnedDependencyResponse} from './extension-resource-client.js';
-import {sha256} from './dependency-core.js';
+import {createExtensionResourceResolver} from './extension-resource-relay.js?v=0.30.0';
+import {readPinnedDependencyResponse} from './extension-resource-client.js?v=0.30.0';
+import {sha256} from './dependency-core.js?v=0.30.0';
 const DB='sherloq-dependency-library-v1';
 export async function libraryValue(key,value){
  const db=await new Promise((resolve,reject)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore('settings');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});

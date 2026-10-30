@@ -1,0 +1,32 @@
+{
+  "scope": "Additional certified PGM CPU runtime, no JSPI. The complete official CPU resources remain independently available. Same Native LSTM, ordered independent four-row implementation.",
+  "tesseractJsCore": "7.0.0",
+  "coreCommit": "acffef2b66eb44a31df297e11d905f4b39001068",
+  "tesseractCommit": "2a9c1c49c360462733c386d2a44fcd22c4e21411",
+  "leptonicaCommit": "4af068b56a9674da915debea4ed7e1b9885b17e8",
+  "emscriptenVersion": "4.0.15",
+  "nativeVersion": "5.1.0-288-g2a9c1",
+  "FAST_FLOAT": true,
+  "files": [
+    {
+      "path": "native/CMakeLists.txt",
+      "bytes": 40786,
+      "sha256": "087e414229fef2cfa56adb5fcd2e934a803363a11e7bebf3daadbcfed134064e"
+    },
+    {
+      "path": "native/src/lstm/lstm.cpp",
+      "bytes": 28145,
+      "sha256": "579efab05207b85eeba1261fc7dfa9f415d11c1e908e9f2cf37313f9813ee20f"
+    },
+    {
+      "path": "native/src/lstm/matrix-rows-exact.h",
+      "bytes": 2698,
+      "sha256": "e688564e90461cac73519679857e59e0c2d7dcc486ef44b5698670990fa275eb"
+    },
+    {
+      "path": "native/src/lstm/weightmatrix.cpp",
+      "bytes": 17654,
+      "sha256": "9851464e20070cd224afd27607ee6d18c6592d801f65315e4a890f66179787c1"
+    }
+  ]
+}

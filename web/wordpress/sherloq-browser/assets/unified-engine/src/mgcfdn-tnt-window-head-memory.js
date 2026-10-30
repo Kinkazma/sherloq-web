@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue}from'./errors.js';
 const B=28780560n,SCRATCH=4194304n,LIMIT=512n*1024n**2n;
 export const TNT_WINDOW_HEAD_BASE_CREDIT=Number(3n*B+SCRATCH),TNT_WINDOW_HEAD_REWRITE_CREDIT=Number(2n*B+SCRATCH);

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateBuffer} from './allocation.js';
 import {EngineError,requireValue} from './errors.js';
 

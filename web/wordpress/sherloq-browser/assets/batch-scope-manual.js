@@ -1,6 +1,7 @@
-import {compileOriginalSourceRegions} from './original-source-regions.js';
-import {clipPolygon,rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js';
-import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js';
+import {copySubimagesSelectionPolicy} from './subimages-selection-intent.js?v=0.30.0';
+import {compileOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
+import {clipPolygon,rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
+import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
 
 export const MANUAL_SCOPE_SCHEMA='sherloq.batch-manual-scope/1';
 const MAX_ZONES=8192,MAX_VERTICES=131072,MAX_ACTIONS=512;
@@ -42,7 +43,7 @@ export function createManualScopeDraft(image){
   const m=scope.manual;if(m.sourceSha256!==sourceSha256||m.width!==width||m.height!==height)throw invalid('Les zones manuelles ne correspondent plus à la source.');
   if(!Array.isArray(m.zones)||m.zones.length>MAX_ZONES||!Array.isArray(m.actions??[])||(m.actions??[]).length>MAX_ACTIONS)throw invalid('Les zones manuelles importées dépassent les limites de métadonnées.');
   const restored=copy(m.zones),nextId=Math.max(0,...restored.map(z=>Number(/^zone-(\d+)$/.exec(z.id)?.[1]??0)))+1;
-  const draft={schema:MANUAL_SCOPE_SCHEMA,version:1,coordinates:'original-pixels',edgeConvention:'half-open-rectangles',sourceSha256,width,height,baseFingerprint:scope.fingerprint??null,baseStatus:scope.status,zones:restored,nextId,changed:false,actions:[],previousActions:copy(m.actions??[]),previousTruncatedActions:m.truncatedActions??0};validateDraft(draft);return draft;
+  const draft={schema:MANUAL_SCOPE_SCHEMA,version:1,coordinates:'original-pixels',edgeConvention:'half-open-rectangles',sourceSha256,width,height,baseFingerprint:scope.fingerprint??null,baseStatus:scope.status,zones:restored,nextId,changed:false,actions:[],previousActions:copy(m.actions??[]),previousTruncatedActions:m.truncatedActions??0,...(m.subimagesSelection?{subimagesSelection:copySubimagesSelectionPolicy(m.subimagesSelection)}:{})};validateDraft(draft);return draft;
  }
  const add=(kind,polygon,metadata={})=>{const clipped=clipPolygon(polygon,width,height);if(!clipped.length)return;const unique=kind+key(clipped);if(seen.has(unique))return;seen.add(unique);zones.push({id:'zone-'+(++serial),kind,...bounds(clipped),polygon:clipped,...metadata});};
  for(const r of scope.regions??[])add('acquisition',r.polygon??rectanglePolygon(r),{type:r.type??'microscopy',label:r.label??labelType(r.type),origin:r.manual?'human':'automatic'});
@@ -55,9 +56,9 @@ function validateDraft(draft){
  if(draft?.schema!==MANUAL_SCOPE_SCHEMA||draft.coordinates!=='original-pixels'||!validHash(draft.sourceSha256)||!Number.isSafeInteger(draft.width)||draft.width<1||!Number.isSafeInteger(draft.height)||draft.height<1||!Array.isArray(draft.zones)||draft.zones.length>MAX_ZONES)throw invalid('Le brouillon des zones est invalide.');
  const ids=new Set();let vertices=0;
  for(const zone of draft.zones){if(typeof zone.id!=='string'||ids.has(zone.id)||!['acquisition','exclusion'].includes(zone.kind)||![zone.x0,zone.y0,zone.x1,zone.y1].every(Number.isFinite)||zone.x0<0||zone.y0<0||zone.x1>draft.width||zone.y1>draft.height||zone.x1<=zone.x0||zone.y1<=zone.y0)throw invalid('Une zone du brouillon est invalide.');ids.add(zone.id);const clipped=clipPolygon(zone.polygon,draft.width,draft.height);if(!clipped.length||key(clipped)!==key(zone.polygon))throw invalid('Un polygone sort de l’image originale.');const original=retainOriginalGeometry(zone,draft.width,draft.height);vertices+=zone.polygon.length+original.polygon.length;if(vertices>MAX_VERTICES)throw invalid('Le brouillon contient trop de sommets.');const b=bounds(zone.polygon);if(Object.keys(b).some(k=>Math.abs(b[k]-zone[k])>1e-7))throw invalid('Les limites d’une zone ne correspondent pas à son polygone.');}
- if(!Array.isArray(draft.actions)||draft.actions.length>MAX_ACTIONS||draft.previousActions!==undefined&&(!Array.isArray(draft.previousActions)||draft.previousActions.length>MAX_ACTIONS))throw invalid('Le journal de modification est invalide.');return draft;
+ if(!Array.isArray(draft.actions)||draft.actions.length>MAX_ACTIONS||draft.previousActions!==undefined&&(!Array.isArray(draft.previousActions)||draft.previousActions.length>MAX_ACTIONS))throw invalid('Le journal de modification est invalide.');if(draft.subimagesSelection!==undefined)copySubimagesSelectionPolicy(draft.subimagesSelection);return draft;
 }
-function record(draft,action){draft.changed=true;draft.actions.push({...action,coordinates:'original-pixels'});if(draft.actions.length>MAX_ACTIONS){draft.actions.shift();draft.truncatedActions=(draft.truncatedActions??0)+1;}return draft;}
+function record(draft,action){draft.changed=true;if(draft.subimagesSelection?.implicitWholeId===action.id){delete draft.subimagesSelection.implicitWholeId;draft.subimagesSelection.positiveMode='selected';}draft.actions.push({...action,coordinates:'original-pixels'});if(draft.actions.length>MAX_ACTIONS){draft.actions.shift();draft.truncatedActions=(draft.truncatedActions??0)+1;}return draft;}
 export function addManualScopeZone(draft,kind,rectangle,{type='microscopy'}={}){
  validateDraft(draft);if(!['acquisition','exclusion'].includes(kind)||draft.zones.length>=MAX_ZONES)throw invalid('Cette zone ne peut pas être ajoutée.');const r=normalizeScopeRectangle(rectangle,draft),id='zone-'+draft.nextId++;
  const zone={id,kind,...r,polygon:rectanglePolygon(r),origin:'human',...(kind==='acquisition'?{type,label:labelType(type)}:{role:'exclusion',label:'Human exclusion'})};retainOriginalGeometry(zone,draft.width,draft.height);draft.zones.push(zone);record(draft,{operation:'add',id,kind,rectangle:r,...(kind==='acquisition'?{type}:{})});return zone;
@@ -109,6 +110,7 @@ export async function applyManualScopeDraft(image,draft,{reviewedAt=new Date().t
  next.annotations=null;next.warnings=[];next.coverage={acquisitions:'human-reviewed-zones',undetectedAreas:'excluded-unclassified',exhaustive:false};
  const previousActions=draft.previousActions??[],allActions=[...previousActions,...draft.actions],truncatedActions=(draft.previousTruncatedActions??0)+(draft.truncatedActions??0)+Math.max(0,allActions.length-MAX_ACTIONS);
  next.manual={schema:MANUAL_SCOPE_SCHEMA,version:1,actor:'human',reviewedAt,coordinates:'original-pixels',edgeConvention:'half-open-rectangles',sourceSha256:draft.sourceSha256,width,height,baseFingerprint:draft.baseFingerprint,...(typeof image.hash==='string'?{pixelHash:image.hash}:{}),originalStatus:base.manual?.originalStatus??base.status??'unprepared',originalPanels:copy(rawPanels),zones:copy(draft.zones),actions:copy(allActions.slice(-MAX_ACTIONS)),...(truncatedActions?{truncatedActions}:{}),originalPixelsPreserved:true};
+ if(draft.subimagesSelection)next.manual.subimagesSelection=copySubimagesSelectionPolicy(draft.subimagesSelection);
  next.fingerprint=await scopeFingerprint(next);return next;
 }
 
@@ -117,7 +119,7 @@ export async function applyManualScopeDraft(image,draft,{reviewedAt=new Date().t
 export async function restoreManualScientificScope(image){
  const scope=image?.preparation;if(scope?.manual?.schema!==MANUAL_SCOPE_SCHEMA||scope.manual.actor!=='human')return null;
  const m=scope.manual,{width,height}=dimensions(image);if(m.pixelHash!==undefined&&m.pixelHash!==image.hash||identity(image)!==m.sourceSha256||scope.sourceSha256!==m.sourceSha256||m.width!==width||m.height!==height||scope.width!==width||scope.height!==height||scope.coordinates!=='original-pixels'||!['ready','excluded'].includes(scope.status)||scope.text?.status!=='complete'||!validHash(scope.fingerprint))throw invalid('La préparation manuelle importée ne correspond pas à la source.');
- const draft={schema:MANUAL_SCOPE_SCHEMA,version:1,coordinates:'original-pixels',sourceSha256:m.sourceSha256,width,height,baseFingerprint:m.baseFingerprint,zones:copy(m.zones),nextId:m.zones.length+1,actions:copy(m.actions??[]),changed:true};validateDraft(draft);
+ const draft={schema:MANUAL_SCOPE_SCHEMA,version:1,coordinates:'original-pixels',sourceSha256:m.sourceSha256,width,height,baseFingerprint:m.baseFingerprint,zones:copy(m.zones),nextId:m.zones.length+1,actions:copy(m.actions??[]),changed:true,...(m.subimagesSelection?{subimagesSelection:copySubimagesSelectionPolicy(m.subimagesSelection)}:{})};validateDraft(draft);
  for(const ceiling of [scope.originalSourceRegions,scope.sourceRegionCeiling,scope.sourceRegionDomain?.ceiling].filter(Boolean)){let domain;try{domain=await compileOriginalSourceRegions(ceiling);}catch{throw invalid('Le plafond des zones manuelles importées est invalide.');}if(domain.sourceSha256!==m.sourceSha256||domain.sourceWidth!==width||domain.sourceHeight!==height)throw invalid('Le plafond des zones manuelles importées appartient à une autre source.');}
  const rebuilt=manualDraftScope(draft,scope);
  if(structuralKey(scope.regions)!==structuralKey(rebuilt.regions)||structuralKey(scope.excluded)!==structuralKey(rebuilt.excluded)||scope.status!==rebuilt.status||await scopeFingerprint(scope)!==scope.fingerprint)throw invalid('L’empreinte ou les zones de la préparation manuelle importée ont changé.');return scope;

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "inputSides": [
+    896,
+    1344,
+    1792
+  ],
+  "base448ModulesUnchanged": true,
+  "objects": {
+    "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+  },
+  "files": {
+    "spatial-bands.wasm": {
+      "bytes": 9352,
+      "sha256": "7c9dc0f02dabbe9873882f1a21b6899cd8c6c7a95a883289273e7db9fccbc89c"
+    },
+    "spatial.wasm": {
+      "bytes": 556176,
+      "sha256": "36756a69fe1b4be3f288d03de9ebe5b6a6f37fc62441ddbad95e7cdadb277922"
+    },
+    "spatial.js": {
+      "bytes": 23738,
+      "sha256": "f3906c052cddc62ab68fa985b6f59b731a50c614b2cca36fad788f3ff617d896"
+    },
+    "postprocess.js": {
+      "bytes": 26716,
+      "sha256": "d97047b84961cf61c38ae2b879413cc79bef9d123e279ef13fb68f3d0530e6e8"
+    },
+    "postprocess.wasm": {
+      "bytes": 760830,
+      "sha256": "fd3f93be826055d8633e8bec1727bf85aba82e0cda2b172d4fd4736ffa32e6fb"
+    },
+    "spatial-bands.js": {
+      "bytes": 7847,
+      "sha256": "5a265aa390f5769b85a87c9cfe1033d0ae2d314c47b2e8c010f8ca2892454cb4"
+    }
+  }
+}

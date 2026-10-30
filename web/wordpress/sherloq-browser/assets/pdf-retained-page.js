@@ -1,4 +1,4 @@
-import {createPdfNativePageSurface} from './pdf-native-page-surface.js';
+import {createPdfNativePageSurface} from './pdf-native-page-surface.js?v=0.30.0';
 const span=(pixels,scale)=>{let n=pixels/scale;if(n*scale>pixels)n-=Math.abs(n)*Number.EPSILON;return n;};
 const cancelled=()=>Object.assign(Error('PDF page preparation cancelled.'),{code:'CANCELLED'});
 export function pdfRetainedDensity(placements=[],minimum=1){let result=minimum;for(const item of placements){const[a,b,c,d]=item.matrix,trace=a*a+b*b+c*c+d*d,det=a*d-b*c,largest=(trace+Math.sqrt(Math.max(0,trace*trace-4*det*det)))/2,smallest=det*det/largest;if(!(smallest>0))throw Error('Invalid PDF native image placement.');result=Math.max(result,1/Math.sqrt(smallest));}return result;}

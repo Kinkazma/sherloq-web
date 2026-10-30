@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort,createCooperator}from'./errors.js';
 import{sourceRegionTransportBytes}from'./source-region-transport.js';
 function intersection(a,b){const result=[];let i=0,j=0;while(i<a.length&&j<b.length){const left=Math.max(a[i][0],b[j][0]),right=Math.min(a[i][1],b[j][1]);if(right>left)result.push([left,right]);if(a[i][1]<b[j][1])i++;else j++;}return result;}

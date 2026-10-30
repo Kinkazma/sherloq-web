@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {scheduledWorkerCall,cancelScheduledWorkerCalls} from './scheduled-worker-call.js';
 import {fusedCpu} from './ela-lut.js';
 import {EngineError,checkAbort} from './errors.js';

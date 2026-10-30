@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 import {efficientLoFtrCrop} from './efficient-loftr-input.js';
 const schema='sherloq.efficient-loftr-original-role-geometry/1',same=(a,b)=>JSON.stringify(a)===JSON.stringify(b),copy=v=>structuredClone(v),poly=p=>Array.isArray(p)&&p.length>=3&&p.length<=8192&&p.every(q=>Array.isArray(q)&&q.length===2&&q.every(Number.isFinite));

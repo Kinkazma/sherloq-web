@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "arithmetic": "mps",
+  "policy": "Named MPS resize uses right-product FMA; named MPS BatchNorm uses separately rounded normalization before gamma/beta. CPU helper files remain separate.",
+  "upstream": "https://github.com/pytorch/pytorch/blob/v2.8.0/aten/src/ATen/native/mps/kernels/UpSample.metal",
+  "files": {
+    "feature-math.js": {
+      "bytes": 8537,
+      "sha256": "03601ad08a778eb9f7ef1e35ca5d6f998cce017f3155215d5d677dbdecb8c79b"
+    },
+    "feature-math.wasm": {
+      "bytes": 11151,
+      "sha256": "f4759d7800a01ad8bc1f1505ef6dd6e7b0b3e9ba172884ebd5dcdc94133562f3"
+    },
+    "neural-math.js": {
+      "bytes": 8329,
+      "sha256": "7a80d92600a77ebbef09470effc7e40b97e515b90efe812b375bf7f7a1e6dca1"
+    },
+    "neural-math.wasm": {
+      "bytes": 17612,
+      "sha256": "a1801849c9f31d4764a0285f252acadc8aad01aaeb95d16217cce83cb9ec626c"
+    }
+  },
+  "initialMemoryBytes": 16777216,
+  "memoryMaximumBytes": {
+    "feature-math": 4294967296,
+    "neural-math": 2147483648
+  }
+}

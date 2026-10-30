@@ -1,8 +1,8 @@
-import {createExportSinkScope} from './export-sink-owner.js';
-import {createExportSink} from './export-sink.js';
+import {createExportSinkScope} from './export-sink-owner.js?v=0.30.0';
+import {createExportSink} from './export-sink.js?v=0.30.0';
 import {removeTerminatedTemporarySession} from './unified-engine/src/temporary-storage.js';
 import {serializeEngineError,deserializeEngineError} from './unified-engine/src/errors.js';
-import {validateExportSettings,resolveChroma} from './media-settings.js';
+import {validateExportSettings,resolveChroma} from './media-settings.js?v=0.30.0';
 export function rasterOptions(settings,originalChroma){
  const value=validateExportSettings(settings);return{format:value.format,quality:value.format==='webp'?value.webpQuality:value.format==='heic'?value.heicQuality:value.quality,chroma:resolveChroma(value.chroma,originalChroma),compression:value.format==='tiff'?(value.tiffCompression==='none'?0:6):value.pngCompression,lossless:['png','tiff'].includes(value.format)||value[value.format+'Lossless']===true,...(value.resize?{resize:{width:value.width||undefined,height:value.height||undefined,algorithm:value.resizeAlgorithm}}:{})};
 }
@@ -24,7 +24,7 @@ export async function exportPresentationRaster(surface,options,{reserve,signal,o
  // The worker owns this admitted workspace; keep source reads possible while
  // preventing calculations from spending the same memory a second time.
  const sourceWorkspace=surface.exportReadWorkspaceBytes??0;if(!Number.isSafeInteger(sourceWorkspace)||sourceWorkspace<0)throw new RangeError('Invalid native export source workspace.');if(sourceWorkspace){sourceAdmission=await reserve(memoryBudgetBytes+sourceWorkspace);await sourceAdmission();sourceAdmission=null;}
- release=await reserve(memoryBudgetBytes);worker=new Worker(new URL('./raster-export-worker.js',import.meta.url),{type:'module'});
+ release=await reserve(memoryBudgetBytes);worker=new Worker(new URL('./raster-export-worker.js?v=0.30.0',import.meta.url),{type:'module'});
   const descriptor=await new Promise((resolve,reject)=>{
    const finish=fn=>value=>{if(settled)return;settled=true;clearTimeout(abortTimer);signal?.removeEventListener('abort',cancel);fn(value);};
    const fail=finish(reject),ok=finish(resolve),cancel=()=>{try{worker.postMessage({cancel:true});}catch{}abortTimer=setTimeout(()=>fail(Object.assign(Error('Export cancelled'),{code:'CANCELLED'})),5000);};

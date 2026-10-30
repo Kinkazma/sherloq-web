@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateOwnedTypedArray} from './allocation.js';
 import {createSsgEdges,ssgEdgesMemoryPlan} from './ssg-edges.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
@@ -11,12 +11,12 @@ export async function createSsgStrictFields(source,{budget,profile,model,withEdg
  if(withEdges)requireValue(model?.url&&model.bytes&&model.sha256,'The pinned native SSG forest resource is required.');
  const owners=[],own=(Type,length,label)=>{const value=allocateOwnedTypedArray(Type,length,{budget,owner:'ssg-strict-fields',label});owners.push(value);return value.data;};let detector,prepared,edge,returned=false,primary,failed=false,metadataRelease;
  try{
-  const n=source.width*source.height,gray=own(Float64Array,n,'observed global grayscale'),known=own(Uint8Array,n,'admitted analysis centers'),edges=own(Float32Array,n,'native structured edges'),edgeKnown=own(Uint8Array,n,'native structured-edge support');gray.fill(NaN);edges.fill(NaN);metadataRelease=budget.reserve(65536+source.contexts.length*4096);const records=[];
+  const n=source.width*source.height;await source.prepareNative?.(14*n+65536+source.contexts.length*4096);const gray=own(Float64Array,n,'observed global grayscale'),known=own(Uint8Array,n,'admitted analysis centers'),edges=own(Float32Array,n,'native structured edges'),edgeKnown=own(Uint8Array,n,'native structured-edge support');gray.fill(NaN);edges.fill(NaN);metadataRelease=budget.reserve(65536+source.contexts.length*4096);const records=[];
   // Largest forest first keeps one native model/arena reusable for all smaller
   // contexts; output records and common coordinates retain their source order.
   const ordered=[...source.contexts].sort((a,b)=>(b.width+35)*(b.height+35)-(a.width+35)*(a.height+35)||a.index-b.index);if(withEdges)detector=edgesFactory();let admitted=0,edgePixels=0;
   for(const context of ordered){
-   await controlCheckpoint(signal);prepared=await source.read(context,{signal});const evaluable=context.width>=16&&context.height>=16;
+   await controlCheckpoint(signal);const evaluable=context.width>=16&&context.height>=16,plan=withEdges&&evaluable?ssgEdgesMemoryPlan(context.width,context.height):null,nativeHeadroomBytes=plan?plan.maximumBytes+plan.modelBytes+4*context.width*context.height+16*1024**2:0;prepared=await source.read(context,{signal,normalizationConsumer:'fields',nativeHeadroomBytes});await source.prepareNative?.(nativeHeadroomBytes);
    for(let y=0;y<context.height;y++){const at=(context.y+y)*source.width+context.x;gray.set(prepared.gray.subarray(y*context.width,(y+1)*context.width),at);known.fill(1,at,at+context.width);}admitted+=context.width*context.height;
    const record={index:context.index,bounds:[...context.bounds],normalization:structuredClone(prepared.metadata),forestStatus:withEdges?(evaluable?'native':'native-not-evaluable'):'not-requested',forestMinimum:[16,16],nativePixels:0};
    if(withEdges&&evaluable){ssgEdgesMemoryPlan(context.width,context.height);edge=await detector.run({rgb:prepared.rgb,width:context.width,height:context.height,model},{signal});requireValue(edge.edgeMap instanceof Float32Array&&edge.edgeMap.length===context.width*context.height,'Native SSG forest shape changed.');for(let y=0;y<context.height;y++){const at=(context.y+y)*source.width+context.x;edges.set(edge.edgeMap.subarray(y*context.width,(y+1)*context.width),at);edgeKnown.fill(1,at,at+context.width);}record.nativePixels=context.width*context.height;record.nativeMetadata=structuredClone(edge.metadata);edgePixels+=record.nativePixels;await edge.release();edge=null;}

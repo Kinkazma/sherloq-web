@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{prepareSelfDMWindowContexts,SELFDM_WINDOW_CONTEXT_POLICY}from'./selfdm-window-context-plan.js';
 import{createSelfDMPrepare}from'./selfdm-prepare.js';
 import{createSelfDMWindowNativeStages}from'./selfdm-window-native-stages.js';

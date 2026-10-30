@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{attachWorkerMessageError}from'./worker-message-protocol.js';
 import{decodeMgcfdnWorkerError}from'./mgcfdn-window-gpu-diagnostics.js';
 import{requireValue,checkAbort,EngineError}from'./errors.js';

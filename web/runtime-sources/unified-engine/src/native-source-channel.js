@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort,serializeEngineError,deserializeEngineError} from './errors.js';
 const MAX_BYTES=1024*1024;
 function rectangle(rect,width,height){requireValue(rect&&['x','y','width','height'].every(k=>Number.isSafeInteger(rect[k]))&&rect.x>=0&&rect.y>=0&&rect.width>0&&rect.height>0&&rect.x+rect.width<=width&&rect.y+rect.height<=height,'Native preparation window exceeds its source.');return rect;}

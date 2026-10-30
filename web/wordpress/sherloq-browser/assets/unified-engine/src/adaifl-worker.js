@@ -1,8 +1,10 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
+import {installUsefulGpuDispatchEvidence} from './useful-gpu-dispatch-evidence.js';
+const usefulGpuDispatches=installUsefulGpuDispatchEvidence();
 import {serializeEngineError} from './errors.js';
 import {M3_ORT_ASSETS} from './m3-ort-assets.js';import {fetchM3Asset} from './m3-asset.js';import {prepareAdaifl} from './adaifl-prepare.js';
 let ort,provider,device,factoryUrl,image,tokens,producer;const features=[],owners=[],saved=new Set();
-self.onmessage=async({data:job})=>{
+self.onmessage=async({data:job})=>{const usefulGpuStart=usefulGpuDispatches?.snapshot();
  let session;
  try{
   if(job.task==='init'){
@@ -15,7 +17,7 @@ self.onmessage=async({data:job})=>{
   session=await ort.InferenceSession.create(model,options);const feeds=stage==='embedding'?{image}:stage==='decoder'?Object.fromEntries(['a','b','c','d'].map((k,i)=>[k,features[i]])):{tokens},result=await session.run(feeds);
   if(tokens&&!saved.has(tokens))tokens.dispose();if(producer&&!owners.includes(producer))await producer.release();producer=null;
   if(stage==='embedding'){image.dispose();image=null;}
-  const {heapBytes}=await import(factoryUrl),metadata={stage,provider,heapBytes:heapBytes(),threads:ort.env.wasm.numThreads};
+  const {heapBytes}=await import(factoryUrl),metadata={stage,provider,gpuExecution:usefulGpuDispatches?.since(usefulGpuStart),heapBytes:heapBytes(),threads:ort.env.wasm.numThreads};
   if(stage==='decoder'){
    const map=result.output.data.slice(),mask=Uint8Array.from(map,v=>v>.5?1:0);result.output.dispose();for(const t of features)t.dispose();for(const s of owners)await s.release();await session.release();session=null;postMessage({map,mask,metadata},[map.buffer,mask.buffer]);
   }else{

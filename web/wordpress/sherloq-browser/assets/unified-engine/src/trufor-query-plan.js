@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 /** No probing: choose the shipped equivalent operator from real tensor sizes.
  * Eight padded score arrays cover logits/probabilities, Pad/Transpose and

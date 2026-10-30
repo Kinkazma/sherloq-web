@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
 import {contrastParams} from './contrast.js';
 import {contrastRows,contrastCells,CONTRAST_HEAP_BYTES,contrastHeapBytes} from './contrast-math.js';

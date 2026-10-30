@@ -1,3 +1,6 @@
+import {createSsgWordCooperator} from './ssg-word-task-checkpoint.js';
+import {createSsgWordNearest} from './ssg-word-nearest.js';
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {requireValue,createCooperator,checkAbort,EngineError} from './errors.js';
 
 // Independent numerical implementation of the moment / word / phrase stages
@@ -187,10 +190,13 @@ function magnitudeGroups(data,count){
 
 export async function ssgMatchWords(features,input={},hooks={}){
  checkAbort(hooks.signal);
- const p=ssgParams(input),n=validateFeatures(features),groups=magnitudeGroups(features.magnitudes,n),cooperate=createCooperator(hooks.signal),rows=[];
- admit(hooks,n*512);let processed=0;
+ const p=ssgParams(input),n=validateFeatures(features),groups=magnitudeGroups(features.magnitudes,n),cooperate=createSsgWordCooperator(hooks.signal,hooks.wordIndex),rows=[];
+ admit(hooks,n*512);let processed=0,native,failed=false,primary;
+ try{
+ if(hooks.wordIndex)native=await createSsgWordNearest(features,groups,{...hooks.wordIndex,signal:hooks.signal});
  for(const ids of groups){
-  if(ids.length<3){processed+=ids.length;continue;}const tree=new NearestIndex(features.invariants,24,ids);
+  if(ids.length<3){processed+=ids.length;continue;}const tree=native?await native.build(ids):new NearestIndex(features.invariants,24,ids);
+  let treeFailed=false,treePrimary;try{
   for(const id of ids){
    await cooperate();const near=tree.query(id,2),d1=Math.sqrt(near[0].distance),d2=Math.sqrt(near[1].distance),a=near[0].id;
    // Published Eq. (3) matches both close neighbors; the author's MATLAB
@@ -200,8 +206,10 @@ export async function ssgMatchWords(features,input={},hooks={}){
    else if(d1/d2<=p.ratio&&spatialSquared(features.points,id,a)>=p.minimumDistance**2)rows.push([id,a,d1,d2,'ratio']);
    processed++;hooks.onProgress?.(processed/Math.max(1,n));
   }
+  }catch(error){treeFailed=true;treePrimary=error;throw error;}finally{await retireCompositeOwners([()=>tree.release?.()],treeFailed?{primary:treePrimary}:{});}
  }
  return {pairs:Uint32Array.from(rows.flatMap(x=>x.slice(0,2))),distances:Float64Array.from(rows.flatMap(x=>x.slice(2,4))),tests:rows.map(x=>x[4]),parameters:p,matchingDefinition:'paper-v2-I2NN-both-neighbors',reference:SSG_REFERENCE};
+ }catch(error){failed=true;primary=error;throw error;}finally{await retireCompositeOwners([()=>native?.dispose()],failed?{primary}:{});}
 }
 
 // edgeMap is the structured-edge response at the analysis resolution. It is

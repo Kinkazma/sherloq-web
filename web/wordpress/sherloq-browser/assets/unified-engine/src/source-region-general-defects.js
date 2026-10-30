@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
 import {defectParams,defectChannel} from './defect-pixels.js';
 import {sourceRegionLocalCores,sourceRegionLocalSupport} from './source-region-local-support.js';

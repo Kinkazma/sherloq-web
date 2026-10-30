@@ -48,7 +48,7 @@ extern "C" int d2prl_aa_rows(const float* input,int channels,int height,int widt
 // Released torchvision0.11 Tensor Resize: bilinear, align_corners=False,
 // antialias=False. A bounded source band contains both native neighbors.
 extern "C" int d2prl_noaa_rows(const float* input,int channels,int ih,int iw,int oh,int ow,int begin,int end,int source_y,int source_rows,float* output){
- if(!input||!output||channels!=3||ih<1||iw<1||ih>131072||iw>131072||oh!=448||ow!=448||begin<0||end<begin||end>oh||source_y<0||source_rows<1||source_y+source_rows>ih)return 0;
+ if(!input||!output||channels!=3||ih<1||iw<1||ih>131072||iw>131072||(oh!=448&&oh!=896&&oh!=1344&&oh!=1792)||ow!=oh||begin<0||end<begin||end>oh||source_y<0||source_rows<1||source_y+source_rows>ih)return 0;
  const float sy=float(ih)/float(oh),sx=float(iw)/float(ow);
  for(int y=begin;y<end;y++){
   const float fy=ih==oh?float(y):std::max(0.f,std::fma(sy,float(y)+.5f,-.5f));

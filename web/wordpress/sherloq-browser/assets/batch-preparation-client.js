@@ -1,9 +1,9 @@
 import {createM2WorkerClient} from './unified-engine/src/m2-worker-client.js';
-import {scientificPreparationConfiguration} from './tool-models.js';
+import {scientificPreparationConfiguration} from './tool-models.js?v=0.30.0';
 import {EngineError,requireValue,checkAbort,serializeEngineError} from './unified-engine/src/errors.js';
 import {serveNativeSourceChannel} from './unified-engine/src/native-source-channel.js';
-import {compileOriginalSourceRegions} from './original-source-regions.js';
-import {clipPolygon} from './batch-scope-geometry.js';
+import {compileOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
+import {clipPolygon} from './batch-scope-geometry.js?v=0.30.0';
 
 async function retirePreparation(actions,failure){
  const errors=[];for(const action of actions)try{await action();}catch(error){errors.push(error);}
@@ -40,7 +40,7 @@ export function reprojectNativeScientificPreparation(prepared,source,domain){
  output.provenance.coordinateProjection.stages=['panel-classification','scientific-text','annotation-bars'];return output;
 }
 
-export async function createBatchPreparationClient({computeProfile='maximum',memoryBudgetBytes=4*1024**3,configuration,workerFactory=()=>new Worker(new URL('./batch-preparation-worker.js',import.meta.url),{type:'module'}),clientFactory=createM2WorkerClient}={}){
+export async function createBatchPreparationClient({computeProfile='maximum',memoryBudgetBytes=4*1024**3,configuration,workerFactory=()=>new Worker(new URL('./batch-preparation-worker.js?v=0.30.0',import.meta.url),{type:'module'}),clientFactory=createM2WorkerClient}={}){
  const configured=configuration??await scientificPreparationConfiguration({computeProfile,memoryBudgetBytes});
  const client=await clientFactory({...configured,computeProfile,memoryBudgetBytes},{workerFactory});let disposed=false;
  return {

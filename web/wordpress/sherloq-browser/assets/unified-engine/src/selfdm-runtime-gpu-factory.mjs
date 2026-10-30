@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import create, {heapBytes} from '../vendor/m3-ort/factory.asyncify.mjs';
 export {heapBytes};
 export default async function(config) {

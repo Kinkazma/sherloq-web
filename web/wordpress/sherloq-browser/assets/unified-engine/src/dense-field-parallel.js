@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {serializeEngineError,isRecoverableResourceError} from './errors.js';
 import {runWithResourceRecovery,ResourceRecoveryController} from './resource-recovery.js';
@@ -29,7 +29,7 @@ export async function runParallelDenseField({values,stores,metadata,weights,dist
  const recoverCreation=async error=>{const decision=creationRecovery.fail(error,{operation:'dense-kernel-allocation',checkpoint:metrics.committedTasks,memory:budget.snapshot()});metrics.lastAllocationFailure=serializeDenseError(decision.error);if(!decision.retry)return {releasedBytes:0,bytes:Math.max(1,error.details?.requestedBytes??kernelBytes)};return recover(decision.error);};
  const releaseUncreated=async()=>{const bytes=(reservedWorkers-endpoints.length)*kernelBytes;if(!bytes)return;let remaining=bytes;for(const release of [...growthReservations].reverse()){const part=Math.min(remaining,release.bytes);if(part){release.split(part)();remaining-=part;}}if(remaining)releaseInitialWorkspace?.(remaining);reservedWorkers=endpoints.length;await releaseWorkspace?.(bytes);returnedWorkspaceTotal+=bytes;};
  const fail=error=>{if(!hasFailure){hasFailure=true;failure=error;}for(const endpoint of endpoints)endpoint.fail?.(error);};
- const abort=()=>{const error=new EngineError('CANCELLED','Parallel dense field cancelled.');for(const endpoint of [...endpoints,...constructing]){endpoint.unavailable=unavailable('Dense kernel was terminated during cancellation; cleanup ACK is unavailable.');endpoint.worker?.terminate();endpoint.rejectRetirement?.(endpoint.unavailable);}fail(error);};
+ const abort=()=>{fail(new EngineError('CANCELLED','Parallel dense field cancelled.'));};
  async function addWorker(){
   const {denseGpuInputPublication,denseGpuResultTransfer}=reuseGpuTransport?await import('./dense-gpu-transport.js'):{};
   // This sub-budget partitions the already reserved kernel envelope; it does

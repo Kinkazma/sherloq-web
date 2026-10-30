@@ -1,15 +1,16 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {wasmAllocationFailure,copyTypedArray,allocateWasmMemory} from './allocation.js';
 import {LEARNED_PREPARE_WASM} from './learned-prepare-assets.js';
 import {fetchM3Asset} from './m3-asset.js';
 import {roundEven} from './pixel-utils.js';
+import {alikedNativeParameters} from './aliked-native-parameters.js';
 const f=Math.fround;
-export function alikedShape(width,height){const aspect=width/height;return aspect<1?[Math.trunc(1024*aspect),1024]:[1024,Math.trunc(1024/aspect)];}
+export function alikedShape(width,height,inputSide=1024){alikedNativeParameters({inputSide});const aspect=width/height;return aspect<1?[Math.trunc(inputSide*aspect),inputSide]:[inputSide,Math.trunc(inputSide/aspect)];}
 // The descriptor head operates independently per keypoint. Batching keeps its
 // gathers bounded without changing feature maps, NMS or the detector's 20k cap.
 export async function runAliked(ort,job,mask,membership){
- const {image,model,provider,limit}=job,[w,h]=alikedShape(image.width,image.height),n=w*h,sx=f(w/image.width),sy=f(h/image.height),owned=[],sessions=[],pointers=[];
- const {default:create}=await import('../vendor/learned-prepare/prepare.js');const wasm=await fetchM3Asset(new URL('../vendor/learned-prepare/prepare.wasm',import.meta.url),LEARNED_PREPARE_WASM);
+ const {inputSide,detectionThreshold}=alikedNativeParameters(job);const {image,model,provider,limit}=job,[w,h]=alikedShape(image.width,image.height,inputSide),n=w*h,sx=f(w/image.width),sy=f(h/image.height),owned=[],sessions=[],pointers=[];
+ const {default:create}=await import('../vendor/learned-prepare/aliked-controls-v1/prepare.js');const wasm=await fetchM3Asset(new URL('../vendor/learned-prepare/aliked-controls-v1/prepare.wasm',import.meta.url),LEARNED_PREPARE_WASM);
  const prepare=await create({wasmBinary:wasm,wasmMemory:allocateWasmMemory({initial:256,maximum:job.prepareHeapBytes/65536})});
  const alloc=bytes=>{const p=prepare._malloc(Math.max(bytes,8));if(!p)throw wasmAllocationFailure(prepare,'ALIKED preparation memory allocation failed',Math.max(bytes,8));pointers.push(p);return p;},keep=o=>{owned.push(...Object.values(o));return o;};
  const tensor=(...args)=>{const t=new ort.Tensor(...args);owned.push(t);return t;};
@@ -19,7 +20,7 @@ export async function runAliked(ort,job,mask,membership){
   const denseSession=await createSession('dense'),dense=keep(await denseSession.run({image:tensor('float32',prepared,[1,3,h,w])}));postMessage({progress:{phase:'learned-encoder',fraction:.55}});
   const detect=await createSession('detect'),det=keep(await detect.run({scores:dense.scores}));const mp=alloc(n),sp=alloc(n*4),np=alloc(n*4),idsPointer=alloc(80000);
   for(let y=0;y<h;y++){const yy=Math.max(0,Math.min(image.height-1,roundEven((y+.5)/sy-.5)));for(let x=0;x<w;x++){const xx=Math.max(0,Math.min(image.width-1,roundEven((x+.5)/sx-.5)));prepare.HEAPU8[mp+y*w+x]=mask[yy*image.width+xx];}}
-  prepare.HEAPF32.set(dense.scores.data,sp/4);prepare.HEAPF32.set(det.nms.data,np/4);const count=prepare._aliked_select(sp,np,mp,w,h,det.mean.data[0],idsPointer);if(count<0){if(count===-2)throw wasmAllocationFailure(prepare,'ALIKED memory allocation failed');throw Error('ALIKED NMS selection failed')};
+  prepare.HEAPF32.set(dense.scores.data,sp/4);prepare.HEAPF32.set(det.nms.data,np/4);const count=prepare._aliked_select_threshold(sp,np,mp,w,h,det.mean.data[0],detectionThreshold,idsPointer);if(count<0){if(count===-2)throw wasmAllocationFailure(prepare,'ALIKED memory allocation failed');throw Error('ALIKED NMS selection failed')};
   if(!count)return {points:new Float64Array(),descriptors:new Float32Array(),members:new Uint8Array(),descriptorSize:128,totalFeatures:0,zoneCount:Math.max(1,job.regions.length)};
   const indices=tensor('int64',BigInt64Array.from(prepare.HEAP32.subarray(idsPointer/4,idsPointer/4+count),BigInt),[count]),localize=await createSession('localize'),local=keep(await localize.run({scores:dense.scores,indices})),keys=local.keypoints.data,scores=local.confidence.data,points=new Float64Array(count*7);
   for(let i=0;i<count;i++){const x=f(f((w-1)*f(keys[i*2]+1))/2),y=f(f((h-1)*f(keys[i*2+1]+1))/2);points.set([(x+.5)/sx-.5,(y+.5)/sy-.5,8,-1,scores[i],0,-1],i*7);}

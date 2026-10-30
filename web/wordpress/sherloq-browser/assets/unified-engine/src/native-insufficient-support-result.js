@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue}from'./errors.js';
 /** A native TopK prerequisite is not a negative learned observation. No zero
  * probability, mask, fabricated neighbour or lower TopK is produced here. */

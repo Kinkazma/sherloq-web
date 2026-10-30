@@ -1,0 +1,25 @@
+{
+  "scipy": "1.17.1",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "leafsize": 16,
+  "balanced": true,
+  "compact": true,
+  "statistic": "unchanged binary64 Ghost median/MAD with exact native peer order",
+  "sources": {
+    "native/ela-peers.cpp": "1f2e2690fa1a0881566eab5b9d64da61e49e19fffd5380f7f60d85a0cbebc6dc",
+    "native/ela-ghost-profiles.cpp": "5f58995d8e670d74f16cb600a4b5cc41269540dffd4f72b8e4ce3b0092d8737c",
+    "native/ela-residual-profiles.cpp": "f973e7f38a7ace8c389362f12f1baa9cd13b39679f776448261c674b74cdd353",
+    "vendor/scipy-spatial/build.cxx": "4fbc3c1e830c958f3f2a1eaaac063691eb1eb10936d1ac6740d425acdd25f30b",
+    "vendor/scipy-spatial/query.cxx": "d9035f43743a4d33694a8bde82426541b4bc609fc2931fec431e24f9c1b4a2fb"
+  },
+  "files": {
+    "peers.js": {
+      "bytes": 13641,
+      "sha256": "ec9841338924020928dfab570704c28ac6517d302f4364698bc35b370399b9e4"
+    },
+    "peers.wasm": {
+      "bytes": 91682,
+      "sha256": "5b360e492fa93530df917409f30819f5a1968f0b8ed0cbe35ef1348a434511af"
+    }
+  }
+}

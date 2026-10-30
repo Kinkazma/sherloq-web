@@ -1,3 +1,6 @@
+import {retireCompositeOwners} from './composite-owner-release.js';
+import {equalizationPlan} from './equalization-settings.js';
+import {equalizationSurface} from './equalization-presentation.js';
 import {createPixelStoreCache} from './pixel-store-cache.js';
 import {adjustStage} from './adjust-stage.js';
 import {AdjustWorkers} from './adjust-workers.js';
@@ -10,6 +13,12 @@ import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurfa
 const reflected=(i,n)=>{if(n===1)return 0;const x=i%(2*(n-1));return Math.min(x,2*(n-1)-x);};
 const semantics='Native adjustment order: sharpen, HSV controls, LUT, global value equalization/8x8 CLAHE, global Otsu or fixed RGB threshold, inversion. Full-resolution display transform, not an authenticity decision.';
 export async function segmentedAdjust(image,p,{budget,signal,onProgress,rowsPerBlock,cacheKey,maxWorkers=1,adaptive=new AdaptiveConcurrency()}={}){
+ if(Object.hasOwn(p,'equalization')){
+  const plan=equalizationPlan('inspection.adjust',p),native=await segmentedAdjust(image,plan.base,{budget,signal,onProgress,rowsPerBlock,cacheKey,maxWorkers,adaptive});
+  if(!plan.post)return native;
+  let next;try{next=await equalizationSurface(native.surface,plan,{budget,signal,onProgress,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession});await native.surface.dispose();return {...native,...next,metrics:{...native.metrics,...next.metrics}};}
+  catch(error){await retireCompositeOwners([()=>native.surface.dispose(),()=>next?.surface.dispose()],{primary:error});throw error;}
+ }
  const {width:w,height:h}=image.surface.descriptor,n=w*h,halo=Math.floor(p.sharpen/4),padding=w%8!==0||h%8!==0,pw=padding?w+8-w%8:w,ph=padding?h+8-h%8:h,otsu=p.threshold===0;
  requireValue(Number.isSafeInteger(n*3)&&n<=2147483647,'Adjustment exceeds the qualified native integer histogram domain.');requireValue(rowsPerBlock===undefined||Number.isSafeInteger(rowsPerBlock)&&rowsPerBlock>0,'Invalid adjustment row group.');requireValue(Number.isSafeInteger(maxWorkers)&&maxWorkers>=1,'Invalid adjustment worker limit.');checkAbort(signal);
  if(adjustWorkspace(w,Math.min(h,1+2*halo))>ADJUST_HEAP_BYTES)throw new EngineError('MEMORY_LIMIT','One adjustment row and its halo exceed the fixed64MiB heap.');

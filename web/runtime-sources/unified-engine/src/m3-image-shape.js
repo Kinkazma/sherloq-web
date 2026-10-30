@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 // M3 native dimensions/linear pixel indices are signed int32, not texture axes.
 // Byte arrays, heaps and pyramid/work buffers have separate real admission.

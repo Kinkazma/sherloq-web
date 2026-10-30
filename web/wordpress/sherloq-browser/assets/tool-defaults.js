@@ -109,6 +109,7 @@ export default {
   },
   "detail.gradient": {
     "params": {
+      "method": "sobel",
       "intensity": 95,
       "mode": 2,
       "invert": false,

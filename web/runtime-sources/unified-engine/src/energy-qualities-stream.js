@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';
 import {parallelEnergyPlanes,energyPoolShape} from './energy-stream-pool.js';import {segmentedEnergyPlane} from './energy-stream.js';import {createRgbRecompression} from './jpeg-rgb-stream.js';import {checkAbort} from './errors.js';
 export async function segmentedEnergyQualities(image,qualities,{budget,signal,onProgress,onPlane,maxWorkers=1,adaptive=new AdaptiveConcurrency()}={}){

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 const schema='sherloq.sparse-window-presentation/1';
@@ -32,7 +32,7 @@ export async function combineSparseWindowPresentation(answer,{budget,signal,pres
  try{
   checkAbort(signal);const points=new Float64Array(np*7),pairs=new Float64Array(nm*4),colors=new Uint8Array(nm*3),pair_search_regions=new Int32Array(nm),groups=[],models=[],bases=[],regions=[],textExclusions=[],windowResults=[],ranges=[],backends=new Set();let po=0,mo=0,go=0,so=0,ro=0,modelOffset=0,totalFeatures=0,candidateComparisons=0;
   for(let index=0;index<input.length;index++){
-   checkAbort(signal);const entry=input[index],n=counts[index],delta=entry.origin.map((v,i)=>v-presentationOrigin[i]),description={id:entry.id,kind:entry.kind,bounds:[...entry.bounds],origin:[...entry.origin],polygon:structuredClone(entry.polygon),fingerprint:entry.fingerprint,sourceContextIdentity:entry.sourceContextIdentity,status:entry.status};
+   checkAbort(signal);const entry=input[index],n=counts[index],delta=entry.origin.map((v,i)=>v-presentationOrigin[i]),description={id:entry.id,kind:entry.kind,...(entry.analyzedPixelCount!==undefined?{analyzedPixelCount:entry.analyzedPixelCount}:{}),bounds:[...entry.bounds],origin:[...entry.origin],polygon:structuredClone(entry.polygon),fingerprint:entry.fingerprint,sourceContextIdentity:entry.sourceContextIdentity,status:entry.status};
    const range={id:entry.id,status:entry.status,pointRows:[po,po],pairRows:[mo,mo],groupRows:[go,go],modelRows:[modelOffset,modelOffset],regionRows:[ro,ro],searchRegionIds:[so,so],nativeOrigin:[...entry.origin],presentationDelta:delta,nativeCoordinates:'window-native-pixel-centres'};
    if(!n){windowResults.push({...description,dataNatif:null});ranges.push(range);continue;}
    const {release,...dataNatif}=entry.output;windowResults.push({...description,dataNatif});const raw=entry.output;

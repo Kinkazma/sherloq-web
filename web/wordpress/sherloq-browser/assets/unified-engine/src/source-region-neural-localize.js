@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {nativeSourceRegionMembership,nativeSourceRegionDefaultRegions,nativeSourceRegionDefaultJobs} from './source-region-native-regions.js';
 import {EngineError,checkAbort,controlCheckpoint} from './errors.js';
 const AUTO=new Set(['analysis.complete','analysis.clones']),NEURAL=new Set(['ai.clones.d2prl','ai.clones.segmentation']);

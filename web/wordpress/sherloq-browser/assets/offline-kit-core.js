@@ -1,5 +1,5 @@
-import {sha256} from './dependency-core.js';
-import {safeTarPath} from './dependency-tar.js';
+import {sha256} from './dependency-core.js?v=0.30.0';
+import {safeTarPath} from './dependency-tar.js?v=0.30.0';
 export function validateOfflineShell(value){
  if(value?.workerType!==undefined&&!['classic','module'].includes(value.workerType))throw Error('Unsupported offline worker type');
  if(value?.schema!=='sherloq.offline-shell/1'||!value.files||!/^[a-f0-9]{64}$/.test(value.manifest))throw Error('Invalid offline shell');

@@ -4,7 +4,7 @@
 #include <cmath>
 #include <algorithm>
 extern "C" int d2prl_resize_large(const float* input,int channels,int ih,int iw,int oh,int ow,float* output){
- if(!input||!output||channels<1||channels>512||ih<2||iw<2||oh<2||ow<2||ih>1024||iw>1024||oh>1024||ow>1024||oh+ow<=128)return 0;
+ if(!input||!output||channels<1||channels>512||ih<2||iw<2||oh<2||ow<2||ih>2404||iw>2404||oh>2404||ow>2404||oh+ow<=128)return 0;
  const float sx=float(iw-1)/float(ow-1),sy=float(ih-1)/float(oh-1);const int in_n=ih*iw,out_n=oh*ow;
  for(int c=0;c<channels;c++)for(int y=0;y<oh;y++){
   const float fy=sy*y;const int y0=std::min(int(std::floor(fy)),ih-1),y1=std::min(y0+1,ih-1);const float ly=std::clamp(fy-y0,0.f,1.f),hy=1.f-ly;
@@ -25,6 +25,6 @@ extern "C" int d2prl_batchnorm_parameters(const float* mean,const float* varianc
  }return 1;
 }
 extern "C" int d2prl_affine(const float* input,const float* alpha,const float* beta,int channels,int plane,int relu,float* output){
- if(channels<1||channels>2048||plane<1||plane>1024*1024)return 0;
+ if(channels<1||channels>2048||plane<1||plane>2404*2404)return 0;
  for(int c=0;c<channels;c++)for(int i=0;i<plane;i++){const float product=input[c*plane+i]*alpha[c],value=product+beta[c];output[c*plane+i]=relu?std::max(value,0.f):value;}return 1;
 }

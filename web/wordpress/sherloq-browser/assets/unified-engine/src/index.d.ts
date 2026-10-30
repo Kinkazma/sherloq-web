@@ -164,7 +164,7 @@ export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'aut
  readSegmentationRaw(request:{imageId:string;resultId:string}):Result|Promise<Result>;
  unloadD2prlModel():Promise<void>;
  readD2prlRaw(request:{imageId:string;resultId:string}):Result|Promise<Result>;
- buildPrnuDatabase(input:{id:string;queryImageId:string;singleCamera?:string;outputLayout?:'auto'|'bytes'|'pages';fingerprintStorage?:'auto'|'memory'|'temporary';temporarySessionId?:string;files:(File|{name:string;blob:Blob})[]},hooks?:Hooks):Promise<Record<string,unknown>>;
+ buildPrnuDatabase(input:{id:string;queryImageId:string;backend?:'cpu'|'webgpu'|'auto';singleCamera?:string;outputLayout?:'auto'|'bytes'|'pages';fingerprintStorage?:'auto'|'memory'|'temporary';temporarySessionId?:string;files:(File|{name:string;blob:Blob})[]},hooks?:Hooks):Promise<Record<string,unknown>>;
  createPrnuDatabaseExport(id:string,hooks?:Hooks):Promise<PrnuDatabaseExport>;
  exportPrnuDatabase(id:string):{mime:'application/x-hdf5';bytes:Uint8Array};
  exportResultFile(result:Result,options?:{format?:'json';storage?:'auto'|'memory'|'temporary';maxBytes?:number},hooks?:Hooks):Promise<{id:string;revision:number;mime:'application/json';format:'json';byteLength:number;sha256:string;metrics:Record<string,unknown>}>;

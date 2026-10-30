@@ -36,7 +36,7 @@ static void line(const double*in,double*out,int w,int h,int dx,int dy,int radius
   for(int i=-radius;i<len+radius;i++){double v=i<0||i>=len?(dilate?-INFINITY:INFINITY):in[cells[i]];int idx=i+radius;values[idx]=v;while(last>first&&(dilate?values[queue[last-1]]<=v:values[queue[last-1]]>=v))last--;queue[last++]=idx;while(last>first&&queue[first]<idx-2*radius)first++;int center=i-radius;if(center>=0&&center<len)out[cells[center]]=values[queue[first]];}
  }
 }
-static void n4(const double*in,double*out,int w,int h,int radius,bool dilate){
+static void n4_f64_original(const double*in,double*out,int w,int h,int radius,bool dilate){
  // Published MATLAB disk4 fixture is the Minkowski sum of four 3-element
  // lines: 37 pixels, 7x7. Larger n4 uses the stated periodic-line radial
  // decomposition; its integer rounding is reported, not called MATLAB exact.
@@ -53,6 +53,8 @@ static void n4(const double*in,double*out,int w,int h,int radius,bool dilate){
  line(one.data(),two.data(),pw,ph,1,0,a,dilate);line(two.data(),one.data(),pw,ph,0,1,a,dilate);line(one.data(),two.data(),pw,ph,1,1,b,dilate);line(two.data(),one.data(),pw,ph,1,-1,b,dilate);
  for(int y=0;y<h;y++)std::copy(one.begin()+(size_t)(y+pad)*pw+pad,one.begin()+(size_t)(y+pad)*pw+pad+w,out+(size_t)y*w);
 }
+#include "n4-binary-bitset.h"
+static void n4(const double*in,double*out,int w,int h,int radius,bool dilate){if(!ssg_n4_binary_bitset(in,out,w,h,radius,dilate))n4_f64_original(in,out,w,h,radius,dilate);}
 static double sample(const double*in,int w,int h,double x,double y){int ix=floor(x),iy=floor(y);double fx=x-ix,fy=y-iy,v=0;for(int yy=0;yy<2;yy++)for(int xx=0;xx<2;xx++)if(ix+xx>=0&&ix+xx<w&&iy+yy>=0&&iy+yy<h)v+=in[(size_t)(iy+yy)*w+ix+xx]*(xx?fx:1-fx)*(yy?fy:1-fy);return v;}
 static void warp(const double*in,double*out,int w,int h,const double*m,bool reverse){double a=m[0],b=m[1],tx=m[2],c=m[3],d=m[4],ty=m[5],det=a*d-b*c;
  for(int y=0;y<h;y++)for(int x=0;x<w;x++){double xx=x+1,yy=y+1,sx,sy;if(!reverse){double dx=xx-tx,dy=yy-ty;sx=(d*dx-b*dy)/det;sy=(-c*dx+a*dy)/det;}else{sx=a*xx+b*yy+tx;sy=c*xx+d*yy+ty;}out[(size_t)y*w+x]=sample(in,w,h,sx-1,sy-1);}

@@ -1,4 +1,4 @@
-import {selectActiveFiles} from './feature-catalog.js';
+import {selectActiveFiles} from './feature-catalog.js?v=0.30.0';
 // One IndexedDB record is the activation boundary. Candidate writes never replace
 // the active reference; a rejected transaction leaves its predecessor intact.
 const UPDATE_DB='sherloq-local-updates-v1',LEGACY_KEY='state';

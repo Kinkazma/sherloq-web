@@ -1,9 +1,9 @@
-import {createPointerLoupe} from './pdf-pointer-loupe.js';
-import * as media from './media-settings.js';
-import {createRemoteSurface} from './remote-surface.js';
-import {TileCache} from './tiled-surface.js';
-import {createToolClient} from './tool-client.js';
-import {createWorkspaceEnginePool} from './workspace-engine-pool.js';
+import {createPointerLoupe} from './pdf-pointer-loupe.js?v=0.30.0';
+import * as media from './media-settings.js?v=0.30.0';
+import {createRemoteSurface} from './remote-surface.js?v=0.30.0';
+import {TileCache} from './tiled-surface.js?v=0.30.0';
+import {createToolClient} from './tool-client.js?v=0.30.0';
+import {createWorkspaceEnginePool} from './workspace-engine-pool.js?v=0.30.0';
 
 const cancelled=()=>Object.assign(Error('Placement magnifier source changed.'),{code:'CANCELLED'});
 const compatible=(image,value)=>value?.file===image.blob&&value.hash===image.sourceSha256&&value.source?.width===image.width&&value.source?.height===image.height;

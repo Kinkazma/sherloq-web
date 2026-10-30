@@ -1,0 +1,24 @@
+{
+  "source": {
+    "baseSha256": "d5f25e97cc31db975960942b0d6341946217df703037cd25e177c625d804175a",
+    "sourceSha256": "bfdf099ebf4d1356127ef9a224fb63a6efe89c3041fd559a7d5fd683f12ab072",
+    "baseTarget": "native/sparse-glue-paged.cpp",
+    "scope": "Append-only Native attention normalization and weights; original four functions literally included unchanged. No dot implementation added."
+  },
+  "compiler": "Emscripten4.0.15",
+  "flags": [
+    "-O3",
+    "-msimd128",
+    "-ffp-contract=off"
+  ],
+  "files": {
+    "attention-csr-native.js": {
+      "bytes": 8073,
+      "sha256": "0c51a603401367e256a6c4d19aa24669b70206ca6f23af42a152f7669b1038ec"
+    },
+    "attention-csr-native.wasm": {
+      "bytes": 10692,
+      "sha256": "3f0e4c07df352845c9b7016c07e86307ec590169fa038d380d7afe24ca94e5f9"
+    }
+  }
+}

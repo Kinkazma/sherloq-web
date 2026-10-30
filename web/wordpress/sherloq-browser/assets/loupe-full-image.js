@@ -4,7 +4,7 @@ import {segmentedMagnifierLarge} from './unified-engine/src/segmented-magnifier-
 import {createSegmentedBytes} from './unified-engine/src/segmented-bytes.js';
 import {createRgbSurface} from './unified-engine/src/rgb-surface.js';
 import {checkAbort,controlCheckpoint,createCooperator} from './unified-engine/src/errors.js';
-import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js';
+import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.30.0';
 
 // Compute full-resolution effects once. Global histograms, CLAHE and sharpening
 // retain the engine's semantics; row groups are storage, never separate images.

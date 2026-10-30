@@ -5,7 +5,7 @@
 #include <cstring>
 
 extern "C" int d2prl_reflect(const float* input, int channels, int h, int w, int pad, float* output) {
- if(channels<1||channels>512||h<=pad||w<=pad||h>1024||w>1024||pad<0||pad>7)return 0;
+ if(channels<1||channels>512||h<=pad||w<=pad||h>2404||w>2404||pad<0||pad>7)return 0;
  const int oh=h+2*pad,ow=w+2*pad;
  for(int c=0;c<channels;c++)for(int y=0;y<oh;y++)for(int x=0;x<ow;x++){
   int yy=y-pad,xx=x-pad;yy=yy<0?-yy:yy>=h?2*h-yy-2:yy;xx=xx<0?-xx:xx>=w?2*w-xx-2:xx;

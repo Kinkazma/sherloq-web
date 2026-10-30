@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {SparseFeatureEngine} from './sparse-extract.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {createSourceRegionView} from './source-region-view.js';

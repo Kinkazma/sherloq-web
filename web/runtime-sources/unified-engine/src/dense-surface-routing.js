@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement} from './dense-owner-retirement.js';
 import {byteView,byteLength} from './memory-range.js';
 import {DenseImageEngine,denseImageParams,denseImageJobs} from './dense-image.js';

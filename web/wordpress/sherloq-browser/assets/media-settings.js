@@ -1,5 +1,5 @@
-import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js';
-import {loupeStepDefaults,loupeStepGroupDefaults,validateLoupeStepGroups,validateLoupeStepSettings} from './loupe-step-controls.js';
+import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js?v=0.30.0';
+import {loupeStepDefaults,loupeStepGroupDefaults,validateLoupeStepGroups,validateLoupeStepSettings} from './loupe-step-controls.js?v=0.30.0';
 // Stored locally when possible and included in portable workspace settings.
 export const exportDefaults=Object.freeze({format:'webp',quality:90,webpQuality:90,heicQuality:90,webpLossless:true,avifLossless:false,heicLossless:false,pngCompression:6,tiffCompression:'deflate',chroma:'source',resize:false,width:0,height:0,resizeAxis:'width',resizeAlgorithm:'auto'});
 export const loupeDefaults=Object.freeze({enabled:false,diameter:300,transition:60,proportional:true,zoom:200,unlock:false,markers:true,ringStyle:'dashed',ringWidth:1,ringOpacity:100,ringColor:'#edf6dc',sweepTarget:'gamma',sweepSpeed:2,stepTarget:loupeStepDefaults.target,stepSize:loupeStepDefaults.step,stepGroups:loupeStepGroupDefaults,effects:effectDefaults});

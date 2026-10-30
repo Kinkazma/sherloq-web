@@ -17,6 +17,6 @@ em++ native/wavelet-stream.cpp .build/wavelet-stream/objects/*.o -I "$src" -O3 -
  -ffile-prefix-map="$PWD/"= -sDISABLE_EXCEPTION_CATCHING=0 \
  -sMODULARIZE=1 -sEXPORT_ES6=1 -sENVIRONMENT=web,worker,node -sALLOW_MEMORY_GROWTH=1 \
  -sINITIAL_MEMORY=8388608 -sMAXIMUM_MEMORY=134217728 -sMEMORY_GROWTH_LINEAR_STEP=4194304 -sABORTING_MALLOC=0 -sFILESYSTEM=0 \
- -sEXPORTED_FUNCTIONS='["_malloc","_free","_wavelet_stream_info","_wavelet_stream_down","_wavelet_stream_up","_wavelet_stream_threshold","_wavelet_noise","_wavelet_stream_normalize","_wavelet_data","_wavelet_size","_wavelet_release"]' \
+ -sEXPORTED_FUNCTIONS='["_malloc","_free","_wavelet_stream_info","_wavelet_stream_down","_wavelet_stream_up","_wavelet_stream_threshold","_wavelet_noise","_wavelet_stream_normalize","_wavelet_stream_affine","_wavelet_stream_detail","_wavelet_data","_wavelet_size","_wavelet_release"]' \
  -sEXPORTED_RUNTIME_METHODS='["HEAPU8","HEAPF64"]' -o vendor/wavelet-stream/wavelet-stream.js
 cp .build/wavelet-stream/pywt-1.5.0/LICENSE vendor/wavelet-stream/LICENSE

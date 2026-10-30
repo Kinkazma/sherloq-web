@@ -2,7 +2,7 @@
 // four-lane cascade sum (SumKernel.cpp). PyTorch BSD notice is retained nearby.
 #include <algorithm>
 extern "C" int d2prl_mean_planes(const float* input,int channels,int plane,int reciprocal,float* sums,float* means){
- if(channels<2||channels>2048||plane<4||plane>224*224)return 0;
+ if(channels<2||channels>2048||plane<4||plane>896*896)return 0;
  const int vectors=plane/4,groups=vectors/4;int ceil_log=0;for(int v=groups-1;v>0;v>>=1)ceil_log++;
  const int power=std::max(4,ceil_log/4),step=1<<power,mask=step-1;
  for(int c=0;c<channels;c++){

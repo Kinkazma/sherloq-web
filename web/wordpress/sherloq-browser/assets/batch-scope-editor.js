@@ -1,12 +1,12 @@
-import {createPlacementPointerLoupe} from './placement-pointer-loupe.js';
-import {scopeFingerprint} from './batch-scientific-preparation.js';
+import {createPlacementPointerLoupe} from './placement-pointer-loupe.js?v=0.30.0';
+import {scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
-import {scientificScopeEnvelope} from './batch-scope-geometry.js';
-import {appendScientificScopePreview,createScientificScopePreview,createScientificScopePreviewRetirement,appendScientificScopeEnvelope} from './batch-scope-preview.js';
-import {createManualScopeDraft,addManualScopeZone,updateManualScopeZone,removeManualScopeZone,restoreManualScopeZone,manualDraftScope,applyManualScopeDraft,normalizeScopeRectangle} from './batch-scope-manual.js';
-import {initializeSubimagesSelection,updateSubimagesSelection,subimagesSelectionMode} from './subimages-selection-intent.js';
-import {batchPairSelection} from './batch-catalog.js';
-import {bindViewerNavigation} from './viewer-input.js';
+import {scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
+import {appendScientificScopePreview,createScientificScopePreview,createScientificScopePreviewRetirement,appendScientificScopeEnvelope} from './batch-scope-preview.js?v=0.30.0';
+import {createManualScopeDraft,addManualScopeZone,updateManualScopeZone,removeManualScopeZone,restoreManualScopeZone,manualDraftScope,applyManualScopeDraft,normalizeScopeRectangle} from './batch-scope-manual.js?v=0.30.0';
+import {initializeSubimagesSelection,updateSubimagesSelection,subimagesSelectionMode} from './subimages-selection-intent.js?v=0.30.0';
+import {batchPairSelection} from './batch-catalog.js?v=0.30.0';
+import {bindViewerNavigation,viewerCameraIsFitted} from './viewer-input.js?v=0.30.0';
 
 const ns='http://www.w3.org/2000/svg',clone=value=>structuredClone(value),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const strings={fr:{title:'Zones de l’image',modify:'Modifier les zones',preview:'Aperçu annoté',select:'Sélection / déplacer',acquisition:'Ajouter une acquisition',exclusion:'Ajouter une exclusion',remove:'Supprimer la zone',undo:'Annuler le geste',redo:'Rétablir',fit:'Ajuster',original:'100 %',save:'Valider',cancel:'Annuler',close:'Fermer',coordinates:'Coordonnées facultatives',apply:'Appliquer les coordonnées',legend:'Vert : acquisition · Rouge : exclusion · Gris : non classé · Jaune : à vérifier',hint:'Souris / trackpad : mêmes gestes que SHERLOQ · Espace + glisser : déplacer la vue',editing:'Dessinez, déplacez ou redimensionnez les zones. Les pixels originaux restent inchangés.',png:'Aperçu PNG en résolution originale · Clic droit pour enregistrer l’image annotée.',loading:'Création de l’aperçu PNG annoté…',pair:'Choisissez deux acquisitions pour EfficientLoFTR.',pairCount:'acquisitions sélectionnées sur 2',unavailable:'L’aperçu PNG est indisponible',microscopy:'Microscopie',gel:'Gel / blot',photography:'Photographie',empty:'Sélectionnez une zone pour ajuster ses coordonnées.',automatic:'Détecter automatiquement',subimages:'Détecter les sous-images',detecting:'Détection des zones…',unavailableDetection:'Détection non disponible dans ce contexte.'},en:{title:'Image regions',modify:'Edit regions',preview:'Annotated preview',select:'Select / move',acquisition:'Add acquisition',exclusion:'Add exclusion',remove:'Delete region',undo:'Undo gesture',redo:'Redo',fit:'Fit',original:'100%',save:'Apply',cancel:'Cancel',close:'Close',coordinates:'Optional coordinates',apply:'Apply coordinates',legend:'Green: acquisition · Red: exclusion · Gray: unclassified · Yellow: review needed',hint:'Mouse / trackpad: SHERLOQ navigation · Space + drag: pan',editing:'Draw, move or resize regions. Original pixels remain unchanged.',png:'Full-resolution annotated PNG · Right-click to save the annotated image.',loading:'Creating annotated PNG preview…',pair:'Choose two acquisitions for EfficientLoFTR.',pairCount:'acquisitions selected out of 2',unavailable:'PNG preview is unavailable',microscopy:'Microscopy',gel:'Gel / blot',photography:'Photography',empty:'Select a region to adjust its coordinates.',automatic:'Detect automatically',subimages:'Detect subimages',detecting:'Detecting regions…',unavailableDetection:'Detection is unavailable in this context.'}};
@@ -37,7 +37,7 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
  const footer=make('footer','batch-scope-editor-footer'),cancel=make('button','',t.cancel),save=make('button','primary',t.save);cancel.type=save.type='button';cancel.dataset.scopeAction='cancel';save.dataset.scopeAction='save';footer.append(cancel,save);dialog.append(header,toolbar,content,legend,status,footer);
  dialog.setAttribute('aria-label',t.title);dialog.setAttribute('aria-modal','true');
  let placement=null,closePending=false;const previewOwners=createScientificScopePreviewRetirement();
- let draft,editing=false,opened=false,disposed=false,tool='select',selected=null,hovered=null,focused=null,purpose=null,pairIds=[],past=[],future=[],gesture=null,scale=1,fitScale=1,pan={x:0,y:0},space=false,rawUrl,previewUrl,previewResult,previewController,previewQueue=Promise.resolve(),previewSequence=0,encoded=false,busy=false,focusBefore,clickCandidate=null,clickBaseline=null,coordinateSignature=null,envelopeDraft=null,envelopeAction=null,envelopeScope=null,envelope=null;
+ let draft,editing=false,opened=false,disposed=false,tool='select',selected=null,hovered=null,focused=null,purpose=null,pairIds=[],past=[],future=[],gesture=null,scale=1,fitScale=1,pan={x:0,y:0},space=false,rawUrl,previewUrl,previewResult,previewController,previewQueue=Promise.resolve(),previewSequence=0,encoded=false,rawDecoded=false,busy=false,focusBefore,clickCandidate=null,clickBaseline=null,coordinateSignature=null,envelopeDraft=null,envelopeAction=null,envelopeScope=null,envelope=null;
  plane.style.width=image.width+'px';plane.style.height=image.height+'px';svg.setAttribute('width',image.width);svg.setAttribute('height',image.height);
  const zone=()=>draft?.zones.find(z=>z.id===selected);
  const say=(text,error=false)=>{status.textContent=text;status.classList.toggle('batch-scope-editor-error',error);};
@@ -133,6 +133,20 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
    if(controller.signal.aborted||!opened)return;
    let result,owned,cleanupAttempted=false;try{
     await previewOwners.drain();if(controller.signal.aborted||!opened)return;
+    if(!rawDecoded){
+     // Browser image elements cannot display every format accepted by the
+     // native decoder (notably TIFF). Keep one unannotated native PNG as the
+     // immutable editing base; never switch gestures back to that raw format.
+     try{await img.decode();rawDecoded=true;}
+     catch{
+      if(controller.signal.aborted||!opened)return;
+      let base,baseOwner;try{base=await previewFactory(image,{scope,annotations:false,signal:controller.signal,computeProfile,onOwner:value=>{baseOwner=value;previewOwners.own(value);}});previewOwners.own(base);}
+      catch(error){if(baseOwner)previewOwners.mark(baseOwner);throw error;}
+      if(controller.signal.aborted||!opened){await previewOwners.release(base);return;}
+      if(!(base.blob instanceof Blob)||base.metadata?.annotationsEncoded===true)throw Error('An unannotated native editing image is required.');
+      const previous=rawUrl;rawUrl=urlApi.createObjectURL(base.blob);img.src=rawUrl;urlApi.revokeObjectURL(previous);await img.decode();rawDecoded=true;
+     }
+    }
     result=await previewFactory(image,{scope,signal:controller.signal,computeProfile,onOwner:value=>{owned=value;previewOwners.own(value);}});previewOwners.own(result);
     if(controller.signal.aborted||!opened||sequence!==previewSequence){cleanupAttempted=true;await previewOwners.release(result);return;}
     if(!(result.blob instanceof Blob))throw Error('Annotated preview is not a Blob.');await cleanupCurrentPreview();previewResult=result;previewUrl=urlApi.createObjectURL(result.blob);img.src=previewUrl;encoded=true;renderOverlay();say((editing?t.editing+' ':'')+t.png);
@@ -247,6 +261,7 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
   // transaction so a double click cannot leave tiny new zones, moved boxes or
   // a reordered EfficientLoFTR pair. The selected editing tool is unchanged.
   if(baseline){draft=baseline.draft;past=baseline.past;future=baseline.future;selected=baseline.selected;pairIds=baseline.pairIds;}
+  if(!viewerCameraIsFitted({scale,x:pan.x,y:pan.y},image,viewer.getBoundingClientRect())){fit();updateControls();if(baseline)void requestPreview();return;}
   const hit=zoneAt(event);if(hit){selected=hit.id;const original=hit.originalGeometry,changedGeometry=original&&(['x0','y0','x1','y1'].some(key=>hit[key]!==original[key])||JSON.stringify(hit.polygon)!==JSON.stringify(original.polygon));if(changedGeometry){editing=true;tool='select';edit(()=>restoreManualScopeZone(draft,hit.id));}else{renderOverlay();updateControls();if(baseline)void requestPreview();}}
   else{fit();updateControls();if(baseline)void requestPreview();}
  });
@@ -284,7 +299,7 @@ export function createBatchScopeEditor({document=globalThis.document,image,langu
  };
  function close(){if(closePending)return closeCompletion;if(!opened&&!placement&&!previewOwners.pending&&!rawUrl)return Promise.resolve();opened=false;editing=false;detectionSequence++;detectionController?.abort();cancelInteractions();previewSequence++;previewController?.abort();if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open');dialog.remove();closePending=true;return closeCompletion=(async()=>{await Promise.allSettled([...detectionTasks]);await previewQueue.catch(()=>{});await cleanupPreview();if(placement){await placement.dispose();placement=null;}if(rawUrl){urlApi.revokeObjectURL(rawUrl);rawUrl=null;}focusBefore?.focus?.();})().finally(()=>{closePending=false;});}
  async function open(options={}){
-  if(disposed)throw Error('Scope editor disposed.');await close();if(disposed)throw Error('Scope editor disposed.');draft=createManualScopeDraft(image);initializeSubimagesSelection(draft,typeof subimagesSelection==='function'?subimagesSelection():subimagesSelection);preparationBases.set(draft,image.preparation);editing=options.editing===true;tool=['select','acquisition','exclusion'].includes(options.tool)?options.tool:'select';selected=hovered=focused=null;purpose=options.selectionPurpose==='pair'?'pair':null;pairIds=[];past=[];future=[];gesture=null;coordinateSignature=null;panOverride(false);encoded=false;busy=false;focusBefore=document.activeElement;
+  if(disposed)throw Error('Scope editor disposed.');await close();if(disposed)throw Error('Scope editor disposed.');draft=createManualScopeDraft(image);initializeSubimagesSelection(draft,typeof subimagesSelection==='function'?subimagesSelection():subimagesSelection);preparationBases.set(draft,image.preparation);editing=options.editing===true;tool=['select','acquisition','exclusion'].includes(options.tool)?options.tool:'select';selected=hovered=focused=null;purpose=options.selectionPurpose==='pair'?'pair':null;pairIds=[];past=[];future=[];gesture=null;coordinateSignature=null;panOverride(false);encoded=false;rawDecoded=false;busy=false;focusBefore=document.activeElement;
   if(options.zoneId!==undefined){if(!draft.zones.some(z=>z.id===options.zoneId))throw Error('The requested region is not present in this image.');selected=focused=options.zoneId;}
   placement=createPlacementPointerLoupe(viewer,{image,getCamera:()=>({scale,x:pan.x,y:pan.y}),isEditing:()=>opened&&editing&&!busy&&!space,...placementLoupe,onEnabled:value=>{miniLoupe.setAttribute('aria-pressed',String(value));},onError:error=>{say(error?.message??String(error),true);onError(error);}});
   const previous=options.pairSelection??image.pairSelection;if(purpose==='pair'&&previous?.pixelHash===image.hash&&previous.width===image.width&&previous.height===image.height)for(const r of previous.regions??[]){let z=draft.zones.find(z=>z.kind==='acquisition'&&['x0','y0','x1','y1'].every(k=>Math.floor(z[k])===r[k]||Math.ceil(z[k])===r[k]));if(!z){z=addManualScopeZone(draft,'acquisition',r);draft.changed=false;draft.actions=[];}if(!pairIds.includes(z.id))pairIds.push(z.id);}

@@ -1,13 +1,22 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createBlobSource} from './blob-source.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createTemporarySession} from './temporary-storage.js';
 import {EngineError,requireValue,controlCheckpoint} from './errors.js';
 // Encoded ownership is independent of the decoded camera stores and UI exports.
 export function retainPrnuArchive(archive){
- let references=1,closed=false;
- const drop=async()=>{if(--references===0){closed=true;await archive.release();}};
- return {...archive,async release(){if(closed||this.released)return;this.released=true;await drop();},lease(){requireValue(!closed&&!this.released,'PRNU archive was released.');references++;let released=false;return {...archive,async dispose(){if(released)return;released=true;await drop();}};}};
+ let references=1,closed=false,closing;
+ const drop=()=>{
+  if(closed)return Promise.resolve();if(references>1){references--;return Promise.resolve();}if(closing)return closing;
+  const task=Promise.resolve().then(()=>archive.release()).then(()=>{references=0;closed=true;});closing=task;void task.finally(()=>{if(closing===task)closing=null;}).catch(()=>{});return task;
+ };
+ const reference=(leased=false)=>{
+  let released=false,pending;
+  const release=()=>{if(released)return Promise.resolve();if(pending)return pending;const task=drop().then(()=>{released=true;});pending=task;void task.finally(()=>{if(pending===task)pending=null;}).catch(()=>{});return task;};
+  const record={...archive,release,...(leased?{dispose:release}:{lease(){requireValue(!closed&&!closing&&!released&&!pending,'PRNU archive was released.');references++;return reference(true);}})};
+  Object.defineProperty(record,'released',{get:()=>released,enumerable:true});return record;
+ };
+ return reference();
 }
 export async function originalPrnuArchive(record,{budget,signal,onTemporarySession}={}){
  if(record.encodedArchive)return record.encodedArchive.lease();

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createSparseCloneWindowEngine} from './sparse-clone-window-engine.js';
 import {nativeAutomaticPanels} from './automatic-unprepared-clones.js';
 import {requireValue,checkAbort} from './errors.js';

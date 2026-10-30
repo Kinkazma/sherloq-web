@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue}from'./errors.js';
 import{onnxFields,onnxNode,onnxInitializer}from'./onnx-scoped-graph.js';
 // Same four-lane/cascade FP32 addition order as the existing native_seg_mean

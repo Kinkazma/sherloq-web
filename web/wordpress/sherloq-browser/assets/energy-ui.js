@@ -1,9 +1,9 @@
-import {diagnostic} from './runtime-context.js';
-import {configureAutomaticSlider} from './source-parameter-constraints.js';
-import {bindInteractiveControl} from './interactive-control.js';
+import {diagnostic} from './runtime-context.js?v=0.30.0';
+import {configureAutomaticSlider} from './source-parameter-constraints.js?v=0.30.0';
+import {bindInteractiveControl} from './interactive-control.js?v=0.30.0';
 import {createElaEnergyControls} from './energy-engine/src/ela-energy-controls.js';
-import {validEnergySettings} from './settings.js';
-import {bindSliderReset} from './slider-reset.js';
+import {validEnergySettings,energyProfilePresets} from './settings.js?v=0.30.0';
+import {bindSliderReset} from './slider-reset.js?v=0.30.0';
 export function createEnergyUI({$,t,changed,persist,viewChanged,interactiveControlOptions={}}){
  configureAutomaticSlider($('energy-quality'),'ela.energy','quality');
  const controller=createElaEnergyControls();let saved=[],selected='standard',scoreField='unified',scoreThreshold=0,scoreView='map',interacting=false,interactionChanged=false,perContextProfile=false;const maxima={},listeners=[];
@@ -13,7 +13,7 @@ export function createEnergyUI({$,t,changed,persist,viewChanged,interactiveContr
  function values(){return controller.snapshot().values;}
  function syncProfileLabels(v=values()){for(const k of keys){const label=$('energy-'+k+'-value');label.textContent=perContextProfile?t('energyPerContextProfile'):(v[k]/10).toFixed(1)+(k.startsWith('histogram')?' %':'');label.title=perContextProfile?t('energyPerContextHint'):'';}}
  function sync(){const v=values();for(const k of keys){$('energy-'+k).value=v[k];$('energy-'+k+'-number').value=v[k];}syncProfileLabels(v);$('energy-profile').value=selected;}
- function renderProfiles(){const names={standard:'energyConservative',conservative:'energySensitive',sensitive:'energyAggressive',manual:'manual'};$('energy-profile').replaceChildren(...Object.entries(names).map(([id,key])=>new Option(t(key),id)),...saved.map(p=>new Option(p.name,p.id)));sync();}
+ function renderProfiles(){const names={standard:'energyConservative',conservative:'energySensitive',sensitive:'energyAggressive',manual:'manual'};$('energy-profile').replaceChildren(...Object.entries(names).map(([id,key])=>new Option(t(key),id)),...Object.entries(energyProfilePresets).map(([id,p])=>new Option(p.name,id)),...saved.map(p=>new Option(p.name,p.id)));sync();}
  const gestures=[],boundedPreview={adaptive:true};let manualEditing=false;
  function begin(){if(manualEditing)return;manualEditing=true;perContextProfile=false;controller.beginManualEdit();selected='manual';syncProfileLabels();$('energy-profile').value=selected;for(const binding of optionBindings)if(binding.control===$('energy-profile'))binding.reset('manual-profile');changed(false,{intent:true});persist();}
  function cancelInteraction(){manualEditing=false;for(const gesture of gestures)gesture.reset();interacting=false;interactionChanged=false;}
@@ -30,7 +30,7 @@ export function createEnergyUI({$,t,changed,persist,viewChanged,interactiveContr
   binding.control=input;gestures.push(binding);optionBindings.push(binding);input.oninput=binding.input;input.onchange=binding.change;return binding;
  };
  for(const k of ['quality','block','minimum']){const binding=bindOption($('energy-'+k),{canPreview:true});bindSliderReset($('energy-'+k),validEnergySettings()[k],()=>{binding.input();binding.finish('reset');});}
- bindOption($('energy-profile'),{apply:value=>{perContextProfile=false;selected=value;const p=saved.find(p=>p.id===selected);if(p){controller.applySnapshot({id:p.id,values:p.values});for(const k of ['quality','block','minimum'])$('energy-'+k).value=p[k];}else controller.selectProfile(selected);sync();}});
+ bindOption($('energy-profile'),{apply:value=>{perContextProfile=false;selected=value;const p=saved.find(p=>p.id===selected)??energyProfilePresets[selected];if(p){controller.applySnapshot({id:selected,values:p.values});for(const k of ['quality','block','minimum','view','opacity'])if(Object.hasOwn(p,k))$('energy-'+k).value=p[k];}else controller.selectProfile(selected);sync();}});
  $('energy-view').oninput=()=>{persist();viewChanged();};
  const opacity=$('energy-opacity'),opacityGesture=bindInteractiveControl(opacity,{...diagnosticOptions(opacity),read:()=>({valid:opacity.value!==''&&Number.isFinite(Number(opacity.value)),value:Number(opacity.value)}),update:()=>persist(),preview:event=>viewChanged({preview:boundedPreview,gesture:gesture(opacity,event)}),commit:()=>viewChanged(),cancel:event=>{if(event.reason==='unchanged')viewChanged();}});gestures.push(opacityGesture);opacity.oninput=opacityGesture.input;opacity.onchange=opacityGesture.change;
  bindSliderReset(opacity,validEnergySettings().opacity,()=>{opacityGesture.input();opacityGesture.finish('reset');});
@@ -61,5 +61,5 @@ export function createEnergyUI({$,t,changed,persist,viewChanged,interactiveContr
    perContextProfile=local;sync();persist();
   }return true;}
  function save(name){const previous=saved.find(p=>p.name===name);if(!previous&&saved.length>=100)throw Error(t('profileLimit'));const s=validEnergySettings(bundle()),p={id:previous?.id||'profile-'+crypto.randomUUID(),name,values:s.values,quality:s.quality,block:s.block,minimum:s.minimum};saved=previous?saved.map(x=>x.id===p.id?p:x):[...saved,p];selected=p.id;controller.applySnapshot({id:p.id,values:p.values});renderProfiles();}
- load();return{get interactiveActive(){return gestures.some(gesture=>gesture.active);},get interactivePending(){return gestures.some(gesture=>gesture.pending);},bundle,load,prepare,accept,save,cancelInteraction,translate:()=>{renderProfiles();syncScores();for(const gesture of gestures)gesture.reset();},get selectedName(){return saved.find(p=>p.id===selected)?.name||'';},presentation,resetBounds(){for(const key of Object.keys(maxima))delete maxima[key];syncScores();},dispose(){for(const remove of listeners.splice(0))remove();for(const gesture of gestures)gesture.dispose();manualEditing=false;interacting=false;interactionChanged=false;},observePresentation(value){if(value?.view!=='scores'||!['low','high','both','unified'].includes(value.field))return false;if(Number.isFinite(value.observedMaximum)&&value.observedMaximum>=0)maxima[value.field]=value.observedMaximum;for(const key of ['low','high'])if(Number.isFinite(value.observedMaxima?.[key])&&value.observedMaxima[key]>=0)maxima[key]=value.observedMaxima[key];if(Object.hasOwn(maxima,'high')&&Object.hasOwn(maxima,'low')){maxima.both=Math.max(maxima.high,maxima.low);maxima.unified=maxima.both;}const clamped=clampScore();syncScores();if(clamped)persist();return clamped;}};
+ load();return{get interactiveActive(){return gestures.some(gesture=>gesture.active);},get interactivePending(){return gestures.some(gesture=>gesture.pending);},bundle,load,prepare,accept,save,cancelInteraction,translate:()=>{renderProfiles();syncScores();for(const gesture of gestures)gesture.reset();},get selectedName(){return saved.find(p=>p.id===selected)?.name||energyProfilePresets[selected]?.name||'';},presentation,resetBounds(){for(const key of Object.keys(maxima))delete maxima[key];syncScores();},dispose(){for(const remove of listeners.splice(0))remove();for(const gesture of gestures)gesture.dispose();manualEditing=false;interacting=false;interactionChanged=false;},observePresentation(value){if(value?.view!=='scores'||!['low','high','both','unified'].includes(value.field))return false;if(Number.isFinite(value.observedMaximum)&&value.observedMaximum>=0)maxima[value.field]=value.observedMaximum;for(const key of ['low','high'])if(Number.isFinite(value.observedMaxima?.[key])&&value.observedMaxima[key]>=0)maxima[key]=value.observedMaxima[key];if(Object.hasOwn(maxima,'high')&&Object.hasOwn(maxima,'low')){maxima.both=Math.max(maxima.high,maxima.low);maxima.unified=maxima.both;}const clamped=clampScore();syncScores();if(clamped)persist();return clamped;}};
 }

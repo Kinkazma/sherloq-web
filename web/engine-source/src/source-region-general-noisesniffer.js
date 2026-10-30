@@ -22,15 +22,15 @@ function retirementOf(owners){
 // statistics. The original cell grid/NFA search area remain the encompassing
 // native image, never a packed image or the sum of unrelated cell grids.
 export async function sourceRegionNoisesniffer({task,original,derived,view,domain,budget,signal,onProgress,publishResult,profile={}}){
- const p=noisesnifferParams(task.params),width=domain.width,height=domain.height,n=width*height,identity=JSON.stringify(p.blockSize===8?[domain.sourceSha256,domain.fingerprint,'observed-native-FFT-contexts-v1']:[domain.sourceSha256,domain.fingerprint]),cooperate=createCooperator(signal),make=bytes=>createSegmentedBytes(bytes,{budget,signal,temporarySession:original.session,getTemporarySession:original.ensureTemporarySession});
+ const p=noisesnifferParams(task.params),width=domain.width,height=domain.height,n=width*height,identity=JSON.stringify([domain.sourceSha256,domain.fingerprint,task.backend??'auto','native-graph-v1',...(p.blockSize===8?['observed-native-FFT-contexts-v1']:[])]),cooperate=createCooperator(signal),make=bytes=>createSegmentedBytes(bytes,{budget,signal,temporarySession:original.session,getTemporarySession:original.ensureTemporarySession});
  const accountedHeapBytes=noisesnifferStreamHeapBytes();let activeCache,stats,seed,record,output,mask,scope,surface,maskSurface,scopeSurface,maskOwner,maskLease,archive,staging,published=false,failed=false,failure,disposed=false,closing=false;
  try{
   let cache=derived.noisesnifferCache;
   if(cache?.retirementOnly){await cache.dispose();if(derived.noisesnifferCache===cache)derived.noisesnifferCache=null;cache=null;}
   if(cache&&(cache.sourceRegionIdentity!==identity||cache.stats?.blockSize!==p.blockSize)){await cache.dispose();derived.noisesnifferCache=null;cache=null;}
-  if(!cache){stats=await sourceRegionNoisesnifferStatistics(original,view,domain,p.blockSize,{budget,signal,onProgress,onRetirementOwner:owner=>{stats=owner;}});if(!stats.metrics.supportedBlocks)throw new EngineError('SOURCE_SCOPE_EMPTY','No selected block has the complete input required by the unchanged native Noisesniffer statistics.',{details:{...stats.metrics,blockSize:p.blockSize}});seed={stats,async dispose(){await this.stats?.dispose();this.stats=null;}};cache=seed;}
+  if(!cache){stats=await sourceRegionNoisesnifferStatistics(original,view,domain,p.blockSize,{budget,signal,onProgress,backend:task.backend??'auto',onRetirementOwner:owner=>{stats=owner;}});if(!stats.metrics.supportedBlocks)throw new EngineError('SOURCE_SCOPE_EMPTY','No selected block has the complete input required by the unchanged native Noisesniffer statistics.',{details:{...stats.metrics,blockSize:p.blockSize}});seed={stats,async dispose(){await this.stats?.dispose();this.stats=null;}};cache=seed;}
   activeCache=cache;const image={...derived,readScientificPatch:(rect,hooks)=>view.readWindow(rect,hooks)};
-  record=await segmentedNoisesniffer(image,p,{budget,signal,onProgress,profile,cache,accountedHeapBytes});checkAbort(signal);record.noisesnifferCache.sourceRegionIdentity=identity;derived.noisesnifferCache=record.noisesnifferCache;stats=record.noisesnifferCache.stats;
+  record=await segmentedNoisesniffer(image,p,{budget,signal,onProgress,profile,cache,accountedHeapBytes,backend:task.backend??'auto'});checkAbort(signal);record.noisesnifferCache.sourceRegionIdentity=identity;derived.noisesnifferCache=record.noisesnifferCache;stats=record.noisesnifferCache.stats;
   // Scientific kernels above never see the following display background.
   // Copy explicit support rather than retaining a mutable statistics cache in
   // the visible mask; older results remain valid across block-size changes.

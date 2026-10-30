@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
 import {createDenseRegions} from './dense-regions.js';
 const prefix=image=>'dense-detail/'+image.surface.descriptor.id+'/';

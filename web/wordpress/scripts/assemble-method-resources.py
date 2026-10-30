@@ -104,6 +104,19 @@ def assemble(args):
     slots = [str(Path(runtime['destination']).relative_to('sherloq-browser/assets')) for runtime in lock['runtimes']]
     if slots != base['slots']:
         raise ValueError('Baseline slot list differs from the reviewed runtime lock')
+    # Select source BEFORE the first output mutation. Neither a baseline
+    # selector nor a copied source selector may reactivate an older bundle.
+    engine = source_root / 'web/engine-source'
+    worker_builder = engine / 'scripts/build-engine-worker.mjs'
+    selector_relative = 'unified-engine/src/engine-worker-entry.js'
+    selector_output = assets / selector_relative
+    has_selector = selector_output.exists() or (engine / 'src/engine-worker-entry.js').exists() or selector_relative in base['files']
+    reset_selector = has_selector or args.worker_bundle
+    if reset_selector:
+        if not worker_builder.is_file():
+            raise FileNotFoundError('Worker selector requires its complete reconstruction script')
+        subprocess.run([args.node, str(worker_builder), '--source-only=' + str(assets / 'unified-engine')], check=True)
+
     receipt = {'schema': 'sherloq.method-resource-assembly/1', 'baseManifestSha256': sha(args.base_manifest),
                'baselineFiles': 0, 'baselineBytes': 0, 'baselineHardlinks': 0, 'baselineCopiedBytes': 0,
                'verifiedChunks': 0, 'overlayFiles': 0, 'overlayBytes': 0, 'publicMethodFiles': [],
@@ -112,6 +125,9 @@ def assemble(args):
     for name, spec in sorted(base['files'].items()):
         relative(name)
         if spec.get('localOnly'):
+            continue
+        if reset_selector and name == selector_relative:
+            receipt['baselineWorkerSelectorBypassed'] = True
             continue
         slot, _, rest = name.partition('/')
         if slot not in slots or not rest:
@@ -175,6 +191,9 @@ def assemble(args):
                 raise FileNotFoundError('Tracked runtime source missing: ' + name)
         # Existing native arrays/weights/runtime slots stay unchanged. The copy
         # breaks the chunk hard link before replacing any reviewed source bytes.
+        if reset_selector and destination == selector_relative:
+            receipt['sourceWorkerSelectorRetained'] = True
+            continue
         atomic_copy(source, assets / relative(destination))
         receipt['overlayFiles'] += 1
         receipt['overlayBytes'] += source.stat().st_size
@@ -304,6 +323,15 @@ def assemble(args):
     receipt['ssgManifest'] = {key: forest_identity[key] for key in ('bytes', 'sha256')}
     receipt['selfdmBundle'] = BUNDLE_INPUT
 
+    if args.worker_bundle:
+        if not worker_builder.is_file():
+            raise FileNotFoundError('Worker bundler source is missing')
+        command = [args.node, str(worker_builder), '--engine-root=' + str(engine), '--ui-root=' + str(assets),
+                   '--output-root=' + str(assets / 'unified-engine'), '--dependencies-root=' + str(engine)]
+        subprocess.run(command, check=True)
+        subprocess.run(command + ['--check'], check=True)
+        receipt['workerPackaging'] = 'fresh-generated-entry; complete source Worker retained'
+
     # Source lock means precisely the inputs reviewed before the transport
     # adapter. Unchanged slots are the already published baseline byte streams;
     # only unified-engine and individual-assets have new raw source additions.
@@ -336,6 +364,8 @@ if __name__ == '__main__':
     parser.add_argument('--base-chunks', required=True, type=Path, help='Read-only immutable SHA256 chunk directory')
     parser.add_argument('--source-root', required=True, type=Path, help='Reviewed Git repository checkout')
     parser.add_argument('--fallback', type=Path, help='Optional qualified runtime assets if tracked binaries are absent')
+    parser.add_argument('--node', default='node', help='Node.js for local deterministic Worker packaging')
+    parser.add_argument('--worker-bundle', action='store_true', help='Build the pinned optional Worker bundle after all runtime source copies')
     parser.add_argument('--git', default='git', help='Git executable; never changes repository state')
     parser.add_argument('--policy-output', required=True, type=Path, help='Metadata-only local graph policy for prepare-distribution --resource-policy')
     parser.add_argument('--receipt-output', required=True, type=Path, help='Small private reproducibility receipt')

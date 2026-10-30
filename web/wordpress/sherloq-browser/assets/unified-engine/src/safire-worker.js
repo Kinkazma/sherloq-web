@@ -1,9 +1,11 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {installUsefulGpuDispatchEvidence} from './useful-gpu-dispatch-evidence.js';
+const usefulGpuDispatches=installUsefulGpuDispatchEvidence();
 import {clusterSafireNative,projectSafireFragmentNative} from './safire-global-post.js';
 import {wasmAllocationFailure,copyTypedArray,allocateWasmMemory} from './allocation.js';
 import {serializeEngineError} from './errors.js';
 import {M3_ORT_ASSETS} from './m3-ort-assets.js';import {fetchM3Asset} from './m3-asset.js';import {RESEARCH_POST_WASM} from './research-post-assets.js';import {RESEARCH_PREPARE_WASM} from './research-prepare-assets.js';
-self.onmessage=async({data:job})=>{
+self.onmessage=async({data:job})=>{const usefulGpuStart=usefulGpuDispatches?.snapshot();
  let encoder,decoder,prepare,post;const tensors=[];
  try{
   const {default:createPost}=await import('../vendor/research-post/post.js');post=await createPost({wasmBinary:await fetchM3Asset(new URL('../vendor/research-post/post.wasm',import.meta.url),RESEARCH_POST_WASM),wasmMemory:allocateWasmMemory({initial:256,maximum:job.postHeapBytes/65536})});
@@ -31,7 +33,7 @@ self.onmessage=async({data:job})=>{
    postMessage({progress:{phase:'safire-proposals',fraction:(lo+batch+1)/(count+1),completed:lo+batch,total:count}});
   }
   if(!valid)throw Error('SAFIRE produced no nonempty region. Try a denser point grid.');const {heapBytes}=await import(factoryUrl),actualHeapBytes=heapBytes();if(actualHeapBytes>maximumHeapBytes)throw Error('ORT exceeded admitted memory');
-  const result={lowMasks:valid===count?allMasks:allMasks.slice(0,valid*65536),features:means.slice(0,valid*256),confidence:confidence.slice(0,valid),areas:areas.slice(0,valid),points:points.slice(0,valid*2),validIds:validIds.slice(0,valid),metadata:{provider,actualHeapBytes,maximumHeapBytes,promptBatch:job.promptBatch,prepareHeapBytes:prepare?.HEAPU8.byteLength??0,postHeapBytes:post.HEAPU8.byteLength,threads:ort.env.wasm.numThreads,preflightExecutions:0}};postMessage(result,Object.values(result).filter(ArrayBuffer.isView).map(v=>v.buffer));
+  const result={lowMasks:valid===count?allMasks:allMasks.slice(0,valid*65536),features:means.slice(0,valid*256),confidence:confidence.slice(0,valid),areas:areas.slice(0,valid),points:points.slice(0,valid*2),validIds:validIds.slice(0,valid),metadata:{provider,gpuExecution:usefulGpuDispatches?.since(usefulGpuStart),actualHeapBytes,maximumHeapBytes,promptBatch:job.promptBatch,prepareHeapBytes:prepare?.HEAPU8.byteLength??0,postHeapBytes:post.HEAPU8.byteLength,threads:ort.env.wasm.numThreads,preflightExecutions:0}};postMessage(result,Object.values(result).filter(ArrayBuffer.isView).map(v=>v.buffer));
  }catch(error){postMessage({error:serializeEngineError(error,'SAFIRE_FAILED')});}
  finally{for(const t of tensors)t.dispose();await encoder?.release();await decoder?.release();}
 };

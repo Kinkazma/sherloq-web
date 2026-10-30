@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateWasmMemory,copyTypedArray} from './allocation.js';
 import {wasmRange,closeMemoryRanges} from './memory-range.js';
 import createModule from '../vendor/jpeg-dct-paged/jpeg-dct-paged.js';

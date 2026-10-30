@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 // Declarative routes only: no model, runtime, Worker, GPU or asset import.
 // Provider selection, parameters and scientific/memory admission remain native.
 export const SEGMENTATION_WINDOW_VARIANTS=Object.freeze(['mgcfdn-mpdn','mgcfdn-16','mgcfdn','mgcfdn-effnet','mgcfdn-st','mgcfdn-tnt','mgcfdn-vig','cmseg-generalization','cmseg-addnoise','selfdm-map','selfdm-proposal']);

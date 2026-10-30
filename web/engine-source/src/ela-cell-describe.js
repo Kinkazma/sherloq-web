@@ -4,13 +4,13 @@ import {requireValue,EngineError,checkAbort,controlCheckpoint} from './errors.js
 
 const HEAP_BYTES=64*1024**2;
 // Both RGB inputs remain owned/admitted by the caller. Only halo rows enter WASM.
-export function createElaCellDescriber({budget,wasmBinary}={}){
+export function createElaCellDescriber({budget,wasmBinary,nativeKernel='auto'}={}){
  requireValue(typeof budget?.reserve==='function','Shared budget required');
  let module,heapRelease,busy=false,disposed=false;
  async function ensure(){
   if(module)return module;
   const release=budget.reserve(HEAP_BYTES);
-  try{const {default:create}=await import('../vendor/ela-describe/describe.js');module=await create(wasmBinary?{wasmBinary}:{});heapRelease=release;return module;}
+  try{const {default:create}=await import('../vendor/ela-describe-fast/describe.js');module=await create({...wasmBinary?{wasmBinary}:{},nativeCandidate:nativeKernel==='candidate',nativeReference:nativeKernel==='reference'});heapRelease=release;return module;}
   catch(error){release();throw error;}
  }
  return {

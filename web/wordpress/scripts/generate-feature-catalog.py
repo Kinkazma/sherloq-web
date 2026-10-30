@@ -147,6 +147,15 @@ def generate(manifest, metadata_root, assets_root=None):
         for key in keys:
             if key not in models: raise ValueError('Runtime M3 key absent: ' + key)
             paths += urls(models[key])
+        # The fine ALIKED and global LighterGlue adapters load these pinned
+        # operator graphs in addition to the original checkpoint families.
+        supplemental = {
+            'clone.aliked':'unified-engine/vendor/aliked-cm2-segments/aliked-n16/',
+            'clone.aliked-rotation':'unified-engine/vendor/aliked-cm2-segments/aliked-n16rot/',
+            'clone.xfeat-glue':'unified-engine/vendor/xfeat-glue-global/',
+        }.get(id)
+        if supplemental:
+            paths += [path for path in files if path.startswith(supplemental) and path.endswith('.onnx')]
         if id == 'clone.ssg':
             if "'SSG'" not in adapter: raise ValueError('SSG is not connected to the effective M3 adapter')
             paths += directory('individual-assets/m3/ssg')

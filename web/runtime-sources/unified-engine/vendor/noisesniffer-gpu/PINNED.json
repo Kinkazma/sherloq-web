@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "method": "native-pocketfft-DCT-operation-graph-hi-lo-f32-with-bounded-variance-and-native-fallback",
+  "maximumAbsoluteVarianceError": 0.0001,
+  "files": {
+    "dct-3.wgsl": {
+      "bytes": 9613,
+      "sha256": "4cc568035cbc99a798fcf4209eb5907b1fffed94dd09fb462ae1ba1db6ea9504"
+    },
+    "dct-5.wgsl": {
+      "bytes": 23601,
+      "sha256": "d2166dadb5ffb7ac5fad4cc1aa30fa887a72c5f75a4dd6dda411d72e58d143be"
+    },
+    "dct-7.wgsl": {
+      "bytes": 49553,
+      "sha256": "acc6e64848bc6d9d9ac2c8f8092f196da7df8bb0edb65212a567cbffd3d11351"
+    },
+    "dct-8.wgsl": {
+      "bytes": 58149,
+      "sha256": "d72c2c75bcd0c9c0f6ad9fa3719cd7e0515ef9778c0b41fc730eb9016db5600b"
+    }
+  }
+}

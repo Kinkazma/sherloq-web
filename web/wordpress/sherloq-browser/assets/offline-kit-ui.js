@@ -1,6 +1,6 @@
 // The public feature opens a cross-platform browser installation flow. Native
 // development kits and personal filesystem paths are not part of this UI.
-import {adobeFontURL} from './fonts.js';
+import {adobeFontURL} from './fonts.js?v=0.30.0';
 export function mountOfflineControls(document,config){
  if(document.getElementById('offline-kit-button')||(!config.enabled&&!config.offline))return;
  const button=document.createElement('button');button.id='offline-kit-button';button.type='button';button.className='offline-kit-button';

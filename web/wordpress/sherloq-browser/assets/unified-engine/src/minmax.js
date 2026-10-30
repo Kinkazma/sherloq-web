@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createCooperator,checkAbort} from './errors.js';
 import {parameters,channelValue,rgbPixels,binaryMask,normalizeU8} from './pixel-utils.js';
 const COOPERATE=Symbol('minmax useful-work cooperation');

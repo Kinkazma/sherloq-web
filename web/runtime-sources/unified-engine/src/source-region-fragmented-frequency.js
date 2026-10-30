@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {frequencyParams} from './frequency.js';
 import {segmentedFrequency} from './segmented-frequency.js';
 import {frequencyStreamMath,frequencyStreamHeapBytes} from './frequency-stream-math.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {checkAbort,requireValue,controlCheckpoint} from './errors.js';
 import {sourceRegionLocalCores,sourceRegionLocalSupport} from './source-region-local-support.js';
 import {gradientDerivatives} from './gradient-math.js';
@@ -24,10 +24,16 @@ export const observedDerivativeWorkingBytes=(width,radius,bpp)=>{const side=2*ra
  * observed; otherwise it repeats the centre. External image coordinates keep
  * REFLECT_101. This is an explicit ROI boundary extension, not full-image
  * context equivalence. Native derivative kernels/coefficients remain intact. */
-export async function sourceRegionObservedDerivatives(view,domain,core,{radius,gradient,signal,cooperate}){
+export async function sourceRegionObservedDerivatives(view,domain,core,{radius,gradient,signal,cooperate,method='sobel'}){
  requireValue(core.observedBoundary&&core.height===1&&core.width>0,'An observed derivative boundary row is required.');
  checkAbort(signal);const side=radius*2+1,support=sourceRegionLocalSupport(domain,core,radius),lease=await view.readMaskedWindow(support,{signal});
  try{
+  if(gradient&&method==='krawetz'){
+   // The mask is consumed before luminance preparation. Missing observations
+   // are omitted, rather than replaced by Sobel's reflected/centre extension.
+   const native=await gradientDerivatives(lease.pixels,core.y-support.y,core.height,{signal,cooperate,method,membership:lease.pixels.membership}),bytes=new Uint8Array(core.width*4),at=(core.x-support.x)*4;
+   bytes.set(native.bytes.subarray(at,at+bytes.length));return bytes;
+  }
   const {data,membership}=lease.pixels,atlasWidth=core.width*side,atlas=new Uint8Array(atlasWidth*side*3),bpp=gradient?4:12;
   const observed=(x,y)=>membership[(y-support.y)*support.width+x-support.x]===1;
   for(let centre=0;centre<core.width;centre++){

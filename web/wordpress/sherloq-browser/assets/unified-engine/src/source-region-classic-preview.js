@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {validateParams} from './ela.js';
 import {toneTable} from './ela-lut.js';
 import {acquireSourceRegionJpeg} from './source-region-ela.js';

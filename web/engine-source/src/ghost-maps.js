@@ -1,12 +1,21 @@
 import {parameters} from './pixel-utils.js';import {jpegBlockError} from './jpeg-block-error.js';import {checkpoint,requireValue} from './errors.js';import {GHOST_PALETTES} from './ghost-palettes.js';
+import {getGhostJpegService,consumeGhostGpuResult} from './ghost-jpeg-service.js';
+import {acquireGhostJpegPolicy} from './ghost-jpeg-policy.js';
 export function ghostParams(p={}){const v=parameters(p,{low:50,high:90,step:5,x:0,y:0,grayscale:true,includeOriginal:false},{low:[0,100],high:[0,100],step:[1,20],x:[0,7],y:[0,7]}, {},['grayscale','includeOriginal']);requireValue(v.low<=v.high,'Lower JPEG quality must not exceed upper quality.');return v;}
 async function roll(image,x,y,hooks){if(x===0&&y===0)return image;const data=new Uint8Array(image.data.length);for(let row=0;row<image.height;row++){if(row%64===0)await checkpoint(hooks.signal);for(let col=0;col<image.width;col++){const src=(((row-y+image.height)%image.height)*image.width+(col-x+image.width)%image.width)*3;data.set(image.data.subarray(src,src+3),(row*image.width+col)*3);}}return {...image,data};}
 export async function ghostMaps(image,p,hooks={},context={}){
  requireValue(image.width>=16&&image.height>=16,'JPEG Ghost Maps requires at least 16 × 16 pixels.');const qualities=Array.from({length:Math.floor((p.high-p.low)/p.step)+1},(_,i)=>p.low+i*p.step),cols=Math.floor(image.width/16),rows=Math.floor(image.height/16),name='roll/'+p.x+'/'+p.y;
  const shifted=p.x===0&&p.y===0?image:context.memo?await context.memo(name,()=>roll(image,p.x,p.y,hooks)):await roll(image,p.x,p.y,hooks);
  let engineMetrics={workers:1,kernel:'jpeg-ghost-serial'};const names=qualities.map(q=>'blocks/'+p.x+'/'+p.y+'/'+q),compute=async missing=>{const selected=missing.map(key=>Number(key.split('/').at(-1)));
-  if(context.qualityPool&&image.width*image.height>=1048576&&selected.length>1){const r=await context.qualityPool.run(shifted,hooks,{mode:'ghost',qualities:selected});engineMetrics={workers:r.workers,kernel:'jpeg-ghost-pool',scheduling:r.scheduling,ghostKernelMs:r.kernelMs};return r.values.map(x=>x[1]);}
-  const planes=[];for(const q of selected){planes.push(await jpegBlockError(shifted,q,hooks,context.codec));hooks.onProgress?.(planes.length/selected.length);}return planes;
+  const policy=context.ghostJpegGpu&&context.budget&&context.backend==='auto'?acquireGhostJpegPolicy({budget:context.budget,width:image.width,height:image.height,count:selected.length,maxWorkers:context.profile?.maxWorkers??1}):null,backend=policy?.selected??context.backend,started=performance.now();
+  const finish=(values,used)=>{policy?.observe(used,performance.now()-started);if(policy)engineMetrics.autoChoice={selected:policy.selected,actual:used,reason:policy.reason,reused:policy.reused};return values;};
+  if(context.ghostJpegGpu&&context.budget&&backend==='webgpu'){
+   const service=getGhostJpegService(context.budget),owned=await service.run(shifted,selected,{backend,signal:hooks.signal,onSubmitted:hooks.onGpuSubmitted});
+   if(owned){const values=await consumeGhostGpuResult(owned,result=>{const cells=cols*rows,values=selected.map((_,i)=>result.means.slice(i*cells,(i+1)*cells));engineMetrics={workers:0,kernel:result.runtime.kernel,backend:'webgpu',gpu:structuredClone(result.runtime)};hooks.onProgress?.(1);return values;});return finish(values,'webgpu');}
+   policy?.refuse(service.metrics().gpuFallback??'GPU_REFUSED');
+  }
+  if(context.qualityPool&&image.width*image.height>=1048576&&selected.length>1){const r=await context.qualityPool.run(shifted,hooks,{mode:'ghost',qualities:selected});engineMetrics={workers:r.workers,kernel:'jpeg-ghost-pool',scheduling:r.scheduling,ghostKernelMs:r.kernelMs};return finish(r.values.map(x=>x[1]),'cpu');}
+  const planes=[];for(const q of selected){planes.push(await jpegBlockError(shifted,q,hooks,context.codec));hooks.onProgress?.(planes.length/selected.length);}return finish(planes,'cpu');
  };
  const planes=context.memoMany?await context.memoMany(names,compute):await compute(names),raw=new Float64Array(cols*rows*qualities.length),maps=new Float64Array(raw.length);
  for(let i=0;i<cols*rows;i++){let min=Infinity,max=-Infinity;for(let j=0;j<qualities.length;j++){const value=planes[j][i];raw[i*qualities.length+j]=value;min=Math.min(min,value);max=Math.max(max,value);}for(let j=0;j<qualities.length;j++)maps[i*qualities.length+j]=max===min?0:(raw[i*qualities.length+j]-min)/(max-min);}

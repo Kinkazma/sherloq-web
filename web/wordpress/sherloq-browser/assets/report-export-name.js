@@ -6,8 +6,8 @@ const component=value=>String(value).normalize('NFC').replace(/[\\/:*?"<>|\x00-\
 function analysisExportStem(report,fallbackOperation='analysis'){
  const operation=text(report?.operation)??text(report?.provenance?.operation)??text(report?.context?.operation)??text(fallbackOperation)??'analysis';
  const parameters=report?.provenance?.params??report?.context?.parameters??report?.parameters??report?.params;
- const key=operation==='ai.clones.segmentation'?'variant':operation==='tampering.copyMove.dense'?'profile':operation==='tampering.copyMove.sparse'?'algorithm':operation==='m2.forgeryscope'?'profile':undefined;
- const method=key?text(parameters?.[key]):undefined;
+ const key=operation==='detail.gradient'?'method':operation==='ai.clones.segmentation'?'variant':operation==='tampering.copyMove.dense'?'profile':operation==='tampering.copyMove.sparse'?'algorithm':operation==='m2.forgeryscope'?'profile':undefined;
+ const method=operation==='detail.gradient'?(text(parameters?.method)??'sobel'):key?text(parameters?.[key]):undefined;
  return 'SHERLOQ-'+component(operation)+(method?'-'+component(method):'');
 }
 

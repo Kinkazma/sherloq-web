@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort,serializeEngineError} from './errors.js';
 import {fetchVerifiedAsset} from './fetch-verified-asset.js';
 import {allocateWasmMemory,allocateOwnedTypedArray,wasmAllocationFailure} from './allocation.js';

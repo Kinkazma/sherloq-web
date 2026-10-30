@@ -26,10 +26,10 @@ export async function elaCellPipeline(image,p,hooks={},context={}){
  // Keep live stage arrays admitted even if memo entries are evicted mid-task.
  if(stage)stage.ensure(n);else account(n*4096);
  async function workspace(compute){const releases=[];try{return await compute(bytes=>{const release=account(bytes);releases.push(release);});}finally{for(const release of releases)release();}}
- const scorer=createElaPeerScorer({budget});
+ const scorer=createElaPeerScorer({budget,profileKernel:context.cpuKernel==='reference'?'reference':'auto'});
  try{
   const base=await memo('cells/'+key,async()=>{
-   const describer=createElaCellDescriber({budget});let planes;
+   const describer=createElaCellDescriber({budget,nativeKernel:context.cpuKernel==='reference'?'reference':'auto'});let planes;
    try{
     const compute=async (names,publish)=>{
      if(context.cellPlanes){const prepared=await context.cellPlanes(names.map(name=>Number(name.split('/').at(-1))),block,{...hooks,publish:publish?(quality,value)=>publish('cell-plane/'+block+'/'+quality,value):undefined});metrics.workers=Math.max(metrics.workers,prepared.workers);metrics.cellRecompressions+=prepared.recompressions;return prepared.values;}
@@ -70,10 +70,11 @@ export async function elaCellPipeline(image,p,hooks={},context={}){
     for(let dy=0;dy<side;dy++)for(let dx=0;dx<side;dx++)await workspace(async reserve=>{
      const phase=dy*side+dx;if(phase<state.nextPhase)return;
      checkAbort(hooks.signal);if(!context.ghostCells)reserve(context.ghostWorkspaceBytes??(pixels*24+32*1024**2+Math.floor(width/16)*Math.floor(height/16)*71*24));
-     let bounded;const maps=await (context.ghostCells?(...args)=>context.ghostCells(...args,{rows,cols,block,dx,dy}):context.ghostMaps??ghostMaps)(image,{low:30,high:100,step:1,x:dx,y:dy},{signal:hooks.signal,onProgress:f=>hooks.onProgress?.(.3+.6*(phase+f)/(side*side))},context);
+     let bounded;const maps=await (context.ghostCells?(...args)=>context.ghostCells(...args,{rows,cols,block,dx,dy}):context.ghostMaps??ghostMaps)(image,{low:30,high:100,step:1,x:dx,y:dy},{signal:hooks.signal,onGpuSubmitted:hooks.onGpuSubmitted,onProgress:f=>hooks.onProgress?.(.3+.6*(phase+f)/(side*side))},context);
      bounded=!!context.ghostCells;
      try{
      metrics.workers=Math.max(metrics.workers,maps.engineMetrics.workers);metrics.ghostPhasesComputed++;if(maps.engineMetrics.scheduling)metrics.ghostScheduling=maps.engineMetrics.scheduling;
+     if(maps.engineMetrics.backend==='webgpu'){metrics.backend='webgpu';metrics.completedGpuJobs=(metrics.completedGpuJobs??0)+(maps.engineMetrics.completedGpuJobs??1);metrics.ghostGpu=structuredClone(maps.engineMetrics.gpu);}
      const aggregate=bounded?maps.data:await aggregateGhostCells({...maps.data,qualities:71},{rows,cols,block,dx,dy},{signal:hooks.signal,account:reserve}),supported=Uint8Array.from(base.supported,(v,i)=>v&&aggregate.valid[i]);
      const scored=await scorer.score({rows,cols,content:base.content,supported,profiles:aggregate.curves,kind:'ghost',qualities:71},{signal:hooks.signal});
      try{for(let i=0;i<n;i++){

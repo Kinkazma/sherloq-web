@@ -21,7 +21,9 @@ export async function nativeClonePreview({task,field,source,maxPixels,signal,isC
    if(next?.operation!==task.operation||display?.width!==width||display?.height!==height||
       next.metrics?.nativeAnalysisCalls!==0||next.metrics?.inferenceCalls!==0)
     throw new EngineError('PREVIEW_UNAVAILABLE','The retained clone frame is not a matching native presentation.');
-   const copied=await readDisplay(display,{x:0,y:0,width,height,step:1},signal);
+   // Drain the bounded owned read before retiring its frame/lease. A cancelled
+   // gesture still fails the following checks and never publishes stale RGB.
+   const copied=await readDisplay(display,{x:0,y:0,width,height,step:1});
    checkAbort(signal);if(!isCurrent()||!context.isCurrent())return false;
    const rgb=copied?.pixels??copied;
    if(rgb?.format!=='rgb8'||rgb.width!==width||rgb.height!==height||

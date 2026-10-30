@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {comparisonResidentButteraugli} from './comparison-resident-butteraugli.js';
 import {allocateTypedArray} from './allocation.js';
 import {runPagedComparisonJobs} from './comparison-paged-pool.js';
 import {comparisonPagedButteraugli,pagedButteraugliPlan} from './comparison-paged-butteraugli.js';
@@ -13,7 +14,8 @@ import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface} from './rgb-surface.js';
 const MIB=1024**2;
-export async function segmentedComparison(image,params,{reference,budget,signal,onProgress,profile={},cache,cacheKey,cacheDependencies=[],storage='auto',blockPixels=65536,original=false}={}){
+export async function segmentedComparison(image,params,{reference,budget,signal,onProgress,profile={},cache,cacheKey,cacheDependencies=[],storage='auto',blockPixels=65536,original=false,backend='cpu'}={}){
+ const gpuRequested=['auto','webgpu'].includes(backend);
  const p=comparisonParams(params),{width,height}=image.surface.descriptor,n=width*height;
  requireValue(reference?.surface&&reference.surface.descriptor.width===width&&reference.surface.descriptor.height===height,'Evidence and reference must have the same size.');
  requireValue(Number.isInteger(blockPixels)&&blockPixels>=width&&blockPixels<=262144,'Invalid comparison band size.');
@@ -31,9 +33,11 @@ export async function segmentedComparison(image,params,{reference,budget,signal,
   }
  }
  for(const job of jobs)job.paged=[1,2,3,4,5].includes(job.mode)&&(({1:profile.pagedSsim,2:profile.pagedHistograms,3:profile.pagedSewar,5:profile.pagedSsimulacra,4:profile.pagedButteraugli}[job.mode])||width>16384||height>16384||comparisonStageBytes(job.mode,n)+8*MIB+blockPixels*12>Math.min(1900*MIB,budget.limit-budget.retained-budget.active));
+ for(const job of jobs)if(gpuRequested&&!original&&job.mode===1&&n>=250000&&width*Math.min(height,11)<=262144)job.paged=true;
+ for(const job of jobs)job.gpuResident=gpuRequested&&!original&&job.mode===4&&!job.paged&&jobs.length===1&&n>=250000&&comparisonStageBytes(4,n)<=1000*MIB;
  const histogramOptions={resident:profile.histogramResident,cachePages:profile.histogramCachePages};
  const maximum=Math.max(0,...jobs.map(j=>j.paged?(j.mode===1?pagedSsimPlan(width,height,budget,blockPixels):j.mode===2?pagedHistogramPlan(budget,histogramOptions):j.mode===3?pagedSewarPlan(width,height):j.mode===5?pagedSsimulacraPlan(width,height):pagedButteraugliPlan(width,height)).workspace:comparisonStageBytes(j.mode,n))),reserve=maximum+12*MIB+blockPixels*12;
- const nativeJobs=jobs.filter(j=>!j.paged),pagedMetrics=[];
+ const nativeJobs=jobs.filter(j=>!j.paged&&!j.gpuResident),pagedMetrics=[],gpuFallbacks=[];
  if(nativeJobs.length&&(width>16384||height>16384||maximum>1900*MIB))throw new EngineError('MEMORY_LIMIT','A global comparison stage exceeds this WASM module capacity.');
  const visit=async(fn,phase,readFirst=true)=>{for(let y=0;y<height;){const rows=Math.min(height-y,Math.max(1,Math.floor(blockPixels/width))),rect={x:0,y,width,height:rows};let a,b;try{if(readFirst)a=await image.surface.readWindow(rect,{signal});b=await reference.surface.readWindow(rect,{signal});await fn(a?.pixels.data,b.pixels.data,y*width);}finally{a?.release();b?.release();}y+=rows;onProgress?.({phase,completed:y*width,total:n});await controlCheckpoint(signal);}};
   // Output selection accounts for the largest pending global stage and I/O.
@@ -52,16 +56,17 @@ export async function segmentedComparison(image,params,{reference,budget,signal,
    await output.visit(async(bytes,offset)=>{for(let i=0;i<bytes.length;i++)bytes[i]=Math.max(0,Math.min(255,roundEven(Math.fround(Math.fround(bytes[i]*s)+shift))));await output.write(bytes,offset);},{signal,blockBytes:blockPixels*3});
   }
   for(const job of jobs)if(job.view)job.output=output;
-  const pagedJobs=jobs.filter(j=>j.paged),consumePaged=async(job,result)=>{stages.set(job.name,{score:result.score,values:result.values});pagedMetrics.push({name:job.name,...result.metrics,heapPeak:result.metrics.heapPeak??result.metrics.heapBytes});};
+  const pagedJobs=jobs.filter(j=>j.paged),consumePaged=async(job,result)=>{stages.set(job.name,{score:result.score,values:result.values,backend:(result.metrics?.gpuConvolutionConsumedAxes>0||result.metrics?.gpuGaussian?.consumedBands>0)?'webgpu':'cpu'});pagedMetrics.push({name:job.name,...result.metrics,heapPeak:result.metrics.heapPeak??result.metrics.heapBytes});};
   let pagedWorkers=0;
   if(globalThis.Worker&&profile.pagedMetricWorkers!==false){
-   const independent=pagedJobs.filter(j=>j.mode!==1);
+   const independent=pagedJobs.filter(j=>j.mode!==1&&!(gpuRequested&&j.mode===4&&n>=250000));
    for(const job of independent){job.plan=job.mode===2?pagedHistogramPlan(budget,histogramOptions):job.mode===3?pagedSewarPlan(width,height):job.mode===5?pagedSsimulacraPlan(width,height):pagedButteraugliPlan(width,height);job.options=job.mode===2?{...histogramOptions,...job.plan}:job.mode===3?{arithmetic:profile.sewarArithmetic??'separated'}:{};}
    pagedWorkers=(await runPagedComparisonJobs(independent,images,{budget,profile,signal,onProgress,consume:consumePaged,blockPixels,original})).workers;
   }
-  for(const job of pagedJobs.filter(j=>j.mode===1||!globalThis.Worker||profile.pagedMetricWorkers===false)){const result=job.mode===1?await comparisonPagedSsim(images,job.output,{budget,signal,onProgress,profile,blockPixels,original}):job.mode===2?await comparisonPagedHistograms(images,{budget,signal,onProgress,...histogramOptions}):job.mode===3?await comparisonPagedSewar(images,{budget,signal,onProgress,original,arithmetic:profile.sewarArithmetic??'separated'}):job.mode===5?await comparisonPagedSsimulacra(images,{budget,signal,onProgress,original}):await comparisonPagedButteraugli(images,job.output,{budget,signal,onProgress,original});await consumePaged(job,result);}
+  for(const job of pagedJobs.filter(j=>j.mode===1||!globalThis.Worker||profile.pagedMetricWorkers===false||gpuRequested&&j.mode===4&&n>=250000)){const result=job.mode===1?await comparisonPagedSsim(images,job.output,{budget,signal,onProgress,profile,blockPixels,original,backend:gpuRequested?'webgpu':'cpu'}):job.mode===2?await comparisonPagedHistograms(images,{budget,signal,onProgress,...histogramOptions}):job.mode===3?await comparisonPagedSewar(images,{budget,signal,onProgress,original,arithmetic:profile.sewarArithmetic??'separated'}):job.mode===5?await comparisonPagedSsimulacra(images,{budget,signal,onProgress,original}):await comparisonPagedButteraugli(images,job.output,{budget,signal,onProgress,original,backend:n>=250000&&gpuRequested?'webgpu':'cpu'});await consumePaged(job,result);}
 
-  await pool.run(nativeJobs,images,{signal,onStage:onProgress,blockPixels,original,consume:async(job,result)=>stages.set(job.name,{values:result.values,score:result.score})});
+  for(const job of jobs.filter(j=>j.gpuResident))try{const result=await comparisonResidentButteraugli(images,job.output,{budget,signal,onProgress,original,backend:'webgpu',blockPixels,requireGpu:true});stages.set(job.name,{score:result.score,values:result.values,backend:(result.metrics?.gpuConvolutionConsumedAxes>0||result.metrics?.gpuGaussian?.consumedBands>0)?'webgpu':'cpu'});pagedMetrics.push({name:job.name,...result.metrics,heapPeak:result.metrics.heapBytes});}catch(error){checkAbort(signal);if(!['GPU_UNAVAILABLE','GPU_LIMIT','MEMORY_LIMIT','MEMORY_ALLOCATION'].includes(error?.code))throw error;nativeJobs.push(job);gpuFallbacks.push({name:job.name,reason:error.code});}
+  await pool.run(nativeJobs,images,{signal,onStage:onProgress,blockPixels,original,consume:async(job,result)=>stages.set(job.name,{values:result.values,score:result.score,backend:'cpu'})});
   // Keep an independently owned raw RGB copy only after every useful worker
  // has finished and only in already-free headroom. Failure to cache must never
  // alter scientific execution, storage choice, native pixels or parameters.
@@ -85,7 +90,8 @@ export async function segmentedComparison(image,params,{reference,budget,signal,
    const value=stages.get('ssimulacra').values[0];if(Number.isFinite(value)&&value>=0)values.ssimul=value;else errors.ssimul='SSIMULACRA requires at least 8 rows and 8 columns.';
   }
   for(const [name,stage]of [['butter','butteraugli'],['ssim','ssim']])if(p.metrics||p.view===name)values[name]=stages.get(stage).score;
+  const gpuStages=specs.filter(([name])=>p.metrics||p.view===(name==='butteraugli'?'butter':name)).filter(([name])=>stages.get(name)?.backend==='webgpu').map(([name])=>name);
   const execution=pool.metrics();execution.workers=Math.max(execution.workers,pagedWorkers);for(const m of pagedMetrics){execution.workers=Math.max(execution.workers,m.workers);execution.completedMetricJobs++;execution.workerHeapPeakBytes=Math.max(execution.workerHeapPeakBytes,m.heapPeak);}
-  return {surface:createRgbSurface(output,{width,height,budget}),comparisonCache:{reference,stages},data:{referenceImageId:p.referenceImageId,values,errors,metricsRequested:p.metrics,...(p.metrics?{histogramCorrelationFullBins,histogramCorrelationBinDivisor,warnings:histogramCorrelationBinDivisor===65536?{hist_0:'Historical native correlation uses 65,536 entries for a 16,777,216-bin histogram and may exceed [-1,1]. Use histogramCorrelationFullBins for ordinary correlation interpretation.'}:{}}:{}),unavailableMetrics:[]},semantics:'Native equal-size global image comparison. Oriented sources and result use segmented storage; global metric workspaces are separately admitted and are not independently tiled. Similarity is not an authenticity verdict.',metrics:{...execution,pagedStages:pagedMetrics,storage:output.storage,blockPixels,cache:{stages:hits,rawView:!!borrowedView,rawViewCached},globalStageMaximumBytes:maximum}};
+  return {surface:createRgbSurface(output,{width,height,budget}),comparisonCache:{reference,stages},data:{referenceImageId:p.referenceImageId,values,errors,metricsRequested:p.metrics,...(p.metrics?{histogramCorrelationFullBins,histogramCorrelationBinDivisor,warnings:histogramCorrelationBinDivisor===65536?{hist_0:'Historical native correlation uses 65,536 entries for a 16,777,216-bin histogram and may exceed [-1,1]. Use histogramCorrelationFullBins for ordinary correlation interpretation.'}:{}}:{}),unavailableMetrics:[]},semantics:'Native equal-size global image comparison. Oriented sources and result use segmented storage; global metric workspaces are separately admitted and are not independently tiled. Similarity is not an authenticity verdict.',metrics:{...execution,backend:gpuStages.length?'webgpu':'cpu',gpuStages,pagedStages:pagedMetrics,gpuFallbacks,storage:output.storage,blockPixels,cache:{stages:hits,rawView:!!borrowedView,rawViewCached},globalStageMaximumBytes:maximum}};
  }catch(error){await output?.dispose();throw error;}finally{planning?.();pool.clear();if(borrowedView){borrowedView.release();budget.put(borrowedView.key,borrowedView.entry,cacheDependencies);}}
 }

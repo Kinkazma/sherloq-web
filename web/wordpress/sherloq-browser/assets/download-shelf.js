@@ -1,5 +1,5 @@
-import {createDownloadManager} from './download-manager.js';
-import {resolveComputeProfile} from './resource-policy.js';
+import {createDownloadManager} from './download-manager.js?v=0.30.0';
+import {resolveComputeProfile} from './resource-policy.js?v=0.30.0';
 const shelves=new WeakMap();
 // Keep prepared files in the tools dock until explicit removal. Only a
 // completed destination write confirms that a native Save as succeeded.

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createComparisonDomainPair} from './comparison-domain-pair.js';
 import {comparisonDomainBasic} from './comparison-domain-basic.js';
 import {comparisonPagedHistograms} from './comparison-paged-histograms.js';
@@ -25,7 +25,7 @@ export async function createComparisonDomainOwner(original,reference,input,{budg
  try{for(const lease of cacheLeases)lease();budget.retain(memoryBytes);}catch(error){await pair.dispose();throw error;}
  const bounds=r=>[r.x+pair.domain.origin[0],r.y+pair.domain.origin[1],r.x+r.width+pair.domain.origin[0],r.y+r.height+pair.domain.origin[1]];
  const createStore=(bytes,extra={})=>createSegmentedBytes(bytes,{budget,temporarySession:original.session,getTemporarySession:original.ensureTemporarySession,...extra});
- const native=async(entry,p,hooks,index)=>{const r=await nativeComparison(entry.first,p,{reference:entry.second,budget,profile,original:originalArithmetic,signal:hooks.signal,onProgress:hooks.onProgress,cache:entry.cache,cacheKey:cachePrefix+'context/'+index+'/',cacheDependencies:sourceIds});entry.cache=r.comparisonCache;return r;};
+ const native=async(entry,p,hooks,index)=>{const r=await nativeComparison(entry.first,p,{reference:entry.second,budget,profile,original:originalArithmetic,backend:hooks.backend,signal:hooks.signal,onProgress:hooks.onProgress,cache:entry.cache,cacheKey:cachePrefix+'context/'+index+'/',cacheDependencies:sourceIds});entry.cache=r.comparisonCache;return r;};
  const closeRecord=async record=>{await record?.surface?.dispose();};
  const ownMetadata=(surface,data)=>{const bytes=sourceRegionTransportBytes(data,{allowUndefined:true,allowAliases:true})*2+4096,admission=budget.reserve(bytes);admission();budget.retain(bytes);let closed=false;return{...surface,async dispose(){if(closed)return;closed=true;try{await surface.dispose();}finally{budget.retained-=bytes;}}};};
  return{
@@ -35,7 +35,7 @@ export async function createComparisonDomainOwner(original,reference,input,{budg
    if(disposed)throw new EngineError('DISPOSED','Paired comparison owner is closed.');if(active)throw new EngineError('BUSY','A paired comparison is already running.');
    const p=comparisonParams(params);comparisonReferences(p);requireValue(p.referenceImageId===sourceIds[1]||!sourceIds[1],'The comparison request names another reference owner.');
    const controller=new AbortController(),abort=()=>controller.abort();let finish;active={controller,done:new Promise(r=>finish=r)};options.signal?.addEventListener('abort',abort,{once:true});if(options.signal?.aborted)abort();
-   const hooks={signal:controller.signal,onProgress:options.onProgress};let flat,packed,output,record,raw,metadataStaging,committed=false,primary;
+   const hooks={signal:controller.signal,onProgress:options.onProgress,backend:options.backend??'cpu'};let flat,packed,output,record,raw,metadataStaging,committed=false,primary,usedGpu=false;
    try{
     checkAbort(hooks.signal);const cacheHits={globalBasic:!!globalBasic,globalHistogram:!!globalHistogram};metadataStaging=budget.reserve(65536+entries.length*4096);const contexts=[];
     // One rectangle is the unmodified native comparison of both exact crops.
@@ -48,6 +48,7 @@ export async function createComparisonDomainOwner(original,reference,input,{budg
     for(let index=0;index<entries.length;index++){
      const e=entries[index];if(!p.metrics&&['normal','difference'].includes(p.view)){contexts.push({bounds:bounds(e.rect),values:{},errors:{},metricsRequested:false});continue;}
      raw=await native(e,{...p,view:['ssim','butter'].includes(p.view)?p.view:'normal',equalized:false,grayscale:false},hooks,index);
+     usedGpu||=raw.metrics?.backend==='webgpu';
      contexts.push({bounds:bounds(e.rect),values:structuredClone(raw.data.values),errors:structuredClone(raw.data.errors),metricsRequested:p.metrics});
      if(['ssim','butter'].includes(p.view))for(let y=0;y<e.rect.height;y++){
       const part=await raw.surface.readWindow({x:0,y,width:e.rect.width,height:1},hooks);try{const at=pair.offsetOf(e.rect.x,e.rect.y+y);await packed.write(part.pixels.data,at*3);}finally{await part.release();}
@@ -63,7 +64,7 @@ export async function createComparisonDomainOwner(original,reference,input,{budg
     const errors=p.metrics?{...globalBasic.errors}:{};for(const name of spatial)if(p.metrics||p.view===(name==='butter'?'butter':name))errors[name]='This spatial/perceptual measure is reported per exact native context; no single global score is defined for this nonrectangular observation domain.';
     const data={referenceImageId:p.referenceImageId,values,errors,metricsRequested:p.metrics,unavailableMetrics:Object.keys(errors).filter(k=>spatial.includes(k)),contexts,contextLayout:'independent-native-spatial-comparisons',pairedDomain:structuredClone(pair.certificate),...(p.metrics?{histogramCorrelationFullBins:globalHistogram.values[6],histogramCorrelationBinDivisor:globalHistogram.values[7],warnings:globalHistogram.values[7]===65536?{hist_0:'Historical native correlation uses 65,536 entries for a 16,777,216-bin histogram and may exceed [-1,1]. Use histogramCorrelationFullBins for ordinary correlation interpretation.'}:{}}:{})};
     const base=createRgbSurface(output,{width:w,height:h,budget});output=null;raw={surface:base};
-    record={surface:ownMetadata(base,data),data,semantics:'Same native Original-grid domain applied to both image owners. Grayscale moments and color histograms use the union of admitted observations. Spatial/perceptual scores and maps retain independent native contexts, never a mean of fragment scores. Difference and final display equalization use the full admitted union.',metrics:{pairedDomain:true,contextCount:entries.length,selectedPixels:n,globalMetricsRequested:p.metrics?12:0,globalMetricsDefined:Object.keys(values).length,spatialMetrics:'per-native-context',cache:cacheHits}};raw=null;checkAbort(hooks.signal);committed=true;return record;
+    record={surface:ownMetadata(base,data),data,semantics:'Same native Original-grid domain applied to both image owners. Grayscale moments and color histograms use the union of admitted observations. Spatial/perceptual scores and maps retain independent native contexts, never a mean of fragment scores. Difference and final display equalization use the full admitted union.',metrics:{backend:usedGpu?'webgpu':'cpu',pairedDomain:true,contextCount:entries.length,selectedPixels:n,globalMetricsRequested:p.metrics?12:0,globalMetricsDefined:Object.keys(values).length,spatialMetrics:'per-native-context',cache:cacheHits}};raw=null;checkAbort(hooks.signal);committed=true;return record;
    }catch(error){primary=error;throw error;}finally{
     let failure;for(const action of[()=>closeRecord(raw),()=>!committed&&closeRecord(record),()=>flat?.dispose(),()=>output?.dispose(),()=>metadataStaging?.()])try{await action();}catch(error){failure??=error;}
     options.signal?.removeEventListener('abort',abort);active=null;finish();if(failure){if(committed)await record.surface.dispose();if(primary&&typeof primary==='object'&&Object.isExtensible(primary))primary.cleanupError=failure;else throw failure;}

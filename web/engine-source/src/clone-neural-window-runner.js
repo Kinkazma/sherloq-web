@@ -36,7 +36,7 @@ export function createNeuralCloneWindowRun({domain,task},{budget,signal,prepareW
       const ids=new Set();for(const window of plan.windows){
        checkAbort(combined);requireValue(window&&typeof window.id==='string'&&!ids.has(window.id)&&['region','envelope'].includes(window.kind)&&Array.isArray(window.bounds)&&window.bounds.length===4&&window.bounds.every(Number.isFinite)&&window.bounds[2]>window.bounds[0]&&window.bounds[3]>window.bounds[1]&&window.candidateDomain&&window.contextDomain&&typeof window.fingerprint==='string','Invalid canonical independent clone window.');ids.add(window.id);
        const identity=JSON.stringify(['independent',window.id,window.fingerprint]);
-       const record={id:window.id,kind:window.kind,bounds:[...window.bounds],origin:[...window.contextDomain.origin],polygon:window.polygon.map(p=>[...p]),fingerprint:window.fingerprint,sourceContextIdentity:identity};
+       const record={id:window.id,kind:window.kind,analyzedPixelCount:window.contextDomain.countIncluded,bounds:[...window.bounds],origin:[...window.contextDomain.origin],polygon:window.polygon.map(p=>[...p]),fingerprint:window.fingerprint,sourceContextIdentity:identity};
        if(window.status==='empty'){windowResults.push({...record,status:'empty',output:null});continue;}
        if(typeof admitIndependent!=='function'||await admitIndependent({task:plan.originalTask??task,plan,window})!==true)throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','This independent native window needs its own qualified method/backend; a global result does not qualify it.');
        checkAbort(combined);

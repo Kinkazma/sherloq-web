@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "inputSides": [
+    896,
+    1344,
+    1792
+  ],
+  "base448RuntimeChanged": false,
+  "policy": "Only spatial dimension guards extended; original numerical statements retained.",
+  "files": {
+    "dlf.js": {
+      "bytes": 7532,
+      "sha256": "c4954b3ecc04b6a2ca247fb52e0060473348c406bea124eef28f22f9d8d0236d"
+    },
+    "dlf.wasm": {
+      "bytes": 8017,
+      "sha256": "13b8e7169bf068aa68bbfc4eb7f25feedd3a1e413d4aabda3e24eef1fe5564d3"
+    },
+    "feature-math.js": {
+      "bytes": 8366,
+      "sha256": "514a87380a709a19cff20e2a501c1023652b4f1de536ddfde7427b55836ac9af"
+    },
+    "feature-math.wasm": {
+      "bytes": 9737,
+      "sha256": "e19bbcb29ba7b36773c948ed69c3e4497ee401720c1637b0da747eb66265ad65"
+    },
+    "neural-math.js": {
+      "bytes": 8239,
+      "sha256": "f65bc53895dd4f5d5f6907de0468a7db82331f9b2be8ab133545e7472b2de5e7"
+    },
+    "neural-math.wasm": {
+      "bytes": 16725,
+      "sha256": "b8728daa698de4706c5b8293f0181eadeabb940a7e4373a3780c0f2f2e4fec19"
+    },
+    "prepare.js": {
+      "bytes": 7717,
+      "sha256": "f3e956c0d33f834e5b01ba80eaf0db2ee8ee604b652e80bbea9fcd0245b4138f"
+    },
+    "prepare.wasm": {
+      "bytes": 10960,
+      "sha256": "5bc71de67255c0a237630c2d490a3484ed15a24adb8a57625c9384e24b4b1744"
+    }
+  },
+  "initialMemoryBytes": 16777216,
+  "memoryMaximumBytes": {
+    "prepare": 536870912,
+    "dlf": 536870912,
+    "feature-math": 4294967296,
+    "neural-math": 2147483648
+  }
+}

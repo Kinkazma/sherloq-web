@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort}from'./errors.js';
 // Geometry only. Native positions are table indices local to each RGB context,
 // never interpolated learned values. Consumers must separately qualify their

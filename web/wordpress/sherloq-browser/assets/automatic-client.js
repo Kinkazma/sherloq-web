@@ -1,15 +1,15 @@
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {sourceRegionDomainShape,assertSourceRegionOperation} from './unified-engine/src/source-region-capabilities.js';
-import {localFeaturePolicy} from './feature-policy.js';
+import {localFeaturePolicy} from './feature-policy.js?v=0.30.0';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {readExtensionMemoryHints} from './unified-engine/src/browser-memory.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
 import {COUNT_COLORS} from './unified-engine/src/clone-corroboration.js';
-import {createAdaptivePreview} from './adaptive-preview.js';
+import {createAdaptivePreview} from './adaptive-preview.js?v=0.30.0';
 
 const cancelled = () => Object.assign(new Error('Analysis cancelled.'), {code: 'CANCELLED'});
 export async function createAutomaticClient({computeProfile = 'maximum', extensionId, onProgress = () => {}, engineFactory = createWorkerEngine, fetcher = fetch, config, retainMasks = false, memoryBudgetBytes} = {}) {
-  const configurationURL = new URL('./integrated-config.json', import.meta.url);
+  const configurationURL = new URL('./integrated-config.json?v=0.30.0', import.meta.url);
   async function json(url, signal) { const response = await fetcher(url, {signal}); if (!response.ok) throw new Error('Resource unavailable: ' + response.status + ' ' + url); return response.json(); }
   const deployment = config ?? await json(configurationURL);
   const base = new URL(deployment.assetBase, configurationURL), url = name => new URL(name, base).href;

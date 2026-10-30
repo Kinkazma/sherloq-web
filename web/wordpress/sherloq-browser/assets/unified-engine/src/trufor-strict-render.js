@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort}from'./errors.js';
 import{truforStrictResultContext}from'./trufor-strict-result.js';
 const alternative=[[7,15,39],[42,42,109],[207,66,59],[251,177,53],[255,248,201]];

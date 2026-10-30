@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {catnetMapGeometry} from './catnet-map-geometry.js';
 import {catnetCompanionSource} from './catnet-companion-source.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';

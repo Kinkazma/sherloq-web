@@ -1,0 +1,13 @@
+{
+  "libjpeg": "3.0.3",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "sourceSha256": "4a1fc07d91d1d52cb958a966bba565eff5d82a93157cbb94622f98d5973bfcbd",
+  "linkedLibrarySha256": "0248633cf951dea335b69972e420c6d2b623a5e8e386cd8cf2f50006d47130de",
+  "memory": "Imported64MiB maximum;8MiB libjpeg virtual-array cache; original encoded input read in64KiB windows; optional EXIF-mapped admitted-block bitset is applied before histogram observations; global coefficients may use external backing stores.",
+  "files": {
+    "double-jpeg-stream.js": "d85c285d12bbc28138773e93f456e3700ef7d618df5de93d808122d5b7ce250c",
+    "double-jpeg-stream.wasm": "666bbe92d00fb281ccbce053cdb704804a0a45a63ad3cde2ebfede906eb9d47f",
+    "LICENSE.md": "e548c96c0c09397c94b5c5531836c02ff2c403f1f2b130cad8e3ec9439b5a7cc",
+    "README.ijg": "5c1f9094835d21f66ee0e9ce81c57264d2dd50801b19832d6723dc8cdbda080e"
+  }
+}

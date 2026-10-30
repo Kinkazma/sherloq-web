@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {renderResearch} from './research-view.js';
 import {payloadBytes} from './pixel-operations.js';

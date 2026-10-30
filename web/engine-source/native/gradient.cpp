@@ -35,6 +35,36 @@ int gradient_derivatives(const uint8_t* rgb,int w,int h,int start,int rows,int16
   size_t i=(size_t(y-start)*w+x)*2;out[i]=dx;out[i+1]=dy;mx=std::max(mx,double(std::abs(dx)));my=std::max(my,double(std::abs(dy)));double m=std::abs(dx)+std::abs(dy);lo=std::min(lo,m);hi=std::max(hi,m);
  }stats[0]=mx;stats[1]=my;stats[2]=lo;stats[3]=hi;return 1;
 }
+// Reconstructed Krawetz variant. Integer numerators retain the exact 4:7:4
+// coefficients until rendering. A missing physical or excluded tap contributes
+// nothing; no excluded RGB is converted to luminance or used as a neighbour.
+int gradient_krawetz_derivatives(const uint8_t* rgb,const uint8_t* membership,int w,int h,int start,int rows,int16_t* out,double* stats){
+ if(w<1||h<1||start<0||rows<1||start+rows>h)return 0;
+ std::vector<uint8_t> gray(size_t(w)*h);
+ for(size_t i=0;i<gray.size();i++)if(!membership||membership[i])gray[i]=(299*int(rgb[i*3])+587*int(rgb[i*3+1])+114*int(rgb[i*3+2]))/1000;
+ double mx=0,my=0,lo=DBL_MAX,hi=0;
+ for(int y=start;y<start+rows;y++)for(int x=0;x<w;x++){
+  const size_t centre=size_t(y)*w+x,target=(size_t(y-start)*w+x)*2;int dx=0,dy=0;
+  if(!membership||membership[centre])for(int oy=-1;oy<=1;oy++)for(int ox=-1;ox<=1;ox++){
+   if((!oy&&!ox)||x+ox<0||x+ox>=w||y+oy<0||y+oy>=h)continue;
+   const size_t at=size_t(y+oy)*w+x+ox;if(membership&&!membership[at])continue;
+   const int delta=(int(gray[at])-int(gray[centre]))*(ox&&oy?4:7);dx+=ox*delta;dy+=oy*delta;
+  }
+  out[target]=int16_t(dx);out[target+1]=int16_t(dy);mx=std::max(mx,double(std::abs(dx)));my=std::max(my,double(std::abs(dy)));
+  const double m=std::abs(dx)+std::abs(dy);lo=std::min(lo,m);hi=std::max(hi,m);
+ }
+ stats[0]=mx;stats[1]=my;stats[2]=lo;stats[3]=hi;return 1;
+}
+void gradient_krawetz_render(const int16_t* slopes,int n,int invert,uint8_t* out,uint32_t* histogram){
+ std::fill(histogram,histogram+768,0);
+ for(int i=0;i<n;i++){
+  const double dx=invert?-double(slopes[i*2]):double(slopes[i*2]),dy=invert?-double(slopes[i*2+1]):double(slopes[i*2+1]);
+  const double magnitude=std::sqrt(dx*dx+dy*dy);uint8_t r=127,g=127;
+  if(magnitude){const double angle=std::atan2(dx,dy);r=trunc8(std::max(0.,std::min(255.,(-std::cos(angle)/2.+.5)*255.)));g=trunc8(std::max(0.,std::min(255.,(-std::sin(angle)/2.+.5)*255.)));}
+  const uint8_t b=trunc8(std::min(255.,magnitude/9.));out[i*3]=r;out[i*3+1]=g;out[i*3+2]=b;
+  histogram[r]++;histogram[256+g]++;histogram[512+b]++;
+ }
+}
 void gradient_lengths(const int16_t* slopes,int n,const double* stats,int invert,double* limits){
  const uint8_t* tables=GRADIENT_OPTIMIZATIONS&2?directionTables(stats,invert):nullptr;
  double lo=DBL_MAX,hi=0;for(int i=0;i<n;i++){double r=directionValue(slopes[i*2],0,stats,invert,tables),g=directionValue(slopes[i*2+1],1,stats,invert,tables),v=r*r+g*g;if(!(GRADIENT_OPTIMIZATIONS&4))v=std::sqrt(v);lo=std::min(lo,v);hi=std::max(hi,v);}limits[0]=GRADIENT_OPTIMIZATIONS&4?std::sqrt(lo):lo;limits[1]=GRADIENT_OPTIMIZATIONS&4?std::sqrt(hi):hi;

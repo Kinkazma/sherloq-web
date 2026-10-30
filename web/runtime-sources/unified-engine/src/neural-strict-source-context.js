@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {restoreNativeRequestedGeometry} from './source-region-requested-geometry.js';
 import {compileOriginalSourceRegions,createOriginalSourceRegionsState} from './source-region-geometry.js';
 import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';

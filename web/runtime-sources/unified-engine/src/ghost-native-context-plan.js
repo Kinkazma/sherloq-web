@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 
 export const GHOST_CONTEXT_PLAN_VERSION='canonical-admitted-ghost-contexts/2';

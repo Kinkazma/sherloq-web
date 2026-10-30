@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {MGCFDN_EFFNET_WINDOW_SOURCE_SHA256,MGCFDN_EFFNET_WINDOW_TRANSFORM} from './mgcfdn-effnet-window-context-graph.js';
 const P='/network/multi_granularity_consistency_module/',F='/network/visual_feature_extractor/Concat_3_output_0',S='sherloq_mgcf_effnet_window01/';

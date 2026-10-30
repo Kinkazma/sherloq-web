@@ -1,0 +1,18 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "algorithm": "unchanged FullNearest binary64 split/tie/query rules, exact source-group order",
+  "sources": {
+    "native/ssg-word-nearest.cpp": "6842ddabe7a47400292912138a438304696f890eabb537cc7d7e23375794b1ce",
+    "vendor/ssg-word-nearest/nearest.h": "7612448fba5c2366621e6c6cef16ba6333a557fb6733bd61fd91eaf3b78e9127"
+  },
+  "files": {
+    "nearest.mjs": {
+      "bytes": 12121,
+      "sha256": "c7c67d447bd3e908273375505615f088d629f5506ec29f437bb31d8bb809550f"
+    },
+    "nearest.wasm": {
+      "bytes": 22429,
+      "sha256": "b9d2f968a5339cc561d358d8400c88e8d39a7e4295d3cd094e8f9e019766993a"
+    }
+  }
+}

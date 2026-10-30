@@ -55,3 +55,14 @@ void compute_grid_votes_per_pixel(double *image,int *votes,int X,int Y){
 void zero_rgb_luminance(const unsigned char *input,double *output,int n){
  for(int i=0;i<n;i++)output[i]=round(fma((double)input[3*i+2],0.114,fma((double)input[3*i],0.299,(double)input[3*i+1]*0.587)));
 }
+
+int zero_reference_forgeries(int*,int*,int*,meaningful_reg*,int,int,int,int);
+int zero_fast_forgeries(const int*,int*,int*,meaningful_reg*,int,int,int,int);
+int detect_forgeries(int *votes,int *mask,int *reg,meaningful_reg *regions,int X,int Y,int excluded,int maximum){
+ if(reference)return zero_reference_forgeries(votes,mask,reg,regions,X,Y,excluded,maximum);
+ int result=zero_fast_forgeries(votes,mask,reg,regions,X,Y,excluded,maximum);
+ return result<0?zero_reference_forgeries(votes,mask,reg,regions,X,Y,excluded,maximum):result;
+}
+void zero_block_codes(double *luminance,unsigned int *codes,int X,int Y){
+ for(int y=0;y<Y-7;y++)for(int x=0;x<X-7;x++){int c=0;codes[x+y*X]=zeros_in_block(luminance,X,x,y,&c)|(c?128u:0u);}
+}

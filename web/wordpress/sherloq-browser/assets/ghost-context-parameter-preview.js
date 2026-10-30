@@ -1,4 +1,4 @@
-import {createAdaptivePreview} from './adaptive-preview.js';
+import {createAdaptivePreview} from './adaptive-preview.js?v=0.30.0';
 const adaptive=createAdaptivePreview({targetMs:50,minSide:16,initialSide:128});
 const fail=(code,message)=>{throw Object.assign(Error(message),{code});};
 /** One measured request, including all native contexts and transport, supplies

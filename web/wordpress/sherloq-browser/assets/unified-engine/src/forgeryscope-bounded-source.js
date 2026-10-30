@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 import {forgeryscopeNativeYoloAvailability} from './forgeryscope-native-availability.js';
 import {compileOriginalSourceRegions,createOriginalSourceRegionsState} from './source-region-geometry.js';
@@ -14,7 +14,7 @@ export function forgeryscopeBoundedIdentity(image){return certified.get(image)?.
 /** Borrow the Original decoder. Every CNN crop is a genuine contiguous native
  * rectangle of candidate pixels; no full-frame raster or hole fill exists. */
 export async function createForgeryscopeBoundedSource(prepared,{budget,signal}={}){
- requireValue(['analysis.clones','analysis.complete'].includes(prepared?.originalTask?.operation),'Bounded aggregate Forgeryscope requires verified clone-search geometry.');
+ requireValue(['analysis.clones','analysis.complete','m2.forgeryscope'].includes(prepared?.originalTask?.operation),'Bounded aggregate Forgeryscope requires verified clone-search geometry.');
  const lease=budget.reserve(65536+sourceRegionTransportBytes([prepared.originalTask,prepared.sourceDomain?.descriptor,prepared.candidateDomain?.descriptor,prepared.contextDomain?.descriptor],{allowAliases:true,allowUndefined:true})*4),fragmentLeases=[];let view,returned=false,failed=false,primary;
  try{
   const task=structuredClone(prepared.originalTask),source=await compileOriginalSourceRegions(prepared.sourceDomain.descriptor),suppliedCandidate=await compileOriginalSourceRegions(prepared.candidateDomain.descriptor),context=await compileOriginalSourceRegions(prepared.contextDomain.descriptor);let candidate=suppliedCandidate;checkAbort(signal);

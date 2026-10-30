@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import nativeMathFactory from'../vendor/segmentation/vig-window-math.js';
 import{validateVigBackbone}from'../experiments/segmentation/vig-backbone.js';
 import{createVigWindowConvolutionCpu}from'./mgcfdn-vig-window-convolution-cpu.js';

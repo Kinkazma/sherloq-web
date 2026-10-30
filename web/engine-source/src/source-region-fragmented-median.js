@@ -1,3 +1,5 @@
+import {attachMedianCleanup} from './median-gpu-retirement.js';
+import {createMedianGpuRunner} from './median-gpu-runner.js';
 import {medianParams} from './median.js';
 import {segmentedMedian} from './segmented-median.js';
 import {MEDIAN_HEAP_LIMIT,medianHeapBytes} from './median-features.js';
@@ -30,10 +32,11 @@ function nativeContextImage(view,rect,original,budget,sourceRead){
 export async function sourceRegionMedian({task,original,view,domain,budget,signal,onProgress,publishResult,references=[],medianPool=null,cpuKernel='auto'}){
  const p=medianParams(task.params),reference=references[0];
  requireValue(reference?.id===p.modelId&&reference.kind==='median-model'&&/^[a-f0-9]{64}$/.test(reference.sha256??'')&&typeof reference.model?.predict==='function','A verified loaded median model reference is required.');
- if(!['auto','cpu'].includes(task.backend??'auto'))throw new EngineError('UNSUPPORTED_BACKEND','Native median model contexts use the unchanged CPU feature pipeline.');
+ if(!['auto','cpu','webgpu'].includes(task.backend??'auto'))throw new EngineError('UNSUPPORTED_BACKEND','Unsupported median feature backend.');
+ const runner=createMedianGpuRunner({budget,backend:task.backend??'auto',signal});
  const width=domain.width,height=domain.height,cooperate=createCooperator(signal),owned=new Set(),dataLeases=[],rgbRecords={},maskRecords={},fragments=[],metadataLeases=[];
  const make=async bytes=>{const store=await createSegmentedBytes(bytes,{budget,signal,temporarySession:original.session,getTemporarySession:original.ensureTemporarySession});owned.add(store);return store;};
- let heap,staging,record,heldData=0,dataOwner=false,published=false,failure,sourceReads=0,analysed=0,cachedContexts=0,workers=0;
+ let heap,staging,record,heldData=0,dataOwner=false,published=false,failed=false,failure,sourceReads=0,analysed=0,cachedContexts=0,workers=0,gpuContexts=0;
  try{
   // The outer runtime already owns any warm main heap. Keep cold admission
   // alive across all contexts, and tell each inner run it is counted once.
@@ -46,8 +49,8 @@ export async function sourceRegionMedian({task,original,view,domain,budget,signa
   for(const rect of view.admittedRectangles()){
    await cooperate();const index=fragments.length,bounds=[rect.x,rect.y,rect.x+rect.width,rect.y+rect.height];metadataLeases.push(budget.reserve(4096+sourceRegionTransportBytes(rect)*4));
    const image=nativeContextImage(view,rect,original,budget,()=>{sourceReads++;}),cacheKey=task.imageId+'\0source-region/median-native-context-v1/'+domain.fingerprint+'/'+bounds.join('/')+'/'+reference.id+'/'+reference.sha256;
-   record=await segmentedMedian(image,p,{budget,model:reference.model,medianPool:cpuKernel==='auto'?medianPool:null,cpuKernel,signal,accountedHeapBytes:MEDIAN_HEAP_LIMIT,cacheKey,dependencies:[task.imageId,reference.id],onProgress:f=>onProgress?.({phase:'source-region-median-context',sourceFragment:index,fragmentBounds:bounds,completed:analysed,total:domain.countIncluded,contextFraction:f})});
-   checkAbort(signal);cachedContexts+=+!!record.metrics.analysisCacheHit;workers=Math.max(workers,record.metrics.workers??0);
+   record=await segmentedMedian(image,p,{budget,model:reference.model,medianPool:cpuKernel==='auto'?medianPool:null,cpuKernel,signal,accountedHeapBytes:MEDIAN_HEAP_LIMIT,featureRunner:runner,backend:task.backend??'auto',cacheKey,dependencies:[task.imageId,reference.id],onProgress:f=>onProgress?.({phase:'source-region-median-context',sourceFragment:index,fragmentBounds:bounds,completed:analysed,total:domain.countIncluded,contextFraction:f})});
+   checkAbort(signal);if(record.metrics.backend?.startsWith('webgpu'))gpuContexts++;cachedContexts+=+!!record.metrics.analysisCacheHit;workers=Math.max(workers,record.metrics.workers??0);
    const master=retainResult(record.surface);owned.add(master);const compact=master.lease(),dataLease=master.lease();owned.add(compact);owned.add(dataLease);dataLeases.push(dataLease);rgbRecords['fragment_'+index]={surface:compact};record.surface=null;await master.dispose();owned.delete(master);
    for(const name of ['valid','decisions']){const mask=record.maskRecords[name].surface;owned.add(mask);maskRecords[name+'_'+index]={surface:mask};}
    for(let y=0;y<rect.height;y++)for(let x=0;x<rect.width;x+=CHUNK){
@@ -66,16 +69,17 @@ export async function sourceRegionMedian({task,original,view,domain,budget,signa
   dataOwner=true;owned.delete(output);owned.add(surface);
   const selection=createMaskSurface(scope,{width,height,budget,range:[0,1],semantics:'1=its exact admitted native context was processed;0=excluded Original presentation. Native block decisions remain separate and are not a pixel mask.'});owned.delete(scope);owned.add(selection);maskRecords.analysis_scope={surface:selection};
   const semantics='Each exact admitted RGB rectangle uses the unchanged native64x64 median-filter features, historical padding and extra score-grid border, explicitly loaded XGBoost model, variance/threshold/speckle and native display interpolation. Every admitted pixel receives its native context display. Grids and masks keep their independent native coordinates; they are not a global hole-filled model input, pixel segmentation or calibrated forgery probability.';
-  const metrics={selectedPixels:domain.countIncluded,analysedPixels:analysed,unanalysablePixels:0,fragmentCount:fragments.length,sourceReads,cachedContexts,analysisCacheHit:cachedContexts===fragments.length,workers,sourceRegionPolicy:'exact-native-median-model-contexts'};
+  await runner.dispose();const backend=gpuContexts?'webgpu-exact-binary64-median-features-native-finish':'cpu';
+  const metrics={backend,gpuContexts,...runner.snapshot(),selectedPixels:domain.countIncluded,analysedPixels:analysed,unanalysablePixels:0,fragmentCount:fragments.length,sourceReads,cachedContexts,analysisCacheHit:cachedContexts===fragments.length,workers,sourceRegionPolicy:'exact-native-median-model-contexts'};
   const bundle=publishResult(task.imageId,{surface,rgbRecords,maskRecords,data,semantics,metrics});published=true;heldData=0;
-  return{id:task.id,imageId:task.imageId,operation:task.operation,status:'ok',layout:'surface',...bundle,display:bundle.surface,data,semantics,metrics,layers:[{id:task.operation,kind:'rgb',surfaceId:bundle.surface.id,origin:[0,0],coordinates:'source'},...fragments.map(f=>({id:f.id,kind:'rgb',surfaceId:bundle.rgbSurfaces[f.id].id,origin:f.bounds.slice(0,2),coordinates:'independent-native-context'}))],provenance:{params:p,backend:'cpu',sourceRegionDomain:domain.descriptor,sourceRegionOrigin:[...domain.origin],references:[{id:reference.id,kind:'median-model',originalSha256:reference.sha256}],excludedParticipation:'absent-before-native64x64-features-model-and-grid-render',originalEncodedBytesPreserved:true,nativePadding:'unchanged64x64-block-padding-and-extra-score-grid-border'}};
- }catch(error){failure=normalizeResourceError(error);throw failure;}
+  return{id:task.id,imageId:task.imageId,operation:task.operation,status:'ok',layout:'surface',...bundle,display:bundle.surface,data,semantics,metrics,layers:[{id:task.operation,kind:'rgb',surfaceId:bundle.surface.id,origin:[0,0],coordinates:'source'},...fragments.map(f=>({id:f.id,kind:'rgb',surfaceId:bundle.rgbSurfaces[f.id].id,origin:f.bounds.slice(0,2),coordinates:'independent-native-context'}))],provenance:{params:p,backend,sourceRegionDomain:domain.descriptor,sourceRegionOrigin:[...domain.origin],references:[{id:reference.id,kind:'median-model',originalSha256:reference.sha256}],excludedParticipation:'absent-before-native64x64-features-model-and-grid-render',originalEncodedBytesPreserved:true,nativePadding:'unchanged64x64-block-padding-and-extra-score-grid-border'}};
+ }catch(error){failed=true;failure=normalizeResourceError(error);throw failure;}
  finally{
-  const errors=[];
+  const errors=[];try{await runner.dispose();}catch(error){errors.push(error);}
   if(record?.surface)try{await record.surface.dispose();}catch(error){errors.push(error);}
   if(record?.maskRecords)for(const value of Object.values(record.maskRecords))try{await value.surface.dispose();}catch(error){errors.push(error);}
   if(!published)for(const owner of owned)try{await owner.dispose();}catch(error){errors.push(error);}
   if(heldData&&!dataOwner)budget.retained-=heldData;for(const release of metadataLeases)release();staging?.();heap?.();
-  if(errors.length){if(failure)failure.details={...failure.details,cleanupErrors:errors.map(({code,message})=>({code,message}))};else throw errors[0];}
+  if(errors.length){if(failed){for(const cleanup of errors)attachMedianCleanup(failure,cleanup);}else throw errors[0];}
  }
 }

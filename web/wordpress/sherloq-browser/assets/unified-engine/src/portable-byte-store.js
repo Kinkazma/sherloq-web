@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {byteRange,byteLength as rangeLength,byteView} from './memory-range.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 // CPU reference segmentation, preserving disconnected support and panel identity.
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 const f=Math.fround;

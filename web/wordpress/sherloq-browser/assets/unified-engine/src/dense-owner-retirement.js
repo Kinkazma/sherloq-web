@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 
 // The reached disposal/release interfaces succeed with void/Promise<void>.
@@ -20,13 +20,15 @@ export function countedDenseOwner(retire){
 
 // Strong metadata owners for failed pre-publication cleanup. This ledger stores
 // references only; it never clones native arrays or starts a computation.
+// Analyses are serialized. Reuse the largest admitted cleanup arena while
+// counted published owners keep it alive; reserve only a larger plan's delta.
 export function createDenseRetirementLedger(budget){
  const held=new Map(),funding=[];let capacity=0,live=0,releaseRequested=false;
  const maybeFree=()=>{if(!releaseRequested||held.size||live)return;for(const free of funding)free();funding.length=0;capacity=0;};
  const forget=owner=>{held.delete(owner);maybeFree();};
  const hold=owner=>{if(!owner)return()=>{};if(!held.has(owner)){requireValue(held.size<capacity,'Dense retirement metadata exceeds its pre-admitted capacity.');held.set(owner,true);}return()=>forget(owner);};
  const retire=async owners=>{const unique=[...new Set(owners.filter(Boolean))];for(const owner of unique)hold(owner);const outcomes=await Promise.allSettled(unique.map(owner=>acknowledgeDenseRetirement(typeof owner==='function'?owner:()=>owner.dispose())));for(let i=0;i<outcomes.length;i++)if(outcomes[i].status==='fulfilled')forget(unique[i]);const failure=outcomes.find(v=>v.status==='rejected');if(failure)throw failure.reason;};
- return{prepare(slots){requireValue(Number.isSafeInteger(slots)&&slots>0&&!held.size,'Dense cleanup must complete before another analysis.');const free=budget.reserve(slots*256);funding.push(free);capacity+=slots;releaseRequested=false;},hold,retire,counted(close){live++;return countedDenseOwner(async()=>{await acknowledgeDenseRetirement(close);live--;maybeFree();});},drain:async()=>{for(const owner of [...held.keys()].reverse())await retire([owner]);},release(){requireValue(!held.size,'Dense retirement owners still require ACK.');releaseRequested=true;maybeFree();},get size(){return held.size;}};
+ return{prepare(slots){requireValue(Number.isSafeInteger(slots)&&slots>0&&!held.size,'Dense cleanup must complete before another analysis.');if(slots>capacity){const free=budget.reserve((slots-capacity)*256);funding.push(free);capacity=slots;}releaseRequested=false;},hold,retire,counted(close){live++;return countedDenseOwner(async()=>{await acknowledgeDenseRetirement(close);live--;maybeFree();});},drain:async()=>{for(const owner of [...held.keys()].reverse())await retire([owner]);},release(){requireValue(!held.size,'Dense retirement owners still require ACK.');releaseRequested=true;maybeFree();},get size(){return held.size;}};
 }
 export function denseConstructionOwner(owners,{onRetirementOwner}={},finish=()=>retireDenseOwners(owners)){
  let forget;const detach=()=>{forget?.();forget=null;};const owner={dispose:onceDenseRetirement(async()=>{await finish();detach();}),publish:detach};forget=onRetirementOwner?.(owner);return owner;

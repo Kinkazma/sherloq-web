@@ -1,4 +1,32 @@
-# Source layout and reconstruction
+# Reconstruction
+
+## Current 0.30 snapshot
+
+The current release uses `web/wordpress/runtime-patches/current-snapshot.json`. It pins the canonical engine and UI inputs, complete resource manifest and both runtime locks. Earlier additive receipts remain immutable historical records; they are not replayed against the newer snapshot. Rebuilding rejects changed inputs and preserves the reviewed executable bytes.
+
+From `web/wordpress`, restore the ordinary resources and verify the build:
+
+```sh
+python3 restore-dependencies.py --manifest ../../web-assets/manifest-template.json --destination sherloq-browser/assets --chunks ../../web-assets/chunks
+python3 scripts/write-code-identity.py --check
+python3 build.py --frozen
+python3 tests/runtime-snapshot-test.py
+```
+
+Models marked `localOnly` remain user-imported resources and are not downloaded by this command. Their identities are retained in `resource-policy.json`. All other selected resources, including the added runtime operators and D2PRL spatial-role graphs, belong to the complete hashed catalogue. Component licences and conversion notices remain applicable.
+
+The worker is reproducible with the pinned dependencies from `web/engine-source/package.json` (esbuild 0.28.2 and Playwright 1.63.0):
+
+```sh
+cd ../engine-source
+npm ci
+node scripts/build-engine-worker.mjs --engine-root=. --ui-root=../wordpress/sherloq-browser/assets --dependencies-root=. --output-root=.build/worker
+```
+
+`prepare-distribution.py` rebuilds content-addressed resource pieces; `scripts/build-local-release.py stage --no-bootstrap` creates the versioned source inventories for the local updater. Modular service-worker entries are retained separately in `service-worker-source/`, so repeated builds never concatenate a previously assembled worker. The published release descriptor pins its resource and interface source commits independently. Installation packages remain private build outputs.
+
+## Earlier reconstruction layers
+
 
 | Path | Contents |
 | --- | --- |

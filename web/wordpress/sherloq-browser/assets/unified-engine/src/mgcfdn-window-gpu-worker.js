@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {assertMgcfdnWindowGpuLimits} from './mgcfdn-window-gpu-admission.js';
 import {encodeMgcfdnWorkerError,trackMgcfdnBudget} from './mgcfdn-window-gpu-diagnostics.js';
 import {planMgcfdnWindowGpuMemory} from './mgcfdn-window-gpu-memory.js';

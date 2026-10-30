@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue} from './errors.js';
 // Cache ownership and published handles are independent. All reads still use
 // the original store and return owned pages/windows; no full-image clone occurs.

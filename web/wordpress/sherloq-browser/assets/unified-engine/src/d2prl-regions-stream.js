@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 /*M///////////////////////////////////////////////////////////////////////////////////////
 //
 //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
@@ -41,6 +41,7 @@ import "../../runtime-context.js?v=0.16.0";
 //M*/
 // Border following below adapts OpenCV4.11 icvFetchContour, CHAIN_APPROX_SIMPLE.
 // Each input to it is one global8-connected component, so holes are not traced.
+import {d2prlInputSide} from '../experiments/d2prl/input-side.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createBytePager} from './byte-pager.js';
@@ -66,9 +67,9 @@ async function contour(data,width,height,start,origin,{cooperate,account}){
 /** Borrow a source mask; visit global components with bounded page caches.
  * Owned cropped masks retain the existing display/export contract. No label
  * plane, original RGB copy, or source-sized OpenCV heap is constructed. */
-export async function streamedD2prlRegions({width,height,mask,boxes=[],minimum=500},{budget,signal,onProgress,temporarySession,getTemporarySession}={}){
+export async function streamedD2prlRegions({width,height,mask,metadata,inputSide=metadata?.inputSide??448,boxes=[],minimum=500},{budget,signal,onProgress,temporarySession,getTemporarySession}={}){
  requireValue(Number.isInteger(minimum)&&minimum>=0&&minimum<=5000&&Array.isArray(boxes)&&boxes.every(b=>Array.isArray(b)&&b.length===4&&b.every(Number.isInteger)),'D2PRL minimum and boxes required');
- const n=width*height;requireValue(Number.isInteger(width)&&width>0&&Number.isInteger(height)&&height>0&&n<2**32&&mask?.byteLength===n&&typeof mask.readInto==='function','Original segmented D2PRL mask required');
+ const side=d2prlInputSide(inputSide),n=width*height;requireValue(Number.isInteger(width)&&width>0&&Number.isInteger(height)&&height>0&&n<2**32&&mask?.byteLength===n&&typeof mask.readInto==='function','Original segmented D2PRL mask required');
  const cooperate=createCooperator(signal),stores=[],pagers=[],leases=[],entries=[],keys=[];let scratch,complete=false,working,queue;
  try{
   scratch=budget.reserve(MiB+8192);const options={budget,signal,storage:temporarySession||getTemporarySession?'temporary':'auto',temporarySession,getTemporarySession};
@@ -93,7 +94,7 @@ export async function streamedD2prlRegions({width,height,mask,boxes=[],minimum=5
    for(let head=0;head<tail;head++){if((head&1023)===0)await cooperate();wait=runs.prepare(head*8,8);if(wait)await wait;const start=runs.get32(head*8),end=runs.get32(head*8+4),at=(Math.floor(start/width)-top)*w+start%width-left;data.fill(1,at,at+end-start);}
    const polygons=[await contour(data,w,h,(Math.floor(seed/width)-top)*w+seed%width-left,[left,top],{cooperate,account})];
    hash.init();for(let at=0;at<data.length;at+=MiB){hash.update(data.subarray(at,Math.min(data.length,at+MiB)));await cooperate();}hash.update(new TextEncoder().encode(`(${left}, ${top}, ${w}, ${h})`));const id='d2prl-'+hash.digest('hex').slice(0,24);
-   entries.push({id,source:'D2PRL',label:'D2PRL',count:pixels,count_kind:'pixels',color:[230,170,30],pixel_mask:{width:w,height:h,data},origin:[left,top],polygons,search_context:'d2prl-selected-zones',provenance:{min_component:minimum,native_grid:[448,448],evidence:'segmentation',boxes:structuredClone(boxes)}});keys.push(key);visited+=pixels;onProgress?.({phase:'d2prl-regions',completed:entries.length,visited,fraction:(seed+1)/n});checkAbort(signal);
+   entries.push({id,source:'D2PRL',label:'D2PRL',count:pixels,count_kind:'pixels',color:[230,170,30],pixel_mask:{width:w,height:h,data},origin:[left,top],polygons,search_context:'d2prl-selected-zones',provenance:{min_component:minimum,native_grid:[side,side],evidence:'segmentation',boxes:structuredClone(boxes)}});keys.push(key);visited+=pixels;onProgress?.({phase:'d2prl-regions',completed:entries.length,visited,fraction:(seed+1)/n});checkAbort(signal);
   }
   // OpenCV's default8-connected block CCL labels components in first2x2-block
   // order. Stable ids depend only on exact cropped mask bytes and native bbox.

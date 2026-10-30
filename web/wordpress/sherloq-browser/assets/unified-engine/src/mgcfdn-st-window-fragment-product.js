@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {readVerifiedModelAsset} from '../experiments/d2prl/model.js';
 import {validateSplitModel} from '../experiments/segmentation/split-model.js';
 import {MGCFDN_ST_WINDOW_PINS} from './mgcfdn-st-window-stage-runtime.js';

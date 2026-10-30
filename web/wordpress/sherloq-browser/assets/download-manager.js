@@ -1,6 +1,6 @@
-import {createExportSink} from './export-sink.js';
-import {resolveComputeProfile} from './resource-policy.js';
-import {withLocalActivity,localActivityFrozen} from './local-activity.js';
+import {createExportSink} from './export-sink.js?v=0.30.0';
+import {resolveComputeProfile} from './resource-policy.js?v=0.30.0';
+import {withLocalActivity,localActivityFrozen} from './local-activity.js?v=0.30.0';
 
 const CHUNK_BYTES=1024**2,JSON_COPY_MAX_BYTES=16*1024**2;
 const jsonRecord=record=>record.mime.split(';')[0].trim().toLowerCase()==='application/json';
@@ -153,9 +153,9 @@ export function createDownloadManager({document=globalThis.document,urlAPI=globa
    const lease={schema:'sherloq.download-lease/1',ownsTemporaryFile:true,id,filename,mime,size:record.size,storage:record.storage,can:{get nativeSaveSupported(){return !!nativePicker();}},get url(){return record.url;},get state(){return record.state;},get savedAt(){return record.savedAt;},dispatch:()=>dispatch(id),save:options=>save(id,options),copyText:()=>copyText(id),release:()=>release(id),toJSON:()=>describe(record)};
    record.lease=lease;records.set(id,record);accepted=true;publish();
    if(signal.aborted){await release(id);throw cancelled();}
-   // A native Save As writer needs a fresh user gesture after preparation.
-   // Keep the ready file in the shelf until its existing Save As button is used.
-   if(options.autoDispatch===true||options.autoDispatch!==false&&!nativePicker())dispatch(id);
+   // Ordinary exports use the browser download immediately. The retained shelf
+   // still supports another download or an explicit native Save As action.
+   if(options.autoDispatch!==false)dispatch(id);
    return lease;
   }catch(error){
    if(!accepted){

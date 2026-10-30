@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.30.0";
 /* Text recognition via official PP-OCRv6 Medium FP32 detector + recognizer.
  * All source pixels are visited by overlapping detector windows. Native model
  * preprocessing is explicit; no detector-only exclusions become fake text. */

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import createPost from '../vendor/xfeat-paged/post.js';
 import {allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import {requireValue,EngineError} from './errors.js';

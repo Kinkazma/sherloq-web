@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.30.0";
 // Faithful local translation of pinned proposals_utils.py.
 // Formulas and ordered first-match fusion are retained. Global allocation and publication belong to SelfDMProposalEngine.
 const clone = box => [box[0].slice(), box[1], box[2]];

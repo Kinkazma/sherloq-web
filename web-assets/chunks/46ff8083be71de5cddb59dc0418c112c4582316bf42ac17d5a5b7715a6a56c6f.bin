@@ -1,0 +1,46 @@
+{
+  "compiler": "Emscripten4.0.15",
+  "buildScript": "scripts/build-ssg-projection.py",
+  "commands": [
+    [
+      "EMSDK/upstream/emscripten/em++",
+      "SOURCE_ROOT/vendor/ssg-projection/ssg-project.cpp",
+      "-O3",
+      "-std=c++17",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fno-vectorize",
+      "-fno-slp-vectorize",
+      "-sMODULARIZE=1",
+      "-sEXPORT_ES6=1",
+      "-sENVIRONMENT=node,web,worker",
+      "-sFILESYSTEM=0",
+      "-sIMPORTED_MEMORY=1",
+      "-sALLOW_MEMORY_GROWTH=1",
+      "-sINITIAL_MEMORY=33554432",
+      "-sMAXIMUM_MEMORY=2147483648",
+      "-sABORTING_MALLOC=0",
+      "-sSTACK_SIZE=1048576",
+      "-sEXPORTED_FUNCTIONS=[\"_malloc\",\"_free\",\"_ssg_project_rows\"]",
+      "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPU32\",\"HEAPF64\"]",
+      "-ffile-prefix-map=SOURCE_ROOT/=",
+      "-o",
+      "SOURCE_ROOT/vendor/ssg-projection/projection.mjs"
+    ]
+  ],
+  "files": {
+    "ssg-project.cpp": {
+      "bytes": 3003,
+      "sha256": "0d2b37a699e7fa03e72dba6f2fddaa90b6764702e1545e412f7ba62322f5cc63"
+    },
+    "projection.mjs": {
+      "bytes": 7754,
+      "sha256": "7c15b0deedd513d89d277d3f5079ff66f558cd7e7f3c67eef8bb6c18fbf03634"
+    },
+    "projection.wasm": {
+      "bytes": 8078,
+      "sha256": "67c7122df03e1eba3c7e9529f3ac463168bf6aa375f4244fd5b7d68fcad3c5f1"
+    }
+  },
+  "definition": "Literal binary64 projection using the existing JS cubic antialias coefficient arrays; no new coefficients, FMA, reassociation or tap pruning."
+}

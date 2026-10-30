@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort,normalizeResourceError} from './errors.js';
 const PAGE=65536,MIN_BANK=16*1024**2,ALIGN=8;
 const ownedBuffers=new WeakSet();
@@ -7,8 +7,9 @@ export const isWasmTensorView=value=>ArrayBuffer.isView(value)&&ownedBuffers.has
 // ArrayBuffer allocation. Each bank has a fixed maximum equal to its initial
 // size: no later allocation can detach a published view. Banks are allocated
 // only for useful output, coalesce returned ranges, and are reclaimable idle.
-export function createWasmTensorArena({budget,memoryFactory=descriptor=>new WebAssembly.Memory(descriptor)}={}){
+export function createWasmTensorArena({budget,memoryFactory=descriptor=>new WebAssembly.Memory(descriptor),maximumTensorBytes=2**31}={}){
  requireValue(budget&&typeof budget.reserve==='function','Tensor arena budget required');
+ requireValue(Number.isSafeInteger(maximumTensorBytes)&&maximumTensorBytes>=PAGE&&maximumTensorBytes<=2**32,'Tensor arena maximum extent');
  const banks=new Set();let disposed=false,allocations=0,reuses=0,peakBytes=0;
  const reuse=budget.registerReusableBacking?.('wasm',bytes=>[...banks].some(bank=>bank.free.some(range=>range.bytes>=bytes)));
  const total=()=>[...banks].reduce((n,b)=>n+b.bytes,0);
@@ -19,7 +20,7 @@ export function createWasmTensorArena({budget,memoryFactory=descriptor=>new WebA
  return{
   allocate(Type,length,{signal,label='tensor',zero=true}={}){
    requireValue(!disposed&&[Float32Array,Uint16Array,Uint8Array,Int32Array,Uint32Array,BigInt64Array].includes(Type)&&Number.isSafeInteger(length)&&length>0&&typeof zero==='boolean','Invalid owned tensor allocation');checkAbort(signal);
-   const bytes=length*Type.BYTES_PER_ELEMENT,extent=Math.ceil(bytes/ALIGN)*ALIGN;requireValue(Number.isSafeInteger(bytes)&&extent<=2**31,'Tensor exceeds one Wasm bank');
+   const bytes=length*Type.BYTES_PER_ELEMENT,extent=Math.ceil(bytes/ALIGN)*ALIGN;requireValue(Number.isSafeInteger(bytes)&&extent<=maximumTensorBytes,'Tensor exceeds one Wasm bank');
    let bank,slot,index,best=Infinity;
    for(const candidate of banks)for(let i=0;i<candidate.free.length;i++){const range=candidate.free[i];if(range.bytes>=extent&&range.bytes<best){bank=candidate;slot=range;index=i;best=range.bytes;}}
    if(!bank){

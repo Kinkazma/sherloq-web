@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.30.0";
 import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 import {requireValue,EngineError,checkAbort,controlCheckpoint} from './errors.js';
 import {SELFDM_SCOPE_POLICY} from './selfdm-scoped-graph.js';

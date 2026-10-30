@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {wasmAllocationFailure,nativeModuleFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 export const PDF_RETAINED_ADJUST_HEAP_BYTES=64*1024**2;

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.24.0";
+import "../../runtime-context.js?v=0.30.0";
 import {checkAbort,controlCheckpoint} from './errors.js';
 
 /** Keep useful CPU credit across tiny reads, but start a fresh measurement for

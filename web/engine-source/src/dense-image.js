@@ -1,3 +1,4 @@
+import {attachGpuCleanup} from './gpu-ack-retirement.js';
 import {RoutedDenseImageEngine} from './dense-surface-routing.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {densePassPlan,DENSE_PROFILES,denseSearchContexts} from './dense-profiles.js';
@@ -43,7 +44,12 @@ export class DenseImageEngine {
  }
  clearCheckpoint(key){if(this.paged)return this.paged.clearCheckpoint?.(key);if(this.checkpointKey===key)return this.clear();}
  clear(){if(this.paged)return this.paged.clear();this.generation++;this.pool.clear();this.cached?.release();this.cached=null;this.partial?.release();this.partial=null;this.checkpointKey=null;}
- dispose(){if(this.paged)return this.paged.dispose();this.clear();this.pool.dispose();this.disposed=true;}
+ async dispose(){
+  if(this.paged)return this.paged.dispose();this.disposed=true;let failed=false,primary;
+  try{this.clear();}catch(error){failed=true;primary=error;}
+  try{await this.pool.dispose();}catch(error){if(failed)attachGpuCleanup(primary,error);else{failed=true;primary=error;}}
+  if(failed)throw primary;
+ }
  async analyze(input={},hooks={}){
   if(this.paged)return this.paged.analyze(input,hooks);
   requireValue(!this.disposed&&!this.busy,'Dense engine unavailable or busy.');checkAbort(hooks.signal);const p=denseImageParams(input),key=JSON.stringify([analysisKey(p),hooks.backend??null]),generation=this.generation;

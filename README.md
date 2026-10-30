@@ -1,12 +1,50 @@
-# SHERLOQ Web — browser and WordPress adaptation
+# SHERLOQ Web – Browser Adaptation
 
-## [▶ Try SHERLOQ online](https://gaeldauchy.com/sherloq/)
+<table id="web-application-card">
+<tr>
+<td align="center" valign="middle" width="17%">
+<a href="https://gaeldauchy.com/sherloq/"><img src="chromium-extension/extension/icons/favicon.svg" alt="SHERLOQ Web application" width="112" height="112"></a>
+</td>
+<td valign="middle">
+<strong>Web application</strong><br>
+Image forensics, PDF inspection and batch analysis. Use it online or prepare an entirely offline workspace.
+</td>
+<td align="right" valign="middle" width="23%">
+<a href="https://gaeldauchy.com/sherloq/">
+<picture>
+<source media="(max-width: 600px)" srcset="screenshots/readme/try-sherloq-online-compact.svg">
+<img src="screenshots/readme/try-sherloq-online.svg" alt="Try SHERLOQ online">
+</picture>
+</a>
+</td>
+</tr>
+</table>
 
 SHERLOQ Web adapts SHERLOQ’s image-analysis workflows for a browser workspace embedded in WordPress. It also runs entirely offline once the local application and its resources are prepared.
 
 SHERLOQ was created by [Guido Bartoli and the original contributors](https://github.com/GuidoBartoli/sherloq). Their repository documents the original project, its history, research references and upstream development. This web adaptation follows [my macOS fork](https://github.com/Kinkazma/sherloq).
 
 [Source layout and reconstruction](docs/BUILD.md) · [Changelog](CHANGELOG.md) · [Validation and limits](docs/VALIDATION.md) · [Example inputs](examples/README.md) · [Credits and licenses](docs/ATTRIBUTION.md)
+
+<table id="chromium-extension-card">
+<tr>
+<td align="center" valign="middle" width="17%">
+<a href="https://chromewebstore.google.com/detail/fjofgojebfginofjnigpgnafdebkelba"><img src="screenshots/chromium/chromium-logo.svg" alt="Chromium" width="112" height="112"></a>
+</td>
+<td valign="middle">
+<strong>Chrome extension</strong><br>
+Full-resolution image and PDF magnifier, with adjustments and optional OCR. Open your selection in SHERLOQ Web or your local workspace.
+</td>
+<td align="right" valign="middle" width="23%">
+<a href="https://chromewebstore.google.com/detail/fjofgojebfginofjnigpgnafdebkelba">
+<picture>
+<source media="(max-width: 600px)" srcset="screenshots/chromium/chrome-web-store-compact.svg">
+<img src="screenshots/chromium/chrome-web-store.svg" alt="Chrome Web Store">
+</picture>
+</a>
+</td>
+</tr>
+</table>
 
 ## Using the app
 
@@ -43,6 +81,7 @@ Alongside SHERLOQ’s inherited tools, I integrated the following methods and ad
 - **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA.
 - **Experimental AI detectors:** B-Free and SPAI.
 - **Compression fingerprints:** Comprint.
+- **Display equalization:** a shared method menu with remembered settings for histogram, adaptive, bi-histogram, recursive and weighted methods.
 - **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, and ELA energy/territory views.
 
 B-Free, SPAI and DTD are experimental and hidden by default. Enable them through **Settings → Enable experimental tools**.
@@ -107,6 +146,15 @@ The same crop, enlarged 2×, shows the input and local masks at 100 and 10. I ch
 [![Local panel 1: input, minimum 100 and minimum 10](examples/results/microscopy-d2prl-automatic-zones/threshold-detail.webp)](examples/results/microscopy-d2prl-automatic-zones/threshold-detail.png)
 
 Yellow shows only the **filtered masks**, at uniform opacity, without encoding probability. The eight WebP previews are under 500 kB each; click one for its full-resolution PNG. [Settings, per-panel masks and run records](examples/results/microscopy-d2prl-automatic-zones/README.md).
+
+</details>
+
+<details id="d2prl-resolution-comparison">
+<summary>Microscopy — D2PRL at 448 × 448 and 896 × 896</summary>
+
+The same image at both model grid sizes, with display thresholds of 100 and 500. The enlarged details show how the resolution and filtering affect the visible detections.
+
+[![D2PRL at 448 and 896: four complete images and two matched enlarged details](examples/results/microscopy-d2prl-resolution-comparison/comparison.webp)](examples/results/microscopy-d2prl-resolution-comparison/comparison.png)
 
 </details>
 
@@ -551,12 +599,25 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | --- | --- | --- | --- |
 | 1977 · 1980 · 2004 | **Illuminant Map — colour-constancy foundations** | G. Buchsbaum; Graham D. Finlayson, Elisabetta Trezzi; Edwin H. Land | [Gray World](https://www.sciencedirect.com/science/article/pii/0016003280900587) · [Shades of Gray / Max-RGB](https://library.imaging.org/admin/apis/public/api/ist/website/downloadArticle/cic/12/1/art00008) · [Retinex](https://doi.org/10.1038/scientificamerican1277-108) |
 | 1981 · 2004 · 2011 | **SIFT + G2NN + RANSAC** | SIFT: David G. Lowe. G2NN copy-move method: Irene Amerini, Lamberto Ballan, Roberto Caldelli, Alberto Del Bimbo, Giuseppe Serra. RANSAC: Martin A. Fischler, Robert C. Bolles. | [SIFT](https://www.cs.ubc.ca/~lowe/keypoints/) · [G2NN method](https://ailab.uniud.it/wp-content/uploads/2018/11/serra_TIFS_2011.pdf) · [RANSAC](https://www.sri.com/publication/artificial-intelligence-pubs/random-sample-consensus-a-paradigm-for-model-fitting-with-applications-to-image-analysis-and-automated-cartography-2/) |
+| 1987 | **AHE** | Stephen M. Pizer, E. Philip Amburn, John D. Austin, Robert Cromartie, Ari Geselowitz, Trey Greer, Bart ter Haar Romeny, John B. Zimmerman, Karel Zuiderveld | [Adaptive histogram equalization and its variations](https://doi.org/10.1016/S0734-189X(87)80186-X) |
+| 1994 | **CLAHE** | Karel Zuiderveld | [Contrast Limited Adaptive Histogram Equalization](https://doi.org/10.1016/B978-0-12-336156-1.50061-6) |
+| 1997 | **BBHE** | Yeong-Taeg Kim | [Contrast Enhancement Using Brightness Preserving Bi-Histogram Equalization](https://doi.org/10.1109/30.580378) |
+| 1999 | **DSIHE** | Yu Wang, Qian Chen, Baeomin Zhang | [Image enhancement based on equal area dualistic sub-image histogram equalization method](https://doi.org/10.1109/30.754419) |
+| 2003 | **MMBEBHE / RMSHE** | Soong-Der Chen, Abd. Rahman Ramli | [Minimum Mean Brightness Error Bi-Histogram Equalization in Contrast Enhancement](https://doi.org/10.1109/TCE.2003.1261234) · [Contrast enhancement using recursive mean-separate histogram equalization for scalable brightness preservation](https://doi.org/10.1109/TCE.2003.1261233) |
 | 2004 · 2006 | **Multiple Compression — double-quantization foundations** | Alin C. Popescu, Hany Farid; Junfeng He, Zhouchen Lin, Lifeng Wang, Xiaoou Tang | [Statistical foundations](https://farid.berkeley.edu/downloads/publications/ih04.pdf) · [DCT coefficient analysis](https://www.microsoft.com/en-us/research/publication/detecting-doctored-jpeg-images-via-dct-coefficient-analysis/) |
 | 2007 | **ELA — underlying method** | Neal Krawetz | [Original paper](https://www.blackhat.com/presentations/bh-usa-07/Krawetz/Whitepaper/bh-usa-07-krawetz-WP.pdf) |
 | 2007 | **Tesseract OCR / English and French LSTM data** | Ray Smith and the Tesseract / tessdata_best contributors. Browser runtime: Tesseract.js-core contributors. | [Original paper](https://tesseract-ocr.github.io/docs/tesseracticdar2007.pdf) · [Authors](https://github.com/tesseract-ocr/tesseract/blob/main/AUTHORS) · [Language models](https://github.com/tesseract-ocr/tessdata_best) · [Browser runtime](https://github.com/naptha/tesseract.js-core) |
+| 2007 | **BPDHE** | Haidi Ibrahim, Nicholas Sia Pik Kong | [Brightness Preserving Dynamic Histogram Equalization for Image Contrast Enhancement](https://doi.org/10.1109/TCE.2007.4429280) |
+| 2007 | **DHE** | M. Abdullah-Al-Wadud, Md. Hasanul Kabir, M. Ali Akber Dewan, Oksam Chae | [A Dynamic Histogram Equalization for Image Contrast Enhancement](https://doi.org/10.1109/TCE.2007.381734) |
+| 2007 | **RSIHE** | K.S. Sim, C.P. Tso, Y.Y. Tan | [Recursive sub-image histogram equalization applied to gray scale images](https://doi.org/10.1016/j.patrec.2007.02.003) |
+| 2007 | **WTHE** | Qing Wang, Rabab Ward | [Fast Image/Video Contrast Enhancement Based on Weighted Thresholded Histogram Equalization](https://doi.org/10.1109/TCE.2007.381756) |
 | 2008 | **VLFeat** | Andrea Vedaldi, Brian Fulkerson | [Original project](https://www.vlfeat.org/) |
+| 2008 | **RSWHE** | Mary Kim, Min Gyo Chung | [Recursively Separated and Weighted Histogram Equalization for Brightness Preservation and Contrast Enhancement](https://doi.org/10.1109/TCE.2008.4637632) |
 | 2009 · 2015 · 2018 | **PatchMatch / Zernike matching** | Dense-field detection: Davide Cozzolino, Giovanni Poggi, Luisa Verdoliva. IPOL implementation: Thibaud Ehret. Original PatchMatch: Connelly Barnes, Eli Shechtman, Adam Finkelstein, Dan B Goldman. | [Dense-field method](https://doi.org/10.1109/TIFS.2015.2455334) · [IPOL implementation](https://www.ipol.im/pub/art/2018/213/) · [Original PatchMatch](https://collaborate.princeton.edu/en/publications/patchmatch-a-randomized-correspondence-algorithm-for-structural-i/) |
+| 2011 | **CVC** | T. Celik, T. Tjahjadi | [Contextual and Variational Contrast Enhancement](https://doi.org/10.1109/TIP.2011.2157513) |
 | 2013 | **Structured Forests / edge detection** | Piotr Dollár, C. Lawrence Zitnick | [Original implementation](https://github.com/pdollar/edges) |
+| 2013 | **AGCWD** | Shih-Chia Huang, Fan-Chieh Cheng, Yi-Sheng Chiu | [Efficient Contrast Enhancement Using Adaptive Gamma Correction With Weighting Distribution](https://doi.org/10.1109/TIP.2012.2226047) |
+| 2014 | **ESIHE** | Kuldeep Singh, Rajiv Kapoor | [Image enhancement using Exposure based Sub Image Histogram Equalization](https://doi.org/10.1016/j.patrec.2013.08.024) · [Implementation licence](web/engine-source/docs/ESIHE-LICENSE.txt) |
 | 2015 · 2018 | **DeepMask** | Pedro O. Pinheiro, Ronan Collobert, Piotr Dollár. PyTorch implementation: Qiang Wang. | [Research and implementation](https://github.com/foolwood/deepmask-pytorch) |
 | 2018 | **ConvCRF** | Marvin T. T. Teichmann, Roberto Cipolla | [Paper](https://arxiv.org/abs/1805.04777) |
 | 2018 · 2020 | **SuperPoint / SuperGlue** | Daniel DeTone, Tomasz Malisiewicz, Andrew Rabinovich; Paul-Edouard Sarlin (SuperGlue) | [SuperPoint](https://arxiv.org/abs/1712.07629) · [SuperGlue](https://github.com/magicleap/SuperGluePretrainedNetwork) |

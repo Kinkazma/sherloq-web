@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {copyTypedArray} from './allocation.js';
 import {ForgeryscopePreparation} from './forgeryscope-preparation.js';
 import {jpegHeader,orientRgb} from './image-headers.js';

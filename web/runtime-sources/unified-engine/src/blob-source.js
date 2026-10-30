@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 // A DOM File may change. Cached identity belongs to captured SHA prefix states;
 // later reads use certified owned buffers, never an assumed immutable File.
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
@@ -14,9 +14,9 @@ export function createBlobSource(blob,{budget,chunkBytes=1024**2}={}){
  const readRaw=async(offset,length)=>{let bytes;try{bytes=await readBlobBytes(blob.slice(offset,offset+length),{label:'original-byte-staging'});}catch(cause){if(!integrity||['MEMORY_LIMIT','MEMORY_ALLOCATION'].includes(cause?.code))throw cause;throw new EngineError('SOURCE_CHANGED','The original source changed or became unreadable during analysis.',{cause});}verification.physicalReadCalls++;verification.physicalReadBytes+=bytes.length;if(bytes.length!==length)throw new EngineError('SOURCE_CHANGED','The original source returned an unexpected end of file.');return bytes;};
  const api={byteLength,chunkBytes,
   blob(){alive();return blob;},integrity(){alive();return integrity;},verificationMetrics(){alive();return{...verification,sha256:digest??null};},
-  async read(offset,length,{signal}={}){alive();range(offset,length);checkAbort(signal);const free=budget.reserve(length);let backing,bytes,work;
+  async read(offset,length,{signal,cooperate}={}){requireValue(cooperate===undefined||typeof cooperate==='function','Invalid source transfer cooperation.');alive();range(offset,length);checkAbort(signal);const free=budget.reserve(length);let backing,bytes,work;
    try{if(!integrity)bytes=await readRaw(offset,length);else{bytes=allocateTypedArray(Uint8Array,length,{label:'verified-original-range'});let verifier;const end=offset+length;
-    for(let index=Math.floor(offset/chunkBytes);length&&index*chunkBytes<end;index++){await controlCheckpoint(signal);alive();const start=index*chunkBytes,n=Math.min(chunkBytes,byteLength-start),key=cachePrefix+index;let block=budget.get?.(key)?.value;
+    for(let index=Math.floor(offset/chunkBytes);length&&index*chunkBytes<end;index++){checkAbort(signal);await (cooperate??controlCheckpoint)(signal);alive();checkAbort(signal);const start=index*chunkBytes,n=Math.min(chunkBytes,byteLength-start),key=cachePrefix+index;let block=budget.get?.(key)?.value;
      if(block){verification.ownedCacheHits++;}else{work??=budget.reserve(Math.min(chunkBytes,byteLength)+1024**2);block=await readRaw(start,n);alive();checkAbort(signal);verifier??=await createSourcePrefixVerifier(integrity);verifier.verifyBlock(index,block);verification.verifiedBlocks++;if(!budget.recovering)budget.put?.(key,{value:block,byteLength:block.length});}
      const a=Math.max(offset,start),b=Math.min(end,start+n);bytes.set(block.subarray(a-start,b-start),a-offset);
     }

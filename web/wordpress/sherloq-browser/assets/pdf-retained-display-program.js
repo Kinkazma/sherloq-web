@@ -1,9 +1,9 @@
-import {SherloqPdfCanvasGraphics as NativeCanvasGraphics,SherloqPdfObjects as NativeObjects,SHERLOQ_PDF_NATIVE_DISPLAY_INTERFACE as nativeBinding} from './pdf-native-library.js';
+import {SherloqPdfCanvasGraphics as NativeCanvasGraphics,SherloqPdfObjects as NativeObjects,SHERLOQ_PDF_NATIVE_DISPLAY_INTERFACE as nativeBinding} from './pdf-native-library.js?v=0.30.0';
 // Retained display program, pinned to the vendored PDF.js implementation.
 // Native Canvas/decoder heap
 // is not claimed to be completely measurable by the JS cache accounting.
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {createAccountedNativeCanvasFactory,nativeCanvasBytes} from './pdf-retained-display-factory.js';
+import {createAccountedNativeCanvasFactory,nativeCanvasBytes} from './pdf-retained-display-factory.js?v=0.30.0';
 const locks=new WeakMap();
 const cancelled=()=>Object.assign(new Error('Retained PDF program is closed or cancelled.'),{code:'CANCELLED'});
 const check=signal=>{if(signal?.aborted)throw signal.reason??cancelled();};

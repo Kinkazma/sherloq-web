@@ -295,6 +295,11 @@ class QualifiedRuntimeOverlay:
         return source
 
 def qualified_runtime_overlay(root):
+    if (Path(root) / 'runtime-patches/current-snapshot.json').is_file():
+        spec = importlib.util.spec_from_file_location('runtime_snapshot', Path(__file__).with_name('runtime-snapshot.py'))
+        snapshot = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(snapshot)
+        return snapshot.RuntimeSnapshot(root)
     return QualifiedRuntimeOverlay(root)
 
 def adapted_runtime(relative, data, lookup, version):

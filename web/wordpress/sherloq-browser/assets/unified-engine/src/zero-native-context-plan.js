@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {planAdmittedNativeContexts} from './admitted-native-context-cover.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';

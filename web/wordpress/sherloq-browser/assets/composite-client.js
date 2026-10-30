@@ -1,15 +1,15 @@
 import {compositeSourceDomain} from './unified-engine/src/composite-regional-source.js';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
-import {localFeaturePolicy} from './feature-policy.js';
+import {localFeaturePolicy} from './feature-policy.js?v=0.30.0';
 import {createM2WorkerClient} from './unified-engine/src/m2-worker-client.js';
-import {createRemoteSurface} from './remote-surface.js';
+import {createRemoteSurface} from './remote-surface.js?v=0.30.0';
 export const COMPOSITE_POLICY='covariance-floor-v1';
 export const COMPOSITE_SOURCE_SHA='d3f5386ec00efb11cb27d1a7be1b78b6a35b1399341f95f76f9bd5bcd7250899';
 const MiB=1024**2;
 async function json(url){const response=await fetch(url);if(!response.ok)throw Error('Composite: '+response.status+' '+url.pathname);return response.json();}
 export async function compositeConfiguration(){
- const url=new URL('./composite-config.json',import.meta.url),deployment=await json(url);
+ const url=new URL('./composite-config.json?v=0.30.0',import.meta.url),deployment=await json(url);
  if(deployment.schema!==1||deployment.statisticsPolicy!==COMPOSITE_POLICY)throw Error('Composite deployment policy mismatch');
  const base=new URL(deployment.assetsBase,url),runtime=new URL(deployment.runtimeBase,url);
  const descriptorUrl=new URL('statistics-runtime.json',base),statisticsRuntime=await json(descriptorUrl);

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createSourceRegionView} from './source-region-view.js';
 import {planEfficientLoFtrLiteralContexts} from './efficient-loftr-literal-contexts.js';
 import {verifyEfficientLoFtrRoleGeometry,resolveEfficientLoFtrRoleCrops} from './efficient-loftr-role-geometry.js';

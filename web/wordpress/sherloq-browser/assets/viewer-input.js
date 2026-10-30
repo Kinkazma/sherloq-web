@@ -46,6 +46,11 @@ export function bindViewerNavigation(view,{enabled,panBy,zoomBy,getMode=()=> 'au
  view.addEventListener('pointerup',end);view.addEventListener('pointercancel',end);view.addEventListener('lostpointercapture',end);
 }
 
+export function viewerCameraIsFitted(camera,image,viewport){
+ const fit=Math.min(viewport.width/image.width,viewport.height/image.height)*.95;
+ return Math.abs(camera.scale-fit)<=Math.max(1e-7,fit*1e-4)&&Math.abs(camera.x-(viewport.width-image.width*fit)/2)<1&&Math.abs(camera.y-(viewport.height-image.height*fit)/2)<1;
+}
+
 // Double-click follows the current framing, not an alternating remembered state.
 export function doubleClickCamera(camera,image,viewport,point){
  const fit=Math.min(viewport.width/image.width,viewport.height/image.height)*.95;

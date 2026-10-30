@@ -50,6 +50,25 @@ if args.variant=='simd':
         first=text.index(begin);last=text.index(end,first)+len(end)
         text=text[:first]+'            dense_zernike_convolve_simd(image,descSize.width,descSize.height,sp,convFilter[n],weights[n],features,n);'+text[last:]
     zernike.write_text(text)
+    # Only the build copy changes. Keep the pinned author snapshot pristine.
+    # SIMD lanes are independent descriptors, never a reduction across K.
+    dsift=src/'dsift_gpu.c'
+    text=dsift.read_text()
+    include='#include "src/vlfeat/vl/dsift.c"'
+    assert text.count(include)==1, 'Pinned dense SIFT include changed'
+    text=text.replace(include,include+'\n#include "dense-sift-norm-simd.h"')
+    for name,factors in (('normalize_range','NULL'),('norm_factors_range','factors')):
+        marker='static void '+name+'('
+        assert text.count(marker)==1, 'Pinned SIFT normalization structure changed'
+        first=text.index(marker);opening=text.index('{',first);depth=0;last=None
+        for index in range(opening,len(text)):
+            if text[index]=='{':depth+=1
+            elif text[index]=='}':
+                depth-=1
+                if depth==0:last=index+1;break
+        assert last is not None, 'Pinned SIFT normalization body changed'
+        text=text[:opening]+'{dense_norm4_range(descriptors,count,'+factors+');}'+text[last:]
+    dsift.write_text(text)
 compiler = Path(os.environ['EMSDK']) / 'upstream/emscripten'
 assert '4.0.15' in subprocess.check_output([str(compiler/'emcc'), '--version'], text=True).splitlines()[0]
 flags = ['-O3', '-ffp-contract=off', '-fexceptions', '-DVL_DISABLE_THREADS', '-DVL_DISABLE_AVX', '-DVL_DISABLE_SSE2', '-I'+str(src/'src/vlfeat'), '-I'+str(ROOT/'native'), '-ffile-prefix-map='+str(ROOT)+'/=']
@@ -78,7 +97,7 @@ for i, source in enumerate(files):
     else:
         subprocess.run([str(compiler/('emcc' if source.suffix=='.c' else 'em++')), '-std=c99' if source.suffix=='.c' else '-std=c++14', *flags, '-c', str(source), '-o', str(obj)], check=True)
     objects.append(str(obj))
-functions = ['dense_resident_zernike','dense_resident_unpack','dense_resident_field','dense_resident_release','dense_compact_prepare','dense_compact_unpack','dense_compact_field','dense_compact_release','malloc','free','sherloq_dense_features','sherloq_patchmatch_metric','sherloq_patchmatch_bounded','sherloq_dense_area_filter','sherloq_dense_coherence']
+functions = ['dense_resident_zernike','dense_resident_unpack','dense_resident_gather','dense_resident_field','dense_resident_release','dense_compact_prepare','dense_compact_unpack','dense_compact_gather','dense_compact_filter_mask','dense_compact_field','dense_compact_release','malloc','free','sherloq_dense_features','sherloq_patchmatch_metric','sherloq_patchmatch_bounded','sherloq_dense_area_filter','sherloq_dense_coherence']
 subprocess.run([str(compiler/'em++'), *objects, *flags, '-sMODULARIZE=1', '-sEXPORT_ES6=1', '-sENVIRONMENT=web,worker,node', '-sFILESYSTEM=0', '-sINITIAL_MEMORY=33554432', '-sMAXIMUM_MEMORY=2147483648', '-sSTACK_SIZE=1048576', '-sALLOW_MEMORY_GROWTH=1', '-sABORTING_MALLOC=0', '-sMEMORY_GROWTH_LINEAR_STEP=16777216', '-sDISABLE_EXCEPTION_CATCHING=0', '-sEXPORTED_RUNTIME_METHODS='+json.dumps(['HEAPU8','HEAPF32','HEAP32','HEAPU32','UTF8ToString']), '-sEXPORTED_FUNCTIONS='+json.dumps(['_'+f for f in functions]), '-o', str(OUT/(args.name+'.js'))], check=True)
 if args.variant=='simd':
     wat=BUILD/'dense.wat'

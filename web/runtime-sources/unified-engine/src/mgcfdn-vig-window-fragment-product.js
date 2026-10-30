@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{nativeInsufficientSupport}from'./native-insufficient-support-result.js';
 import{scientificJsonBound}from'./scientific-json.js';
 import {createVigWindowFragmentRun} from './mgcfdn-vig-window-fragment-run.js';

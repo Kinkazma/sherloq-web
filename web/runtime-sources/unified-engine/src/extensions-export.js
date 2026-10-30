@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.21.0";
+import "../../runtime-context.js?v=0.30.0";
 import {streamScientificNpz} from './scientific-npz-stream.js';
 import {requireValue} from './errors.js';
 export function streamExtensionsNpz(analysis,provenance,request,hooks){

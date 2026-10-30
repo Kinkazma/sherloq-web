@@ -1,5 +1,5 @@
 // CM2 ALIKED: Native Kornia CPU RGB/255, separable Gaussian antialias and
-// PyTorch NCHW bilinear resize (align_corners=False), longest side 1024.
+// PyTorch NCHW bilinear resize (align_corners=False), explicit longest side1024or2048.
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
@@ -13,7 +13,7 @@ static std::vector<float> gaussian(double sigma){
  for(float&v:out)v/=sum;return out;
 }
 extern "C" int learned_prepare(const uint8_t* rgb,int iw,int ih,int ow,int oh,float* output){
- if(!rgb||!output||iw<1||ih<1||ow<1||oh<1||iw>16384||ih>16384||ow>1024||oh>1024)return 0;
+ if(!rgb||!output||iw<1||ih<1||ow<1||oh<1||iw>16384||ih>16384||ow>2048||oh>2048)return 0;
  try{
  const int n=iw*ih,on=ow*oh;std::vector<float> input(n*3);for(int c=0;c<3;c++)for(int i=0;i<n;i++)input[c*n+i]=float(rgb[i*3+c])/255.f;
  if(iw>ow||ih>oh){
@@ -31,14 +31,15 @@ extern "C" int learned_prepare(const uint8_t* rgb,int iw,int ih,int ow,int oh,fl
  }return 1;
  }catch(const std::bad_alloc&){return -2;}catch(...){return 0;}
 }
-extern "C" int aliked_select(const float* scores,const float* nms,const uint8_t* mask,int w,int h,float mean,int* output){
- if(!scores||!nms||!output||w<1||h<1)return -1;
+extern "C" int aliked_select_threshold(const float* scores,const float* nms,const uint8_t* mask,int w,int h,float mean,float detectionThreshold,int* output){
+ if(!scores||!nms||!output||w<1||h<1||!(detectionThreshold==.2f||detectionThreshold==.05f))return -1;
  if(w<5||h<5)return 0;
- try{bool threshold=false;for(int y=2;y<h-2;y++)for(int x=2;x<w-2;x++)if(nms[y*w+x]>.2f)threshold=true;
- std::vector<int> ids;for(int y=2;y<h-2;y++)for(int x=2;x<w-2;x++){int i=y*w+x;if(nms[i]>(threshold?.2f:mean)&&(!mask||mask[i]))ids.push_back(i);}
+ try{bool threshold=false;for(int y=2;y<h-2;y++)for(int x=2;x<w-2;x++)if(nms[y*w+x]>detectionThreshold)threshold=true;
+ std::vector<int> ids;for(int y=2;y<h-2;y++)for(int x=2;x<w-2;x++){int i=y*w+x;if(nms[i]>(threshold?detectionThreshold:mean)&&(!mask||mask[i]))ids.push_back(i);}
  if(ids.size()>20000){std::sort(ids.begin(),ids.end(),[&](int a,int b){return scores[a]>scores[b];});ids.resize(20000);}std::copy(ids.begin(),ids.end(),output);return ids.size();
  }catch(const std::bad_alloc&){return -2;}catch(...){return -1;}
 }
+extern "C" int aliked_select(const float* scores,const float* nms,const uint8_t* mask,int w,int h,float mean,int* output){return aliked_select_threshold(scores,nms,mask,w,h,mean,.2f,output);}
 // Evaluate exactly the same separable filter only at columns consumed by the
 // native bilinear resize. Global reflected coordinates are supplied by the row
 // owner; no independent-tile filtering or alteration of the Gaussian support.

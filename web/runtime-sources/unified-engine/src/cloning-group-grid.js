@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {checkAbort,controlCheckpoint} from './errors.js';
 // A candidate index over BOTH endpoints. Every accepted native group predicate
 // requires one endpoint near the query. Candidates are sorted back to original

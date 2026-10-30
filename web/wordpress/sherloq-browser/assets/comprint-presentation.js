@@ -1,4 +1,4 @@
-import {responseColor,responseBlend} from './response-presentation.js';
+import {responseColor,responseBlend} from './response-presentation.js?v=0.30.0';
 
 export const DEFAULT_COMPRINT_OPACITY=1;
 export const DEFAULT_COMPRINT_THRESHOLD=0;

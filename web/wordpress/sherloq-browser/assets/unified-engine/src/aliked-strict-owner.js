@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort} from './errors.js';
 /** Synchronous published owner; every resource remains reachable until its real
  * ACK. Disposal waits active construction/consumers, then attempts every owner.

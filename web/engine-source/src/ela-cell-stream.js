@@ -6,20 +6,21 @@ const HEAP_BYTES=64*1024**2;
 
 // Feed consecutive decoded RGB bands into the existing native descriptor. Its
 // complete cell rows see the same eight-pixel halo and global arithmetic origin.
-export async function createElaCellRows(width,height,block,{budget,signal,onProgress,wasmBinary}={}){
- const cols=Math.floor(width/block),rows=Math.floor(height/block),cells=rows*cols;
+export async function createElaCellRows(width,height,block,{budget,signal,onProgress,wasmBinary,gridOffset=[0,0],nativeKernel='auto'}={}){
+ const [gridX,gridY]=gridOffset;requireValue(gridOffset.length===2&&gridOffset.every(v=>Number.isInteger(v)&&v>=0&&v<block),'Native cell-grid offset required.');
+ const cols=Math.floor((width-gridX)/block),rows=Math.floor((height-gridY)/block),cells=rows*cols;
  requireValue(Number.isInteger(width)&&width>0&&Number.isInteger(height)&&height>0&&Number.isSafeInteger(width*height)&&Number.isInteger(block)&&block>=16&&block%8===0&&cells>0&&cells<=16384,'Native ELA cell dimensions required.');
  const haloRows=Math.min(height,block+16),stripePixels=width*haloRows,windowed=stripePixels*192+block*block*256+8*1024**2>HEAP_BYTES;
  const windowCells=windowed?Math.floor(((HEAP_BYTES-block*block*256-8*1024**2)/(192*haloRows)-16)/block):cols,windowWidth=windowed?Math.min(width,windowCells*block+16):width;
  if(windowCells<1)throw new EngineError('MEMORY_LIMIT','ELA descriptor halo exceeds its current WASM limit; no resizing performed.');
  checkAbort(signal);const scheduler=budget.beginOperation?getExecutionScheduler(budget):null;let heapBacking,resultBacking,ringBacking;let heapRelease,resultRelease,ringRelease,originalRing,decodedRing,m,result;const pointers=[];
- let closed=false,busy=false,received=0,completed=0,lo=0,hi=Math.min(height,block+8);
+ let closed=false,busy=false,received=0,completed=0,lo=Math.max(0,gridY-8),hi=Math.min(height,gridY+block+8);
  function close(keepResult=false){if(closed)return;closed=true;if(m)for(const p of pointers)m._free(p);m=null;originalRing=decodedRing=null;ringRelease?.();ringBacking?.();heapRelease?.();const retired=heapBacking?.();if(retired)budget.notifyBackingRelease?.('wasm',retired);if(!keepResult)resultRelease?.();}
  try{
   heapRelease=budget.reserve(HEAP_BYTES);if(windowed){ringRelease=budget.reserve(stripePixels*6);originalRing=allocateTypedArray(Uint8Array,stripePixels*3,{label:'ela-native-buffer'});decodedRing=allocateTypedArray(Uint8Array,stripePixels*3,{label:'ela-native-buffer'});ringBacking=registerArrayViews(budget,{originalRing,decodedRing},{owner:'ela',label:'ela-cell-rings'});}const lease=budget.reserve(cells*57);resultRelease=()=>{resultBacking?.();lease();};
   result={rows,cols,block,content:allocateTypedArray(Float32Array,cells*6,{label:'ela-native-buffer'}),profiles:allocateTypedArray(Float32Array,cells*5,{label:'ela-native-buffer'}),background:allocateTypedArray(Float32Array,cells*3,{label:'ela-native-buffer'}),usable:allocateTypedArray(Uint8Array,cells,{label:'ela-native-buffer'}),release:()=>resultRelease()};
   resultBacking=registerArrayViews(budget,result,{owner:'ela',label:'ela-cell-plane'});
-  const {default:create}=await import('../vendor/ela-describe/describe.js');m=await create(wasmBinary?{wasmBinary}:{});heapBacking=budget.registerBacking?.('wasm',m.HEAPU8.byteLength,{owner:'ela',label:'ela-cell-heap'});checkAbort(signal);
+  const {default:create}=await import('../vendor/ela-describe-fast/describe.js');m=await create({...wasmBinary?{wasmBinary}:{},nativeCandidate:nativeKernel==='candidate',nativeReference:nativeKernel==='reference'});heapBacking=budget.registerBacking?.('wasm',m.HEAPU8.byteLength,{owner:'ela',label:'ela-cell-heap'});checkAbort(signal);
   for(const bytes of [windowWidth*haloRows*3,windowWidth*haloRows*3,cols*24,cols*20,cols,cols*12]){const pointer=m._malloc(bytes);if(!pointer)throw new EngineError('MEMORY_ALLOCATION','ELA descriptor allocation failed.',{details:{allocationKind:'wasm',requestedBytes:bytes,currentBytes:m.HEAPU8.byteLength}});pointers.push(pointer);}
  }catch(error){close();throw error;}
  const [pa,pb,pc,pp,pu,pg]=pointers,rowBytes=width*3,cooperate=createCooperator(signal);
@@ -31,16 +32,17 @@ export async function createElaCellRows(width,height,block,{budget,signal,onProg
    let consumed=0;
    while(consumed<count){
     if(completed===rows){received+=count-consumed;break;}
+    if(received<lo){const skip=Math.min(count-consumed,lo-received);received+=skip;consumed+=skip;continue;}
     const take=Math.min(count-consumed,hi-received),start=consumed*rowBytes,end=(consumed+take)*rowBytes,offset=(received-lo)*rowBytes;
     if(windowed){originalRing.set(original.subarray(start,end),offset);decodedRing.set(decoded.subarray(start,end),offset);}else{m.HEAPU8.set(original.subarray(start,end),pa+offset);m.HEAPU8.set(decoded.subarray(start,end),pb+offset);}consumed+=take;received+=take;
     if(received===hi){
-     await controlCheckpoint(signal);const y=completed*block;
+     await cooperate();const y=gridY+completed*block;
      for(let first=0;first<cols;first+=windowCells){
-      const count=Math.min(windowCells,cols-first),x=Math.max(0,first*block-8),right=Math.min(width,(first+count)*block+8),localWidth=right-x;
+      const count=Math.min(windowCells,cols-first),x=Math.max(0,gridX+first*block-8),right=Math.min(width,gridX+(first+count)*block+8),localWidth=right-x;
       let ok;const compute=()=>{if(windowed){
        for(let row=0;row<hi-lo;row++){const from=row*rowBytes+x*3,to=from+localWidth*3;m.HEAPU8.set(originalRing.subarray(from,to),pa+row*localWidth*3);m.HEAPU8.set(decodedRing.subarray(from,to),pb+row*localWidth*3);}
-       ok=m._ela_describe_window(pa,pb,localWidth,hi-lo,y-lo,block,height,lo,width,x,first*block-x,count,pc,pp,pu,pg);
-      }else ok=m._ela_describe_unlogged(pa,pb,width,hi-lo,y-lo,block,height,lo,pc,pp,pu,pg);};if(scheduler)await scheduler.run({cpu:1,signal,resourceOwner:'ela',label:'ela-cell-describe'},compute);else compute();
+       ok=m._ela_describe_window(pa,pb,localWidth,hi-lo,y-lo,block,height,lo,width,x,gridX+first*block-x,count,pc,pp,pu,pg);
+      }else ok=gridX?m._ela_describe_window(pa,pb,width,hi-lo,y-lo,block,height,lo,width,0,gridX,cols,pc,pp,pu,pg):m._ela_describe_unlogged(pa,pb,width,hi-lo,y-lo,block,height,lo,pc,pp,pu,pg);};if(scheduler)await scheduler.run({cpu:1,signal,resourceOwner:'ela',label:'ela-cell-describe'},compute);else compute();
       if(!ok)throw new EngineError('COMPUTE_FAILED','ELA cell descriptor failed.');
       const cell=completed*cols+first;
       result.content.set(m.HEAPF32.subarray(pc/4,pc/4+count*6),cell*6);
@@ -50,7 +52,7 @@ export async function createElaCellRows(width,height,block,{budget,signal,onProg
       result.usable.set(m.HEAPU8.subarray(pu,pu+count),cell);await cooperate();
      }
      completed++;onProgress?.(completed/rows);checkAbort(signal);
-     if(completed<rows){const nextLo=Math.max(0,completed*block-8),drop=(nextLo-lo)*rowBytes,used=(received-lo)*rowBytes;if(windowed){originalRing.copyWithin(0,drop,used);decodedRing.copyWithin(0,drop,used);}else{m.HEAPU8.copyWithin(pa,pa+drop,pa+used);m.HEAPU8.copyWithin(pb,pb+drop,pb+used);}lo=nextLo;hi=Math.min(height,(completed+1)*block+8);}
+     if(completed<rows){const nextLo=Math.max(0,gridY+completed*block-8),drop=(nextLo-lo)*rowBytes,used=(received-lo)*rowBytes;if(windowed){originalRing.copyWithin(0,drop,used);decodedRing.copyWithin(0,drop,used);}else{m.HEAPU8.copyWithin(pa,pa+drop,pa+used);m.HEAPU8.copyWithin(pb,pb+drop,pb+used);}lo=nextLo;hi=Math.min(height,gridY+(completed+1)*block+8);}
     }
    }
   });},
@@ -59,10 +61,10 @@ export async function createElaCellRows(width,height,block,{budget,signal,onProg
  };
 }
 
-export async function segmentedElaCellPlane(image,quality,block,{budget,signal,onProgress}={}){
+export async function segmentedElaCellPlane(image,quality,block,{budget,signal,onProgress,gridOffset,nativeKernel='auto'}={}){
  const {width,height}=image.surface.descriptor;let reader,result;
  try{
-  reader=await createElaCellRows(width,height,block,{budget,signal,onProgress:f=>onProgress?.({phase:'ela-cell-describe',fraction:f})});
+  reader=await createElaCellRows(width,height,block,{budget,signal,gridOffset,nativeKernel,onProgress:f=>onProgress?.({phase:'ela-cell-describe',fraction:f})});
   image.rgbRecompression??=createRgbRecompression(image,budget);
   const metrics=await image.rgbRecompression.visit(quality,{signal,onProgress,onBand:(a,b,position)=>reader.push(a,b,position)});
   result=await reader.finish();checkAbort(signal);

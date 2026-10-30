@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {validateRgbRows} from './rgb-row-source.js';
 import {checkAbort,controlCheckpoint} from './errors.js';
 // One global native-size gray image. Moments are reduced across every pixel,

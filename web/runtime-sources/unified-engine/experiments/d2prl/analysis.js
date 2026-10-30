@@ -1,3 +1,4 @@
+import {d2prlSpatialConfig} from './input-side.js';
 import {createD2prlResultOwnership} from './result-ownership.js';
 import {noisesnifferOwnerRetirement as retirement} from '../../src/noisesniffer-owner-retirement.js';
 import {scientificJsonBound} from '../../src/scientific-json.js';
@@ -5,14 +6,15 @@ import {retainD2prlCheckpoint} from './checkpoint.js';
 // Experimental zone/session controller. The injected infer() must be the real
 // qualified model pipeline; this controller never invents neural scores.
 import {requireValue, checkAbort, controlCheckpoint, EngineError} from '../../src/errors.js';
-const SIDE = 448, RAW_BYTES = 3 * SIDE * SIDE * 4;
+
 let sequence = 0;
 async function retireOwners(callbacks,failure){
  for(const callback of callbacks)try{await callback();}catch(error){if(failure===undefined)failure=error;else if(failure&&typeof failure==='object')try{failure.details={...failure.details,cleanupFailures:[...(failure.details?.cleanupFailures??[]),{code:error?.code??'CLEANUP_FAILED',message:String(error?.message??error)}]};}catch{}}
  return failure;
 }
-export function createD2prlAnalysis({budget, infer, project, modelId, releaseInferenceCheckpoint=()=>{}}) {
+export function createD2prlAnalysis({inputSide=448,budget, infer, project, modelId, releaseInferenceCheckpoint=()=>{}}) {
   requireValue(budget && typeof infer === 'function' && typeof project?.run === 'function' && typeof modelId === 'string' && modelId.length > 0, 'Model, projector and shared budget required');
+  const spatial=d2prlSpatialConfig(inputSide),SIDE=spatial.inputSide,RAW_BYTES=3*SIDE*SIDE*4;
   const prefix = 'd2prl-session-' + (++sequence) + ':';
   let revision = 0, current, tail = Promise.resolve(), disposed = false, last, lastMetadataRelease, retained, checkpoint, disposal;
   const ownership=createD2prlResultOwnership({budget,rawBytes:RAW_BYTES});
@@ -45,7 +47,7 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
     const result = await project.run({width: context.width, height: context.height, layout: context.layout, mode: context.mode, minimum, exclusions, zones: context.zones.map((zone, i) => ({...zone, raw: values[i].raw}))}, {signal: job.signal,checkpointKey:job.checkpointKey,resourceOperation:job.resourceOperation, onProgress: event => job.progress({...event, stage: 'projection'})});
     let raw,record;try {
       job.check(); const resultId = prefix + job.revision, analysisId = context.analysisId ?? resultId;
-      result.metadata = {...result.metadata,...(context.scientificScope?{scientificScope:structuredClone(context.scientificScope)}:{}), modelId, backend: context.backend, pixelSha256: context.pixelSha256, resultId, analysisId, revision: job.revision, sourceProvenance: context.provenance, vote_policy: 'one-model-union', inference_performed: counts.inferences > 0, inferences: counts.inferences, cache_hits: counts.cacheHits, zones: result.metadata.zones.map((zone, i) => ({...zone, kind: context.zones[i].kind, decision: structuredClone(values[i].decision), execution: structuredClone(values[i].execution)}))};
+      result.metadata = {...result.metadata,...(context.scientificScope?{scientificScope:structuredClone(context.scientificScope)}:{}), modelId,inputSide:SIDE,modelSpatial:spatial, backend: context.backend, pixelSha256: context.pixelSha256, resultId, analysisId, revision: job.revision, sourceProvenance: context.provenance, vote_policy: 'one-model-union', inference_performed: counts.inferences > 0, inferences: counts.inferences, cache_hits: counts.cacheHits, zones: result.metadata.zones.map((zone, i) => ({...zone, kind: context.zones[i].kind, decision: structuredClone(values[i].decision), execution: structuredClone(values[i].execution)}))};
       const snapshot={...context,resultId,analysisId,exclusions:exclusions.map(r=>[...r]),resultMetadata:structuredClone(result.metadata)};
       raw=ownership.bank(analysisId,values,funding);const dispose=result.dispose??result.release;
       record=ownership.register({resultId,context:snapshot,metadata:result.metadata,raw,dispose:()=>dispose.call(result)});raw=null;
@@ -69,14 +71,14 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
         try {
           await clearRetained();last=null;lastMetadataRelease?.();lastMetadataRelease=null;
           let source;if(segmented)context.pixelSha256=await inputSource.sha256({signal:job.signal,onProgress:job.progress});else{sourceRelease=budget.reserve(pixels.data.byteLength*3);source=pixels.data.slice();const digest=await crypto.subtle.digest('SHA-256',source);context.pixelSha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');}job.check();
-          const identity=JSON.stringify([options?.checkpointKey,modelId,backend,context.pixelSha256,context.width,context.height,context.zones,...(scientificScope?[scientificScope.metadata.fingerprint,context.zones.map(z=>scientificScope.grids.get(z.id)?.identity)]:[])]);
+          const identity=JSON.stringify([options?.checkpointKey,modelId,SIDE,backend,context.pixelSha256,context.width,context.height,context.zones,...(scientificScope?[scientificScope.metadata.fingerprint,context.zones.map(z=>scientificScope.grids.get(z.id)?.identity)]:[])]);
           if(checkpoint&&checkpoint.identity!==identity)await clearCheckpoint();
           checkpoint??={key:options?.checkpointKey,identity,pinned:[],inserted:[],values:[],inferenceKeys:new Set()};
           ({pinned,inserted,values}=checkpoint);
           let inferences = 0, cacheHits = 0;
           for (let i = 0; i < context.zones.length; i++) {
             job.check(); const zone = context.zones[i], [x0, y0, x1, y1] = zone.bounds, width = x1 - x0, height = y1 - y0;
-            zone.cacheKey = prefix + JSON.stringify([modelId, backend, context.pixelSha256, context.width, context.height, zone.bounds,...(scientificScope?[scientificScope.grids.get(zone.id)?.identity]:[])]);
+            zone.cacheKey = prefix + JSON.stringify([modelId,SIDE, backend, context.pixelSha256, context.width, context.height, zone.bounds,...(scientificScope?[scientificScope.grids.get(zone.id)?.identity]:[])]);
             let value=values[i]??budget.get(zone.cacheKey);
             if(value){if(!values[i])pinned.push(budget.reserve(RAW_BYTES));cacheHits++;}
             else {
@@ -124,7 +126,7 @@ export function createD2prlAnalysis({budget, infer, project, modelId, releaseInf
       const values = saved?.raw.value??retainedValues(context)??context.zones.map(zone=>budget.get(zone.cacheKey));
       if(values.some(value=>!value))throw new EngineError('CACHE_MISS','Native grids were evicted; explicit analysis is required');
       const release=budget.reserve(RAW_BYTES*values.length*2);
-      try{return{width:context.width,height:context.height,rawGrids:values.map((value,i)=>({id:context.zones[i].id,kind:context.zones[i].kind,bounds:[...context.zones[i].bounds],raw:value.raw.slice()})),metadata:{...structuredClone(saved?.metadata??context.resultMetadata),raw_shape:[3,SIDE,SIDE],raw_planes:['union-probability','target-residual','source-residual'],raw_filter_applied:false},...(saved?.provenance?{resultProvenance:structuredClone(saved.provenance)}:{}),release};}
+      try{return{width:context.width,height:context.height,rawGrids:values.map((value,i)=>({id:context.zones[i].id,kind:context.zones[i].kind,bounds:[...context.zones[i].bounds],inputSide:SIDE,raw:value.raw.slice()})),metadata:{...structuredClone(saved?.metadata??context.resultMetadata),raw_shape:[3,SIDE,SIDE],raw_planes:['union-probability','target-residual','source-residual'],raw_filter_applied:false},...(saved?.provenance?{resultProvenance:structuredClone(saved.provenance)}:{}),release};}
       catch(error){release();throw error;}
     },
     async releaseCheckpoint(key){requireValue(!current,'D2PRL analysis busy');if(key===undefined||checkpoint?.key===key)await clearCheckpoint();},

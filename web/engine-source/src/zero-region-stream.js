@@ -1,3 +1,4 @@
+import {tryNativeZeroRegions} from './zero-region-native.js';
 import {allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {createBytePager} from './byte-pager.js';
@@ -5,7 +6,7 @@ import {createSegmentedBytes} from './segmented-bytes.js';
 const MiB=1024**2,PAGE=65536;
 // Components are global. Seed traversal order can change their discovery order,
 // but never their membership; restore native x-major order by each minimum seed.
-export async function segmentedZeroRegions(votes,width,height,{budget,signal,onProgress,gridToExclude=-1,gridMax=63,excludeVotes,excludeGrid,storage='auto',temporarySession,getTemporarySession}={}){
+async function segmentedZeroRegionsPaged(votes,width,height,{budget,signal,onProgress,gridToExclude=-1,gridMax=63,excludeVotes,excludeGrid,storage='auto',temporarySession,getTemporarySession}={}){
  const n=width*height;requireValue(Number.isInteger(width)&&Number.isInteger(height)&&width>=16&&height>=16&&width<=65500&&height<=65500&&n<2**31&&votes?.byteLength===n,'Invalid ZERO region dimensions.');requireValue(Number.isInteger(gridToExclude)&&gridToExclude>=-1&&gridToExclude<64&&Number.isInteger(gridMax)&&gridMax>=0&&gridMax<64&&(!excludeVotes||excludeVotes.byteLength===n&&Number.isInteger(excludeGrid)&&excludeGrid>=0&&excludeGrid<64),'Invalid ZERO region grid selection.');
  const bandRows=Math.min(height,82),samples=width*bandRows,heapMaximumBytes=Math.ceil((8*MiB+3*samples)/(16*MiB))*16*MiB,workingBytes=heapMaximumBytes+8*MiB+2*samples+9*MiB;
  let reservation,m;const stores=[],pagers=[],pointers=[],regionReleases=[];let succeeded=false;
@@ -55,3 +56,5 @@ export async function segmentedZeroRegions(votes,width,height,{budget,signal,onP
   if(!succeeded){for(const release of regionReleases)release();await Promise.allSettled(stores.map(store=>store.dispose()));}
  }
 }
+
+export async function segmentedZeroRegions(votes,w,h,options={}){return await tryNativeZeroRegions(votes,w,h,options)??segmentedZeroRegionsPaged(votes,w,h,options);}

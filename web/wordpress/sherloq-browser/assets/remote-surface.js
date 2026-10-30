@@ -33,23 +33,28 @@ export function displayViewport(width,height,{left,top,right,bottom},scale=1,max
 export function createRemoteSurface(display,cache,request,changed,onError=()=>{}){
  const {width,height}=display,prefix='remote-'+(++serial)+':',key=prefix+'frame',children=new Set();
  const previewStep=Number.isSafeInteger(display.previewStep)&&display.previewStep>1?display.previewStep:1;
- let closed=false,pending=null,wanted=null,frame=null,failed=null;
+ let closed=false,pending=null,wanted=null,frame=null,failed=null,readEpoch=0,suspended=false;const suspendedChildren=new Map();
  const identity=t=>t?[t.x,t.y,t.w,t.h,t.step].join(':'):'';
  function available(tile){const canvas=frame&&cache.get(key);return canvas&&frame.step===tile.step&&frame.x<=tile.x&&frame.y<=tile.y&&frame.x+frame.w>=tile.x+tile.w&&frame.y+frame.h>=tile.y+tile.h?canvas:null;}
  function pump(){
-  if(closed||pending||!wanted||available(wanted)||failed===identity(wanted))return;
-  const tile=wanted,id=identity(tile);pending=id;
-  Promise.resolve().then(()=>request('read-display',{display,tile})).then(({pixels})=>{
-   if(closed||identity(wanted)!==id)return;
+  if(closed||suspended||pending||!wanted||available(wanted)||failed===identity(wanted))return;
+  const tile=wanted,id=identity(tile),epoch=readEpoch,isCurrent=()=>!closed&&!suspended&&readEpoch===epoch&&identity(wanted)===id;pending=id;
+  Promise.resolve().then(()=>request('read-display',{display,tile},{isCurrent})).then(({pixels})=>{
+   if(!isCurrent())return;
    if(pixels.width!==Math.ceil(tile.w/tile.step)||pixels.height!==Math.ceil(tile.h/tile.step)||pixels.data.length!==pixels.width*pixels.height*3)throw Error('Invalid display frame.');
    const canvas=document.createElement('canvas');canvas.width=pixels.width;canvas.height=pixels.height;
    const context=canvas.getContext('2d'),image=context.createImageData(pixels.width,pixels.height);
    for(let a=0,b=0;a<pixels.data.length;a+=3,b+=4){image.data[b]=pixels.data[a];image.data[b+1]=pixels.data[a+1];image.data[b+2]=pixels.data[a+2];image.data[b+3]=255;}
    context.putImageData(image,0,0);cache.put(key,canvas,()=>{if(closed)return;frame=null;failed=null;changed();});frame=tile;failed=null;changed();
-  }).catch(error=>{if(!closed&&identity(wanted)===id){failed=id;onError(error);}}).finally(()=>{pending=null;pump();});
+  }).catch(error=>{if(isCurrent()){failed=id;onError(error);}}).finally(()=>{pending=null;pump();});
  }
  const surface={width,height,byteLength:0,display,
-  fork(onChange=changed){const child=createRemoteSurface(display,cache,request,onChange,onError);children.add(child);const close=child.close;child.close=()=>{children.delete(child);close();};return child;},
+  fork(onChange=changed){const child=createRemoteSurface(display,cache,request,onChange,onError);children.add(child);if(suspended)suspendedChildren.set(child,child.suspendDisplayReads());const close=child.close;child.close=()=>{children.delete(child);suspendedChildren.get(child)?.discard();suspendedChildren.delete(child);close();};return child;},
+  // Invalidate only display work. Existing pixels and native export routes survive.
+  suspendDisplayReads(){
+   suspended=true;const epoch=++readEpoch;for(const ticket of suspendedChildren.values())ticket.discard();suspendedChildren.clear();for(const child of children)suspendedChildren.set(child,child.suspendDisplayReads());let active=true;
+   return{resume(){if(!active)return;active=false;if(closed||epoch!==readEpoch)return;suspended=false;for(const ticket of suspendedChildren.values())ticket.resume();suspendedChildren.clear();changed();pump();},discard(){if(!active)return;active=false;if(epoch!==readEpoch)return;for(const ticket of suspendedChildren.values())ticket.discard();suspendedChildren.clear();}};
+  },
   async readPixels(rect){return (await request('read-window',{display,rect})).pixels;},
   async readDisplayPixels({x,y,width:w,height:h}){return (await request('read-display',{display,tile:{x,y,w,h,step:1}})).pixels;},
   freeze(){
@@ -66,7 +71,7 @@ export function createRemoteSurface(display,cache,request,changed,onError=()=>{}
   draw(ctx,bounds,scale){surface.prepare(bounds,scale);const canvas=frame&&cache.get(key);if(!canvas||closed)return;
    ctx.save();ctx.beginPath();ctx.rect(0,0,width,height);ctx.clip();ctx.drawImage(canvas,frame.x,frame.y,canvas.width*frame.step,canvas.height*frame.step);ctx.restore();
   },
-  close(){closed=true;wanted=null;for(const child of [...children])child.close();cache.release(prefix);}
+  close(){closed=true;readEpoch++;wanted=null;for(const child of [...children])child.close();suspendedChildren.clear();cache.release(prefix);}
  };
  return surface;
 }

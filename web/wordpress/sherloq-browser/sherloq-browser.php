@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SHERLOQ Browser Lab
  * Description: Local browser image analysis, with an isolated bilingual workspace.
- * Version: 0.25.0
+ * Version: 0.30.0
  * Requires at least: 6.3
  * Requires PHP: 7.4
  * License: GPL-3.0-or-later

@@ -34,7 +34,7 @@ export async function segmentedPixelStats(image,params,{budget,signal,onProgress
 export function createResultSurfaces(surfaces){
  const results=new Map(),retiring=new Map();
  function remove(id){
-  const record=results.get(id);if(!record)throw new EngineError('NOT_FOUND','Result surface no longer exists.');
+  const record=results.get(id);if(!record)throw new EngineError('NOT_FOUND','Result surface no longer exists.',{details:{stage:'lookup',resource:'result-surface',surfaceId:id}});
   const pending=retiring.get(id);if(pending)return pending;
   // Keep the only owner addressable until its asynchronous cleanup succeeds.
   // A rejected ACK can then be retried, and concurrent callers retire it once.

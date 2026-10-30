@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort}from'./errors.js';import{neuralResultSurfaces}from'./neural-result-surfaces.js';
 export async function publishNeuralResult(analysis,imageId,provenance,{budget,publishResult,signal}){
  requireValue(typeof publishResult==='function','Common result-surface publisher required');let record;

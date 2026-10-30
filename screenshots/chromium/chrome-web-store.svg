@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="36" viewBox="0 0 176 36" role="img" aria-labelledby="title">
+  <title id="title">Chrome Web Store</title>
+  <rect x=".5" y=".5" width="175" height="35" rx="7" fill="#202631" stroke="#667080"/>
+  <path d="M18 9v11m-4-4 4 4 4-4M12 24h12" fill="none" stroke="#9ec5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="37" y="22.5" fill="#f0f3f7" font-family="Arial,Helvetica,sans-serif" font-size="13.5" font-weight="600">Chrome Web Store</text>
+</svg>

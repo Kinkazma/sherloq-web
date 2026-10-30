@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 // This explicit admission list is independent of the extractor module graph.
 // A public contract compares it with the qualified classical owner. Importing
 // that owner here would create a registry/dispatcher ES-module cycle.

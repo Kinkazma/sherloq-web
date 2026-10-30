@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {compileOriginalSourceRegions,createOriginalSourceRegionsState} from './source-region-geometry.js';
 import {declaredCloneScopeRegions} from './clone-scope-declarations.js';
 import {prepareNeuralStrictSourceContext} from './neural-strict-source-context.js';

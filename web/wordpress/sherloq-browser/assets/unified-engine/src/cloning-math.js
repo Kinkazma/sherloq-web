@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {m3ImageShape} from './m3-image-shape.js';
 import {TypedPages} from './m3-typed-pages.js';

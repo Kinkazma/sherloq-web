@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createCfaAnalyzer} from './cfa-analyzer.js';
 import {createCfaStrictAnalyzer} from './cfa-strict-analyzer.js';
 import {EngineError} from './errors.js';

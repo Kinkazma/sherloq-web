@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,controlCheckpoint} from './errors.js';
 import {gatherDenseValues} from './dense-paged-links.js';
 import {denseCompactAxes} from './dense-regions.js';

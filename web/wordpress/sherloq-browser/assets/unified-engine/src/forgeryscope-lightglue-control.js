@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 /** Adaptive decisions of the native Forgeryscope microscopy LightGlue profile.
  * Neural layers stay separate so export cannot freeze data-dependent early exit.
  * Native CPU/MPS pruning is used even when browser layers execute on WebGPU.

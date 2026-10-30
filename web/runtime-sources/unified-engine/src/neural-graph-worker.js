@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {installUsefulGpuDispatchEvidence} from './useful-gpu-dispatch-evidence.js';
+const usefulGpuDispatches=installUsefulGpuDispatchEvidence();
 import {alikedNativeSessionOptions,alikedNativeOutputTransfer} from './aliked-native-output-transport.js';
 import {disposeNeuralWorkerResources,disposeAlikedIdleWorkerRetryable} from './neural-worker-cleanup.js';
 import {closeGpuErrorScopes} from './gpu-error-scope.js';
@@ -51,7 +53,7 @@ installWorkerMessageProtocol(self,async data=>{
  if(data.command==='execute'){if(!execute)throw workerMessageFailure('neural-endpoint','message','unexpected-execute');const resume=execute;execute=null;resume();return;}
   if(!data.runtime||typeof data.runtime!=='object'||!data.asset||!data.inputs||data.command!==undefined)throw workerMessageFailure('neural-endpoint','message','invalid-job');
   if(jobActive){self.postMessage({error:serializeEngineError(new EngineError('BUSY','A neural worker already has an active job.'))});return;}
-  jobActive=true;
+  jobActive=true;let usefulGpuStart;
   try{
   const trackingGpu=data.trackGpuMemory===true&&data.provider==='webgpu';
   const initializationStart=performance.now();let initialized=false,phase='initialization';
@@ -71,7 +73,7 @@ installWorkerMessageProtocol(self,async data=>{
      }
     }
     if(asset.sha256!==data.asset.sha256)throw Error('Worker model changed');
-    timings.initializationMs=initialized?performance.now()-initializationStart:0;await waitForExecution(timings.initializationMs,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';const inferenceStarted=performance.now();
+    timings.initializationMs=initialized?performance.now()-initializationStart:0;await waitForExecution(timings.initializationMs,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';usefulGpuStart=usefulGpuDispatches?.snapshot();const inferenceStarted=performance.now();
     self.postMessage({phase:'inference'});let tensor,name;
     if(data.runtime.executor==='cfa'){
      const {runCfaProgram,runCfaProgramHybrid}=await import('./cfa-program.js'),options={block:data.inputs.block.data[0],...(data.provider==='webgpu'?{acquireCpu:()=>acquireResource('cpu'),acquireGpu:()=>acquireResource('gpu'),releaseCpu:()=>self.postMessage({releaseExecution:true})}:{})};
@@ -84,7 +86,7 @@ installWorkerMessageProtocol(self,async data=>{
      name='noiseprint';
     }
     timings.inferenceMs=performance.now()-inferenceStarted;if(tensor.data.byteLength>data.outputBytes)throw Error('Model output exceeds admitted size');
-    self.postMessage({result:{[name]:tensor},timings,heapBytes:cfaModule.HEAPU8.byteLength,gpuBytes:cfaGPU?.residentBytes,provider:data.provider,runtime:{executor:data.runtime.executor+'-native-order-v1',gpu:tensor.gpu??tensor.metrics}},[tensor.data.buffer]);
+    self.postMessage({result:{[name]:tensor},timings,heapBytes:cfaModule.HEAPU8.byteLength,gpuBytes:cfaGPU?.residentBytes,provider:data.provider,gpuExecution:usefulGpuDispatches?.since(usefulGpuStart),runtime:{executor:data.runtime.executor+'-native-order-v1',gpu:tensor.gpu??tensor.metrics}},[tensor.data.buffer]);
   }catch(error){self.postMessage({error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
    return;
   }
@@ -115,7 +117,7 @@ installWorkerMessageProtocol(self,async data=>{
       timings.modelLoadMs=performance.now()-loadStarted;runtimeLifecycle.modelInitializations++;
     }
     if(neuralModelSessionIdentity(asset)!==neuralModelSessionIdentity(data.asset))throw Error('Worker model changed');
-    timings.initializationMs=initialized?performance.now()-initializationStart:0;await waitForExecution(timings.initializationMs,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';const preparationStarted=performance.now();
+    timings.initializationMs=initialized?performance.now()-initializationStart:0;await waitForExecution(timings.initializationMs,cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.());phase='inference';usefulGpuStart=usefulGpuDispatches?.snapshot();const preparationStarted=performance.now();
     for(const [name,cached]of reusable)if(!Object.hasOwn(data.reusableInputs??{},name)){cached.tensor.dispose();reusable.delete(name);}
     for(const [name,key]of Object.entries(data.reusableInputs??{})){
       let cached=reusable.get(name);
@@ -196,7 +198,7 @@ installWorkerMessageProtocol(self,async data=>{
     }else outputs=await session.run(feeds);
     timings.inferenceMs=performance.now()-inferenceStarted;phase='output';const outputStarted=performance.now(),{result,transfers,copiedOutputBytes}=nativeAlikedOptions?await alikedNativeOutputTransfer(outputs,feeds,data.outputBytes,nativeAlikedOptions):neuralOutputTransfer(outputs,feeds,data.outputBytes);timings.outputCopyMs=performance.now()-outputStarted;
     const gpuMemory=trackingGpu?await gpuLedger?.settle():undefined;
-    self.postMessage({result,timings,copiedOutputBytes,...(queryBatch?{logicalExecutions:queryBatch.counts.length}:{}),heapBytes:runtime.heapBytes(),...(trackingGpu?{gpuBytes:gpuMemory?.bufferBytes,gpuMemory,gpuDeviceLimits:actualGpuDeviceLimits()}:{}),runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle,sessionCache:{...sessions.snapshot(),currentHit:!!incoming}},provider:data.provider,...(graphTransformReceipt?{graphTransform:graphTransformReceipt}:{})},transfers);
+    self.postMessage({result,timings,copiedOutputBytes,...(queryBatch?{logicalExecutions:queryBatch.counts.length}:{}),heapBytes:runtime.heapBytes(),...(trackingGpu?{gpuBytes:gpuMemory?.bufferBytes,gpuMemory,gpuDeviceLimits:actualGpuDeviceLimits()}:{}),runtime:ort.env.versions,runtimeLifecycle:{...runtimeLifecycle,sessionCache:{...sessions.snapshot(),currentHit:!!incoming}},provider:data.provider,gpuExecution:usefulGpuDispatches?.since(usefulGpuStart),...(graphTransformReceipt?{graphTransform:graphTransformReceipt}:{})},transfers);
   }catch(error){error=(trackingGpu?gpuLedger?.failure():null)??error;const gpuMemory=trackingGpu?gpuLedger?.snapshot():undefined;self.postMessage({...(trackingGpu?{gpuBytes:gpuMemory?.bufferBytes,gpuMemory,gpuDeviceLimits:actualGpuDeviceLimits()}:{}),error:serializeEngineError(neuralRuntimeError(error,{provider:data.provider,phase,heapBytes:cfaModule?.HEAPU8.byteLength??runtime?.heapBytes?.()??0,maximumBytes:data.memoryMaximumBytes}),'NEURAL_EXECUTION')});}
   finally{for(const [name,t]of Object.entries(feeds))if(reusable.get(name)?.tensor!==t)t.dispose();for(const t of Object.values(outputs??{}))t.dispose();}
   }finally{jobActive=false;}

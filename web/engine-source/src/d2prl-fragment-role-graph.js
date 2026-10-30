@@ -1,3 +1,5 @@
+import {d2prlInputSide} from '../experiments/d2prl/input-side.js';
+import {d2prlRoleSource} from '../experiments/d2prl/role-spatial.js';
 import {requireValue} from './errors.js';
 import {readOnnxGraph,onnxInput} from './onnx-scoped-graph.js';
 
@@ -14,10 +16,10 @@ function concat(parts){const length=parts.reduce((n,p)=>n+p.length,0);requireVal
  * initializer is copied verbatim, including native resize and BN arithmetic.
  * The caller supplies native per-fragment features/samples; no role sampling,
  * inferred output, mask or altered learned coefficient is injected here. */
-export async function adaptD2PRLFragmentRoleGraph(bytes,{part}={}){
- const contract=D2PRL_FRAGMENT_ROLE_GRAPHS[part];requireValue(contract&&bytes instanceof Uint8Array&&bytes.length===D2PRL_ROLE_SOURCE_BYTES,'Pinned D2PRL role source and named graph part required');
- const sha=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');requireValue(sha===D2PRL_ROLE_SOURCE_SHA256,'D2PRL role graph source SHA-256 differs');
- const graph=readOnnxGraph(bytes);requireValue(graph.nodes.length===454&&graph.initializers.length===146&&JSON.stringify(graph.inputs)===JSON.stringify(['rgb','x_cor','y_cor','x_cor2','y_cor2','union']),'Pinned D2PRL role topology required');
+export async function adaptD2PRLFragmentRoleGraph(bytes,{part,inputSide=448}={}){
+ const side=d2prlInputSide(inputSide),source=d2prlRoleSource(side),base=D2PRL_FRAGMENT_ROLE_GRAPHS[part],contract=base&&{...base,inputShape:base.inputShape.map((v,i)=>i>=2?v*side/448:v),outputShape:base.outputShape.map((v,i)=>i>=2?v*side/448:v)};requireValue(contract&&bytes instanceof Uint8Array&&bytes.length===source.bytes,'Pinned D2PRL role source and named graph part required');
+ const sha=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');requireValue(sha===source.sha256,'D2PRL role graph source SHA-256 differs');
+ const graph=readOnnxGraph(bytes);requireValue(graph.nodes.length===source.nodes&&graph.initializers.length===source.initializers&&JSON.stringify(graph.inputs)===JSON.stringify(['rgb','x_cor','y_cor','x_cor2','y_cor2','union']),'Pinned D2PRL role topology required');
  const producers=new Map(),initializers=new Map(graph.initializers.map(value=>[value.name,value])),neededNodes=new Set(),neededInitializers=new Set(),visiting=new Set();
  for(const node of graph.nodes)for(const output of node.outputs){requireValue(output&&!producers.has(output)&&!initializers.has(output),'Unique original D2PRL tensor producers required');producers.set(output,node);}
  function visit(name){if(!name||name===contract.input)return;if(initializers.has(name)){neededInitializers.add(name);return;}const node=producers.get(name);requireValue(node,'D2PRL role cut depends on an unavailable input: '+name);if(neededNodes.has(node))return;requireValue(!visiting.has(node),'D2PRL role dependency cycle');visiting.add(node);for(const input of node.inputs)visit(input);visiting.delete(node);neededNodes.add(node);}

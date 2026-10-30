@@ -1,6 +1,6 @@
 // A UI-only navigation window. Original numeric constraints and calculations
 // remain owned by the original input and its established gesture handlers.
-import {numericEditingIncrement} from './numeric-increment.js';
+import {numericEditingIncrement} from './numeric-increment.js?v=0.30.0';
 let nextPopup=0;
 const inlineRangePresentations=new WeakMap(),inlineRangeOwners=new WeakMap(),inlineRangeOutputOwners=new WeakMap(),inlineRangeStyles=new WeakMap();
 const finite=value=>value!==null&&value!==undefined&&String(value).trim()!==''&&Number.isFinite(Number(value))?Number(value):null;
@@ -21,11 +21,12 @@ export function numericSliderWindow(input,resolved={},previous){
  let low=min===null?align(value-half,'floor'):min===nativeMin?min:align(min,'ceil'),high=max===null?align(value+half,'ceil'):max===nativeMax?max:align(max,'floor');
  // Only the optional popup uses a progressive navigation window. Inline
  // native ranges keep their complete original scale, including Auto effort.
+ const fullRange=input.getAttribute?.('data-hover-slider-navigation')==='full'&&min!==null&&max!==null;
  const compactBounds=min!==null&&max!==null&&max-min<=10;
  // Small bounded intervals (gamma0..5, ratios0..1, etc.) remain directly reachable
  // even when their decimal editor deliberately uses step=any.
- if(resolved.navigation==='progressive'&&!compactBounds){const span=Math.max(quantum*100,10**Math.ceil(Math.log10(Math.max(Math.abs(value),1)))),edge=value>0?Number.EPSILON*Math.max(1,Math.abs(value)):0,start=Math.floor((value-edge)/span)*span;low=align(value===0&&(min===null||min<0)?-span:start,'floor');high=align(value===0&&(max===null||max>0)?span:start+span,'ceil');}
- if(!compactBounds&&previous&&previous.min===min&&previous.max===max&&previous.step===step){low=Math.min(previous.low,value);high=Math.max(previous.high,value);}
+ if(!fullRange&&resolved.navigation==='progressive'&&!compactBounds){const span=Math.max(quantum*100,10**Math.ceil(Math.log10(Math.max(Math.abs(value),1)))),edge=value>0?Number.EPSILON*Math.max(1,Math.abs(value)):0,start=Math.floor((value-edge)/span)*span;low=align(value===0&&(min===null||min<0)?-span:start,'floor');high=align(value===0&&(max===null||max>0)?span:start+span,'ceil');}
+ if(!fullRange&&!compactBounds&&previous&&previous.min===min&&previous.max===max&&previous.step===step){low=Math.min(previous.low,value);high=Math.max(previous.high,value);}
  low=Math.max(min??-Infinity,low);high=Math.min(max??Infinity,high);if(!Number.isFinite(low)||!Number.isFinite(high)||high<low||high===low&&!automatic)return null;
  const admitted=automatic?.boundary===low?automatic:null;
  return{value,empty:rawValue===null,automaticActive:!!admitted&&isAutomatic,min,max,step,base,low,high,degenerate:low===high,extendLow:min===null||low>min,extendHigh:max===null||high<max,...(admitted?{automatic:admitted}:{})};
@@ -66,7 +67,7 @@ export function installHoverSliders({root=globalThis.document,enabled=false,lang
   for(const label of input.labels??[])if(label.querySelector('input[type="range"]'))return true;
   return false;
  }
- function descriptor(input,previous){const value=finite(input.value),min=attribute(input,'min'),max=attribute(input,'max'),step=input.getAttribute('step')??'1',resolved={navigation:'progressive',...(resolveRange({input,value,min,max,step})??{})};return numericSliderWindow(input,resolved,previous);}
+ function descriptor(input,previous){const value=finite(input.value),min=attribute(input,'min'),max=attribute(input,'max'),step=input.getAttribute('step')??'1',resolved={navigation:input.getAttribute('data-hover-slider-navigation')==='full'?'full':'progressive',...(resolveRange({input,value,min,max,step})??{})};return numericSliderWindow(input,resolved,previous);}
  function eligible(input){return !!input&&input.isConnected!==false&&!input.disabled&&!input.readOnly&&!input.hidden&&!associatedSlider(input)&&!!descriptor(input);}
  function title(){const label=active?.input.labels?.[0]??active?.input.closest?.('label'),text=active?.input.getAttribute('aria-label')??label?.textContent?.trim()?.replace(/\s+/g,' ').slice(0,100)??active?.input.id??'';nameText.textContent=text;range.setAttribute('aria-label',text||(fr()?'Valeur':'Value'));popup.setAttribute('aria-label',fr()?'Réglage par curseur':'Slider adjustment');lower.title=lower.ariaLabel=fr()?'Étendre la plage vers le bas':'Extend the range downward';upper.title=upper.ariaLabel=fr()?'Étendre la plage vers le haut':'Extend the range upward';}
  function position(){

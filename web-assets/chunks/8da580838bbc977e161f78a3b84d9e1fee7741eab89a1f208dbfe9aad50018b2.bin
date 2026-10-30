@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "definition": "Same independent SSG operators with exact binary+neutral n4 representation; original Float64 fallback retained, no threshold/SSIM/BFS change",
+  "buildScript": "scripts/build-ssg-strict.py",
+  "sources": {
+    "vendor/ssg-full/localization.cpp": "070fae001e25953e155ff90872c9c336570635670225b0dfb51d499f6b940818",
+    "vendor/ssg-full/n4-binary-bitset.h": "78f3e138baf0f8cc88b30e12f59e7b6b89a2ba5bc6e6dbaeb281448a2f0bd375",
+    "vendor/ssg-full/localization-parallel.h": "2f81c3e28966feeb3d027ff7ce3797cbff17d130f5987556f7b81c6d33e409b9",
+    "vendor/ssg-full/nearest.h": "7612448fba5c2366621e6c6cef16ba6333a557fb6733bd61fd91eaf3b78e9127",
+    "vendor/pocketfft/pocketfft_hdronly.h": "50f4ddbe60432325f560c706b6f1c49f9e0949fc7f20ae6499f2299e37d9790c",
+    "vendor/ssg-strict/localization.cpp": "ee92ccb739d72d2bb4ad86b126528efd034f62e6a83b953867776889113c0a24"
+  },
+  "files": {
+    "localization.mjs": {
+      "bytes": 17180,
+      "sha256": "65c0facf20d46933b5c9d0296edab61c0f6c250d06d121c6f19d0bec4f33661f"
+    },
+    "localization.wasm": {
+      "bytes": 154316,
+      "sha256": "8b8a847de28a3d7d42ccb424acf2ff2dd2244c66b2b6378f3b0d3726b73e8640"
+    },
+    "localization-shared.mjs": {
+      "bytes": 34266,
+      "sha256": "d1bb42a6026f68a13b0942e09feb2ea57b0329cd992f02507f1db1719f95252b"
+    },
+    "localization-shared.wasm": {
+      "bytes": 200548,
+      "sha256": "e1f1d3bbf6009ae4e94f99578e003fedab59e1ede237a6299bb0df01414e87d7"
+    }
+  }
+}

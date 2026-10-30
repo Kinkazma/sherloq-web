@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError, requireValue, checkAbort} from './errors.js';
 import {SelfDMProposalEngine} from './selfdm-proposal.js';
 import {loadSelfDMProposalBundle} from './selfdm-proposal-assets.js';

@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten 4.0.15",
+  "optimizations": 3,
+  "methods": [
+    "sobel",
+    "krawetz"
+  ],
+  "arithmetic": "-O3 -ffp-contract=off; binary64 musl trigonometry; explicit std::fma for historical Sobel normalization",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/gradient.cpp": {
+      "bytes": 6687,
+      "sha256": "1974a65c4340af57048e36f2eadeb58ba8342e47898f3a6c6501d890ddf1ebb3"
+    },
+    "scripts/build-gradient.sh": {
+      "bytes": 1821,
+      "sha256": "65d80737596c66cbae24fc2a4282d4e6d0732557cfedf11b1b832b1ae25da12f"
+    },
+    "vendor/gradient/gradient.js": {
+      "bytes": 10864,
+      "sha256": "d10d3712fee5321996001eedf7f35d4c619f70e73046a3c72b483fbf7e89fa0e"
+    },
+    "vendor/gradient/gradient.wasm": {
+      "bytes": 26631,
+      "sha256": "67f1ff3c0b8c2a9fe9ce4f3f123210c5830ec6dc508e8e6054e06ef258f7f68b"
+    }
+  }
+}

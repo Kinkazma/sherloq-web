@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "definition": "Exact independent f64 SIMD lanes and support-aware five-moment SSG filters, tiled scratch with scalar fallback; original scalar resources preserved",
+  "buildScript": "scripts/build-ssg-ssim-simd.py",
+  "commands": [
+    [
+      "EMSDK/upstream/emscripten/em++",
+      "SOURCE_ROOT/vendor/ssg-ssim-simd/ssg-full/localization.cpp",
+      "-ISOURCE_ROOT/vendor/pocketfft",
+      "-O3",
+      "-std=c++17",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fno-vectorize",
+      "-fno-slp-vectorize",
+      "-msimd128",
+      "-fexceptions",
+      "-sDISABLE_EXCEPTION_CATCHING=0",
+      "-DPOCKETFFT_NO_MULTITHREADING",
+      "-sMODULARIZE=1",
+      "-sEXPORT_ES6=1",
+      "-sENVIRONMENT=node,web,worker",
+      "-sFILESYSTEM=0",
+      "-sIMPORTED_MEMORY=1",
+      "-sALLOW_MEMORY_GROWTH=1",
+      "-sINITIAL_MEMORY=33554432",
+      "-sMAXIMUM_MEMORY=2147483648",
+      "-sABORTING_MALLOC=0",
+      "-sSTACK_SIZE=1048576",
+      "-sEXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_ssg_full_blur\", \"_ssg_full_roi\", \"_ssg_full_localize\", \"_ssg_full_ssim\", \"_ssg_full_salience\", \"_ssg_full_set_team\", \"_ssg_full_shutdown\", \"_ssg_full_morph\", \"_ssg_full_phrases\"]",
+      "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPF64\",\"HEAPU32\"]",
+      "-ffile-prefix-map=SOURCE_ROOT/=",
+      "-o",
+      "SOURCE_ROOT/vendor/ssg-ssim-simd/ssg-full/localization.mjs"
+    ],
+    [
+      "EMSDK/upstream/emscripten/em++",
+      "SOURCE_ROOT/vendor/ssg-ssim-simd/ssg-full/localization.cpp",
+      "-ISOURCE_ROOT/vendor/pocketfft",
+      "-O3",
+      "-std=c++17",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fno-vectorize",
+      "-fno-slp-vectorize",
+      "-msimd128",
+      "-fexceptions",
+      "-sDISABLE_EXCEPTION_CATCHING=0",
+      "-DPOCKETFFT_NO_MULTITHREADING",
+      "-sMODULARIZE=1",
+      "-sEXPORT_ES6=1",
+      "-sENVIRONMENT=node,web,worker",
+      "-sFILESYSTEM=0",
+      "-sIMPORTED_MEMORY=1",
+      "-sALLOW_MEMORY_GROWTH=1",
+      "-sINITIAL_MEMORY=33554432",
+      "-sMAXIMUM_MEMORY=2147483648",
+      "-sABORTING_MALLOC=0",
+      "-sSTACK_SIZE=1048576",
+      "-sEXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_ssg_full_blur\", \"_ssg_full_roi\", \"_ssg_full_localize\", \"_ssg_full_ssim\", \"_ssg_full_salience\", \"_ssg_full_set_team\", \"_ssg_full_shutdown\", \"_ssg_full_morph\", \"_ssg_full_phrases\"]",
+      "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPF64\",\"HEAPU32\"]",
+      "-ffile-prefix-map=SOURCE_ROOT/=",
+      "-o",
+      "SOURCE_ROOT/vendor/ssg-ssim-simd/ssg-full/localization-shared.mjs",
+      "-pthread",
+      "-sPTHREAD_POOL_SIZE=Module[\"workerCount\"]||1",
+      "-sPTHREAD_POOL_SIZE_STRICT=2"
+    ],
+    [
+      "EMSDK/upstream/emscripten/em++",
+      "SOURCE_ROOT/vendor/ssg-ssim-simd/ssg-strict/localization.cpp",
+      "-ISOURCE_ROOT/vendor/pocketfft",
+      "-O3",
+      "-std=c++17",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fno-vectorize",
+      "-fno-slp-vectorize",
+      "-msimd128",
+      "-fexceptions",
+      "-sDISABLE_EXCEPTION_CATCHING=0",
+      "-DPOCKETFFT_NO_MULTITHREADING",
+      "-sMODULARIZE=1",
+      "-sEXPORT_ES6=1",
+      "-sENVIRONMENT=node,web,worker",
+      "-sFILESYSTEM=0",
+      "-sIMPORTED_MEMORY=1",
+      "-sALLOW_MEMORY_GROWTH=1",
+      "-sINITIAL_MEMORY=33554432",
+      "-sMAXIMUM_MEMORY=2147483648",
+      "-sABORTING_MALLOC=0",
+      "-sSTACK_SIZE=1048576",
+      "-sEXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_ssg_full_blur\", \"_ssg_full_roi\", \"_ssg_full_localize\", \"_ssg_full_ssim\", \"_ssg_full_salience\", \"_ssg_full_set_team\", \"_ssg_full_shutdown\", \"_ssg_full_morph\", \"_ssg_full_phrases\", \"_ssg_strict_blur\", \"_ssg_strict_warp\", \"_ssg_strict_ssim\", \"_ssg_strict_morph\", \"_ssg_strict_salience\", \"_ssg_strict_localize\", \"_ssg_split_prepare\", \"_ssg_split_post\"]",
+      "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPF64\",\"HEAPU32\"]",
+      "-ffile-prefix-map=SOURCE_ROOT/=",
+      "-o",
+      "SOURCE_ROOT/vendor/ssg-ssim-simd/ssg-strict/localization.mjs"
+    ],
+    [
+      "EMSDK/upstream/emscripten/em++",
+      "SOURCE_ROOT/vendor/ssg-ssim-simd/ssg-strict/localization.cpp",
+      "-ISOURCE_ROOT/vendor/pocketfft",
+      "-O3",
+      "-std=c++17",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fno-vectorize",
+      "-fno-slp-vectorize",
+      "-msimd128",
+      "-fexceptions",
+      "-sDISABLE_EXCEPTION_CATCHING=0",
+      "-DPOCKETFFT_NO_MULTITHREADING",
+      "-sMODULARIZE=1",
+      "-sEXPORT_ES6=1",
+      "-sENVIRONMENT=node,web,worker",
+      "-sFILESYSTEM=0",
+      "-sIMPORTED_MEMORY=1",
+      "-sALLOW_MEMORY_GROWTH=1",
+      "-sINITIAL_MEMORY=33554432",
+      "-sMAXIMUM_MEMORY=2147483648",
+      "-sABORTING_MALLOC=0",
+      "-sSTACK_SIZE=1048576",
+      "-sEXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_ssg_full_blur\", \"_ssg_full_roi\", \"_ssg_full_localize\", \"_ssg_full_ssim\", \"_ssg_full_salience\", \"_ssg_full_set_team\", \"_ssg_full_shutdown\", \"_ssg_full_morph\", \"_ssg_full_phrases\", \"_ssg_strict_blur\", \"_ssg_strict_warp\", \"_ssg_strict_ssim\", \"_ssg_strict_morph\", \"_ssg_strict_salience\", \"_ssg_strict_localize\", \"_ssg_split_prepare\", \"_ssg_split_post\"]",
+      "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPF64\",\"HEAPU32\"]",
+      "-ffile-prefix-map=SOURCE_ROOT/=",
+      "-o",
+      "SOURCE_ROOT/vendor/ssg-ssim-simd/ssg-strict/localization-shared.mjs",
+      "-pthread",
+      "-sPTHREAD_POOL_SIZE=Module[\"workerCount\"]||1",
+      "-sPTHREAD_POOL_SIZE_STRICT=2"
+    ]
+  ],
+  "files": {
+    "ssg-full/localization-parallel.h": {
+      "bytes": 958,
+      "sha256": "2f81c3e28966feeb3d027ff7ce3797cbff17d130f5987556f7b81c6d33e409b9"
+    },
+    "ssg-full/localization-shared.mjs": {
+      "bytes": 32491,
+      "sha256": "c4c3ee349322fbcc28e6e6bf7eb044fe1601700dba405ff9531c8b35ed073d76"
+    },
+    "ssg-full/localization-shared.wasm": {
+      "bytes": 196843,
+      "sha256": "9c94cef9ec9f8cefff5d9d0855b2def8239e22f88c0c5c7757ab9ba4c2d16359"
+    },
+    "ssg-full/localization.cpp": {
+      "bytes": 16149,
+      "sha256": "22b21fad1b8536f929bf86953c8e39af4771fae5fb0d6d58653ff5c51fbfeefd"
+    },
+    "ssg-full/localization.mjs": {
+      "bytes": 15408,
+      "sha256": "3b434ae2437e8488138c74fa29d228d8d81343cc8745a126d1bff90c5b9a6361"
+    },
+    "ssg-full/localization.wasm": {
+      "bytes": 145285,
+      "sha256": "64b8b83d34b4c198d0e150e0100c1bff8dee85330ad0278b6329bde36968d12f"
+    },
+    "ssg-full/n4-binary-bitset.h": {
+      "bytes": 3433,
+      "sha256": "78f3e138baf0f8cc88b30e12f59e7b6b89a2ba5bc6e6dbaeb281448a2f0bd375"
+    },
+    "ssg-full/nearest.h": {
+      "bytes": 2091,
+      "sha256": "7612448fba5c2366621e6c6cef16ba6333a557fb6733bd61fd91eaf3b78e9127"
+    },
+    "ssg-full/ssg-moments.h": {
+      "bytes": 11559,
+      "sha256": "c9af3e5b9892a4b83a36da38a0efec25f833b41e0ec1a7654caae6522a5c2b0b"
+    },
+    "ssg-strict/localization-shared.mjs": {
+      "bytes": 34266,
+      "sha256": "b40e80ff1ba66531b2fb2b35ca168d879d8d07c7e37e1f8447bdebfb0eaedf64"
+    },
+    "ssg-strict/localization-shared.wasm": {
+      "bytes": 242405,
+      "sha256": "bd93b46e892306d61aaa086e8201bb80033a6a0d91b233196aa5774af77c757b"
+    },
+    "ssg-strict/localization.cpp": {
+      "bytes": 15303,
+      "sha256": "5881bc977aab621303381eb4095475c5994aa7cc087caaafd2d12a1cb35019d3"
+    },
+    "ssg-strict/localization.mjs": {
+      "bytes": 17180,
+      "sha256": "4dfcffbcd62c8a77e2c6b00ca6bbffbca7dee6d476d4713343e203604a4fb7cb"
+    },
+    "ssg-strict/localization.wasm": {
+      "bytes": 172034,
+      "sha256": "87e554d5c86763159b8c7c1d030cab71b102143de361dc1ce5e8b49fb4d43e90"
+    }
+  },
+  "dependencies": {
+    "vendor/pocketfft/pocketfft_hdronly.h": {
+      "sha256": "50f4ddbe60432325f560c706b6f1c49f9e0949fc7f20ae6499f2299e37d9790c"
+    }
+  }
+}

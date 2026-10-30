@@ -1,3 +1,6 @@
+import {StereoSearchGpu} from './stereo-search-gpu.js';
+import {StereoGaussianGpu} from './stereo-gaussian-gpu.js';
+import {attachStereoGpuCleanup} from './stereo-gpu-retirement.js';
 import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
 import {stereoParams} from './stereogram.js';
 import {gray,roundEven} from './pixel-utils.js';
@@ -12,23 +15,32 @@ import {retainResult} from './retained-result.js';
 import {createStereoCacheOwner} from './stereogram-cache-owner.js';
 const semantics='Native periodicity heuristic and global horizontal Farneback disparity. Relative disparity is not physical depth. No detected period returns no raster.';
 function triangle(input){const h=Float64Array.from(input);let left=0,right=0,peak=0,maximum=0,flipped=false;for(let i=0;i<256;i++)if(h[i]>0){left=i;break;}if(left>0)left--;for(let i=255;i>0;i--)if(h[i]>0){right=i;break;}if(right<255)right++;for(let i=0;i<256;i++)if(h[i]>maximum){maximum=h[i];peak=i;}if(peak-left<right-peak){flipped=true;h.reverse();left=255-right;peak=255-peak;}let threshold=left,distance=0;for(let i=left+1;i<=peak;i++){const d=maximum*i+(left-peak)*h[i];if(d>distance){distance=d;threshold=i;}}threshold--;return flipped?255-threshold:threshold;}
-export async function segmentedStereogram(image,params,{budget,signal,onProgress,cache,storage='auto',profile={},original=false,blockPixels=32768,accountedHeapBytes=0}={}){
+export async function segmentedStereogram(image,params,{budget,signal,onProgress,cache,storage='auto',profile={},original=false,blockPixels=32768,accountedHeapBytes=0,backend='auto'}={}){
  requireValue(!cache?.closed,'The stereogram cache is closing or closed.');
  const cooperate=createCooperator(signal),p=stereoParams(params),{width,height}=image.surface.descriptor,rows=Math.max(1,Math.floor(blockPixels/width)),workBytes=Math.max(0,Math.max(8*1024**2,stereoStreamHeapBytes())-accountedHeapBytes)+Math.max(blockPixels,width)*64,options={budget,signal,storage,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,chunkBytes:262144};
- requireValue(Number.isSafeInteger(blockPixels)&&blockPixels>0&&blockPixels<=262144,'Invalid stereo strip size.');const reserve=budget.reserve(workBytes),owned=[];let pool,createdCache=false,newView,newFlow,patternLease;
+ requireValue(Number.isSafeInteger(blockPixels)&&blockPixels>0&&blockPixels<=262144,'Invalid stereo strip size.');const reserve=budget.reserve(workBytes),owned=[];let pool,createdCache=false,newView,newFlow,patternLease;let searchGpu,gaussianGpu,primary,failed=false;const retireGpu=async()=>{const values=await Promise.allSettled([searchGpu?.dispose(),gaussianGpu?.dispose()]);const failed=values.find(value=>value.status==='rejected');if(failed)throw failed.reason;};
  const progress=(phase,completed,total)=>onProgress?.({phase,completed,total});
  try{
   const math=await stereoStreamMath();const searchCached=!!cache,patternCached=!!cache?.views.get(0),flowCached=!!cache?.flow;
   if(!cache){
-   const differences=new Float32Array(height>=2&&Math.floor(width/3)>11?Math.floor(width/3)-10:0),sums=new Float64Array(differences.length),smallHeight=roundEven(height*.5);let offset=-1,completed=0;
-   if(differences.length){pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:8*1024**2,workerPixelBytes:24,workerURL:new URL('./stereo-stream-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./stereo-stream-worker.js',import.meta.url),{type:'module'}):null});await pool.run({count:Math.ceil(smallHeight/rows),pixels:Math.min(rows,smallHeight)*width*2,key:`stereo-search/${width}/${rows}`,signal,
-    prepare:async i=>{const y=i*rows*2,h=Math.min(rows,smallHeight-i*rows),sourceRows=Math.min(h*2,height-y),part=await image.surface.readWindow({x:0,y,width,height:sourceRows},{signal});try{return {op:'search',rgb:part.pixels.data.slice(),width,height:sourceRows,outputRows:h};}finally{part.release();}},local:j=>({sums:math.search(j.rgb,j.width,j.height,j.outputRows)}),consume:async result=>{for(let i=0;i<sums.length;i++)sums[i]+=result.sums[i];progress('stereo-search',++completed,Math.ceil(smallHeight/rows));}});
+   const differences=new Float32Array(height>=2&&Math.floor(width/3)>11?Math.floor(width/3)-10:0),sums=new Float64Array(differences.length),smallHeight=roundEven(height*.5);let offset=-1,completed=0,searchedGpu=false;
+   if(differences.length){
+    if(backend!=='cpu'&&!original&&globalThis.navigator?.gpu&&(backend==='webgpu'||width*smallHeight*differences.length>=500000000)){
+     searchGpu=new StereoSearchGpu(budget,profile);searchedGpu=true;
+     for(let top=0;top<smallHeight;top+=rows){await cooperate();const h=Math.min(rows,smallHeight-top),part=await image.surface.readWindow({x:0,y:top*2,width,height:Math.min(h*2,height-top*2)},{signal});let result;
+      try{result=await searchGpu.search(part.pixels.data,width,Math.min(h*2,height-top*2),h,{signal,required:backend==='webgpu'});}finally{part.release();}
+      if(!result){searchedGpu=false;sums.fill(0);completed=0;break;}
+      for(let i=0;i<sums.length;i++)sums[i]+=result.sums[i];progress('stereo-search-gpu',++completed,Math.ceil(smallHeight/rows));
+     }
+    }
+    if(!searchedGpu){pool=new WaveletStripPool(budget,{...profile,workerHeapBytes:8*1024**2,workerPixelBytes:24,workerURL:new URL('./stereo-stream-worker.js',import.meta.url),workerFactory:globalThis.Worker?()=>new Worker(new URL('./stereo-stream-worker.js',import.meta.url),{type:'module'}):null});await pool.run({count:Math.ceil(smallHeight/rows),pixels:Math.min(rows,smallHeight)*width*2,key:`stereo-search/${width}/${rows}`,signal,
+    prepare:async i=>{const y=i*rows*2,h=Math.min(rows,smallHeight-i*rows),sourceRows=Math.min(h*2,height-y),part=await image.surface.readWindow({x:0,y,width,height:sourceRows},{signal});try{return {op:'search',rgb:part.pixels.data.slice(),width,height:sourceRows,outputRows:h};}finally{part.release();}},local:j=>({sums:math.search(j.rgb,j.width,j.height,j.outputRows)}),consume:async result=>{for(let i=0;i<sums.length;i++)sums[i]+=result.sums[i];progress('stereo-search',++completed,Math.ceil(smallHeight/rows));}});}
     for(let i=0;i<sums.length;i++)differences[i]=sums[i]*(1/(smallHeight*(width-i-10)));let maximum=-Infinity;for(let i=0;i<differences.length-1;i++){const d=Math.fround(differences[i+1]-differences[i]);if(d>maximum){maximum=d;offset=i+10;}}if(maximum<2)offset=-1;
    }
-   cache=createStereoCacheOwner({differences,offset,searchMetrics:pool?.metrics()??{workers:1,completedStripJobs:0,preflightExecutions:0}},budget);createdCache=true;
+   cache=createStereoCacheOwner({differences,offset,searchMetrics:searchedGpu?{backend:'webgpu',gpuSearch:{...searchGpu.metrics},workers:1,completedStripJobs:completed,preflightExecutions:0}:pool?.metrics()??{workers:1,completedStripJobs:0,preflightExecutions:0}},budget);createdCache=true;
   }
   const data={detected:cache.offset>=0,offset:cache.offset>=0?cache.offset:null,firstTestedOffset:10,differences:cache.differences.slice(),sourceDimensions:[width,height],mode:p.mode};
-  if(cache.offset<0){checkAbort(signal);createdCache=false;return {surface:null,stereoCache:cache,data,semantics,metrics:{...cache.searchMetrics,searchCached,preflightExecutions:0}};}
+  if(cache.offset<0){checkAbort(signal);await retireGpu();checkAbort(signal);createdCache=false;return {surface:null,stereoCache:cache,data,semantics,metrics:{...cache.searchMetrics,searchCached,preflightExecutions:0}};}
   const offset=cache.offset,w=width-offset,n=w*height;data.width=w;data.height=height;data.comparedBounds=[[offset,0,width,height],[0,0,w,height]];
   const allocate=async(bytes,opts=options)=>{const store=await createSegmentedBytes(bytes,opts);owned.push(store);return store;};
   if(!cache.views.has(0)){
@@ -40,7 +52,7 @@ export async function segmentedStereogram(image,params,{budget,signal,onProgress
   }
   if(p.mode>=2&&!cache.flow){
    const protection=budget.reserve(stereoFlowReservation(w,height,budget));let plane;try{plane=await createFloatPlane(w,height,{...options,ArrayType:Float32Array});owned.push(plane);}finally{protection();}
-   const result=await stereoFlowStage(image,offset,plane,{budget,signal,onProgress,original,blockPixels});newFlow={plane,...result,owner:retainResult(createNoiseTable(plane,{budget,valueType:Float32Array,coordinates:'cropped-stereo-pair',columns:['row','column','horizontal_disparity']}))};owned.splice(owned.indexOf(plane),1);cache.flow=newFlow;newFlow=null;
+   if(backend!=='cpu'&&!original&&globalThis.navigator?.gpu)gaussianGpu=new StereoGaussianGpu(budget,profile);const result=await stereoFlowStage(image,offset,plane,{budget,signal,onProgress,original,blockPixels,backend,gaussianGpu,profile});newFlow={plane,...result,owner:retainResult(createNoiseTable(plane,{budget,valueType:Float32Array,coordinates:'cropped-stereo-pair',columns:['row','column','horizontal_disparity']}))};owned.splice(owned.indexOf(plane),1);cache.flow=newFlow;newFlow=null;
   }
   const viewCached=cache.views.has(p.mode);
   if(!viewCached){
@@ -56,7 +68,7 @@ export async function segmentedStereogram(image,params,{budget,signal,onProgress
    }
    await patternLease.dispose();patternLease=null;await output.flush();newView=retainResult(createRgbSurface(output,{width:w,height,budget}));owned.splice(owned.indexOf(output),1);cache.views.set(p.mode,newView);newView=null;
   }
-  checkAbort(signal);createdCache=false;const flow=p.mode>=2?{flow:{surface:cache.flow.owner.lease()}}:undefined;if(flow)data.flowLayout='row,column';
-  return {surface:cache.views.get(p.mode).lease(),tableRecords:flow,stereoCache:cache,data,semantics,metrics:{...cache.searchMetrics,searchCached,patternCached,flowCached,viewCached,...(cache.flow?{flowWorkerHeapBytes:cache.flow.heapBytes,flowTimings:cache.flow.timings,flowPaged:!!cache.flow.paged,flowMetrics:cache.flow.metrics}:{}),preflightExecutions:0}};
- }catch(error){await Promise.allSettled([...owned.map(x=>x.dispose()),patternLease?.dispose(),newView?.dispose(),newFlow?.owner.dispose(),...(createdCache?[cache?.dispose()]:[])]);throw error;}finally{pool?.clear();reserve();}
+  checkAbort(signal);await retireGpu();checkAbort(signal);createdCache=false;const flow=p.mode>=2?{flow:{surface:cache.flow.owner.lease()}}:undefined;if(flow)data.flowLayout='row,column';
+  return {surface:cache.views.get(p.mode).lease(),tableRecords:flow,stereoCache:cache,data,semantics,metrics:{...cache.searchMetrics,backend:cache.searchMetrics?.backend==='webgpu'||p.mode>=2&&cache.flow?.backend?.startsWith('webgpu')?'webgpu':'cpu',searchCached,patternCached,flowCached,viewCached,...(cache.flow?{flowWorkerHeapBytes:cache.flow.heapBytes,flowTimings:cache.flow.timings,flowPaged:!!cache.flow.paged,flowMetrics:cache.flow.metrics,flowGpu:cache.flow.gpu}:{}),preflightExecutions:0}};
+ }catch(error){failed=true;primary=error;await Promise.allSettled([...owned.map(x=>x.dispose()),patternLease?.dispose(),newView?.dispose(),newFlow?.owner.dispose(),...(createdCache?[cache?.dispose()]:[])]);throw error;}finally{try{await retireGpu();}catch(error){if(failed)attachStereoGpuCleanup(primary,error);else throw error;}finally{pool?.clear();reserve();}}
 }

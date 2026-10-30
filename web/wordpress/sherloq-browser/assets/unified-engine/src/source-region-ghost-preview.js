@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {ghostSpatialBackground} from './ghost-spatial-presentation.js';
 import {planGhostNativeContexts,GHOST_CONTEXT_PLAN_VERSION} from './ghost-native-context-plan.js';
 import {ghostParams} from './ghost-maps.js';

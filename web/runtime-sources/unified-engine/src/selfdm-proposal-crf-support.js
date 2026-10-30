@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort}from'./errors.js';
 export const SELFDM_PROPOSAL_CRF_SUPPORT_POLICY='selfdm-proposal-canonical-crf-support/2';
 const tensor=(data,dims,type='float32')=>({data,dims,type}),phase=n=>Math.ceil(((4-n%4)%4)/2);

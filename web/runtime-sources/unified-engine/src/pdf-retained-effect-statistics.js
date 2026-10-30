@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {gray} from './pixel-utils.js';
 import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
 export const PDF_EFFECT_STATISTICS_BYTES=(5*256+8*257)*4;

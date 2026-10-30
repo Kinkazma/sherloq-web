@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {attachMedianCleanup} from './median-gpu-retirement.js';
+import {createMedianGpuRunner} from './median-gpu-runner.js';
 import {requireValue,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
 import {validatePixels} from './ela.js';
 import {parameters,gray,roundEven} from './pixel-utils.js';
@@ -37,10 +39,10 @@ export async function medianAnalyze(image,model,{signal,onProgress,batchSize=32,
  const geometry=medianGeometry(image.width,image.height),{blockColumns,blockRows,width,height}=geometry,count=blockColumns*blockRows,features=model.metadata.features;
  const probabilities=new Float32Array(width*height),variances=new Float64Array(width*height),margins=new Float32Array(width*height),block=new Uint8Array(4096);let featureMs=0,predictMs=0;
  for(let start=0;start<count;start+=batchSize){
-  await controlCheckpoint(signal);const length=Math.min(batchSize,count-start),featureStart=performance.now();let values,variance;
+  await controlCheckpoint(signal);const length=Math.min(batchSize,count-start),featureStart=performance.now();let values,variance,batchRelease,batchFailed=false,batchPrimary;
   const blocks=readBlocks?await readBlocks(start,length,geometry,{signal}):null;
   if(readBlocks)requireValue(blocks instanceof Uint8Array&&blocks.length===length*4096,'Invalid median block batch.');
-  if(extractBatch){const batch=blocks??new Uint8Array(length*4096);if(!blocks)for(let i=0;i<length;i++)medianGrayBlock(image,start+i,geometry,batch.subarray(i*4096,(i+1)*4096));({features:values,variances:variance}=await extractBatch(batch,features,{signal}));}
+  try{if(extractBatch){const batch=blocks??new Uint8Array(length*4096);if(!blocks)for(let i=0;i<length;i++)medianGrayBlock(image,start+i,geometry,batch.subarray(i*4096,(i+1)*4096));const extracted=await extractBatch(batch,features,{signal});({features:values,variances:variance,release:batchRelease}=extracted);requireValue(values instanceof Float64Array&&values.length===length*features&&variance instanceof Float64Array&&variance.length===length&&values.every(Number.isFinite)&&variance.every(v=>Number.isFinite(v)&&v>=0)&&(batchRelease===undefined||typeof batchRelease==='function'),'Invalid owned median feature batch');}
   else{values=new Float64Array(length*features);variance=new Float64Array(length);for(let offset=0;offset<length;offset++){
    const result=await medianBlockFeatures(blocks?blocks.subarray(offset*4096,(offset+1)*4096):medianGrayBlock(image,start+offset,geometry,block),features,{signal,fast});values.set(result.features,offset*features);variance[offset]=result.variance;
   }}
@@ -49,6 +51,7 @@ export async function medianAnalyze(image,model,{signal,onProgress,batchSize=32,
   try{for(let offset=0;offset<length;offset++){const index=start+offset,target=Math.floor(index/blockColumns)*width+index%blockColumns;probabilities[target]=prediction.scores[offset];margins[target]=prediction.margins[offset];variances[target]=variance[offset];}}
   finally{prediction.release();}
   predictMs+=performance.now()-predictStart;
+  }catch(error){batchFailed=true;batchPrimary=error;throw error;}finally{if(typeof batchRelease==='function')try{await batchRelease();}catch(cleanup){if(batchFailed)attachMedianCleanup(batchPrimary,cleanup);else throw cleanup;}}
   onProgress?.((start+length)/count);checkAbort(signal);
  }
  return {geometry,probabilities,variances,margins,runtime:{featureMs,predictMs}};
@@ -98,9 +101,9 @@ export async function medianRender(analysis,input={},hooks={}){
  return {...result,pixels:{width:geometry.imageWidth,height:geometry.imageHeight,format:'rgb8',data:await medianEnlarge(rgb,geometry,hooks)}};
 }
 
-export async function medianData(image,p,hooks,{references,medianPool,cpuKernel}={}){
+export async function medianData(image,p,hooks,{references,medianPool,cpuKernel,budget,backend='auto'}={}){
  const model=references?.[0]?.model;requireValue(model,'A loaded median model is required.');
- const analysis=medianPool?await medianPool.run(image,model,hooks):await medianAnalyze(image,model,{...hooks,fast:cpuKernel!=='reference'}),runtime=analysis.runtime;delete analysis.runtime;
+ const runner=createMedianGpuRunner({budget,backend,signal:hooks.signal});let analysis,failed=false,primary;try{analysis=await runner.run(image,model,hooks,{medianPool,cpuKernel});}catch(error){failed=true;primary=error;throw error;}finally{try{await runner.dispose();}catch(cleanup){if(failed)attachMedianCleanup(primary,cleanup);else throw cleanup;}}const runtime=analysis.runtime;delete analysis.runtime;
  return {data:analysis,engineMetrics:{workers:1,kernel:cpuKernel==='reference'?'cpu-pinned-median-reference':'cpu-pinned-median-guarded',...runtime},semantics:'Median-filter model evidence on native64×64 blocks. Scores are model outputs, not calibrated probabilities of forgery; invalid low-variance blocks are distinct from negative detections.'};
 }
 export async function medianView(result,p,hooks){

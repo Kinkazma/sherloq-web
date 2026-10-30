@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {parameters,roundEven} from './pixel-utils.js';
 import {createCooperator,checkAbort} from './errors.js';
 import {VIRIDIS} from './viridis.js';

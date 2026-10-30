@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,checkAbort,requireValue} from './errors.js';
 import {exiftoolReport} from './exiftool-report.js';
 import {verifySourceReadTranscript,SOURCE_TRANSCRIPT_ENTRY_BYTES,SOURCE_VERIFY_CHUNK_BYTES} from './source-read-transcript.js';

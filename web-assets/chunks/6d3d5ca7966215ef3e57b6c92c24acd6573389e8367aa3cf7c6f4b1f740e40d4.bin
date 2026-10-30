@@ -1,0 +1,2 @@
+import "../../runtime-context.js?v=0.30.0";
+export const SPARSE_EXTRACT_SIMD_WASM={"bytes":1823927,"sha256":"e6bf2ca6690af95e20d03d07e0e414c7f384aca55925b4caef89acd7b74af185"};

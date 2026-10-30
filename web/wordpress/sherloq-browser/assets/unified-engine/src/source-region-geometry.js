@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {checkAbort} from './errors.js';
 export const ORIGINAL_SOURCE_REGIONS_SCHEMA='sherloq.source-regions/1';
 const copy=value=>structuredClone(value),hash=/^[a-f0-9]{64}$/,MAX_ZONES=8192,MAX_VERTICES=131072;

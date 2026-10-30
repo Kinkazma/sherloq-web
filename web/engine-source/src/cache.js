@@ -164,6 +164,24 @@ export class Budget {
  retain(bytes){this.room(bytes);this.retained+=bytes;this.peak=Math.max(this.peak,this.total());}
  // take moves an owned entry without retiring its backing. Eviction callbacks
  // are synchronous ownership releases, never asynchronous work counted early.
+ // Transfer an existing entry between two accounting owners. No capacity is
+ // acquired, no neighbour is evicted and no callback runs during the transfer.
+ // A new policy may stop future growth; it cannot invalidate existing credit.
+ borrowCacheEntry(key){
+  this.changed(); // A notification refusal occurs before any ownership change.
+  const entry=this.cache.get(key);if(!entry)return null;
+  const bytes=entry.byteLength,dependencies=this.dependencies.get(key)?.slice();
+  requireValue(Number.isSafeInteger(bytes)&&bytes>=0,'A cache entry needs its owned byte count.');
+  let active=true;
+  const loan=Object.freeze({entry,bytes,get active(){return active;},restore:()=>{
+   if(!active)return true;const current=this.cache.get(key);if(current&&current!==entry)return false;
+   if(!current){this.cache.set(key,entry);if(dependencies?.length)this.dependencies.set(key,dependencies.slice());this.cacheBytes+=bytes;}
+   this._active-=bytes;active=false;
+   // The cache already owns and finances the entry if notification throws.
+   this.changed();return true;
+  }});
+  this.cache.delete(key);this.dependencies.delete(key);this.cacheBytes-=bytes;this._active+=bytes;return loan;
+ }
  take(key){const v=this.cache.get(key);if(v){this.cacheBytes-=v.byteLength;this.cache.delete(key);this.dependencies.delete(key);this.changed();}return v;}
  remove(key){const v=this.take(key);v?.onEvict?.();}
  get(key){const v=this.cache.get(key);if(v){this.cache.delete(key);this.cache.set(key,v);}return v;}

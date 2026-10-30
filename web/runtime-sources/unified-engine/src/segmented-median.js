@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {attachMedianCleanup} from './median-gpu-retirement.js';
+import {createMedianGpuRunner} from './median-gpu-runner.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError,createCooperator} from './errors.js';
 import {medianAnalyze,medianGeometry,medianGrid,medianEnlargeRows} from './median.js';
 import {MEDIAN_HEAP_LIMIT,MEDIAN_FORMATS} from './median-features.js';
@@ -31,7 +33,7 @@ export function medianSurfaceReader(surface,{onRead,cooperate}={}){
  };
 }
 
-export async function segmentedMedian(image,p,{budget,model,medianPool,cpuKernel='auto',signal,onProgress,cacheKey,dependencies=[],rowsPerBlock,accountedHeapBytes=0}={}){
+export async function segmentedMedian(image,p,{budget,model,medianPool,cpuKernel='auto',signal,onProgress,cacheKey,dependencies=[],rowsPerBlock,accountedHeapBytes=0,backend='auto',featureRunner}={}){
  requireValue(Object.hasOwn(MEDIAN_FORMATS,model?.metadata?.features)&&typeof model.predict==='function','A compiled median model is required.');
  requireValue(Number.isSafeInteger(accountedHeapBytes)&&accountedHeapBytes>=0&&accountedHeapBytes<=MEDIAN_HEAP_LIMIT,'Invalid already-accounted median heap.');
  const cooperate=createCooperator(signal);
@@ -42,7 +44,7 @@ export async function segmentedMedian(image,p,{budget,model,medianPool,cpuKernel
  // Includes source/worker batches, all compact grid copies, interpolation
  // coefficients and storage pages. Source windows have their own live leases.
  const overhead=MEDIAN_HEAP_LIMIT-accountedHeapBytes+cells*64+1024**2+ioBytes+w*6+Math.max(w,h)*3;
- let planning,staging,output,validStore,decisionStore,dataRetained=false,sourceReads=0,sourceReadMs=0;const started=performance.now();
+ let planning,staging,output,validStore,decisionStore,dataRetained=false,sourceReads=0,sourceReadMs=0;let runner,failed=false,primary;const started=performance.now();
  try{
   const sourceWindowBytes=Math.min(w,2048)*Math.min(h,64)*3,renderRows=rowsPerBlock??Math.max(1,Math.floor(262144/w));
   requireValue(Number.isInteger(renderRows)&&renderRows>0,'Invalid median render row count.');
@@ -58,8 +60,8 @@ export async function segmentedMedian(image,p,{budget,model,medianPool,cpuKernel
    // The selector preserves headroom; each real window/prediction then charges
    // its own lease. Do not charge the same headroom a second time while reading.
    const hooks={signal,fast:cpuKernel!=='reference',workerHeadroomBytes:sourceWindowBytes+model.metadata.features*4+256,readBlocks:medianSurfaceReader(image.surface,{cooperate,onRead:ms=>{sourceReads++;sourceReadMs+=ms;}}),onProgress:f=>onProgress?.(.8*f)};
-   analysis=medianPool?await medianPool.run({width:w,height:h},model,hooks):await medianAnalyze({width:w,height:h},model,hooks);
-   runtime={workers:1,...analysis.runtime};delete analysis.runtime;
+   runner=featureRunner??createMedianGpuRunner({budget,backend,signal});analysis=await runner.run({width:w,height:h},model,hooks,{medianPool,cpuKernel});
+   runtime={workers:1,...analysis.runtime};delete analysis.runtime;if(runner&&!featureRunner){await runner.dispose();runner=null;}
   }
   checkAbort(signal);const analysisMs=performance.now()-at,renderStarted=performance.now(),rendered=await medianGrid(analysis,p,{signal,cooperate});
   await validStore.write(rendered.valid);await decisionStore.write(rendered.decisions);
@@ -80,5 +82,5 @@ export async function segmentedMedian(image,p,{budget,model,medianPool,cpuKernel
   // surfaces are separate copies and survive RPC transfer/caller mutation.
   const masks=Object.fromEntries([['valid',valid,rendered.valid],['decisions',decisions,rendered.decisions]].map(([name,value,data])=>{const {width,height,format,range,semantics}=value.descriptor;return[name,{width,height,format,range,semantics,data}];}));
   return {surface,maskRecords:{valid:{surface:valid},decisions:{surface:decisions}},masks,data,semantics:'Median-filter model evidence on native64×64 blocks. Scores are model outputs, not calibrated probabilities of forgery; invalid low-variance blocks are distinct from negative detections.',metrics:{...runtime,totalMs:performance.now()-started,analysisMs,renderMs:performance.now()-renderStarted,analysisCacheHit,sourceReads,sourceReadMs,storage:output.storage,retainedResultBytes:w*h*3+cells*2,retainedDataBytes:dataBytes,rowsPerBlock:rows}};
- }catch(error){await Promise.allSettled([output?.dispose(),validStore?.dispose(),decisionStore?.dispose()]);if(dataRetained)budget.retained-=dataBytes;throw normalizeResourceError(error);}finally{planning?.();staging?.();}
+ }catch(error){failed=true;primary=normalizeResourceError(error);await Promise.allSettled([output?.dispose(),validStore?.dispose(),decisionStore?.dispose()]);if(dataRetained)budget.retained-=dataBytes;throw primary;}finally{try{if(runner&&!featureRunner)try{await runner.dispose();}catch(cleanup){if(failed)attachMedianCleanup(primary,cleanup);else throw cleanup;}}finally{planning?.();staging?.();}}
 }

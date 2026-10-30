@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 import {readOnnxGraph,onnxNode,onnxInput,onnxInitializer,rewriteOnnxGraph,replaceOnnxNodeInputs} from './onnx-scoped-graph.js';
 export const SELFDM_PROPOSAL_CRF_SCOPE_POLICY='selfdm-proposal-crf-scope-v1';

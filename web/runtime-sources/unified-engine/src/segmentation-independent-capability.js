@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{SEGMENTATION_MODELS}from'../experiments/segmentation/models.js';
 // Dispatch only. Geometry, backend, memory and scientific eligibility are
 // checked by the native facade before RGB. In particular global union and

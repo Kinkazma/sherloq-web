@@ -1,17 +1,18 @@
+import {d2prlInputSide} from './input-side.js';
 // Experimental complete head composition. No native activation substitution.
 import {requireValue, checkAbort, EngineError} from '../../src/errors.js';
 import {retainD2prlCheckpoint} from './checkpoint.js';
-export function createHeads({unionHead, unet, math, roles, budget, operation=(_label,work)=>work()}) {
- let busy=false,checkpoint;
+export function createHeads({inputSide=448,unionHead, unet, math, roles, budget, operation=(_label,work)=>work()}) {
+ const SIDE=d2prlInputSide(inputSide);let busy=false,checkpoint;
  const clear=()=>{if(!checkpoint)return;const old=checkpoint;checkpoint=null;for(const name of ['dedicated','general','union','roles'])old[name]?.release();unet.releaseCheckpoint?.(old.key);unionHead.releaseCheckpoint?.(old.key);};
  return{
   async run({rgb,patchmatch},{signal,onStage,onUnetNode,onRoleProgress,checkpointKey}={}){
-   if(busy)throw new EngineError('BUSY','D2PRL heads busy');requireValue(rgb instanceof Float32Array&&rgb.length===3*448**2,'Prepared RGB448 required');if(signal?.aborted){clear();checkAbort(signal);}busy=true;
+   if(busy)throw new EngineError('BUSY','D2PRL heads busy');requireValue(rgb instanceof Float32Array&&rgb.length===3*SIDE**2,'Prepared RGB448 required');if(signal?.aborted){clear();checkAbort(signal);}busy=true;
    if(checkpoint&&(checkpoint.key!==checkpointKey||checkpoint.rgb!==rgb||checkpoint.patchmatch!==patchmatch))clear();
    const state=checkpoint??{key:checkpointKey,rgb,patchmatch};checkpoint=state;const transient=new Set();let borrowed,retain=false;
    const keep=value=>(transient.add(value),value),free=value=>{value.release();transient.delete(value);};
    try{
-    borrowed=await operation('heads-admission',()=>budget.reserve(rgb.byteLength+8*448**2*4));
+    borrowed=await operation('heads-admission',()=>budget.reserve(rgb.byteLength+8*SIDE**2*4));
     if(!state.union){
      state.dedicated??=await unionHead.run(patchmatch,{signal,onStage,checkpointKey});
      state.general??=await unet.run(rgb,{signal,onNode:onUnetNode,checkpointKey});

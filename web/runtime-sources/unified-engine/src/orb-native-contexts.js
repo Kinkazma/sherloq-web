@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {gray} from './pixel-utils.js';
 import {cloningDetect} from './cloning-math.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';

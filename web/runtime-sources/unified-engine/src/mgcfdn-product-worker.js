@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 // Useful native CPU work only. One unchanged 512MiB/one-thread runtime per lane.
 import {deriveMgcfdnProductEncoder} from './mgcfdn-product-encoder.js';
 import {rewriteMgcfdnGlobalHead,MGCFDN_BASE_SHA256} from './mgcfdn-global-head-graph.js';

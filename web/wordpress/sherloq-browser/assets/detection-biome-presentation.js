@@ -1,4 +1,4 @@
-import {createBatchScopeMask} from './batch-scope-mask.js';
+import {createBatchScopeMask} from './batch-scope-mask.js?v=0.30.0';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
 
 const invalid=message=>new EngineError('INVALID_INPUT',message);
@@ -34,7 +34,7 @@ export function composeBiomeWindow(frame,groups,{x=0,y=0,step=1}={}, {scope,sour
   const admitted=mask?eligibility(mask,frame,{x,y,step},signal):null;checkAbort(signal);canvas=canvasFactory(frame.width,frame.height);const ctx=canvas.getContext('2d');if(!ctx)throw invalid('Biome presentation canvas unavailable.');
   const rgba=new Uint8ClampedArray(frame.width*frame.height*4);for(let i=0;i<frame.width*frame.height;i++){rgba.set(frame.data.subarray(i*3,i*3+3),i*4);rgba[i*4+3]=255;}
   ctx.putImageData(imageDataFactory(rgba,frame.width,frame.height),0,0);ctx.save();ctx.scale(1/step,1/step);ctx.translate(-x,-y);
-  for(const group of groups){checkAbort(signal);ctx.fillStyle=`rgba(${group.color.join(',')},0.28)`;ctx.strokeStyle=`rgb(${group.color.join(',')})`;ctx.lineWidth=2;for(const poly of group.polygons){ctx.beginPath();poly.forEach(([px,py],i)=>i?ctx.lineTo(px,py):ctx.moveTo(px,py));if(poly.length>2){ctx.closePath();ctx.fill();}ctx.stroke();}}
+  for(const group of groups){checkAbort(signal);ctx.fillStyle=`rgba(${group.color.join(',')},0.28)`;ctx.strokeStyle=`rgb(${group.color.join(',')})`;ctx.lineWidth=2;if(group.supportOnly&&group.biomeAreaDerived){for(const side of group.supportCentres??group.polygons)for(const [px,py]of side){ctx.beginPath();ctx.arc(px,py,2*step,0,Math.PI*2);ctx.fill();}continue;}for(const poly of group.polygons){ctx.beginPath();poly.forEach(([px,py],i)=>i?ctx.lineTo(px,py):ctx.moveTo(px,py));if(poly.length>2){ctx.closePath();if(!group.supportOnly)ctx.fill();}else if(poly.length===1&&group.biomeAreaDerived){ctx.arc(poly[0][0],poly[0][1],2*step,0,Math.PI*2);ctx.fill();}ctx.stroke();}}
   ctx.restore();checkAbort(signal);const pixels=ctx.getImageData(0,0,frame.width,frame.height).data,data=new Uint8Array(frame.width*frame.height*3);
   for(let i=0;i<frame.width*frame.height;i++){if(i%65536===0)checkAbort(signal);data.set(admitted&&!admitted[i]?frame.data.subarray(i*3,i*3+3):pixels.subarray(i*4,i*4+3),i*3);}return {...frame,data};
  }finally{if(canvas)canvas.width=canvas.height=1;free();}

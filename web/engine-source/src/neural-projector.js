@@ -30,7 +30,7 @@ export function createNeuralProjector({budget,contiguous,postprocess,family,side
     if(!image?.segmented)throw new EngineError('INVALID_INPUT','Immutable segmented projection source required');
     const identity=JSON.stringify([hooks.checkpointKey,input.width,input.height,input.minimum,input.exclusions,input.mode,input.zones.map(z=>[z.id,z.bounds,z.rawWidth??side,z.rawHeight??side]),...(input.scientificScope?[input.scientificScope.identity,input.scientificScope.policy]:[])]);
     if(pending&&(pending.source!==image.surface||pending.identity!==identity||!hooks.checkpointKey||pending.raw.some((raw,i)=>raw!==input.zones[i]?.raw)))await clear();
-    if(!spatial&&!input.zones.every(z=>z.rawWidth!==undefined)){const {default:factory}=await import('../vendor/segmentation/spatial-bands.js');spatial=await createNeuralSpatialRows(factory,{budget});}
+    if(!spatial&&!input.zones.every(z=>z.rawWidth!==undefined)){const {default:factory}=family==='d2prl'&&side>448?await import('../vendor/d2prl/dynamic/spatial-bands.js'):await import('../vendor/segmentation/spatial-bands.js');spatial=await createNeuralSpatialRows(factory,{budget,maxInputSide:family==='d2prl'?side:512});}
     const holder=pending??{key:hooks.checkpointKey,source:image.surface,identity,raw:input.zones.map(z=>z.raw),state:null};
     let retirementOwner;
     try{

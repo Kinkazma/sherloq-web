@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {compileOriginalSourceRegions} from './source-region-geometry.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';

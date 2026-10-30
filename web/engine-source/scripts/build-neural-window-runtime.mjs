@@ -1,0 +1,13 @@
+// Build the Window-only resource-control entry from the delivered ORT runtime.
+// The WebAssembly binary and every original generated-JS statement stay intact.
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';import {resolve} from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';
+const index=process.argv.indexOf('--engine-root');if(index>=0&&!process.argv[index+1])throw Error('--engine-root requires a directory');
+const root=index>=0?pathToFileURL(resolve(process.argv[index+1])+'/'):new URL('../',import.meta.url),check=process.argv.includes('--check');
+const sourceURL=new URL('vendor/m3-ort/ort-wasm-simd-threaded.asyncify.mjs',root),output=new URL('vendor/m3-ort/window-admitted/',root),source=await readFile(sourceURL,'utf8');
+const anchor='var __sherloqHeapMaximum=globalThis.__m3MaximumWasmPages*65536;';if(source.split(anchor).length!==2)throw Error('The generated ORT capacity anchor differs; no output was changed.');
+const insertion="Object.defineProperty(moduleArg,'__sherloqAdmitHeapMaximum',{value:function(bytes){if(!Number.isSafeInteger(bytes)||bytes%65536!==0||bytes<__sherloqHeapMaximum||bytes<(moduleArg.HEAPU8?.byteLength??0)||bytes>2147483648)throw Error('Unadmitted Window runtime capacity');__sherloqHeapMaximum=bytes;return bytes;}});";
+const generated=source.replace(anchor,anchor+insertion);if(generated.replace(insertion,'')!==source)throw Error('The resource-only transform is not reversible.');
+const factory="import create from './ort-wasm-simd-threaded.asyncify.mjs';\nlet instance;\nexport function heapBytes(){return instance?.HEAPU8.byteLength??0;}\nexport function admitHeapMaximum(bytes){if(!instance)throw Error('Window runtime has not initialized');return instance.__sherloqAdmitHeapMaximum(bytes);}\nexport default async function(config){const pages=globalThis.__m3MaximumWasmPages;if(!Number.isInteger(pages)||pages<256||pages>32768)throw Error('Unadmitted ORT heap');instance=await create(config);return instance;}\n";
+const resources=new Map([['ort-wasm-simd-threaded.asyncify.mjs',generated],['factory.mjs',factory]]);if(check){for(const[name,body]of resources)if(await readFile(new URL(name,output),'utf8')!==body)throw Error('The generated Window resource is stale: '+name);}else{await mkdir(output,{recursive:true});for(const[name,body]of resources)await writeFile(new URL(name,output),body);}
+const sha=x=>createHash('sha256').update(x).digest('hex');console.log(JSON.stringify({status:check?'checked':'rebuilt',sourceSha256:sha(source),outputs:Object.fromEntries([...resources].map(([name,body])=>[name,sha(body)])),numericalWasmChanged:false}));

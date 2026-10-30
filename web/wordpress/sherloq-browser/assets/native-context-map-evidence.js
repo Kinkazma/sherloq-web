@@ -1,5 +1,5 @@
 import {requireValue,checkAbort,createCooperator} from './unified-engine/src/errors.js';
-import {nativeContextScalarPlan} from './native-context-scalar.js';
+import {nativeContextScalarPlan} from './native-context-scalar.js?v=0.30.0';
 
 export async function nativeContextMapEvidence(output,recipe,client,image,{scope,signal}={}){
  const plan=nativeContextScalarPlan(output,client.source),threshold=Number(recipe.signal.threshold),minimum=Number(recipe.signal.minimumPixels),field=plan.method==='trufor'?{m2Result:output.m2Result.id,sourceRegionFingerprint:plan.domain.fingerprint}:output.surface;

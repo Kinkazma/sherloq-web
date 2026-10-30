@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createSelfDMProposalWindowRun,selfDMProposalWindowData} from './selfdm-proposal-window-run.js';
 import {createSelfDMProposalProductProjection} from './selfdm-proposal-product-projection.js';
 import {loadSelfDMProposalBundle,SELFDM_PROPOSAL_REFERENCE} from './selfdm-proposal-assets.js';

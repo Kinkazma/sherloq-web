@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,denseConstructionOwner,cleanupDenseOwners,createDenseRetirementLedger} from './dense-owner-retirement.js';
 import {allocateBuffer} from './allocation.js';
 import {wasmRange,byteView,closeMemoryRanges} from './memory-range.js';
@@ -22,7 +22,7 @@ installWorkerMessageProtocol(self,async data=>{
  if(data.task){if(kernelClosing)throw new EngineError('BUSY','Dense kernel is closing; no useful task was adopted.');if(data.writeBatch)returnedBatch=data.writeBatch;if(next){const resolve=next;next=null;resolve(data.task);}else queued.push(data.task);return;}
  if(data.workspaceBytes&&module){module.budget.limit=data.workspaceBytes;return;}
  let finishCompute,failed=false,primary,retired=false,finalMetrics;const computeFinished=new Promise(resolve=>finishCompute=resolve),dropCache=onceDenseRetirement(async()=>{const previous=readCache;await acknowledgeDenseRetirement(()=>previous?.dispose());if(readCache===previous)readCache=null;}),dropStores=onceDenseRetirement(()=>retireDenseOwners((stores??[]).map((reader,id)=>async()=>{await acknowledgeDenseRetirement(()=>reader?.dispose?.());if(stores[id]===reader)stores[id]=null;}))),dropNative=onceDenseRetirement(async()=>{await acknowledgeDenseRetirement(()=>gpuTransport?.dispose());closeMemoryRanges(module);await acknowledgeDenseRetirement(()=>heap?.dispose());release?.();release=null;bootstrapRelease?.();bootstrapRelease=null;transportRelease?.();transportRelease=null;});
- const close=onceDenseRetirement(async()=>{await computeFinished;await dropCache();await dropStores();await retirementOwners?.drain();await dropNative();retirementOwners?.release();retired=true;}),stop=()=>{if(!done)return;const task=[0,0,0,0,0,0];if(next){const resolve=next;next=null;resolve(task);}else if(!queued.some(value=>value[0]===0))queued.push(task);};kernelRetirement=()=>{kernelClosing=true;stop();return close();};
+ const close=onceDenseRetirement(async()=>{await computeFinished;await dropCache();await dropStores();await retirementOwners?.drain();await dropNative();retirementOwners?.release();retired=true;}),stop=()=>{const task=[0,0,0,0,0,0];if(next){const resolve=next;next=null;resolve(task);}else if(!queued.some(value=>value[0]===0))queued.push(task);};kernelRetirement=()=>{kernelClosing=true;stop();return close();};
  try{
   const writeBatchBytes=denseWriteBatchBytes(data.values[11]);
   const budget=new Budget(data.workspaceBytes);retirementOwners=createDenseRetirementLedger(budget);retirementOwners.prepare(3*data.stores.length+16);onRetirementOwner=owner=>retirementOwners.hold(owner);bootstrapRelease=budget.reserve(data.bootstrapStagingBytes??0);transportRelease=budget.reserve((data.transportBudgetBytes??0)+writeBatchBytes);transportBudget=new Budget(data.transportBudgetBytes??data.workspaceBytes);

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue,checkAbort,controlCheckpoint}from'./errors.js';
 export const FORGERYSCOPE_WINDOW_FIELDS=Object.freeze(['mask','map','candidates','geometric','branch_microscopy','branch_blots','branch_lanes']);
 /** Only presentation unions candidate members of these completed fields. The

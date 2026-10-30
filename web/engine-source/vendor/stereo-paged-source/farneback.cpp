@@ -281,6 +281,19 @@ FarnebackUpdateFlow_GaussianBlur( const PagedMat& _R0, const PagedMat& _R1,
     }
 #endif
 
+    // Matrix updates are at least block_size rows behind the current flow
+    // row, farther than the Gaussian radius. They cannot change a later row's
+    // blur stencil in this iteration. The optional GPU computes that same
+    // ordered blur from the complete matrix; the original f64 solve and native
+    // matrix-update schedule below remain unchanged.
+    PagedMat gpuBlurred;
+    bool gpuBlur=false;
+    if(stereoPagedGpuEnabled()){
+        gpuBlurred.create(height,width,CV_32FC(5));
+        gpuBlur=stereoPagedGpuBlur(matM.backingStore(),gpuBlurred.backingStore(),width,height,m+1,kernel,1)!=0;
+    }
+    if(!gpuBlur)gpuBlurred.release();
+
     // compute blur(G)*flow=blur(h)
     for( y = 0; y < height; y++ )
     {
@@ -288,6 +301,10 @@ FarnebackUpdateFlow_GaussianBlur( const PagedMat& _R0, const PagedMat& _R1,
         float* flow = _flow.ptr<float>(y);
         stereoPagedCheck(y, height);
 
+        if(gpuBlur){
+            const PagedMat& readGpu = gpuBlurred;
+            std::copy_n(readGpu.ptr<float>(y),width*5,hsum);
+        }else{
         // vertical blur
         for( i = 0; i <= m; i++ )
         {
@@ -393,6 +410,7 @@ FarnebackUpdateFlow_GaussianBlur( const PagedMat& _R0, const PagedMat& _R1,
             hsum[x] = sum;
         }
 
+        }
         for( x = 0; x < width; x++ )
         {
             g11 = hsum[x*5];
@@ -414,5 +432,6 @@ FarnebackUpdateFlow_GaussianBlur( const PagedMat& _R0, const PagedMat& _R1,
             y0 = y1;
         }
     }
+    gpuBlurred.release();
 }
 }

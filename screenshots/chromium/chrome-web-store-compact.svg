@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="68" height="52" viewBox="0 0 68 52" role="img" aria-labelledby="title">
+  <title id="title">Chrome Web Store</title>
+  <rect x=".5" y=".5" width="67" height="51" rx="6" fill="#202631" stroke="#667080"/>
+  <g fill="#f0f3f7" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="11.5" font-weight="600">
+    <text x="34" y="22">Chrome</text>
+    <text x="34" y="37">Web Store</text>
+  </g>
+</svg>

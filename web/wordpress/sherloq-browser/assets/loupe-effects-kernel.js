@@ -1,7 +1,13 @@
-import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js';
+import {Budget} from './unified-engine/src/cache.js';
+import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
+import {equalizationPixels} from './unified-engine/src/equalization-pixels.js';
+import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.30.0';
 // The same operators as the full tools, running on the three bounded image
 // windows already sampled for the loupe. Analysis surfaces are never modified.
 export function createLoupeEffectsKernel({adjust,enhance}){
+ const nativeAdjust=adjust,nativeEnhance=enhance;
+ const expanded=(operation,native)=>async(image,params,hooks)=>{const plan=equalizationPlan(operation,params);if(!plan)return native(image,params,hooks);const base=await native(image,plan.base,hooks);if(!plan.post)return base;const budget=new Budget(128*1024**2),release=budget.reserve(base.data.byteLength+image.data.byteLength);try{return await equalizationPixels(base,plan,{...hooks,budget});}finally{release();budget.clear();}};
+ adjust=expanded('inspection.adjust',nativeAdjust);enhance=expanded('inspection.magnifier',nativeEnhance);
  let sourceId=null,inputs=[],stages=[],histograms=new WeakMap();
  const crop=frame=>{
   const {width,height,data}=frame;if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1||width>1024||height>1024||!(data instanceof Uint8ClampedArray)||data.length!==width*height*4)throw Error('Invalid loupe frame');
@@ -14,7 +20,7 @@ export function createLoupeEffectsKernel({adjust,enhance}){
   let pixels=inputs.map(v=>v.pixels);const metrics={sampledPixels:inputs.reduce((sum,v)=>sum+(v.pixels?v.pixels.width*v.pixels.height:0),0),computed:[],reused:[]};let parent=id;
   for(const name of ['adjust','enhance','sweep']){
    if(!p[name].enabled)continue;const key=parent+'|'+name+JSON.stringify(p[name]);let stage=stages.find(s=>s.key===key);
-   if(stage){metrics.reused.push(name);pixels=stage.pixels;}else{const output=[];for(const image of pixels){if(!image){output.push(null);continue;}const next=name==='adjust'?await adjust(image,adjustmentParameters(p.adjust),hooks):name==='enhance'?await enhance(image,{mode:p.enhance.mode,percent:p.enhance.percent,channel:p.enhance.channel,bounds:null},{...hooks,histogram:histograms.get(image),onHistogram:value=>histograms.set(image,value)}):sweepPixels(image,p.sweep);output.push(next);}pixels=output;stage={name,key,pixels};stages=stages.filter(s=>s.name!==name);stages.push(stage);metrics.computed.push(name);}parent=key;
+   if(stage){metrics.reused.push(name);pixels=stage.pixels;}else{const output=[];for(const image of pixels){if(!image){output.push(null);continue;}const next=name==='adjust'?await adjust(image,adjustmentParameters(p.adjust),hooks):name==='enhance'?await enhance(image,{mode:p.enhance.mode,percent:p.enhance.percent,channel:p.enhance.channel,bounds:null,...(p.enhance.equalization?{equalization:p.enhance.equalization}:{})},{...hooks,histogram:histograms.get(image),onHistogram:value=>histograms.set(image,value)}):sweepPixels(image,p.sweep);output.push(next);}pixels=output;stage={name,key,pixels};stages=stages.filter(s=>s.name!==name);stages.push(stage);metrics.computed.push(name);}parent=key;
   }
   stages=stages.filter(s=>p[s.name].enabled);
   return{frames:inputs.map(({frame,pixels:input,x0,y0},i)=>{const data=new Uint8ClampedArray(frame.data);if(input)for(let y=0;y<input.height;y++)for(let x=0;x<input.width;x++){const a=((y+y0)*frame.width+x+x0)*4,b=(y*input.width+x)*3;data[a]=pixels[i].data[b];data[a+1]=pixels[i].data[b+1];data[a+2]=pixels[i].data[b+2];}return{width:frame.width,height:frame.height,data};}),metrics};

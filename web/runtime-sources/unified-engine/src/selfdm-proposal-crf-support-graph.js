@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{readOnnxGraph,onnxFields,onnxInput,onnxNode,onnxInitializer,replaceOnnxNodeInputs}from'./onnx-scoped-graph.js';import{requireValue}from'./errors.js';
 export const SELFDM_PROPOSAL_CRF_SUPPORT_SHA256='e614ae178a99af889a0fbfc58be1e281281c41934e5b16d00ad475d3952482ff';
 export const SELFDM_PROPOSAL_CRF_SUPPORT_GRAPH_POLICY='selfdm-proposal-canonical-crf-support/2';

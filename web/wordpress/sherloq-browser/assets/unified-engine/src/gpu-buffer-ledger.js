@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.22.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError} from './errors.js';
 
 /** Worker-local WebGPU buffer accounting. This cannot measure driver-private memory. */

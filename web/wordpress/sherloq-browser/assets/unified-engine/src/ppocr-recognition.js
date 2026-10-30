@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 /* Third-party geometry notices retained in the offline module.
 OpenCV modules/imgproc/src/imgwarp.cpp
 =======================================================

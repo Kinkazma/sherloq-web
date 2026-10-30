@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
 import {illuminantParams,illuminantEstimator,illuminantCellDisplay} from './illuminant.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

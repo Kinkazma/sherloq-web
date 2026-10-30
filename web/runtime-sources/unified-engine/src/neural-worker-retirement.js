@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,deserializeEngineError} from './errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';
 /** An idle GPU worker must acknowledge native cleanup before its owner may

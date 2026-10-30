@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {wasmRange,closeMemoryRanges} from './memory-range.js';
 import {EngineError,requireValue,controlCheckpoint,checkAbort} from './errors.js';import {createSegmentedBytes} from './segmented-bytes.js';

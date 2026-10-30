@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateBuffer,allocateTypedArray,allocateOwnedTypedArray,readBlobBytes} from './allocation.js';
 import {byteRange,byteLength as rangeLength,byteView} from './memory-range.js';
 // Lossless shared-budget storage for qualified segmented image adapters.

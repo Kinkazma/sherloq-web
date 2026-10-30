@@ -1,4 +1,4 @@
-import {extensionDisplays} from './extension-tools.js';
+import {extensionDisplays} from './extension-tools.js?v=0.30.0';
 function ghostDisplayLabels(output,displays,language){
  const same=(a,b)=>a===b||!!(a?.id&&b?.id&&a.id===b.id&&a.revision===b.revision),views=output.data?.views??[],qualities=output.data?.qualities;
  return displays.map((entry,position)=>{

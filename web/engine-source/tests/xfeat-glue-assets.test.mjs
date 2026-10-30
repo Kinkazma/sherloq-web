@@ -1,0 +1,7 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {XFEAT_GLUE_GLOBAL_ASSETS,fetchXfeatGlueAsset} from '../src/xfeat-glue-global-assets.js';
+test('Every executable operator source has exact bytes and SHA identity',async()=>{for(const[name,pin]of Object.entries(XFEAT_GLUE_GLOBAL_ASSETS)){const bytes=await readFile(new URL(pin.path,new URL('../src/xfeat-glue-global-assets.js',import.meta.url))),sha=Buffer.from(await crypto.subtle.digest('SHA-256',bytes)).toString('hex');assert.equal(bytes.length,pin.bytes,name);assert.equal(sha,pin.sha256,name);}});
+test('The resource reader rejects a corrupt or absent executable resource',async()=>{const ordinary=globalThis.fetch;try{globalThis.fetch=async()=>new Response(Uint8Array.of(0));await assert.rejects(fetchXfeatGlueAsset('softmax'),{code:'ASSET_INTEGRITY'});assert.throws(()=>fetchXfeatGlueAsset('not-an-asset'),{code:'INVALID_INPUT'});}finally{globalThis.fetch=ordinary;}});
+test('An already aborted operator fetch publishes no bytes',async()=>{const controller=new AbortController();controller.abort();const ordinary=globalThis.fetch;let received=false;try{globalThis.fetch=async()=>{received=true;return new Response(new Uint8Array(XFEAT_GLUE_GLOBAL_ASSETS.softmax.bytes));};await assert.rejects(fetchXfeatGlueAsset('softmax',controller.signal),{code:'CANCELLED'});assert.equal(received,true);}finally{globalThis.fetch=ordinary;}});

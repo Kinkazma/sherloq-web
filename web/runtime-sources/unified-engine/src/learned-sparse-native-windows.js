@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {copyDistancePolicy} from './copy-policy.js';
+import {neuralWindowDomainIdentity} from './neural-window-domain-identity.js';
 import {SparseCopyEngine} from './sparse-copy.js';
 import {prepareSparseNativeWindow,sparseNativeWindowParameters} from './sparse-native-window-source.js';
 import {extractXfeatStrictNative} from './xfeat-strict-native-features.js';
@@ -10,6 +12,16 @@ import {retireCompositeOwners} from './composite-owner-release.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 
 export const LEARNED_SPARSE_WINDOW_ALGORITHMS=Object.freeze(['XFeat','XFeat + LighterGlue','ALIKED','ALIKED rotation','ALIKED + LightGlue','ALIKED rotation + LightGlue']);
+// Window admission owns candidate membership; its declared geometry still owns
+// automatic search distance. This capsule never adds pixels or ROI memberships.
+export function applyLearnedWindowDistance(input,window,mode){
+ if(input.autoRadius&&!input.compare&&!input.regions.length){
+  const polygons=mode==='global'?window.distancePolygons:[window.polygon];
+  requireValue(Array.isArray(polygons)&&polygons.length>0&&polygons.every(p=>Array.isArray(p)&&p.length>=3),'Automatic learned matching needs its declared window geometry.');
+  input.radius=copyDistancePolicy(input,[polygons.flat()]).radius;
+ }
+ return input;
+}
 /** Existing native engines are retained by canonical window identity. The
  * parent runner receives only a loan; clearImages/retainWindows owns retirement
  * in the order engine ACK, native derived ACK, then compiled RGB source ACK.
@@ -17,7 +29,7 @@ export const LEARNED_SPARSE_WINDOW_ALGORITHMS=Object.freeze(['XFeat','XFeat + Li
 export function createLearnedSparseWindowCallback({original,budget,profile,hooks={},strictAlikedRuntime,engineFactory=(image,budget,profile)=>new SparseCopyEngine(image,budget,profile),xfeatExtract=extractXfeatStrictNative,alikedExtract=extractAlikedStrictNative,alikedMask=createAlikedStrictMask}={}){
  requireValue(original&&budget?.reserve&&profile&&typeof engineFactory==='function','Learned sparse windows need their Original owner, shared budget and unchanged profile.');
  const resources=new Map(),lifetime=new AbortController();let closed=false;
- const key=(window,task,mode='independent')=>JSON.stringify([mode,original.sha256,window.id,window.fingerprint,task.backend??hooks.backend??'auto',profile.maxWorkers]);
+ const key=(window,task,mode='independent')=>JSON.stringify([mode,original.sha256,window.id,window.fingerprint,task.backend??hooks.backend??'auto',profile.maxWorkers,task.params?.algorithm?.startsWith('ALIKED')?task.params.alikedInputSide??1024:null,task.params?.algorithm?.startsWith('ALIKED')?task.params.alikedDetectionThreshold??.2:null]);
  function resourceFor(window,task){
   const resource={window,engine:null,compiled:null,nativeOwners:new Set(),children:new Map(),loans:new Set(),retirement:null,readyFailure:false};
   const captureNative=owner=>{requireValue(owner&&typeof owner.dispose==='function','Native derived window owner required.');resource.nativeOwners.add(owner);};
@@ -25,20 +37,21 @@ export function createLearnedSparseWindowCallback({original,budget,profile,hooks
   resource.ready=prepareSparseNativeWindow({original,window,task},{budget,onOwner:owner=>resource.compiled=owner}).then(prepared=>{
    resource.prepared=prepared;const engine=resource.engine=engineFactory(prepared.image,budget,profile),ordinary=engine.learned;
    requireValue(engine&&typeof engine.analyze==='function'&&typeof engine.dispose==='function'&&ordinary&&typeof ordinary.extract==='function','Existing native sparse engine required.');
+   if(prepared.fullRectangle)engine.learned={dispose:()=>ordinary.dispose(),extract:async(image,settings)=>{if(settings.family!=='XFeat'||settings.backend==='cpu')return ordinary.extract(image,settings);const domain=prepared.compiled.source.domain,capture={sourceId:original.surface?.descriptor?.id??original.id??domain.sourceSha256,sourceSha256:domain.sourceSha256,sourceWidth:domain.sourceWidth,sourceHeight:domain.sourceHeight,generation:1,family:'xfeat-local'},domainFingerprint=await neuralWindowDomainIdentity(resource.window.fingerprint,{budget,signal:settings.signal});return ordinary.extract(image,{...settings,windowSource:{...capture,domainFingerprint}});}};
    if(!prepared.fullRectangle)engine.learned={dispose:()=>ordinary.dispose(),extract:async(image,settings)=>{
     checkAbort(settings.signal);
    if(settings.family==='XFeat')return xfeatExtract(prepared.compiled.source,{...settings,budget,profile,signal:settings.signal,candidateDomain:prepared.candidateDomain,onOwner:captureNative});
    requireValue(['ALIKED','ALIKED rotation'].includes(settings.family),'Unexpected native learned family.');
    const backend=settings.backend,signal=settings.signal,window=resource.window;
-   const runtime=await strictAlikedRuntime?.({backend,profile,signal,window,prepared,family:settings.family,models:settings.model?.graphs});checkAbort(signal);
+   const runtime=await strictAlikedRuntime?.({backend,profile,signal,window,prepared,family:settings.family,models:settings.model?.graphs,inputSide:settings.inputSide,detectionThreshold:settings.detectionThreshold});checkAbort(signal);
    const requestedProvider=backend==='cpu'?'wasm':backend==='webgpu'||globalThis.navigator?.gpu?'webgpu':'wasm';
    if(runtime?.dispose)captureNative(runtime);
    if(!runtime||runtime.provider!==requestedProvider||!['wasm','webgpu'].includes(runtime.provider))throw new EngineError('SOURCE_SCOPE_BACKEND_UNQUALIFIED','This fragmented ALIKED window needs a native adapter qualified for the requested backend; the ordinary rectangle GPU path is preserved.',{details:{backend,requestedProvider,windowId:window.id}});
-   const coverage=await planAlikedStrictContexts(prepared.compiled.source.view,{budget,signal,width:image.width,height:image.height});captureNative({dispose:()=>coverage.dispose()});
+   const coverage=await planAlikedStrictContexts(prepared.compiled.source.view,{budget,signal,width:image.width,height:image.height,inputSide:settings.inputSide});captureNative({dispose:()=>coverage.dispose()});
    const mask=await alikedMask({width:image.width,height:image.height,regions:settings.regions,excluded:settings.excluded,budget,signal,onOwner:captureNative,wasmBinary:runtime.maskWasmBinary});
    const [ox,oy]=prepared.origin,allowedAtSource=(x,y)=>prepared.candidateDomain.containsOriginal(x,y)&&mask.allowedAtSource(x-ox,y-oy);
    const membership=(points,into)=>{const copy=allocateOwnedTypedArray(Float64Array,points.length,{budget,owner:'aliked-window-local-mask'});try{copy.data.set(points);for(let i=0;i<copy.data.length;i+=7){copy.data[i]-=ox;copy.data[i+1]-=oy;}return mask.membership(copy.data,into);}finally{copy.release();}};
-   const raw=await alikedExtract(prepared.compiled.source.view,{...runtime,budget,profile,signal,coverage,modelKind:settings.family==='ALIKED rotation'?'aliked-n16rot':'aliked-n16',models:settings.model?.graphs,limit:settings.limit,zoneCount:mask.zoneCount,membership,allowedAtSource,onOwner:captureNative});checkAbort(signal);
+   const raw=await alikedExtract(prepared.compiled.source.view,{...runtime,budget,profile,signal,coverage,inputSide:settings.inputSide,detectionThreshold:settings.detectionThreshold,modelKind:settings.family==='ALIKED rotation'?'aliked-n16rot':'aliked-n16',models:settings.model?.graphs,storage:'auto',temporarySession:original.session,getTemporarySession:original.ensureTemporarySession?.bind(original),limit:settings.limit,zoneCount:mask.zoneCount,membership,allowedAtSource,onOwner:captureNative});checkAbort(signal);
    // SparseCopyEngine accepts synchronous released feature banks. Copy only
    // the native tables, then await every derived raw owner ACK before returning.
    const copies=[];let copied=false;
@@ -67,7 +80,9 @@ export function createLearnedSparseWindowCallback({original,budget,profile,hooks
   const {input,scientificScopeFingerprint,nativeRegionPolicy}=sparseNativeWindowParameters(task,resource.prepared.origin,{analysisWindowMode:mode}),backend=task.backend??hooks.backend??'auto',jointSearch=mode==='global'&&input.compare!==true;
   // Source/candidate union already locks observations and eligibility. Analysis
   // windows must not become separate matcher memberships in explicit joint mode.
-  if(jointSearch)input.regions=[];let output,returned=false,failed=false,primary;
+  if(jointSearch)input.regions=[];
+  applyLearnedWindowDistance(input,window,mode);
+  let output,returned=false,failed=false,primary;
   resource.task=task;const active=resource.engine.analyze(input,{...hooks,backend,signal,scientificScope:undefined,sourceSha256:resource.prepared.contextDomain.sourceSha256,sourceContextFingerprint:sourceContextIdentity});resource.active=active;
   try{output=await active;checkAbort(signal);output.cloneWindowMode=mode;output.provenance={...output.provenance,cloneWindowMode:mode,params:task.params,cloneContextFingerprint:window.fingerprint,cloneWindowIds:mode==='global'?window.declaredWindowIds:[window.id],nativeContextPolicy:mode==='global'?'declared-window-union-single-observation':'one-declared-window',requestedParameters:task.params,nativeParameters:output.params??input,requestedParameterCoordinates:'original-pixels',nativeParameterCoordinates:'source-context-local-pixel-centres',nativeRegionPolicy:jointSearch?'one-search-context-over-admitted-union':nativeRegionPolicy};output.metadata={...output.metadata,analysisWindow:{id:window.id,kind:window.kind,contextFingerprint:resource.prepared.contextDomain.fingerprint,candidateFingerprint:resource.prepared.candidateDomain.fingerprint,sourceContextIdentity,origin:[...resource.prepared.origin],scientificScopeFingerprint,mode,...(mode==='global'?{sourceObservationPolicy:'declared-window-union-single-observation'}:{}),nativeWholeRectangle:resource.prepared.fullRectangle,sourceUnionRectangle:resource.prepared.fullRectangle,coordinates:mode==='global'?'joint-context-native-pixel-centres':'window-native-pixel-centres',matching:mode==='global'?'unchanged native SparseCopyEngine over the admitted declared-context union':'unchanged native SparseCopyEngine within this window only'}};returned=true;return output;
   }catch(error){failed=true;primary=error;throw error;}finally{if(resource.active===active)resource.active=null;if(!returned&&output)await retireCompositeOwners([()=>output.release()],failed?{primary}:{});}
@@ -75,7 +90,7 @@ export function createLearnedSparseWindowCallback({original,budget,profile,hooks
  const runWindow=job=>executeNative({...job,mode:'independent'});
  const jointAnalysis=plan=>{
   const global=plan?.global;if(!(plan?.mode==='global'&&global?.contextPolicy==='declared-window-context-union'&&global.candidateDomain&&global.contextDomain&&typeof global.fingerprint==='string'))throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','Joint learned analysis requires the canonical declared-window union; legacy bbox context is not admitted.');
-  const context=global.contextDomain;return{id:'joint-declared-windows',kind:'global',declaredWindowIds:[...global.windowIds],fingerprint:JSON.stringify(['union-before-native-input/1',global.fingerprint]),candidateDomain:global.candidateDomain,contextDomain:context,status:global.candidateDomain.empty?'empty':'ready',bounds:[context.rect.x0,context.rect.y0,context.rect.x1,context.rect.y1]};
+  const context=global.contextDomain;return{id:'joint-declared-windows',kind:'global',declaredWindowIds:[...global.windowIds],distancePolygons:plan.windows.map(w=>w.polygon),fingerprint:JSON.stringify(['union-before-native-input/1',global.fingerprint]),candidateDomain:global.candidateDomain,contextDomain:context,status:global.candidateDomain.empty?'empty':'ready',bounds:[context.rect.x0,context.rect.y0,context.rect.x1,context.rect.y1]};
  };
  runWindow.runGlobal=({plan,...job})=>{const window=jointAnalysis(plan);requireValue(window.status!=='empty','An empty joint analysis has no native execution.');return executeNative({...job,window,mode:'global'});};
  runWindow.retainWindows=async plan=>{

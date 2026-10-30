@@ -1,0 +1,79 @@
+{
+  "schema": "sherloq.public-media-codecs/1",
+  "magick": {
+    "package": "@imagemagick/magick-wasm",
+    "version": "0.0.44",
+    "source": "https://github.com/dlemstra/magick-wasm",
+    "archive": "https://registry.npmjs.org/@imagemagick/magick-wasm/-/magick-wasm-0.0.44.tgz",
+    "archiveSha256": "808e876ed849de942b47dec268d4a8059e68fc2470aa895266bb36754eb968a7",
+    "quantumDepth": 8,
+    "notice": "magick/NOTICE"
+  },
+  "heic": {
+    "package": "icodec",
+    "version": "0.6.0",
+    "sourceCommit": "f6f5faadb2b15cfeaa5fcf81a2c3787ce1c523ca",
+    "source": "https://github.com/Kaciras/icodec/tree/v0.6.0",
+    "archive": "https://registry.npmjs.org/icodec/-/icodec-0.6.0.tgz",
+    "archiveSha256": "096c7931660423f062399c5e4c7ceccf4d640dc3f84936fcf37fcccb454d1299",
+    "dependencies": "heic/versions.json",
+    "nativeHeapMaximumBytes": 2147483648,
+    "workers": 2,
+    "licenseFiles": [
+      "heic/LICENSE",
+      "heic/LIBHEIF-COPYING",
+      "heic/X265-COPYING"
+    ],
+    "cspPatch": {
+      "script": "scripts/patch-public-heic.py",
+      "adapter": "native/heic-csp-bindings.js",
+      "upstreamGlueSha256": "fe61cbfdd1c1c1a7cd4d2af983bad02f2ca2467d4647525f23e5cc6d6c91c11c",
+      "scope": "Static Embind/emval adapters; native bytes and compression unchanged; no unsafe-eval required."
+    }
+  },
+  "avif": {
+    "buildScript": "scripts/build-public-avif.py",
+    "wrapper": "native/avif-public-export.c",
+    "toolchain": "Emscripten 4.0.15",
+    "variants": [
+      "st",
+      "mt"
+    ],
+    "simd": true,
+    "stackBytes": 5242880,
+    "pthreadStackBytes": 2097152,
+    "nativeHeapMaximumBytes": 4294967296,
+    "libavif": {
+      "version": "1.4.2",
+      "archive": "https://codeload.github.com/AOMediaCodec/libavif/tar.gz/refs/tags/v1.4.2",
+      "sha256": "2b645287340ba5a631d268b551dc2d72bd73ac33335962dd36dcdb6d8366921d"
+    },
+    "libaom": {
+      "version": "3.14.1",
+      "archive": "https://aomedia.googlesource.com/aom/+archive/refs/tags/v3.14.1.tar.gz",
+      "sha256": "c2fe8bf59339a7b02f0d6a39b3cbb733ad469537c7d4953eb8d4d50d9472d1f0"
+    },
+    "colour": "Lossy: sRGB SDR -> linear BT.2020 -> PQ10, SDR white 203 nits, no gain map. Lossless: full-range 8-bit GBR identity, sRGB transfer, BT.709 primaries, 4:4:4, AV1 quality 100."
+  },
+  "privateCode": "No private image-proxy PHP, HDR gain-map algorithm or private binaries are included.",
+  "files": {
+    "avif/AOM-LICENSE": "4764a286d8b2faeaf42f4418e7d7a28d58fc8fd4d00a3d0a7f44b0a4099de7f2",
+    "avif/AOM-PATENTS": "661fb8e504744e95587b556b94a58343448300606a41bea8c7a9b97125696e61",
+    "avif/LIBAVIF-LICENSE": "165abf92cc04b39e80d29cadea7a6a7e8fddf59407d4ad2616507a7ebe8216f9",
+    "avif/avif-mt.js": "617a031ea7bacddffc1cea5a38d879bc516cf30ab968a27fcb4dd01912fa059a",
+    "avif/avif-mt.wasm": "219bdce3a3631f1ae6b66c47be912705d6769516311907541117a8b4b0825cf4",
+    "avif/avif-st.js": "379ebc08d5ef1fa88dd93acb1c1d92d269f6b11812b1da065d9749e52b6a6a36",
+    "avif/avif-st.wasm": "8a0468a7f68d2eb915d14571ad046272e4db3c8ba25ff2518aacb2fd37b32800",
+    "heic/LIBHEIF-COPYING": "b2eb4f6588b005bebac44cfb2dfd23f6a16c5ca9b8a619a315158b0215a917a3",
+    "heic/LICENSE": "82caa1908f92456c29f3f757374bf5020e17c82ed9495c7969c7f3a651b6493b",
+    "heic/X265-COPYING": "d8afb1bcc7a2cfc603683b168d6987ef0a48e59e0da3693bf55c5d33b67e2b49",
+    "heic/heic-enc.js": "479bec0a42b52935ff49c7f7ab40da9cd9134124b136c8fd62730668b8776d25",
+    "heic/heic-enc.wasm": "503a7fde05db1a563136376b5bd298c74047d392a773feaf134c036ed5eb3316",
+    "heic/versions.json": "4369efef3fc4d49cb8b7695e1c9810343af97f010624d71d6d6dfaf64811fccc",
+    "magick/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "magick/NOTICE": "bc14d5191f0cd22ef077cb91daca24ec57a221746bc21941fc48b18f5bd8f072",
+    "magick/index.js": "cf1db24f7e63f560118ef434fd581dc9ef66ad099dc417184765cd6076fb4a1b",
+    "magick/x86/magick.wasm": "b7d6710436b150dc5bd1ca04d80b6b7614c54854d7470f888f7e69a2a41b00e4",
+    "srgb.icc": "43a3c4fdd280876312a6e0f98fb408528d5ba8ba0af6f9f78b7939730303d77a"
+  }
+}

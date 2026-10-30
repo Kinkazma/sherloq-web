@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {payloadBytes} from './pixel-operations.js';
 import {sourceRegionUnlocalizedInput} from './source-region-capabilities.js';

@@ -1,0 +1,26 @@
+import "../../runtime-context.js?v=0.30.0";
+import {requireValue,checkAbort,createCooperator} from './errors.js';
+import {ssgParams} from './ssg.js';
+const histogram=(values,bins,maximum,minimum)=>{const step=maximum/bins,counts=new Uint32Array(bins+1);for(const v of values){const b=v===maximum?bins:Math.floor(v/step);if(b>=0&&b<=bins)counts[b]++;}const selected=[];for(let i=0;i<counts.length;i++)if(counts[i]>minimum)selected.push(i);return values.map(v=>selected.some(i=>v>=i*step&&v<=(i+1)*step));};
+// Coincident displacement samples have identical neighborhoods and core status.
+// Collapse only exact coordinates, retaining their weight and first-input order.
+// This is the same DBSCAN, without constructing the same 20k-neighbor array
+// 20k times for an exact translation; no point, tolerance or resolution cap.
+export async function ssgWeightedDbscan(coords,k,{signal}={}){
+ const n=coords.length/2,groups=[],lookup=new Map(),pointGroup=new Uint32Array(n+1);let minX=0,maxX=0,minY=0,maxY=0;
+ for(let i=0;i<=n;i++){const x=i===n?0:coords[i*2],y=i===n?0:coords[i*2+1],key=x+'/'+y;minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);let id=lookup.get(key);if(id===undefined){id=groups.length;lookup.set(key,id);groups.push({x,y,count:0});}groups[id].count++;pointGroup[i]=id;}
+ const epsilon=Math.sqrt((maxX-minX)*(maxY-minY)*k/((n+1)*Math.PI)),buckets=new Map();if(epsilon>0)groups.forEach((g,i)=>{const key=Math.floor(g.x/epsilon)+'/'+Math.floor(g.y/epsilon);if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(i);});
+ const near=id=>{const g=groups[id];if(!epsilon)return [id];const out=[],x=Math.floor(g.x/epsilon),y=Math.floor(g.y/epsilon);for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)for(const i of buckets.get((x+dx)+'/'+(y+dy))??[])if((groups[i].x-g.x)**2+(groups[i].y-g.y)**2<=epsilon**2)out.push(i);return out.sort((a,b)=>a-b);},weight=ids=>ids.reduce((sum,i)=>sum+groups[i].count,0),labels=new Int32Array(groups.length),visited=new Uint8Array(groups.length),cooperate=createCooperator(signal);let number=0;
+ for(let i=0;i<groups.length;i++){await cooperate();if(visited[i])continue;visited[i]=1;const seeds=near(i);if(weight(seeds)<k+1){labels[i]=-1;continue;}number++;labels[i]=number;const queued=new Uint8Array(groups.length);for(const j of seeds)queued[j]=1;
+  for(let s=0;s<seeds.length;s++){const j=seeds[s];if(!visited[j]){visited[j]=1;const neighbors=near(j);if(weight(neighbors)>=k+1)for(const q of neighbors)if(!queued[q]){queued[q]=1;seeds.push(q);}}if(labels[j]<=0)labels[j]=number;}
+ }
+ checkAbort(signal);return {labels:Int32Array.from(pointGroup.subarray(0,n),id=>labels[id]),epsilon,uniqueDisplacements:groups.length};
+}
+export async function ssgFullFilterMatches(features,phrases,{width,height,...input}={},hooks={}){
+ const p=ssgParams(input),count=phrases.pairs.length/2;checkAbort(hooks.signal);requireValue(features.points instanceof Float64Array&&features.moments instanceof Float64Array&&phrases.pairs instanceof Uint32Array&&phrases.pairs.length%2===0&&phrases.pairs.every(i=>i<features.points.length/3),'Invalid SSG phase input.');hooks.reserveMemory?.(count*200);const angles=[],lengths=[],deltas=[];
+ for(let i=0;i<count;i++){const a=phrases.pairs[i*2],b=phrases.pairs[i*2+1];let dx=features.points[a*3]-features.points[b*3],dy=features.points[a*3+1]-features.points[b*3+1];if(dy<0){dx=-dx;dy=-dy;}angles.push(Math.atan2(dy,dx)*180/Math.PI);lengths.push(Math.hypot(dx,dy));deltas.push([dx,dy]);}
+ const angular=histogram(angles,p.angularBins,180,p.minimumBinCount),first=[];for(let i=0;i<count;i++)if(angular[i])first.push(i);const radial=histogram(first.map(i=>lengths[i]),p.distanceBins,Math.floor(Math.hypot(width,height)),p.minimumBinCount),retained=first.filter((_,i)=>radial[i]),cluster=await ssgWeightedDbscan(Float64Array.from(retained.flatMap(i=>deltas[i])),p.clusterNeighbors,hooks),groupMap=new Map(),rows=[],cooperate=createCooperator(hooks.signal);
+ for(let i=0;i<retained.length;i++)if(cluster.labels[i]>0){const label=cluster.labels[i];if(!groupMap.has(label))groupMap.set(label,[]);groupMap.get(label).push(i);}
+ for(const [label,indices]of groupMap){await cooperate();const phases=indices.map(index=>{const row=retained[index],a=phrases.pairs[row*2],b=phrases.pairs[row*2+1];let sum=0;for(let d=0;d<12;d++){const ar=features.moments[a*24+d*2],ai=features.moments[a*24+d*2+1],br=features.moments[b*24+d*2],bi=features.moments[b*24+d*2+1];if(br===0&&bi===0)return NaN;sum+=Math.atan2(ai*br-ar*bi,ar*br+ai*bi)/(1+Math.floor(d/4));}return Math.abs(sum/12);});const step=Math.PI/p.angularBins,bins=new Uint32Array(p.angularBins+1);for(const v of phases)if(Number.isFinite(v))bins[Math.min(p.angularBins,Math.floor(v/step))]++;const top=Array.from({length:bins.length},(_,i)=>i).sort((a,b)=>bins[b]-bins[a]||a-b).slice(0,2).filter(i=>bins[i]>=p.minimumBinCount);for(let i=0;i<indices.length;i++)if(top.some(bin=>phases[i]>=bin*step&&phases[i]<=(bin+1)*step)){const row=retained[indices[i]];rows.push([phrases.pairs[row*2],phrases.pairs[row*2+1],row,label]);}}
+ return {pairs:Uint32Array.from(rows.flatMap(r=>r.slice(0,2))),phraseRows:Uint32Array.from(rows.map(r=>r[2])),clusters:Int32Array.from(rows.map(r=>r[3])),epsilon:cluster.epsilon,uniqueDisplacements:cluster.uniqueDisplacements};
+}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{readOnnxGraph,onnxInput,onnxNode}from'./onnx-scoped-graph.js';import{requireValue}from'./errors.js';
 export const SELFDM_PROPOSAL_SUPERGLUE_SHA256='2964d7a675c295999c86b6ccaf90eb5297ca2b2200dbdeb813a21eabb2361b88';
 export const SELFDM_PROPOSAL_SUPERGLUE_SHAPE_POLICY='selfdm-proposal-superglue-shapes/1';

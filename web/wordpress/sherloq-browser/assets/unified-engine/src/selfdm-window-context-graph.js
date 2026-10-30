@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {readOnnxGraph,onnxFields,onnxNode,onnxInput,onnxInitializer,replaceOnnxNodeInputs} from './onnx-scoped-graph.js';
 import {requireValue} from './errors.js';
 export const SELFDM_WINDOW_MODEL_SHA256='933ce196b044f0df1d3e0aa2dabe79907b6406e1aa9384cc7bb831922b1d4d59';

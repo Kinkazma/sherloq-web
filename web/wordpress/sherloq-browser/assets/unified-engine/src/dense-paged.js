@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,countedDenseOwner,denseConstructionOwner,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {wasmRange,byteView,closeMemoryRanges} from './memory-range.js';
 // Native global traversal with bounded caches and externally stored planes.

@@ -1,12 +1,12 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateTypedArray,registerArrayViews} from './allocation.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {requireValue,EngineError,checkAbort,controlCheckpoint} from './errors.js';
 const f=Math.fround,scaleFloor=[16,.25,.25,.25,8,.25],profileFloor=[.08,.08,.08,.06,.06];
 function median(values,float32=false){values.sort((a,b)=>a-b);const k=values.length>>1;return values.length%2?values[k]:float32?f(f(values[k-1]+values[k])*.5):(values[k-1]+values[k])*.5;}
-export function createElaPeerScorer({budget,wasmBinary}={}){
+export function createElaPeerScorer({budget,wasmBinary,profileKernel='auto'}={}){
  requireValue(typeof budget?.reserve==='function','Shared budget required');let module,heapRelease,heapBacking,busy=false,disposed=false;
- async function ensure(){if(module)return module;const free=budget.reserve(64*1024**2);try{const {default:create}=await import('../vendor/ela-peers/peers.js');module=await create(wasmBinary?{wasmBinary}:{});heapRelease=free;heapBacking=budget.registerBacking?.('wasm',module.HEAPF64.buffer.byteLength,{owner:'ela',label:'ela-peer-heap'});return module;}catch(e){module=null;heapRelease=null;heapBacking?.();heapBacking=null;free();throw e;}}
+ async function ensure(){if(module)return module;const free=budget.reserve(64*1024**2);try{const {default:create}=await ((profileKernel==='reference'||wasmBinary)?import('../vendor/ela-peers/peers.js'):import('../vendor/ela-peers-fast/peers.js'));module=await create(wasmBinary?{wasmBinary}:{});heapRelease=free;heapBacking=budget.registerBacking?.('wasm',module.HEAPF64.buffer.byteLength,{owner:'ela',label:'ela-peer-heap'});return module;}catch(e){module=null;heapRelease=null;heapBacking?.();heapBacking=null;free();throw e;}}
  return {
   async score({rows,cols,content,profiles,supported,kind='legacy',qualities=3},{signal,onProgress}={}){
    if(busy)throw new EngineError('BUSY','ELA peer scorer busy');requireValue(!disposed,'ELA peer scorer disposed');
@@ -14,7 +14,7 @@ export function createElaPeerScorer({budget,wasmBinary}={}){
    requireValue(['legacy','background','ghost'].includes(kind)&&Number.isInteger(rows)&&rows>0&&Number.isInteger(cols)&&cols>0&&Number.isSafeInteger(n)&&n<=16384&&Number.isInteger(qualities)&&qualities>0&&qualities<=101&&(kind==='ghost'?qualities===71:qualities===3),'ELA peer domain');
    requireValue(content instanceof Float32Array&&content.length===n*6&&content.every(Number.isFinite)&&supported instanceof Uint8Array&&supported.length===n&&supported.every(v=>v<=1),'Content descriptors/support required');
    requireValue(profiles instanceof (kind==='ghost'?Float64Array:Float32Array)&&profiles.length===n*qualities*descriptors&&profiles.every(Number.isFinite),'Residual profiles required');
-   checkAbort(signal);busy=true;let workspace,outputRelease,m,tree=0,pa=0,qa=0,da=0,ia=0,complete=false,cpu,outputBacking;
+   checkAbort(signal);busy=true;let workspace,outputRelease,m,tree=0,pa=0,qa=0,da=0,ia=0,complete=false,cpu,outputBacking;const ghostPointers=[];
    try{
     if(budget.beginOperation)cpu=await getExecutionScheduler(budget).acquire({cpu:1,signal,resourceOwner:'ela',label:'ela-peer-scores'});
     const bytes=n*(kind==='legacy'?qualities*24+4:kind==='background'?8+qualities*28+1:11);const lease=budget.reserve(bytes);outputRelease=()=>{outputBacking?.();lease();};
@@ -32,9 +32,35 @@ export function createElaPeerScorer({budget,wasmBinary}={}){
      for(let j=0;j<ids.length;j++)m.HEAPF64.set(normalized.subarray(ids[j]*6,ids[j]*6+6),pa/8+j*6);
      tree=m._ela_peers_create(pa,ids.length,6);if(!tree)throw new EngineError('COMPUTE_FAILED','ELA cKDTree construction failed');
      const limit=kind==='legacy'?1.25:kind==='background'?.4:.5,spatial=Math.max(2,Math.floor(Math.min(rows,cols)/5));
+     let ghost,residual;
+     if(kind==='ghost'&&profileKernel!=='reference'&&typeof m._ela_ghost_profiles_batch==='function'){
+      for(const size of [profiles.byteLength,ids.length*4,n,n*4,n*2,n*4,n]){const pointer=m._malloc(size);if(!pointer)throw new EngineError('MEMORY_ALLOCATION','ELA Ghost peer workspace allocation failed',{details:{allocationKind:'wasm',requestedBytes:size,currentBytes:m.HEAPF64.buffer.byteLength}});ghostPointers.push(pointer);}
+      const [profilesAt,idsAt,supportedAt,scoreAt,qualityAt,countsAt,validAt]=ghostPointers;
+      m.HEAPF64.set(profiles,profilesAt/8);m.HEAP32.set(ids,idsAt/4);m.HEAPU8.set(supported,supportedAt);
+      for(const [at,size]of [[scoreAt,n*4],[qualityAt,n*2],[countsAt,n*4],[validAt,n]])m.HEAPU8.fill(0,at,at+size);
+      ghost={profilesAt,idsAt,supportedAt,scoreAt,qualityAt,countsAt,validAt};
+     }
+     if(kind!=='ghost'&&profileKernel!=='reference'&&typeof m._ela_residual_profiles_batch==='function'){
+      const make=size=>{const pointer=m._malloc(size);if(!pointer)throw new EngineError('MEMORY_ALLOCATION','ELA residual peer workspace allocation failed',{details:{allocationKind:'wasm',requestedBytes:size,currentBytes:m.HEAPF64.buffer.byteLength}});ghostPointers.push(pointer);return pointer;},profilesAt=make(profiles.byteLength),idsAt=make(ids.length*4),supportedAt=make(n),floorsAt=kind==='legacy'?make(floor.length*8):0,outputs={};
+      m.HEAPF32.set(profiles,profilesAt/4);m.HEAP32.set(ids,idsAt/4);m.HEAPU8.set(supported,supportedAt);if(floorsAt)m.HEAPF64.set(floor,floorsAt/8);
+      for(const [name,array]of Object.entries(fields)){const at=make(array.byteLength);m.HEAPU8.fill(0,at,at+array.byteLength);outputs[name]={at,stride:array.length/n,bytes:array.BYTES_PER_ELEMENT};}
+      residual={profilesAt,idsAt,supportedAt,floorsAt,outputs};
+     }
      for(let lo=0;lo<n;lo+=batch){
       await controlCheckpoint(signal);const count=Math.min(batch,n-lo);m.HEAPF64.set(normalized.subarray(lo*6,(lo+count)*6),qa/8);
       if(!m._ela_peers_query(tree,qa,count,k,da,ia))throw new EngineError('COMPUTE_FAILED','ELA cKDTree query failed');
+      if(ghost){
+       const {profilesAt,idsAt,supportedAt,scoreAt,qualityAt,countsAt,validAt}=ghost;
+       if(!m._ela_ghost_profiles_batch(profilesAt,idsAt,supportedAt,ia,da,rows,cols,lo,count,k,scoreAt,qualityAt,countsAt,validAt))throw new EngineError('COMPUTE_FAILED','ELA Ghost peer statistic failed');
+       fields.ghost_score.set(m.HEAPF32.subarray(scoreAt/4+lo,scoreAt/4+lo+count),lo);fields.ghost_quality.set(m.HEAP16.subarray(qualityAt/2+lo,qualityAt/2+lo+count),lo);fields.ghost_peer_count.set(m.HEAP32.subarray(countsAt/4+lo,countsAt/4+lo+count),lo);fields.ghost_supported.set(m.HEAPU8.subarray(validAt+lo,validAt+lo+count),lo);
+       onProgress?.(Math.min(1,(lo+count)/n));continue;
+      }
+      if(residual){
+       const {profilesAt,idsAt,supportedAt,floorsAt,outputs}=residual,at=name=>outputs[name]?.at??0,bg=kind==='background';
+       if(!m._ela_residual_profiles_batch(profilesAt,idsAt,supportedAt,ia,da,rows,cols,lo,count,k,Number(bg),floorsAt,at(bg?'background_quality_scores':'quality_scores'),at(bg?'background_signed_scores':'signed_scores'),at('background_reference'),at('background_score'),at(bg?'background_peer_count':'peer_count'),at('background_supported')))throw new EngineError('COMPUTE_FAILED','ELA residual peer statistic failed');
+       for(const [name,{at,stride,bytes}]of Object.entries(outputs)){const array=fields[name],heap=array instanceof Float32Array?m.HEAPF32:array instanceof Int32Array?m.HEAP32:m.HEAPU8;array.set(heap.subarray(at/bytes+lo*stride,at/bytes+(lo+count)*stride),lo*stride);}
+       onProgress?.(Math.min(1,(lo+count)/n));continue;
+      }
       for(let row=0;row<count;row++){
        const index=lo+row,peers=[];for(let j=0;j<k&&peers.length<64;j++){const other=ids[m.HEAP32[ia/4+row*k+j]],distance=m.HEAPF64[da/8+row*k+j];if(distance<=limit&&Math.max(Math.abs(Math.floor(other/cols)-Math.floor(index/cols)),Math.abs(other%cols-index%cols))>spatial)peers.push(other);}
        if(kind==='legacy')fields.peer_count[index]=supported[index]?peers.length:0;
@@ -57,7 +83,7 @@ export function createElaPeerScorer({budget,wasmBinary}={}){
      }
     }
     checkAbort(signal);complete=true;return {rows,cols,...fields,release:outputRelease};
-   }finally{if(tree)m._ela_peers_release(tree);if(m)for(const p of [pa,qa,da,ia])if(p)m._free(p);workspace?.();cpu?.release();if(!complete)outputRelease?.();busy=false;}
+   }finally{if(tree)m._ela_peers_release(tree);if(m)for(const p of [pa,qa,da,ia,...ghostPointers])if(p)m._free(p);workspace?.();cpu?.release();if(!complete)outputRelease?.();busy=false;}
   },
   dispose(){if(busy)throw new EngineError('BUSY','ELA peer scorer busy');module=null;const retired=heapBacking?.();heapBacking=null;if(retired)budget.notifyBackingRelease?.('wasm',retired);heapRelease?.();heapRelease=null;disposed=true;}
  };

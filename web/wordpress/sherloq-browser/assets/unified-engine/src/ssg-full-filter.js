@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {ssgParams} from './ssg.js';
 const histogram=(values,bins,maximum,minimum)=>{const step=maximum/bins,counts=new Uint32Array(bins+1);for(const v of values){const b=v===maximum?bins:Math.floor(v/step);if(b>=0&&b<=bins)counts[b]++;}const selected=[];for(let i=0;i<counts.length;i++)if(counts[i]>minimum)selected.push(i);return values.map(v=>selected.some(i=>v>=i*step&&v<=(i+1)*step));};

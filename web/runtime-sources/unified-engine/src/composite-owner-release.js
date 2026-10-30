@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 // Retire every independent owner, preserving a calculation error if one exists.
 export async function retireCompositeOwners(owners, options={}) {
  const primary=Object.hasOwn(options,'primary');let failed=primary,failure=options.primary;

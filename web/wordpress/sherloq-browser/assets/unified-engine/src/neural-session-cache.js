@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {EngineError,requireValue,serializeEngineError} from './errors.js';
 /** Inactive exact ORT sessions only. The pool funds this allowance in addition
  * to the current graph and reclaims the complete idle worker under pressure.

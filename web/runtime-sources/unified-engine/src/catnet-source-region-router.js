@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{createCatnetAnalyzer}from'./catnet-analyzer.js';import{createCatnetStrictAnalyzer}from'./catnet-strict-analyzer.js';import{catnetStrictResultContext}from'./catnet-strict-fields.js';import{requireValue}from'./errors.js';
 /** The host still decodes one unchanged Original Blob. Only a named signed
  * scope invokes the strict DCT owner; legacy Original behavior stays native. */

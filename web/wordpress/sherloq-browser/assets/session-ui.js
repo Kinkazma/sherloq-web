@@ -1,8 +1,8 @@
-import {sessionLog} from './session-log.js';
-import {runtimeContext,diagnostic} from './runtime-context.js';
-import {createExportSink} from './export-sink.js';
-import {createDownloadManager,withDownloadCleanupFailure} from './download-manager.js';
-import {getDocumentDownloadShelf} from './download-shelf.js';
+import {sessionLog} from './session-log.js?v=0.30.0';
+import {runtimeContext,diagnostic} from './runtime-context.js?v=0.30.0';
+import {createExportSink} from './export-sink.js?v=0.30.0';
+import {createDownloadManager,withDownloadCleanupFailure} from './download-manager.js?v=0.30.0';
+import {getDocumentDownloadShelf} from './download-shelf.js?v=0.30.0';
 const documentDownloads=new WeakMap();
 const sessionControls=new WeakMap();
 function sessionDownloadManager(document,options){

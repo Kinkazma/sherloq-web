@@ -4,9 +4,9 @@ import {createD2prlRecovery} from './recovery.js';
 // Cancellable native-coordinate interpolation under the shared admission.
 import {requireValue, checkAbort, EngineError, deserializeEngineError} from '../../src/errors.js';
 export function createSpatial({budget, moduleUrl, maxInputSide = 448}) {
-  requireValue(budget && typeof budget.reserve === 'function' && [448, 512].includes(maxInputSide), 'Shared budget and qualified spatial domain required'); let busy = false, disposed = false;
+  requireValue(budget && typeof budget.reserve === 'function' && [448,512,896,1344,1792].includes(maxInputSide), 'Shared budget and qualified spatial domain required'); let busy = false, disposed = false;
   return {
-    async run({input, width = 448, height = 448, outWidth, outHeight, nearest}, {signal, onCompute, onRecovery} = {}) {
+    async run({input, width = maxInputSide, height = maxInputSide, outWidth, outHeight, nearest}, {signal, onCompute, onRecovery} = {}) {
       if (busy) throw new EngineError('BUSY', 'Spatial resize busy');
       requireValue(!disposed && [width, height, outWidth, outHeight].every(Number.isInteger) && width > 0 && height > 0 && width <= maxInputSide && height <= maxInputSide && outWidth > 0 && outHeight > 0 && outWidth <= 8192 && outHeight <= 8192 && outWidth * outHeight <= 32 * 1024 ** 2 && typeof nearest === 'boolean' && input instanceof Float32Array && input.length === width * height, 'Spatial resize domain'); checkAbort(signal); busy = true;
       const operation=createD2prlRecovery({budget,signal,onRecovery});

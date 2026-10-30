@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{SELFDM_WINDOW_FEATURES,SELFDM_WINDOW_ATTENDED,SELFDM_WINDOW_QUERIES,SELFDM_WINDOW_BANK,SELFDM_WINDOW_GLOBAL}from'./selfdm-window-context-graph.js';
 import{requireValue,checkAbort,controlCheckpoint,EngineError}from'./errors.js';
 const channels=[256,512,512],tensor=(data,dims)=>({data,dims,type:'float32'});

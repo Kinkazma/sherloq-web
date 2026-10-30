@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 // Cheap metadata only. Never allocate a probe or request a garbage collection.
 // These values describe different scopes; their subtraction is not free RAM.
 export function browserMemoryObservation({performanceObject=globalThis.performance,navigatorObject=globalThis.navigator}={}){

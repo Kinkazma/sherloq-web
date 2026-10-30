@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 // Apache-2.0 upstream ffd4a464; full outdoor weights, actual FP32 model.
 // RoPE coefficients are stored separately by axis, without changing values.
 export const EFFICIENT_LOFTR_ASSET=Object.freeze({

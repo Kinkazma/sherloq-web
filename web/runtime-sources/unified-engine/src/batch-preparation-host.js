@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
+import {batchTextBackendAdmission} from './batch-text-backend-admission.js';
 import {receiveNativeSourceChannel} from './native-source-channel.js';
 import {compileOriginalSourceRegions} from './source-region-geometry.js';
 import {Budget} from './cache.js';
@@ -55,6 +56,10 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
   let image,panelResult,metadataLease,metadata,width,height,failure;
   try{
    try{
+    // This batch owner must close its nested neural runtime before publication.
+    // An explicit GPU refusal happens before decoding, model creation or inference.
+    const detectText=args.params?.textOnly===true||args.params?.detectText!==false;
+    const textAdmission=detectText?batchTextBackendAdmission(config.text?.asset,options.backend):null;
     if(native){
      const input=args.image,domain=await compileOriginalSourceRegions(input.sourceRegionDomain);checkAbort(options.signal);
      requireValue(!domain.empty&&input.sha256===domain.sourceSha256&&input.width===domain.width&&input.height===domain.height&&JSON.stringify(input.origin)===JSON.stringify(domain.origin),'Native text preparation differs from its original-source domain.');
@@ -76,8 +81,8 @@ export function createBatchPreparationHost({post,loadFactory=async url=>(await i
     // A text-only request is an explicit OCR operation (including page rasters).
     // Disabling OCR on ordinary preparation does not disable panel classification
     // or instantiate an OCR pool/model merely to return an empty detection.
-    const detectText=args.params?.textOnly===true||args.params?.detectText!==false;
-    const textResult=detectText?await text().detect(source,options):{status:'complete',disabled:true,rawDetection:null,width,height,polygons:[],detections:[],warnings:[],metadata:{method:'text-detection-disabled',inferenceExecuted:false,originalPixelsModified:false,coordinateSpace:'original-image-pixels',sourceSha256:image.sha256,reason:'Text detection was explicitly disabled for this preparation.'}};checkAbort(options.signal);
+    const textResult=detectText?await text().detect(source,{...options,backend:textAdmission.effectiveBackend}):{status:'complete',disabled:true,rawDetection:null,width,height,polygons:[],detections:[],warnings:[],metadata:{method:'text-detection-disabled',inferenceExecuted:false,originalPixelsModified:false,coordinateSpace:'original-image-pixels',sourceSha256:image.sha256,reason:'Text detection was explicitly disabled for this preparation.'}};checkAbort(options.signal);
+    if(textAdmission)textResult.metadata={...textResult.metadata,backendAdmission:textAdmission};
     let annotations=null;
     if(panelResult){const regions=(panelResult.metadata.preparation.panels??[]).filter(p=>['Microscopy','Blots','Body Imaging'].includes(p.label??p.type)).flatMap(p=>{const b=p.rectangle??p.bounds;if(!Array.isArray(b)||b.length!==4||!b.every(Number.isFinite))return [];const r={x0:Math.max(0,b[0]),y0:Math.max(0,b[1]),x1:Math.min(width,b[2]),y1:Math.min(height,b[3])};return r.x1>r.x0&&r.y1>r.y0?[r]:[];});annotations=await annotationDetector({width,height,channels:3,regions,sourceSha256:image.sha256,signal:options.signal,readRows:(y,rows,hooks)=>image.surface.readWindow({x:0,y,width,height:rows},hooks)});checkAbort(options.signal);}
     const information={panels:panelResult?.metadata?.preparation??null,text:textResult,annotations,width,height,sourceSha256:image.sha256,provenance:{originalSourceSha256:image.sha256,decoder:image.provenance,sourceMetrics:image.metrics,panelDetection:panelResult?.provenance??null,coordinateSpace:'original-image-pixels',originalPixelsModified:false}};

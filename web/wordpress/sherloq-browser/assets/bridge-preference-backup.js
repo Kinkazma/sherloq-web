@@ -1,4 +1,4 @@
-import {journal} from './local-update-store.js';
+import {journal} from './local-update-store.js?v=0.30.0';
 
 // Persist before navigation in the same scoped transaction/reference consumed
 // by update recovery and rollback. This is not an external file-download claim.

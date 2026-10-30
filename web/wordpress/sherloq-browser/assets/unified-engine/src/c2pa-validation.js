@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {deserializeEngineError,EngineError,checkAbort,requireValue} from './errors.js';import {c2paParams,summarizeC2pa} from './c2pa-report.js';
 import {sourcePrefixMetadataBytes} from './source-prefix-integrity.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './worker-message-protocol.js';

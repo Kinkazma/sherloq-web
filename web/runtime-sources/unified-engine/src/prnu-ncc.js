@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {numpySum} from './numpy-sum.js';
 import {requireValue,createCooperator,checkAbort} from './errors.js';
 const BLOCK=8192;

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort} from './errors.js';
 import {SELFDM_PROPOSAL_CONTEXT_GEOMETRY} from './selfdm-proposal-context-geometry.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
@@ -75,7 +75,7 @@ export async function createSelfDMProposalContextBanks(geometry,{budget,signal,o
   credits.push(budget.reserve(65536));offsets=Array.from({length:7},()=>[]);let admission=0;
   for(let index=0;index<7;index++){
    let offset=0;
-   for(const context of geometry.contexts){const scale=context.scales[index],count=scale.rows*scale.cols;requireValue(Number.isSafeInteger(count)&&count>0&&count<=0x7fffffff&&Number.isSafeInteger(offset+count),'Native DeepMask slot geometry exceeds exact integer storage');offsets[index].push(offset);offset+=count}
+   for(const context of geometry.contexts){const scale=context.scales[index],count=scale.rows*scale.cols;requireValue(Number.isSafeInteger(count)&&count>=0&&(count>0||scale.status==='not-evaluable'&&scale.windows.length===0)&&count<=0x7fffffff&&Number.isSafeInteger(offset+count),'Native DeepMask slot geometry exceeds exact integer storage');offsets[index].push(offset);offset+=count}
    const capacity=Math.min(500,offset);requireValue(capacity===geometry.commonBanks[index].maximumRows,'Common bank admission differs from verified geometry');
    admission+=capacity*(MASK*4+4+4+8+4)+geometry.contexts.reduce((n,c)=>n+c.scales[index].windows.length,0);
   }

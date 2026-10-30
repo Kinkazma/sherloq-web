@@ -1,6 +1,8 @@
+import{isSsgProjectionFailure}from'./ssg-native-projection.js';
 import {createSsgStrictResult} from './ssg-strict-result.js';
 import {createSsgRetainedLocalizer} from './ssg-retained-localization.js';
 import {createSsgStrictSource} from './ssg-strict-source.js';
+import {createSsgPreparedContextReuse} from './ssg-prepared-context-reuse.js';
 import {createSsgStrictWordBank,matchSsgStrictWords} from './ssg-strict-word-bank.js';
 import {createSsgStrictFields} from './ssg-strict-fields.js';
 import {ssgStrictSalience,ssgStrictLocalize} from './ssg-strict-localization.js';
@@ -23,7 +25,7 @@ async function retire(actions,primary,failed=false){const errors=[];for(const ac
  * No entry point in this module opens the product capability gate. */
 export function createSsgStrictEngine(view,budget,profile,{candidateDomain=view?.domain,edgesFactory,vlfeatFactory,moduleFactory}={}){
  requireValue(view?.domain&&candidateDomain?.sourceSha256===view.domain.sourceSha256&&budget&&profile?.maxWorkers>0,'SSG needs certified context/candidate domains and the unchanged shared profile.');
- const lifetime=new AbortController();let active=false,closed=false,done=Promise.resolve(),cached=null;
+ const wordOwners=new Set(),lifetime=new AbortController();let active=false,closed=false,done=Promise.resolve(),cached=null;
  const retiring=new Set(),releaseCheckpoint=value=>{if(!value)return;retiring.add(value);value.release();retiring.delete(value);};
  const clear=()=>{if(active)return 0;const previous=cached;cached=null;const before=budget.total(),failures=[];for(const value of new Set([previous,...retiring]))if(value)try{releaseCheckpoint(value);}catch(error){failures.push(error);}if(failures.length)throw new AggregateError(failures,'SSG checkpoints are still retiring.');return Math.max(0,before-budget.total());},unregister=budget.registerReclaimer?.(clear,{owner:'ssg-strict-native-checkpoint',label:'idle native global SSG stages',allocationKind:'array-buffer'});
  const localizerFor=async(checkpoint,signal)=>{
@@ -31,7 +33,7 @@ export function createSsgStrictEngine(view,budget,profile,{candidateDomain=view?
   const fallback=(p,hooks)=>ssgStrictLocalize(checkpoint.fields,checkpoint.features,checkpoint.pairs,checkpoint.groups,checkpoint.models,p,{budget,profile,domain:candidateDomain,...hooks,...(moduleFactory?{moduleFactory}:{})});
   const localizer=await createSsgRetainedLocalizer(checkpoint,{budget,profile,sourceSha256:view.domain.sourceSha256,contextFingerprint:view.domain.fingerprint,candidateFingerprint:candidateDomain.fingerprint,sourceRevision:view.source?.descriptor?.revision??0,domain:candidateDomain,signal,nativeFallback:fallback,...(moduleFactory?{moduleFactory}:{})});try{checkAbort(signal);checkpoint.localizer=localizer;return localizer;}catch(error){localizer.disposeIdle();throw error;}
  };
- const localize=async(checkpoint,p,hooks)=>{try{return await(await localizerFor(checkpoint,hooks.signal)).exact(p,hooks);}catch(error){if(error.code!=='MEMORY_LIMIT')throw error;return ssgStrictLocalize(checkpoint.fields,checkpoint.features,checkpoint.pairs,checkpoint.groups,checkpoint.models,p,{budget,profile,domain:candidateDomain,...hooks,...(moduleFactory?{moduleFactory}:{})});}};
+ const localize=async(checkpoint,p,hooks)=>{try{return await(await localizerFor(checkpoint,hooks.signal)).exact(p,hooks);}catch(error){if(isSsgProjectionFailure(error)||error?.code!=='MEMORY_LIMIT')throw error;return ssgStrictLocalize(checkpoint.fields,checkpoint.features,checkpoint.pairs,checkpoint.groups,checkpoint.models,p,{budget,profile,domain:candidateDomain,...hooks,...(moduleFactory?{moduleFactory}:{})});}};
  const keyFor=(p,identity)=>JSON.stringify([view.domain.sourceSha256,view.domain.fingerprint,candidateDomain.fingerprint,view.source?.descriptor?.revision??null,identity.sha256,Object.fromEntries(Object.entries(p).filter(([key])=>!presentation.has(key)).sort(([a],[b])=>a.localeCompare(b)))]);
  return{
   async localizeRetained(input={},hooks={}){
@@ -48,8 +50,9 @@ export function createSsgStrictEngine(view,budget,profile,{candidateDomain=view?
    try{
     const key=keyFor(p,identity);let checkpoint=cached,reused=checkpoint?.key===key;
     if(!reused){
-     report('ssg-preparing',0);source=await createSsgStrictSource(view,p,{budget,signal});bank=await createSsgStrictWordBank(source,{budget,profile,candidateDomain,signal,onProgress:e=>report(e.phase,.03+.2*(e.completed/e.total),e),...(vlfeatFactory?{vlfeatFactory}:{})});report('ssg-word-matching',.27,{descriptors:bank.count});words=await matchSsgStrictWords(bank,{budget,signal});
+     report('ssg-preparing',0);source=await createSsgStrictSource(view,p,{budget,signal});source=await createSsgPreparedContextReuse(source,{budget,signal});bank=await createSsgStrictWordBank(source,{budget,profile,candidateDomain,signal,onProgress:e=>report(e.phase,.03+.2*(e.completed/e.total),e),...(vlfeatFactory?{vlfeatFactory}:{})});report('ssg-word-matching',.27,{descriptors:bank.count});words=await matchSsgStrictWords(bank,{budget,signal,wordOwners});
      fields=await createSsgStrictFields(source,{budget,profile,model:identity,withEdges:!!words.pairs.length,signal,onProgress:e=>report(e.phase,.31+.15*(e.completed/e.total),e),...(edgesFactory?{edgesFactory}:{})});
+     report('ssg-prepared-context-reuse',.46,{reuse:source.preparedContextStats});
      let weights;if(words.pairs.length){salience=await ssgStrictSalience(fields,bank,p,{budget,profile,signal,...(moduleFactory?{moduleFactory}:{})});weights=salience.weights;}else{admit(bank.count*8);weights=new Float64Array(bank.count).fill(1);}
      report('ssg-phrase-matching',.5);phrases=await ssgFastPhrases(bank,words,weights,p,{budget,profile,signal});let phaseInput=phrases;
      if(p.compare){const inside=(id,region)=>ssgInside((bank.points[id*3]+.5)/fields.scaleX-.5,(bank.points[id*3+1]+.5)/fields.scaleY-.5,p.regions[region]),ids=[];for(let i=0;i<phrases.pairs.length/2;i++){const a=phrases.pairs[i*2],b=phrases.pairs[i*2+1];if(inside(a,0)&&inside(b,1)||inside(a,1)&&inside(b,0))ids.push(i);}admit(ids.length*24);phaseInput={...phrases,pairs:Uint32Array.from(ids.flatMap(i=>Array.from(phrases.pairs.subarray(i*2,i*2+2)))),distances:Float64Array.from(ids.flatMap(i=>Array.from(phrases.distances.subarray(i*2,i*2+2))))};}
@@ -68,6 +71,6 @@ export function createSsgStrictEngine(view,budget,profile,{candidateDomain=view?
    }
   },
   clearCheckpoint:clear,
-  async dispose(){closed=true;lifetime.abort();await done;try{clear();}finally{unregister?.();}},
+  async dispose(){closed=true;lifetime.abort();await done;try{await retire([...wordOwners].map(owner=>()=>owner.dispose()));clear();}finally{unregister?.();}},
  };
 }

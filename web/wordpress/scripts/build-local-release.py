@@ -40,6 +40,11 @@ def immutable(value,directory=False):
 
 def reviewed_runtime_increment(manifest):
     """Compose reviewed layers without rewriting their predecessor receipts."""
+    if (ROOT/'runtime-patches/current-snapshot.json').is_file():
+        overlay=runtime_delivery.qualified_runtime_overlay(ROOT)
+        if not all(manifest['files'].get(name)==record['after'] for name,record in overlay.files.items()):
+            raise ValueError('Staged inventory differs from the complete runtime snapshot')
+        return {},{},None
     path=ROOT/'runtime-patches/batch-scientific-regions-20261013.json'
     if not path.exists(): return {},{},None
     overlay=runtime_delivery.qualified_runtime_overlay(ROOT)
@@ -114,12 +119,15 @@ def stage(args):
         if source.suffix not in ['.js','.mjs','.json','.html','.css','.woff2','.txt','.py','.svg','.webmanifest','.png']: continue
         data=delivery_bytes('assets/'+name,source,args.version) or source.read_bytes()
         if b'private-report' in data: raise ValueError('Private overlay is not a public local interface')
-        if source.suffix=='.html': data=data.replace(b"connect-src 'self'",b"connect-src 'self' https://raw.githubusercontent.com")
+        if source.suffix=='.html': data=data.replace(b"connect-src 'self' https://raw.githubusercontent.com",b"connect-src 'self'").replace(b"connect-src 'self'",b"connect-src 'self' https://raw.githubusercontent.com")
         put(assets/name,data)
     for worker,names in [('offline-browser-sw.js',OFFLINE_MODULES),('dependency-sw.js',['dependency-core.js','extension-resource-client.js','extension-resource-relay.js','dependency-store.js','dependency-tar.js','offline-kit-core.js','bootstrap-metadata.js','dependency-manifest.js','dependency-client-routing.js','dependency-sw.js'])]:
         # Reviewed classic script bundle, also valid as a module bridge. The
         # build validates lexical collisions rather than hiding parser errors.
-        code='\n'.join(re.sub(r'^import .*;\n','',(assets/name).read_text(),flags=re.M).replace('export ','') for name in names)
+        def worker_source(name):
+            entry=ROOT/'service-worker-source'/name
+            return entry if name==worker and entry.is_file() else assets/name
+        code='\n'.join(re.sub(r'^import .*;\n','',worker_source(name).read_text(),flags=re.M).replace('export ','') for name in names)
         put(assets/worker,code.encode()); subprocess.run(['node','--check',str(assets/worker)],check=True)
     put(plugin/'LICENSE',(ROOT/'sherloq-browser/LICENSE').read_bytes())
     if increment is not None:

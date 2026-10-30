@@ -1,3 +1,5 @@
+import {boundedNoisesnifferCpuStatistics} from './noisesniffer-bounded-cpu.js';
+import {selectNoisesnifferCooperative} from './noisesniffer-selection-cooperative.js';
 // Corrected IPOL Noisesniffer: native core contract, not the original CLI bugs.
 import {numpyArgsort} from './numpy-argsort.js';
 import {numpySum} from './numpy-sum.js';
@@ -98,14 +100,14 @@ export async function analyzeNoisesniffer(image,params,stats,hooks={}){
  const {blockSize:w,cellSize:W,samplesPerBin:b,lowFrequencyFraction:n,lowNoiseFraction:m}=params;
  requireValue([3,5,7,8].includes(w)&&Math.min(image.width,image.height)>=w,'Invalid Noisesniffer block.');
  requireValue(Number.isInteger(W)&&W>=1&&Number.isInteger(b)&&b>=1&&n>0&&n<=1&&m>0&&m<1,'Invalid Noisesniffer parameters.');
- await checkpoint(hooks.signal);const selection=selectNoisesniffer(image,w,b,n,m,stats);hooks.onProgress?.(.65);
+ await checkpoint(hooks.signal);const selection=await selectNoisesnifferCooperative(image,w,b,n,m,stats,hooks);hooks.onProgress?.(.65);
  const counts=noisesnifferCounts(image.width,image.height,w,W,selection.selected,selection.low_noise);
  const {mask,regions,nearGrowthBoundaries}=await noisesnifferRegions(image.width,image.height,w,W,m,counts,hooks);checkAbort(hooks.signal);
  return {width:image.width,height:image.height,...selection,...counts,mask,distribution:noisesnifferDistribution(image,w,selection.selected,selection.low_noise),numerics:{nearGrowthBoundaries,significanceGuard:1e-9},metadata:{method:'IPOL Noisesniffer',parameters:[w,W,b,n,m],valid_blocks:stats.valid.length,selected_blocks:selection.selected.length,low_noise_blocks:selection.low_noise.length,regions,inconclusive:selection.selected.length===0}};
 }
 export async function noisesnifferData(image,p,hooks={},context={}){
- const start=performance.now(),stats=await context.memo('statistics/'+p.blockSize,()=>context.noisesnifferPool?context.noisesnifferPool.run(image,p.blockSize,hooks):cvNoisesnifferStatistics(image,p.blockSize,{...hooks,fast:context.cpuKernel!=='reference'})),statisticsMs=performance.now()-start;
+ const start=performance.now(),statisticsKey='statistics/'+p.blockSize+(context.backend&&context.backend!=='auto'?'/'+context.backend+'/native-graph-v1':''),stats=await context.memo(statisticsKey,()=>context.noisesnifferPool?context.noisesnifferPool.run(image,p.blockSize,{...hooks,backend:context.backend}):boundedNoisesnifferCpuStatistics(image,p.blockSize,{...hooks,fast:context.cpuKernel!=='reference'})),statisticsMs=performance.now()-start;
  const analyzed=performance.now(),data=await analyzeNoisesniffer(image,p,stats,hooks);hooks.onProgress?.(1);
- return {data,engineMetrics:{kernel:context.cpuKernel==='reference'?'cpu-pinned-noisesniffer-original':'cpu-pinned-noisesniffer-fma',workers:stats.runtime?.workers??1,...(stats.runtime?.scheduling?{scheduling:stats.runtime.scheduling}:{}),...(stats.runtime?.poolRejected?{poolRejected:stats.runtime.poolRejected}:{}),stages:{statisticsMs,selectionRegionsMs:performance.now()-analyzed}},semantics:'Corrected IPOL Noisesniffer local noise consistency evidence. Red marks statistically significant regions, not a manipulation probability or an authenticity verdict. Empty selections are explicitly inconclusive; near-boundary numerical cases are rejected.'};
+ return {data,engineMetrics:{kernel:stats.runtime?.backend==='webgpu-native-DCT-hi-lo-guarded'?'hybrid-native-pocketfft-graph-GPU-and-native-guarded-fallback':stats.runtime?.backend==='webgpu-integer-binary64-fma'?'hybrid-exact-integer-fma64-means-and-cpu-pocketfft':context.cpuKernel==='reference'?'cpu-pinned-noisesniffer-original':'cpu-pinned-noisesniffer-fma',numericBackend:stats.runtime?.backend??'cpu',...(stats.runtime?.maximumAbsoluteVarianceError?{maximumAbsoluteVarianceError:stats.runtime.maximumAbsoluteVarianceError,nativeFallbackBlocks:stats.runtime.nativeFallbackBlocks}:{}),workers:stats.runtime?.workers??1,...(stats.runtime?.scheduling?{scheduling:stats.runtime.scheduling}:{}),...(stats.runtime?.poolRejected?{poolRejected:stats.runtime.poolRejected}:{}),stages:{statisticsMs,selectionRegionsMs:performance.now()-analyzed}},semantics:'Corrected IPOL Noisesniffer local noise consistency evidence. Red marks statistically significant regions, not a manipulation probability or an authenticity verdict. Empty selections are explicitly inconclusive; near-boundary numerical cases are rejected.'};
 }
 export async function noisesnifferRender(result,p,hooks,{image}){await checkpoint(hooks.signal);result.pixels=noisesnifferView(image,result.data,p.view);result.layers=[{id:'noisesniffer-view',kind:'rgb',field:'pixels',coordinates:'source',origin:[0,0],range:[0,255]}];return result;}

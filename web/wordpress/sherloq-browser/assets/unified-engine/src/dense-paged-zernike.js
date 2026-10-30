@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,denseConstructionOwner} from './dense-owner-retirement.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {denseDescriptorHeapBound,denseDescriptorShape} from './dense-math.js';

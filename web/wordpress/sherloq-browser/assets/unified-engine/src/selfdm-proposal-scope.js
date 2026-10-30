@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
 import {SELFDM_PROPOSAL_CRF_SCOPE_POLICY} from './selfdm-proposal-crf-scoped-graph.js';
 

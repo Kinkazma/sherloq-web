@@ -1,8 +1,8 @@
 import {copyTypedArray,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue} from './errors.js';
 const messages={[-1]:'Invalid EM state or region.',[-2]:'The region is degenerate for this interpolation model.',[-3]:'The region has no valid interpolation weights.',[-4]:'The region is singular for this model. Select a more varied region.',[-5]:'The interpolation model returned non-finite coefficients.',[-6]:'EM workspace allocation failed.'};
-export async function createResamplingEmMath(){
- const {default:create}=await import('../vendor/resampling-em/resampling-em.js'),m=await create();let handle=0,shape;
+export async function createResamplingEmMath({original=false}={}){
+ const {default:create}=await (original?import('../vendor/resampling-em/resampling-em.js'):import('../vendor/resampling-em-simd/resampling-em-simd.js')),m=await create();let handle=0,shape;
  const status=code=>{if(code<0)throw (code===-6?wasmAllocationFailure(m,messages[code]):new EngineError('NUMERIC_RANGE',messages[code]??'EM computation failed.'));return code;};
  return {heapBytes:()=>m.HEAPU8.byteLength,
   create(width,height,size){requireValue([width,height].every(n=>Number.isSafeInteger(n)&&n>=size&&n<=16384)&&[3,5].includes(size),'Invalid EM dimensions.');if(handle)m._em_stream_destroy(handle);handle=m._em_stream_create(width,height,size);if(!handle)throw wasmAllocationFailure(m,'EM state allocation failed.',undefined);shape={width,height,size,cols:width-size+1,n:(width-size+1)*(height-size+1)};},

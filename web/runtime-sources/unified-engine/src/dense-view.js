@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {selectSparseTraceRows,traceSelectionSummary,sparseTraceDrawCommands} from './sparse-trace-selection.js';
 import {renderPagedDenseCopy} from './dense-paged-view.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';

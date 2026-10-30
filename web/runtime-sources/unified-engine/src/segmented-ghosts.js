@@ -1,11 +1,13 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {allocateTypedArray,allocateOwnedTypedArray} from './allocation.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';import {parallelGhostPlanes,ghostPoolShape} from './ghost-stream-pool.js';
 import {createRgbRecompression} from './jpeg-rgb-stream.js';import {numpySum} from './numpy-sum.js';import {requireValue,controlCheckpoint,checkAbort} from './errors.js';
+import {getGhostJpegService,consumeGhostGpuResult} from './ghost-jpeg-service.js';
+import {acquireGhostJpegPolicy} from './ghost-jpeg-policy.js';
 export function segmentedGhostShape(image,p,{normalizedOnly=false}={}){const {width,height}=image.surface.descriptor;requireValue(width>=16&&height>=16,'JPEG Ghost Maps requires at least16×16 pixels.');const cols=Math.floor(width/16),rows=Math.floor(height/16),qualities=Array.from({length:Math.floor((p.high-p.low)/p.step)+1},(_,i)=>p.low+i*p.step),samples=cols*rows*qualities.length;return {width,height,cols,rows,qualities,samples,admissionBytes:samples*(normalizedOnly?8:35)+cols*rows*8+1024**2};}
 // Quality publication is awaited: a quality is complete only once its owner has
 // durably copied it. Producers may immediately reuse their single output plane.
-export async function produceSegmentedGhostPlanes(image,p,{budget,signal,onProgress,getPlane,putPlane,onPlane,borrowPlanes=false,skipQualities=[],maxWorkers=1,adaptive=new AdaptiveConcurrency()}={}){
+export async function produceSegmentedGhostPlanes(image,p,{budget,signal,onProgress,getPlane,putPlane,onPlane,borrowPlanes=false,skipQualities=[],maxWorkers=1,adaptive=new AdaptiveConcurrency(),backend='cpu'}={}){
  const {width,height,cols,rows,qualities}=segmentedGhostShape(image,p),stages={},metrics={workers:1,kernel:'global-rgb-jpeg-ghost-scanlines',recompressions:0,qualityPlanesComputed:0,encodedCacheHits:0},missing=[],finished=new Set(skipQualities);image.rgbRecompression??=createRgbRecompression(image,budget);let completed=finished.size,callbackError,serialPlane,termsOwner;
  const progress=event=>{try{onProgress?.(event);}catch(error){callbackError=error;throw error;}};
  const place=async(quality,plane,store=false)=>{
@@ -21,7 +23,15 @@ export async function produceSegmentedGhostPlanes(image,p,{budget,signal,onProgr
   }});metrics.recompressions+=details.recompressions;metrics.qualityPlanesComputed++;metrics.encodedCacheHits+=Number(details.recompressedCache);metrics.sourcePasses=(metrics.sourcePasses??0)+details.sourcePasses;metrics.codecHeapCapacityBytes=Math.max(metrics.codecHeapCapacityBytes??0,details.codecHeapCapacityBytes);metrics.codecHeapMaximumBytes=details.codecHeapMaximumBytes;metrics.maxSourceWindowBytes=details.maxSourceWindowBytes;metrics.encodedStorage=details.encodedStorage;checkAbort(signal);await place(quality,plane,true);
  };
  // Reuse already-encoded ELA/Ghost qualities before dispatching new JPEG work.
- const reusable=missing.filter(q=>image.rgbRecompression.hasEncoded(q,{phaseX:p.x,phaseY:p.y}));for(const quality of reusable)await serialOne(quality);const fresh=missing.filter(q=>!finished.has(q));
+ const reusable=missing.filter(q=>image.rgbRecompression.hasEncoded(q,{phaseX:p.x,phaseY:p.y}));for(const quality of reusable)await serialOne(quality);let fresh=missing.filter(q=>!finished.has(q));
+ const policy=fresh.length&&backend==='auto'?acquireGhostJpegPolicy({budget,width,height,count:fresh.length,storage:'segmented',maxWorkers}):null,selectedBackend=policy?.selected??backend;
+ if(policy)metrics.autoChoice={selected:policy.selected,actual:'cpu',reason:policy.reason,reused:policy.reused};
+ if(fresh.length&&selectedBackend==='webgpu'){
+  const started=performance.now(),service=getGhostJpegService(budget),owned=await service.runSurface(image.surface,fresh,{backend:'webgpu',signal,phaseX:p.x,phaseY:p.y,onSubmitted:progress,onProgress:progress});
+  if(owned)await consumeGhostGpuResult(owned,async result=>{Object.assign(metrics,{backend:'webgpu',workers:0,kernel:result.runtime.kernel,gpu:structuredClone(result.runtime)});for(let q=0;q<fresh.length;q++){checkAbort(signal);await place(fresh[q],result.means.subarray(q*cols*rows,(q+1)*cols*rows),true);metrics.recompressions++;metrics.qualityPlanesComputed++;}metrics.sourcePasses=(metrics.sourcePasses??0)+1;});
+  if(owned){policy?.observe('webgpu',performance.now()-started);if(policy)metrics.autoChoice.actual='webgpu';}else policy?.refuse(service.metrics().gpuFallback??'GPU_REFUSED');
+  fresh=fresh.filter(q=>!finished.has(q));
+ }
  if(fresh.length){
   serialPlane?.release();serialPlane=null;termsOwner?.release();termsOwner=null;
   const shape=ghostPoolShape(image),maximum=typeof Worker==='undefined'||width*height<100000?1:Math.min(maxWorkers,fresh.length),key=width+'/'+height,plan=adaptive.select(key,maximum,budget,count=>(count>1?count*shape.workerBytes:shape.workingBytes)+shape.windowAllowance),started=performance.now();let retry=null;
@@ -29,6 +39,7 @@ export async function produceSegmentedGhostPlanes(image,p,{budget,signal,onProgr
    catch(error){checkAbort(signal);if(callbackError||!isWorkerResourceFailure(error)&&error.code!=='STORAGE_UNAVAILABLE')throw error;adaptive.reduce(key,plan.count,{error});const remaining=fresh.filter(q=>!finished.has(q));retry={code:error.code??'MEMORY_ALLOCATION',failedWorkers:plan.count,remainingQualities:remaining.length};const partial=error.ghostPoolMetrics;metrics.recompressions+=partial?.recompressions??fresh.length-remaining.length;metrics.qualityPlanesComputed+=partial?.qualityPlanesComputed??fresh.length-remaining.length;metrics.sourcePasses=(metrics.sourcePasses??0)+(partial?.sourcePasses??0);for(const q of remaining)await serialOne(q);}
   }else for(const quality of fresh)await serialOne(quality);
   adaptive.observe(key,{count:metrics.workers,maximum,milliseconds:performance.now()-started,units:width*height*fresh.length});metrics.scheduling={...plan,preflightExecutions:0,taskExecutions:retry?2:1,retry};
+  policy?.observe('cpu',performance.now()-started);
  }
  return {...metrics,stages};
  }finally{serialPlane?.release();termsOwner?.release();}

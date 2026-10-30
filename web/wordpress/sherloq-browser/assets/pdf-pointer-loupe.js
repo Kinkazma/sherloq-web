@@ -1,6 +1,6 @@
-import {diagnostic} from './runtime-context.js';
-import * as defaultMedia from './pdf-media-settings.js';
-import {createLoupeScan} from './pdf-native-scan.js';
+import {diagnostic} from './runtime-context.js?v=0.30.0';
+import * as defaultMedia from './pdf-media-settings.js?v=0.30.0';
+import {createLoupeScan} from './pdf-native-scan.js?v=0.30.0';
 export function loupeMapping(radius,inner,transition,relativeZoom){
  const t=transition?Math.max(0,Math.min(1,(radius-inner)/transition)):Number(radius>inner),s=t*t*t*(t*(t*6-15)+10);
  return radius*(1/relativeZoom+(1-1/relativeZoom)*s);

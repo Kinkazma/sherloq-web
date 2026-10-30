@@ -1,0 +1,30 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "opencv": "4.11.0",
+  "workspaceBytes": 134217728,
+  "sources": {
+    "digest-extra.cpp": "437d19a8ce58b810392168a8d9dd3a50f61e100f9c9337bbf7c8ba186b754315",
+    "sqrt-tables.h": "3cbe1540c9be85786deef277471aa923b25b287dc7187740bd7207c00c357e03",
+    "moments.cpp": "f8ce47495eba8684cef9dd8003d33075dddfb53c2f29eea702419c5ee53257d2",
+    "resize.cpp": "a98a932f750a80856a190529adec9439da21b5ef2b2d73fd47635430a979553d",
+    "colorconvert.cpp": "69253e17c0e05fef4a00b8ef71af285e50bb5b47dd30bb9d8162fd00f8aabbd5",
+    "color_moment_hash.cpp": "15bc3ee0b368204641bb53fdc696a141484a6def8d0328fee71a192fd8d9ae9c",
+    "marr_hildreth_hash.cpp": "2fbfab60cc7ec76012bb8b9c67d1f07376114da9e4ece677ac959b7a34fb9cc8"
+  },
+  "objects": {
+    "moments.o": "ba26eb0f91bbc71f0f323b4c8f65aad798aece25903476875f7c0ffd835bf641",
+    "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+  },
+  "files": {
+    "digest.js": {
+      "bytes": 30401,
+      "sha256": "93bd5801a7b6b52da9651bd568341aa5fc9030e97b8186277533a11f65b22fd2"
+    },
+    "digest.wasm": {
+      "bytes": 1223294,
+      "sha256": "552516874838b612ae7924530eaf1bacaafd34c074f730d4afcb941a07df22b7"
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue,checkAbort} from './errors.js';
 import {allocateOwnedTypedArray,allocateTypedArray,registerArrayViews} from './allocation.js';
 

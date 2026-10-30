@@ -1,17 +1,18 @@
+import {d2prlInputSide} from './input-side.js';
 import {retainD2prlCheckpoint} from './checkpoint.js';
 import {createWasmTensorArena} from '../../src/wasm-tensor-arena.js';
 // Private composition experiment. Unqualified reductions are explicitly tracked;
 // this executor is not registered as a supported D2PRL browser detector.
 import {requireValue, checkAbort, EngineError} from '../../src/errors.js';
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-export function createUnetGraph({arena:sharedArena,graph, convolution, math, budget, loadParameter, ownedParameters=false, layouts, pointLayouts, tailProbe = false, tailMode = 'lane16', operation=(_label,work)=>work()}) {
+export function createUnetGraph({arena:sharedArena,inputSide=448,graph, convolution, math, budget, loadParameter, ownedParameters=false, layouts, pointLayouts, tailProbe = false, tailMode = 'lane16', operation=(_label,work)=>work()}) {
   requireValue(graph.schema === 1 && graph.status === 'unqualified-experimental-graph' && same(graph.inputShape, [1, 3, 448, 448]), 'Fixed448 study graph required');
-  let busy = false, checkpoint;
+  const SIDE=d2prlInputSide(inputSide),inputShape=[1,3,SIDE,SIDE];let busy = false, checkpoint;
   const clearCheckpoint=()=>{if(!checkpoint)return;const old=checkpoint;checkpoint=null;for(const value of old.values.values())value.release();old.values.clear();if(!sharedArena)old.arena.dispose();};
   return {
     async run(rgb, {signal, onNode, checkpointKey} = {}) {
       if (busy) throw new EngineError('BUSY', 'UNet graph busy');
-      requireValue(rgb instanceof Float32Array && rgb.length === 3 * 448 * 448, 'Prepared RGB448 required'); if(signal?.aborted){clearCheckpoint();checkAbort(signal);}busy=true;
+      requireValue(rgb instanceof Float32Array && rgb.length === 3 * SIDE * SIDE, 'Prepared RGB448 required'); if(signal?.aborted){clearCheckpoint();checkAbort(signal);}busy=true;
       if(checkpoint&&(checkpoint.key!==checkpointKey||checkpoint.rgb!==rgb))clearCheckpoint();
       const state=checkpoint??{key:checkpointKey,rgb,arena:sharedArena??createWasmTensorArena({budget}),values:new Map(),uses:new Map(),studyRoutes:[],index:0};checkpoint=state;
       const {arena,values,uses,studyRoutes}=state;let retain=false;
@@ -34,7 +35,7 @@ export function createUnetGraph({arena:sharedArena,graph, convolution, math, bud
         } finally { transient(); release?.(); }
       };
       try {
-        if(!values.has(graph.input)&&state.index===0)set(graph.input, {data: rgb, shape: graph.inputShape, release: await operation('unet-admission',()=>budget.reserve(rgb.byteLength))});
+        if(!values.has(graph.input)&&state.index===0)set(graph.input, {data: rgb, shape: inputShape, release: await operation('unet-admission',()=>budget.reserve(rgb.byteLength))});
         for (let index = state.index; index < graph.nodes.length; index++) {
           checkAbort(signal); const node = graph.nodes[index], attrs = node.attributes, inputs = [];
           requireValue(node.outputs.length === 1, 'Single-output study graph');
@@ -75,7 +76,7 @@ export function createUnetGraph({arena:sharedArena,graph, convolution, math, bud
           node.inputs.filter(Boolean).forEach(drop);state.index=index+1;
           await onNode?.({index, total: graph.nodes.length, node, result}); checkAbort(signal);
         }
-        const result = values.get(graph.output); requireValue(result && same(result.shape, [1, 1, 448, 448]), 'UNet output shape');
+        const result = values.get(graph.output); requireValue(result && same(result.shape, [1, 1, SIDE, SIDE]), 'UNet output shape');
         values.delete(graph.output);result.studyRoutes=studyRoutes;return result;
       } catch(error){retain=retainD2prlCheckpoint(error,signal,checkpointKey);throw error;}
       finally {if(!retain)clearCheckpoint();busy=false;}

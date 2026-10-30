@@ -1,0 +1,11 @@
+"""Build the explicit MPS feature resize mode separately from CPU helpers."""
+from pathlib import Path
+import argparse,hashlib,json,os,subprocess
+parser=argparse.ArgumentParser();parser.add_argument('--base',type=Path);args=parser.parse_args()
+root=Path(__file__).resolve().parents[1];base=args.base or root;compiler=Path(os.environ['EMSDK'])/'upstream/emscripten/em++';version=subprocess.check_output([str(compiler),'--version'],text=True).splitlines()[0];assert '4.0.15' in version
+out=root/'vendor/d2prl/mps';out.mkdir(parents=True,exist_ok=True)
+exports=['malloc','free','d2prl_resize_large','d2prl_mps_resize','d2prl_mps_batchnorm','d2prl_batchnorm_parameters','d2prl_affine','d2prl_reflect','d2prl_magnitude','d2prl_half_bits']
+for name,exports in [('feature-math',exports),('neural-math',['malloc','free','d2prl_batchnorm_parameters','d2prl_mps_batchnorm','d2prl_affine','d2prl_mean_planes','d2prl_sigmoid_values','d2prl_pointwise','d2prl_nearest2','d2prl_maxpool','d2prl_pointconv4_probe','d2prl_pointconv_probe','d2prl_sum_all'])]:
+ subprocess.run([str(compiler),str(root/'experiments/d2prl'/f'{name}-mps.cpp'),'-I'+str(base/'experiments/d2prl'),'-O3','-ffp-contract=off','-ffile-prefix-map='+str(root)+'/=','-ffile-prefix-map='+str(base)+'/=','-sMODULARIZE=1','-sEXPORT_ES6=1','-sENVIRONMENT=web,worker,node','-sFILESYSTEM=0','-sABORTING_MALLOC=0','-sALLOW_MEMORY_GROWTH=1','-sINITIAL_MEMORY=16777216','-sMAXIMUM_MEMORY='+str(4294967296 if name=='feature-math' else 2147483648),'-sMEMORY_GROWTH_LINEAR_STEP=16777216','-sEXPORTED_FUNCTIONS='+json.dumps(['_'+n for n in exports]),'-sEXPORTED_RUNTIME_METHODS=["HEAPU8","HEAPF32","HEAP32"]','-o',str(out/f'{name}.js')],check=True)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+(out/'PINNED.json').write_text(json.dumps({'schema':1,'compiler':version,'arithmetic':'mps','initialMemoryBytes':16777216,'memoryMaximumBytes':{'feature-math':4294967296,'neural-math':2147483648},'policy':'Named MPS resize uses right-product FMA; named MPS BatchNorm uses separately rounded normalization before gamma/beta. CPU helper files remain separate.','upstream':'https://github.com/pytorch/pytorch/blob/v2.8.0/aten/src/ATen/native/mps/kernels/UpSample.metal','files':{p.name:{'bytes':p.stat().st_size,'sha256':sha(p)} for p in sorted(out.glob('*')) if p.suffix in ['.js','.wasm']}},indent=2)+'\n')

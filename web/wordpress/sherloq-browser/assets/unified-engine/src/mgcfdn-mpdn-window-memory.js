@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {requireValue} from './errors.js';
 // These are the CURRENT JavaScript reservations made by the frozen graph
 // reader/rewrite and stage bridge. They are distinct from native512MiB heaps

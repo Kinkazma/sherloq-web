@@ -27,3 +27,15 @@ extern "C" void wavelet_stream_normalize(const double* values,int count,double l
  double scale=hi-lo>2.220446049250313e-16?255.*(1./(hi-lo)):0.;float a=scale,b=-lo*scale;
  for(int i=0;i<count;i++){double v=total>=8?double(std::fma(float(values[i]),a,b)):std::fma(values[i],double(a),double(b));int rounded=std::nearbyint(v);out[i]=std::max(0,std::min(255,rounded));}
 }
+
+// Same native CV8U affine step with explicitly enclosed scale/bias. This API
+// certifies a GPU noise interval; it does not replace the native normalization.
+extern "C" void wavelet_stream_affine(const double* values,int count,float a,float b,int total,unsigned char* out){
+ for(int i=0;i<count;i++){double v=total>=8?double(std::fma(float(values[i]),a,b)):std::fma(values[i],double(a),double(b));int rounded=std::nearbyint(v);out[i]=std::max(0,std::min(255,rounded));}
+}
+
+// Exact same native detail stencil, without allocating/computing an unused
+// approximation band for db8 block-noise analysis or its point refinements.
+extern "C" int wavelet_stream_detail(const double* values,int width,int height,int family,int order,int axis){
+ try{auto w=wavelet(family,order);Plane in(height,width);std::copy_n(values,width*height,in.data.begin());auto d=down(in,w.get(),axis,COEF_DETAIL);output.clear();append(d);return 1;}catch(...){output.clear();return 0;}
+}

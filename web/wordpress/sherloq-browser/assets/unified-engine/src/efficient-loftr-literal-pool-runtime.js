@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {Budget} from './cache.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';
 import {EFFICIENT_LOFTR_ASSET,efficientLoFtrRuntimes} from './efficient-loftr-assets.js';

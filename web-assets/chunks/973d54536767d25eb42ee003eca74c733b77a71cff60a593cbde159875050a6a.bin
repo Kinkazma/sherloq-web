@@ -1,0 +1,34 @@
+import "../../runtime-context.js?v=0.30.0";
+import {alikedNativeParameters} from './aliked-native-parameters.js';
+import {allocateOwnedTypedArray} from './allocation.js';
+import {requireValue,checkAbort,createCooperator} from './errors.js';
+
+/** Common score population and one native detector cap. Inputs are raw dense
+ * scores and native local NMS, never independently selected feature banks.
+ * meanReducer is deliberately required for fragments: a Float64 weighted mean
+ * of per-context means would invent equivalence with native FP32 ReduceMean. */
+export async function selectAlikedCommonPopulation(coverage,outputs,{budget,selector,meanReducer,allowedAtSource=()=>true,signal,onMeanPopulation,detectionThreshold=.2}={}){
+ alikedNativeParameters({detectionThreshold});requireValue(coverage?.contexts&&outputs?.length===coverage.contexts.length&&budget?.reserve&&selector?.select,'Complete raw ALIKED contexts and native selector are required.');const cooperate=createCooperator(signal),owned=[];let complete=false,native;
+ const isAllowed=(x,y)=>{const value=allowedAtSource(x,y);requireValue(typeof value==='boolean','ALIKED candidate membership must be a synchronous boolean.');return +value;};
+ const make=(Type,n,label)=>{const owner=allocateOwnedTypedArray(Type,n,{budget,owner:'aliked-common-population',label});owned.push(owner);return owner.data;};
+ try{
+  let samples=0,peaks=0,diagnosticSum=0;
+  for(const c of coverage.contexts){const o=outputs[c.index],n=c.preparedWidth*c.preparedHeight;requireValue(c.nativeInputEvaluable&&o?.scores instanceof Float32Array&&o.nms instanceof Float32Array&&o.scores.length===n&&o.nms.length===n,'Raw ALIKED native score geometry changed.');for(let y=0;y<c.preparedHeight;y++){await cooperate();for(let x=0;x<c.preparedWidth;x++){const i=y*c.preparedWidth+x,v=o.scores[i],nms=o.nms[i];requireValue(Number.isFinite(v)&&v>=0&&v<=1&&Number.isFinite(nms)&&nms>=0&&nms<=1,'ALIKED scores must retain native finite sigmoid/NMS values.');if(!coverage.ownsPrepared(c.index,x,y))continue;samples++;diagnosticSum+=v;if(x>=2&&y>=2&&x<c.preparedWidth-2&&y<c.preparedHeight-2&&nms>0)peaks++;}}}
+  const population=make(Float32Array,samples,'all uniquely owned prepared scores, including detector border'),contexts=make(Int32Array,peaks,'raw native peak context indices'),localIds=make(Int32Array,peaks,'raw native peak indices'),score=make(Float32Array,peaks,'raw peak scores'),nms=make(Float32Array,peaks,'native local NMS values'),allowed=make(Uint8Array,peaks,'candidate membership before common detector cap');let at=0,p=0;
+  for(const c of coverage.contexts){const o=outputs[c.index];for(let y=0;y<c.preparedHeight;y++){await cooperate();for(let x=0;x<c.preparedWidth;x++){if(!coverage.ownsPrepared(c.index,x,y))continue;const id=y*c.preparedWidth+x;population[at++]=o.scores[id];if(x<2||y<2||x>=c.preparedWidth-2||y>=c.preparedHeight-2||o.nms[id]===0)continue;contexts[p]=c.index;localIds[p]=id;score[p]=o.scores[id];nms[p]=o.nms[id];const [xx,yy]=coverage.preparedPoint(c.index,x,y);allowed[p]=isAllowed(xx,yy);p++;}}}
+  requireValue(at===samples&&p===peaks,'ALIKED ownership changed during common population collection.');await onMeanPopulation?.(population);let reduction;
+  if(!samples){reduction={value:0,implementation:'empty owned population; no native mean execution',execution:'none'};}
+  else if(coverage.preservedRectangle){const value=outputs[0].mean;requireValue(Number.isFinite(value)&&Math.fround(value)===value,'Whole rectangle requires its actual native detect.mean output.');reduction={value,implementation:'unchanged whole-context native detect.mean',execution:outputs[0].execution??'unspecified'};}
+  else{requireValue(typeof meanReducer==='function','Fragmented ALIKED requires a separately qualified common native FP32 mean reducer.');reduction=await meanReducer(population);requireValue(reduction&&Number.isFinite(reduction.value)&&reduction.value>=0&&reduction.value<=1&&Math.fround(reduction.value)===reduction.value&&typeof reduction.implementation==='string'&&typeof reduction.execution==='string','Common ALIKED mean reducer must expose its actual FP32 value and provenance.');}
+  checkAbort(signal);let selected;
+  if(coverage.preservedRectangle){const c=coverage.contexts[0],o=outputs[0],mask=make(Uint8Array,o.scores.length,'unchanged native full-rectangle candidate mask');for(let y=0;y<c.preparedHeight;y++){await cooperate();for(let x=0;x<c.preparedWidth;x++){const [xx,yy]=coverage.preparedPoint(0,x,y);mask[y*c.preparedWidth+x]=isAllowed(xx,yy);}}native=selector.select(o.scores,o.nms,mask,c.preparedWidth,c.preparedHeight,reduction.value);selected=make(Int32Array,native.indices.length,'whole native selected peak mapping');for(let i=0;i<selected.length;i++){const target=native.indices[i];let lo=0,hi=localIds.length;while(lo<hi){const mid=(lo+hi)>>>1;if(localIds[mid]<target)lo=mid+1;else hi=mid;}requireValue(localIds[lo]===target,'Whole native selection lost its raw peak identity.');selected[i]=lo;}}
+  else{
+   // This is only a selector index carrier. No RGB/feature/NMS graph sees this
+   // layout. One interior cell per row retains canonical native peak order;
+   // the original C++ selector performs the sole selected-threshold/fallback/20000 decision.
+   const width=5,height=peaks+4,cells=width*height,ps=make(Float32Array,cells,'native selector score carrier'),pn=make(Float32Array,cells,'already-native NMS carrier'),pm=make(Uint8Array,cells,'native selector candidate carrier');for(let i=0;i<peaks;i++){const j=(i+2)*5+2;ps[j]=score[i];pn[j]=nms[i];pm[j]=allowed[i];}native=selector.select(ps,pn,pm,width,height,reduction.value);selected=make(Int32Array,native.indices.length,'one native global20000 selected peak mapping');for(let i=0;i<selected.length;i++){const id=(native.indices[i]-12)/5;requireValue(Number.isInteger(id)&&id>=0&&id<peaks,'Native common selector returned a carrier padding cell.');selected[i]=id;}
+  }
+  native.release();native=null;const metadata={preparedSamples:samples,rawOwnedInteriorPeaks:peaks,detectorMean:reduction.value,meanReduction:structuredClone(reduction),diagnosticFloat64Mean:samples?diagnosticSum/samples:0,globalDetectorCount:selected.length,nativeCap:20000,threshold:Math.fround(detectionThreshold),fallbackPolicy:'one decision across all owned native NMS, before candidate masks and one global20000cap',population:'owned prepared samples, preserving native local resize multiplicity',order:'context order then native prepared row/column; exact native std::sort tie behavior',equivalence:'fragmented common-population adaptation requires separate native qualification'};let disposed=false;complete=true;
+  return{coverage,contexts,localIds,selected,population,metadata,dispose(){if(disposed)return;disposed=true;for(const o of owned)o.release();}};
+ }finally{native?.release();if(!complete)for(const o of owned)o.release();}
+}

@@ -1,5 +1,5 @@
-import {generationReading,renderGenerationGauge,renderGenerationContext} from './ai-generation-gauge.js';
-import {nativeContextSelectionFor,findNativeContextSelection} from './native-context-selection.js';
+import {generationReading,renderGenerationGauge,renderGenerationContext} from './ai-generation-gauge.js?v=0.30.0';
+import {nativeContextSelectionFor,findNativeContextSelection} from './native-context-selection.js?v=0.30.0';
 
 /** Changing this native context is presentation only; no reader or model owner. */
 export function renderSpaiNativeContexts(document,output,{language='fr',selection,onSelect,renderDetails}={}){

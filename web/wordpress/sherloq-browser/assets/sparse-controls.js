@@ -1,24 +1,33 @@
-import {isDenseClone,denseCloneParameters,cloneMethodYear,SSG_DEFAULTS} from './clone-methods.js';
+import {isDenseClone,denseCloneParameters,cloneMethodYear,SSG_DEFAULTS} from './clone-methods.js?v=0.30.0';
 export const CLASSIC_SIFT='SIFT + G2NN + RANSAC';
 export const PANELS_SIFT=CLASSIC_SIFT+' + Panels + Text';
-export const sparseViewDefaults=()=>({low:10,high:100000,minimum:4,circles:false,lines:false,points:false,areas:true,textExclusions:false,traceOverlap:0});
+export const SPARSE_BIOME_METHODS=Object.freeze(['paired-local','paired-envelope','native','compact']);
+export const sparseBiomeMethodLabels={fr:{'paired-local':'Régions appariées','paired-envelope':'Regroupement global',native:'Historique natif',compact:'Compact local'},en:{'paired-local':'Paired local regions','paired-envelope':'Global grouping',native:'Native legacy',compact:'Compact local'}};
+export const sparseViewDefaults=()=>({low:10,high:100000,minimum:4,circles:false,lines:false,points:false,areas:true,textExclusions:false,traceOverlap:0,maxBiomeArea:100,circleScale:100,clipLinesToCircles:false,biomeMethod:'paired-local'});
 // Older UI saved its own initial circles+links preset as if it were a choice.
 // Migrate only that exact legacy preset; retain all customized combinations.
 export function restoreSparseView(value,version){
- const legacy={...sparseViewDefaults(),low:0,circles:true,lines:true};delete legacy.traceOverlap;
+ const legacy={...sparseViewDefaults(),low:0,circles:true,lines:true};delete legacy.traceOverlap;delete legacy.maxBiomeArea;delete legacy.circleScale;delete legacy.clipLinesToCircles;delete legacy.biomeMethod;
  if(version!==1&&value&&Object.keys(value).length===Object.keys(legacy).length&&Object.entries(legacy).every(([key,v])=>value[key]===v))return sparseViewDefaults();
  const restored={...sparseViewDefaults(),...value};
  restored.traceOverlap=Number.isInteger(restored.traceOverlap)&&restored.traceOverlap>=0&&restored.traceOverlap<=100?restored.traceOverlap:0;
+ restored.maxBiomeArea=Number.isInteger(restored.maxBiomeArea)&&restored.maxBiomeArea>=1&&restored.maxBiomeArea<=100?restored.maxBiomeArea:100;
+ restored.circleScale=Number.isInteger(restored.circleScale)&&restored.circleScale>=1&&restored.circleScale<=300?restored.circleScale:100;
+ restored.clipLinesToCircles=typeof restored.clipLinesToCircles==='boolean'?restored.clipLinesToCircles:false;
+ restored.biomeMethod=SPARSE_BIOME_METHODS.includes(restored.biomeMethod)?restored.biomeMethod:'paired-local';
  return restored;
 }
 export const biomesOnly=view=>!view.circles&&!view.lines&&!view.points&&view.areas;
 export function sparseAlgorithmColor(name){return cloneMethodYear(name)?'yellow':([CLASSIC_SIFT,PANELS_SIFT].includes(name)||name.startsWith('Extended:')||name.endsWith(' + Mirror'))?'green':['AKAZE','BRISK','ORB'].includes(name)?null:'red';}
 export const sparseLabels={
- fr:{longSide:'Grand côté du modèle (px)',rotationMode:'Passes de rotation',patch:'Patch (px)',iterations:'Itérations',texture:'Texture minimum',algorithm:'Détecteur',limit:'Points maximum',radius:'Écartement maximum (px)',minimum:'Séparation minimum (px)',threshold:'Tolérance du descripteur',tolerance:'Proximité des biomes (px)',model:'Géométrie',geometricThreshold:'Erreur maximum (px)',geometricMinimum:'Témoins minimum',compare:'Comparer deux zones',reflections:'Inclure les réflexions',autoRadius:'Rayon automatique par zone',compact:'Ignorer les intervalles entre zones',independent:'SIFT par zone',low:'Longueur affichée min.',high:'max.',support:'Points minimum par côté',circles:'Cercles',lines:'Liaisons',points:'Points centraux',areas:'Biomes',textExclusions:'Exclusions de texte',traceOverlap:'Chevauchement des tracés (%)',biomesOnly:'Biomes seuls'},
- en:{longSide:'Model long side (px)',rotationMode:'Rotation passes',patch:'Patch (px)',iterations:'Iterations',texture:'Minimum texture',algorithm:'Detector',limit:'Maximum points',radius:'Maximum spacing (px)',minimum:'Minimum spacing (px)',threshold:'Descriptor tolerance',tolerance:'Biome proximity (px)',model:'Geometry',geometricThreshold:'Maximum error (px)',geometricMinimum:'Minimum inliers',compare:'Compare two regions',reflections:'Include reflections',autoRadius:'Automatic radius per region',compact:'Ignore gaps between regions',independent:'Per-region SIFT',low:'Displayed length min.',high:'max.',support:'Minimum points per side',circles:'Circles',lines:'Links',points:'Centre points',areas:'Biomes',textExclusions:'Text exclusions',traceOverlap:'Trace overlap (%)',biomesOnly:'Biomes only'}
+ fr:{maxBiomeArea:'Surface max. des biomes (%)',alikedInputSide:'Résolution ALIKED',alikedDetectionThreshold:'Seuil de détection ALIKED',longSide:'Grand côté du modèle (px)',rotationMode:'Passes de rotation',patch:'Patch (px)',iterations:'Itérations',texture:'Texture minimum',algorithm:'Détecteur',limit:'Points maximum',radius:'Écartement maximum (px)',minimum:'Séparation minimum (px)',threshold:'Tolérance du descripteur',tolerance:'Proximité des biomes (px)',model:'Géométrie',geometricThreshold:'Erreur maximum (px)',geometricMinimum:'Témoins minimum',compare:'Comparer deux zones',reflections:'Inclure les réflexions',autoRadius:'Rayon automatique par zone',compact:'Ignorer les intervalles entre zones',independent:'SIFT par zone',low:'Longueur affichée min.',high:'max.',support:'Points minimum par côté',circles:'Cercles',lines:'Liaisons',points:'Points centraux',areas:'Biomes',textExclusions:'Exclusions de texte',traceOverlap:'Chevauchement des tracés (%)',biomesOnly:'Biomes seuls'},
+ en:{maxBiomeArea:'Maximum biome area (%)',alikedInputSide:'ALIKED model resolution',alikedDetectionThreshold:'ALIKED detection threshold',longSide:'Model long side (px)',rotationMode:'Rotation passes',patch:'Patch (px)',iterations:'Iterations',texture:'Minimum texture',algorithm:'Detector',limit:'Maximum points',radius:'Maximum spacing (px)',minimum:'Minimum spacing (px)',threshold:'Descriptor tolerance',tolerance:'Biome proximity (px)',model:'Geometry',geometricThreshold:'Maximum error (px)',geometricMinimum:'Minimum inliers',compare:'Compare two regions',reflections:'Include reflections',autoRadius:'Automatic radius per region',compact:'Ignore gaps between regions',independent:'Per-region SIFT',low:'Displayed length min.',high:'max.',support:'Minimum points per side',circles:'Circles',lines:'Links',points:'Centre points',areas:'Biomes',textExclusions:'Text exclusions',traceOverlap:'Trace overlap (%)',biomesOnly:'Biomes only'}
 };
 export const sparseHelp={
  fr:{
+  maxBiomeArea:'Regroupe les mêmes correspondances en biomes locaux, chaque côté tenant dans un disque de la surface maximale choisie. Les témoins isolés restent visibles. 100 conserve le regroupement natif.',
+  alikedInputSide:'Grand côté utilisé par le modèle ALIKED. 2048 conserve davantage de détails pour les petits clones et demande plus de mémoire et de calcul. Les points restent exprimés dans les pixels originaux.',
+  alikedDetectionThreshold:'Seuil des points détectés, avant leur classement et la limite Points maximum. Une valeur plus faible conserve des points moins saillants. Ce réglage est distinct de la tolérance des descripteurs.',
   longSide:'EfficientLoFTR redimensionne chaque rectangle en conservant ses proportions, vers ce grand côté, puis utilise des dimensions multiples de 32. Les correspondances sont ramenées dans les coordonnées de l’image originale.',
   rotationMode:'Ajoute des comparaisons à 90°, 180° et 270°, puis ramène les points dans l’image originale. Ces passes demandent du calcul supplémentaire.',
   algorithm:'Choisit le détecteur et l’appariement. Panels + Text ajoute la recherche de sous-images et l’exclusion du texte. Les options disponibles suivent l’algorithme sélectionné.',
@@ -29,7 +38,7 @@ export const sparseHelp={
   patch:'Taille du voisinage utilisé par les descripteurs PatchMatch : de 2 à 32 pixels pour Zernike, de 3 à 32 pour les variantes SIFT.',
   iterations:'Nombre de passes de propagation et de recherche aléatoire de PatchMatch. Plus de passes peut améliorer les correspondances mais demande plus de calcul.',
   texture:'Écarte les zones trop uniformes selon le seuil natif de texture. Un seuil plus faible conserve davantage de candidats.',
-  reflections:'Ajoute des correspondances en miroir aux correspondances normales. Disponible avec PatchMatch et Panels + Text. Les profils Mirror ajoutent automatiquement des passes réfléchies aux passes normales.',
+  reflections:'PatchMatch sans « + Mirror » : utilise l’appariement réfléchi à la place de l’appariement normal. Les profils « + Mirror » combinent déjà les passes normales et réfléchies. Avec Panels + Text, ajoute des correspondances en miroir aux normales.',
   compare:'Recherche uniquement entre exactement deux zones. Sans cette option, recherche à l’intérieur des zones ; leur rectangle englobant permet aussi une recherche entre sous-images.',
   threshold:'G2NN : rapport entre voisins admissibles. Glue : 1 − confiance minimum. Autres détecteurs : distance entre descripteurs ; plus faible signifie plus strict.',
   tolerance:'Rapproche dans un même biome les liens dont les extrémités sont proches, directement ou par une chaîne de liens.',
@@ -39,6 +48,9 @@ export const sparseHelp={
   biomesOnly:'Affiche uniquement les biomes ; désactive les cercles, les liaisons et les points centraux.'
  },
  en:{
+  maxBiomeArea:'Regroups the same correspondences into local biomes, with each side contained in a disk of the selected maximum area. Isolated support points remain visible. 100 preserves native grouping.',
+  alikedInputSide:'ALIKED model long side. 2048 retains more detail for small copies and needs more memory and computation. Points remain in Original pixel coordinates.',
+  alikedDetectionThreshold:'Detection score threshold before sorting and the Maximum points cap. A lower value retains weaker features. This differs from descriptor tolerance.',
   longSide:'EfficientLoFTR resizes each rectangle with its aspect ratio preserved, to this long side and dimensions divisible by32. Matches are mapped back to original image coordinates.',
   rotationMode:'Adds90°,180° and270° comparisons and maps points back to the original image. Additional passes cost more computation.',
   algorithm:'Selects the detector and matcher. Panels + Text adds subimage detection and text exclusion. Available options follow the selected algorithm.',
@@ -49,7 +61,7 @@ export const sparseHelp={
   patch:'PatchMatch descriptor neighbourhood: 2–32 pixels for Zernike, 3–32 for SIFT variants.',
   iterations:'Number of PatchMatch propagation and random-search passes. More passes can improve matches but require more computation.',
   texture:'Rejects low-texture areas using the native threshold. A lower threshold retains more candidates.',
-  reflections:'Adds reflected matches to normal matches. Available with PatchMatch and Panels + Text. Mirror profiles automatically add reflected passes to normal passes.',
+  reflections:'PatchMatch profiles without “+ Mirror” use reflected matching instead of ordinary matching. “+ Mirror” profiles already combine ordinary and reflected passes. With Panels + Text, adds reflected matches to ordinary matches.',
   compare:'Searches only between exactly two regions. Otherwise searches within regions; an enclosing region also allows matches across subimages.',
   threshold:'G2NN: allowed-neighbour ratio. Glue: 1 − minimum confidence. Other detectors: descriptor distance; smaller means stricter.',
   tolerance:'Groups links whose respective endpoints are nearby, directly or through a chain, into the same biome.',
@@ -59,6 +71,13 @@ export const sparseHelp={
   biomesOnly:'Shows biomes and disables circles, links and centre points.'
  }
 };
+Object.assign(sparseLabels.fr,{circleScale:'Taille des cercles (%)',clipLinesToCircles:'Liaisons hors cercles'});
+Object.assign(sparseLabels.en,{circleScale:'Circle size (%)',clipLinesToCircles:'Links outside circles'});
+Object.assign(sparseLabels.fr,{biomeMethod:'Méthode des biomes'});Object.assign(sparseLabels.en,{biomeMethod:'Biome method'});
+Object.assign(sparseHelp.fr,{biomeMethod:'Regroupe les correspondances déjà calculées, sans nouvelle analyse. Les trois méthodes dérivées appliquent le plafond de surface. Historique natif conserve le rendu historique et ignore ce plafond sans effacer sa valeur.',maxBiomeArea:'Plafond de surface relatif à la zone analysée, pour la méthode de biomes choisie. Historique natif ignore ce plafond. Ne retire aucune correspondance native.'});
+Object.assign(sparseHelp.en,{biomeMethod:'Regroups retained matches without a new analysis. The three derived methods apply the area cap. Native legacy preserves historical drawing and ignores that cap without erasing its value.',maxBiomeArea:'Area cap relative to the analyzed region, for the chosen biome method. Native legacy ignores this cap. No native match is removed.'});
+Object.assign(sparseHelp.fr,{circleScale:'Taille des cercles affichés, en pourcentage du rayon natif. 100 % conserve la taille habituelle ; le rayon minimum reste de 2 pixels. Les correspondances et les biomes ne changent pas.',clipLinesToCircles:'Quand les cercles sont affichés, dessine les liaisons uniquement entre leurs bords. Sans cercles affichés, conserve les liaisons entières. Modifie seulement le tracé, sans nouvel appariement.'});
+Object.assign(sparseHelp.en,{circleScale:'Displayed circle size as a percentage of the native radius. 100% keeps the usual size; the minimum radius remains 2 pixels. Matches and biomes stay unchanged.',clipLinesToCircles:'When circles are displayed, draws links only between their edges. Without displayed circles, keeps full links. Changes drawing only, without matching again.'});
 Object.assign(sparseLabels.fr,{normalizationLongEdge:'Normalisation (px, 0 = original)',minimumDistance:'Séparation des mots (px)',spatialK:'Voisins des phrases',ratio:'Rapport des voisins',absolute:'Distance absolue',salienceSigma:'Échelle de saillance',maskThreshold:'Seuil SSIM',minimumArea:'Surface minimum (fraction)',roiRadius:'Rayon des régions (px)',ssimRadius:'Voisinage SSIM',ssimOpening:'Ouverture du masque (px)',rngSeed:'Graine géométrique'});
 Object.assign(sparseLabels.en,{normalizationLongEdge:'Normalization (px, 0 = original)',minimumDistance:'Word separation (px)',spatialK:'Phrase neighbors',ratio:'Neighbor ratio',absolute:'Absolute distance',salienceSigma:'Salience scale',maskThreshold:'SSIM threshold',minimumArea:'Minimum area (fraction)',roiRadius:'Region radius (px)',ssimRadius:'SSIM neighborhood',ssimOpening:'Mask opening (px)',rngSeed:'Geometry seed'});
 Object.assign(sparseHelp.fr,{normalizationLongEdge:'Le protocole SSG agrandit les petites images jusqu’à ce grand côté. Il ne réduit pas les grandes images. 0 conserve la résolution originale. Les sorties reviennent aux coordonnées originales.',minimumDistance:'Séparation minimale entre des mots appariés, sur l’image normalisée.',spatialK:'Nombre de voisins spatiaux réunis pour construire les phrases SSG.',ratio:'Rapport I2NN entre les voisins des descripteurs : une valeur plus faible est plus stricte.',absolute:'Distance absolue maximale du descripteur de phrase.',salienceSigma:'Échelle de distance dans la pondération de saillance issue du véritable détecteur de contours structurés.',maskThreshold:'Seuil de corrélation SSIM du masque localisé, distinct d’une confiance de fraude.',minimumArea:'Écarte les composantes dont la surface relative à l’image normalisée est inférieure à cette fraction.',roiRadius:'Rayon de dilatation des régions autour des correspondances géométriques, dans l’image normalisée.',ssimRadius:'Écart type du voisinage gaussien employé pour le SSIM.',ssimOpening:'Rayon de l’ouverture morphologique du masque SSIM.',rngSeed:'Graine des tirages MLESAC pour rendre la vérification géométrique reproductible.'});
@@ -72,7 +91,7 @@ export function sparseParameters(settings,rectangles){
  // restored settings from an older version must not reach an invalid native path.
  p.guides=p.compact&&!p.compare?rectangles.filter(r=>!r.envelope).map(polygon):[];
  if(isDenseClone(p.algorithm))return denseCloneParameters(p);
- delete p.patch;delete p.iterations;delete p.texture;
+ delete p.patch;delete p.iterations;delete p.texture;if(!p.algorithm.startsWith('ALIKED')){delete p.alikedInputSide;delete p.alikedDetectionThreshold;}
  const efficient=p.algorithm==='EfficientLoFTR';
  p.reflections=(p.algorithm===PANELS_SIFT||efficient)&&p.reflections;
  if(efficient){p.compare=true;p.rotations=p.rotationMode==='quarter-turns'?[0,90,180,270]:[0];}else {delete p.longSide;delete p.rotations;}

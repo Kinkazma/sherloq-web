@@ -1,12 +1,12 @@
-import {offlinePlan,offlineMissing,OFFLINE_CHUNKS} from './offline-browser-store.js';
-import {downloadDependencyArchive} from './dependency-library.js';
-import {indexResourceTar} from './dependency-tar.js';
-import {discoverBrowserInstallation,prepareBrowserInstallation,stageBrowserInstallationShell,installationWorkerURL,updateWorkerMessage,readVerifiedResponse} from './local-update-core.js';
-import {normalizeFeatureState,requiredFeatureChunks} from './feature-catalog.js';
-import {renderOfflineFeatureChoices,offlineServerPresentChunks} from './offline-feature-choices.js';
-import {capturePreferenceBackup} from './preferences-recovery.js';
-import {createOfflineLauncherDownload,downloadOfflineLauncher} from './offline-launcher-download.js';
-import {adobeFontURL} from './fonts.js';
+import {offlinePlan,offlineMissing,OFFLINE_CHUNKS} from './offline-browser-store.js?v=0.30.0';
+import {downloadDependencyArchive} from './dependency-library.js?v=0.30.0';
+import {indexResourceTar} from './dependency-tar.js?v=0.30.0';
+import {discoverBrowserInstallation,prepareBrowserInstallation,stageBrowserInstallationShell,installationWorkerURL,updateWorkerMessage,readVerifiedResponse} from './local-update-core.js?v=0.30.0';
+import {normalizeFeatureState,requiredFeatureChunks} from './feature-catalog.js?v=0.30.0';
+import {renderOfflineFeatureChoices,offlineServerPresentChunks} from './offline-feature-choices.js?v=0.30.0';
+import {capturePreferenceBackup} from './preferences-recovery.js?v=0.30.0';
+import {createOfflineLauncherDownload,downloadOfflineLauncher} from './offline-launcher-download.js?v=0.30.0';
+import {adobeFontURL} from './fonts.js?v=0.30.0';
 const $=id=>document.getElementById(id),base=new URL('./',import.meta.url);
 const appearance=new URLSearchParams(location.hash.slice(1));let savedAppearance={};
 try{savedAppearance=JSON.parse(localStorage.getItem('sherloq.workspace.preferences'))||{};}catch{}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 

@@ -1,4 +1,4 @@
-import {rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js';
+import {rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
 
 // The preview uses the exact exclusion polygons consumed by the analysis.
 // Only their presentation differs: unclassified margins have no red outline.
@@ -101,7 +101,7 @@ export function createScientificScopePreviewRetirement(){
  * decoding client alive until raster cleanup acknowledges all export leases.
  * onOwner is synchronous, before imports/creation, so a failed construction
  * remains owned even when its primary rejection is 0, false or frozen. */
-export async function createScientificScopePreview(image,{scope=image.preparation,signal,computeProfile='maximum',clientFactory,rasterFactory,palette=SCIENTIFIC_SCOPE_PREVIEW_PALETTE,onProgress=()=>{},onOwner}={}){
+export async function createScientificScopePreview(image,{scope=image.preparation,signal,computeProfile='maximum',clientFactory,rasterFactory,annotations=true,palette=SCIENTIFIC_SCOPE_PREVIEW_PALETTE,onProgress=()=>{},onOwner}={}){
  const width=image?.width,height=image?.height;if(!Number.isSafeInteger(width)||width<1||!Number.isSafeInteger(height)||height<1||!(image.blob instanceof Blob))throw previewInvalid('L’image originale de l’aperçu est absente.');signal?.throwIfAborted();
  if(scope&&(scope.width!==width||scope.height!==height))throw previewInvalid('Les coordonnées de préparation ne correspondent pas à l’image originale.');
  let client,result,rasterOwner,completed=false,finish,task,closed=false,rasterClosed=false,clientClosed=false,cleanupFailed=false,cleanupFailure;
@@ -110,15 +110,15 @@ export async function createScientificScopePreview(image,{scope=image.preparatio
  const owner={cleanup,get closed(){return closed;},get cleanupFailed(){return cleanupFailed;},get cleanupFailure(){return cleanupFailure;}};
  try{
   onOwner?.(owner);
-  clientFactory??=(await import('./tool-client.js')).createToolClient;rasterFactory??=(await import('./raster-export-client.js')).exportPresentationRaster;
+  clientFactory??=(await import('./tool-client.js?v=0.30.0')).createToolClient;rasterFactory??=(await import('./raster-export-client.js?v=0.30.0')).exportPresentationRaster;
   client=await clientFactory({computeProfile:typeof computeProfile==='function'?computeProfile():computeProfile});signal?.addEventListener('abort',cancel,{once:true});signal?.throwIfAborted();
   const source=await client.load({id:'scope-preview-'+crypto.randomUUID(),blob:image.blob});signal?.throwIfAborted();
   if(source.surface?.width!==width||source.surface?.height!==height||source.surface?.format!=='rgb8')throw previewInvalid('La source native décodée ne correspond pas à cet aperçu.');
   const identities=[source.sha256,image.sourceSha256,scope?.sourceSha256].filter(v=>v!==undefined&&v!==null);if(!identities.length||identities.some(v=>typeof v!=='string'||!/^[a-f0-9]{64}$/.test(v)||v!==identities[0]))throw previewInvalid('L’identité de préparation diffère de la source originale.');
-  const surface={width,height,format:'rgb8',async readPixels(rect){signal?.throwIfAborted();const original=await client.readWindow(source.surface,rect);signal?.throwIfAborted();return paintScientificScopeRows(original,scope,{rect,width,height,palette});}};
+  const surface={width,height,format:'rgb8',async readPixels(rect){signal?.throwIfAborted();const original=await client.readWindow(source.surface,rect);signal?.throwIfAborted();return annotations?paintScientificScopeRows(original,scope,{rect,width,height,palette}):original;}};
   result=await rasterFactory(surface,{format:'png',compression:6},{signal,onProgress,reserve:bytes=>client.reserveExport(bytes,source.surface),onOwner:value=>{rasterOwner=value;}});signal?.throwIfAborted();
   if(!(result?.blob instanceof Blob)||result.blob.size<1)throw previewInvalid('Le PNG annoté n’a pas été créé.');
-  return {blob:result.blob.type==='image/png'?result.blob:result.blob.slice(0,result.blob.size,'image/png'),width,height,metadata:{schema:'sherloq.scientific-scope-preview/1',sourceSha256:identities[0],scopeFingerprint:scope?.fingerprint??null,coordinates:'original-pixels',width,height,presentationOnly:true,annotationsEncoded:true,sourcePixels:'immutable',fullResolution:true,palette:structuredClone(palette)},cleanup};
+  return {blob:result.blob.type==='image/png'?result.blob:result.blob.slice(0,result.blob.size,'image/png'),width,height,metadata:{schema:'sherloq.scientific-scope-preview/1',sourceSha256:identities[0],scopeFingerprint:scope?.fingerprint??null,coordinates:'original-pixels',width,height,presentationOnly:true,annotationsEncoded:annotations,sourcePixels:'immutable',fullResolution:true,palette:structuredClone(palette)},cleanup};
  }catch(error){finish();try{await cleanup();}catch{}throw error;}
  finally{finish();signal?.removeEventListener('abort',cancel);}
 }

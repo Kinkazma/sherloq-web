@@ -1,7 +1,7 @@
 /** OCR presentation borrows native source pixels and immutable recognition.
  * Confidence is an engine score, not a calibrated correctness probability.
  */
-import {copyDiagnosticText} from './error-journal.js';
+import {copyDiagnosticText} from './error-journal.js?v=0.30.0';
 
 export const ocrThreshold=value=>Number.isFinite(value)?Math.max(0,Math.min(1,value)):0;
 export function visibleOcrRegions(data,threshold=0){

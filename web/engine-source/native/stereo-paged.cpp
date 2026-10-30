@@ -11,6 +11,18 @@ EM_ASYNC_JS(int,transferStore,(int id,double offset,int length,void* pointer,int
 EM_ASYNC_JS(int,checkpointStore,(int row,int total),{try{await Module.checkpoint(row,total);return 0;}catch(e){Module.ioError=e;return 1;}});
 EM_ASYNC_JS(int,sourceRows,(int y,int h,int pointer),{try{await Module.sourceRows(y,h,pointer);return 0;}catch(e){Module.ioError=e;return 1;}});
 EM_ASYNC_JS(int,outputRow,(int y,int width,int pointer),{try{await Module.outputRow(y,width,pointer);return 0;}catch(e){Module.ioError=e;return 1;}});
+EM_ASYNC_JS(int,gpuGaussian,(int input,int output,int width,int height,int size,int kernel,int kind),{
+ if(!Module.gpuGaussian)return 0;
+ try{return await Module.gpuGaussian(input,output,width,height,size,kernel,kind)?1:0;}
+ catch(e){Module.ioError=e;return -1;}
+});
+EM_JS(int,hasGpuGaussian,(),{return Module.gpuGaussian?1:0;});
+extern "C" bool stereoPagedGpuEnabled(){return stereoFastArithmetic&&hasGpuGaussian();}
+extern "C" int stereoPagedGpuBlur(int input,int output,int width,int height,int size,const float*kernel,int kind){
+ if(!stereoFastArithmetic)return 0;
+ const int result=gpuGaussian(input,output,width,height,size,reinterpret_cast<intptr_t>(kernel),kind);
+ if(result<0)throw std::runtime_error("GPU Gaussian transport failed");return result;
+}
 extern "C" int stereoPagedAllocate(double bytes){int id=allocateStore(bytes);if(id<0)throw std::runtime_error("Paged allocation failed");return id;}
 extern "C" void stereoPagedDrop(int id){if(dropStore(id))throw std::runtime_error("Paged disposal failed");}
 extern "C" void stereoPagedTransfer(int id,double offset,int length,void* pointer,int write){if(transferStore(id,offset,length,pointer,write))throw std::runtime_error("Paged transfer failed");}
@@ -27,8 +39,10 @@ static void resize(const PagedMat& input,PagedMat& output,int w,int h){
  auto horizontal=[&](int y,std::vector<float>&v){const float*src=input.ptr<float>(y);for(int x=0;x<w;x++)for(int c=0;c<cn;c++){const int at=x*cn+c,sx=offsets[x];float left=src[sx*cn+c],fx=weights[x];v[at]=x>=xmax?left:at<vectorEnd?left*(1-fx)+src[(sx+1)*cn+c]*fx:sherloq_stereo_fma(left,1-fx,src[(sx+1)*cn+c]*fx);}};
  for(int y=0;y<h;y++){float fy=std::fma(y+.5,scaleY,-.5);int sy=cvFloor(fy);fy-=sy;int top=std::clamp(sy,0,ih-1),bottom=std::clamp(sy+1,0,ih-1);if(top==by){a.swap(b);std::swap(ay,by);}if(ay!=top){horizontal(top,a);ay=top;}if(by!=bottom){horizontal(bottom,b);by=bottom;}float*out=output.ptr<float>(y);for(int x=0;x<w*cn;x++)out[x]=sherloq_stereo_fma(a[x],1-fy,b[x]*fy);stereoPagedCheck(y,h);}
 }
-static void gaussian(const PagedMat&input,PagedMat&output,int size,double sigma){
- const int w=input.cols,h=input.rows,r=size/2;cv::Mat kernel=cv::getGaussianKernel(size,sigma,CV_32F);const float*k=kernel.ptr<float>();PagedMat horizontal;horizontal.create(h,w,CV_32F);output.create(h,w,CV_32F);
+static void gaussian(PagedMat&input,PagedMat&output,int size,double sigma){
+ const int w=input.cols,h=input.rows,r=size/2;cv::Mat kernel=cv::getGaussianKernel(size,sigma,CV_32F);const float*k=kernel.ptr<float>();output.create(h,w,CV_32F);
+ if(stereoPagedGpuEnabled()){const int result=stereoPagedGpuBlur(input.backingStore(),output.backingStore(),w,h,size,k,0);if(result){output.invalidateCachedRows();return;}}
+ PagedMat horizontal;horizontal.create(h,w,CV_32F);
  std::vector<float> padded(w+2*r);
  for(int y=0;y<h;y++){const float*src=input.ptr<float>(y);float*dst=horizontal.ptr<float>(y);auto at=[&](int x){return src[cv::borderInterpolate(x,w,cv::BORDER_REFLECT_101)];};
   if(size<=5){for(int x=0;x<w;x++){float sum=w%2&&x==w-1?sherloq_stereo_fma(at(x-1)+at(x+1),k[r+1],src[x]*k[r]):sherloq_stereo_fma(src[x],k[r],(at(x-1)+at(x+1))*k[r+1]);if(r==2)sum=sherloq_stereo_fma(at(x-2)+at(x+2),k[r+2],sum);dst[x]=sum;}}

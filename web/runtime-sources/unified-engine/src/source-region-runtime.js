@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{segmentationIndependentSourceAdmitted}from'./segmentation-independent-capability.js';
 import{compileOriginalSourceRegions}from'./source-region-geometry.js';
 import {automaticClonesSourceTask} from './automatic-clones-source-task.js';

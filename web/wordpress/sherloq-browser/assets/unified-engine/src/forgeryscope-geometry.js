@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 // Public LightGlueOverlap geometry. Affine estimation itself runs OpenCV 4.11
 // RANSAC/USAC_MAGSAC in WASM; these functions preserve its source coordinates.
 import {requireValue,checkpoint,checkAbort} from './errors.js';

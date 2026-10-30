@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,countedDenseOwner,createDenseRetirementLedger,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {clearPagedDetailCache} from './dense-paged-detail.js';
 import {StrictDenseImageEngine} from './dense-strict-image.js';

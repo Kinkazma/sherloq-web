@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "opencv": "4.11.0",
+  "sources": {
+    "native/ela-describe.cpp": "535c8463fdf89cc5213d0e2f7e3a660916ddeccef2885c6fd92868b2f028d284",
+    "native/sift-gaussian-simd.cpp": "ec12fbba35a36a772a77b30524d3f5d27151579670d73f09e3b572a118a938b7",
+    "native/sparse-fma-shim.cpp": "68278b58687ba6ffb2ef9678100d44c3bbab1de0976c369162565b181fb79098"
+  },
+  "generatedSourceSha256": "93010349ac647b6a26bae143f2a5872462e38b751d859c91dd78a55378a1ebb8",
+  "sqrtTablesSha256": "3cbe1540c9be85786deef277471aa923b25b287dc7187740bd7207c00c357e03",
+  "objects": {
+    "dft-reference.o": "0bbb08622235ce378871e40eecda5490d64165f2d397f1b33750421260db4055",
+    "libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+  },
+  "qualification": "Required on each actual module; scalar fmaf fallback remains enabled if hardware relaxed_madd differs.",
+  "files": {
+    "describe-simd.js": {
+      "bytes": 28129,
+      "sha256": "ceaaf4f951c66d5bbb22da60b400bb89611f1865b1be702c6acb5a80aa214ca4"
+    },
+    "describe-simd.wasm": {
+      "bytes": 904285,
+      "sha256": "40998e505bc45e27a5cc5fd0f43790534ff54cc6125aa723f992f5d2584fda6a"
+    }
+  }
+}

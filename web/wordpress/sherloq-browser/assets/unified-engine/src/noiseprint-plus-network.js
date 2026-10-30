@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.16.0";
+import "../../runtime-context.js?v=0.30.0";
 import {checkAbort,requireValue} from './errors.js';
 /** Independent output rows, full 17-pixel receptive-field halo and global bias order. */
 export async function noiseprintPlusResidual(rgb,width,height,{budget,pool,signal,onProgress,backend='auto'}={}){

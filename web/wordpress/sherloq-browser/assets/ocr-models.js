@@ -1,4 +1,4 @@
-import {OCR_ASSETS} from './ocr-assets.js';
+import {OCR_ASSETS} from './ocr-assets.js?v=0.30.0';
 const root=new URL('./ocr-assets/',import.meta.url),shared=new URL('./unified-assets/',import.meta.url);
 const resolve=spec=>({...spec,url:new URL(spec.file,root).href});
 /** Configuration only: language and model bodies are fetched by the admitted

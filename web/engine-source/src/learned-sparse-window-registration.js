@@ -1,3 +1,4 @@
+import {efficientLoFtrComparisonTask} from './efficient-loftr-comparison-task.js';
 import {createSsgNativeWindowRegistration} from './ssg-native-window-registration.js';
 import {createClassicalSparseWindowRegistration,hasSparseAnalysisWindows,sparseSourceAnalysisWindows} from './classical-sparse-window-registration.js';
 import {createSparseCloneWindowEngine} from './sparse-clone-window-engine.js';
@@ -13,12 +14,12 @@ const methods=Object.freeze([...LEARNED_SPARSE_WINDOW_ALGORITHMS,'SIFT + LightGl
 // A true Original exclusion is a real single-window context even without a
 // selected acquisition. Ordinary whole-image Panels keeps native panel detection.
 const panelsWindowIntent=(task,image)=>{if(hasSparseAnalysisWindows(task,image))return true;for(let d=task.sourceRegionDomain??image?.sourceRegionDomain;d;d=d.ceiling)if(d.snapshot?.enabled&&d.snapshot.zones.some(z=>z.enabled&&z.kind==='exclusion'))return true;return false;};
-const hasWindows=(task,image)=>task.params?.algorithm===PANELS?panelsWindowIntent(task,image):hasSparseAnalysisWindows(task,image);
+const hasWindows=(task,image)=>[PANELS,'XFeat','XFeat + LighterGlue'].includes(task.params?.algorithm)?panelsWindowIntent(task,image):hasSparseAnalysisWindows(task,image);
 
 export function createLearnedSparseWindowRegistration(){
  const classical=createClassicalSparseWindowRegistration(),ssg=createSsgNativeWindowRegistration();
  const learned=task=>task.operation==='tampering.copyMove.sparse'&&methods.includes(task.params?.algorithm);
- const mode=task=>{const value=task.cloneWindowMode??'independent';requireValue(['independent','global'].includes(value),'Invalid clone-window mode.');return value;};
+ const mode=task=>{task=efficientLoFtrComparisonTask(task);const value=task.cloneWindowMode??'independent';requireValue(['independent','global'].includes(value),'Invalid clone-window mode.');return value;};
  return{
   key(task,image){return ssg.key(task,image)??classical.key(task,image)??(learned(task)&&hasWindows(task,image)?'native-learned-windows/union-input1/'+mode(task)+'/'+task.params.algorithm+(task.params.algorithm==='EfficientLoFTR'&&task.efficientLoFtrComparison?'/roles32/'+task.efficientLoFtrComparison.fingerprint:''):null);},
   completeOriginal(task,raw,image){
@@ -33,7 +34,7 @@ export function createLearnedSparseWindowRegistration(){
    requireValue(learned(task)&&hasWindows(task,image),'Explicit native learned analysis windows required.');
    const callbackFactory=task.params.algorithm===PANELS?settings=>acquisitionsCallback(createSiftNativeWindowCallback,{...settings,nativeAcquisitionPreparation:true}):task.params.algorithm==='EfficientLoFTR'?createEfficientLoFtrNativeWindowCallback:task.params.algorithm==='SIFT + LightGlue'?createSiftNativeWindowCallback:createLearnedSparseWindowCallback;
    return createSparseCloneWindowEngine(image,budget,profile,{callbackFactory,admitIndependent:()=>true,admitGlobal:()=>true,
-    callbackOptions:{...(task.params.algorithm===PANELS?{panelsFactory:nativeAutomaticPanels}:{}),strictAlikedRuntime:({backend,profile,signal,family,models})=>createAlikedStrictPoolRuntime({provider:backend==='cpu'?'wasm':backend==='webgpu'||globalThis.navigator?.gpu?'webgpu':'wasm',profile,signal,models,modelKind:family==='ALIKED rotation'?'aliked-n16rot':'aliked-n16'})},
+    callbackOptions:{...(task.params.algorithm===PANELS?{panelsFactory:nativeAutomaticPanels}:{}),strictAlikedRuntime:({backend,profile,signal,family,models,inputSide,detectionThreshold})=>createAlikedStrictPoolRuntime({provider:backend==='cpu'?'wasm':backend==='webgpu'||globalThis.navigator?.gpu?'webgpu':'wasm',profile,signal,models,inputSide,detectionThreshold,modelKind:family==='ALIKED rotation'?'aliked-n16rot':'aliked-n16'})},
     prepareWindows(input,hooks){const t=input.task,p=t.params??{},explicit=Array.isArray(t.regions)&&(t.regions.length>0||p.selectionPresent===true)||p.scientificScope!=null||t.scientificScope!=null||p.selection!==undefined,windows=explicit?null:sparseSourceAnalysisWindows(input.domain.descriptor);return prepareCloneAnalysisWindows(windows?{...input,task:{...t,regions:windows}}:input,hooks);}
    });
   }

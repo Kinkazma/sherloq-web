@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.17.2";
+import "../../runtime-context.js?v=0.30.0";
 import {wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement} from './dense-owner-retirement.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {sourceRegionDomainShape} from './source-region-capabilities.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import{requireValue}from'./errors.js';
 import{npyHeader}from'./npz.js';
 export function truforStrictNpzEntries(result,header=npyHeader){const d=result.data,m=d?.metadata;requireValue(m?.fragmented&&Number.isSafeInteger(d.pixelCount)&&d.pixelCount>=0&&d.context_scores instanceof Float64Array,'Strict TruFor context arrays are required.');const entries=[];

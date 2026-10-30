@@ -1,11 +1,12 @@
-import {localFeaturePolicy} from './feature-policy.js';
-import {toolCatalog,toolFields} from './tool-catalog.js';
-import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js';
-import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js';
-import defaults from './tool-defaults.js';
-import {defaults as classicDefaults} from './settings.js';
-import {NEURAL_METHODS} from './neural-clone-ui.js';
-import {clipPolygon} from './batch-scope-geometry.js';
+import {defaultBackend} from './backend-mode-preferences.js?v=0.30.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.30.0';
+import {toolCatalog,toolFields} from './tool-catalog.js?v=0.30.0';
+import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js?v=0.30.0';
+import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js?v=0.30.0';
+import defaults from './tool-defaults.js?v=0.30.0';
+import {defaults as classicDefaults} from './settings.js?v=0.30.0';
+import {NEURAL_METHODS} from './neural-clone-ui.js?v=0.30.0';
+import {clipPolygon} from './batch-scope-geometry.js?v=0.30.0';
 
 const copy=value=>structuredClone(value);
 const groups={recommended:['Adaptés au traitement par lot','Suited to batch processing'],complement:['Analyses complémentaires','Additional analyses'],less:['Moins adaptés — inspection humaine','Less suited — human inspection'],required:['Entrée supplémentaire nécessaire','Additional input required']};
@@ -61,6 +62,7 @@ function describe(id,item){
 }
 const entries=Object.entries({...toolCatalog,...extra}).filter(([id])=>id!=='tampering.copyMove.sparse').map(([id,item])=>describe(id,item));
 const ssgKeys=new Set(Object.keys(SSG_DEFAULTS));
+for(const item of entries)if(item.operation==='ela.classic')item.fields.push({key:'equalization',label:'Égalisation',type:'equalization'});
 for(const [variant,name]of NEURAL_METHODS.filter(([id])=>!id.startsWith('forgeryscope')&&id!=='d2prl'))entries.push({...describe('ai.clones.segmentation',{fr:name,en:name,params:{variant}}),...(variant==='selfdm-proposal'?{description:['Chaîne complète expérimentale à la résolution originale : cinq réseaux sur CPU ou GPU, étapes OpenCV sur CPU. Les fenêtres réutilisent leur espace de travail sans réduire les pixels source.','Experimental complete pipeline at original resolution: five networks on CPU or GPU, OpenCV stages on CPU. Windows reuse their workspace without downscaling source pixels.']}:variant==='selfdm-map'?{description:['Carte initiale SelfDM uniquement, préparée à la résolution native du modèle. Le raffinement complet est une méthode distincte.','SelfDM initial map only, prepared at the model’s native resolution. Complete refinement is a separate method.']}:{}),id:'segmentation-'+variant,fields:[]});
 for(const [index,algorithm] of CLONE_ALGORITHMS.entries()){
  const params=copy(toolCatalog['tampering.copyMove.sparse'].params);changeCloneAlgorithm(params,params.algorithm);params.algorithm=algorithm;changeCloneAlgorithm(params,'PatchMatch Zernike');
@@ -75,7 +77,7 @@ for(const [index,algorithm] of CLONE_ALGORITHMS.entries()){
  entries.push({...item,...(algorithm==='EfficientLoFTR'?{pairRequired:true,group:'required',description:['Deux rectangles distincts par image. Préparez la paire dans Images : détection des panneaux ou coordonnées explicites. S’il n’y a pas exactement deux panneaux, le lot attend votre choix.','Two distinct regions per image. Prepare the pair in Images using panel detection or explicit coordinates. Unless exactly two panels are detected, the batch requires your choice.']} : {}),id:'clone-'+index,fr:cloneMethodLabel(algorithm),en:cloneMethodLabel(algorithm),params,view:{...sparseViewDefaults(),low:BATCH_CLONE_DEFAULTS.low},fields:item.fields.filter(relevant).map(f=>({...f,...(algorithm==='EfficientLoFTR'&&f.key==='longSide'?{min:64}:{}),value:params[f.key]??f.value}))});
 }
 const priority=x=>x.id==='ai.clones.d2prl'?0:x.params.algorithm==='SIFT + G2NN + RANSAC + Panels + Text'?1:x.params.algorithm==='SIFT + G2NN + RANSAC'?2:x.params.algorithm==='PatchMatch Zernike'?3:x.id==='m2.forgeryscope'?4:x.id==='analysis.clones'?5:x.id==='analysis.complete'?6:10;
-export const batchCatalog=Object.freeze(entries.sort((a,b)=>priority(a)-priority(b)));
+export const batchCatalog=Object.freeze(entries.map(entry=>({...entry,backend:defaultBackend(entry.operation,entry.params)})).sort((a,b)=>priority(a)-priority(b)));
 export function batchTask(recipe,{id,imageId,regions=[],scientificScope}={}){
  localFeaturePolicy.assertTaskAvailable(recipe);
  let operation=recipe.operation,params=copy(recipe.params);
@@ -88,7 +90,7 @@ export function batchTask(recipe,{id,imageId,regions=[],scientificScope}={}){
  }
  if(operation==='m2.forgeryscope'&&scientificScope)params.scientificScope=copy(scientificScope);
  if(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&scientificScope){regions=batchNeuralCropRegions(scientificScope.regions,{width:scientificScope.width,height:scientificScope.height});params.scientificScope=copy(scientificScope);}
- return {id,imageId,operation,params,backend:recipe.backend??'auto',...(operation==='tampering.copyMove.sparse'&&scientificScope?{scientificScope:copy(scientificScope)}:{}),...(batchRecipeView(recipe)!==undefined?{view:batchRecipeView(recipe)}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
+ return {id,imageId,operation,params,backend:recipe.backend??defaultBackend(recipe.operation,recipe.params),...(operation==='tampering.copyMove.sparse'&&scientificScope?{scientificScope:copy(scientificScope)}:{}),...(batchRecipeView(recipe)!==undefined?{view:batchRecipeView(recipe)}:{}),...(['ai.clones.d2prl','ai.clones.segmentation'].includes(operation)&&regions.length?{regions:regions.map((r,i)=>({id:'panel-'+i,kind:'region',bounds:[r.x0,r.y0,r.x1,r.y1]})),params:{...params,selectionPresent:true}}:{})};
 }
 
 // Neural inputs are rectangular integer pixel windows. YOLO acquisition bounds
@@ -285,7 +287,7 @@ export function batchScopeSupport(recipe,scope,output,validationOptions){
  if(['analysis.clones','analysis.complete'].includes(recipe.operation))return {...common,mode:'mixed-exclusions',input:'prepared-acquisitions; native-classical-search-regions',stages:{patchmatch:'input-exclusions-before-matching',sift:'input-exclusions-before-matching',d2prl:'source-and-target-before-native-patchmatch',forgeryscope:'geometric-keypoints-before-matching',...(recipe.operation==='analysis.complete'?{ela:'descriptive-only'}:{})},cnnContext:'original-rectangle-context',rawBranches:['forgeryscope-embeddings','forgeryscope-lanes'],nativeMapsPreserved:true};
  return {...common,mode:'raw-only',qualifiedForScopedSignal:false,reason:batchRawInspectionNotice(recipe.operation)??'Cette méthode ne possède pas encore d’exclusions scientifiques qualifiées avant l’analyse.'};
 }
-export const recipeKey=recipe=>JSON.stringify([recipe.operation,recipe.params,recipe.backend??'auto',batchRecipeView(recipe)??null]);
+export const recipeKey=recipe=>JSON.stringify([recipe.operation,recipe.params,recipe.backend??defaultBackend(recipe.operation,recipe.params),batchRecipeView(recipe)??null]);
 export const catalogRecipe=id=>{const entry=batchCatalog.find(x=>x.id===id);if(!entry)throw Error('Unknown batch tool');return {...entry,params:copy(entry.params),signal:copy(entry.signal),...(entry.view?{view:copy(entry.view)}:{})};};
 
 export function batchPairRegions(regions,{width,height,scientificScope}={}){

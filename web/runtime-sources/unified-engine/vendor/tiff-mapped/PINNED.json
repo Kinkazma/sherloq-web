@@ -1,0 +1,29 @@
+{
+  "opencv": "4.11.0",
+  "libtiff": "4.6.0",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "originalTiffDecoderSha256": "bf3f1b71aebfa75795e4a534e0d78a30179365f08ff3e8467a3eb473322255e2",
+  "mappedTiffDecoderSha256": "8a91208967dc91a242d2d5244783bde23ec0bafda884dc03f2ddf68ca569b6c3",
+  "wrapperSha256": "e12856ad42ce99651e2cf921a89bbc080dbe7bf0d2c709b483ac46168e2d31f9",
+  "patch": "Memory map callback returns success and caller-owned unmap callback does nothing. Pixel extraction and libtiff code unchanged.",
+  "libraries": {
+    "cv/lib/libopencv_imgcodecs.a": "162cf73ad26d1918335d54bbf798fbebc9f3fa3876cabe0ecb97f24a8e38a87c",
+    "cv/lib/libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1",
+    "cv/lib/libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    "cv/3rdparty/lib/liblibjasper.a": "7ae15e32f86217758184ca265b87da9cdbef4c2e0fafeb4b23c87ee802d7256f",
+    "cv/3rdparty/lib/liblibjpeg-turbo.a": "7d43e66b6ea513c63ef798172bcc16432f60bde767245316fba6cb0080c9f0ea",
+    "cv/3rdparty/lib/liblibpng.a": "8150b8c8c5793180ac54e292c1f86c212e9c184dfa330814fef4cee769c6c265",
+    "cv/3rdparty/lib/liblibtiff.a": "7880ffcc945ae99d1276018c3f5fe4b18c85d527c138ec9ed63c87a1a28dfe70",
+    "cv/3rdparty/lib/libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+  },
+  "files": {
+    "CAROTENE-LICENSE.txt": "505e6c6b6fd5ec69584d07e2b680fd336fe441ec94cbfdd0d975b43c145adcdf",
+    "JPEG-LICENSE.md": "e548c96c0c09397c94b5c5531836c02ff2c403f1f2b130cad8e3ec9439b5a7cc",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "PNG-LICENSE.txt": "7317e078e2d3b5d7ba5a6159e650945153262b44b76f6700f8e9edb261c5143e",
+    "TIFF-LICENSE.txt": "fbd6fed7938541d2c809c0826225fc85e551fdbfa8732b10f0c87e0847acafd7",
+    "tiff-mapped.js": "633965f4c726e433cdc43627a4597ea1012b22aabb6e0fceb3c9fc30b48d2e4f",
+    "tiff-mapped.wasm": "d019be8990fe7bf8e51fd4562394c4985e8d0b5e1d0187bb0f46a2fa7baca38a",
+    "zlib.h": "8a5579af72ea4f427ff00a4150f0ccb3fc5c1e4379f726e101133b1ab9fc600c"
+  }
+}

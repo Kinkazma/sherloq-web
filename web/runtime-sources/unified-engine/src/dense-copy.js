@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {clearPagedDetailCache} from './dense-paged-detail.js';
 import {DenseImageEngine} from './dense-image.js';
 import {verifyDenseEvidence} from './dense-postprocess.js';

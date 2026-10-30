@@ -1,0 +1,13 @@
+{
+  "source": "ca6afcbf33870adbc0f76c79c120d635ea2d8d4447c49277ea935c5f36f35ebc",
+  "files": {
+    "post.js": {
+      "bytes": 11894,
+      "sha256": "6a7df1dfd6e8737c20b5abbffc855adca90b9e7a612d6ac6370d98609aef39d0"
+    },
+    "post.wasm": {
+      "bytes": 21400,
+      "sha256": "3819c924a6b8509b136f930b3961d0ad061db29286967290c4f0994280437fa9"
+    }
+  }
+}

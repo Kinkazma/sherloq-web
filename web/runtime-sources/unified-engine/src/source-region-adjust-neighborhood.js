@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.25.0";
+import "../../runtime-context.js?v=0.30.0";
 import {createRamByteCache,ramByteCacheBytes} from './ram-byte-cache.js';
 import {EngineError,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
