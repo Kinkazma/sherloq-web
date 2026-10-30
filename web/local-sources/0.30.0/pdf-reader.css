@@ -1,0 +1,13 @@
+:host{display:flex;min-height:0;min-width:0;height:100%;color:var(--text,#eee);font-family:var(--ui-font,Georgia,serif)}
+*{box-sizing:border-box}.pdf-reader{display:flex;flex-direction:column;flex:1;height:100%;width:100%;min-height:0;min-width:0;background:var(--panel,#23252a);color:var(--text,#eee)}
+button{font:inherit;color:inherit;background:var(--raised,#303339);border:1px solid var(--line,#50545b);border-radius:4px;cursor:pointer;padding:4px 9px;min-height:28px;font-size:12px}button:hover{border-color:var(--accent,#74aee8)}button:disabled{opacity:.45;cursor:default}button:focus-visible{outline:2px solid var(--accent,#74aee8);outline-offset:2px}
+.pdf-reader-progress{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.pdf-reader-pages{display:flex;flex-wrap:wrap;gap:4px;padding:5px 8px;max-height:102px;overflow:auto;flex:none}.pdf-reader-pages button[aria-current=true]{background:var(--selected,#35475b);border-color:var(--accent,#74aee8)}
+.pdf-reader-images{font-size:12px;border-block:1px solid var(--line,#41454b);flex:none;max-height:165px;overflow:auto}.pdf-reader-images summary{padding:6px 9px;cursor:pointer}.pdf-reader-image-grid{display:flex;gap:6px;padding:0 8px 8px;overflow:auto}.pdf-native-image{display:flex;flex-direction:column;gap:3px;flex:none;align-items:center;max-width:110px}.pdf-native-image img{width:90px;height:58px;object-fit:contain}.pdf-native-image span{font-size:10px}
+.pdf-reader-view{position:relative;flex:1;min-height:100px;min-width:0;overflow:hidden;background:var(--canvas,#151618);touch-action:none;cursor:grab}.pdf-reader-view:active{cursor:grabbing}.pdf-reader-view>canvas:not(.pointer-loupe){position:absolute;inset:0;display:block;width:100%;height:100%}.pdf-reader-empty{position:absolute;inset:40% 12px auto;text-align:center;color:var(--muted,#b5bac4);font-size:13px}.pdf-reader-notice{font-size:11px;color:var(--muted,#b5bac4);margin:0;padding:2px 8px}.pdf-reader-notice:empty{display:none}
+.pointer-loupe{position:absolute;z-index:5;pointer-events:none;max-width:none;max-height:none}.pointer-loupe[hidden]{display:none}.pointer-loupe-rings{position:absolute;inset:0;width:100%;height:100%;z-index:6;pointer-events:none;overflow:hidden}.pointer-loupe-rings circle{fill:none;vector-effect:non-scaling-stroke}
+.pdf-reader[data-theme=light]{color-scheme:light}.pdf-reader[data-theme=dark]{color-scheme:dark}
+@media(max-width:700px){.pdf-reader-pages{max-height:76px}.pdf-reader-pages button{padding:3px 6px;font-size:11px}.pdf-reader-images{max-height:135px}}
+
+/* Older reader instances can adopt the compact stylesheet without a reload. */
+.pdf-reader-toolbar{display:none}
