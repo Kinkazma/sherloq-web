@@ -7,6 +7,11 @@ import re
 
 def write_shell(plugin, manifest, identity, version):
     assets = Path(plugin) / 'assets'
+    reserved_manifest = assets / '__manifest.json'
+    if reserved_manifest.is_file():
+        data = reserved_manifest.read_bytes()
+        if hashlib.sha256(data).hexdigest() != identity or json.loads(data) != manifest:
+            raise ValueError('Offline shell reserved manifest differs from its deployed inventory')
     files = {}
     for p in sorted(assets.rglob('*')):
         if not p.is_file():

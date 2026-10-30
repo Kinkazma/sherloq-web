@@ -299,6 +299,9 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
             raise ValueError('Compatibility manifest identity mismatch: ' + previous.name)
         put(plugin / ('assets/dependency-manifest-' + previous.name), previous.read_bytes())
     put(plugin / 'assets/dependency-config.json', encode({'schema': 'sherloq.dependency-config/1', 'enabled': True, 'workerType': 'classic', 'workerVersion': version+'-'+hashlib.sha256(worker.encode()).hexdigest()[:16], 'manifest': identity}))
+    # The local helper serves this reserved name as the deployed manifest.
+    # Bind the shell to those same bytes rather than the source-only template.
+    put(plugin / 'assets/__manifest.json', encode(manifest))
     if (sources/'assets/local-management-ui.js').is_file():
         catalog = _features.generate(manifest, output/'public/web/wordpress/feature-inputs', sources/'assets')
         put(plugin / 'assets/feature-catalog.json', encode(catalog))

@@ -2,6 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {defaultSettings,recoverSettings,validateSettings,validEnergySettings} from '../sherloq-browser/assets/settings.js';
 import {createPreferenceAccess,capturePreferenceBackup,serializePreferenceBackup,migratePreferenceBackup,commitPreferenceMigration,restorePreferenceBackup,importPreferenceBackup,recoverWorkspacePreferences,recoverWorkspaceSettings,mergePreferenceChanges} from '../sherloq-browser/assets/preferences-recovery.js';
+import {capturePreferenceSnapshot} from '../sherloq-browser/assets/preference-snapshot.js';
 
 class Storage{
  constructor(entries={}){this.data=new Map(Object.entries(entries));this.fail=null;}
@@ -10,6 +11,29 @@ class Storage{
 }
 const library=()=>{const entries=new Map();return async function(key,value){if(arguments.length>1)entries.set(key,value);return entries.get(key);};};
 const settings=()=>({...defaultSettings(),profiles:[{id:'profile-a',name:'Profil A',operation:'ela.classic',params:{quality:85,scale:65,contrast:8,linear:true,grayscale:false}},{id:'profile-b',name:'Profil B',operation:'ela.classic',params:{quality:90,scale:50,contrast:12,linear:false,grayscale:true}}],activeProfile:'profile-a',individual:{'inspection.histogram':{channel:1}},energy:validEnergySettings(),preferences:{...defaultSettings().preferences,favorite:true}});
+
+test('the pre-engine bridge snapshot preserves malformed and unknown data without validation or writes',async()=>{
+ const raw='{broken',storage=new Storage({'sherloq.workspace.preferences':raw,'sherloq.local.auto-update':'{"schema":"future-version"}','sherloq.batch.settings':'{"unknown":{"preserve":true}}','unrelated':'not included'});
+ storage.fail=()=>true;
+ const backup=await capturePreferenceSnapshot({storage,library:async()=>null,origin:'https://test.invalid/',now:()=>new Date('2026-01-01T00:00:00Z')});
+ assert.equal(backup.schema,'sherloq.preference-backup/1');assert.equal(backup.entries['sherloq.workspace.preferences'].raw,raw);assert.equal(backup.entries['sherloq.local.auto-update'].raw,'{"schema":"future-version"}');assert.equal(backup.entries.unrelated,undefined);assert.deepEqual(backup.preferenceReport,[]);assert.equal(storage.getItem('sherloq.workspace.preferences'),raw);
+});
+
+test('a full preservation store keeps validated preferences usable without overwriting originals',()=>{
+ const key='sherloq.workspace.preferences',raw=JSON.stringify({language:'fr',favorites:['ela.classic'],exports:{format:'invalid'},futureControl:{keep:true}}),storage=new Storage({[key]:raw});
+ storage.fail=name=>name.startsWith('sherloq.recovery.');
+ const access=createPreferenceAccess(storage),result=access.read(key);
+ assert.equal(result.value.language,'fr');assert.deepEqual(result.value.favorites,['ela.classic']);assert.equal(result.protected,true);assert.ok(result.issues.some(issue=>issue.kind==='storage'));assert.equal(storage.getItem(key),raw);
+ assert.equal(access.write(key,result.value),false);assert.equal(storage.getItem(key),raw);
+ storage.fail=null;assert.equal(access.write(key,result.value),true);assert.equal(storage.getItem(key),raw);assert.equal(storage.getItem('sherloq.recovery.original.'+key),raw);assert.deepEqual(access.read(key).value.favorites,['ela.classic']);
+});
+
+test('a valid recovery overlay stays active when its original backup cannot be written',()=>{
+ const key='sherloq.workspace.preferences',raw='{broken',overlay=JSON.stringify({language:'en',favorites:['inspection.histogram']}),storage=new Storage({[key]:raw,['sherloq.recovery.value.'+key]:overlay});
+ storage.fail=name=>name.startsWith('sherloq.recovery.original.');
+ const access=createPreferenceAccess(storage),result=access.read(key);
+ assert.equal(result.value.language,'en');assert.deepEqual(result.value.favorites,['inspection.histogram']);assert.ok(result.issues.some(issue=>issue.kind==='storage'));assert.equal(access.write(key,result.value),false);assert.equal(storage.getItem(key),raw);assert.equal(storage.getItem('sherloq.recovery.value.'+key),overlay);
+});
 
 test('one bad field salvages every other profile, favorite and scientific setting',()=>{
  const input=settings();input.profiles[0].params.scale=101;input.profiles[1].unknown='future';input.preferences.theme='obsolete';input.preferences.language='en';input.current.contrast=71;input.energy.opacity=-1;input.energy.values.shadow=103;input.individual['file.hex']={constructor:'forbidden'};input.automatic={opacity:41,scope:'whole'};input.futureControls={unknown:1};

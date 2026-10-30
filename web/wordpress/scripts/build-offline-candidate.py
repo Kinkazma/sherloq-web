@@ -21,6 +21,9 @@ from build import delivery_bytes
 spec = importlib.util.spec_from_file_location('offline_shell', ROOT/'offline-shell.py')
 offline = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(offline)
+spec = importlib.util.spec_from_file_location('feature_catalog_builder', ROOT/'scripts/generate-feature-catalog.py')
+features = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(features)
 
 
 class ChunkReader:
@@ -88,6 +91,11 @@ def build(installed, chunks, output, shell_only=False):
     config['workerVersion']=version
     (assets/'dependency-config.json').write_text(json.dumps(config))
     shutil.copy2(installed/('dependency-manifest-'+config['manifest']+'.json'),assets/('dependency-manifest-'+config['manifest']+'.json'))
+    # Reserved metadata URLs are served directly by the helper. Their shell
+    # records must describe its deployed inventory and catalogue exactly.
+    (assets/'__manifest.json').write_text(json.dumps(manifest,sort_keys=True,separators=(',',':'))+'\n')
+    catalogue=features.generate(manifest,ROOT/'feature-inputs',ROOT/'sherloq-browser/assets')
+    (assets/'feature-catalog.json').write_text(json.dumps(catalogue,sort_keys=True,separators=(',',':'))+'\n')
     for name in manifest.get('localFiles', []):
         target = assets/name
         target.parent.mkdir(parents=True, exist_ok=True)

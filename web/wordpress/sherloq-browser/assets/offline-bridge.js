@@ -1,7 +1,7 @@
 import {offlinePlan} from './offline-browser-store.js?v=0.30.0';
 import {prepareLocalArchiveBridge,updateWorkerMessage} from './local-update-core.js?v=0.30.0';
 import {browserUpdateStore} from './local-update-store.js?v=0.30.0';
-import {capturePreferenceBackup} from './preferences-recovery.js?v=0.30.0';
+import {capturePreferenceSnapshot as capturePreferenceBackup} from './preference-snapshot.js?v=0.30.0';
 import {persistBridgePreferenceBackup} from './bridge-preference-backup.js?v=0.30.0';
 const prepare=document.getElementById('offline-bridge-prepare'),open=document.getElementById('offline-bridge-open'),status=document.getElementById('offline-bridge-status'),meter=document.getElementById('offline-bridge-progress'),version=document.getElementById('offline-bridge-version');
 let plan,registration,watching,store,opening=false,adopting=false;

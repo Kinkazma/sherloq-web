@@ -13,6 +13,18 @@ spec.loader.exec_module(module)
 
 
 class ShellTests(unittest.TestCase):
+    def test_source_template_cannot_be_hashed_as_the_deployed_manifest(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            plugin = Path(tmp)
+            assets = plugin / 'assets'
+            assets.mkdir()
+            source = {'files': {}, 'slots': [], 'remoteBase': None}
+            deployed = {**source, 'remoteBase': 'https://example.invalid/resources/'}
+            encode = lambda value: (json.dumps(value, sort_keys=True, separators=(',', ':'))+'\n').encode()
+            (assets / '__manifest.json').write_bytes(encode(source))
+            with self.assertRaisesRegex(ValueError, 'reserved manifest differs'):
+                module.write_shell(plugin, deployed, hashlib.sha256(encode(deployed)).hexdigest(), 'test')
+
     def test_public_shell_and_empty_storage_landing(self):
         with tempfile.TemporaryDirectory() as tmp:
             plugin = Path(tmp)

@@ -4,6 +4,11 @@ Implementation changes and their verification are recorded here. The [README](RE
 
 ## 0.30.0 — GPU execution, equalization and retained workflows · 2026-10-30
 
+### Startup and saved preferences
+
+- Prepare the resource worker before loading engine-backed preference validation, so existing 0.25 installations can migrate without clearing their caches. Read the startup language without modifying stored settings.
+- Keep validated settings and favourites usable when storage prevents writing a preservation backup. Preserve the original records and keep protected writes transactional.
+
 ### Resource delivery
 
 - Include the ELA, JPEG Ghost, JPEG-quality and Noisesniffer shader sources in the verified downloadable and offline libraries. Retain their pinned bytes and component notices.

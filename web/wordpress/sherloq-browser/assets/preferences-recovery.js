@@ -6,10 +6,11 @@ import {validateMediaPreferences,validateExportSettings,validateLoupeSettings,va
 import {libraryValue} from './dependency-store.js?v=0.30.0';
 import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences} from './local-auto-update.js?v=0.30.0';
 import {getDocumentDownloadShelf} from './download-shelf.js?v=0.30.0';
+import {isPreferenceKey,capturePreferenceSnapshot} from './preference-snapshot.js?v=0.30.0';
+export {isPreferenceKey};
 
 const RECOVERY='sherloq.recovery.';
 const isObject=value=>value&&typeof value==='object'&&!Array.isArray(value);
-export const isPreferenceKey=key=>typeof key==='string'&&(/^sherloq\.(adaptive-runtime|settings|workspace\.preferences|workspace\.tools|favorite|classicPreset|batch\.settings|feature-policy|local-feature-policy|featurePolicy|local\.feature-state|local\.feature-policy)$/.test(key)||key==='gd-iso-studio-theme'||key===AUTO_UPDATE_KEY);
 const clone=value=>structuredClone(value);
 const safeStorage=()=>{try{return globalThis.localStorage;}catch{return null;}};
 export function mergePreferenceChanges(previous,current,latest={}){
@@ -87,9 +88,17 @@ export function createPreferenceAccess(providedStorage){
   const storage=providedStorage??safeStorage();
   try{
    const original=storage?.getItem(key),overlay=storage?.getItem(RECOVERY+'value.'+key),raw=overlay??original;if(raw===null||raw===undefined)return{value:null,issues:[]};
-   const parsed=key==='gd-iso-studio-theme'?raw:JSON.parse(raw),result=recover(parsed),issues=result.issues||[];
-   if(overlay!==null&&overlay!==undefined||issues.length){protectedKeys.add(key);reports.set(key,issues);if(original!==null&&original!==undefined&&!storage.getItem(RECOVERY+'original.'+key))storage.setItem(RECOVERY+'original.'+key,original);}
-   return {...result,protected:protectedKeys.has(key)};
+   const parsed=key==='gd-iso-studio-theme'?raw:JSON.parse(raw),result=recover(parsed);let issues=result.issues||[];
+   if(overlay!==null&&overlay!==undefined||issues.length){
+    protectedKeys.add(key);
+    // A failed preservation write is a storage issue, not corrupt preference
+    // data. Keep validated fields usable; protected writes still refuse to
+    // replace the original if its backup cannot be saved.
+    try{if(original!==null&&original!==undefined&&!storage.getItem(RECOVERY+'original.'+key))storage.setItem(RECOVERY+'original.'+key,original);}
+    catch(error){issues=[...issues,{path:key,kind:'storage',message:error.message}];}
+    reports.set(key,issues);
+   }
+   return {...result,issues,protected:protectedKeys.has(key)};
   }catch(error){protectedKeys.add(key);const issues=[{path:key,kind:'corrupt',message:error.message}];reports.set(key,issues);return{value:null,issues,protected:true};}
  }
  function write(key,value){const storage=providedStorage??safeStorage();try{
@@ -106,10 +115,9 @@ export const preferenceAccess=createPreferenceAccess();
 
 function storageKeys(storage){const keys=[];for(let i=0;i<(storage?.length||0);i++)keys.push(storage.key(i));return keys;}
 export async function capturePreferenceBackup({storage=safeStorage(),library=libraryValue,origin=globalThis.location?.origin||'unknown',now=()=>new Date()}={}){
- const entries={},issues=[];for(const key of storageKeys(storage))if(isPreferenceKey(key))entries[key]={raw:storage.getItem(key),overlayRaw:storage.getItem(RECOVERY+'value.'+key),originalRaw:storage.getItem(RECOVERY+'original.'+key)};
+ const snapshot=await capturePreferenceSnapshot({storage,library,origin,now}),{entries}=snapshot;
  const preferenceReport=[];for(const [key,entry]of Object.entries(entries))try{const raw=entry.originalRaw??entry.raw??entry.overlayRaw,recovered=recoverPreferenceEntry(key,key==='gd-iso-studio-theme'?raw:JSON.parse(raw));preferenceReport.push(...recovered.issues.map(issue=>({key,...issue})));}catch(error){preferenceReport.push({key,path:key,kind:'corrupt',message:error.message});}
- let folder=null,folderName='';try{[folder,folderName]=await Promise.all([library('folder'),library('folderName')]);}catch(error){issues.push({path:'library',kind:'permission',message:error.message});}
- return {schema:'sherloq.preference-backup/1',createdAt:now().toISOString(),origin,entries,library:{folder:folder||null,folderName:folderName||''},issues,preferenceReport};
+ return {...snapshot,preferenceReport};
 }
 export function serializePreferenceBackup(backup){
  if(backup?.schema!=='sherloq.preference-backup/1')throw Error('Invalid preference backup');
