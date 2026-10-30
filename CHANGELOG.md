@@ -4,6 +4,12 @@ Implementation changes and their verification are recorded here. The [README](RE
 
 ## 0.30.0 — GPU execution, equalization and retained workflows · 2026-10-30
 
+### Resource delivery
+
+- Include the ELA, JPEG Ghost, JPEG-quality and Noisesniffer shader sources in the verified downloadable and offline libraries. Retain their pinned bytes and component notices.
+- Bind the retained PDF reader to its native display module while keeping standard PDF.js separate. Use the current wrapper version for both the app and block editor.
+- Check source-owned runtime companions independently of the manifest during reconstruction. Include the feature catalogue in locally reconstructed archives and retain restricted-model import policy.
+
 ### Display equalization
 
 - Replace user-facing equalization controls with one compact method menu and a shared slider that retains a separate value for each method. List Histogram, CLAHE and AHE first.

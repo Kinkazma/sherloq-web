@@ -67,6 +67,40 @@ class SnapshotIntegrity(unittest.TestCase):
         with self.assertRaises(ValueError):
             snapshot.RuntimeSnapshot(self.root)
 
+    def test_unlisted_shader_refused_despite_consistent_locks(self):
+        self.write('web/engine-source/vendor/ela-gpu/ela-jpeg.wgsl', b'@compute @workgroup_size(1) fn main() {}')
+        with self.assertRaisesRegex(ValueError, 'companion missing'):
+            snapshot.RuntimeSnapshot(self.root)
+
+    def test_unreferenced_chunk_cannot_change_the_deployed_identity(self):
+        path = self.repo / self.receipt['manifest']['file']
+        value = json.loads(path.read_bytes())
+        value['chunks']['0' * 64] = 1
+        self.receipt['manifest'] = self.write(self.receipt['manifest']['file'], json.dumps(value).encode())
+        self.save()
+        with self.assertRaisesRegex(ValueError, 'unreferenced chunks'):
+            snapshot.RuntimeSnapshot(self.root)
+
+    def test_unlisted_model_refused_despite_consistent_locks(self):
+        self.write('web/engine-source/vendor/model/graph.onnx', b'model')
+        with self.assertRaisesRegex(ValueError, 'companion missing'):
+            snapshot.RuntimeSnapshot(self.root)
+
+    def test_unlisted_notice_refused(self):
+        self.write('web/engine-source/vendor/native/NOTICE.txt', b'Component notice')
+        with self.assertRaisesRegex(ValueError, 'companion missing'):
+            snapshot.RuntimeSnapshot(self.root)
+
+    def test_build_source_is_not_a_browser_resource(self):
+        self.write('web/engine-source/vendor/native/build.cpp', b'// compiler input')
+        snapshot.RuntimeSnapshot(self.root)
+
+    def test_pdf_query_does_not_replace_the_required_module(self):
+        self.write('web/wordpress/sherloq-browser/assets/pdf-native-library.js',
+                   ("export * from './batch-vendor/pdf.mjs?sherloq-display=1-"+'0'*64+"';").encode())
+        with self.assertRaisesRegex(ValueError, 'PDF display binding differs'):
+            snapshot.RuntimeSnapshot(self.root)
+
 
 if __name__=='__main__':
     unittest.main()

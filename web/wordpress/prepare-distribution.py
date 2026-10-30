@@ -125,7 +125,7 @@ def pack(output, source_revision=None, local_only=None, resource_policy=None):
         if restricted:
             manifest['files'][relative]['localOnly'] = True
         parts = Path(relative).parts
-        small_source = source.suffix in ['.js', '.mjs', '.json'] and size <= 128 * 1024
+        small_source = source.suffix in ['.js', '.mjs', '.json', '.wgsl', '.glsl', '.vert', '.frag'] and size <= 128 * 1024
         small_wasm = source.suffix == '.wasm' and size < 300 * 1024
         if not restricted and (small_wasm or (small_source and parts[0].endswith('engine') and len(parts) > 2 and parts[1] in ['src', 'vendor'])):
             manifest['localFiles'].append(relative)

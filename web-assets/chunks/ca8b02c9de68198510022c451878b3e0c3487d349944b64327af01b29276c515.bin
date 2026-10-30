@@ -1,0 +1,14 @@
+These additive support-aware localization kernels include the unchanged
+independent native implementation in ../ssg-full/localization.cpp. Keep that
+implementation's credits and license, and the PocketFFT license, with this
+dependency. The word and phrase definitions credit Wang et al., TIFS 18 (2023),
+DOI 10.1109/TIFS.2023.3234861 and the original word2phraseCMFD method.
+
+The separate original structured-forest model and detector retain their MSR-LA
+noncommercial terms; the Piotr channel implementation retains its BSD notice.
+This adapter does not relicense those resources or modify the forest weights.
+
+Added 2026-10-21: explicit observed-support Gaussian/SSIM and scalar morphology,
+candidate-domain components and hole filling. The complete-rectangle paths use
+the unchanged native kernels. Source-region context boundaries and support
+adaptations are reported separately from algorithm parameters.

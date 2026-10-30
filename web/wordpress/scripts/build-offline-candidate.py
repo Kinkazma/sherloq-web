@@ -109,11 +109,20 @@ def build(installed, chunks, output, shell_only=False):
     with tarfile.open(part,'w:',format=tarfile.USTAR_FORMAT) as tar:
         add(tar,'offline-kit.json',(assets/'offline-shell.json').read_bytes())
         add(tar,'manifest.json',(json.dumps(manifest,indent=2)+'\n').encode())
+        catalog = (assets/'feature-catalog.json').read_bytes()
+        if hashlib.sha256(catalog).hexdigest() != shell.get('catalog'):
+            raise ValueError('Offline feature catalogue identity differs')
+        add(tar,'feature-catalog.json',catalog)
+        add(tar,'feature-policy.json',b'{"schema":"sherloq.feature-policy/1","disabledFeatures":[],"disabledGroups":[]}\n')
         for name,meta in shell['files'].items():
             data=(assets/meta.get('source',name)).read_bytes()
             if hashlib.sha256(data).hexdigest()!=meta['sha256']:raise ValueError(name)
             add(tar,'app/'+name,data)
         for n,(name,meta) in enumerate(manifest['files'].items(),1):
+            # Restricted resources are imported by their owner separately;
+            # neither fetch nor redistribute their unpublished payloads.
+            if meta.get('localOnly'):
+                continue
             info=tarfile.TarInfo(name);info.size=meta['size'];info.mode=0o644
             reader=ChunkReader(chunks,meta)
             try:tar.addfile(info,reader);reader.finish()
