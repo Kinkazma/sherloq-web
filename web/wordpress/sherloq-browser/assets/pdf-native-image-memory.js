@@ -1,5 +1,5 @@
-import {createLoupeImageCache} from './pdf-native-effects.js?v=0.30.0';
-import {hasLoupeEffects} from './loupe-effects-settings.js?v=0.30.0';
+import {createLoupeImageCache} from './pdf-native-effects.js?v=0.31.0';
+import {hasLoupeEffects} from './loupe-effects-settings.js?v=0.31.0';
 
 
 // Four native images at most (the selected image plus three neighbours).

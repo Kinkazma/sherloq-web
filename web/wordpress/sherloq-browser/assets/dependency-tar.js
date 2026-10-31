@@ -1,6 +1,6 @@
 // POSIX ustar: files remain usable by tar, Archive Utility, 7-Zip, etc.
 // Transport pieces never become a proprietary installed-library format.
-import {sha256,publicDependencyEntries} from './dependency-core.js?v=0.30.0';
+import {sha256,publicDependencyEntries} from './dependency-core.js?v=0.31.0';
 const enc=new TextEncoder(),dec=new TextDecoder(),BLOCK=512;
 function put(header,offset,length,value){const bytes=enc.encode(value);if(bytes.length>length)throw Error('TAR field too long');header.set(bytes,offset);}
 function header(path,size){

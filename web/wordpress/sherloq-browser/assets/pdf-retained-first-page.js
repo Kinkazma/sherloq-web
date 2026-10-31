@@ -1,6 +1,6 @@
 // Share the existing useful page paint with native command/resource capture.
 // The reader owns the base reference; cache/presentation users borrow leases.
-import {createRetainedPdfProgram} from './pdf-retained-display-program.js?v=0.30.0';
+import {createRetainedPdfProgram} from './pdf-retained-display-program.js?v=0.31.0';
 import {retainResult} from './unified-engine/src/retained-result.js';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
 const cancelled=()=>Object.assign(new Error('Retained PDF page capture released.'),{code:'CANCELLED'});

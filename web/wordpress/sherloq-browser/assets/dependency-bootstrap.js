@@ -1,13 +1,13 @@
-import {startupPhase} from './startup-diagnostics.js?v=0.30.0';
-import {readBootstrapBytes} from './bootstrap-metadata.js?v=0.30.0';
-import {installExtensionResourceRelay} from './extension-resource-relay.js?v=0.30.0';
-import {runtimeContext,diagnostic} from './runtime-context.js?v=0.30.0';
-import {connectDependencyWorker} from './dependency-lifecycle.js?v=0.30.0';
-import {mountDependencyControls,readDependencyManifest} from './dependency-library.js?v=0.30.0';
-import {mountOfflineControls} from './offline-kit-ui.js?v=0.30.0';
+import {startupPhase} from './startup-diagnostics.js?v=0.31.0';
+import {readBootstrapBytes} from './bootstrap-metadata.js?v=0.31.0';
+import {installExtensionResourceRelay} from './extension-resource-relay.js?v=0.31.0';
+import {runtimeContext,diagnostic} from './runtime-context.js?v=0.31.0';
+import {connectDependencyWorker} from './dependency-lifecycle.js?v=0.31.0';
+import {mountDependencyControls,readDependencyManifest} from './dependency-library.js?v=0.31.0';
+import {mountOfflineControls} from './offline-kit-ui.js?v=0.31.0';
 export async function prepareDependencies({onStatus}={}){
  const config=await startupPhase('dependency-config',async()=>{
-  const bytes=await readBootstrapBytes(new URL('./dependency-config.json?v=0.30.0',import.meta.url));
+  const bytes=await readBootstrapBytes(new URL('./dependency-config.json?v=0.31.0',import.meta.url));
   return JSON.parse(new TextDecoder().decode(bytes));
  });
  let verifiedManifest;

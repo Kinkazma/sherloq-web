@@ -1,4 +1,4 @@
-import {extensionTool} from './extension-tools.js?v=0.30.0';
+import {extensionTool} from './extension-tools.js?v=0.31.0';
 
 // Independent CONVEX benchmark (Table 3); not a score for the current image.
 const corpusRates=Object.freeze({spai:[41.48,58.52,24.66,75.34,62.90,58.34],bfree:[52.72,47.28,27.81,72.19,65.65,62.42]});

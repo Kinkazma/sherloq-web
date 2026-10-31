@@ -1,5 +1,5 @@
-import {createLoupeImageCache} from './pdf-native-effects.js?v=0.30.0';
-import {validateLoupeEffects} from './loupe-effects-settings.js?v=0.30.0';
+import {createLoupeImageCache} from './pdf-native-effects.js?v=0.31.0';
+import {validateLoupeEffects} from './loupe-effects-settings.js?v=0.31.0';
 const cancelled=()=>Object.assign(Error('PDF display effect replaced.'),{code:'CANCELLED'});
 const nativeSpan=(pixels,scale)=>{const value=pixels/scale;return value*scale>pixels?value-Math.abs(value)*Number.EPSILON:value;};
 // Neighbourhood arithmetic has a finite halo. Only statistics need the whole

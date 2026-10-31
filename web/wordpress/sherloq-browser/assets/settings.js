@@ -1,7 +1,7 @@
 import {equalizationState} from './unified-engine/src/equalization-settings.js';
-import {validateCloneProfilesTransport} from './clone-profiles.js?v=0.30.0';
+import {validateCloneProfilesTransport} from './clone-profiles.js?v=0.31.0';
 import {validateAdaptiveState} from './unified-engine/src/adaptive-runtime.js';
-import {validateBackendChoices} from './backend-mode-preferences.js?v=0.30.0';
+import {validateBackendChoices} from './backend-mode-preferences.js?v=0.31.0';
 export const defaults={quality:75,scale:50,contrast:20,linear:false,grayscale:false};
 export function validElaMode(value){
  const mode=value==='energy'?'biomes':value;

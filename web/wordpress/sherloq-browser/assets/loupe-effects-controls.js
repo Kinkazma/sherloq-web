@@ -1,7 +1,7 @@
-import {mountEqualizationMenu,readEqualization,writeEqualization} from './equalization-menu.js?v=0.30.0';
-import {bindAutomaticRange} from './hover-sliders.js?v=0.30.0';
-import {bindSliderReset} from './slider-reset.js?v=0.30.0';
-import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js?v=0.30.0';
+import {mountEqualizationMenu,readEqualization,writeEqualization} from './equalization-menu.js?v=0.31.0';
+import {bindAutomaticRange} from './hover-sliders.js?v=0.31.0';
+import {bindSliderReset} from './slider-reset.js?v=0.31.0';
+import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js?v=0.31.0';
 const groups={adjust:['Réglages globaux','Global adjustments'],enhance:['Loupe améliorée','Enhanced magnifier'],sweep:['Balayage de niveau','Level sweep']};
 const fields={
  adjust:[['brightness','Luminosité','Brightness',-255,255],['saturation','Saturation','Saturation',-255,255],['hue','Teinte','Hue',0,180],['gamma','Gamma × 10','Gamma × 10',1,50],['shadows','Ombres','Shadows',-100,100],['highlights','Hautes lumières','Highlights',-100,100],['sweep','Niveau','Level',0,255],['width','Largeur de niveau','Level width',0,255],['sharpen','Netteté','Sharpening',0,100],['threshold','Seuil · 0 = auto','Threshold · 0 = auto',0,255],['equalize','Égalisation','Equalization',['Sans','Histogramme','CLAHE 1','CLAHE 2','CLAHE 3','CLAHE 4'],['None','Histogram','CLAHE 1','CLAHE 2','CLAHE 3','CLAHE 4']],['invert','Inverser','Invert']],

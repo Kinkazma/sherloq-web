@@ -1,4 +1,4 @@
-import {isFrequencyPreviewToken,frequencyPreviewPresented} from './frequency-preview-sizing.js?v=0.30.0';
+import {isFrequencyPreviewToken,frequencyPreviewPresented} from './frequency-preview-sizing.js?v=0.31.0';
 // Provisional display calibration only. No native analysis parameter is changed.
 const STORE_KEY='sherloq.preview-calibration.v2',MAX_ENTRIES=128;
 export const ADAPTIVE_PREVIEW_MAX_SIDE=2048,ADAPTIVE_PREVIEW_MAX_PIXELS=2048**2;

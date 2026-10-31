@@ -1,6 +1,6 @@
-import {legacyBatchPixelDomain,LEGACY_BATCH_PIXEL_DOMAIN_VERSION} from './legacy-batch-pixel-domain.js?v=0.30.0';
-import {originalBatchTaskDomain} from './original-source-regions-batch.js?v=0.30.0';
-import {nativeParameterContexts} from './native-context-constraints.js?v=0.30.0';
+import {legacyBatchPixelDomain,LEGACY_BATCH_PIXEL_DOMAIN_VERSION} from './legacy-batch-pixel-domain.js?v=0.31.0';
+import {originalBatchTaskDomain} from './original-source-regions-batch.js?v=0.31.0';
+import {nativeParameterContexts} from './native-context-constraints.js?v=0.31.0';
 export const batchNativeParameterOperations=Object.freeze(['detail.wavelets','noise.blocking']);
 /** UI-only identity; actual domain validation still precedes context publication. */
 export function batchNativeParameterContextKey(images,operations){return JSON.stringify([operations,[...images].filter(i=>i.selected).map(i=>[i.id,i.sourceSha256,i.width,i.height,i.preparation?.status,i.preparation?.fingerprint,i.preparation?.sourceRegionDomain?.fingerprint,i.originalSourceRegions?.fingerprint,i.originalSourceRegions?.revision]),LEGACY_BATCH_PIXEL_DOMAIN_VERSION]);}

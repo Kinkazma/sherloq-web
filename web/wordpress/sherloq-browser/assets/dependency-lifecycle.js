@@ -1,4 +1,4 @@
-import {dependencyWorkerManifest} from './dependency-client-routing.js?v=0.30.0';
+import {dependencyWorkerManifest} from './dependency-client-routing.js?v=0.31.0';
 // A late first installation resumes this page. A newer resource worker pins
 // mounted windows and their descendants before taking over; it does not ask
 // those windows to unload sources or finish their current calculations.

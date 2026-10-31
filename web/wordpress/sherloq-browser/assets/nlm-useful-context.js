@@ -1,4 +1,4 @@
-import {nlmCostGeometry} from './nlm-cost-geometry.js?v=0.30.0';
+import {nlmCostGeometry} from './nlm-cost-geometry.js?v=0.31.0';
 import {adaptiveIdentity} from './unified-engine/src/adaptive-runtime.js';
 
 const SHA=/^[a-f0-9]{64}$/;

@@ -1,7 +1,7 @@
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
-import {resultResources,configureSegmentationModel,configureExtensionModels} from './tool-client.js?v=0.30.0';
-import {isExtensionTool} from './extension-tools.js?v=0.30.0';
-import {requireValue} from './unified-engine/src/errors.js';
+import {resultResources,configureSegmentationModel,configureExtensionModels} from './tool-client.js?v=0.31.0';
+import {isExtensionTool} from './extension-tools.js?v=0.31.0';
+import {requireValue,checkAbort} from './unified-engine/src/errors.js';
 
 // Individual documents share one native memory budget and the original image.
 // This queue serializes the public API only; native CPU/GPU pools remain intact.
@@ -11,8 +11,13 @@ export function createWorkspaceEnginePool(createEngine=createWorkerEngine){
   const key=JSON.stringify(options);let record=records.get(key);
   if(!record){record={engine:createEngine(options),queue:Promise.resolve(),scopes:0,images:new Map(),configured:new Map(),owners:new Set()};records.set(key,record);}
   record.scopes++;
-  const images=new Set(),surfaces=new Set(),tables=new Set(),models=new Set(),leases=new Set();let closed=false,disposing;const owner={images,surfaces,tables,models,leases,invalidate:null};record.owners.add(owner);
+  const images=new Set(),surfaces=new Set(),tables=new Set(),models=new Set(),leases=new Set();let closed=false,disposing,sourceChanges=0;const owner={images,surfaces,tables,models,leases,invalidate:null};record.owners.add(owner);
   const enqueue=fn=>{const task=record.queue.then(fn);record.queue=task.catch(()=>{});return task;};
+  function borrowImage(input,hooks){
+   checkAbort(hooks?.signal);const existing=record.images.get(input.id);if(!existing)return null;
+   if(existing.blob!==input.blob)throw Error('Source identity collision');
+   if(!images.has(input.id)){existing.owners++;images.add(input.id);}return existing.descriptor;
+  }
   async function unload(id){
    if(images.delete(id)){const image=record.images.get(id);if(image&&--image.owners===0){record.images.delete(id);await record.engine.unload(id);}}
    else if(models.delete(id))await record.engine.unload(id);
@@ -33,11 +38,15 @@ export function createWorkspaceEnginePool(createEngine=createWorkerEngine){
      if(failures.length)throw new AggregateError(failures,'Workspace cleanup failed',{cause:failures[0]});
     });return disposing;
    };
-   return (...args)=>enqueue(async()=>{
+   return (...args)=>{
+    // Acquiring an existing source does not call the worker. Retain it before
+    // another scope's queued unload can run, without overtaking our own changes.
+    if(method==='loadBlob'&&!closed&&!sourceChanges)try{const value=borrowImage(...args);if(value)return Promise.resolve(value);}catch(error){return Promise.reject(error);}
+    const sourceChange=method==='loadBlob'||method==='unload';if(sourceChange)sourceChanges++;
+    const task=enqueue(async()=>{
     if(closed)throw Object.assign(Error('Document closed'),{code:'CANCELLED'});
     if(method==='loadBlob'){
-     const input=args[0],existing=record.images.get(input.id);
-     if(existing){if(existing.blob!==input.blob)throw Error('Source identity collision');if(!images.has(input.id)){existing.owners++;images.add(input.id);}return existing.descriptor;}
+     const input=args[0],existing=borrowImage(...args);if(existing)return existing;
      const descriptor=await record.engine.loadBlob(...args);record.images.set(input.id,{descriptor,blob:input.blob,owners:1});images.add(input.id);return descriptor;
     }
     if(method==='unload')return unload(args[0]);
@@ -70,7 +79,8 @@ export function createWorkspaceEnginePool(createEngine=createWorkerEngine){
     if(method==='releaseExternalMemory')leases.delete(args[0]);
     if(method==='loadMedianModel'||method==='loadQualityModel'||method==='loadPrnuDatabase'||method==='buildPrnuDatabase')models.add(args[0].id);
     return output;
-   });
+    });return sourceChange?task.finally(()=>sourceChanges--):task;
+   };
   }});
  };
 }

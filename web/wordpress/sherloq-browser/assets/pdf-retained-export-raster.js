@@ -1,6 +1,6 @@
 // Standard raster exports read one complete native page paint. Painting every
 // export band independently changes native antialiasing at some boundaries.
-import {createCanonicalPdfComposite} from './pdf-canonical-composite.js?v=0.30.0';
+import {createCanonicalPdfComposite} from './pdf-canonical-composite.js?v=0.31.0';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
 import {retainResult} from './unified-engine/src/retained-result.js';
 const cancelled=()=>Object.assign(new Error('Retained PDF export raster released.'),{code:'CANCELLED'});

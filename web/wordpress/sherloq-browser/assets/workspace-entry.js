@@ -1,8 +1,8 @@
-import {startupPhase} from './startup-diagnostics.js?v=0.30.0';
-import {sessionLog} from './session-log.js?v=0.30.0';
-import {diagnostic} from './runtime-context.js?v=0.30.0';
-import {mountSessionControls,downloadSession} from './session-ui.js?v=0.30.0';
-import {readStartupLanguage} from './startup-preferences.js?v=0.30.0';
+import {startupPhase} from './startup-diagnostics.js?v=0.31.0';
+import {sessionLog} from './session-log.js?v=0.31.0';
+import {diagnostic} from './runtime-context.js?v=0.31.0';
+import {mountSessionControls,downloadSession} from './session-ui.js?v=0.31.0';
+import {readStartupLanguage} from './startup-preferences.js?v=0.31.0';
 const app=document.getElementById('workspace-app'),notice=document.getElementById('startup-notice');
 const explicit=new URLSearchParams(location.hash.slice(1)).get('lang');let saved;
 saved=readStartupLanguage();
@@ -17,19 +17,19 @@ async function start(){
  if(running)return;running=true;if(app)app.inert=true;show('installing');
  let stage='modules';
  try{
-  const {prepareDependencies}=await startupPhase('bootstrap-modules',()=>import('./dependency-bootstrap.js?v=0.30.0'));
+  const {prepareDependencies}=await startupPhase('bootstrap-modules',()=>import('./dependency-bootstrap.js?v=0.31.0'));
   let config;
   stage='dependencies';
   for(let attempt=0;;attempt++){
    try{config=await startupPhase('dependencies',()=>prepareDependencies({onStatus:show}));break;}
    catch(error){if(attempt>=2)throw error;show('retrying');await new Promise(resolve=>setTimeout(resolve,1000*2**attempt));}
   }
-  stage='workspace';show('opening');const {mountWorkspace}=await startupPhase('workspace-modules',()=>import('./workspace.js?v=0.30.0'));
+  stage='workspace';show('opening');const {mountWorkspace}=await startupPhase('workspace-modules',()=>import('./workspace.js?v=0.31.0'));
   // Online WordPress has no local installation to manage. Offline variants
   // still apply their persisted feature policy before any tools are mounted.
   let localManagement;
   if(config?.offline===true)localManagement=await startupPhase('local-management',async()=>{
-   const {initializeLocalManagement}=await import('./local-management-ui.js?v=0.30.0');
+   const {initializeLocalManagement}=await import('./local-management-ui.js?v=0.31.0');
    return initializeLocalManagement({config});
   });
   await startupPhase('workspace-mount',()=>mountWorkspace(document,{localManagement}));if(app)app.inert=false;notice?.remove();document.documentElement.dataset.workspaceReady='true';
@@ -42,7 +42,7 @@ async function start(){
   const logs=document.createElement('button');logs.textContent=preferred==='fr'?'Exporter le journal complet':'Export complete log';logs.onclick=()=>void downloadSession();notice?.append(logs);console.error(error);
   // Recovery stays reachable even when corrupted feature choices prevent the
   // scientific menus from opening. Never replace their unknown state by defaults.
-  const recovery=()=>import('./preferences-recovery.js?v=0.30.0');
+  const recovery=()=>import('./preferences-recovery.js?v=0.31.0');
   const recoveryFailure=failure=>{const detail=document.createElement('small');detail.textContent=failure.message;notice?.append(detail);};
   const rescue=document.createElement('button');rescue.textContent=preferred==='fr'?'Exporter la sauvegarde de réglages':'Export preference recovery backup';rescue.onclick=async()=>{try{const {capturePreferenceBackup,downloadPreferenceBackup}=await recovery();downloadPreferenceBackup(document,await capturePreferenceBackup());}catch(failure){recoveryFailure(failure);}};notice?.append(rescue);
   const restore=document.createElement('button'),backupFile=document.createElement('input');backupFile.type='file';backupFile.accept='application/json,.json';backupFile.hidden=true;restore.textContent=preferred==='fr'?'Restaurer une sauvegarde de réglages…':'Restore preference backup…';restore.onclick=()=>{backupFile.value='';backupFile.click();};backupFile.onchange=async()=>{try{const file=backupFile.files?.[0];if(!file)return;if(file.size>8_000_000)throw Error('Backup > 8 MB');const {capturePreferenceBackup,downloadPreferenceBackup,importPreferenceBackup}=await recovery();downloadPreferenceBackup(document,await capturePreferenceBackup());await importPreferenceBackup(JSON.parse(await file.text()));location.reload();}catch(failure){recoveryFailure(failure);}};notice?.append(restore,backupFile);

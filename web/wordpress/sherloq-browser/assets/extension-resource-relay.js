@@ -1,4 +1,4 @@
-import {createExtensionResourceClient,publicExtensionChunks,readPinnedDependencyResponse,EXTENSION_CHUNK_CACHE} from './extension-resource-client.js?v=0.30.0';
+import {createExtensionResourceClient,publicExtensionChunks,readPinnedDependencyResponse,EXTENSION_CHUNK_CACHE} from './extension-resource-client.js?v=0.31.0';
 const TYPE='sherloq-dependency-extension-chunk',installedRelays=new WeakMap();
 /** Installed before resource workers connect; an early extension ready event is not required. */
 export function installExtensionResourceRelay({window=globalThis.window,serviceWorker=globalThis.navigator?.serviceWorker,manifest,scope,cacheStorage=globalThis.caches,clientFactory=createExtensionResourceClient}={}){

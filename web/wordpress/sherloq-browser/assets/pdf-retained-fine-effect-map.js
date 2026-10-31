@@ -1,6 +1,6 @@
 import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
 import {prepareEqualization} from './unified-engine/src/equalization-presentation.js';
-import {validateLoupeEffects,adjustmentParameters} from './loupe-effects-settings.js?v=0.30.0';
+import {validateLoupeEffects,adjustmentParameters} from './loupe-effects-settings.js?v=0.31.0';
 import {magnifierLuts} from './unified-engine/src/magnifier.js';
 import {createCooperator} from './unified-engine/src/errors.js';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';

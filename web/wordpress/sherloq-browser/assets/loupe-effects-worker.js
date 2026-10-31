@@ -1,4 +1,4 @@
-import {createLoupeEffectsKernel} from './loupe-effects-kernel.js?v=0.30.0';
+import {createLoupeEffectsKernel} from './loupe-effects-kernel.js?v=0.31.0';
 import {OPENCV_OPERATIONS} from './unified-engine/src/opencv-operations.js';
 import {magnifier} from './unified-engine/src/magnifier.js';
 import {serializeEngineError} from './unified-engine/src/errors.js';

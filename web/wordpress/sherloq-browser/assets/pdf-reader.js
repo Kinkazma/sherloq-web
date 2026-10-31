@@ -1,18 +1,18 @@
-import {createRetainedPdfReaderRenderer} from './pdf-retained-reader-renderer.js?v=0.30.0';
+import {createRetainedPdfReaderRenderer} from './pdf-retained-reader-renderer.js?v=0.31.0';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {watchCanvas2D} from './canvas-context-recovery.js?v=0.30.0';
-import {diagnostic} from './runtime-context.js?v=0.30.0';
-import {createPdfReaderSession} from './pdf-reader-session.js?v=0.30.0';
-import {createPdfNativeRuntime} from './pdf-native-runtime.js?v=0.30.0';
-import {imagePlacement} from './pdf-layout.js?v=0.30.0';
-import {createPointerLoupe} from './pdf-pointer-loupe.js?v=0.30.0';
-import {typingEvent} from './media-settings.js?v=0.30.0';
-import {validateLoupeSettings as validateNativeLoupe,loupeMinimumZoom} from './pdf-media-settings.js?v=0.30.0';
+import {watchCanvas2D} from './canvas-context-recovery.js?v=0.31.0';
+import {diagnostic} from './runtime-context.js?v=0.31.0';
+import {createPdfReaderSession} from './pdf-reader-session.js?v=0.31.0';
+import {createPdfNativeRuntime} from './pdf-native-runtime.js?v=0.31.0';
+import {imagePlacement} from './pdf-layout.js?v=0.31.0';
+import {createPointerLoupe} from './pdf-pointer-loupe.js?v=0.31.0';
+import {typingEvent} from './media-settings.js?v=0.31.0';
+import {validateLoupeSettings as validateNativeLoupe,loupeMinimumZoom} from './pdf-media-settings.js?v=0.31.0';
 const validateLoupeSettings=value=>validateNativeLoupe({...value,zoom:Math.max(101,value?.zoom??200)});
-import {hasLoupeEffects} from './loupe-effects-settings.js?v=0.30.0';
-import {bindViewerNavigation} from './viewer-input.js?v=0.30.0';
-import {rasterOptions,exportPresentationRaster} from './raster-export-client.js?v=0.30.0';
-import {resolveComputeProfile} from './resource-policy.js?v=0.30.0';
+import {hasLoupeEffects} from './loupe-effects-settings.js?v=0.31.0';
+import {bindViewerNavigation} from './viewer-input.js?v=0.31.0';
+import {rasterOptions,exportPresentationRaster} from './raster-export-client.js?v=0.31.0';
+import {resolveComputeProfile} from './resource-policy.js?v=0.31.0';
 import {Budget} from './unified-engine/src/cache.js';
 
 /** A PDF is a document, not the source owner of image analyses. Its import,

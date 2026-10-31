@@ -2,7 +2,7 @@ import {checkAbort} from './unified-engine/src/errors.js';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
 import {segmentedAdjust} from './unified-engine/src/segmented-adjust.js';
 import {segmentedMagnifierLarge} from './unified-engine/src/segmented-magnifier-large.js';
-import {adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.30.0';
+import {adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.31.0';
 // Only newly selected methods need this global mapping. Existing regional
 // workers retain their original priority/caching path and native kernels.
 export function createEqualizationRegionalEffects(source,p,{budget,temporarySession}){

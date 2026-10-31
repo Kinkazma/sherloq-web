@@ -1,6 +1,6 @@
 import {ghostSpatialContexts} from './unified-engine/src/ghost-spatial-presentation.js';
 import {GHOST_PALETTES} from './unified-engine/src/ghost-palettes.js';
-import {createAdaptivePreview} from './adaptive-preview.js?v=0.30.0';
+import {createAdaptivePreview} from './adaptive-preview.js?v=0.31.0';
 import {createCooperator} from './unified-engine/src/errors.js';
 const MAX_SIDE=2048,MAX_READ=4096,adaptive=createAdaptivePreview();
 const fail=(code,message)=>{throw Object.assign(Error(message),{code});};

@@ -6,6 +6,7 @@ import {transferMetadata} from './transfer-file.js';
 import {resolveImage, fetchResource, fileName} from './resources.js';
 import {readNamedPresets,addNamedPreset,removeNamedPreset,presetStorageKey} from './preset-library.js';
 import {activateTab} from './tab-activation.js';
+import {fetchPDFResource} from './pdf-source.js';
 
 const own = name => chrome.runtime.getURL(name), pendingImports = new Map(), deliveries = new Map(), imageRequests = new Map();
 installResourceFetch();
@@ -18,8 +19,7 @@ async function remember(value, sender, id = crypto.randomUUID()) {
   await putJob(job); return {id: job.id, width: job.width, height: job.height, reason: job.reason};
 }
 async function inspectPDF(url, tab) {
-  const {blob, url: finalURL} = await fetchResource(url);
-  if (!(await blob.slice(0, 5).text()).startsWith('%PDF-')) throw Error('Ce lien ne contient pas de PDF.');
+  const {blob, url: finalURL} = await fetchPDFResource(url,tab);
   // Keep the PDF alive even if its source tab closes before create() resolves.
   const token=crypto.randomUUID(),until=Date.now()+120_000;
   const source={blob,url:finalURL,kind:'pdf',sourcePage:url,name:fileName(url,'application/pdf'),transferPins:{[token]:until},transferUntil:until},job=await remember(source,{tab});

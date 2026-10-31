@@ -1,4 +1,4 @@
-import {selectEnergyContext,isEnergyContextCollection,validateEnergyContextDomain,energyContextTile,frameEnergyContextPixels} from './energy-context-selection.js?v=0.30.0';
+import {selectEnergyContext,isEnergyContextCollection,validateEnergyContextDomain,energyContextTile,frameEnergyContextPixels} from './energy-context-selection.js?v=0.31.0';
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
 const fail=(code,message)=>{throw new EngineError(code,message);};

@@ -1,21 +1,21 @@
-import {defaultBackend} from './backend-mode-preferences.js?v=0.30.0';
-import {legacyBatchPixelDomain,LEGACY_BATCH_PIXEL_DOMAIN_VERSION} from './legacy-batch-pixel-domain.js?v=0.30.0';
-import {originalBatchTaskDomain} from './original-source-regions-batch.js?v=0.30.0';
-import {compileBatchPreparedInputDomain,admitBatchPreparedInputDomain,captureBatchPreparedInput,batchPreparedViewSupport} from './batch-prepared-input-domain.js?v=0.30.0';
-import {localFeaturePolicy} from './feature-policy.js?v=0.30.0';
-import {createToolClient} from './tool-client.js?v=0.30.0';
-import {createAutomaticClient} from './automatic-client.js?v=0.30.0';
-import {createCompositeClient} from './composite-client.js?v=0.30.0';
-import {batchTask,batchRecipeView,recipeKey,imageScore,studyScores,catalogRecipe,batchCatalog,batchPairSelection,restoredBatchPair,assertBatchScientificScope,batchScopeSupport} from './batch-catalog.js?v=0.30.0';
+import {defaultBackend} from './backend-mode-preferences.js?v=0.31.0';
+import {legacyBatchPixelDomain,LEGACY_BATCH_PIXEL_DOMAIN_VERSION} from './legacy-batch-pixel-domain.js?v=0.31.0';
+import {originalBatchTaskDomain} from './original-source-regions-batch.js?v=0.31.0';
+import {compileBatchPreparedInputDomain,admitBatchPreparedInputDomain,captureBatchPreparedInput,batchPreparedViewSupport} from './batch-prepared-input-domain.js?v=0.31.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.31.0';
+import {createToolClient} from './tool-client.js?v=0.31.0';
+import {createAutomaticClient} from './automatic-client.js?v=0.31.0';
+import {createCompositeClient} from './composite-client.js?v=0.31.0';
+import {batchTask,batchRecipeView,recipeKey,imageScore,studyScores,catalogRecipe,batchCatalog,batchPairSelection,restoredBatchPair,assertBatchScientificScope,batchScopeSupport} from './batch-catalog.js?v=0.31.0';
 import {serializeEngineError,createCooperator} from './unified-engine/src/errors.js';
-import {evidenceContext,cloneEvidence,mapEvidence,regionEvidence,compactEvidence} from './batch-evidence.js?v=0.30.0';
-import {nextFrame,safeName} from './batch-import.js?v=0.30.0';
-import {detectedRectangles} from './sparse-controls.js?v=0.30.0';
-import {neuralDisplays} from './neural-clone-ui.js?v=0.30.0';
-import {rectangleComplement,offsetPolygons,rectanglePolygon} from './batch-scope-geometry.js?v=0.30.0';
-import {renderBatchCorroboration} from './batch-corroboration-export.js?v=0.30.0';
-import {archiveBatchAttempt} from './batch-restoration.js?v=0.30.0';
-import {BATCH_RESUME_SCHEMA,BATCH_RESUME_PLAN_SCHEMA,batchResumeKey,batchResumeImageCompatible,batchPlannedIdentity,batchResumePlan,batchResumePlanCompatible,batchScientificSignature,resumableBatchRun,batchBlobSha256,saveBatchRunEvidence,restoreBatchRunEvidence} from './batch-run-resume.js?v=0.30.0';
+import {evidenceContext,cloneEvidence,mapEvidence,regionEvidence,compactEvidence} from './batch-evidence.js?v=0.31.0';
+import {nextFrame,safeName} from './batch-import.js?v=0.31.0';
+import {detectedRectangles} from './sparse-controls.js?v=0.31.0';
+import {neuralDisplays} from './neural-clone-ui.js?v=0.31.0';
+import {rectangleComplement,offsetPolygons,rectanglePolygon} from './batch-scope-geometry.js?v=0.31.0';
+import {renderBatchCorroboration} from './batch-corroboration-export.js?v=0.31.0';
+import {archiveBatchAttempt} from './batch-restoration.js?v=0.31.0';
+import {BATCH_RESUME_SCHEMA,BATCH_RESUME_PLAN_SCHEMA,batchResumeKey,batchResumeImageCompatible,batchPlannedIdentity,batchResumePlan,batchResumePlanCompatible,batchScientificSignature,resumableBatchRun,batchBlobSha256,saveBatchRunEvidence,restoreBatchRunEvidence} from './batch-run-resume.js?v=0.31.0';
 
 const check=signal=>signal?.throwIfAborted();
 // Every retained evidence owner must acknowledge retirement before its context closes.
@@ -167,7 +167,7 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
    const excludedFeatures=excluded.map(recipe=>({id:recipe.id,title:recipe.fr,operation:recipe.operation,state:'feature-uninstalled',scientificResult:false}));
    if(unique.some(recipe=>recipe.kind==='automatic'))for(const id of localFeaturePolicy.automaticExcludedFeatures())excludedFeatures.push({id,title:localFeaturePolicy.catalog.features.find(feature=>feature.id===id)?.fr??id,operation:id,state:'feature-uninstalled',context:'automatic',scientificResult:false});
    if(scientificFiltering)for(const image of selected)assertBatchScientificScope(image);
-   const deployment=await fetch(new URL('./integrated-config.json?v=0.30.0',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}),engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,...(deployment.scientificRegionsRuntimeIncrementSha256?{scientificRegionsIncrement:deployment.scientificRegionsRuntimeIncrementSha256}:{}),batch:scientificFiltering?'0.3.0-preparation.1':'0.2.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3},externalInputs={};
+   const deployment=await fetch(new URL('./integrated-config.json?v=0.31.0',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}),engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,...(deployment.scientificRegionsRuntimeIncrementSha256?{scientificRegionsIncrement:deployment.scientificRegionsRuntimeIncrementSha256}:{}),batch:scientificFiltering?'0.3.0-preparation.1':'0.2.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3},externalInputs={};
    if(deployment.scientificRegionsRuntimeIncrementSha256!==undefined&&!/^[a-f0-9]{64}$/.test(deployment.scientificRegionsRuntimeIncrementSha256))throw Object.assign(Error('Empreinte de l’incrément scientifique invalide.'),{code:'BATCH_ENGINE_IDENTITY_INVALID'});
    for(const key of ['median','reference','database'])if(options[key])externalInputs[key]=options[key] instanceof Blob?{sha256:await batchBlobSha256(options[key],{signal})}:compactEvidence(options[key]);
    const runtimePins=Object.fromEntries(Object.entries(deployment).filter(([key,value])=>/Sha256$/.test(key)&&typeof value==='string'&&/^[a-f0-9]{64}$/.test(value))),configuration=configurationFor(selected,unique,options,externalInputs,runtimePins);
@@ -178,7 +178,7 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
     for(const image of selected){
      const unit=plan.units.find(unit=>unit.imageId===image.id);
      if(await batchBlobSha256(image.blob,{signal})!==unit.sourceSha256)throw Object.assign(Error('Les octets de la source ont changé depuis le lancement.'),{code:'BATCH_RESUME_SOURCE_CHANGED',details:{imageId:image.id}});
-     if(unit.verifyScopeFingerprint){const {scopeFingerprint}=await import('./batch-scientific-preparation.js?v=0.30.0');if(await scopeFingerprint(image.preparation)!==model.configuration.scientificPreparations[image.id].fingerprint)throw Object.assign(Error('La géométrie du périmètre prévu a changé depuis le lancement.'),{code:'BATCH_RESUME_MISMATCH',details:{imageId:image.id}});}
+     if(unit.verifyScopeFingerprint){const {scopeFingerprint}=await import('./batch-scientific-preparation.js?v=0.31.0');if(await scopeFingerprint(image.preparation)!==model.configuration.scientificPreparations[image.id].fingerprint)throw Object.assign(Error('La géométrie du périmètre prévu a changé depuis le lancement.'),{code:'BATCH_RESUME_MISMATCH',details:{imageId:image.id}});}
      if(unit.started){
       if(!batchResumeImageCompatible(image,configuration,engine)||image.resumeState.planId&&image.resumeState.planId!==plan.runId)throw Object.assign(Error('Les calculs conservés appartiennent à une autre tentative.'),{code:'BATCH_RESUME_MISMATCH',details:{imageId:image.id}});
       for(const recipe of unique){const done=image.runs.find(r=>r.toolId===recipe.id&&r.status==='done');if(done&&!resumableBatchRun(done,recipe,model.artifacts))throw Object.assign(Error('Une méthode terminée ne possède pas les preuves exactes nécessaires à la reprise. Ses fichiers restent conservés.'),{code:'BATCH_RESUME_EVIDENCE_REQUIRED',details:{imageId:image.id,toolId:recipe.id}});}

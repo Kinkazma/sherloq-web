@@ -25,6 +25,6 @@ export async function m2ToolClient({method,memoryBudgetBytes,computeProfile,conf
  return createM2WorkerClient({memoryBudgetBytes,computeProfile,methods:{[method]:configuration??await m2ToolConfiguration(method)}});
 }
 export async function scientificPreparationConfiguration(){
- const {SCIENTIFIC_TEXT_MODEL}=await import('./scientific-text-detector.js?v=0.30.0'),forgeryscope=await m2ToolConfiguration('forgeryscope');
+ const {SCIENTIFIC_TEXT_MODEL}=await import('./scientific-text-detector.js?v=0.31.0'),forgeryscope=await m2ToolConfiguration('forgeryscope');
  return {methods:{forgeryscope},text:{asset:{...SCIENTIFIC_TEXT_MODEL,url:new URL('./batch-models/'+SCIENTIFIC_TEXT_MODEL.file,import.meta.url).href},runtimes:forgeryscope.runtimes}};
 }

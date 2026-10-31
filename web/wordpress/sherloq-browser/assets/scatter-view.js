@@ -1,5 +1,5 @@
-import {createOrientationCube,nearestPlotFace,plotFaceCamera} from './scatter-orientation.js?v=0.30.0';
-import {bindViewerNavigation} from './viewer-input.js?v=0.30.0';
+import {createOrientationCube,nearestPlotFace,plotFaceCamera} from './scatter-orientation.js?v=0.31.0';
+import {bindViewerNavigation} from './viewer-input.js?v=0.31.0';
 
 const MIN_ZOOM=.1,MAX_ZOOM=12;
 export const PLOT_INTRO_CAMERA=Object.freeze({yaw:-Math.atan(Math.sin(Math.PI/15)),pitch:Math.PI/15});

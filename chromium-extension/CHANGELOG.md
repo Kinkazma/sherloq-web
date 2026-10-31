@@ -1,5 +1,14 @@
 # Historique de l’extension Chromium
 
+## 0.5.9
+
+- Recover an open PDF through its own tab when the website requires its first-party access context.
+- Retry an HTML response from an old download-preparation page without reusing that cached response.
+- For PMC PDF links, use the official public PMC Article Datasets download service when the website returns a preparation page. Respect the article version and preserve the original file and its provenance.
+- Transfer the original PDF in bounded chunks, bind the transfer to its source document, and release temporary data after use.
+- Keep existing PDF rendering, image analysis and extension permissions unchanged.
+
+
 ## 0.5.8
 
 - Ouverture des adresses PDF avant l’injection de la loupe dans le document, pour les lecteurs intégrés qui acceptent l’injection sans déclencher le lecteur SHERLOQ.

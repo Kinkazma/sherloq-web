@@ -1,5 +1,5 @@
-import {errorEvidence} from './error-evidence.js?v=0.30.0';
-import {resourceFetch} from './resilient-resource.js?v=0.30.0';
+import {errorEvidence} from './error-evidence.js?v=0.31.0';
+import {resourceFetch} from './resilient-resource.js?v=0.31.0';
 // One diagnostic channel per open workspace. No image bytes, cookies or network logging.
 const KEY=Symbol.for('sherloq.runtime.context');
 const stripTerminalColors=value=>value.replace(/\u001b\[[0-9;]*m/g,'');

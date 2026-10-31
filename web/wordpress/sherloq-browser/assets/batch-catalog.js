@@ -1,12 +1,12 @@
-import {defaultBackend} from './backend-mode-preferences.js?v=0.30.0';
-import {localFeaturePolicy} from './feature-policy.js?v=0.30.0';
-import {toolCatalog,toolFields} from './tool-catalog.js?v=0.30.0';
-import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js?v=0.30.0';
-import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js?v=0.30.0';
-import defaults from './tool-defaults.js?v=0.30.0';
-import {defaults as classicDefaults} from './settings.js?v=0.30.0';
-import {NEURAL_METHODS} from './neural-clone-ui.js?v=0.30.0';
-import {clipPolygon} from './batch-scope-geometry.js?v=0.30.0';
+import {defaultBackend} from './backend-mode-preferences.js?v=0.31.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.31.0';
+import {toolCatalog,toolFields} from './tool-catalog.js?v=0.31.0';
+import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js?v=0.31.0';
+import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js?v=0.31.0';
+import defaults from './tool-defaults.js?v=0.31.0';
+import {defaults as classicDefaults} from './settings.js?v=0.31.0';
+import {NEURAL_METHODS} from './neural-clone-ui.js?v=0.31.0';
+import {clipPolygon} from './batch-scope-geometry.js?v=0.31.0';
 
 const copy=value=>structuredClone(value);
 const groups={recommended:['Adaptés au traitement par lot','Suited to batch processing'],complement:['Analyses complémentaires','Additional analyses'],less:['Moins adaptés — inspection humaine','Less suited — human inspection'],required:['Entrée supplémentaire nécessaire','Additional input required']};

@@ -1,6 +1,6 @@
 // A UI-only navigation window. Original numeric constraints and calculations
 // remain owned by the original input and its established gesture handlers.
-import {numericEditingIncrement} from './numeric-increment.js?v=0.30.0';
+import {numericEditingIncrement} from './numeric-increment.js?v=0.31.0';
 let nextPopup=0;
 const inlineRangePresentations=new WeakMap(),inlineRangeOwners=new WeakMap(),inlineRangeOutputOwners=new WeakMap(),inlineRangeStyles=new WeakMap();
 const finite=value=>value!==null&&value!==undefined&&String(value).trim()!==''&&Number.isFinite(Number(value))?Number(value):null;

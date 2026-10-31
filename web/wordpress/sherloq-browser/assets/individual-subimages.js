@@ -1,4 +1,4 @@
-import {detectedRectangles} from './sparse-controls.js?v=0.30.0';
+import {detectedRectangles} from './sparse-controls.js?v=0.31.0';
 import {EngineError} from './unified-engine/src/errors.js';
 
 // Reuse the native geometric detector. These are editable panel proposals,

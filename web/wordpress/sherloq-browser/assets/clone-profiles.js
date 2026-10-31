@@ -1,7 +1,7 @@
-import {defaultBackend} from './backend-mode-preferences.js?v=0.30.0';
-import {toolFields} from './tool-catalog.js?v=0.30.0';
-import {sparseViewDefaults,SPARSE_BIOME_METHODS} from './sparse-controls.js?v=0.30.0';
-import {CLONE_ALGORITHMS,changeCloneAlgorithm,applyAlikedFinePreset} from './clone-methods.js?v=0.30.0';
+import {defaultBackend} from './backend-mode-preferences.js?v=0.31.0';
+import {toolFields} from './tool-catalog.js?v=0.31.0';
+import {sparseViewDefaults,SPARSE_BIOME_METHODS} from './sparse-controls.js?v=0.31.0';
+import {CLONE_ALGORITHMS,changeCloneAlgorithm,applyAlikedFinePreset} from './clone-methods.js?v=0.31.0';
 export const CLONE_PROFILE_SCHEMA='sherloq.clone-profile/1';
 export const CLONE_PROFILES_SCHEMA='sherloq.clone-profiles/1';
 export const CLONE_PROFILE_TOOL='tampering.copyMove.sparse';

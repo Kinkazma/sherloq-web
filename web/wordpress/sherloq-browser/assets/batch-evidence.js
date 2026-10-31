@@ -1,5 +1,5 @@
-import {nativeContextMapEvidence} from './native-context-map-evidence.js?v=0.30.0';
-import {catnetNativeMapEvidence} from './catnet-batch-evidence.js?v=0.30.0';
+import {nativeContextMapEvidence} from './native-context-map-evidence.js?v=0.31.0';
+import {catnetNativeMapEvidence} from './catnet-batch-evidence.js?v=0.31.0';
 import {Budget} from './unified-engine/src/cache.js';
 import {createCloneCorroboration} from './unified-engine/src/clone-corroboration.js';
 import {automaticPointEntries} from './unified-engine/src/automatic-point-entries.js';
@@ -8,7 +8,7 @@ import {createCloneEntryGeometry} from './unified-engine/src/clone-entry-geometr
 import {streamedD2prlRegions} from './unified-engine/src/d2prl-regions-stream.js';
 import {forgeryscopeEntries} from './unified-engine/src/automatic-ai-entries.js';
 import {SIFT_SOURCE,CLONE_SOURCES} from './unified-engine/src/clone-relations.js';
-import {createBatchScopeMask,scopedMaskStore} from './batch-scope-mask.js?v=0.30.0';
+import {createBatchScopeMask,scopedMaskStore} from './batch-scope-mask.js?v=0.31.0';
 
 const check=signal=>signal?.throwIfAborted();
 const invalid=message=>Object.assign(Error(message),{code:'BATCH_EVIDENCE_INVALID'});

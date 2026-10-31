@@ -1,7 +1,7 @@
-import {copySubimagesSelectionPolicy} from './subimages-selection-intent.js?v=0.30.0';
-import {compileOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
-import {clipPolygon,rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
-import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
+import {copySubimagesSelectionPolicy} from './subimages-selection-intent.js?v=0.31.0';
+import {compileOriginalSourceRegions} from './original-source-regions.js?v=0.31.0';
+import {clipPolygon,rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.31.0';
+import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js?v=0.31.0';
 
 export const MANUAL_SCOPE_SCHEMA='sherloq.batch-manual-scope/1';
 const MAX_ZONES=8192,MAX_VERTICES=131072,MAX_ACTIONS=512;

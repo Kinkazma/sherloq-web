@@ -1,8 +1,8 @@
-import {offlinePlan} from './offline-browser-store.js?v=0.30.0';
-import {prepareLocalArchiveBridge,updateWorkerMessage} from './local-update-core.js?v=0.30.0';
-import {browserUpdateStore} from './local-update-store.js?v=0.30.0';
-import {capturePreferenceSnapshot as capturePreferenceBackup} from './preference-snapshot.js?v=0.30.0';
-import {persistBridgePreferenceBackup} from './bridge-preference-backup.js?v=0.30.0';
+import {offlinePlan} from './offline-browser-store.js?v=0.31.0';
+import {prepareLocalArchiveBridge,updateWorkerMessage} from './local-update-core.js?v=0.31.0';
+import {browserUpdateStore} from './local-update-store.js?v=0.31.0';
+import {capturePreferenceSnapshot as capturePreferenceBackup} from './preference-snapshot.js?v=0.31.0';
+import {persistBridgePreferenceBackup} from './bridge-preference-backup.js?v=0.31.0';
 const prepare=document.getElementById('offline-bridge-prepare'),open=document.getElementById('offline-bridge-open'),status=document.getElementById('offline-bridge-status'),meter=document.getElementById('offline-bridge-progress'),version=document.getElementById('offline-bridge-version');
 let plan,registration,watching,store,opening=false,adopting=false;
 let savedLanguage;try{savedLanguage=JSON.parse(localStorage.getItem('sherloq.workspace.preferences'))?.language;}catch{}const language=[savedLanguage,...(navigator.languages||[navigator.language])].map(value=>String(value||'').toLowerCase().split('-')[0]).find(value=>['fr','en'].includes(value))||'fr',t=(fr,en)=>language==='en'?en:fr;document.documentElement.lang=language;document.getElementById('offline-bridge-title').textContent=t('Raccorder mon installation locale','Connect my local installation');document.getElementById('offline-bridge-intro').textContent=t('Cette étape prépare la nouvelle interface et conserve une sauvegarde de vos réglages. Votre archive et vos images restent sur cet appareil.','This step prepares the new interface and retains a backup of your preferences. Your archive and images stay on this device.');document.getElementById('offline-bridge-caution').textContent=t('Après la préparation, terminez les calculs puis fermez les anciennes fenêtres SHERLOQ. La nouvelle interface prendra leur relais quand elles seront fermées.','After preparation, finish calculations and close the older SHERLOQ windows. The new interface will take over once they close.');prepare.textContent=t('Préparer le raccord et sauvegarder mes réglages','Prepare bridge and back up my preferences');open.textContent=t('Ouvrir SHERLOQ','Open SHERLOQ');

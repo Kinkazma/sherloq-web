@@ -549,7 +549,9 @@ Other methods: **Histogram**, **BBHE**, **DSIHE**, **MMBEBHE**, **RMSHE**, **RSI
 | --- | --- | --- | --- |
 | ![Original microscopy crop](examples/equalization/images/original.webp) | ![CLAHE with contrast limit 5](examples/equalization/images/clahe.webp) | ![CLAHE with contrast limit 5 and gamma 5](examples/equalization/images/clahe-gamma.webp) | ![AHE with 8 tiles per axis](examples/equalization/images/ahe.webp) |
 
-> If you’re wondering where this little smiling fellow comes from: he already appeared in [this study published in *Scientific Reports*, a Nature Portfolio journal](https://pmc.ncbi.nlm.nih.gov/articles/PMC6026137/pdf/41598_2018_Article_28183.pdf#page=6), page 6, Figure 4, panel A, third image in the top row ([archived PDF](examples/equalization/sources/reinehr-2018-s100b/s41598-018-28183-6.pdf#page=6)). He certainly looks as though he was drawn with a paintbrush. I’m not sure, though, that the author noticed the little fellow they were drawing.
+> If you’re wondering where this little smiling fellow comes from: he already appeared in [this study published in *Scientific Reports*, a Nature Portfolio journal](https://pmc.ncbi.nlm.nih.gov/articles/PMC6026137/pdf/41598_2018_Article_28183.pdf#page=6), page 6, Figure 4, panel A, third image in the top row. He certainly looks as though he was drawn with a paintbrush. I’m not sure, though, that the author noticed the little fellow they were drawing.
+
+If the article is retracted or becomes unavailable, an [archived copy of the PDF](examples/equalization/sources/reinehr-2018-s100b/s41598-018-28183-6.pdf#page=6) is available in this repository.
 
 The same microscopy crop in each view. CLAHE + gamma uses gamma 5 (50 in the global-adjustment field), with CLAHE’s contrast limit kept at 5. These adjustments change the display, not the source image or detector inputs.
 

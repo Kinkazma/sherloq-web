@@ -1,11 +1,11 @@
 import {equalizationOperations} from './unified-engine/src/equalization-settings.js';
 import{segmentationExclusionsAvailable}from'./unified-engine/src/segmentation-window-capabilities.js';
-import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.30.0';
+import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.31.0';
 // UI descriptors only. Scientific validation remains in the frozen worker.
-import {toolGroups} from './tool-tree.js?v=0.30.0';
-import defaults from './tool-defaults.js?v=0.30.0';
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.30.0';
-import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.30.0';
+import {toolGroups} from './tool-tree.js?v=0.31.0';
+import defaults from './tool-defaults.js?v=0.31.0';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.31.0';
+import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.31.0';
 const select=(values,labels=values)=>({choices:values.map((value,i)=>({value,label:labels[i]}))});
 const indexed=labels=>select(labels.map((_,i)=>i),labels);
 const range=(min,max,step=1)=>({min,max,step});

@@ -1,9 +1,9 @@
-import {efficientLoFtrDeclaredAcquisitions} from './efficient-loftr-comparison-ui.js?v=0.30.0';
+import {efficientLoFtrDeclaredAcquisitions} from './efficient-loftr-comparison-ui.js?v=0.31.0';
 import {declaredCloneScopeRegions} from './unified-engine/src/clone-scope-declarations.js';
 import {EngineError,requireValue} from './unified-engine/src/errors.js';
 import {compileForgeryscopeScientificScope} from './unified-engine/src/forgeryscope-scientific-scope.js';
-import {composeScientificScope,scopeFingerprint,SCIENTIFIC_SCOPE_POLICY} from './batch-scientific-preparation.js?v=0.30.0';
-import {clipPolygon,rectanglePolygon,rectangleComplement,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
+import {composeScientificScope,scopeFingerprint,SCIENTIFIC_SCOPE_POLICY} from './batch-scientific-preparation.js?v=0.31.0';
+import {clipPolygon,rectanglePolygon,rectangleComplement,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.31.0';
 
 const copy=value=>structuredClone(value),key=JSON.stringify,hash=/^[a-f0-9]{64}$/;
 const acquisitions=new Map([['Microscopy','microscopy'],['Blots','gel'],['Body Imaging','photography']]);

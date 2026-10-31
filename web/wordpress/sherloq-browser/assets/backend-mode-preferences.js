@@ -1,6 +1,6 @@
 import {usefulOperationMethod} from './unified-engine/src/useful-operation-method.js';
 import {backendScope} from './unified-engine/src/adaptive-runtime.js';
-import {CLONE_ALGORITHMS} from './clone-methods.js?v=0.30.0';
+import {CLONE_ALGORITHMS} from './clone-methods.js?v=0.31.0';
 import {SEGMENTATION_WINDOW_VARIANTS} from './unified-engine/src/segmentation-window-capabilities.js';
 // Static registered routes only: preference defaults create no device, model,
 // benchmark or admission. Runtime resource/backend checks remain authoritative.

@@ -1,11 +1,11 @@
-import {createBatchPreparationClient,reprojectNativeScientificPreparation} from './batch-preparation-client.js?v=0.30.0';
-import {composeScientificScope,scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
-import {createManualScopeDraft,manualDraftScope,addManualScopeZone} from './batch-scope-manual.js?v=0.30.0';
-import {scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
-import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
-import {detectIndividualSubimages} from './individual-subimages.js?v=0.30.0';
-import {subimagesSourceDomain} from './subimages-source-domain.js?v=0.30.0';
-import {createToolClient} from './tool-client.js?v=0.30.0';
+import {createBatchPreparationClient,reprojectNativeScientificPreparation} from './batch-preparation-client.js?v=0.31.0';
+import {composeScientificScope,scopeFingerprint} from './batch-scientific-preparation.js?v=0.31.0';
+import {createManualScopeDraft,manualDraftScope,addManualScopeZone} from './batch-scope-manual.js?v=0.31.0';
+import {scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.31.0';
+import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from './original-source-regions.js?v=0.31.0';
+import {detectIndividualSubimages} from './individual-subimages.js?v=0.31.0';
+import {subimagesSourceDomain} from './subimages-source-domain.js?v=0.31.0';
+import {createToolClient} from './tool-client.js?v=0.31.0';
 import {EngineError,requireValue,checkAbort,createCooperator} from './unified-engine/src/errors.js';
 
 const clone=value=>structuredClone(value),polygonKey=polygon=>JSON.stringify(polygon);

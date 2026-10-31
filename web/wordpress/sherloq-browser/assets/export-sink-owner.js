@@ -1,4 +1,4 @@
-import {withDownloadCleanupFailure} from './download-manager.js?v=0.30.0';
+import {withDownloadCleanupFailure} from './download-manager.js?v=0.31.0';
 const PARENT_SCOPE=Symbol('export-sink-retirement');
 const failure=(code,message)=>Object.assign(Error(message),{code});
 // Instance-local ownership. Failed/unaccepted children retire before inputs.

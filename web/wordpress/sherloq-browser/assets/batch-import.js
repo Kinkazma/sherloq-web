@@ -1,26 +1,26 @@
-import {validateOriginalSourceRegions,compileOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
-import {verifyOriginalBatchSource,originalBatchScientificScope} from './original-source-regions-batch.js?v=0.30.0';
-import {readBatchZip} from './batch-zip.js?v=0.30.0';
-import {createBatchArtifactStore} from './batch-artifacts.js?v=0.30.0';
-import {pdfTextPolygons,projectPdfExclusions,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
-import {batchArtifactOwners,restoredArtifactPaths} from './batch-restoration.js?v=0.30.0';
-import {remapBatchEvidence,remapBatchFilePointers} from './batch-archive-layout.js?v=0.30.0';
-import {batchPairSelection} from './batch-catalog.js?v=0.30.0';
+import {validateOriginalSourceRegions,compileOriginalSourceRegions} from './original-source-regions.js?v=0.31.0';
+import {verifyOriginalBatchSource,originalBatchScientificScope} from './original-source-regions-batch.js?v=0.31.0';
+import {readBatchZip} from './batch-zip.js?v=0.31.0';
+import {createBatchArtifactStore} from './batch-artifacts.js?v=0.31.0';
+import {pdfTextPolygons,projectPdfExclusions,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.31.0';
+import {batchArtifactOwners,restoredArtifactPaths} from './batch-restoration.js?v=0.31.0';
+import {remapBatchEvidence,remapBatchFilePointers} from './batch-archive-layout.js?v=0.31.0';
+import {batchPairSelection} from './batch-catalog.js?v=0.31.0';
 import {serializeEngineError} from './unified-engine/src/errors.js';
-import {validateBatchImageExport} from './batch-image-export.js?v=0.30.0';
-import {validateBatchDisplayPreferences} from './batch-result-display.js?v=0.30.0';
+import {validateBatchImageExport} from './batch-image-export.js?v=0.31.0';
+import {validateBatchDisplayPreferences} from './batch-result-display.js?v=0.31.0';
 const MiB=1024**2;
 export const IMPORT_LIMITS={fileBytes:256*MiB,expandedBytes:1024*MiB,entries:2000,pixels:100000000};
 const imagePattern=/\.(?:png|jpe?g|webp|avif|gif|bmp|tiff?|heic|heif|jp2|j2k|jxl|psd)$/i;
 let libraries;
 export async function batchLibraries(){
- return libraries??=Promise.all([import('./pdf-native-library.js?v=0.30.0'),import('./batch-vendor/pdf-lib.js'),import('./batch-vendor/jszip.js')]).then(([pdfjs,pdf])=>{pdfjs.GlobalWorkerOptions.workerSrc=new URL('./batch-vendor/pdf.worker.mjs',import.meta.url).href;return {pdfjs,pdf,JSZip:globalThis.JSZip};});
+ return libraries??=Promise.all([import('./pdf-native-library.js?v=0.31.0'),import('./batch-vendor/pdf-lib.js'),import('./batch-vendor/jszip.js')]).then(([pdfjs,pdf])=>{pdfjs.GlobalWorkerOptions.workerSrc=new URL('./batch-vendor/pdf.worker.mjs',import.meta.url).href;return {pdfjs,pdf,JSZip:globalThis.JSZip};});
 }
 const check=signal=>signal?.throwIfAborted();
 export const nextFrame=()=>new Promise(resolve=>setTimeout(resolve,0));
 export const safeName=name=>{const value=String(name).replace(/[\\/:*?"<>|\x00-\x1f]/g,'_').replace(/[. ]+$/,'').slice(0,140)||'document';return /^(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)/i.test(value)?'_'+value:value;};
 async function nativeIdentity(blob,signal){
- const {createToolClient}=await import('./tool-client.js?v=0.30.0'),client=await createToolClient({memoryBudgetBytes:4*1024**3}),cancel=()=>client.cancel();signal?.addEventListener('abort',cancel,{once:true});
+ const {createToolClient}=await import('./tool-client.js?v=0.31.0'),client=await createToolClient({memoryBudgetBytes:4*1024**3}),cancel=()=>client.cancel();signal?.addEventListener('abort',cancel,{once:true});
  try{
   check(signal);const source=await client.load({id:'batch-decode-'+crypto.randomUUID(),blob}),surface=source.surface,{width,height}=surface;if(width*height>IMPORT_LIMITS.pixels)throw Error('Image supérieure à 100 MP : aucune réduction automatique.');
   const {createSHA256}=await import('./unified-engine/vendor/hash-wasm/hashes.js'),hash=await createSHA256();hash.init();hash.update(new TextEncoder().encode(width+'x'+height+' rgba8\n'));
@@ -132,7 +132,7 @@ export async function createBatchImporter({onProgress=()=>{},onPage,retainPDFDoc
   if(old.sourceSha256!==undefined&&old.sourceSha256!==sourceRegions.sourceSha256)throw fail('The archived scoped image SHA differs from its encoded source.');
   if(old.originalSourceRegions&&old.preparation?.originalSourceRegions){const second=await validateOriginalSourceRegions(old.preparation.originalSourceRegions,{sourceSha256:sourceRegions.sourceSha256,width:info.width,height:info.height});if(second.fingerprint!==sourceRegions.fingerprint)throw fail('The archive contains conflicting original source-region ceilings.');}
   const image={hash:info.hash,width:info.width,height:info.height,sourceSha256:sourceRegions.sourceSha256,originalSourceRegions:sourceRegions};let preparation;
-  if(old.preparation){const prior=old.preparation,{scopeFingerprint}=await import('./batch-scientific-preparation.js?v=0.30.0');
+  if(old.preparation){const prior=old.preparation,{scopeFingerprint}=await import('./batch-scientific-preparation.js?v=0.31.0');
    if(prior.sourceSha256!==image.sourceSha256||prior.width!==image.width||prior.height!==image.height||typeof prior.fingerprint!=='string'||await scopeFingerprint(prior)!==prior.fingerprint)throw fail('The archived source preparation fingerprint or coordinates differ from its original.');
    // Recompile source-bound geometry to check membership independently of
    // archived IDs. The engine strictly validates current or certified legacy
@@ -147,7 +147,7 @@ export async function createBatchImporter({onProgress=()=>{},onPage,retainPDFDoc
     if(Array.isArray(prior.searchRegions))preparation.searchRegions=prior.searchRegions.flatMap(region=>!region.envelope?[structuredClone(region)]:envelope?[{...structuredClone(region),x0:envelope.x0,y0:envelope.y0,x1:envelope.x1,y1:envelope.y1,polygon:structuredClone(envelope.polygon)}]:[]);
     preparation.fingerprint=await scopeFingerprint(preparation);
    }else preparation=rebuilt;
-   const {restoreManualScientificScope}=await import('./batch-scope-manual.js?v=0.30.0');await restoreManualScientificScope({...image,preparation});
+   const {restoreManualScientificScope}=await import('./batch-scope-manual.js?v=0.31.0');await restoreManualScientificScope({...image,preparation});
   }else preparation=await originalBatchScientificScope(image);
   return{identity:info,sourceRegions,preparation,migrated:!!old.preparation&&preparation.fingerprint!==old.preparation.fingerprint};
  }

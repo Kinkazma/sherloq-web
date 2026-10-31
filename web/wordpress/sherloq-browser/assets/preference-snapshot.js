@@ -1,7 +1,7 @@
 // Raw preservation is available before any engine-backed validation or
 // migration. The bridge must retain unknown or malformed values unchanged.
-import {libraryValue} from './dependency-store.js?v=0.30.0';
-import {AUTO_UPDATE_KEY} from './local-auto-update.js?v=0.30.0';
+import {libraryValue} from './dependency-store.js?v=0.31.0';
+import {AUTO_UPDATE_KEY} from './local-auto-update.js?v=0.31.0';
 
 export const isPreferenceKey=key=>typeof key==='string'&&(/^sherloq\.(adaptive-runtime|settings|workspace\.preferences|workspace\.tools|favorite|classicPreset|batch\.settings|feature-policy|local-feature-policy|featurePolicy|local\.feature-state|local\.feature-policy)$/.test(key)||key==='gd-iso-studio-theme'||key===AUTO_UPDATE_KEY);
 const safeStorage=()=>{try{return globalThis.localStorage;}catch{return null;}};

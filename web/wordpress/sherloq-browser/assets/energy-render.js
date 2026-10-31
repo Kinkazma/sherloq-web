@@ -1,5 +1,5 @@
 // Presentation only. Scientific maps remain untouched in the engine worker.
-import {ADAPTIVE_PREVIEW_MAX_SIDE} from './adaptive-preview.js?v=0.30.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE} from './adaptive-preview.js?v=0.31.0';
 export async function renderEnergy(data,source,{view='overlay',opacity=70,field='high',threshold=0,scoreView='map'}={}, {signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges}={}){
  if(view==='scores'&&field==='both')return renderBothEnergyV1(data,source,{view,opacity,field,threshold,scoreView},{signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges});
  if(!['overlay','labels','scores'].includes(view)||!Number.isInteger(opacity)||opacity<0||opacity>100)throw Error('Invalid energy presentation');

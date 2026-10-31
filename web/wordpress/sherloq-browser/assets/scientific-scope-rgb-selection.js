@@ -1,4 +1,4 @@
-import {rectangleComplement,rectanglePolygon,clipPolygon} from './batch-scope-geometry.js?v=0.30.0';
+import {rectangleComplement,rectanglePolygon,clipPolygon} from './batch-scope-geometry.js?v=0.31.0';
 // Scientific OCR masks reject native candidates/correspondences. They do not
 // certify that surrounding RGB context is absent from a descriptor or model.
 // Only this explicitly identified native mask is separated from hard RGB

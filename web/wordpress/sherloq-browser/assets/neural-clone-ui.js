@@ -1,8 +1,8 @@
 import {INFERNO} from './unified-engine/src/research-palette.js';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
 import {neuralScientificScopeIdentity} from './unified-engine/src/neural-scientific-scope.js';
-import {cloneAnalysisWindowDisplays} from './neural-window-presentation.js?v=0.30.0';
-import {d2prlInputSide} from './d2prl-input-size.js?v=0.30.0';
+import {cloneAnalysisWindowDisplays} from './neural-window-presentation.js?v=0.31.0';
+import {d2prlInputSide} from './d2prl-input-size.js?v=0.31.0';
 
 export const NEURAL_METHODS = [
  ['cmseg-generalization','CMSeg-Net 2025 generalization'],['cmseg-addnoise','CMSeg-Net 2025 addnoise'],

@@ -1,9 +1,9 @@
-import {diagnostic} from './runtime-context.js?v=0.30.0';
-import {configureAutomaticSlider} from './source-parameter-constraints.js?v=0.30.0';
-import {bindInteractiveControl} from './interactive-control.js?v=0.30.0';
+import {diagnostic} from './runtime-context.js?v=0.31.0';
+import {configureAutomaticSlider} from './source-parameter-constraints.js?v=0.31.0';
+import {bindInteractiveControl} from './interactive-control.js?v=0.31.0';
 import {createElaEnergyControls} from './energy-engine/src/ela-energy-controls.js';
-import {validEnergySettings,energyProfilePresets} from './settings.js?v=0.30.0';
-import {bindSliderReset} from './slider-reset.js?v=0.30.0';
+import {validEnergySettings,energyProfilePresets} from './settings.js?v=0.31.0';
+import {bindSliderReset} from './slider-reset.js?v=0.31.0';
 export function createEnergyUI({$,t,changed,persist,viewChanged,interactiveControlOptions={}}){
  configureAutomaticSlider($('energy-quality'),'ela.energy','quality');
  const controller=createElaEnergyControls();let saved=[],selected='standard',scoreField='unified',scoreThreshold=0,scoreView='map',interacting=false,interactionChanged=false,perContextProfile=false;const maxima={},listeners=[];

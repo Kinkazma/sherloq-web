@@ -1,4 +1,4 @@
-import {isDenseClone,denseCloneParameters,cloneMethodYear,SSG_DEFAULTS} from './clone-methods.js?v=0.30.0';
+import {isDenseClone,denseCloneParameters,cloneMethodYear,SSG_DEFAULTS} from './clone-methods.js?v=0.31.0';
 export const CLASSIC_SIFT='SIFT + G2NN + RANSAC';
 export const PANELS_SIFT=CLASSIC_SIFT+' + Panels + Text';
 export const SPARSE_BIOME_METHODS=Object.freeze(['paired-local','paired-envelope','native','compact']);

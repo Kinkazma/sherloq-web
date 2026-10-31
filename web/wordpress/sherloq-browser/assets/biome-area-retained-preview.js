@@ -1,5 +1,5 @@
 import {biomeAreaReferences,biomeAreaWorkingBytes,partitionBiomeAreas,nativeBiomeCoordinates} from './unified-engine/src/sparse-biome-area.js';
-import {detectionBiomeHull} from './detection-biomes.js?v=0.30.0';
+import {detectionBiomeHull} from './detection-biomes.js?v=0.31.0';
 import {needsBiomeFormation,biomeFormationSelectionCounts,formCorrespondenceBiomes} from './unified-engine/src/sparse-biome-correspondence.js';
 
 export function biomeAreaPreviewBytes({operation,view,output}={}){

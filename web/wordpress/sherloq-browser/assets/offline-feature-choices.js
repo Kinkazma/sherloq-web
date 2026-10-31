@@ -1,4 +1,4 @@
-import {validateFeatureCatalog,normalizeFeatureState,selectedFeatureIds,selectActiveFiles,featureStateChange} from './feature-catalog.js?v=0.30.0';
+import {validateFeatureCatalog,normalizeFeatureState,selectedFeatureIds,selectActiveFiles,featureStateChange} from './feature-catalog.js?v=0.31.0';
 
 const bytesText=(bytes,language)=>{if(bytes<1000)return bytes+(language==='fr'?' o':' B');const unit=bytes>=1_000_000_000?1_000_000_000:1_000_000;return new Intl.NumberFormat(language,{maximumFractionDigits:1}).format(bytes/unit)+(unit===1_000_000_000?' Go':' Mo');};
 function featureResources(plan,ids){

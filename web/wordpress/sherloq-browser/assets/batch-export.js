@@ -1,9 +1,9 @@
-import {diskBatchZip} from './batch-zip.js?v=0.30.0';
-import {batchLibraries,safeName,pdfPoint} from './batch-import.js?v=0.30.0';
-import {studyScores,batchCatalog,batchRawInspectionNotice} from './batch-catalog.js?v=0.30.0';
-import {batchArchiveLayout,remapBatchFilePointers} from './batch-archive-layout.js?v=0.30.0';
-import {currentBatchImages,pendingBatchResumeImage} from './batch-run-resume.js?v=0.30.0';
-import {BATCH_IMAGE_EXPORT_DEFAULTS,validateBatchImageExport,createBatchImageExporter,batchImagePath} from './batch-image-export.js?v=0.30.0';
+import {diskBatchZip} from './batch-zip.js?v=0.31.0';
+import {batchLibraries,safeName,pdfPoint} from './batch-import.js?v=0.31.0';
+import {studyScores,batchCatalog,batchRawInspectionNotice} from './batch-catalog.js?v=0.31.0';
+import {batchArchiveLayout,remapBatchFilePointers} from './batch-archive-layout.js?v=0.31.0';
+import {currentBatchImages,pendingBatchResumeImage} from './batch-run-resume.js?v=0.31.0';
+import {BATCH_IMAGE_EXPORT_DEFAULTS,validateBatchImageExport,createBatchImageExporter,batchImagePath} from './batch-image-export.js?v=0.31.0';
 
 const pdfText=text=>String(text??'').replace(/[\u2010-\u2015]/g,'-').replace(/[^\x20-\x7e\xa0-\xff\n]/g,' ');
 const proposalExecutionLines=(support,language)=>{

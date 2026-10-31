@@ -1,7 +1,7 @@
-import {originalBatchScientificScope} from './original-source-regions-batch.js?v=0.30.0';
-import {createBatchPreparationClient} from './batch-preparation-client.js?v=0.30.0';
-import {batchLibraries,nextFrame} from './batch-import.js?v=0.30.0';
-import {clipPolygon,pdfTextPolygons,projectPdfExclusions,rectanglePolygon,rectangleComplement,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
+import {originalBatchScientificScope} from './original-source-regions-batch.js?v=0.31.0';
+import {createBatchPreparationClient} from './batch-preparation-client.js?v=0.31.0';
+import {batchLibraries,nextFrame} from './batch-import.js?v=0.31.0';
+import {clipPolygon,pdfTextPolygons,projectPdfExclusions,rectanglePolygon,rectangleComplement,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.31.0';
 export const SCIENTIFIC_SCOPE_POLICY=Object.freeze({schema:'sherloq.scientific-scope/1',version:'batch-preparation-2',coordinates:'original-pixels',maxTextAcquisitionFraction:.25,remainder:'excluded-unclassified',unknown:'needs-review',pageTextPolicy:'source-pixel-plane-only'});
 const acquisition=new Map([['Microscopy','microscopy'],['Blots','gel'],['Body Imaging','photography']]);
 const nonAcquisition=new Set(['Graphs','Flow Cytometry']);
@@ -76,7 +76,7 @@ export function createScientificPreparation({computeProfile='maximum',onProgress
  }
  return {async prepare(model,{signal}={}){
   try{
-  const {restoreManualScientificScope}=await import('./batch-scope-manual.js?v=0.30.0'),manual=new Set();
+  const {restoreManualScientificScope}=await import('./batch-scope-manual.js?v=0.31.0'),manual=new Set();
   for(const image of model.images){signal?.throwIfAborted();if(image.originalSourceRegions||image.preparation?.originalSourceRegions){image.originalSourceRegions??=structuredClone(image.preparation.originalSourceRegions);image.sourceSha256??=image.originalSourceRegions.sourceSha256;if(image.preparation?.version!=='original-source-regions-batch-1')image.preparation=await originalBatchScientificScope(image,{editedScope:image.preparation});manual.add(image);}else if(await restoreManualScientificScope(image))manual.add(image);}
   const pending=model.images.filter(image=>!manual.has(image));
   if(pending.length)await pages({...model,images:pending,studies:model.studies.filter(study=>pending.some(image=>image.occurrences?.some(o=>o.studyId===study.id)))},signal);

@@ -1,4 +1,4 @@
-import {usefulOperationWork} from './useful-operation-work.js?v=0.30.0';
+import {usefulOperationWork} from './useful-operation-work.js?v=0.31.0';
 import {usefulOperationMethod,usefulScientificParameters} from './unified-engine/src/useful-operation-method.js';
 import {adaptiveIdentity,analysisComparisonIdentity,backendScope} from './unified-engine/src/adaptive-runtime.js';
 import {USEFUL_WORK_CODE_IDENTITY} from './unified-engine/src/useful-work-code-identity.js';

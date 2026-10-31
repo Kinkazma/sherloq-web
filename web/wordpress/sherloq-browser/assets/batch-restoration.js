@@ -1,4 +1,4 @@
-import {remapBatchEvidence,remapBatchFilePointers} from './batch-archive-layout.js?v=0.30.0';
+import {remapBatchEvidence,remapBatchFilePointers} from './batch-archive-layout.js?v=0.31.0';
 const flatPath=path=>typeof path==='string'&&/^resultats\/(?:images|donnees)\/[^/\\]+\.(?:png|jpe?g|webp|avif|tiff?|heic|json|npz)$/i.test(path)&&!path.split('/').some(p=>p==='.'||p==='..'||p.startsWith('.'));
 const displayRecords=attempt=>[...(attempt.finalDisplay?[attempt.finalDisplay]:[]),...(attempt.resultDisplay?[attempt.resultDisplay]:[])];
 // A shared file reference may not attach another image's analysis to this one.

@@ -1,7 +1,7 @@
 import {Budget} from './unified-engine/src/cache.js';
 import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
 import {equalizationPixels} from './unified-engine/src/equalization-pixels.js';
-import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.30.0';
+import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.31.0';
 // The same operators as the full tools, running on the three bounded image
 // windows already sampled for the loupe. Analysis surfaces are never modified.
 export function createLoupeEffectsKernel({adjust,enhance}){

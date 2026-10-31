@@ -1,8 +1,8 @@
-import {pdfEffectReference} from './pdf-retained-effect-context.js?v=0.30.0';
-import {createRetainedPdfEffectService} from './pdf-retained-effect-service.js?v=0.30.0';
-import {pdfRetainedDensity} from './pdf-retained-page.js?v=0.30.0';
+import {pdfEffectReference} from './pdf-retained-effect-context.js?v=0.31.0';
+import {createRetainedPdfEffectService} from './pdf-retained-effect-service.js?v=0.31.0';
+import {pdfRetainedDensity} from './pdf-retained-page.js?v=0.31.0';
 // Native page owners kept independently from the source-image analysis runtime.
-import {createRetainedPdfPresentation} from './pdf-retained-presentation.js?v=0.30.0';
+import {createRetainedPdfPresentation} from './pdf-retained-presentation.js?v=0.31.0';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
 const cancelled=()=>Object.assign(new Error('Retained PDF runtime pages released.'),{code:'CANCELLED'});
 export function createRetainedPdfRuntimePages({budget,changed=()=>{},onError=()=>{},presentationFactory=createRetainedPdfPresentation,effectServiceFactory=createRetainedPdfEffectService}={}){

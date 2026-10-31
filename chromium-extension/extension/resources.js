@@ -1,9 +1,9 @@
 export const MAX_BYTES = 256 * 1024 ** 2;
-export async function fetchResource(url, {html = false, signal, maxBytes=MAX_BYTES} = {}) {
+export async function fetchResource(url, {html = false, signal, maxBytes=MAX_BYTES,cache=html?'default':'force-cache'} = {}) {
   const u = new URL(url);
   if (!['http:', 'https:', 'file:'].includes(u.protocol) || u.username || u.password) throw Error('Ressource inaccessible depuis l’extension.');
   const timeout=AbortSignal.timeout(45_000);
-  const response = await fetch(u.href, {credentials: 'include', cache: html ? 'default' : 'force-cache', signal: signal ? AbortSignal.any([signal,timeout]) : timeout});
+  const response = await fetch(u.href, {credentials: 'include', cache, signal: signal ? AbortSignal.any([signal,timeout]) : timeout});
   if (!response.ok) throw Error('Téléchargement : HTTP ' + response.status);
   const limit = html ? 2 * 1024 ** 2 : Math.min(MAX_BYTES,maxBytes);
   if (Number(response.headers.get('Content-Length')) > limit) throw Error('Ressource trop volumineuse. Aucune réduction automatique.');

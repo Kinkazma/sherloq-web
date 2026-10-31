@@ -1,4 +1,4 @@
-import {rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.30.0';
+import {rectangleComplement,rectanglePolygon,scientificScopeEnvelope} from './batch-scope-geometry.js?v=0.31.0';
 
 // The preview uses the exact exclusion polygons consumed by the analysis.
 // Only their presentation differs: unclassified margins have no red outline.
@@ -110,7 +110,7 @@ export async function createScientificScopePreview(image,{scope=image.preparatio
  const owner={cleanup,get closed(){return closed;},get cleanupFailed(){return cleanupFailed;},get cleanupFailure(){return cleanupFailure;}};
  try{
   onOwner?.(owner);
-  clientFactory??=(await import('./tool-client.js?v=0.30.0')).createToolClient;rasterFactory??=(await import('./raster-export-client.js?v=0.30.0')).exportPresentationRaster;
+  clientFactory??=(await import('./tool-client.js?v=0.31.0')).createToolClient;rasterFactory??=(await import('./raster-export-client.js?v=0.31.0')).exportPresentationRaster;
   client=await clientFactory({computeProfile:typeof computeProfile==='function'?computeProfile():computeProfile});signal?.addEventListener('abort',cancel,{once:true});signal?.throwIfAborted();
   const source=await client.load({id:'scope-preview-'+crypto.randomUUID(),blob:image.blob});signal?.throwIfAborted();
   if(source.surface?.width!==width||source.surface?.height!==height||source.surface?.format!=='rgb8')throw previewInvalid('La source native décodée ne correspond pas à cet aperçu.');

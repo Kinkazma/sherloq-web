@@ -1,4 +1,4 @@
-import {validateFeatureCatalog,normalizeFeatureState,selectedFeatureIds,featureIdsForTask,featureStateChange,featureDeletionPlan} from './feature-catalog.js?v=0.30.0';
+import {validateFeatureCatalog,normalizeFeatureState,selectedFeatureIds,featureIdsForTask,featureStateChange,featureDeletionPlan} from './feature-catalog.js?v=0.31.0';
 
 export function createFeaturePolicy({storage=globalThis.localStorage,eventTarget=globalThis.window,persist,local=false,catalog={schema:'sherloq.features/1',groups:[],features:[]},state}={}){
  let current=catalog,mode=local,policy=normalizeFeatureState(state),save=persist;

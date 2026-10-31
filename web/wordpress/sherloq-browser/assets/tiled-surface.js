@@ -1,4 +1,4 @@
-import {watchCanvas2D} from './canvas-context-recovery.js?v=0.30.0';
+import {watchCanvas2D} from './canvas-context-recovery.js?v=0.31.0';
 // Presentation only. Full RGB8 pixels remain the analysis/export reference.
 const MiB=1024**2;
 export class TileCache {

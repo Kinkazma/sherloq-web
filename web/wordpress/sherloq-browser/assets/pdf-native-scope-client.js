@@ -1,5 +1,5 @@
-import {createBatchPreparationClient} from './batch-preparation-client.js?v=0.30.0';
-import {composeScientificScope,scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
+import {createBatchPreparationClient} from './batch-preparation-client.js?v=0.31.0';
+import {composeScientificScope,scopeFingerprint} from './batch-scientific-preparation.js?v=0.31.0';
 import {checkAbort} from './unified-engine/src/errors.js';
 const cancelled=()=>Object.assign(Error('PDF preparation cancelled.'),{code:'CANCELLED'});
 // The regular web preparation configuration resolves existing, pinned assets.

@@ -1,57 +1,57 @@
 import {nativeUsefulEvidence} from './unified-engine/src/native-useful-operation.js';
-import {usefulTaskInputs} from './useful-task-inputs.js?v=0.30.0';
+import {usefulTaskInputs} from './useful-task-inputs.js?v=0.31.0';
 import {externalUsefulOwner,externalUsefulEvidence} from './unified-engine/src/external-useful-operation.js';
-import {stagedCoreOperation,coreResultContext} from './core-result-contract.js?v=0.30.0';
-import {backendMethod,requestedBackend} from './backend-mode-preferences.js?v=0.30.0';
+import {stagedCoreOperation,coreResultContext} from './core-result-contract.js?v=0.31.0';
+import {backendMethod,requestedBackend} from './backend-mode-preferences.js?v=0.31.0';
 import {humanNlmRecompute} from './unified-engine/src/nlm-recompute-intent.js';
-import {getAdaptivePreferenceStore} from './adaptive-preferences.js?v=0.30.0';
-import {createNlmAdaptiveRuntime} from './nlm-adaptive-runtime.js?v=0.30.0';
-import {createUsefulOperationRuntime} from './useful-operation-runtime.js?v=0.30.0';
-import {describeUsefulNlm,passiveNlmEnvironment} from './nlm-useful-context.js?v=0.30.0';
+import {getAdaptivePreferenceStore} from './adaptive-preferences.js?v=0.31.0';
+import {createNlmAdaptiveRuntime} from './nlm-adaptive-runtime.js?v=0.31.0';
+import {createUsefulOperationRuntime} from './useful-operation-runtime.js?v=0.31.0';
+import {describeUsefulNlm,passiveNlmEnvironment} from './nlm-useful-context.js?v=0.31.0';
 import {USEFUL_WORK_CODE_IDENTITY} from './unified-engine/src/useful-work-code-identity.js';
-import {prnuTrainingBackendChoice,prnuTrainingPreparationMetadata} from './prnu-training-request.js?v=0.30.0';
-import {classicalContextPreviewCandidate} from './classical-context-preview.js?v=0.30.0';
-import {medianContextPreviewCandidate} from './median-context-preview.js?v=0.30.0';
-import {resamplingContextPreviewContract} from './resampling-context-parameter-preview.js?v=0.30.0';
-import {nativeClonePreview} from './native-clone-preview.js?v=0.30.0';
-import {createRetainedResultRetirement} from './retained-result-retirement.js?v=0.30.0';
+import {prnuTrainingBackendChoice,prnuTrainingPreparationMetadata} from './prnu-training-request.js?v=0.31.0';
+import {classicalContextPreviewCandidate} from './classical-context-preview.js?v=0.31.0';
+import {medianContextPreviewCandidate} from './median-context-preview.js?v=0.31.0';
+import {resamplingContextPreviewContract} from './resampling-context-parameter-preview.js?v=0.31.0';
+import {nativeClonePreview} from './native-clone-preview.js?v=0.31.0';
+import {createRetainedResultRetirement} from './retained-result-retirement.js?v=0.31.0';
 import {readRitaStrictProjection} from './unified-engine/src/rita-strict-projection.js';
-import {readNativeContextScalar} from './native-context-scalar.js?v=0.30.0';
-import {readCatnetNativeScalar} from './catnet-native-scalar.js?v=0.30.0';
-import {prepareCatnetScopedBlobRequest,analyzeCatnetScopedBlob,catnetScopedToolResult} from './catnet-scoped-client.js?v=0.30.0';
-import {previewGhostContexts} from './ghost-context-parameter-preview.js?v=0.30.0';
-import {createGhostSurfacePreview,ghostSurfacePreviewContract} from './ghost-surface-preview.js?v=0.30.0';
-import {sourceRegionDetectionInput} from './source-region-preparation.js?v=0.30.0';
+import {readNativeContextScalar} from './native-context-scalar.js?v=0.31.0';
+import {readCatnetNativeScalar} from './catnet-native-scalar.js?v=0.31.0';
+import {prepareCatnetScopedBlobRequest,analyzeCatnetScopedBlob,catnetScopedToolResult} from './catnet-scoped-client.js?v=0.31.0';
+import {previewGhostContexts} from './ghost-context-parameter-preview.js?v=0.31.0';
+import {createGhostSurfacePreview,ghostSurfacePreviewContract} from './ghost-surface-preview.js?v=0.31.0';
+import {sourceRegionDetectionInput} from './source-region-preparation.js?v=0.31.0';
 import {assertM2SourceRegionTask} from './unified-engine/src/m2-source-region-input.js';
 import {withM2NativeSourceTransport} from './unified-engine/src/m2-native-source-client.js';
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {sourceRegionDomainShape,assertSourceRegionOperation} from './unified-engine/src/source-region-capabilities.js';
-import {ocrDisplay,updateOcrPresentation,renderOcrWindow} from './ocr-presentation.js?v=0.30.0';
-import {createParameterPreview,supportsScopedParameterPreview} from './tool-parameter-preview.js?v=0.30.0';
-import {createParameterRegionSampler} from './parameter-preview-source-regions.js?v=0.30.0';
-import {createAdaptivePreview} from './adaptive-preview.js?v=0.30.0';
-import {renderRetainedPreview,updateRetainedParameters,retainedPreviewWorkingBytes,renderRetainedWindow,planRetainedPreview} from './retained-parameter-preview.js?v=0.30.0';
-import {parameterPreviewPolicy,retainedNativeBasisStatus} from './parameter-preview-policy.js?v=0.30.0';
-import {isExtensionTool,extensionConfiguration} from './extension-tools.js?v=0.30.0';
-import {dtdFrame} from './dtd-presentation.js?v=0.30.0';
-import {comprintFrame} from './comprint-presentation.js?v=0.30.0';
-import {extensionSourcePresentation,responseSourceSurface,responseProxyKey} from './extension-source-presentation.js?v=0.30.0';
-import {truforHeatFrame} from './trufor-palette.js?v=0.30.0';
-import {ritaFrame,ritaDisplayThreshold,ritaDisplayOpacity} from './rita-presentation.js?v=0.30.0';
+import {ocrDisplay,updateOcrPresentation,renderOcrWindow} from './ocr-presentation.js?v=0.31.0';
+import {createParameterPreview,supportsScopedParameterPreview} from './tool-parameter-preview.js?v=0.31.0';
+import {createParameterRegionSampler} from './parameter-preview-source-regions.js?v=0.31.0';
+import {createAdaptivePreview} from './adaptive-preview.js?v=0.31.0';
+import {renderRetainedPreview,updateRetainedParameters,retainedPreviewWorkingBytes,renderRetainedWindow,planRetainedPreview} from './retained-parameter-preview.js?v=0.31.0';
+import {parameterPreviewPolicy,retainedNativeBasisStatus} from './parameter-preview-policy.js?v=0.31.0';
+import {isExtensionTool,extensionConfiguration} from './extension-tools.js?v=0.31.0';
+import {dtdFrame} from './dtd-presentation.js?v=0.31.0';
+import {comprintFrame} from './comprint-presentation.js?v=0.31.0';
+import {extensionSourcePresentation,responseSourceSurface,responseProxyKey} from './extension-source-presentation.js?v=0.31.0';
+import {truforHeatFrame} from './trufor-palette.js?v=0.31.0';
+import {ritaFrame,ritaDisplayThreshold,ritaDisplayOpacity} from './rita-presentation.js?v=0.31.0';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
-import {localFeaturePolicy} from './feature-policy.js?v=0.30.0';
-import {composeCloneFrame,sampleCloneField,d2AnalysisKey,neuralDisplays} from './neural-clone-ui.js?v=0.30.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.31.0';
+import {composeCloneFrame,sampleCloneField,d2AnalysisKey,neuralDisplays} from './neural-clone-ui.js?v=0.31.0';
 import {samplePixels} from './unified-engine/src/display-sampling.js';
-import {individualModels,m2ToolClient,m2ToolConfiguration} from './tool-models.js?v=0.30.0';
+import {individualModels,m2ToolClient,m2ToolConfiguration} from './tool-models.js?v=0.31.0';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
-import {d2prlInputSide} from './d2prl-input-size.js?v=0.30.0';
-import {createExportSink} from './export-sink.js?v=0.30.0';
-import {exportSinkScopeFor} from './export-sink-owner.js?v=0.30.0';
-import {exportPresentationRaster} from './raster-export-client.js?v=0.30.0';
-import {createCloneWindowPresenter,cloneScientificField} from './neural-window-presentation.js?v=0.30.0';
+import {d2prlInputSide} from './d2prl-input-size.js?v=0.31.0';
+import {createExportSink} from './export-sink.js?v=0.31.0';
+import {exportSinkScopeFor} from './export-sink-owner.js?v=0.31.0';
+import {exportPresentationRaster} from './raster-export-client.js?v=0.31.0';
+import {createCloneWindowPresenter,cloneScientificField} from './neural-window-presentation.js?v=0.31.0';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
-import {composeBiomeWindow,biomePresentationWorkingBytes} from './detection-biome-presentation.js?v=0.30.0';
+import {composeBiomeWindow,biomePresentationWorkingBytes} from './detection-biome-presentation.js?v=0.31.0';
 
 // Dense native counters may exceed JS's exact-number range. Keep their decimal
 // values as strings in JSON; borrow scientific typed arrays without copying them.
@@ -94,8 +94,8 @@ export async function configureExtensionModels(engine,configuration,hooks={}){
  if(!caps.extensions?.configured)await engine.loadExtensionModels(configuration,hooks);
 }
 export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},onParameterExportRetired,engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity,resourceHints,resolvePrnuTrainingBackend,usefulWorkStore,usefulWorkCodeIdentity=USEFUL_WORK_CODE_IDENTITY,usefulWorkEnvironment=passiveNlmEnvironment}={}){
- const deployment=await (await fetch(new URL('./integrated-config.json?v=0.30.0',import.meta.url))).json();
- const base=new URL(deployment.assetBase,new URL('./integrated-config.json?v=0.30.0',import.meta.url));
+ const deployment=await (await fetch(new URL('./integrated-config.json?v=0.31.0',import.meta.url))).json();
+ const base=new URL(deployment.assetBase,new URL('./integrated-config.json?v=0.31.0',import.meta.url));
  const asset=name=>new URL(name,base).href;
  const usefulNlmDomains=new WeakMap();
  let nlmAdaptive;try{nlmAdaptive=createNlmAdaptiveRuntime({store:usefulWorkStore??getAdaptivePreferenceStore(),describe:({task,source})=>{const seen=usefulNlmDomains.get(task.sourceRegionDomain);return describeUsefulNlm({task,source,domain:seen?.domain,capabilities:seen?.capabilities,codeIdentity:usefulWorkCodeIdentity,environment:{...usefulWorkEnvironment(),completionClass:'ui-core-transaction'}});}});}catch{/* Unavailable optional central storage must not refuse requested science. */}
@@ -783,7 +783,7 @@ const client={
     result=extensionSourcePresentation(result);return result;
    }
    if(task.operation==='various.ocr'){
-    const ocrStartedAt=performance.now(),ocrSource=source,ocrCurrent=typeof context.isCurrent==='function'?context.isCurrent:()=>!disposed&&source===ocrSource;const configuration=await (await import('./ocr-models.js?v=0.30.0')).ocrConfiguration({algorithm:task.params?.algorithm});let input={...task,imageId:source.id,backend:task.backend??'auto'};
+    const ocrStartedAt=performance.now(),ocrSource=source,ocrCurrent=typeof context.isCurrent==='function'?context.isCurrent:()=>!disposed&&source===ocrSource;const configuration=await (await import('./ocr-models.js?v=0.31.0')).ocrConfiguration({algorithm:task.params?.algorithm});let input={...task,imageId:source.id,backend:task.backend??'auto'};
     if(usefulOcr&&operationAdaptive&&typeof engine.describeOcrUsefulWork==='function'){
      await engine.loadOcrModels(configuration,hooks());checkAbort(controller?.signal);const owner=await engine.describeOcrUsefulWork(input.params,hooks());
      try{usefulOperationObservation=await operationAdaptive.prepareWithOwner(input,{sha256:source?.sha256,width:source?.surface?.width,height:source?.surface?.height},{method:'tesseract',completionClass,owner,startedAt:ocrStartedAt,signal:controller?.signal,isCurrent:ocrCurrent});input=usefulOperationObservation.task;}catch{}

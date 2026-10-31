@@ -1,4 +1,4 @@
-import {imageBounds} from './pdf-layout.js?v=0.30.0';
+import {imageBounds} from './pdf-layout.js?v=0.31.0';
 const cancelled=()=>Object.assign(Error('PDF native image painting superseded.'),{code:'CANCELLED'});
 // Certified simple PDF image operators are replaced in place, before later
 // vector/text operations. No post-composition protection can dilute the effect.

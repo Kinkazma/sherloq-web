@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SHERLOQ Browser Lab
  * Description: Local browser image analysis, with an isolated bilingual workspace.
- * Version: 0.30.0
+ * Version: 0.31.0
  * Requires at least: 6.3
  * Requires PHP: 7.4
  * License: GPL-3.0-or-later
@@ -10,7 +10,7 @@
  */
 if (!defined('ABSPATH')) { exit; }
 // A single source of truth for the page and block-editor cache identity.
-define('SHERLOQ_BROWSER_VERSION', '0.30.0');
+define('SHERLOQ_BROWSER_VERSION', '0.31.0');
 /** Pass the active site's Adobe configuration into both isolated app previews. */
 function sherloq_browser_asset_url() {
     $url = plugins_url('assets/app.php', __FILE__);

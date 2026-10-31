@@ -1,7 +1,7 @@
-import {errorEvidence} from './error-evidence.js?v=0.30.0';
+import {errorEvidence} from './error-evidence.js?v=0.31.0';
 export {errorEvidence};
-import {diagnostic} from './runtime-context.js?v=0.30.0';
-import {downloadSession} from './session-ui.js?v=0.30.0';
+import {diagnostic} from './runtime-context.js?v=0.31.0';
+import {downloadSession} from './session-ui.js?v=0.31.0';
 // Keep a small text-only diagnostic history, never scientific buffers or images.
 export function createErrorJournal({limit=8,maxBytes=32768}={}){
  if(!Number.isInteger(limit)||limit<1||limit>64||!Number.isInteger(maxBytes)||maxBytes<4096)throw new RangeError('Invalid diagnostic bounds');

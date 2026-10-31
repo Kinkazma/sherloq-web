@@ -1,6 +1,6 @@
 // Generated extension adapter: zoom is relative to the displayed image, minimum +1%.
-import {validateLoupeSettings as validateSharedLoupeSettings,loupeDefaults} from './media-settings.js?v=0.30.0';
-export {loupeDefaults} from './media-settings.js?v=0.30.0';
+import {validateLoupeSettings as validateSharedLoupeSettings,loupeDefaults} from './media-settings.js?v=0.31.0';
+export {loupeDefaults} from './media-settings.js?v=0.31.0';
 // Export preferences remain independent of the PDF zoom convention.
 export const exportDefaults=Object.freeze({format:'webp',quality:90,webpQuality:90,heicQuality:90,webpLossless:true,avifLossless:false,heicLossless:false,pngCompression:6,tiffCompression:'deflate',chroma:'source',resize:false,width:0,height:0,resizeAxis:'width',resizeAlgorithm:'auto'});
 const object=value=>value&&typeof value==='object'&&!Array.isArray(value);

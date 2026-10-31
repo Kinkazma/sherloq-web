@@ -1,6 +1,6 @@
 // One worker shared by every document; one running job and one replaceable next
 // request. Slider/pointer events cannot form an ever-growing computation queue.
-export function createLoupeEffectQueue(workerFactory=()=>new Worker(new URL('./loupe-effects-worker.js?v=0.30.0',import.meta.url),{type:'module'})){
+export function createLoupeEffectQueue(workerFactory=()=>new Worker(new URL('./loupe-effects-worker.js?v=0.31.0',import.meta.url),{type:'module'})){
  let worker=null,running=null,next=null,serial=0,retained=null,idleTimer=0;
  const failure=(message,cause,code='WORKER_MESSAGE_FAILED')=>Object.assign(Error(message,{cause}),{code});
  const validFrames=frames=>Array.isArray(frames)&&frames.length===3&&frames.every(f=>f&&Number.isInteger(f.width)&&Number.isInteger(f.height)&&f.width>0&&f.height>0&&f.width<=1024&&f.height<=1024&&f.data instanceof Uint8ClampedArray&&f.data.length===f.width*f.height*4);

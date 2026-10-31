@@ -13,7 +13,7 @@ export function installLoupeFullWorker(scope,{loadModule=url=>import(url)}={}){
  const replyError=(ticket,error,fatal=false)=>scope.postMessage({ticket,error:runtime?.serializeEngineError(error)??encodedError(error),...(fatal?{fatal:true}:{})});
  function load(){
   if(!loading){
-   const modules=['./loupe-full-image.js?v=0.30.0','./unified-engine/src/cache.js','./unified-engine/src/temporary-storage.js','./unified-engine/src/errors.js','./unified-engine/src/adjust-math.js'];
+   const modules=['./loupe-full-image.js?v=0.31.0','./unified-engine/src/cache.js','./unified-engine/src/temporary-storage.js','./unified-engine/src/errors.js','./unified-engine/src/adjust-math.js'];
    loading=Promise.all(modules.map(name=>{const sourceURL=new URL(name,import.meta.url).href;return Promise.resolve().then(()=>loadModule(sourceURL)).catch(cause=>{throw Object.assign(Error('Loupe processing module could not load.',{cause}),{code:'WORKER_MODULE_LOAD',details:{sourceURL,executionPhase:'initialization'}});});})).then(([image,cache,temporary,errors,adjust])=>runtime={buildLoupeImage:image.buildLoupeImage,budget:new cache.Budget(128*1024**2),createTemporarySession:temporary.createTemporarySession,serializeEngineError:errors.serializeEngineError,releaseAdjustWasm:adjust.releaseAdjustWasm});
   }
   return loading;

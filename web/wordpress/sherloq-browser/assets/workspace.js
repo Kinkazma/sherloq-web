@@ -1,28 +1,29 @@
-import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.30.0';
-import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.30.0';
+import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.31.0';
+import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.31.0';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.30.0';
-import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.30.0';
-import {diagnostic} from './runtime-context.js?v=0.30.0';
-import {installHoverSliders} from './hover-sliders.js?v=0.30.0';
-import {browserLanguage} from './language.js?v=0.30.0';
-import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.30.0';
-import {mountMediaControls} from './media-controls.js?v=0.30.0';
-import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.30.0';
-import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.30.0';
-import {bindDocumentResize} from './document-resize.js?v=0.30.0';
-import {toolGroups} from './tool-tree.js?v=0.30.0';
-import {isExperimentalTool} from './extension-tools.js?v=0.30.0';
-import {createWorkspaceState} from './workspace-state.js?v=0.30.0';
-import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
-import {createDownloadShelf} from './download-shelf.js?v=0.30.0';
-import {mountSessionControls} from './session-ui.js?v=0.30.0';
-import {recoverSettings,settingsFilename} from './settings.js?v=0.30.0';
-import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.30.0';
-import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.30.0';
-import {localFeaturePolicy} from './feature-policy.js?v=0.30.0';
+import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.31.0';
+import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.31.0';
+import {createOpeningImagePreview} from './opening-image-preview.js?v=0.31.0';
+import {diagnostic} from './runtime-context.js?v=0.31.0';
+import {installHoverSliders} from './hover-sliders.js?v=0.31.0';
+import {browserLanguage} from './language.js?v=0.31.0';
+import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.31.0';
+import {mountMediaControls} from './media-controls.js?v=0.31.0';
+import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.31.0';
+import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.31.0';
+import {bindDocumentResize} from './document-resize.js?v=0.31.0';
+import {toolGroups} from './tool-tree.js?v=0.31.0';
+import {isExperimentalTool} from './extension-tools.js?v=0.31.0';
+import {createWorkspaceState} from './workspace-state.js?v=0.31.0';
+import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.31.0';
+import {createDownloadShelf} from './download-shelf.js?v=0.31.0';
+import {mountSessionControls} from './session-ui.js?v=0.31.0';
+import {recoverSettings,settingsFilename} from './settings.js?v=0.31.0';
+import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.31.0';
+import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.31.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.31.0';
 
-export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.30.0')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.30.0')).mountPdfReader(options),originalRegionsFactory}={}) {
+export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.31.0')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.31.0')).mountPdfReader(options),originalRegionsFactory}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
 const downloadShelf=createDownloadShelf({document,parent:$('toolbox'),before:$('toolbox').querySelector('.navigation-tools'),language:()=>state.language,onError:error=>notify(error.message)});
@@ -32,10 +33,10 @@ const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id));
 // Keep the existing synchronous factories once their shared module graph is ready.
 let runtimeReady,engineFactory,createBatchScopeEditor;
 function ensureRuntime(){return runtimeReady??=Promise.all([
- import('./app.js?v=0.30.0'),
- import('./workspace-engine-pool.js?v=0.30.0'),
- import('./batch-scope-editor.js?v=0.30.0'),
- import('./original-source-regions-controller.js?v=0.30.0')
+ import('./app.js?v=0.31.0'),
+ import('./workspace-engine-pool.js?v=0.31.0'),
+ import('./batch-scope-editor.js?v=0.31.0'),
+ import('./original-source-regions-controller.js?v=0.31.0')
 ]).then(([panel,pool,editor,regions])=>{
  panelFactory??=panel.mountAnalysisPanel;originalRegionsFactory??=regions.createOriginalSourceRegionsController;
  createBatchScopeEditor=editor.createBatchScopeEditor;engineFactory=pool.createWorkspaceEnginePool();
@@ -45,14 +46,14 @@ const labels={
  en:{batch:'Batch processing',file:'File',open:'Open image…',tools:'Tools',tile:'Tile',cascade:'Cascade',tabs:'Tabs',closeAll:'Close all',settings:'Settings',quickExport:'Quick export',exportImage:'Export displayed image…',exportReport:'Export report…',saveSession:'Export session…',restoreSession:'Restore session…',exportSettings:'Export settings…',importSettings:'Recall settings…',compute:'Computation',maximum:'Maximum useful',aggressive:'Aggressive',navigation:'Navigation',automatic:'Automatic',mouse:'Mouse',highlight:'Highlight new tools',allSliders:'Sliders everywhere',experimental:'Enable experimental tools',experimentalDisabled:'Enable experimental tools in Settings to use this tool.',about:'About',availability:'I am happy to make this application available to everyone, free of charge and without a usage time limit.',privacy:'Your images and results stay in this browser. This application does not upload images or track usage.',welcome:'Open or drop an image to begin.',fit:'Fit',cancel:'Cancel',closeHint:'Close all analyses and stop their calculations? The original image, settings and favorites will be kept.',closeConfirm:'Close analyses',ready:'Ready.',loading:'Loading…',favorites:'Favorites',addFavorite:'Add to favorites',removeFavorite:'Remove from favorites',close:'Close',background:'calculation(s) in other tabs',busyClose:'This tab is still calculating. Closing it will stop its calculation. Continue?',replace:'Opening a new image will close the current image analyses. Continue?',invalid:'Invalid settings file.',busySettings:'Recall settings after the running calculations finish.',loadedSettings:'Settings restored.',sessionImage:'Now open this session’s original image.',missingImage:'This session belongs to another image.'}
 };
 const text=key=>labels[state.language][key]||key,title=id=>state.documents.get(id)?.title??tools.find(t=>t.id===id)?.[state.language]??id;
-let sourceEntry=null,sourceInput=null,currentFile=null,generation=0,framePending=false,theme='dark',savedTools={},pendingSession=null,sessionIntent=null;const retiringEntries=new Map();
+let sourceEntry=null,sourceInput=null,currentFile=null,generation=0,framePending=false,theme='dark',savedTools={},pendingSession=null,sessionIntent=null,sourceOpening=null;const retiringEntries=new Map();
 let scopeFallbacks={};
 let computeProfile='maximum',navigationMode='auto',highlight=false,allSliders=true,experimentalTools=false,media=validateMediaPreferences(),unknownFavorites=[],lastPreferences;const toolSignatures=new Map(),dirtyTools=new Set();
 const hoverSliders=installHoverSliders({root:document,enabled:false,language:()=>state.language});
 const scopeFallbackUI=createWholeSourceFallbackUI({document,language:()=>state.language,getPreferences:()=>scopeFallbacks,setPreferences:value=>{scopeFallbacks=validateWholeSourceFallbacks(value);savePreferences();},toolLabel:id=>tools.find(t=>t.id===id)?.[state.language]??id});
 const scopeFallbackSettingsButton=button(state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…',()=>{closeMenus();scopeFallbackUI.configure();});$('import-settings').after(scopeFallbackSettingsButton);
 let templateReady;
-const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.30.0',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
+const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.31.0',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
 function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,allSliders,experimentalTools,scopeFallbacks:validateWholeSourceFallbacks(scopeFallbacks),...media,dependencies:dependencyPreferences()};}
 function setMedia(next){if(!applyingLoupeStep)stepPlayback.reset();media=validateMediaPreferences(next);applyMedia();savePreferences();}
 const comparisonKeys=new Set();let comparisonController=null;let pinnedController=null;
@@ -99,6 +100,33 @@ function translate(){
  scopeFallbackSettingsButton.textContent=state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…';for(const entry of entries())entry.originalRegions?.refresh();mediaUI.translate();stepShortcuts.refresh();downloadShelf.translate();renderCatalog();renderDocuments();savePreferences();
 }
 function entries(){return [...new Set([sourceEntry,...state.documents.values()].filter(Boolean))];}
+function positionOpeningPreview(record){
+ const opening=record.openingPreview;if(!opening)return;
+ const target=record.panel?.shadowRoot?.getElementById('viewport')??record.panel;
+ if(!target)return;const bounds=target.getBoundingClientRect(),owner=record.element.getBoundingClientRect();
+ Object.assign(opening.element.style,{left:(bounds.left-owner.left)+'px',top:(bounds.top-owner.top)+'px',width:bounds.width+'px',height:bounds.height+'px'});
+}
+function clearOpeningPreview(record){
+ const opening=record.openingPreview;if(!opening)return;record.openingPreview=null;
+ opening.attachment.dispose();opening.element.remove();opening.ticket.records.delete(record);
+}
+function retireOpening(ticket){
+ if(!ticket||ticket.closed)return;ticket.closed=true;
+ for(const record of [...ticket.records])clearOpeningPreview(record);
+ ticket.preview.dispose();if(sourceOpening===ticket)sourceOpening=null;
+}
+function releasePresentedOpening(ticket){if(ticket?.nativeReady&&!ticket.records.size)retireOpening(ticket);}
+function attachOpeningPreview(record,ticket=sourceOpening){
+ if(!ticket||ticket.closed||ticket.generation!==generation||record.openingPreview?.ticket===ticket)return;
+ clearOpeningPreview(record);const element=document.createElement('div');element.className='opening-image-preview';element.setAttribute('aria-hidden','true');record.element.append(element);
+ const attachment=ticket.preview.attach(element);record.openingPreview={ticket,element,attachment};ticket.records.add(record);positionOpeningPreview(record);
+ void ticket.preview.ready.then(available=>{if(!available&&record.openingPreview?.ticket===ticket){clearOpeningPreview(record);releasePresentedOpening(ticket);}});
+}
+function sourcePresented(record,presentation){
+ const opening=record.openingPreview;if(!opening)return;const ticket=opening.ticket,input=record.controller?.input?.();
+ if(ticket.closed||ticket.generation!==generation||record.closed||input?.file!==ticket.file||input?.imageId!==presentation.imageId||input?.hash!==presentation.sourceSha256)return;
+ clearOpeningPreview(record);releasePresentedOpening(ticket);
+}
 let settingsTimer;
 function scheduleRender(){if(framePending)return;framePending=true;requestAnimationFrame(()=>{framePending=false;renderStatus();clearTimeout(settingsTimer);settingsTimer=setTimeout(saveTools,250);});}
 function reportTarget(entry=state.documents.get(state.active),view=entry?.controller?.snapshot()){
@@ -114,7 +142,8 @@ function renderStatus(){
  }
  const background=[...state.documents.values()].filter(e=>e.id!==state.active&&e.controller?.busy).length;
  $('background-status').textContent=background?background+' '+text('background'):'';
- if(view){notify(view.status);if(view.progress===null)$('workspace-progress').removeAttribute('value');else $('workspace-progress').value=view.progress;$('zoom').value=view.zoom+'%';}
+ if(entry?.loading&&!view?.busy&&!view?.importing){notify(text('loading'));$('workspace-progress').value=0;$('zoom').value='—';}
+ else if(view){notify(view.status);if(view.progress===null)$('workspace-progress').removeAttribute('value');else $('workspace-progress').value=view.progress;$('zoom').value=view.zoom+'%';}
  else {notify(entry?text('loading'):text('ready'));$('workspace-progress').value=0;$('zoom').value='—';}
  $('file-info').textContent=entry?.kind==='pdf'?entry.file.name:sourceInput?.description||currentFile?.name||'';
  const available=!!entry?.controller&&!entry.loading;
@@ -132,11 +161,13 @@ function renderDocuments(){
  let index=0;
  for(const record of state.documents.values()){
   const selected=record.id===state.active;record.element.hidden=state.layout==='tabs'&&!selected;record.element.classList.toggle('selected',selected);record.element.style.zIndex=selected?'2':'1';
+  record.controller?.visibilityChanged?.();
   record.element.querySelector('.window-name').textContent=title(record.id);record.element.querySelector('.window-resize').setAttribute('aria-label',state.language==='fr'?'Redimensionner la fenêtre':'Resize window');record.element.querySelector('.window-close').setAttribute('aria-label',text('close')+' · '+title(record.id));
   if(!record.position){record.element.style.setProperty('--window-x',(index%8)*24+'px');record.element.style.setProperty('--window-y',(index%8)*25+'px');}index++;
   const tab=document.createElement('div');tab.className='document-tab';tab.classList.toggle('selected',selected);
   const select=button(title(record.id),()=>selectDocument(record.id),'tab-label');select.setAttribute('role','tab');select.setAttribute('aria-selected',String(selected));select.setAttribute('aria-controls',record.element.id);
   const close=button('×',()=>closeDocument(record.id),'tab-close');close.setAttribute('aria-label',text('close')+' · '+title(record.id));tab.append(select,close);tabs.append(tab);record.tab=tab;
+  if(record.openingPreview){if(record.element.hidden&&record.openingPreview.ticket.nativeReady){const ticket=record.openingPreview.ticket;clearOpeningPreview(record);releasePresentedOpening(ticket);}else positionOpeningPreview(record);}
   if(!record.element.hidden)requestAnimationFrame(()=>record.controller?.activate());
  }
  for(const mode of ['tabs','tile','cascade'])$('layout-'+mode).setAttribute('aria-pressed',String(state.layout===mode));
@@ -153,7 +184,7 @@ function scopedDocument(root,host){return {
 function createEntry(id,{pdf=false}={}){
  const record={id,loading:true,generation,element:document.createElement('section'),regionElement:document.createElement('div'),originalRegionsElement:document.createElement('div'),originalRegions:null,controller:null,position:false};record.regionElement.hidden=true;record.originalRegionsElement.hidden=true;record.originalRegionsElement.className='original-source-controls-owner';
  record.element.id='document-'+crypto.randomUUID();record.element.className='document-window';
- const header=document.createElement('header'),name=document.createElement('span'),panel=document.createElement('div');name.className='window-name';panel.className='panel-host';
+ const header=document.createElement('header'),name=document.createElement('span'),panel=document.createElement('div');name.className='window-name';panel.className='panel-host';record.panel=panel;
  header.append(name,button('×',()=>closeDocument(id),'window-close'));const resize=button('◢',()=>{},'window-resize');resize.setAttribute('aria-label',state.language==='fr'?'Redimensionner la fenêtre':'Resize window');record.element.append(header,panel,resize);bindDocumentResize(resize,record.element,{layout:()=>state.layout,desk:()=>$('workspace-desk')});$('workspace-desk').append(record.element);
  record.element.addEventListener('pointerdown',()=>{if(state.active!==id)selectDocument(id);},{capture:true});
  let drag=null;header.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0||state.layout!=='cascade')return;const bounds=record.element.getBoundingClientRect();drag={x:e.clientX-bounds.left,y:e.clientY-bounds.top};header.setPointerCapture(e.pointerId);});
@@ -169,13 +200,14 @@ function createEntry(id,{pdf=false}={}){
  record.ready=Promise.all([template(),ensureRuntime()]).then(([nodes])=>{
   if(record.closed||record.generation!==generation)return null;
   const root=panel.attachShadow({mode:'open'});
-  for(const name of ['app.css','tool-workspace.css','panel.css']){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(name,import.meta.url).href;link.onload=()=>record.controller?.fit();root.append(link);}
+  for(const name of ['app.css','tool-workspace.css','panel.css']){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(name,import.meta.url).href;link.onload=()=>{record.controller?.fit();positionOpeningPreview(record);};root.append(link);}
   for(const node of nodes)root.append(document.importNode(node,true));
-  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,scopeEditorFactory:placementScopeEditor,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,getAllSliders:()=>allSliders,requestExport:task=>mediaUI.requestExport(task),requestWholeSourceFallback:options=>scopeFallbackUI.request(options),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>{if(!applyingLoupeStep)stepPlayback.reset();mediaUI.sync();},onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>loupeEffectsState(record,value),onLoupePresented:value=>loupePresented(record,value),exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),sourceInput:()=>sourceInput,getOriginalSourceRegions:()=>sourceEntry?.originalRegions?.snapshot()??null,getOriginalSourceRegionOptions:()=>sourceEntry?.originalRegions?.serializeOptions?.()??null,getOriginalRegionsHighlight:()=>sourceEntry?.originalRegions?.highlight??null,onOriginalRegionsKeydown:event=>sourceEntry?.originalRegions?.keydown(event)??false,restoreOriginalSourceRegions:value=>restoreOriginalSourceRegions(value),visible:()=>!record.element.hidden&&!record.closed,changed:scheduleRender});
+  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,scopeEditorFactory:placementScopeEditor,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,onSourcePresented:value=>sourcePresented(record,value),getAllSliders:()=>allSliders,requestExport:task=>mediaUI.requestExport(task),requestWholeSourceFallback:options=>scopeFallbackUI.request(options),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>{if(!applyingLoupeStep)stepPlayback.reset();mediaUI.sync();},onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>loupeEffectsState(record,value),onLoupePresented:value=>loupePresented(record,value),exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),sourceInput:()=>sourceInput,getOriginalSourceRegions:()=>sourceEntry?.originalRegions?.snapshot()??null,getOriginalSourceRegionOptions:()=>sourceEntry?.originalRegions?.serializeOptions?.()??null,getOriginalRegionsHighlight:()=>sourceEntry?.originalRegions?.highlight??null,onOriginalRegionsKeydown:event=>sourceEntry?.originalRegions?.keydown(event)??false,restoreOriginalSourceRegions:value=>restoreOriginalSourceRegions(value),visible:()=>!record.element.hidden&&!record.closed,changed:scheduleRender});
   if(id==='original'){let controls=root.getElementById('tool-controls');if(!controls){controls=document.createElement('section');controls.id='tool-controls';root.getElementById('analysis-controls').after(controls);}controls.classList.add('original-source-controls');controls.append(record.originalRegionsElement);controls.hidden=false;}
   if(savedTools[id])record.controller.applySettings(savedTools[id]);
   record.controller.setNavigation(navigationMode);record.controller.setTheme(theme);record.controller.setHighlight?.(highlight);record.controller.setLoupe?.(media.loupe);
   record.unregisterSliders=hoverSliders.registerRoot(root);
+  positionOpeningPreview(record);
   return record.controller;
  }).catch(error=>{record.loading=false;record.error=error;notify(error.message);throw error;});
  return record;
@@ -194,13 +226,14 @@ async function openTool(id){
  if(state.documents.has(id)){selectDocument(id);return;}
  if(!currentFile){pickImage();return;}
  if(id==='inspection.magnifier'&&!media.loupe.enabled)setMedia({...media,loupe:{...media.loupe,enabled:true}});
- if(id==='original'&&sourceEntry){sourceEntry.closed=false;state.open(id,sourceEntry);$('workspace-desk').append(sourceEntry.element);selectDocument(id);return;}
- const record=createEntry(id);state.open(id,record);renderDocuments();
- try{const controller=await record.ready,input=await sourceEntry.inputReady;if(!controller||record.closed||record.generation!==generation)return;controller.adopt({...input,sourceRegions:sourceEntry.originalRegions?.serialize()??null});record.loading=false;renderDocuments();}
- catch(error){record.loading=false;notify(error.message);}
+ if(id==='original'&&sourceEntry){sourceEntry.closed=false;state.open(id,sourceEntry);$('workspace-desk').append(sourceEntry.element);attachOpeningPreview(sourceEntry);selectDocument(id);return;}
+ const sourceRecord=sourceEntry,inputReady=sourceRecord?.inputReady,record=createEntry(id);state.open(id,record);attachOpeningPreview(record);renderDocuments();
+ try{const [controller,input]=await Promise.all([record.ready,inputReady]);if(!controller||!input||record.closed||record.generation!==generation||sourceRecord!==sourceEntry)return;controller.adopt({...input,sourceRegions:sourceRecord.originalRegions?.serialize()??null});record.loading=false;renderDocuments();}
+ catch(error){if(record.closed||record.generation!==generation)return;record.loading=false;clearOpeningPreview(record);notify(error.message);}
 }
 function remember(record){if(known.has(record.id)&&record.controller?.settings){const value=record.controller.settings();savedTools[record.id]=value;if(JSON.stringify(value)!==toolSignatures.get(record.id))dirtyTools.add(record.id);}}
 function disposeEntry(record){
+ clearOpeningPreview(record);
  let owner=retiringEntries.get(record);if(!owner){owner={originalDone:false,panelDone:false,pending:null};retiringEntries.set(record,owner);}if(owner.pending)return owner.pending;
  const task=Promise.resolve().then(()=>retireCompositeOwners([
   async()=>{if(!owner.originalDone){await record.originalRegions?.dispose();owner.originalDone=true;}},
@@ -213,13 +246,14 @@ async function closeDocument(id,{force=false}={}){
  const record=state.documents.get(id);if(!record)return;
  if(!force&&record.controller?.busy&&!confirm(text('busyClose')))return;
  remember(record);saveTools();state.close(id);record.element.remove();
- if(record===sourceEntry&&[...state.documents.values()].some(value=>value.kind!=='pdf')){record.element.hidden=true;renderDocuments();return;}
- record.closed=true;const closing=[record];if(record===sourceEntry){sourceEntry=null;sourceInput=null;currentFile=null;}
- if(![...state.documents.values()].some(value=>value.kind!=='pdf')){if(sourceEntry&&sourceEntry!==record){sourceEntry.closed=true;sourceEntry.element.remove();closing.push(sourceEntry);}sourceEntry=null;sourceInput=null;currentFile=null;$('image-file').value='';}
+ if(record===sourceEntry&&[...state.documents.values()].some(value=>value.kind!=='pdf')){const ticket=record.openingPreview?.ticket;clearOpeningPreview(record);releasePresentedOpening(ticket);record.element.hidden=true;renderDocuments();return;}
+ record.closed=true;const closing=[record];if(record===sourceEntry){retireOpening(sourceOpening);sourceEntry=null;sourceInput=null;currentFile=null;}
+ if(![...state.documents.values()].some(value=>value.kind!=='pdf')){retireOpening(sourceOpening);if(sourceEntry&&sourceEntry!==record){sourceEntry.closed=true;sourceEntry.element.remove();closing.push(sourceEntry);}sourceEntry=null;sourceInput=null;currentFile=null;$('image-file').value='';}
  // Remove the view immediately; a queued worker cleanup may wait for another job.
  renderDocuments();await retireEntries(closing);
 }
 async function closeAll({preservePdfs=false,preserveOriginal=false}={}){
+ retireOpening(sourceOpening);
  generation++;const original=preserveOriginal&&sourceEntry&&!sourceEntry.closed?sourceEntry:null,kept=entries().filter(record=>(preservePdfs&&record.kind==='pdf')||record===original),previous=entries().filter(record=>!kept.includes(record));state.clear();for(const record of kept){record.generation=generation;state.open(record.id,record);}sourceEntry=original;sourceInput=null;currentFile=null;pendingSession=null;sessionIntent=null;$('image-file').value='';
  for(const record of previous){remember(record);record.closed=true;record.element.remove();}
  saveTools();
@@ -237,19 +271,21 @@ async function closeAnalyses(){
 }
 async function openImage(file,{preservePdfs=true,confirmReplace=true}={}){
  if(!file)return;const epoch=generation,kind=await detectWorkspaceFileKind(file);if(epoch!==generation)return;if(kind==='pdf')return openPDF(file);if(confirmReplace&&currentFile&&!confirm(text('replace')))return;
- const session=pendingSession,closing=closeAll({preservePdfs,preserveOriginal:true}),replacementGeneration=generation;await closing;if(replacementGeneration!==generation)return;pendingSession??=session;currentFile=file;
- const record=sourceEntry??createEntry('original');record.loading=true;sourceEntry=record;state.open('original',record);renderDocuments();
- record.inputReady=record.ready.then(async controller=>{
+ const session=pendingSession,closing=closeAll({preservePdfs,preserveOriginal:true}),replacementGeneration=generation;pendingSession??=session;currentFile=file;
+ const record=sourceEntry??createEntry('original');record.loading=true;record.panel.inert=true;sourceEntry=record;state.open('original',record);
+ const opening={generation:replacementGeneration,file,records:new Set(),nativeReady:false,closed:false,preview:null};sourceOpening=opening;opening.preview=createOpeningImagePreview({file,document,isCurrent:()=>sourceOpening===opening&&!opening.closed&&generation===replacementGeneration&&currentFile===file});attachOpeningPreview(record,opening);renderDocuments();
+ record.inputReady=Promise.resolve(closing).then(async()=>{
+  if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;const controller=await record.ready;
   if(!controller||record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;await record.originalRegions?.dispose();if(record.closed||generation!==replacementGeneration)return null;record.originalRegions=null;await controller.load(file);
   if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;
-  sourceInput=controller.input();
-  record.originalRegions=originalRegionsFactory({scopeEditorFactory:placementScopeEditor,document,parent:record.originalRegionsElement,presentation:'toolbar',source:()=>{const input=record.controller?.input();return input?.file&&input.source?{blob:input.file,name:input.file.name,id:input.imageId,width:input.source.width,height:input.source.height,sourceSha256:input.hash}:null;},language:()=>state.language,computeProfile:()=>computeProfile,navigationMode:()=>navigationMode,getClient:()=>record.controller.regionDetectionClient(),onHighlight:()=>record.controller?.refreshOriginalRegions?.(),onError:error=>notify(error.message),onOpenBatch:snapshot=>openOriginalInBatch(record,snapshot),onChange:snapshot=>{if(record.closed||record!==sourceEntry)return;sourceInput={...sourceInput,sourceRegions:snapshot};record.controller?.refreshOriginalRegions?.();for(const entry of entries())if(entry!==record&&entry.kind!=='pdf')entry.controller?.markSourceRegionsStale?.(snapshot);scheduleRender();}});
-  await record.originalRegions.ready;if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration){await record.originalRegions.dispose();return null;}sourceInput={...controller.input(),sourceRegions:record.originalRegions.serialize()};record.loading=false;renderDocuments();return sourceInput;
+  const originalRegions=originalRegionsFactory({scopeEditorFactory:placementScopeEditor,document,parent:record.originalRegionsElement,presentation:'toolbar',source:()=>{const input=record.controller?.input();return input?.file&&input.source?{blob:input.file,name:input.file.name,id:input.imageId,width:input.source.width,height:input.source.height,sourceSha256:input.hash}:null;},language:()=>state.language,computeProfile:()=>computeProfile,navigationMode:()=>navigationMode,getClient:()=>record.controller.regionDetectionClient(),onHighlight:()=>record.controller?.refreshOriginalRegions?.(),onError:error=>{if(!record.closed&&record.generation===replacementGeneration&&generation===replacementGeneration)notify(error.message);},onOpenBatch:snapshot=>openOriginalInBatch(record,snapshot),onChange:snapshot=>{if(record.closed||record!==sourceEntry||record.loading||record.generation!==replacementGeneration||generation!==replacementGeneration)return;sourceInput={...sourceInput,sourceRegions:snapshot};record.controller?.refreshOriginalRegions?.();for(const entry of entries())if(entry!==record&&entry.kind!=='pdf')entry.controller?.markSourceRegionsStale?.(snapshot);scheduleRender();}});record.originalRegions=originalRegions;
+  await originalRegions.ready;if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration){await originalRegions.dispose();return null;}sourceInput={...controller.input(),sourceRegions:originalRegions.serialize()};record.loading=false;record.panel.inert=false;record.controller?.refreshOriginalRegions?.();opening.nativeReady=true;renderDocuments();releasePresentedOpening(opening);return sourceInput;
  });
- try{await record.inputReady;if(pendingSession)await applySession(pendingSession);}
- catch(error){record.loading=false;notify(error.message);}
+ try{const input=await record.inputReady;if(!input||record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return;if(pendingSession)await applySession(pendingSession);}
+ catch(error){if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return;record.loading=false;record.panel.inert=false;retireOpening(opening);notify(error.message);}
 }
-function pickImage(){closeMenus();$('image-file').value='';$('image-file').click();}
+function warmImagePanel(){void Promise.all([template(),ensureRuntime()]).catch(()=>{});}
+function pickImage(){closeMenus();warmImagePanel();$('image-file').value='';$('image-file').click();}
 async function ensureBatch(){if(!batchUI){batchOpening??=ensureRuntime().then(()=>batchFactory({scopeEditorFactory:placementScopeEditor,document,download,language:()=>state.language,computeProfile:()=>computeProfile,getNavigationMode:()=>navigationMode,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);await batchOpening;}return batchUI;}
 async function openOriginalInBatch(record,snapshot){await record.originalRegions.ready;if(record.closed||record!==sourceEntry)throw Error('The original source is no longer open.');const input=record.controller.input(),verified=await validateOriginalSourceRegions(snapshot,{sourceSha256:input.hash,width:input.source.width,height:input.source.height}),batch=await ensureBatch();if(typeof batch.importSource!=='function')throw Object.assign(Error(state.language==='fr'?'Le transfert des zones vers le lot n’est pas encore disponible.':'Source-region batch transfer is not available yet.'),{code:'BATCH_SOURCE_REGIONS_NOT_READY'});await batch.importSource({file:input.file,sourceRegions:verified});batch.open();}
 if($('batch-open'))$('batch-open').onclick=async()=>{closeMenus();try{(await ensureBatch()).open();}catch(error){notify(error.message);}};

@@ -1,5 +1,5 @@
 import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
-import {createEqualizationRegionalEffects} from './equalization-regional-effects.js?v=0.30.0';
+import {createEqualizationRegionalEffects} from './equalization-regional-effects.js?v=0.31.0';
 import {Budget} from './unified-engine/src/cache.js';
 import {createSegmentedBytes} from './unified-engine/src/segmented-bytes.js';
 import {createRgbSurface} from './unified-engine/src/rgb-surface.js';
@@ -7,7 +7,7 @@ import {adjustLocalRows,adjustTileHistogram,adjustClaheTables,adjustMapRows,adju
 import {magnifierLuts} from './unified-engine/src/magnifier.js';
 import {gray,equalizeHistogramLut} from './unified-engine/src/pixel-utils.js';
 import {checkAbort,controlCheckpoint} from './unified-engine/src/errors.js';
-import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.30.0';
+import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.31.0';
 
 // Both maintained HSV conversions have explicit 8/16-pixel prefix rules.
 // Interior windows preserve those rules with16-aligned sides. At the native

@@ -1,6 +1,6 @@
-import {createExportSink} from './export-sink.js?v=0.30.0';
-import {resolveComputeProfile} from './resource-policy.js?v=0.30.0';
-import {withLocalActivity,localActivityFrozen} from './local-activity.js?v=0.30.0';
+import {createExportSink} from './export-sink.js?v=0.31.0';
+import {resolveComputeProfile} from './resource-policy.js?v=0.31.0';
+import {withLocalActivity,localActivityFrozen} from './local-activity.js?v=0.31.0';
 
 const CHUNK_BYTES=1024**2,JSON_COPY_MAX_BYTES=16*1024**2;
 const jsonRecord=record=>record.mime.split(';')[0].trim().toLowerCase()==='application/json';

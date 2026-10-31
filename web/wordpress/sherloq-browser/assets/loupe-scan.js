@@ -1,4 +1,4 @@
-import {effectDefaults,effectRanges} from './loupe-effects-settings.js?v=0.30.0';
+import {effectDefaults,effectRanges} from './loupe-effects-settings.js?v=0.31.0';
 // Advance only after a calculated frame was drawn. Faster sweeps take larger
 // steps, never queue obsolete work; .5 retains the original one-unit pace.
 export function createLoupeScan({read,write,changed=()=>{},schedule=(fn,ms)=>setTimeout(fn,ms),cancel=clearTimeout,now=()=>performance.now()}){

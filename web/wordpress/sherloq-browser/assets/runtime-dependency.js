@@ -1,4 +1,4 @@
-import {diagnostic,runtimeContext} from './runtime-context.js?v=0.30.0';
+import {diagnostic,runtimeContext} from './runtime-context.js?v=0.31.0';
 export class DependencyError extends Error{constructor(code,message,details,cause){super(message,cause?{cause}:undefined);this.name='DependencyError';this.code=code;this.details=details;}}
 const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const hex=b=>[...b].map(v=>v.toString(16).padStart(2,'0')).join('');

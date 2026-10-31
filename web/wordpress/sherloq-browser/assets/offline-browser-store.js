@@ -1,8 +1,8 @@
-import {sha256,validateManifest,remoteBase,requiredDependencyChunks} from './dependency-core.js?v=0.30.0';
-import {createChunkLoader,libraryFile,libraryValue} from './dependency-store.js?v=0.30.0';
-import {indexResourceTar,archiveChunkReader,importLibraryFile} from './dependency-tar.js?v=0.30.0';
-import {validateFeatureCatalog,requiredFeatureChunks,normalizeFeatureState,selectActiveFiles} from './feature-catalog.js?v=0.30.0';
-import {validateOfflineShell} from './offline-kit-core.js?v=0.30.0';
+import {sha256,validateManifest,remoteBase,requiredDependencyChunks} from './dependency-core.js?v=0.31.0';
+import {createChunkLoader,libraryFile,libraryValue} from './dependency-store.js?v=0.31.0';
+import {indexResourceTar,archiveChunkReader,importLibraryFile} from './dependency-tar.js?v=0.31.0';
+import {validateFeatureCatalog,requiredFeatureChunks,normalizeFeatureState,selectActiveFiles} from './feature-catalog.js?v=0.31.0';
+import {validateOfflineShell} from './offline-kit-core.js?v=0.31.0';
 
 export const OFFLINE_CHUNKS='sherloq-dependency-chunks-v1';
 export const offlineCacheName=identity=>'sherloq-offline-app-'+identity;

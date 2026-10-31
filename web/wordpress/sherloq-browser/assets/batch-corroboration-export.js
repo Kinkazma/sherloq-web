@@ -4,8 +4,8 @@ import {createTemporarySession} from './unified-engine/src/temporary-storage.js'
 import {createRasterExports} from './unified-engine/src/raster-export.js';
 import {streamScientificNpz} from './unified-engine/src/scientific-npz-stream.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './unified-engine/src/errors.js';
-import {createExportSink} from './export-sink.js?v=0.30.0';
-import {exportSinkScopeFor} from './export-sink-owner.js?v=0.30.0';
+import {createExportSink} from './export-sink.js?v=0.31.0';
+import {exportSinkScopeFor} from './export-sink-owner.js?v=0.31.0';
 
 const MiB=1024**2,CHUNK=MiB;
 const littleEndian=new Uint8Array(new Uint16Array([0x0102]).buffer)[0]===2;

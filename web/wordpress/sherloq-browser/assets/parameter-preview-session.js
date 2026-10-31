@@ -1,4 +1,4 @@
-import {completedGenericHeldPreviewFrame} from './generic-held-preview-owner.js?v=0.30.0';
+import {completedGenericHeldPreviewFrame} from './generic-held-preview-owner.js?v=0.31.0';
 // One replaceable draft and one final intention. A preview owns no scientific
 // result; source/tool changes invalidate publication, even if a read completes.
 export function createParameterPreviewSession({preview,show,commit,computed=()=>{},restore=()=>{},state=()=>{},error=()=>{},schedule=fn=>setTimeout(fn,0),unschedule=clearTimeout,now=()=>performance.now(),onControl=()=>{}}={}){

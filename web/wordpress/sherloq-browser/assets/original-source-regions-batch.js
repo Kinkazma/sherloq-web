@@ -1,8 +1,8 @@
 import {assertSourceRegionOperation,sourceRegionDomainShape} from './unified-engine/src/source-region-capabilities.js';
-import {compileOriginalSourceRegions,createOriginalSourceRegionsState,validateOriginalSourceRegions} from './original-source-regions.js?v=0.30.0';
-import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js?v=0.30.0';
-import {rectangleComplement,rectanglePolygon} from './batch-scope-geometry.js?v=0.30.0';
-import {batchBlobSha256} from './batch-run-resume.js?v=0.30.0';
+import {compileOriginalSourceRegions,createOriginalSourceRegionsState,validateOriginalSourceRegions} from './original-source-regions.js?v=0.31.0';
+import {SCIENTIFIC_SCOPE_POLICY,scopeFingerprint} from './batch-scientific-preparation.js?v=0.31.0';
+import {rectangleComplement,rectanglePolygon} from './batch-scope-geometry.js?v=0.31.0';
+import {batchBlobSha256} from './batch-run-resume.js?v=0.31.0';
 const copy=value=>structuredClone(value),fail=message=>Object.assign(Error(message),{code:'BATCH_SOURCE_REGIONS_INVALID'});
 
 /** Source bytes, source grid and geometry are bound before the importer mutates its model. */

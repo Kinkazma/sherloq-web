@@ -1,8 +1,8 @@
-import {inversePlacement} from './batch-scope-geometry.js?v=0.30.0';
-import {createBatchScopeMask} from './batch-scope-mask.js?v=0.30.0';
-import {nativeTiles,tileId} from './pdf-native-tile-plan.js?v=0.30.0';
-import {pdfRgbCanvas,pdfCompositionProtection} from './pdf-native-composition.js?v=0.30.0';
-import {createPdfScopeClient} from './pdf-native-scope-client.js?v=0.30.0';
+import {inversePlacement} from './batch-scope-geometry.js?v=0.31.0';
+import {createBatchScopeMask} from './batch-scope-mask.js?v=0.31.0';
+import {nativeTiles,tileId} from './pdf-native-tile-plan.js?v=0.31.0';
+import {pdfRgbCanvas,pdfCompositionProtection} from './pdf-native-composition.js?v=0.31.0';
+import {createPdfScopeClient} from './pdf-native-scope-client.js?v=0.31.0';
 
 export const transformPoint=(m,x,y)=>[m[0]*x+m[2]*y+m[4],m[1]*x+m[3]*y+m[5]];
 export const multiplyMatrix=(a,b)=>[a[0]*b[0]+a[2]*b[1],a[1]*b[0]+a[3]*b[1],a[0]*b[2]+a[2]*b[3],a[1]*b[2]+a[3]*b[3],a[0]*b[4]+a[2]*b[5]+a[4],a[1]*b[4]+a[3]*b[5]+a[5]];

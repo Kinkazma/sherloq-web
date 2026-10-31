@@ -1,6 +1,6 @@
 import {createOriginalSourceRegionsState,compileOriginalSourceRegions,validateOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {assertSourceRegionOperation,sourceRegionDomainShape} from './unified-engine/src/source-region-capabilities.js';
-import {assertBatchScientificScope} from './batch-catalog.js?v=0.30.0';
+import {assertBatchScientificScope} from './batch-catalog.js?v=0.31.0';
 const check=signal=>signal?.throwIfAborted();
 const bounds=polygon=>({x0:Math.min(...polygon.map(p=>p[0])),y0:Math.min(...polygon.map(p=>p[1])),x1:Math.max(...polygon.map(p=>p[0])),y1:Math.max(...polygon.map(p=>p[1]))});
 const polygon=region=>region.polygon??[[region.x0,region.y0],[region.x1,region.y0],[region.x1,region.y1],[region.x0,region.y1]];

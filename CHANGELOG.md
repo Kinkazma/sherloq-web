@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.31.0 — Image opening and Chromium PDF recovery · 2026-10-31
+
+- Show an early preview for compatible images and keep it visible when a tool is opened while the native source is prepared. Calculations and exports continue to use the validated native source and selected regions.
+- Reuse an available native source without waiting behind an independent queued calculation. Preserve source ownership, cancellation and cleanup.
+- Start automatic calculations exactly once when a tool moves into the background before its first native display, and retain the result when returning to the tool.
+- Include Chromium extension 0.5.9 sources, with PDF recovery through the source tab and the official PMC Article Datasets service when direct downloading fails. Keep the original PDF and existing permissions.
+- Add the equalization example’s article reference and an attributed repository copy of the original PDF.
+
+
 Implementation changes and their verification are recorded here. The [README](README.md) presents the available workflows and examples; [source identities](docs/SOURCE-IDENTITY.json) and [validation records](docs/VALIDATION.md) hold the detailed evidence.
 
 ## 0.30.0 — GPU execution, equalization and retained workflows · 2026-10-30

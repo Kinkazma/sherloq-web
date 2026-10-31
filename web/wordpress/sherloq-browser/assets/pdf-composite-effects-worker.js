@@ -4,7 +4,7 @@ import {segmentedAdjust} from './unified-engine/src/segmented-adjust.js';
 import {segmentedMagnifierLarge} from './unified-engine/src/segmented-magnifier-large.js';
 import {createTemporarySession} from './unified-engine/src/temporary-storage.js';
 import {disposePixelStoreCaches} from './unified-engine/src/pixel-store-cache.js';
-import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.30.0';
+import {validateLoupeEffects,adjustmentParameters,sweepPixels} from './loupe-effects-settings.js?v=0.31.0';
 const cancelled=()=>Object.assign(Error('PDF display effect replaced.'),{code:'CANCELLED'});
 const encode=e=>({name:e?.name,code:e?.code??'PDF_EFFECT_FAILED',message:e?.message??String(e),stack:e?.stack});
 export const usesPdfGlobalEffects=e=>e.enhance.enabled||e.adjust.enabled&&(e.adjust.sharpen>0||e.adjust.equalize>0||e.adjust.threshold===0);

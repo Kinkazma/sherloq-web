@@ -12,7 +12,7 @@
 #workspace-desk[data-layout=cascade]>.document-window{position:absolute;width:85%;height:83%;left:var(--window-x,0px);top:var(--window-y,0px);box-shadow:0 5px 18px #0005}#workspace-desk[data-layout=cascade]>.document-window>header{cursor:move}
 #welcome{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);text-align:center;gap:12px;padding:20px}#welcome strong{font-size:32px;letter-spacing:.12em;opacity:.65}#welcome p{margin:0}#welcome small{font-size:11px;margin-top:5px}#workspace-app.tools-hidden #toolbox{display:none!important}
 #background-status{font-size:10px;cursor:pointer;color:var(--accent)}#workspace-desk.file-drag{outline:3px dashed var(--accent);outline-offset:-4px}
-.document-window{position:relative;overflow:hidden}.window-resize{position:absolute;right:0;bottom:0;width:20px;height:20px;min-height:20px;padding:0;border:0;border-radius:3px 0 0 0;background:var(--raised);color:var(--muted);cursor:nwse-resize;touch-action:none;z-index:10;font-size:14px}
+.document-window{position:relative;overflow:hidden}.opening-image-preview{position:absolute;z-index:2;overflow:hidden;background:var(--canvas);pointer-events:none}.window-resize{position:absolute;right:0;bottom:0;width:20px;height:20px;min-height:20px;padding:0;border:0;border-radius:3px 0 0 0;background:var(--raised);color:var(--muted);cursor:nwse-resize;touch-action:none;z-index:10;font-size:14px}
 #workspace-desk[data-layout=tabs] .window-resize{display:none}
 #workspace-desk[data-layout=cascade]{overflow:auto}
 #workspace-desk[data-layout=cascade]>.document-window{width:var(--window-width,85%);height:var(--window-height,83%)}

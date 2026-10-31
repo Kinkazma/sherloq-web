@@ -1,9 +1,9 @@
-import {createFrequencyPreviewSizing,FREQUENCY_SIZING_BYTES,frequencyPreviewDiagnostics} from './frequency-preview-sizing.js?v=0.30.0';
-import {parameterRegionDerivedDomain,frameParameterRegionPixels} from './parameter-preview-source-regions.js?v=0.30.0';
+import {createFrequencyPreviewSizing,FREQUENCY_SIZING_BYTES,frequencyPreviewDiagnostics} from './frequency-preview-sizing.js?v=0.31.0';
+import {parameterRegionDerivedDomain,frameParameterRegionPixels} from './parameter-preview-source-regions.js?v=0.31.0';
 /** Bounded, explicitly provisional pixel calculations in a separate worker.
  * This module never receives a native source blob, model or native result ID.
  */
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.30.0';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.31.0';
 const MiB=1024**2,DEFAULT_SIDE=192,WORKER_BYTES=192*MiB;
 const OPERATIONS=new Set(['inspection.adjust','inspection.magnifier','detail.gradient','detail.echo','colors.space','colors.pca','detail.wavelets','detail.frequency','noise.separation','noise.planes','noise.minmax','pixels.defects','noise.blocking','colors.stats','tampering.contrast','various.illuminant','comparison.image','jpeg.ghosts','noise.noisesniffer']);
 export const supportsScopedParameterPreview=operation=>OPERATIONS.has(operation)&&!['comparison.image','jpeg.ghosts'].includes(operation);

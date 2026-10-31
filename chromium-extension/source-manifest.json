@@ -1,6 +1,6 @@
 {
   "schema": "sherloq.extension-source/1",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "files": {
     "LICENSE": {
       "bytes": 35141,
@@ -23,8 +23,8 @@
       "sha256": "c36834a0feff9211766ad91f26bd8a7801386a375c2645e0affabb608bf1427f"
     },
     "background.js": {
-      "bytes": 20168,
-      "sha256": "0320c593e3140d150f48f86db124f6bde67cf3a2399d4b2fac16df65a962f085"
+      "bytes": 20117,
+      "sha256": "727726504f332c8227757c98f025bb016a66634363299b5b11acdc89df3c238b"
     },
     "candidates.js": {
       "bytes": 3053,
@@ -132,7 +132,7 @@
     },
     "manifest.json": {
       "bytes": 3171,
-      "sha256": "13557844be60202e7f7a50340190a79544d71bf831bf17b10445e60e8d2c8b4a"
+      "sha256": "4402c321dcd1099c95c43a7ecd7bbbd886b642c0043e3cff69c0cd4b6fd9b0d5"
     },
     "native-effects-controls.js": {
       "bytes": 9835,
@@ -278,6 +278,10 @@
       "bytes": 1213,
       "sha256": "f465c3f01ddb300b0607bfbfd17ca11754237b4503597b8e8db05bc2bba925c1"
     },
+    "pdf-source.js": {
+      "bytes": 5048,
+      "sha256": "7ae0a7d978b7054fe6c587dea489a6cb4e7004333eade38f9401bf774b47d87e"
+    },
     "pdf-subimage-memory.js": {
       "bytes": 5037,
       "sha256": "b995c106f76fa473c0039cff7abf36f6d070e23d05cd19a6021f0ec75a30f96c"
@@ -285,6 +289,10 @@
     "pdf-subimages.js": {
       "bytes": 5113,
       "sha256": "0f1ee9399447cc98527591f4bd49d31f41505c5115f498a7f896d43e498970a2"
+    },
+    "pmc-pdf-source.js": {
+      "bytes": 2466,
+      "sha256": "073b55e98e5efdbb665bdefa2100e2740fd76c3535cf73da85768d1bcc98db46"
     },
     "preset-controls.js": {
       "bytes": 5116,
@@ -343,8 +351,8 @@
       "sha256": "2ab88be9ce23fb517efae8609eccb54310e42e50f92cb93412fc9b7e89085377"
     },
     "resources.js": {
-      "bytes": 3332,
-      "sha256": "5ea63dcb921cfc3bd8464dcda0ba9aa75933d42322d005bfdf2eecba85d0b551"
+      "bytes": 3333,
+      "sha256": "2bfe9c3949ba97fc13ee59d70fa78455453f7a22429f001cfd7ffa5dd7be205d"
     },
     "settings-sliders.js": {
       "bytes": 5650,

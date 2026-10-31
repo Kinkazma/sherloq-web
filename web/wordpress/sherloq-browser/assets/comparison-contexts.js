@@ -1,4 +1,4 @@
-import {bindSliderReset} from './slider-reset.js?v=0.30.0';
+import {bindSliderReset} from './slider-reset.js?v=0.31.0';
 /** Presentation only: all values below belong to the already calculated pair. */
 export function comparisonContextValues(data,index=null){
  if(!data?.pairedDomain||!Array.isArray(data.contexts))throw new TypeError('A paired native comparison is required.');
