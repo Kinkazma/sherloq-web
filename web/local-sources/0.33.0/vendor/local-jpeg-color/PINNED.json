@@ -1,0 +1,25 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "libjpeg": "3.0.3",
+  "librarySha256": "0248633cf951dea335b69972e420c6d2b623a5e8e386cd8cf2f50006d47130de",
+  "sourceSha256": "bf778997e62b7ee09a45ba23bdbf06f13fd432ed723df1f2c60636730f9d22fe",
+  "memory": "Caller-admitted imported64MiB maximum;8MiB native coefficient cache; progressive backing through existing temporary stores;\u22641MiB decoded bands;64KiB input; no full decoded WASM frame",
+  "files": {
+    "jpeg-color.js": {
+      "sha256": "873dd94231ff0a310d12a644d3ad26771d81ae21d1602cd193aa22d151ea9eaf",
+      "bytes": 21818
+    },
+    "jpeg-color.wasm": {
+      "sha256": "7252ca7c57c1b8cf6722649f4c024ee590cac718751844ade3cea73d808b1b81",
+      "bytes": 368845
+    },
+    "LICENSE.md": {
+      "sha256": "e548c96c0c09397c94b5c5531836c02ff2c403f1f2b130cad8e3ec9439b5a7cc",
+      "bytes": 5620
+    },
+    "README.ijg": {
+      "sha256": "5c1f9094835d21f66ee0e9ce81c57264d2dd50801b19832d6723dc8cdbda080e",
+      "bytes": 12739
+    }
+  }
+}
