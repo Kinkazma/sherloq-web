@@ -11,9 +11,9 @@ async function samples(stores,types,{budget,signal,onProgress}={}){
  }catch(error){release();throw error;}
 }
 async function scientificCall(compute,budget){const releases=[];try{return await compute(bytes=>{const free=budget.reserve(bytes);releases.push(free);return free;});}finally{for(const free of releases)free();}}
-export async function estimateSegmentedEnergy(base,log,{budget,signal,onProgress}={}){
- requireValue(Array.isArray(base.energy_planes)&&base.energy_planes.length===3&&Array.isArray(base.energy_summary)&&typeof log==='function','Segmented energy planes and summaries required.');const sampled=await samples([base.energy_scope,...base.energy_planes],[Int32Array,Float32Array,Float32Array,Float32Array],{budget,signal,onProgress});let combinedRelease;
- try{combinedRelease=budget.reserve(sampled.count*12);const combined=new Float32Array(sampled.count*3);for(let q=0;q<3;q++)combined.set(sampled.output[q+1],q*sampled.count);return await scientificCall(account=>estimateEnergy({energy_planes:combined,energy_scope:sampled.output[0],energy_summary:base.energy_summary},log,{signal,account}),budget);}finally{combinedRelease?.();sampled.release();}
+export async function estimateSegmentedEnergy(base,log,{budget,signal,onProgress,planeCount=base.energyPlaneCount??3}={}){
+ requireValue([1,3].includes(planeCount)&&Array.isArray(base.energy_planes)&&base.energy_planes.length===planeCount&&Array.isArray(base.energy_summary)&&typeof log==='function','Segmented energy planes and summaries required.');const sampled=await samples([base.energy_scope,...base.energy_planes],[Int32Array,...Array(planeCount).fill(Float32Array)],{budget,signal,onProgress});let combinedRelease;
+ try{combinedRelease=budget.reserve(sampled.count*planeCount*4);const combined=new Float32Array(sampled.count*planeCount);for(let q=0;q<planeCount;q++)combined.set(sampled.output[q+1],q*sampled.count);return await scientificCall(account=>estimateEnergy({energy_planes:combined,energy_scope:sampled.output[0],energy_summary:base.energy_summary,energyPlaneCount:planeCount},log,{signal,account,planeCount}),budget);}finally{combinedRelease?.();sampled.release();}
 }
 export async function segmentedEnergyDeviations(base,{budget,signal,onProgress}={}){
  const sampled=await samples([base.energy_low_score,base.energy_high_score],[Float32Array,Float32Array],{budget,signal,onProgress});try{return await scientificCall(account=>energyDeviations({energy_low_score:sampled.output[0],energy_high_score:sampled.output[1]},{signal,account}),budget);}finally{sampled.release();}

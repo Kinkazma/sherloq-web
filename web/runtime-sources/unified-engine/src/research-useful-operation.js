@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{neuralWindowBridgeAvailable}from'./neural-window-engine-link.js';
 import{sparseCopyParams,SPARSE_COPY_ALGORITHMS}from'./sparse-copy.js';
 import{denseCopyParams}from'./dense-adapter.js';

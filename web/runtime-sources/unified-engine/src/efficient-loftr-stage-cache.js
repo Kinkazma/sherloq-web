@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{EngineError,requireValue,normalizeResourceError,resourceAllocationKind}from'./errors.js';import{allocateTypedArray}from'./allocation.js';import{createZeroRetirement as createRetirement}from'./zero-native-context-plan.js';import{retireCompositeOwners}from'./composite-owner-release.js';
 // Private immutable cuts of one already-verified original model, for one run.
 // The cache finances the host bytes, Blob transport copy and metadata. A loan

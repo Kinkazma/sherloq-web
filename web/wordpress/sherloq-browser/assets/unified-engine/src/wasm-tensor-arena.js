@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError,requireValue,checkAbort,normalizeResourceError} from './errors.js';
 const PAGE=65536,MIN_BANK=16*1024**2,ALIGN=8;
 const ownedBuffers=new WeakSet();

@@ -1,0 +1,19 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "source": "6ed27d4a0a32fd5ef0c30475af883bb24ce954b84d53e3a03a9d384451c0fdbf",
+  "libraries": {
+    "tif_read.o": "dba8775a2bad0994d393e6ebb65538714767bd7ace0236c3a46bd96bca40e9f6",
+    "liblibtiff.a": "7880ffcc945ae99d1276018c3f5fe4b18c85d527c138ec9ed63c87a1a28dfe70",
+    "liblibjpeg-turbo.a": "7d43e66b6ea513c63ef798172bcc16432f60bde767245316fba6cb0080c9f0ea",
+    "libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+  },
+  "files": {
+    "tiff16-stream.wasm": "250da8457fbcfe26e05a73aae9bda64a7b3988c4a970bc153ab906e2cd53f946",
+    "LICENSE": "fbd6fed7938541d2c809c0826225fc85e551fdbfa8732b10f0c87e0847acafd7",
+    "ZLIB-README.txt": "d106dcdb2a0b3087cb3a2380b9f00a0bbadc7eb835cd80408f94a2d78d69727d",
+    "tiff16-stream.js": "38a93df78c7537052fa048f23d396baf1257d950e7fbbb8e7e1f25d4680ecf11",
+    "JPEG-README.ijg": "5c1f9094835d21f66ee0e9ce81c57264d2dd50801b19832d6723dc8cdbda080e",
+    "JPEG-LICENSE.md": "e548c96c0c09397c94b5c5531836c02ff2c403f1f2b130cad8e3ec9439b5a7cc"
+  },
+  "scope": "Additive native unsigned RGB16 decoder; historical RGB8 codec unchanged."
+}

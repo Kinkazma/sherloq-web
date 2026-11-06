@@ -2,6 +2,9 @@ import type {AutomaticFilters,AutomaticState} from './automatic-analyzer.js';
 import type {CloneEntry} from './clone-relations.js';
 import type {AutomaticViewState} from './automatic-analysis-view.js';
 export interface Pixels { width:number; height:number; format:'rgb8'; data:Uint8Array; }
+export interface NativeRgb16Pixels {width:number;height:number;format:'rgb16';bitDepth:16;data:Uint16Array;}
+export interface NativeRgb16Surface extends Omit<Surface,'format'> {format:'rgb16';bitDepth:16;channelOrder:'RGB';storage:string;semantics:string;}
+export interface SherloqParams {revelation:number;micro:number;precision:'reference'|'1e-7'|'1e-4'|'1e-2';}
 export interface Surface {id:string;revision:number;width:number;height:number;format:'rgb8';coordinates:'full-resolution';}
 export interface NumericSurface extends Omit<Surface,'format'|'coordinates'> {coordinates:'full-resolution'|'native-analysis-grid';format:'float32'|'float64'|'int32';semantics:string;storage:string;}
 export interface NumericPlane {width:number;height:number;format:'float32'|'float64'|'int32';data:Float32Array|Float64Array|Int32Array;}
@@ -28,6 +31,7 @@ export interface ExtensionTask {id:string;imageId:string;methods?:ExtensionMetho
 export interface ExtensionFailure {id:string;imageId:string;operation:keyof OperationParams;status:'error';error:{code:string;message:string;details?:Record<string,unknown>};}
 export interface ExtensionBatch {id:string;imageId:string;operation:'analysis.extensions';status:'ok'|'partial';results:(Result|ExtensionFailure)[];metrics:Record<string,unknown>;}
 export interface OperationParams {
+ 'inspection.sherloq7c':SherloqParams;
  'various.ocr':{algorithm:'ppocr-medium'|'tesseract';language:'eng'|'fra'|'eng+fra';psm:3|4|6|7|8|10|11|13;threshold:number;view:'overlay'|'text';orientationCorrection:boolean;bitmapThreshold:number;boxThreshold:number;unclipRatio:number};
  'ai.generation.bfree':Record<string,never>;
  'ai.generation.spai':Record<string,never>;
@@ -88,8 +92,8 @@ export interface OperationParams {
 export interface OriginalBytePatch {offset:number;deleteCount:number;bytes:Uint8Array;}
 export interface DerivedOriginal {blob:Blob;sizeBytes:number;originalSizeBytes:number;edits:{offset:number;deleteCount:number;insertedBytes:number;outputOffset:number}[];provenance:Record<string,unknown>;metrics:Record<string,unknown>;}
 export interface DerivedOriginalArchive extends Omit<DerivedOriginal,'blob'> {archive:{id:string;revision:number;mime:'application/octet-stream';format:'bin';byteLength:number;sha256:string;imageId:string;provenance:Record<string,unknown>;metrics:Record<string,unknown>};}
-export interface RasterExportRequest {surfaceId:string;revision:number;format?:'png'|'webp'|'avif'|'heic'|'tiff';compression?:number;quality?:number;chroma?:'420'|'422'|'444';lossless?:boolean;adaptive?:boolean;maximumMegapixels?:number;resize?:{width?:number;height?:number;algorithm?:'auto'|'lanczos3'|'area'|'nearest'};render?:{range?:[number,number];palette?:number[][];red?:boolean;overlaySurfaceId?:string;opacity?:number};maxBytes?:number;storage?:'auto'|'temporary';}
-export interface RasterExport {id:string;revision:number;mime:'image/png'|'image/webp'|'image/avif'|'image/heic'|'image/tiff';format:'png'|'webp'|'avif'|'heic'|'tiff';width:number;height:number;byteLength:number;sha256:string;imageId:string;sourceSurfaceId:string;sourceSurfaceRevision:number;sourceFormat:'rgb8'|'mask8'|'rgb-flags8';provenance:Record<string,unknown>;metrics:Record<string,unknown>;}
+export interface RasterExportRequest {surfaceId:string;revision:number;format?:'png'|'webp'|'avif'|'heic'|'tiff';bitDepth?:8|16;compression?:number;quality?:number;chroma?:'420'|'422'|'444';lossless?:boolean;adaptive?:boolean;maximumMegapixels?:number;resize?:{width?:number;height?:number;algorithm?:'auto'|'lanczos3'|'area'|'nearest'};render?:{range?:[number,number];palette?:number[][];red?:boolean;overlaySurfaceId?:string;opacity?:number};maxBytes?:number;storage?:'auto'|'temporary';}
+export interface RasterExport {id:string;revision:number;mime:'image/png'|'image/webp'|'image/avif'|'image/heic'|'image/tiff';format:'png'|'webp'|'avif'|'heic'|'tiff';width:number;height:number;byteLength:number;sha256:string;imageId:string;sourceSurfaceId:string;sourceSurfaceRevision:number;sourceFormat:'rgb8'|'mask8'|'rgb-flags8'|'rgb16';bitDepth?:8|16;provenance:Record<string,unknown>;metrics:Record<string,unknown>;}
 export interface ScientificExportRequest {surfaceId:string;revision:number;format:'npz';storage?:'auto'|'memory'|'temporary';maxBytes?:number;temporarySessionId?:string;}
 export interface ScientificExport extends Omit<RasterExport,'mime'|'format'|'sourceFormat'> {mime:'application/zip';format:'npz';}
 export interface PrnuDatabaseExport {id:string;revision:number;mime:'application/x-hdf5';format:'hdf5';byteLength:number;sha256:string;imageId:string;provenance:Record<string,unknown>;metrics:Record<string,unknown>;}
@@ -106,10 +110,10 @@ export interface SegmentationAsset {url:string;bytes:number;sha256:string;}
 export interface SegmentationModelInput extends SegmentationAsset {variant:SegmentationVariant;gpu?:SegmentationAsset;}
 export const SEGMENTATION_MODEL_IDENTITIES:Readonly<Record<SegmentationVariant,Readonly<{id:string;variant:string;side:number;kind:'sigmoid'|'softmax';bytes:number;sha256:string;checkpointSha256:string;status:string;cpuContinuousBitExact:false;family?:'cmseg'|'tnt'|'vig'|'selfdm';backbone?:Readonly<{file:string;bytes:number;sha256:string}>;tail?:Readonly<{file:string;bytes:number;sha256:string}>;assetBytes?:number;gpu?:Readonly<{id:string;bytes:number;sha256:string;status:string;sharedAssets?:true;correlationGpuOnly?:true;residentCorrelation?:true;minimumResidentBytes?:number}>}>>>;
 export const D2PRL_MODEL_IDENTITY:Readonly<{bytes:number;sha256:string;modelId:string;checkpointSha256:string;assets:number;assetBytes:number}>;
-export type Task = { [K in keyof OperationParams]:{id:string;imageId:string;operation:K;params?:Partial<OperationParams[K]>;view?:K extends 'tampering.copyMove.sparse'?SparseView:{mode?:'overlay'|'map'|'mask'|'confidence'};backend?:'cpu'|'auto'|(K extends 'detail.frequency'|'ai.clones.d2prl'|'ai.clones.segmentation'|'ai.generation.bfree'|'ai.generation.spai'|'ai.text.doctamper'|'jpeg.comprint'|'tampering.copyMove.brisk'|'tampering.copyMove.orb'|'tampering.copyMove.akaze'|'tampering.copyMove.sparse'|'ai.sources.safire'|'ai.localization.focal'|'ai.localization.adaifl'?'webgpu':never);regions?:K extends 'ai.clones.d2prl'|'ai.clones.segmentation'?D2prlRegion[]:never[]} }[keyof OperationParams];
+export type Task = { [K in keyof OperationParams]:{id:string;imageId:string;operation:K;params?:Partial<OperationParams[K]>;view?:K extends 'tampering.copyMove.sparse'?SparseView:{mode?:'overlay'|'map'|'mask'|'confidence'};backend?:'cpu'|'auto'|(K extends 'inspection.sherloq7c'|'detail.frequency'|'ai.clones.d2prl'|'ai.clones.segmentation'|'ai.generation.bfree'|'ai.generation.spai'|'ai.text.doctamper'|'jpeg.comprint'|'tampering.copyMove.brisk'|'tampering.copyMove.orb'|'tampering.copyMove.akaze'|'tampering.copyMove.sparse'|'ai.sources.safire'|'ai.localization.focal'|'ai.localization.adaifl'?'webgpu':never);regions?:K extends 'ai.clones.d2prl'|'ai.clones.segmentation'?D2prlRegion[]:never[]} }[keyof OperationParams];
 export interface Mask {width:number;height:number;format:'mask8';data:Uint8Array;range:number[];semantics:string;}
 export interface Flags extends Omit<Mask,'format'> {format:'rgb-flags8';channelOrder:'RGB';}
-export interface Result { id:string; imageId:string; operation:keyof OperationParams; status:'ok'|'no-regions'|'partial';analysisId?:string;selection?:AutomaticSelection; layout?:'surface'|'table';surface?:Surface|NumericSurface;planeSurfaces?:Record<string,NumericSurface>;rgbSurfaces?:Record<string,Surface>;maskSurfaces?:Record<string,MaskSurface>;flagSurfaces?:Record<string,FlagSurface>;tables?:Record<string,Table>;pixels?:Pixels; masks?:Record<string,Mask>; data?:Record<string,unknown>; layers:unknown[]; provenance:Record<string,unknown>; metrics:Record<string,unknown>; }
+export interface Result { id:string; imageId:string; operation:keyof OperationParams; status:'ok'|'no-regions'|'partial';analysisId?:string;selection?:AutomaticSelection; layout?:'surface'|'table';surface?:Surface|NumericSurface;planeSurfaces?:Record<string,NumericSurface|NativeRgb16Surface>;rgbSurfaces?:Record<string,Surface>;maskSurfaces?:Record<string,MaskSurface>;flagSurfaces?:Record<string,FlagSurface>;tables?:Record<string,Table>;pixels?:Pixels; masks?:Record<string,Mask>; data?:Record<string,unknown>; layers:unknown[]; provenance:Record<string,unknown>; metrics:Record<string,unknown>; }
 export class EngineError extends Error { code:string; }
 export const DEFAULT_ELA_PARAMS:Readonly<ElaParams>;
 export const DEFAULT_ENERGY_PROFILE:Readonly<{id:'standard';name:'Conservateur';percentiles:readonly number[];deviations:readonly number[];adaptive:false;available:true}>;
@@ -120,6 +124,7 @@ export function createEngine(options?:{memoryBudgetBytes?:number;cpuKernel?:'aut
  readPlane(request:PixelWindow,hooks?:Hooks):Promise<{surfaceId:string;revision:number;origin:[number,number];plane:ScientificPlane;imageId:string;metrics:Record<string,unknown>}>;
  readDisplay(request:{surfaceId:string;revision:number;tile:{x:number;y:number;w:number;h:number;step:number};render?:{range?:[number,number];palette?:number[][];red?:boolean;overlaySurfaceId?:string;opacity?:number}},hooks?:Hooks):Promise<{pixels:Pixels;metrics:Record<string,unknown>}>;
  readPixels(request:PixelWindow,hooks?:Hooks):Promise<{surfaceId:string;revision:number;origin:[number,number];pixels:Pixels;imageId:string;metrics:Record<string,unknown>}>;
+ readNativePixels(request:PixelWindow,hooks?:Hooks):Promise<{surfaceId:string;revision:number;origin:[number,number];pixels:NativeRgb16Pixels;imageId:string;metrics:Record<string,unknown>}>;
  readMask(request:PixelWindow,hooks?:Hooks):Promise<{surfaceId:string;revision:number;origin:[number,number];mask:Mask;imageId:string;metrics:Record<string,unknown>}>;
  readFlags(request:PixelWindow,hooks?:Hooks):Promise<{surfaceId:string;revision:number;origin:[number,number];flags:Flags;imageId:string;metrics:Record<string,unknown>}>;
  readTable(request:TableWindow,hooks?:Hooks):Promise<TablePage>;
@@ -248,13 +253,22 @@ export function createForgeryscopeAnalyzer(config:{assets:Record<string,NeuralAs
  exportNpz(result:ForgeryscopeResult):{mime:string;bytes:Uint8Array;release():void};clearCache():void;dispose():void;memory():Record<string,number>;
 };
 
-export interface M2WorkerResult {id:number;method:'forgeryscope'|'trufor'|'composite'|'catnet'|'cfa';width:number;height:number;fields:Record<string,{type:string;length:number;byteLength:number;storage?:string}>;metadataBytes:number;memory:Record<string,number>;}
+export interface SplicebusterParameters {seed?:number;replicates?:number;maxIter?:number;outliersNlogl?:number;flagDropSaturated?:0|1|2;saturationProb?:number;stride?:4|8;ksize?:64|128;}
+export interface SplicebusterResult {data:{width:number;height:number;segmented:true;map:Float64Array|SegmentedNumericField<Float64Array>;valid:Uint8Array|SegmentedNumericField<Uint8Array>;mapShape:[number,number];range0:Float64Array;range1:Float64Array;mu?:Float64Array;Sigma?:Float64Array;L?:Float64Array;outliersProb?:number;metadata:Record<string,unknown>};provenance:Record<string,unknown>;metrics:Record<string,unknown>;pin():()=>Promise<void>;release():Promise<void>;}
+export interface SplicebusterNpzStream {mime:string;length:number;read(offset:number,count:number):Promise<Uint8Array>;readInto(target:Uint8Array,offset:number):Promise<Uint8Array>;release():Promise<void>;}
+export function createSplicebusterAnalyzer(config?:{budget?:unknown;computeProfile?:'aggressive'|'maximum';resourceHints?:Record<string,number>;maxWorkers?:number;sourceAccounted?:boolean;chunkRows?:number;storage?:'auto'|'memory'|'temporary';forceStreaming?:boolean}):{
+ analyze(image:Pixels|M2SegmentedImage,params?:SplicebusterParameters,options?:Omit<NeuralOptions,'backend'>&{backend?:'auto'|'cpu'|'gpu'|'webgpu'}):Promise<SplicebusterResult>;
+ render(result:SplicebusterResult,view?:'map'|'valid',options?:{signal?:AbortSignal;opacity?:number;palette?:'heat'|'gray'}):Promise<Pixels&{origin:[number,number];release():void}>;
+ renderWindow(image:M2SegmentedImage,result:SplicebusterResult,view:'map'|'valid',rect:{x:number;y:number;width:number;height:number},options?:{signal?:AbortSignal;opacity?:number;palette?:'heat'|'gray'}):Promise<Pixels&{origin:[number,number];release():void}>;
+ exportNpz(result:SplicebusterResult,options?:NeuralOptions):Promise<SplicebusterNpzStream>;clearCache():Promise<void>;dispose():Promise<void>;memory():Record<string,unknown>;
+};
+export interface M2WorkerResult {id:number;method:'forgeryscope'|'trufor'|'composite'|'catnet'|'cfa'|'splicebuster';width:number;height:number;fields:Record<string,{type:string;length:number;byteLength:number;storage?:string}>;metadataBytes:number;memory:Record<string,number>;}
 export interface M2WorkerExport {id:number;bytes:number;mime?:string;type?:'rgb8';width?:number;height?:number;origin?:[number,number];}
 /** Method configs use preparationFactoryUrl/siftFactoryUrl/jpegFactoryUrl instead of functions. */
 export function createM2WorkerClient(config:{methods:Partial<Record<M2WorkerResult['method'],Record<string,unknown>>>;memoryBudgetBytes?:number;computeProfile?:'aggressive'|'maximum';resourceHints?:Record<string,number>}):Promise<{
  ready:{profile:Record<string,unknown>;memory:Record<string,number>;windowBytes:number};
  analyze(method:M2WorkerResult['method'],image:Pixels,params?:Record<string,unknown>,options?:NeuralOptions & {transferSource?:boolean}):Promise<M2WorkerResult>;
- analyzeBlob(method:'cfa'|'trufor'|'catnet'|'composite'|'forgeryscope',blob:Blob,params?:Record<string,unknown>,options?:NeuralOptions):Promise<M2WorkerResult>;
+ analyzeBlob(method:'cfa'|'trufor'|'catnet'|'composite'|'forgeryscope'|'splicebuster',blob:Blob,params?:Record<string,unknown>,options?:NeuralOptions):Promise<M2WorkerResult>;
  readDisplay(resultId:number,view:string|number,tile:{x:number;y:number;w:number;h:number;step:number},options?:Record<string,unknown>):Promise<{pixels:Pixels;metrics:Record<string,unknown>}>;
  renderWindow(resultId:number,view:string|number,rect:{x:number;y:number;width:number;height:number},options?:Record<string,unknown>):Promise<M2WorkerExport>;
  readArray(resultId:number,field:string,offset:number,count:number):Promise<ArrayBufferView>;

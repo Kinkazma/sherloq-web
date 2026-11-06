@@ -51,9 +51,9 @@ export function readTiffAccessor(reader,base=0,end=reader.byteLength,{allowBigTi
  return result;
 }
 const zigzag=[0,1,8,16,9,2,3,10,17,24,32,25,18,11,4,5,12,19,26,33,40,48,41,34,27,20,13,6,7,14,21,28,35,42,49,56,57,50,43,36,29,22,15,23,30,37,44,51,58,59,52,45,38,31,39,46,53,60,61,54,47,55,62,63];
-export function jpegHeader(bytes){
+export function jpegHeader(bytes,{allowCmyk=false}={}){
  requireValue(bytes instanceof Uint8Array&&bytes.length>=4,'JPEG bytes required.');if(bytes[0]!==255||bytes[1]!==216)throw new EngineError('UNSUPPORTED_FORMAT','JPEG signature required.');
- let offset=2,frame,exif;const markers=[],quantization={},components=[],sampling=[];let icc=false,xmp=false;
+ let offset=2,frame,exif;const markers=[],quantization={},components=[],sampling=[];let icc=false,xmp=false,adobeColorTransform,adobeColorConflict=false;
  while(offset<bytes.length){
   const start=offset;requireValue(bytes[offset++]===255,'Malformed JPEG marker.');while(bytes[offset]===255)offset++;const marker=bytes[offset++];
   if(marker===0xda||marker===0xd9){markers.push({marker,offset:start});break;}if(marker===1||marker>=0xd0&&marker<=0xd7)continue;
@@ -61,21 +61,26 @@ export function jpegHeader(bytes){
   if(marker===0xe1&&text(bytes,data,Math.min(end,data+6))==='Exif\0\0'){requireValue(!exif,'Multiple EXIF segments are ambiguous.');exif=readTiff(bytes,data+6,end);}
   if(marker===0xe1&&text(bytes,data,Math.min(end,data+29))==='http://ns.adobe.com/xap/1.0/\0')xmp=true;
   if(marker===0xe2&&text(bytes,data,Math.min(end,data+12))==='ICC_PROFILE\0')icc=true;
+  if(marker===0xee&&end-data>=12&&text(bytes,data,data+5)==='Adobe'){const transform=bytes[data+11];if(adobeColorTransform!==undefined&&adobeColorTransform!==transform)adobeColorConflict=true;adobeColorTransform??=transform;}
   if(marker===0xdb){let q=data;while(q<end){const descriptor=bytes[q++],precision=descriptor>>4,id=descriptor&15;requireValue(precision<=1,'Invalid quantization precision.');checkRange(q,64*(precision+1),end);const table=new Array(64);for(let j=0;j<64;j++){table[zigzag[j]]=precision?bytes[q++]*256+bytes[q++]:bytes[q++];}quantization[id]=table;}}
   if(marker>=0xc0&&marker<=0xcf&&![0xc4,0xc8,0xcc].includes(marker)){
    requireValue(!frame&&length>=8,'Invalid JPEG frame.');const channels=bytes[offset+7];requireValue(length>=8+channels*3,'Truncated JPEG components.');
-   if(![0xc0,0xc2].includes(marker)||bytes[offset+2]!==8||![1,3].includes(channels))throw new EngineError('UNSUPPORTED_FORMAT','Only 8-bit grayscale or YCbCr baseline/progressive JPEG is verified.');
+   if(![0xc0,0xc2].includes(marker)||bytes[offset+2]!==8||!([1,3].includes(channels)||allowCmyk===true&&channels===4))throw new EngineError('UNSUPPORTED_FORMAT','Only 8-bit grayscale or YCbCr baseline/progressive JPEG is verified.');
    frame={height:bytes[offset+3]*256+bytes[offset+4],width:bytes[offset+5]*256+bytes[offset+6],channels,progressive:marker===0xc2};
    for(let j=0;j<channels;j++){components.push(bytes[offset+10+j*3]);const value=bytes[offset+9+j*3];sampling.push({h:value>>4,v:value&15});}
   }
   offset=end;
  }
  requireValue(frame&&frame.width>0&&frame.height>0,'Missing JPEG dimensions.');
+ if(frame.channels===4&&adobeColorConflict)throw new EngineError('UNSUPPORTED_FORMAT','Conflicting Adobe JPEG color transforms.');
+ if(frame.channels===4&&adobeColorTransform!==undefined&&![0,2].includes(adobeColorTransform))throw new EngineError('UNSUPPORTED_FORMAT','Four-component JPEG requires CMYK or Adobe YCCK color interpretation.');
  const orientation=exif?.orientation??1,sourceWidth=frame.width,sourceHeight=frame.height;
  if(orientation>=5)[frame.width,frame.height]=[frame.height,frame.width];
  const chroma=sampling.length===3&&sampling.slice(1).every(s=>s.h===1&&s.v===1)?({'1x1':'444','2x1':'422','2x2':'420'}[sampling[0].h+'x'+sampling[0].v]??null):null;
- return {...frame,sourceWidth,sourceHeight,orientation,icc,xmp,exif,markers,quantization,components,sampling,chroma};
+ return {...frame,sourceWidth,sourceHeight,orientation,icc,xmp,exif,markers,quantization,components,sampling,chroma,...(frame.channels===4?{depth:8,sourceColorSpace:adobeColorTransform===2?'YCCK':'CMYK',adobeColorTransform:adobeColorTransform??null,nativeJpegVerified:false}: {})};
 }
+// Import routing only. Scientific JPEG readers retain the strict default.
+export function jpegNeedsManagedColor(bytes){return bytes?.[0]===255&&bytes[1]===216&&jpegHeader(bytes,{allowCmyk:true}).channels===4;}
 export async function orientRgb(pixels,orientation,{signal}={}){
  if(orientation===1)return pixels;const {checkpoint}=await import('./errors.js');
  const sw=pixels.width,sh=pixels.height,w=orientation>=5?sh:sw,h=orientation>=5?sw:sh,out=new Uint8Array(pixels.data.length);

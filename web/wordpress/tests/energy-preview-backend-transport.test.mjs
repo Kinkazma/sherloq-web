@@ -1,0 +1,11 @@
+// Actual worker branch, controlled helper result. No GPU or image calculation.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import vm from 'node:vm';
+const source=readFileSync(process.env.SHERLOQ_ENERGY_PROVIDER_WORKER_SOURCE??new URL('../sherloq-browser/assets/engine-worker.js',import.meta.url),'utf8'),start=source.indexOf("  }else if(action==='preview-energy-parameters'){"),end=source.indexOf("  }else if(action==='prepare-visible-preview'){",start);
+assert(start>=0&&end>start);const branch=source.slice(start,end).replace(/^  }else if\(action==='preview-energy-parameters'\)\{/,'');
+function endpoint(backend){const calls=[],energy={id:'native',imageId:'original'},context=vm.createContext({lastEnergy:energy,payload:{resultId:'native',params:{shadow:30},presentation:{view:'labels'},preview:{maxWidth:80,maxHeight:80},...(backend===undefined?{}:{backend})},previewSourceDomain:async()=>null,previewBounds(){},energyContextOptions:()=>({sourceFragment:'selected'}),energyParameterPreview:()=>({async render(input,options){calls.push({input,options});return{pixels:{width:1,height:1,data:new Uint8Array(3)},presentation:{},draft:{}};}}),previewWorkingBytes:()=>4096,ADAPTIVE_PREVIEW_MAX_PIXELS:4096,consumerBudget:4096,lastPixels:null,controller:new AbortController(),immutablePreviewPixels:x=>x,resultDisplay:()=>({id:'draft'}),EngineError:Error,Math,Uint8Array});return{calls,run:()=>new vm.Script('(async()=>{let result,parameterDraft=false,parameterDraftKind=null;'+branch+';return result;})()').runInContext(context)};}
+for(const backend of['cpu','auto','webgpu',undefined])test('preview worker forwards '+(backend??'default auto')+' without serializing a provider',async()=>{
+ const h=endpoint(backend),result=await h.run();assert.equal(h.calls.length,1);const call=h.calls[0];assert.equal(call.options.backend,backend??'auto');assert.equal(call.options.sourceFragment,'selected');assert.equal(call.options.preview.maxWorkingBytes,4096);assert.deepEqual(Object.keys(result).sort(),['display','draft','pixels','presentation']);assert(!Object.hasOwn(call.options,'scoreGpu'),'Provider lookup happens directly inside the helper after its own admission');
+});

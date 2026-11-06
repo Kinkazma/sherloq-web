@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Independent digital reproductions; conventions and original references are
 // recorded in docs/equalization.md. These functions operate on counts, not pixels.
 import {equalizeHistogramLut} from './pixel-utils.js';

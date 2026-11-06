@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "wasmSha256": "bb42219c86163773710495d3d1070f198463aecbe9cb3eae06a3ee398424f1b8",
+  "factorySha256": "08ea63fb42234cd9363b85ac9418d6a69988c1fa5fcf415cc695c44cbf93fcf8",
+  "loaderSha256": "aec9a17a4074cf9b1dc5de56c9ada9ef7b309bc9d540492a9bd7fd3399988c24",
+  "disassemblySha256": "f76f408db8e52cc991cde75e1522866ad76b35a247451337349380f4908e9d2a",
+  "directMemoryGrowInstructions": 0,
+  "importedMemories": 1,
+  "loaderGrowthCalls": 1,
+  "growthPath": "imported WebAssembly.Memory instance grow(pages)",
+  "compiler": "Emscripten 4.0.15"
+}

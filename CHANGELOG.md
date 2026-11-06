@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.32.0 — Recompression, SHERLOQ equalization and AI detectors · 2026-11-06
+
+- Add experimental recompression choices to the analyses that use encoded residuals: JPEG, WebP, AVIF, HEIC/HEVC, quantized-palette PNG, JPEG2000, JPEG XL and GIF. Preserve the historical JPEG path and original encoded input for format-dependent methods.
+- Share native input preparation and codec plans, batch independent quality probes and retain bounded CPU/GPU execution and recovery.
+- Add ELA Synthesis from independent recompressions of the same original, with native histogram preparation, exact median combination and reuse by Energy and Biomes.
+- Reuse retained Biome fields and complete exact previews, coalesce superseded gestures and keep the last accepted frame visible while its successor is prepared.
+- Improve native TIFF/RAW imports, early compatible-image presentation, worker warmup and storage-aware memory admission without silently resizing scientific inputs.
+- Add the frozen SHERLOQ equalization engine to Inspection, shared experimental equalization and batch processing. Keep standalone batch analysis on the whole original while retaining other methods' selections and exclusions.
+- Preserve continuous sliders and decimal entry, use integer arrow nudges for SHERLOQ revelation and microcontrast, and default new SHERLOQ settings to 100% for both controls. Align region outlines and clicks with reduced outputs and contain menus within the viewport.
+- Integrate optimized Splicebuster with native maps, validity fields and streaming scientific export.
+- Add the independent experimental DDA, GAPL, PRL and Community Forensics 384 detectors alongside B-Free and SPAI. Retain native scores and preprocessing, lazy resource loading, shared budgets and method-specific warnings.
+- Retain TruFor channel 333 during full inference and expose its diagnostic response as a cached view and numeric field. Use the grouped decoder graph without changing the original anomaly, confidence or image-level classifier.
+- Correct admitted GPU routes for signal separation and rectangular Sobel gradients while preserving the reference CPU restrictions where required.
+- Add the compact per-model evaluation tables, complete six-detector study and chronological method/backbone credits. Keep presentation examples and full study access separate from the change history.
+
 ## 0.31.0 — Image opening and Chromium PDF recovery · 2026-10-31
 
 - Show an early preview for compatible images and keep it visible when a tool is opened while the native source is prepared. Calculations and exports continue to use the validated native source and selected regions.

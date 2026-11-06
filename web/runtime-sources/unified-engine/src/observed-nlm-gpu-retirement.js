@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 const failures=new WeakSet(),debts=new WeakMap();
 export const markObservedNlmGpuFailure=error=>{if(error&&typeof error==='object')failures.add(error);return error;};
 export const mayFallbackObservedNlmGpu=error=>!!error&&typeof error==='object'&&failures.has(error);

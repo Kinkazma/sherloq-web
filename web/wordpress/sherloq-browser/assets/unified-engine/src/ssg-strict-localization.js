@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createSsgLocalizationModule} from './ssg-localization-module.js';
 import {allocateOwnedTypedArray,allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import {getExecutionScheduler} from './execution-scheduler.js';

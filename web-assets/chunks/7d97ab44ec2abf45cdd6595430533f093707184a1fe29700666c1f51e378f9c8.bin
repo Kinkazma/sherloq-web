@@ -1,0 +1,15 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "source": "a73b814cf47f2545d8d4289f24829e679881d9bd3ef32a35e8431b55d0eb2f59",
+  "libraries": {
+    "liblibpng.a": "8150b8c8c5793180ac54e292c1f86c212e9c184dfa330814fef4cee769c6c265",
+    "libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+  },
+  "files": {
+    "LICENSE": "7317e078e2d3b5d7ba5a6159e650945153262b44b76f6700f8e9edb261c5143e",
+    "ZLIB-README.txt": "d106dcdb2a0b3087cb3a2380b9f00a0bbadc7eb835cd80408f94a2d78d69727d",
+    "png16-stream.wasm": "2ae2c7ceea79fcae8acd9e1a093bcbe64e6bebc448bb4c295f8e95af95be76c0",
+    "png16-stream.js": "77c14984b94d866a4231ad8bea6873c4c7135f0ca994b1b4a426ec4488983c75"
+  },
+  "scope": "Additive native unsigned RGB16 decoder; historical RGB8 codec unchanged."
+}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {checkAbort,requireValue} from './errors.js';
 /** Existing strict producers use either a signed hex fingerprint or a
  * canonical compound key. Hash the latter as transport identity only; never

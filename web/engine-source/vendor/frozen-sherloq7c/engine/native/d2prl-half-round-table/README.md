@@ -1,0 +1,3 @@
+The C++ files are the exact qualified half-round-table-v1 sources. `build.py` provides the portable production build command; generated output must match the binary identities in `vendor/d2prl/PINNED.json` before staging. Rebuilding alone does not establish scientific parity for a changed source or toolchain.
+
+The historical full qualification gate in `scripts/stage-d2prl-runtime.py` additionally requires its recorded local evidence corpus. Public delivery uses the frozen runtime catalogue and source/executable locks through `web/wordpress/prepare-distribution.py`; the image reports are not required to run or download that delivery. CPU/GPU counts in the pinned qualification describe the test recipe, not application worker limits.

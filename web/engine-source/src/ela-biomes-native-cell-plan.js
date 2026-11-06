@@ -7,7 +7,7 @@ export const ELA_BIOMES_CELL_PLAN_VERSION='admitted-common-native-biome-cells/1'
 // Geometry only. Context RGB is always completely admitted. Cells keep one
 // common grid and one global statistical population; atlas adjacency is never
 // substituted for their original spatial neighbourhood.
-export async function planElaBiomesNativeCells(view,block,{budget,signal}={}){
+export async function planElaBiomesNativeCells(view,block,{budget,signal,alternate=false}={}){
  const {width,height}=view.domain,cols=Math.floor(width/block),rows=Math.floor(height/block),n=rows*cols;
  requireValue(Number.isInteger(block)&&block>=16&&block<=65500&&block%8===0&&n>=25&&n<=16384,'Complete bounded Native Biomes grid required.');
  const fee=budget.reserve(4096+n*128),cooperate=createCooperator(signal);let nativePlan,complete=false;
@@ -21,7 +21,7 @@ export async function planElaBiomesNativeCells(view,block,{budget,signal}={}){
    // A canonical geometric cover can leave a complete larger cell crossing
    // candidate boundaries. Preserve that actually admitted cell explicitly.
    if(!context){context={...rect,cells:[]};candidates.push(context);}
-   if(context.width>65500||context.height>65500)continue;
+   if(!alternate&&(context.width>65500||context.height>65500))continue;
    const gridX=Math.ceil(context.x/block)*block-context.x,gridY=Math.ceil(context.y/block)*block-context.y,localCols=Math.floor((context.width-gridX)/block),localX=(rect.x-context.x-gridX)/block,localY=(rect.y-context.y-gridY)/block;
    requireValue(Number.isInteger(localX)&&Number.isInteger(localY)&&localX>=0&&localY>=0&&localX<localCols,'Native context cell lost its common grid.');
    const index=y*cols+x;context.cells.push({index,local:localY*localCols+localX});admitted[index]=1;analysed++;

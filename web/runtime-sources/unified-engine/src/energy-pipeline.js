@@ -1,12 +1,16 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {validateRecompressionOptions,usesAlternateRecompression} from './recompression-plan.js';
+import {resolveSelectedPlan} from './recompression-probe.js';
 // Full energy-only scientific path under qualification. Legacy peer biomes are separate.
 import{parameters}from'./pixel-utils.js';import{requireValue,checkAbort}from'./errors.js';import{jpegHeader}from'./image-headers.js';import{tableEstimate}from'./jpeg-quality.js';
 import{energyLogData}from'./energy-log-data.js';import{referenceLogFunction}from'./energy-log-reference.js';
 import{describeEnergy}from'./energy-primitives.js';import{prepareEnergy}from'./energy-prepare.js';import{segmentEnergy,energyColor}from'./energy-segment.js';import{estimateEnergy,energyDeviations,energyProfile}from'./energy-auto.js';
 import{detectPanels}from'./auto-zones.js';
+import{retainEnergyPreparationContext}from'./energy-preparation-context.js';
 export function energyParams(input={}){
- const p=parameters(input,{quality:0,block:32,minimum:3,profile:'standard',histogramLow:10,histogramHigh:990,shadow:50,highlight:50},{quality:[0,100],block:[16,96],minimum:[1,1000],histogramLow:[0,500],histogramHigh:[500,1000],shadow:[0,200],highlight:[0,200]},{profile:['standard','manual','sensitive','conservative']});requireValue([16,32,64,96].includes(p.block),'Unsupported native energy cell size');
- const controls={histogramLow:10,histogramHigh:990,shadow:50,highlight:50};if(p.profile!=='manual')for(const [key,value]of Object.entries(controls))requireValue(!Object.hasOwn(input,key)||input[key]===value,'Explicit energy controls require the manual profile');return p;
+ requireValue(input!==null&&typeof input==='object'&&!Array.isArray(input),'Parameters must be an object.');
+ const {recompression,...base}=input,p=parameters(base,{quality:0,block:32,minimum:3,profile:'standard',histogramLow:10,histogramHigh:990,shadow:50,highlight:50},{quality:[0,100],block:[16,96],minimum:[1,1000],histogramLow:[0,500],histogramHigh:[500,1000],shadow:[0,200],highlight:[0,200]},{profile:['standard','manual','sensitive','conservative']});requireValue([16,32,64,96].includes(p.block),'Unsupported native energy cell size');
+ const controls={histogramLow:10,histogramHigh:990,shadow:50,highlight:50};if(p.profile!=='manual')for(const [key,value]of Object.entries(controls))requireValue(!Object.hasOwn(input,key)||input[key]===value,'Explicit energy controls require the manual profile');if(recompression!==undefined)p.recompression=validateRecompressionOptions(recompression);return p;
 }
 export function energyReferenceHeader(header,requested){
  if(requested)return {quality:requested,quality_origin:'manual',table_deviation:null};
@@ -16,6 +20,14 @@ export function energyReferenceHeader(header,requested){
 export function energyReferenceQuality(bytes,requested){
  if(!requested&&bytes?.[0]===255&&bytes[1]===216){try{return energyReferenceHeader(jpegHeader(bytes),requested);}catch{/* Native no-usable-table fallback. */}}
  return energyReferenceHeader(null,requested);
+}
+// Alternate probes use an explicit encoder reference, never a JPEG-table estimate.
+export const energyProbeKey=p=>usesAlternateRecompression(p)?JSON.stringify([p.recompression,p.quality||75]):'';
+export async function selectedEnergyReference(image,p,{signal}={}){
+ if(!usesAlternateRecompression(p))return null;
+ const q=p.quality||75,levels=q<=5?[q,q+5,q+10]:q>=96?[q-10,q-5,q]:[q-5,q,q+5],plans=[];
+ for(const quality of levels){const plan=await resolveSelectedPlan(p,image,{quality,signal,paletteAxis:'relative'});if(!plan)return null;plans.push({level:quality,identity:plan.identity,...plan.stage});}
+ return {quality:q,quality_origin:'selected_codec_reference',table_deviation:null,recompression:{experimental:true,selection:p.recompression.codec,codec:plans[1].codec,lossless:plans[1].lossless,paletteAxis:'relative',levels:plans,semantics:'Independent selected encode/decode from admitted Original RGB8 per level; encoder parameters are not an estimate of source quality.'}};
 }
 export async function energyPipeline(image,p,hooks={},context={}){
  const {width,height}=image,n=width*height,account=context.reserveMemory??(()=>{}),memo=context.memo??(async(_name,compute)=>compute()),log=context.energyLog??(()=>{account(512*1024);return referenceLogFunction({minimumBits:973078528,maximumBits:1157627904},new Uint8Array(energyLogData().buffer));})();
@@ -37,11 +49,13 @@ export async function energyPipeline(image,p,hooks={},context={}){
  metrics.energyPanelDetections=0;
  const panelDetector=()=>memo('energy-panels',()=>workspace(async reserve=>{metrics.energyPanelDetections++;return detectPanels(image,{signal:hooks.signal,account:reserve});}));
  const scoreVariant=context.energyScoreGpu?'/'+(context.backend??'webgpu')+'-native-rounds-v1':'';
- const prepare=quantiles=>memo('energy-scores/'+q+'/'+quantiles.join('/')+scoreVariant,()=>workspace(async reserve=>{const start=performance.now();try{return await prepareEnergy(image,planes,quantiles,log,{signal:hooks.signal,account:reserve,panelDetector,scoreGpu:context.energyScoreGpu?.(),scoreBackend:context.backend??'webgpu',onGpuSubmitted:hooks.onGpuSubmitted,rankSelection:context.cpuKernel!=='reference',arrayStatistics:context.cpuKernel!=='reference',onTiming:(name,ms)=>{metrics[name]=(metrics[name]??0)+ms;}});}finally{metrics.energyPreparationMs+=performance.now()-start;}}));
+ const preparationCapture=context.energyPreparationContexts?{owner:context.energyPreparationContexts,key:JSON.stringify([context.energyPreparationIdentity,q,levels,p.recompression??null,quality.recompression??null])}:undefined;
+ const prepare=quantiles=>memo('energy-scores/'+q+'/'+quantiles.join('/')+scoreVariant,()=>workspace(async reserve=>{const start=performance.now(),rawContext=preparationCapture?.owner.lookup(preparationCapture.key),unpin=rawContext?retainEnergyPreparationContext(rawContext):null;metrics.energyPreparationContextReuses=(metrics.energyPreparationContextReuses??0)+(rawContext?1:0);try{return await prepareEnergy(image,planes,quantiles,log,{signal:hooks.signal,account:reserve,panelDetector,scoreGpu:context.energyScoreGpu?.(),scoreBackend:context.backend??'webgpu',onGpuSubmitted:hooks.onGpuSubmitted,rankSelection:context.cpuKernel!=='reference',arrayStatistics:context.cpuKernel!=='reference',preparationContext:rawContext,capturePreparationContext:preparationCapture,onTiming:(name,ms)=>{metrics[name]=(metrics[name]??0)+ms;}});}finally{unpin?.();metrics.energyPreparationMs+=performance.now()-start;}}));
  let profile,prepared;
  if(p.profile==='sensitive'||p.profile==='conservative'){
   const automatic=await memo('energy-auto/'+q+scoreVariant,async()=>{const reference=await prepare([.1,.9]),start=performance.now();const estimate=await workspace(reserve=>{reserve(reference.energy_summary.length*4096);return estimateEnergy({...reference,energy_planes:planes},log,{signal:hooks.signal,account:reserve});});metrics.energyProfileMs+=performance.now()-start;const proposal=await prepare(estimate.quantiles),t=performance.now(),thresholds=await workspace(reserve=>energyDeviations(proposal,{signal:hooks.signal,account:reserve}));metrics.energyProfileMs+=performance.now()-t;return{...estimate,thresholds};});profile=energyProfile(automatic,p.profile);prepared=await prepare(profile.quantiles);
  }else{profile=p.profile==='standard'?energyProfile(null,'standard'):{profile:'manual',quantiles:[p.histogramLow/1000,p.histogramHigh/1000],thresholds:[p.shadow/10,p.highlight/10],automatic:false};prepared=await prepare(profile.quantiles);}
+ if(prepared.preparationContextIdentity)metrics.energyPreparationContextIdentity=prepared.preparationContextIdentity;
  if(prepared.scoreRuntime){metrics.backend=prepared.scoreRuntime.backend.startsWith('webgpu')?'webgpu':'cpu';metrics.energyScoreGpu=prepared.scoreRuntime;}
  account(prepared.energy_summary.length*4096);
  const start=performance.now(),segmented=await workspace(reserve=>segmentEnergy({width,height,...prepared,metadata:{block}},{thresholds:profile.thresholds,minimum:p.minimum},{signal:hooks.signal,account:reserve}));metrics.energySegmentationMs=performance.now()-start;checkAbort(hooks.signal);

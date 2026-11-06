@@ -4,6 +4,7 @@ const url=name=>new URL(name,root).href,common=name=>new URL(name,shared).href;
 async function json(path){const response=await fetch(path);if(!response.ok)throw Error('Dépendance indisponible : '+path);return response.json();}
 export async function individualModels(){return json(url('individual-models.json'));}
 export async function m2ToolConfiguration(method){
+ if(method==='splicebuster')return {};
  const runtime=await json(common('neural-runtime/manifest.json'));
  const runtimes=Object.fromEntries(Object.entries(runtime.providers).map(([provider,m])=>[provider,{factoryUrl:common('neural-runtime/'+m.factory),ortUrl:common('ort/ort.'+(provider==='wasm'?'wasm':'webgpu')+'.min.mjs'),wasmUrl:common('ort/'+m.wasm)}]));
  const segments=async folder=>{const m=await json(url(folder+'/manifest.json'));return {...m,assets:Object.fromEntries(Object.entries(m.assets).map(([key,a])=>[key,{...a,url:url(folder+'/'+a.file)}]))};};
@@ -18,13 +19,13 @@ export async function m2ToolConfiguration(method){
  if(method==='cfa'){const manifest=await json(url('cfa-m2/program-manifest.json'));configuration={assets:Object.fromEntries(manifest.models.map(m=>[m.variant,{...m.weights,url:url('cfa-m2/'+m.weights.file),checkpointSha256:m.checkpointSha256,program:{...m.program,url:url('cfa-m2/'+m.program.file)}}])),runtimes:{wasm:{executor:'cfa',factoryUrl:url('cfa-m2/operators.mjs'),wasmUrl:url('cfa-m2/operators.wasm')}}};}
  if(method==='catnet')configuration={segments:await segments('catnet-segments'),runtimes,jpegFactoryUrl:url('catnet/jpeg.mjs')};
  if(method==='rita')configuration={segments:await segments('rita-native'),runtimes};
- if(method==='trufor'){const npp=await json(url('trufor-npp/native-manifest.json'));configuration={segments:await segments('trufor-split-value'),runtimes,noiseprint:{asset:{...npp.weights,url:url('trufor-npp/'+npp.weights.file),program:{...npp.program,url:url('trufor-npp/'+npp.program.file)}},runtime:{executor:'noiseprint-plus',factoryUrl:url('cfa-m2/operators.mjs'),wasmUrl:url('cfa-m2/operators.wasm')}}};}
+ if(method==='trufor'){const npp=await json(url('trufor-npp/native-manifest.json'));configuration={segments:await segments('trufor-neuron333'),runtimes,noiseprint:{asset:{...npp.weights,url:url('trufor-npp/'+npp.weights.file),program:{...npp.program,url:url('trufor-npp/'+npp.program.file)}},runtime:{executor:'noiseprint-plus',factoryUrl:url('cfa-m2/operators.mjs'),wasmUrl:url('cfa-m2/operators.wasm')}}};}
  return configuration;
 }
 export async function m2ToolClient({method,memoryBudgetBytes,computeProfile,configuration}){
  return createM2WorkerClient({memoryBudgetBytes,computeProfile,methods:{[method]:configuration??await m2ToolConfiguration(method)}});
 }
 export async function scientificPreparationConfiguration(){
- const {SCIENTIFIC_TEXT_MODEL}=await import('./scientific-text-detector.js?v=0.31.0'),forgeryscope=await m2ToolConfiguration('forgeryscope');
+ const {SCIENTIFIC_TEXT_MODEL}=await import('./scientific-text-detector.js?v=0.32.0'),forgeryscope=await m2ToolConfiguration('forgeryscope');
  return {methods:{forgeryscope},text:{asset:{...SCIENTIFIC_TEXT_MODEL,url:new URL('./batch-models/'+SCIENTIFIC_TEXT_MODEL.file,import.meta.url).href},runtimes:forgeryscope.runtimes}};
 }

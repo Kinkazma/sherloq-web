@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Private diagnostic of the pinned Tesseract 2a9c1 LSTM equations (Apache-2.0).
 // No production import. Native weight/table fixtures stay in the private chantier.
 const f=Math.fround;

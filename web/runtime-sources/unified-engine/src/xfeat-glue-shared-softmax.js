@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {fetchXfeatGlueAsset} from './xfeat-glue-global-assets.js';
 // SHERLOQ execution partition: both cross MatMuls use GPU; the existing
 // standard CPU Softmax is shared with the corrected CPU reference. No key,

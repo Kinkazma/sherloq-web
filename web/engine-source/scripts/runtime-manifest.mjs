@@ -9,6 +9,24 @@ async function readdir(url,options){try{return await readDirectory(url,options);
 // their missing directories; never search for them outside this source root.
 try{const previous=JSON.parse(await readFile(new URL('runtime-manifest.json',root)));for(const entry of previous.files??[])if(optionalDiagnostic(entry.file)&&!entry.file.split('/').includes('..'))files.push(entry.file);}catch(error){if(error.code!=='ENOENT')throw error;}
 for(const dir of ['vendor/jpeg-dct-paged', 'vendor/plots-stream', 'vendor/comparison-hist-paged', 'vendor/comparison-sewar-paged', 'vendor/comparison-butteraugli-paged', 'vendor/comparison-ssimulacra-paged', 'src', 'vendor/libjpeg', 'vendor/median', 'vendor/quality', 'vendor/resampling', 'vendor/cloning', 'vendor/opencv', 'vendor/hash-wasm', 'vendor/pywt', 'vendor/zero', 'vendor/comparison', 'vendor/d2prl', 'vendor/segmentation', 'vendor/gradient', 'vendor/echo', 'vendor/contrast', 'vendor/separation', 'vendor/adjust', 'vendor/sift-g2nn', 'vendor/sparse-extract', 'vendor/sift-paged', 'vendor/akaze-paged', 'vendor/sparse-glue-paged', 'vendor/copy-geometry', 'vendor/copy-tree', 'vendor/text-ocr', 'vendor/learned-prepare', 'vendor/xfeat-paged', 'vendor/m3-ort', 'vendor/research-prepare', 'vendor/research-post', 'vendor/adaifl', 'vendor/dense', 'vendor/dense-regions', 'vendor/pca-stream', 'vendor/wavelet-stream', 'vendor/jpeg-gray', 'vendor/frequency-stream', 'vendor/prnu-stream', 'vendor/resampling-stream', 'vendor/comparison-stream', 'vendor/noisesniffer-stream', 'vendor/stereo-stream', 'vendor/stereo-paged', 'vendor/resampling-em', 'vendor/zero-stream', 'vendor/composition', 'vendor/ela-peers', 'vendor/ela-describe', 'vendor/digest-extra', 'vendor/digest-stream', 'vendor/png-stream', 'vendor/png-export', 'vendor/tiff-stream', 'vendor/c2pa', 'vendor/exiftool', 'vendor/tiff-mapped', 'vendor/jpeg-stream', 'vendor/jpeg-rgb-stream', 'vendor/jpeg-gray-stream', 'vendor/thumbnail-resize', 'vendor/clone-entries', 'vendor/dense-paged', 'vendor/dense-sift-stream'])for(const name of (await readdir(new URL(dir+'/',root))).sort())if(/^(LICENSE|.*\.(m?js|wasm|md|ijg|ts|txt|h))$/.test(name))files.push(dir+'/'+name);
+// Sherloq's native16 channel is additive; retain its nested OSQP runtime and pins.
+for(const dir of ['vendor/png16-stream','vendor/tiff16-stream','vendor/png16-export']){
+ for(const name of (await readdir(new URL(dir+'/',root))).sort())if(/^(LICENSE|.*\.(m?js|wasm|md|txt))$/.test(name))files.push(dir+'/'+name);
+ files.push(dir+'/PINNED.json');
+}
+files.push('src/wasm/osqp.mjs','src/wasm/osqp.wasm','src/wasm/osqp_bridge.c','src/target-kernel.PINNED.json','native/sherloq7c-target.cpp','scripts/build-sherloq7c-target.sh','native/png16-stream.c','native/tiff16-stream.c','native/png16-export.c','vendor/osqp-1.0.0/LICENSE','vendor/osqp-1.0.0/NOTICE','vendor/qdldl-v0.1.8/LICENSE','docs/SHERLOQ7C-INTEGRATION.md','docs/SHERLOQ7C-OSQP-SOURCES.md');
+// Enroll only this qualified nested provider; preserve other catalog policies.
+async function enrollSplicebuster(dir='src/splicebuster'){
+ for(const entry of (await readdir(new URL(dir+'/',root),{withFileTypes:true})).sort((a,b)=>a.name.localeCompare(b.name))){
+  const file=dir+'/'+entry.name;
+  if(entry.isSymbolicLink())throw new Error('Symlink not allowed in Splicebuster runtime: '+file);
+  if(entry.name.startsWith('.')||entry.name==='__pycache__')continue;
+  if(entry.isDirectory())await enrollSplicebuster(file);
+  else if(/^(LICENSE|.*\.(m?js|wasm|md|ijg|ts|txt|h))$/.test(entry.name))files.push(file);
+ }
+}
+await enrollSplicebuster();
+for(const name of ['COMPILER-RT-LICENSE.txt','EIGEN-MPL2.txt','EMSDK-LICENSE.txt','LIBCXX-LICENSE.txt','LIBCXXABI-LICENSE.txt','MUSL-COPYRIGHT.txt'])files.push('native/splicebuster/notices/'+name);
 files.push('vendor/pocketfft/LICENSE.md','vendor/pocketfft/PRNU-TWIDDLES.json','vendor/pocketfft/prnu-twiddles.bin','vendor/h5wasm/hdf5_hl.js','vendor/h5wasm/hdf5_util.js','vendor/h5wasm/LICENSE.txt','vendor/h5wasm/PINNED.json','vendor/numpy-sort/LICENSE','vendor/noisesniffer/LICENSE','vendor/boost-math/LICENSE');
 for(const dir of ['sift-g2nn','sparse-extract','sift-paged','akaze-paged','sparse-glue-paged','copy-geometry','copy-tree','text-ocr','learned-prepare','m3-ort','research-prepare','research-post'])files.push('vendor/'+dir+'/PINNED.json');
 files.push('vendor/xfeat-paged/PINNED.json','vendor/quality/PINNED.json','vendor/numpy-fft/PINNED.json','vendor/cloning/PINNED.json');

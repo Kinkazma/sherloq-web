@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {nativeTraceCircle,traceCircleScale} from './copy-draw-geometry.js';
 import {buildSparseTracePalette,tracePaletteWorkingBytes} from './sparse-trace-palette.js';

@@ -9,6 +9,7 @@ links where possible; every replacement uses a new inode and atomic rename.
 """
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -173,26 +174,37 @@ def assemble(args):
     print(json.dumps({'phase': 'baseline-restored', 'files': receipt['baselineFiles'], 'bytes': receipt['baselineBytes'],
                       'hardlinks': receipt['baselineHardlinks'], 'copiedBytes': receipt['baselineCopiedBytes']}), flush=True)
 
-    # Only Git-tracked executable/runtime sources are admitted. A developer's
-    # untracked build.json, private paths or live model directories cannot enter.
-    tracked = subprocess.check_output([args.git, '-C', str(source_root), 'ls-files', '-z', '--',
-                                      'web/engine-source/src', 'web/engine-source/vendor', 'web/engine-source/experiments', 'web/engine-source/package.json'], text=True).split('\0')
+    # A pinned checkout keeps its historical Git admission. An explicitly
+    # reviewed local tree uses a bounded filesystem inventory so new companion
+    # modules cannot silently disappear merely because they are untracked.
     engine = source_root / 'web/engine-source'
-    admitted_extensions = {'.js', '.mjs', '.json', '.wasm', '.d.ts'}
-    for name in sorted(name for name in tracked if name):
-        source = source_root / relative(name)
-        if source.suffix not in admitted_extensions and not source.name.endswith('.d.ts') and not any(word in source.name.lower() for word in ('license', 'notice', 'copying', 'copyright')):
-            continue
+    if args.working_tree:
+        spec = importlib.util.spec_from_file_location('runtime_inventory', wordpress / 'runtime-inventory.py')
+        inventory = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(inventory)
+        sources = inventory.runtime_paths(engine)
+    else:
+        tracked = subprocess.check_output([args.git, '-C', str(source_root), 'ls-files', '-z', '--',
+            'web/engine-source/src', 'web/engine-source/vendor', 'web/engine-source/experiments', 'web/engine-source/package.json'], text=True).split('\0')
+        admitted_extensions = {'.js', '.mjs', '.json', '.wasm', '.d.ts'}
+        sources = []
+        for name in sorted(name for name in tracked if name):
+            source = source_root / relative(name)
+            if source.suffix in admitted_extensions or source.name.endswith('.d.ts') or any(word in source.name.lower() for word in ('license', 'notice', 'copying', 'copyright')):
+                sources.append(source)
+    for source in sources:
         destination = 'unified-engine/' + source.relative_to(engine).as_posix()
         if not source.is_file():
             if args.fallback and (args.fallback / destination).is_file():
                 source = args.fallback / destination
             else:
-                raise FileNotFoundError('Tracked runtime source missing: ' + name)
-        # Existing native arrays/weights/runtime slots stay unchanged. The copy
-        # breaks the chunk hard link before replacing any reviewed source bytes.
+                raise FileNotFoundError('Runtime source missing: ' + destination)
         if reset_selector and destination == selector_relative:
             receipt['sourceWorkerSelectorRetained'] = True
+            continue
+        # The source-only reset at entry remains authoritative unless a new
+        # bundle is built after every source overlay. No old bundle reactivated.
+        if source.name.startswith('worker-bundle-') or source.name == 'worker-bundle-build.json':
             continue
         atomic_copy(source, assets / relative(destination))
         receipt['overlayFiles'] += 1
@@ -201,6 +213,7 @@ def assemble(args):
         source = engine / name
         if source.is_file():
             atomic_copy(source, assets / 'unified-engine' / name)
+    receipt['runtimeSourceAdmission'] = 'bounded-filesystem-working-tree' if args.working_tree else 'git-tracked-checkout'
 
     expected = identities(source_root)
     proposal = research / 'selfdm-ssg/proposal-browser-candidate/integration-bundle-sp-window'
@@ -332,6 +345,22 @@ def assemble(args):
         subprocess.run(command + ['--check'], check=True)
         receipt['workerPackaging'] = 'fresh-generated-entry; complete source Worker retained'
 
+    # The new delivery has a single selected entry. Content-addressed bundles
+    # from predecessor manifests must not become runtime companions by accident.
+    spec = importlib.util.spec_from_file_location('runtime_inventory', wordpress / 'runtime-inventory.py')
+    inventory = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(inventory)
+    selected = inventory.selected_worker(assets / 'unified-engine')
+    active_name = Path(selected['path']).name if selected else None
+    removed = []
+    for stale in (assets / 'unified-engine/src').glob('worker-bundle-*.mjs'):
+        if stale.name != active_name:
+            removed.append(stale.relative_to(assets).as_posix())
+            stale.unlink()
+    if not selected:
+        (assets / 'unified-engine/worker-bundle-build.json').unlink(missing_ok=True)
+    receipt['removedInactiveWorkerArtifacts'] = removed
+
     # Source lock means precisely the inputs reviewed before the transport
     # adapter. Unchanged slots are the already published baseline byte streams;
     # only unified-engine and individual-assets have new raw source additions.
@@ -341,8 +370,11 @@ def assemble(args):
         runtime['files'] = actual
         if destination.name == 'unified-engine':
             runtime['version'] = '0.37.0-methods.1'
-            runtime['engineCommit'] = subprocess.check_output([args.git, '-C', str(source_root), 'rev-parse', 'HEAD'], text=True).strip()
-            runtime['sourceIncrement'] = {'kind': 'tracked-runtime-source-overlay', 'sha256': hashlib.sha256(encode(actual)).hexdigest()}
+            if args.working_tree:
+                runtime.pop('engineCommit', None)
+            else:
+                runtime['engineCommit'] = subprocess.check_output([args.git, '-C', str(source_root), 'rev-parse', 'HEAD'], text=True).strip()
+            runtime['sourceIncrement'] = {'kind': 'bounded-working-tree-overlay' if args.working_tree else 'tracked-runtime-source-overlay', 'sha256': hashlib.sha256(encode(actual)).hexdigest()}
         elif destination.name == 'individual-assets':
             runtime['version'] = 'individual-tools-methods-20261012'
     lock['status'] = 'reviewed-method-resource-inputs'
@@ -366,6 +398,7 @@ if __name__ == '__main__':
     parser.add_argument('--fallback', type=Path, help='Optional qualified runtime assets if tracked binaries are absent')
     parser.add_argument('--node', default='node', help='Node.js for local deterministic Worker packaging')
     parser.add_argument('--worker-bundle', action='store_true', help='Build the pinned optional Worker bundle after all runtime source copies')
+    parser.add_argument('--working-tree', action='store_true', help='Explicitly admit reviewed browser companions from bounded source directories, including untracked files')
     parser.add_argument('--git', default='git', help='Git executable; never changes repository state')
     parser.add_argument('--policy-output', required=True, type=Path, help='Metadata-only local graph policy for prepare-distribution --resource-policy')
     parser.add_argument('--receipt-output', required=True, type=Path, help='Small private reproducibility receipt')

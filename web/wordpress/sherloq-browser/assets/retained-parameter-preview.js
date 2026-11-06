@@ -1,13 +1,14 @@
+import {previewEqualizationFamily} from './preview-cost-family.js?v=0.32.0';
 import {Budget} from './unified-engine/src/cache.js';
 import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
 import {equalizationPixels} from './unified-engine/src/equalization-pixels.js';
 import {clipTraceLineToCircles} from './unified-engine/src/copy-draw-geometry.js';
-import {biomeAreaPreviewBytes,retainedBiomeAreaGroups} from './biome-area-retained-preview.js?v=0.31.0';
-import {selectResamplingPreviewOutput,resamplingMagnitudeCacheKey,copyResamplingMagnitudePage} from './resampling-context-parameter-preview.js?v=0.31.0';
-import {validateClassicalContextPreview,CLASSICAL_CONTEXT_PREVIEW_BYTES} from './classical-context-preview.js?v=0.31.0';
-import {renderMedianContextPreview,MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES} from './median-context-preview.js?v=0.31.0';
+import {biomeAreaPreviewBytes,retainedBiomeAreaGroups} from './biome-area-retained-preview.js?v=0.32.0';
+import {selectResamplingPreviewOutput,resamplingMagnitudeCacheKey,copyResamplingMagnitudePage} from './resampling-context-parameter-preview.js?v=0.32.0';
+import {validateClassicalContextPreview,CLASSICAL_CONTEXT_PREVIEW_BYTES} from './classical-context-preview.js?v=0.32.0';
+import {renderMedianContextPreview,MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES} from './median-context-preview.js?v=0.32.0';
 import {selectSparseTraceRows,traceSelectionSummary,sparseTraceDrawCommands,nativeTraceCircle,tracePaletteWorkingBytes} from './unified-engine/src/sparse-trace-selection.js';
-import {paintSsgRetainedMask} from './ssg-retained-mask-presentation.js?v=0.31.0';
+import {paintSsgRetainedMask} from './ssg-retained-mask-presentation.js?v=0.32.0';
 import {createCooperator} from './unified-engine/src/errors.js';
 import {histogramSummary} from './unified-engine/src/histogram.js';
 import {roundEven} from './unified-engine/src/pixel-utils.js';
@@ -17,12 +18,12 @@ import {GRAY_PALETTE} from './unified-engine/src/gray-palette.js';
 import {GHOST_PALETTES} from './unified-engine/src/ghost-palettes.js';
 import {INFERNO,SAFIRE_COLORS} from './unified-engine/src/research-palettes.js';
 import {illuminantCellDisplay} from './unified-engine/src/illuminant.js';
-import {detectionBiomes} from './detection-biomes.js?v=0.31.0';
-import {composeBiomeWindow} from './detection-biome-presentation.js?v=0.31.0';
-import {createAdaptivePreview} from './adaptive-preview.js?v=0.31.0';
+import {detectionBiomes} from './detection-biomes.js?v=0.32.0';
+import {composeBiomeWindow} from './detection-biome-presentation.js?v=0.32.0';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE} from './adaptive-preview.js?v=0.32.0';
 import {renderResearch as renderNativeResearch} from './unified-engine/src/research-view.js';
 
-const MAX_SIDE=2048,LEGACY_SIDE=256,MAX_CELLS=131072,CLONE_TRACE_BYTES=8192*6144+2048*32+16384+tracePaletteWorkingBytes(2048,8192);
+const MAX_SIDE=ADAPTIVE_PREVIEW_MAX_SIDE,LEGACY_SIDE=256,MAX_CELLS=131072,CLONE_TRACE_BYTES=8192*6144+MAX_SIDE*32+16384+tracePaletteWorkingBytes(MAX_SIDE,8192);
 const adaptive=createAdaptivePreview(),adaptiveSafire=createAdaptivePreview({targetMs:200});
 const now=()=>globalThis.performance?.now?.()??Date.now();
 const invalid=message=>Object.assign(new TypeError(message),{code:'INVALID_INPUT'});
@@ -51,7 +52,7 @@ export function planRetainedPreview(args={}){
  if(![width,height].every(n=>Number.isSafeInteger(n)&&n>0))return null;
  const variant=operation==='colors.pca'?p.mode??'distance':operation?.startsWith('ai.')?v.mode??'overlay':operation?.startsWith('tampering.copyMove.')?`${!!v.areas}/${!!v.circles}/${!!v.lines}/${!!p.showPoints}/${!!p.hideLines}`:'';
  const grouping=operation==='ai.sources.safire'&&['groups','kind','eps','minimum','binary'].includes(args.field),controller=grouping?adaptiveSafire:adaptive,cost=grouping?`${p.kind??'kmeans'}/${p.binary?'binary':'sources'}/${Math.floor(Math.log2(Math.max(1,p.groups??3)))}`:variant;
- return controller.plan({key:'retained/'+operation+'/'+cost,width,height,maxSide:args.maxSide??MAX_SIDE,maxPixels:args.maxPixels??MAX_SIDE**2,feedback:args.adaptiveFeedback});
+ return controller.plan({key:'retained/'+operation+'/'+cost+'/'+previewEqualizationFamily(p),width,height,sourceIdentity:args.sourceIdentity??args.output?.provenance?.originalSha256??args.output?.imageId,maxSide:args.maxSide??MAX_SIDE,maxPixels:args.maxPixels??MAX_SIDE**2,feedback:args.adaptiveFeedback,continuity:args.continuity});
 }
 function sampled(pixels,g){
  if(pixels?.pixels)pixels=pixels.pixels;

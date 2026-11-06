@@ -1,0 +1,91 @@
+{
+  "schema": "sherloq.ai-detectors.models/1",
+  "models": {
+    "dda": {
+      "manifestUrl": "dda/manifest.json",
+      "sha256": "3ffa1816bae57ededb5343f0cd323492ede1b9aee34e87119b0f4ab7e6f077b2"
+    },
+    "prl": {
+      "manifestUrl": "prl/manifest.json",
+      "sha256": "482c92ae9689ace0a1bc42f149d2070a6ab921f13d988c7d1055e5acf0c0e2d3"
+    },
+    "community-forensics": {
+      "manifestUrl": "community-forensics/manifest.json",
+      "sha256": "3d23d0c13cdc6f766713e5048ce8c85b578d48dab549ddd0ead88067d517e434"
+    },
+    "gapl": {
+      "manifestUrl": "gapl/manifest.json",
+      "sha256": "4c52c2f9aaa76d72d3aed0fd575e599e7764ad49611bb9a1b3320afde5176543"
+    }
+  },
+  "precision": "float32",
+  "calibratedProbability": false,
+  "gpuQualifiedMethods": [
+    "dda",
+    "prl",
+    "community-forensics",
+    "gapl"
+  ],
+  "gpuQualifiedBrowserFamilies": [
+    "chromium",
+    "firefox"
+  ],
+  "cfResident": true,
+  "performancePolicies": {
+    "dda": {
+      "cpu": {
+        "prefetch": true,
+        "cpuThreads": 4
+      },
+      "webgpu": {
+        "prefetch": true,
+        "cpuThreads": 1
+      }
+    },
+    "prl": {
+      "cpu": {
+        "prefetch": true,
+        "cpuThreads": 4
+      },
+      "webgpu": {
+        "prefetch": true,
+        "cpuThreads": 1
+      }
+    },
+    "community-forensics": {
+      "cpu": {
+        "prefetch": true,
+        "cpuThreads": 4
+      },
+      "webgpu": {
+        "prefetch": true,
+        "cpuThreads": 1,
+        "cpuHead": true
+      }
+    },
+    "gapl": {
+      "cpu": {
+        "prefetch": true,
+        "cpuThreads": 4
+      },
+      "webgpu": {
+        "prefetch": true,
+        "cpuThreads": 1
+      }
+    }
+  },
+  "qualificationEvidence": {
+    "schema": "sherloq.ai-detectors.qualification-evidence/1",
+    "status": "experimental-qualified-corpus",
+    "certificate": {
+      "file": "QUALIFICATION-D.json",
+      "sha256": "3a7fc65f6b3642b866ffec32659c3c560ed24fcb19e426379af49b46a3c0e412"
+    },
+    "qualification": {
+      "browserInference": true,
+      "source30Mp": true,
+      "memory4Gb": true
+    }
+  },
+  "qualification": "local-real-corpus-and-synthetic100mp-stress"
+}

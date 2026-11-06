@@ -1,5 +1,5 @@
 import {createSegmentedZeroAnalysis,segmentedZeroResult} from './segmented-zero.js';
-import {zeroParams} from './zero.js';
+import {zeroParams,zeroRecompressionIdentity} from './zero.js';
 import {ZERO_PALETTE} from './zero-palette.js';
 import {createSourceRegionJpegContextImage} from './source-region-ela.js';
 import {createRgbSurface,createMaskSurface} from './rgb-surface.js';
@@ -24,7 +24,7 @@ async function cacheFor(derived,view,domain,budget,signal){
 }
 function originalRegions(regions,context,domain){return regions.map(r=>({...r,x0:r.x0+context.x+domain.origin[0],x1:r.x1+context.x+domain.origin[0],y0:r.y0+context.y+domain.origin[1],y1:r.y1+context.y+domain.origin[1],sourceFragment:context.id,gridCoordinateSpace:'native-context'}));}
 async function nativeEntry(cache,context,p,{view,original,budget,signal,onProgress,profile,cpuKernel,backend}){
- const key=Number(p.missing)+'/'+context.id,prior=cache.entries.get(key);if(prior){await prior.ready;return{entry:prior,cached:true};}
+ const key=Number(p.missing)+'/'+zeroRecompressionIdentity(p)+'/'+context.id,prior=cache.entries.get(key);if(prior){await prior.ready;return{entry:prior,cached:true};}
  const entry={image:createSourceRegionJpegContextImage(view,context,original,budget),analysis:null,nativeOwner:null};cache.entries.set(key,entry);
  cache.owner.add(async()=>{if(entry.analysis)await entry.analysis.dispose();else await entry.nativeOwner?.dispose();await entry.image.rgbRecompression?.dispose();entry.image.rgbRecompression=null;},1);
  const joined=signal?AbortSignal.any([signal,cache.owner.signal]):cache.owner.signal;
@@ -68,10 +68,10 @@ export async function sourceRegionZero({task,original,derived,view,domain,budget
   for(const context of contexts)rgbRecords[context.id]={surface:makeSurface('rgb',context)};
   for(const field of [...MASKS,'analysis_scope','native_context_status'])maskRecords[field]={surface:makeSurface(field)};
   const scientific={kind:'independent-native-zero-contexts',contexts:records.map(r=>({id:r.context.id,bounds:r.context.bounds,originalBounds:r.context.originalBounds,analysis:r.analysis})),metadata:data.metadata,retain};
-  const provenance={...(version?{engine:version}:{}),operation:task.operation,params:p,backend:metrics.backend,originalSha256:original.sha256,sourceRegionDomain:domain.descriptor,independentNativeContexts:true,contextPlanVersion:ZERO_CONTEXT_PLAN_VERSION,contextOwnership:plan.ownership,excludedParticipation:'absent-before-luminance-votes-JPEG99-grid-significance-components-and-closing',nativeBorders:'unchanged for each complete native context',originalEncodedBytesPreserved:true};
+  const provenance={...(version?{engine:version}:{}),operation:task.operation,params:p,backend:metrics.backend,originalSha256:original.sha256,sourceRegionDomain:domain.descriptor,independentNativeContexts:true,contextPlanVersion:ZERO_CONTEXT_PLAN_VERSION,contextOwnership:plan.ownership,excludedParticipation:p.recompression?'absent-before-luminance-votes-selected-companion-grid-significance-components-and-closing':'absent-before-luminance-votes-JPEG99-grid-significance-components-and-closing',nativeBorders:'unchanged for each complete native context',originalEncodedBytesPreserved:true};
   for(const item of [...Object.values(rgbRecords),...Object.values(maskRecords)]){item.zeroAnalysis=scientific;item.provenance=provenance;}
-  const record={surface,rgbRecords,maskRecords,zeroAnalysis:scientific,semantics,metrics,data,provenance},bundle=publishResult(task.imageId,record);published=true;
-  return{id:task.id,imageId:task.imageId,operation:task.operation,status:'ok',layout:'surface',...bundle,display:bundle.surface,data,layers:[{id:'zero-view',kind:'rgb',surfaceId:bundle.surface.id,origin:[0,0],range:[0,255]},...contexts.map(c=>({id:c.id,kind:'rgb',surfaceId:bundle.rgbSurfaces[c.id].id,origin:[0,0],coordinates:'source-region-native-pixels',contextBounds:c.bounds,contextOriginalBounds:c.originalBounds,range:[0,255]})),...MASKS.map(key=>({id:key,kind:'mask',surfaceId:bundle.maskSurfaces[key].id,origin:[0,0],range:[0,1]}))],semantics,metrics,warnings:plan.noNativeSupportPixels?[{code:'NATIVE_CONTEXT_NOT_EVALUABLE',pixels:plan.noNativeSupportPixels,message:'These admitted pixels have no entirely admitted native16x16 ZERO support; no synthetic grid is supplied.'}]:[],provenance};
+  const record={surface,rgbRecords,maskRecords,zeroAnalysis:scientific,semantics:p.recompression?'Native ZERO votes/significance remain unchanged in each admitted context. Only the missing-grid companion uses the selected codec independently from Original; this experimental substitution does not validate a new detector.':semantics,metrics,data,provenance},bundle=publishResult(task.imageId,record);published=true;
+  return{id:task.id,imageId:task.imageId,operation:task.operation,status:'ok',layout:'surface',...bundle,display:bundle.surface,data,layers:[{id:'zero-view',kind:'rgb',surfaceId:bundle.surface.id,origin:[0,0],range:[0,255]},...contexts.map(c=>({id:c.id,kind:'rgb',surfaceId:bundle.rgbSurfaces[c.id].id,origin:[0,0],coordinates:'source-region-native-pixels',contextBounds:c.bounds,contextOriginalBounds:c.originalBounds,range:[0,255]})),...MASKS.map(key=>({id:key,kind:'mask',surfaceId:bundle.maskSurfaces[key].id,origin:[0,0],range:[0,1]}))],semantics:record.semantics,metrics,warnings:plan.noNativeSupportPixels?[{code:'NATIVE_CONTEXT_NOT_EVALUABLE',pixels:plan.noNativeSupportPixels,message:'These admitted pixels have no entirely admitted native16x16 ZERO support; no synthetic grid is supplied.'}]:[],provenance};
  }catch(error){failed=true;primary=error;throw error;}
  finally{finish();try{await rootRelease();}catch(error){if(!failed){failed=true;primary=error;}}if(!published)try{await resultOwner.dispose();}catch(error){if(!failed){failed=true;primary=error;}}if(failed)throw primary;}
 }

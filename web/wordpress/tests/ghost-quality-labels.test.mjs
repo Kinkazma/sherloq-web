@@ -19,3 +19,5 @@ test('native Ghost quality layer metadata supplies a quality when no array is re
 test('unknown Ghost views and other operations retain their existing result naming',()=>{
  const pixels=surface('unknown');assert.equal(resultDisplays({operation:'jpeg.ghosts',parameterViews:[pixels]})[0].label,'views.0');assert.equal(resultDisplays({operation:'colors.space',surface:pixels})[0].label,'surface');
 });
+
+test('selected Ghost labels use completed codec provenance while retaining their quality coordinates and handles',()=>{const pixels=surface('selected'),base={operation:'jpeg.ghosts',data:{views:[{quality:75,pixels}]}};for(const [codec,lossless,label]of [['png',false,'Palette 75 %'],['webp',false,'Qualité WebP 75'],['webp',true,'Niveau de recompression 75']]){const output={...base,provenance:{params:{recompression:{codec:'source',lossless}},recompression:{codec}}},[found]=resultDisplays(output);assert.equal(found.label,label);assert.equal(found.display,pixels);assert.equal(found.ghost.quality,75);assert.equal(found.ghost.index,0);}});

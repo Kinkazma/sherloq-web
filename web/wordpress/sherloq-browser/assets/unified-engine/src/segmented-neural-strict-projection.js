@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {getNeuralProjectionMinimumInterval} from './segmented-neural-projection.js';
 import {d2prlInputSide} from '../experiments/d2prl/input-side.js';
 import {createStrictProjectionSingleOwner,singleStrictProjectionFrame} from './strict-projection-single-owner.js';

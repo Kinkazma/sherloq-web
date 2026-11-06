@@ -1,4 +1,4 @@
-import {createNeuralTensor} from './neural-tensor-store.js';
+import {createNeuralTensor,noteNeuralTensorTaskYield} from './neural-tensor-store.js';
 import {executionSummary} from './neural-execution-summary.js';
 import {requireValue,checkAbort} from './errors.js';
 const MiB=1024**2,f=Math.fround;
@@ -27,23 +27,46 @@ function sampleGrid(fh,fw,height,width,top,rows,start,stop,budget){
 }
 export async function truforSegmentedDecode(features,width,height,{manifest,pool,budget,getTemporarySession,signal,onProgress,backend='auto',windowBytes=32*MiB,storage='auto'}={}){
  requireValue(features.length===4&&[width,height].every(x=>Number.isSafeInteger(x)&&x>0),'Invalid TruFor decoder geometry.');
- const owned=new Set(),executions=executionSummary(),make=async(c,h,w)=>{const selected=storage==='auto'?(c*h*w*4>Math.min(budget.limit/12,(budget.limit-budget.total())/4)?'temporary':'memory'):storage,t=await createNeuralTensor(c,h,w,{budget,signal,storage:selected,getTemporarySession});owned.add(t);return t;},drop=async t=>{if(owned.delete(t))await t.dispose();};
- const run=async(name,feeds,workspaceBytes,outputBytes)=>{const result=await pool.run(name,feeds,{signal,onProgress,backend,workspaceBytes:16*MiB+Math.ceil(workspaceBytes),outputBytes});executions.add(name,result.metrics);return result;};
- const h=features[0].height,w=features[0].width,step=Math.max(1,Math.floor(windowBytes/(w*512*4*12)));
+ const owned=new Set(),executions=executionSummary(),make=async(c,h,w)=>{const selected=storage==='auto'?(c*h*w*4>Math.min(budget.limit/12,(budget.limit-budget.total())/4)?'temporary':'memory'):storage,t=await createNeuralTensor(c,h,w,{budget,signal,storage:selected,cooperation:'bounded',getTemporarySession});owned.add(t);return t;},drop=async t=>{if(owned.delete(t))await t.dispose();};
+ const run=async(name,feeds,workspaceBytes,outputBytes)=>{const result=await pool.run(name,feeds,{signal,onProgress,backend,workspaceBytes:16*MiB+Math.ceil(workspaceBytes),outputBytes});noteNeuralTensorTaskYield(budget);executions.add(name,result.metrics);return result;};
+ const h=features[0].height,w=features[0].width,step=Math.max(1,Math.floor(windowBytes/(w*512*4*12)));let neuron333Activation;
  async function head(description){
-  const target=await make(description.channels,h,w);
+  const target=await make(description.channels,h,w),capture=description.neuron333;
+  if(capture){requireValue(description===manifest.heads[0]&&description.channels===2&&capture.schema===1&&capture.index===333&&['packed','separate','fused'].includes(capture.transport),'Invalid TruFor neuron capture contract.');neuron333Activation=await createNeuralTensor(1,h,w,{budget,signal,storage:'auto',cooperation:'bounded',getTemporarySession});owned.add(neuron333Activation);}
   for(let top=0;top<h;top+=step){const rows=Math.min(step,h-top),projected=[];let fused;
    try{
     for(let i=0;i<4;i++){
      const t=features[i],{start,stop}=i===0?{start:top,stop:top+rows}:cropFor(t.height,h,top,rows),part=await t.readRows(start,stop-start,{signal});let grid;
      try{if(i>0)grid=sampleGrid(t.height,t.width,h,w,top,rows,start,stop,budget);projected.push(await run(description.projects[i],{x:{data:part.data,dims:part.dims},...(grid?{grid:{data:grid.data,dims:grid.dims}}:{})},part.data.byteLength*4+512*rows*w*4*4,512*rows*w*4));}finally{grid?.release();part.release();}
     }
-    const feeds=Object.fromEntries(projected.map((p,i)=>['c'+(i+1),p.result.result]));fused=await run(description.fuse,feeds,rows*w*512*4*12,rows*w*description.channels*4);await target.writeRows(top,rows,fused.result.result.data,{signal});
+    const feeds=Object.fromEntries(projected.map((p,i)=>['c'+(i+1),p.result.result]));fused=await run(description.fuse,feeds,rows*w*512*4*12,rows*w*(description.channels+(capture?1:0))*4);
+    const values=fused.result.result.data,n=rows*w;
+    requireValue(values instanceof Float32Array&&values.length===n*(description.channels+(capture&&capture.transport!=='separate'?1:0)),'Invalid TruFor head output.');
+    await target.writeRows(top,rows,values.subarray(0,n*description.channels),{signal});
+    if(capture){const activation=capture.transport!=='separate'?values.subarray(n*description.channels):fused.result.neuron333_activation?.data;requireValue(activation instanceof Float32Array&&activation.length===n,'Missing captured neuron 333.');await neuron333Activation.writeRows(top,rows,activation,{signal});}
    }finally{fused?.release();for(const p of projected)p.release();}
   }return target;
  }
+ async function jointHeads(){
+  const description=manifest.decoderWindow;
+  requireValue(description.schema===1&&description.channels===4&&manifest.heads[0].neuron333?.index===333,'Invalid joined TruFor decoder contract.');
+  const logits=await make(2,h,w),confidence=await make(1,h,w);neuron333Activation=await make(1,h,w);
+  for(let top=0;top<h;top+=step){
+   checkAbort(signal);const rows=Math.min(step,h-top),parts=[],grids=[],feeds={};let output;
+   try{
+    for(let i=0;i<4;i++){
+     const t=features[i],{start,stop}=i===0?{start:top,stop:top+rows}:cropFor(t.height,h,top,rows),part=await t.readRows(start,stop-start,{signal});parts.push(part);feeds['feature'+(i+1)]={data:part.data,dims:part.dims};
+     if(i>0){const grid=sampleGrid(t.height,t.width,h,w,top,rows,start,stop,budget);grids.push(grid);feeds['grid'+(i+1)]={data:grid.data,dims:grid.dims};}
+    }
+    output=await run(description.graph,feeds,rows*w*512*4*12,rows*w*4*4);
+    const values=output.result.result.data,n=rows*w;requireValue(values instanceof Float32Array&&values.length===4*n,'Invalid joined TruFor decoder output.');
+    await logits.writeRows(top,rows,values.subarray(0,2*n),{signal});await neuron333Activation.writeRows(top,rows,values.subarray(2*n,3*n),{signal});await confidence.writeRows(top,rows,values.subarray(3*n,4*n),{signal});
+   }finally{output?.release();for(const grid of grids)grid.release();for(const part of parts)part.release();}
+  }
+  return [logits,confidence];
+ }
  try{
-  const logits=await head(manifest.heads[0]),confidence=await head(manifest.heads[1]),map=await make(1,height,width),confidenceMap=await make(1,height,width),statistics=[new TruforStatistics(),new TruforStatistics()],rowsPerStep=Math.max(1,Math.floor(windowBytes/(width*4*24)));
+  const [logits,confidence]=manifest.decoderWindow?await jointHeads():[await head(manifest.heads[0]),await head(manifest.heads[1])],map=await make(1,height,width),confidenceMap=await make(1,height,width),statistics=[new TruforStatistics(),new TruforStatistics()],rowsPerStep=Math.max(1,Math.floor(windowBytes/(width*4*24)));
   for(let top=0;top<height;top+=rowsPerStep){
    checkAbort(signal);const rows=Math.min(rowsPerStep,height-top),{start,stop}=cropFor(h,height,top,rows),pred=await logits.readRows(start,stop-start,{signal});let conf,grid,output;
    try{conf=await confidence.readRows(start,stop-start,{signal});grid=sampleGrid(h,w,height,width,top,rows,start,stop,budget);output=await run(manifest.final,{pred:{data:pred.data,dims:pred.dims},conf:{data:conf.data,dims:conf.dims},grid:{data:grid.data,dims:grid.dims}},rows*width*4*24,rows*width*4*4);
@@ -53,6 +76,6 @@ export async function truforSegmentedDecode(features,width,height,{manifest,pool
   }
   await drop(logits);await drop(confidence);
   const stats=new Float32Array(8);stats.set(statistics[0].values());stats.set(statistics[1].values(),4);const output=await run(manifest.score,{stats:{data:stats,dims:[1,8]}},65536,4);let score;try{score=output.result.result.data[0];requireValue(Number.isFinite(score),'Nonfinite TruFor score.');}finally{output.release();}
-  return {map,confidence:confidenceMap,score,statistics:stats,executions:executions.values(),async release(){for(const t of [...owned])await drop(t);}};
+  return {map,confidence:confidenceMap,neuron333Activation,score,statistics:stats,executions:executions.values(),async release(){for(const t of [...owned])await drop(t);}};
  }catch(e){for(const t of [...owned])await drop(t);throw e;}
 }

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {USEFUL_WORK_CODE_IDENTITY} from './useful-work-code-identity.js';
 export const USEFUL_OPERATION_SCHEMA='sherloq.useful-operation/1';
 const text=(v,max=128)=>typeof v==='string'&&v.length>0&&v.length<=max&&!/[\u0000-\u001f\u007f]/.test(v),sha=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);

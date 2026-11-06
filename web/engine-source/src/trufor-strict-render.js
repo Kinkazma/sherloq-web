@@ -8,7 +8,8 @@ export function renderTruforStrictWindow(image,result,mode,rect,options={}){cons
 async function renderWindow(image,result,mode,rect,{budget,native,signal,onProgress}={}){
  const context=truforStrictResultContext(result),d=context.domain;image??=context.image;
  requireValue(image?.sha256===d.sourceSha256&&image.surface?.descriptor?.width===d.sourceWidth&&image.surface.descriptor.height===d.sourceHeight,'Strict TruFor display belongs to another Original owner.');
- requireValue(['map','map_alternative','confidence','noiseprint_pp'].includes(mode),'Unknown strict TruFor view.');
+ requireValue(['map','map_alternative','confidence','noiseprint_pp','neuron333'].includes(mode),'Unknown strict TruFor view.');
+ requireValue(mode!=='neuron333'||result.data.neuron333,'Neuron 333 was not retained in this result; no automatic inference is performed.');
  const{x,y,width,height}=rect;requireValue([x,y,width,height].every(Number.isSafeInteger)&&x>=0&&y>=0&&width>0&&height>0&&x+width<=d.width&&y+height<=d.height,'Invalid strict TruFor display window.');
  const release=budget.reserve(width*height*3);let original,frame,primary;try{
   checkAbort(signal);const source=image.presentationSurface??image.surface,origin=context.domain.origin;

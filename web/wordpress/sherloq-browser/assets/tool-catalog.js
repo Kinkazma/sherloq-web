@@ -1,11 +1,12 @@
+import {isDetectorAlias} from './ai-detector-tools.js?v=0.32.0';
 import {equalizationOperations} from './unified-engine/src/equalization-settings.js';
 import{segmentationExclusionsAvailable}from'./unified-engine/src/segmentation-window-capabilities.js';
-import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.31.0';
+import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.32.0';
 // UI descriptors only. Scientific validation remains in the frozen worker.
-import {toolGroups} from './tool-tree.js?v=0.31.0';
-import defaults from './tool-defaults.js?v=0.31.0';
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.31.0';
-import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.31.0';
+import {toolGroups} from './tool-tree.js?v=0.32.0';
+import defaults from './tool-defaults.js?v=0.32.0';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.32.0';
+import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.32.0';
 const select=(values,labels=values)=>({choices:values.map((value,i)=>({value,label:labels[i]}))});
 const indexed=labels=>select(labels.map((_,i)=>i),labels);
 const range=(min,max,step=1)=>({min,max,step});
@@ -18,6 +19,7 @@ const fields={
  'file.hex':{offset:{...range(0,Number.MAX_SAFE_INTEGER),label:'Décalage (octets)'},length:{...range(1,65536),label:'Octets par page'}},
  'inspection.histogram':{channel:indexed(['Rouge','Vert','Bleu','Valeur']),start:range(0,255),end:range(0,255)},
  'inspection.magnifier':{mode:select(['contrast','equalize'],['Contraste automatique','Égalisation']),percent:{...range(0,100),label:'Écrêtage (%)'}},
+ 'inspection.sherloq7c':{computationMode:{...select(['fast','precision'],['Rapide','Précision']),label:'Mode de calcul'},maxSide:{...select([256,512,1024,2048,'native'],['256 px','512 px','1024 px','2048 px','Taille réelle']),label:'Taille de sortie SHERLOQ'},revelation:{...range(0,100,'any'),editingIncrement:1,snapToIncrement:true,label:'Révélation (%)'},micro:{...range(0,100,'any'),editingIncrement:1,snapToIncrement:true,label:'Microcontrastes (%)'}},
  'inspection.adjust':{brightness:range(-255,255),saturation:range(-255,255),hue:range(0,180),gamma:{...range(1,50),label:'Gamma (dixièmes)'},shadows:range(-100,100),highlights:range(-100,100),sweep:range(0,255),width:range(0,255),sharpen:range(0,100),threshold:range(0,255),equalize:indexed(['Sans égalisation','Histogramme','CLAHE L1','CLAHE L2','CLAHE L3','CLAHE L4'])},
  'detail.gradient':{method:{...select(['sobel','krawetz'],['Gradient de Sobel','Gradient de Krawetz']),label:'Méthode'},intensity:range(0,100),mode:indexed(['Sans bleu','Bleu constant','Valeur absolue','Norme'])},
  'detail.echo':{radius:range(1,15),contrast:range(0,100)},
@@ -48,6 +50,7 @@ const fields={
 const labels={channel:'Canal',start:'Borne basse',end:'Borne haute',mode:'Mode',imageHashes:'Empreintes perceptuelles',percent:'Centile (%)',brightness:'Luminosité',saturation:'Saturation',hue:'Teinte',shadows:'Ombres',highlights:'Hautes lumières',sweep:'Centre',width:'Largeur',sharpen:'Netteté',threshold:'Seuil',equalize:'Égalisation',invert:'Inverser',intensity:'Intensité (%)',radius:'Rayon',contrast:'Contraste',grayscale:'Niveaux de gris',split:'Séparation (%)',smooth:'Lissage (%)',filter:'Filtre',wavelet:'Ondelette',level:'Niveau (vide = automatique)',space:'Espace',component:'Composante',inclusive:'Bornes incluses',colored:'Couleurs d’origine',alpha:'Opacité',kind:'Type',sigma:'Sigma',denoised:'Image débruitée',levels:'Niveaux',bit:'Bit',minimum:'Minimum',maximum:'Maximum',block:'Bloc',blockSize:'Taille des blocs',cellSize:'Taille des cellules',samplesPerBin:'Échantillons par classe',lowFrequencyFraction:'Fraction basses fréquences',lowNoiseFraction:'Fraction faible bruit',view:'Vue',metrics:'Calculer les 20 mesures',equalized:'Égaliser',low:'Qualité minimale',high:'Qualité maximale',step:'Pas',x:'X',y:'Y',z:'Z',includeOriginal:'Inclure l’original',missing:'Grilles absentes',response:'Réponse (%)',matching:'Appariement (%)',distance:'Distance (%)',showPoints:'Points',hideLines:'Masquer les liaisons',stage:'Étape',size:'Voisinage',window:'Fenêtre',upsample:'Sur-échantillonner',center:'Centrer',highpass:'Passe-haut',gamma:'Gamma',rescale:'Rééchelonner',variance:'Variance minimale',showScore:'Afficher les scores',speckle:'Nettoyage des points isolés',method:'Méthode',linear:'RGB linéaire',exclude:'Exclure les pixels saturés',spread:'Dispersion',side:'Grille des propositions',groups:'Groupes',eps:'Distance DBSCAN',binary:'Binaire',algorithm:'Algorithme',limit:'Limite de points',tolerance:'Tolérance',model:'Modèle géométrique',geometricThreshold:'Seuil géométrique',geometricMinimum:'Minimum géométrique',compare:'Comparer deux zones',reflections:'Réflexions (Panels + Text)',autoRadius:'Rayon automatique',compact:'Axes compacts',independent:'Zones indépendantes'};
 const hidden=new Set(['modelId','referenceImageId','databaseId','maskImageId','bounds','regions','excluded','guides','exclusions','selectionPresent','refilterOf','reprojectOf','zoneIds','layout','rect','fourierRegions','trustAnchors']);
 const extra={
+ 'inspection.sherloq7c':{computationMode:'fast',maxSide:512,revelation:100,micro:100,precision:'1e-2'},
  'file.similarity':{},'m2.trufor':{},'m2.rita':{},'m2.catnet':{},'m2.cfa':{variant:'Original',block:32,tile:512},
  'tampering.copyMove.sparse':{algorithm:'Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror',alikedInputSide:1024,alikedDetectionThreshold:.2,limit:6000,radius:600,minimum:5,threshold:.3,tolerance:50,model:'Similarity',geometricThreshold:3,geometricMinimum:6,compare:false,reflections:false,autoRadius:true,compact:true,independent:true,patch:8,iterations:8,texture:2,longSide:832,rotationMode:'none',...SSG_DEFAULTS},
  'ai.sources.safire':{side:16,groups:3,kind:'kmeans',eps:.2,minimum:1,binary:false},'ai.localization.focal':{},'ai.localization.adaifl':{},'ai.clones.d2prl':{inputSide:448,minimum:500}
@@ -66,7 +69,7 @@ defaults['detail.wavelets'].params.level=null;
 defaults['colors.plots'].params.colored=true;
 defaults['colors.plots'].params.kind='3d';
 export const toolCatalog=Object.fromEntries(toolGroups.flatMap(g=>g.items).filter(t=>defaults[t.id]).map(t=>[t.id,{...t,...defaults[t.id]}]));
-export function toolFields(id){const out=[];const visit=(object,prefix='')=>{for(const [name,value]of Object.entries(object)){if(hidden.has(name))continue;const key=prefix+name;if(value&&typeof value==='object'&&!Array.isArray(value)){visit(value,key+'.');continue;}if(Array.isArray(value))continue;out.push({key,label:labels[name]||name,type:typeof value==='boolean'?'checkbox':typeof value==='number'||value===null?'number':'text',value,...(fields[id]?.[key]||{} )});}};visit(toolCatalog[id].params);if(Object.hasOwn(equalizationOperations,id)){
+export function toolFields(id){const out=[];const visit=(object,prefix='')=>{for(const [name,value]of Object.entries(object)){if(hidden.has(name)||id==='inspection.sherloq7c'&&name==='precision'||isDetectorAlias(id)&&name==='method')continue;const key=prefix+name;if(value&&typeof value==='object'&&!Array.isArray(value)){visit(value,key+'.');continue;}if(Array.isArray(value))continue;out.push({key,label:labels[name]||name,type:typeof value==='boolean'?'checkbox':typeof value==='number'||value===null?'number':'text',value,...(fields[id]?.[key]||{} )});}};visit(toolCatalog[id].params);if(Object.hasOwn(equalizationOperations,id)){
  const legacy=equalizationOperations[id],index=out.findIndex(f=>f.key===legacy),field={key:'equalization',label:'Égalisation',type:'equalization'};
  if(index>=0&&id!=='noise.separation')out.splice(index,1,field);else out.push(field);
  }return out;}

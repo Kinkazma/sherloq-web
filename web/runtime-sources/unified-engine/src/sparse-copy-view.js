@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {biomeAreaReferences,alignedParent,biomeAreaWorkingBytes} from './sparse-biome-area.js';
 import {biomeMethod,pairedBiomeMethod,needsBiomeFormation,biomeFormationSelectionCounts,formCorrespondenceBiomes} from './sparse-biome-correspondence.js';
 import {retireDenseOwners} from './dense-owner-retirement.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{isSsgProjectionFailure}from'./ssg-native-projection.js';
 import {createSsgStrictResult} from './ssg-strict-result.js';
 import {createSsgRetainedLocalizer} from './ssg-retained-localization.js';

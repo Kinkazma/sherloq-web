@@ -1,9 +1,9 @@
 // Presentation only. Scientific maps remain untouched in the engine worker.
-import {ADAPTIVE_PREVIEW_MAX_SIDE} from './adaptive-preview.js?v=0.31.0';
-export async function renderEnergy(data,source,{view='overlay',opacity=70,field='high',threshold=0,scoreView='map'}={}, {signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges}={}){
- if(view==='scores'&&field==='both')return renderBothEnergyV1(data,source,{view,opacity,field,threshold,scoreView},{signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges});
+import {ADAPTIVE_PREVIEW_MAX_SIDE} from './adaptive-preview.js?v=0.32.0';
+export async function renderEnergy(data,source,{view='overlay',opacity=70,field='high',threshold=0,scoreView='map'}={}, {signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges,cooperate}={}){
+ if(view==='scores'&&field==='both')return renderBothEnergyV1(data,source,{view,opacity,field,threshold,scoreView},{signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges,cooperate});
  if(!['overlay','labels','scores'].includes(view)||!Number.isInteger(opacity)||opacity<0||opacity>100)throw Error('Invalid energy presentation');
- const check=()=>{if(signal?.aborted)throw Object.assign(Error('Cancelled'),{code:'CANCELLED'});};check();
+ const check=()=>{if(signal?.aborted)throw Object.assign(Error('Cancelled'),{code:'CANCELLED'});},pause=cooperate??(()=>new Promise(resolve=>setTimeout(resolve,0)));check();
  if(view==='scores'){
   if(!['low','high','unified'].includes(field)||!Number.isFinite(threshold)||threshold<0||!['map','overlay'].includes(scoreView))throw Error('Invalid energy score presentation');
   const {width,height,energy_scope:scope,energy_high_score:high,energy_low_score:low}=data,n=width*height;
@@ -34,7 +34,7 @@ export async function renderEnergy(data,source,{view='overlay',opacity=70,field=
      else{let original,index;if(source.data){original=source.data;index=(sy*width+sx)*3;}else if(sampledSource){original=sampledSource.data;index=(Math.floor(sy/sourceStep)*sampledSource.width+Math.floor(sx/sourceStep))*3;}else{original=fallbackRow.data;index=sx*3;}for(let c=0;c<3;c++)output[at+c]=intensity===0?original[index+c]:Math.round(original[index+c]*(1-alpha)+(c===(blue?2:0)?intensity:0)*alpha);}
     }
    }
-   await new Promise(resolve=>setTimeout(resolve,0));
+   await pause();
   }
   // A preview borrows only complete native statistics. Sampled extrema must not
   // change the slider's range or masquerade as measurements of the full map.
@@ -48,6 +48,13 @@ export async function renderEnergy(data,source,{view='overlay',opacity=70,field=
  if(preview){
   const {maxWidth,maxHeight}=preview;if(!Number.isSafeInteger(maxWidth)||maxWidth<1||maxWidth>ADAPTIVE_PREVIEW_MAX_SIDE||!Number.isSafeInteger(maxHeight)||maxHeight<1||maxHeight>ADAPTIVE_PREVIEW_MAX_SIDE)throw Error('Invalid energy preview bounds');
   const scale=Math.min(1,maxWidth/width,maxHeight/height),ow=Math.max(1,Math.floor(width*scale)),oh=Math.max(1,Math.floor(height*scale)),colors=new Map(regionColors.map(x=>[x.id,x.rgb])),output=new Uint8Array(ow*oh*3),alpha=opacity/100;
+  if(colors.size===0&&source.data instanceof Uint8Array){
+   if(view==='overlay'){
+    if(ow===width&&oh===height)output.set(source.data);
+    else for(let y=0;y<oh;y++){check();const sy=Math.min(height-1,Math.floor((y+.5)*height/oh));for(let x=0;x<ow;x++){const sx=Math.min(width-1,Math.floor((x+.5)*width/ow)),at=(y*ow+x)*3,index=(sy*width+sx)*3;output[at]=source.data[index];output[at+1]=source.data[index+1];output[at+2]=source.data[index+2];}if((y&63)===63)await pause();}
+   }
+   await pause();check();return{width:ow,height:oh,logicalWidth:width,logicalHeight:height,preview:true,format:'rgb8',data:output,presentation:{view,opacity,preview:true,nativeResolution:ow===width&&oh===height,sampling:'nearest-native-label-and-source',sampleWidth:ow,sampleHeight:oh}};
+  }
   let sampled,step;if(view==='overlay'&&!source.data&&source.readSampled){step=Math.max(1,Math.ceil(Math.max(width/ow,height/oh)));sampled=await source.readSampled({x:0,y:0,w:width,h:height,step});check();if(sampled.width!==Math.ceil(width/step)||sampled.height!==Math.ceil(height/step)||sampled.data?.length!==sampled.width*sampled.height*3)throw Error('Invalid sampled original');}
   for(let y=0;y<oh;y++){check();const sy=Math.min(height-1,Math.floor((y+.5)*height/oh)),row=view==='overlay'&&!source.data&&!sampled?await source.readPixels({x:0,y:sy,width,height:1}):null;
    if(row&&row.data?.length!==width*3)throw Error('Invalid original RGB rows');
@@ -56,24 +63,31 @@ export async function renderEnergy(data,source,{view='overlay',opacity=70,field=
     const original=source.data??sampled?.data??row.data,index=source.data?(sy*width+sx)*3:sampled?(Math.floor(sy/step)*sampled.width+Math.floor(sx/step))*3:sx*3;
     for(let c=0;c<3;c++)output[at+c]=rgb?Math.round(original[index+c]*(1-alpha)+rgb[c]*alpha):original[index+c];
    }
-   if((y&63)===63)await new Promise(resolve=>setTimeout(resolve,0));
+   if((y&63)===63)await pause();
   }
   check();return{width:ow,height:oh,logicalWidth:width,logicalHeight:height,preview:true,format:'rgb8',data:output,presentation:{view,opacity,preview:true,nativeResolution:ow===width&&oh===height,sampling:'nearest-native-label-and-source',sampleWidth:ow,sampleHeight:oh}};
  }
  const colors=new Map(regionColors.map(x=>[x.id,x.rgb])),output=new Uint8Array(n*3),alpha=opacity/100;
+ if(colors.size===0){
+  if(view==='overlay'){
+   if(source.data instanceof Uint8Array)output.set(source.data);
+   else for(let top=0;top<height;top+=256){check();const rows=Math.min(256,height-top),part=await source.readPixels({x:0,y:top,width,height:rows});check();if(!(part.data instanceof Uint8Array)||part.data.length!==rows*width*3)throw Error('Invalid original RGB rows');output.set(part.data,top*width*3);if(top+rows<height)await pause();}
+  }
+  await pause();check();return{width,height,format:'rgb8',data:output};
+ }
  for(let top=0;top<height;top+=256){check();const end=Math.min(height,top+256)*width;
-  const rowSource=source.data?null:await source.readPixels({x:0,y:top,width,height:Math.min(256,height-top)});
-  const original=source.data??rowSource.data,base=source.data?0:top*width*3;
+  const rowSource=view==='overlay'&&!source.data?await source.readPixels({x:0,y:top,width,height:Math.min(256,height-top)}):null;
+  const original=source.data??rowSource?.data,base=source.data?0:top*width*3;
   for(let i=top*width;i<end;i++){const rgb=colors.get(labels[i]);for(let c=0;c<3;c++)output[i*3+c]=view==='labels'?(rgb?.[c]??0):(rgb?Math.round(original[i*3+c-base]*(1-alpha)+rgb[c]*alpha):original[i*3+c-base]);}
-  await new Promise(resolve=>setTimeout(resolve,0));
+  await pause();
  }
  check();return{width,height,format:'rgb8',data:output};
 }
 
 // Preserve the validated two-panel Both view, including signed thresholds.
-async function renderBothEnergyV1(data,source,{view='overlay',opacity=70,field='high',threshold=0,scoreView='map'}={}, {signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges}={}){
+async function renderBothEnergyV1(data,source,{view='overlay',opacity=70,field='high',threshold=0,scoreView='map'}={}, {signal,preview,observedMaxima:knownMaxima,signedRanges:knownRanges,cooperate}={}){
  if(!['overlay','labels','scores'].includes(view)||!Number.isInteger(opacity)||opacity<0||opacity>100)throw Error('Invalid energy presentation');
- const check=()=>{if(signal?.aborted)throw Object.assign(Error('Cancelled'),{code:'CANCELLED'});};check();
+ const check=()=>{if(signal?.aborted)throw Object.assign(Error('Cancelled'),{code:'CANCELLED'});},pause=cooperate??(()=>new Promise(resolve=>setTimeout(resolve,0)));check();
  if(view==='scores'){
   if(!['low','high','both'].includes(field)||!Number.isFinite(threshold)||!['map','overlay'].includes(scoreView))throw Error('Invalid energy score presentation');
   const {width,height,energy_scope:scope}=data,n=width*height,fields=field==='both'?['high','low']:[field],logicalWidth=width*fields.length;
@@ -110,7 +124,7 @@ async function renderBothEnergyV1(data,source,{view='overlay',opacity=70,field='
      observedMaxima[key]=maximum;ranges[key]={minimum,maximum:signedMaximum};
     }
    }
-   await new Promise(resolve=>setTimeout(resolve,0));
+   await pause();
   }
   // A sampled maximum must never masquerade as the native map's maximum.
   const maxima=isPreview?Object.fromEntries(fields.filter(key=>Number.isFinite(knownMaxima?.[key])&&knownMaxima[key]>=0).map(key=>[key,knownMaxima[key]])):observedMaxima;

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 const HEAP=64*1024**2,MAX_U32=0xffffffff;
 const valid=v=>Number.isSafeInteger(v)&&v>=0;
 const align=v=>Math.ceil(v/8)*8;

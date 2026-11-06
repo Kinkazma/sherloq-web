@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {densePmSmallBlockedWgsl} from './dense-pm-wgsl.js';
 // Unsigned two-limb products/sums preserve the native geometric predicate on
 // the qualified half-pixel axes. Descriptor arithmetic is byte-for-byte the

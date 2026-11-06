@@ -1,5 +1,18 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError,requireValue} from './errors.js';
+
+// An imported memory's declared maximum must not exceed its module's maximum,
+// even when only the small initial allocation is materialized. A policy budget
+// is an upper growth allowance; it is not a request to enlarge that import type.
+export function importedWasmMemoryDescriptor({initialBytes,memoryBudgetBytes,moduleMaximumBytes}={}){
+  const page=65536;
+  requireValue(Number.isSafeInteger(initialBytes)&&initialBytes>=page&&initialBytes%page===0,'Initial WASM memory must be whole pages.');
+  requireValue(Number.isSafeInteger(moduleMaximumBytes)&&moduleMaximumBytes>=initialBytes&&moduleMaximumBytes<=2**32&&moduleMaximumBytes%page===0,'Invalid imported wasm32 memory maximum.');
+  requireValue(Number.isSafeInteger(memoryBudgetBytes)&&memoryBudgetBytes>0,'Invalid imported WASM memory budget.');
+  const maximum=Math.floor(Math.min(memoryBudgetBytes,moduleMaximumBytes)/page);
+  if(maximum<initialBytes/page)throw new EngineError('MEMORY_LIMIT','The admitted WASM heap is below its initial allocation.',{details:{allocationKind:'wasm',requestedBytes:initialBytes,maximumBytes:maximum*page,moduleMaximumBytes}});
+  return {initial:initialBytes/page,maximum};
+}
 
 // Restrict a defined, unshared wasm32 memory without changing instructions.
 // Reject unsupported layouts explicitly; never turn a maximum into a minimum.

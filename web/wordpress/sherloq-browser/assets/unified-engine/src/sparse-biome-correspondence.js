@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {alignedParent,hullOverlap,nativeBiomeHull,partitionBiomeAreas} from './sparse-biome-area.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {roundEven,inverse3} from './copy-geometry.js';

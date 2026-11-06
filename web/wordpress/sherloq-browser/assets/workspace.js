@@ -1,29 +1,31 @@
-import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.31.0';
-import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.31.0';
+import {bindViewportMenu} from './viewport-popup.js?v=0.32.0';
+import {AI_DETECTOR_OPERATION,colorDetectorToolbarWarning,isDetectorAlias,detectorAliasForMethod,detectorTask} from './ai-detector-tools.js?v=0.32.0';
+import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.32.0';
+import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.32.0';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.31.0';
-import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.31.0';
-import {createOpeningImagePreview} from './opening-image-preview.js?v=0.31.0';
-import {diagnostic} from './runtime-context.js?v=0.31.0';
-import {installHoverSliders} from './hover-sliders.js?v=0.31.0';
-import {browserLanguage} from './language.js?v=0.31.0';
-import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.31.0';
-import {mountMediaControls} from './media-controls.js?v=0.31.0';
-import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.31.0';
-import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.31.0';
-import {bindDocumentResize} from './document-resize.js?v=0.31.0';
-import {toolGroups} from './tool-tree.js?v=0.31.0';
-import {isExperimentalTool} from './extension-tools.js?v=0.31.0';
-import {createWorkspaceState} from './workspace-state.js?v=0.31.0';
-import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.31.0';
-import {createDownloadShelf} from './download-shelf.js?v=0.31.0';
-import {mountSessionControls} from './session-ui.js?v=0.31.0';
-import {recoverSettings,settingsFilename} from './settings.js?v=0.31.0';
-import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.31.0';
-import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.31.0';
-import {localFeaturePolicy} from './feature-policy.js?v=0.31.0';
+import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.32.0';
+import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.32.0';
+import {createOpeningImagePreview} from './opening-image-preview.js?v=0.32.0';
+import {diagnostic} from './runtime-context.js?v=0.32.0';
+import {installHoverSliders} from './hover-sliders.js?v=0.32.0';
+import {browserLanguage} from './language.js?v=0.32.0';
+import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.32.0';
+import {mountMediaControls} from './media-controls.js?v=0.32.0';
+import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.32.0';
+import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.32.0';
+import {bindDocumentResize} from './document-resize.js?v=0.32.0';
+import {toolGroups} from './tool-tree.js?v=0.32.0';
+import {isExperimentalTool} from './extension-tools.js?v=0.32.0';
+import {createWorkspaceState} from './workspace-state.js?v=0.32.0';
+import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.32.0';
+import {createDownloadShelf} from './download-shelf.js?v=0.32.0';
+import {mountSessionControls} from './session-ui.js?v=0.32.0';
+import {recoverSettings,settingsFilename} from './settings.js?v=0.32.0';
+import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.32.0';
+import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.32.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.32.0';
 
-export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.31.0')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.31.0')).mountPdfReader(options),originalRegionsFactory}={}) {
+export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.32.0')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.32.0')).mountPdfReader(options),originalRegionsFactory}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
 const downloadShelf=createDownloadShelf({document,parent:$('toolbox'),before:$('toolbox').querySelector('.navigation-tools'),language:()=>state.language,onError:error=>notify(error.message)});
@@ -33,10 +35,10 @@ const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id));
 // Keep the existing synchronous factories once their shared module graph is ready.
 let runtimeReady,engineFactory,createBatchScopeEditor;
 function ensureRuntime(){return runtimeReady??=Promise.all([
- import('./app.js?v=0.31.0'),
- import('./workspace-engine-pool.js?v=0.31.0'),
- import('./batch-scope-editor.js?v=0.31.0'),
- import('./original-source-regions-controller.js?v=0.31.0')
+ import('./app.js?v=0.32.0'),
+ import('./workspace-engine-pool.js?v=0.32.0'),
+ import('./batch-scope-editor.js?v=0.32.0'),
+ import('./original-source-regions-controller.js?v=0.32.0')
 ]).then(([panel,pool,editor,regions])=>{
  panelFactory??=panel.mountAnalysisPanel;originalRegionsFactory??=regions.createOriginalSourceRegionsController;
  createBatchScopeEditor=editor.createBatchScopeEditor;engineFactory=pool.createWorkspaceEnginePool();
@@ -47,13 +49,14 @@ const labels={
 };
 const text=key=>labels[state.language][key]||key,title=id=>state.documents.get(id)?.title??tools.find(t=>t.id===id)?.[state.language]??id;
 let sourceEntry=null,sourceInput=null,currentFile=null,generation=0,framePending=false,theme='dark',savedTools={},pendingSession=null,sessionIntent=null,sourceOpening=null;const retiringEntries=new Map();
+const panelAttention=new Map();let attentionSuspended=false;
 let scopeFallbacks={};
 let computeProfile='maximum',navigationMode='auto',highlight=false,allSliders=true,experimentalTools=false,media=validateMediaPreferences(),unknownFavorites=[],lastPreferences;const toolSignatures=new Map(),dirtyTools=new Set();
 const hoverSliders=installHoverSliders({root:document,enabled:false,language:()=>state.language});
 const scopeFallbackUI=createWholeSourceFallbackUI({document,language:()=>state.language,getPreferences:()=>scopeFallbacks,setPreferences:value=>{scopeFallbacks=validateWholeSourceFallbacks(value);savePreferences();},toolLabel:id=>tools.find(t=>t.id===id)?.[state.language]??id});
 const scopeFallbackSettingsButton=button(state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…',()=>{closeMenus();scopeFallbackUI.configure();});$('import-settings').after(scopeFallbackSettingsButton);
 let templateReady;
-const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.31.0',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
+const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.32.0',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
 function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,allSliders,experimentalTools,scopeFallbacks:validateWholeSourceFallbacks(scopeFallbacks),...media,dependencies:dependencyPreferences()};}
 function setMedia(next){if(!applyingLoupeStep)stepPlayback.reset();media=validateMediaPreferences(next);applyMedia();savePreferences();}
 const comparisonKeys=new Set();let comparisonController=null;let pinnedController=null;
@@ -70,7 +73,7 @@ function placementScopeEditor(options){return createBatchScopeEditor({...options
  openSettings:context=>mediaUI.openPlacementLoupe(context),closeSettings:parent=>mediaUI.closePlacementLoupe(parent),
  sourceOptions:{computeProfile:typeof options.computeProfile==='function'?options.computeProfile():options.computeProfile??computeProfile,engineFactory,getBorrowedSource:()=>{const record=sourceEntry,input=record?.controller?.input?.();return input?{...input,getClient:()=>record.controller.regionDetectionClient(),isCurrent:()=>sourceEntry===record&&record.controller?.input?.().source===input.source&&record.controller?.input?.().file===input.file}:null;}}
 }});}
-const mediaUI=mountMediaControls(document,{getPreferences:()=>media,setPreferences:setMedia,onLoupePanel:pinLoupe,canLoupeStep,onLoupeStep:(direction,settings)=>stepPlayback.once(direction,{...settings,documentId:state.active,controller:activeLoupeController()}),onLoupeStepReset:()=>stepPlayback.reset(),onSweep:group=>state.documents.get(state.active)?.controller?.toggleLoupeSweep?.(group),stopSweep:()=>state.documents.get(state.active)?.controller?.stopLoupeSweep?.(),sweepState:()=>state.documents.get(state.active)?.controller?.loupeSweepState?.(),getEffectsContext:()=>state.documents.get(state.active)?.controller?.loupeEffectsContext?.(),setEffectsContext:value=>state.documents.get(state.active)?.controller?.setLoupeEffectsContext?.(value),getEnhancementContext:()=>state.documents.get(state.active)?.controller?.loupeEnhancement?.(),setEnhancementContext:value=>state.documents.get(state.active)?.controller?.setLoupeEnhancement?.(value),language:()=>state.language,getMinimumZoom:()=>state.documents.get(state.active)?.controller?.loupeMinimum?.()??2,getImageSize:()=>state.documents.get(state.active)?.controller?.exportSize?.()});
+const mediaUI=mountMediaControls(document,{experimentalTools:()=>experimentalTools,getPreferences:()=>media,setPreferences:setMedia,onLoupePanel:pinLoupe,canLoupeStep,onLoupeStep:(direction,settings)=>stepPlayback.once(direction,{...settings,documentId:state.active,controller:activeLoupeController()}),onLoupeStepReset:()=>stepPlayback.reset(),onSweep:group=>state.documents.get(state.active)?.controller?.toggleLoupeSweep?.(group),stopSweep:()=>state.documents.get(state.active)?.controller?.stopLoupeSweep?.(),sweepState:()=>state.documents.get(state.active)?.controller?.loupeSweepState?.(),getEffectsContext:()=>state.documents.get(state.active)?.controller?.loupeEffectsContext?.(),setEffectsContext:value=>state.documents.get(state.active)?.controller?.setLoupeEffectsContext?.(value),getEnhancementContext:()=>state.documents.get(state.active)?.controller?.loupeEnhancement?.(),setEnhancementContext:value=>state.documents.get(state.active)?.controller?.setLoupeEnhancement?.(value),language:()=>state.language,getMinimumZoom:()=>state.documents.get(state.active)?.controller?.loupeMinimum?.()??2,getImageSize:()=>state.documents.get(state.active)?.controller?.exportSize?.()});
 const stepShortcuts=installLoupeStepShortcuts({root:document,language:()=>state.language,canStep:()=>canLoupeStep()&&!document.querySelector('dialog[open]:not(#loupe-dialog)')&&(mediaUI.loupeOpen()||activeLoupeController()?.loupeDiagnostics?.()?.visible),down:(id,direction,details)=>stepPlayback.down(id,direction,{...details,target:media.loupe.stepTarget,step:media.loupe.stepSize,documentId:state.active,controller:activeLoupeController()}),up:id=>stepPlayback.up(id),onPair:pair=>mediaUI.setStepShortcuts(pair)});
 $('image-file').accept=imageAccept+',application/pdf,.pdf';
 function savePreferences(){const current=preferences();if(JSON.stringify(current)===JSON.stringify(lastPreferences))return true;const latest=preferenceAccess.read('sherloq.workspace.preferences').value||{},value=mergePreferenceChanges(lastPreferences,current,latest),saved=preferenceAccess.write('sherloq.workspace.preferences',value);if(saved)lastPreferences=structuredClone(current);return saved;}
@@ -78,16 +81,18 @@ function saveTools(){for(const record of entries())remember(record);if(!dirtyToo
 function notify(message){$('workspace-status').textContent=message;}
 function button(label,action,className=''){const b=document.createElement('button');b.type='button';b.textContent=label;b.className=className;b.onclick=action;return b;}
 function download(value,name,options){const prepared=value instanceof Blob||value?.blob?value:new Blob([JSON.stringify(value,null,2)],{type:'application/json'});return downloadShelf.download(prepared,name,options).catch(error=>{notify(error.message);throw error;});}
+const viewportMenus=[...document.querySelectorAll('.app-menu')].map(menu=>bindViewportMenu(menu));
 function closeMenus(){for(const el of document.querySelectorAll('.app-menu'))el.open=false;}
+const detectorAvailable=id=>isDetectorAlias(id)?localFeaturePolicy.isTaskAvailable(detectorTask(id)):localFeaturePolicy.isToolAvailable(id);
 function renderCatalog(){
  const tree=$('tool-tree');tree.replaceChildren();
- const visible=tool=>(experimentalTools||!isExperimentalTool(tool.id))&&localFeaturePolicy.isToolAvailable(tool.id);
+ const visible=tool=>(experimentalTools||!isExperimentalTool(tool.id))&&detectorAvailable(tool.id);
  const groups=[...(state.favorites.size?[{en:'Favorites',fr:text('favorites'),items:tools.filter(t=>state.favorites.has(t.id))}]:[]),...toolGroups].map(group=>({...group,items:group.items.filter(visible)})).filter(group=>group.items.length);
  for(const group of groups){
   const d=document.createElement('details'),summary=document.createElement('summary');d.className='tool-group';d.open=state.groups.has(group.en);summary.textContent=group[state.language];d.append(summary);
   d.ontoggle=()=>{if(d.isConnected)state.setGroup(group.en,d.open);};
   for(const tool of group.items){const row=document.createElement('div');row.className='tool-row';
-   const open=button(tool[state.language],()=>openTool(tool.id),'tool-open');open.dataset.toolId=tool.id;open.classList.toggle('active',tool.id===state.active);if(tool.newFeature)open.dataset.newFeature=tool.newFeature;
+   const open=button(tool[state.language],()=>openTool(tool.id),'tool-open');open.dataset.toolId=tool.id;colorDetectorToolbarWarning(open,tool.id);open.classList.toggle('active',tool.id===state.active);if(tool.newFeature)open.dataset.newFeature=tool.newFeature;
    const star=button(state.favorites.has(tool.id)?'★':'☆',()=>{state.toggleFavorite(tool.id);renderCatalog();savePreferences();},'tool-star');star.setAttribute('aria-pressed',String(state.favorites.has(tool.id)));star.setAttribute('aria-label',text(state.favorites.has(tool.id)?'removeFavorite':'addFavorite')+' · '+tool[state.language]);star.title=star.getAttribute('aria-label');row.append(open,star);d.append(row);
   }tree.append(d);
  }
@@ -129,6 +134,20 @@ function sourcePresented(record,presentation){
 }
 let settingsTimer;
 function scheduleRender(){if(framePending)return;framePending=true;requestAnimationFrame(()=>{framePending=false;renderStatus();clearTimeout(settingsTimer);settingsTimer=setTimeout(saveTools,250);});}
+function panelIsActive(record){return !attentionSuspended&&document.hidden!==true&&document.visibilityState!=='hidden'&&!record.closed&&state.active===record.id&&state.documents.get(record.id)===record&&!record.element.hidden;}
+function preparationBlocked(){return !!$('workspace-app').inert||!!batchOpening||!!batchUI?.busy||retiringEntries.size>0||entries().some(record=>record.loading||record.controller?.busy||record.controller?.importing||record.controller?.previewPreparationBusy===true||record.controller?.previewPreparationRetiring===true);}
+function panelPreparationAllowed(record){return panelIsActive(record)&&!preparationBlocked();}
+function notifyPanelAttention(){
+ const live=new Set(entries()),blocked=preparationBlocked();
+ for(const record of new Set([...panelAttention.keys(),...live])){
+  const controller=record.controller,active=panelIsActive(record),allowed=active&&!blocked,previous=panelAttention.get(record);
+  if(controller&&(previous?.controller!==controller||previous.active!==active||previous.allowed!==allowed)){
+   // Store before notifying: attention may schedule another status render.
+   panelAttention.set(record,{controller,active,allowed});controller.attentionChanged?.();
+  }
+  if(!live.has(record))panelAttention.delete(record);
+ }
+}
 function reportTarget(entry=state.documents.get(state.active),view=entry?.controller?.snapshot()){
  if(entry?.controller&&!entry.loading)return view?.hasReport?entry.controller:null;
  return batchUI?.canExport?batchUI:null;
@@ -151,6 +170,7 @@ function renderStatus(){
  $('save-session').disabled=!available||entry.controller.capabilities?.session===false;
  $('export-image').disabled=!available||!!view.busy||!(view.hasResult||entry.id==='original');$('quick-export-image').disabled=$('export-image').disabled;$('export-report').disabled=!reportTarget(entry,view);
  const busy=entries().some(e=>e.controller?.busy||e.loading);$('import-settings').disabled=busy;$('restore-session').disabled=busy;
+ notifyPanelAttention();
 }
 function renderDocuments(){
  syncComparison();mediaUI.sync();if(mediaUI.loupeOpen?.())mediaUI.positionLoupe(pinLoupe(true));
@@ -179,7 +199,9 @@ function selectDocument(id){if(state.active!==id)state.documents.get(state.activ
 function scopedDocument(root,host){return {
  getElementById:id=>root.getElementById(id),querySelectorAll:selector=>root.querySelectorAll(selector),createElement:tag=>document.createElement(tag),
  get documentElement(){return host;},fonts:document.fonts,
- addEventListener:(...args)=>root.addEventListener(...args),get fullscreenElement(){return document.fullscreenElement;},exitFullscreen:()=>document.exitFullscreen()
+ addEventListener:(...args)=>root.addEventListener(...args),removeEventListener:(...args)=>root.removeEventListener(...args),
+ get hidden(){return document.hidden;},get visibilityState(){return document.visibilityState;},
+ get fullscreenElement(){return document.fullscreenElement;},exitFullscreen:()=>document.exitFullscreen()
 };}
 function createEntry(id,{pdf=false}={}){
  const record={id,loading:true,generation,element:document.createElement('section'),regionElement:document.createElement('div'),originalRegionsElement:document.createElement('div'),originalRegions:null,controller:null,position:false};record.regionElement.hidden=true;record.originalRegionsElement.hidden=true;record.originalRegionsElement.className='original-source-controls-owner';
@@ -202,7 +224,7 @@ function createEntry(id,{pdf=false}={}){
   const root=panel.attachShadow({mode:'open'});
   for(const name of ['app.css','tool-workspace.css','panel.css']){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(name,import.meta.url).href;link.onload=()=>{record.controller?.fit();positionOpeningPreview(record);};root.append(link);}
   for(const node of nodes)root.append(document.importNode(node,true));
-  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,scopeEditorFactory:placementScopeEditor,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,onSourcePresented:value=>sourcePresented(record,value),getAllSliders:()=>allSliders,requestExport:task=>mediaUI.requestExport(task),requestWholeSourceFallback:options=>scopeFallbackUI.request(options),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>{if(!applyingLoupeStep)stepPlayback.reset();mediaUI.sync();},onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>loupeEffectsState(record,value),onLoupePresented:value=>loupePresented(record,value),exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),sourceInput:()=>sourceInput,getOriginalSourceRegions:()=>sourceEntry?.originalRegions?.snapshot()??null,getOriginalSourceRegionOptions:()=>sourceEntry?.originalRegions?.serializeOptions?.()??null,getOriginalRegionsHighlight:()=>sourceEntry?.originalRegions?.highlight??null,onOriginalRegionsKeydown:event=>sourceEntry?.originalRegions?.keydown(event)??false,restoreOriginalSourceRegions:value=>restoreOriginalSourceRegions(value),visible:()=>!record.element.hidden&&!record.closed,changed:scheduleRender});
+  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,scopeEditorFactory:placementScopeEditor,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,onSourcePresented:value=>sourcePresented(record,value),getAllSliders:()=>allSliders,getExperimentalTools:()=>experimentalTools,requestExport:task=>mediaUI.requestExport(task),requestWholeSourceFallback:options=>scopeFallbackUI.request(options),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>{if(!applyingLoupeStep)stepPlayback.reset();mediaUI.sync();},onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>loupeEffectsState(record,value),onLoupePresented:value=>loupePresented(record,value),exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),getParentBudgetSource:()=>{const parent=sourceEntry,input=parent?.controller?.input?.();return input?.source&&input.file?{...input,getClient:()=>parent.controller.regionDetectionClient(),isCurrent:()=>sourceEntry===parent&&parent.controller?.input?.().source===input.source&&parent.controller?.input?.().file===input.file}:null;},sourceInput:()=>sourceInput,getOriginalSourceRegions:()=>sourceEntry?.originalRegions?.snapshot()??null,getOriginalSourceRegionOptions:()=>sourceEntry?.originalRegions?.serializeOptions?.()??null,getOriginalRegionsHighlight:()=>sourceEntry?.originalRegions?.highlight??null,onOriginalRegionsKeydown:event=>sourceEntry?.originalRegions?.keydown(event)??false,restoreOriginalSourceRegions:value=>restoreOriginalSourceRegions(value),visible:()=>!record.element.hidden&&!record.closed,isActive:()=>panelIsActive(record),previewPreparationAllowed:()=>panelPreparationAllowed(record),changed:scheduleRender});
   if(id==='original'){let controls=root.getElementById('tool-controls');if(!controls){controls=document.createElement('section');controls.id='tool-controls';root.getElementById('analysis-controls').after(controls);}controls.classList.add('original-source-controls');controls.append(record.originalRegionsElement);controls.hidden=false;}
   if(savedTools[id])record.controller.applySettings(savedTools[id]);
   record.controller.setNavigation(navigationMode);record.controller.setTheme(theme);record.controller.setHighlight?.(highlight);record.controller.setLoupe?.(media.loupe);
@@ -221,7 +243,7 @@ async function openTool(id){
  diagnostic({level:'info',kind:'tool.open',operation:id});
  if(!known.has(id))return;
  if(!experimentalTools&&isExperimentalTool(id)){notify(text('experimentalDisabled'));return;}
- if(!localFeaturePolicy.isToolAvailable(id)){notify(state.language==='fr'?'Cette fonction a été désinstallée. Réinstallez-la dans les réglages locaux.':'This feature was uninstalled. Reinstall it in local settings.');return;}
+ if(!detectorAvailable(id)){notify(state.language==='fr'?'Cette fonction a été désinstallée. Réinstallez-la dans les réglages locaux.':'This feature was uninstalled. Reinstall it in local settings.');return;}
  const reader=state.documents.get(state.active);if(reader?.kind==='pdf'){const epoch=generation,file=await reader.controller?.selectedFile();if(reader.closed||state.documents.get(reader.id)!==reader||state.active!==reader.id||generation!==epoch)return;if(!file){notify(state.language==='fr'?'Attendez la première page.':'Wait for the first page.');return;}await openImage(file,{preservePdfs:true,confirmReplace:false});if(reader.closed||state.documents.get(reader.id)!==reader)return;}
  if(state.documents.has(id)){selectDocument(id);return;}
  if(!currentFile){pickImage();return;}
@@ -234,11 +256,11 @@ async function openTool(id){
 function remember(record){if(known.has(record.id)&&record.controller?.settings){const value=record.controller.settings();savedTools[record.id]=value;if(JSON.stringify(value)!==toolSignatures.get(record.id))dirtyTools.add(record.id);}}
 function disposeEntry(record){
  clearOpeningPreview(record);
- let owner=retiringEntries.get(record);if(!owner){owner={originalDone:false,panelDone:false,pending:null};retiringEntries.set(record,owner);}if(owner.pending)return owner.pending;
+ let owner=retiringEntries.get(record);if(!owner){owner={originalDone:false,panelDone:false,pending:null};retiringEntries.set(record,owner);notifyPanelAttention();}if(owner.pending)return owner.pending;
  const task=Promise.resolve().then(()=>retireCompositeOwners([
   async()=>{if(!owner.originalDone){await record.originalRegions?.dispose();owner.originalDone=true;}},
   async()=>{if(!owner.panelDone){record.unregisterSliders?.();record.unregisterSliders=null;let controller;try{controller=await record.ready;}catch(error){controller=record.controller;if(!controller)throw error;}await controller?.dispose();owner.panelDone=true;}}
- ])).then(()=>{retiringEntries.delete(record);});owner.pending=task;void task.finally(()=>{if(owner.pending===task)owner.pending=null;}).catch(()=>{});return task;
+ ])).then(()=>{retiringEntries.delete(record);scheduleRender();});owner.pending=task;void task.finally(()=>{if(owner.pending===task)owner.pending=null;}).catch(()=>{});return task;
 }
 const retireEntries=records=>Promise.allSettled([...new Set([...retiringEntries.keys(),...records])].map(disposeEntry));
 async function closeDocument(id,{force=false}={}){
@@ -286,7 +308,7 @@ async function openImage(file,{preservePdfs=true,confirmReplace=true}={}){
 }
 function warmImagePanel(){void Promise.all([template(),ensureRuntime()]).catch(()=>{});}
 function pickImage(){closeMenus();warmImagePanel();$('image-file').value='';$('image-file').click();}
-async function ensureBatch(){if(!batchUI){batchOpening??=ensureRuntime().then(()=>batchFactory({scopeEditorFactory:placementScopeEditor,document,download,language:()=>state.language,computeProfile:()=>computeProfile,getNavigationMode:()=>navigationMode,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>batchOpening=null);await batchOpening;}return batchUI;}
+async function ensureBatch(){if(!batchUI){batchOpening??=ensureRuntime().then(()=>batchFactory({scopeEditorFactory:placementScopeEditor,document,download,language:()=>state.language,computeProfile:()=>computeProfile,getNavigationMode:()=>navigationMode,experimentalTools:()=>experimentalTools,onInspect:openImage,onChange:scheduleRender})).then(ui=>batchUI=ui).finally(()=>{batchOpening=null;scheduleRender();});scheduleRender();await batchOpening;}return batchUI;}
 async function openOriginalInBatch(record,snapshot){await record.originalRegions.ready;if(record.closed||record!==sourceEntry)throw Error('The original source is no longer open.');const input=record.controller.input(),verified=await validateOriginalSourceRegions(snapshot,{sourceSha256:input.hash,width:input.source.width,height:input.source.height}),batch=await ensureBatch();if(typeof batch.importSource!=='function')throw Object.assign(Error(state.language==='fr'?'Le transfert des zones vers le lot n’est pas encore disponible.':'Source-region batch transfer is not available yet.'),{code:'BATCH_SOURCE_REGIONS_NOT_READY'});await batch.importSource({file:input.file,sourceRegions:verified});batch.open();}
 if($('batch-open'))$('batch-open').onclick=async()=>{closeMenus();try{(await ensureBatch()).open();}catch(error){notify(error.message);}};
 
@@ -329,6 +351,7 @@ $('settings-file').onchange=async e=>{
 function sessionSourceCurrent(record,ticket,intent){if(!record||record!==sourceEntry||record.closed||ticket!==generation||intent!==undefined&&intent!==sessionIntent)throw Object.assign(Error('Session source is no longer current.'),{code:'CANCELLED'});}
 async function restoreOriginalSourceRegions(value,{record=sourceEntry,ticket=generation,intent}={}){if(!value)return;const owner=record?.originalRegions;if(!owner)throw Error(text('sessionImage'));sessionSourceCurrent(record,ticket,intent);await owner.ready;sessionSourceCurrent(record,ticket,intent);const input=record.controller.input(),verified=await validateOriginalSourceRegions(value,{sourceSha256:input.hash,width:input.source.width,height:input.source.height});sessionSourceCurrent(record,ticket,intent);await owner.restore(verified);sessionSourceCurrent(record,ticket,intent);}
 async function applySession(value){
+ if(value.operation===AI_DETECTOR_OPERATION){const prior=value.individual?.[AI_DETECTOR_OPERATION]??value.params,alias=detectorAliasForMethod(prior?.method);if(alias)value={...value,operation:alias,individual:{...value.individual,[alias]:detectorTask(alias,prior).params}};}
  const originalOptions=validateOriginalSourceRegionOptions(value.originalSourceRegionOptions);
  const id=value.operation==='ela.energy'?'ela.classic':value.operation;if(!known.has(id))throw Error(text('invalid'));
  if(!experimentalTools&&isExperimentalTool(id))throw Error(text('experimentalDisabled'));
@@ -362,11 +385,13 @@ document.addEventListener('keydown',e=>{
  if(!typingEvent(e))state.documents.get(state.active)?.controller?.loupeKeydown?.(e);
 });
 document.addEventListener('keyup',e=>{if(e.key==='Alt'||e.key.toLowerCase()==='o'){comparisonKeys.delete(e.key==='Alt'?'Alt':'o');syncComparison();}});
-window.addEventListener('blur',()=>{stepPlayback.reset();clearComparison();});document.addEventListener('visibilitychange',()=>{if(document.hidden){stepPlayback.reset();clearComparison();}});
+window.addEventListener('blur',()=>{stepPlayback.reset();clearComparison();});document.addEventListener('visibilitychange',()=>{if(document.hidden){stepPlayback.reset();clearComparison();}notifyPanelAttention();});
+window.addEventListener('pageshow',()=>{attentionSuspended=false;notifyPanelAttention();});
 
 function applyMedia(){document.documentElement.style.setProperty('--ui-font',media.font==='montserrat'?'"Montserrat", Arial, sans-serif':'"iowan-old-style-bt", "Iowan Old Style", Georgia, serif');mediaUI.sync();for(const record of entries())record.controller?.setLoupe?.(media.loupe);}
 function syncExperimentalTools(){
- $('experimental-tools').checked=experimentalTools;
+ $('experimental-tools').checked=experimentalTools;mediaUI.sync();batchUI?.refreshExperimentalTools?.();
+ for(const record of entries())record.controller?.setExperimentalTools?.(experimentalTools);
  if(!experimentalTools)for(const record of [...state.documents.values()])if(isExperimentalTool(record.id))void closeDocument(record.id,{force:true});
 }
 function applyPreferences(){syncExperimentalTools();$('all-sliders').checked=allSliders;hoverSliders.setEnabled(allSliders);document.documentElement.dataset.theme=theme;applyMedia();$('compute-profile').value=computeProfile;$('navigation-mode').value=navigationMode;$('highlight-tools').checked=highlight;$('workspace-app').classList.toggle('highlight-new-features',highlight);for(const record of entries()){record.controller?.setTheme(theme);record.controller?.setHighlight?.(highlight);record.controller?.setNavigation(navigationMode);record.controller?.setComputeProfile(computeProfile);}}
@@ -380,8 +405,8 @@ try{const home=new URL(query.get('home')||'../../../../',location.href);if(home.
 applyPreferences();translate();renderDocuments();
 if(storedPreferences.issues.length)notify(state.language==='fr'?'Réglages récupérés partiellement. L’original reste conservé ; exportez la sauvegarde de secours dans les réglages locaux.':'Settings partially recovered. The original is retained; export a recovery backup from local settings.');
 window.addEventListener('local-feature-change',renderCatalog);
-window.addEventListener('pagehide',()=>{hoverSliders.dispose();stepShortcuts.dispose();stepPlayback.dispose();clearTimeout(settingsTimer);saveTools();savePreferences();});
-localManagement?.mount(document,{isBusy:()=>entries().some(entry=>entry.loading||entry.controller?.busy)||!!batchUI?.busy,onBeforeBackup:()=>{saveTools();savePreferences();},onFreeze:value=>{if(value){saveTools();savePreferences();}$('workspace-app').inert=value;},onPolicyChange:renderCatalog});
+window.addEventListener('pagehide',()=>{attentionSuspended=true;notifyPanelAttention();hoverSliders.dispose();for(const menu of viewportMenus)menu.dispose();stepShortcuts.dispose();stepPlayback.dispose();clearTimeout(settingsTimer);saveTools();savePreferences();});
+localManagement?.mount(document,{isBusy:()=>entries().some(entry=>entry.loading||entry.controller?.busy)||!!batchUI?.busy,onBeforeBackup:()=>{saveTools();savePreferences();},onFreeze:value=>{if(value){saveTools();savePreferences();}$('workspace-app').inert=value;notifyPanelAttention();},onPolicyChange:renderCatalog});
 
 return {state,openImage,openPDF,openTool,closeAll,closeAnalyses,selectDocument,closeDocument,savePreferences,saveTools,restoreOriginalSourceRegions};
 }

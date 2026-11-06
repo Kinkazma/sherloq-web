@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {GPU_SIGNED_F64_WGSL} from './gpu-f64-signed.js';
 import {GPU_POSITIVE_F64_WGSL} from './gpu-f64-positive.js';
 import {comparisonGpuBoundaryError} from './comparison-gpu-errors.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {installUsefulGpuDispatchEvidence} from './useful-gpu-dispatch-evidence.js';
 const usefulGpuDispatches=installUsefulGpuDispatchEvidence();
 import {clusterSafireNative,projectSafireFragmentNative} from './safire-global-post.js';

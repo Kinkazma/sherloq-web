@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue,EngineError} from './errors.js';
 // Stage arenas reuse the established efficientLoFtrWorkspace full-graph bound,
 // with the actual global token/padded-pixel populations. rows=L0 deliberately

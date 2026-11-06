@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Scientific parameter estimation, independent of performance calibration.
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {energyQuantile} from './energy-prepare.js';
@@ -15,12 +15,12 @@ export function roundDecimal(value,digits){
  requireValue(Number.isFinite(value)&&value>=0&&Number.isInteger(digits)&&digits>=0&&digits<=3,'Invalid decimal rounding');
  const view=new DataView(new ArrayBuffer(8));view.setFloat64(0,value,false);const bits=view.getBigUint64(0,false),exponent=Number((bits>>52n)&2047n),mantissa=(bits&((1n<<52n)-1n))+(exponent?1n<<52n:0n);let numerator=mantissa*10n**BigInt(digits),denominator=1n,power=(exponent||1)-1023-52;if(power>=0)numerator<<=BigInt(power);else denominator<<=BigInt(-power);let result=numerator/denominator,remainder=numerator%denominator;result+=remainder*2n>denominator||(remainder*2n===denominator&&(result&1n))?1n:0n;return Number(result)/10**digits;
 }
-export async function estimateEnergy(base,log,{signal,account=()=>{}}={}){
+export async function estimateEnergy(base,log,{signal,account=()=>{},planeCount=base.energyPlaneCount??3}={}){
  const {energy_planes:planes,energy_scope:scope,energy_summary:regions}=base,n=scope?.length;
- requireValue(scope instanceof Int32Array&&n>0&&planes instanceof Float32Array&&planes.length===3*n&&Array.isArray(regions)&&typeof log==='function','Prepared energy planes/scope required');requireValue(regions.every(r=>Number.isInteger(r.id)&&r.id>0)&&new Set(regions.map(r=>r.id)).size===regions.length,'Unique positive panel ids required');checkAbort(signal);
+ requireValue([1,3].includes(planeCount)&&scope instanceof Int32Array&&n>0&&planes instanceof Float32Array&&planes.length===planeCount*n&&Array.isArray(regions)&&typeof log==='function','Prepared energy planes/scope required');requireValue(regions.every(r=>Number.isInteger(r.id)&&r.id>0)&&new Set(regions.map(r=>r.id)).size===regions.length,'Unique positive panel ids required');checkAbort(signal);
  const step=Math.max(1,Math.ceil(n/131072)),capacity=Math.ceil(n/step),checkpoint=controls(signal);account(capacity*12+16384);
  const values=new Float32Array(capacity),samples=new Float32Array(capacity),scratch=new Float32Array(capacity);let total=0;
- for(const region of regions){let count=0;for(let i=0;i<n;i+=step){if(scope[i]===region.id){const x=planes[i],y=planes[n+i],z=planes[2*n+i];requireValue(Number.isFinite(x)&&Number.isFinite(y)&&Number.isFinite(z)&&x>=0&&y>=0&&z>=0&&x<=255&&y<=255&&z<=255,'Energy outside residual domain');values[count++]=x>y?(y>z?y:Math.min(x,z)):(x>z?x:Math.min(y,z));}if(((i/step)&8191)===0)await checkpoint();}if(count<32)continue;
+ for(const region of regions){let count=0;for(let i=0;i<n;i+=step){if(scope[i]===region.id){const x=planes[i],y=planeCount===3?planes[n+i]:x,z=planeCount===3?planes[2*n+i]:x;requireValue(Number.isFinite(x)&&Number.isFinite(y)&&Number.isFinite(z)&&x>=0&&y>=0&&z>=0&&x<=255&&y<=255&&z<=255,'Energy outside residual domain');values[count++]=planeCount===1?x:x>y?(y>z?y:Math.min(x,z)):(x>z?x:Math.min(y,z));}if(((i/step)&8191)===0)await checkpoint();}if(count<32)continue;
   await sort(values,count,scratch,checkpoint);const center=median(values,count);for(let i=0;i<count;i++){samples[total++]=log(f(f(values[i]+.25)/f(center+.25)));if((i&8191)===0)await checkpoint();}
  }
  const fallback={quantiles:[.1,.9],thresholds:[2,2],method:'quantile_tail_knees_v1',status:'insufficient_spread',sample_count:total};if(!total)return fallback;

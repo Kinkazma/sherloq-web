@@ -8,7 +8,7 @@ let modulePromise,moduleReady;
 export async function initJpegWasm({wasmBinary}={}) { modulePromise=createJpegModule(wasmBinary?{wasmBinary}:{});moduleReady=await modulePromise;return moduleReady; }
 async function moduleInstance(){try{if(!modulePromise)return await initJpegWasm();return await modulePromise;}catch{modulePromise=null;throw new EngineError('CODEC_UNAVAILABLE','Local JPEG WebAssembly codec could not load.');}}
 export const inspectJpeg=jpegHeader;
-export async function inspectJpegBlob(source,{signal}={}){
+export async function inspectJpegBlob(source,{signal,allowCmyk=false}={}){
  const read=async(offset,length)=>{const part=await source.read(offset,length,{signal});try{return Array.from(part.bytes);}finally{part.release();}};
  const signature=await read(0,2);if(signature[0]!==255||signature[1]!==216)throw new EngineError('UNSUPPORTED_FORMAT','JPEG signature required.');
  let offset=2,end=0;
@@ -18,7 +18,7 @@ export async function inspectJpegBlob(source,{signal}={}){
   if(marker[1]===1||marker[1]>=0xd0&&marker[1]<=0xd7)continue;
   const pair=await read(offset,2),length=pair[0]*256+pair[1];requireValue(length>=2&&offset<=source.byteLength-length,'Invalid JPEG segment length.');offset+=length;
  }
- requireValue(end>0,'Missing JPEG scan marker.');const prefix=await source.read(0,end,{signal});try{return jpegHeader(prefix.bytes);}finally{prefix.release();}
+ requireValue(end>0,'Missing JPEG scan marker.');const prefix=await source.read(0,end,{signal});try{return jpegHeader(prefix.bytes,{allowCmyk});}finally{prefix.release();}
 }
 export async function decodeJpegRows(source,header,store,{budget,signal,chunkBytes=4*1024**2,onProgress}={}){
  const width=header.sourceWidth,height=header.sourceHeight,rowBytes=width*3;

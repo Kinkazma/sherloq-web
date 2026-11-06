@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {roundEven,nativeTraceCircle,traceCircleScale,clipTraceLineToCircles} from './copy-draw-geometry.js';
 export {roundEven} from './copy-draw-geometry.js';
 import {allocateWasmMemory,copyTypedArray,wasmAllocationFailure} from './allocation.js';

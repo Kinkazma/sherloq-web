@@ -22,7 +22,9 @@ for root, label in [(engine, 'engine'), (assets, 'ui')]:
         name = rel.as_posix()
         if any(part.startswith('.') or part in {'node_modules', '__pycache__'} for part in rel.parts):
             continue
-        if name == 'src/useful-work-code-identity.js' or path.name.startswith('worker-bundle-'):
+        # Generated inventories contain this identity and worker build hashes.
+        # Hash their source inputs instead of creating a recursive identity.
+        if name in {'src/useful-work-code-identity.js', 'src/engine-worker-entry.js', 'source-manifest.json', 'runtime-manifest.json'} or path.name.startswith('worker-bundle-'):
             continue
         if label == 'ui' and (any(name.startswith(slot + '/') for slot in manifest['slots']) or
                 name.startswith(('dependency-manifest-', 'offline/')) or name in

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {sourceRegionBiomes} from './source-region-biomes.js';
 import {sourceRegionDoubleJpeg} from './source-region-double-jpeg.js';
 import {SOURCE_REGION_CLONES_ADAPTER} from './source-region-clones.js';

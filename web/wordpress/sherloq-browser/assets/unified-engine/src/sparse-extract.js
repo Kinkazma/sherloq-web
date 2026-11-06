@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {ClassicSiftNativeWorkerOwner} from './classic-sift-native-owner.js';
 import {ClassicPagedSiftFeatureEngine} from './classic-sift-paged.js';
 import {classicSiftRetireAll,attachClassicSiftCleanup,withClassicSiftCleanup,classicSiftOwnedRelease,classicSiftRetirement} from './classic-sift-retirement.js';

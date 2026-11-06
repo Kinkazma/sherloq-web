@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Private qualification transport. Never imported by the production adapter.
 import{EngineError,requireValue,deserializeEngineError,serializeEngineError}from'./errors.js';
 import{installWorkerMessageProtocol}from'./worker-message-protocol.js';

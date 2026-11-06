@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createDensePagedHeap} from './dense-paged-heap.js';
 import {denseConstructionOwner,cleanupDenseOwners,retireDenseOwners} from './dense-owner-retirement.js';
 import {wasmAllocationFailure} from './allocation.js';

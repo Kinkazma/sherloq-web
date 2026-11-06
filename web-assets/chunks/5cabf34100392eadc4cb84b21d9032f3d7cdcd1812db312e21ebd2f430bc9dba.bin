@@ -1,0 +1,57 @@
+---
+license: mit
+pipeline_tag: image-classification
+---
+
+# Scaling Up AI-Generated Image Detection with Generator-Aware Prototypes
+
+This repository contains the model presented in the paper [Scaling Up AI-Generated Image Detection via Generator-Aware Prototypes](https://huggingface.co/papers/2512.12982).
+
+GAPL proposes a novel framework to scale up AI-generated image (AIGI) detection by addressing data heterogeneity and model bottlenecks. It learns canonical forgery prototypes and employs a two-stage training scheme with Low-Rank Adaptation to achieve state-of-the-art performance across various GAN and diffusion-based generators.
+
+For more details, including installation and training, please refer to the [official GitHub repository](https://github.com/UltraCapture/GAPL).
+
+## Motivation
+
+![Motivation Framework](https://github.com/UltraCapture/GAPL/raw/main/assets/overview.jpg)
+<p align="center"><em>Figure 1: Overview of our proposed Generator-Aware Prototype Learning (GAPL) framework.</em></p>
+
+## Quick Inference
+
+To run inference on a single image to detect whether it is **Real** or **Fake**, use the following Python code:
+
+```python
+python inference.py \
+  --model_path pretrained/checkpoint.pt \
+  --image_path assets/test_image.jpg \
+  --device cuda
+```
+
+**Output Example:**
+
+```text
+[INFO] Loading model from pretrained/checkpoint.pt...
+[RESULT] Image: assets/test_image.jpg
+  -> Prediction: Fake (AI-Generated)
+  -> Confidence: 99.8%
+```
+
+## Citation
+
+If you find our work useful in your research, please consider citing:
+
+```bibtex
+@article{qin2025Scaling,
+  title={Scaling Up AI-Generated Image Detection with Generator-Aware Prototypes},
+  author={Qin, Ziheng and Ji, Yuheng and Tao, Renshuai and Tian, Yuxuan and Liu, Yuyang and Wang, Yipu and Zheng, Xiaolong},
+  journal={arXiv preprint arXiv:2512.12982},
+  year={2025}
+}
+```
+
+## Acknowledgements
+
+Our code is developed based on the following excellent open-source repositories. We appreciate their excellent work and contributions to the community:
+
+- **[CNNDetection](https://github.com/peterwang512/CNNDetection)**
+- **[Community Forensics](https://github.com/JeongsooP/Community-Forensics)** We leverage the dataset and borrow some code from this codebase.

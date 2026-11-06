@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {resourceValueArbiter} from './resource-value.js';
 import {createReusableBuffer} from './reusable-buffer.js';
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';

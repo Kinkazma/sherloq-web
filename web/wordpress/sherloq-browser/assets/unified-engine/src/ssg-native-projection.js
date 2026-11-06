@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {allocateWasmMemory,allocateTypedArray} from './allocation.js';
 import {checkAbort,createCooperator,EngineError,requireValue} from './errors.js';
 import {getExecutionScheduler} from './execution-scheduler.js';

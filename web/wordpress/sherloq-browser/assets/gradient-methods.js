@@ -1,3 +1,4 @@
+import {validRecompressionSettings} from './recompression-controls.js?v=0.32.0';
 // UI state only. Numerical validation and defaults belong to the engine too.
 export const GRADIENT_METHODS=Object.freeze(['sobel','krawetz']);
 const fields=Object.freeze(['method','intensity','mode','invert','equalize']);
@@ -10,6 +11,7 @@ export function gradientSettings(parameters={}){
  const defaults=gradientDefaults(parameters.method),out={...defaults};
  for(const key of fields)if(key!=='method'&&Object.hasOwn(parameters,key))out[key]=parameters[key];
  if(parameters.equalization!==undefined)out.equalization=structuredClone(parameters.equalization);
+ if(parameters.recompression!==undefined)out.recompression=validRecompressionSettings(parameters.recompression);
  if(out.method==='krawetz')out.mode=2;
  return out;
 }

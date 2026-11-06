@@ -1,6 +1,6 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {truforQueryPlan} from './trufor-query-plan.js';
-import {createNeuralTensor,neuralChannelStatistics} from './neural-tensor-store.js';
+import {createNeuralTensor,neuralChannelStatistics,noteNeuralTensorTaskYield} from './neural-tensor-store.js';
 import {executionSummary} from './neural-execution-summary.js';
 import {requireValue,checkAbort} from './errors.js';
 const MiB=1024**2;
@@ -13,9 +13,9 @@ export async function truforSegmentedBackbone(rgb,npp,{manifest,pool,budget,getT
  requireValue(rgb.channels===3&&npp.channels===3&&rgb.width===npp.width&&rgb.height===npp.height,'TruFor modality shapes differ.');
  requireValue(Number.isSafeInteger(windowBytes)&&windowBytes>0&&Number.isSafeInteger(attentionBytes)&&attentionBytes>0,'Invalid encoder workspace window.');
  const owned=new Set(),executions=executionSummary();
- const make=async(c,h,w)=>{checkAbort(signal);const chosen=storage==='auto'?(c*h*w*4>Math.min(budget.limit/12,(budget.limit-budget.total())/4)?'temporary':'memory'):storage,t=await createNeuralTensor(c,h,w,{budget,signal,storage:chosen,getTemporarySession});owned.add(t);return t;};
+ const make=async(c,h,w)=>{checkAbort(signal);const chosen=storage==='auto'?(c*h*w*4>Math.min(budget.limit/12,(budget.limit-budget.total())/4)?'temporary':'memory'):storage,t=await createNeuralTensor(c,h,w,{budget,signal,storage:chosen,cooperation:'bounded',getTemporarySession});owned.add(t);return t;};
  const drop=async t=>{if(owned.delete(t))await t.dispose();};
- const run=async(name,inputs,workspaceBytes,outputBytes,extra={})=>{const output=await pool.run(name,inputs,{backend,signal,onProgress,...extra,workspaceBytes:Math.ceil(workspaceBytes)+16*MiB,outputBytes});executions.add(name,output.metrics);return output;};
+ const run=async(name,inputs,workspaceBytes,outputBytes,extra={})=>{const output=await pool.run(name,inputs,{backend,signal,onProgress,...extra,workspaceBytes:Math.ceil(workspaceBytes)+16*MiB,outputBytes});noteNeuralTensorTaskYield(budget);executions.add(name,output.metrics);return output;};
  const rowsFor=(tensor,factor=20)=>Math.max(1,Math.min(tensor.height,Math.floor(windowBytes/(tensor.width*tensor.channels*4*factor))));
  async function coreWrite(target,top,rows,source,sourceRows,cropTop){
   requireValue(source.length===target.channels*sourceRows*target.width,'Encoder output shape mismatch.');

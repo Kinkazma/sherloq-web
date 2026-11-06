@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {densePmWgsl} from './dense-pm-base-wgsl.js';
 // Six native parent deltas use at most six previous fronts and dy/dfront<=1.
 // Sixteen halo rows on either side suffice for sixteen exact local fronts.

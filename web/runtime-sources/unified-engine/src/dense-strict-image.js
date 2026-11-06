@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {attachGpuCleanup} from './gpu-ack-retirement.js';
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,countedDenseOwner,createDenseRetirementLedger,denseConstructionOwner,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {strictDenseSource,filterStrictDenseCandidateMask} from './dense-strict-source.js';

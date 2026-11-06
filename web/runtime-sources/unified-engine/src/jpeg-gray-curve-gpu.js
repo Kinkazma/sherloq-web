@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createJpegGrayCurvePolicy} from './jpeg-gray-curve-policy.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {elaJpegQuantization} from './ela-gpu.js';

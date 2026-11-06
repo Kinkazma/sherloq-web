@@ -1,0 +1,56 @@
+{
+  "variant": "scalar-control",
+  "sourceSha256": "7997019cd3238f162bffaf79a034c020ba62ad80b8a5bd0eefd4d194e5df78f6",
+  "file": "scalar-control.wasm",
+  "bytes": 1283,
+  "sha256": "591669684fd28cfb20a136cdaa5577f12449d1672acf4210972a99f917c05af6",
+  "watFile": "scalar-control.wat",
+  "watSha256": "884855c7f96e787f0b10f5fc92d9a6b1bbed81cf29e242b5fbcd4278294905f8",
+  "imports": [
+    [
+      "env",
+      "memory"
+    ]
+  ],
+  "sections": [
+    {
+      "kind": 1,
+      "bytes": 16
+    },
+    {
+      "kind": 2,
+      "bytes": 18
+    },
+    {
+      "kind": 3,
+      "bytes": 3
+    },
+    {
+      "kind": 7,
+      "bytes": 25
+    },
+    {
+      "kind": 10,
+      "bytes": 920
+    },
+    {
+      "kind": 0,
+      "bytes": 120
+    },
+    {
+      "kind": 0,
+      "bytes": 157
+    }
+  ],
+  "importMemoryOnly": true,
+  "noStart": true,
+  "noDataSegments": true,
+  "noLinearStores": true,
+  "noLinearStack": true,
+  "noNewLinearMemory": true,
+  "squareRootFloat64ThenFloat32": true,
+  "forbiddenWriteInstructions": [],
+  "globalOperations": [],
+  "meaning": "Only original copy-tree Memory is imported. All native workspace is locals/operand stack; no writes, start, data, memory growth or globals used. No numerical/performance qualification yet.",
+  "status": "passed-imported-memory-no-writes"
+}

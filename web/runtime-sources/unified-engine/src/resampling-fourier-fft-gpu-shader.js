@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Mixed-radix Stockham DD complex FFT; unchanged dimensions, no padding.
 // Positive binary64 prepared input is decoded without scalar f32 rounding.
 import {fourierViewShader} from './resampling-fourier-gpu-shader.js';

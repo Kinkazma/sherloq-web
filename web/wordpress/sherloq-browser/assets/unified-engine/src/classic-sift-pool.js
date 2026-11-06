@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {ClassicSiftPagedResources,classicSiftResourceError} from './classic-sift-paged-resources.js';
 import {classicSiftRetirement,classicSiftRetireAll,attachClassicSiftCleanup,keepClassicSiftRetirement,forgetClassicSiftRetirement} from './classic-sift-retirement.js';
 import {createClassicSiftInputWindow} from './classic-sift-input-window.js';

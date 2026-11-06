@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue} from './errors.js';
 import {neuralWindowRuntimeQuota} from './neural-window-memory-plan.js';
 import {captureNeuralWindowBinding} from './neural-window-job-owner.js';

@@ -1,4 +1,6 @@
-import {extensionDisplays} from './extension-tools.js?v=0.31.0';
+import {SPLICEBUSTER_OPERATION,splicebusterViewLabel} from './splicebuster-ui.js?v=0.32.0';
+import {recompressionAxisLabel} from './recompression-axis-label.js?v=0.32.0';
+import {extensionDisplays} from './extension-tools.js?v=0.32.0';
 function ghostDisplayLabels(output,displays,language){
  const same=(a,b)=>a===b||!!(a?.id&&b?.id&&a.id===b.id&&a.revision===b.revision),views=output.data?.views??[],qualities=output.data?.qualities;
  return displays.map((entry,position)=>{
@@ -7,7 +9,7 @@ function ghostDisplayLabels(output,displays,language){
   const index=Number.isInteger(retained?.index)?retained.index:viewIndex>=0?viewIndex:pathIndex?Number(pathIndex[1]):position;
   const quality=retained?.quality??views[index]?.quality??qualities?.[index]??(layerQuality===undefined?undefined:Number(layerQuality));
   if(original)return{...entry,label:language==='en'?'Original image':'Image originale',ghost:{index,original:true}};
-  if(Number.isFinite(quality))return{...entry,label:(language==='en'?'Quality ':'Qualité ')+quality,ghost:{index,original:false,quality}};
+  if(Number.isFinite(quality)){const axis=recompressionAxisLabel(output,language),historical=axis===(language==='en'?'JPEG quality':'Qualité JPEG'),label=historical?(language==='en'?'Quality ':'Qualité ')+quality:axis==='Palette (%)'?'Palette '+quality+' %':axis+' '+quality;return{...entry,label,ghost:{index,original:false,quality}};}
   return entry;
  });
 }
@@ -21,7 +23,7 @@ export function resultDisplays(output,{neuralDisplays=()=>null,language='fr'}={}
  function visit(value,path){
   if(!value||typeof value!=='object'||ArrayBuffer.isView(value))return;
   if(value.width&&value.height&&value.format&&((value.id&&value.revision)||value.data instanceof Uint8Array)){
-   const key=value.id||path;if(!seen.has(key)){seen.add(key);const names=english?{probability:'RITA — scores',mask:'RITA — mask',overlay:'RITA — overlay',map:'Anomaly map',map_alternative:'Heatmap — alternative palette',confidence:'Confidence',noiseprint_pp:'Noiseprint++'}:{probability:'RITA — scores',mask:'RITA — masque',overlay:'RITA — superposition',map:'Carte des anomalies',map_alternative:'Carte de chaleur — palette alternative',confidence:'Confiance',noiseprint_pp:'Noiseprint++'},numbered=english?['Overlay','Map','Grids / map']:['Superposition','Carte','Grilles / carte'];found.push({label:value.m2Result?names[value.view]??numbered[value.view]:path||'Résultat',display:value.id?value:{...value,pixels:value}});}return;
+   const key=value.id||path;if(!seen.has(key)){seen.add(key);const names=english?{probability:'RITA — scores',mask:'RITA — mask',overlay:'RITA — overlay',map:'Anomaly map',map_alternative:'Heatmap — alternative palette',neuron333:'Channel 333 — diagnostic response',confidence:'Confidence',noiseprint_pp:'Noiseprint++'}:{probability:'RITA — scores',mask:'RITA — masque',overlay:'RITA — superposition',map:'Carte des anomalies',map_alternative:'Carte de chaleur — palette alternative',neuron333:'Canal 333 — réponse diagnostique',confidence:'Confiance',noiseprint_pp:'Noiseprint++'},numbered=english?['Overlay','Map','Grids / map']:['Superposition','Carte','Grilles / carte'];found.push({label:value.m2Result?(output.operation===SPLICEBUSTER_OPERATION?splicebusterViewLabel(value.view,language):names[value.view]??numbered[value.view]):path||'Résultat',display:value.id?value:{...value,pixels:value}});}return;
   }
   // The admitted crop is an owned comparison input, never a result layer.
   // Its handle remains in the result for lifetime accounting and source view.

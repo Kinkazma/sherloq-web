@@ -1,5 +1,6 @@
-import {doctamperNativeSummary} from './doctamper-native-summary.js?v=0.31.0';
-import {comprintNativeSummary} from './comprint-native-summary.js?v=0.31.0';
+import {AI_DETECTOR_GROUP,isDetectorTool} from './ai-detector-tools.js?v=0.32.0';
+import {doctamperNativeSummary} from './doctamper-native-summary.js?v=0.32.0';
+import {comprintNativeSummary} from './comprint-native-summary.js?v=0.32.0';
 // UI metadata only. The core owns decoding, model loading, scheduling and results.
 // Sizes identify the exported ONNX files, not a claim about cached resources.
 export const EXTENSION_MODEL_ASSETS=Object.freeze({
@@ -33,14 +34,14 @@ export const EXTENSION_MODEL_ASSETS=Object.freeze({
  },
 });
 export const EXTENSION_TOOLS=Object.freeze([
- {id:'ai.generation.bfree',method:'bfree',fr:'⚠️ B-Free — Détecteur d’IA',en:'⚠️ B-Free — AI detector',group:'AI Solutions',kind:'global',experimental:true},
- {id:'ai.generation.spai',method:'spai',fr:'⚠️ SPAI — Détecteur d’IA',en:'⚠️ SPAI — AI detector',group:'AI Solutions',kind:'global',experimental:true},
+ {id:'ai.generation.bfree',method:'bfree',fr:'⚠️ B-Free',en:'⚠️ B-Free',group:AI_DETECTOR_GROUP.en,kind:'global',experimental:true},
+ {id:'ai.generation.spai',method:'spai',fr:'⚠️ SPAI',en:'⚠️ SPAI',group:AI_DETECTOR_GROUP.en,kind:'global',experimental:true},
  {id:'ai.text.doctamper',method:'doctamper',fr:'⚠️ DTD — Textes documentaires',en:'⚠️ DTD — Documentary text',group:'Tampering',kind:'map',experimental:true},
  {id:'jpeg.comprint',method:'comprint',fr:'Comprint — Empreinte de compression',en:'Comprint — Compression fingerprint',group:'JPEG',kind:'map'}
 ].map(tool=>Object.freeze({...tool,newFeature:'yellow'})));
 export const extensionTool=id=>EXTENSION_TOOLS.find(t=>t.id===id);
 export const isExtensionTool=id=>!!extensionTool(id);
-export const isExperimentalTool=id=>extensionTool(id)?.experimental===true;
+export const isExperimentalTool=id=>isDetectorTool(id)||extensionTool(id)?.experimental===true;
 export function extensionConfiguration(){const baseURL=new URL('./extension-engine/',import.meta.url).href;return {baseURL,moduleURL:new URL('engine.js',baseURL).href,resultStorage:'temporary'};}
 export function extensionModelAssets(id){
  const methods=[extensionTool(id)?.method];

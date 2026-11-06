@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {checkAbort,createCooperator} from './errors.js';
 import {allocateTypedArray} from './allocation.js';
 // Same NumPy1.26.4 aquicksort_/aheapsort_ graph as numpy-argsort.js.

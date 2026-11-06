@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {stereoGaussianResident} from './stereo-gaussian-resident.js';
 import {drainGpuTransactions} from './gpu-ack-retirement.js';
 import {nativeGpuSync,nativeGpuAsync,gpuFallbackError} from './gpu-native-boundary.js';

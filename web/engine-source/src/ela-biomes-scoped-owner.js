@@ -33,7 +33,7 @@ export function createScopedElaStages(budget){
 
 export function createScopedElaOwner(budget,fingerprint){
  const stages=new Map(),codecs=new Set(),temporary=new Set(),afterCodecs=new Set();let closed=false,retiring=false,retirement,clock=0;
- const closeCodecs=async()=>{await retireCompositeOwners([...codecs].map(image=>async()=>{await image.rgbRecompression?.dispose();codecs.delete(image);}));await retireCompositeOwners([...temporary].map(owner=>()=>owner.release()));await retireCompositeOwners([...afterCodecs].map(close=>async()=>{await close();afterCodecs.delete(close);}));};
+ const closeCodecs=async()=>{await retireCompositeOwners([...codecs].map(image=>async()=>{await image.rgbRecompression?.dispose();await image.selectedRecompression?.dispose();await image.selectedGhostRecompression?.dispose();codecs.delete(image);}));await retireCompositeOwners([...temporary].map(owner=>()=>owner.release()));await retireCompositeOwners([...afterCodecs].map(close=>async()=>{await close();afterCodecs.delete(close);}));};
  return {fingerprint,codecs,temporary,afterCodecs,
   async stage(key){
    requireValue(!closed&&!retiring,'Scoped Native ELA owner is retiring.');let entry=stages.get(key);if(entry?.value.retiring){await entry.value.dispose();stages.delete(key);entry=null;}

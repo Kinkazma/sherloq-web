@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{computeStoredDoubleJpeg}from'./double-jpeg-service.js';import{checkAbort}from'./errors.js';
 // Original encoded evidence is retained. The derived RGB envelope is never an
 // input to this detector, and is never recompressed to fabricate coefficients.

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {nativeGpuSync,nativeGpuAsync,gpuFallbackError} from './gpu-native-boundary.js';
 import {stereoGpuOperation,retireStereoGpuOperation,drainStereoGpuOperations,attachStereoGpuCleanup} from './stereo-gpu-retirement.js';
 import {EngineError,checkAbort,requireValue} from './errors.js';

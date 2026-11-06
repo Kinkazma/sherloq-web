@@ -1,0 +1,95 @@
+import "../../../../../runtime-context.js?v=0.31.0";
+import {resolveElaSynthesisAxis,ELA_SYNTHESIS_RECIPE} from './ela-synthesis-axis.js';
+import {createElaSynthesisAccumulator} from './ela-synthesis-accumulator.js';
+import {createElaSynthesisCache,elaSynthesisCacheKey} from './ela-synthesis-cache.js';
+import {elaSynthesisPresentation} from './ela-synthesis-presentation.js';
+import {prepareSourceRegionDomain} from './source-region-dispatch.js';
+import {createSourceRegionView} from './source-region-view.js';
+import {contiguousSurface} from './image-sources.js';
+import {retireCompositeOwners} from './composite-owner-release.js';
+import {EngineError,requireValue,checkAbort} from './errors.js';
+
+const stable=value=>value===undefined||value===null?'null':Array.isArray(value)?'['+value.map(stable).join(',')+']':typeof value==='object'?'{'+Object.keys(value).sort().map(key=>JSON.stringify(key)+':'+stable(value[key])).join(',')+'}':JSON.stringify(value);
+const same=(a,b)=>stable(a)===stable(b);
+export function createElaSynthesisService({budget,getImage,getSurface,publish,onTemporarySession,nativeHeadroomFor=()=>budget.limit,beforeAccumulator,cache=createElaSynthesisCache({budget}),createAccumulator=createElaSynthesisAccumulator}={}){
+ const jobs=new Map(),volatile=new Map(),volatileOwners=new Set(),verified=new Map();let closed=false;
+ const alive=()=>{if(closed)throw new EngineError('DISPOSED','Synthesis service is closed.');};
+ const jobFor=id=>{alive();const job=jobs.get(id);if(!job)throw new EngineError('NOT_FOUND','Synthesis owner no longer exists.');requireValue(getImage(job.imageId)===job.original,'The synthesis Original owner changed.');return job;};
+ async function releaseFrame(job){if(!job?.frameOwner)return;await job.frameOwner.dispose();job.frameOwner=null;}
+ async function releaseNativeResources(job){await retireCompositeOwners([...(job.nativeResources??[])].map(([key,owner])=>async()=>{await owner.dispose();job.nativeResources.delete(key);}));}
+ async function retire(job){await retireCompositeOwners([()=>releaseFrame(job),()=>releaseNativeResources(job),()=>job.accumulator?.dispose(),()=>job.reader?.close()]);jobs.delete(job.id);}
+ async function retireVolatile(entry){if(entry.refs)return 0;const before=budget.total();await entry.base.surface.dispose();entry.closed=true;volatileOwners.delete(entry);if(volatile.get(entry.key.key)===entry)volatile.delete(entry.key.key);return Math.max(0,before-budget.total());}
+ async function retireVerified(entry){if(entry.refs)return 0;if(entry.retirement)return entry.retirement;entry.retiring=true;const before=budget.total(),task=Promise.resolve().then(()=>entry.reader.close()).then(()=>{if(verified.get(entry.key)===entry)verified.delete(entry.key);entry.closed=true;return Math.max(0,before-budget.total());});entry.retirement=task;void task.catch(()=>{entry.retiring=false;entry.retirement=null;});return task;}
+ const unregister=budget.registerAsyncReclaimer?.(async({all=false,shortfallBytes=0}={})=>{let freed=0;for(const entry of [...volatileOwners]){if(entry.refs)continue;freed+=await retireVolatile(entry);if(!all&&freed>=shortfallBytes)break;}for(const entry of [...verified.values()]){if(!all&&freed>=shortfallBytes)break;if(!entry.refs)freed+=await retireVerified(entry);}return freed;},{allocationKind:'array-buffer',owner:'ela-synthesis',label:'idle-native-synthesis-fallback'});
+ function readerLease(entry,descriptor,read){entry.refs++;let closing=null;const pending=new Set();return{...descriptor,readInto(target,offset){if(closing||entry.closed)throw new EngineError('DISPOSED','Synthesis reader is closed.');const task=Promise.resolve().then(()=>read(target,offset));pending.add(task);void task.finally(()=>pending.delete(task)).catch(()=>{});return task;},adopt(){requireValue(!closing&&!entry.closed,'Synthesis reader is closed.');},close(){if(closing)return closing;return closing=(async()=>{await Promise.allSettled([...pending]);entry.refs--;})();}};}
+ function volatileReader(entry){requireValue(!entry.closed,'Native synthesis fallback was retired.');return readerLease(entry,{meta:entry.meta,manifest:{persistent:false,backend:'native-segmented'},byteLength:entry.meta.width*entry.meta.height*3},(target,offset)=>entry.base.readInto(target,offset));}
+ function verifiedReader(entry){return readerLease(entry,{meta:entry.reader.meta,manifest:entry.reader.manifest,byteLength:entry.reader.byteLength},(target,offset)=>entry.reader.readInto(target,offset));}
+ async function readerFor(key,options={}){checkAbort(options.signal);if(options.isCurrent&&options.isCurrent()!==true)throw new EngineError('STALE_RESULT','The synthesis owner changed.');const entry=[...volatileOwners].find(value=>value.key.key===key.key&&!value.closed&&value.original===options.original);if(entry)return volatileReader(entry);let known=verified.get(key.key);if(known?.retiring){await known.retirement;known=null;}if(known&&!known.closed)return verifiedReader(known);
+  const reader=await cache.reader({key,...options});if(!reader)return null;try{await reader.adopt?.();checkAbort(options.signal);known={key:key.key,reader,refs:0,closed:false,retiring:false};verified.set(key.key,known);return verifiedReader(known);}catch(error){await reader.close();throw error;}
+ }
+ async function retainNativeFallback(key,meta,base,original){const old=[...volatileOwners].find(value=>value.key.key===key.key&&!value.closed&&value.original===original);if(old){await base.surface.dispose();return volatileReader(old);}const entry={key,meta,base,original,refs:0,closed:false};volatile.set(key.key,entry);volatileOwners.add(entry);return volatileReader(entry);}
+ async function identity(original,params,domain,axis,signal){
+  const d=original.surface.descriptor,sourceContexts=[];let view;const fees=[];
+  try{
+   if(domain){view=await createSourceRegionView({...original.surface,sha256:original.sha256},domain.descriptor,{budget,signal});for(const rect of view.admittedRectangles()){checkAbort(signal);fees.push(budget.reserve(256));sourceContexts.push({...rect,x:rect.x+domain.origin[0],y:rect.y+domain.origin[1]});}}
+   else sourceContexts.push({x:0,y:0,width:d.width,height:d.height});
+   const whole=domain&&domain.origin[0]===0&&domain.origin[1]===0&&domain.width===d.width&&domain.height===d.height&&domain.countIncluded===d.width*d.height,semanticDomain=domain&&!whole?{schema:'sherloq.ela-synthesis-domain/1',origin:[...domain.origin],width:domain.width,height:domain.height,sourceWidth:domain.sourceWidth,sourceHeight:domain.sourceHeight,countIncluded:domain.countIncluded}:null;
+   return await elaSynthesisCacheKey({sourceSha256:original.sha256,width:d.width,height:d.height,decode:original.provenance??{},domain:semanticDomain,sourceContexts,recipe:ELA_SYNTHESIS_RECIPE,codecOptions:{codec:axis.codec,lossless:axis.states[0].plan.stage.lossless},axis:axis.states.map(({value,plan})=>{const {requestedQuality,...stage}=plan.stage;return{value,stage};})},{budget,signal});
+  }finally{await view?.dispose();for(const fee of fees)fee();}
+ }
+ async function publication(job,id,reader,presentation,cacheHit,metrics={}){
+  await reader.adopt?.();const record=elaSynthesisPresentation(reader,{budget,presentation,contains:job.domain?(x,y)=>job.domain.contains(x,y):undefined});let surface;try{surface=publish(job.imageId,record);}catch(error){await record.surface.dispose();throw error;}const persisted=reader.manifest?.persistent===true;return{id,imageId:job.imageId,operation:'ela.classic',status:'ok',layout:'surface',surface,layers:[{id:'ela-synthesis',kind:'rgb',surfaceId:surface.id,origin:[0,0],range:[0,255]}],...(job.domain?{sourceRegionDomain:job.domain.descriptor,sourceRegionOrigin:[...job.domain.origin]}:{}),synthesis:{key:job.key,axis:job.axis,recipe:ELA_SYNTHESIS_RECIPE,cacheHit,persisted,storageBackend:reader.manifest?.backend??'unknown'},provenance:{operation:'ela.classic',originalSha256:job.original.sha256,decode:structuredClone(job.original.provenance),params:{quality:null,...ELA_SYNTHESIS_RECIPE.ela,equalization:structuredClone(job.axis.states[0].params.equalization)},synthesis:{recipe:ELA_SYNTHESIS_RECIPE,axis:job.axis,cacheKey:job.key.key},backend:'native-per-frame',semantics:'Channel-wise median of independently recompressed Original ELA RGB8 frames after each frame’s global Histogram100 HSV-V mapping.'},metrics:{...metrics,...record.metrics,cache:{synthesis:cacheHit,persisted},synthesisFrames:job.axis.count,nativeAnalysisRequests:cacheHit?0:job.axis.count,memory:budget.snapshot()}};
+ }
+ async function opened({imageId,key,sourceRegionDomain},{signal}={}){
+  alive();checkAbort(signal);const original=getImage(imageId),reader=await readerFor(key,{signal,original});requireValue(reader,'The synthesis cache entry is unavailable.');let success=false;
+  try{const parsed=JSON.parse(key.canonical);requireValue(parsed.sourceSha256===original.sha256&&parsed.width===original.surface.descriptor.width&&parsed.height===original.surface.descriptor.height&&same(parsed.decode,original.provenance??{})&&same(parsed.recipe,ELA_SYNTHESIS_RECIPE),'The cached synthesis belongs to another Original or decoding recipe.');
+   const axis=reader.meta.synthesisAxis;requireValue(axis?.states?.length===parsed.axis.length,'Cached synthesis axis metadata is incomplete.');const descriptor=sourceRegionDomain===undefined?reader.meta.sourceRegionDomain:sourceRegionDomain,domain=descriptor?await prepareSourceRegionDomain(original,descriptor,{signal}):null,actual=await identity(original,{},domain,axis,signal);requireValue(actual.key===key.key,'The synthesis source membership or native context order changed.');checkAbort(signal);success=true;return{imageId,original,key,axis,domain,reader};
+  }finally{if(!success)await reader.close();}
+ }
+ return{
+  context(id){const job=jobFor(id);return{imageId:job.imageId,original:job.original,domain:job.domain};},
+  frame({id,index,owner}){const job=jobFor(id),state=job.axis.states[index];requireValue(job.accumulator&&!job.reader&&!job.frameOwner&&Number.isSafeInteger(index)&&index===job.accumulator.appended&&state&&owner?.active===true&&owner.original===job.original&&owner.index===index,'A live ordered synthesis frame is required.');job.frameOwner=owner;owner.nativeResources=job.nativeResources??=new Map();return{imageId:job.imageId,original:job.original,domain:job.domain,params:structuredClone(state.params)};},
+  releaseFrame({id}){return releaseFrame(jobs.get(id));},
+  async describe(request,hooks={}){const base=await opened(request,hooks);try{return{imageId:base.imageId,original:base.original,domain:base.domain};}finally{await base.reader.close();}},
+  async axis({imageId,params={}},hooks={}){alive();return resolveElaSynthesisAxis(getImage(imageId),params,hooks);},
+  async begin({imageId,params={},sourceRegionDomain},{signal}={}){
+   alive();checkAbort(signal);const original=getImage(imageId),domain=sourceRegionDomain?await prepareSourceRegionDomain(original,sourceRegionDomain,{signal}):null,axis=await resolveElaSynthesisAxis(original,params,{signal}),key=await identity(original,params,domain,axis,signal),d=domain??original.surface.descriptor;
+   const current=()=>!closed&&getImage(imageId)===original;let reader,accumulator,cacheFailure=null;
+   try{try{reader=await readerFor(key,{signal,isCurrent:current,original});}catch(error){checkAbort(signal);if(['CANCELLED','STALE_RESULT'].includes(error?.code))throw error;cacheFailure={code:error?.code??error?.name??'CACHE_UNAVAILABLE',message:error?.message};}checkAbort(signal);if(!reader){await beforeAccumulator?.({imageId,key,axis,domain},{signal});checkAbort(signal);accumulator=await createAccumulator({width:d.width,height:d.height,count:axis.count,budget,nativeHeadroomBytes:Math.max(...axis.states.map(state=>nativeHeadroomFor({imageId,operation:'ela.classic',params:state.params,sourceRegionDomain},{original,domain,sourceRegionDomain}))),temporarySession:original.session,getTemporarySession:original.ensureTemporarySession,onTemporarySession},{signal});}
+    checkAbort(signal);const id=crypto.randomUUID(),job={id,imageId,original,domain,axis,key,reader,accumulator,cacheFailure,backends:{},frameMetrics:[]};jobs.set(id,job);return{id,imageId,sourceSha256:original.sha256,width:d.width,height:d.height,axis,key,cacheHit:!!reader,persisted:reader?.manifest?.persistent===true,...(cacheFailure?{cacheFailure}:{}),...(domain?{sourceRegionDomain:domain.descriptor}:{})};
+   }catch(error){await retireCompositeOwners([()=>reader?.close(),()=>accumulator?.dispose()],{primary:error});throw error;}
+  },
+  async append({id,result},{signal,onProgress}={}){
+   const job=jobFor(id),index=job.accumulator?.appended,state=job.axis.states[index];checkAbort(signal);requireValue(job.accumulator&&!job.reader&&state&&result?.imageId===job.imageId&&result.operation==='ela.classic'&&result.status==='ok'&&result.provenance?.originalSha256===job.original.sha256&&same(result.sourceRegionDomain?.fingerprint,job.domain?.fingerprint),'Synthesis frame belongs to another Original, result or source domain.');
+   if(job.frameOwner)requireValue(job.frameOwner.index===index&&job.frameOwner.resultId===result.id,'Synthesis append differs from its owned native frame.');
+   const actual=result.provenance.params,expected=state.params;for(const field of ['quality','scale','contrast','linear','grayscale','recompression','equalization'])requireValue(same(actual?.[field],expected[field]),'Synthesis frame recipe differs: '+field);
+   let surface,borrowed,fee;try{
+    if(result.surface){surface=getSurface(result.surface.id);requireValue(result.surface.id!==job.original.surface.descriptor.id&&surface?.descriptor.revision===result.surface.revision,'Synthesis frame surface revision changed.');}
+    else{requireValue(result.pixels?.data instanceof Uint8Array,'A live native synthesis surface or RGB8 frame is required.');fee=budget.reserve(result.pixels.data.byteLength);surface=borrowed=contiguousSurface(result.pixels,budget);}
+    const started=performance.now(),answer=await job.accumulator.append(surface,{index,signal,onProgress}),appendedAt=performance.now(),backend=result.metrics?.backend??result.provenance.backend??'cpu';job.backends[backend]=(job.backends[backend]??0)+1;await releaseFrame(job);job.frameMetrics.push({backend,recompressions:result.metrics?.recompressions??null,totalMs:result.metrics?.totalMs??null,equalization:result.metrics?.equalization?structuredClone(result.metrics.equalization):null,nativeFrame:result.metrics?.synthesisFrame?structuredClone(result.metrics.synthesisFrame):null,appendMilliseconds:appendedAt-started,frameRetirementMilliseconds:performance.now()-appendedAt});return answer;
+   }finally{await borrowed?.dispose();fee?.();}
+  },
+  async finish({id,resultId='ela-synthesis-'+id},{signal,onProgress}={}){
+   const job=jobFor(id);checkAbort(signal);const cacheHit=!!job.reader;let base,writer,reader=job.reader,computationMetrics;
+   try{
+    if(!reader){base=await job.accumulator.finish({signal,onProgress});computationMetrics=base.metrics;const d=base.surface.descriptor,meta={width:d.width,height:d.height,frames:['median'],format:'rgb8',order:'frame-major-row-major-rgb',synthesisAxis:job.axis,sourceRegionDomain:job.domain?.descriptor??null};
+     try{writer=await cache.writer({key:job.key,meta,signal});let sequence=0;const columns=Math.min(d.width,16384),rows=columns===d.width?Math.max(1,Math.min(32,Math.floor(16384/columns))):1;
+      for(let y=0;y<d.height;y+=rows)for(let x=0;x<d.width;x+=columns){checkAbort(signal);const part=await base.surface.readWindow({x,y,width:Math.min(columns,d.width-x),height:Math.min(rows,d.height-y)},{signal});try{await writer.append({sequence:sequence++,bytes:part.pixels.data});}finally{await part.release();}}
+      await writer.commit();writer=null;checkAbort(signal);reader=await readerFor(job.key,{signal,original:job.original});requireValue(reader,'The committed synthesis median is not readable.');
+     }catch(error){checkAbort(signal);if(['CANCELLED','STALE_RESULT'].includes(error?.code))throw error;job.cacheFailure={code:error?.code??error?.name??'CACHE_UNAVAILABLE',message:error?.message};await retireCompositeOwners([()=>writer?.abort()],{primary:error});writer=null;reader=await retainNativeFallback(job.key,meta,base,job.original);base=null;}
+    }
+    const metrics={...computationMetrics,frameBackends:job.backends,frameMetrics:job.frameMetrics,...(job.cacheFailure?{cacheFailure:job.cacheFailure}:{})};await base?.surface.dispose();base=null;job.reader=null;await retire(job);checkAbort(signal);const answer=await publication(job,resultId,reader,{},cacheHit,metrics);reader=null;return answer;
+   }catch(error){await retireCompositeOwners([()=>writer?.abort(),()=>reader?.close(),()=>retire(job)],{primary:error});throw error;}
+   finally{await base?.surface.dispose();}
+  },
+  async render({id,presentation={},...request},hooks={}){const base=await opened(request,hooks);let success=false;try{const answer=await publication(base,id??'ela-synthesis-view-'+crypto.randomUUID(),base.reader,presentation,true);success=true;return answer;}finally{if(!success)await base.reader.close();}},
+  async borrowBase(request,hooks={}){const base=await opened(request,hooks);let success=false;try{await base.reader.adopt?.();const record=elaSynthesisPresentation(base.reader,{budget});success=true;return{surface:record.surface,axis:base.axis,domain:base.domain,key:base.key,persisted:base.reader.manifest?.persistent===true,close:()=>record.surface.dispose()};}finally{if(!success)await base.reader.close();}},
+  async prepareNative(bytes,{signal}={}){for(const job of jobs.values()){if(budget.total()+bytes<=budget.limit)break;checkAbort(signal);await job.accumulator?.prepareNative(bytes,{signal});}for(const entry of [...volatileOwners]){if(budget.total()+bytes<=budget.limit)break;checkAbort(signal);if(!entry.refs)await retireVolatile(entry);}for(const entry of [...verified.values()]){if(budget.total()+bytes<=budget.limit)break;checkAbort(signal);if(!entry.refs)await retireVerified(entry);}checkAbort(signal);},
+  dispose(id){const job=jobs.get(id);return job?retire(job):Promise.resolve();},
+  async clear(imageId){for(const job of [...jobs.values()])if(imageId===undefined||job.imageId===imageId)await retire(job);},
+  async retireSource(original){for(const entry of [...volatileOwners])if(entry.original===original){if(entry.refs)throw new EngineError('BUSY','Published native synthesis readers must retire before their Original session.');await retireVolatile(entry);}},
+  async close(){closed=true;for(const job of [...jobs.values()])await retire(job);for(const entry of [...volatileOwners]){requireValue(entry.refs===0,'A native synthesis fallback is still borrowed.');await retireVolatile(entry);}for(const entry of [...verified.values()]){requireValue(entry.refs===0,'A verified synthesis cache reader is still borrowed.');await retireVerified(entry);}await cache.close();unregister?.();},
+  hasFor:imageId=>[...jobs.values()].some(job=>job.imageId===imageId),
+  hasSourceOwner:original=>[...volatileOwners].some(entry=>entry.original===original)
+ };
+}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {installWorkerMessageProtocol} from './worker-message-protocol.js';
 import {EngineError,requireValue,deserializeEngineError} from './errors.js';
 import {captureNeuralWindowBinding,sameNeuralWindowBinding,neuralWindowAck} from './neural-window-job-owner.js';

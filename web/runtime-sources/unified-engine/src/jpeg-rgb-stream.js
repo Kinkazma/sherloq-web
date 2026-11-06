@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {ElaJpegArchiveBridge} from './ela-jpeg-archive-bridge.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {attachGpuCleanup} from './gpu-ack-retirement.js';

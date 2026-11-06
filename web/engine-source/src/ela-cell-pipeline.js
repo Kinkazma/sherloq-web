@@ -1,6 +1,7 @@
 import {allocateTypedArray} from './allocation.js';
 import {parameters} from './pixel-utils.js';
 import {requireValue,checkAbort} from './errors.js';
+import {validateRecompressionOptions} from './recompression-plan.js';
 import {energyReferenceQuality} from './energy-pipeline.js';
 import {createElaCellDescriber} from './ela-cell-describe.js';
 import {createElaPeerScorer} from './ela-peer-scores.js';
@@ -8,9 +9,10 @@ import {coherentCellScores,segmentElaCells,aggregateGhostCells,ELA_PROFILE_NAMES
 import {ghostMaps} from './ghost-maps.js';
 
 export function elaCellParams(input={}){
- const p=parameters(input,{quality:0,block:32,threshold:2,minimum:3,ghost:true,allGrids:false,background:true},{quality:[0,100],block:[16,96],minimum:[1,1000]}, {},['ghost','allGrids','background']);
+ requireValue(input!==null&&typeof input==='object'&&!Array.isArray(input),'Parameters must be an object.');
+ const {recompression,...base}=input,p=parameters(base,{quality:0,block:32,threshold:2,minimum:3,ghost:true,allGrids:false,background:true},{quality:[0,100],block:[16,96],minimum:[1,1000]}, {},['ghost','allGrids','background']);
  requireValue(p.block%8===0&&Number.isFinite(p.threshold)&&p.threshold>0&&p.threshold<=50,'Invalid ELA cell size or threshold');
- requireValue(p.ghost||!p.allGrids,'Ghost phases require Ghost evidence');return p;
+ requireValue(p.ghost||!p.allGrids,'Ghost phases require Ghost evidence');if(recompression!==undefined)p.recompression=validateRecompressionOptions(recompression);return p;
 }
 const median3=(a,b,c)=>[a,b,c].sort((x,y)=>x-y)[1];
 const fields=({release,...value})=>value;
@@ -22,7 +24,7 @@ export async function elaCellPipeline(image,p,hooks={},context={}){
  const rows=Math.floor(height/block),cols=Math.floor(width/block),n=rows*cols;
  requireValue(n>=25,'Image too small for 25 complete native ELA cells');
  const reference=context.referenceQuality??energyReferenceQuality(context.bytes,p.quality),q=reference.quality,levels=q<=5?[q,q+5,q+10]:q>=96?[q-10,q-5,q]:[q-5,q,q+5];
- const stage=context.stageCheckpoint,memo=context.memo??(async(_key,compute)=>compute()),budget=context.budget??{reserve:account},key=block+'/'+q,metrics={workers:1,kernel:'ela-native-cells',cellRecompressions:0,ghostPhasesComputed:0};
+ const stage=context.stageCheckpoint,probePrefix=p.recompression?JSON.stringify([p.recompression,p.quality||75])+'/':'',nativeMemo=context.memo??(async(_key,compute)=>compute()),memo=(key,compute)=>nativeMemo(probePrefix+key,compute),memoMany=context.memoMany?((keys,compute)=>context.memoMany(keys.map(key=>probePrefix+key),(missing,publish)=>compute(missing.map(key=>key.slice(probePrefix.length)),publish?(key,value)=>publish(probePrefix+key,value):undefined))):null,budget=context.budget??{reserve:account},key=block+'/'+q,metrics={workers:1,kernel:'ela-native-cells',cellRecompressions:0,ghostPhasesComputed:0};
  // Keep live stage arrays admitted even if memo entries are evicted mid-task.
  if(stage)stage.ensure(n);else account(n*4096);
  async function workspace(compute){const releases=[];try{return await compute(bytes=>{const release=account(bytes);releases.push(release);});}finally{for(const release of releases)release();}}
@@ -46,7 +48,7 @@ export async function elaCellPipeline(image,p,hooks={},context={}){
      return results;
     };
     const names=levels.map(level=>'cell-plane/'+block+'/'+level);
-    planes=context.memoMany?await context.memoMany(names,compute):await compute(names);
+    planes=memoMany?await memoMany(names,compute):await compute(names);
    }finally{describer.dispose();}
    const {content,usable}=planes[2],profiles=allocateTypedArray(Float32Array,n*15,{label:'ela-cell-stage'}),background_profiles=allocateTypedArray(Float32Array,n*9,{label:'ela-cell-stage'});
    for(let i=0;i<n;i++)for(let j=0;j<3;j++){
@@ -64,7 +66,7 @@ export async function elaCellPipeline(image,p,hooks={},context={}){
   let result=base;
   if(p.ghost){
    const ghost=await memo('cell-ghost/'+key+'/'+Number(p.allGrids),async()=>{
-    const state=stage?await stage.memo('ghost-progress/'+key+'/'+Number(p.allGrids),async()=>({nextPhase:0,best:makeBest()})):{nextPhase:0,best:makeBest()};
+    const state=stage?await stage.memo(probePrefix+'ghost-progress/'+key+'/'+Number(p.allGrids),async()=>({nextPhase:0,best:makeBest()})):{nextPhase:0,best:makeBest()};
     function makeBest(){return {ghost_score:allocateTypedArray(Float32Array,n,{label:'ela-cell-stage'}),ghost_quality:allocateTypedArray(Int16Array,n,{label:'ela-cell-stage'}),ghost_phase:allocateTypedArray(Uint8Array,n*2,{label:'ela-cell-stage'}),ghost_peer_count:allocateTypedArray(Int32Array,n,{label:'ela-cell-stage'}),ghost_curves:allocateTypedArray(Float32Array,n*71,{label:'ela-cell-stage'}),ghost_supported:allocateTypedArray(Uint8Array,n,{label:'ela-ghost-supported'})};}
     const {best}=state,side=p.allGrids?8:1;
     for(let dy=0;dy<side;dy++)for(let dx=0;dx<side;dx++)await workspace(async reserve=>{

@@ -1,0 +1,38 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "flags": [
+    "-Itoolchain",
+    "-O3",
+    "-msimd128",
+    "-ffp-contract=off",
+    "-DEIGEN_DONT_PARALLELIZE",
+    "-DNDEBUG",
+    "-sMODULARIZE=1",
+    "-sEXPORT_ES6=1",
+    "-sEXPORT_NAME=createStatistics",
+    "-sENVIRONMENT=web,worker,node",
+    "-sALLOW_MEMORY_GROWTH=1",
+    "-sIMPORTED_MEMORY=1",
+    "-sINITIAL_MEMORY=16777216",
+    "-sMAXIMUM_MEMORY=2147483648",
+    "-sSTACK_SIZE=1048576",
+    "-sFILESYSTEM=0",
+    "-sEXPORTED_FUNCTIONS=_malloc,_free,_sb_prepare,_sb_fit,_sb_map,_sb_indices,_sb_feature_sums,_sb_feature_covariance,_sb_basis,_sb_project,_sb_training_sums,_sb_training_variance,_sb_initial_model,_sb_expect_chunk,_sb_covariance_chunk,_sb_model_update,_sb_factor",
+    "-sEXPORTED_RUNTIME_METHODS=HEAPU8,HEAPF32,HEAPF64,HEAP32,HEAPU32"
+  ],
+  "source": "stream-statistics.cpp",
+  "files": {
+    "stream-statistics.cpp": {
+      "bytes": 6139,
+      "sha256": "febe08ef71ae45b14f4cab7ff5ede65ca3def0f6d130a7209b20cf757bdd083e"
+    },
+    "stream-statistics.mjs": {
+      "bytes": 9761,
+      "sha256": "52d669920c880980be765a4a0cb705c2055831d909ef7dc1f7954ab811f1a995"
+    },
+    "stream-statistics.wasm": {
+      "bytes": 110635,
+      "sha256": "6f5bf740cf3157501ac456b62368cbc1947f3cc65df11c6f8fdd71ba76dc3aac"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
+export function createNoiseTable(plane,{budget,block,columns=['block_row','block_col','noise'],valueType=Float64Array,coordinates='db8-detail-blocks'}={}){
+ const {width,height,store}=plane,descriptor=Object.freeze({id:crypto.randomUUID(),revision:1,format:'float64-table',rowCount:width*height,columns,order:'row,column',coordinates,block,gridWidth:width,gridHeight:height,storage:store.storage});let disposed=false;
+ const range=({offset=0,length=4096}={})=>{requireValue(!disposed&&Number.isSafeInteger(offset)&&Number.isSafeInteger(length)&&offset>=0&&offset<=descriptor.rowCount&&length>0,'Invalid noise table page.');return {offset,length:Math.min(length,descriptor.rowCount-offset)};};
+ const table={descriptor,
+  async readRows(request,{signal}={}){const {offset,length}=range(request);checkAbort(signal);const release=budget.reserve(length*32);try{const values=new valueType(length),data=new Float64Array(length*3);await store.readInto(new Uint8Array(values.buffer),offset*valueType.BYTES_PER_ELEMENT);for(let i=0;i<length;i++){data[i*3]=Math.floor((offset+i)/width);data[i*3+1]=(offset+i)%width;data[i*3+2]=values[i];}checkAbort(signal);return {tableId:descriptor.id,revision:1,offset,length,totalRows:descriptor.rowCount,columns:descriptor.columns,data,done:offset+length===descriptor.rowCount,release};}catch(error){release();throw error;}},
+  async readCsv(request,{signal}={}){const {offset,length}=range(request),release=budget.reserve((length*96+100)*4);let page;try{page=await table.readRows({offset,length:Math.max(1,length)},{signal});let text=offset===0?columns.join(',')+'\r\n':'';for(let i=0;i<page.data.length;i+=3){if(i%12288===0)await controlCheckpoint(signal);text+=page.data[i]+','+page.data[i+1]+','+page.data[i+2]+'\r\n';}return {tableId:descriptor.id,revision:1,offset,length,nextOffset:offset+length,totalRows:descriptor.rowCount,done:page.done,mime:'text/csv',bytes:new TextEncoder().encode(text),release};}catch(error){release();throw error;}finally{page?.release();}},
+  async dispose(){if(disposed)return;disposed=true;await plane.dispose();}
+ };return table;
+}

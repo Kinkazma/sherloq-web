@@ -1,4 +1,7 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {resolveSelectedPlan} from './recompression-probe.js';
+import {recompressionCodecPlanningBytes} from './recompression-codec-client.js';
+import {createSelectedRgbRecompression} from './recompression-probe.js';
 import {runZeroGpuVoteStage} from './zero-vote-stage.js';
 import {allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import {parallelZeroBands,zeroStreamWorkerBytes} from './zero-stream-pool.js';
@@ -32,13 +35,14 @@ export async function createZeroStreamKernel(plan,{budget,signal,reference=false
 
 // Internal stage: native integer luminance and votes are losslessly stored in
 // one byte each. Global regions and public views/exports consume these stores.
-export async function segmentedZeroVotes(image,{budget,signal,onProgress,companion=false,storage='auto',reference=false,maxWorkers=1,adaptive=new AdaptiveConcurrency(),backend='cpu',gpuVotes,onNativeOwner,votePolicy}={}){
+export async function segmentedZeroVotes(image,{budget,signal,onProgress,companion=false,storage='auto',reference=false,maxWorkers=1,adaptive=new AdaptiveConcurrency(),backend='cpu',gpuVotes,onNativeOwner,votePolicy,recompressionParams}={}){
  const plan=zeroStreamPlan(image.surface),cooperate=createCooperator(signal);let native,luminance,votes,planning,bufferRelease,returnedMetrics;let votePhaseStarted=0;
  try{
-  planning=budget.reserve(plan.workingBytes+plan.windowAllowance+plan.samples+(companion?rgbRecompressionPlan(image.surface).workingBytes:0));
+  const selectedPlan=companion&&recompressionParams?.recompression?await resolveSelectedPlan(recompressionParams,image,{signal,quality:99,paletteAxis:'fixed'}):null,companionBytes=companion?(selectedPlan?recompressionCodecPlanningBytes(image.surface.descriptor,selectedPlan.stage,{budget}):rgbRecompressionPlan(image.surface).workingBytes):0;
+ planning=budget.reserve(plan.workingBytes+plan.windowAllowance+plan.samples+companionBytes);
   const storeOptions={budget,storage,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal};luminance=await createSegmentedBytes(plan.n,storeOptions);votes=await createSegmentedBytes(plan.n,storeOptions);planning();planning=null;
   native=await createZeroStreamKernel(plan,{budget,signal,reference});let jpegMetrics=null;
-  if(companion){image.rgbRecompression??=createRgbRecompression(image,budget);jpegMetrics=await image.rgbRecompression.visit(99,{sampling:'444',signal,onProgress,onBand:async(_original,rgb,{y})=>luminance.write(native.luminance(rgb),y*plan.width)});}
+  if(companion){let selected;const provider=recompressionParams?.recompression?(selected=createSelectedRgbRecompression(image,recompressionParams,{budget,paletteAxis:'fixed'})):(image.rgbRecompression??=createRgbRecompression(image,budget));try{jpegMetrics=await provider.visit(99,{sampling:'444',signal,onProgress,onBand:async(_original,rgb,{y})=>luminance.write(native.luminance(rgb),y*plan.width)});if(selected)jpegMetrics={...jpegMetrics,selectedCompanion:true,requestedCompanionQuality:recompressionParams.recompression.quality??99};}finally{await selected?.dispose();}}
   else for(let y=0;y<plan.height;y+=32){checkAbort(signal);await cooperate();checkAbort(signal);const rows=Math.min(32,plan.height-y),part=await image.surface.readWindow({x:0,y,width:plan.width,height:rows},{signal});try{await luminance.write(native.luminance(part.pixels.data),y*plan.width);}finally{part.release();}onProgress?.({phase:'zero-luminance',fraction:(y+rows)/plan.height});}
   await luminance.flush();votePhaseStarted=performance.now();const counts=new Int32Array(64),last=new Float64Array(64),done=new Uint8Array(Math.ceil(plan.height/plan.rows));last.fill(Infinity);let fallbacks=0,completedRows=0,workers=1,poolMetrics=null,retry=null,completedBandsPreserved=0;
   const accept=async(selected,{y,end,lo,fallbacks:bandFallbacks})=>{

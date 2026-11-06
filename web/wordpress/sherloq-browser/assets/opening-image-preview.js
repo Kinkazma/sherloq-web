@@ -3,6 +3,12 @@ const HEADER_BYTES=128*1024,ENCODED_BYTES=8*1024**2,MAX_PIXELS=16_000_000,MAX_DE
 const ascii=(b,p,n)=>String.fromCharCode(...b.subarray(p,p+n));
 const u16=(b,p,le=false)=>le?b[p]+256*b[p+1]:256*b[p]+b[p+1];
 const u32=(b,p,le=false)=>le?(b[p]+b[p+1]*256+b[p+2]*65536+b[p+3]*16777216):(b[p]*16777216+b[p+1]*65536+b[p+2]*256+b[p+3]);
+const u24=(b,p)=>b[p]+256*b[p+1]+65536*b[p+2];
+function webpFrame(b,p,kind,length){
+ if(kind==='VP8 '&&length>=10&&p+10<=b.length&&!(b[p]&1)&&ascii(b,p+3,3)==='\x9d\x01\x2a')return{width:u16(b,p+6,true)&16383,height:u16(b,p+8,true)&16383};
+ if(kind==='VP8L'&&length>=5&&p+5<=b.length&&b[p]===47){const bits=u32(b,p+1,true);if(!(bits>>>29))return{width:(bits&16383)+1,height:((bits>>>14)&16383)+1};}
+ return null;
+}
 function orientation(b,start,end){
  if(end-start<8)return 1;const le=ascii(b,start,2)==='II';if(!le&&ascii(b,start,2)!=='MM'||u16(b,start+2,le)!==42)return 1;
  const at=start+u32(b,start+4,le);if(at<start+8||at+2>end)return 1;const count=u16(b,at,le);if(count>256||at+2+12*count>end)return 1;
@@ -29,9 +35,17 @@ export function openingImageDimensions(bytes,totalBytes=bytes?.byteLength){
  }
  if(b.length>=25&&ascii(b,0,4)==='RIFF'&&ascii(b,8,4)==='WEBP'&&u32(b,4,true)+8===totalBytes){
   const kind=ascii(b,12,4),length=u32(b,16,true);if(length+20>totalBytes)return null;
-  if(kind==='VP8 '&&b.length>=30&&length>=10&&!(b[20]&1)&&ascii(b,23,3)==='\x9d\x01\x2a')return{format:'webp',width:u16(b,26,true)&16383,height:u16(b,28,true)&16383,orientation:1,bytesPerPixel:4};
-  if(kind==='VP8L'&&length>=5&&b[20]===47){const bits=u32(b,21,true);if(bits>>>29)return null;return{format:'webp',width:(bits&16383)+1,height:((bits>>>14)&16383)+1,orientation:1,bytesPerPixel:4};}
-  // Extended/animated WebP metadata is deliberately left to the native decoder.
+  if(kind==='VP8 '||kind==='VP8L'){const frame=webpFrame(b,20,kind,length);return frame?{format:'webp',...frame,orientation:1,bytesPerPixel:4}:null;}
+  // Static VP8X files with ICC/alpha are common. Verify both the canvas and
+  // bitstream dimensions before admitting the same bounded opening overlay.
+  // Animation and EXIF stay with the native first-frame/orientation decoder.
+  if(kind!=='VP8X'||length!==10||b.length<30||b[20]&0xcb||b[21]||b[22]||b[23])return null;
+  const width=u24(b,24)+1,height=u24(b,27)+1;
+  for(let p=30;p+8<=b.length;){const tag=ascii(b,p,4),n=u32(b,p+4,true),end=p+8+n+(n&1);if(end>totalBytes)return null;
+   if(['ANIM','ANMF','EXIF','VP8X'].includes(tag))return null;
+   if(tag==='VP8 '||tag==='VP8L'){const frame=webpFrame(b,p+8,tag,n);return frame?.width===width&&frame.height===height?{format:'webp',width,height,orientation:1,bytesPerPixel:4}:null;}
+   if(end>b.length)return null;p=end;
+  }
  }
  return null;
 }

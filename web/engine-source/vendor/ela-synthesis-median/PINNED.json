@@ -1,0 +1,30 @@
+{
+  "schema": "sherloq.ela-synthesis-median-kernel/1",
+  "bytes": 5509,
+  "sha256": "6a56f90e8a0e07cfad0a0b3edf0be6bb1f390eabd0dd055e3b32bc183602b448",
+  "source": "native/ela-synthesis-median.c",
+  "sourceSha256": "c921509a37c3968198497951564c8313e93aebcb8dbb18637805db88480bca54",
+  "build": "scripts/build-ela-synthesis-median.py",
+  "llvm": "23.1.0",
+  "compileFlags": [
+    "--target=wasm32",
+    "-O3",
+    "-msimd128",
+    "-nostdlib",
+    "-fno-ident",
+    "-fvisibility=hidden"
+  ],
+  "linkFlags": [
+    "--no-entry",
+    "--import-memory",
+    "--export=median_block",
+    "--strip-all",
+    "-z",
+    "stack-size=16384"
+  ],
+  "memory": {
+    "imported": true,
+    "stackBytes": 16384
+  },
+  "algorithm": "exact-byte-order-statistic-simd16-u16-count256"
+}

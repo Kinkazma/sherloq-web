@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Native SSG localization stages, preserving the existing maximum heap and CPU team.
 import {allocateOwnedTypedArray,allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import {requireValue,checkAbort,controlCheckpoint,EngineError} from './errors.js';

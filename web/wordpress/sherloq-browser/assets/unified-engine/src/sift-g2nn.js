@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createSiftG2nnRuntime,siftG2nnHeapPlan,retireSiftG2nnRuntimes} from './sift-g2nn-runtime.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {wasmAllocationFailure} from './allocation.js';

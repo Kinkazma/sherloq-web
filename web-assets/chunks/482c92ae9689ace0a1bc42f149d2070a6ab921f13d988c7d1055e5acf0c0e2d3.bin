@@ -1,0 +1,1756 @@
+{
+  "method": "prl",
+  "precision": "float32",
+  "opset": 17,
+  "input": {
+    "name": "pixel_values",
+    "dims": [
+      1,
+      3,
+      336,
+      336
+    ]
+  },
+  "score": "sigmoid(logit)",
+  "calibratedProbability": false,
+  "decision": {
+    "operator": ">=",
+    "threshold": 0.5
+  },
+  "stages": [
+    {
+      "name": "stem",
+      "file": "stem.onnx",
+      "sha256": "5de1b9cf51fca6f450ec9db73b6ac5cfe0af7e73559116fc5c59cb6b4ecdaf86",
+      "bytes": 3174103,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        3,
+        336,
+        336
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 19.8856660281308,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "sharedWithA": {
+        "sha256": "5de1b9cf51fca6f450ec9db73b6ac5cfe0af7e73559116fc5c59cb6b4ecdaf86",
+        "hardLinked": true
+      },
+      "precisionConversion": null
+    },
+    {
+      "name": "block-00",
+      "file": "block-00.onnx",
+      "sha256": "8a509148565a10c05df9a1e4d94c4743bfa8dbf8dc57f2a2cd8cebcd0aa2dfcf",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 296.22641700552776,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-01",
+      "file": "block-01.onnx",
+      "sha256": "f5c1d92bdd37abe6d08f162bf55f997f0f054fca0bd18adce09df3748af15608",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 278.8425000035204,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-02",
+      "file": "block-02.onnx",
+      "sha256": "2030fac9827c38cf14821fab3329372cb19a5ca82c49bc4e51635064e7ec9832",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 270.25808300822973,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-03",
+      "file": "block-03.onnx",
+      "sha256": "19ecfb24dd27743fa0e168b833edf7ceb0e71cf75e0eafe3336c31a8c43eb7d9",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 268.9783750101924,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-04",
+      "file": "block-04.onnx",
+      "sha256": "8a35ad863b8537453d0ce990ae71db5029b287cd27475aebb1db2b82c25aee97",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 271.1353750200942,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-05",
+      "file": "block-05.onnx",
+      "sha256": "2c18e85582bc19007bd4d9c59915e2afedc3afbeba1f9ecfc52bbef0a45d3dc2",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 279.94887495879084,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-06",
+      "file": "block-06.onnx",
+      "sha256": "59d3521b5435bc7b2c06b1883b4b44985edab97aaad90237f9078318093e3f7c",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 264.7951249964535,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-07",
+      "file": "block-07.onnx",
+      "sha256": "091223c7c3e288fc826bb5af7b547a921ca2055d41ef8263a17220e797a2ee3a",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 265.7757910201326,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-08",
+      "file": "block-08.onnx",
+      "sha256": "32d070374f135c2dab18025dc0eeb122ff0cefd0c00c9a6a753c3363fac753dd",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 268.3794170152396,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-09",
+      "file": "block-09.onnx",
+      "sha256": "f42f7e49984447ed1a4301df592c87dbd2c414b1ee32a49661527ed01caec602",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 267.07050000550225,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-10",
+      "file": "block-10.onnx",
+      "sha256": "8beab3a711bc7186a8368da14a6a04767d86868703d4a11580ed33b1b99bebfe",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 274.0757089923136,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-11",
+      "file": "block-11.onnx",
+      "sha256": "e3ab4584d693d282991d257bc17c09fc85cfb3224962dc1e78420d9b21909c5c",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 276.8131250049919,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-12",
+      "file": "block-12.onnx",
+      "sha256": "100d9fefb28fc06e6883336459c06ad95450306238fffbf8c168bd490fc83237",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 265.00658300938085,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-13",
+      "file": "block-13.onnx",
+      "sha256": "bfa0a9d469e7774255101d406fdad2260fef2acb2d0db383032ae4d7ea0ce883",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 272.672709019389,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-14",
+      "file": "block-14.onnx",
+      "sha256": "770510e0eb5bae166a1dc4ce45e9a0c009282194857704bc3153e1a6e3949f00",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 268.9472920028493,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-15",
+      "file": "block-15.onnx",
+      "sha256": "d30a14590ce0bb92402060139d2a214aa41be82c8febc599688f8d57e7425b70",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 274.4126250036061,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-16",
+      "file": "block-16.onnx",
+      "sha256": "116dc09980206f6ab27482946e6091418437ecccbb8163437efc7f90bbbf4a81",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 266.124541987665,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-17",
+      "file": "block-17.onnx",
+      "sha256": "c31df34ec54d9fe4f1fb68dad5f99bcb0e776254b97c6b79596cd4155f3aa6a9",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 264.346125011798,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-18",
+      "file": "block-18.onnx",
+      "sha256": "61e953333d49eae810f117024d32e1f61fe1f78629549ee253f25d3910964300",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 269.3869170034304,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-19",
+      "file": "block-19.onnx",
+      "sha256": "116bd7e7936a8bc6a592dd243c051a296d077c052ab03f30981f03ef6457097e",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 319.7758329915814,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-20",
+      "file": "block-20.onnx",
+      "sha256": "1cbd251296bc4c8426e8cc9fe9c976156a9d55fdc0ff58da0552db96aa10bb19",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 274.1040420369245,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-21",
+      "file": "block-21.onnx",
+      "sha256": "3217b5de3f44b39c0cf6ef75efa2afd44663f12a02a71934ff7648cd2a3147f0",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 308.85570897953585,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-22",
+      "file": "block-22.onnx",
+      "sha256": "6a47b65e534ab893add97e3fd3cde75cf51a31988937c09b12020a8d5d39ff1d",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 272.4664999986999,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "block-23",
+      "file": "block-23.onnx",
+      "sha256": "2170bcdf29cd83ac162ac23e42eb6b0fdf8c1fe2abf2a5f8af5feaa32ba4ef66",
+      "bytes": 12922510,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        446,
+        1024
+      ],
+      "exportMs": 275.3669169615023,
+      "outputShapes": {
+        "output": [
+          1,
+          446,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "block.attention.k_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.v_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.q_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.attention.o_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.up_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        },
+        {
+          "module": "block.mlp.down_proj",
+          "kind": "PRL",
+          "scale": 0.125
+        }
+      ],
+      "precisionConversion": "w8"
+    },
+    {
+      "name": "head",
+      "file": "head.onnx",
+      "sha256": "1d5842c3e8f5039839577e2c75a189d668f43e2a93a0ad87a686171701c82958",
+      "bytes": 2119963,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output",
+        "patch_scores"
+      ],
+      "inputShape": [
+        1,
+        446,
+        1024
+      ],
+      "outputShape": [
+        1,
+        1
+      ],
+      "exportMs": 23.921167012304068,
+      "outputShapes": {
+        "output": [
+          1,
+          1
+        ],
+        "patch_scores": [
+          1,
+          441
+        ]
+      },
+      "sharedWithA": {
+        "sha256": "1d5842c3e8f5039839577e2c75a189d668f43e2a93a0ad87a686171701c82958",
+        "hardLinked": true
+      },
+      "precisionConversion": null
+    }
+  ],
+  "source": {
+    "sourceCommit": "b86870c6250ba0d304b5d0dc54502716242dffcb",
+    "checkpoint": "prl/weights/prl_dinov3_vitl16.safetensors",
+    "sha256": "d31d84563a24a91e1586f7fa8c928f75943fbd30325177010b678cb7c602669d",
+    "backboneCheckpoint": "prl/dinov3-vitl16/model.safetensors",
+    "backboneSha256": "dcb2e45127cccbf1601e5f42fef165eea275c8e5213197e8dcf3f48822718179",
+    "license": "Apache-2.0; DINOv3 backbone under its retained custom license",
+    "weightAndConfigurationArtifacts": [
+      {
+        "file": "prl/weights/prl_dinov3_vitl16.safetensors",
+        "bytes": 16296352,
+        "sha256": "d31d84563a24a91e1586f7fa8c928f75943fbd30325177010b678cb7c602669d"
+      },
+      {
+        "file": "prl/dinov3-vitl16/model.safetensors",
+        "bytes": 1212559808,
+        "sha256": "dcb2e45127cccbf1601e5f42fef165eea275c8e5213197e8dcf3f48822718179"
+      },
+      {
+        "file": "prl/dinov3-vitl16/config.json",
+        "bytes": 745,
+        "sha256": "135ecd23e34a70b6fbed8b083fdecb319b7e3a54e3d849258bbe4ddcf1783bb5"
+      },
+      {
+        "file": "prl/dinov3-vitl16/preprocessor_config.json",
+        "bytes": 585,
+        "sha256": "960c41d1f3a7778b936365769a2d90550b318a6c0a53a0296957adacfe5e0dd7"
+      }
+    ],
+    "backbone": {
+      "name": "DINOv3 ViT-L/16",
+      "repository": "https://github.com/facebookresearch/dinov3",
+      "architectureImplementation": "transformers4.56.0 DINOv3ViTModel",
+      "weightsIncludedInCompleteDetectorCheckpoint": false
+    },
+    "lora": {
+      "rank": 8,
+      "alpha": 1.0,
+      "fusionScale": 0.125
+    },
+    "licenseNotices": [
+      {
+        "file": "notices/dda-prl/PRL-APACHE-2.0.txt",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      {
+        "file": "notices/dda-prl/DINOV3-LICENSE.md",
+        "sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e"
+      }
+    ],
+    "licensingAssessment": {
+      "code": "Apache-2.0",
+      "adaptation_weights": "Included in the Apache-2.0 licensed repository, with no weight-specific exclusion. The repository-wide license is interpreted as covering the released adaptation checkpoint.",
+      "backbone": "DINOv3 custom license, permits use and redistribution under its terms, not GPL relicensing.",
+      "integration_and_redistribution_assessment": "Yes, subject to Apache-2.0 and applicable DINOv3 terms.",
+      "extra_author_permission_required_by_published_terms": false,
+      "assessment_basis": "Current complete Git tree b86870c6250ba0d304b5d0dc54502716242dffcb: LICENSE, pyproject.toml declaring Apache-2.0, and weights/prl_dinov3_vitl16.safetensors; no nested license or exclusion. README says This code; checkpoint coverage is an interpretation of repository scope.",
+      "correction": "Earlier recommendation to obtain confirmation before redistribution was a documentary precaution, incorrectly presented as a prerequisite. No new author permission was obtained."
+    },
+    "precision": "float32"
+  },
+  "preprocessing": {
+    "centerCrop": 336,
+    "padding": "zero",
+    "pil": true,
+    "exifTranspose": "host contract before preparation",
+    "conditionalResize": "both axes >1024; shorter axis to336; PIL BICUBIC",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "validation": {
+    "referenceExecuted": true,
+    "browserExecuted": true,
+    "cases": 18,
+    "perCaseTolerance": 0.01,
+    "scientificPreparationUnchanged": true,
+    "fullProductIntegration": "Passed declared encoded-import and resource-lifecycle receipts"
+  },
+  "optimization": {
+    "kind": "FP32 LoRA fusion",
+    "fromAManifestSha256": "83fd13bcb1eac31ca509c7f174a5b3281e813143c4a6830ba4be9bc5c0309cf6",
+    "frozenAFileSha256": "dde8a592d0e481063c19950e6a219e92890a7a890171b6e9e297e3c0c60a14ce",
+    "preparationChanged": false,
+    "attentionChanged": false,
+    "toolSha256": "801655ea716f4f298696c0356bccba3ba319fcd79762c230a0efe85521532429",
+    "referenceModuleSha256": "aa25e059e2e484de5fcd2b8f3ebf63e45e0e0727ee954dcfc6b7e4317649b730"
+  },
+  "experimentalNumerics": {
+    "kind": "w8",
+    "publicIo": "float32",
+    "internalArithmetic": "float32",
+    "denseWeightStorage": "w8",
+    "originalRoPEAndAttentionPreserved": true,
+    "keepStemAndHeadFrozenFP32": true,
+    "targetMaxScoreError": 0.001,
+    "relaxedMaxOnlyWithLargeMeasuredGain": 0.01,
+    "baselineManifestSha256": "d80123a16ca782638d7a961c891d7dee6290beb4461aa241c6e3402e15ba0c98",
+    "toolSha256": "8e0536418f655e37ea008083f2498ccc03a72232d598c0e6fd58cc8b965f80d4",
+    "blocks": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "status": "qualified on declared local corpus; integration under verification"
+  },
+  "selection": {
+    "parentManifestSha256": "b86e382615c8c4f6f5a25d6d5fc8378657fe4926f0c56b8fdb6f2641457d0a05",
+    "qualificationScope": "Six real provided sources,18explicit size derivatives; no classifier-accuracy claim"
+  },
+  "numericalPolicy": {
+    "computation": "float32",
+    "weightStorageAndOptimization": "Per-column INT8 dense weights restored to FP32; activations, RoPE and attention FP32",
+    "reference": "Original strict-load FP32 forward",
+    "perCaseScoreTolerance": 0.01,
+    "roundedWeights": true,
+    "sourcePreprocessingUnchanged": true,
+    "validation": "Qualified on declared local real corpus; not an accuracy or universal error guarantee",
+    "maxObservedPrimaryScoreError": 0.004878340140537174
+  }
+}

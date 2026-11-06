@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {inflateSync} from 'node:zlib';
-import {createAdaptivePreview} from '../sherloq-browser/assets/adaptive-preview.js';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE} from '../sherloq-browser/assets/adaptive-preview.js';
 import {encodeParameterPreviewPng,createParameterPreview,projectParameterPreviewParams} from '../sherloq-browser/assets/tool-parameter-preview.js';
 const pixels=(w=8,h=6)=>({width:w,height:h,format:'rgb8',data:Uint8Array.from({length:w*h*3},(_,i)=>(i*13+17)%256)});
 const request=(patch={})=>({operation:'inspection.adjust',params:{brightness:7},field:'brightness',sourceIdentity:'native-A/1',logicalWidth:800,logicalHeight:600,...patch});
@@ -14,10 +14,10 @@ test('derived PNG is a real lossless RGB file including multiple stored blocks',
  const p=pixels(192,176),png=encodeParameterPreviewPng(p);assert.deepEqual([...png.subarray(0,8)],[137,80,78,71,13,10,26,10]);let at=8,idat;
  while(at<png.length){const count=new DataView(png.buffer,png.byteOffset+at).getUint32(0),name=new TextDecoder().decode(png.subarray(at+4,at+8));if(name==='IHDR'){assert.equal(new DataView(png.buffer,png.byteOffset+at+8).getUint32(0),p.width);assert.equal(png[at+17],2);}if(name==='IDAT')idat=png.slice(at+8,at+8+count);at+=12+count;}
  const raw=inflateSync(idat);assert.equal(raw.length,p.height*(p.width*3+1));for(let y=0;y<p.height;y++){assert.equal(raw[y*(p.width*3+1)],0);assert.deepEqual(new Uint8Array(raw.subarray(y*(p.width*3+1)+1,(y+1)*(p.width*3+1))),p.data.subarray(y*p.width*3,(y+1)*p.width*3));}
- assert.throws(()=>encodeParameterPreviewPng(pixels(2049,1)),{code:'INVALID_INPUT'});
+ assert.throws(()=>encodeParameterPreviewPng(pixels(ADAPTIVE_PREVIEW_MAX_SIDE+1,1)),{code:'INVALID_INPUT'});
 });
 test('pixel preview uses an isolated real-byte source and returns only provisional RGB',async()=>{
- const {preview,calls}=harness();const frame=await preview.preview(request());assert.equal(frame.exact,false);assert.equal(frame.pixels.logicalWidth,800);assert.equal(frame.pixels.logicalHeight,600);assert.equal(frame.pixels.width,8);assert.equal(frame.pixels.data[0],24);assert.equal(frame.metrics.scientificFinalChanged,false);assert.equal(frame.data,undefined);assert.equal(calls.loads[0].provenance.derived,true);assert.equal(calls.loads[0].provenance.parentSourceIdentity,'native-A/1');assert.notEqual(calls.loads[0].id,'native-A/1');assert.equal(calls.runs[0].backend,'cpu');assert.deepEqual(calls.released,['result-1']);assert.equal(calls.reserves.length,1);assert.equal(calls.reserves[0].signal,undefined);assert.doesNotThrow(()=>structuredClone(calls.reserves[0]));await preview.dispose();assert.equal(calls.disposed,1);assert.equal(calls.freed.length,1);assert.equal(preview.state.workerResident,false);
+ const {preview,calls}=harness();const frame=await preview.preview(request());assert.equal(frame.exact,false);assert.equal(frame.pixels.logicalWidth,800);assert.equal(frame.pixels.logicalHeight,600);assert.equal(frame.pixels.width,8);assert.equal(frame.pixels.data[0],24);assert.equal(frame.metrics.scientificFinalChanged,false);assert.equal(frame.data,undefined);assert.equal(calls.loads[0].provenance.derived,true);assert.equal(calls.loads[0].provenance.parentSourceIdentity,'native-A/1');assert.notEqual(calls.loads[0].id,'native-A/1');assert.equal(calls.runs[0].backend,'auto');assert.deepEqual(calls.released,['result-1']);assert.equal(calls.reserves.length,1);assert.equal(calls.reserves[0].signal,undefined);assert.doesNotThrow(()=>structuredClone(calls.reserves[0]));await preview.dispose();assert.equal(calls.disposed,1);assert.equal(calls.freed.length,1);assert.equal(preview.state.workerResident,false);
 });
 test('source and worker are reused across values but a new native identity invalidates both',async()=>{
  let reads=0;const {preview,calls}=harness({readSource:async args=>{reads++;return{pixels:pixels(),sourceIdentity:args.sourceIdentity,logicalWidth:800,logicalHeight:600};}});await preview.preview(request());await preview.preview(request({params:{brightness:12}}));assert.equal(reads,1);assert.equal(calls.workers,1);assert.equal(calls.loads.length,1);await preview.preview(request({sourceIdentity:'native-B/2'}));assert.equal(reads,2);assert.equal(calls.workers,2);assert.equal(calls.disposed,1);assert.equal(calls.freed.length,1);await preview.dispose();assert.equal(calls.freed.length,2);
@@ -52,7 +52,7 @@ test('abort after native sampling is checked without passing an abort to the ori
  const controller=new AbortController();let samples=0;const {preview,calls}=harness({readSource:async()=>{samples++;controller.abort();return{pixels:pixels()};}});await assert.rejects(preview.preview(request({signal:controller.signal})),{code:'CANCELLED'});assert.equal(samples,1);assert.equal(calls.workers,0);await preview.dispose();
 });
 test('failed allocation/initialization releases its reservation exactly once',async()=>{
- let releases=0;const preview=createParameterPreview({adaptive:false,readSource:async()=>pixels(),reserve:async()=>({id:1}),release:async()=>releases++,engineFactory:async()=>{throw Object.assign(Error('out'),{code:'MEMORY_LIMIT'});}});await assert.rejects(preview.preview(request()),{code:'MEMORY_LIMIT'});assert.equal(releases,1);assert.equal(preview.state.reservationActive,false);await preview.dispose();assert.equal(releases,1);
+ let releases=0;const preview=createParameterPreview({adaptive:false,readSource:async()=>pixels(),reserve:async()=>({id:1}),release:async()=>{releases++;},engineFactory:async()=>{throw Object.assign(Error('out'),{code:'MEMORY_LIMIT'});}});await assert.rejects(preview.preview(request()),{code:'MEMORY_LIMIT'});assert.equal(releases,1);assert.equal(preview.state.reservationActive,false);await preview.dispose();assert.equal(releases,1);
 });
 test('surface cleanup failure is surfaced instead of silently marking a draft ready',async()=>{
  const {preview,api}=harness();api.releaseSurface=async()=>{throw Object.assign(Error('release failed'),{code:'CLEANUP_FAILED'});};await assert.rejects(preview.preview(request()),{code:'CLEANUP_FAILED'});await preview.dispose();
@@ -108,3 +108,12 @@ test('full-sized draft grids preserve valid values and invalid values are left t
  const full={width:192,height:144,logicalWidth:192,logicalHeight:144};for(const [operation,params]of [['inspection.adjust',{sharpen:99}],['detail.echo',{radius:15}],['noise.separation',{radius:10}],['noise.blocking',{block:50}],['noise.minmax',{filter:5}],['detail.frequency',{filter:15}],['pixels.defects',{radius:2}],['various.illuminant',{block:256}]])assert.deepEqual(projectParameterPreviewParams(operation,params,full).params,params);
  assert.equal(projectParameterPreviewParams('detail.echo',{radius:16},geometry).params.radius,16);assert.equal(projectParameterPreviewParams('detail.echo',{radius:null},geometry).params.radius,null);assert.throws(()=>projectParameterPreviewParams('detail.echo',{}, {...geometry,width:0}),{code:'INVALID_INPUT'});
 });
+
+test('gradient palettes190 and191 keep one performance family and distinct scientific options',async()=>{
+ const keys=[],tasks=[],controller=createAdaptivePreview({calibrations:new Map(),persist:false}),source=pixels(8,6);
+ const adaptive={plan(args){keys.push(args.key);return controller.plan(args);},observe:(...args)=>controller.observe(...args)};
+ const preview=createParameterPreview({adaptive,readSource:async()=>source,reserve:async()=>({id:1}),release:async()=>{},engineFactory:async()=>({async load({id}){return{surface:{id,revision:1,width:8,height:6,format:'rgb8'}};},async run(task){tasks.push(structuredClone(task));return{pixels:source};},async dispose(){}})});
+ try{for(const paletteColors of [190,191])await preview.preview(request({operation:'detail.gradient',params:{method:'sobel',intensity:0,mode:2,recompression:{codec:'png',lossless:false,quality:75,paletteColors}}}));assert.equal(keys.length,2);assert.equal(keys[0],keys[1]);assert.deepEqual(tasks.map(v=>v.params.recompression.paletteColors),[190,191]);assert.notDeepEqual(tasks[0].params.recompression,tasks[1].params.recompression);}finally{await preview.dispose();}
+});
+
+test('provisional kernels preserve explicit GPU backend selection',async()=>{const {preview,calls}=harness();await preview.preview(request({backend:'webgpu'}));assert.equal(calls.runs[0].backend,'webgpu');await preview.dispose();});

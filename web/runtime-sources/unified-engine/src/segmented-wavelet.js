@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {waveletForwardLevel} from './wavelet-forward-gpu.js';
 import {waveletResidentReconstruction} from './wavelet-resident-reconstruction-gpu.js';
 import {gpuFallbackError} from './gpu-native-boundary.js';

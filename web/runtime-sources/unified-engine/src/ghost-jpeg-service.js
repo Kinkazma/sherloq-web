@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {GhostJpegExactGpu as GhostJpegGpu} from './ghost-jpeg-exact-gpu.js';
 import {checkAbort,EngineError,requireValue} from './errors.js';
 import {attachGpuCleanup} from './gpu-ack-retirement.js';
@@ -45,6 +45,15 @@ export function createGhostJpegService(budget,{createProvider=()=>new GhostJpegG
     if(!cleanupFailed&&input)try{await input.release();}catch(cleanup){cleanupFailed=true;if(failed)attachGpuCleanup(primary,cleanup);else{failed=true;primary=cleanup;}}
     if(failed||cleanupFailed){if(result)try{await result.release();}catch(cleanup){attachGpuCleanup(primary,cleanup);}if(fallback&&!cleanupFailed){lastFailure=primary.code;return null;}throw primary;}
     return result;
+   };
+   const result=queue.then(work);queue=result.then(()=>{},()=>{});return result;
+  },
+  runExternalQuality(width,height,produce,{backend='cpu',strict=false,signal,onSubmitted,onProgress}={}){
+   if(backend!=='webgpu')return Promise.resolve(null);
+   const work=async()=>{
+    await beforeWork(signal);if(!globalThis.navigator?.gpu){if(strict)throw new EngineError('GPU_UNAVAILABLE','WebGPU is required for selected-codec Ghost RGB reduction.');return null;}
+    try{provider??=createProvider();return await provider.runExternalQuality(width,height,produce,{signal,onSubmitted,onProgress});}
+    catch(error){checkAbort(signal);if(strict||!provider?.mayFallback(error))throw error;lastFailure=error.code;try{await provider.dispose();provider=null;}catch(cleanup){attachGpuCleanup(error,cleanup);throw error;}return null;}
    };
    const result=queue.then(work);queue=result.then(()=>{},()=>{});return result;
   },

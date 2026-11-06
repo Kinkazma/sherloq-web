@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 
 export const GHOST_CONTEXT_PLAN_VERSION='canonical-admitted-ghost-contexts/2';
@@ -11,9 +11,9 @@ function axis(size,extent,phase){if(!extent)return[];if(extent===size)return[[0,
 
 /** The inverse native circular phase of the COMPLETE cells, not of the RGB
  * rectangle. A wrapped footprint has at most four admitted rectangles. */
-export function ghostCompleteFootprints(rect,roll=[0,0]){
+export function ghostCompleteFootprints(rect,roll=[0,0],{maximumDimension=65500}={}){
  requireValue(roll.length===2&&roll.every(v=>Number.isInteger(v)&&v>=0&&v<=7),'Invalid native Ghost phase.');
- const columns=Math.floor(rect.width/16),rows=Math.floor(rect.height/16);if(!columns||!rows||rect.width>65500||rect.height>65500)return[];
+ const columns=Math.floor(rect.width/16),rows=Math.floor(rect.height/16);if(!columns||!rows||rect.width>maximumDimension||rect.height>maximumDimension)return[];
  return axis(rect.height,rows*16,roll[1]).flatMap(([y,end])=>axis(rect.width,columns*16,roll[0]).map(([x,r])=>({x:rect.x+x,y:rect.y+y,width:r-x,height:end-y})));
 }
 
@@ -21,7 +21,7 @@ export function ghostCompleteFootprints(rect,roll=[0,0]){
  * Ghost retains every candidate until COMPLETE native cells establish its
  * coverage; RGB first-owner pruning would lose valid cells in earlier tails.
  * No RGB, codec, sampled atlas or forbidden observations enter this planner. */
-export async function planGhostNativeContexts(view,{budget,signal,roll=[0,0]}={}){
+export async function planGhostNativeContexts(view,{budget,signal,roll=[0,0],maximumDimension=65500}={}){
  requireValue(view?.admittedRectangles&&view?.includesRectangle&&budget?.reserve,'A certified Ghost source view and budget are required.');
  const cooperate=createCooperator(signal),temporary=[],retained=[],hold=(list,n=256)=>list.push(budget.reserve(n)),rectangles=[],candidates=[],unique=new Set();let complete=false;
  const add=r=>{const key=[r.x,r.y,r.width,r.height].join('/');if(unique.has(key))return;requireValue(view.includesRectangle(r),'A Ghost context contains excluded RGB.');hold(retained,1024);unique.add(key);candidates.push({...r});};
@@ -46,7 +46,7 @@ export async function planGhostNativeContexts(view,{budget,signal,roll=[0,0]}={}
   for(const b of bands){const ys=[...new Set([b.y,b.end,...covered.flatMap(r=>[Math.max(b.y,Math.min(b.end,r.y)),Math.max(b.y,Math.min(b.end,bottom(r)))])])].sort((a,z)=>a-z);for(let i=0;i+1<ys.length;i++){const y=ys[i],end=ys[i+1],taken=union(covered.filter(r=>r.y<=y&&bottom(r)>=end).map(r=>[r.x,right(r)])),next=new Map();for(const[a,z]of subtract(b.spans,taken)){const key=a+':'+z,old=unavailableActive.get(key);if(old&&bottom(old)===y){old.height=end-old.y;next.set(key,old);}else{hold(temporary);const r={x:a,y,width:z-a,height:end-y};unavailable.push(r);next.set(key,r);}}unavailableActive=next;}}
   for(const r of unavailable)add(r);
   candidates.sort(order);const contexts=[],prior=[];let uniqueScoredPixels=0,contextScoredPixels=0,contextPixels=0;
-  for(const rect of candidates){await cooperate();const footprints=ghostCompleteFootprints(rect,roll),owned=[],active=new Map();const ys=[...new Set([...footprints,...prior].flatMap(r=>[r.y,bottom(r)]))].sort((a,b)=>a-b);
+  for(const rect of candidates){await cooperate();const footprints=ghostCompleteFootprints(rect,roll,{maximumDimension}),owned=[],active=new Map();const ys=[...new Set([...footprints,...prior].flatMap(r=>[r.y,bottom(r)]))].sort((a,b)=>a-b);
    for(let i=0;i+1<ys.length;i++){const y=ys[i],end=ys[i+1],spans=union(footprints.filter(r=>r.y<=y&&bottom(r)>=end).map(r=>[r.x,right(r)])),taken=union(prior.filter(r=>r.y<=y&&bottom(r)>=end).map(r=>[r.x,right(r)])),next=new Map();
     for(const[a,b]of subtract(spans,taken)){const key=a+':'+b,old=active.get(key);if(old&&bottom(old)===y){old.height=end-old.y;next.set(key,old);}else{hold(retained);const r={x:a,y,width:b-a,height:end-y};owned.push(r);next.set(key,r);}}active.clear();for(const[k,v]of next)active.set(k,v);
    }

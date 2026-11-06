@@ -1,3 +1,3 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.32.0";
 // Generated from canonical sources; no runtime hashing or probes.
-export const USEFUL_WORK_CODE_IDENTITY = Object.freeze({"schema":"sherloq.useful-work-code/1","sha256":"882d388133a1deb66c0448999110f0be1e64a7be48d126a62b56ddd36319ae6d","engineFiles":5242,"uiFiles":324});
+export const USEFUL_WORK_CODE_IDENTITY = Object.freeze({"schema":"sherloq.useful-work-code/1","sha256":"d082dfcaf697b0bb2a596e3eb43366d757b4d258de34b476d7083a151573f132","engineFiles":6869,"uiFiles":351});

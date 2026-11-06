@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {checkAbort,controlCheckpoint,requireValue} from './errors.js';
 import {gray} from './pixel-utils.js';
 import {sourceRegionLocalSupport} from './source-region-local-support.js';

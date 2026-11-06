@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createEfficientLoFtrDeviceIndexAliases} from './neural-window-efficient-index-aliases.js';
 import {neuralWindowGlueOperator,neuralWindowGlueOutputs} from './neural-window-glue-operators.js';
 import {installUsefulGpuDispatchEvidence} from './useful-gpu-dispatch-evidence.js';

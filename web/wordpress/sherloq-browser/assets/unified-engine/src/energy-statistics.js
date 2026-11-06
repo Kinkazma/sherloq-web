@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 const f=Math.fround;
 
 // NumPy's float32 reduction order: eight independent lanes up to128 values,

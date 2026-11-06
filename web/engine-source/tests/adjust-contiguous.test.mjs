@@ -1,0 +1,24 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
+import {initCvWasm} from '../src/opencv.js';import {OPENCV_OPERATIONS} from '../src/opencv-operations.js';import {Budget} from '../src/cache.js';import {pixelUsefulBackend,pixelUsefulOwner} from '../src/pixel-useful-operation.js';import {chooseAdjustDisplayBackend} from '../src/adjust-contiguous.js';
+await initCvWasm({wasmBinary:await readFile(new URL('../vendor/opencv/opencv.wasm',import.meta.url))});
+const op=OPENCV_OPERATIONS['inspection.adjust'];
+function memoContext(backend='cpu'){const values=new Map(),calls=[];return{values,calls,budget:new Budget(128*1024**2),backend,cpuKernel:'auto',async memo(key,compute){if(values.has(key))return values.get(key);calls.push(key);const value=await compute();values.set(key,value);return value;}};}
+function fixture(width,height){return{width,height,format:'rgb8',data:Uint8Array.from({length:width*height*3},(_,i)=>{const x=Math.floor(i/3)%width,y=Math.floor(i/3/width);return (i%3===0?3*x+5*y+x*y%73:i%3===1?x+7*y:11*x+y+x*y%97)%256;})};}
+test('Retained native prefixes and native LUTs reproduce whole OpenCV outputs exactly',async()=>{
+ let cases=0;for(const[w,h]of[[1,1],[7,9],[32,33],[259,97]]){const image=fixture(w,h),original=image.data.slice(),context=memoContext();for(const base of[{},{gamma:1},{gamma:50,shadows:-100,highlights:100,width:0,sweep:0},{gamma:7,shadows:27,highlights:-13,width:77,sweep:24},{brightness:35},{brightness:-71,saturation:42,hue:180,gamma:11},{sharpen:28,gamma:7},{equalize:1,brightness:3},{equalize:3,sharpen:8},{equalize:5}])for(const[threshold,invert]of[[255,false],[255,true],[127,false],[19,true],[0,false],[0,true]]){const p=op.validate({...base,threshold,invert}),reference=await op.compute(image,p,{}, {cpuKernel:'reference'}),result=await op.compute(image,p,{},context);assert.deepEqual(result.pixels,reference.pixels,JSON.stringify({w,h,p}));assert.equal(result.engineMetrics.backend,'cpu');cases++;}assert.deepEqual(image.data,original);assert.equal(context.budget.active,0);}assert.equal(cases,240);
+});
+test('Threshold and inversion changes reuse the admitted native prefix and Otsu result',async()=>{
+ const image=fixture(67,71),context=memoContext(),base={sharpen:28,brightness:41,equalize:3};for(const[threshold,invert]of[[255,false],[127,false],[127,true],[0,false],[0,true]])await op.compute(image,op.validate({...base,threshold,invert}),{},context);assert.equal(context.calls.filter(x=>x.startsWith('adjustment-prefix/')).length,1);assert.equal(context.calls.filter(x=>x.startsWith('adjustment-otsu/')).length,1);
+ await op.compute(image,op.validate({...base,brightness:42}),{},context);assert.equal(context.calls.filter(x=>x.startsWith('adjustment-prefix/')).length,2);
+});
+test('Useful display backend observations preserve explicit CPU and select measured faster GPU',()=>{
+ const state={cpu:[7,7],webgpu:[3],unavailable:false};assert.equal(chooseAdjustDisplayBackend(state,1048576,'auto',true),'webgpu');assert.equal(chooseAdjustDisplayBackend(state,1048576,'cpu',true),'cpu');assert.equal(chooseAdjustDisplayBackend({...state,webgpu:[9]},1048576,'auto',true),'cpu');assert.equal(chooseAdjustDisplayBackend(state,1048576,'webgpu',false),'cpu');assert.equal(chooseAdjustDisplayBackend({cpu:[],webgpu:[],unavailable:false},1048576,'auto',true),'cpu');assert.equal(chooseAdjustDisplayBackend({cpu:[7,7],webgpu:[],unavailable:false},1048576,'auto',true),'webgpu');
+});
+test('Cancellation never publishes an incomplete lookup or cached native prefix',async()=>{const image=fixture(259,97),controller=new AbortController(),context=memoContext();controller.abort();await assert.rejects(op.compute(image,op.validate({gamma:7}),{signal:controller.signal},context),{code:'CANCELLED'});assert.equal(context.values.size,0);assert.equal(context.budget.active,0);});
+
+test('Adjustment execution evidence counts committed GPU lookup batches and preserves CPU-only domains',()=>{
+ assert.deepEqual(pixelUsefulBackend({operation:'inspection.adjust'},{metrics:{backend:'webgpu',kernel:'native-adjustment-prefix-and-exact-display-LUT',gpuBatches:3}}),{backend:'hybrid',cpu:true,gpu:true});
+ assert.deepEqual(pixelUsefulBackend({operation:'inspection.adjust'},{metrics:{backend:'cpu',kernel:'retained-native-adjustment-prefix'}}),{backend:'cpu',cpu:true,gpu:false});
+ const context={version:'test',profile:{id:'maximum',maxWorkers:2},budget:{limit:128*1024**2},cpuKernel:'auto',image:{sha256:'a'.repeat(64),segmented:true,provenance:{decoder:'png'}}},owner=pixelUsefulOwner({operation:'inspection.adjust',params:{gamma:7}},context);assert.equal(owner.numericAdmissible.webgpu,false);
+ assert.equal(pixelUsefulOwner({operation:'inspection.adjust',params:{}},{...context,cpuKernel:'reference',image:{...context.image,segmented:false}}).numericAdmissible.webgpu,false);
+});

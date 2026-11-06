@@ -1,8 +1,10 @@
 import {createSHA256} from '../vendor/hash-wasm/hashes.js';
+import {jpegHeader} from './image-headers.js';
 import {captureOwnedSourcePrefixIntegrity} from './source-prefix-integrity.js';
 import {heicCell,heicGrid} from './heic-grid.js';
 import {serializeEngineError,deserializeEngineError,EngineError,requireValue} from './errors.js';
-import {extendedImageFormat,isoChroma,webpChroma} from './media-format.js';
+import {extendedImageFormat,sourceImageFormat,isoChroma,webpChroma} from './media-format.js';
+import {readVerifiedMediaResource} from './media-resource-integrity.js';
 let sequence=0;const pending=new Map();
 function request(name,value,transfer=[]){const id=++sequence;return new Promise((resolve,reject)=>{pending.set(id,{resolve,reject});self.postMessage({request:name,sequence:id,value},transfer);});}
 const progress=(phase,fraction)=>self.postMessage({progress:{phase,fraction}});
@@ -13,7 +15,7 @@ async function outputParts(parts,metadata){
  return metadata;
 }
 async function magick(){
- const m=await import('../vendor/media/magick/index.js');await m.initializeImageMagick(new URL('../vendor/media/magick/x86/magick.wasm',import.meta.url));
+ const m=await import('../vendor/media/magick/index.js');await m.initializeImageMagick(await readVerifiedMediaResource('magick'));
  // The decoder creates internal images (orientation, profiles and pixel caches).
  // frameCount below selects one frame without preventing those temporary images.
  m.ResourceLimits.disk=0n;m.ResourceLimits.listLength=16n;m.ResourceLimits.width=65500n;m.ResourceLimits.height=65500n;return m;
@@ -22,11 +24,12 @@ async function decode({blob,name,inspectOnly=false,sourceSha256}){
  const bytes=new Uint8Array(await blob.arrayBuffer());
  if(sourceSha256!==undefined){requireValue(typeof sourceSha256==='string'&&/^[a-f0-9]{64}$/i.test(sourceSha256),'Invalid encoded source identity.');const digest=await createSHA256();digest.update(bytes);if(digest.digest('hex')!==sourceSha256.toLowerCase())throw new EngineError('SOURCE_CHANGED','The encoded bytes consumed by the image inspector do not match the loaded original source.');}
  const format=extendedImageFormat(bytes,name);
+ const managedJpeg=format==='JPEG'?jpegHeader(bytes,{allowCmyk:true}):null;
  requireValue(format,'This image encoding is not supported by the extended image reader.');
  const captured=inspectOnly?null:await captureOwnedSourcePrefixIntegrity(bytes,{reserveMemory:()=>()=>{},onProgress:fraction=>progress('original-sha256',fraction)});
  const m=await magick(),settings=new m.MagickReadSettings({format:m.MagickFormat[format]??format,frameIndex:0,frameCount:1});
  const info=m.MagickImageInfo.create(bytes,settings),swapped=info.orientation>=5&&info.orientation<=8;
- const header={format:format.toLowerCase(),sourceWidth:info.width,sourceHeight:info.height,width:swapped?info.height:info.width,height:swapped?info.width:info.height,orientation:info.orientation||1,chroma:format==='WEBP'?webpChroma(bytes):isoChroma(bytes)};
+ const canonicalFormat=sourceImageFormat(bytes,name)??format.toLowerCase(),header={format:canonicalFormat,sourceFormat:canonicalFormat,sourceWidth:info.width,sourceHeight:info.height,width:swapped?info.height:info.width,height:swapped?info.width:info.height,orientation:info.orientation||1,chroma:format==='WEBP'?webpChroma(bytes):isoChroma(bytes),...(managedJpeg?.channels===4?{channels:4,depth:8,sourceColorSpace:managedJpeg.sourceColorSpace,adobeColorTransform:managedJpeg.adobeColorTransform,nativeJpegVerified:false}:{})};
  requireValue(Number.isSafeInteger(header.width*header.height)&&header.width>0&&header.height>0,'Invalid image dimensions.');
  if(inspectOnly)return header;
  const admission=await request('decode-header',header);m.ResourceLimits.memory=BigInt(admission.nativeBytes);m.ResourceLimits.maxMemoryRequest=BigInt(admission.nativeBytes);
@@ -34,8 +37,11 @@ async function decode({blob,name,inspectOnly=false,sourceSha256}){
  await m.ImageMagick.read(bytes,settings,async image=>{
   image.autoOrient();requireValue(image.width===header.width&&image.height===header.height,'Unexpected oriented image size.');
   const profile=image.getColorProfile(),cicp=image.getAttribute('heic:cicp');
-  if(profile){const response=await fetch(new URL('../vendor/media/srgb.icc',import.meta.url));if(!response.ok)throw Error('Missing sRGB profile');image.transformColorSpace(new m.ColorProfile(new Uint8Array(await response.arrayBuffer())));}
-  provenance={decoder:'ImageMagick-7.1.2-32/magick-wasm-0.0.44',format:header.format,chroma:header.chroma,sourceSize:[info.width,info.height],orientation:header.orientation,orientationApplied:true,analysisDepth:8,icc:profile?'converted to sRGB':'absent; native RGB conversion',frames:'first image only',alpha:image.hasAlpha?'present, RGB channels retained without alpha':'absent',cicp:profile?null:cicp};
+  if(profile)image.transformColorSpace(new m.ColorProfile(await readVerifiedMediaResource('srgb')));
+  // A four-component JPEG is not an RGB sample array. With no embedded profile,
+  // request ImageMagick's CMYK-to-sRGB conversion before exporting RGB bands.
+  if(managedJpeg?.channels===4&&image.colorSpace!==m.ColorSpace.sRGB)image.colorSpace=m.ColorSpace.sRGB;
+  provenance={decoder:'ImageMagick-7.1.2-32/magick-wasm-0.0.44',format:header.format,sourceFormat:header.sourceFormat,chroma:header.chroma,sourceSize:[info.width,info.height],orientation:header.orientation,orientationApplied:true,analysisDepth:8,icc:profile?'converted to sRGB':'absent; native RGB conversion',frames:'first image only',alpha:image.hasAlpha?'present, RGB channels retained without alpha':'absent',cicp:profile?null:cicp,...(managedJpeg?.channels===4?{sourceColorSpace:managedJpeg.sourceColorSpace,sourceChannels:4,adobeColorTransform:managedJpeg.adobeColorTransform,nativeJpegVerified:false,colorConversion:profile?'embedded CMYK ICC to sRGB':'ImageMagick native CMYK to sRGB'}:{})};
   for(let y=0;y<image.height;y+=32){const rows=Math.min(32,image.height-y);const rgb=image.getPixels(pixels=>pixels.toByteArray(0,y,image.width,rows,'RGB'));requireValue(rgb instanceof Uint8Array&&rgb.length===image.width*rows*3,'Invalid decoded RGB band.');
    if(!profile&&cicp?.split(/[\/,]/)[1]==='16')pqToSdr(rgb,cicp);
    await request('decoded-band',{bytes:rgb,y,rows},[rgb.buffer]);progress('decode',(y+rows)/image.height);
@@ -83,7 +89,7 @@ async function encode({width,height,format,quality,chroma,lossless=false,threads
  }
  requireValue(format==='webp'||format==='tiff','Unsupported media export format.');
  const m=await magick();m.ResourceLimits.memory=BigInt(nativeBytes);m.ResourceLimits.maxMemoryRequest=BigInt(nativeBytes);
- const profileResponse=await fetch(new URL('../vendor/media/srgb.icc',import.meta.url));requireValue(profileResponse.ok,'Missing sRGB export profile.');const profile=new Uint8Array(await profileResponse.arrayBuffer());
+ const profile=await readVerifiedMediaResource('srgb');
  return m.ImageMagick.read(m.MagickColors.Black,width,height,async image=>{
   for(let y=0;y<height;y+=32){const rows=Math.min(32,height-y),{bytes}=await request('source-band',{y,rows,width});image.getPixels(pixels=>pixels.setArea(0,y,width,rows,bytes));progress('prepare-'+format,(y+rows)/height);}
   image.depth=8;image.setProfile('icc',profile);

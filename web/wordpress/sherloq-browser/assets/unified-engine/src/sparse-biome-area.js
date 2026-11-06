@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {minimumEnclosingBiomeDisk} from './sparse-biome-disk.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {roundEven,geometricErrors,median} from './copy-geometry.js';

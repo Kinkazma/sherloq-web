@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{createZeroRetirement as createRetirement}from'./zero-native-context-plan.js';
 import{checkAbort,requireValue,createCooperator,EngineError}from'./errors.js';
 import{jpegHeader}from'./image-headers.js';import{JPEG_ID}from'./jpeg.js';import{readOriginalDctHistograms}from'./double-jpeg-stream.js';

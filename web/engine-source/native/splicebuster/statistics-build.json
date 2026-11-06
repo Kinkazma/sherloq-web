@@ -1,0 +1,38 @@
+{
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "flags": [
+    "-Itoolchain",
+    "-O3",
+    "-msimd128",
+    "-ffp-contract=off",
+    "-DEIGEN_DONT_PARALLELIZE",
+    "-DNDEBUG",
+    "-sMODULARIZE=1",
+    "-sEXPORT_ES6=1",
+    "-sEXPORT_NAME=createStatistics",
+    "-sENVIRONMENT=web,worker,node",
+    "-sALLOW_MEMORY_GROWTH=1",
+    "-sIMPORTED_MEMORY=1",
+    "-sINITIAL_MEMORY=16777216",
+    "-sMAXIMUM_MEMORY=2147483648",
+    "-sSTACK_SIZE=1048576",
+    "-sFILESYSTEM=0",
+    "-sEXPORTED_FUNCTIONS=_malloc,_free,_sb_prepare,_sb_fit,_sb_map",
+    "-sEXPORTED_RUNTIME_METHODS=HEAPU8,HEAPF32,HEAPF64,HEAP32,HEAPU32"
+  ],
+  "source": "statistics.cpp",
+  "files": {
+    "statistics.cpp": {
+      "bytes": 7100,
+      "sha256": "f5d036c0f3fe38035ca0857835408a45b7de8aaa794d5f8e32ee6ca5d1046d08"
+    },
+    "statistics.mjs": {
+      "bytes": 8829,
+      "sha256": "02cc02d4d884354ec6bf8eebea3cb39e4996cbbb3d25802f2bdbbdff4b5b21ae"
+    },
+    "statistics.wasm": {
+      "bytes": 93009,
+      "sha256": "b8cc6b6133108294b8e8a442bce0373349252957ea8a966f5b4eaf9dac86cda5"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {densePmMetricWgsl} from './dense-pm-metric-wgsl.js';
 // Native-index-preserving transport specialization. Mask bits retain their low two bits;
 // the upper bits encode (native field slot + 1). Targets/RNG stay native i/j.

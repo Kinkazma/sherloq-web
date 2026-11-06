@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue} from './errors.js';
 export function validateXfeatCoreGeometry(width,height,core){
  requireValue(Array.isArray(core)&&core.length===4,'XFeat core inventory differs.');

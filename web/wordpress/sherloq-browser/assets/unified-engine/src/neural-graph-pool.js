@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {alikedNativeHeapBytes} from './aliked-native-output-transport.js';
 import {retireIdleNeuralWorker} from './neural-worker-retirement.js';
 import {registerArrayViews} from './allocation.js';

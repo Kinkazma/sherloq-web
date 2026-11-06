@@ -4,11 +4,11 @@ import {sourceRegionTransportBytes} from './source-region-transport.js';
 export const ENERGY_CONTEXT_PLAN_POLICY='maximal-admissible-native-energy-rectangles/1';
 const LIMIT=8192,MAX_SIDE=65500,ADDRESS=2**31;
 // Same native formula as source-region-fragmented-energy.js. No JPEG or pixels.
-export function energyNativeContextAdmission(rect,requestedBlock){
+export function energyNativeContextAdmission(rect,requestedBlock,{alternate=false}={}){
  requireValue([16,32,64,96].includes(requestedBlock),'Invalid native Energy block.');
  requireValue([rect?.width,rect?.height].every(n=>Number.isSafeInteger(n)&&n>0),'Invalid native Energy dimensions.');
  let block=requestedBlock;while(Math.floor(rect.height/block)*Math.floor(rect.width/block)>16384)block+=8;
- const cells=Math.floor(rect.height/block)*Math.floor(rect.width/block),jpegDimensions=rect.width<=MAX_SIDE&&rect.height<=MAX_SIDE,energyAddressing=rect.width*rect.height<ADDRESS;
+ const cells=Math.floor(rect.height/block)*Math.floor(rect.width/block),jpegDimensions=alternate||rect.width<=MAX_SIDE&&rect.height<=MAX_SIDE,energyAddressing=rect.width*rect.height<ADDRESS;
  return{evaluable:cells>=25&&jpegDimensions&&energyAddressing,reason:!jpegDimensions?'native-jpeg-dimensions':!energyAddressing?'native-energy-addressing':cells<25?'native-25-complete-cells':null,requestedBlock,effectiveBlock:block,completeCells:cells,requiredCompleteCells:25,nativeMinimum:'25 complete native cells',nativeDimensions:[rect.width,rect.height]};
 }
 function retirementOwner(){
@@ -21,7 +21,7 @@ const planFailure=(reason,details={})=>new EngineError('SOURCE_SCOPE_UNSUPPORTED
  * remain reachable by the parent even when this Promise rejects with 0/false.
  * Domain/view must be the same immutable compiled Original certificate.
  * Coverage counts RGB supports, NOT a common statistical Energy population. */
-export async function planEnergyNativeContexts({domain,view,requestedBlock},{budget,signal,onOwner}={}){
+export async function planEnergyNativeContexts({domain,view,requestedBlock,alternate=false},{budget,signal,onOwner}={}){
  requireValue(budget&&typeof budget.reserve==='function'&&typeof onOwner==='function','A budget and synchronous Energy plan owner capture are required.');
  const owner=retirementOwner();onOwner(owner);
  const joined=signal?AbortSignal.any([signal,owner.signal]):owner.signal,cooperate=createCooperator(joined);
@@ -74,8 +74,8 @@ export async function planEnergyNativeContexts({domain,view,requestedBlock},{bud
      for(let k=0;k<length;k+=2){await cooperate();const l=common[k],r=common[k+1];if(i)while(up<offsets[i]*2&&spans[up+1]<=l)up+=2;if(j+1<B)while(down<offsets[j+2]*2&&spans[down+1]<=l)down+=2;
       const extendUp=i&&up<offsets[i]*2&&spans[up]<=l&&spans[up+1]>=r,extendDown=j+1<B&&down<offsets[j+2]*2&&spans[down]<=l&&spans[down+1]>=r;if(extendUp||extendDown)continue;maxima++;
       const w=r-l,h=edges[j+1]-edges[i],rect={x:l,y:edges[i],width:w,height:h};
-      if(!preservedRectangle&&(w>MAX_SIDE||h>MAX_SIDE||w*h>=ADDRESS))throw planFailure('native-limit-aware-maxima-not-enumerated',{bounds:[l,edges[i],r,edges[j+1]],nativeLimits:{maximumSide:MAX_SIDE,addressExclusive:ADDRESS}});
-      const admission=energyNativeContextAdmission(rect,requestedBlock);if(!admission.evaluable)continue;if(++count>LIMIT)throw planFailure('context-count-exceeds-consumer-limit',{limit:LIMIT,requiredAtLeast:count});area+=w*h;
+      if(!preservedRectangle&&((!alternate&&(w>MAX_SIDE||h>MAX_SIDE))||w*h>=ADDRESS))throw planFailure('native-limit-aware-maxima-not-enumerated',{bounds:[l,edges[i],r,edges[j+1]],nativeLimits:{maximumSide:MAX_SIDE,addressExclusive:ADDRESS}});
+      const admission=energyNativeContextAdmission(rect,requestedBlock,{alternate});if(!admission.evaluable)continue;if(++count>LIMIT)throw planFailure('context-count-exceeds-consumer-limit',{limit:LIMIT,requiredAtLeast:count});area+=w*h;
       if(fill){requireValue(count<=C,'Energy maxima changed between planning passes.');const at=(count-1)*6;records.set([l,edges[i],r,edges[j+1],admission.effectiveBlock,admission.completeCells],at);}
      }
     }
@@ -83,7 +83,7 @@ export async function planEnergyNativeContexts({domain,view,requestedBlock},{bud
    if(fill)requireValue(count===C&&area===contextRgbPositions&&maxima===geomMax,'Energy maxima changed between planning passes.');return{count,area,maxima};
   }
   const counted=await enumerate(false);C=counted.count;contextRgbPositions=counted.area;geomMax=counted.maxima;
-  const template={id:'x'.repeat(100),bounds:[0,0,0,0],originalBounds:[0,0,0,0],width:1,height:1,jpegPhase:[0,0],evaluable:true,status:'admissible-unexecuted',admission:energyNativeContextAdmission({width:80,height:80},16)};
+  const template={id:'x'.repeat(100),bounds:[0,0,0,0],originalBounds:[0,0,0,0],width:1,height:1,jpegPhase:[0,0],evaluable:true,status:'admissible-unexecuted',admission:energyNativeContextAdmission({width:80,height:80},16,{alternate})};
   reserve(24*C+4*(B+1)+16*C+4*Math.max(0,U-1)+8*(C+1)+C*sourceRegionTransportBytes(template)*4+8192);
   records=new Uint32Array(6*C);await enumerate(true);
   // In-place heap sort of six-word records: no hidden candidate list/sort copy.
@@ -103,9 +103,9 @@ export async function planEnergyNativeContexts({domain,view,requestedBlock},{bud
   const header=JSON.stringify([ENERGY_CONTEXT_PLAN_POLICY,domain.sourceSha256,domain.origin,W,H,requestedBlock,C]);reserve(4096+8*(B+1)+8*S+24*C);const encoded=new TextEncoder().encode(header),hashInput=new Uint8Array(4+encoded.length+8*(B+1)+8*S+24*C),dv=new DataView(hashInput.buffer);dv.setUint32(0,encoded.length,true);hashInput.set(encoded,4);let at=4+encoded.length;
   for(const values of[edges,offsets,spans,records])for(let i=0;i<values.length;i++){if((i&127)===0)await cooperate();dv.setUint32(at,values[i],true);at+=4;}
   const fingerprint=[...new Uint8Array(await crypto.subtle.digest('SHA-256',hashInput))].map(x=>x.toString(16).padStart(2,'0')).join('');checkAbort(joined);
-  const contexts=[];for(let i=0;i<C;i++){await cooperate();const v=records.subarray(i*6,i*6+6),bounds=[v[0],v[1],v[2],v[3]],admission=energyNativeContextAdmission({width:v[2]-v[0],height:v[3]-v[1]},requestedBlock);contexts.push(Object.freeze({id:'energy_ctx_'+fingerprint+'_'+i,bounds:Object.freeze(bounds),originalBounds:Object.freeze(bounds.map((x,j)=>x+domain.origin[j%2])),width:v[2]-v[0],height:v[3]-v[1],jpegPhase:Object.freeze([0,0]),evaluable:true,status:'admissible-unexecuted',admission:Object.freeze({...admission,nativeDimensions:Object.freeze(admission.nativeDimensions)})}));}
+  const contexts=[];for(let i=0;i<C;i++){await cooperate();const v=records.subarray(i*6,i*6+6),bounds=[v[0],v[1],v[2],v[3]],admission=energyNativeContextAdmission({width:v[2]-v[0],height:v[3]-v[1]},requestedBlock,{alternate});contexts.push(Object.freeze({id:'energy_ctx_'+fingerprint+'_'+i,bounds:Object.freeze(bounds),originalBounds:Object.freeze(bounds.map((x,j)=>x+domain.origin[j%2])),width:v[2]-v[0],height:v[3]-v[1],jpegPhase:Object.freeze([0,0]),evaluable:true,status:'admissible-unexecuted',admission:Object.freeze({...admission,nativeDimensions:Object.freeze(admission.nativeDimensions)})}));}
   const histogram=[];for(let k=0;k<bins.length;k++)if(bins[k])histogram.push(Object.freeze({multiplicity:k,pixels:bins[k]}));
-  const rectangleAdmission=preservedRectangle?energyNativeContextAdmission({width:W,height:H},requestedBlock):null,rectangle=preservedRectangle?Object.freeze({bounds:Object.freeze([0,0,W,H]),admission:Object.freeze({...rectangleAdmission,nativeDimensions:Object.freeze(rectangleAdmission.nativeDimensions)})}):null;
+  const rectangleAdmission=preservedRectangle?energyNativeContextAdmission({width:W,height:H},requestedBlock,{alternate}):null,rectangle=preservedRectangle?Object.freeze({bounds:Object.freeze([0,0,W,H]),admission:Object.freeze({...rectangleAdmission,nativeDimensions:Object.freeze(rectangleAdmission.nativeDimensions)})}):null;
   return Object.freeze({policy:ENERGY_CONTEXT_PLAN_POLICY,fingerprint,sourceSha256:domain.sourceSha256,domainFingerprint:domain.fingerprint,origin:Object.freeze([...domain.origin]),width:W,height:H,requestedBlock,contexts:Object.freeze(contexts),preservedRectangle,rectangle,status:domain.empty?'empty':C?'admissible-unexecuted':'native-not-evaluable',coverage:Object.freeze({selectedPixels:domain.countIncluded,coveredUniquePixels,uncoveredSelectedPixels:domain.countIncluded-coveredUniquePixels,contextRgbPositions,overlapExtraPositions:contextRgbPositions-coveredUniquePixels,maximumMultiplicity,histogram:Object.freeze(histogram)}),planning:Object.freeze({domainLevels,domainVertices,rowScratchBytes,bands:B,spans:S,xCoordinates:U,contexts:C,maximalRectangles:geomMax,rowScans:scans,bandPairsVisited:pairs,intervalComparisons:comparisons,enumerationPasses:2,bandPairsPerPassBound:(BigInt(B)*BigInt(B+1)/2n).toString(),candidateComponentsPerPassBound:(BigInt(B)*BigInt(B+1)/2n*BigInt(Math.floor(U/2))).toString(),reservedBytes}),owner,release:owner.release,dispose:()=>owner.dispose()});
  }catch(primary){try{await owner.dispose();}catch{}throw primary;}
 }

@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {validateRecompressionOptions} from './recompression-plan.js';
+import {selectionIdentity,createSelectedCodec,resolveSelectedPlan} from './recompression-probe.js';
 import {nativeModuleFailure,wasmAllocationFailure} from './allocation.js';
 import {EngineError,requireValue,checkpoint,checkAbort} from './errors.js';
 let ready,pending;
@@ -39,10 +41,12 @@ export async function zeroArrays(image,companion,{signal}={}, {reference=false,p
 import {parameters,binaryMask} from './pixel-utils.js';
 import {jpegCodec} from './jpeg.js';
 import {ZERO_PALETTE} from './zero-palette.js';
-export const zeroParams=(p={})=>parameters(p,{missing:true,view:0},{view:[0,4]},{},['missing']);
+export const zeroParams=(input={})=>{const{recompression,...rest}=input,p=parameters(rest,{missing:true,view:0},{view:[0,4]},{},['missing']);if(recompression!==undefined)p.recompression=validateRecompressionOptions(recompression);return p;};
+export const zeroRecompressionIdentity=p=>p?.recompression?selectionIdentity(p):'historical-jpeg99-444';
 export async function zeroData(image,p,hooks={},context={}){
- zeroAdmission(image);const companion=p.missing?await jpegCodec.recompress444(image,99,hooks):null;
+ zeroAdmission(image);let companion=null,companionPlan=null;const companionQuality=p.recompression?.quality??99;if(p.missing){const source={...context,pixels:image},plan=p.recompression?await resolveSelectedPlan(p,source,{quality:companionQuality,paletteAxis:'fixed',signal:hooks.signal}):null;if(plan){companionPlan=plan;companion=await createSelectedCodec(source,p,{budget:context.budget,paletteAxis:'fixed'}).recompress(image,companionQuality,hooks);}else companion=await jpegCodec.recompress444(image,companionQuality,hooks);}
  hooks.onProgress?.(.1);const result=await zeroArrays(image,companion,hooks,{reference:context.cpuKernel==='reference',pool:context.zeroPool});hooks.onProgress?.(1);
+ if(p.recompression){result.metadata.jpeg99_used=!!companion&&!companionPlan&&companionQuality===99;result.metadata.experimentalCompanion={selected:true,used:!!companion,recompressionPlan:companionPlan??{stage:{codec:'jpeg',lossless:false,quality:companionQuality,chroma:'444'}},scope:'missing-grid-companion-only'};}
  const runtime=result.runtime;delete result.runtime;const masks={};for(const [key,description] of [['mask_f','Foreign-grid detected vote pixels'],['mask_f_reg','Foreign-grid regularized regions'],['mask_m','Missing-grid detected vote pixels'],['mask_m_reg','Missing-grid regularized regions']]){const data=new Uint8Array(image.width*image.height),source=result[key];for(let i=0;i<data.length;i++)data[i]=source[i]>0?1:0;masks[key]=binaryMask(image,data,description+'; evidence, not an authenticity verdict');}
  return {masks,data:{...result,width:image.width,height:image.height,regionBounds:'inclusive xyxy',palette:Uint8Array.from(ZERO_PALETTE)},engineMetrics:{backend:'cpu',gpuJobs:0,kernel:'zero-'+runtime.kernel,workers:Math.max(1,...runtime.pool.map(x=>x.workers)),thresholdFallbacks:runtime.fallbacks,...(runtime.pool.length?{votePasses:runtime.pool}:{})},semantics:'ZERO local JPEG grid votes, global significance and different/missing-grid regions. Red denotes a foreign grid, blue a missing grid. These are processing clues, not authenticity verdicts; grid log10 NFA is not a manipulation probability.'};
 }

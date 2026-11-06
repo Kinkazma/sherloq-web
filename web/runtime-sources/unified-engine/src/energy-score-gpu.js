@@ -1,10 +1,11 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
 import {initializeGpuOwner,gpuOwnerFailure,gpuOwnerMayFallback,gpuOwnerSync,gpuOwnerAsync,gpuOwnerReserve,openOwnedGpuDevice,retireOwnedGpuDevice,disposeGpuOwner} from './gpu-context-owner.js';
 import {gpuTransaction,retireGpuTransaction,attachGpuCleanup} from './gpu-ack-retirement.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {energyLogData} from './energy-log-data.js';
 import {energyScoresShader} from './energy-score-gpu-shader.js';
+import {energySingleScoreShader} from './energy-score-single-gpu-shader.js';
 import {createEnergyScorePolicy} from './energy-score-policy.js';
 import {nativeEnergyScores} from './energy-score-native.js';
 
@@ -19,7 +20,7 @@ export function energyScoreGpuPlan(count,centerBytes,tableBytes,{available,limit
 }
 
 export class EnergyScoreGpu{
- constructor(budget){initializeGpuOwner(this,budget,'ela-energy-score');this.program=null;this.policy=null;this.policyFree=null;}
+ constructor(budget){initializeGpuOwner(this,budget,'ela-energy-score');this.program=null;this.singleProgram=null;this.policy=null;this.policyFree=null;}
  selectBackend(count,requested='webgpu'){
   requireValue(['cpu','webgpu','auto'].includes(requested),'Unknown native energy score backend.');
   if(this.closed)throw new EngineError('DISPOSED','Energy score GPU closed.');
@@ -44,36 +45,38 @@ export class EnergyScoreGpu{
  sync(action,signal){return gpuOwnerSync(this,action,signal);}
  asyncApi(action,signal){return gpuOwnerAsync(this,action,signal);}
  reserve(bytes){return gpuOwnerReserve(this,bytes);}
- async initialize(signal){
-  if(!this.ready)this.ready=(async()=>{
+ async initialize(signal,planeCount=3){
+  const field=planeCount===1?'singleProgram':'program';
+  const compile=async()=>{
    const free=this.reserve(4*MiB);this.orphanPipelineFees.add(free);
-   const device=await openOwnedGpuDevice(this,signal);checkAbort(signal);
-   const module=this.sync(()=>device.createShaderModule({code:energyScoresShader}),signal),info=await this.asyncApi(()=>module.getCompilationInfo(),signal);
+   const device=this.device??await openOwnedGpuDevice(this,signal);checkAbort(signal);
+   const module=this.sync(()=>device.createShaderModule({code:planeCount===1?energySingleScoreShader:energyScoresShader}),signal),info=await this.asyncApi(()=>module.getCompilationInfo(),signal);
    if(info.messages.some(value=>value.type==='error'))throw this.failure(new EngineError('GPU_FAILED',info.messages.map(value=>value.message).join('\n')));
    const pipeline=await this.asyncApi(()=>device.createComputePipelineAsync({layout:'auto',compute:{module,entryPoint:'main'}}),signal);checkAbort(signal);
-   this.program={pipeline,free};this.orphanPipelineFees.delete(free);return device;
-  })().catch(error=>{this.retirementNeeded=true;this.ready=null;throw error;});
-  return this.ready;
+   this[field]={pipeline,free};this.orphanPipelineFees.delete(free);return device;
+  };
+  try{if(!this.ready)this.ready=compile();await this.ready;if(!this[field])await compile();checkAbort(signal);return this.device;}
+  catch(error){this.retirementNeeded=true;this.ready=null;throw error;}
  }
- async retirePipelines(){if(this.program){await this.program.free();this.program=null;}}
- async run(planes,scope,summaries,{low,high,log,signal,onSubmitted}={}){
+ async retirePipelines(){for(const field of ['program','singleProgram'])if(this[field]){await this[field].free();this[field]=null;}}
+ async run(planes,scope,summaries,{low,high,log,signal,onSubmitted,planeCount=3}={}){
   const count=scope?.length;
-  requireValue(scope instanceof Int32Array&&Number.isSafeInteger(count)&&count>0&&count<2**31&&planes instanceof Float32Array&&planes.length===count*3&&low instanceof Float32Array&&high instanceof Float32Array&&low.length===count&&high.length===count&&Array.isArray(summaries)&&typeof log==='function','Owned native energy arrays and logarithm required.');
-  requireValue(summaries.every(value=>Number.isInteger(value.id)&&value.id>0&&value.id<2**31&&Array.isArray(value.probes)&&value.probes.length===3&&value.probes.every(probe=>Number.isFinite(probe.central_mean)&&probe.central_mean>=0&&probe.central_mean<=255))&&new Set(summaries.map(value=>value.id)).size===summaries.length,'Native energy panel means and identities required.');
+  requireValue(scope instanceof Int32Array&&Number.isSafeInteger(count)&&count>0&&count<2**31&&[1,3].includes(planeCount)&&planes instanceof Float32Array&&planes.length===count*planeCount&&low instanceof Float32Array&&high instanceof Float32Array&&low.length===count&&high.length===count&&Array.isArray(summaries)&&typeof log==='function','Owned native energy arrays and logarithm required.');
+  requireValue(summaries.every(value=>Number.isInteger(value.id)&&value.id>0&&value.id<2**31&&Array.isArray(value.probes)&&value.probes.length===planeCount&&value.probes.every(probe=>Number.isFinite(probe.central_mean)&&probe.central_mean>=0&&probe.central_mean<=255))&&new Set(summaries.map(value=>value.id)).size===summaries.length,'Native energy panel means and identities required.');
   checkAbort(signal);if(this.closed)throw new EngineError('DISPOSED','Energy score GPU closed.');if(this.busy)throw new EngineError('BUSY','Energy score GPU active.');
   if(!summaries.length){low.fill(0);high.fill(0);return{backend:'cpu-empty-native-energy',bands:0,refinedPixels:0};}
   this.busy=true;this.fallbackFailures=new WeakSet();const started=performance.now(),cooperate=createCooperator(signal);let record,result,failed=false,primary;
   try{
    if(this.retirementNeeded||this.pending.size)await retireOwnedGpuDevice(this);
    record=gpuTransaction(this);record.lease=await getExecutionScheduler(this.budget).acquire({cpu:0,gpu:1,signal,resourceOwner:'ela',label:'energy-score-native-rounds'});
-   await this.initialize(signal);const device=this.device;record.device=device;
+   await this.initialize(signal,planeCount);const device=this.device,program=planeCount===1?this.singleProgram:this.program;record.device=device;
    // Host lookup metadata is funded before it is constructed, independently
    // of the caller's scientific arrays and the GPU band workspace.
    record.outputFree=this.reserve(summaries.length*128+256*1024);
    const centers=new Uint32Array(summaries.length*4),centerFloats=new Float32Array(centers.buffer),ordered=[...summaries].sort((a,b)=>a.id-b.id),numerators=new Map();
    for(let i=0;i<ordered.length;i++){
     centers[i*4]=ordered[i].id;const values=ordered[i].probes.map(probe=>f(probe.central_mean+.25));numerators.set(ordered[i].id,values);
-    for(let q=0;q<3;q++)centerFloats[i*4+q+1]=values[q];
+    for(let q=0;q<planeCount;q++)centerFloats[i*4+q+1]=values[q];
    }
    const data=energyLogData(),words=new Uint32Array(data.buffer,data.byteOffset,data.byteLength/4),buckets=new Uint32Array(((MAXIMUM_LOG_BITS-MINIMUM_LOG_BITS)>>>16)+2);let at=0;
    requireValue(words.byteLength+buckets.byteLength<=256*1024,'Qualified energy logarithm metadata exceeds its funded bound.');
@@ -82,14 +85,14 @@ export class EnergyScoreGpu{
    if(!plan)throw this.failure(new EngineError('GPU_LIMIT','No energy score band fits the shared GPU budget.'));record.workspace=this.reserve(plan.workspaceBytes);
    this.sync(()=>device.pushErrorScope('validation'),signal);record.scopes++;this.sync(()=>device.pushErrorScope('out-of-memory'),signal);record.scopes++;
    const make=(size,usage,label)=>{const buffer=this.sync(()=>device.createBuffer({size:Math.max(4,size),usage,label}),signal),entry={bytes:Math.max(4,size),destroyed:false,release:null};record.buffers.set(buffer,entry);entry.release=this.budget.registerBacking?.('gpu',entry.bytes,{owner:'ela-energy',label});return buffer;};
-   const input=make(plan.band*12,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-planes'),scopeBuffer=make(plan.band*4,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-scope'),centerBuffer=make(centers.byteLength,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-centers'),exceptionBuffer=make(words.byteLength,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-log-exceptions'),bucketBuffer=make(buckets.byteLength,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-log-buckets'),output=make(plan.band*16,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC,'energy-low-high-rounding'),read=make(plan.band*16,GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST,'energy-readback'),uniform=make(32,GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST,'energy-shape');
+   const input=make(plan.band*planeCount*4,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-planes'),scopeBuffer=make(plan.band*4,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-scope'),centerBuffer=make(centers.byteLength,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-centers'),exceptionBuffer=make(words.byteLength,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-log-exceptions'),bucketBuffer=make(buckets.byteLength,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'energy-native-log-buckets'),output=make(plan.band*16,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC,'energy-low-high-rounding'),read=make(plan.band*16,GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST,'energy-readback'),uniform=make(32,GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST,'energy-shape');
    this.sync(()=>{device.queue.writeBuffer(centerBuffer,0,centers);device.queue.writeBuffer(exceptionBuffer,0,words);device.queue.writeBuffer(bucketBuffer,0,buckets);},signal);
-   const group=this.sync(()=>device.createBindGroup({layout:this.program.pipeline.getBindGroupLayout(0),entries:[input,scopeBuffer,centerBuffer,exceptionBuffer,bucketBuffer,output,uniform].map((buffer,binding)=>({binding,resource:{buffer}}))}),signal);
+   const group=this.sync(()=>device.createBindGroup({layout:program.pipeline.getBindGroupLayout(0),entries:[input,scopeBuffer,centerBuffer,exceptionBuffer,bucketBuffer,output,uniform].map((buffer,binding)=>({binding,resource:{buffer}}))}),signal);
    let bands=0,refinedPixels=0;
    for(let offset=0;offset<count;offset+=plan.band){
     await cooperate();checkAbort(signal);const length=Math.min(plan.band,count-offset),groups=Math.ceil(length/128),groupsX=Math.min(groups,device.limits.maxComputeWorkgroupsPerDimension),groupsY=Math.ceil(groups/groupsX);
-    this.sync(()=>{for(let q=0;q<3;q++)device.queue.writeBuffer(input,q*length*4,planes.subarray(q*count+offset,q*count+offset+length));device.queue.writeBuffer(scopeBuffer,0,scope.subarray(offset,offset+length));device.queue.writeBuffer(uniform,0,new Uint32Array([length,groupsX,MINIMUM_LOG_BITS,MAXIMUM_LOG_BITS,ordered.length,0,0,0]));},signal);
-    const encoder=this.sync(()=>device.createCommandEncoder(),signal),pass=this.sync(()=>encoder.beginComputePass(),signal);this.sync(()=>{pass.setPipeline(this.program.pipeline);pass.setBindGroup(0,group);pass.dispatchWorkgroups(groupsX,groupsY);pass.end();encoder.copyBufferToBuffer(output,0,read,0,length*16);},signal);
+    this.sync(()=>{for(let q=0;q<planeCount;q++)device.queue.writeBuffer(input,q*length*4,planes.subarray(q*count+offset,q*count+offset+length));device.queue.writeBuffer(scopeBuffer,0,scope.subarray(offset,offset+length));device.queue.writeBuffer(uniform,0,new Uint32Array([length,groupsX,MINIMUM_LOG_BITS,MAXIMUM_LOG_BITS,ordered.length,0,0,0]));},signal);
+    const encoder=this.sync(()=>device.createCommandEncoder(),signal),pass=this.sync(()=>encoder.beginComputePass(),signal);this.sync(()=>{pass.setPipeline(program.pipeline);pass.setBindGroup(0,group);pass.dispatchWorkgroups(groupsX,groupsY);pass.end();encoder.copyBufferToBuffer(output,0,read,0,length*16);},signal);
     record.drained=false;this.sync(()=>device.queue.submit([encoder.finish()]),signal);onSubmitted?.({band:bands,offset,pixels:length});await this.asyncApi(()=>read.mapAsync(GPUMapMode.READ,0,length*16),signal);record.mapping={buffer:read,mapped:true,release:null};checkAbort(signal);
     const mapped=this.sync(()=>read.getMappedRange(0,length*16),signal);record.mapping.release=this.budget.registerBacking?.('gpu-mapped',length*16,{owner:'ela-energy',label:'energy-score-map',identity:mapped});
     const copied=new Uint32Array(mapped).slice(),values=new Float32Array(copied.buffer);this.sync(()=>read.unmap(),signal);record.mapping.mapped=false;await record.mapping.release?.();record.mapping=null;
@@ -97,12 +100,12 @@ export class EnergyScoreGpu{
      if((i&8191)===0)await cooperate();const index=offset+i;
      if(!copied[i*4+2]){low[index]=values[i*4];high[index]=values[i*4+1];continue;}
      const center=numerators.get(scope[index]);requireValue(center,'Energy GPU scope identity differs from native panel means.');
-     const scores=[0,1,2].map(q=>f(log(f(center[q]/f(planes[q*count+index]+.25)))/f(.2))),[x,y,z]=scores,median=x>y?(y>z?y:Math.min(x,z)):(x>z?x:Math.min(y,z));low[index]=Math.max(median,0);high[index]=Math.max(-median,0);refinedPixels++;
+     const scores=Array.from({length:planeCount},(_,q)=>f(log(f(center[q]/f(planes[q*count+index]+.25)))/f(.2))),[x,y,z]=scores,median=planeCount===1?x:x>y?(y>z?y:Math.min(x,z)):(x>z?x:Math.min(y,z));low[index]=Math.max(median,0);high[index]=Math.max(-median,0);refinedPixels++;
     }
     bands++;
    }
    const oom=await this.asyncApi(()=>device.popErrorScope(),signal);record.scopes--;const validation=await this.asyncApi(()=>device.popErrorScope(),signal);record.scopes--;if(oom||validation)throw this.failure(new EngineError('GPU_FAILED',(oom??validation).message));checkAbort(signal);if(this.lost)throw this.failure(new EngineError('GPU_FAILED','Energy GPU context lost before result publication.'));record.drained=true;
-   result={backend:'webgpu-native-energy-scores',bands,refinedPixels,pixelsPerBand:plan.band,rounding:'native-f32-with-CPU-boundary-replay'};return result;
+   result={backend:'webgpu-native-energy-scores',...(planeCount===1?{planeCount:1,residualInput:'already-aggregated-synthesis'}:{}),bands,refinedPixels,pixelsPerBand:plan.band,rounding:'native-f32-with-CPU-boundary-replay'};return result;
   }catch(error){failed=true;primary=error;throw error;}
   finally{
    let cleanupFailed=false,cleanup;try{if(record)await retireGpuTransaction(this,record);}catch(error){cleanupFailed=true;cleanup=error;}this.busy=false;

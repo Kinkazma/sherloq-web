@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // SHERLOQ context reuse. The compiled runtime/device remain explicitly funded;
 // job ACK releases execution only, context ACK later releases persistent memory.
 import {EngineError,deserializeWorkerError} from './errors.js';

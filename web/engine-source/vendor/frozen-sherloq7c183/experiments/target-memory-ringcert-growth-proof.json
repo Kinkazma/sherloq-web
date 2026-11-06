@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "wasmSha256": "f2a5eac481897ed2c471faf27b10ea311c81e0e2b8b83e0b67809241a0a68171",
+  "factorySha256": "d540130e5fa86cfc8f433d12f1225c88c6dafa8b330e9aac0a2e2266f8c8f372",
+  "loaderSha256": "d672b87ac9663ff7c8232324302388fbc4e7743fbdfb0318424e0677df02b36c",
+  "disassemblySha256": "d7e0eb51d63a5271675623486613ff0c2d1064b5913b6ca23914a045d6ab3b73",
+  "directMemoryGrowInstructions": 0,
+  "importedMemories": 1,
+  "loaderGrowthCalls": 1,
+  "growthPath": "imported WebAssembly.Memory instance grow(pages)",
+  "compiler": "Emscripten 4.0.15",
+  "sourceProvenance": {
+    "schema": 1,
+    "source": "experiments/target-memory-ringcert.cpp",
+    "files": [
+      {
+        "path": "experiments/projection-pixel-forest-native.hpp",
+        "sha256": "1b79b9a1722307db4eebd8b77579d1e6853143aa2597f612e7064eba38a4eebb",
+        "bytes": 19729
+      },
+      {
+        "path": "experiments/target-memory-exact-tape.hpp",
+        "sha256": "59edde2b576f100e0a8fe64f43b92d7634592ef347f301610191a1cbbf5a2654",
+        "bytes": 12282
+      },
+      {
+        "path": "experiments/target-memory-ic0.hpp",
+        "sha256": "f3d4474fb129436ffd51d8bbc90dbbb33e79a1c41664ea584130faf37d69d873",
+        "bytes": 18248
+      },
+      {
+        "path": "experiments/target-memory-local-neighbors.hpp",
+        "sha256": "4e5886537bc5d45898cca9c2b585f756c63769682b8d279ad0eaf816bb5c9f3f",
+        "bytes": 1271
+      },
+      {
+        "path": "experiments/target-memory-mass-palette.hpp",
+        "sha256": "d30a1e3e53fb981fe61a49e171894c6b9a4c68fbb3987ad0d4c77d0b8929f69f",
+        "bytes": 3735
+      },
+      {
+        "path": "experiments/target-memory-packing-neighbors.hpp",
+        "sha256": "0e71f2880b209ed77afada3dc750b51f9a55e2cba61f7777514b8be83e079047",
+        "bytes": 1444
+      },
+      {
+        "path": "experiments/target-memory-ringcert-graph.hpp",
+        "sha256": "9138533d39dde6a7fa48de4936e8d95e992d89da849bc26bdadfc6de8b0f26d3",
+        "bytes": 5185
+      },
+      {
+        "path": "experiments/target-memory-ringcert.cpp",
+        "sha256": "932c888f866df0688b49290bd9d3a0e71fe2d30e419efb35eaf9c8648f39031d",
+        "bytes": 127191
+      }
+    ],
+    "closureSha256": "7cc2a31096f37c7a02d76418e8d07a2303ebee5f6656e1d6140a85a050c26330",
+    "registrySha256": "77ddaae8a3cd12143df22648e7ac53ae3a69bf29ae6969cfb9a4e78a3e989e22",
+    "compilerFlags": [
+      "-O3",
+      "-std=c++17",
+      "-ffp-contract=off",
+      "-msimd128",
+      "-sMODULARIZE=1",
+      "-sEXPORT_ES6=1",
+      "-sENVIRONMENT=web,worker,node",
+      "-sALLOW_MEMORY_GROWTH=1",
+      "-sINITIAL_MEMORY=16777216",
+      "-sMAXIMUM_MEMORY=4294967296",
+      "-sIMPORTED_MEMORY=1",
+      "-sFILESYSTEM=0",
+      "-sMEMORY_GROWTH_GEOMETRIC_STEP=0",
+      "-sEXPORTED_FUNCTIONS=[\"_tm_create\",\"_tm_destroy\",\"_tm_prepare\",\"_tm_begin\",\"_tm_solve\",\"_tm_seed\",\"_tm_seed_band\",\"_tm_seed_pixel_capacity\",\"_tm_seed_compact\",\"_tm_array\",\"_tm_value\",\"_tm_info\",\"_tm_pack_begin\",\"_tm_pack_step\",\"_tm_pack_info\",\"_tm_project_prepare\",\"_tm_project_band\",\"_tm_project_relayout\",\"_tm_project_trial_band\",\"_tm_project_begin\",\"_tm_project_step\",\"_tm_project_check\",\"_tm_project_value\",\"_tm_project_value_at\",\"_tm_project_values_at\",\"_tm_project_info\"]",
+      "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPU16\",\"HEAPF64\",\"HEAPF32\"]"
+    ],
+    "buildScriptSha256": "b3e583d25feb954a8214ab21e2997b5fe83f2d0ac5ae0718420e57e78f217c44",
+    "proofScriptSha256": "b619d350968348b4781fab45517078ddfa1b5d9abd225ad56f8d74b4fed38583"
+  }
+}

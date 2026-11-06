@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{SEGMENTATION_MODELS}from'../experiments/segmentation/models.js';
 import{D2PRL_MODEL_IDENTITY}from'./d2prl-model-identity.js';
 import{d2prlInputSide}from'../experiments/d2prl/input-side.js';

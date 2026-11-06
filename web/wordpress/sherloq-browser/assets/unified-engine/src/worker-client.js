@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {applicationNeuralWindowClientService,neuralWindowApplicationSnapshot} from './neural-window-client-service.js';
 import {createNeuralWindowClientLink} from './neural-window-client-link.js';
 import {engineWorkerURL} from './engine-worker-entry.js';
@@ -13,18 +13,20 @@ import {installWorkerMessageProtocol,workerMessageFailure} from './worker-messag
 // settlement, retaining source storage and checkpoints. Explicit destruction
 // and fatal transport failures still close storage and report cleared images.
 // Only the qualified bounded-window path may retain Original during cancel.
+// A disposable preview also drains its bounded display read before reuse; an
+// obsolete viewport must not destroy the worker's already computed source.
 // Whole-image and all other historical cancellation routes remain unchanged.
 export function cooperativeColorWindows(task){
  const d=task?.sourceRegionDomain,s=d?.snapshot,p=task?.params,n=s?.width*s?.height;
  return task?.operation==='noise.separation'&&p?.mode===0&&Number.isInteger(p.radius)&&p.radius>=1&&p.radius<=10&&typeof p.grayscale==='boolean'&&['cpu','webgpu','auto'].includes(task.backend??'auto')&&d?.schema==='sherloq.source-region-domain/1'&&s?.schema==='sherloq.source-regions/1'&&typeof d.fingerprint==='string'&&/^[a-f0-9]{64}$/.test(d.fingerprint)&&typeof s.sourceSha256==='string'&&/^[a-f0-9]{64}$/.test(s.sourceSha256)&&Number.isSafeInteger(s.width)&&s.width>0&&Number.isSafeInteger(s.height)&&s.height>0&&Number.isSafeInteger(n)&&Number.isSafeInteger(d.countIncluded)&&d.countIncluded>0&&d.countIncluded<n&&Number.isSafeInteger(d.width)&&d.width>0&&Number.isSafeInteger(d.height)&&d.height>0&&d.width<=s.width&&d.height<=s.height&&d.countIncluded<d.width*d.height;
 }
 export function createWorkerEngine(options={}) {
- const {memoryHintProvider,memoryExtensionId,...workerOptions}=options;options=workerOptions;
+ const {memoryHintProvider,memoryExtensionId,provisionalDisplayOnly=false,...workerOptions}=options;options=workerOptions;
  const memoryReader=memoryHintProvider??(memoryExtensionId?()=>readExtensionMemoryHints(memoryExtensionId):null);
  const profile=resolveComputeProfile(options.computeProfile??'aggressive',options.resourceHints);
  options={...options,resourceHints:profile.hints};
  let worker,serial=0,disposed=false,active=false,ready,cancellationTimer,cancellationError;
- let initialized=false,sentWork=false,initializationFlight,initializationRetryUsed=false,initializationDiagnostic;
+ let initialized=false,sentWork=false,initializationFlight,initializationRetryUsed=false,initializationDiagnostic,aiDetectorsOwned=false;
  let memoryTimer,memoryReading=false,memoryGeneration=0;
  async function refreshMemory(){
   if(!memoryReader||memoryReading||disposed||!active||!worker)return;
@@ -50,7 +52,7 @@ export function createWorkerEngine(options={}) {
   error.imagesCleared=imagesCleared;
   if(error.details?.retainedAnalysis){const {retainedAnalysis,...details}=error.details;error.details=details;}
   clearTimeout(cancellationTimer);cancellationError=null;
-  const stopped=worker,row=stopped&&neuralWindowLinks.get(stopped);if(row){row.retiring=true;cleanupPending=cleanupPending.catch(()=>{}).then(retireNeuralWindowLinks);}else stopped?.terminate();worker=null;ready=null;
+  const stopped=worker,row=stopped&&neuralWindowLinks.get(stopped);if(row){row.retiring=true;cleanupPending=cleanupPending.catch(()=>{}).then(retireNeuralWindowLinks);}else stopped?.terminate();worker=null;ready=null;aiDetectorsOwned=false;
   const external=[...externalCacheOwners.values()];externalCacheOwners.clear();if(external.length)cleanupPending=cleanupPending.then(()=>Promise.allSettled(external.map(retire=>retire())));
   const waiting=[...pending.values()],kept=preserveUnsentOwners?[...storageOwners].filter(([,record])=>!record.sent&&!record.backend):[],keptIds=new Set(kept.map(([id])=>id)),owners=storageClosed?[]:[...storageOwners].filter(([id])=>!keptIds.has(id));pending.clear();storageOwners.clear();for(const [id,record]of kept)storageOwners.set(id,record);if(!preserveActive)active=false;
   const rejectAll=failures=>{if(failures?.length)error.temporaryCleanupFailures=failures;for(const p of waiting){p.cleanup();p.reject(p.callbackPrimary?p.callbackPrimary.error:error);}for(const resolve of shutdownWaiters.splice(0))resolve(failures??[]);};
@@ -60,7 +62,7 @@ export function createWorkerEngine(options={}) {
 
  function stopWithStorageClose(error){
   const done=new Promise(resolve=>shutdownWaiters.push(resolve));
-  if(!cancellationError){cancellationError=error;try{worker.postMessage({method:'cancel-and-close'});cancellationTimer=setTimeout(()=>{error.cancellationMode='forced-after-storage-close-timeout';reset(error);},1000);}catch{reset(error);}}
+  if(!cancellationError){cancellationError=error;try{worker.postMessage({method:'cancel-and-close'});cancellationTimer=setTimeout(()=>{error.cancellationMode='forced-after-storage-close-timeout';reset(error);},aiDetectorsOwned?15000:1000);}catch{reset(error);}}
   return done;
  }
 
@@ -75,9 +77,9 @@ export function createWorkerEngine(options={}) {
     if((retainedD2Preview||['previewParameters','localizeRetainedParameters','renderRetainedNativeParameters'].includes(method))&&worker){const error=new EngineError('CANCELLED','Provisional parameter view cancelled cooperatively.');error.imagesCleared=false;const entry=pending.get(sequence);if(!entry)return;entry.cancelled=error;entry.retainedFinal=retainedD2Preview||['localizeRetainedParameters','renderRetainedNativeParameters'].includes(method);try{worker.postMessage({method:'cancel-task',sequence});}catch(cause){error.cause=cause;reset(error);}return;}
     if(['capabilities','describeUsefulOperation'].includes(method)){const p=pending.get(sequence);if(p){pending.delete(sequence);p.cleanup();p.reject(new EngineError('CANCELLED','Diagnostic read cancelled.'));}return;}
     const automatic=['resumeAutomatic','updateAutomatic','renderAutomatic','previewAutomaticD2','exportAutomatic'].includes(method)||method==='run'&&['analysis.complete','analysis.clones'].includes(args[0]?.operation);
-    const extensions=['loadExtensionModels','runExtensions'].includes(method)||method==='run'&&['ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint'].includes(args[0]?.operation);
+    const extensions=['loadAiDetectors','unloadAiDetectors','loadExtensionModels','runExtensions'].includes(method)||method==='run'&&['ai.generation.detect','ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint'].includes(args[0]?.operation);
     const cooperativeSparseClone=method==='run'&&args[0]?.operation==='tampering.copyMove.sparse'&&['SIFT','RootSIFT','SIFT + G2NN + RANSAC','XFeat','XFeat + LighterGlue','ALIKED','ALIKED rotation','ALIKED + LightGlue','ALIKED rotation + LightGlue','SIFT + LightGlue','EfficientLoFTR'].includes(args[0]?.params?.algorithm??'SIFT + G2NN + RANSAC');
-    const cooperativeSsg=method==='run'&&args[0]?.operation==='tampering.copyMove.sparse'&&args[0]?.params?.algorithm==='SSG'&&args[0]?.backend!=='webgpu';const cooperativePrnuBuild=method==='buildPrnuDatabase';const cooperativeNlm=method==='run'&&args[0]?.operation==='noise.separation'&&args[0]?.params?.mode===4&&['cpu','webgpu'].includes(args[0]?.backend);const cooperativeTesseract=method==='run'&&args[0]?.operation==='various.ocr'&&args[0]?.params?.algorithm==='tesseract';const cooperativeCompute=method==='run'&&cooperativeColorWindows(args[0])||cooperativeTesseract||cooperativeNlm||cooperativePrnuBuild||cooperativeSsg||cooperativeSparseClone||method==='run'&&['colors.stats','noise.planes','noise.minmax','pixels.defects','noise.separation','tampering.copyMove.brisk','tampering.copyMove.orb','tampering.copyMove.akaze','tampering.resampling','detail.wavelets','noise.blocking','various.stereogram','noise.noisesniffer','ela.classic','jpeg.quality','jpeg.recompression','comparison.image','noise.prnu','jpeg.zero','tampering.resampling.fourier','tampering.copyMove.dense','ela.energy','jpeg.ghosts','ela.biomes','jpeg.multiple'].includes(args[0]?.operation);
+    const cooperativeSynthesis=['elaSynthesisAxis','elaSynthesisBudgetPlan','beginElaSynthesis','runElaSynthesisFrame','appendElaSynthesis','finishElaSynthesis','renderElaSynthesis','runElaSynthesisEnergy','disposeElaSynthesis'].includes(method);const cooperativeSsg=method==='run'&&args[0]?.operation==='tampering.copyMove.sparse'&&args[0]?.params?.algorithm==='SSG'&&args[0]?.backend!=='webgpu';const cooperativePrnuBuild=method==='buildPrnuDatabase'||method==='selectedElaAutoStats';const cooperativeNlm=method==='run'&&args[0]?.operation==='noise.separation'&&args[0]?.params?.mode===4&&['cpu','webgpu'].includes(args[0]?.backend);const cooperativeTesseract=method==='run'&&args[0]?.operation==='various.ocr'&&args[0]?.params?.algorithm==='tesseract';const cooperativeSherloq=method==='run'&&args[0]?.params?.equalization?.method==='sherloq7c'&&['inspection.adjust','detail.gradient','ela.classic'].includes(args[0]?.operation);const cooperativeCompute=cooperativeSherloq||cooperativeSynthesis||provisionalDisplayOnly&&(method==='readDisplay'||method==='run'&&['inspection.adjust','inspection.magnifier','detail.gradient','detail.echo','colors.space','colors.pca','detail.frequency'].includes(args[0]?.operation))||method==='run'&&cooperativeColorWindows(args[0])||cooperativeTesseract||cooperativeNlm||cooperativePrnuBuild||cooperativeSsg||cooperativeSparseClone||method==='run'&&['inspection.sherloq7c','colors.stats','noise.planes','noise.minmax','pixels.defects','noise.separation','tampering.copyMove.brisk','tampering.copyMove.orb','tampering.copyMove.akaze','tampering.resampling','detail.wavelets','noise.blocking','various.stereogram','noise.noisesniffer','ela.classic','jpeg.quality','jpeg.recompression','comparison.image','noise.prnu','jpeg.zero','tampering.resampling.fourier','tampering.copyMove.dense','ela.energy','jpeg.ghosts','ela.biomes','jpeg.multiple'].includes(args[0]?.operation);
     const model=method==='run'&&['ai.clones.d2prl','ai.clones.segmentation','tampering.copyMove.sparse','ai.sources.safire','ai.localization.focal','ai.localization.adaifl'].includes(args[0]?.operation);
     if(worker&&(automatic||extensions||cooperativeCompute||model&&!storageOwners.size)){
      const error=new EngineError('CANCELLED','Task cancelled cooperatively.');error.imagesCleared=false;const entry=pending.get(sequence);if(!entry)return;entry.cancelled=error;entry.automatic=automatic||extensions;entry.retainedFinal=cooperativeCompute;
@@ -89,7 +91,7 @@ export function createWorkerEngine(options={}) {
       if(!automatic&&!extensions&&!cooperativeCompute)cooperativeTimer=setTimeout(()=>{const forced=new EngineError('CANCELLED','Cancellation timed out; reload sources and model manifest.');forced.cancellationMode='forced-after-task-cancel-timeout';reset(forced);},5000);
      }catch(cause){error.cause=cause;error.cancellationMode='forced-after-cancel-message-failure';reset(error);}return;
     }
-    const error=new EngineError('CANCELLED','Task cancelled; reload image before the next run.');error.imagesCleared=true;if(storageOwners.size&&worker)stopWithStorageClose(error);else reset(error);
+    const error=new EngineError('CANCELLED','Task cancelled; reload image before the next run.');error.imagesCleared=true;if((storageOwners.size||aiDetectorsOwned)&&worker)stopWithStorageClose(error);else reset(error);
    };
    const cleanup=()=>{clearTimeout(cooperativeTimer);signal?.removeEventListener('abort',abort);};
    pending.set(sequence,{resolve,reject,cleanup,onProgress,ocrNative,cancel:abort});signal?.addEventListener('abort',abort,{once:true});
@@ -101,7 +103,7 @@ export function createWorkerEngine(options={}) {
   if(!worker){
    const workerURL=engineWorkerURL(import.meta.url);try{worker=new Worker(workerURL,{type:'module'});}catch(cause){throw new EngineError('WORKER_FAILED',cause?.message||'Browser engine worker could not be created.',{cause,details:{phase:'worker-create',workerURL:workerURL.href}});}const created=worker;
    const control=data=>{if(worker!==created)return true;if(data.neuralWindowRequest){let row=neuralWindowLinks.get(created);if(!row){const service=applicationNeuralWindowClientService({limitBytes:options.memoryBudgetBytes??profile.memoryBudgetBytes,onOwner:()=>{}});row={link:null,retiring:false};neuralWindowLinks.set(created,row);row.link=createNeuralWindowClientLink({worker:created,service,onOwner:owner=>{row.link=owner;},onFailure:error=>failed(error)});}return row.link.accept(data);}if(data.externalCacheReclaim){const request=data.externalCacheReclaim;if(!Number.isSafeInteger(request.ticket)||request.ticket<1||typeof request.id!=='string'||!request.id||!Number.isSafeInteger(request.bytes)||request.bytes<1)throw workerMessageFailure('engine-client','message','invalid-external-cache-reclaim');const retire=externalCacheOwners.get(request.id),reply=(error,hasFailure=false)=>{if(worker!==created)return;try{created.postMessage({method:'external-cache-retired',sequence:request.ticket,args:hasFailure?[{error:serializeEngineError(error)}]:[]});}catch(cause){failed(new EngineError('WORKER_MESSAGE_FAILED','External cache acknowledgement could not be sent.',{cause}));}};void Promise.resolve().then(()=>{if(!retire)throw new EngineError('EXTERNAL_CACHE_OWNER_MISSING','External cache owner is unavailable.');return retire();}).then(()=>{externalCacheOwners.delete(request.id);reply();},error=>reply(error,true));return true;}if(data.shutdownPhase){if(cancellationError)(cancellationError.cancellationPhases??=[]).push(data.shutdownPhase);return true;}if(typeof data.storageClosed==='boolean'){if(cancellationError){const error=cancellationError;error.cancellationMode=data.storageClosed?'storage-closed-before-worker-termination':'forced-after-storage-close-failure';reset(error,{storageClosed:data.storageClosed});}return true;}if(data.storageSession){let owner=storageOwners.get(data.storageSession.id);if(!owner){owner={dynamic:true};storageOwners.set(data.storageSession.id,owner);}owner.backend=data.storageSession.backend;return true;}return false;};
-   const failed=error=>{if(worker!==created)return;if(!initialized&&!sentWork){reset(error,{preserveUnsentOwners:true,preserveActive:true,imagesCleared:false});return;}error.imagesCleared=true;if(storageOwners.size){
+   const failed=error=>{if(worker!==created)return;if(!initialized&&!sentWork){reset(error,{preserveUnsentOwners:true,preserveActive:true,imagesCleared:false});return;}error.imagesCleared=true;if(storageOwners.size||aiDetectorsOwned){
     // The failed useful-message channel is latched closed. A separate guarded
     // shutdown receiver must still consume its storage-close acknowledgement.
     installWorkerMessageProtocol(created,control,{label:'engine-shutdown',onFailure:()=>reset(error)});void stopWithStorageClose(error);
@@ -143,6 +145,16 @@ export function createWorkerEngine(options={}) {
  }
  return {
   async updateResourceHints(hints){await cleanupPending;await drainPrnuBuildRetirements();await ensure();return send('updateResourceHints',[hints]);},
+  elaSynthesisAxis:(input,hooks)=>call('elaSynthesisAxis',[input],hooks),
+  elaSynthesisBudgetPlan:(input,hooks)=>call('elaSynthesisBudgetPlan',[input],hooks),
+  beginElaSynthesis:(input,hooks)=>call('beginElaSynthesis',[input],hooks),
+  runElaSynthesisFrame:(input,hooks)=>call('runElaSynthesisFrame',[input],hooks),
+  appendElaSynthesis:(input,hooks)=>call('appendElaSynthesis',[input],hooks),
+  finishElaSynthesis:(input,hooks)=>call('finishElaSynthesis',[input],hooks),
+  renderElaSynthesis:(input,hooks)=>call('renderElaSynthesis',[input],hooks),
+  runElaSynthesisEnergy:(input,hooks)=>call('runElaSynthesisEnergy',[input],hooks),
+  disposeElaSynthesis:(input,hooks)=>call('disposeElaSynthesis',[input],hooks),
+  selectedElaAutoStats:(input,hooks)=>call('selectedElaAutoStats',[input],hooks),
   describeUsefulOperation:(input,hooks)=>call('describeUsefulOperation',[input],hooks),
   async capabilities(hooks={}){checkAbort(hooks.signal);await cleanupPending;await drainPrnuBuildRetirements();await ensure();const value=await send('capabilities',[],hooks);return{...value,...(initializationDiagnostic?{workerInitialization:structuredClone(initializationDiagnostic)}:{}),...(neuralWindowApplicationSnapshot()?{windowNeuralRuntime:neuralWindowApplicationSnapshot()}:{})};},
   loadAutomaticModels:(input,hooks)=>call('loadAutomaticModels',[input],hooks),
@@ -161,6 +173,7 @@ export function createWorkerEngine(options={}) {
   releaseSurface:id=>call('releaseSurface',[id]),
   readDisplay:(request,hooks)=>call('readDisplay',[request],hooks),
   readPlane:(request,hooks)=>call('readPlane',[request],hooks),
+  readNativePixels:(request,hooks)=>call('readNativePixels',[request],hooks),
   readPixels:(request,hooks)=>call('readPixels',[request],hooks),readFlags:(request,hooks)=>call('readFlags',[request],hooks),readTable:(request,hooks)=>call('readTable',[request],hooks),readTableCsv:(request,hooks)=>call('readTableCsv',[request],hooks),readNpz:(request,hooks)=>call('readNpz',[request],hooks),releaseTable:id=>call('releaseTable',[id]),readMask:(request,hooks)=>call('readMask',[request],hooks),originalBlob:id=>call('originalBlob',[id]),deriveOriginal:(request,hooks)=>call('deriveOriginal',[request],hooks),readOriginal:(id,range,hooks)=>call('readOriginal',[id,range],hooks),
   load:(input,hooks)=>call('load',[input],hooks),previewParameters:(task,{preview={},...hooks}={})=>call('previewParameters',[task,preview],hooks),localizeRetainedParameters:(task,hooks)=>call('localizeRetainedParameters',[task],hooks),renderRetainedNativeParameters:(input,hooks)=>call('renderRetainedNativeParameters',[input],hooks),run:(task,hooks)=>call('run',[task],hooks),
   async loadPrnuDatabase(input,hooks){const id='job-'+crypto.randomUUID(),record={imageId:input.id,backend:null};storageOwners.set(id,record);try{const result=await call('loadPrnuDatabase',[{...input,temporarySessionId:id}],hooks);if(!result.metrics.temporaryBackend)storageOwners.delete(id);return result;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},
@@ -170,6 +183,7 @@ export function createWorkerEngine(options={}) {
   describeOcrUsefulWork:(input,hooks)=>call('describeOcrUsefulWork',[input],hooks),
   loadOcrModels:(input,hooks)=>call('loadOcrModels',[input],hooks),unloadOcrModels:()=>call('unloadOcrModels'),
   loadM3Models:(input,hooks)=>call('loadM3Models',[input],hooks),unloadM3Models:()=>call('unloadM3Models'),
+  async loadAiDetectors(input,hooks){const answer=await call('loadAiDetectors',[input],hooks);aiDetectorsOwned=true;return answer;},async unloadAiDetectors(){const answer=await call('unloadAiDetectors');aiDetectorsOwned=false;return answer;},
   loadExtensionModels:(input,hooks)=>call('loadExtensionModels',[input],hooks),unloadExtensionModels:()=>call('unloadExtensionModels'),runExtensions:(task,hooks)=>call('runExtensions',[task],hooks),
   loadD2prlModel:(input,hooks)=>call('loadD2prlModel',[input],hooks),unloadD2prlModel:()=>call('unloadD2prlModel'),
   readD2prlRaw:request=>call('readD2prlRaw',[request]),
@@ -186,7 +200,7 @@ export function createWorkerEngine(options={}) {
   }},exportPrnuDatabase:(id,hooks)=>call('exportPrnuDatabase',[id],hooks),
   async exportSurface(request,hooks){const id='job-'+crypto.randomUUID(),record={exportId:null,backend:null};storageOwners.set(id,record);try{const result=await call('exportSurface',[{...request,temporarySessionId:id}],hooks);if(result.metrics.storage==='temporary')record.exportId=result.id;else storageOwners.delete(id);return result;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},
   async exportResultFile(result,request={},hooks){const id='job-'+crypto.randomUUID(),record={exportId:null,backend:null};storageOwners.set(id,record);try{const output=await call('exportResultFile',[result,{...request,temporarySessionId:id}],hooks);if(output.metrics.storage==='temporary')record.exportId=output.id;else storageOwners.delete(id);return output;}catch(error){if(storageOwners.has(id)){storageOwners.delete(id);if(record.backend){const failures=await cleanOwners([[id,record]]);if(failures.length)error.temporaryCleanupFailures=failures;}}throw error;}},
-  async reserveExternalCache(request,{onReclaim}={}){if(typeof onReclaim!=='function')throw new EngineError('INVALID_INPUT','External cache retirement callback required.');const entry=await call('reserveExternalCache',[request]);if(!entry||typeof entry.id!=='string'||!entry.id||entry.bytes!==request.bytes){const error=new EngineError('WORKER_MESSAGE_FAILED','Invalid external cache reservation response.');if(storageOwners.size&&worker)await stopWithStorageClose(error);else await reset(error);throw error;}let flight;externalCacheOwners.set(entry.id,()=>flight??=(async()=>onReclaim())().catch(error=>{flight=null;throw error;}));return entry;},
+  async reserveExternalCache(request,{onReclaim}={}){if(typeof onReclaim!=='function')throw new EngineError('INVALID_INPUT','External cache retirement callback required.');const entry=await call('reserveExternalCache',[request]);if(!entry||typeof entry.id!=='string'||!entry.id||entry.bytes!==request.bytes){const error=new EngineError('WORKER_MESSAGE_FAILED','Invalid external cache reservation response.');if((storageOwners.size||aiDetectorsOwned)&&worker)await stopWithStorageClose(error);else await reset(error);throw error;}let flight;externalCacheOwners.set(entry.id,()=>flight??=(async()=>onReclaim())().catch(error=>{flight=null;throw error;}));return entry;},
   updateExternalCache:request=>call('updateExternalCache',[request]),
   async releaseExternalCache(id){const answer=await call('releaseExternalCache',[id]);externalCacheOwners.delete(id);return answer;},
   reserveExternalMemory:request=>call('reserveExternalMemory',[request]),
@@ -196,6 +210,6 @@ export function createWorkerEngine(options={}) {
   createPrnuDatabaseExport:(id,hooks)=>call('createPrnuDatabaseExport',[id],hooks),
   exportResult:(result,options,hooks)=>call('exportResult',[result,options],hooks),
   imagePixels:id=>call('imagePixels',[id]),original:id=>call('original',[id]),async unload(id){const result=await call('unload',[id]);for(const [owner,record] of storageOwners)if(record.imageId===id)storageOwners.delete(owner);return result;},
-  dispose(){disposed=true;clearTimeout(memoryTimer);memoryGeneration++;const error=new EngineError('DISPOSED','Engine disposed.');const closing=storageOwners.size&&worker?stopWithStorageClose(error):reset(error);return Promise.resolve(closing).then(()=>drainPrnuBuildRetirements()).then(()=>({windowNeuralRuntime:neuralWindowApplicationSnapshot()}));}
+  dispose(){disposed=true;clearTimeout(memoryTimer);memoryGeneration++;const error=new EngineError('DISPOSED','Engine disposed.');const closing=(storageOwners.size||aiDetectorsOwned)&&worker?stopWithStorageClose(error):reset(error);return Promise.resolve(closing).then(()=>drainPrnuBuildRetirements()).then(()=>({windowNeuralRuntime:neuralWindowApplicationSnapshot()}));}
  };
 }

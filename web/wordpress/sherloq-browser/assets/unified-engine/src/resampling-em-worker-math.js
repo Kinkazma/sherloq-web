@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createResamplingEmGpuMath} from './resampling-em-gpu-math.js';
 import {EngineError,deserializeEngineError} from './errors.js';
 // The caller already admits the same native heap and bounded transfer pages.

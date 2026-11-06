@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError,requireValue,checkAbort,serializeEngineError,createCooperator} from './errors.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';
 import {WaveletStripPool} from './wavelet-strip-pool.js';

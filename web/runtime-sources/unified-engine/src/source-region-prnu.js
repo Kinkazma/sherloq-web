@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{createPrnuDomainOwner}from'./prnu-domain-owner.js';
 import{prnuParams,prnuReferences}from'./prnu.js';
 import{requireValue,checkAbort,normalizeResourceError}from'./errors.js';

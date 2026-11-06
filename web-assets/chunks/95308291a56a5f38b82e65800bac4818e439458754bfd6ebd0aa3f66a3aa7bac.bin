@@ -1,0 +1,14 @@
+{
+  "sourceGraph": "decode_head-fuse.onnx",
+  "sourceSha256": "5023e72950e9c1b24a406bfcf12d33340b4db7ecdce49c1b697a9b39424f541d",
+  "activationValue": "/fuse/fuse.2/Relu_output_0",
+  "learnedParametersUnchanged": true,
+  "variants": {
+    "fused": {
+      "file": "decode-head-333-fused.onnx",
+      "bytes": 4211958,
+      "sha256": "d807d29cc183fb353018170e83c146a352991cb165d6f8971f7c4f163ffb3ba7",
+      "graphOptimizationLevel": "disabled"
+    }
+  }
+}

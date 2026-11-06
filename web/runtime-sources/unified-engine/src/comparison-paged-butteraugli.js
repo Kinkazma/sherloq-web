@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createButteraugliConvolutionGpu} from './comparison-butteraugli-gpu.js';
 import {wasmAllocationFailure} from './allocation.js';
 import {wasmRange,closeMemoryRanges} from './memory-range.js';

@@ -1,14 +1,14 @@
-import {mountEqualizationMenu,readEqualization,writeEqualization} from './equalization-menu.js?v=0.31.0';
-import {bindAutomaticRange} from './hover-sliders.js?v=0.31.0';
-import {bindSliderReset} from './slider-reset.js?v=0.31.0';
-import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js?v=0.31.0';
+import {mountEqualizationMenu,readEqualization,writeEqualization} from './equalization-menu.js?v=0.32.0';
+import {bindAutomaticRange} from './hover-sliders.js?v=0.32.0';
+import {bindSliderReset} from './slider-reset.js?v=0.32.0';
+import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js?v=0.32.0';
 const groups={adjust:['Réglages globaux','Global adjustments'],enhance:['Loupe améliorée','Enhanced magnifier'],sweep:['Balayage de niveau','Level sweep']};
 const fields={
  adjust:[['brightness','Luminosité','Brightness',-255,255],['saturation','Saturation','Saturation',-255,255],['hue','Teinte','Hue',0,180],['gamma','Gamma × 10','Gamma × 10',1,50],['shadows','Ombres','Shadows',-100,100],['highlights','Hautes lumières','Highlights',-100,100],['sweep','Niveau','Level',0,255],['width','Largeur de niveau','Level width',0,255],['sharpen','Netteté','Sharpening',0,100],['threshold','Seuil · 0 = auto','Threshold · 0 = auto',0,255],['equalize','Égalisation','Equalization',['Sans','Histogramme','CLAHE 1','CLAHE 2','CLAHE 3','CLAHE 4'],['None','Histogram','CLAHE 1','CLAHE 2','CLAHE 3','CLAHE 4']],['invert','Inverser','Invert']],
  enhance:[['mode','Méthode','Method',['Égalisation','Contraste automatique'],['Equalization','Auto contrast'],['equalize','contrast']],['percent','Écrêtage (%)','Clipping (%)',0,100],['channel','Par canal','Per channel']],
  sweep:[['position','Niveau','Level',0,255],['width','Largeur','Width',1,255],['opacity','Intensité (%)','Strength (%)',0,100]]
 };
-export function mountLoupeEffectControls(parent,{getPreferences,setPreferences,language,forced=()=>false,onSweep=()=>{},stopSweep=()=>{},sweepState=()=>null}){
+export function mountLoupeEffectControls(parent,{getPreferences,setPreferences,language,experimentalTools=()=>false,forced=()=>false,onSweep=()=>{},stopSweep=()=>{},sweepState=()=>null}){
  let activeGroup=null;const drafts=new Map(),doc=parent.ownerDocument,entries=[];const node=(tag,text)=>{const n=doc.createElement(tag);if(text)n.textContent=text;return n;};
  for(const [group,names]of Object.entries(groups)){
   const section=node('details'),summary=node('summary'),label=node('label'),enable=node('input'),title=node('span'),grid=node('div');section.className='loupe-effect';section.dataset.effectGroup=group;grid.className='loupe-effect-grid';enable.type='checkbox';enable.dataset.effect=group+'.enabled';label.append(enable,title);summary.append(label);section.append(summary,grid);parent.append(section);section.addEventListener('focusin',()=>activeGroup=group);section.addEventListener('pointerdown',()=>activeGroup=group);
@@ -19,7 +19,7 @@ export function mountLoupeEffectControls(parent,{getPreferences,setPreferences,l
   for(const [key,fr,en,min,max,values]of fields[group]){
    if(group==='adjust'&&key==='equalize'||group==='enhance'&&key==='mode'){
     const host=node('div');host.style.gridColumn='1 / -1';grid.append(host);const operation=group==='adjust'?'inspection.adjust':'inspection.magnifier';
-    equalizationMenu=mountEqualizationMenu(host,{getState:()=>readEqualization(getPreferences().loupe.effects[group],operation),language,disabled:()=>!getPreferences().loupe.effects[group].enabled,noneLabel:group==='enhance'?()=>language()==='fr'?'Contraste automatique':'Auto contrast':undefined,onChange:state=>{stopSweep();const p=getPreferences(),effects={...p.loupe.effects,[group]:{...p.loupe.effects[group]}};writeEqualization(effects[group],state,operation);setPreferences({...p,loupe:{...p.loupe,effects:validateLoupeEffects(effects)}});}});continue;
+    equalizationMenu=mountEqualizationMenu(host,{getState:()=>readEqualization(getPreferences().loupe.effects[group],operation),language,experimentalTools,disabled:()=>!getPreferences().loupe.effects[group].enabled,noneLabel:group==='enhance'?()=>language()==='fr'?'Contraste automatique':'Auto contrast':undefined,onChange:state=>{stopSweep();const p=getPreferences(),effects={...p.loupe.effects,[group]:{...p.loupe.effects[group]}};writeEqualization(effects[group],state,operation);setPreferences({...p,loupe:{...p.loupe,effects:validateLoupeEffects(effects)}});}});continue;
    }
    const row=node('label'),caption=node('span');row.append(caption);let input,number;
    if(Array.isArray(min)){input=node('select');min.forEach((text,i)=>{const option=node('option',text);option.value=values?.[i]??i;input.append(option);});}

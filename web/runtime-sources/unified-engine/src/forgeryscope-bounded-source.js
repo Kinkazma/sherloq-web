@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {compileForgeryscopeScientificScope} from './forgeryscope-scientific-scope.js';
 import {forgeryscopeNativeYoloAvailability} from './forgeryscope-native-availability.js';
 import {compileOriginalSourceRegions,createOriginalSourceRegionsState} from './source-region-geometry.js';

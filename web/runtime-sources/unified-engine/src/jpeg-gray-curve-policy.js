@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Useful completed tasks only. No duplicate codec work, calibration, UA rule or
 // image-dependent observation survives service retirement.
 export function createJpegGrayCurvePolicy(){

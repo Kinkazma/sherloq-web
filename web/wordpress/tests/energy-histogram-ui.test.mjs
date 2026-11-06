@@ -19,6 +19,9 @@ function fixture(){return {
  metadata:{energy:{quantiles:[.1,.9],thresholds:[2,3]}}
 };}
 const values=(svg,layer)=>[...svg.querySelectorAll(`[data-layer="${layer}"] [data-count]`)].map(n=>Number(n.getAttribute('data-count')));
+test('Synthèse reference has no fictitious JPEG quality and normal quality selection returns unchanged',()=>{
+ const e=environment(),data=fixture();data.source={...data.source,quality:null,qualities:[],synthesis:true,energyPlaneCount:1};data.selection.qualityIndex=0;data.reference={...data.reference,quality:null,qualityIndex:0};e.ui.update(data);assert.equal(e.$('quality').closest('label').hidden,true);assert.equal(e.$('quality').disabled,true);assert.match(e.$('reference-detail').textContent,/Synthesis/);assert.doesNotMatch(e.$('reference-detail').textContent,/Q null/);e.setLanguage('fr');e.ui.translate();assert.match(e.$('reference-detail').textContent,/Synthèse/);e.ui.update(fixture());assert.equal(e.$('quality').closest('label').hidden,false);assert.equal(e.$('quality').getAttribute('aria-label'),'JPEG Q');assert.match(e.$('reference-detail').textContent,/Q 97/);e.ui.dispose();
+});
 test('native curves retain separate residual and signed units, real counts, zero population and log visibility',()=>{
  const e=environment(),data=fixture();e.ui.update(data);
  assert.deepEqual(e.ui.selected(),{referencePanelId:7,qualityIndex:2});assert.equal(e.$('quality').value,'2');assert.equal(e.$('quality').selectedOptions?.[0]?.textContent??[...e.$('quality').options].find(o=>o.hasAttribute('selected')).textContent,'97');
@@ -93,6 +96,6 @@ test('bounded native helper feeds actual 256-bin counts; marker gestures never r
 });
 test('real Biome panel has four controls beside one histogram host and a responsive embedded layout',async()=>{
  const [html,appCSS,panelCSS]=await Promise.all(['panel.html','app.css','panel.css'].map(name=>readFile(new URL('../sherloq-browser/assets/'+name,import.meta.url),'utf8'))),document=parseHTML(html).document;
- const grid=document.querySelector('#energy-biome-controls > .energy-biome-grid');assert.ok(grid);assert.equal(grid.querySelector('.energy-four').children.length,4);assert.equal(grid.querySelectorAll('#energy-histograms').length,1);assert.equal(grid.nextElementSibling.className,'preset-bar');
+ const grid=document.querySelector('#energy-biome-controls > .energy-biome-grid');assert.ok(grid);const settings=grid.querySelector(':scope > .energy-biome-settings');assert.ok(settings);const fields=settings.querySelector(':scope > .energy-four');assert.equal(fields.children.length,4);assert.equal(fields.nextElementSibling.id,'energy-biome-toolbar');assert.equal(settings.querySelector('#energy-biome-toolbar').className,'preset-bar');assert.equal(grid.querySelectorAll(':scope > #energy-histograms').length,1);
  assert.ok(appCSS.includes('minmax(0,320px)'));assert.ok(appCSS.includes('@container energy-biome (max-width:540px)'));assert.ok(panelCSS.includes('.energy-biome-grid .energy-four{display:grid'));assert.ok(panelCSS.includes('.energy-biome-grid .energy-pair input[type=range]{width:100%!important'));
 });

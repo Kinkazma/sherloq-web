@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue} from './errors.js';
 import {readOnnxGraph,onnxNode,onnxInput,onnxInitializer,rewriteOnnxGraph,replaceOnnxNodeInputs} from './onnx-scoped-graph.js';
 

@@ -1,6 +1,7 @@
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.32.0';
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {sourceRegionTransportBytes} from './unified-engine/src/source-region-transport.js';
-const MAX_RECTS=8192,MAX_SIDE=2048;
+const MAX_RECTS=8192,MAX_SIDE=ADAPTIVE_PREVIEW_MAX_SIDE;
 const fail=(code,message)=>{throw Object.assign(Error(message),{code});};
 const check=signal=>{if(signal?.aborted)throw signal.reason??Object.assign(Error('Scoped parameter sampling cancelled.'),{code:'CANCELLED'});};
 const shape=(x0,y0,x1,y1)=>({x0,y0,x1,y1,polygon:[[x0,y0],[x1,y0],[x1,y1],[x0,y1]]});

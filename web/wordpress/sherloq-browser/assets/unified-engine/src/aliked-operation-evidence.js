@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {sparseCopyParams} from './sparse-copy.js';
 import {ALIKED_MODELS} from './aliked-assets.js';
 import {sourceRegionDomainShape} from './source-region-capabilities.js';

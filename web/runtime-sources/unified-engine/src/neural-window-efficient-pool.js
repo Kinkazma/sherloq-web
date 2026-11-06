@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {fetchM3Asset} from './m3-asset.js';
 import {EFFICIENT_LOFTR_ASSET} from './efficient-loftr-assets.js';

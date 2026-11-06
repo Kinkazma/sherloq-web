@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {waveletParams} from './wavelets.js';
 import {segmentedWavelet} from './segmented-wavelet.js';
 import {waveletStreamHeapBytes} from './wavelet-stream-math.js';

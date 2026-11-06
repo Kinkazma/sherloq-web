@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Complete ordered native symmetric2D DWT, qualified high/low arithmetic.
 export const waveletForwardGpuShader=`
 fn a32(a:f32,b:f32)->f32{return fma(1.0,a,b);}

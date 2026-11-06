@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {numpyArgsortCooperative} from './numpy-argsort-cooperative.js';
 import {numpySum} from './numpy-sum.js';
 import {checkAbort,createCooperator} from './errors.js';

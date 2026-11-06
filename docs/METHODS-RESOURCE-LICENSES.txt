@@ -315,3 +315,19 @@ to the weights and adapted weights. Source-code licences remain separate.
 Runtime inventory: individual-assets/rita-native/manifest.json, 108 ONNX graphs.
 Detailed credits and conversion terms:
 web/wordpress/feature-inputs/individual-assets/rita-native/NOTICE.txt
+
+AI image detectors added in Web 0.32
+
+DDA code and released weights: Apache-2.0. Its DINOv2 backbone retains Meta's Apache-2.0 notice. PRL's adaptation retains Apache-2.0; its DINOv3 materials and converted derivatives remain under the separately supplied DINOv3 License, not GPL or Apache-2.0. The complete agreement is supplied with the converted resources.
+
+Community Forensics 384 and GAPL model cards declare MIT. Preserve the Community Forensics copyright notice and the original GAPL model-card declaration. GAPL's CLIP visual backbone retains OpenAI's MIT licence. The converted models retain the original research methods and heads; browser preparation, sequential graph execution and provider-specific packing are described in their model manifests and conversion sources. Scores remain uncalibrated model indices.
+
+Original sources and declarations:
+https://huggingface.co/Junwei-Xi/Dual-Data-Alignment
+https://github.com/wittyuu/Relative-Patch-Response-Learning
+https://huggingface.co/OwensLab/commfor-model-384
+https://huggingface.co/AbyssLumine/GAPL
+https://github.com/facebookresearch/dinov3/blob/main/LICENSE.md
+https://github.com/openai/CLIP/blob/main/LICENSE
+
+These component terms apply separately to the corresponding model resources. Their licence texts and notices accompany the resource library.

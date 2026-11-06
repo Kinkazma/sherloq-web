@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {batchTextBackendAdmission} from './batch-text-backend-admission.js';
 import {receiveNativeSourceChannel} from './native-source-channel.js';
 import {compileOriginalSourceRegions} from './source-region-geometry.js';

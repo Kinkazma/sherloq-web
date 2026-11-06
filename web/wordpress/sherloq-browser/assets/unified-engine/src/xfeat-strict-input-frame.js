@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // SHERLOQ source-domain caller geometry: preserve the Original stride32 phase without reading
 // excluded RGB. Synthetic input is algebraic zero AFTER common normalization.
 import {requireValue,controlCheckpoint} from './errors.js';

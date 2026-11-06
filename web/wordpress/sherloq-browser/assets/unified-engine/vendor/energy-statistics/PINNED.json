@@ -1,0 +1,43 @@
+{
+  "schema": "sherloq.energy-statistics-kernel/1",
+  "bytes": 2418,
+  "sha256": "79860085252e8fc589cca7d41deafb6094d3980f977285ab18a4f11036f062f0",
+  "source": "native/energy-statistics.c",
+  "sourceSha256": "c4783057bbd9ee8dacef904da4eb4b7fc2787d0aa11a7f2e1324f32415d97a70",
+  "build": "scripts/build-energy-statistics.py",
+  "llvm": "23.1.0",
+  "compileFlags": [
+    "--target=wasm32",
+    "-O3",
+    "-msimd128",
+    "-nostdlib",
+    "-fno-ident",
+    "-fvisibility=hidden",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-fno-associative-math",
+    "-fno-unsafe-math-optimizations"
+  ],
+  "linkFlags": [
+    "--no-entry",
+    "--import-memory",
+    "--export=energy_pairwise",
+    "--export=energy_filter",
+    "--export=__heap_base",
+    "--stack-first",
+    "--strip-all",
+    "--initial-memory=65536",
+    "--max-memory=65536",
+    "-z",
+    "stack-size=16384"
+  ],
+  "memory": {
+    "imported": true,
+    "pages": 1,
+    "maximumPages": 1,
+    "stackBytes": 16384,
+    "inputFloatsMaximum": 8192,
+    "heapBaseMaximum": 32768
+  },
+  "algorithm": "numpy-f32-pairwise8-split-aligned8-no-fma-stable-filter4"
+}

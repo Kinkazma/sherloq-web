@@ -1,0 +1,11 @@
+{
+  "schema": "sherloq.recompression-gray-gpu/1",
+  "files": {
+    "recompression-gray.wgsl": {
+      "bytes": 1374,
+      "sha256": "427d1eedd932a2551bad19fdf7e301afa91d28abf3f7baa89be9ecb2235f739a"
+    }
+  },
+  "arithmetic": "gray=(9798*r+19235*g+3735*b+16384)>>15; absolute integer gray differences; unsigned64 global sum",
+  "accumulation": "workgroup u32 sums; atomicAdd low word with exact carry into high word; final dependent readback once per quality"
+}

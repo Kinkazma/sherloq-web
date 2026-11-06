@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {ALIKED_MODELS} from './aliked-assets.js';
 import {ALIKED_CM2_SEGMENTS} from './aliked-cm2-segments-assets.js';
 import {alikedShape} from './aliked-worker.js';

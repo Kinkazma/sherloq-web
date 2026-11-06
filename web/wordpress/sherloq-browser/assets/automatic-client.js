@@ -1,15 +1,17 @@
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {sourceRegionDomainShape,assertSourceRegionOperation} from './unified-engine/src/source-region-capabilities.js';
-import {localFeaturePolicy} from './feature-policy.js?v=0.31.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.32.0';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {readExtensionMemoryHints} from './unified-engine/src/browser-memory.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
 import {COUNT_COLORS} from './unified-engine/src/clone-corroboration.js';
-import {createAdaptivePreview} from './adaptive-preview.js?v=0.31.0';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.32.0';
 
 const cancelled = () => Object.assign(new Error('Analysis cancelled.'), {code: 'CANCELLED'});
+// Optional display timing observers cannot interrupt native ownership cleanup.
+const previewComputeHook=(callback,measurement)=>{try{callback?.(measurement);}catch{}};
 export async function createAutomaticClient({computeProfile = 'maximum', extensionId, onProgress = () => {}, engineFactory = createWorkerEngine, fetcher = fetch, config, retainMasks = false, memoryBudgetBytes} = {}) {
-  const configurationURL = new URL('./integrated-config.json?v=0.31.0', import.meta.url);
+  const configurationURL = new URL('./integrated-config.json?v=0.32.0', import.meta.url);
   async function json(url, signal) { const response = await fetcher(url, {signal}); if (!response.ok) throw new Error('Resource unavailable: ' + response.status + ' ' + url); return response.json(); }
   const deployment = config ?? await json(configurationURL);
   const base = new URL(deployment.assetBase, configurationURL), url = name => new URL(name, base).href;
@@ -82,7 +84,7 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
     }
     return {width: rect.width, height: rect.height, format: 'rgb8', data};
   }
-  function previewD2Minimum({minimum,layer='corroboration',overlay=true,opacity=.7}={}, {signal,isCurrent=()=>true}={}){
+  function previewD2Minimum({minimum,layer='corroboration',overlay=true,opacity=.7}={}, {signal,isCurrent=()=>true,continuity,onComputeStart,onComputeEnd}={}){
     return enqueue(async()=>{
       if(!Number.isInteger(minimum)||minimum<0||minimum>5000||layer!=='corroboration'||!analysis)return null;
       if(typeof engine.previewAutomaticD2!=='function')throw unavailable('Temporary automatic D2 rendering is unavailable.');
@@ -91,7 +93,7 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
       const current=()=>!disposed&&!local.signal.aborted&&isCurrent()&&source===currentSource&&!!source&&analysis===currentAnalysis&&analysis.analysisId===analysisId&&source.sha256===sourceSha&&retained===currentRetained&&rendered===currentRendered&&renderingLayer===currentRenderingLayer&&regionPresentation===currentRegion&&analysisPolicy===policy&&JSON.stringify(analysis.data?.view)===view;
       const check=()=>{if(!current())throw cancelled();};let record,failed=false,primary;
       try{
-        check();const answer=await engine.previewAutomaticD2({analysisId:analysis.analysisId,minimum,layer,expectedView:structuredClone(analysis.data?.view)},{signal:local.signal,onProgress});
+        check();previewComputeHook(onComputeStart);const answer=await engine.previewAutomaticD2({analysisId:analysis.analysisId,minimum,layer,expectedView:structuredClone(analysis.data?.view)},{signal:local.signal,onProgress});
         // A published handle remains ours even when cancellation won locally.
         const protectedIds=new Set([currentRendered?.id,currentSource?.surface?.id,currentRegion?.surface?.id,currentAnalysis?.surface?.id].filter(Boolean));
         record={surfaces:new Set([answer?.surface,answer?.sourceRegionSourceSurface].filter(v=>v?.id&&!protectedIds.has(v.id)).map(v=>v.id)),credits:new Set(),pending:null};pendingD2Previews.add(record);check();
@@ -99,29 +101,29 @@ export async function createAutomaticClient({computeProfile = 'maximum', extensi
         const calculatedView={...answer.calculatedView},committedView={...currentAnalysis.data?.view};delete calculatedView.d2prlMinimum;delete committedView.d2prlMinimum;
         if(answer.calculatedView?.d2prlMinimum!==minimum||JSON.stringify(calculatedView)!==JSON.stringify(committedView))throw unavailable('The temporary automatic D2 view changed another committed filter.');
         const display=answer.surface,baseSource=currentRegion?.surface??currentSource.surface;if(!display||protectedIds.has(display.id)||![display.width,display.height].every(v=>Number.isSafeInteger(v)&&v>0)||display.width!==baseSource.width||display.height!==baseSource.height||answer.sourceRegionSourceSurface)throw unavailable('The temporary automatic D2 surface is not an independent owned result on the committed source grid.');
-        const memory=(await engine.capabilities()).memory??{};check();const available=Math.max(0,(memory.budgetBytes??memoryBudgetBytes??64*1024**2)-(memory.retainedBytes??0)-(memory.cacheBytes??0)-(memory.activeReservationBytes??0)-(memory.knownHeapCapacityBytes??0)-65536),maxPixels=Math.min(2048**2,Math.floor(available/40));
+        const memory=(await engine.capabilities()).memory??{};check();const available=Math.max(0,(memory.budgetBytes??memoryBudgetBytes??64*1024**2)-(memory.retainedBytes??0)-(memory.cacheBytes??0)-(memory.activeReservationBytes??0)-(memory.knownHeapCapacityBytes??0)-65536),maxPixels=Math.min(ADAPTIVE_PREVIEW_MAX_PIXELS,Math.floor(available/40));
         if(maxPixels<16**2)throw unavailable('No bounded RGB workspace is available for the temporary automatic D2 view.');
-        const plan=d2Adaptive.plan({key:'automatic/d2-minimum/corroboration',width:display.width,height:display.height,maxSide:2048,maxPixels}),lease=await engine.reserveExternalMemory({bytes:plan.width*plan.height*40+65536});record.credits.add(lease.id);check();
+        const plan=d2Adaptive.plan({key:'automatic/d2-minimum/corroboration',width:display.width,height:display.height,sourceIdentity:String(source?.sha256??source?.id??''),maxSide:ADAPTIVE_PREVIEW_MAX_SIDE,maxPixels,continuity}),lease=await engine.reserveExternalMemory({bytes:plan.width*plan.height*40+65536});record.credits.add(lease.id);check();
         const render={range:[0,1],palette:COUNT_COLORS,...(overlay?{overlaySurfaceId:(currentRegion?.surface??currentSource.surface).id,opacity}: {})},pixels=(await engine.readDisplay({surfaceId:display.id,revision:display.revision,tile:{x:0,y:0,w:display.width,h:display.height,step:plan.step},render})).pixels;check();
         if(pixels?.format!=='rgb8'||pixels.width!==plan.width||pixels.height!==plan.height||!(pixels.data instanceof Uint8Array)||pixels.data.length!==plan.width*plan.height*3)throw unavailable('The temporary automatic RGB differs from its admitted display grid.');
         const milliseconds=performance.now()-started;
         return{operation:currentAnalysis.operation??'analysis.complete',analysisId:currentAnalysis.analysisId,pixels:{...pixels,data:pixels.data.slice(),logicalWidth:display.width,logicalHeight:display.height,previewCoordinates:'source'},params:{minimum:answer.calculatedMinimum},calculatedView:structuredClone(answer.calculatedView),sourceRegionDomain:answer.sourceRegionDomain,sourceRegionOrigin:answer.sourceRegionOrigin,exact:false,approximate:true,provisional:true,exportable:false,metrics:{...answer.metrics,automaticD2Preview:true,calculatedMinimum:answer.calculatedMinimum,displayLayer:layer,displayStep:plan.step,totalMs:milliseconds,adaptivePreview:{token:plan.token,milliseconds,setupMilliseconds:0,cold:false,pixels:plan.width*plan.height}}};
       }catch(error){failed=true;primary=error;throw error;}
-      finally{try{if(record)await retireD2Preview(record);}catch(cleanup){if(!failed)throw cleanup;try{if(primary&&typeof primary==='object'&&Object.isExtensible(primary))primary.cleanupErrors=[...(primary.cleanupErrors??[]),cleanup];}catch{}}finally{signal?.removeEventListener('abort',abortPreview);if(previewAbort===local)previewAbort=null;}}
+      finally{previewComputeHook(onComputeEnd,{milliseconds:Math.max(0,performance.now()-started)});try{if(record)await retireD2Preview(record);}catch(cleanup){if(!failed)throw cleanup;try{if(primary&&typeof primary==='object'&&Object.isExtensible(primary))primary.cleanupErrors=[...(primary.cleanupErrors??[]),cleanup];}catch{}}finally{signal?.removeEventListener('abort',abortPreview);if(previewAbort===local)previewAbort=null;}}
     });
   }
-  function previewOpacity({layer='corroboration',overlay=true,opacity=.7}={}, {signal,isCurrent=()=>true}={}){
+  function previewOpacity({layer='corroboration',overlay=true,opacity=.7}={}, {signal,isCurrent=()=>true,continuity,onComputeStart,onComputeEnd}={}){
     return enqueue(async()=>{
       if(!analysis||!source||!rendered||renderingLayer!==layer||!Number.isFinite(opacity)||opacity<0||opacity>1)return null;
       const currentSource=source,currentAnalysis=analysis,currentRendered=rendered,currentRetained=retained,currentRegion=regionPresentation,view=JSON.stringify(analysis.data?.view),policy=analysisPolicy,started=performance.now();
       const check=()=>{if(disposed||signal?.aborted||isCurrent()!==true||source!==currentSource||analysis!==currentAnalysis||rendered!==currentRendered||renderingLayer!==layer||retained!==currentRetained||regionPresentation!==currentRegion||JSON.stringify(analysis.data?.view)!==view||analysisPolicy!==policy)throw cancelled();};
       let record,failed=false,primary;
-      try{check();const display=currentRendered,memory=(await engine.capabilities()).memory??{};check();const available=Math.max(0,(memory.budgetBytes??memoryBudgetBytes??64*1024**2)-(memory.retainedBytes??0)-(memory.cacheBytes??0)-(memory.activeReservationBytes??0)-(memory.knownHeapCapacityBytes??0)-65536),maxPixels=Math.min(2048**2,Math.floor(available/40));if(maxPixels<16**2)throw unavailable('No bounded RGB workspace is available for the cached automatic view.');
-       const plan=d2Adaptive.plan({key:'automatic/opacity/'+layer,width:display.width,height:display.height,maxSide:2048,maxPixels}),lease=await engine.reserveExternalMemory({bytes:plan.width*plan.height*40+65536});record={surfaces:new Set(),credits:new Set([lease.id]),pending:null};pendingD2Previews.add(record);check();
+      try{check();previewComputeHook(onComputeStart);const display=currentRendered,memory=(await engine.capabilities()).memory??{};check();const available=Math.max(0,(memory.budgetBytes??memoryBudgetBytes??64*1024**2)-(memory.retainedBytes??0)-(memory.cacheBytes??0)-(memory.activeReservationBytes??0)-(memory.knownHeapCapacityBytes??0)-65536),maxPixels=Math.min(ADAPTIVE_PREVIEW_MAX_PIXELS,Math.floor(available/40));if(maxPixels<16**2)throw unavailable('No bounded RGB workspace is available for the cached automatic view.');
+       const plan=d2Adaptive.plan({key:'automatic/opacity/'+layer,width:display.width,height:display.height,sourceIdentity:String(source?.sha256??source?.id??''),maxSide:ADAPTIVE_PREVIEW_MAX_SIDE,maxPixels,continuity}),lease=await engine.reserveExternalMemory({bytes:plan.width*plan.height*40+65536});record={surfaces:new Set(),credits:new Set([lease.id]),pending:null};pendingD2Previews.add(record);check();
        const render=display.format==='rgb8'?undefined:{range:[0,1],...(layer==='corroboration'?{palette:COUNT_COLORS}:{red:true}),...(overlay?{overlaySurfaceId:(currentRegion?.surface??currentSource.surface).id,opacity}:{})},pixels=(await engine.readDisplay({surfaceId:display.id,revision:display.revision,tile:{x:0,y:0,w:display.width,h:display.height,step:plan.step},render})).pixels;check();
        if(pixels?.format!=='rgb8'||pixels.width!==plan.width||pixels.height!==plan.height||!(pixels.data instanceof Uint8Array)||pixels.data.length!==plan.width*plan.height*3)throw unavailable('Cached automatic RGB differs from its admitted grid.');
        return{pixels:{...pixels,data:pixels.data.slice(),logicalWidth:display.width,logicalHeight:display.height,preview:true},presentation:{layer,overlay,opacity},provisional:true,approximate:true,exportable:false,metrics:{cachedAutomaticPresentation:true,adaptivePreview:{token:plan.token,milliseconds:performance.now()-started,setupMilliseconds:0,cold:false,pixels:plan.width*plan.height}}};
-      }catch(error){failed=true;primary=error;throw error;}finally{try{if(record)await retireD2Preview(record);}catch(cleanup){if(!failed)throw cleanup;try{if(primary&&typeof primary==='object'&&Object.isExtensible(primary))primary.cleanupErrors=[...(primary.cleanupErrors??[]),cleanup];}catch{}}}
+      }catch(error){failed=true;primary=error;throw error;}finally{previewComputeHook(onComputeEnd,{milliseconds:Math.max(0,performance.now()-started)});try{if(record)await retireD2Preview(record);}catch(cleanup){if(!failed)throw cleanup;try{if(primary&&typeof primary==='object'&&Object.isExtensible(primary))primary.cleanupErrors=[...(primary.cleanupErrors??[]),cleanup];}catch{}}}
     });
   }
   return {

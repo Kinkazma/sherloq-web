@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError,checkAbort,normalizeResourceError} from './errors.js';
 // Only use these wrappers around an actual WebGPU API call. Admission,
 // scheduler, source I/O, user callbacks and input errors retain their identities.

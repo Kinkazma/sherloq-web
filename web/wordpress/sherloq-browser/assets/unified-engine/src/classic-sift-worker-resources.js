@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {allocateTypedArray} from './allocation.js';
 import {EngineError,requireValue,normalizeResourceError,isRecoverableResourceError,serializeEngineError,deserializeEngineError,resourceAllocationKind} from './errors.js';
 import {classicSiftRetirement,classicSiftRetireAll,attachClassicSiftCleanup} from './classic-sift-retirement.js';

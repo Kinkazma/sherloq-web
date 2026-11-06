@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {getJpegGrayCurveService} from './jpeg-gray-curve-gpu.js';
 import {attachGpuCleanup} from './gpu-ack-retirement.js';
 import {allocateOwnedTypedArray} from './allocation.js';

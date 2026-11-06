@@ -1,7 +1,8 @@
-import {equalizationState} from './unified-engine/src/equalization-settings.js';
-import {validateCloneProfilesTransport} from './clone-profiles.js?v=0.31.0';
+import {validRecompressionSettings} from './recompression-controls.js?v=0.32.0';
+import {equalizationState} from './equalization-menu.js?v=0.32.0';
+import {validateCloneProfilesTransport} from './clone-profiles.js?v=0.32.0';
 import {validateAdaptiveState} from './unified-engine/src/adaptive-runtime.js';
-import {validateBackendChoices} from './backend-mode-preferences.js?v=0.31.0';
+import {validateBackendChoices} from './backend-mode-preferences.js?v=0.32.0';
 export const defaults={quality:75,scale:50,contrast:20,linear:false,grayscale:false};
 export function validElaMode(value){
  const mode=value==='energy'?'biomes':value;
@@ -12,7 +13,7 @@ export function validParams(p){
  if(!p||typeof p!=='object')throw new Error('Invalid params');
  for(const k of ['quality','scale','contrast'])if(!Number.isInteger(p[k])||p[k]<(k==='contrast'?0:1)||p[k]>100)throw new Error('Invalid '+k);
  for(const k of ['linear','grayscale'])if(typeof p[k]!=='boolean')throw new Error('Invalid '+k);
- return {...Object.fromEntries(Object.keys(defaults).map(k=>[k,p[k]])),...(p.equalization!==undefined?{equalization:equalizationState(p.equalization)}:{})};
+ return {...Object.fromEntries(Object.keys(defaults).map(k=>[k,p[k]])),...(p.equalization!==undefined?{equalization:equalizationState(p.equalization)}:{}),...(p.recompression!==undefined?{recompression:validRecompressionSettings(p.recompression)}:{})};
 }
 export function validateSettings(value){
  if(!value||value.schema!=='sherloq.settings/1')throw new Error('Expected sherloq.settings/1');
@@ -42,7 +43,7 @@ export function settingsFilename(date=new Date()){return 'SHERLOQ-reglages-'+dat
 
 // Fixed UI snapshot; the scientific engine receives the existing manual recipe.
 export const energyProfilePresets=Object.freeze({
- 'variant-4':Object.freeze({name:'Variante-4 / Variant-4',values:Object.freeze({histogramLow:30,histogramHigh:520,shadow:10,highlight:50}),quality:85,view:'overlay',opacity:70})
+ 'variant-4':Object.freeze({nameKey:'energyVariant4',values:Object.freeze({histogramLow:30,histogramHigh:520,shadow:10,highlight:50}),quality:85,view:'overlay',opacity:70})
 });
 
 export function validEnergySettings(input){
@@ -76,7 +77,7 @@ export function validAutomaticSettings(input = {}) {
 export function validIndividualSettings(value){
  if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length>64)throw Error('Invalid tool settings');
  const hasCloneProfiles=!!value.uiOptions&&Object.hasOwn(value.uiOptions,'cloneProfiles'),profileLibrary=hasCloneProfiles?validateCloneProfilesTransport(value.uiOptions.cloneProfiles):null;if(hasCloneProfiles){value={...value,uiOptions:{...value.uiOptions}};delete value.uiOptions.cloneProfiles;}
- const copy=(v,depth=0)=>{if(Array.isArray(v)){if(depth>4||v.length>1000)throw Error('Invalid tool parameter array');return v.map(x=>copy(x,depth+1));}if(v===null||typeof v==='boolean'||typeof v==='string'&&v.length<=4096||typeof v==='number'&&Number.isFinite(v))return v;if(depth>4||!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).length>64)throw Error('Invalid tool parameter');return Object.fromEntries(Object.entries(v).map(([k,item])=>{if(!/^[a-zA-Z][a-zA-Z0-9.]*$/.test(k)||['constructor','prototype','__proto__'].includes(k))throw Error('Invalid tool parameter name');return [k,k==='equalization'?equalizationState(item):copy(item,depth+1)];}));};
+ const copy=(v,depth=0)=>{if(Array.isArray(v)){if(depth>4||v.length>1000)throw Error('Invalid tool parameter array');return v.map(x=>copy(x,depth+1));}if(v===null||typeof v==='boolean'||typeof v==='string'&&v.length<=4096||typeof v==='number'&&Number.isFinite(v))return v;if(depth>4||!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).length>64)throw Error('Invalid tool parameter');return Object.fromEntries(Object.entries(v).map(([k,item])=>{if(!/^[a-zA-Z][a-zA-Z0-9.-]*$/.test(k)||['constructor','prototype','__proto__'].includes(k))throw Error('Invalid tool parameter name');return [k,k==='equalization'?equalizationState(item):copy(item,depth+1)];}));};
  const out=copy(value);if(hasCloneProfiles)out.uiOptions.cloneProfiles=profileLibrary;if(out.uiOptions?.backendChoices!==undefined)out.uiOptions.backendChoices=validateBackendChoices(out.uiOptions.backendChoices);return out;
 }
 
@@ -87,7 +88,7 @@ export function recoverSettings(input,{fallback=defaultSettings()}={}){
  const issues=[],base=validateSettings(fallback),value=input&&typeof input==='object'&&!Array.isArray(input)?input:{};
  if(value.schema!=='sherloq.settings/1')throw Error('Expected sherloq.settings/1');
  const out=structuredClone(base),issue=(path,error,kind='incompatible')=>issues.push({path,kind,message:error?.message||String(error)});
- const fields=(source,target,validate,path)=>{if(!source||typeof source!=='object'||Array.isArray(source)){if(source!==undefined)issue(path,'Invalid object');return target;}for(const [key,item]of Object.entries(source)){if(!Object.hasOwn(target,key)){issue(path+'.'+key,'Preserved in recovery backup','unknown');continue;}const candidate={...target,[key]:item};try{target=validate(candidate);}catch(error){issue(path+'.'+key,error);}}return target;};
+ const fields=(source,target,validate,path)=>{if(!source||typeof source!=='object'||Array.isArray(source)){if(source!==undefined)issue(path,'Invalid object');return target;}for(const [key,item]of Object.entries(source)){if(!Object.hasOwn(target,key)&&!(key==='recompression'&&(path==='current'||/^profiles\.\d+\.params$/.test(path)))){issue(path+'.'+key,'Preserved in recovery backup','unknown');continue;}const candidate={...target,[key]:item};try{target=validate(candidate);}catch(error){issue(path+'.'+key,error);}}return target;};
  out.current=fields(value.current,{...out.current,...(value.current?.equalization!==undefined?{equalization:equalizationState(out.current.equalization)}:{})},validParams,'current');
  // Profiles keep their identity, name and every compatible parameter. An
  // unusable identity is retained only in the recovery copy, never invented.

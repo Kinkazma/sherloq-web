@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Exact-rounding ELA score preparation; no thresholds or scientific parameters changed.
 import {fourierViewShader} from './resampling-fourier-gpu-shader.js';
 const arithmetic=fourierViewShader.split('@group(0)')[0];

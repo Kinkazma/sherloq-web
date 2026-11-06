@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {checkAbort,controlCheckpoint,createCooperator,EngineError,requireValue} from './errors.js';
 import {appendWaveletCleanup} from './wavelet-strip-pool.js';
 

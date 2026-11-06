@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {allocateTypedArray} from './allocation.js';
 import {ownGpuArrays} from './gpu-owned-arrays.js';
 import {retireCompositeOwners} from './composite-owner-release.js';

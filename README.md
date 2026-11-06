@@ -76,17 +76,17 @@ Alongside SHERLOQ’s inherited tools, I integrated the following methods and ad
 
 - **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG. Inspect correspondences within an image or between selected acquisitions.
 - **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM. Inspect localization maps in the original image coordinates, including local and global searches where supported.
-- **Noise, CFA and JPEG analysis:** Noisesniffer, Adaptive CFA, ZERO JPEG Grids and Multiple Compression, for inspecting noise inconsistencies, sensor patterns and compression traces.
+- **Noise, CFA and JPEG analysis:** Noisesniffer, Splicebuster, Adaptive CFA, ZERO JPEG Grids and Multiple Compression, for inspecting noise inconsistencies, sensor patterns and compression traces.
 - **Text recognition and document inspection:** PP-OCRv6 and Tesseract for OCR; DTD / DocTamper for locating possible text edits.
 - **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA. Compare their different localization or source-clustering responses with the input image.
-- **Experimental AI detectors:** B-Free and SPAI, with whole-image scores and the published evaluation results shown alongside their limitations.
+- **Experimental AI detectors:** DDA, GAPL, SPAI, PRL, Community Forensics 384 and B-Free, with whole-image scores and per-model evaluation results.
 - **Compression fingerprints:** Comprint, with compression-distance maps, colour overlays, display thresholds and opacity controls.
 - **Display equalization:** a shared menu covering Histogram, CLAHE, AHE, bi-histogram, recursive, weighted, dynamic, exposure-based and contextual methods, plus adaptive gamma correction. Each view remembers a separate setting for each method.
 - **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, ELA energy and Biome territory views, and a choice between Sobel and Krawetz luminance gradients.
 
 The workspace also provides CPU/GPU execution choices, lightweight adjustment previews and retained results. For retained maps, changing the view or opacity reuses the computed response. Independent source regions and exclusions carry through supported analyses, batch recipes and saved results.
 
-B-Free, SPAI and DTD are experimental and hidden by default. Enable them through **Settings → Enable experimental tools**.
+The AI detectors and DTD are experimental and hidden by default. Enable them through **Settings → Enable experimental tools**.
 
 The research methods retain their original authors’ credits. SelfDM requires model files imported into the local resource library. See the [resource notices](docs/METHODS-RESOURCE-LICENSES.txt) for the supplied models and their terms.
 
@@ -443,7 +443,7 @@ The spiral produces a weak response despite the known edits. Successful executio
 
 [![Spiral — Noiseprint++](screenshots/readme-webp/examples/results/spiral-trufor/view-2.webp)](examples/results/spiral-trufor/view-2.png)
 
-The anomaly map responds strongly to two regions on the right. Confidence and Noiseprint++ are separate outputs. TruFor was already integrated in the original SHERLOQ; these results come from the browser adaptation.
+The anomaly map responds strongly to two regions on the right. Confidence and Noiseprint++ are separate outputs. A retained neuron 333 view provides a separate single-channel diagnostic response without repeating inference; it is not TruFor confidence or its image-level score. TruFor was already integrated in the original SHERLOQ; these results come from the browser adaptation.
 
 </details>
 
@@ -502,37 +502,81 @@ Green: detected edits · red: false alerts · yellow: missed edits. Predicting �
 
 </details>
 
-B-Free and SPAI assess AI-image signals. Even a correct AI label does not establish that the underlying data are false: a real acquisition can retain reliable information after AI denoising or sharpening. Partial AI edits may also go undetected.
+These experimental detectors assess AI-image signals. Even a correct AI label does not establish that the underlying data are false: a real acquisition can retain reliable information after AI denoising or sharpening. Partial AI edits may also go undetected.
+
+Results on the study’s 666-file corpus (348 human, 318 AI).
+
+[Read the complete study](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf).
 
 <details>
-<summary>⚠ B-Free — experimental AI detector</summary>
+<summary>⚠ DDA — experimental AI detector</summary>
 
-**Experimental — low reliability in the independent CONVEX study.** B-Free correctly classified 62.42% of the study’s images.
-
-| Independent CONVEX study | B-Free |
+| Question | Result |
 | --- | ---: |
-| Recall — AI images detected | 52.72% |
-| False-positive rate — non-AI images | 27.81% |
-| Precision — correct AI alerts | 65.65% |
-| Overall image accuracy | 62.42% |
+| Which AI-generated images are correctly detected? | **46.5%** |
+| Which non-AI images are wrongly flagged as AI? | **17.0%** |
+| Which alerts are justified? | **71.5%** |
+| Across all images, which decisions are correct? | **65.6%** |
 
-[Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
+</details>
+
+<details>
+<summary>⚠ GAPL — experimental AI detector</summary>
+
+| Question | Result |
+| --- | ---: |
+| Which AI-generated images are correctly detected? | **64.5%** |
+| Which non-AI images are wrongly flagged as AI? | **39.4%** |
+| Which alerts are justified? | **59.9%** |
+| Across all images, which decisions are correct? | **62.5%** |
 
 </details>
 
 <details>
 <summary>⚠ SPAI — experimental AI detector</summary>
 
-**Experimental — low reliability in the independent CONVEX study.** SPAI correctly classified 58.34% of the study’s images.
-
-| Independent CONVEX study | SPAI |
+| Question | Result |
 | --- | ---: |
-| Recall — AI images detected | 41.48% |
-| False-positive rate — non-AI images | 24.66% |
-| Precision — correct AI alerts | 62.90% |
-| Overall image accuracy | 58.34% |
+| Which AI-generated images are correctly detected? | **66.7%** |
+| Which non-AI images are wrongly flagged as AI? | **46.0%** |
+| Which alerts are justified? | **57.0%** |
+| Across all images, which decisions are correct? | **60.1%** |
 
-[Chrysidis et al., 2026, Table 3](https://arxiv.org/abs/2604.15372) · [Details and model limits](docs/BROWSER-INSPECTION-METHODS.md#independent-evaluation-of-the-ai-detectors).
+</details>
+
+<details>
+<summary>⚠ PRL — experimental AI detector</summary>
+
+| Question | Result |
+| --- | ---: |
+| Which AI-generated images are correctly detected? | **21.4%** |
+| Which non-AI images are wrongly flagged as AI? | **12.4%** |
+| Which alerts are justified? | **61.3%** |
+| Across all images, which decisions are correct? | **56.0%** |
+
+</details>
+
+<details>
+<summary>⚠ Community Forensics 384 — experimental AI detector</summary>
+
+| Question | Result |
+| --- | ---: |
+| Which AI-generated images are correctly detected? | **10.7%** |
+| Which non-AI images are wrongly flagged as AI? | **3.2%** |
+| Which alerts are justified? | **75.6%** |
+| Across all images, which decisions are correct? | **55.7%** |
+
+</details>
+
+<details>
+<summary>⚠ B-Free — experimental AI detector</summary>
+
+| Question | Result |
+| --- | ---: |
+| Which AI-generated images are correctly detected? | **7.2%** |
+| Which non-AI images are wrongly flagged as AI? | **8.0%** |
+| Which alerts are justified? | **45.1%** |
+| Across all images, which decisions are correct? | **51.5%** |
 
 </details>
 
@@ -642,6 +686,7 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | 2013 | **AGCWD** | Shih-Chia Huang, Fan-Chieh Cheng, Yi-Sheng Chiu | [Efficient Contrast Enhancement Using Adaptive Gamma Correction With Weighting Distribution](https://doi.org/10.1109/TIP.2012.2226047) |
 | 2014 | **ESIHE** | Kuldeep Singh, Rajiv Kapoor | [Image enhancement using Exposure based Sub Image Histogram Equalization](https://doi.org/10.1016/j.patrec.2013.08.024) · [Implementation licence](web/engine-source/docs/ESIHE-LICENSE.txt) |
 | 2015 · 2018 | **DeepMask** | Pedro O. Pinheiro, Ronan Collobert, Piotr Dollár. PyTorch implementation: Qiang Wang. | [Research and implementation](https://github.com/foolwood/deepmask-pytorch) |
+| 2015 | **Splicebuster** | Davide Cozzolino, Giovanni Poggi, Luisa Verdoliva | [Original paper](https://doi.org/10.1109/WIFS.2015.7368565) |
 | 2018 | **ConvCRF** | Marvin T. T. Teichmann, Roberto Cipolla | [Paper](https://arxiv.org/abs/1805.04777) |
 | 2018 · 2020 | **SuperPoint / SuperGlue** | Daniel DeTone, Tomasz Malisiewicz, Andrew Rabinovich; Paul-Edouard Sarlin (SuperGlue) | [SuperPoint](https://arxiv.org/abs/1712.07629) · [SuperGlue](https://github.com/magicleap/SuperGluePretrainedNetwork) |
 | 2020 | **Adaptive CFA** | Quentin Bammey, Rafael Grompone von Gioi, Jean-Michel Morel | [Paper](https://openaccess.thecvf.com/content_CVPR_2020/html/Bammey_An_Adaptive_Neural_Network_for_Unsupervised_Mosaic_Consistency_Analysis_in_CVPR_2020_paper.html) |
@@ -649,6 +694,7 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | 2021 · 2022 | **CAT-Net** | Myung-Joon Kwon, In-Jae Yu, Seung-Hun Nam, Heung-Kyu Lee, Changick Kim | [Original project and both papers](https://github.com/mjkwon2021/CAT-Net) |
 | 2021 · 2024 | **Noisesniffer** | Marina Gardella, Pablo Musé, Miguel Colom, Jean-Michel Morel | [Paper and implementation](https://www.ipol.im/pub/art/2024/462/) |
 | 2021 | **ZERO JPEG Grids** | Tina Nikoukhah, Jérémy Anger, Miguel Colom, Jean-Michel Morel, Rafael Grompone von Gioi | [Paper and implementation](https://www.ipol.im/pub/art/2021/390/) |
+| 2021 | **CLIP visual backbone (GAPL)** | OpenAI; Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen Krueger, Ilya Sutskever | [Original project](https://github.com/openai/CLIP) |
 | 2022 | **SelfDM** | Yaqi Liu, Chao Xia, Xiaobin Zhu, Shengwei Xu | [Original project](https://github.com/yaqiliu-cs/SelfDM-TIP) |
 | 2023 | **ALIKED** | Xiaoming Zhao, Xingming Wu, Weihai Chen, Peter C. Y. Chen, Qingsong Xu, Zhengguo Li | [Original project](https://github.com/Shiaoming/ALIKED) |
 | 2023 | **Comprint** | Hannes Mareen, Dante Vanden Bussche, Fabrizio Guillaro, Davide Cozzolino, Glenn Van Wallendael, Peter Lambert, Luisa Verdoliva | [Original project](https://github.com/IDLabMedia/comprint) |
@@ -658,6 +704,7 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | 2023 | **SSG / spatial-phrase matching** | Chao Wang, Zhiqiu Huang, Shuren Qi, Yaoshen Yu, Guohua Shen, Yushu Zhang | [Paper](https://arxiv.org/abs/2207.09135) |
 | 2023 | **TruFor / Noiseprint++** | Fabrizio Guillaro, Davide Cozzolino, Avneesh Sud, Nicholas Dufour, Luisa Verdoliva | [Original project](https://github.com/grip-unina/TruFor) |
 | 2023 | **Ultralytics YOLO** | Glenn Jocher, Ayush Chaurasia, Jing Qiu and Ultralytics contributors | [Original citation](https://docs.ultralytics.com/models/yolov8/) |
+| 2023 · 2025 | **DINOv2 / DINOv3 backbones (DDA / PRL)** | Meta Platforms; Maxime Oquab, Timothée Darcet, Théo Moutakanni, Huy V. Vo, Marc Szafraniec, Vasil Khalidov, Patrick Labatut, Armand Joulin, Piotr Bojanowski, Oriane Siméoni, Maximilian Seitzer, Federico Baldassarre, Cijo Jose, Seungeun Yi, Michaël Ramamonjisoa, Francisco Massa, Daniel Haziza, Luca Wehrstedt, Jianyuan Wang, Leonel Sentana, Claire Roberts, Andrea Vedaldi, Jamie Tolan, John Brandt, Camille Couprie, Julien Mairal, Hervé Jégou | [DINOv2](https://github.com/facebookresearch/dinov2) · [DINOv3](https://github.com/facebookresearch/dinov3) |
 | 2024 | **AdaIFL** | Yuxi Li, Fuyuan Cheng, Wangbo Yu, Guangshuo Wang, Guibo Luo, Yuesheng Zhu | [Original project](https://github.com/LMIAPC/AdaIFL) |
 | 2024 | **EfficientLoFTR** | Yifan Wang, Xingyi He, Sida Peng, Dongli Tan, Xiaowei Zhou | [Original project](https://github.com/zju3dv/EfficientLoFTR) |
 | 2024 | **XFeat / LighterGlue** | Guilherme Potje, Felipe Cadar, André Araujo, Renato Martins, Erickson R. Nascimento | [Original project](https://github.com/verlab/accelerated_features) |
@@ -667,9 +714,13 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | 2025 | **FOCAL** | Haiwei Wu, Yiming Chen, Jiantao Zhou, Yuanman Li | [Paper](https://arxiv.org/abs/2308.09307) |
 | 2025 | **SAFIRE** | Myung-Joon Kwon, Wonjun Lee, Seung-Hun Nam, Minji Son, Changick Kim | [Paper](https://arxiv.org/abs/2412.08197) |
 | 2025 | **SPAI** | Dimitrios Karageorgiou, Symeon Papadopoulos, Ioannis Kompatsiaris, Efstratios Gavves | [Original project](https://github.com/mever-team/spai) |
+| 2025 | **Community Forensics 384** | Jeongsoo Park, Andrew Owens | [Original paper](https://arxiv.org/abs/2411.04125v2) · CVPR 2025; preprint 2024 |
+| 2025 | **DDA** | Ruoxin Chen, Junwei Xi, Zhiyuan Yan, Ke-Yue Zhang, Shuang Wu, Jingyi Xie, Xu Chen, Lei Xu, Isabel Guan, Taiping Yao, Shouhong Ding | [Original paper](https://arxiv.org/abs/2505.14359v6) · NeurIPS 2025 |
+| 2025 · 2026 | **GAPL** | Ziheng Qin, Yuheng Ji, Renshuai Tao, Yuxuan Tian, Yuyang Liu, Yipu Wang, Xiaolong Zheng | [Original paper](https://arxiv.org/abs/2512.12982v2) · Preprint 2025; revision 2026 |
 | 2026 | **Forgeryscope / Forgeryscope Auto** | Uladzislau Leketush | [Original project](https://github.com/vlad3996/forgeryscope) |
 | 2026 | **MGCFDN** | Hang Tu, Peng Liang, Xiaoguang Lu, Huimin Zhao | [Original project](https://github.com/tuhanglsWorld/MGCFDN) |
 | 2026 | **PP-OCRv6 — text detection and recognition** | Yubo Zhang, Xueqing Wang, Manhui Lin, Yue Zhang, Penglongyi Deng, Ting Sun, Tingquan Gao, Zelun Zhang, Jiaxuan Liu, Changda Zhou, Hongen Liu, Suyin Liang, Cheng Cui, Yi Liu, Dianhai Yu, Yanjun Ma. Small detector ONNX conversion: RapidAI / RapidOCR contributors. Medium models: official PaddlePaddle ONNX exports. | [Paper](https://arxiv.org/abs/2606.13108) · [Small conversion](https://github.com/RapidAI/RapidOCR) · [Official Medium models](https://huggingface.co/PaddlePaddle/PP-OCRv6_medium_rec_onnx) |
 | 2026 | **RITA** | Xuekang Zhu, Ji-Zhe Zhou, Kaiwen Feng, Chenfan Qu, Xiwen Wang, Yunfei Wang, Liting Zhou, Jian Liu | [Original project](https://github.com/scu-zjz/RITA) · [Weights: CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) |
+| 2026 | **PRL** | Tianyu Wang, Ouxiang Li, Yanbin Hao, Zhenhua Tang, Shuo Wang | [Original paper](https://arxiv.org/abs/2610.11876v1) · Preprint 2026 |
 
 </details>

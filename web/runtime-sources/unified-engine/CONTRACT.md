@@ -1228,13 +1228,13 @@ no user calibration, independent tile fitting or authenticity verdict.
 
 PNG loading includes packed gray/palette depths, Adam7 and EXIF orientations1–8 with native RGB conversion; see [PNG-FORMATS.md](docs/PNG-FORMATS.md). PNG remains a contiguous-memory path.
 
-Derived encoded-byte exports: `deriveOriginal({imageId,patches},hooks)` returns an owned Blob and edit/provenance report. Original-coordinate patches never mutate loaded sources or caches. See `docs/ORIGINAL-BYTE-ENGINES.md` for ranges, memory, cancellation and B editor contract.
+Derived encoded-byte exports: `deriveOriginal({imageId,patches},hooks)` returns a fully admitted, owned Blob and edit/provenance report. Large direct Blob results can refuse `MEMORY_LIMIT`; File-backed slices are not an ownership guarantee. The optional `output:'archive'` returns an owned RAM/temporary export handle, consumed through `readExport` and released by `releaseExport`. The HEX client streams that archive into the existing download artifact lifecycle. Original-coordinate patches never mutate loaded sources or caches. See `docs/ORIGINAL-BYTE-ENGINES.md` for ranges, admission, cancellation and ownership.
 
 C2PA: `metadata.c2pa` validates original bytes in an isolated browser worker with offline SDK0.91 policy and local PEM anchors. Integrity/signature/trust remain separate. Embedded manifests only; sidecars unsupported. See `docs/C2PA.md` for states, memory ceilings, report differences, cancellation and exports.
 
 Segmented JPEG sources now support `jpeg.recompression` and `jpeg.quality` through global scanline compression/decompression and shared quality-scalar caches. One global stream per useful quality, adaptive parallel32MiB workers or bounded32–128MiB serial fallback, native dimensions and parameters, no full grayscale/reconstructed arrays. See docs/JPEG-RECOMPRESSION.md.
 
-`inspectHeaders({blob,name?,mime?,lastModified?},hooks)` inspects JPEG/PNG/classic TIFF/BigTIFF without pixel decoding, codec initialization or source registration. JPEG reads its marker prefix; PNG visits chunk headers and EXIF while skipping pixel/compressed ancillary payloads. TIFF/BigTIFF visits directory tables and exposed metadata values by original offset, skipping strips/tiles and undefined payloads under metadata admission. No SHA256 is invented. See docs/HEADER-INSPECTION.md.
+`inspectHeaders({blob,imageId?,name?,mime?,lastModified?},hooks)` inspects JPEG/PNG/classic TIFF/BigTIFF without pixel decoding, codec initialization or source registration. JPEG reads its marker prefix; PNG visits chunk headers and EXIF while skipping pixel/compressed ancillary payloads. TIFF/BigTIFF visits directory tables and exposed metadata values by original offset, skipping strips/tiles and undefined payloads under metadata admission. No SHA256 is invented. See docs/HEADER-INSPECTION.md.
 
 `inspectMetadata({blob,mode:'dump'|'location'|'headers'|'thumbnail',name?,mime?,lastModified?},hooks)` runs actual ExifTool13.55 before pixel decode. Loaded sources expose the same modes through `metadata.exiftool`. Complete numeric JSON, native HTML and binary thumbnails, explicit composite GPS policy, isolated offline worker, bounded memory/output and cancellation. Virtual filesystem facts are separated from original metadata. See docs/EXIFTOOL.md for B's contract and qualified limits.
 
@@ -1614,3 +1614,5 @@ results and NPZ. Explicit CPU and addnoise's M1.45 route are unchanged.
 All corpus probabilities retain the previous CPU/GPU hashes; native mask
 decisions remain exact. [Measured costs and complete-source evidence](docs/CMSEG-RESIDENT-CORRELATION.md)
 separate tensor retention from earlier backbone and correlation changes.
+
+An optional header `imageId` binds inspection to the loaded encoded owner, including the original parent of a derived RGB region. Its supplied Blob cannot override that owner. Autonomous calls without `imageId` retain their encoded Blob API. See `docs/ENCODED-SOURCE-OWNERSHIP.md` for verified read boundaries.

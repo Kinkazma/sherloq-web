@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {fetchXfeatGlueAsset} from './xfeat-glue-global-assets.js';
 // Existing learned operators keep their weights and full declared candidate
 // softmax. The caller supplies either its native spatial CSR or identity mask.

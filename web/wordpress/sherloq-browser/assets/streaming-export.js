@@ -1,5 +1,5 @@
-import {isEnergyContextCollection,selectEnergyContext,energyContextFields} from './energy-context-selection.js?v=0.31.0';
-import {readEnergyWindow} from './energy-native-fields.js?v=0.31.0';
+import {isEnergyContextCollection,selectEnergyContext,energyContextFieldNames} from './energy-context-selection.js?v=0.32.0';
+import {readEnergyWindow,energyPlaneCount,energyFieldAvailable} from './energy-native-fields.js?v=0.32.0';
 // Lossless NPY/ZIP64 and JSON writers. Memory use is one bounded chunk; the
 // caller provides backpressure and a file/Blob sink. No analysis is rerun.
 const encoder=new TextEncoder(),CHUNK=1024*1024;
@@ -9,11 +9,11 @@ function update(crc,data){for(const byte of data)crc=crcTable[(crc^byte)&255]^(c
 function block(length){const bytes=new Uint8Array(length);return {bytes,v:new DataView(bytes.buffer)};}
 function npyHeader(descr,shape){let text="{'descr': '"+descr+"', 'fortran_order': False, 'shape': ("+shape.join(', ')+(shape.length===1?',':'')+")}";text+=' '.repeat((64-(10+text.length+1)%64)%64)+'\n';const {bytes,v}=block(10+text.length);bytes.set([147,78,85,77,80,89,1,0]);v.setUint16(8,text.length,true);bytes.set(encoder.encode(text),10);return bytes;}
 function energyEntries(result){
- const d=result.data,n=d.width*d.height,entries=[];
+ const d=result.data,n=d.width*d.height,planeCount=energyPlaneCount(result),entries=[];
  if(!Number.isSafeInteger(n)||n<=0)throw Error('Invalid energy dimensions');
  for(const key of ['energy_planes','energy_low_score','energy_high_score','energy_scope','energy_labels']){
-  const value=d[key],floating=!['energy_scope','energy_labels'].includes(key),shape=key==='energy_planes'?[3,d.height,d.width]:[d.height,d.width];
-  if(!(value instanceof(floating?Float32Array:Int32Array))||value.length!==(key==='energy_planes'?3*n:n))throw Error('Invalid energy array '+key);
+  const value=d[key],floating=!['energy_scope','energy_labels'].includes(key),shape=key==='energy_planes'?[planeCount,d.height,d.width]:[d.height,d.width];
+  if(!(value instanceof(floating?Float32Array:Int32Array))||value.length!==(key==='energy_planes'?planeCount*n:n))throw Error('Invalid energy array '+key);
   entries.push({key,header:npyHeader(floating?'<f4':'<i4',shape),value});
  }
  for(const [key,value]of [['metadata_json',d.metadata],['browser_provenance_json',result.provenance]]){
@@ -48,10 +48,25 @@ async function* jsonTokens(value){
 }
 export async function* jsonChunks(result){let text='';for await(const token of jsonTokens(result)){text+=token;if(text.length>=65536){yield encoder.encode(text);text='';}}if(text)yield encoder.encode(text);}
 async function* contextJsonChunks(result,hooks){
- selectEnergyContext(result);const encode=value=>encoder.encode(JSON.stringify(value));yield encode({operation:result.operation,status:result.status,provenance:result.provenance,contextLayout:result.data.contextLayout,width:result.data.width,height:result.data.height,metadata:result.data.metadata,coverage:result.data.coverage}).slice(0,-1);yield encoder.encode(',"contexts":[');
+ selectEnergyContext(result);const fields=energyContextFieldNames(result),encode=value=>encoder.encode(JSON.stringify(value));yield encode({operation:result.operation,status:result.status,provenance:result.provenance,contextLayout:result.data.contextLayout,width:result.data.width,height:result.data.height,metadata:result.data.metadata,coverage:result.data.coverage}).slice(0,-1);yield encoder.encode(',"contexts":[');
  for(let index=0;index<result.data.contexts.length;index++){const context=result.data.contexts[index],selection=selectEnergyContext(result,{sourceFragment:context.id});if(index)yield encoder.encode(',');yield encode(context).slice(0,-1);yield encoder.encode(',"fields":{');
-  for(let field=0;field<energyContextFields.length;field++){const name=energyContextFields[field];if(field)yield encoder.encode(',');yield encoder.encode(JSON.stringify(name)+':[');let first=true;for(let y=0;y<context.height;y++)for(let x=0;x<context.width;x+=8192){const data=await readEnergyWindow(selection.analysis,name,{x,y,width:Math.min(8192,context.width-x),height:1},hooks);if(!first)yield encoder.encode(',');first=false;yield encoder.encode(JSON.stringify(Array.from(data)).slice(1,-1));}yield encoder.encode(']');}
+  for(let field=0;field<fields.length;field++){const name=fields[field];if(field)yield encoder.encode(',');yield encoder.encode(JSON.stringify(name)+':[');let first=true;for(let y=0;y<context.height;y++)for(let x=0;x<context.width;x+=8192){const data=await readEnergyWindow(selection.analysis,name,{x,y,width:Math.min(8192,context.width-x),height:1},hooks);if(!first)yield encoder.encode(',');first=false;yield encoder.encode(JSON.stringify(Array.from(data)).slice(1,-1));}yield encoder.encode(']');}
   yield encoder.encode('}}');
  }yield encoder.encode(']}');
 }
-export function energyExportChunks(result,format,hooks={}){if(result?.operation!=='ela.energy'||result.status!=='ok')throw Error('Completed energy result required');if(isEnergyContextCollection(result)){if(format==='json')return contextJsonChunks(result,hooks);throw Error('Native context NPZ requires the retained Core scientific export.');}if(format==='npz')return npzChunks(result);if(format==='json')return jsonChunks(result);throw Error('Unknown export format');}
+// A retained whole-image numeric surface has no contiguous scientific arrays
+// in its UI descriptor. JSON resolves only bounded native windows; NPZ belongs
+// to Core's existing scientific stream instead of manufacturing packed planes.
+async function* surfaceJsonTokens(result,hooks){
+ const count=energyPlaneCount(result),fields=['energy_low_score','energy_high_score','energy_scope','energy_labels'],planeNames=Array.from({length:count},(_,q)=>'energy_plane_'+q),d=result.data;
+ if(!Number.isSafeInteger(d?.width)||!Number.isSafeInteger(d?.height)||d.width<1||d.height<1||![...fields,...planeNames].every(name=>energyFieldAvailable(result,name)))throw Error('Complete retained native energy fields required for JSON export.');
+ const rawFields=new Set(['energy_planes',...fields]);
+ async function* array(names){yield '[';let first=true;for(const name of names)for(let y=0;y<d.height;y++)for(let x=0;x<d.width;x+=8192){const values=await readEnergyWindow(result,name,{x,y,width:Math.min(8192,d.width-x),height:1},hooks);if(!first)yield ',';first=false;yield JSON.stringify(Array.from(values)).slice(1,-1);}yield ']';}
+ yield '{';let first=true;
+ for(const [key,value]of Object.entries(result)){if(value===undefined||typeof value==='function')continue;if(!first)yield ',';first=false;yield JSON.stringify(key)+':';if(key!=='data'){yield* jsonTokens(value);continue;}
+  yield '{';let dataFirst=true;for(const [name,item]of Object.entries(d)){if(rawFields.has(name)||item===undefined||typeof item==='function')continue;if(!dataFirst)yield ',';dataFirst=false;yield JSON.stringify(name)+':';yield* jsonTokens(item);}
+  for(const [name,names]of [['energy_planes',planeNames],...fields.map(name=>[name,[name]])]){if(!dataFirst)yield ',';dataFirst=false;yield JSON.stringify(name)+':';yield* array(names);}yield '}';
+ }yield '}';
+}
+async function* surfaceJsonChunks(result,hooks){let text='';for await(const token of surfaceJsonTokens(result,hooks)){text+=token;if(text.length>=65536){yield encoder.encode(text);text='';}}if(text)yield encoder.encode(text);}
+export function energyExportChunks(result,format,hooks={}){if(result?.operation!=='ela.energy'||result.status!=='ok')throw Error('Completed energy result required');if(isEnergyContextCollection(result)){if(format==='json')return contextJsonChunks(result,hooks);throw Error('Native context NPZ requires the retained Core scientific export.');}if(format==='npz'){if(result.layout==='surface')throw Error('Native surface NPZ requires the retained Core scientific export.');return npzChunks(result);}if(format==='json')return result.layout==='surface'?surfaceJsonChunks(result,hooks):jsonChunks(result);throw Error('Unknown export format');}

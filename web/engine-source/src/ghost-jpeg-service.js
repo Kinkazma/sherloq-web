@@ -47,6 +47,15 @@ export function createGhostJpegService(budget,{createProvider=()=>new GhostJpegG
    };
    const result=queue.then(work);queue=result.then(()=>{},()=>{});return result;
   },
+  runExternalQuality(width,height,produce,{backend='cpu',strict=false,signal,onSubmitted,onProgress}={}){
+   if(backend!=='webgpu')return Promise.resolve(null);
+   const work=async()=>{
+    await beforeWork(signal);if(!globalThis.navigator?.gpu){if(strict)throw new EngineError('GPU_UNAVAILABLE','WebGPU is required for selected-codec Ghost RGB reduction.');return null;}
+    try{provider??=createProvider();return await provider.runExternalQuality(width,height,produce,{signal,onSubmitted,onProgress});}
+    catch(error){checkAbort(signal);if(strict||!provider?.mayFallback(error))throw error;lastFailure=error.code;try{await provider.dispose();provider=null;}catch(cleanup){attachGpuCleanup(error,cleanup);throw error;}return null;}
+   };
+   const result=queue.then(work);queue=result.then(()=>{},()=>{});return result;
+  },
   ownsResources(){return !!provider||inputs.size>0;},
   metrics(){return {gpuFallback:lastFailure};},
   async dispose(){closed=true;await queue;await provider?.dispose();provider=null;for(const entry of [...inputs])await entry.release();}

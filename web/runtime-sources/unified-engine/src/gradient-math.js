@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {wasmAllocationFailure,nativeModuleFailure,copyTypedArray} from './allocation.js';
 import {EngineError,checkAbort,checkpoint,requireValue} from './errors.js';
 export const GRADIENT_HEAP_BYTES=64*1024**2;
@@ -19,7 +19,10 @@ export async function gradientDerivatives(image,start,rows,{signal,cooperate,met
  },cooperate);
 }
 export const gradientLengths=(bytes,stats,invert,{signal,cooperate}={})=>buffers([bytes.length,48,16],signal,(m,[input,parameters,output])=>{m.HEAPU8.set(bytes,input);m.HEAPF64.set(stats,parameters/8);m._gradient_lengths(input,bytes.length/4,parameters,Number(invert),output);return copyTypedArray(m.HEAPF64.subarray(output/8,output/8+2),{label:'gradient-math-output'});},cooperate);
-export const gradientRender=(bytes,stats,{mode,invert,method='sobel'},total,{signal,cooperate}={})=>buffers([bytes.length,48,bytes.length/4*3,768*4],signal,(m,[input,parameters,output,histogram])=>{m.HEAPU8.set(bytes,input);m.HEAPF64.set(stats,parameters/8);if(method==='krawetz')m._gradient_krawetz_render(input,bytes.length/4,Number(invert),output,histogram);else m._gradient_render(input,bytes.length/4,parameters,mode,Number(invert),total,output,histogram);return{bytes:copyTypedArray(m.HEAPU8.subarray(output,output+bytes.length/4*3),{label:'gradient-math-output'}),histogram:copyTypedArray(m.HEAPU32.subarray(histogram/4,histogram/4+768),{label:'gradient-math-output'})};},cooperate);
+export const gradientRender=(bytes,stats,{mode,invert,method='sobel'},total,{signal,cooperate,lut}={})=>{
+ requireValue(lut===undefined||lut instanceof Uint8Array&&lut.length===768,'Invalid fused gradient tone table.');
+ return buffers([bytes.length,48,bytes.length/4*3,768*4,...(lut?[lut.length]:[])],signal,(m,[input,parameters,output,histogram,table])=>{m.HEAPU8.set(bytes,input);m.HEAPF64.set(stats,parameters/8);if(method==='krawetz')m._gradient_krawetz_render(input,bytes.length/4,Number(invert),output,histogram);else m._gradient_render(input,bytes.length/4,parameters,mode,Number(invert),total,output,histogram);if(lut){m.HEAPU8.set(lut,table);m._gradient_lut(output,bytes.length/4,table);}return{bytes:copyTypedArray(m.HEAPU8.subarray(output,output+bytes.length/4*3),{label:'gradient-math-output'}),histogram:copyTypedArray(m.HEAPU32.subarray(histogram/4,histogram/4+768),{label:'gradient-math-output'})};},cooperate);
+};
 export const gradientLut=(bytes,lut,{signal,cooperate}={})=>buffers([bytes.length,lut.length],signal,(m,[input,table])=>{m.HEAPU8.set(bytes,input);m.HEAPU8.set(lut,table);m._gradient_lut(input,bytes.length/3,table);return copyTypedArray(m.HEAPU8.subarray(input,input+bytes.length),{label:'gradient-math-output'});},cooperate);
 
 export function releaseGradientWasm(){ready=null;pending=null;}

@@ -1,0 +1,13 @@
+AI image detectors — credits and retained model versions
+
+DDA: Ruoxin Chen, Junwei Xi, Zhiyuan Yan, Keyue Zhang, Shuang Wu, Jingyi Xie, Xu Chen, Lei Xu, Isabel Guan, Taiping Yao and Shouhong Ding. Dual Data Alignment Makes AI-Generated Image Detector Easier Generalizable. Source: https://github.com/roy-ch/Dual-Data-Alignment . Released weights: https://huggingface.co/Junwei-Xi/Dual-Data-Alignment . See the accompanying Apache-2.0 and DINOv2 notices.
+
+PRL: the authors and copyright holders of Relative Patch Response Learning for Generalizable AI-Generated Image Detection. Source: https://github.com/wittyuu/Relative-Patch-Response-Learning . The complete DINOv3 License accompanies its retained backbone; it is not relicensed by this adaptation.
+
+Community Forensics 384: Jeongsoo Park and Andrew Owens. Community Forensics: Using Thousands of Generators to Train Fake Image Detectors, CVPR2025. Source: https://github.com/JeongsooP/Community-Forensics . Weights: https://huggingface.co/OwensLab/commfor-model-384 . Its MIT notice is included.
+
+GAPL: Ziheng Qin, Yuheng Ji, Renshuai Tao, Yuxuan Tian, Yuyang Liu, Yipu Wang and Xiaolong Zheng. Scaling Up AI-Generated Image Detection via Generator-Aware Prototypes. Source: https://github.com/UltraCapture/GAPL . Weights: https://huggingface.co/AbyssLumine/GAPL . The upstream model card and license declaration are included.
+
+Image preparation follows the retained upstream transformations. Pillow resampling attribution and its complete license are included. Runtime dependency notices already accompany the shared ONNX Runtime resources.
+
+The distributed graph payloads are the retained optimized D versions, identified by their unchanged method manifests. Scientific activations/computation are FP32; dense-weight storage includes the declared selective FP16 and INT8 forms. Scores are uncalibrated model indices. Historical conversion inventories are not presented as current D stage identities.

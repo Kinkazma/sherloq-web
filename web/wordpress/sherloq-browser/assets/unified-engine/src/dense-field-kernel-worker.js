@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,denseConstructionOwner,cleanupDenseOwners,createDenseRetirementLedger} from './dense-owner-retirement.js';
 import {allocateBuffer} from './allocation.js';
 import {wasmRange,byteView,closeMemoryRanges} from './memory-range.js';

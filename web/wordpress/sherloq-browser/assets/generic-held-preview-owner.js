@@ -1,3 +1,4 @@
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.32.0';
 // Typed completed-frame admission only. This helper owns no scientific values,
 // pixels, caches, viewport or storage. Opaque references belong to capture().
 export const GENERIC_HELD_PREVIEW_FAMILIES=Object.freeze(['derived-pixel','retained-tables','native-postprocess','ghost-hybrid']);
@@ -65,7 +66,7 @@ export function completedGenericHeldPreviewFrame(event,latest,result){
   if(!record(tag.requested)||!record(tag.calculated)||!record(tag.requested.params)||!record(tag.requested.view)||!record(tag.calculated.params)||!record(tag.calculated.view)||genericHeldPreviewKey(tag.requested.params)!==genericHeldPreviewKey(a.params)||genericHeldPreviewKey(tag.requested.view)!==genericHeldPreviewKey(a.view))return false;
   genericHeldPreviewKey(tag.calculated.params);genericHeldPreviewKey(tag.calculated.view);
   const pixels=result.pixels,summary=tag.family==='retained-tables'&&a.policy?.strategy==='histogram'&&record(result.data?.summary);
-  if(!summary&&(!pixels||pixels.format!=='rgb8'||!Number.isSafeInteger(pixels.width)||pixels.width<1||pixels.width>2048||!Number.isSafeInteger(pixels.height)||pixels.height<1||pixels.height>2048||!(pixels.data instanceof Uint8Array)||pixels.data.length!==pixels.width*pixels.height*3))return false;
+  if(!summary&&(!pixels||pixels.format!=='rgb8'||!Number.isSafeInteger(pixels.width)||pixels.width<1||pixels.width>ADAPTIVE_PREVIEW_MAX_SIDE||!Number.isSafeInteger(pixels.height)||pixels.height<1||pixels.height>ADAPTIVE_PREVIEW_MAX_SIDE||!(pixels.data instanceof Uint8Array)||pixels.data.length!==pixels.width*pixels.height*3))return false;
   return a.completedPreviewCurrent?.()===true&&b.completedPreviewCurrent?.()===true;
  }catch{return false;}
 }

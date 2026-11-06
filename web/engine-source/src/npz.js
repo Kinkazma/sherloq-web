@@ -87,6 +87,7 @@ export function truforNpz(result,maxBytes,writer=writeNpz){
   requireValue((value instanceof Float32Array||segmented&&writer!==writeNpz)&&value.length===n,'Invalid TruFor export array; segmented results require the asynchronous export stream.');
   entries.push({key,value,header:header('<f4',[d.height,d.width]),bytes:value.byteLength,floating:true,segmented});
  }
+ for(const field of ['neuron333','neuron333_activation'])if(d[field]){const value=d[field];requireValue(typeof value.readBytes==='function'&&writer!==writeNpz,'Neuron 333 requires streaming export.');entries.push({key:field,value,header:header('<f4',[value.height,value.width]),bytes:value.byteLength,floating:true,segmented:true});}
  requireValue(Number.isFinite(d.score),'Invalid TruFor score.');
  entries.push({key:'score',value:new Float64Array([d.score]),header:header('<f8',[]),bytes:8,floating:true});
  entries.push({key:'imgsize',value:new Uint32Array([d.height,d.width]),header:header('<i8',[2]),bytes:16,int64:true});

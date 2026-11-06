@@ -1,6 +1,6 @@
 import {usefulOperationMethod} from './unified-engine/src/useful-operation-method.js';
 import {backendScope} from './unified-engine/src/adaptive-runtime.js';
-import {CLONE_ALGORITHMS} from './clone-methods.js?v=0.31.0';
+import {CLONE_ALGORITHMS} from './clone-methods.js?v=0.32.0';
 import {SEGMENTATION_WINDOW_VARIANTS} from './unified-engine/src/segmentation-window-capabilities.js';
 // Static registered routes only: preference defaults create no device, model,
 // benchmark or admission. Runtime resource/backend checks remain authoritative.
@@ -9,9 +9,11 @@ const gpuOperations=new Set([
  'tampering.resampling','tampering.resampling.fourier','various.median','noise.noisesniffer','noise.prnu','comparison.image',
  'detail.frequency','noise.blocking','detail.wavelets','various.stereogram','jpeg.zero','jpeg.ghosts','jpeg.recompression','jpeg.quality','noise.separation',
  'ai.sources.safire','ai.localization.focal','ai.localization.adaifl','ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint',
- 'm2.cfa','m2.trufor','m2.rita','m2.catnet','m2.forgeryscope','m2.composite','composite'
+ 'm2.cfa','m2.trufor','m2.rita','m2.splicebuster','m2.catnet','m2.forgeryscope','m2.composite','composite'
 ]);
 export function gpuBackendEligible(tool,params={},extras={}){
+ if(tool==='inspection.sherloq7c')return true;
+ if(tool==='detail.gradient')return (params.method??'sobel')==='sobel';
  if(tool==='tampering.copyMove.sparse'||tool==='tampering.copyMove.dense')return CLONE_ALGORITHMS.includes(params.algorithm??params.profile??'SIFT + G2NN + RANSAC')&&(params.algorithm??params.profile)!=='SSG';
  if(tool==='ai.clones.d2prl'){const variant=extras.neuralMethod??'d2prl';return variant==='d2prl'||variant.startsWith('forgeryscope-')||SEGMENTATION_WINDOW_VARIANTS.includes(variant);}
  if(tool==='ai.clones.segmentation')return SEGMENTATION_WINDOW_VARIANTS.includes(params.variant??'');
@@ -19,7 +21,10 @@ export function gpuBackendEligible(tool,params={},extras={}){
  if(tool==='various.ocr')return params.prepareOnly!==true&&['ppocr-medium','tesseract'].includes(params.algorithm??params.engine??'ppocr-medium');
  return gpuOperations.has(tool);
 }
-export const defaultBackend=(tool,params={},extras={})=>gpuBackendEligible(tool,params,extras)&&!!globalThis.navigator?.gpu?'webgpu':'auto';
+// Energy and SHERLOQ have an automatic GPU path with native CPU recovery. API
+// exposure alone must not turn that default into a strict GPU request. Other
+// tools retain their historical defaults; explicit saved choices remain strict.
+export const defaultBackend=(tool,params={},extras={})=>['inspection.sherloq7c','ela.energy','detail.gradient'].includes(tool)?'auto':gpuBackendEligible(tool,params,extras)&&!!globalThis.navigator?.gpu?'webgpu':'auto';
 export function requestedBackend(task,extras={},store){
  if(task.backend!==undefined&&task.backend!==null)return task.backend;
  const identity=usefulOperationMethod(task.operation,task.params,extras),scope=backendScope(identity.tool,identity.method);

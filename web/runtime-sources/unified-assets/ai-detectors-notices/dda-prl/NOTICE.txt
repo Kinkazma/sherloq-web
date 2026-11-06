@@ -1,0 +1,41 @@
+DDA / PRL — third-party notices
+
+DDA: Dual Data Alignment Makes AI-Generated Image Detector Easier Generalizable.
+Ruoxin Chen, Junwei Xi, Zhiyuan Yan, Keyue Zhang, Shuang Wu, Jingyi Xie,
+Xu Chen, Lei Xu, Isabel Guan, Taiping Yao, Shouhong Ding.
+Official source: https://github.com/roy-ch/Dual-Data-Alignment
+Source revision: 08d6b414a33826403b9096cfdb7758d5eae12dbb
+Released weights: https://huggingface.co/Junwei-Xi/Dual-Data-Alignment
+Code and weights: Apache-2.0; see DDA-APACHE-2.0.txt.
+
+DINOv2: Meta Platforms, Inc. and affiliates; Maxime Oquab, Timothée Darcet,
+Théo Moutakanni, Huy V. Vo, Marc Szafraniec, Vasil Khalidov, Patrick Labatut,
+Armand Joulin, Piotr Bojanowski.
+Architecture source: https://github.com/facebookresearch/dinov2
+Pinned revision: 7764ea0f912e53c92e82eb78a2a1631e92725fc8
+Apache-2.0; see DINOV2-APACHE-2.0.txt.
+
+PRL: Relative Patch Response Learning for Generalizable AI-Generated Image
+Detection. Original authors and copyright holders of the PRL repository.
+Official source: https://github.com/wittyuu/Relative-Patch-Response-Learning
+Source revision: b86870c6250ba0d304b5d0dc54502716242dffcb
+Code and released adaptation: Apache-2.0; see PRL-APACHE-2.0.txt.
+Its LoRA module acknowledges adaptation from Dual Data Alignment.
+
+DINOv3: Meta Platforms, Inc. and affiliates.
+Official source: https://github.com/facebookresearch/dinov3
+Backbone model: DINOv3 ViT-L/16, LVD-1689M.
+DINOv3 materials remain subject to the complete DINOv3 License,
+last updated August 19, 2025; see DINOV3-LICENSE.md.
+The DINOv3 backbone is not relicensed as Apache-2.0 or GPL.
+
+Adaptation for SHERLOQ: construction from complete local checkpoints without
+redundant pretrained downloads or CUDA assumptions; CPU FP32 execution;
+fixed-method image preparation; sequential ONNX stages preserving global
+attention, original model heads and checkpoint adaptation parameters.
+PRL uses portable eager attention for ONNX and is checked against FP32 SDPA.
+The score is sigmoid(logit), not a validated calibrated probability.
+
+This notice records upstream credit and licenses. It does not authorize a
+publication or distribution action. Original licenses accompany this notice.
+Conversion provenance and per-stage SHA-256 are recorded in model manifests.

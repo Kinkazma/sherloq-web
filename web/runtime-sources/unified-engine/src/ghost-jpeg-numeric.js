@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // A 256-term NumPy sum recurses into two128-term reductions. Each input e/3
 // encounters at most20 positive f64 additions; there is no cancellation and
 // no overflow/underflow. Input division and final rational mean add one

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {retireResamplingEmPreview} from './resampling-em-preview.js';
 import {EngineError,requireValue,controlCheckpoint,createCooperator,checkAbort} from './errors.js';import {resamplingAnalysisParams,resamplingAnalysisRegions} from './resampling-analysis.js';import {createResamplingGray} from './resampling-gray-source.js';import {resamplingEmStage,resamplingEmBytes} from './resampling-em-stage.js';import {segmentedResamplingFourier} from './segmented-resampling.js';import {createFloatPlane} from './segmented-float-plane.js';import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurface} from './rgb-surface.js';import {createNoiseTable} from './noise-table.js';import {retainResult} from './retained-result.js';import {GRAY_PALETTE} from './gray-palette.js';import {AdaptiveConcurrency} from './adaptive-concurrency.js';
 const semantics='Native global interpolation EM with 3×3 or 5×5 neighborhoods. Probability evidence, not a probability of forgery or an authenticity decision.';

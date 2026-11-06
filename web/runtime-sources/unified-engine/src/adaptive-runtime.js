@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // This module never schedules work. Callers report only requested, completed work.
 export const ADAPTIVE_SCHEMA = 'sherloq.adaptive-runtime/2';
 export const ADAPTIVE_LEGACY_SCHEMA = 'sherloq.adaptive-runtime/1';

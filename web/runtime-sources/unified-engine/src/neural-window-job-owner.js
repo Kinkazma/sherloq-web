@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError,checkAbort,requireValue} from './errors.js';
 
 export const neuralWindowBindingKeys=Object.freeze(['sourceId','sourceSha256','sourceWidth','sourceHeight','domainFingerprint','generation','family']);

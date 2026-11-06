@@ -1,0 +1,38 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createEnergyParameterPreview} from '../sherloq-browser/assets/energy-parameter-preview.js';
+const base={quality:0,block:16,minimum:1,profile:'manual',histogramLow:10,histogramHigh:990,shadow:50,highlight:50};
+function fixture({one=true,provider=true,adaptive=false}={}){
+ const width=80,height=80,n=width*height,live=new Map(),audit={getters:[],prepares:[],keys:[],sourceReads:0,providerDisposed:0};let serial=0,providerFailure,providerFailureSet=false,abortGetter;
+ const borrowed={dispose(){audit.providerDisposed++;}},native={...base,quality:one?0:75},analysis={id:'A',imageId:'image-current',provenance:{originalSha256:'a'.repeat(64),params:native},...(one?{synthesis:{key:'neutral'}}:{}),data:{width,height,energy_scope:new Int32Array(n).fill(1),energy_low_score:new Float32Array(n).fill(1),energy_high_score:new Float32Array(n).fill(2),energy_planes:Array.from({length:one?1:3},()=>new Float32Array(n).fill(2)),energy_summary:[{id:1,bbox:[0,0,width,height]}],...(one?{energyPlaneCount:1}:{}),metadata:{method:one?'ela_energy_synthesis':'ela_energy',quality:one?null:75,qualities:one?[]:[70,75,80],block:16,energy:{quantiles:[.01,.99],thresholds:[5,5],...(one?{planeCount:1,quality_confirmation:'median-already-aggregated',preparedIdentity:'prepared-native'}:{})}}}};
+ const engine={async reserveExternalMemory({bytes}){const lease={id:++serial,bytes};live.set(lease.id,lease);return lease;},async releaseExternalMemory(id){assert(live.delete(id),'Each lease is acknowledged once');}};
+ if(provider)engine.energyPreviewScoreProvider=async request=>{assert.equal(request.imageId,analysis.imageId);assert(live.has(request.workspaceId),'Score preparation borrows only after its caller workspace is admitted');assert(live.get(request.workspaceId).bytes>0);assert.equal(audit.sourceReads,1,'Source copy has settled before image-owned GPU work');audit.getters.push(request);abortGetter?.abort();if(providerFailureSet)throw providerFailure;return borrowed;};
+ const owner=createEnergyParameterPreview({engine,readOriginal:async()=>{audit.sourceReads++;return{width,height,format:'rgb8',data:new Uint8Array(3*n).fill(100)};},...(adaptive?{adaptive:{plan(input){audit.keys.push(input.key);return{step:1,token:{id:audit.keys.length}};},observe(){return{};}}}:{adaptive:false}),dependencies:{energyParams:p=>({...p}),energyProfile:()=>({quantiles:[.1,.9],thresholds:[5,5]}),energyLogData:()=>new Int32Array(1),referenceLogFunction:()=>Math.log,async prepareEnergy(image,_planes,quantiles,_log,options){audit.prepares.push(options);assert.equal(options.planeCount,one?1:3);assert.equal(options.scoreMemoization,true);assert.equal(options.rankSelection,undefined,'The measured slower radix override must remain unused');options.onTiming('energyScoreMapMs',2);options.onTiming('energyScoreMapMs',3);if(options.scoreGpu)options.onGpuSubmitted({bands:1});const result={energy_scope:options.draftSourceScope,energy_low_score:new Float32Array(n).fill(quantiles[0]),energy_high_score:new Float32Array(n).fill(quantiles[1]),energy_summary:[{id:1,bbox:[0,0,width,height]}]};Object.defineProperty(result,'scoreRuntime',{value:{backend:options.scoreGpu?'webgpu-native-energy-scores':'cpu-native-energy-scores',totalMs:5}});return result;},async segmentEnergy(){return{labels:new Int32Array(n),regions:[]};},energyColor:()=>[1,2,3],async renderEnergy(d){return{width,height,format:'rgb8',data:Uint8Array.from({length:3*n},(_,i)=>i%251)};}}});
+ return{owner,engine,analysis,audit,borrowed,live,render:(p={},options={})=>owner.render(analysis,{params:{...native,...p},presentation:{view:'overlay',opacity:70},preview:{maxWidth:80,maxHeight:80,adaptive},...options}),failProvider(error){providerFailure=error;providerFailureSet=true;},abortAtGetter(controller){abortGetter=controller;}};
+}
+async function close(h){await h.owner.dispose();assert.equal(h.live.size,0);assert.equal(h.audit.providerDisposed,0,'The provider lifetime remains with the source engine');}
+
+test('one- and three-plane previews borrow the current image provider under an admitted workspace',async()=>{
+ for(const one of [true,false]){const h=fixture({one});try{const r=await h.render({histogramLow:20});assert.equal(h.audit.getters.length,1);const o=h.audit.prepares[0];assert.equal(o.scoreGpu,h.borrowed);assert.equal(o.scoreBackend,'auto');assert(o.signal instanceof AbortSignal);assert.equal(r.metrics.preparationPhaseMilliseconds.energyScoreMapMs,5);assert.equal(r.metrics.preparationScoreGpuSubmissions,1);assert.equal(r.metrics.preparationScoreRuntimes[0].backend,'webgpu-native-energy-scores');assert.equal(r.metrics.requestedBackend,'auto');}finally{await close(h);}}
+});
+
+test('explicit CPU avoids the getter, while auto without a provider keeps the qualified CPU path',async()=>{
+ for(const missing of [true,false]){const h=fixture({provider:!missing});try{const r=await h.render({histogramLow:20},{backend:missing?'auto':'cpu'});assert.equal(h.audit.getters.length,0);assert.equal(h.audit.prepares[0].scoreGpu,undefined);assert.equal(r.metrics.preparationScoreGpuSubmissions,0);assert.equal(r.metrics.preparationScoreRuntimes[0].backend,'cpu-native-energy-scores');}finally{await close(h);}}
+});
+
+test('explicit GPU never silently drops to CPU when the image provider API is absent',async()=>{
+ const h=fixture({provider:false});try{await assert.rejects(h.render({histogramLow:20},{backend:'webgpu'}),{code:'GPU_UNAVAILABLE'});assert.equal(h.audit.prepares.length,0);}finally{await close(h);}
+});
+
+test('provider refusal and cancellation stop preparation, preserve the primary error and retire admissions',async()=>{
+ for(const failure of [Object.freeze(Object.assign(Error('Owner refused'),{code:'OWNER_REFUSED'})),0]){const h=fixture();h.failProvider(failure);try{await assert.rejects(h.render({histogramLow:20}),e=>e===failure);assert.equal(h.audit.prepares.length,0);}finally{await close(h);}}
+ const h=fixture(),controller=new AbortController();h.abortAtGetter(controller);try{await assert.rejects(h.render({histogramLow:20},{signal:controller.signal}),{code:'CANCELLED'});assert.equal(h.audit.prepares.length,0);}finally{await close(h);}
+});
+
+test('prepared synthesis retains runtime provenance without inventing another GPU submission; backend change invalidates it',async()=>{
+ const h=fixture();try{const first=await h.render({histogramLow:20}),second=await h.render({histogramLow:20,shadow:60});assert.deepEqual(first.pixels.data,second.pixels.data);assert.equal(h.audit.getters.length,1);assert.equal(h.audit.prepares.length,1);assert.equal(second.metrics.preparationScoreGpuSubmissions,0);assert.equal(second.metrics.preparationScoreRuntimes[0].cached,true);assert.equal(second.metrics.preparationScoreRuntimes[0].totalMs,0);assert.equal(second.metrics.preparationScoreRuntimes[0].originalExecution.backend,'webgpu-native-energy-scores');await h.render({histogramLow:20},{backend:'cpu'});assert.equal(h.audit.prepares.length,2);assert.equal(h.audit.getters.length,1);assert.equal(h.audit.prepares.at(-1).scoreBackend,'cpu');}finally{await close(h);}
+});
+
+test('adaptive cost families separate retained maps, histogram preparation and backend without one class per value',async()=>{
+ const h=fixture({adaptive:true});try{await h.render();await h.render({histogramLow:20});await h.render({histogramLow:30});await h.render({histogramLow:30},{backend:'cpu'});const keys=h.audit.keys;assert.match(keys[0],/native-prepared\/backend=auto/);assert.match(keys[1],/histogram-prepare\/backend=auto/);assert.equal(keys[1],keys[2]);assert.notEqual(keys[2],keys[3]);assert.match(keys[3],/backend=cpu/);}finally{await close(h);}
+});

@@ -1,0 +1,3 @@
+# Conserver le repli compact et préparer le réglage zéro
+
+Le solveur commun conserve le cache de courbures 12 bits et les paires du moteur unifié lorsque la représentation IC0 ne tient pas dans le budget. SGS reste un choix explicite. La table directe de racines n’est financée que si elle reste une fraction raisonnable de la représentation; les petits graphes réutilisent leurs rangs existants. Le microcontraste zéro à précision 1e-2 reçoit par défaut 4096 itérations de préparation GPU, indépendamment des dimensions; une valeur explicite d’itérations reste respectée. Les équations, les seuils et les certificats finaux sont inchangés. Expérience non qualifiée.

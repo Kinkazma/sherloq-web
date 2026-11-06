@@ -1,3 +1,4 @@
+import {ghostExternalPairShader,runGhostExternalQuality} from './ghost-rgb-pair-gpu.js';
 import {ElaJpegArchiveGpu} from './ela-jpeg-archive-gpu.js';
 import {elaJpegQuantization} from './ela-gpu.js';
 import {requireValue,EngineError,checkAbort} from './errors.js';
@@ -9,13 +10,14 @@ import {ownGpuArrays} from './gpu-owned-arrays.js';
 const MiB=1024**2;let manifest;
 async function shaderSource({signal}={}){
  const root=new URL('../vendor/ghost-jpeg-gpu/',import.meta.url);manifest??=fetch(new URL('PINNED.json',root)).then(async r=>{if(!r.ok)throw new EngineError('CODEC_UNAVAILABLE','Native Ghost JPEG manifest unavailable.');return r.json();}).catch(e=>{manifest=null;throw e;});
- const spec=(await manifest).files?.['ghost-jpeg-exact.wgsl'];requireValue(Number.isInteger(spec?.bytes)&&spec.bytes>0&&/^[a-f0-9]{64}$/.test(spec.sha256),'Pinned exact Native Ghost source required.');checkAbort(signal);const response=await fetch(new URL('ghost-jpeg-exact.wgsl',root),{signal});if(!response.ok)throw new EngineError('CODEC_UNAVAILABLE','Exact Native Ghost source unavailable.');const bytes=await response.arrayBuffer(),hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');requireValue(bytes.byteLength===spec.bytes&&hash===spec.sha256,'Exact Native Ghost source identity differs.');checkAbort(signal);return new TextDecoder().decode(bytes);
+ const spec=(await manifest).files?.['ghost-jpeg-exact.wgsl'];requireValue(Number.isInteger(spec?.bytes)&&spec.bytes>0&&/^[a-f0-9]{64}$/.test(spec.sha256),'Pinned exact Native Ghost source required.');checkAbort(signal);const response=await fetch(new URL('ghost-jpeg-exact.wgsl',root),{signal});if(!response.ok)throw new EngineError('CODEC_UNAVAILABLE','Exact Native Ghost source unavailable.');const bytes=await response.arrayBuffer(),hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');requireValue(bytes.byteLength===spec.bytes&&hash===spec.sha256,'Exact Native Ghost source identity differs.');checkAbort(signal);return new TextDecoder().decode(bytes)+ghostExternalPairShader;
 }
 // Experimental numerical correction: every cached quality mean uses the exact
 // Native NumPy pairwise binary64 order. It therefore remains reusable for any
 // later requested quality range, without a presentation-dependent repair.
 export class GhostJpegExactGpu extends ElaJpegArchiveGpu{
  constructor(budget,options={}){super(budget,{loadShader:shaderSource,...options});}
+ runExternalQuality(width,height,produce,options={}){return runGhostExternalQuality(this,width,height,produce,options);}
  async run(rgb,width,height,qualities,{signal,onSubmitted,onProgress}={}){
   requireValue(rgb instanceof Uint8Array&&Number.isInteger(width)&&Number.isInteger(height)&&width>=16&&height>=16&&width<=65500&&height<=65500&&rgb.length===width*height*3,'Complete Native RGB Ghost context required.');requireValue(Array.isArray(qualities)&&qualities.length>0&&qualities.length<=101&&qualities.every((q,i)=>Number.isInteger(q)&&q>=0&&q<=100&&(!i||q>qualities[i-1])),'Ordered Native JPEG qualities required.');qualities=qualities.slice();checkAbort(signal);if(this.closed)throw new EngineError('DISPOSED','Exact Ghost GPU closed.');if(this.busy)throw new EngineError('BUSY','Exact Ghost GPU busy.');this.busy=true;this.fallbackFailures=new WeakSet();
   const record=gpuTransaction(this),started=performance.now();let owned,published=false,failed=false,primary;const api=fn=>gpuOwnerSync(this,fn,signal),asyncApi=fn=>gpuOwnerAsync(this,fn,signal);

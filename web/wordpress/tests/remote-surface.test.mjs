@@ -37,3 +37,28 @@ test('failed local preview canvas initialization releases its sample backing and
  const canvas={width:0,height:0,getContext(){throw Error('Canvas admission refused');}},data=Uint8Array.of(1,2,3);
  assert.throws(()=>createPreviewSurface({width:1,height:1,logicalWidth:1,logicalHeight:1,format:'rgb8',data,preview:true},{document:{createElement:()=>canvas}}),/admission refused/);assert.equal(canvas.width,0);assert.equal(canvas.height,0);assert.deepEqual(data,Uint8Array.of(1,2,3));
 });
+
+test('Original format metadata is inherited by independent source forks without reads or pixel changes',()=>{
+ const h=setup(),display={id:'original-source',width:424,height:572,format:'rgb8',sourceFormat:'png'},calls=[],surface=createRemoteSurface(display,h.cache,(...args)=>{calls.push(args);},()=>{}),fork=surface.fork();
+ assert.equal(surface.sourceFormat,'png');assert.equal(fork.sourceFormat,'png');assert.equal(fork.display.sourceFormat,'png');assert.equal(fork.width,424);assert.equal(fork.height,572);assert.deepEqual(display,{id:'original-source',width:424,height:572,format:'rgb8',sourceFormat:'png'});assert.equal(calls.length,0);surface.close();h.surface.close();assert.equal(h.cache.bytes,0);
+});
+
+test('a raw-value revocation prevents a pending viewport from publishing, retrying or freezing',async()=>{
+ const h=setup();let current=true;h.surface.parameterPreviewCurrent=()=>current;h.surface.prepare(full,.1);await flush();current=false;h.finish(h.tasks[0]);await flush();assert.equal(h.events.length,0);assert.equal(h.cache.bytes,0);assert.equal(h.tasks.length,1);assert.equal(h.surface.prepare(full,.1),false);assert.equal(h.surface.freeze(),null);h.surface.draw({drawImage(){throw Error('A revoked viewport must not paint');}},full,.1);h.surface.close();
+});
+test('frozen and forked viewport aliases preserve their raw-input guard',async()=>{
+ const h=setup();let current=true;h.surface.parameterPreviewCurrent=()=>current;h.surface.prepare(full,.1);await flush();h.finish(h.tasks[0]);await flush();const frozen=h.surface.freeze(),fork=frozen.fork();assert(frozen.prepare(full,1));current=false;for(const view of[frozen,fork]){assert.equal(view.prepare(full,1),false);view.draw({drawImage(){throw Error('An old frozen viewport must not paint');}});}frozen.close();fork.close();h.surface.close();assert.equal(h.cache.bytes,0);
+});
+test('immutable preview aliases also revoke before a canvas draw',()=>{
+ const h=setup(),surface=createPreviewSurface({width:2,height:2,logicalWidth:2,logicalHeight:2,format:'rgb8',data:new Uint8Array(12),preview:true});let current=true;surface.parameterPreviewCurrent=()=>current;const frozen=surface.freeze(),fork=surface.fork();current=false;for(const view of[surface,frozen,fork]){assert.equal(view.prepare(full,1),false);view.draw({drawImage(){throw Error('A revoked RGB snapshot must not paint');}});}assert.equal(surface.freeze(),null);surface.close();frozen.close();fork.close();h.surface.close();
+});
+test('an admitted128MiB viewport keeps3K source samples at step1',async()=>{
+ const h=setup(),cache=new TileCache(128*1024**2),requests=[],surface=createRemoteSurface({width:3072,height:2048},cache,async(_,{tile})=>{requests.push(tile);return{pixels:{width:Math.ceil(tile.w/tile.step),height:Math.ceil(tile.h/tile.step),data:new Uint8Array(Math.ceil(tile.w/tile.step)*Math.ceil(tile.h/tile.step)*3)}};},()=>{});const bounds={left:0,top:0,right:3072,bottom:2048};surface.prepare(bounds,1);await flush();assert.equal(requests[0].step,1);assert.equal(surface.prepare(bounds,1),true);assert(cache.bytes<=cache.limit);surface.close();h.surface.close();assert.equal(cache.bytes,0);
+});
+test('an already-painted RGB frame can survive a commit without accepting new obsolete work',()=>{
+ const h=setup(),surface=createPreviewSurface({width:2,height:2,logicalWidth:2,logicalHeight:2,format:'rgb8',data:new Uint8Array(12),preview:true});let responseCurrent=true,sourceCurrent=true;surface.parameterPreviewCurrent=()=>responseCurrent;
+ responseCurrent=false;assert.equal(surface.freeze(),null);const held=surface.freeze({displayCurrent:()=>sourceCurrent});assert(held);surface.close();let draws=0;const ctx={save(){},beginPath(){},rect(){},clip(){},restore(){},drawImage(){draws++;}};held.draw(ctx);assert.equal(draws,1);assert.equal(held.readPixels instanceof Function,true);const fork=held.fork();sourceCurrent=false;for(const view of[held,fork]){assert.equal(view.prepare(full,1),false);view.draw(ctx);}assert.equal(draws,1);held.close();fork.close();h.surface.close();assert.equal(h.canvases.at(-1).width,0);
+});
+test('a held viewport transfers only its existing canvas and revokes when its source/domain changes',async()=>{
+ const h=setup();let responseCurrent=true,sourceCurrent=true;h.surface.parameterPreviewCurrent=()=>responseCurrent;h.surface.prepare(full,.1);await flush();h.finish(h.tasks[0]);await flush();responseCurrent=false;assert.equal(h.surface.freeze(),null);const held=h.surface.freeze({displayCurrent:()=>sourceCurrent});assert(held);assert.equal(h.cache.bytes,0);h.surface.close();let draws=0;const ctx={save(){},beginPath(){},rect(){},clip(){},restore(){},drawImage(){draws++;}};held.draw(ctx);assert.equal(draws,1);assert.equal(h.tasks.length,1);assert.equal(held.readPixels,undefined);const fork=held.fork();sourceCurrent=false;held.draw(ctx);fork.draw(ctx);assert.equal(draws,1);assert.equal(held.prepare(full,1),false);held.close();fork.close();assert.equal(h.canvases[0].width,0);
+});

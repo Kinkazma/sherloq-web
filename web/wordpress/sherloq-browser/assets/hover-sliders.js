@@ -1,6 +1,6 @@
 // A UI-only navigation window. Original numeric constraints and calculations
 // remain owned by the original input and its established gesture handlers.
-import {numericEditingIncrement} from './numeric-increment.js?v=0.31.0';
+import {numericEditingIncrement} from './numeric-increment.js?v=0.32.0';
 let nextPopup=0;
 const inlineRangePresentations=new WeakMap(),inlineRangeOwners=new WeakMap(),inlineRangeOutputOwners=new WeakMap(),inlineRangeStyles=new WeakMap();
 const finite=value=>value!==null&&value!==undefined&&String(value).trim()!==''&&Number.isFinite(Number(value))?Number(value):null;
@@ -196,14 +196,14 @@ export function installHoverSliders({root=globalThis.document,enabled=false,lang
   const dispatch=(type,source)=>{const e=event(type,source);input.dispatchEvent(e);return e;},setAttribute=(node,key,value)=>{if(node.getAttribute(key)!==value)node.setAttribute(key,value);};
   function sync(){if(closed)return;const disabled=!allowed();if(up.disabled!==disabled)up.disabled=disabled;if(down.disabled!==disabled)down.disabled=disabled;setAttribute(up,'aria-label',ownerScope().fr()?'Augmenter la valeur':'Increase value');setAttribute(down,'aria-label',ownerScope().fr()?'Diminuer la valeur':'Decrease value');setAttribute(output,'aria-description',ownerScope().fr()?'Double-cliquez pour saisir une valeur.':'Double-click to enter a value.');if(created&&ownerScope().editing()?.output!==output){const scale=displayScale(input),value=scale===1?input.value:String(rounded(Number(input.value)*scale));if(output.textContent!==value)output.textContent=value;}if(disabled&&held)end(undefined,true);}
   function nudge(direction,source){
-   if(!allowed())return false;const before=input.value,presentation=inlineRangePresentations.get(input),d=presentation?.describe(),increment=numericEditingIncrement(input),key=direction>0?'ArrowUp':'ArrowDown';
+   if(!allowed())return false;const before=input.value,presentation=inlineRangePresentations.get(input),d=presentation?.describe(),increment=numericEditingIncrement(input)??finite(input.dataset?.hoverSliderIncrement),key=direction>0?'ArrowUp':'ArrowDown';
    if(d?.automaticActive){if(direction<0)return false;input.value=String(d.automatic.boundary);dispatch('input',source);sync();return input.value!==before;}
    const e=dispatch('keydown',{key,code:key,repeat:source?.repeat??false});
    if(!e.defaultPrevented){
     if(input.step==='any'){
      // UI editing effort only; native step=any keeps every valid precision.
      const lo=attribute(input,'min')??0,hi=attribute(input,'max')??100,step=increment??(hi-lo)/1000;
-     const raw=Number(input.value)+direction*step;if(!(Number.isFinite(lo)&&Number.isFinite(hi)&&hi>lo&&Number.isFinite(step)&&step>0&&Number.isFinite(raw)))return false;input.value=String(Math.max(lo,Math.min(hi,rounded(raw))));
+     const current=Number(input.value),raw=input.dataset?.hoverSliderSnap==='true'?(direction>0?Math.floor(current/step)+1:Math.ceil(current/step)-1)*step:current+direction*step;if(!(Number.isFinite(lo)&&Number.isFinite(hi)&&hi>lo&&Number.isFinite(step)&&step>0&&Number.isFinite(raw)))return false;input.value=String(Math.max(lo,Math.min(hi,rounded(raw))));
     }else try{input.stepUp(direction);}catch{return false;}
     if(d?.automatic&&Number(input.value)<d.automatic.boundary){input.value=before;return false;}
     if(input.value!==before)dispatch('input',source);

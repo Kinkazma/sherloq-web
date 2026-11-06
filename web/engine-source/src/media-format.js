@@ -1,6 +1,28 @@
+import {IMAGE_FORMATS} from './image-format-registry.js';
 // Decode only image coders. No filenames, URLs, documents or delegate commands
 // are accepted by the extended codec bridge.
 const ascii=(b,a,n)=>String.fromCharCode(...b.subarray(a,a+n));
+const extensions={jpeg:['jpg','jpeg','jpe'],png:['png'],tiff:['tif','tiff'],webp:['webp'],avif:['avif'],heic:['heic','heif'],jp2:['jp2','jpf','jpx'],j2k:['j2k','j2c','jpc'],jxl:['jxl'],gif:['gif'],bmp:['bmp','dib'],tga:['tga','targa'],ico:['ico'],pcx:['pcx'],ppm:['ppm','pnm'],pam:['pam'],psd:['psd'],exr:['exr'],qoi:['qoi'],farbfeld:['ff','farbfeld']};
+// One public import inventory follows the codec registry; individual tools
+// consume only the shared Original RGB8 surface and original encoded owner.
+export const IMAGE_IMPORT_FORMATS=Object.freeze(IMAGE_FORMATS.map(({id,label})=>Object.freeze({id,label,extensions:Object.freeze((extensions[id]??[id]).slice())})));
+export function legacyImageFormat(bytes){
+ if(!(bytes instanceof Uint8Array))return null;
+ if(bytes[0]===255&&bytes[1]===216)return 'jpeg';
+ if(bytes.length>=8&&[137,80,78,71,13,10,26,10].every((v,i)=>bytes[i]===v))return 'png';
+ if(bytes[0]===73&&bytes[1]===73||bytes[0]===77&&bytes[1]===77)return 'tiff';
+ return null;
+}
+function pcxHeader(bytes){
+ if(bytes.length<128||bytes[0]!==10||![0,2,3,4,5].includes(bytes[1])||![0,1].includes(bytes[2])||![1,2,4,8].includes(bytes[3])||bytes[64]!==0||bytes[65]<1||bytes[65]>4)return false;
+ const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);return v.getUint16(8,true)>=v.getUint16(4,true)&&v.getUint16(10,true)>=v.getUint16(6,true)&&v.getUint16(66,true)>0;
+}
+function tgaHeader(bytes){
+ if(bytes.length<18||![0,1].includes(bytes[1])||![1,2,3,9,10,11].includes(bytes[2])||![8,15,16,24,32].includes(bytes[16])||bytes[17]&192)return false;
+ if([1,9].includes(bytes[2])&&bytes[1]!==1)return false;
+ const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);return v.getUint16(12,true)>0&&v.getUint16(14,true)>0&&18+bytes[0]<bytes.length;
+}
+
 export const isCameraRaw=name=>/\.(dng|cr2|cr3|nef|arw|orf|rw2|raf|pef)$/i.test(String(name??''));
 export function extendedImageFormat(bytes,name=''){
  const s=ascii(bytes,0,12),ext=String(name).split('.').pop().toLowerCase();
@@ -11,8 +33,17 @@ export function extendedImageFormat(bytes,name=''){
  if(s.startsWith('GIF8'))return 'GIF';if(s.startsWith('BM'))return 'BMP';if(s.startsWith('8BPS'))return 'PSD';
  if(bytes[0]===0&&bytes[1]===0&&bytes[2]===1&&bytes[3]===0)return 'ICO';
  if(/^P[1-7]\s/.test(s))return 'PNM';if(bytes[0]===255&&bytes[1]===10||s.slice(4,8)==='JXL ')return 'JXL';
+ if(s.startsWith('qoif'))return 'QOI';if(s.startsWith('farbfeld'))return 'FARBFELD';
+ if(bytes[0]===118&&bytes[1]===47&&bytes[2]===49&&bytes[3]===1)return 'EXR';if(pcxHeader(bytes))return 'PCX';
  if(['dng','cr2','cr3','nef','arw','orf','rw2','raf','pef'].includes(ext))return ext.toUpperCase();
- if(ext==='tga')return 'TGA';return null;
+ const legacy=legacyImageFormat(bytes);if(legacy)return legacy==='jpeg'?'JPEG':legacy.toUpperCase();
+ if(ext==='tga'||tgaHeader(bytes))return 'TGA';return null;
+}
+export function sourceImageFormat(bytes,name=''){
+ const legacy=legacyImageFormat(bytes);if(legacy&&legacy!=='tiff')return legacy;
+ const format=extendedImageFormat(bytes,name);if(!format)return null;
+ if(format==='PNM'){if(/^P[36]\s/.test(ascii(bytes,0,3)))return 'ppm';if(/^P7\s/.test(ascii(bytes,0,3)))return 'pam';}
+ return format.toLowerCase();
 }
 export function isoChroma(bytes){
  // Only accept a single consistent codec sampling declaration. Multiple images

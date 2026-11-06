@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {USEFUL_WORK_CODE_IDENTITY} from './useful-work-code-identity.js';
 // Metadata for the qualified observed-ROI route. This is independent from the
 // offline assembly identity and does not turn an unknown runtime into a gate.

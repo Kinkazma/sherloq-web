@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Reuse the unchanged nine-cell neighborhood per occupied query cell.
 // Native cKDTree leaf-order ranks and all later predicates remain unchanged.
 // This operation owns its lists; at most nine stored indices per point.

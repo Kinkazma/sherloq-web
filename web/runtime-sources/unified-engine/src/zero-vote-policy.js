@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{requireValue}from'./errors.js';
 export const ZERO_VOTE_POLICY_PREFIX='zero-votes/policy/';
 const VERSION='native-f64-gated-centered025-v1',BYTES=2048,MAXIMUM=32,TTL=5*60*1000;

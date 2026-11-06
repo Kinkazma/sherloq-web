@@ -1,0 +1,11 @@
+{
+  "source": "820184132b2ec9723057762c9cadb80218ae4f6593a5faaf7e00f4fa8142b6d1",
+  "objects": {
+    "liblibpng.a": "8150b8c8c5793180ac54e292c1f86c212e9c184dfa330814fef4cee769c6c265",
+    "libzlib.a": "d90d1917d08ca6c9908669c16884afd0c64f5f5352195cf0507ed9ef98ca7f72"
+  },
+  "files": {
+    "png16-export.js": "353ad4d9886fb627b58f5b488f95dac099f9c103c510dac8e9cadd21b65e2e61",
+    "png16-export.wasm": "dedb5cb1d6dc7c4a61328988b43b93c928254d36ca04eb3bd141699d6b2f2ba7"
+  }
+}

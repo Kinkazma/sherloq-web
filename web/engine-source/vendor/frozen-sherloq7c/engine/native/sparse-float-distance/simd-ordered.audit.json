@@ -1,0 +1,56 @@
+{
+  "variant": "simd-ordered",
+  "sourceSha256": "7997019cd3238f162bffaf79a034c020ba62ad80b8a5bd0eefd4d194e5df78f6",
+  "file": "simd-ordered.wasm",
+  "bytes": 1072,
+  "sha256": "c6675bb6d775dd0fdec0509ad9356f13943459d7997d9dd8623d7bec03959cbc",
+  "watFile": "simd-ordered.wat",
+  "watSha256": "27a29e4dbcdb58898763f47200ae584254186d58cf0478d37e116c79c399faf8",
+  "imports": [
+    [
+      "env",
+      "memory"
+    ]
+  ],
+  "sections": [
+    {
+      "kind": 1,
+      "bytes": 16
+    },
+    {
+      "kind": 2,
+      "bytes": 18
+    },
+    {
+      "kind": 3,
+      "bytes": 3
+    },
+    {
+      "kind": 7,
+      "bytes": 25
+    },
+    {
+      "kind": 10,
+      "bytes": 709
+    },
+    {
+      "kind": 0,
+      "bytes": 120
+    },
+    {
+      "kind": 0,
+      "bytes": 157
+    }
+  ],
+  "importMemoryOnly": true,
+  "noStart": true,
+  "noDataSegments": true,
+  "noLinearStores": true,
+  "noLinearStack": true,
+  "noNewLinearMemory": true,
+  "squareRootFloat64ThenFloat32": true,
+  "forbiddenWriteInstructions": [],
+  "globalOperations": [],
+  "meaning": "Only original copy-tree Memory is imported. All native workspace is locals/operand stack; no writes, start, data, memory growth or globals used. No numerical/performance qualification yet.",
+  "status": "passed-imported-memory-no-writes"
+}

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createResamplingEmWorkerMath} from './resampling-em-worker-math.js';
 import {acquireEmProductPolicy} from './resampling-em-policy.js';
 import {createEmProductSelector} from './resampling-em-product-selector.js';

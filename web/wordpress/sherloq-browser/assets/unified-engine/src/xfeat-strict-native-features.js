@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {neuralWindowDomainIdentity} from './neural-window-domain-identity.js';
 import {xfeatContextAxis} from './xfeat-strict-input-frame.js';
 import {prepareXfeatStrictPopulation} from './xfeat-strict-preparation.js';

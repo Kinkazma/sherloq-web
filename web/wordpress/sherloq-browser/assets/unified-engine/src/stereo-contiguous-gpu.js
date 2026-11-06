@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {gpuFallbackError} from './gpu-native-boundary.js';
 import {StereoSearchGpu} from './stereo-search-gpu.js';
 import {createStereoGpuStream} from './stereo-gpu-stream-kernel.js';

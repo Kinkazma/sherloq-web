@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {efficientLoFtrComparisonTask} from './efficient-loftr-comparison-task.js';
 import {createSsgNativeWindowRegistration} from './ssg-native-window-registration.js';
 import {createClassicalSparseWindowRegistration,hasSparseAnalysisWindows,sparseSourceAnalysisWindows} from './classical-sparse-window-registration.js';

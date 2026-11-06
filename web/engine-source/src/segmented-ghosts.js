@@ -1,3 +1,5 @@
+import {selectedGhostPlanes} from './selected-ghost-planes.js';
+import {createSelectedRgbRecompression} from './recompression-probe.js';
 import {allocateTypedArray,allocateOwnedTypedArray} from './allocation.js';
 import {AdaptiveConcurrency,isWorkerResourceFailure} from './adaptive-concurrency.js';import {parallelGhostPlanes,ghostPoolShape} from './ghost-stream-pool.js';
 import {createRgbRecompression} from './jpeg-rgb-stream.js';import {numpySum} from './numpy-sum.js';import {requireValue,controlCheckpoint,checkAbort} from './errors.js';
@@ -7,7 +9,7 @@ export function segmentedGhostShape(image,p,{normalizedOnly=false}={}){const {wi
 // Quality publication is awaited: a quality is complete only once its owner has
 // durably copied it. Producers may immediately reuse their single output plane.
 export async function produceSegmentedGhostPlanes(image,p,{budget,signal,onProgress,getPlane,putPlane,onPlane,borrowPlanes=false,skipQualities=[],maxWorkers=1,adaptive=new AdaptiveConcurrency(),backend='cpu'}={}){
- const {width,height,cols,rows,qualities}=segmentedGhostShape(image,p),stages={},metrics={workers:1,kernel:'global-rgb-jpeg-ghost-scanlines',recompressions:0,qualityPlanesComputed:0,encodedCacheHits:0},missing=[],finished=new Set(skipQualities);image.rgbRecompression??=createRgbRecompression(image,budget);let completed=finished.size,callbackError,serialPlane,termsOwner;
+ const {width,height,cols,rows,qualities}=segmentedGhostShape(image,p),stages={},metrics={workers:1,kernel:'global-rgb-jpeg-ghost-scanlines',recompressions:0,qualityPlanesComputed:0,encodedCacheHits:0},missing=[],finished=new Set(skipQualities);const selectedParams=p.recompression?p:image.selectedRecompressionParams,experimental=!!selectedParams?.recompression&&selectedParams.recompression.codec!=='jpeg',selectedProbe=experimental?createSelectedRgbRecompression(image,selectedParams,{budget,paletteAxis:'sweep'}):null;if(!selectedProbe)image.rgbRecompression??=createRgbRecompression(image,budget);const recompressor=selectedProbe??image.rgbRecompression;let completed=finished.size,callbackError,serialPlane,termsOwner;
  const progress=event=>{try{onProgress?.(event);}catch(error){callbackError=error;throw error;}};
  const place=async(quality,plane,store=false)=>{
   requireValue(plane instanceof Float64Array&&plane.length===cols*rows&&plane.every(Number.isFinite),'Raw Ghost quality plane required');
@@ -16,13 +18,22 @@ export async function produceSegmentedGhostPlanes(image,p,{budget,signal,onProgr
  };
  try{
  for(const quality of qualities){if(finished.has(quality)){stages[quality]=true;continue;}const plane=await getPlane?.(quality);stages[quality]=!!plane;if(plane)await place(quality,plane);else missing.push(quality);}
+ const recordDetails=details=>{metrics.recompressions+=details.recompressions;metrics.qualityPlanesComputed++;metrics.encodedCacheHits+=Number(details.recompressedCache);metrics.sourcePasses=(metrics.sourcePasses??0)+details.sourcePasses;metrics.codecHeapCapacityBytes=Math.max(metrics.codecHeapCapacityBytes??0,details.codecHeapCapacityBytes??details.codecHeapPeakBytes??0);metrics.codecHeapMaximumBytes=details.codecHeapMaximumBytes;metrics.maxSourceWindowBytes=details.maxSourceWindowBytes;metrics.encodedStorage=details.encodedStorage;};
+ if(experimental){const selected=await selectedGhostPlanes(image,p,selectedParams,missing,{budget,signal,onProgress:progress,onPlane:(quality,plane)=>place(quality,plane,true),maxWorkers,backend});Object.assign(metrics,selected);return{...metrics,stages};}
  const serialOne=async quality=>{
-  await controlCheckpoint(signal);serialPlane??=allocateOwnedTypedArray(Float64Array,cols*rows,{budget,owner:'ela',label:'ghost-quality-plane'});termsOwner??=allocateOwnedTypedArray(Float64Array,256,{budget,owner:'ela',label:'ghost-sum-terms'});const plane=serialPlane.data,terms=termsOwner.data,details=await image.rgbRecompression.visit(quality,{phaseX:p.x,phaseY:p.y,signal,onProgress:e=>progress({quality,total:qualities.length,...e}),onBand:async(original,decoded,{y,rows:count})=>{
+  await controlCheckpoint(signal);
+  if(experimental&&(backend==='webgpu'||backend==='auto')){
+   const service=getGhostJpegService(budget),owned=await service.runExternalQuality(width,height,consume=>recompressor.visit(quality,{phaseX:p.x,phaseY:p.y,signal,onProgress:e=>progress({quality,total:qualities.length,...e}),onBand:consume}),{backend:'webgpu',strict:backend==='webgpu',signal,onSubmitted:progress});
+   if(owned){await consumeGhostGpuResult(owned,async result=>{recordDetails(result.codecDetails);metrics.gpuQualityPlanes=(metrics.gpuQualityPlanes??0)+1;const previous=metrics.gpu;metrics.gpu={...result.runtime,qualityPlanes:metrics.gpuQualityPlanes,readbacks:(previous?.readbacks??0)+result.runtime.readbacks,readbackBytes:(previous?.readbackBytes??0)+result.runtime.readbackBytes,totalMs:(previous?.totalMs??0)+result.runtime.totalMs,compileMs:(previous?.compileMs??0)+result.runtime.compileMs};metrics.backend=metrics.cpuQualityPlanes?'mixed':'webgpu';metrics.reductionBackend=metrics.backend;metrics.kernel=result.runtime.kernel;await place(quality,result.means,true);});return;}
+   metrics.gpuFallback=service.metrics().gpuFallback??'GPU_UNAVAILABLE';
+  }
+  serialPlane??=allocateOwnedTypedArray(Float64Array,cols*rows,{budget,owner:'ela',label:'ghost-quality-plane'});termsOwner??=allocateOwnedTypedArray(Float64Array,256,{budget,owner:'ela',label:'ghost-sum-terms'});const plane=serialPlane.data,terms=termsOwner.data,details=await recompressor.visit(quality,{phaseX:p.x,phaseY:p.y,signal,onProgress:e=>progress({quality,total:qualities.length,...e}),onBand:async(original,decoded,{y,rows:count})=>{
    for(let local=0;local+16<=count;local+=16){const by=(y+local)/16;for(let bx=0;bx<cols;bx++){let at=0;for(let yy=0;yy<16;yy++)for(let xx=0;xx<16;xx++){const i=((local+yy)*width+bx*16+xx)*3;let sum=0;for(let c=0;c<3;c++){const d=original[i+c]-decoded[i+c];sum+=d*d;}terms[at++]=sum/3;}plane[by*cols+bx]=numpySum(terms)/256;}}
-  }});metrics.recompressions+=details.recompressions;metrics.qualityPlanesComputed++;metrics.encodedCacheHits+=Number(details.recompressedCache);metrics.sourcePasses=(metrics.sourcePasses??0)+details.sourcePasses;metrics.codecHeapCapacityBytes=Math.max(metrics.codecHeapCapacityBytes??0,details.codecHeapCapacityBytes);metrics.codecHeapMaximumBytes=details.codecHeapMaximumBytes;metrics.maxSourceWindowBytes=details.maxSourceWindowBytes;metrics.encodedStorage=details.encodedStorage;checkAbort(signal);await place(quality,plane,true);
+  }});recordDetails(details);if(experimental){metrics.cpuQualityPlanes=(metrics.cpuQualityPlanes??0)+1;metrics.backend=metrics.gpuQualityPlanes?'mixed':'cpu';metrics.reductionBackend=metrics.backend;}checkAbort(signal);await place(quality,plane,true);
  };
  // Reuse already-encoded ELA/Ghost qualities before dispatching new JPEG work.
- const reusable=missing.filter(q=>image.rgbRecompression.hasEncoded(q,{phaseX:p.x,phaseY:p.y}));for(const quality of reusable)await serialOne(quality);let fresh=missing.filter(q=>!finished.has(q));
+ const reusable=missing.filter(q=>recompressor.hasEncoded(q,{phaseX:p.x,phaseY:p.y}));for(const quality of reusable)await serialOne(quality);let fresh=missing.filter(q=>!finished.has(q));
+ if(experimental){metrics.kernel=metrics.kernel==='global-rgb-jpeg-ghost-scanlines'?'selected-codec-rgb-ghosts':metrics.kernel;metrics.codecBackend='cpu';metrics.backend??='cpu';metrics.recompression=structuredClone(selectedParams.recompression);for(const quality of fresh)await serialOne(quality);fresh=[];}
  const policy=fresh.length&&backend==='auto'?acquireGhostJpegPolicy({budget,width,height,count:fresh.length,storage:'segmented',maxWorkers}):null,selectedBackend=policy?.selected??backend;
  if(policy)metrics.autoChoice={selected:policy.selected,actual:'cpu',reason:policy.reason,reused:policy.reused};
  if(fresh.length&&selectedBackend==='webgpu'){
@@ -41,12 +52,12 @@ export async function produceSegmentedGhostPlanes(image,p,{budget,signal,onProgr
   policy?.observe('cpu',performance.now()-started);
  }
  return {...metrics,stages};
- }finally{serialPlane?.release();termsOwner?.release();}
+ }finally{serialPlane?.release();termsOwner?.release();await selectedProbe?.dispose();}
 }
 // Public raw/normalized cubes retain their existing layout and scientific API.
 export async function segmentedGhostMaps(image,p,{normalizedOnly=false,...options}={}){
  const {width,height,cols,rows,qualities,samples}=segmentedGhostShape(image,p,{normalizedOnly}),raw=allocateTypedArray(Float64Array,samples,{label:'ghost-raw-cube'}),maps=normalizedOnly?raw:allocateTypedArray(Float64Array,samples,{label:'ghost-normalized-cube'}),{signal}=options;
  const metrics=await produceSegmentedGhostPlanes(image,p,{...options,onPlane(quality,plane){const qi=qualities.indexOf(quality);for(let i=0;i<plane.length;i++)raw[i*qualities.length+qi]=plane[i];}});
  for(let start=0;start<cols*rows;start+=4096){await controlCheckpoint(signal);for(let i=start;i<Math.min(cols*rows,start+4096);i++){let low=Infinity,high=-Infinity;for(let q=0;q<qualities.length;q++){const value=raw[i*qualities.length+q];low=Math.min(low,value);high=Math.max(high,value);}for(let q=0;q<qualities.length;q++)maps[i*qualities.length+q]=high===low?0:(raw[i*qualities.length+q]-low)/(high-low);}}
- return {engineMetrics:{...metrics,normalizedOnly},data:{qualities:Uint8Array.from(qualities),...(!normalizedOnly?{raw}:{}),maps,cols,rows,blockSize:16,layout:'row,column,quality',roll:[p.x,p.y],sourceDimensions:[width,height],completeExtent:[cols*16,rows*16]},semantics:'Full-resolution global JPEG squared RGB errors averaged in complete16×16 blocks; per-cell normalization across requested qualities. Circular phase is exact over source dimensions. Ghost evidence is not a tampering probability or recovered JPEG quality.'};
+ return {engineMetrics:{...metrics,normalizedOnly},data:{qualities:Uint8Array.from(qualities),...(!normalizedOnly?{raw}:{}),maps,cols,rows,blockSize:16,layout:'row,column,quality',roll:[p.x,p.y],sourceDimensions:[width,height],completeExtent:[cols*16,rows*16]},semantics:metrics.recompression?'Experimental selected-codec squared RGB errors averaged in complete16×16 cells; per-cell normalization across requested codec parameter levels. Native circular phase protocol is retained; its grid is not evidence of the selected codec block geometry.':'Full-resolution global JPEG squared RGB errors averaged in complete16×16 blocks; per-cell normalization across requested qualities. Circular phase is exact over source dimensions. Ghost evidence is not a tampering probability or recovered JPEG quality.'};
 }

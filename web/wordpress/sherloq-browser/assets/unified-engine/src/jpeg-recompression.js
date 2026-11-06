@@ -1,9 +1,10 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {validateRecompressionOptions} from './recompression-plan.js';
 import {observeJpegGrayCpu} from './jpeg-gray-curve-gpu.js';
 import {gpuJpegGrayLosses} from './jpeg-gray-curve-stage.js';
 import {parameters,gray,rows} from './pixel-utils.js';
 import {checkAbort,requireValue} from './errors.js';
-export const recompressionParams=(p={})=>parameters(p,{});
+export const recompressionParams=(input={})=>{const{recompression,...rest}=input,p=parameters(rest,{});if(recompression!==undefined)p.recompression=validateRecompressionOptions(recompression);return p;};
 // Shared raw grayscale losses, independent of normalization/model/panel settings.
 export async function recompressionLosses(image,qualities,hooks={},context={}) {
   requireValue(qualities.length>0&&qualities.every((q,i)=>Number.isInteger(q)&&q>=0&&q<=100&&(!i||q>qualities[i-1])),'Ordered JPEG qualities required');
@@ -29,5 +30,6 @@ export async function recompressionLosses(image,qualities,hooks={},context={}) {
 }
 export async function jpegRecompression(image,p,hooks,context) {
   const qualities=Uint8Array.from({length:101},(_,i)=>i),{raw,metrics}=await recompressionLosses(image,Array.from(qualities),hooks,context);
-  return {data:{qualities,raw,units:'mean_absolute_pixel_error_0_255',qualityZero:'codec-minimum-quality'},engineMetrics:metrics,layers:[],semantics:'Historical grayscale JPEG recompression curve, qualities 0–100 inclusive. Raw mean absolute pixel differences in 0–255 units; neither percentages nor a count of previous compressions. The aligned double-JPEG detector remains separate.'};
+  const experimental=metrics.experimentalRecompression===true;
+  return {data:{qualities,raw,...(experimental?{experimentalRecompression:true,recompressionPlan:metrics.recompressionPlan,probeAxis:metrics.probeAxis,probeLevels:metrics.probeLevels}:{}),units:'mean_absolute_pixel_error_0_255',qualityZero:'codec-minimum-quality'},engineMetrics:metrics,layers:[],semantics:experimental?'Experimental grayscale recompression curve for the selected codec. Each level recompresses the same integer-gray Original once; decoded RGB is converted with the same integer-gray rule. Palette levels are actual color counts. This curve is not a JPEG quality estimate or a validated manipulation detector.':'Historical grayscale JPEG recompression curve, qualities 0–100 inclusive. Raw mean absolute pixel differences in 0–255 units; neither percentages nor a count of previous compressions. The aligned double-JPEG detector remains separate.'};
 }

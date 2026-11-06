@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {DISPLAY_PREVIEW_MAX_SIDE,DISPLAY_PREVIEW_MAX_PIXELS} from './preview-limits.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
 import {samplePixels} from './display-sampling.js';
 import {ZERO_PALETTE} from './zero-palette.js';
@@ -11,8 +12,8 @@ export const previewUnavailable=message=>{throw new EngineError('PREVIEW_UNAVAIL
 export function previewRoom(budget){return Math.max(0,budget.limit-(budget.retained??0)-(budget.active??0)-(budget.cacheBytes??0));}
 export function reservePreview(budget,bytes){requireValue(Number.isSafeInteger(bytes)&&bytes>=0,'Invalid provisional workspace.');if(bytes>previewRoom(budget))throw new EngineError('MEMORY_LIMIT','No preview workspace without evicting the native result.');return budget.reserve(bytes);}
 export function cachedPreviewGeometry(width,height,preview={},budget,{bytesPerPixel=96,fixedBytes=0,minimumSide=1,nestedReaderBytes=3*MiB+65536}={}){
- requireValue([width,height].every(v=>Number.isSafeInteger(v)&&v>0),'Invalid cached source geometry.');const {maxSide=128,maxPixels=2048**2,maxWorkingBytes=128*MiB}=preview;
- requireValue(Number.isSafeInteger(maxSide)&&maxSide>=minimumSide&&maxSide<=2048&&Number.isSafeInteger(maxPixels)&&maxPixels>0&&maxPixels<=2048**2&&Number.isSafeInteger(maxWorkingBytes)&&maxWorkingBytes>=0,'Invalid cached preview bounds.');
+ requireValue([width,height].every(v=>Number.isSafeInteger(v)&&v>0),'Invalid cached source geometry.');const {maxSide=DISPLAY_PREVIEW_MAX_SIDE,maxPixels=DISPLAY_PREVIEW_MAX_PIXELS,maxWorkingBytes=128*MiB}=preview;
+ requireValue(Number.isSafeInteger(maxSide)&&maxSide>=minimumSide&&maxSide<=DISPLAY_PREVIEW_MAX_SIDE&&Number.isSafeInteger(maxPixels)&&maxPixels>0&&maxPixels<=DISPLAY_PREVIEW_MAX_PIXELS&&Number.isSafeInteger(maxWorkingBytes)&&maxWorkingBytes>=0,'Invalid cached preview bounds.');
  // Byte stores may reserve their own bounded staging window (including the
  // ZERO masked-vote reader and two default IndexedDB read-cache pages).
  // Leave it genuinely free instead of double-paying

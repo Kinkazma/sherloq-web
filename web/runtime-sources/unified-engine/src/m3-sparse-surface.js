@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {WaveletStripPool} from './wavelet-strip-pool.js';
 import {needsBiomeFormation,biomeFormationSelectionCounts} from './sparse-biome-correspondence.js';
 import {biomeAreaMetadataBytes} from './sparse-biome-area.js';

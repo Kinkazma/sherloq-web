@@ -14,6 +14,26 @@ export async function describeEnergy(image,compressed,{signal,account=()=>{}}={}
   for(let x=0;x<w;x++){const i=y*w+x,j=i*3;gray[i]=energyGrayPixel(Math.abs(a[j]-b[j]),Math.abs(a[j+1]-b[j+1]),Math.abs(a[j+2]-b[j+2]),x>=vectorEnd);}
   await checkpoint();
  }
+ await filterEnergyGray(gray,horizontal,energy,w,h,checkpoint);
+ checkAbort(signal);return {gray,energy};
+}
+
+// A synthesis is already an RGB residual field. It is never subtracted from
+// Original and never recompressed to manufacture neighbouring quality planes.
+export async function describeEnergyFromResidualRGB(image,{signal,account=()=>{}}={}){
+ const {width:w,height:h,data}=image,n=w*h;
+ requireValue(image.format==='rgb8'&&Number.isInteger(w)&&Number.isInteger(h)&&w>0&&h>0&&Number.isSafeInteger(n)&&data instanceof Uint8Array&&data.length===n*3,'Complete RGB8 residual field required.');
+ checkAbort(signal);account(n*16);const gray=new Float32Array(n),horizontal=new Float64Array(n),energy=new Float32Array(n),vectorEnd=w-w%4;
+ let yielded=performance.now();const checkpoint=async()=>{checkAbort(signal);if(performance.now()-yielded>=8){await controlCheckpoint(signal);yielded=performance.now();}};
+ for(let y=0;y<h;y++){
+  for(let x=0;x<w;x++){const i=y*w+x,j=i*3;gray[i]=energyGrayPixel(data[j],data[j+1],data[j+2],x>=vectorEnd);}
+  await checkpoint();
+ }
+ await filterEnergyGray(gray,horizontal,energy,w,h,checkpoint);
+ checkAbort(signal);return {gray,energy};
+}
+
+async function filterEnergyGray(gray,horizontal,energy,w,h,checkpoint){
  // Native CV_32F box filter accumulates rows/columns in binary64; retain its
  // rolling order and REFLECT_101 at tiny images and outer edges.
  for(let y=0;y<h;y++){
@@ -26,5 +46,4 @@ export async function describeEnergy(image,compressed,{signal,account=()=>{}}={}
   for(let y=0;y<h;y++){const current=sum+horizontal[reflect101(y+3,h)*w+x];energy[y*w+x]=current*(1/49);sum=current-horizontal[reflect101(y-3,h)*w+x];}
   await checkpoint();
  }
- checkAbort(signal);return {gray,energy};
 }

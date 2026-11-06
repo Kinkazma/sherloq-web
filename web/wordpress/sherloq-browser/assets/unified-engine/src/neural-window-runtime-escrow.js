@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue} from './errors.js';
 import {neuralWindowAck} from './neural-window-job-owner.js';
 /** Worker-side mirror of one Window runtime capacity. The existing parent

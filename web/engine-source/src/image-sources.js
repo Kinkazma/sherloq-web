@@ -7,10 +7,28 @@ import {decodePagedJpegRows} from './jpeg-dct-paged.js';
 import {prepareOrientedSourceCache} from './oriented-source-cache.js';
 import {inspectPngSource} from './png-header-source.js';
 import {decodeTiffBlocks,tiffStreamPlan} from './tiff-stream.js';
+import {selectTiffOriginalBacking,createTiffImportRetirement} from './tiff-original-memory.js';
 import {decodePngRows,pngStreamPlan} from './png-stream.js';
 import {EngineError,checkAbort} from './errors.js';
 import {createBlobSource} from './blob-source.js';import {createTemporarySession} from './temporary-storage.js';import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurface} from './rgb-surface.js';import {inspectJpegBlob,decodeJpegRows,JPEG_ID,jpegCodec} from './jpeg.js';
 export function contiguousSurface(pixels,budget){const store={byteLength:pixels.data.byteLength,storage:'memory',readInto(target,offset){target.set(pixels.data.subarray(offset,offset+target.length));return target;}};const surface=createRgbSurface(store,{width:pixels.width,height:pixels.height,budget,ownsStore:false});let closed=false;const dispose=surface.dispose;surface.dispose=()=>{closed=true;return dispose();};const alive=()=>{if(closed)throw new EngineError('DISPOSED','Pixel surface disposed.');};surface.readSampledWindow=(tile,options={})=>{alive();return samplePixels(pixels,tile,{budget,...options,alive});};return surface;}
+// A RAM Original may later need segmented working/output storage. Its lazy
+// session belongs to that Original, never to a disposable result or crop view.
+export function attachImageTemporarySession(record,{budget,temporarySessionId,onTemporarySession,createSession=createTemporarySession}={}){
+ if(record.ensureTemporarySession||record.session||record.originalSource||record.temporarySessionOwner)return record;
+ let session,pending,closing=false,closed=false,disposal;
+ const owner={get hasResources(){return!!(session||pending);},
+  async ensure({signal}={}){
+   checkAbort(signal);if(closing||closed)throw new EngineError('DISPOSED','Original temporary storage is retiring.');if(session)return session;
+   if(!pending){const task=(async()=>{const value=await createSession({budget,signal,id:temporarySessionId});session=value;onTemporarySession?.({id:value.id,backend:value.backend});checkAbort(signal);if(closing||closed)throw new EngineError('DISPOSED','Original temporary storage is retiring.');return value;})();pending=task;void task.finally(()=>{if(pending===task)pending=null;}).catch(()=>{});}
+   return pending;
+  },
+  dispose(){if(closed)return Promise.resolve();if(disposal)return disposal;closing=true;
+   const task=(async()=>{await pending?.catch(()=>{});if(session){await session.dispose();session=null;}closed=true;})();disposal=task;void task.finally(()=>{if(disposal===task)disposal=null;}).catch(()=>{});return task;
+  }
+ };
+ record.temporarySessionOwner=owner;record.ensureTemporarySession=options=>owner.ensure(options);Object.defineProperty(record,'session',{configurable:true,enumerable:true,get:()=>session});return record;
+}
 // Transaction: no handle is published until all pixels and provenance are ready.
 export async function loadSegmentedJpeg(blob,{budget,signal,onProgress,temporarySessionId,onTemporarySession,getTemporarySession:providedSession}={}){
  const source=createBlobSource(blob,{budget});let session,sessionPending,store,surface;
@@ -21,7 +39,9 @@ export async function loadSegmentedJpeg(blob,{budget,signal,onProgress,temporary
  }
  try{
   const sha256=await source.sha256({signal,onProgress:fraction=>onProgress?.({phase:'original-sha256',fraction})});checkAbort(signal);
-  const header=await inspectJpegBlob(source,{signal}),n=header.sourceWidth*header.sourceHeight,
+  const header=await inspectJpegBlob(source,{signal,allowCmyk:true});
+  if(header.channels===4){source.dispose();return await loadExtendedImage(blob,{name:blob.name,layout:'segmented',budget,signal,onProgress,temporarySessionId,onTemporarySession});}
+  const n=header.sourceWidth*header.sourceHeight,
    coefficientBytes=header.progressive?Math.ceil(header.sourceWidth/8)*Math.ceil(header.sourceHeight/8)*64*6:0,
    paged=header.progressive||blob.size+32*1024**2>512*1024**2,
    decodeAllowance=paged?67*1024**2:Math.max(blob.size+coefficientBytes+32*1024**2,jpegCodec.memoryBytes())+9*1024**2,
@@ -32,7 +52,7 @@ export async function loadSegmentedJpeg(blob,{budget,signal,onProgress,temporary
   checkAbort(signal);
   surface=createRgbSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget});
   const oriented=await prepareOrientedSourceCache(surface,{budget,temporarySession:session,signal,onProgress});surface=oriented.surface;
-  const provenance={decoder:JPEG_ID,chroma:header.chroma,...(paged?{coefficientStorage:'global-virtual-arrays',coefficientCacheBytes:8*1024**2}:{}),layout:'segmented-scanlines',orientation:header.orientation,orientationApplied:true,sourceSize:[header.sourceWidth,header.sourceHeight],icc:header.icc?'present, not applied (native policy)':'absent',depth:8,alpha:'absent',interpolation:'none'};
+  const provenance={decoder:JPEG_ID,format:'jpeg',sourceFormat:'jpeg',chroma:header.chroma,...(paged?{coefficientStorage:'global-virtual-arrays',coefficientCacheBytes:8*1024**2}:{}),layout:'segmented-scanlines',orientation:header.orientation,orientationApplied:true,sourceSize:[header.sourceWidth,header.sourceHeight],icc:header.icc?'present, not applied (native policy)':'absent',depth:8,alpha:'absent',interpolation:'none'};
   return {kind:'image',segmented:true,ownsTemporarySession:!providedSession,source,store,surface,get session(){return session;},ensureTemporarySession,sha256,provenance,retainedBytes:0,metrics:{decodeMs,...decode,...oriented.metrics,storage:store.storage,temporaryBackend:session?.backend??null,temporaryFallback:session?.fallback??null,temporaryBytes:session?store.byteLength+(oriented.metrics.orientationCacheBytes??0):0,originalBlobBytes:blob.size,originalBlobResidency:'browser-managed; not measured as zero RAM'}};
  }catch(error){try{try{await surface?.dispose();if(!surface)await store?.dispose();}finally{if(!providedSession)await session?.dispose();}}catch(cleanup){error.temporaryCleanupError={code:cleanup.code??'STORAGE_IO',message:cleanup.message};}finally{source.dispose();}throw error;}
 }
@@ -44,10 +64,10 @@ export function disposeSegmentedImage(record){
   let done=false,pending;owners.set(owner,()=>{if(done)return;if(pending)return pending;const task=Promise.resolve().then(()=>owner.dispose()).then(()=>{done=true;onDone?.();});pending=task;void task.finally(()=>{if(pending===task)pending=null;}).catch(()=>{});return task;});
  };
  for(const [key,owner]of record.pixelStoreCaches??[])remember(state.dependencies,owner,()=>{if(record.pixelStoreCaches?.get(key)===owner)record.pixelStoreCaches.delete(key);});
- for(const key of ['plotsCache','emCache','waveletCache','blockingCache','frequencyCache','prnuCache','resamplingCache','fourierPresentationGpu','fourierPreview','noisesnifferCache','noisesnifferColdPreview','stereoCache','thumbnailAnalysis','energyCache','energyScoreGpu','ghostCache','biomesCache','ghostCellRetirements','ghostProxyCache','zeroPreview','zeroAnalysis','doubleJpegOwner','rgbRecompression']){
+ for(const key of ['plotsCache','emCache','waveletCache','blockingCache','frequencyCache','prnuCache','resamplingCache','fourierPresentationGpu','fourierPreview','noisesnifferCache','noisesnifferColdPreview','stereoCache','thumbnailAnalysis','energyCache','synthesisEnergyCache','synthesisWholeEnergyCache','energyPreparationContexts','energyScoreGpu','ghostCache','biomesCache','ghostCellRetirements','ghostProxyCache','zeroPreview','zeroAnalysis','doubleJpegOwner','rgbRecompression','selectedRecompression','selectedGhostRecompression','recompressionCache','sourceRegionRecompressionCache']){
   const owner=record[key];remember(state.dependencies,owner,()=>{if(record[key]===owner)record[key]=null;});
  }
- remember(state.surfaces,record.surface);if(record.ownsTemporarySession!==false)remember(state.sessions,record.session);remember(state.sources,record.source);
+ remember(state.surfaces,record.surface);if(record.ownsTemporarySession!==false)remember(state.sessions,record.temporarySessionOwner??record.session);remember(state.sources,record.source);
  // Cache owners may still owe source-window ACKs. Their Original surface,
  // temporary backing and encoded source stay alive until those debts retire.
  const task=(async()=>{await retireCompositeOwners([...state.dependencies.values()]);await retireCompositeOwners([...state.surfaces.values()]);await retireCompositeOwners([...state.sessions.values()]);await retireCompositeOwners([...state.sources.values()]);})();state.task=task;void task.finally(()=>{if(state.task===task)state.task=null;}).catch(()=>{});return task;
@@ -65,10 +85,14 @@ export async function loadSegmentedPng(blob,{header,animationDetected=false,budg
   if(!fits)await ensureTemporarySession({signal});store=await createSegmentedBytes(n*3,{budget,storage:fits?'memory':'temporary',temporarySession:session,signal});
   const started=performance.now(),decode=await decodePngRows(source,header,store,{budget,signal,onProgress:f=>onProgress?.({phase:'decode',fraction:f})}),decodeMs=performance.now()-started;
   checkAbort(signal);
+  // decodePngRows has flushed RGB and retired its last encoded read in finally.
+  // Keep the decode cache during import, then retire large encoded copies; the
+  // original Blob and SHA prefix states remain available for certified reads.
+  const encodedCacheReleasedBytes=source.byteLength>32*1024**2?source.evictCachedRanges():0;
   surface=createRgbSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget});
   const oriented=await prepareOrientedSourceCache(surface,{budget,temporarySession:session,signal,onProgress});surface=oriented.surface;
-  const provenance={decoder:'libpng-1.6.43/emscripten-4.0.15/scanlines-v1',format:'png',layout:'segmented-scanlines',orientation:header.orientation,orientationApplied:true,sourceSize:[header.sourceWidth,header.sourceHeight],sourceDepth:header.depth,analysisDepth:8,interlace:header.interlace,icc:header.icc?'present, not applied (native policy)':'absent',alpha:header.alpha?'present, native IMREAD_COLOR conversion; not retained':'absent',interpolation:'none',frames:'static PNG'};
-  return {kind:'image',segmented:true,source,store,surface,get session(){return session;},ensureTemporarySession,sha256,provenance,retainedBytes:0,metrics:{decodeMs,...decode,...oriented.metrics,storage:store.storage,temporaryBackend:session?.backend??null,temporaryFallback:session?.fallback??null,temporaryBytes:session?store.byteLength+(oriented.metrics.orientationCacheBytes??0):0,originalBlobBytes:blob.size,originalBlobResidency:'browser-managed; not measured as zero RAM'}};
+  const provenance={decoder:'libpng-1.6.43/emscripten-4.0.15/scanlines-v1',format:'png',sourceFormat:'png',layout:'segmented-scanlines',orientation:header.orientation,orientationApplied:true,sourceSize:[header.sourceWidth,header.sourceHeight],sourceDepth:header.depth,analysisDepth:8,interlace:header.interlace,icc:header.icc?'present, not applied (native policy)':'absent',alpha:header.alpha?'present, native IMREAD_COLOR conversion; not retained':'absent',interpolation:'none',frames:'static PNG'};
+  return {kind:'image',segmented:true,source,store,surface,get session(){return session;},ensureTemporarySession,sha256,provenance,retainedBytes:0,metrics:{decodeMs,...decode,...oriented.metrics,encodedCacheReleasedBytes,storage:store.storage,temporaryBackend:session?.backend??null,temporaryFallback:session?.fallback??null,temporaryBytes:session?store.byteLength+(oriented.metrics.orientationCacheBytes??0):0,originalBlobBytes:blob.size,originalBlobResidency:'browser-managed; not measured as zero RAM'}};
  }catch(error){try{try{await surface?.dispose();if(!surface)await store?.dispose();}finally{await session?.dispose();}}catch(cleanup){error.temporaryCleanupError={code:cleanup.code??'STORAGE_IO',message:cleanup.message};}finally{source.dispose();}throw error;}
 }
 export async function loadSegmentedTiff(blob,{header,budget,signal,onProgress,temporarySessionId,onTemporarySession}={}){
@@ -79,14 +103,20 @@ export async function loadSegmentedTiff(blob,{header,budget,signal,onProgress,te
  try{
   const sha256=await source.sha256({signal,onProgress:fraction=>onProgress?.({phase:'original-sha256',fraction})});checkAbort(signal);
   ({header}=await inspectTiffSource(source,{signal,account:n=>budget.reserve(n)}));
-  const n=header.sourceWidth*header.sourceHeight,plan=tiffStreamPlan(header),fits=n*3+plan.workingBytes+2*1024**2<=budget.limit-budget.retained-budget.active;
-  if(!fits)await ensureTemporarySession({signal});store=await createSegmentedBytes(n*3,{budget,storage:fits?'memory':'temporary',temporarySession:session,signal});
+  const n=header.sourceWidth*header.sourceHeight,plan=tiffStreamPlan(header),admission=selectTiffOriginalBacking(plan,{budget,outputBytes:n*3}),fits=admission.storage==='memory';
+  if(!fits)await ensureTemporarySession({signal});store=await createSegmentedBytes(n*3,{budget,storage:fits?'memory':'temporary',temporarySession:session,getTemporarySession:ensureTemporarySession,signal});
   const started=performance.now(),decode=await decodeTiffBlocks(source,header,store,{budget,signal,onProgress:f=>onProgress?.({phase:'decode',fraction:f})}),decodeMs=performance.now()-started;
   checkAbort(signal);
   surface=createRgbSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:1,budget});
-  const provenance={decoder:'libtiff-4.6.0/emscripten-4.0.15/blocks-v1',format:'tiff',...(header.bigTiff?{container:'BigTIFF'}:{}),layout:'segmented-strips-tiles',orientation:header.orientation,orientationApplied:true,tiffOrientation:'native strip/tile transforms and placement',sourceSize:[header.sourceWidth,header.sourceHeight],sourceDepth:header.depth,analysisDepth:8,icc:header.icc?'present, not applied (native policy)':'absent',alpha:header.alpha?'present, native IMREAD_COLOR conversion; not retained':'absent',interpolation:'none',frames:'first image only'};
+  const provenance={decoder:decode.decoder??'libtiff-4.6.0/emscripten-4.0.15/blocks-v1',format:'tiff',sourceFormat:'tiff',...(header.bigTiff?{container:'BigTIFF'}:{}),layout:'segmented-strips-tiles',orientation:header.orientation,orientationApplied:true,tiffOrientation:decode.tiffOrientation??'native strip/tile transforms and placement',sourceSize:[header.sourceWidth,header.sourceHeight],sourceDepth:header.depth,analysisDepth:8,icc:header.icc?'present, not applied (native policy)':'absent',alpha:header.alpha?'present, native IMREAD_COLOR conversion; not retained':'absent',interpolation:'none',frames:'first image only'};
   return {kind:'image',segmented:true,source,store,surface,get session(){return session;},ensureTemporarySession,sha256,provenance,retainedBytes:0,metrics:{decodeMs,...decode,storage:store.storage,temporaryBackend:session?.backend??null,temporaryFallback:session?.fallback??null,temporaryBytes:session?store.byteLength:0,originalBlobBytes:blob.size,originalBlobResidency:'browser-managed; not measured as zero RAM'}};
- }catch(error){try{try{await surface?.dispose();if(!surface)await store?.dispose();}finally{await session?.dispose();}}catch(cleanup){error.temporaryCleanupError={code:cleanup.code??'STORAGE_IO',message:cleanup.message};}finally{source.dispose();}throw error;}
+ }catch(error){
+  if(error?.cleanupOwner){
+   const owner=createTiffImportRetirement([error.cleanupOwner,surface??store,session,source]);
+   let primary=error;if(!Object.isExtensible(primary)){primary=new AggregateError([error],'TIFF import failed before all resource retirements acknowledged.');primary.code=error.code??'CLEANUP_FAILED';}
+   primary.cleanupOwner=owner;try{await owner.dispose();}catch(cleanup){primary.cleanupErrors=[...(primary.cleanupErrors??[]),cleanup];}throw primary;
+  }
+  try{try{await surface?.dispose();if(!surface)await store?.dispose();}finally{await session?.dispose();}}catch(cleanup){error.temporaryCleanupError={code:cleanup.code??'STORAGE_IO',message:cleanup.message};}finally{source.dispose();}throw error;}
 }
 export function requireSegmentedOperation(operation){if(operation!=='inspection.histogram')throw new EngineError('UNSUPPORTED_LAYOUT','This operation has no qualified segmented-image adapter yet. Full resolution and analysis parameters were preserved.');}
 

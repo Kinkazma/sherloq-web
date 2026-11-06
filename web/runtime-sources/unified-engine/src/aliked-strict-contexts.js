@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {planAdmittedNativeContexts} from './admitted-native-context-cover.js';
 import {alikedShape} from './aliked-worker.js';
 import {roundEven} from './pixel-utils.js';

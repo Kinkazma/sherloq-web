@@ -1,8 +1,8 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {selectedEnergyCodec} from './energy-stream.js';
 import {allocateTypedArray,registerArrayViews} from './allocation.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {requireValue,EngineError,checkAbort,controlCheckpoint,createCooperator} from './errors.js';
-import {createRgbRecompression} from './jpeg-rgb-stream.js';
 const HEAP_BYTES=64*1024**2;
 
 // Feed consecutive decoded RGB bands into the existing native descriptor. Its
@@ -62,12 +62,12 @@ export async function createElaCellRows(width,height,block,{budget,signal,onProg
  };
 }
 
-export async function segmentedElaCellPlane(image,quality,block,{budget,signal,onProgress,gridOffset,nativeKernel='auto'}={}){
+export async function segmentedElaCellPlane(image,quality,block,{budget,signal,onProgress,gridOffset,nativeKernel='auto',params}={}){
  const {width,height}=image.surface.descriptor;let reader,result;
  try{
   reader=await createElaCellRows(width,height,block,{budget,signal,gridOffset,nativeKernel,onProgress:f=>onProgress?.({phase:'ela-cell-describe',fraction:f})});
-  image.rgbRecompression??=createRgbRecompression(image,budget);
-  const metrics=await image.rgbRecompression.visit(quality,{signal,onProgress,onBand:(a,b,position)=>reader.push(a,b,position)});
+  const codec=await selectedEnergyCodec(image,params,budget);
+  const metrics=await codec.visit(quality,{signal,onProgress,onBand:(a,b,position)=>reader.push(a,b,position)});
   result=await reader.finish();checkAbort(signal);
   return {...result,metrics:{...metrics,...reader.metrics,descriptorHeapMaximumBytes:HEAP_BYTES,descriptorHaloRows:Math.min(height,block+16),descriptorResultBytes:result.rows*result.cols*57}};
  }catch(error){result?.release();throw error;}finally{reader?.dispose();}

@@ -1,3 +1,4 @@
+import {sherloq7cParams} from './sherloq7c-adapter.js';
 import {resamplingAnalysisParams} from './resampling-analysis.js';
 import {elaCellParams,elaCellPipeline} from './ela-cell-pipeline.js';
 import {recompressionParams,jpegRecompression} from './jpeg-recompression.js';
@@ -32,6 +33,7 @@ import {resamplingFourierParams,resamplingFourierAdmission,resamplingFourierData
 
 // Budget multipliers include working arrays, retained result and defensive copy.
 export const PIXEL_OPERATIONS=Object.freeze({
+ 'inspection.sherloq7c':{validate:sherloq7cParams,backends:['cpu','webgpu','auto'],scratchFactor:0,extraBytes:0,native:'Sherloq7C native RGB16 graph optimization',exports:['json'],kernelStatus:'experimental-qualified-private-corpus',parity:'Measured numerical precision is declared per backend; RGB16 and float64 output retained.'},
  'ela.biomes':{backends:['cpu','webgpu'],validate:elaCellParams,compute:elaCellPipeline,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,resultMemory:'owned-source-copy',native:'core/ela_biomes.py cell path + ela_background.py + ela_ghosts.py; original RGB and native cKDTree',exports:['json','npz'],kernelStatus:'validated-synthetic',parity:'Original-resolution native cell profiles, robust peers, Ghost phases and seeded segmentation. Descriptor maximum measured error2.39e-7; qualified corpus and limits in docs/ELA-CELLS.md. Pixel-energy analysis remains a separate operation.'},
  'ela.energy':{backends:['cpu','webgpu','auto'],validate:energyParams,compute:energyPipeline,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,resultMemory:'owned-source-copy',native:'core/ela_biomes.py energy path + ela_energy.py + ela_energy_auto.py; original-byte JPEG tables',exports:['json','npz'],kernelStatus:'validated-synthetic',parity:'51 complete native original-byte energy paths exact through real API workers in Chrome/Firefox/WebKit; 84 preparation,624 mask,512 colour and scientific-profile corpora. Three useful JPEG workers at1MP, cache/NPZ/cancellation verified. Energy-only; no legacy peer biomes or complete analysis.'},
  ...METADATA_OPERATIONS,
@@ -66,7 +68,7 @@ export const PIXEL_OPERATIONS=Object.freeze({
  'noise.minmax':{validate:minmaxParams,compute:minmax,scratchFactor:12,extraBytes:0,native:'minmax.py',exports:['json']},
  'pixels.defects':{validate:defectParams,compute:defectPixels,scratchFactor:60,extraBytes:0,native:'defect_pixels.py',exports:['json','csv']}
 });
-export const pixelCapabilities=()=>Object.entries(PIXEL_OPERATIONS).map(([id,op])=>({id,status:'partial',kernelStatus:op.kernelStatus??'validated-synthetic',backends:op.backends?.slice()??['cpu'],regions:['full-frame'],defaults:op.validate(),exports:op.exports.slice(),kernelParity:op.parity??'bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending',native:op.native,...(op.methods?{methods:op.methods.slice()}:{}),...(op.requirements?{requirements:op.requirements.slice()}: {})}));
+export const pixelCapabilities=()=>Object.entries(PIXEL_OPERATIONS).map(([id,op])=>({id,status:'partial',kernelStatus:op.kernelStatus??'validated-synthetic',backends:[...new Set(['cpu','auto',...(op.backends??[])])],regions:['full-frame'],defaults:op.validate(),exports:op.exports.slice(),kernelParity:op.parity??'bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending',native:op.native,...(op.methods?{methods:op.methods.slice()}:{}),...(id==='detail.gradient'?{methodBackends:{sobel:['cpu','auto','webgpu'],krawetz:['cpu','auto']},backendConstraints:{webgpu:{methods:['sobel'],sourceLayouts:['segmented','bounded-parameter-preview'],sourceRegionShapes:['identity','rectangle']}}}:{}),...(op.requirements?{requirements:op.requirements.slice()}: {})}));
 export function payloadBytes(value){
  if(ArrayBuffer.isView(value))return value.byteLength;
  if(typeof value==='string')return value.length*2;

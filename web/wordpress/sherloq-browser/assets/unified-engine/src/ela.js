@@ -1,19 +1,24 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {equalizationState} from './equalization-settings.js';
+import {validateRecompressionOptions} from './recompression-plan.js';
 // Port of core/ela.py and core/utility.py; codec is a separate reference boundary.
-import { requireValue, checkpoint, checkAbort } from './errors.js';
+import { requireValue, checkpoint, createCooperator, checkAbort } from './errors.js';
+// Native scheduler.yield has no timer clamp; retain it when available.
+// Timer-only browsers cooperate by elapsed work instead of by every chunk.
+export const createElaCooperator=signal=>globalThis.scheduler?.yield?()=>checkpoint(signal):createCooperator(signal);
 export const DEFAULT_ELA_PARAMS = Object.freeze({quality:75,scale:50,contrast:20,linear:false,grayscale:false});
 export const DEFAULT_ENERGY_PROFILE = Object.freeze({id:'standard',name:'Conservateur',percentiles:Object.freeze([1,99]),deviations:Object.freeze([5,5]),adaptive:false,available:true});
 export function validateParams(input = {}) {
   requireValue(input && typeof input === 'object' && !Array.isArray(input), 'Parameters must be an object.');
   if(input.equalization!==undefined)equalizationState(input.equalization);
-  input=Object.fromEntries(Object.entries(input).filter(([k])=>k!=='equalization'));
+  const recompression=validateRecompressionOptions(input.recompression);
+  input=Object.fromEntries(Object.entries(input).filter(([k])=>k!=='equalization'&&k!=='recompression'));
   requireValue(Object.keys(input).every(k => Object.hasOwn(DEFAULT_ELA_PARAMS,k)), 'Unknown ELA parameter.');
   const p = {...DEFAULT_ELA_PARAMS,...input};
   for (const [key,lo,hi] of [['quality',1,100],['scale',1,100],['contrast',0,100]])
     requireValue(Number.isInteger(p[key]) && p[key]>=lo && p[key]<=hi, `Invalid ${key}.`);
   requireValue(typeof p.linear === 'boolean' && typeof p.grayscale === 'boolean', 'Boolean controls required.');
-  return p;
+  return recompression?{...p,recompression}:p;
 }
 export function validatePixels(p) {
   requireValue(p?.format === 'rgb8' && Number.isSafeInteger(p.width) && Number.isSafeInteger(p.height) && p.width>0 && p.height>0, 'Expected positive RGB8 dimensions.');
@@ -25,22 +30,22 @@ export async function elaBase(original,recompressed,linear,{signal,onProgress}={
   requireValue(original instanceof Uint8Array && recompressed instanceof Uint8Array && original.length===recompressed.length, 'Mismatched input pair.');
   checkAbort(signal);
   const out=linear ? new Uint8Array(original.length) : new Float32Array(original.length);
-  const f=Math.fround;
+  const f=Math.fround,cooperate=createElaCooperator(signal);
   for(let start=0;start<out.length;start+=196608) {
-    await checkpoint(signal);
+    await cooperate();
     const end=Math.min(out.length,start+196608);
     for(let i=start;i<end;i++) out[i]=linear ? Math.abs(original[i]-recompressed[i]) : f(f(Math.sqrt(Math.abs(f(f(original[i]/255)-f(recompressed[i]/255)))))*255);
     onProgress?.(end/out.length);
   }
-  return out;
+  checkAbort(signal);return out;
 }
 export async function elaRender(base,params,{signal,onProgress}={}) {
   const p=validateParams(params), c=Math.min(127,Math.trunc(p.contrast/100*128));
   const lut=new Uint8Array(256);
   for(let x=0;x<256;x++) lut[x]=Math.max(0,Math.min(255,(x*(-255)+c*255)/(2*c-255)));
-  const out=new Uint8Array(base.length), factor=Math.fround(p.linear?p.scale:p.scale/20);
+  const cooperate=createElaCooperator(signal),out=new Uint8Array(base.length), factor=Math.fround(p.linear?p.scale:p.scale/20);
   for(let start=0;start<out.length;start+=196608) {
-    await checkpoint(signal);
+    await cooperate();
     const end=Math.min(out.length,start+196608);
     for(let i=start;i<end;i++) out[i]=lut[Math.min(255,roundEven(Math.fround(base[i]*factor)))];
     if(p.grayscale) for(let i=start;i<end;i+=3) {
@@ -50,5 +55,5 @@ export async function elaRender(base,params,{signal,onProgress}={}) {
     }
     onProgress?.(end/out.length);
   }
-  return out;
+  checkAbort(signal);return out;
 }

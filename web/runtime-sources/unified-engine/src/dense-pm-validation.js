@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Native dense descriptor domain validation. For any IEEE float32 x:
 // finite(x) && abs(x)<2 iff -2<x && x<2. NaN/inf fail both comparisons.
 // Input arrays remain owned by their caller; no mutation or metadata cache.

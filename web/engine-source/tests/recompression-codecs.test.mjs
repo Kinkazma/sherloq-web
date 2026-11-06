@@ -1,0 +1,30 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+import {roundTripRecompressionCodec,boundCodecWasm} from '../src/recompression-codec-worker.js';
+import {recompressionCodecWorkspace} from '../src/recompression-codec-client.js';
+import {RECOMPRESSION_FORMATS,recompressionPaletteColors} from '../src/recompression-plan.js';
+const originalFetch=globalThis.fetch;globalThis.fetch=async(url,...args)=>String(url).startsWith('file:')?new Response(fs.readFileSync(new URL(url))):originalFetch(url,...args);
+const width=33,height=31,data=Uint8Array.from({length:width*height*3},(_,i)=>(i*53+i%17*9)%256);
+function readLeb(bytes,state){let n=0,s=0,b;do{b=bytes[state.at++];n+=(b&127)*2**s;s+=7;}while(b&128);return n;}
+function sections(bytes){let state={at:8},out=[];while(state.at<bytes.length){const id=bytes[state.at++],size=readLeb(bytes,state);out.push({id,body:bytes.slice(state.at,state.at+size)});state.at+=size;}return out;}
+test('Wasm memory admission changes only the memory declaration',()=>{const original=new Uint8Array(fs.readFileSync(new URL('../vendor/media/magick/x86/magick.wasm',import.meta.url))),bounded=boundCodecWasm(original,32*1024**2);assert(WebAssembly.validate(bounded));const a=sections(original),b=sections(bounded);assert.equal(a.length,b.length);for(let i=0;i<a.length;i++){assert.equal(a[i].id,b[i].id);if(a[i].id!==5)assert.deepEqual(a[i].body,b[i].body);else{const state={at:0};assert.equal(readLeb(b[i].body,state),1);assert.equal(readLeb(b[i].body,state),1);assert.equal(readLeb(b[i].body,state),256);assert.equal(readLeb(b[i].body,state),512);}}assert.throws(()=>boundCodecWasm(original,1024));});
+for(const format of RECOMPRESSION_FORMATS.filter(f=>f.id!=='jpeg'&&f.id!=='heic'))for(const lossless of [false,true].filter(mode=>mode?format.lossless:format.lossy))test(format.id+' '+(lossless?'lossless':'lossy')+' real complete encode/decode',async()=>{
+ const stage={codec:format.id,lossless,quality:lossless?null:75,requestedQuality:75},plan=recompressionCodecWorkspace({width,height},stage),out=new Uint8Array(data.length);let written=0,sourceReads=0;
+ const provenance=await roundTripRecompressionCodec({width,height,stage,nativeBytes:plan.nativeBytes},{async request(action,value){if(action==='encoded-output-admission'){assert.equal(format.id,'jxl');return {admittedBytes:value.bytes};}if(action==='source-band'){sourceReads++;return {bytes:data.slice(value.y*width*3,(value.y+value.rows)*width*3)};}assert.equal(action,'decoded-band');assert.equal(value.y*width*3,written);out.set(value.bytes,written);written+=value.bytes.length;return{};}});
+ assert.equal(written,data.length);assert.equal(provenance.codec,format.id);assert(provenance.encodedBytes>0);assert(provenance.codecHeapPeakBytes<=plan.nativeBytes);assert(sourceReads>0);if(lossless)assert.deepEqual(out,data);else assert(out.some((v,i)=>v!==data[i]));
+ if(!lossless&&format.qualityKind==='palette-colors'){assert.equal(provenance.paletteColors,recompressionPaletteColors(75));assert.equal(provenance.lossMechanism,'palette-quantization');assert.equal(provenance.compression,format.id==='png'?'DEFLATE':'BI_RLE8');assert.equal(provenance.encodedColorType,'indexed');assert.equal(provenance.encodedBitDepth,8);}
+});
+
+for(const codec of ['png','bmp'])for(const quality of [1,100])test(codec+' palette endpoint Q'+quality+' keeps a real compressed format and bounded colors',async()=>{
+ const stage={codec,lossless:false,quality,requestedQuality:quality,paletteColors:recompressionPaletteColors(quality)},plan=recompressionCodecWorkspace({width,height},stage),out=new Uint8Array(data.length);
+ const result=await roundTripRecompressionCodec({width,height,stage,nativeBytes:plan.nativeBytes},{async request(action,value){if(action==='source-band')return{bytes:data.slice(value.y*width*3,(value.y+value.rows)*width*3)};assert.equal(action,'decoded-band');out.set(value.bytes,value.y*width*3);return{};}});
+ const colors=new Set();for(let i=0;i<out.length;i+=3)colors.add((out[i]<<16)|(out[i+1]<<8)|out[i+2]);assert(colors.size<=stage.paletteColors);if(quality===1)assert.equal(colors.size,2);assert(out.some((v,i)=>v!==data[i]));assert.equal(result.paletteColors,stage.paletteColors);assert.equal(result.compression,codec==='png'?'DEFLATE':'BI_RLE8');assert.equal(result.lossless,false);assert.equal(result.encodedBitDepth,8);
+});
+for(const codec of ['png','bmp'])test(codec+' direct190/191-color settings reach the native quantizer unchanged',async()=>{
+ for(const paletteColors of [190,191]){
+  const stage={codec,lossless:false,quality:null,requestedQuality:75,paletteColors},plan=recompressionCodecWorkspace({width,height},stage),out=new Uint8Array(data.length);
+  const result=await roundTripRecompressionCodec({width,height,stage,nativeBytes:plan.nativeBytes},{async request(action,value){if(action==='source-band')return{bytes:data.slice(value.y*width*3,(value.y+value.rows)*width*3)};out.set(value.bytes,value.y*width*3);return{};}});
+  const colors=new Set();for(let i=0;i<out.length;i+=3)colors.add((out[i]<<16)|(out[i+1]<<8)|out[i+2]);assert(colors.size<=paletteColors);assert.equal(result.paletteColors,paletteColors);assert.equal(result.quantization.maximumColors,paletteColors);assert.equal(result.quality,null);assert.equal(result.requestedQuality,75);assert.equal(result.compression,codec==='png'?'DEFLATE':'BI_RLE8');
+ }
+});
+
+test('shared Wasm bounds preserve the shared flag and HEIC refuses missing isolation explicitly',async()=>{const bytes=Uint8Array.of(0,97,115,109,1,0,0,0,5,5,1,3,1,244,3),bounded=boundCodecWasm(bytes,16*1024**2);assert(WebAssembly.validate(bounded));const section=sections(bounded)[0],state={at:0};assert.equal(readLeb(section.body,state),1);assert.equal(readLeb(section.body,state),3);assert.equal(readLeb(section.body,state),1);assert.equal(readLeb(section.body,state),256);await assert.rejects(roundTripRecompressionCodec({width:33,height:31,stage:{codec:'heic',lossless:false,quality:75},nativeBytes:128*1024**2},{request(){throw Error('Source should not be read without isolation.');}}),{code:'ISOLATION_REQUIRED'});});

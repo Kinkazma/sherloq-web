@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {fetchM3Asset} from './m3-asset.js';
 import {requireValue} from './errors.js';
 export const XFEAT_GLUE_GLOBAL_ASSETS=Object.freeze({

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {observedDerivativeWorkingBytes} from './source-region-observed-derivatives.js';
 import {observedSeparationWorkingBytes} from './source-region-observed-separation.js';
 import {ramByteCacheBytes} from './ram-byte-cache.js';

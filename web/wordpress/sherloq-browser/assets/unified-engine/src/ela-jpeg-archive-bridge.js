@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {ElaJpegArchiveGpu} from './ela-jpeg-archive-gpu.js';
 import {ElaJpegCoefficientEncoder} from './ela-jpeg-coeff-encoder.js';
 import {allocateTypedArray} from './allocation.js';

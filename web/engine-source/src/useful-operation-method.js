@@ -16,6 +16,7 @@ export function usefulOperationMethod(operation,params={},extras={}){
  if(operation==='jpeg.multiple'||operation==='jpeg.recompression'){
   const method=operation==='jpeg.multiple'?(extras.jpegMethod??'jpeg.multiple'):'jpeg.recompression';return{tool:'jpeg.multiple',method,operation:method};
  }
+ if(operation==='ai.generation.detect')return{tool:operation,method:params.method??'dda',operation};
  if(operation==='detail.gradient')return{tool:operation,method:params.method??'sobel',operation};
  if(operation==='noise.separation')return{tool:operation,method:String(params.mode??0),operation};
  if(operation==='various.ocr')return{tool:operation,method:params.algorithm??params.engine??'ppocr-medium',operation};

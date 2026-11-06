@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "versionLabel": "7C unified native engine 2026-11-03",
+  "emscriptenVersion": "4.0.15",
+  "minimumNodeMajor": 22,
+  "initialMemoryPages": 256,
+  "maximumMemoryPages": 65536,
+  "compilerFlags": [
+    "-O3",
+    "-std=c++17",
+    "-ffp-contract=off",
+    "-msimd128",
+    "-sMODULARIZE=1",
+    "-sEXPORT_ES6=1",
+    "-sENVIRONMENT=web,worker,node",
+    "-sALLOW_MEMORY_GROWTH=1",
+    "-sINITIAL_MEMORY=16777216",
+    "-sMAXIMUM_MEMORY=4294967296",
+    "-sIMPORTED_MEMORY=1",
+    "-sFILESYSTEM=0",
+    "-sMEMORY_GROWTH_GEOMETRIC_STEP=0",
+    "-sEXPORTED_FUNCTIONS=[\"_tm_create\",\"_tm_destroy\",\"_tm_prepare\",\"_tm_begin\",\"_tm_solve\",\"_tm_seed\",\"_tm_seed_band\",\"_tm_seed_pixel_capacity\",\"_tm_seed_compact\",\"_tm_array\",\"_tm_value\",\"_tm_info\",\"_tm_pack_begin\",\"_tm_pack_step\",\"_tm_pack_info\",\"_tm_project_prepare\",\"_tm_project_band\",\"_tm_project_relayout\",\"_tm_project_trial_band\",\"_tm_project_begin\",\"_tm_project_step\",\"_tm_project_check\",\"_tm_project_value\",\"_tm_project_value_at\",\"_tm_project_values_at\",\"_tm_project_info\"]",
+    "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\",\"HEAPU16\",\"HEAPF64\",\"HEAPF32\"]"
+  ],
+  "exportedFunctions": [
+    "_tm_create",
+    "_tm_destroy",
+    "_tm_prepare",
+    "_tm_begin",
+    "_tm_solve",
+    "_tm_seed",
+    "_tm_seed_band",
+    "_tm_seed_pixel_capacity",
+    "_tm_seed_compact",
+    "_tm_array",
+    "_tm_value",
+    "_tm_info",
+    "_tm_pack_begin",
+    "_tm_pack_step",
+    "_tm_pack_info",
+    "_tm_project_prepare",
+    "_tm_project_band",
+    "_tm_project_relayout",
+    "_tm_project_trial_band",
+    "_tm_project_begin",
+    "_tm_project_step",
+    "_tm_project_check",
+    "_tm_project_value",
+    "_tm_project_value_at",
+    "_tm_project_values_at",
+    "_tm_project_info"
+  ],
+  "exportedRuntimeMethods": [
+    "HEAPU8",
+    "HEAPU16",
+    "HEAPF64",
+    "HEAPF32"
+  ],
+  "variants": [
+    {
+      "name": "ringcert",
+      "source": "experiments/target-memory-ringcert.cpp",
+      "headers": [
+        "experiments/target-memory-ringcert-graph.hpp",
+        "experiments/projection-pixel-forest-native.hpp",
+        "experiments/target-memory-exact-tape.hpp",
+        "experiments/target-memory-packing-neighbors.hpp",
+        "experiments/target-memory-local-neighbors.hpp",
+        "experiments/target-memory-ic0.hpp",
+        "experiments/target-memory-mass-palette.hpp"
+      ],
+      "buildScript": "experiments/target-memory-ringcert-build.sh",
+      "proofScript": "experiments/target-memory-ringcert-proof.py",
+      "loader": "experiments/target-memory-ringcert-kernel.mjs",
+      "wasm": "experiments/target-memory-ringcert-kernel.wasm",
+      "disassembly": "experiments/target-memory-ringcert-kernel.wat",
+      "proofJson": "experiments/target-memory-ringcert-growth-proof.json",
+      "proofModule": "experiments/target-memory-ringcert-growth-proof.mjs"
+    },
+    {
+      "name": "ringcert-general",
+      "source": "experiments/target-memory-ringcert-general.cpp",
+      "headers": [
+        "experiments/target-memory-ringcert-general-graph.hpp",
+        "experiments/projection-pixel-forest-native.hpp",
+        "experiments/target-memory-exact-tape.hpp",
+        "experiments/target-memory-packing-neighbors.hpp",
+        "experiments/target-memory-local-neighbors.hpp",
+        "experiments/target-memory-coefficient-cache.hpp",
+        "experiments/target-memory-ic0.hpp",
+        "experiments/target-memory-mass-palette.hpp"
+      ],
+      "buildScript": "experiments/target-memory-ringcert-general-build.sh",
+      "proofScript": "experiments/target-memory-ringcert-general-proof.py",
+      "loader": "experiments/target-memory-ringcert-general-kernel.mjs",
+      "wasm": "experiments/target-memory-ringcert-general-kernel.wasm",
+      "disassembly": "experiments/target-memory-ringcert-general-kernel.wat",
+      "proofJson": "experiments/target-memory-ringcert-general-growth-proof.json",
+      "proofModule": "experiments/target-memory-ringcert-general-growth-proof.mjs"
+    }
+  ]
+}

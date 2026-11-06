@@ -1,6 +1,6 @@
-import {createEnergyHistogram} from './energy-histogram.js?v=0.31.0';
-import {selectEnergyContext,isEnergyContextCollection} from './energy-context-selection.js?v=0.31.0';
-import {energyHistogramAnalysis,readEnergyWindow} from './energy-native-fields.js?v=0.31.0';
+import {createEnergyHistogram} from './energy-histogram.js?v=0.32.0';
+import {selectEnergyContext,isEnergyContextCollection} from './energy-context-selection.js?v=0.32.0';
+import {energyHistogramAnalysis,readEnergyWindow,energyPlaneCount} from './energy-native-fields.js?v=0.32.0';
 const fail=(code,message)=>{throw Object.assign(Error(message),{code});};
 const check=signal=>{if(signal?.aborted)fail('CANCELLED','Energy context histogram cancelled.');};
 const fields=['energy_scope','energy_low_score','energy_high_score'];
@@ -11,13 +11,13 @@ export function createContextEnergyHistogram(options={}){
  function contextInput(analysis,context,panels){
   let cache=byAnalysis.get(analysis);if(!cache){cache=new Map();byAnalysis.set(analysis,cache);}if(cache.has(context.id))return cache.get(context.id);
   if(!context.nativeMetadata?.energy)fail('INVALID_INPUT','Native context profile metadata is required.');const [x0,y0,x1,y1]=context.bounds,width=x1-x0,height=y1-y0,field=name=>({width,height,async readWindow(rect,{signal}={}){check(signal);const data=await readEnergyWindow(analysis,name,{...rect,x:rect.x+x0,y:rect.y+y0},{engine,signal});return{plane:{width:rect.width,height:rect.height,data},release(){}};}}),local=panels.map(p=>({...p,bbox:p.bbox.map((n,i)=>n-(i%2?y0:x0))}));
-  const data={...analysis.data,width,height,...Object.fromEntries(fields.map(name=>[name,field(name)])),energy_planes:[0,1,2].map(q=>field('energy_plane_'+q)),energy_summary:local,metadata:{...context.nativeMetadata,energy:{...context.nativeMetadata.energy,panels:local}}},scoped={...analysis,data};owners.set(scoped,{original:analysis,bounds:context.bounds});cache.set(context.id,scoped);return scoped;
+  const data={...analysis.data,width,height,...Object.fromEntries(fields.map(name=>[name,field(name)])),energy_planes:Array.from({length:energyPlaneCount(analysis)},(_,q)=>field('energy_plane_'+q)),energy_summary:local,metadata:{...context.nativeMetadata,energy:{...context.nativeMetadata.energy,panels:local}}},scoped={...analysis,data};owners.set(scoped,{original:analysis,bounds:context.bounds});cache.set(context.id,scoped);return scoped;
  }
  function select(analysis,options){
   const contexts=analysis?.data?.metadata?.fragments;if(!Array.isArray(contexts)||!analysis.data.metadata.sourceRegionEvaluation)return null;
   const {width,height}=analysis.data;if(!Number.isSafeInteger(width)||!Number.isSafeInteger(height)||width<1||height<1)fail('INVALID_INPUT','Invalid native Energy source dimensions.');
   const ids=new Set();for(const c of contexts){if(typeof c.id!=='string'||!c.id||ids.has(c.id)||!Array.isArray(c.bounds)||c.bounds.length!==4||c.bounds.some(v=>!Number.isSafeInteger(v))||c.bounds[0]<0||c.bounds[1]<0||c.bounds[2]>width||c.bounds[3]>height||c.bounds[0]>=c.bounds[2]||c.bounds[1]>=c.bounds[3]||typeof c.evaluable!=='boolean')fail('INVALID_INPUT','Invalid exact native Energy context.');ids.add(c.id);}
-  if((analysis.operation??analysis.provenance?.operation)!=='ela.energy'||typeof analysis.id!=='string'||!analysis.id||analysis.draft||analysis.data.preview||analysis.data.metadata.draft||analysis.data.metadata.method!=='ela_energy'||!Number.isSafeInteger(width*height)||width*height>=2**31||!/^[a-f0-9]{64}$/.test(analysis.provenance?.originalSha256??analysis.data.metadata.sourceSha256??''))fail('HISTOGRAM_NATIVE_REQUIRED','A retained native Energy result and original identity are required even when its context is not evaluable.');if(!contexts.length)fail('INVALID_INPUT','An exact native Energy context is required.');let selected;
+  if((analysis.operation??analysis.provenance?.operation)!=='ela.energy'||typeof analysis.id!=='string'||!analysis.id||analysis.draft||analysis.data.preview||analysis.data.metadata.draft||!['ela_energy','ela_energy_synthesis'].includes(analysis.data.metadata.method)||!Number.isSafeInteger(width*height)||width*height>=2**31||!/^[a-f0-9]{64}$/.test(analysis.provenance?.originalSha256??analysis.data.metadata.sourceSha256??''))fail('HISTOGRAM_NATIVE_REQUIRED','A retained native Energy result and original identity are required even when its context is not evaluable.');if(!contexts.length)fail('INVALID_INPUT','An exact native Energy context is required.');let selected;
   if(options.sourceFragment!==undefined&&options.sourceFragment!==null){selected=contexts.find(c=>c.id===options.sourceFragment);if(!selected)fail('INVALID_INPUT','Unknown native Energy context.');}
   const allPanels=analysis.data.energy_summary??[];if(!Array.isArray(allPanels))fail('INVALID_INPUT','Invalid native Energy panel list.');
   if(!selected&&options.referencePanelId!==undefined&&options.referencePanelId!==null){const panel=allPanels.find(p=>p.id===options.referencePanelId);selected=contexts.find(c=>c.id===panel?.sourceContextId||Number.isInteger(panel?.sourceFragment)&&c.id==='native-fragment-'+panel.sourceFragment);}

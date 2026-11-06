@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {alikedNativeParameters} from './aliked-native-parameters.js';
 import {createSHA256} from '../vendor/hash-wasm/hashes.js';
 import {ALIKED_MODELS} from './aliked-assets.js';

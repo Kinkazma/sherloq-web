@@ -1,3 +1,4 @@
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.32.0';
 import {checkAbort,EngineError} from './unified-engine/src/errors.js';
 
 // A full-quality presentation of already retained detections. The temporary
@@ -9,7 +10,7 @@ export async function nativeClonePreview({task,field,source,maxPixels,signal,isC
  if(!operations.includes(task?.operation)||!source||typeof renderRetained!=='function')return null;
  const {width,height}=source,pixels=width*height,bytes=pixels*40+65536;
  if(![width,height,pixels,bytes].every(Number.isSafeInteger)||width<1||height<1||
-    !Number.isSafeInteger(maxPixels)||pixels>maxPixels||Math.max(width,height)>2048)return null;
+    !Number.isSafeInteger(maxPixels)||pixels>maxPixels||Math.max(width,height)>ADAPTIVE_PREVIEW_MAX_SIDE)return null;
  checkAbort(signal);if(!isCurrent())return null;
  let lease,answer,failed=false,failure;
  const started=performance.now();

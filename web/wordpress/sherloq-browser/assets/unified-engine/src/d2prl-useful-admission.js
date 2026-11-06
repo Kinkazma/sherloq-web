@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Native MPS448/896 GPU routes and high-budget1344 qualified on the full-source protocol.
 const minimum896BudgetBytes=2*1024**3,minimum1344BudgetBytes=18*1024**3,minimum1792BudgetBytes=24*1024**3;
 const base=Object.freeze({cpuSides:Object.freeze([448]),gpuSides:Object.freeze([448])});

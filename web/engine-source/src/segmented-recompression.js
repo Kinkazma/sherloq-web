@@ -1,3 +1,9 @@
+import {retireCompositeOwners} from './composite-owner-release.js';
+import {recompressionParallelPlan} from './recompression-codec-client.js';
+import {runRecompressionLanes} from './recompression-parallel.js';
+import {getRecompressionGrayGpu} from './recompression-gray-gpu.js';
+import {createSelectedRgbRecompression,resolveSelectedPlan,selectedPlanFromBase} from './recompression-probe.js';
+import {gray} from './pixel-utils.js';
 import {observeJpegGrayCpu} from './jpeg-gray-curve-gpu.js';
 import {gpuJpegGrayLosses} from './jpeg-gray-curve-stage.js';
 import {wasmAllocationFailure,allocateWasmMemory} from './allocation.js';
@@ -67,7 +73,32 @@ async function nativeSegmentedRecompressionLosses(surface,qualities,options={}){
  return {raw:Float64Array.from(qualities,q=>values.get(q)),metrics:{...result.metrics,recompressions:qualities.length,scheduling:{...plan,preflightExecutions:0,taskExecutions:retry?2:1,retry},kernelMs:elapsed}};
 }
 
+
+// Preserve the historical integer gray conversion before and after the selected
+// RGB codec. Each probe starts from the same gray Original, not the prior probe.
+async function selectedSegmentedLosses(surface,qualities,options,plan){
+ const {budget,signal,onProgress,onQuality,recompressionParams:params}=options,{width,height}=surface.descriptor;requireValue(budget&&qualities.length>0&&qualities.every((q,i)=>Number.isInteger(q)&&q>=0&&q<=100&&(!i||q>qualities[i-1])),'Shared budget and ordered probe qualities required.');
+ const grayscale={descriptor:surface.descriptor,async readWindow(rect,hooks={}){const bytes=rect.width*rect.height*3,release=(hooks.reserve??(n=>budget.reserve(n)))(bytes);let part;try{const data=new Uint8Array(bytes);part=await surface.readWindow(rect,hooks);for(let i=0;i<bytes;i+=3){const v=gray(part.pixels.data[i],part.pixels.data[i+1],part.pixels.data[i+2]);data[i]=data[i+1]=data[i+2]=v;}return{pixels:{width:rect.width,height:rect.height,format:'rgb8',data},release};}catch(error){release();throw error;}finally{await part?.release();}},async readWindowInto(rect,target,hooks={}){let part;try{if(surface.readWindowInto)await surface.readWindowInto(rect,target,hooks);else{part=await surface.readWindow(rect,hooks);target.set(part.pixels.data);}for(let i=0;i<rect.width*rect.height*3;i+=3){const v=gray(target[i],target[i+1],target[i+2]);target[i]=target[i+1]=target[i+2]=v;}return{pixels:{width:rect.width,height:rect.height,format:'rgb8',data:target.subarray(0,rect.width*rect.height*3)},release(){}};}finally{await part?.release();}}};
+ const image={...options.image,surface:grayscale},raw=new Float64Array(qualities.length),levels=[],backend=options.backend??'auto',gpu=options.gpuAllowed!==false&&backend!=='cpu'?getRecompressionGrayGpu(budget):null,probes=[];let recompressions=0,setupMilliseconds=0,cold=false,gpuJobs=0,gpuMilliseconds=0,gpuReadbacks=0,gpuQueueFences=0,workers=1,primary;
+ try{
+  if(backend==='webgpu'&&options.gpuAllowed===false)throw new EngineError('GPU_UNAVAILABLE','The selected CPU reference kernel does not admit a GPU gray-loss stage.');
+  const unique=new Map(),jobs=[];for(let index=0;index<qualities.length;index++){const selected=selectedPlanFromBase(params,plan,{quality:qualities[index],paletteAxis:'sweep',signal}),stage=selected.stage;levels.push({quality:qualities[index],codec:stage.codec,qualityKind:stage.qualityKind,codecQuality:stage.quality,paletteColors:stage.paletteColors??null});let job=unique.get(selected.identity);if(!job){job={quality:qualities[index],indices:[]};unique.set(selected.identity,job);jobs.push(job);}job.indices.push(index);}
+  const parallel=recompressionParallelPlan({budget,width,height,stage:plan.stage,count:jobs.length,maxWorkers:options.maxWorkers??1,extraBytes:gpu?8*1024**2:0}),fractions=new Float64Array(jobs.length),progress=(index,f)=>{fractions[index]=Math.max(fractions[index],f);onProgress?.(fractions.reduce((a,b)=>a+b,0)/jobs.length);};
+  const execution=await runRecompressionLanes(jobs,{budget,workers:parallel.workers,cpuPerWorker:parallel.cpuPerWorker,signal,run:async(job,lane,index,jobSignal)=>{
+   const probe=probes[lane]??=createSelectedRgbRecompression(image,params,{budget,paletteAxis:'sweep',codecLane:lane,exactCapacity:parallel.workers>1,resolvedPlan:plan});let sum=0,metrics,prepared;
+   const visit=onBand=>probe.visit(job.quality,{signal:jobSignal,onProgress:event=>progress(index,event.fraction??0),onBand});
+   // Encode ahead of the serialized GPU reducer. Holding its queue while the
+   // native encoder runs would serialize every supposedly parallel quality.
+   if(gpu){if(parallel.workers>1)prepared=await probe.prepare(job.quality,{signal:jobSignal,onProgress:event=>progress(index,(event.fraction??0)*.8)});const result=await gpu.runQuality(visit,{signal:jobSignal,backend,maximumBandPixels:width*Math.min(32,height),recompressionWasCached:probe.hasEncoded(job.quality)});sum=result.sum;metrics=result.nativeMetrics;gpuJobs+=result.runtime.gpuJobs??0;gpuReadbacks+=result.runtime.gpuReadbacks??0;gpuQueueFences+=result.runtime.queueFences??0;gpuMilliseconds+=result.runtime.kernelMilliseconds??0;setupMilliseconds+=result.runtime.setupMilliseconds??0;cold||=result.runtime.cold===true;}
+   else metrics=await visit((a,b)=>{for(let i=0;i<a.length;i+=3)sum+=Math.abs(a[i]-gray(b[i],b[i+1],b[i+2]));});
+   const value=sum/(width*height);for(const qi of job.indices){raw[qi]=value;onQuality?.(qualities[qi],value);}recompressions+=(metrics.recompressions??0)+(prepared?.recompressions??0);setupMilliseconds+=(metrics.setupMilliseconds??0)+(prepared?.setupMilliseconds??0);cold||=metrics.cold===true||prepared?.cold===true;progress(index,1);
+  }});workers=execution.workers;
+  return{raw,metrics:{backend:gpuJobs?'webgpu':'cpu',codecBackend:'cpu',lossBackend:gpuJobs?'webgpu':'cpu',gpuJobs,gpuReadbacks,gpuQueueFences,gpuMilliseconds,...(gpu?.metrics()??{}),workers,kernel:gpuJobs?'selected-codec-native-gray-GPU-MAE':'selected-codec-gray-recompression',experimentalRecompression:true,recompressions,recompressionPlan:plan,probeAxis:'sweep',probeLevels:levels,grayConversion:'native-integer-gray-before-and-after-RGB-codec',setupMilliseconds,cold,scheduling:parallel}};
+ }catch(error){primary=error;throw error;}finally{await retireCompositeOwners(probes.map(probe=>()=>probe?.dispose()),primary?{primary}:{});}
+}
+
 export async function segmentedRecompressionLosses(surface,qualities,options={}){
+ if(options.recompressionParams?.recompression){const plan=await resolveSelectedPlan(options.recompressionParams,options.image??{surface},{paletteAxis:'sweep',signal:options.signal});if(plan)return selectedSegmentedLosses(surface,qualities,options,plan);}
  const {budget,backend='auto',profile,signal,onProgress,onQuality}=options;
  // Native libjpeg clamps Q0 to Q1. Reuse that same completed codec result;
  // the original/reference route still executes its independent101 qualities.

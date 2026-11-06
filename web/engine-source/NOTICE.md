@@ -1,5 +1,23 @@
 # Attribution and runtime dependencies
 
+SHERLOQ histogram target: the binary64 Newton/PCG kernel in
+native/sherloq7c-target.cpp is compiled with Emscripten 4.0.15, without fast-math
+or contracted floating-point operations. Its wasm32 import permits a 16 MiB
+initial heap and a 4 GiB declared maximum; JavaScript address handling preserves
+unsigned 32-bit pointers. Source, build flags and generated artifact hashes are
+recorded in src/target-kernel.PINNED.json. This memory rebuild preserves the
+native numerical source and arithmetic instructions.
+
+Splicebuster: Davide Cozzolino, Giovanni Poggi and Luisa Verdoliva,
+"Splicebuster: A new blind image splicing detector", IEEE WIFS2015,
+https://doi.org/10.1109/WIFS.2015.7368565 . Original GRIP-UNINA notices and the
+informational/nonprofit license are retained in src/splicebuster/LICENSE.txt.
+The browser adaptation includes bounded CPU/WASM SIMD statistics and WebGPU
+feature pooling, with global PCA and Gaussian-mixture estimation. No pretrained
+weights or author endorsement are implied. Reconstruction sources and exact
+Eigen headers are in native/splicebuster/; dependency notices are retained there.
+See docs/SPLICEBUSTER.md for result semantics, API and numerical scope.
+
 SHERLOQ browser engine: ports of the SHERLOQ native ELA, histogram, pixel rank,
 bit-plane, extrema and isolated-pixel algorithms, plus new browser integration code. SHERLOQ by Guido Bartoli, GPL-3.0 (see LICENSE and upstream
 https://github.com/GuidoBartoli/sherloq). Existing native improvements remain

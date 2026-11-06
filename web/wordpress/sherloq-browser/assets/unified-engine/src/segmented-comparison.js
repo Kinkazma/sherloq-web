@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {comparisonResidentButteraugli} from './comparison-resident-butteraugli.js';
 import {allocateTypedArray} from './allocation.js';
 import {runPagedComparisonJobs} from './comparison-paged-pool.js';

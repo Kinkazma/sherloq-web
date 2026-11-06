@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue,normalizeResourceError} from './errors.js';
 import {classicSiftRetirement,classicSiftRetireAll} from './classic-sift-retirement.js';
 let sequence=0;

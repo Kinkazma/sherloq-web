@@ -1,4 +1,5 @@
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.31.0';
+import {AI_DETECTOR_GROUP,AI_DETECTOR_TOOLS,AI_DETECTOR_OPERATION} from './ai-detector-tools.js?v=0.32.0';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.32.0';
 export const toolGroups = [
   {
     "en": "General",
@@ -76,6 +77,11 @@ export const toolGroups = [
         "en": "Global Adjustments",
         "fr": "Réglages globaux",
         "id": "inspection.adjust"
+      },
+      {
+        "en": "SHERLOQ Equalization",
+        "fr": "Égalisation SHERLOQ",
+        "id": "inspection.sherloq7c"
       },
       {
         "en": "Reference Comparison",
@@ -176,6 +182,12 @@ export const toolGroups = [
         "newFeature": "red",
         "fr": "Noisesniffer",
         "id": "noise.noisesniffer"
+      },
+      {
+        "en": "Splicebuster",
+        "newFeature": "red",
+        "fr": "Splicebuster",
+        "id": "m2.splicebuster"
       }
     ]
   },
@@ -335,4 +347,8 @@ export const toolGroups = [
   }
 ];
 
+toolGroups.splice(toolGroups.findIndex(group=>group.en==='AI Solutions')+1,0,{...AI_DETECTOR_GROUP,items:[]});
 for(const tool of EXTENSION_TOOLS)toolGroups.find(group=>group.en===tool.group).items.push({...tool});
+for(const tool of AI_DETECTOR_TOOLS.filter(tool=>tool.operation===AI_DETECTOR_OPERATION))toolGroups.find(group=>group.en===AI_DETECTOR_GROUP.en).items.push({...tool});
+const detectorOrder=new Map(AI_DETECTOR_TOOLS.map((tool,index)=>[tool.id,index]));
+toolGroups.find(group=>group.en===AI_DETECTOR_GROUP.en).items.sort((a,b)=>(detectorOrder.get(a.id)??Infinity)-(detectorOrder.get(b.id)??Infinity));

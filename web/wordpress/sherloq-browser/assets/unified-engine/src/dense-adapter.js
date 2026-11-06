@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createDenseTracePrefixCache} from './dense-trace-prefix-cache.js';
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,cleanupDenseOwners} from './dense-owner-retirement.js';
 import {createDenseScopedWindowProduct,DENSE_SCOPED_RECIPE} from './dense-scoped-window-product.js';

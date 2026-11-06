@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Private, unactivated whole-layer prototype. The complete official core stays.
 import{EngineError,checkAbort,requireValue}from'./errors.js';
 import{getExecutionScheduler}from'./execution-scheduler.js';

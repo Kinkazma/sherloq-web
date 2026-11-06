@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 export const TESSERACT_USEFUL_PRECISION='Tesseract-native-LSTM-f32-tables/1';
 export const TESSERACT_NATIVE_VERSION='5.1.0-288-g2a9c1';
 const SHA=/^[a-f0-9]{64}$/;

@@ -64,10 +64,11 @@
 .generation-data{min-width:0;overflow:auto}.generation-data-title{font-size:12px;letter-spacing:.04em;margin:4px 0 12px;color:var(--muted,#777)}
 #tool-results .generation-data table{width:100%;margin-top:0}.generation-data>table>tr>th{width:22%}
 .generation-evaluation{margin-top:22px;padding-top:16px;border-top:1px solid var(--line,#9996)}
-.generation-evaluation h3{font-size:13px;margin:0 0 5px}.generation-evaluation>a{display:inline!important;margin:0!important;font-size:11px;color:var(--accent,#32659a)}
+.generation-evaluation h3{font-size:13px;margin:0 0 5px}.generation-evaluation>a,.generation-evaluation>.generation-study-source{display:inline!important;margin:0!important;font-size:11px;color:var(--accent,#32659a)}
 #tool-results .generation-evaluation table{width:100%;margin:12px 0 0;font-size:11px}
 #tool-results .generation-evaluation tbody th{font-weight:400}#tool-results .generation-evaluation th,#tool-results .generation-evaluation td{padding:7px 8px}
 #tool-results .generation-evaluation td{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}.generation-rate-emphasis{font-weight:750}
+#tool-results .generation-evaluation .generation-study-overall>th{box-shadow:inset 2px 0 0 #b5474766}
 @container (max-width:680px){.generation-layout{grid-template-columns:minmax(0,1fr)}.generation-gauge{max-width:480px;width:100%;box-sizing:border-box;justify-self:center}.generation-data{width:100%}}
 
 .individual-region-owner{padding:8px;border-bottom:1px solid var(--line)}.detection-text-option{padding:7px 2px;font-size:11px;white-space:normal}

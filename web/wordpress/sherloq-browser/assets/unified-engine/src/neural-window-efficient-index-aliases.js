@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue} from './errors.js';
 // Same canonicalization already qualified for EfficientLoFTR index kernels.
 // WGSL aliases are the same type; canonical aliases avoid nominal Metal structs.

@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdint.h>
-static TIFF* tif;static uint64_t source_size,position;static uint32_t width,height,block_width,block_height,out_width,out_height;static uint32_t* raster;static unsigned char* rgb;static int tiled,failure;
+static TIFF* tif;static uint64_t source_size,position;static uint32_t width,height,block_width,block_height,out_width,out_height;static uint32_t* raster;static int tiled,failure;
 EM_ASYNC_JS(int, encoded_tiff_read, (unsigned char* target,unsigned length,unsigned low,unsigned high), {
  try{await Module['readEncoded'](target,length,high*4294967296+low);return 1;}
  catch(error){Module['readFailure']=error;return 0;}
@@ -17,7 +17,7 @@ static toff_t seek_input(thandle_t h,toff_t offset,int whence){(void)h;if(whence
 static int close_input(thandle_t h){(void)h;return 0;}static toff_t size_input(thandle_t h){(void)h;return source_size;}
 static int error_handler(TIFF* t,void* user,const char* module,const char* format,va_list ap){(void)t;(void)user;(void)module;char message[512];vsnprintf(message,sizeof(message),format,ap);failure=(strstr(message,"alloc")||strstr(message,"memory")||strstr(message,"Memory"))?2:1;return 1;}
 static int warning_handler(TIFF* t,void* user,const char* module,const char* format,va_list ap){(void)t;(void)user;(void)module;(void)format;(void)ap;return 1;}
-void tiff_stream_close(void){if(tif)TIFFClose(tif);tif=NULL;free(raster);raster=NULL;free(rgb);rgb=NULL;}
+void tiff_stream_close(void){if(tif)TIFFClose(tif);tif=NULL;free(raster);raster=NULL;out_width=out_height=0;}
 int tiff_stream_open(double length,unsigned maximum_allocation){
  tiff_stream_close();failure=0;source_size=(uint64_t)length;position=0;
  TIFFOpenOptions* options=TIFFOpenOptionsAlloc();if(!options){failure=2;return 0;}TIFFOpenOptionsSetMaxSingleMemAlloc(options,maximum_allocation);TIFFOpenOptionsSetErrorHandlerExtR(options,error_handler,NULL);TIFFOpenOptionsSetWarningHandlerExtR(options,warning_handler,NULL);
@@ -27,12 +27,32 @@ int tiff_stream_open(double length,unsigned maximum_allocation){
  if(!block_width||!block_height||(uint64_t)block_width*block_height>maximum_allocation/4)return 0;
  // Preserve libtiff orientation within each native strip/tile. The caller
  // reproduces OpenCV vertical block placement, without a second pixel flip.
- raster=malloc((size_t)block_width*block_height*4);rgb=malloc((size_t)block_width*block_height*3);if(!raster||!rgb){failure=2;return 0;}return 1;
+ raster=malloc((size_t)block_width*block_height*4);if(!raster){failure=2;return 0;}return 1;
 }
 int tiff_stream_block(unsigned x,unsigned y){
- if(!tif||x>=width||y>=height||x%block_width||y%block_height)return 0;
+ out_width=out_height=0;
+ if(!tif||!raster||x>=width||y>=height||x%block_width||y%block_height)return 0;
  if(!(tiled?TIFFReadRGBATile(tif,x,y,raster):TIFFReadRGBAStrip(tif,y,raster)))return 0;
  out_width=width-x<block_width?width-x:block_width;out_height=height-y<block_height?height-y:block_height;const unsigned raster_height=tiled?block_height:out_height;
- for(unsigned row=0;row<out_height;row++)for(unsigned col=0;col<out_width;col++){const uint32_t pixel=raster[(raster_height-1-row)*block_width+col];unsigned char* out=rgb+(row*out_width+col)*3;out[0]=TIFFGetR(pixel);out[1]=TIFFGetG(pixel);out[2]=TIFFGetB(pixel);}return 1;
+ if(!out_width||!out_height||out_width>block_width||out_height>raster_height||
+    (uint64_t)out_width*out_height*3>(uint64_t)block_width*block_height*4){failure=1;out_width=out_height=0;return 0;}
+ // Match the previous bottom-up source row, including full tile stride and
+ // cropped bottom tiles. This swaps scalar RGBA words without another buffer.
+ for(unsigned row=0;row<raster_height/2;row++)for(unsigned col=0;col<block_width;col++){
+  const size_t top=(size_t)row*block_width+col,bottom=(size_t)(raster_height-1-row)*block_width+col;
+  const uint32_t pixel=raster[top];raster[top]=raster[bottom];raster[bottom]=pixel;
+ }
+ // Read the complete RGBA word before its RGB bytes may overwrite it.
+ // out_width<=block_width gives 3*(row*out_width+col)+2 <
+ // 4*(row*block_width+col+1): no future source word can be overwritten.
+ for(unsigned row=0;row<out_height;row++)for(unsigned col=0;col<out_width;col++){
+  const uint32_t pixel=raster[(size_t)row*block_width+col];
+  unsigned char* out=(unsigned char*)raster+((size_t)row*out_width+col)*3;
+  out[0]=TIFFGetR(pixel);out[1]=TIFFGetG(pixel);out[2]=TIFFGetB(pixel);
+ }return 1;
 }
-unsigned tiff_stream_width(void){return width;}unsigned tiff_stream_height(void){return height;}unsigned tiff_stream_block_width(void){return block_width;}unsigned tiff_stream_block_height(void){return block_height;}unsigned tiff_stream_out_width(void){return out_width;}unsigned tiff_stream_out_height(void){return out_height;}unsigned char* tiff_stream_data(void){return rgb;}int tiff_stream_error(void){return failure;}
+unsigned tiff_stream_width(void){return width;}unsigned tiff_stream_height(void){return height;}unsigned tiff_stream_block_width(void){return block_width;}unsigned tiff_stream_block_height(void){return block_height;}unsigned tiff_stream_out_width(void){return out_width;}unsigned tiff_stream_out_height(void){return out_height;}unsigned char* tiff_stream_data(void){
+ if(!raster||!out_width||!out_height||
+    (uint64_t)out_width*out_height*3>(uint64_t)block_width*block_height*4)return NULL;
+ return (unsigned char*)raster;
+}int tiff_stream_error(void){return failure;}

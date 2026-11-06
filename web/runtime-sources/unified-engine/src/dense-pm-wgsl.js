@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {densePmBlockedWgsl} from './dense-pm-blocked-wgsl.js';
 // Sixteen lanes per query, eight rows per causal tile (four core, four halo). Only lower halo is needed:
 // every native parent has transformed dy<=0 and |dy|<=deltaFront.

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {M3_ORT_ASSETS} from './m3-ort-assets.js';
 import {requireValue} from './errors.js';
 const page=65536;

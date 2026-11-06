@@ -1,8 +1,9 @@
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.32.0';
 import {ghostSpatialContexts} from './unified-engine/src/ghost-spatial-presentation.js';
 import {GHOST_PALETTES} from './unified-engine/src/ghost-palettes.js';
-import {createAdaptivePreview} from './adaptive-preview.js?v=0.31.0';
+import {createAdaptivePreview} from './adaptive-preview.js?v=0.32.0';
 import {createCooperator} from './unified-engine/src/errors.js';
-const MAX_SIDE=2048,MAX_READ=4096,adaptive=createAdaptivePreview();
+const MAX_SIDE=ADAPTIVE_PREVIEW_MAX_SIDE,MAX_READ=4096,adaptive=createAdaptivePreview();
 const fail=(code,message)=>{throw Object.assign(Error(message),{code});};
 const check=signal=>{if(signal?.aborted)fail('CANCELLED','Retained Ghost preview cancelled.');};
 const descriptor=(s,format,w,h)=>typeof s?.id==='string'&&s.id.length>0&&s.id.length<=4096&&Number.isSafeInteger(s.revision)&&s.revision>=0&&s.format===format&&s.width===w&&s.height===h;

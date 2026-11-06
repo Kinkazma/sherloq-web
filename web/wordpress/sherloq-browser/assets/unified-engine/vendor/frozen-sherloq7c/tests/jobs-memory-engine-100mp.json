@@ -1,0 +1,1 @@
+[{"worker":"/tests/memory-engine-worker.mjs","side":10000,"pattern":"periodic4","path":"auto","budgetMiB":4096,"pngRoundtrip":true}]

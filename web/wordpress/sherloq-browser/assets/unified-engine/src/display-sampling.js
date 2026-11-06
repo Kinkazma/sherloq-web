@@ -1,10 +1,11 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {DISPLAY_PREVIEW_MAX_PIXELS} from './preview-limits.js';
 import {requireValue,checkAbort,createCooperator} from './errors.js';
 import {allocateOwnedTypedArray} from './allocation.js';
 import {rasterPresentation} from './raster-presentation.js';
 
 // Presentation only: analysis and exports continue to read exact source pixels.
-export const MAX_DISPLAY_PIXELS=8*1024**2;
+export const MAX_DISPLAY_PIXELS=DISPLAY_PREVIEW_MAX_PIXELS;
 const unbudgeted={reserve:()=>()=>{}};
 export function displayGeometry({width,height},{x,y,w,h,step=1}){
  requireValue([x,y,w,h,step].every(Number.isSafeInteger)&&x>=0&&y>=0&&w>0&&h>0&&step>0&&x<=width-w&&y<=height-h,'Invalid display window.');

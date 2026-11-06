@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {D2PRL_MODEL_IDENTITY} from './d2prl-model-identity.js';
 import {configuredShas} from './useful-owner-facts.js';
 import {noisesnifferOwnerRetirement as ownerRetirement} from './noisesniffer-owner-retirement.js';

@@ -1,21 +1,22 @@
-import {defaultBackend} from './backend-mode-preferences.js?v=0.31.0';
-import {legacyBatchPixelDomain,LEGACY_BATCH_PIXEL_DOMAIN_VERSION} from './legacy-batch-pixel-domain.js?v=0.31.0';
-import {originalBatchTaskDomain} from './original-source-regions-batch.js?v=0.31.0';
-import {compileBatchPreparedInputDomain,admitBatchPreparedInputDomain,captureBatchPreparedInput,batchPreparedViewSupport} from './batch-prepared-input-domain.js?v=0.31.0';
-import {localFeaturePolicy} from './feature-policy.js?v=0.31.0';
-import {createToolClient} from './tool-client.js?v=0.31.0';
-import {createAutomaticClient} from './automatic-client.js?v=0.31.0';
-import {createCompositeClient} from './composite-client.js?v=0.31.0';
-import {batchTask,batchRecipeView,recipeKey,imageScore,studyScores,catalogRecipe,batchCatalog,batchPairSelection,restoredBatchPair,assertBatchScientificScope,batchScopeSupport} from './batch-catalog.js?v=0.31.0';
+import {defaultBackend} from './backend-mode-preferences.js?v=0.32.0';
+import {isBatchSherloq,normalizeBatchSherloqRecipe} from './batch-sherloq-settings.js?v=0.32.0';
+import {legacyBatchPixelDomain,LEGACY_BATCH_PIXEL_DOMAIN_VERSION} from './legacy-batch-pixel-domain.js?v=0.32.0';
+import {originalBatchTaskDomain} from './original-source-regions-batch.js?v=0.32.0';
+import {compileBatchPreparedInputDomain,admitBatchPreparedInputDomain,captureBatchPreparedInput,batchPreparedViewSupport} from './batch-prepared-input-domain.js?v=0.32.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.32.0';
+import {createToolClient} from './tool-client.js?v=0.32.0';
+import {createAutomaticClient} from './automatic-client.js?v=0.32.0';
+import {createCompositeClient} from './composite-client.js?v=0.32.0';
+import {batchTask,batchRecipeView,recipeKey,imageScore,studyScores,catalogRecipe,batchCatalog,batchPairSelection,restoredBatchPair,assertBatchScientificScope,batchScopeSupport} from './batch-catalog.js?v=0.32.0';
 import {serializeEngineError,createCooperator} from './unified-engine/src/errors.js';
-import {evidenceContext,cloneEvidence,mapEvidence,regionEvidence,compactEvidence} from './batch-evidence.js?v=0.31.0';
-import {nextFrame,safeName} from './batch-import.js?v=0.31.0';
-import {detectedRectangles} from './sparse-controls.js?v=0.31.0';
-import {neuralDisplays} from './neural-clone-ui.js?v=0.31.0';
-import {rectangleComplement,offsetPolygons,rectanglePolygon} from './batch-scope-geometry.js?v=0.31.0';
-import {renderBatchCorroboration} from './batch-corroboration-export.js?v=0.31.0';
-import {archiveBatchAttempt} from './batch-restoration.js?v=0.31.0';
-import {BATCH_RESUME_SCHEMA,BATCH_RESUME_PLAN_SCHEMA,batchResumeKey,batchResumeImageCompatible,batchPlannedIdentity,batchResumePlan,batchResumePlanCompatible,batchScientificSignature,resumableBatchRun,batchBlobSha256,saveBatchRunEvidence,restoreBatchRunEvidence} from './batch-run-resume.js?v=0.31.0';
+import {evidenceContext,cloneEvidence,mapEvidence,regionEvidence,compactEvidence} from './batch-evidence.js?v=0.32.0';
+import {nextFrame,safeName} from './batch-import.js?v=0.32.0';
+import {detectedRectangles} from './sparse-controls.js?v=0.32.0';
+import {neuralDisplays} from './neural-clone-ui.js?v=0.32.0';
+import {rectangleComplement,offsetPolygons,rectanglePolygon} from './batch-scope-geometry.js?v=0.32.0';
+import {renderBatchCorroboration} from './batch-corroboration-export.js?v=0.32.0';
+import {archiveBatchAttempt} from './batch-restoration.js?v=0.32.0';
+import {BATCH_RESUME_SCHEMA,BATCH_RESUME_PLAN_SCHEMA,batchResumeKey,batchResumeImageCompatible,batchPlannedIdentity,batchResumePlan,batchResumePlanCompatible,batchScientificSignature,resumableBatchRun,batchBlobSha256,saveBatchRunEvidence,restoreBatchRunEvidence} from './batch-run-resume.js?v=0.32.0';
 
 const check=signal=>signal?.throwIfAborted();
 // Every retained evidence owner must acknowledge retirement before its context closes.
@@ -28,6 +29,15 @@ async function retireEvidence(owners,failure,hasFailure=failure!==undefined){
 export const BATCH_DISPLAY_POLICY=Object.freeze({schema:'sherloq.batch-final-display/1',version:1,singleCloneMethod:'biomes',multipleCloneMethods:'corroboration',minimumMethods:2,biomesOnly:true});
 const polygon=r=>[[r.x0,r.y0],[r.x1-1,r.y0],[r.x1-1,r.y1-1],[r.x0,r.y1-1]];
 const dataBlob=value=>new Blob([JSON.stringify(value,null,2)],{type:'application/json'});
+const wholeOriginalOnly=recipes=>recipes.length>0&&recipes.every(isBatchSherloq);
+// The ignored selection may change while this inspection runs. The encoded
+// Original itself must remain the exact source captured before the first await.
+function captureBatchWholeOriginal(image,{signal}={}){
+ check(signal);const blob=image.blob,identity=()=>JSON.stringify([image.id,image.sourceSha256,image.hash,image.width,image.height]),captured=identity();
+ return()=>{check(signal);if(image.blob!==blob||identity()!==captured)throw Object.assign(Error('La source originale du lot a changé pendant l’analyse.'),{code:'BATCH_SOURCE_REGIONS_CHANGED'});};
+}
+const wholeOriginalEvidenceImage=image=>({...image,preparation:undefined,originalSourceRegions:undefined,sourceRegionCeiling:undefined});
+
 export async function batchComparisonScope(left,right,{width,height,offset=left.height+32,sourceSha256}={}){
  const a=assertBatchScientificScope(left),b=assertBatchScientificScope(right),shift=region=>({...region,y0:region.y0+offset,y1:region.y1+offset,...(region.polygon?{polygon:offsetPolygons([region.polygon],0,offset)[0]}:{})});
  const regions=[...a.regions.map(region=>structuredClone(region)),...b.regions.map(shift)],excluded=[...a.excluded,...offsetPolygons(b.excluded,0,offset),...rectangleComplement(regions,width,height)],polygons=[...new Map(excluded.map(poly=>[JSON.stringify(poly),poly])).values()];
@@ -72,12 +82,22 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
   return {candidates,selection};
  }
  async function execute(image,recipe,artifacts,options,signal){
-  check(signal);localFeaturePolicy.assertTaskAvailable(recipe);const path='resultats/'+image.id+'/'+safeName(recipe.id),run={toolId:recipe.id,title:recipe.fr,operation:recipe.operation,kind:recipe.kind,methodKey:recipeKey(recipe),backend:recipe.backend??defaultBackend(recipe.operation,recipe.params),params:structuredClone(recipe.params),signal:structuredClone(recipe.signal),...(recipe.view!==undefined?{view:structuredClone(recipe.view)}:{}),status:'running',files:[]};image.runs.push(run);event({phase:'tool',image,recipe,run});let owner,entries;
+  check(signal);localFeaturePolicy.assertTaskAvailable(recipe);const wholeImage=isBatchSherloq(recipe),path='resultats/'+image.id+'/'+safeName(recipe.id),run={toolId:recipe.id,title:recipe.fr,operation:recipe.operation,kind:recipe.kind,methodKey:recipeKey(recipe),backend:recipe.backend??defaultBackend(recipe.operation,recipe.params),params:structuredClone(recipe.params),signal:structuredClone(recipe.signal),...(recipe.view!==undefined?{view:structuredClone(recipe.view)}:{}),status:'running',files:[]};image.runs.push(run);event({phase:'tool',image,recipe,run});let owner,entries;
   try{
-   const scope=scientificFiltering?assertBatchScientificScope(image):undefined,current=captureBatchPreparedInput(image,{signal}),signalImage=scope?image:{...image,preparation:undefined};let domainCapabilities;if(['detail.wavelets','noise.blocking'].includes(recipe.operation)||image.preparation?.sourceRegionDomain&&recipe.operation!=='composite'){owner=recipe.kind==='automatic'?await getAutomatic():await getTool();domainCapabilities=(await owner.capabilities()).sourceRegions;check(signal);}let sourceRegionDomain=await originalBatchTaskDomain(image,recipe.operation,{capabilities:domainCapabilities,params:recipe.params});const legacyInput=!!scope&&!sourceRegionDomain;if(legacyInput){sourceRegionDomain=await legacyPreparedDomain(image,scope,signal);if(recipe.operation!=='composite'){owner=recipe.kind==='automatic'?await getAutomatic():await getTool();domainCapabilities=(await owner.capabilities()).sourceRegions;check(signal);}run.sourceRegionInputOrigin='prepared-batch-scope';}run.scopeSupport=batchScopeSupport(recipe,scope);if(sourceRegionDomain)run.sourceRegionDomain=structuredClone(sourceRegionDomain);
+   const scope=scientificFiltering&&!wholeImage?assertBatchScientificScope(image):undefined,current=wholeImage?captureBatchWholeOriginal(image,{signal}):captureBatchPreparedInput(image,{signal}),signalImage=wholeImage?wholeOriginalEvidenceImage(image):scope?image:{...image,preparation:undefined};
+   let domainCapabilities,sourceRegionDomain=null,legacyInput=false;
+   if(wholeImage){
+    run.inputScope='whole-image';run.sourceRegionInputOrigin='whole-original-image';run.requestedSelectionNotApplied=!!(image.preparation||image.originalSourceRegions||image.sourceRegionCeiling);
+    run.scopeSupport={...batchScopeSupport(recipe),requestedSelectionNotApplied:run.requestedSelectionNotApplied};
+   }else{
+    if(['detail.wavelets','noise.blocking'].includes(recipe.operation)||image.preparation?.sourceRegionDomain&&recipe.operation!=='composite'){owner=recipe.kind==='automatic'?await getAutomatic():await getTool();domainCapabilities=(await owner.capabilities()).sourceRegions;check(signal);}
+    sourceRegionDomain=await originalBatchTaskDomain(image,recipe.operation,{capabilities:domainCapabilities,params:recipe.params});legacyInput=!!scope&&!sourceRegionDomain;
+    if(legacyInput){sourceRegionDomain=await legacyPreparedDomain(image,scope,signal);if(recipe.operation!=='composite'){owner=recipe.kind==='automatic'?await getAutomatic():await getTool();domainCapabilities=(await owner.capabilities()).sourceRegions;check(signal);}run.sourceRegionInputOrigin='prepared-batch-scope';}
+    run.scopeSupport=batchScopeSupport(recipe,scope);if(sourceRegionDomain)run.sourceRegionDomain=structuredClone(sourceRegionDomain);
+   }
    if(scope)run.preparation={schema:scope.schema,version:scope.version,fingerprint:scope.fingerprint,sourceSha256:scope.sourceSha256,coordinates:scope.coordinates,models:structuredClone(scope.models)};
    let output;
-   if(recipe.kind==='automatic'){
+   if(recipe.kind==='automatic'&&!wholeImage){
     owner=await getAutomatic();if(owner.source?.id!==image.id||owner.source?.sha256!==image.sourceSha256||automaticSourceBlob!==image.blob){await owner.load({id:image.id,blob:image.blob});automaticSourceBlob=image.blob;}
     const params={...recipe.params};if(scope){params.scientificScope=structuredClone(scope);params.selection={regions:scope.regions.map(r=>structuredClone(r.polygon??rectanglePolygon(r))),envelope:null,disabled:[]};}else if(!options.panels||!['microscopy','gel'].includes(image.family))params.selection={regions:[[[0,0],[image.width-1,0],[image.width-1,image.height-1],[0,image.height-1]]],envelope:[[0,0],[image.width-1,0],[image.width-1,image.height-1],[0,image.height-1]],disabled:[]};run.effectiveParams=structuredClone(params);
     check(signal);const task={id:'batch-'+crypto.randomUUID(),imageId:image.id,operation:recipe.operation,params,backend:recipe.backend??defaultBackend(recipe.operation,recipe.params),...(sourceRegionDomain?{sourceRegionDomain}:{} )};if(legacyInput){sourceRegionDomain=await admittedLegacyDomain(sourceRegionDomain,task,{capabilities:domainCapabilities,signal});if(!sourceRegionDomain){delete task.sourceRegionDomain;delete run.sourceRegionDomain;run.sourceRegionInputOrigin='legacy-preparation';}}current();output=await owner.run(task);current();
@@ -113,21 +133,23 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
    }
    check(signal);if(scope&&recipe.operation==='ai.clones.segmentation')run.scopeSupport=await batchScopeSupport(recipe,scope,output,{budget:context.budget,signal});run.provenance=compactEvidence(output.provenance);run.metrics=compactEvidence(output.metrics);
    if(scope)run.scopeSupport=batchPreparedViewSupport(recipe,image,run.scopeSupport,output,sourceRegionDomain);
-   if(scope&&['raw-only','native-input-diagnostic'].includes(run.scopeSupport.mode)){run.entries=[];run.cloneMaximum=0;run.positive=false;run.rawObservations=compactEvidence(output.data?.metadata??output.data?.state??null);}
+   if(wholeImage||scope&&['raw-only','native-input-diagnostic'].includes(run.scopeSupport.mode)){run.entries=[];run.cloneMaximum=0;run.positive=false;run.rawObservations=compactEvidence(output.data?.metadata??output.data?.state??null);}
    else if(recipe.kind==='clones'||recipe.kind==='automatic'){entries=await cloneEvidence(output,recipe,owner,signalImage,context,signal);run.entries=entries.entries;if(entries.evidencePreparation)run.evidencePreparation=compactEvidence(entries.evidencePreparation);run.cloneMaximum=await context.maximum(entries.entries,image.width,image.height,signal,scope);run.positive=run.cloneMaximum>0;if(recipe.operation==='analysis.complete'){const ela=(output.data?.entries??[]).filter(e=>e.source==='ELA biomes');if(ela.length){run.additionalMethods=['ela.biomes'];run.additionalEntries=compactEvidence(ela);run.positive=true;}}}
    else if(recipe.kind==='map')Object.assign(run,await mapEvidence(output,recipe,owner,signalImage,signal));
    else if(['regions','ela'].includes(recipe.kind))Object.assign(run,regionEvidence(output,recipe));
    else run.positive=false;
    if(run.files.some(p=>p.endsWith('.npz'))&&run.files.some(p=>p.endsWith('.json')))await put(artifacts,path+'.json',dataBlob({schema:'sherloq.batch-evidence/1',operation:recipe.operation,params:recipe.params,effectiveParams:run.effectiveParams,view:run.view,effectiveView:run.effectiveView,preparation:run.preparation,scopeSupport:run.scopeSupport,evidencePreparation:run.evidencePreparation,derivedEntries:compactEvidence(run.entries),positive:run.positive,provenance:compactEvidence(output.provenance),metadata:compactEvidence(output.data),scientificArrays:path+'.npz'}));
-   current();if(!run.partial)await evidenceSaver(image,run,entries?.entries??run.entries??[],artifacts,path+'-reprise',{signal});
+   if(wholeImage)run.files.push(await put(artifacts,path+'-input-scope.json',dataBlob({schema:'sherloq.batch-input-scope/1',operation:recipe.operation,imageId:image.id,sourceSha256:image.sourceSha256,width:image.width,height:image.height,inputScope:run.inputScope,requestedSelectionNotApplied:run.requestedSelectionNotApplied,scopeSupport:run.scopeSupport})));
+   current();if(!run.partial)await evidenceSaver(wholeImage?signalImage:image,run,entries?.entries??run.entries??[],artifacts,path+'-reprise',{signal});
    current();run.status=run.partial?'partial':'done';if(run.partial)run.error={code:'PARTIAL_ANALYSIS',message:'Certains détecteurs n’ont pas terminé. Les signaux des autres sont conservés.',groups:compactEvidence(output.data?.state)};
-  }catch(error){run.status=signal.aborted?'cancelled':'error';run.error=serializeEngineError(error,'BATCH_TOOL_ERROR');run.inputRequired=error?.code==='BATCH_PAIR_REQUIRED';if(!signal.aborted)try{run.files.push(await put(artifacts,path+'-error.json',dataBlob({schema:'sherloq.batch-error/1',imageId:image.id,toolId:recipe.id,error:run.error,params:run.params,view:run.view,effectiveView:run.effectiveView,pairSelection:run.pairSelection})));}catch(exportError){run.errorReportError=serializeEngineError(exportError,'BATCH_EXPORT_ERROR');}if(signal.aborted){await retireEvidence([entries],error,true);if(run.entries)run.entries=compactEvidence(run.entries);}check(signal);}
+  }catch(error){run.status=signal.aborted?'cancelled':'error';run.error=serializeEngineError(error,'BATCH_TOOL_ERROR');run.inputRequired=error?.code==='BATCH_PAIR_REQUIRED';if(!signal.aborted)try{run.files.push(await put(artifacts,path+'-error.json',dataBlob({schema:'sherloq.batch-error/1',imageId:image.id,toolId:recipe.id,error:run.error,params:run.params,view:run.view,effectiveView:run.effectiveView,pairSelection:run.pairSelection,...(wholeImage?{inputScope:run.inputScope,requestedSelectionNotApplied:run.requestedSelectionNotApplied,scopeSupport:run.scopeSupport}:{})})));}catch(exportError){run.errorReportError=serializeEngineError(exportError,'BATCH_EXPORT_ERROR');}if(signal.aborted){await retireEvidence([entries],error,true);if(run.entries)run.entries=compactEvidence(run.entries);}check(signal);}
   return {run,release:entries?.release??(()=>{})};
  }
- function recipesSnapshot(recipes){return [...new Map(recipes.filter(recipe=>localFeaturePolicy.isTaskAvailable(recipe)).map(r=>[recipeKey(r),r])).values()].map(recipe=>{const snapshot=structuredClone(recipe),view=batchRecipeView(snapshot);if(view!==undefined)snapshot.view=view;return snapshot;});}
+ function recipesSnapshot(recipes){return [...new Map(recipes.filter(recipe=>localFeaturePolicy.isTaskAvailable(recipe)).map(normalizeBatchSherloqRecipe).map(r=>[recipeKey(r),r])).values()].map(recipe=>{const snapshot=structuredClone(recipe),view=batchRecipeView(snapshot);if(view!==undefined)snapshot.view=view;return snapshot;});}
  function configurationFor(selected,unique,options,externalInputs={},runtimePins={}){
+  const wholeOnly=wholeOriginalOnly(unique),scoped=scientificFiltering&&!wholeOnly;
   const pairSelections={};if(unique.some(r=>r.params.algorithm==='EfficientLoFTR'))for(const image of selected){try{const selection=restoredBatchPair(image);if(selection)pairSelections[image.hash]=selection;}catch{}}
-  return {...(localFeaturePolicy.local?{featurePolicy:localFeaturePolicy.snapshot()}:{}),options:{threshold:options.threshold??1,basis:options.basis??'clones',compare:!!options.compare,thresholdMode:options.thresholdMode??'manual',panels:scientificFiltering?true:!!options.panels,scientificFiltering},pairSelections,resumePolicy:{schema:BATCH_RESUME_SCHEMA,computeProfile:profile(),externalInputs,runtimePins,...(scientificFiltering&&unique.some(r=>['detail.wavelets','noise.blocking'].includes(r.operation))?{legacyNativePixelDomains:Object.fromEntries(selected.filter(image=>!image.originalSourceRegions&&!image.preparation?.originalSourceRegions&&!image.preparation?.sourceRegionDomain&&!image.preparation?.sourceRegionCeiling).map(image=>[image.id,LEGACY_BATCH_PIXEL_DOMAIN_VERSION]))}:{}),...(localFeaturePolicy.local?{featurePolicy:localFeaturePolicy.snapshot()}:{})},...(scientificFiltering?{displayPolicy:{...BATCH_DISPLAY_POLICY},scientificPreparations:Object.fromEntries(selected.map(image=>{const p=image.preparation;return [image.id,{fingerprint:p?.fingerprint,sourceSha256:p?.sourceSha256,schema:p?.schema,version:p?.version,coordinates:p?.coordinates,models:structuredClone(p?.models),remainder:p?.remainder,unknown:p?.unknown,maxTextAcquisitionFraction:p?.maxTextAcquisitionFraction}];}))}:{}),recipes:unique.map(r=>({id:r.id,operation:r.operation,params:structuredClone(r.params),signal:structuredClone(r.signal),backend:r.backend??defaultBackend(r.operation,r.params),...(r.view!==undefined?{view:structuredClone(r.view)}:{})}))};
+  return {...(localFeaturePolicy.local?{featurePolicy:localFeaturePolicy.snapshot()}:{}),options:{threshold:options.threshold??1,basis:options.basis??'clones',compare:!wholeOnly&&!!options.compare,thresholdMode:options.thresholdMode??'manual',panels:scoped?true:wholeOnly?false:!!options.panels,scientificFiltering:scoped},pairSelections,resumePolicy:{schema:BATCH_RESUME_SCHEMA,computeProfile:profile(),externalInputs,runtimePins,...(unique.some(isBatchSherloq)?{standaloneSherloqInput:'whole-original-raw-only/1'}:{}),...(scoped&&unique.some(r=>['detail.wavelets','noise.blocking'].includes(r.operation))?{legacyNativePixelDomains:Object.fromEntries(selected.filter(image=>!image.originalSourceRegions&&!image.preparation?.originalSourceRegions&&!image.preparation?.sourceRegionDomain&&!image.preparation?.sourceRegionCeiling).map(image=>[image.id,LEGACY_BATCH_PIXEL_DOMAIN_VERSION]))}:{}),...(localFeaturePolicy.local?{featurePolicy:localFeaturePolicy.snapshot()}:{})},...(scoped?{displayPolicy:{...BATCH_DISPLAY_POLICY},scientificPreparations:Object.fromEntries(selected.map(image=>{const p=image.preparation;return [image.id,{fingerprint:p?.fingerprint,sourceSha256:p?.sourceSha256,schema:p?.schema,version:p?.version,coordinates:p?.coordinates,models:structuredClone(p?.models),remainder:p?.remainder,unknown:p?.unknown,maxTextAcquisitionFraction:p?.maxTextAcquisitionFraction}];}))}:{}),recipes:unique.map(r=>({id:r.id,operation:r.operation,params:structuredClone(r.params),signal:structuredClone(r.signal),backend:r.backend??defaultBackend(r.operation,r.params),...(r.view!==undefined?{view:structuredClone(r.view)}:{})}))};
  }
  function canResume(model,recipes,options={}){
   if(controller||pairController)return false;
@@ -162,12 +184,12 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
   async run(model,recipes,options={}){
    if(controller||pairController)throw Error('Lot déjà en cours.');controller=new AbortController();const signal=controller.signal;let failure,failed=false,finishRun;runCompletion=new Promise(resolve=>finishRun=resolve);
    try{
-   await retireOwners();check(signal);context=evidenceFactory();const excluded=recipes.filter(recipe=>!localFeaturePolicy.isTaskAvailable(recipe)),selected=model.images.filter(i=>i.selected),unique=recipesSnapshot(recipes);
+   await retireOwners();check(signal);context=evidenceFactory();const excluded=recipes.filter(recipe=>!localFeaturePolicy.isTaskAvailable(recipe)),selected=model.images.filter(i=>i.selected),unique=recipesSnapshot(recipes),wholeOnly=wholeOriginalOnly(unique),scoped=scientificFiltering&&!wholeOnly;
    if(!unique.length&&excluded.length)throw Object.assign(Error('Toutes les fonctions du lot ont été désinstallées.'),{code:'FEATURE_UNINSTALLED',details:{scientificResult:false}});
    const excludedFeatures=excluded.map(recipe=>({id:recipe.id,title:recipe.fr,operation:recipe.operation,state:'feature-uninstalled',scientificResult:false}));
    if(unique.some(recipe=>recipe.kind==='automatic'))for(const id of localFeaturePolicy.automaticExcludedFeatures())excludedFeatures.push({id,title:localFeaturePolicy.catalog.features.find(feature=>feature.id===id)?.fr??id,operation:id,state:'feature-uninstalled',context:'automatic',scientificResult:false});
-   if(scientificFiltering)for(const image of selected)assertBatchScientificScope(image);
-   const deployment=await fetch(new URL('./integrated-config.json?v=0.31.0',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}),engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,...(deployment.scientificRegionsRuntimeIncrementSha256?{scientificRegionsIncrement:deployment.scientificRegionsRuntimeIncrementSha256}:{}),batch:scientificFiltering?'0.3.0-preparation.1':'0.2.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3},externalInputs={};
+   if(scoped)for(const image of selected)assertBatchScientificScope(image);
+   const deployment=await fetch(new URL('./integrated-config.json?v=0.32.0',import.meta.url)).then(response=>{if(!response.ok)throw Error('Configuration du moteur indisponible.');return response.json();}),engine={version:deployment.engineVersion,commit:deployment.engineCommit,increment:deployment.runtimeSourceIncrementSha256,...(deployment.scientificRegionsRuntimeIncrementSha256?{scientificRegionsIncrement:deployment.scientificRegionsRuntimeIncrementSha256}:{}),batch:scientificFiltering?'0.3.0-preparation.1':'0.2.0',memoryBudgetBytes:4*1024**3,m2MemoryBudgetBytes:2*1024**3},externalInputs={};
    if(deployment.scientificRegionsRuntimeIncrementSha256!==undefined&&!/^[a-f0-9]{64}$/.test(deployment.scientificRegionsRuntimeIncrementSha256))throw Object.assign(Error('Empreinte de l’incrément scientifique invalide.'),{code:'BATCH_ENGINE_IDENTITY_INVALID'});
    for(const key of ['median','reference','database'])if(options[key])externalInputs[key]=options[key] instanceof Blob?{sha256:await batchBlobSha256(options[key],{signal})}:compactEvidence(options[key]);
    const runtimePins=Object.fromEntries(Object.entries(deployment).filter(([key,value])=>/Sha256$/.test(key)&&typeof value==='string'&&/^[a-f0-9]{64}$/.test(value))),configuration=configurationFor(selected,unique,options,externalInputs,runtimePins);
@@ -178,24 +200,24 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
     for(const image of selected){
      const unit=plan.units.find(unit=>unit.imageId===image.id);
      if(await batchBlobSha256(image.blob,{signal})!==unit.sourceSha256)throw Object.assign(Error('Les octets de la source ont changé depuis le lancement.'),{code:'BATCH_RESUME_SOURCE_CHANGED',details:{imageId:image.id}});
-     if(unit.verifyScopeFingerprint){const {scopeFingerprint}=await import('./batch-scientific-preparation.js?v=0.31.0');if(await scopeFingerprint(image.preparation)!==model.configuration.scientificPreparations[image.id].fingerprint)throw Object.assign(Error('La géométrie du périmètre prévu a changé depuis le lancement.'),{code:'BATCH_RESUME_MISMATCH',details:{imageId:image.id}});}
+     if(unit.verifyScopeFingerprint){const {scopeFingerprint}=await import('./batch-scientific-preparation.js?v=0.32.0');if(await scopeFingerprint(image.preparation)!==model.configuration.scientificPreparations[image.id].fingerprint)throw Object.assign(Error('La géométrie du périmètre prévu a changé depuis le lancement.'),{code:'BATCH_RESUME_MISMATCH',details:{imageId:image.id}});}
      if(unit.started){
       if(!batchResumeImageCompatible(image,configuration,engine)||image.resumeState.planId&&image.resumeState.planId!==plan.runId)throw Object.assign(Error('Les calculs conservés appartiennent à une autre tentative.'),{code:'BATCH_RESUME_MISMATCH',details:{imageId:image.id}});
       for(const recipe of unique){const done=image.runs.find(r=>r.toolId===recipe.id&&r.status==='done');if(done&&!resumableBatchRun(done,recipe,model.artifacts))throw Object.assign(Error('Une méthode terminée ne possède pas les preuves exactes nécessaires à la reprise. Ses fichiers restent conservés.'),{code:'BATCH_RESUME_EVIDENCE_REQUIRED',details:{imageId:image.id,toolId:recipe.id}});}
      }
     }
    }else{
-    for(const image of selected)image.sourceSha256??=image.preparation?.sourceSha256??await batchBlobSha256(image.blob,{signal});
+    for(const image of selected)image.sourceSha256??=(!wholeOnly?image.preparation?.sourceSha256:undefined)??await batchBlobSha256(image.blob,{signal});
     plan={schema:BATCH_RESUME_PLAN_SCHEMA,version:1,runId:crypto.randomUUID(),engine:structuredClone(engine),units:selected.map(image=>({...batchPlannedIdentity(image,configuration),started:false}))};
    }
    model.engine=engine;model.excludedFeatures=excludedFeatures;
    if(!options.resume){for(const path of [...model.artifacts.keys()])if(path.startsWith('comparaisons/'))await model.artifacts.delete(path);model.comparisons=[];}
-   options={...options,panels:configuration.options.panels,pairSelections:configuration.pairSelections};model.configuration=configuration;model.resumePlan=plan;
+   options={...options,compare:configuration.options.compare,panels:configuration.options.panels,pairSelections:configuration.pairSelections};model.configuration=configuration;model.resumePlan=plan;
    for(const unit of plan.units)if(unit.started){const image=selected.find(image=>image.id===unit.imageId);image.resumeState.planId=plan.runId;}
    if(options.resume){(model.resumeEvents??=[]).push({at:new Date().toISOString(),previousFinishedAt:model.finishedAt,interruptedNativeMethod:'restarts-from-method-beginning-without-a-durable-native-checkpoint'});}else model.startedAt=new Date().toISOString();model.cancelled=false;
     for(const [index,image]of selected.entries()){
      check(signal);event({phase:'image-start',image,index,total:selected.length});
-     const signature=c=>{const pair=c?.pairSelections?.[image.hash];return JSON.stringify([(c?.recipes??[]).map(r=>[r.operation,r.params,r.signal,r.backend??defaultBackend(r.operation,r.params),r.view??null]).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b))),c?.options?.panels,pair?[pair.pixelHash,pair.width,pair.height,pair.regions]:null,c?.options?.scientificFiltering??false,c?.scientificPreparations?.[image.id]??null,c?.displayPolicy??null,c?.featurePolicy??null,c?.resumePolicy?.legacyNativePixelDomains?.[image.id]??null]);};
+     const signature=c=>{const pair=c?.pairSelections?.[image.hash];return JSON.stringify([(c?.recipes??[]).map(r=>[r.operation,r.params,r.signal,r.backend??defaultBackend(r.operation,r.params),r.view??null]).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b))),c?.options?.panels,pair?[pair.pixelHash,pair.width,pair.height,pair.regions]:null,c?.options?.scientificFiltering??false,c?.scientificPreparations?.[image.id]??null,c?.displayPolicy??null,c?.featurePolicy??null,c?.resumePolicy?.legacyNativePixelDomains?.[image.id]??null,c?.resumePolicy?.standaloneSherloqInput??null]);};
      const planned=plan.units.find(unit=>unit.imageId===image.id),resuming=!!options.resume&&planned.started;
      if((!options.resume||resuming)&&options.reuse&&image.state==='done'&&!image.score?.incomplete&&image.restored&&JSON.stringify(image.restored.engine)===JSON.stringify(model.engine)&&signature(image.restored.configuration)===signature(model.configuration)){planned.started=true;image.resumeState={schema:BATCH_RESUME_SCHEMA,planId:plan.runId,...batchPlannedIdentity(image,configuration)};image.restored={configuration:structuredClone(configuration),engine:{...engine}};image.reused=true;event({phase:'image-done',image,index:index+1,total:selected.length,reused:true});continue;}
      const completed=resuming?(image.runs??[]).filter(run=>run.status==='done'):[];
@@ -207,19 +229,20 @@ export function createBatchRunner({computeProfile='maximum',onProgress=()=>{},to
      planned.started=true;image.resumeState={schema:BATCH_RESUME_SCHEMA,planId:plan.runId,pixelHash:image.hash,width:image.width,height:image.height,sourceSha256:image.sourceSha256,scientificSignature:batchScientificSignature(image,configuration)};image.restored={configuration:structuredClone(configuration),engine:{...engine}};
      image.reused=false;image.runs=[];image.finalDisplay=null;image.resultDisplay=null;image.state='running';const owned=[];let imageFailure,imageFailed=false;
      try{for(const recipe of unique){check(signal);const previous=completed.find(r=>r.toolId===recipe.id);
-       if(previous){const restored=await evidenceRestorer(image,previous,model.artifacts,{budget:context.budget,signal});image.runs.push({...previous,reused:true,entries:restored.entries});owned.push(restored);event({phase:'tool-reused',image,recipe,run:image.runs.at(-1)});}
+       if(previous){const restored=await evidenceRestorer(isBatchSherloq(recipe)?wholeOriginalEvidenceImage(image):image,previous,model.artifacts,{budget:context.budget,signal});image.runs.push({...previous,reused:true,entries:restored.entries});owned.push(restored);event({phase:'tool-reused',image,recipe,run:image.runs.at(-1)});}
        else owned.push(await execute(image,recipe,model.artifacts,options,signal));await nextFrame();}
-      const entries=image.runs.flatMap(r=>['done','partial'].includes(r.status)?r.entries??[]:[]),scope=scientificFiltering?image.preparation:undefined,algorithmsConfigured=[...new Set(unique.filter(r=>r.kind==='clones'||r.kind==='automatic').map(r=>r.params.algorithm??r.params.variant??(r.operation==='m2.forgeryscope'?'Forgeryscope Auto':r.operation)))],activeMethods=[...new Set(entries.map(e=>e.methodKey??e.source))];let maximum;
+      const entries=image.runs.flatMap(r=>['done','partial'].includes(r.status)?r.entries??[]:[]),scope=scoped?image.preparation:undefined,algorithmsConfigured=[...new Set(unique.filter(r=>!isBatchSherloq(r)&&(r.kind==='clones'||r.kind==='automatic')).map(r=>r.params.algorithm??r.params.variant??(r.operation==='m2.forgeryscope'?'Forgeryscope Auto':r.operation)))],activeMethods=[...new Set(entries.map(e=>e.methodKey??e.source))];let maximum;
       if(scope)context.validateScope(scope,{width:image.width,height:image.height,sourceSha256:image.sourceSha256});
-      const multi=scientificFiltering&&(algorithmsConfigured.length>=BATCH_DISPLAY_POLICY.minimumMethods||activeMethods.length>=BATCH_DISPLAY_POLICY.minimumMethods);
-      if(multi){
+      const multi=scoped&&(algorithmsConfigured.length>=BATCH_DISPLAY_POLICY.minimumMethods||activeMethods.length>=BATCH_DISPLAY_POLICY.minimumMethods);
+      if(wholeOnly){maximum=0;image.finalDisplay=null;}
+      else if(multi){
        const client=await getTool();await ensureToolSource(client,image,signal);context.validateScope(scope,{width:image.width,height:image.height,sourceSha256:client.source.sha256});event({phase:'corroboration',image});
        const methods=[...new Set([...activeMethods,...algorithmsConfigured])];
        try{const rendered=await corroborationRenderer({image,entries,context,client,artifacts:model.artifacts,path:'resultats/'+image.id+'/corroboration',signal,methods});maximum=rendered.maximum;image.finalDisplay={...rendered,kind:'corroboration',policy:{...BATCH_DISPLAY_POLICY},algorithmsConfigured,pendingRendering:false};}
        catch(error){check(signal);maximum=await context.maximum(entries,image.width,image.height,signal,scope);image.finalDisplay={kind:'corroboration',policy:{...BATCH_DISPLAY_POLICY},algorithmsConfigured,scopeFingerprint:scope.fingerprint,files:[],pendingRendering:false,status:'error',error:serializeEngineError(error,'BATCH_CORROBORATION_EXPORT')};}
       }else{
        maximum=await context.maximum(entries,image.width,image.height,signal,scope);
-       if(scientificFiltering)image.finalDisplay={kind:'biomes',policy:{...BATCH_DISPLAY_POLICY},algorithmsConfigured,scopeFingerprint:scope.fingerprint,files:image.runs.find(r=>r.kind==='clones'&&r.files?.some(p=>p.endsWith('.png')))?.files?.filter(p=>p.endsWith('.png'))??[],pendingRendering:false};
+       if(scoped)image.finalDisplay={kind:'biomes',policy:{...BATCH_DISPLAY_POLICY},algorithmsConfigured,scopeFingerprint:scope.fingerprint,files:image.runs.find(r=>r.kind==='clones'&&r.files?.some(p=>p.endsWith('.png')))?.files?.filter(p=>p.endsWith('.png'))??[],pendingRendering:false};
       }
       image.score=imageScore(image.runs);image.score.clones=maximum;image.score.total=maximum+image.score.additional;
       if(image.finalDisplay?.error)image.score.incomplete=true;

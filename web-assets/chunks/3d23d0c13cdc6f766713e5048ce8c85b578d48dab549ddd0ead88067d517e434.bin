@@ -1,0 +1,182 @@
+{
+  "method": "community-forensics",
+  "precision": "float32",
+  "opset": 17,
+  "source": {
+    "sha256": "b89f36275f3bf5e2b040eee36597a8f19db051bff9a473a9cf7b2466284fb387",
+    "sourceCommit": "ee5b71d43db0f3779e1edd64ee927b13f2dd6ad4",
+    "checkpoint": "community-forensics/model.safetensors"
+  },
+  "input": {
+    "name": "pixel_values",
+    "dims": [
+      1,
+      3,
+      384,
+      384
+    ]
+  },
+  "stages": [
+    {
+      "name": "stem",
+      "file": "stem.onnx",
+      "sha256": "877f0cf609a65c55aacf3404bfcd6238ca7a0e6d6fa79385e05d4dea16aa07e6",
+      "bytes": 2071327,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        3,
+        384,
+        384
+      ],
+      "outputShape": [
+        1,
+        577,
+        384
+      ]
+    },
+    {
+      "inputNames": [
+        "g0/input"
+      ],
+      "inputShape": [
+        1,
+        577,
+        384
+      ],
+      "outputNames": [
+        "g11/output"
+      ],
+      "outputShape": [
+        1,
+        577,
+        384
+      ],
+      "outputShapes": {
+        "g11/output": [
+          1,
+          577,
+          384
+        ]
+      },
+      "name": "group-01",
+      "file": "group-01.onnx",
+      "bytes": 46272228,
+      "sha256": "a44218fae8cf8c6c7e75dab8af0a60dad7ae0bb0b67610bb6a1227e397459d92",
+      "groupedStages": [
+        "block-00",
+        "block-01",
+        "block-02",
+        "block-03",
+        "block-04",
+        "block-05",
+        "block-06",
+        "block-07",
+        "block-08",
+        "block-09",
+        "block-10",
+        "block-11"
+      ],
+      "conversionMs": 162.86495910026133
+    },
+    {
+      "name": "head",
+      "file": "head.onnx",
+      "sha256": "4049938405020c493c845b1ac959edfd5086535ccb7332df8663189596863753",
+      "bytes": 5245,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        384
+      ],
+      "outputShape": [
+        1,
+        1
+      ]
+    }
+  ],
+  "score": "sigmoid(logit)",
+  "calibratedProbability": false,
+  "decision": {
+    "operator": ">",
+    "threshold": 0.5
+  },
+  "preprocessing": {
+    "pil": true,
+    "centerCrop": 384,
+    "resizeShortestEdge": 440,
+    "resizeInterpolation": "bilinear",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "padding": "zero",
+    "exifTranspose": "host contract before preparation"
+  },
+  "validation": {
+    "referenceExecuted": true,
+    "browserExecuted": true,
+    "cases": 18,
+    "perCaseTolerance": 0.001,
+    "scientificPreparationUnchanged": true,
+    "fullProductIntegration": "Passed declared encoded-import and resource-lifecycle receipts"
+  },
+  "candidate": {
+    "id": "attention-gelu",
+    "createdUtc": "2026-11-04T16:38:18.118713+00:00",
+    "baselineManifestSha256": "08d9dadb39dc4c3f6b8b282fdede6b534a133d5523b826796e10dc97478287e7",
+    "attentionFusion": true,
+    "gelu": "exact",
+    "internalPrecision": "none",
+    "precisionMeaning": "Stage I/O is float32; internalPrecision declares candidate arithmetic. CPU fallback must use the original FP32 graphs.",
+    "validation": "not yet executed; conversion/checker only",
+    "originalWeightsCopied": false
+  },
+  "experimentalNumerics": {
+    "kind": "w16",
+    "arithmetic": "float32",
+    "storage": "fp16",
+    "restore": "Cast to FP32",
+    "denseSelection": "2D FLOAT initializer, min dimension>=256,max dimension>=1024",
+    "referenceSha256": "e2a0d61766973bde4eb0bea7350f30db513494e5cf79f9937d15d769a531b113",
+    "status": "qualified on declared local corpus; integration under verification"
+  },
+  "optimization": {
+    "kind": "Exact adjacent stage composition",
+    "parentManifestSha256": "1e23b097b90da561ec690462d586810a49aff1a8bafebe5a643729fe1aaa98c5",
+    "groupSize": 12,
+    "attentionUnchanged": true,
+    "preparationUnchanged": true
+  },
+  "selection": {
+    "parentManifestSha256": "fb6314728a5204c7213e3f61f9e683932cad623eefdcb9de7a5ce1fba0297e5e",
+    "qualificationScope": "Six real provided sources,18explicit size derivatives; no classifier-accuracy claim"
+  },
+  "numericalPolicy": {
+    "computation": "float32",
+    "weightStorageAndOptimization": "FP16 dense weight storage restored to FP32; full global Attention/GELU and adjacent stages fused",
+    "reference": "Original strict-load FP32 forward",
+    "perCaseScoreTolerance": 0.001,
+    "roundedWeights": true,
+    "sourcePreprocessingUnchanged": true,
+    "validation": "Qualified on declared local real corpus; not an accuracy or universal error guarantee",
+    "maxObservedPrimaryScoreError": 0.000791986473745232
+  }
+}

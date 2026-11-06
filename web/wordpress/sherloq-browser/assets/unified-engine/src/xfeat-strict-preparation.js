@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {originalXfeatFrame,writeXfeatNormalizedZeroPadding} from './xfeat-strict-input-frame.js';
 import createPost from '../vendor/xfeat-paged/post.js';
 import {allocateWasmMemory} from './allocation.js';

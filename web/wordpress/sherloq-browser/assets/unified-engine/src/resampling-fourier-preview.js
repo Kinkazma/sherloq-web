@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {DISPLAY_PREVIEW_MAX_SIDE,DISPLAY_PREVIEW_MAX_PIXELS} from './preview-limits.js';
 import {checkAbort,requireValue,createCooperator} from './errors.js';
 import {resamplingFourierParams,resamplingFourierGeometry} from './resampling-fourier.js';
 import {cachedPreviewGeometry,reservePreview,previewUnavailable} from './cached-parameter-preview.js';
@@ -44,7 +45,7 @@ export async function previewCachedFourier(image,imageId,input,preview={}, {budg
   // A RAM cache has no retained-table lease. A second conservative pin owns
   // its complete immutable backing even if optional cache pressure evicts it.
   if(nativeEntry)owner.pin=reservePreview(budget,nativeEntry.byteLength);
-  const g=cachedPreviewGeometry(side,side,{...preview,maxSide:preview.maxSide??640},budget,{bytesPerPixel:32,fixedBytes:Math.max(side*40,1024**2)});owner.fee=reservePreview(budget,g.reservedBytes);if(master)owner.lease=master.lease();frameData=new Uint8Array(g.pixels*3);owner.frame=frameData;const cooperate=createCooperator(signal);
+  const g=cachedPreviewGeometry(side,side,{...preview,maxSide:preview.maxSide??DISPLAY_PREVIEW_MAX_SIDE},budget,{bytesPerPixel:32,fixedBytes:Math.max(side*40,1024**2)});owner.fee=reservePreview(budget,g.reservedBytes);if(master)owner.lease=master.lease();frameData=new Uint8Array(g.pixels*3);owner.frame=frameData;const cooperate=createCooperator(signal);
   for(let y=0;y<g.height;y++){
    await cooperate();checkAbort(signal);let page,hasPrimary=false,rowPrimary;
    try{if(owner.lease){page=await owner.lease.readRows({offset:y*g.step*side,length:side},{signal});owner.pages.add(page);requireValue(page.length===side&&page.data instanceof Float64Array&&page.data.length===side*3,'Invalid retained Fourier table row.');}for(let x=0;x<g.width;x++){const value=page?page.data[x*g.step*3+2]:magnitude[(y*g.step)*side+x*g.step];requireValue(Number.isFinite(value)&&value>=low&&value<=high,'Invalid retained Fourier magnitude.');const scaled=Math.pow(high>low?(value-low)/(high-low):0,p.gamma)*(p.rescale?high:1),gray=GRAY_PALETTE[Math.max(0,Math.min(255,Math.floor(scaled*256)))],at=(y*g.width+x)*3;frameData[at]=gray;frameData[at+1]=gray;frameData[at+2]=gray;}}

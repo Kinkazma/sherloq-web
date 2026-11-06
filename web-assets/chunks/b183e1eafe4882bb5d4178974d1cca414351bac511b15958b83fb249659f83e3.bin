@@ -1,0 +1,89 @@
+{
+  "schema": "sherloq.ai-detectors.qualification-lineage/1",
+  "implementationVersion": "D",
+  "historicalCertificate": {
+    "schema": "sherloq.ai-detectors.D-qualified-local-corpus-and-stress/1",
+    "version": "D",
+    "sha256": "3a7fc65f6b3642b866ffec32659c3c560ed24fcb19e426379af49b46a3c0e412"
+  },
+  "catalogSha256": "5a44db685d86d91f44b99585624dfd78c07b81e8b413fa4eb3c54846f9c36f9e",
+  "qualificationStatus": "experimental-qualified-corpus",
+  "qualification": {
+    "browserInference": true,
+    "source30Mp": true,
+    "memory4Gb": true
+  },
+  "browserSupport": {
+    "gpu": [
+      "chromium",
+      "firefox"
+    ],
+    "cpu": [
+      "chromium",
+      "firefox",
+      "webkit"
+    ],
+    "webkitGpu": false
+  },
+  "models": {
+    "dda": {
+      "manifestSha256": "3ffa1816bae57ededb5343f0cd323492ede1b9aee34e87119b0f4ab7e6f077b2",
+      "stageCount": 26,
+      "scoreToleranceOnDeclaredCorpus": 0.001,
+      "numericalPolicy": {
+        "computation": "float32",
+        "weightStorageAndOptimization": "Dense weights FP16; stem/head and transformer block17 retain FP32",
+        "perCaseScoreTolerance": 0.001,
+        "roundedWeights": true,
+        "sourcePreprocessingUnchanged": true,
+        "validation": "Qualified on declared local real corpus; not an accuracy or universal error guarantee",
+        "maxObservedPrimaryScoreError": 0.0007514709729392055
+      }
+    },
+    "prl": {
+      "manifestSha256": "482c92ae9689ace0a1bc42f149d2070a6ab921f13d988c7d1055e5acf0c0e2d3",
+      "stageCount": 26,
+      "scoreToleranceOnDeclaredCorpus": 0.01,
+      "numericalPolicy": {
+        "computation": "float32",
+        "weightStorageAndOptimization": "Per-column INT8 dense weights restored to FP32; activations, RoPE and attention FP32",
+        "perCaseScoreTolerance": 0.01,
+        "roundedWeights": true,
+        "sourcePreprocessingUnchanged": true,
+        "validation": "Qualified on declared local real corpus; not an accuracy or universal error guarantee",
+        "maxObservedPrimaryScoreError": 0.004878340140537174
+      }
+    },
+    "community-forensics": {
+      "manifestSha256": "3d23d0c13cdc6f766713e5048ce8c85b578d48dab549ddd0ead88067d517e434",
+      "stageCount": 3,
+      "scoreToleranceOnDeclaredCorpus": 0.001,
+      "numericalPolicy": {
+        "computation": "float32",
+        "weightStorageAndOptimization": "FP16 dense weight storage restored to FP32; full global Attention/GELU and adjacent stages fused",
+        "perCaseScoreTolerance": 0.001,
+        "roundedWeights": true,
+        "sourcePreprocessingUnchanged": true,
+        "validation": "Qualified on declared local real corpus; not an accuracy or universal error guarantee",
+        "maxObservedPrimaryScoreError": 0.000791986473745232
+      }
+    },
+    "gapl": {
+      "manifestSha256": "4c52c2f9aaa76d72d3aed0fd575e599e7764ad49611bb9a1b3320afde5176543",
+      "stageCount": 26,
+      "scoreToleranceOnDeclaredCorpus": 0.001,
+      "numericalPolicy": {
+        "computation": "float32",
+        "weightStorageAndOptimization": "FP16 dense weight storage restored to FP32; all64 prototypes retained with exact constant projection folding",
+        "perCaseScoreTolerance": 0.001,
+        "roundedWeights": true,
+        "sourcePreprocessingUnchanged": true,
+        "validation": "Qualified on declared local real corpus; not an accuracy or universal error guarantee",
+        "maxObservedPrimaryScoreError": 0.00017454752184131728
+      }
+    }
+  },
+  "scope": "Inherited D detector qualification on its declared corpus and source-size stress. This lineage attestation is not a new qualification of a subsequently assembled application. Scores are model indices, not calibrated probabilities or authenticity guarantees.",
+  "rawCertificateDistributed": false,
+  "modelPresenceAloneDoesNotEstablishQualification": true
+}

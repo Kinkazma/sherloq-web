@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {boundWasmMemory} from './wasm-memory-limit.js';
 import {fetchM3Asset} from './m3-asset.js';
 import {wasmAllocationFailure} from './allocation.js';

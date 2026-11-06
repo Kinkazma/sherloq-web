@@ -1,14 +1,54 @@
-import "../../runtime-context.js?v=0.30.0";
-import {requireValue,checkAbort,createCooperator} from './errors.js';
+import "../../runtime-context.js?v=0.31.0";
+import {requireValue,checkAbort,createCooperator,EngineError} from './errors.js';
+import {allocateTypedArray} from './allocation.js';
+import {segmentEnergy} from './energy-segment.js';
+import {migrationWorkspaceBytes,missingMigrationWorkspaceBytes} from './migration-workspace.js';
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createBytePager} from './byte-pager.js';
 import {selectFloat32Ranks} from './float32-ranks-stream.js';
 const f=Math.fround,MiB=1024**2,BLOCK=65536;
+// The arrays are copies of already admitted native fields, not sampled inputs.
+// 18N includes the native reference's labels/weak/selected/queue/radix arrays;
+// its labels coexist with the independently owned4N result during publication.
+export function energySegmentationRamPlan(width,height,panelCount,{allowed=false,migrationBytes=0}={}){
+ const n=width*height;requireValue(Number.isInteger(width)&&width>0&&Number.isInteger(height)&&height>0&&n<2**31&&Number.isInteger(panelCount)&&panelCount>=0&&Number.isSafeInteger(migrationBytes)&&migrationBytes>=0,'Valid contiguous energy segmentation geometry required.');
+ const inputBytes=n*(allowed?13:12),workingBytes=inputBytes+18*n+8192+65536,outputBytes=4*n,regionBytes=2048*panelCount;
+ return{inputBytes,workingBytes,outputBytes,regionBytes,migrationBytes,requiredBytes:workingBytes+outputBytes+regionBytes+migrationBytes};
+}
+async function contiguousSegmentation(base,parameters,{budget,signal,onProgress,temporarySession,getTemporarySession,storage,forced}){
+ const {width,height,energy_summary:summaries}=base,n=width*height,needsMigration=!!(temporarySession||getTemporarySession)&&temporarySession?.backend!=='opfs',migrationBytes=needsMigration?missingMigrationWorkspaceBytes(budget,migrationWorkspaceBytes(n*4,temporarySession)):0,plan=energySegmentationRamPlan(width,height,summaries.length,{allowed:!!base.energy_allowed,migrationBytes});
+ const admitted=storage!=='temporary'&&!budget.recovering&&!budget.isBackingUnderPressure?.('array-buffer')&&budget.total()+plan.requiredBytes<=budget.limit;
+ if(!admitted){if(forced)throw new EngineError('MEMORY_LIMIT','Contiguous native energy segmentation is not admitted.',{details:{requestedBytes:plan.requiredBytes,availableBytes:Math.max(0,budget.limit-budget.total())}});return null;}
+ const workspace=budget.reserve(plan.workingBytes),backings=[],regionReleases=[],native={width,height,metadata:base.metadata,energy_summary:summaries},cooperate=createCooperator(signal);let output,computed,scratchClosed=false,closing,unregister,successful=false,handedOff=false,allocationFailure=null;
+ const allocate=(Type,length,name)=>{let data;try{data=allocateTypedArray(Type,length,{label:'energy-segmentation-'+name});}catch(error){if(error?.code==='MEMORY_ALLOCATION')allocationFailure=error;throw error;}backings.push({data,bytes:data.byteLength,release:budget.registerBacking?.('array-buffer',data.byteLength,{owner:'ela-energy-segmentation',label:name,identity:data.buffer})});return data;};
+ const retireScratch=async()=>{if(scratchClosed)return;for(const row of backings)if(row.data){const retired=await row.release?.();row.data=null;if(retired!==0)budget.notifyBackingRelease?.('array-buffer',retired??row.bytes);}for(const key of ['energy_scope','energy_low_score','energy_high_score','energy_allowed'])delete native[key];computed=null;workspace();scratchClosed=true;};
+ const retireAll=()=>{if(closing)return closing;const task=(async()=>{await output?.dispose();output=null;await retireScratch();for(const free of regionReleases)free();regionReleases.length=0;unregister?.();unregister=null;})();closing=task;void task.finally(()=>{if(closing===task)closing=null;}).catch(()=>{});return task;};
+ const rememberRetirement=()=>{unregister??=budget.registerAsyncReclaimer?.(async()=>{if(successful&&!handedOff)return 0;const before=budget.total();await retireAll();return Math.max(0,before-budget.total());},{owner:'ela-energy-segmentation',label:'retiring-contiguous-segmentation',allocationKind:'array-buffer'});};
+ try{
+  for(const [key,Type]of [['energy_scope',Int32Array],['energy_low_score',Float32Array],['energy_high_score',Float32Array],...(base.energy_allowed?[['energy_allowed',Uint8Array]]:[])]){
+   checkAbort(signal);const array=allocate(Type,n,key);native[key]=array;const bytes=new Uint8Array(array.buffer);for(let at=0;at<bytes.length;at+=MiB){await cooperate();await base[key].readInto(bytes.subarray(at,Math.min(bytes.length,at+MiB)),at);checkAbort(signal);}
+  }
+  let scratchCharged=false;
+  computed=await segmentEnergy(native,parameters,{signal,allocate:(Type,length,name)=>allocate(Type,length,'native-'+name),account:bytes=>{if(!scratchCharged){requireValue(bytes===18*n+8192,'Unexpected native segmentation workspace.');scratchCharged=true;}else regionReleases.push(budget.reserve(bytes));},onProgress:fraction=>onProgress?.({phase:'energy-segmentation',fraction})});checkAbort(signal);
+  output=await createSegmentedBytes(plan.outputBytes,{budget,storage:'memory',temporarySession,getTemporarySession,signal,owner:'ela-energy-segmentation',label:'native-labels-result'});
+  const bytes=new Uint8Array(computed.labels.buffer);for(let at=0;at<bytes.length;at+=MiB){await cooperate();try{await output.write(bytes.subarray(at,Math.min(bytes.length,at+MiB)),at);}catch(error){
+   // This tag and bank geometry are emitted only by the new output store's
+   // own typed-array constructor. A source/callback error never enters here.
+   const d=error?.details;if(error?.code==='MEMORY_ALLOCATION'&&d?.allocationKind==='array-buffer'&&d.label==='native-labels-result'&&d.totalBytes===plan.outputBytes&&Number.isSafeInteger(d.bankIndex)&&d.bankIndex>=0&&Number.isSafeInteger(d.bankBytes)&&d.bankBytes>0)allocationFailure=error;throw error;
+  }checkAbort(signal);}await output.flush();checkAbort(signal);
+  const regions=computed.regions;await retireScratch();checkAbort(signal);successful=true;
+  const result={labels:output,regions,metrics:{connectivity:'global-8-connected-native-reference',segmentationBackend:'contiguous-ram',segmentationWorkingBytes:plan.requiredBytes,labelStorage:output.storage},dispose:retireAll};handedOff=true;return result;
+ }catch(error){let retired=false;try{await retireAll();retired=true;}catch(cleanup){rememberRetirement();await retireCompositeOwners([()=>{throw cleanup;}],{primary:error});}if(!forced&&retired&&allocationFailure!==null&&error===allocationFailure&&!signal?.aborted)return null;throw error;}
+}
 // Whole-panel hysteresis; each reported class may contain disconnected support.
-export async function segmentSegmentedEnergy(base,{threshold=5,thresholds=null,minimum=3,offset=0}={}, {budget,signal,onProgress,storage='auto',temporarySession,getTemporarySession}={}){
+export async function segmentSegmentedEnergy(base,{threshold=5,thresholds=null,minimum=3,offset=0}={}, {budget,signal,onProgress,storage='auto',temporarySession,getTemporarySession,segmentationBackend='auto'}={}){
  const cooperate=createCooperator(signal);
  const {width:w,height:h,energy_scope:scope,energy_low_score:low,energy_high_score:high,energy_summary:summaries,energy_allowed:allowed,metadata}=base,n=w*h,block=metadata?.block,limits=thresholds??[threshold,threshold];
  requireValue(Number.isInteger(w)&&Number.isInteger(h)&&w>0&&h>0&&n<2**31&&[scope,low,high].every(s=>s?.byteLength===4*n)&&Array.isArray(summaries),'Prepared segmented energy maps required.');requireValue(Array.isArray(limits)&&limits.length===2&&limits.every(t=>Number.isFinite(t)&&t>=0)&&Number.isFinite(minimum)&&minimum>=0&&Number.isInteger(block)&&block>0&&Number.isSafeInteger(block*block)&&Number.isInteger(offset)&&offset>=0&&offset+summaries.length*2<2**31&&(!allowed||allowed.byteLength===n),'Invalid energy segmentation options.');
+ requireValue(['auto','memory','temporary'].includes(storage),'Invalid energy segmentation storage.');
+ requireValue(['auto','stream','contiguous'].includes(segmentationBackend),'Unknown native energy segmentation backend.');
+ if(segmentationBackend!=='stream'){const result=await contiguousSegmentation(base,{threshold,thresholds,minimum,offset},{budget,signal,onProgress,storage,temporarySession,getTemporarySession,forced:segmentationBackend==='contiguous'});if(result)return result;}
  const ownBytes=w*14+BLOCK*8+8192,pagerBytes=2*(Math.min(n,4*MiB)+65536)+(Math.min(n*4,4*MiB)+65536)+(Math.min(n*4,MiB/4)+65536),stores=[],pagers=[],regionReleases=[],regions=[];let planning,working,values,success=false;
  try{
   planning=budget.reserve(ownBytes+pagerBytes+2*MiB);const options={budget,storage,temporarySession,getTemporarySession,signal},make=async bytes=>{const s=await createSegmentedBytes(bytes,options);stores.push(s);return s;},weak=await make(n),selected=await make(n),queue=await make(8*Math.ceil(w/2)*h),labels=await make(n*4);planning();planning=null;working=budget.reserve(ownBytes);
@@ -56,6 +96,6 @@ export async function segmentSegmentedEnergy(base,{threshold=5,thresholds=null,m
     onProgress?.({phase:'energy-segmentation',fraction:(ri*2+kind+1)/(summaries.length*2)});
    }
   }
-  await labels.flush();await weak.dispose();await selected.dispose();await queue.dispose();checkAbort(signal);success=true;let disposed=false;return {labels,regions,metrics:{connectivity:'global-8-connected-horizontal-runs',segmentationWorkingBytes:ownBytes+pagerBytes+2*MiB,labelStorage:labels.storage},dispose:async()=>{if(disposed)return;disposed=true;try{await labels.dispose();}finally{for(const release of regionReleases)release();}}};
+  await labels.flush();await weak.dispose();await selected.dispose();await queue.dispose();checkAbort(signal);success=true;let disposed=false;return {labels,regions,metrics:{connectivity:'global-8-connected-horizontal-runs',segmentationBackend:'segmented-stream',segmentationWorkingBytes:ownBytes+pagerBytes+2*MiB,labelStorage:labels.storage},dispose:async()=>{if(disposed)return;disposed=true;try{await labels.dispose();}finally{for(const release of regionReleases)release();}}};
  }finally{for(const p of pagers)p.dispose();planning?.();working?.();await Promise.allSettled([values,...(!success?stores:[])].filter(Boolean).map(s=>s.dispose()));if(!success)for(const release of regionReleases)release();}
 }

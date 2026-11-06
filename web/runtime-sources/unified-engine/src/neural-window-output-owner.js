@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {allocateTypedArray} from './allocation.js';
 import {requireValue} from './errors.js';
 /** Fresh transport buffers only, funded by the admitted envelope. Each

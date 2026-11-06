@@ -1,4 +1,13 @@
 export default {
+  "ai.generation.detect":{"params":{"method":"dda"},"exports":["json"]},
+  "ai.generation.dda":{"params":{"method":"dda"},"exports":["json"]},
+  "ai.generation.prl":{"params":{"method":"prl"},"exports":["json"]},
+  "ai.generation.community-forensics":{"params":{"method":"community-forensics"},"exports":["json"]},
+  "ai.generation.gapl":{"params":{"method":"gapl"},"exports":["json"]},
+  "m2.splicebuster": {
+    "params": {},
+    "exports": ["json", "npz"]
+  },
   "various.ocr":{"params":{"algorithm":"ppocr-medium","language":"eng+fra","psm":3,"threshold":0,"view":"overlay","orientationCorrection":true,"bitmapThreshold":0.2,"boxThreshold":0.45,"unclipRatio":1.4},"exports":[]},
   "ela.biomes": {
     "params": {

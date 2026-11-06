@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createGhostCellArray} from './ela-biomes-ghost-owner.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {requireValue,checkAbort,isResumableResourceError,normalizeResourceError,controlCheckpoint,createCooperator} from './errors.js';

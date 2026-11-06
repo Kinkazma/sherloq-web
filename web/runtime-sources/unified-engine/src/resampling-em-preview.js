@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {DISPLAY_PREVIEW_MAX_SIDE,DISPLAY_PREVIEW_MAX_PIXELS} from './preview-limits.js';
 import {checkAbort,requireValue} from './errors.js';
 import {resamplingAnalysisParams,resamplingAnalysisRegions} from './resampling-analysis.js';
 import {cachedPreviewGeometry,reservePreview,previewUnavailable} from './cached-parameter-preview.js';
@@ -34,7 +35,7 @@ export async function previewCachedResampling(image,cache,input,preview={}, {bud
  }
  if(!master?.lease||master.descriptor.width!==width||master.descriptor.height!==height||master.descriptor.format!=='rgb8')previewUnavailable('The retained EM RGB raster is unavailable.');
  await retireResamplingEmPreview(cache);checkAbort(signal);
- const g=cachedPreviewGeometry(width,height,{...preview,maxSide:preview.maxSide??640},budget,{bytesPerPixel:64,fixedBytes:Math.max(width*12,1024**2)}),release=reservePreview(budget,g.reservedBytes),record=sampleOwner(cache,release);let primary,hasPrimary=false,pixels;
+ const g=cachedPreviewGeometry(width,height,{...preview,maxSide:preview.maxSide??DISPLAY_PREVIEW_MAX_SIDE},budget,{bytesPerPixel:64,fixedBytes:Math.max(width*12,1024**2)}),release=reservePreview(budget,g.reservedBytes),record=sampleOwner(cache,release);let primary,hasPrimary=false,pixels;
  try{
   record.lease=master.lease();record.frame=await record.lease.readSampledWindow(g,{signal,budget:prepaidBudget});checkAbort(signal);
   const frame=record.frame.pixels;requireValue(frame.width===g.width&&frame.height===g.height&&frame.format==='rgb8'&&frame.data instanceof Uint8Array&&frame.data.length===g.pixels*3,'Invalid cached EM preview frame.');

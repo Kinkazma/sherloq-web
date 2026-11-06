@@ -1,6 +1,6 @@
 import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
 import {prepareEqualization} from './unified-engine/src/equalization-presentation.js';
-import {validateLoupeEffects,adjustmentParameters} from './loupe-effects-settings.js?v=0.31.0';
+import {validateLoupeEffects,adjustmentParameters} from './loupe-effects-settings.js?v=0.32.0';
 import {magnifierLuts} from './unified-engine/src/magnifier.js';
 import {createCooperator} from './unified-engine/src/errors.js';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
@@ -33,6 +33,6 @@ export function createPdfRetainedFineEffectMap(effects,reference,{budget,math,co
   }catch(error){failed=true;primary=error;throw error;}finally{await retireCompositeOwners([()=>retire(stage),()=>retire(neighborhood),()=>{coordinateRelease?.();},()=>{if(!published)return retire(output);}],failed?{primary}:{});}
  }
  return{mapPixels(input,request,options){const task=map(input,request,options);tasks.add(task);task.then(()=>tasks.delete(task),()=>tasks.delete(task));return task;},get metrics(){return{...metrics,threshold,initialized:!!initializing,pending:tasks.size,pendingRetirements:frames.size,closing,closed};},
-  close(){if(closed)return Promise.resolve();if(closeTask)return closeTask;closing=true;controller.abort(cancelled());closeTask=(async()=>{await initializing?.catch(()=>{});await Promise.allSettled([...tasks]);await retireCompositeOwners([...frames].map(frame=>()=>retire(frame)));enhanceProgram?.dispose();enhanceProgram=null;luts=null;lutRelease?.();lutRelease=null;closed=true;})();closeTask.then(()=>{},()=>{closeTask=null;});return closeTask;}
+  close(){if(closed)return Promise.resolve();if(closeTask)return closeTask;closing=true;controller.abort(cancelled());closeTask=(async()=>{await initializing?.catch(()=>{});await Promise.allSettled([...tasks]);await retireCompositeOwners([...frames].map(frame=>()=>retire(frame)));await enhanceProgram?.dispose();enhanceProgram=null;luts=null;lutRelease?.();lutRelease=null;closed=true;})();closeTask.then(()=>{},()=>{closeTask=null;});return closeTask;}
  };
 }

@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {truforNeuron333Field,TRUFOR_NEURON333} from './trufor-neuron333.js';
 import {NeuralGraphPool} from './neural-graph-pool.js';import {createTemporarySession} from './temporary-storage.js';import {createNeuralTensor} from './neural-tensor-store.js';
 import {noiseprintPlusSurface} from './noiseprint-plus-surface.js';import {truforRgbSource,truforNoiseSource} from './trufor-source-tensors.js';
 import {truforSegmentedBackbone} from './trufor-segmented-backbone.js';import {truforSegmentedDecode} from './trufor-segmented-decoder.js';
@@ -15,7 +16,7 @@ export function createTruforSegmentedAnalyzer({manifest,runtimes,nppPool,budget,
    requireValue(Object.keys(params).length===0&&image.surface?.descriptor.format==='rgb8'&&nppPool,'Full-resolution RGB surface and native Noiseprint++ are required.');
    const {width,height,id,revision}=image.surface.descriptor;requireValue(width>=29&&height>=29,'TruFor source is too small.');
    const controller=new AbortController(),abort=()=>controller.abort();active=controller;options.signal?.addEventListener('abort',abort,{once:true});if(options.signal?.aborted)abort();const signal=controller.signal;
-   const immutable=options.immutableSource===true&&image.segmented&&/^[a-f0-9]{64}$/.test(image.sha256)&&!image.provenance?.sourceRegionDomain,identity=immutable?['original-blob',image.sha256,width,height,image.surface.descriptor.format]:[image.sha256??null,id,revision,width,height],key=JSON.stringify([...identity,options.backend??'auto',manifest.checkpointSha256]);let session,sessionPending,noise,encoded,decoded;
+   const immutable=options.immutableSource===true&&image.segmented&&/^[a-f0-9]{64}$/.test(image.sha256)&&!image.provenance?.sourceRegionDomain,identity=immutable?['original-blob',image.sha256,width,height,image.surface.descriptor.format]:[image.sha256??null,id,revision,width,height],key=JSON.stringify([...identity,options.backend??'auto',manifest.checkpointSha256,manifest.assets[manifest.decoderWindow?.graph??manifest.heads?.[0]?.fuse]?.sha256]);let session,sessionPending,noise,encoded,decoded;
    const getTemporarySession=async()=>{if(session)return session;if(!sessionPending)sessionPending=createTemporarySession({budget,signal}).then(s=>session=s);return sessionPending;};
    try{
     checkAbort(signal);if(cached?.key===key)return acquire(cached,true,image);await clearCache();
@@ -24,7 +25,7 @@ export function createTruforSegmentedAnalyzer({manifest,runtimes,nppPool,budget,
     const residual=await noiseprintPlusSurface(image.surface,noise,{...hints,pool:nppPool});nppPool.clear();
     encoded=await truforSegmentedBackbone(truforRgbSource(image.surface,{budget}),truforNoiseSource(noise,{budget}),hints);
     decoded=await truforSegmentedDecode(encoded.features,width,height,hints);const encoderExecution=encoded.executions;await encoded.release();encoded=null;pool.clear();checkAbort(signal);
-    const fields={width,height,segmented:true,map:readonly(decoded.map),confidence:readonly(decoded.confidence),noiseprint_pp:readonly(noise),score:decoded.score,metadata:{method:'trufor',rgbDivisor:256,imgsize:[height,width],coordinateSpace:'source-pixels',attention:'global',threshold:null,storage:'lossless segmented float32',statisticsPooling:'complete image; float64 reduction accumulator'}};
+    const fields={width,height,segmented:true,...(decoded.neuron333Activation?{neuron333_activation:readonly(decoded.neuron333Activation),neuron333:truforNeuron333Field(decoded.neuron333Activation,width,height,{budget})}:{}),map:readonly(decoded.map),confidence:readonly(decoded.confidence),noiseprint_pp:readonly(noise),score:decoded.score,metadata:{method:'trufor',...(decoded.neuron333Activation?{neuron333:{...TRUFOR_NEURON333,grid:[decoded.neuron333Activation.height,decoded.neuron333Activation.width],capturedDuringFullInference:true}}:{}),rgbDivisor:256,imgsize:[height,width],coordinateSpace:'source-pixels',attention:'global',threshold:null,storage:'lossless segmented float32',statisticsPooling:'complete image; float64 reduction accumulator'}};
     const item={key,refs:1,decoded,noise,session,data:fields,provenance:{originalSourceSha256:image.sha256??null,sourceSurfaceIdentity:id+'/'+revision,checkpointSha256:manifest.checkpointSha256,provider:[...new Set([...residual.executions,...encoderExecution,...decoded.executions].map(e=>e.provider))].join('+'),qualification:'segmented native graph; see dimension-specific proof'},execution:{noiseprint:residual.executions,encoder:encoderExecution,decoder:decoded.executions,storage:session?{backend:session.backend,...session.snapshot()}:null}};
     cached=item;decoded=null;noise=null;session=null;return acquire(item,false,image);
    }finally{

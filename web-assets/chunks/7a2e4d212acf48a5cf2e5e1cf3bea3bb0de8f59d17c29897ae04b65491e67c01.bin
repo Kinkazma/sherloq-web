@@ -1,0 +1,93 @@
+{
+  "schema": "sherloq.target-wasm-build/1",
+  "source": {
+    "file": "native/sherloq7c-target.cpp",
+    "bytes": 8712,
+    "sha256": "fc46c259eb2a810675e2f5cc0d4a93584365b78547f9b02956fa320af9bc3c36"
+  },
+  "bridge": {
+    "file": "src/sherloq7c-target-wasm.js",
+    "bytes": 7898,
+    "sha256": "64d4e9367cc480c7ed7673556be3477a9b3b4210c87e371427e6574bda86f600"
+  },
+  "buildScript": {
+    "file": "scripts/build-sherloq7c-target.sh",
+    "bytes": 848,
+    "sha256": "1cc0f544c708b6233fd0979b40212a66ae341f8ac3f97adaa94673efd56af9cf"
+  },
+  "toolchain": {
+    "name": "Emscripten",
+    "version": "4.0.15",
+    "revision": "09f52557f0d48b65b8c724853ed8f4e8bf80e669"
+  },
+  "flags": [
+    "-O3",
+    "-std=c++17",
+    "-ffp-contract=off",
+    "-fexceptions",
+    "-msimd128",
+    "-sMODULARIZE=1",
+    "-sEXPORT_ES6=1",
+    "-sENVIRONMENT=web,worker,node",
+    "-sALLOW_MEMORY_GROWTH=1",
+    "-sINITIAL_MEMORY=16777216",
+    "-sMAXIMUM_MEMORY=4294967296",
+    "-sIMPORTED_MEMORY=1",
+    "-sFILESYSTEM=0"
+  ],
+  "exportedFunctions": [
+    "_malloc",
+    "_free",
+    "_target_create",
+    "_target_destroy",
+    "_target_preconditioner",
+    "_target_init",
+    "_target_values",
+    "_target_info",
+    "_target_try_initial",
+    "_target_gradient",
+    "_target_factor",
+    "_target_cg_begin",
+    "_target_cg_batch",
+    "_target_accept"
+  ],
+  "exportedRuntimeMethods": [
+    "HEAPU8",
+    "HEAPU32",
+    "HEAPF64"
+  ],
+  "memory": {
+    "addressType": "wasm32",
+    "shared": false,
+    "importModule": "a",
+    "importName": "a",
+    "initialPages": 256,
+    "maximumPages": 65536,
+    "initialBytes": 16777216,
+    "declaredMaximumBytes": 4294967296,
+    "compiledAllocatorMaximumBytes": 4294901760,
+    "allocationPolicy": "Small initial allocation; bounded growth funded by the caller; final page kept outside allocator growth by Emscripten."
+  },
+  "numericContract": {
+    "sourceUnchanged": true,
+    "noFastMath": true,
+    "fpContract": "off",
+    "arithmeticCodeSectionSha256": "435efcefc5cfac00f147a0532ef1cac307920632c73cafc52b1e9ee32a772052",
+    "dataSectionSha256": "1b0fd082342de14b526d1b32e0148472b972e904c38c99eddffe18a9771490e9",
+    "previousWasmSha256": "bbd97302b1e44e304cfa1ea7a265167594a46947c208dd482688b867fcc3f641",
+    "previousCodeAndDataIdentical": true,
+    "binaryChange": "Only the declared memory import maximum differs from the previous 2 GiB binary."
+  },
+  "artifacts": [
+    {
+      "file": "src/target-kernel.mjs",
+      "bytes": 13558,
+      "sha256": "fc5de03de27af9bddf41885a68273563b398486e95349a8cf08454321f012dd7"
+    },
+    {
+      "file": "src/target-kernel.wasm",
+      "bytes": 45460,
+      "sha256": "e8e92985fff84ab7f237c76c087a3d58595efdb70b4865a59636234b01b32446"
+    }
+  ]
+}

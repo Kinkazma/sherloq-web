@@ -1,3 +1,5 @@
+import {ADAPTIVE_PREVIEW_MAX_SIDE} from '../sherloq-browser/assets/adaptive-preview.js';
+import {tracePaletteWorkingBytes} from '../../engine-source/src/sparse-trace-selection.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {renderRetainedPreview as preview,updateRetainedParameters,retainedPreviewWorkingBytes,renderRetainedWindow,planRetainedPreview} from '../sherloq-browser/assets/retained-parameter-preview.js';
@@ -65,7 +67,7 @@ test('Fourier gamma reads only sampled native magnitude rows and keeps a caller-
  const a=await preview({output:native,params:{fourier:{gamma:1,rescale:true}},maxSide:4,cache,readTable}),b=await preview({output:native,params:{fourier:{gamma:4,rescale:true}},maxSide:4,cache,readTable});assert.equal(calls,4);assert.equal(cache.size,1);assert.equal(a.pixels.width,4);assert.notDeepEqual(a.pixels.data,b.pixels.data);assert.equal(native.data.values,undefined);assert.equal(a.metrics.inferenceCalls,0);
 });
 test('retained preview cancellation rejects late reads without publishing or mutating output',async()=>{
- const controller=new AbortController(),native=output('colors.pca',{mean:new Float64Array(3),eigenvectors:Float64Array.of(1,0,0,0,1,0,0,0,1)});await assert.rejects(preview({output:native,source:rgb(8,4),signal:controller.signal,readSource:async()=>{controller.abort();return rgb(8,4);}}),{code:'CANCELLED'});assert.equal(native.pixels,undefined);await assert.rejects(preview({output:native,maxSide:2049}),{code:'INVALID_INPUT'});assert.ok(retainedPreviewWorkingBytes()<5*1024**2);assert.throws(()=>retainedPreviewWorkingBytes({maxSide:2049}),{code:'INVALID_INPUT'});
+ const controller=new AbortController(),native=output('colors.pca',{mean:new Float64Array(3),eigenvectors:Float64Array.of(1,0,0,0,1,0,0,0,1)});await assert.rejects(preview({output:native,source:rgb(8,4),signal:controller.signal,readSource:async()=>{controller.abort();return rgb(8,4);}}),{code:'CANCELLED'});assert.equal(native.pixels,undefined);await assert.rejects(preview({output:native,maxSide:4097}),{code:'INVALID_INPUT'});assert.ok(retainedPreviewWorkingBytes()<5*1024**2);assert.throws(()=>retainedPreviewWorkingBytes({maxSide:4097}),{code:'INVALID_INPUT'});
 });
 function clones(){return output('tampering.copyMove.sparse',{points:Float32Array.of(0,0,2,0,0,0,0,3,0,2,0,0,0,0,0,2,2,0,0,0,0,3,2,2,0,0,0,0),pairs:Float64Array.of(0,1,0,10,2,3,0,20),groups:[[0,1]],bases:[[0,0,255]],colors:Uint8Array.of(0,0,255,0,0,255)},4,3);}
 test('clone draft preserves native group eligibility and bounds geometry allocations',async()=>{
@@ -112,3 +114,5 @@ test('native exact virtual windows do not inherit proxy dimensions or plan state
 });
 
 test('a selected Ghost quality can preview its palette while the Original layer remains available',async()=>{const output={id:'ghosts',operation:'jpeg.ghosts',data:{cols:2,rows:2,qualities:Uint8Array.of(50,75),maps:Float64Array.of(0,1,.25,.75,.5,.5,1,0),sourceDimensions:[32,32]},provenance:{params:{low:50,high:75,step:25,grayscale:true,includeOriginal:true}}};const p={low:50,high:75,step:25,grayscale:false,includeOriginal:true},answer=await preview({output,params:p,view:{index:1,quality:75,layerId:'quality-75'},maxSide:16});assert.ok(answer,'Keeping Original available must not disable the quality-map preview');assert.equal(answer.pixels.width,2);assert.equal(answer.pixels.height,2);assert.equal(answer.metrics.nativeAnalysisCalls,0);assert.equal(answer.pixels.data.length,12);assert.equal(await preview({output,params:p,view:{index:0,layerId:'original'},maxSide:16}),null);});
+
+test('retained clone trace admission counts the common4096-side line/palette workspace without increasing trace counts',()=>{const side=ADAPTIVE_PREVIEW_MAX_SIDE;assert.equal(side,4096);const base=retainedPreviewWorkingBytes({maxSide:1}),clone=retainedPreviewWorkingBytes({maxSide:1,operation:'tampering.copyMove.sparse'});assert.equal(clone-base,8192*6144+side*32+16384+tracePaletteWorkingBytes(side,8192));});

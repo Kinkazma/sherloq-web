@@ -1,4 +1,7 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
+import {usesAlternateRecompression} from './recompression-plan.js';
+import {selectedEnergyCodec} from './energy-stream.js';
+import {selectedEnergyReference,energyProbeKey} from './energy-pipeline.js';
 import {elaCellParams,elaCellPipeline} from './ela-cell-pipeline.js';
 import {planElaBiomesNativeCells} from './ela-biomes-native-cell-plan.js';
 import {createScopedElaOwner} from './ela-biomes-scoped-owner.js';
@@ -28,18 +31,18 @@ export async function sourceRegionBiomes({task,original,derived,view,domain,budg
  try{
   // Failed old codec ACKs must settle before any new context reads RGB.
   await owner.retireCodecs();checkAbort(signal);
-  plan=await planElaBiomesNativeCells(view,block,{budget,signal});
-  const stage=await owner.stage(block+'/'+p.quality+'/'+cpuKernel),prefix=task.imageId+'\0source-region/biomes-v1/',key=prefix+JSON.stringify([p,task.backend??'auto']),hit=budget.get(key);
+  plan=await planElaBiomesNativeCells(view,block,{budget,signal,alternate:usesAlternateRecompression(p)});
+  const stage=await owner.stage(block+'/'+p.quality+'/'+cpuKernel+(p.recompression?'/'+energyProbeKey(p):'')),prefix=task.imageId+'\0source-region/biomes-v1/',key=prefix+JSON.stringify([p,task.backend??'auto']),hit=budget.get(key);
   const contextImage=c=>{let image=images.get(c.id);if(!image){image=createSourceRegionJpegContextImage(view,c,original,budget);images.set(c.id,image);owner.codecs.add(image);}return image;};
   let result=hit?.value;
   if(!result){
-   const referenceQuality=energyReferenceHeader(p.quality?null:await inspectOriginalJpeg(original,{signal}),p.quality);
+   const referenceQuality=await selectedEnergyReference(original,p,{signal})??energyReferenceHeader(p.quality?null:await inspectOriginalJpeg(original,{signal}),p.quality);
    result=await elaCellPipeline({width:domain.width,height:domain.height},p,{signal,onProgress:f=>onProgress?.({phase:'source-region-biomes',fraction:f})},{budget,cpuKernel,reserveMemory,stageCheckpoint:stage,memo:(key,compute)=>stage.memo(key,async()=>{const at=performance.now();try{return await compute();}finally{stageTimings.push({stage:key,milliseconds:performance.now()-at});}}),memoMany:(keys,compute)=>stage.memoMany(keys,async missing=>{const at=performance.now();try{return await compute(missing);}finally{stageTimings.push({stage:missing.join(','),milliseconds:performance.now()-at});}}),referenceQuality,
     async cellPlanes(qualities,nativeBlock,hooks){
      requireValue(nativeBlock===plan.block,'Native Biomes block changed after scientific admission.');const values=[];let recompressions=0;
      for(const quality of qualities){
       const fields={rows:plan.rows,cols:plan.cols,block:nativeBlock,content:allocateTypedArray(Float32Array,plan.rows*plan.cols*6,{label:'scoped-ela-content'}),profiles:allocateTypedArray(Float32Array,plan.rows*plan.cols*5,{label:'scoped-ela-profiles'}),background:allocateTypedArray(Float32Array,plan.rows*plan.cols*3,{label:'scoped-ela-background'}),usable:allocateTypedArray(Uint8Array,plan.rows*plan.cols,{label:'scoped-ela-usable'})};
-      for(const c of plan.contexts){await cooperate();const contextStart=performance.now(),described=await segmentedElaCellPlane(contextImage(c),quality,nativeBlock,{budget,signal,gridOffset:c.gridOffset,nativeKernel:cpuKernel,onProgress:e=>onProgress?.({...e,sourceFragment:c.id})});
+      for(const c of plan.contexts){await cooperate();const contextStart=performance.now(),described=await segmentedElaCellPlane(contextImage(c),quality,nativeBlock,{budget,signal,params:p,gridOffset:c.gridOffset,nativeKernel:cpuKernel,onProgress:e=>onProgress?.({...e,sourceFragment:c.id})});
        try{requireValue(described.rows===c.rows&&described.cols===c.cols,'Native context descriptor grid changed.');for(const cell of c.cells){for(const[name,stride]of [['content',6],['profiles',5],['background',3]])fields[name].set(described[name].subarray(cell.local*stride,(cell.local+1)*stride),cell.index*stride);fields.usable[cell.index]=described.usable[cell.local];}recompressions+=described.metrics.recompressions??0;contextTimings.push({context:c.id,quality,width:c.width,height:c.height,milliseconds:performance.now()-contextStart,...described.metrics});}finally{await described.release();}
       }values.push(fields);
      }return {values,workers:1,recompressions};
@@ -48,7 +51,7 @@ export async function sourceRegionBiomes({task,original,derived,view,domain,budg
      let arrays,complete=false,ghostFailed=false,ghostPrimary,workers=0,gpuJobs=0,gpu;
      try{
       arrays=await createBiomesGhostArrays(plan.rows*plan.cols,budget,owner.temporary);
-      for(const c of plan.contexts){await cooperate();const result=await segmentedGhostCells(contextImage(c),params,{rows:c.rows,cols:c.cols,block:grid.block,dx:c.gridOffset[0]+grid.dx,dy:c.gridOffset[1]+grid.dy},{budget,signal,pendingRegistry:owner.temporary,backend:cpuKernel==='reference'?'cpu':(task.backend??'auto'),maxWorkers:cpuKernel==='auto'?(profile.maxWorkers??1):1,onProgress:e=>onProgress?.({...e,sourceFragment:c.id})});
+      for(const c of plan.contexts){await cooperate();const contextSource=contextImage(c);if(p.recompression)await selectedEnergyCodec(contextSource,p,budget);const result=await segmentedGhostCells(contextSource,params,{rows:c.rows,cols:c.cols,block:grid.block,dx:c.gridOffset[0]+grid.dx,dy:c.gridOffset[1]+grid.dy},{budget,signal,pendingRegistry:owner.temporary,backend:cpuKernel==='reference'?'cpu':(task.backend??'auto'),maxWorkers:cpuKernel==='auto'?(profile.maxWorkers??1):1,onProgress:e=>onProgress?.({...e,sourceFragment:c.id})});
        try{for(const cell of c.cells){arrays.curves.set(result.data.curves.subarray(cell.local*71,(cell.local+1)*71),cell.index*71);arrays.valid[cell.index]=result.data.valid[cell.local];}workers=Math.max(workers,result.engineMetrics.workers??1);if(result.engineMetrics.backend==='webgpu'){gpuJobs++;gpu=result.engineMetrics.gpu;}}finally{await result.release();}
       }
       complete=true;return {data:{rows:plan.rows,cols:plan.cols,qualities:71,curves:arrays.curves,valid:arrays.valid},engineMetrics:{workers,...(gpuJobs?{backend:'webgpu',completedGpuJobs:gpuJobs,gpu}:{}),sourceContexts:plan.contexts.length},release:()=>arrays.release()};
@@ -68,7 +71,7 @@ export async function sourceRegionBiomes({task,original,derived,view,domain,budg
   maskSurface=createMaskSurface(maskStore,{width:plan.cols,height:plan.rows,budget,range:[0,1],semantics:'1=complete admitted Native Biomes cell;0=not evaluated, never a zero-valued observation.'});
   const descriptor=publishTable(task.imageId,{surface:maskSurface}),bundle={maskSurfaces:{native_cell_admission:descriptor}};published=true;
   const metrics={...(hit?{kernel:'cached-admitted-native-biomes',workers:0,cellRecompressions:0,ghostPhasesComputed:0}:result.engineMetrics),cache:{result:!!hit},selectedPixels:plan.selectedPixels,analysedPixels:plan.analysedPixels,unanalysablePixels:plan.unanalysablePixels,completeAdmittedCells:plan.analysedCells,sourceContexts:plan.contexts.length,stageTimings,contextTimings,scientificStages:stage.snapshot(),totalMs:performance.now()-started};
-  return {id:task.id,imageId:task.imageId,operation:'ela.biomes',status:'ok',...owned,...bundle,metrics,provenance:{params:p,backend:result.engineMetrics.backend??'cpu',sourceRegionDomain:domain.descriptor,sourceRegionPolicy:plan.version,sourceGridOrigin:[...domain.origin],excludedParticipation:'absent-before-native-context-JPEG-filters-descriptors-Ghost-and-global-robust-statistics',statisticalPopulation:'one common original-coordinate native cell grid; unadmitted cells absent before medians, peers and coherent segmentation'}};
+  return {id:task.id,imageId:task.imageId,operation:'ela.biomes',status:'ok',...owned,...bundle,metrics,provenance:{params:p,backend:result.engineMetrics.backend??'cpu',sourceRegionDomain:domain.descriptor,sourceRegionPolicy:plan.version,sourceGridOrigin:[...domain.origin],excludedParticipation:p.recompression?'absent-before-selected-codec-context-filters-descriptors-Ghost-and-global-robust-statistics':'absent-before-native-context-JPEG-filters-descriptors-Ghost-and-global-robust-statistics',statisticalPopulation:'one common original-coordinate native cell grid; unadmitted cells absent before medians, peers and coherent segmentation'}};
  }catch(error){failed=true;primary=error;throw error;}
  finally{
   // Keep metadata and temporary parent funding in the derived source owner if

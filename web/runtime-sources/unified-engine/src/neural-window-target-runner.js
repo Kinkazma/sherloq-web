@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {captureNeuralWindowBinding,neuralWindowAck} from './neural-window-job-owner.js';
 import {openNeuralWindowConnection} from './neural-window-engine-link.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {EngineError} from './errors.js';
 // Named host outputs do not capture the producer's async activation/input.
 // Successful siblings retire once; a refused or asynchronous ACK retains the

@@ -90,7 +90,7 @@ def generate(manifest, metadata_root, assets_root=None):
     for method, prefixes, deps in [
         ('cfa', ['individual-assets/cfa-m2'], ['resource.cfa-operators']),
         ('catnet', ['individual-assets/catnet-segments', 'individual-assets/catnet'], ['resource.neural-runtime']),
-        ('trufor', ['individual-assets/trufor-split-value', 'individual-assets/trufor-segments', 'individual-assets/trufor-npp'], ['resource.neural-runtime', 'resource.cfa-operators']),
+        ('trufor', ['individual-assets/trufor-neuron333', 'individual-assets/trufor-split-value', 'individual-assets/trufor-segments', 'individual-assets/trufor-npp'], ['resource.neural-runtime', 'resource.cfa-operators']),
     ]:
         resources = sum([directory(prefix) for prefix in prefixes], [])
         if method == 'cfa': resources = [path for path in resources if not path.endswith(('operators.mjs', 'operators.wasm'))]
@@ -193,6 +193,49 @@ def generate(manifest, metadata_root, assets_root=None):
                 resources += sorted(python_paths)
             add(operation, fr, en, resources=resources, group='inspection-models',
                 depends=['resource.extension-runtime'], tasks=[{'operation': operation}])
+    # Four retained detectors share one runtime operation but own independent
+    # stage payloads. The method discriminator must participate in installation
+    # policy; installed weights alone never establish scientific qualification.
+    protected_shared_ort = set()
+    protected_detector_ui = set()
+    ai_catalog = 'unified-assets/ai-detectors/model-manifest.json'
+    if ai_catalog in files:
+        detectors = metadata(ai_catalog)
+        retained = {'dda', 'prl', 'community-forensics', 'gapl'}
+        if detectors.get('schema') != 'sherloq.ai-detectors.models/1' or set(detectors['models']) != retained:
+            raise ValueError('AI detector catalogue must retain the four accepted methods')
+        groups.append({'id': 'ai-image-detection', 'fr': 'Détection d’images d’IA',
+                       'en': 'AI image detection'})
+        runtime = directory('unified-assets/ai-detectors-notices') + directory('unified-assets/ai-detectors-evidence') + [ai_catalog]
+        runtime += [name for name in files if name.startswith('unified-engine/src/ai-detectors-')]
+        # The common workspace imports these metadata-only helpers eagerly.
+        # Removing optional detector weights must leave its import graph intact.
+        protected_detector_ui.update('unified-engine/src/' + name for name in (
+            'ai-detectors-backends.js', 'ai-detectors-gpu-policy.js',
+            'ai-detectors-qualification.js'))
+        protected_shared_ort.update('unified-engine/vendor/d2prl/' + name for name in ('ort.wasm.min.mjs', 'ort-wasm-simd-threaded.mjs', 'ort-wasm-simd-threaded.wasm'))
+        protected_shared_ort.update('unified-engine/vendor/segmentation/' + name for name in ('ort.bounded-cache.min.mjs', 'ort-wasm-simd-threaded.jsep.mjs', 'ort-wasm-simd-threaded.jsep.wasm'))
+        runtime += sorted(protected_shared_ort)
+        add('resource.ai-detectors-runtime', 'Exécution partagée des quatre détecteurs d’IA',
+            'Shared runtime for the four AI image detectors', resources=runtime, internal=True)
+        for method, label in [('dda', 'DDA'), ('prl', 'PRL'),
+                              ('community-forensics', 'Community Forensics 384'), ('gapl', 'GAPL')]:
+            pin = detectors['models'][method]
+            model_path = posixpath.normpath(posixpath.join('unified-assets/ai-detectors', pin['manifestUrl']))
+            if not model_path.startswith('unified-assets/ai-detectors/' + method + '/') or files[model_path]['sha256'] != pin['sha256']:
+                raise ValueError('AI detector manifest pin differs: ' + method)
+            config = metadata(model_path)
+            resources = [model_path]
+            for stage in config['stages']:
+                stage_path = posixpath.normpath(posixpath.join(posixpath.dirname(model_path), stage['file']))
+                if not stage_path.startswith('unified-assets/ai-detectors/' + method + '/') or stage_path not in files:
+                    raise ValueError('AI detector stage leaves its retained family')
+                if files[stage_path]['sha256'] != stage['sha256'] or files[stage_path]['size'] != stage['bytes']:
+                    raise ValueError('AI detector stage identity differs: ' + stage_path)
+                resources.append(stage_path)
+            add('ai.generation.' + method, '⚠️ ' + label, group='ai-image-detection',
+                resources=resources, depends=['resource.ai-detectors-runtime'],
+                tasks=[{'operation': 'ai.generation.detect', 'params': {'method': method}}])
     # Standalone OCR is optional and separate from batch exclusion detection.
     # Models remain dependency assets, never bootstrap/archive shell bodies.
     ocr_path = 'ocr-assets/manifest.json'
@@ -212,11 +255,14 @@ def generate(manifest, metadata_root, assets_root=None):
         add('ocr.tesseract-best', 'Tesseract LSTM — précision', 'Tesseract LSTM — accuracy', group='ocr', resources=directory('ocr-assets/tessdata-best'), depends=['resource.ocr-config'], tasks=[{'operation':'various.ocr','params':{'algorithm':'tesseract'}}])
     claimed = set(path for feature in features for path in feature['resources'])
     optional_ops = {task['operation'] for feature in features for task in feature['tasks']}
-    core_tools = [item for group in tree for item in group['items'] if item['id'] not in optional_ops]
+    optional_ids = {feature['id'] for feature in features}
+    core_tools = [item for group in tree for item in group['items'] if item['id'] not in optional_ops and item['id'] not in optional_ids]
     # All unassigned code, codecs, manifests, lightweight tools and existing
     # import facilities remain protected. Newly configured public variants above
     # become default roots unless their stable group is explicitly excluded.
-    add('core', 'Interface et outils nécessaires', 'Interface and required tools', group='core', protected=True, resources=sorted(set(files) - claimed))
+    # These six pre-existing ORT companions also serve the acquired tools.
+    # Optional AI ownership must never remove their protected core ownership.
+    add('core', 'Interface et outils nécessaires', 'Interface and required tools', group='core', protected=True, resources=sorted((set(files) - claimed) | protected_shared_ort | protected_detector_ui))
     for item in core_tools:
         if item['id']=='original': id='tool.original'
         else: id=item['id'].lower()

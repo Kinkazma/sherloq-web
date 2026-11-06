@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {fetchXfeatGlueAsset} from './xfeat-glue-global-assets.js';
 // SHERLOQ: correct both unfused CPU cross-attention MatMuls, with a native fmaf anchor.
 // GPU graphs and the complete scientific attention/assignment domains are kept.

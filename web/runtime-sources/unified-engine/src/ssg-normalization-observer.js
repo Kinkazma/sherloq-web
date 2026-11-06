@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 // Private development observer only. Metadata is bounded/prepaid; no pixels,
 // coefficients, hash pass, source read, Worker, timer or computation is created.
 const attached=new WeakMap();

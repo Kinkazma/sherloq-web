@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {createScopedForgeryscopeSource} from './forgeryscope-scoped-source.js';
 import {analyzeForgeryscope} from './forgeryscope-pipeline.js';
 import {forgeryscopeMaskField} from './forgeryscope-segmented-result.js';

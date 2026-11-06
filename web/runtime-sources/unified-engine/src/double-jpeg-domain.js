@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import{requireValue,checkAbort,createCooperator,EngineError}from'./errors.js';
 import{createZeroRetirement as createRetirement}from'./zero-native-context-plan.js';
 import{allocateTypedArray}from'./allocation.js';import{sourceRegionTransportBytes}from'./source-region-transport.js';

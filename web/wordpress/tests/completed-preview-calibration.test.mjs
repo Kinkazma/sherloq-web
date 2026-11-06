@@ -6,7 +6,7 @@ const drain=async()=>{for(let i=0;i<12;i++)await Promise.resolve();};
 const payload=(plan,milliseconds)=>({metrics:{adaptivePreview:{token:plan.token,milliseconds,pixels:plan.pixels,setupMilliseconds:0,cold:false}}});
 
 test('continuous replacement learns oversized completed cost without displaying obsolete values',async()=>{
- const adaptive=createAdaptivePreview(),plans=[],gates=[],shown=[],observed=[];
+ const adaptive=createAdaptivePreview({targetMs:50,initialSide:128}),plans=[],gates=[],shown=[],observed=[];
  const session=createParameterPreviewSession({preview:event=>{const plan=adaptive.plan({key:'computed-contract/continuous',width:310,height:260});plans.push(plan);return new Promise(resolve=>gates.push({resolve,event,plan}));},computed:answer=>observed.push(reportAdaptivePreviewComputed(answer.metrics)),show:answer=>shown.push(answer),commit:()=>{}});
  session.handle({phase:'begin'});session.handle({phase:'preview',value:0});
  for(let value=1;value<=10;value++){

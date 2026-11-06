@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {requireValue} from './errors.js';
 const align=(n,a)=>Math.ceil(n/a)*a;
 // Independent windows retain independent shader address spaces. No image atlas.

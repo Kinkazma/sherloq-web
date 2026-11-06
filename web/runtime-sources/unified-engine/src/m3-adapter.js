@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {efficientLoFtrComparisonTask} from './efficient-loftr-comparison-task.js';
 import {configuredShas} from './useful-owner-facts.js';
 import {retireCompositeOwners} from './composite-owner-release.js';

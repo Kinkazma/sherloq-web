@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {ownFileGrayCleanup} from './file-gray-retirement.js';
 import {requireValue,createCooperator,controlCheckpoint} from './errors.js';import {inspectJpegBlob} from './jpeg.js';import {decodeJpegGrayRows} from './jpeg-gray-rows.js';import {createSegmentedBytes} from './segmented-bytes.js';import {createMaskSurface} from './rgb-surface.js';
 import {createSourceRegionGray} from './source-region-gray.js';

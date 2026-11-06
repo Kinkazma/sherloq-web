@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {neuralWindowBridgeAvailable} from './neural-window-engine-link.js';
 import {drainClassicSiftRetirements} from './classic-sift-retirement.js';
 import {retireCompositeOwners} from './composite-owner-release.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 import {nativeWeightsGpuPage,nativeWeightsShaderSuffix,retireNativeWeightPointers,rememberNativeWeightsCleanup} from './native-weights-gpu-page.js';
 import {CSR_NATIVE_SOFTMAX_WASM} from './sparse-glue-csr-native-assets.js';
 import {fetchM3Asset} from './m3-asset.js';

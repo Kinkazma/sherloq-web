@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.30.0";
+import "../../runtime-context.js?v=0.31.0";
 const PREFIX='ghost-native-exact/useful-cost/',REVISION='binary64-means-1',BYTES=2048,MAXIMUM=32,LIFETIME=5*60*1000;
 const fresh=(value,now)=>value&&Number.isFinite(value.epoch)&&now>=value.epoch&&now-value.epoch<LIFETIME;
 function put(budget,key,value){

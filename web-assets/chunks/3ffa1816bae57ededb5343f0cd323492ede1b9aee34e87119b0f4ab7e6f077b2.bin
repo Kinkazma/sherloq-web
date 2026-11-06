@@ -1,0 +1,1438 @@
+{
+  "method": "dda",
+  "precision": "float32",
+  "opset": 17,
+  "input": {
+    "name": "pixel_values",
+    "dims": [
+      1,
+      3,
+      336,
+      336
+    ]
+  },
+  "score": "sigmoid(logit)",
+  "calibratedProbability": false,
+  "decision": {
+    "operator": ">=",
+    "threshold": 0.5
+  },
+  "stages": [
+    {
+      "name": "stem",
+      "file": "stem.onnx",
+      "sha256": "1a92b4b65af4e94863cf8a3016559c1d6065907aa1ccb2e78d21d4e84a2debe3",
+      "bytes": 4782370,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        3,
+        336,
+        336
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 51.955249975435436,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "sharedWithA": {
+        "sha256": "1a92b4b65af4e94863cf8a3016559c1d6065907aa1ccb2e78d21d4e84a2debe3",
+        "hardLinked": true
+      }
+    },
+    {
+      "name": "block-00",
+      "file": "block-00.onnx",
+      "sha256": "f1ac4e478948d42aec4b80eabfcafedca49c53f90d21da47ff059856ba00bfc8",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 300.5719579523429,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-01",
+      "file": "block-01.onnx",
+      "sha256": "f3e9485894ca98d103dd7477728e5c2974e1a9953799f16f418f21be02d2b73e",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 276.5669590444304,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-02",
+      "file": "block-02.onnx",
+      "sha256": "c1610db72dbd5dbbaecf188965f4ce83450bfa0172bbc30871cf1a01e26b2923",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 280.3665419924073,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-03",
+      "file": "block-03.onnx",
+      "sha256": "c4f0ff7e5c7c2260b2d98191af32e354a2933f46f7534acfbd9c70f3ca0edd8c",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 272.8545420104638,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-04",
+      "file": "block-04.onnx",
+      "sha256": "907cbebacd1f671a1e2648e08de8e2c50b5e511c5c873af6204b642c1c2a69b0",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 267.6989170140587,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-05",
+      "file": "block-05.onnx",
+      "sha256": "3da819e1035b947d69ff122c91b88aeea2428e04c803c8760e2052e0e1d2b142",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 262.8013329813257,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-06",
+      "file": "block-06.onnx",
+      "sha256": "2034f702e87f403499bd56092e0071a06c7baf6f17ecfb6861963a06100949d1",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 262.0557500049472,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-07",
+      "file": "block-07.onnx",
+      "sha256": "dd37753be49fc3173dd04735f357dd2f361046ff7c158bdb1b7a07c772ffe5a9",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 265.16554196132347,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-08",
+      "file": "block-08.onnx",
+      "sha256": "989566fe865c4db08257dc4f66e7ec32d2e2133f30d4d2da2f3e3035d63d501c",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 263.5014579864219,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-09",
+      "file": "block-09.onnx",
+      "sha256": "90726024542ce7b922396d11a860053005147c5ef82265a68c3ea91615f5250b",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 269.91304103285074,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-10",
+      "file": "block-10.onnx",
+      "sha256": "665218800b788fbf3c58a4e4f6cbffc61982419080249723f59c1a1b0dd11db3",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 272.2862079972401,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-11",
+      "file": "block-11.onnx",
+      "sha256": "9183995b333c8ef09ecf1c88a32a257a5828e2748b995a2307aef5bd94c9279a",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 279.54312501242384,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-12",
+      "file": "block-12.onnx",
+      "sha256": "69bd04ad81e0daa62dbb8f43d2a3f3cc052758a8ecd4449a33b8cfdf9befb8a5",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 269.72387498244643,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-13",
+      "file": "block-13.onnx",
+      "sha256": "7bc7f09979b71fab85452aff8cd7a043b6737f5090caece7a936eb23fc000606",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 274.5384580339305,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-14",
+      "file": "block-14.onnx",
+      "sha256": "8186899c92662d62fad80c9295148c2d3763187197ec30dcdd7c8374aec6fd4d",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 275.0867500435561,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-15",
+      "file": "block-15.onnx",
+      "sha256": "f2935c434ad6b15fcbbd19ea4249bf6ee0226374f413b5469857a76b9d97c303",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 268.89762497739866,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-16",
+      "file": "block-16.onnx",
+      "sha256": "19ed0b3d7db569dc5065ad2bb4b7cb4a1fdec018f415801f87e27b916eae2a46",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 277.65499998349696,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-17",
+      "file": "block-17.onnx",
+      "sha256": "8e1540237a5c83cc355213b406be555e4ddc8c1c16c237e69088631d8c20972c",
+      "bytes": 50395027,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 279.2417909950018,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-18",
+      "file": "block-18.onnx",
+      "sha256": "45fb7b1479f9c3523e7d7ad7c76ad7ebea6f7233511db5ed0f4b22178e1e7a60",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 267.7810420282185,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-19",
+      "file": "block-19.onnx",
+      "sha256": "33b35401f7f4b5d0eb23372c7fc670b0a87fc3815e0bd5f250883b72c297a565",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 271.7394169885665,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-20",
+      "file": "block-20.onnx",
+      "sha256": "c69b7988dd8a18d85a17c5b1e9d53625ab75fa34c73157ae99689b5c9001dffa",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 273.0488749803044,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-21",
+      "file": "block-21.onnx",
+      "sha256": "bcb6374d46c030eb2f8e94e9fad2d196d32cd651c8e94dea55714fedd5a0bb2a",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 273.5705000231974,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-22",
+      "file": "block-22.onnx",
+      "sha256": "2246d74fca6a3f283dedb7a562e41291d8ff650a22624169d0bee3b4e285935f",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 267.91950000915676,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "block-23",
+      "file": "block-23.onnx",
+      "sha256": "8daaea7f38f905bda5a26ef58623e73f075e692cb7d189fc3f56d85d250f6b96",
+      "bytes": 25229656,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        577,
+        1024
+      ],
+      "exportMs": 279.8165410058573,
+      "outputShapes": {
+        "output": [
+          1,
+          577,
+          1024
+        ]
+      },
+      "loraFusion": [
+        {
+          "module": "attn.qkv",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "attn.proj",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc1",
+          "kind": "DDA",
+          "scale": 0.125
+        },
+        {
+          "module": "mlp.fc2",
+          "kind": "DDA",
+          "scale": 0.125
+        }
+      ]
+    },
+    {
+      "name": "head",
+      "file": "head.onnx",
+      "sha256": "2776cbf9f705de116422db54c83c180fc43cb67bf7b850160c93d9b5c1ad387e",
+      "bytes": 12915,
+      "inputNames": [
+        "input"
+      ],
+      "outputNames": [
+        "output"
+      ],
+      "inputShape": [
+        1,
+        577,
+        1024
+      ],
+      "outputShape": [
+        1,
+        1
+      ],
+      "exportMs": 4.985457984730601,
+      "outputShapes": {
+        "output": [
+          1,
+          1
+        ]
+      },
+      "sharedWithA": {
+        "sha256": "2776cbf9f705de116422db54c83c180fc43cb67bf7b850160c93d9b5c1ad387e",
+        "hardLinked": true
+      }
+    }
+  ],
+  "source": {
+    "sourceCommit": "08d6b414a33826403b9096cfdb7758d5eae12dbb",
+    "checkpoint": "dda/DDA_ckpt.pth",
+    "sha256": "b27a31d39374803ddeff02bfabb2be76e190b04300490cddfafb24f683f37e3e",
+    "backboneCodeCommit": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+    "license": "Apache-2.0",
+    "weightAndConfigurationArtifacts": [
+      {
+        "file": "dda/DDA_ckpt.pth",
+        "bytes": 1255621296,
+        "sha256": "b27a31d39374803ddeff02bfabb2be76e190b04300490cddfafb24f683f37e3e"
+      }
+    ],
+    "backbone": {
+      "name": "DINOv2 ViT-L/14",
+      "repository": "https://github.com/facebookresearch/dinov2",
+      "architectureImplementation": "DINOv2 source commit 7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+      "weightsIncludedInCompleteDetectorCheckpoint": true
+    },
+    "lora": {
+      "rank": 8,
+      "alpha": 1.0,
+      "fusionScale": 0.125
+    },
+    "licenseNotices": [
+      {
+        "file": "notices/dda-prl/DDA-APACHE-2.0.txt",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      {
+        "file": "notices/dda-prl/DINOV2-APACHE-2.0.txt",
+        "sha256": "600cc67cc4cb2f5ea317dcfc687ad1c74dc4bec8782bbe9db0afd83513b935b7"
+      }
+    ],
+    "licensingAssessment": {
+      "code": "Apache-2.0",
+      "weights": "Apache-2.0",
+      "extra_author_permission_required_by_published_license": false
+    },
+    "precision": "float32"
+  },
+  "preprocessing": {
+    "centerCrop": 336,
+    "padding": "zero",
+    "pil": true,
+    "exifTranspose": "host contract before preparation",
+    "conditionalResize": null,
+    "mean": [
+      0.48145466,
+      0.4578275,
+      0.40821073
+    ],
+    "std": [
+      0.26862954,
+      0.26130258,
+      0.27577711
+    ]
+  },
+  "validation": {
+    "referenceExecuted": true,
+    "browserExecuted": true,
+    "cases": 18,
+    "perCaseTolerance": 0.001,
+    "scientificPreparationUnchanged": true,
+    "fullProductIntegration": "Passed declared encoded-import and resource-lifecycle receipts"
+  },
+  "optimization": {
+    "kind": "Selective FP16 weight storage with FP32 arithmetic and original-precision sensitive layers",
+    "fullPrecisionBlocks": [
+      17
+    ],
+    "packedParentSha256": "a3b278a65ca0b268aa29fa2adf01493e018ec77a563a30a975d4ee209808ca79",
+    "fullParentSha256": "dab3edfce6c3f130218fecb88531606dd44cdc3fe1a257ac284cd56f28790b30",
+    "activationAndIoPrecision": "float32",
+    "preparationUnchanged": true,
+    "attentionDomainUnchanged": true,
+    "qualification": "pending"
+  },
+  "candidate": {
+    "kind": "Full global attention operator and GELU fusion",
+    "attention": "16 heads,64 dimensions,577 complete tokens",
+    "gelu": "erf exact formula",
+    "parentSha256": "fc35cd950b06101416705a459eb4114861155544e371d3d827d896aaa7019acf",
+    "preparationUnchanged": true,
+    "weightValuesUnchanged": true,
+    "validation": "pending real corpus"
+  },
+  "selection": {
+    "parentManifestSha256": "6358ff100d4ccbe5209746b6ae371998285055f6ad15ac20c26620e9c4e49c6c",
+    "qualificationScope": "Six real provided sources,18explicit size derivatives; no classifier-accuracy claim"
+  },
+  "numericalPolicy": {
+    "computation": "float32",
+    "weightStorageAndOptimization": "Dense weights FP16; stem/head and transformer block17 retain FP32",
+    "reference": "Original strict-load FP32 forward",
+    "perCaseScoreTolerance": 0.001,
+    "roundedWeights": true,
+    "sourcePreprocessingUnchanged": true,
+    "validation": "Qualified on declared local real corpus; not an accuracy or universal error guarantee",
+    "maxObservedPrimaryScoreError": 0.0007514709729392055
+  }
+}
