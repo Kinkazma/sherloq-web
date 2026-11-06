@@ -1,0 +1,1789 @@
+{
+  "schema": 1,
+  "method": "trufor-mini",
+  "name": "TruFor Mini",
+  "checkpointSha256": "bd9fd0221c17e8c2e3fa518f2945178a660349c55b333a9680c15e7676fe1dc3",
+  "stateSha256": "07fbb94c9738f65bfb7c6e8335638ed892fad329c343d5b8aac0908a982d43fe",
+  "rgbDivisor": 256,
+  "stages": [
+    {
+      "channels": 64,
+      "stride": 4,
+      "radius": 3,
+      "streams": [
+        {
+          "patch": "s1-rgb-patch",
+          "blocks": [
+            {
+              "sr": 8,
+              "heads": 1,
+              "approximation": "exact",
+              "kv": "s1-rgb-b0-kv",
+              "query": "s1-rgb-b0-query",
+              "mlp": "s1-rgb-b0-mlp",
+              "querySplitValue": {
+                "name": "s1-rgb-b0-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s1-rgb-b0-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 8,
+              "heads": 1,
+              "approximation": "exact",
+              "kv": "s1-rgb-b1-kv",
+              "query": "s1-rgb-b1-query",
+              "mlp": "s1-rgb-b1-mlp",
+              "querySplitValue": {
+                "name": "s1-rgb-b1-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s1-rgb-b1-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 8,
+              "heads": 1,
+              "approximation": "exact",
+              "kv": "s1-rgb-b2-kv",
+              "query": "s1-rgb-b2-query",
+              "mlp": "s1-rgb-b2-mlp",
+              "querySplitValue": {
+                "name": "s1-rgb-b2-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s1-rgb-b2-query-mlp",
+                "halo": 1
+              }
+            }
+          ],
+          "norm": "s1-rgb-norm"
+        },
+        {
+          "patch": "s1-noise-patch",
+          "blocks": [
+            {
+              "sr": 8,
+              "heads": 1,
+              "approximation": "pool2",
+              "kv": "s1-noise-b0-kv-query-source",
+              "query": "s1-noise-b0-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "pool2",
+                "aggregation": "pooled_norm1"
+              },
+              "messageMlp": {
+                "name": "s1-noise-b0-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 8,
+              "heads": 1,
+              "approximation": "pool2",
+              "kv": "s1-noise-b1-kv-query-source",
+              "query": "s1-noise-b1-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "pool2",
+                "aggregation": "pooled_norm1"
+              },
+              "messageMlp": {
+                "name": "s1-noise-b1-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 8,
+              "heads": 1,
+              "approximation": "pool2",
+              "kv": "s1-noise-b2-kv-query-source",
+              "query": "s1-noise-b2-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "pool2",
+                "aggregation": "pooled_norm1"
+              },
+              "messageMlp": {
+                "name": "s1-noise-b2-message-mlp",
+                "halo": 1
+              }
+            }
+          ],
+          "norm": "s1-noise-norm"
+        }
+      ],
+      "fusionOutputChannels": 8,
+      "rectifyWeights": "s1-rectify-weights",
+      "rectify": "s1-rectify",
+      "fusionHeads": 1,
+      "fusionScale": 0.125,
+      "fusion": [
+        {
+          "context": "s1-cross1-context",
+          "apply": "s1-cross1-apply"
+        },
+        {
+          "context": "s1-cross2-context",
+          "apply": "s1-cross2-apply"
+        }
+      ],
+      "channel": "s1-channel",
+      "fusionJoint": {
+        "name": "s1-fusion-joint",
+        "halo": 1
+      }
+    },
+    {
+      "channels": 128,
+      "stride": 2,
+      "radius": 1,
+      "streams": [
+        {
+          "patch": "s2-rgb-patch",
+          "blocks": [
+            {
+              "sr": 4,
+              "heads": 2,
+              "approximation": "exact",
+              "kv": "s2-rgb-b0-kv",
+              "query": "s2-rgb-b0-query",
+              "mlp": "s2-rgb-b0-mlp",
+              "querySplitValue": {
+                "name": "s2-rgb-b0-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s2-rgb-b0-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "approximation": "exact",
+              "kv": "s2-rgb-b1-kv",
+              "query": "s2-rgb-b1-query",
+              "mlp": "s2-rgb-b1-mlp",
+              "querySplitValue": {
+                "name": "s2-rgb-b1-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s2-rgb-b1-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "approximation": "exact",
+              "kv": "s2-rgb-b2-kv",
+              "query": "s2-rgb-b2-query",
+              "mlp": "s2-rgb-b2-mlp",
+              "querySplitValue": {
+                "name": "s2-rgb-b2-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s2-rgb-b2-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "approximation": "exact",
+              "kv": "s2-rgb-b3-kv",
+              "query": "s2-rgb-b3-query",
+              "mlp": "s2-rgb-b3-mlp",
+              "querySplitValue": {
+                "name": "s2-rgb-b3-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s2-rgb-b3-query-mlp",
+                "halo": 1
+              }
+            }
+          ],
+          "norm": "s2-rgb-norm"
+        },
+        {
+          "patch": "s2-noise-patch",
+          "blocks": [
+            {
+              "sr": 4,
+              "heads": 2,
+              "approximation": "pool2",
+              "kv": "s2-noise-b0-kv-query-source",
+              "query": "s2-noise-b0-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "pool2",
+                "aggregation": "pooled_norm1"
+              },
+              "messageMlp": {
+                "name": "s2-noise-b0-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "approximation": "pool2",
+              "kv": "s2-noise-b1-kv-query-source",
+              "query": "s2-noise-b1-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "pool2",
+                "aggregation": "pooled_norm1"
+              },
+              "messageMlp": {
+                "name": "s2-noise-b1-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "approximation": "pool2",
+              "kv": "s2-noise-b2-kv-query-source",
+              "query": "s2-noise-b2-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "pool2",
+                "aggregation": "pooled_norm1"
+              },
+              "messageMlp": {
+                "name": "s2-noise-b2-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 4,
+              "heads": 2,
+              "approximation": "pool2",
+              "kv": "s2-noise-b3-kv-query-source",
+              "query": "s2-noise-b3-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "pool2",
+                "aggregation": "pooled_norm1"
+              },
+              "messageMlp": {
+                "name": "s2-noise-b3-message-mlp",
+                "halo": 1
+              }
+            }
+          ],
+          "norm": "s2-noise-norm"
+        }
+      ],
+      "fusionOutputChannels": 8,
+      "rectifyWeights": "s2-rectify-weights",
+      "rectify": "s2-rectify",
+      "fusionHeads": 2,
+      "fusionScale": 0.125,
+      "fusion": [
+        {
+          "context": "s2-cross1-context",
+          "apply": "s2-cross1-apply"
+        },
+        {
+          "context": "s2-cross2-context",
+          "apply": "s2-cross2-apply"
+        }
+      ],
+      "channel": "s2-channel",
+      "fusionJoint": {
+        "name": "s2-fusion-joint",
+        "halo": 1
+      }
+    },
+    {
+      "channels": 320,
+      "stride": 2,
+      "radius": 1,
+      "streams": [
+        {
+          "patch": "s3-rgb-patch",
+          "blocks": [
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "exact",
+              "kv": "s3-rgb-b0-kv",
+              "query": "s3-rgb-b0-query",
+              "mlp": "s3-rgb-b0-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b0-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s3-rgb-b0-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "exact",
+              "kv": "s3-rgb-b1-kv",
+              "query": "s3-rgb-b1-query",
+              "mlp": "s3-rgb-b1-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b1-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s3-rgb-b1-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "exact",
+              "kv": "s3-rgb-b2-kv",
+              "query": "s3-rgb-b2-query",
+              "mlp": "s3-rgb-b2-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b2-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s3-rgb-b2-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "exact",
+              "kv": "s3-rgb-b3-kv",
+              "query": "s3-rgb-b3-query",
+              "mlp": "s3-rgb-b3-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b3-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s3-rgb-b3-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "exact",
+              "kv": "s3-rgb-b4-kv",
+              "query": "s3-rgb-b4-query",
+              "mlp": "s3-rgb-b4-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b4-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s3-rgb-b4-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "exact",
+              "kv": "s3-rgb-b5-kv",
+              "query": "s3-rgb-b5-query",
+              "mlp": "s3-rgb-b5-mlp",
+              "querySplitValue": {
+                "name": "s3-rgb-b5-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s3-rgb-b5-query-mlp",
+                "halo": 1
+              }
+            }
+          ],
+          "norm": "s3-rgb-norm"
+        },
+        {
+          "patch": "s3-noise-patch",
+          "blocks": [
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "global",
+              "kv": "s3-noise-b0-kv-query-source",
+              "query": "s3-noise-b0-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s3-noise-b0-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "global",
+              "kv": "s3-noise-b1-kv-query-source",
+              "query": "s3-noise-b1-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s3-noise-b1-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "global",
+              "kv": "s3-noise-b2-kv-query-source",
+              "query": "s3-noise-b2-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s3-noise-b2-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "global",
+              "kv": "s3-noise-b3-kv-query-source",
+              "query": "s3-noise-b3-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s3-noise-b3-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "global",
+              "kv": "s3-noise-b4-kv-query-source",
+              "query": "s3-noise-b4-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s3-noise-b4-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 2,
+              "heads": 5,
+              "approximation": "global",
+              "kv": "s3-noise-b5-kv-query-source",
+              "query": "s3-noise-b5-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s3-noise-b5-message-mlp",
+                "halo": 1
+              }
+            }
+          ],
+          "norm": "s3-noise-norm"
+        }
+      ],
+      "fusionOutputChannels": 8,
+      "rectifyWeights": "s3-rectify-weights",
+      "rectify": "s3-rectify",
+      "fusionHeads": 5,
+      "fusionScale": 0.125,
+      "fusion": [
+        {
+          "context": "s3-cross1-context",
+          "apply": "s3-cross1-apply"
+        },
+        {
+          "context": "s3-cross2-context",
+          "apply": "s3-cross2-apply"
+        }
+      ],
+      "channel": "s3-channel",
+      "fusionJoint": {
+        "name": "s3-fusion-joint",
+        "halo": 1
+      }
+    },
+    {
+      "channels": 512,
+      "stride": 2,
+      "radius": 1,
+      "streams": [
+        {
+          "patch": "s4-rgb-patch",
+          "blocks": [
+            {
+              "sr": 1,
+              "heads": 8,
+              "approximation": "exact",
+              "kv": "s4-rgb-b0-kv",
+              "query": "s4-rgb-b0-query",
+              "mlp": "s4-rgb-b0-mlp",
+              "querySplitValue": {
+                "name": "s4-rgb-b0-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s4-rgb-b0-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 1,
+              "heads": 8,
+              "approximation": "exact",
+              "kv": "s4-rgb-b1-kv",
+              "query": "s4-rgb-b1-query",
+              "mlp": "s4-rgb-b1-mlp",
+              "querySplitValue": {
+                "name": "s4-rgb-b1-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s4-rgb-b1-query-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 1,
+              "heads": 8,
+              "approximation": "exact",
+              "kv": "s4-rgb-b2-kv",
+              "query": "s4-rgb-b2-query",
+              "mlp": "s4-rgb-b2-mlp",
+              "querySplitValue": {
+                "name": "s4-rgb-b2-query-split",
+                "chunkKeys": 1024,
+                "minKeys": 65536
+              },
+              "queryMlp": {
+                "name": "s4-rgb-b2-query-mlp",
+                "halo": 1
+              }
+            }
+          ],
+          "norm": "s4-rgb-norm"
+        },
+        {
+          "patch": "s4-noise-patch",
+          "blocks": [
+            {
+              "sr": 1,
+              "heads": 8,
+              "approximation": "global",
+              "kv": "s4-noise-b0-kv-query-source",
+              "query": "s4-noise-b0-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s4-noise-b0-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 1,
+              "heads": 8,
+              "approximation": "global",
+              "kv": "s4-noise-b1-kv-query-source",
+              "query": "s4-noise-b1-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s4-noise-b1-message-mlp",
+                "halo": 1
+              }
+            },
+            {
+              "sr": 1,
+              "heads": 8,
+              "approximation": "global",
+              "kv": "s4-noise-b2-kv-query-source",
+              "query": "s4-noise-b2-query",
+              "querySource": {
+                "output": "query_source",
+                "mode": "global",
+                "aggregation": "sum_norm1"
+              },
+              "messageMlp": {
+                "name": "s4-noise-b2-message-mlp",
+                "halo": 1
+              }
+            }
+          ],
+          "norm": "s4-noise-norm"
+        }
+      ],
+      "fusionOutputChannels": 8,
+      "rectifyWeights": "s4-rectify-weights",
+      "rectify": "s4-rectify",
+      "fusionHeads": 8,
+      "fusionScale": 0.125,
+      "fusion": [
+        {
+          "context": "s4-cross1-context",
+          "apply": "s4-cross1-apply"
+        },
+        {
+          "context": "s4-cross2-context",
+          "apply": "s4-cross2-apply"
+        }
+      ],
+      "channel": "s4-channel",
+      "fusionJoint": {
+        "name": "s4-fusion-joint",
+        "halo": 1
+      }
+    }
+  ],
+  "assets": {
+    "noiseprint-plus": {
+      "file": "noiseprint-plus.onnx",
+      "bytes": 1591484,
+      "sha256": "7ee96331564100b9c99c5ee35d4b4a992cb7a8af242091334d430ded6b5c2832",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-patch": {
+      "file": "s1-rgb-patch.onnx",
+      "bytes": 41535,
+      "sha256": "d579e1f803970e0f9c363179baefe17f7f680259d75daef10019fc4c7d185fc3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-kv": {
+      "file": "s1-rgb-b0-kv.onnx",
+      "bytes": 1089084,
+      "sha256": "a5cf29c0a34eec51b01eb31e514a34da4b69b51b88b8f98c91b00d876a985671",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-query": {
+      "file": "s1-rgb-b0-query.onnx",
+      "bytes": 39316,
+      "sha256": "8c0cf3f8996486e91cc50a4b2f14e2b91bf41a142476d9c3652855f8ae28531c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-mlp": {
+      "file": "s1-rgb-b0-mlp.onnx",
+      "bytes": 150443,
+      "sha256": "294f9abaa976b0f250530d2b7f227791c2bcd39a940d05698ab1abf400b0a69f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-query-split": {
+      "file": "s1-rgb-b0-query-split.onnx",
+      "bytes": 47166,
+      "sha256": "297d9aebbba4f150bac39e06cb50f02867c93b5e1943cdc105a6288073241e03",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-kv": {
+      "file": "s1-rgb-b1-kv.onnx",
+      "bytes": 1089084,
+      "sha256": "a13159a705f173843de69989344f8137174ff724b9dffdc291dc3f84c75ede25",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-query": {
+      "file": "s1-rgb-b1-query.onnx",
+      "bytes": 39316,
+      "sha256": "58e1dae95d4f319b9da15873168bc668938d6eab4fd0395091731ff235504b77",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-mlp": {
+      "file": "s1-rgb-b1-mlp.onnx",
+      "bytes": 150443,
+      "sha256": "850bafd8058af86e60ba6c8b927520fcef8b1d05274b904f846ac6b438c26e08",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-query-split": {
+      "file": "s1-rgb-b1-query-split.onnx",
+      "bytes": 47166,
+      "sha256": "aa3f25f3c2bae4a44b9cc9aba7a96b62c5f92397a828e09bd7d753f565507c0e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-kv": {
+      "file": "s1-rgb-b2-kv.onnx",
+      "bytes": 1089084,
+      "sha256": "d5a4ac9c99e97b38d6c473ea3b56e613a8e216012ca40b33db54cc1e54b23a91",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-query": {
+      "file": "s1-rgb-b2-query.onnx",
+      "bytes": 39316,
+      "sha256": "af1ff987eded70ced6e89150c4d7bf5184b8f4bfac73295b37f2703132719a2a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-mlp": {
+      "file": "s1-rgb-b2-mlp.onnx",
+      "bytes": 150443,
+      "sha256": "4dde6ed397093e3e4ae38d0045fc4798ef0a80515c6560f7177fb19304a40ce6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-query-split": {
+      "file": "s1-rgb-b2-query-split.onnx",
+      "bytes": 47166,
+      "sha256": "8f14dbfe442e041662f18a06525bfb55fe9c24ac1c222092b099fa1211cab3a7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-norm": {
+      "file": "s1-rgb-norm.onnx",
+      "bytes": 1787,
+      "sha256": "3bfa641ac175834fd926af1c29dfdb21ae21c88366d418b19c90908b591322ca",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-patch": {
+      "file": "s1-noise-patch.onnx",
+      "bytes": 41535,
+      "sha256": "9fa3bf7af4eded49b8b0be958d888ab2ca5b9944304ea002264710bb15637b6b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b0-query": {
+      "file": "s1-noise-b0-query.onnx",
+      "bytes": 38512,
+      "sha256": "745e317f86487ee99fe018071281ca014b95083bf7aad7537e13f606d7bd3bd9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b1-query": {
+      "file": "s1-noise-b1-query.onnx",
+      "bytes": 38512,
+      "sha256": "54e786823e1a420da49b7394f261a0d14fe7b3ab6ad4d429dbda7f33352f7944",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b2-query": {
+      "file": "s1-noise-b2-query.onnx",
+      "bytes": 38512,
+      "sha256": "6234ae31ec7b9b0a42a49d2e105d56c177cd38471cf7f155364690612e9a48e1",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-norm": {
+      "file": "s1-noise-norm.onnx",
+      "bytes": 1787,
+      "sha256": "96e08b00ec6812297c235c22e5e7132f4e29817444bae6709abf9ed5baea29b7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rectify-weights": {
+      "file": "s1-rectify-weights.onnx",
+      "bytes": 395691,
+      "sha256": "c5a24b71ba75fe29d7e47d52828643aede726059979c83ceaa879455e137be4c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rectify": {
+      "file": "s1-rectify.onnx",
+      "bytes": 38241,
+      "sha256": "c351f21654789f2ea29ceaf77883cc6996bc4a5a1f4b485f38828474b8b3e74d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-cross1-context": {
+      "file": "s1-cross1-context.onnx",
+      "bytes": 75041,
+      "sha256": "cc99b1744582f5d549ec9c821947d6410802ebfb90e8fc16c5120a18cfa37834",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-cross1-apply": {
+      "file": "s1-cross1-apply.onnx",
+      "bytes": 79870,
+      "sha256": "b5d28ce6610aa5c6bcb2e316a95ba4ffe2e8d5f2cd878f6aa2d6cf79d3e63b19",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-cross2-context": {
+      "file": "s1-cross2-context.onnx",
+      "bytes": 75041,
+      "sha256": "0e5a6c2fd4a20d9f91fa48d056cd66e52484fbcf6b686a0bf3fdba1981cde2bd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-cross2-apply": {
+      "file": "s1-cross2-apply.onnx",
+      "bytes": 79870,
+      "sha256": "f77eea4a7d9849ad238e16b090b7ae3d1693d0f46788357145d62d927ddbcfb9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-channel": {
+      "file": "s1-channel.onnx",
+      "bytes": 43152,
+      "sha256": "cf458c956a7db0beb850ebe3286b7560d0ce1f259b979a3f4e45810146cd6c97",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-patch": {
+      "file": "s2-rgb-patch.onnx",
+      "bytes": 299588,
+      "sha256": "7266d910b001d9e1751907ea3d4978f8a1f4c317f81dd90f0cf3505d4dbe1aa6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-kv": {
+      "file": "s2-rgb-b0-kv.onnx",
+      "bytes": 1189189,
+      "sha256": "9bf3404d371250a8e102a851c3e6a2ac80689e321c0e13a33831bf46d83dc5bd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-query": {
+      "file": "s2-rgb-b0-query.onnx",
+      "bytes": 138654,
+      "sha256": "5238e937f10bdcefd28d518462e7ff37f3443376c9c75ff28387a14c5500bc5f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-mlp": {
+      "file": "s2-rgb-b0-mlp.onnx",
+      "bytes": 555700,
+      "sha256": "ee3ed4184cd4e75171adc95e73b9cce59ec0d6fbfa8ba0edec1222c648439331",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-query-split": {
+      "file": "s2-rgb-b0-query-split.onnx",
+      "bytes": 146504,
+      "sha256": "16eb69ef67fbe000127d4e0935df685bd189ec399eccb0846e5c18d1dda0b24f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-kv": {
+      "file": "s2-rgb-b1-kv.onnx",
+      "bytes": 1189189,
+      "sha256": "b5c1a4d23bb18d93402a4c0aa2c3a05e5cf814c8dab253bb23a049bb5a04283e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-query": {
+      "file": "s2-rgb-b1-query.onnx",
+      "bytes": 138654,
+      "sha256": "97fd464da67757a58b10f0cfd49c6908c94f3f4db4e0b1199ca827a4c45095e5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-mlp": {
+      "file": "s2-rgb-b1-mlp.onnx",
+      "bytes": 555700,
+      "sha256": "611a6ce7451305bd7320d59442ec2cf5a5dda093dd5b99fb0c73c485e326a769",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-query-split": {
+      "file": "s2-rgb-b1-query-split.onnx",
+      "bytes": 146504,
+      "sha256": "1181d3e31018930f8d2fb3b55532f84e061e581dce13f365972cb461546a0300",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-kv": {
+      "file": "s2-rgb-b2-kv.onnx",
+      "bytes": 1189189,
+      "sha256": "cd465e6410d58c9a0bdcc2c475d2ed354b9249608d542219b8cb22dbc8729a74",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-query": {
+      "file": "s2-rgb-b2-query.onnx",
+      "bytes": 138654,
+      "sha256": "2551007377e735ce89461fd312746c7d1c5077be4bad911cc0c6fb2088ea1eb7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-mlp": {
+      "file": "s2-rgb-b2-mlp.onnx",
+      "bytes": 555700,
+      "sha256": "9523e4d145ef9084b723de976ab93915447b3fdeb71204048f9055be3d35a7dc",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-query-split": {
+      "file": "s2-rgb-b2-query-split.onnx",
+      "bytes": 146504,
+      "sha256": "a8df7cb2bd3f70846d0f7b18f0af495d6e71c2c7fb552370a18f9cc5e058fd70",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-kv": {
+      "file": "s2-rgb-b3-kv.onnx",
+      "bytes": 1189189,
+      "sha256": "9a57415d67ce4a34e88514dbc6261b8fed3f645538e2660305bd3b1c34650b5d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-query": {
+      "file": "s2-rgb-b3-query.onnx",
+      "bytes": 138654,
+      "sha256": "1a6a32b55baf76df910e75621f184d7daf12130bed88561f2c9e23849b4cdc4a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-mlp": {
+      "file": "s2-rgb-b3-mlp.onnx",
+      "bytes": 555700,
+      "sha256": "cdcaddd93adfaa55784493f418a9a991480e5a72a1b1232650bb85ab5ed47c45",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-query-split": {
+      "file": "s2-rgb-b3-query-split.onnx",
+      "bytes": 146504,
+      "sha256": "34c640b6ae17ffe625752002ce4512817699393bf84d71d4a16c5e32f22331e5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-norm": {
+      "file": "s2-rgb-norm.onnx",
+      "bytes": 2303,
+      "sha256": "d604bd18bf3dd07d9526deaa0abc0812eb8e2799d9e2b712ed02948b6caf1a33",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-patch": {
+      "file": "s2-noise-patch.onnx",
+      "bytes": 299588,
+      "sha256": "55e135722fa6283acc60a9101122329c1b5f78357a9892316c4915768b5d09ad",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b0-query": {
+      "file": "s2-noise-b0-query.onnx",
+      "bytes": 137336,
+      "sha256": "374948b7dbba8e186e0927077357906f9ed0f090af7f1bf0016376f383de7bbc",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b1-query": {
+      "file": "s2-noise-b1-query.onnx",
+      "bytes": 137336,
+      "sha256": "1b6c5df39a14a0180546d3d48580a0648f24068421b6b54845eedb1e07cc7a88",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b2-query": {
+      "file": "s2-noise-b2-query.onnx",
+      "bytes": 137336,
+      "sha256": "7935bf657478fc470ac22db86dcaa57c03d39f7170cad58cdd2f9a463818dc7b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b3-query": {
+      "file": "s2-noise-b3-query.onnx",
+      "bytes": 137336,
+      "sha256": "91946c12995c50d2a27fd19d13c091ced067ccb6972069b4b3106e033b9732ef",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-norm": {
+      "file": "s2-noise-norm.onnx",
+      "bytes": 2303,
+      "sha256": "37ce0cc144242ecfc6dcae74f8e6cd186aa761cbc273547f723981650d1f03ba",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rectify-weights": {
+      "file": "s2-rectify-weights.onnx",
+      "bytes": 1576876,
+      "sha256": "cbd961d8fa5bbc64cc28d6f7dbc43358fa52f0567a702856490df5e431dad772",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rectify": {
+      "file": "s2-rectify.onnx",
+      "bytes": 137321,
+      "sha256": "8312e584d5397065ce2e65d292e06f6e5f9f296e31141f545612aa7e524e236a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-cross1-context": {
+      "file": "s2-cross1-context.onnx",
+      "bytes": 272164,
+      "sha256": "234d7ce63db542127449562840ceb89012fa5ca1490ccddbc6d53f75907ac419",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-cross1-apply": {
+      "file": "s2-cross1-apply.onnx",
+      "bytes": 277765,
+      "sha256": "74ca907d0bc918ceb8778f43e7fb70feb58523adaf1b81f832c5312a7b94518b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-cross2-context": {
+      "file": "s2-cross2-context.onnx",
+      "bytes": 272164,
+      "sha256": "1301c0049483cb7c9a2f7c9cdc248f6b1e12b4c4fd81c3a292d2c6ad70c9c58c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-cross2-apply": {
+      "file": "s2-cross2-apply.onnx",
+      "bytes": 277765,
+      "sha256": "3c982e564e805a9bd83482f0a83f0d659dba88e827758ab9044eb8927cb2479b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-channel": {
+      "file": "s2-channel.onnx",
+      "bytes": 150424,
+      "sha256": "b2caf8cc1f813b397243eb5f139da5ba6d5399311a879856e135be2432b4c321",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-patch": {
+      "file": "s3-rgb-patch.onnx",
+      "bytes": 1481542,
+      "sha256": "7930225a92b3b668c691bb3423ca77d8e7d0ca4db4249771a890bae9d5ae8ffa",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-kv": {
+      "file": "s3-rgb-b0-kv.onnx",
+      "bytes": 2472518,
+      "sha256": "6d6aa81ff4ba8d2d5fb763c1800b3d72062fd1e909005eaf19579ea6a49583fe",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-query": {
+      "file": "s3-rgb-b0-query.onnx",
+      "bytes": 829854,
+      "sha256": "a21df7b1beb34c8f816914611c56894f5a56ba3acce6f7df21fa4127c48acdab",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-mlp": {
+      "file": "s3-rgb-b0-mlp.onnx",
+      "bytes": 3344309,
+      "sha256": "9424687b61163a2ba1df2e33f054740744ef9dc358096e691e29d4c66240bf30",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-query-split": {
+      "file": "s3-rgb-b0-query-split.onnx",
+      "bytes": 837704,
+      "sha256": "cf14e9154269ff0d1e5607349adbfdab026dcd36e5e667bec6bc417481042d2a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-kv": {
+      "file": "s3-rgb-b1-kv.onnx",
+      "bytes": 2472518,
+      "sha256": "18fe148473997db9fb58f8350a269571aa34a44ef9bb290c763b1836447cca48",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-query": {
+      "file": "s3-rgb-b1-query.onnx",
+      "bytes": 829854,
+      "sha256": "e325d09e89b5d5caea2a83304a6a47141bd5af89543f782c995949e53d8042d9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-mlp": {
+      "file": "s3-rgb-b1-mlp.onnx",
+      "bytes": 3344309,
+      "sha256": "9e9d4dab1a7da5a30f1440483dd9b6b96f9cae04a1e262aaef61ff2596853023",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-query-split": {
+      "file": "s3-rgb-b1-query-split.onnx",
+      "bytes": 837704,
+      "sha256": "2498f56850c887b0a0325995f82a9e92a43bb0248cc09abb325e0587ee68664f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-kv": {
+      "file": "s3-rgb-b2-kv.onnx",
+      "bytes": 2472518,
+      "sha256": "4ff70263452209fb4635d1f5668d1e3efa74932ce3056146cf5ee9ef793a18b6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-query": {
+      "file": "s3-rgb-b2-query.onnx",
+      "bytes": 829854,
+      "sha256": "65802f2c482117943a0d86a54b7c4fa46b114bdc6c55c5d2b68084bd22578a5e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-mlp": {
+      "file": "s3-rgb-b2-mlp.onnx",
+      "bytes": 3344309,
+      "sha256": "6acabaed778e01165a38591bc3b04a106ffbb96146c0eb04c9668eb108bb09a4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-query-split": {
+      "file": "s3-rgb-b2-query-split.onnx",
+      "bytes": 837704,
+      "sha256": "caa677a7ec2ba97cf1da1e6b67cc8da199441a498c46db20da83723185fc51c6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-kv": {
+      "file": "s3-rgb-b3-kv.onnx",
+      "bytes": 2472518,
+      "sha256": "6bcbf43afc8bf6b931543aa94c9995c01764cbdfcfe9763b083518aafcfff7df",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-query": {
+      "file": "s3-rgb-b3-query.onnx",
+      "bytes": 829854,
+      "sha256": "2e58dbe4eaf18458ac9a74f98a89cc493e3fc5a6b488e3b67eb1d1dd5cf4c117",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-mlp": {
+      "file": "s3-rgb-b3-mlp.onnx",
+      "bytes": 3344309,
+      "sha256": "fb24d0a5dfc3e3a362b20d4bc48f1c6b95f96aba70b3f448264a95905e4ca333",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-query-split": {
+      "file": "s3-rgb-b3-query-split.onnx",
+      "bytes": 837704,
+      "sha256": "48a2501f4a9f487f06c0ecd3858d1a598a7d623323a7025e1f9039465bc8e0c8",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-kv": {
+      "file": "s3-rgb-b4-kv.onnx",
+      "bytes": 2472518,
+      "sha256": "7f4854d5a0ffbbae83bebd8e2113fefc805416750b2297df27a0672f126aff5b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-query": {
+      "file": "s3-rgb-b4-query.onnx",
+      "bytes": 829854,
+      "sha256": "9d755dc17723143e7230414165d7acccb9be118a9e0a61136b1c4bb840e717a5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-mlp": {
+      "file": "s3-rgb-b4-mlp.onnx",
+      "bytes": 3344309,
+      "sha256": "01d9f2f7bac62d695d66cc2b522da2c0a764e2ec0ecb99285b90f33a5ac491b3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-query-split": {
+      "file": "s3-rgb-b4-query-split.onnx",
+      "bytes": 837704,
+      "sha256": "d9687e19804077c11773079c408cc14889f31e3b1d9a17b6e447fb6a31357977",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-kv": {
+      "file": "s3-rgb-b5-kv.onnx",
+      "bytes": 2472518,
+      "sha256": "d29f31047a7296a0ea75bbab76baa3fb1a1b0220f54a34dac36941f1b799cf3e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-query": {
+      "file": "s3-rgb-b5-query.onnx",
+      "bytes": 829854,
+      "sha256": "4897f37b4ec2c4b6de78e187a76533e682ad8e3afb02a2f611cb0984a7a3b494",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-mlp": {
+      "file": "s3-rgb-b5-mlp.onnx",
+      "bytes": 3344309,
+      "sha256": "7dbf9e30229d483ff11851b9d77c8b7d21f004070576939083839b28f9742078",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-query-split": {
+      "file": "s3-rgb-b5-query-split.onnx",
+      "bytes": 837704,
+      "sha256": "cae3a7bf54543cd6bdd0d69bd83275484837a2bd05f3f653480a64cf3dbee16b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-norm": {
+      "file": "s3-rgb-norm.onnx",
+      "bytes": 3839,
+      "sha256": "899b468ff2987ed922f5cdfb2adf9e1bd172cfab7d89329aec1ba4bbef9e23c6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-patch": {
+      "file": "s3-noise-patch.onnx",
+      "bytes": 1481542,
+      "sha256": "99b7835d1bc12ec7352ac879358a2f81d7b06b6b9e2c73bad883018c6e3fbc66",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b0-query": {
+      "file": "s3-noise-b0-query.onnx",
+      "bytes": 827000,
+      "sha256": "470d825da099c89371a56c15028281f360f438c4a14b5302cc818c2ab4e7f00b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b1-query": {
+      "file": "s3-noise-b1-query.onnx",
+      "bytes": 827000,
+      "sha256": "379c3c797f5e2899fbb7082230472310cd9f5bd5fbc12e740ffb231bac7a4de1",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b2-query": {
+      "file": "s3-noise-b2-query.onnx",
+      "bytes": 827000,
+      "sha256": "d7775b5966c036140aa6dc48cdb6f2f308afce030873d2c3e55118c4b293cb3f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b3-query": {
+      "file": "s3-noise-b3-query.onnx",
+      "bytes": 827000,
+      "sha256": "91b910361588c28cce30ee115aaef9b0280af76e8401550156d56739b40560db",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b4-query": {
+      "file": "s3-noise-b4-query.onnx",
+      "bytes": 827000,
+      "sha256": "e40f95d7cbaa1de98ce87fc22cd06ae8f12e6cdbc107ddf8a7d7367f76ecc252",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b5-query": {
+      "file": "s3-noise-b5-query.onnx",
+      "bytes": 827000,
+      "sha256": "cff0e16ce1ad87d3ddcf8a9e68bb96656656b721ad8a13d82b2a680c5d39c9fc",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-norm": {
+      "file": "s3-noise-norm.onnx",
+      "bytes": 3839,
+      "sha256": "f8bd218454ec4bb37290835a09c0a42a35fe99f788871e7dda3e0516adb48a6c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rectify-weights": {
+      "file": "s3-rectify-weights.onnx",
+      "bytes": 9839025,
+      "sha256": "784dfae3bc1648c66304239000ba08a4812a1c34b55d0d8280ccbfbd138d2760",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rectify": {
+      "file": "s3-rectify.onnx",
+      "bytes": 827753,
+      "sha256": "13a4dec9b65b830509b8cf3934588050b0bf0018f235977b60dd4f0fda7fb6ee",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-cross1-context": {
+      "file": "s3-cross1-context.onnx",
+      "bytes": 1649956,
+      "sha256": "559a70106bc141f34419d459d6497ae76a6844a67051e114bb0b88dbdb2da19a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-cross1-apply": {
+      "file": "s3-cross1-apply.onnx",
+      "bytes": 1657861,
+      "sha256": "f747a414308c3782e9f9c2852e4e59070746b34412ea6f9d6bda3355bcf56503",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-cross2-context": {
+      "file": "s3-cross2-context.onnx",
+      "bytes": 1649956,
+      "sha256": "c9a366f4526c923584c3a5218110183ff9fad276c6545baebaf5ee2612b24ed0",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-cross2-apply": {
+      "file": "s3-cross2-apply.onnx",
+      "bytes": 1657861,
+      "sha256": "d96d6d4614a4c7a4f7b6b637d635054e46220cb2eaa6ef6d82ca2f44f1926c95",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-channel": {
+      "file": "s3-channel.onnx",
+      "bytes": 865434,
+      "sha256": "6bd48f5fa8d1f32fa587f2685e299100a791c14c379d664b5e653d624856b688",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-patch": {
+      "file": "s4-rgb-patch.onnx",
+      "bytes": 5907529,
+      "sha256": "18089bcdf2afa506dae2857f36a87bb83eb6412268d0cf68c9e98c7a5dfc48af",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b0-kv": {
+      "file": "s4-rgb-b0-kv.onnx",
+      "bytes": 2108583,
+      "sha256": "336594aadf46cb052901ce5559b3999f7132aea9e0ee64e012f97da2fc3242ed",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b0-query": {
+      "file": "s4-rgb-b0-query.onnx",
+      "bytes": 2110879,
+      "sha256": "e83d1ff930bb36235bcf10856dd378101162bfa7687dab4a6e65ec6b7bd14ea2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b0-mlp": {
+      "file": "s4-rgb-b0-mlp.onnx",
+      "bytes": 8492217,
+      "sha256": "55d43ef7fbd629700ce2b0c700e207aa7cb69837aebab1cec752164ef94e41d0",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b0-query-split": {
+      "file": "s4-rgb-b0-query-split.onnx",
+      "bytes": 2118729,
+      "sha256": "114c15067e78b8f6620d981a281208e12421d001c7216b1057ad97d0c4b6bafd",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b1-kv": {
+      "file": "s4-rgb-b1-kv.onnx",
+      "bytes": 2108583,
+      "sha256": "38c235f13f8fce06cca8509d0a51c3b1cecf1147f39c3dd18c7c6918c3481cd9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b1-query": {
+      "file": "s4-rgb-b1-query.onnx",
+      "bytes": 2110879,
+      "sha256": "cdc5bbd192a3fa55ebadc9a2d2e540633441f59e6a1e5dc7399c0ad1c4c7c7e8",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b1-mlp": {
+      "file": "s4-rgb-b1-mlp.onnx",
+      "bytes": 8492217,
+      "sha256": "6b63b5d29fc5ce1b7bad9239bf0ad2938d6513c443c691d77a72aaa0fe1a163d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b1-query-split": {
+      "file": "s4-rgb-b1-query-split.onnx",
+      "bytes": 2118729,
+      "sha256": "3b3df1e9a9972bb7532b5815445d196e1d8dda023e256b85f398a38717b3b174",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b2-kv": {
+      "file": "s4-rgb-b2-kv.onnx",
+      "bytes": 2108583,
+      "sha256": "798960f7b2791aa4fa192c1cfd0b458e4d147eef62c03a11b77925471db4b117",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b2-query": {
+      "file": "s4-rgb-b2-query.onnx",
+      "bytes": 2110879,
+      "sha256": "7280bc8cad81fc9d6c3298a5355ebf19efdf2f441c2390a4b675fb581f9de12a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b2-mlp": {
+      "file": "s4-rgb-b2-mlp.onnx",
+      "bytes": 8492217,
+      "sha256": "180d89ebdae674b2eeccf922d3539b977b0c485aca66466d8f4cb524ef99072b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b2-query-split": {
+      "file": "s4-rgb-b2-query-split.onnx",
+      "bytes": 2118729,
+      "sha256": "8589533e1a04c47835a0d17d695f20b4a451c5dbf3ed4abd41d3bff967c98a95",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-norm": {
+      "file": "s4-rgb-norm.onnx",
+      "bytes": 5375,
+      "sha256": "491f4e145ddb0911079dcd8bf67f3c625c4b89ea53441400ca344f504fd42432",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-patch": {
+      "file": "s4-noise-patch.onnx",
+      "bytes": 5907529,
+      "sha256": "e475ecb9c63bdb40edb3b4d1ee3bce274a79d5cb653ef878a3aa01af235fbc71",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b0-query": {
+      "file": "s4-noise-b0-query.onnx",
+      "bytes": 2106489,
+      "sha256": "6fe8bce3e11941e79b031bd868b7787acdbcfd128761321cfb431723901ad023",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b1-query": {
+      "file": "s4-noise-b1-query.onnx",
+      "bytes": 2106489,
+      "sha256": "48135b939424808d78aa0183445b3bd21ad338fbc83e8f23f1cd04f4f94261f5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b2-query": {
+      "file": "s4-noise-b2-query.onnx",
+      "bytes": 2106489,
+      "sha256": "ecdc7fc218094741b65e436c9cf7d86225933793bb0a83332c1bc327fefa6e82",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-norm": {
+      "file": "s4-noise-norm.onnx",
+      "bytes": 5375,
+      "sha256": "2c382dc76abc9b158c41541394258a66fd68ff957a60ee598c3c8dc0ce479fa9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rectify-weights": {
+      "file": "s4-rectify-weights.onnx",
+      "bytes": 25179057,
+      "sha256": "ce092e9fd247a24ec41df975a76290395bd216070498d9a7db6cce158f22c272",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rectify": {
+      "file": "s4-rectify.onnx",
+      "bytes": 2108012,
+      "sha256": "b285e244314a65e9389ea8a6f68befeaa7b614cef3e0662f1cae8b80b6070ef1",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-cross1-context": {
+      "file": "s4-cross1-context.onnx",
+      "bytes": 4207401,
+      "sha256": "202ad362f6a3a2eed7290ae7f191bf15155b71b79b1af27f75d5c5d116e52031",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-cross1-apply": {
+      "file": "s4-cross1-apply.onnx",
+      "bytes": 4217610,
+      "sha256": "afd4639988c63dada27a981955e9acf9801fd6d54a349e226c5f9f8e74f7d12b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-cross2-context": {
+      "file": "s4-cross2-context.onnx",
+      "bytes": 4207401,
+      "sha256": "d3ac04fa7dc4f40d14d0566930ce0216cc19c02adedc44f7700088453e5454ed",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-cross2-apply": {
+      "file": "s4-cross2-apply.onnx",
+      "bytes": 4217610,
+      "sha256": "b1d45d5711c3ede650f648e1f957ed1e8c9b90965bad01b817fbe2e15e4eed25",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-channel": {
+      "file": "s4-channel.onnx",
+      "bytes": 2170273,
+      "sha256": "a98442c5e11cc4a4651a32a1a58ec5c3cb9d4afec91d2c1130ed8593376391d6",
+      "graphOptimizationLevel": "disabled"
+    },
+    "mini-decode": {
+      "file": "mini-decode.onnx",
+      "bytes": 1419,
+      "sha256": "95b6aaa7f23cc2746a7c39f43f4e1141fa574fb08e175ca3436417d90a7372c8",
+      "graphOptimizationLevel": "disabled"
+    },
+    "mini-final": {
+      "file": "mini-final.onnx",
+      "bytes": 332,
+      "sha256": "664c67019aa12aef56c80502bc33c3e645279813bf91b41f9391779f83eca6bf",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b0-kv-query-source": {
+      "file": "s1-noise-b0-kv-query-source.onnx",
+      "bytes": 1089631,
+      "sha256": "a7c4a0c800797a189dac1258ef5356cc27f9e07eb4f5c5500666a5a4d3ea824b",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b1-kv-query-source": {
+      "file": "s1-noise-b1-kv-query-source.onnx",
+      "bytes": 1089631,
+      "sha256": "4590b1039e50f769204c3eb46b23d8d850dc0424101597c5b6477a73c5ac6c85",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b2-kv-query-source": {
+      "file": "s1-noise-b2-kv-query-source.onnx",
+      "bytes": 1089631,
+      "sha256": "87333dfd5ee728872fa7080be0bb18e609aaa4b9ef9682e2f0ec1ad16b016325",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b0-kv-query-source": {
+      "file": "s2-noise-b0-kv-query-source.onnx",
+      "bytes": 1189737,
+      "sha256": "f0940506a40a13af05683d5be04da6b8d0d531dad8067e5cc4b557771916ceaa",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b1-kv-query-source": {
+      "file": "s2-noise-b1-kv-query-source.onnx",
+      "bytes": 1189737,
+      "sha256": "7f3708ffe3a2f674533a9e9e5ea520165663f70f82aa17e781a1c9d69da1516f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b2-kv-query-source": {
+      "file": "s2-noise-b2-kv-query-source.onnx",
+      "bytes": 1189737,
+      "sha256": "6a0259c356a45bbc9b2f295dc982733f6e56753b17964a1df9386fe1db572f84",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b3-kv-query-source": {
+      "file": "s2-noise-b3-kv-query-source.onnx",
+      "bytes": 1189737,
+      "sha256": "b34696d568c238b2d631cfef722000ba637c8b6f5a2c02cc762c44ce470f63f0",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b0-kv-query-source": {
+      "file": "s3-noise-b0-kv-query-source.onnx",
+      "bytes": 2473051,
+      "sha256": "ddf7b05e88f0e1e1749117362bddf9bb12dda1c8975414da0a0431cc523506f3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b1-kv-query-source": {
+      "file": "s3-noise-b1-kv-query-source.onnx",
+      "bytes": 2473051,
+      "sha256": "e775d0a2d07a4ac6905f10c0b1fa53d54a512b0355b0feefc76ddc655836dee5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b2-kv-query-source": {
+      "file": "s3-noise-b2-kv-query-source.onnx",
+      "bytes": 2473051,
+      "sha256": "bb4f50cf2c87b5db0de936e4adeac7c1e7b2e07ba9022cf539211f2e2c50bdaa",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b3-kv-query-source": {
+      "file": "s3-noise-b3-kv-query-source.onnx",
+      "bytes": 2473051,
+      "sha256": "9f6ae3ee87f11aa8732c2d029a72be1872f1d7dc0d6caec7f4e1c92fec0f1e5e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b4-kv-query-source": {
+      "file": "s3-noise-b4-kv-query-source.onnx",
+      "bytes": 2473051,
+      "sha256": "dca9f0b2ee63ba08d5c6f18978eebaee32fa42cec1921d0e51475b52a0021d6d",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b5-kv-query-source": {
+      "file": "s3-noise-b5-kv-query-source.onnx",
+      "bytes": 2473051,
+      "sha256": "0b36e79eb6c80e7832fefbd4afa76b15d02ccac8b46da7ad58c420bc82ea38ae",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b0-kv-query-source": {
+      "file": "s4-noise-b0-kv-query-source.onnx",
+      "bytes": 2109116,
+      "sha256": "e92c35efbb732d882952d04fc65537018b7ae4bd4ddb3a5abe0c5aeac90376e7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b1-kv-query-source": {
+      "file": "s4-noise-b1-kv-query-source.onnx",
+      "bytes": 2109116,
+      "sha256": "5816cb7d42c0311dd17d4f6a231832f68658e34546553e672a70194f7b0dacd7",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b2-kv-query-source": {
+      "file": "s4-noise-b2-kv-query-source.onnx",
+      "bytes": 2109116,
+      "sha256": "a96a1036de98774a038e9df75962333e56f4d55cd2aeddfc457c0d1518c462a3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b0-message-mlp": {
+      "file": "s1-noise-b0-message-mlp.onnx",
+      "bytes": 151802,
+      "sha256": "fda853c2df27b24f6bc7aebf1aeb718b28d9787e3e310e56670b9430095f36df",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b1-message-mlp": {
+      "file": "s1-noise-b1-message-mlp.onnx",
+      "bytes": 151802,
+      "sha256": "269c1b71f9004f92a846fdb64e881afbbefc4983e8c4136ce579384eac2e4ef8",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-noise-b2-message-mlp": {
+      "file": "s1-noise-b2-message-mlp.onnx",
+      "bytes": 151802,
+      "sha256": "0b7c1bc858401e5b38ba9e9c7d0cd6140d9d2e8b16d30b5d04f2299573a1eaf5",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b0-message-mlp": {
+      "file": "s2-noise-b0-message-mlp.onnx",
+      "bytes": 557059,
+      "sha256": "ae0eb9f40353e00e4b79d64f58dea231b775807e78d251db7aa1130ae82859b4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b1-message-mlp": {
+      "file": "s2-noise-b1-message-mlp.onnx",
+      "bytes": 557059,
+      "sha256": "3db6d5d1040130875006e77c1417b1583d28cf06295efe40373a2ffaa681f0d2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b2-message-mlp": {
+      "file": "s2-noise-b2-message-mlp.onnx",
+      "bytes": 557059,
+      "sha256": "31d96e53f52cd3c84ddd3aa5afa289353c3270322def03f15397efe30f081057",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-noise-b3-message-mlp": {
+      "file": "s2-noise-b3-message-mlp.onnx",
+      "bytes": 557059,
+      "sha256": "a2cca208ea4c7e70a36a822a8a175feefde3b5a63ba2c4fe5666a8a082cb6bc2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b0-message-mlp": {
+      "file": "s3-noise-b0-message-mlp.onnx",
+      "bytes": 3345668,
+      "sha256": "0a1e7f6242f94d1cb8791188b306a7a4aa6bde66facbb2494d7cb8c78c0c7d02",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b1-message-mlp": {
+      "file": "s3-noise-b1-message-mlp.onnx",
+      "bytes": 3345668,
+      "sha256": "1ed156d571701cf1276e81d51baf7db44f56d74172541e10384e2de4294755c9",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b2-message-mlp": {
+      "file": "s3-noise-b2-message-mlp.onnx",
+      "bytes": 3345668,
+      "sha256": "659480babce2d231ba92d354f690bf3a472214f1140f8d45cce41b5432c6b236",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b3-message-mlp": {
+      "file": "s3-noise-b3-message-mlp.onnx",
+      "bytes": 3345668,
+      "sha256": "2f26b4ddb74b9c7c8039f67453771a7e93cfb91fdb123a66f77db92388ae0e6c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b4-message-mlp": {
+      "file": "s3-noise-b4-message-mlp.onnx",
+      "bytes": 3345668,
+      "sha256": "a5d9b281a2fcfd5301309986d9e4b416cfce13618fca320e1bef35b47fd41942",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-noise-b5-message-mlp": {
+      "file": "s3-noise-b5-message-mlp.onnx",
+      "bytes": 3345668,
+      "sha256": "ef31b32c3d7b21fb94012bbacdba327f1012f9526820497b4b36d3b1414e829e",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b0-message-mlp": {
+      "file": "s4-noise-b0-message-mlp.onnx",
+      "bytes": 8493576,
+      "sha256": "31af724c180499aa169cd715ea1c905e8bf40be2e543b15863094ad1d05d6fb3",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b1-message-mlp": {
+      "file": "s4-noise-b1-message-mlp.onnx",
+      "bytes": 8493576,
+      "sha256": "61b2b18d510ff803203b9231751968c5d1c649b2c317e21057edc0ae53a02602",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-noise-b2-message-mlp": {
+      "file": "s4-noise-b2-message-mlp.onnx",
+      "bytes": 8493576,
+      "sha256": "c4564b34895e577c00dd010dcb3f87ac7aa6765fad1372f87f48258dcec59a4c",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b0-query-mlp": {
+      "file": "s1-rgb-b0-query-mlp.onnx",
+      "bytes": 191939,
+      "sha256": "716912a7dc59462befe3c241ab31bedf4ae256c13503d235a1739fa55cd0fbd2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b1-query-mlp": {
+      "file": "s1-rgb-b1-query-mlp.onnx",
+      "bytes": 191939,
+      "sha256": "66b9dd970c23869b68425c560b9c67bb393c8d0ae340ee4faa59f32e66e9ce20",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-rgb-b2-query-mlp": {
+      "file": "s1-rgb-b2-query-mlp.onnx",
+      "bytes": 191939,
+      "sha256": "bf512ea8ac9921885f2107870cb0daff006856917df90973ffa804fc4a22464f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b0-query-mlp": {
+      "file": "s2-rgb-b0-query-mlp.onnx",
+      "bytes": 696532,
+      "sha256": "68075c309f5ba59a584710c5f5c5e5c9b14104c06a18dab61501faf616fd2743",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b1-query-mlp": {
+      "file": "s2-rgb-b1-query-mlp.onnx",
+      "bytes": 696532,
+      "sha256": "f4ebcb858504d58425a24addab0ab94eeb8f9ff91f6decb4af3652edc7a12d70",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b2-query-mlp": {
+      "file": "s2-rgb-b2-query-mlp.onnx",
+      "bytes": 696532,
+      "sha256": "b23bf6f07ad33a9888433bc8fb5c191528144e26a46a3fb10a933447d788c580",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-rgb-b3-query-mlp": {
+      "file": "s2-rgb-b3-query-mlp.onnx",
+      "bytes": 696532,
+      "sha256": "2df79949e8400172713212d781aa3748b63f40757a6728737b8b0672cd54fc49",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b0-query-mlp": {
+      "file": "s3-rgb-b0-query-mlp.onnx",
+      "bytes": 4176341,
+      "sha256": "77d6400fff69735f13527f0d46611a70e31b1c379e553499bbb1acc84b7c9c4a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b1-query-mlp": {
+      "file": "s3-rgb-b1-query-mlp.onnx",
+      "bytes": 4176341,
+      "sha256": "5bea7d979cf9f5a25e74a8a830b1ccbf4b68a44499d6a0a3ebc32ffa373db77f",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b2-query-mlp": {
+      "file": "s3-rgb-b2-query-mlp.onnx",
+      "bytes": 4176341,
+      "sha256": "6b765bdf207731d7604c204cc88c84a761cbef43fa8ebade4897c10fa4e04431",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b3-query-mlp": {
+      "file": "s3-rgb-b3-query-mlp.onnx",
+      "bytes": 4176341,
+      "sha256": "6d74af44709fcbcb85c352511559ee393bac5e96aba57055a197a143f3ac50c4",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b4-query-mlp": {
+      "file": "s3-rgb-b4-query-mlp.onnx",
+      "bytes": 4176341,
+      "sha256": "060ae797c8dd9437529c1468492a0b9901cc895ae3e7071f5fd8163198845a08",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-rgb-b5-query-mlp": {
+      "file": "s3-rgb-b5-query-mlp.onnx",
+      "bytes": 4176341,
+      "sha256": "14c2bc45b118f4678e44a5d8f959cab240b83b356478d4f2479e4069e9a25e34",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b0-query-mlp": {
+      "file": "s4-rgb-b0-query-mlp.onnx",
+      "bytes": 10605273,
+      "sha256": "e6595e93fe13337ae9aba84d29d36459d648db99fdab66a7f9fb9077a8a11db0",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b1-query-mlp": {
+      "file": "s4-rgb-b1-query-mlp.onnx",
+      "bytes": 10605273,
+      "sha256": "402a941aa13b0ecb2c4cec1aab8d50fe037da72523d25f4e622155bbddc01903",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-rgb-b2-query-mlp": {
+      "file": "s4-rgb-b2-query-mlp.onnx",
+      "bytes": 10605273,
+      "sha256": "639c09a2e4b078ff105c5e0ef375f1858531ab2fd9e19c36a984e6383441a31a",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s1-fusion-joint": {
+      "file": "s1-fusion-joint.onnx",
+      "bytes": 208569,
+      "sha256": "ff63b62000d9b5b31ed5802fe360e6dd0c942c6304ac90e2682e52aba5d28bf2",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s2-fusion-joint": {
+      "file": "s2-fusion-joint.onnx",
+      "bytes": 711627,
+      "sha256": "efb3e42d0f61416f2df4abc1e554ef48006583b6eea0c63a66bf1a95ba2195de",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s3-fusion-joint": {
+      "file": "s3-fusion-joint.onnx",
+      "bytes": 4186830,
+      "sha256": "7cf6d07cbd29c317254a966147e687158ff3973688f61a33641ef4e5897d57ca",
+      "graphOptimizationLevel": "disabled"
+    },
+    "s4-fusion-joint": {
+      "file": "s4-fusion-joint.onnx",
+      "bytes": 10611164,
+      "sha256": "b4ea2519e6f15fbcf3d87cf4b4ed49e07f167b64e7681e47846a5e7b2b2d68fd",
+      "graphOptimizationLevel": "disabled"
+    }
+  },
+  "noiseprint": "noiseprint-plus",
+  "decoder": "mini-decode",
+  "final": "mini-final",
+  "score": "mean_top_1_percent_localization",
+  "attentionPolicy": {
+    "rgb": [
+      "exact",
+      "exact",
+      "exact",
+      "exact"
+    ],
+    "noise": [
+      "pool2",
+      "pool2",
+      "global",
+      "global"
+    ]
+  },
+  "sourcePrecision": "frozen mixed state converted to Float32, as in the paired study"
+}
