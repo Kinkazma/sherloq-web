@@ -116,7 +116,7 @@ def stage(args):
         name=source.relative_to(ROOT/'sherloq-browser/assets').as_posix()
         if any(name.startswith(slot+'/') for slot in manifest['slots']) or name.startswith(('private','offline/','dependency-manifest-')) or any(part.startswith('.') for part in source.relative_to(ROOT/'sherloq-browser/assets').parts): continue
         if name in ['offline-shell.json','offline-public-app.html','feature-catalog.json','__manifest.json']: continue
-        if source.suffix not in ['.js','.mjs','.json','.html','.css','.woff2','.txt','.py','.svg','.webmanifest','.png']: continue
+        if source.suffix not in ['.js','.mjs','.json','.html','.css','.woff2','.txt','.py','.svg','.webmanifest','.png','.wasm']: continue
         data=delivery_bytes('assets/'+name,source,args.version) or source.read_bytes()
         if b'private-report' in data: raise ValueError('Private overlay is not a public local interface')
         if source.suffix=='.html': data=data.replace(b"connect-src 'self' https://raw.githubusercontent.com",b"connect-src 'self'").replace(b"connect-src 'self'",b"connect-src 'self' https://raw.githubusercontent.com")

@@ -21,7 +21,7 @@
 - Add a shared local and whole-image channel histogram with selectable regions, overlaid or separate RGB curves, luminance, pixel values and regional statistics. Reuse the whole-image result when leaving a live region.
 - Retain a selected region and pixel when pinned; restore the normal pointer immediately after pinning. Release the selection without rerunning the source analysis.
 - Decode supported native Adobe CMYK/YCCK JPEG and unsigned, uncompressed-strip TIFF channels instead of deriving CMYK values from rendered RGB. Preserve explicit rendered-RGB fallback for unsupported inputs and native-source ownership during panel closure.
-- Retain the native JPEG colour decoder in the offline application shell.
+- Retain the native JPEG colour decoder in the offline application shell and versioned local-update inventories.
 - Render histogram curves at the screen’s pixel density and redraw cached counts when the view changes size. Export the same sharp chart through the shared PNG, WebP, TIFF, AVIF and HEIC workflow.
 - Update the equalization comparison, SHERLOQ method description and source links, study documentation access and image-generation provenance.
 
