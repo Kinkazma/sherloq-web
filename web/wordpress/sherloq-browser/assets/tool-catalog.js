@@ -1,12 +1,14 @@
-import {isDetectorAlias} from './ai-detector-tools.js?v=0.32.0';
+import {currentToolId} from './tool-id-migrations.js?v=0.33.0';
+import {gradientDefaults,GRADIENT_METHODS,gradientMethodLabel} from './gradient-methods.js?v=0.33.0';
+import {isDetectorAlias} from './ai-detector-tools.js?v=0.33.0';
 import {equalizationOperations} from './unified-engine/src/equalization-settings.js';
 import{segmentationExclusionsAvailable}from'./unified-engine/src/segmentation-window-capabilities.js';
-import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.32.0';
+import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.33.0';
 // UI descriptors only. Scientific validation remains in the frozen worker.
-import {toolGroups} from './tool-tree.js?v=0.32.0';
-import defaults from './tool-defaults.js?v=0.32.0';
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.32.0';
-import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.32.0';
+import {toolGroups} from './tool-tree.js?v=0.33.0';
+import defaults from './tool-defaults.js?v=0.33.0';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.0';
+import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.33.0';
 const select=(values,labels=values)=>({choices:values.map((value,i)=>({value,label:labels[i]}))});
 const indexed=labels=>select(labels.map((_,i)=>i),labels);
 const range=(min,max,step=1)=>({min,max,step});
@@ -21,7 +23,7 @@ const fields={
  'inspection.magnifier':{mode:select(['contrast','equalize'],['Contraste automatique','Égalisation']),percent:{...range(0,100),label:'Écrêtage (%)'}},
  'inspection.sherloq7c':{computationMode:{...select(['fast','precision'],['Rapide','Précision']),label:'Mode de calcul'},maxSide:{...select([256,512,1024,2048,'native'],['256 px','512 px','1024 px','2048 px','Taille réelle']),label:'Taille de sortie SHERLOQ'},revelation:{...range(0,100,'any'),editingIncrement:1,snapToIncrement:true,label:'Révélation (%)'},micro:{...range(0,100,'any'),editingIncrement:1,snapToIncrement:true,label:'Microcontrastes (%)'}},
  'inspection.adjust':{brightness:range(-255,255),saturation:range(-255,255),hue:range(0,180),gamma:{...range(1,50),label:'Gamma (dixièmes)'},shadows:range(-100,100),highlights:range(-100,100),sweep:range(0,255),width:range(0,255),sharpen:range(0,100),threshold:range(0,255),equalize:indexed(['Sans égalisation','Histogramme','CLAHE L1','CLAHE L2','CLAHE L3','CLAHE L4'])},
- 'detail.gradient':{method:{...select(['sobel','krawetz'],['Gradient de Sobel','Gradient de Krawetz']),label:'Méthode'},intensity:range(0,100),mode:indexed(['Sans bleu','Bleu constant','Valeur absolue','Norme'])},
+ 'detail.gradient':{method:{...select(GRADIENT_METHODS,GRADIENT_METHODS.map(m=>gradientMethodLabel(m))),label:'Méthode'},view:{...select(['native','angle','coherence'],['Composantes et amplitude (RVB)','Orientation colorée (HSV)','Cohérence du tenseur']),label:'Affichage'},kernelSize:{...range(3,63,2),label:'Taille du noyau (impaire)'},sampleStep:{...range(1,16),label:'Pas spatial (pixels)'},sigma:{...range(.1,32,.1),label:'Sigma du gradient'},diskFill:{...range(.1,1,.05),label:'Diamètre du disque / fenêtre'},preSigma:{...range(0,32,.1),label:'Prélissage · sigma (0 = sans)'},preSize:{...range(3,127,2),label:'Prélissage · taille du noyau'},tensorSigma:{...range(.1,32,.1),label:'Tenseur · sigma'},tensorSize:{...range(3,127,2),label:'Tenseur · taille du noyau'},luma:{...select(['bt601','linear709'],['Luma BT.601','Luminance linéaire BT.709']),label:'Luminance'},border:{...select(['reflect','nearest','omit'],['Réflexion','Réplication','Voisins disponibles']),label:'Bords du cadre'},intensity:range(0,100),mode:indexed(['Sans bleu','Bleu constant','Valeur absolue','Norme'])},
  'detail.echo':{radius:range(1,15),contrast:range(0,100)},
  'detail.frequency':{split:range(0,100),smooth:range(0,100),threshold:range(0,100),filter:range(0,15)},
  'detail.wavelets':{wavelet:select([...Array.from({length:20},(_,i)=>'db'+(i+1)),...Array.from({length:19},(_,i)=>'sym'+(i+2)),...Array.from({length:5},(_,i)=>'coif'+(i+1)),...['1.1','1.3','1.5','2.2','2.4','2.6','2.8','3.1','3.3','3.5','3.7','3.9','4.4','5.5','6.8'].map(x=>'bior'+x)]),threshold:range(0,100),level:{...range(0,30),nullable:true},mode:select(['soft','hard','garrote','greater','less'])},
@@ -51,11 +53,12 @@ const labels={channel:'Canal',start:'Borne basse',end:'Borne haute',mode:'Mode',
 const hidden=new Set(['modelId','referenceImageId','databaseId','maskImageId','bounds','regions','excluded','guides','exclusions','selectionPresent','refilterOf','reprojectOf','zoneIds','layout','rect','fourierRegions','trustAnchors']);
 const extra={
  'inspection.sherloq7c':{computationMode:'fast',maxSide:512,revelation:100,micro:100,precision:'1e-2'},
- 'file.similarity':{},'m2.trufor':{},'m2.rita':{},'m2.catnet':{},'m2.cfa':{variant:'Original',block:32,tile:512},
+ 'file.similarity':{},'m2.trufor':{},'m2.trufor-mini':{},'m2.rita':{},'m2.catnet':{},'m2.cfa':{variant:'Original',block:32,tile:512},
  'tampering.copyMove.sparse':{algorithm:'Extended: PatchMatch Zernike + PatchMatch SIFT + Mirror',alikedInputSide:1024,alikedDetectionThreshold:.2,limit:6000,radius:600,minimum:5,threshold:.3,tolerance:50,model:'Similarity',geometricThreshold:3,geometricMinimum:6,compare:false,reflections:false,autoRadius:true,compact:true,independent:true,patch:8,iterations:8,texture:2,longSide:832,rotationMode:'none',...SSG_DEFAULTS},
  'ai.sources.safire':{side:16,groups:3,kind:'kmeans',eps:.2,minimum:1,binary:false},'ai.localization.focal':{},'ai.localization.adaifl':{},'ai.clones.d2prl':{inputSide:448,minimum:500}
 };
 for(const [id,params] of Object.entries(extra))defaults[id]={params,exports:['json']};
+defaults['detail.gradient'].params=gradientDefaults();
 // Native sparse evidence already has a complete Core NPZ adapter.
 defaults['tampering.copyMove.sparse'].exports.push('npz');
 // Six projected D2PRL scientific fields; not the native448 raw-bank archive.
@@ -73,7 +76,7 @@ export function toolFields(id){const out=[];const visit=(object,prefix='')=>{for
  const legacy=equalizationOperations[id],index=out.findIndex(f=>f.key===legacy),field={key:'equalization',label:'Égalisation',type:'equalization'};
  if(index>=0&&id!=='noise.separation')out.splice(index,1,field);else out.push(field);
  }return out;}
-export const toolTitle=(id,language='fr')=>toolCatalog[id]?.[language]||id;
+export const toolTitle=(id,language='fr')=>toolCatalog[currentToolId(id)]?.[language]||id;
 export function setField(object,path,value){const keys=path.split('.');const last=keys.pop();for(const key of keys)object=object[key];object[last]=value;}
 
 // Selection is explicit: neural regions are top-level task inputs, unlike the

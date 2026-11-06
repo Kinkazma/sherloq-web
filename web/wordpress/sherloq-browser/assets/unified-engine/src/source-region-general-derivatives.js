@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.0";
 import {EngineError,requireValue,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
 import {PIXEL_OPERATIONS} from './pixel-operations.js';
 import {gradientHeapBytes,GRADIENT_HEAP_BYTES,gradientDerivatives,gradientLengths,gradientRender,gradientLut} from './gradient-math.js';
@@ -11,8 +11,11 @@ import {sourceRegionLocalCores,sourceRegionLocalSupport} from './source-region-l
 import {sourceRegionDerivativeBoundaryRuns,sourceRegionObservedDerivatives,observedDerivativeWorkingBytes} from './source-region-observed-derivatives.js';
 import {acquireSourceRegionRecompression} from './source-region-recompression.js';
 import {createRecompressedSourceRegionView} from './source-region-recompressed-view.js';
+import {isGradientField} from './gradient-field-parameters.js';
+import {sourceRegionGradientField} from './source-region-gradient-field.js';
 
 export async function sourceRegionDerivatives({task,original,derived,view,domain,budget,signal,onProgress,publishResult}){
+ if(task.operation==='detail.gradient'&&isGradientField(task.params))return sourceRegionGradientField({task,original,derived,view,domain,budget,signal,onProgress,publishResult});
  const gradient=task.operation==='detail.gradient';if(!gradient&&task.operation!=='detail.echo')throw new EngineError('INVALID_INPUT','A native derivative operation is required.');
  const p=PIXEL_OPERATIONS[task.operation].validate(task.params),method=gradient?p.method:'sobel',krawetz=gradient&&method==='krawetz',width=domain.width,height=domain.height,radius=gradient?1:p.radius,bpp=gradient?4:12,cooperate=createCooperator(signal),completeCores=()=>sourceRegionLocalCores(domain,{radius,maxWidth:128,maxHeight:64}),cores=function*(){yield*completeCores();yield*sourceRegionDerivativeBoundaryRuns(domain,{radius,maxWidth:128});},baseKey=task.imageId+'\0source-region/derivatives-observed-boundary-v1/'+task.operation+'/'+domain.fingerprint+'/'+radius+(krawetz?'/krawetz':'');
  let completePixels=0;for(const core of completeCores())completePixels+=core.width*core.height;const analysed=domain.countIncluded,boundaryPixels=analysed-completePixels;if(!analysed)throw new EngineError('SOURCE_SCOPE_EMPTY','No selected derivative centre has its complete native support.',{details:{selectedPixels:domain.countIncluded,analysedPixels:0,unanalysablePixels:domain.countIncluded,halo:radius}});if(gradient&&p.equalize&&analysed>2147483647)throw new EngineError('NUMERIC_RANGE','Native gradient equalization requires at most2147483647 admitted observations.');

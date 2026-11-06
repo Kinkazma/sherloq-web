@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.0";
 import {serveNativeSourceChannel} from './native-source-channel.js';
 import {EngineError} from './errors.js';
 
@@ -23,7 +23,7 @@ export function withM2NativeSourceTransport(client,{channelFactory=()=>new Messa
  async function analyzeNativeRectangle(method,reader,params={},options={}){
   if(disposed)throw new EngineError('DISPOSED','M2 native source transport is closed.');
   if(closing){const error=new EngineError('BUSY','M2 native source retirement is waiting for its child ACK; retry dispose.');const owner={reader,posted:false,hostAcknowledged:true};sources.add(owner);try{await retireReader(owner);}catch(cleanup){attach(error,cleanup);}throw error;}
-  const qualifiedCfa=method==='cfa'&&reader.purpose==='analysis-native-contexts'&&reader.analysisContext==='native-cfa-contexts-only';if(qualifiedCfa)gracefulCfa=true;
+  const qualifiedCfa=['cfa','trufor-mini'].includes(method)&&reader.purpose==='analysis-native-contexts'&&reader.analysisContext==='native-'+method+'-contexts-only';if(qualifiedCfa)gracefulCfa=true;
   const channel=channelFactory(),analysisAbort=new AbortController(),abort=()=>analysisAbort.abort();let provider,owner;
   options.signal?.addEventListener('abort',abort,{once:true});if(options.signal?.aborted)abort();
   const detach=()=>options.signal?.removeEventListener('abort',abort);
@@ -46,7 +46,7 @@ export function withM2NativeSourceTransport(client,{channelFactory=()=>new Messa
   }finally{detach();}
  }
  return{...client,analyzeNativeRectangle,retirePendingNativeSources,
-  analyzeNativeContexts(method,reader,params={},options={}){const expected={cfa:'native-cfa-contexts-only',trufor:'native-trufor-contexts-only',rita:'native-rita-contexts-only'}[method];if(!expected||reader.purpose!=='analysis-native-contexts'||reader.analysisContext!==expected||reader.preparationContext!==undefined)throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','This explicit scientific context does not match a qualified M2 consumer.');return analyzeNativeRectangle(method,reader,params,options);},
+  analyzeNativeContexts(method,reader,params={},options={}){const expected={cfa:'native-cfa-contexts-only',trufor:'native-trufor-contexts-only','trufor-mini':'native-trufor-mini-contexts-only',rita:'native-rita-contexts-only'}[method];if(!expected||reader.purpose!=='analysis-native-contexts'||reader.analysisContext!==expected||reader.preparationContext!==undefined)throw new EngineError('SOURCE_SCOPE_UNSUPPORTED','This explicit scientific context does not match a qualified M2 consumer.');return analyzeNativeRectangle(method,reader,params,options);},
   async release(id){const owner=results.get(id);await client.release(id);if(owner){owner.hostAcknowledged=true;await owner.provider.whenClosed;await retireReader(owner);}},
   dispose(){if(disposed)return Promise.resolve();if(disposal)return disposal;closing=true;
    const completeSources=async()=>{let failed=false,failure;for(const owner of [...sources])try{await owner.provider?.dispose();await retireReader(owner);}catch(error){if(!failed){failed=true;failure=error;}}if(failed)throw failure;};

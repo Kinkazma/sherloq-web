@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.0";
+import {FIELD_METHODS} from './gradient-field-parameters.js';
 import {sherloq7cParams} from './sherloq7c-adapter.js';
 import {resamplingAnalysisParams} from './resampling-analysis.js';
 import {elaCellParams,elaCellPipeline} from './ela-cell-pipeline.js';
@@ -69,7 +70,7 @@ export const PIXEL_OPERATIONS=Object.freeze({
  'noise.minmax':{validate:minmaxParams,compute:minmax,scratchFactor:12,extraBytes:0,native:'minmax.py',exports:['json']},
  'pixels.defects':{validate:defectParams,compute:defectPixels,scratchFactor:60,extraBytes:0,native:'defect_pixels.py',exports:['json','csv']}
 });
-export const pixelCapabilities=()=>Object.entries(PIXEL_OPERATIONS).map(([id,op])=>({id,status:'partial',kernelStatus:op.kernelStatus??'validated-synthetic',backends:[...new Set(['cpu','auto',...(op.backends??[])])],regions:['full-frame'],defaults:op.validate(),exports:op.exports.slice(),kernelParity:op.parity??'bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending',native:op.native,...(op.methods?{methods:op.methods.slice()}:{}),...(id==='detail.gradient'?{methodBackends:{sobel:['cpu','auto','webgpu'],krawetz:['cpu','auto']},backendConstraints:{webgpu:{methods:['sobel'],sourceLayouts:['segmented','bounded-parameter-preview'],sourceRegionShapes:['identity','rectangle']}}}:{}),...(op.requirements?{requirements:op.requirements.slice()}: {})}));
+export const pixelCapabilities=()=>Object.entries(PIXEL_OPERATIONS).map(([id,op])=>({id,status:'partial',kernelStatus:op.kernelStatus??'validated-synthetic',backends:[...new Set(['cpu','auto',...(op.backends??[])])],regions:['full-frame'],defaults:op.validate(),exports:op.exports.slice(),kernelParity:op.parity??'bit-exact pixels/masks on fixtures/pixel-reference.json; UI integration pending',native:op.native,...(op.methods?{methods:op.methods.slice()}:{}),...(id==='detail.gradient'?{methodBackends:Object.fromEntries(FIELD_METHODS.map(method=>[method,['cpu','auto','webgpu']])),fieldViews:['native','angle','coherence'],historicalMethodBackends:{sobel:['cpu','auto','webgpu'],krawetz:['cpu','auto']},fieldPrecision:{cpu:'float64',webgpu:'float32 derivative, float64 tensor/HSV'},backendConstraints:{webgpu:{fieldMethods:[...FIELD_METHODS],fieldRegionShapes:['identity','rectangle','native-regions','membership'],methods:['sobel'],sourceLayouts:['segmented','bounded-parameter-preview'],sourceRegionShapes:['identity','rectangle']}}}:{}),...(op.requirements?{requirements:op.requirements.slice()}: {})}));
 export function payloadBytes(value){
  if(ArrayBuffer.isView(value))return value.byteLength;
  if(typeof value==='string')return value.length*2;

@@ -1,0 +1,135 @@
+{
+  "source": "Synthetic channel patterns; Pillow independently decodes JPEG and applies only EXIF orientation.",
+  "fixtures": [
+    {
+      "name": "cmyk-orientation-1",
+      "encoded": "cmyk-orientation-1.jpg",
+      "reference": "cmyk-orientation-1.bin",
+      "width": 19,
+      "height": 13,
+      "space": "CMYK",
+      "sha256": "4014bdf4c1b7d8b0c46b34a449604545cfb0adb54a57dd5e71a9aa4d5680fb22",
+      "referenceSha256": "cc6e1eff6be97ebd4fe6813e400c4d450e7480ef84b65b4f2789d62b1bc3615d"
+    },
+    {
+      "name": "cmyk-orientation-2",
+      "encoded": "cmyk-orientation-2.jpg",
+      "reference": "cmyk-orientation-2.bin",
+      "width": 19,
+      "height": 13,
+      "space": "CMYK",
+      "sha256": "025dbe35de3cdfd3accb3bc33d62b7045c765033612975de735ae9e1db3bfb5f",
+      "referenceSha256": "de44acadae945b9436513084c464f0b17792a3eae2b4edc255298ecd414bd5b6"
+    },
+    {
+      "name": "cmyk-orientation-3",
+      "encoded": "cmyk-orientation-3.jpg",
+      "reference": "cmyk-orientation-3.bin",
+      "width": 19,
+      "height": 13,
+      "space": "CMYK",
+      "sha256": "aa712ebb143c7db520e853bb1ffbfa7a1244d8af2b84b8f75e1fff3372541e37",
+      "referenceSha256": "7625b24d6f3f7d2a9ee0885a35dd3b5370d7213e0ff5d7e0845a17178f9d0802"
+    },
+    {
+      "name": "cmyk-orientation-4",
+      "encoded": "cmyk-orientation-4.jpg",
+      "reference": "cmyk-orientation-4.bin",
+      "width": 19,
+      "height": 13,
+      "space": "CMYK",
+      "sha256": "20a893ed59f801f5df38a7a561db40f35b8793b70e387d73ae9fb2c6341eb44d",
+      "referenceSha256": "d27cef4bee634c80b18d04f86783d7847c01ae79ac55b53687d8de93b0320c77"
+    },
+    {
+      "name": "cmyk-orientation-5",
+      "encoded": "cmyk-orientation-5.jpg",
+      "reference": "cmyk-orientation-5.bin",
+      "width": 13,
+      "height": 19,
+      "space": "CMYK",
+      "sha256": "d4e60f74949d51fde45c5c27c5b1f883b72699dd82ee6c2fb2f0e2f9d189987c",
+      "referenceSha256": "51064694055e68031986953a119a3719a58aac3ff5d9f26d96a0c52df39563de"
+    },
+    {
+      "name": "cmyk-orientation-6",
+      "encoded": "cmyk-orientation-6.jpg",
+      "reference": "cmyk-orientation-6.bin",
+      "width": 13,
+      "height": 19,
+      "space": "CMYK",
+      "sha256": "6e4dc6441afd8c6d59bf0d38e4c8950678c89be28ad9e3bf84301ddaaf8a9435",
+      "referenceSha256": "f345dd0152b0cb32dea37941d7491f46a94b1352c4ecfd7236986efeb5c9ea3d"
+    },
+    {
+      "name": "cmyk-orientation-7",
+      "encoded": "cmyk-orientation-7.jpg",
+      "reference": "cmyk-orientation-7.bin",
+      "width": 13,
+      "height": 19,
+      "space": "CMYK",
+      "sha256": "2bfe3d6af52369497a6373284173ed158523ad6484f18af408e263c3fa8cbbad",
+      "referenceSha256": "93bc54f7f9082052270274722a6beb716b0c7ccbc2b880affa9e620acc63f37d"
+    },
+    {
+      "name": "cmyk-orientation-8",
+      "encoded": "cmyk-orientation-8.jpg",
+      "reference": "cmyk-orientation-8.bin",
+      "width": 13,
+      "height": 19,
+      "space": "CMYK",
+      "sha256": "d0b589d95e42bb3d8a04316f4d56bcd41837d172e8aead8940953396689b15eb",
+      "referenceSha256": "2995a7a16802d02807b5586d86cb9b9c62dd1b01ad09f834feab890a0dfdaf99"
+    },
+    {
+      "name": "cmyk-progressive",
+      "encoded": "cmyk-progressive.jpg",
+      "reference": "cmyk-progressive.bin",
+      "width": 512,
+      "height": 512,
+      "space": "CMYK",
+      "sha256": "d89c34b9a23d7ef6f952419477da78b2e1fd44bbd3c09494bd0f0c58daf503e8",
+      "referenceSha256": "cadba8c19dc6290e62108ab8f5d1adb1cf925ee8245a9d206e5d33dacdd06922"
+    },
+    {
+      "name": "gray-baseline",
+      "encoded": "gray-baseline.jpg",
+      "reference": "gray-baseline.bin",
+      "width": 31,
+      "height": 17,
+      "space": "GRAY",
+      "sha256": "f478d435594faf7c213334c3695a7588fe3f04d4c19422635f7b557bfb065a2d",
+      "referenceSha256": "49b37f80b754cb061982408668ff6a9c1ed13199f13898132b8601bee1fd2a7d"
+    },
+    {
+      "name": "rgb-baseline",
+      "encoded": "rgb-baseline.jpg",
+      "reference": "rgb-baseline.bin",
+      "width": 23,
+      "height": 11,
+      "space": "RGB",
+      "sha256": "8f6970e4bef6e97d10c4e0c957a391f9a95785c5043af689842e702ad6a2ffe2",
+      "referenceSha256": "ab5f37dd390f95bc75954bc9f95f65136bf209665b5820c7665279906670a424"
+    },
+    {
+      "name": "cmyk-ycck",
+      "encoded": "cmyk-ycck.jpg",
+      "reference": "cmyk-ycck.bin",
+      "width": 19,
+      "height": 13,
+      "space": "CMYK",
+      "sha256": "3b051c525ebe355a5a6cfea26eb56cf3b64b8d69923c66aed03f802378b2223c",
+      "referenceSha256": "94d0d3382234afb1d5ed8a1574aa450455539c1250e9dde4a001201e531b0104"
+    },
+    {
+      "name": "cmyk-no-adobe",
+      "encoded": "cmyk-no-adobe.jpg",
+      "reference": "cmyk-no-adobe.bin",
+      "width": 19,
+      "height": 13,
+      "space": "CMYK",
+      "sha256": "93e9e1eaaeb919b7aef21ab7bec5ed6479b430833f10765cfcc3e90f9cdd3c37",
+      "referenceSha256": "cc6e1eff6be97ebd4fe6813e400c4d450e7480ef84b65b4f2789d62b1bc3615d"
+    }
+  ]
+}

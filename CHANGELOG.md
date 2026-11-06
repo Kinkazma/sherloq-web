@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.33.0 — Channel histograms, TruFor Mini and luminance gradients · 2026-11-07
+
+- Consolidate clone detection under one menu entry, using the expanded matching tool and its existing profiles; migrate legacy navigation and favourites to that entry.
+- Restored the original Sobel/Krawetz calculation and intensity paths at their native settings. Added a shared historical component rendering for the other operators and corrected HSV strength encoding.
+- Made Krawetz with RGB components/magnitude the default gradient panel selection.
+- Kept display, intensity, equalization, luminance, physical borders and compatible spatial settings shared when switching gradient methods, including batch recipes. Added explicit Krawetz luminance, border and sampling extensions while retaining its original defaults.
+- Moved supplementary gradient controls into a collapsed Advanced settings menu with the yellow outlined parameter-button styling; removed redundant result-layer and data toggles from this panel.
+- Kept processor selection, Cancel and Reset in the primary gradient command flow before the inline advanced controls.
+- Reduced the gradient method and display selectors, with their complete selected labels available on hover.
+- Stabilized weak-contrast and single-axis gradient calculations on CPU/WebGPU, including heavily smoothed fields and the native RGB magnitude modes.
+- Corrected clipped-halo memory admission, GPU recovery and retry ownership, scoped progress, and complete cleanup after temporary-storage failures.
+
+- Added configurable luminance-gradient operators with historical component, colored orientation (HSV) and structure-tensor coherence views.
+- Connected the field views to adaptive parameter previews, the common equalization pipeline and batch recipes with acquisition/exclusion domains.
+- Added bounded CPU and WebGPU derivative execution; retained historical Sobel/Krawetz API rendering. See `docs/LUMINANCE-GRADIENT-FIELDS.md` for operator definitions and numerical contracts.
+
+- Add TruFor Mini as a separate method with native localization, its own Noiseprint++ residual, WebGPU and CPU execution, batch support and independently selectable offline resources. Retain full TruFor and Channel 333.
+- Preserve exact feature-catalogue bytes during local bridge updates so differences in JSON escaping or formatting cannot break offline integrity checks.
+- Add a shared local and whole-image channel histogram with selectable regions, overlaid or separate RGB curves, luminance, pixel values and regional statistics. Reuse the whole-image result when leaving a live region.
+- Retain a selected region and pixel when pinned; restore the normal pointer immediately after pinning. Release the selection without rerunning the source analysis.
+- Decode supported native Adobe CMYK/YCCK JPEG and unsigned, uncompressed-strip TIFF channels instead of deriving CMYK values from rendered RGB. Preserve explicit rendered-RGB fallback for unsupported inputs and native-source ownership during panel closure.
+- Retain the native JPEG colour decoder in the offline application shell.
+- Render histogram curves at the screen’s pixel density and redraw cached counts when the view changes size. Export the same sharp chart through the shared PNG, WebP, TIFF, AVIF and HEIC workflow.
+- Update the equalization comparison, SHERLOQ method description and source links, study documentation access and image-generation provenance.
+
 ## 0.32.0 — Recompression, SHERLOQ equalization and AI detectors · 2026-11-06
 
 - Add experimental recompression choices to the analyses that use encoded residuals: JPEG, WebP, AVIF, HEIC/HEVC, quantized-palette PNG, JPEG2000, JPEG XL and GIF. Preserve the historical JPEG path and original encoded input for format-dependent methods.

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.0";
 import {deserializeEngineError} from './errors.js';
 import {serializeEngineError} from './errors.js';
 import {EngineError,checkAbort} from './errors.js';
@@ -62,6 +62,6 @@ export async function createM2WorkerClient(config,{workerFactory=url=>new Worker
    catch(e){try{await writer?.abort(e);}catch{}throw e;}finally{writer?.releaseLock();await request('releaseExport',{exportId:output.id});}
   },
   release(resultId){return request('releaseResult',{resultId});},clearCache(){return request('clearCache');},memory(){return request('memory');},
-  dispose(){if(config.methods?.splicebuster)return disposeGracefully();if(gracefulClosing)return disposeGracefully();if(disposing)return disposing;if(disposed)return Promise.resolve();const cleaned=request('dispose');disposed=true;disposing=cleaned.finally(()=>stop(new EngineError('CANCELLED','M2 worker disposed.')));return disposing;}
+  dispose(){if(config.methods?.splicebuster||config.methods?.['trufor-mini'])return disposeGracefully();if(gracefulClosing)return disposeGracefully();if(disposing)return disposing;if(disposed)return Promise.resolve();const cleaned=request('dispose');disposed=true;disposing=cleaned.finally(()=>stop(new EngineError('CANCELLED','M2 worker disposed.')));return disposing;}
  };
 }

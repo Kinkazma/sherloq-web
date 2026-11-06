@@ -1,4 +1,4 @@
-import {genericHeldPreviewKey} from './generic-held-preview-owner.js?v=0.32.0';
+import {genericHeldPreviewKey} from './generic-held-preview-owner.js?v=0.33.0';
 // Typed local presentation tickets. Only the declared numeric setting may drift.
 const numeric=(value)=>typeof value==='number'&&Number.isFinite(value);
 const at=(value,path)=>path.reduce((v,key)=>v?.[key],value);

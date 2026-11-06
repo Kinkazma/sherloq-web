@@ -1,4 +1,4 @@
-import {toolCatalog,toolFields} from './tool-catalog.js?v=0.32.0';
+import {toolCatalog,toolFields} from './tool-catalog.js?v=0.33.0';
 
 // A draft is always separate from the native result. Scientific method/model
 // changes and recompressed JPEG evidence are never substituted for the native
@@ -49,7 +49,7 @@ set('tampering.copyMove.sparse','sparseView.low sparseView.high sparseView.minim
 set('ai.clones.d2prl','minimum','retained','Temporarily refilter the complete retained native448 banks during a hold, then commit the latest native minimum; a missing or changed checkpoint cannot start inference.',{strategy:'d2prl-refilter',final:'retained-native',nativeBasis:'required',nativeBasisMutableParams:['minimum']});
 set('ai.clones.d2prl','neuralView','local','Switch retained native clone layers through the existing layer selector without inference.',{strategy:'layer',existing:true,final:'view'});
 set('ai.sources.safire ai.localization.focal ai.localization.adaifl','researchView','retained','Recolor native retained maps/labels on a bounded display; native commit only renders the cached analysis.',{strategy:'research',final:'native',nativeBasis:'required',nativeBasisMutableParams:['groups','kind','eps','minimum','binary']});
-set('m2.trufor m2.catnet','view','local','Switch retained native model fields through the existing layer viewer.',{strategy:'layer',existing:true,final:'view'});
+set('m2.trufor m2.trufor-mini m2.catnet','view','local','Switch retained native model fields through the existing layer viewer.',{strategy:'layer',existing:true,final:'view'});
 set('m2.rita jpeg.comprint ai.text.doctamper','threshold opacity view','local','Existing retained response proxy and native presentation path.',{existing:true,final:'view'});
 for(const id of ['ela.classic','ela.energy','ela.biomes'])set(id,'quality scale contrast linear grayscale histogramLow histogramHigh shadow highlight block minimum threshold profile view opacity scoreField scoreView scoreThreshold','local','Existing ELA draft/retained energy interaction owns this control.',{existing:true,final:id==='ela.classic'?'native':'view'});
 set('jpeg.multiple','jpegMethod','explicit','Select the native stored-DCT or101-quality recompression operation, then calculate once without a scientific proxy.',{final:'native'});

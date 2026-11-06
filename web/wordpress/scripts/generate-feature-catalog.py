@@ -90,11 +90,12 @@ def generate(manifest, metadata_root, assets_root=None):
     for method, prefixes, deps in [
         ('cfa', ['individual-assets/cfa-m2'], ['resource.cfa-operators']),
         ('catnet', ['individual-assets/catnet-segments', 'individual-assets/catnet'], ['resource.neural-runtime']),
+        ('trufor-mini', ['individual-assets/trufor-mini'], ['resource.neural-runtime']),
         ('trufor', ['individual-assets/trufor-neuron333', 'individual-assets/trufor-split-value', 'individual-assets/trufor-segments', 'individual-assets/trufor-npp'], ['resource.neural-runtime', 'resource.cfa-operators']),
     ]:
         resources = sum([directory(prefix) for prefix in prefixes], [])
         if method == 'cfa': resources = [path for path in resources if not path.endswith(('operators.mjs', 'operators.wasm'))]
-        add('m2.' + method, {'cfa': 'CFA — dématriçage', 'catnet': 'CAT-Net', 'trufor': 'TruFor'}[method], group='neural-detectors', resources=resources, depends=deps, tasks=[{'operation': 'm2.' + method}])
+        add('m2.' + method, {'cfa': 'CFA — dématriçage', 'catnet': 'CAT-Net', 'trufor': 'TruFor', 'trufor-mini': 'TruFor Mini'}[method], group='neural-detectors', resources=resources, depends=deps, tasks=[{'operation': 'm2.' + method}])
     # RITA is optional and has its own native operator catalogue. Recognize it
     # before assigning unclaimed resources to protected core, so rebuilding the
     # functional catalogue preserves selective offline installation/uninstall.

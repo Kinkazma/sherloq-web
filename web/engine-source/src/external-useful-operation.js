@@ -3,7 +3,7 @@ import {usefulOperationMethod,usefulScientificParameters} from './useful-operati
 import {createUsefulOperationEvidence} from './useful-operation-evidence.js';
 import {USEFUL_WORK_CODE_IDENTITY} from './useful-work-code-identity.js';
 import {PPOCR_MEDIUM} from './ppocr-recognition.js';
-const M2=new Set(['cfa','trufor','rita','catnet','forgeryscope','composite']);
+const M2=new Set(['cfa','trufor','trufor-mini','rita','catnet','forgeryscope','composite']);
 export function externalUsefulOwner(task,ctx={}){
  const m2=task?.operation?.startsWith('m2.')?task.operation.slice(3):null,pp=task?.operation==='various.ocr'&&(task.params?.algorithm??'ppocr-medium')==='ppocr-medium',automatic=['analysis.complete','analysis.clones'].includes(task?.operation);
  if(!M2.has(m2)&&!pp&&!automatic)return null;

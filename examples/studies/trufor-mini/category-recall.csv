@@ -1,0 +1,46 @@
+category,pipeline,model,score,threshold,tampered_images,detected,missed,recall
+copy-move,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.0,584,584,0,1.0
+copy-move,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.5,584,492,92,0.8424657534246576
+copy-move,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.75,584,397,187,0.6797945205479452
+copy-move,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.0,584,584,0,1.0
+copy-move,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.5,584,501,83,0.8578767123287672
+copy-move,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.75,584,406,178,0.6952054794520548
+copy-move,TruFor — détecteur global officiel,trufor_original,official_global_score,0.0,584,584,0,1.0
+copy-move,TruFor — détecteur global officiel,trufor_original,official_global_score,0.5,584,303,281,0.5188356164383562
+copy-move,TruFor — détecteur global officiel,trufor_original,official_global_score,0.75,584,255,329,0.4366438356164384
+generative-inpainting,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.0,512,512,0,1.0
+generative-inpainting,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.5,512,378,134,0.73828125
+generative-inpainting,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.75,512,249,263,0.486328125
+generative-inpainting,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.0,512,512,0,1.0
+generative-inpainting,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.5,512,415,97,0.810546875
+generative-inpainting,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.75,512,290,222,0.56640625
+generative-inpainting,TruFor — détecteur global officiel,trufor_original,official_global_score,0.0,512,512,0,1.0
+generative-inpainting,TruFor — détecteur global officiel,trufor_original,official_global_score,0.5,512,181,331,0.353515625
+generative-inpainting,TruFor — détecteur global officiel,trufor_original,official_global_score,0.75,512,113,399,0.220703125
+internet-real-life,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.0,2010,2010,0,1.0
+internet-real-life,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.5,2010,1961,49,0.9756218905472637
+internet-real-life,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.75,2010,1866,144,0.9283582089552239
+internet-real-life,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.0,2010,2010,0,1.0
+internet-real-life,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.5,2010,1966,44,0.9781094527363184
+internet-real-life,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.75,2010,1874,136,0.9323383084577115
+internet-real-life,TruFor — détecteur global officiel,trufor_original,official_global_score,0.0,2010,2010,0,1.0
+internet-real-life,TruFor — détecteur global officiel,trufor_original,official_global_score,0.5,2010,1750,260,0.8706467661691543
+internet-real-life,TruFor — détecteur global officiel,trufor_original,official_global_score,0.75,2010,1584,426,0.7880597014925373
+manual-realistic,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.0,220,220,0,1.0
+manual-realistic,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.5,220,167,53,0.759090909090909
+manual-realistic,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.75,220,124,96,0.5636363636363636
+manual-realistic,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.0,220,220,0,1.0
+manual-realistic,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.5,220,185,35,0.8409090909090909
+manual-realistic,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.75,220,143,77,0.65
+manual-realistic,TruFor — détecteur global officiel,trufor_original,official_global_score,0.0,220,220,0,1.0
+manual-realistic,TruFor — détecteur global officiel,trufor_original,official_global_score,0.5,220,56,164,0.2545454545454545
+manual-realistic,TruFor — détecteur global officiel,trufor_original,official_global_score,0.75,220,40,180,0.18181818181818182
+splicing,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.0,641,641,0,1.0
+splicing,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.5,641,615,26,0.9594383775351014
+splicing,TruFor — score commun,trufor_original,mean_top_1_percent_localization,0.75,641,573,68,0.8939157566302652
+splicing,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.0,641,641,0,1.0
+splicing,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.5,641,619,22,0.9656786271450858
+splicing,TruFor Mini — score commun,proxy_current,mean_top_1_percent_localization,0.75,641,573,68,0.8939157566302652
+splicing,TruFor — détecteur global officiel,trufor_original,official_global_score,0.0,641,641,0,1.0
+splicing,TruFor — détecteur global officiel,trufor_original,official_global_score,0.5,641,545,96,0.8502340093603744
+splicing,TruFor — détecteur global officiel,trufor_original,official_global_score,0.75,641,496,145,0.7737909516380655

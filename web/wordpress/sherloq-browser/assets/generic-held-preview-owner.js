@@ -1,4 +1,4 @@
-import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.32.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.33.0';
 // Typed completed-frame admission only. This helper owns no scientific values,
 // pixels, caches, viewport or storage. Opaque references belong to capture().
 export const GENERIC_HELD_PREVIEW_FAMILIES=Object.freeze(['derived-pixel','retained-tables','native-postprocess','ghost-hybrid']);

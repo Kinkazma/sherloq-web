@@ -1,9 +1,9 @@
-import {isFrequencyPreviewToken,frequencyPreviewPresented} from './frequency-preview-sizing.js?v=0.32.0';
+import {isFrequencyPreviewToken,frequencyPreviewPresented} from './frequency-preview-sizing.js?v=0.33.0';
 // Provisional display sizing only. Native analysis parameters never change.
 const STORE_KEY='sherloq.preview-calibration.v5',MAX_ENTRIES=128,MODEL=5;
-import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.32.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.33.0';
 export {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS};
-import {PREVIEW_QUALITY_POLICY,previewResolutionRequest,gentlePreviewStep} from './preview-quality-policy.js?v=0.32.0';
+import {PREVIEW_QUALITY_POLICY,previewResolutionRequest,gentlePreviewStep} from './preview-quality-policy.js?v=0.33.0';
 export {PREVIEW_QUALITY_POLICY};
 const shared=new Map();let serial=0,loaded=false;
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v)),clock=()=>globalThis.performance?.now?.()??Date.now(),epoch=()=>Date.now(),valid=v=>Number.isFinite(v)&&v>=0;

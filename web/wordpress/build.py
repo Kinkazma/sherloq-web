@@ -80,7 +80,9 @@ def locked_files(root):
             files[source.relative_to(plugin).as_posix()] = source
     # Also includes dependencies staged through a directory symlink in a worktree.
     for source in plugin.rglob('*'):
-        if source.is_file() and source.name != '.DS_Store':
+        if (source.is_file() and source.name != '.DS_Store'
+                and '__pycache__' not in source.relative_to(plugin).parts
+                and source.suffix not in {'.pyc', '.pyo'}):
             files.setdefault(source.relative_to(plugin).as_posix(), source)
     return lock, dict(sorted(files.items()))
 

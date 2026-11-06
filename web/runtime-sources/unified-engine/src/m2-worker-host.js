@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.0";
 import {neuralUsefulExecutionSnapshot} from './neural-graph-pool.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {compositeSourceDomain,compositeRegionalImage,compositeRegionalResult} from './composite-regional-source.js';
@@ -14,6 +14,8 @@ import {resolveComputeProfile} from './profiles.js';
 import {EngineError,requireValue,checkAbort,serializeEngineError} from './errors.js';
 import {createForgeryscopeAnalyzer} from './forgeryscope-analyzer.js';
 import {createTruforSourceRegionRouter} from './trufor-source-region-router.js';
+import {createTruforMiniSourceRegionRouter} from './trufor-mini-source-region-router.js';
+import {receiveTruforMiniStrictSourceInput} from './trufor-mini-strict-source-input.js';
 import {createRitaSourceRegionRouter} from './rita-source-region-router.js';
 import {receiveRitaStrictSourceInput} from './rita-strict-source-input.js';
 import {sampleRitaWindow} from './rita-render.js';
@@ -38,7 +40,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
   if(analyzers.has(method))return analyzers.get(method);requireValue(config.methods[method],'M2 method is not configured.');
   const value={...config.methods[method],budget,computeProfile:config.computeProfile??'aggressive',resourceHints:config.resourceHints,...(method==='splicebuster'?{sourceAccounted:true}:{})};
   for(const key of ['preparation','sift','jpeg'])if(value[key+'FactoryUrl']){value[key+'Factory']=await loadFactory(value[key+'FactoryUrl']);delete value[key+'FactoryUrl'];}
-  const factory=analyzerFactories[method]??(method==='splicebuster'?createSplicebusterAnalyzer:{forgeryscope:createForgeryscopeAnalyzer,trufor:createTruforSourceRegionRouter,rita:createRitaSourceRegionRouter,composite:createCompositeAnalyzer,catnet:createCatnetSourceRegionRouter,cfa:createCfaSourceRegionRouter}[method]);requireValue(factory,'Unknown M2 method.');
+  const factory=analyzerFactories[method]??(method==='splicebuster'?createSplicebusterAnalyzer:{forgeryscope:createForgeryscopeAnalyzer,trufor:createTruforSourceRegionRouter,'trufor-mini':createTruforMiniSourceRegionRouter,rita:createRitaSourceRegionRouter,composite:createCompositeAnalyzer,catnet:createCatnetSourceRegionRouter,cfa:createCfaSourceRegionRouter}[method]);requireValue(factory,'Unknown M2 method.');
   const api=factory(value);analyzers.set(method,api);return api;
  }
  function result(id){const r=results.get(id);requireValue(r&&!r.releaseRequested,'Released or unknown M2 result.');return r;}
@@ -87,10 +89,10 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
     try{
      await retireCompositeExports();await retireCfaSources();
      if(operation==='analyzeNativeSource'){
-      image=await (method==='cfa'&&args.image?.purpose==='analysis-native-contexts'?receiveCfaStrictSourceInput(args.image,{budget,signal:controller.signal}):method==='trufor'&&args.image?.purpose==='analysis-native-contexts'?receiveTruforStrictSourceInput(args.image,{budget,signal:controller.signal}):method==='rita'&&args.image?.purpose==='analysis-native-contexts'?receiveRitaStrictSourceInput(args.image,{budget,signal:controller.signal}):receiveM2SourceRegionInput(method,args.image,{budget,signal:controller.signal,params}));nativeSourceAdopted=true;release=()=>image.dispose();
+      image=await (method==='cfa'&&args.image?.purpose==='analysis-native-contexts'?receiveCfaStrictSourceInput(args.image,{budget,signal:controller.signal}):method==='trufor'&&args.image?.purpose==='analysis-native-contexts'?receiveTruforStrictSourceInput(args.image,{budget,signal:controller.signal}):method==='trufor-mini'&&args.image?.purpose==='analysis-native-contexts'?receiveTruforMiniStrictSourceInput(args.image,{budget,signal:controller.signal}):method==='rita'&&args.image?.purpose==='analysis-native-contexts'?receiveRitaStrictSourceInput(args.image,{budget,signal:controller.signal}):receiveM2SourceRegionInput(method,args.image,{budget,signal:controller.signal,params}));nativeSourceAdopted=true;release=()=>image.dispose();
      }else if(operation==='analyzeBlob'){
       requireValue(args.expectedSourceSha256===undefined||typeof args.expectedSourceSha256==='string'&&/^[a-f0-9]{64}$/i.test(args.expectedSourceSha256),'Invalid expected M2 source SHA-256.');
-      requireValue(['cfa','trufor','rita','catnet','composite','forgeryscope','splicebuster'].includes(method)&&args.blob instanceof Blob,'Segmented original source is currently supported by CFA, TruFor, RITA, CAT-Net, Composite, Forgeryscope and Splicebuster.');
+      requireValue(['cfa','trufor','trufor-mini','rita','catnet','composite','forgeryscope','splicebuster'].includes(method)&&args.blob instanceof Blob,'Segmented original source is currently supported by CFA, TruFor, RITA, CAT-Net, Composite, Forgeryscope and Splicebuster.');
       // The decoder accounts its entire heap while active. Keep its idle heap
       // charged afterwards: Emscripten free does not shrink WebAssembly memory.
       const signature=new Uint8Array(await args.blob.slice(0,2).arrayBuffer());
@@ -106,7 +108,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
      }else{
       const n=image?.width*image?.height;requireValue(Number.isSafeInteger(n)&&n>0&&image.data instanceof Uint8Array&&image.data.length===3*n,'RGB8 image required.');release=budget.reserve(image.data.byteLength);
      }
-     api=await analyzer(method);cfaNativeOwner=cfaNativeOwner||operation==='analyzeNativeSource'&&method==='cfa'&&image.strictCfaContexts===true;checkAbort(controller.signal);value=await api.analyze(image,params,{backend,...(['rita','trufor','forgeryscope'].includes(method)&&operation==='analyzeBlob'?{immutableSource:true}:{}),signal:controller.signal,onProgress:event=>post({id,progress:event})});checkAbort(controller.signal);
+     api=await analyzer(method);cfaNativeOwner=cfaNativeOwner||operation==='analyzeNativeSource'&&(method==='cfa'&&image.strictCfaContexts===true||method==='trufor-mini'&&image.strictTruforMiniContexts===true);checkAbort(controller.signal);value=await api.analyze(image,params,{backend,...(['rita','trufor','trufor-mini','forgeryscope'].includes(method)&&operation==='analyzeBlob'?{immutableSource:true}:{}),signal:controller.signal,onProgress:event=>post({id,progress:event})});checkAbort(controller.signal);
      if(compositeSelection?.regional)value=compositeRegionalResult(value,compositeSelection.domain);
      if(operation==='analyzeNativeSource')value={...value,provenance:{...value.provenance,...image.provenance}};
      const data=value.data??value,fields={},information={};
@@ -118,9 +120,9 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
      if(image.segmented)information.source={dimensions:image.surface.descriptor,provenance:image.provenance,metrics:image.metrics};
      information.provenance=value.provenance;const usefulAfter=neuralUsefulExecutionSnapshot(budget);information.metrics={...value.metrics,...(value.execution?{nativeExecution:value.execution}:{}),providerExecutions:{observed:true,wasm:usefulAfter.wasm-usefulBefore.wasm,webgpu:usefulAfter.webgpu-usefulBefore.webgpu,unknown:usefulAfter.unknown-usefulBefore.unknown}};if(value.mapError)information.mapError=value.mapError;
      const json=JSON.stringify(information);metadataLease=budget.reserve(json.length*3);const metadata=new TextEncoder().encode(json),resultId=next++;
-     results.set(resultId,{id:resultId,method,value,api,image,imageLease:release,metadata,metadataLease,references:1,cfaNativeOwner,compositeNativeOwner:compositeSelection?.regional===true,splicebusterNativeOwner:method==='splicebuster'});release=null;value=null;metadataLease=null;
+     results.set(resultId,{id:resultId,method,value,api,image,imageLease:release,metadata,metadataLease,references:1,cfaNativeOwner,compositeNativeOwner:compositeSelection?.regional===true,splicebusterNativeOwner:['splicebuster','trufor-mini'].includes(method)});release=null;value=null;metadataLease=null;
      send(id,{id:resultId,method,width:data.width,height:data.height,fields,metadataBytes:metadata.byteLength,memory:memory(),...(compositeSelection?.regional?{sourceRegionDomain:compositeSelection.domain.descriptor,sourceRegionOrigin:[...compositeSelection.domain.origin]}:{})});
-    }catch(error){analysisFailed=true;analysisFailure=error;if(operation==='analyzeNativeSource'&&!nativeSourceAdopted){try{args.image?.port?.postMessage({type:'close'});}catch{}try{args.image?.port?.close?.();}catch{}}if((cfaNativeOwner||method==='splicebuster'||method==='composite'&&args.sourceRegionDomain)&&release){retainCfaSource({api,value,imageLease:release,metadataLease});release=null;value=null;metadataLease=null;}throw error;}finally{try{await retireM2Owners([()=>value?.release(),()=>metadataLease?.()],analysisFailed?{primary:analysisFailure}:{});}finally{pending.delete(id);}}
+    }catch(error){analysisFailed=true;analysisFailure=error;if(operation==='analyzeNativeSource'&&!nativeSourceAdopted){try{args.image?.port?.postMessage({type:'close'});}catch{}try{args.image?.port?.close?.();}catch{}}if((cfaNativeOwner||['splicebuster','trufor-mini'].includes(method)||method==='composite'&&args.sourceRegionDomain)&&release){retainCfaSource({api,value,imageLease:release,metadataLease});release=null;value=null;metadataLease=null;}throw error;}finally{try{await retireM2Owners([()=>value?.release(),()=>metadataLease?.()],analysisFailed?{primary:analysisFailure}:{});}finally{pending.delete(id);}}
    }else if(operation==='cancel'){pending.get(args.requestId)?.abort();send(id,true);}
    else if(operation==='readArray'){
     const r=result(args.resultId),data=r.value,values=(data.data??data)[args.field],segmented=typeof values?.readInto==='function';requireValue(ArrayBuffer.isView(values)||segmented,'Unknown numeric field.');const Type=segmented?({Float32Array,Float64Array,Uint8Array}[values.elementType??'Float32Array']):values.constructor;requireValue(Type,'Unknown numeric field type.');const itemBytes=Type.BYTES_PER_ELEMENT;window(values.length,args.offset,args.count,itemBytes);release=budget.reserve(args.count*itemBytes);r.references++;try{const copy=segmented?await values.readInto(new Type(args.count),args.offset):values.slice(args.offset,args.offset+args.count);send(id,copy,[copy.buffer]);}finally{await unpin(r);}
@@ -151,10 +153,10 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
     if(pending.size)throw new EngineError('BUSY','M2 host already has an active operation.');
     const r=result(args.resultId),controller=new AbortController();r.references++;pending.set(id,controller);let output,retained=false,failedOutputRetirement,exportFailed=false,exportFailure;
     try{
-     output=await createM2NpzStream(r.method,r.value,{budget,signal:controller.signal,onProgress:event=>post({id,progress:event}),...(r.method==='splicebuster'?{onCleanupError:(_error,retry)=>{failedOutputRetirement={release:retry};}}:{})});checkAbort(controller.signal);
-     const stream=output,exportId=next++;let streamReleased=false,resultUnpinned=false;exports.set(exportId,r.method==='splicebuster'?splicebusterExportOwner(r,stream,exportId):{id:exportId,references:1,length:stream.length,read:stream.read,compositeNativeOwner:r.compositeNativeOwner,release(){if(!r.compositeNativeOwner){stream.release();return unpin(r);}return(async()=>{if(!streamReleased){await stream.release();streamReleased=true;}if(!resultUnpinned){resultUnpinned=true;r.references--;}if(r.references===0)await retireCfaResult(r);})();}});retained=true;
+     output=await createM2NpzStream(r.method,r.value,{budget,signal:controller.signal,onProgress:event=>post({id,progress:event}),...(['splicebuster','trufor-mini'].includes(r.method)?{onCleanupError:(_error,retry)=>{failedOutputRetirement={release:retry};}}:{})});checkAbort(controller.signal);
+     const stream=output,exportId=next++;let streamReleased=false,resultUnpinned=false;exports.set(exportId,['splicebuster','trufor-mini'].includes(r.method)?splicebusterExportOwner(r,stream,exportId):{id:exportId,references:1,length:stream.length,read:stream.read,compositeNativeOwner:r.compositeNativeOwner,release(){if(!r.compositeNativeOwner){stream.release();return unpin(r);}return(async()=>{if(!streamReleased){await stream.release();streamReleased=true;}if(!resultUnpinned){resultUnpinned=true;r.references--;}if(r.references===0)await retireCfaResult(r);})();}});retained=true;
      send(id,{id:exportId,mime:stream.mime,bytes:stream.length});
-    }catch(error){exportFailed=true;exportFailure=error;throw error;}finally{pending.delete(id);if(!retained){if(r.method==='splicebuster'&&(output||failedOutputRetirement)){const exportId=next++,owner=splicebusterExportOwner(r,output??failedOutputRetirement,exportId,{unpublished:true});exports.set(exportId,owner);await retireM2Owners([()=>retireCompositeExport(owner)],exportFailed?{primary:exportFailure}:{});}else if(r.method==='splicebuster')await retireM2Owners([()=>unpin(r)],exportFailed?{primary:exportFailure}:{});else{output?.release();await unpin(r);}}}
+    }catch(error){exportFailed=true;exportFailure=error;throw error;}finally{pending.delete(id);if(!retained){if(['splicebuster','trufor-mini'].includes(r.method)&&(output||failedOutputRetirement)){const exportId=next++,owner=splicebusterExportOwner(r,output??failedOutputRetirement,exportId,{unpublished:true});exports.set(exportId,owner);await retireM2Owners([()=>retireCompositeExport(owner)],exportFailed?{primary:exportFailure}:{});}else if(['splicebuster','trufor-mini'].includes(r.method))await retireM2Owners([()=>unpin(r)],exportFailed?{primary:exportFailure}:{});else{output?.release();await unpin(r);}}}
    }else if(operation==='readExport'){
     const e=exports.get(args.exportId);requireValue(e&&!e.releaseRequested,'Released or unknown export.');window(e.length??e.bytes.length,args.offset,args.count);release=budget.reserve(args.count);e.references++;try{const copy=e.read?await e.read(args.offset,args.count):e.bytes.slice(args.offset,args.offset+args.count);send(id,copy,[copy.buffer]);}finally{await unpinExport(e);}
    }else if(operation==='releaseResult'){await releaseResult(args.resultId);send(id,true);}
@@ -164,7 +166,7 @@ export function createM2WorkerHost({post,loadFactory=async url=>(await import(ur
    else if(operation==='reserveExternalMemory'){requireValue(Number.isSafeInteger(args.bytes)&&args.bytes>0,'Invalid external workspace size.');const leaseId=next++;externalMemory.set(leaseId,budget.reserve(args.bytes));send(id,{id:leaseId,bytes:args.bytes});}
    else if(operation==='releaseExternalMemory'){externalMemory.get(args.id)?.();externalMemory.delete(args.id);send(id,true);}
    else if(operation==='dispose'){
-    if(args.gracefulNativeSources===true||config.methods?.splicebuster){
+    if(args.gracefulNativeSources===true||config.methods?.splicebuster||config.methods?.['trufor-mini']){
      closing=true;await Promise.all([...operations].filter(p=>p!==completed));
      // These records may still read their source while refusing an ACK.
      for(const key of [...exports.keys()])await releaseExport(key);

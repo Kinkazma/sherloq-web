@@ -1,6 +1,6 @@
-import {AI_DETECTOR_GROUP,isDetectorTool} from './ai-detector-tools.js?v=0.32.0';
-import {doctamperNativeSummary} from './doctamper-native-summary.js?v=0.32.0';
-import {comprintNativeSummary} from './comprint-native-summary.js?v=0.32.0';
+import {AI_DETECTOR_GROUP,isDetectorTool} from './ai-detector-tools.js?v=0.33.0';
+import {doctamperNativeSummary} from './doctamper-native-summary.js?v=0.33.0';
+import {comprintNativeSummary} from './comprint-native-summary.js?v=0.33.0';
 // UI metadata only. The core owns decoding, model loading, scheduling and results.
 // Sizes identify the exported ONNX files, not a claim about cached resources.
 export const EXTENSION_MODEL_ASSETS=Object.freeze({

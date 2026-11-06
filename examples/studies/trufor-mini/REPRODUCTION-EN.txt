@@ -1,0 +1,121 @@
+REPRODUCING THE RECORDED STATISTICS
+
+These files let readers recompute the main tables and full-corpus intervals
+from per-image measurements. They do not rerun the detectors: no model weights,
+inference code, images or probability maps are included. Reproducing these
+statistics is therefore distinct from independently replicating the entire
+detection pipeline.
+
+Usage
+-----
+Requirements: Python 3.10 or later and NumPy. Verification used Python 3.11.5
+and NumPy 1.26.4.
+
+From the directory containing the supplied files:
+
+    python reproduire.py
+
+This recomputes point estimates without bootstrap intervals. To also repeat
+the 2,000 paired bootstrap replicates for the full corpus:
+
+    python reproduire.py --replicates 2000
+
+The output is written to resultats-reproduits.json. Use --input and --output
+to select other input and output files. No network access is used. The script
+reads only the CSV and writes the requested output. The base seed is 20261103;
+the ALL calculation adds the sum of the character codes in the word ALL.
+Keep the CSV rows in their original order to reproduce the same draws.
+
+Supplied files
+--------------
+mesures-par-image.csv: 6,246 rows and 30 columns of individual numerical
+measurements, without source paths or details of an actual installation.
+
+reproduire.py: a standalone script with no dependencies on other study
+directories. It reproduces image classification for the three decision rules,
+primary binary localization, macro averages, timing and direct map agreement
+for each collection and sensitivity subset. With --replicates 2000, it
+recomputes all 39 confidence intervals for the ALL group.
+
+bootstrap.json: reference intervals for ALL, collections and subsets.
+Collection-specific intervals are supplied here; the standalone script
+recomputes only the full-corpus intervals.
+
+conformite-reproduction.json: checksums and verification against the reference
+statistics. The 4,516 numerical point-estimate fields and 117 values in the
+interval records were reproduced with no observed difference.
+
+Column definitions
+------------------
+id, dataset: opaque case identifier and source collection.
+is_tampered: 1 for a manipulated image, 0 for an authentic image.
+bootstrap_component_sha256: opaque identifier for a component joining cases
+that share a declared source group OR identical source content. It preserves
+known dependencies without exposing source names.
+previously_examined: image flagged as examined during development.
+unique_source_first: first occurrence of a given source image's content in
+the manifest. This flag supports the analysis using 6,229 distinct source images;
+the primary analysis retains all 6,246 prespecified entries.
+
+score_trufor_common, score_mini_common: mean of the 1% of pixels with the
+highest localization responses. This aggregation is not a calibrated
+probability of image integrity.
+score_trufor_official: output of the learned global detector in full TruFor.
+The Mini checkpoint studied here has no equivalent head.
+
+seconds_trufor, seconds_mini: time spent computing each model and retrieving
+its map. These timings exclude weight loading and disk I/O. Images were
+processed concurrently, with TruFor preceding Mini within each pair: a sum
+of these timings is not the elapsed duration of a separate standalone batch.
+
+positive_pixels, negative_pixels: annotated class counts for primary binary
+localization. Empty cells indicate exclusion from this analysis: Columbia
+and the nine annotations with incompatible dimensions. Ignored mask values
+are counted in neither class.
+
+tp_trufor_05, fp_trufor_05, tp_mini_05, fp_mini_05: pixel true-positive and
+false-positive counts at threshold 0.5. The four columns ending in 075 give
+the corresponding counts at threshold 0.75. True negatives and false negatives
+can be derived from the annotated class counts. At zero, all evaluated pixels
+are positive. The decision convention is >=. Gray regions in Korus are
+positive in this primary analysis; Columbia provenance diagnostics and other
+secondary conventions remain separate.
+
+native_pixels: total number of native pixels in the case.
+map_mae, map_rmse: mean absolute error and root mean squared error between
+the two maps, calculated over all native pixels.
+agreement_tp_05, agreement_fp_05, agreement_fn_05, and their 075 variants:
+map agreement at the stated threshold, treating TruFor as the reference and
+Mini as the prediction. These counts measure model similarity, not correctness
+against human annotation. TN can be derived from native_pixels.
+
+Scope and limitations
+---------------------
+Classification AUROC and AP are exact for the supplied scores, with ties
+handled explicitly. AP denotes non-interpolated average precision, not the
+trapezoidal area under a precision-recall curve.
+
+Micro localization pools all pixels. Macro F1 gives equal weight to each
+manipulated image whose mask contains valid positives; authentic images are
+tracked separately through their fraction of falsely flagged pixels. The CSV
+covers localization thresholds 0, 0.5 and 0.75. It cannot reconstruct pixel
+curves, an additional spatial threshold, or the secondary erosion/polarity
+protocol; these require the maps or histograms retained separately. Pixel
+ranking tables and secondary analyses supplied with the report retain their
+own provenance.
+
+Bootstrap components are sampled with replacement within each collection.
+Both models' outputs always receive the same sampling weights. Undocumented
+donor dependencies, particularly in CASIA and Columbia, are not fully
+reconstructed. The intervals describe this corpus; they do not establish
+equivalence or correct for training or development overlap. Timing intervals
+describe the mix of images, not variability across independent repetitions
+of the timing experiment.
+
+Names used in the report
+------------------------
+TruFor official: verdict from the authors' learned global detector.
+TruFor - simplified score: full network, with the common score derived from
+the 1% of most strongly flagged pixels.
+TruFor Mini: reduced network, using the same simplified score calculation.
+All three decision rules use exactly the same images.

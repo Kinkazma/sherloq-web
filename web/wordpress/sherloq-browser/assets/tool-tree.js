@@ -1,5 +1,5 @@
-import {AI_DETECTOR_GROUP,AI_DETECTOR_TOOLS,AI_DETECTOR_OPERATION} from './ai-detector-tools.js?v=0.32.0';
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.32.0';
+import {AI_DETECTOR_GROUP,AI_DETECTOR_TOOLS,AI_DETECTOR_OPERATION} from './ai-detector-tools.js?v=0.33.0';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.0';
 export const toolGroups = [
   {
     "en": "General",
@@ -235,8 +235,9 @@ export const toolGroups = [
       },
       {
         "en": "Copy-Move Forgery",
+        "newFeature": "red",
         "fr": "Détection de clones",
-        "id": "tampering.copyMove.brisk"
+        "id": "tampering.copyMove.sparse"
       },
       {
         "en": "Composite Splicing",
@@ -247,12 +248,6 @@ export const toolGroups = [
         "en": "Image Resampling",
         "fr": "Rééchantillonnage de l’image",
         "id": "tampering.resampling"
-      },
-      {
-        "en": "Copy-Move Forgery 2",
-        "newFeature": "red",
-        "fr": "Détection de clones 2",
-        "id": "tampering.copyMove.sparse"
       },
       {
         "en": "Adaptive CFA",
@@ -277,6 +272,12 @@ export const toolGroups = [
         "newFeature": "red",
         "fr": "TruFor",
         "id": "m2.trufor"
+      },
+      {
+        "en": "TruFor Mini",
+        "newFeature": "red",
+        "fr": "TruFor Mini",
+        "id": "m2.trufor-mini"
       },
       {
         "en": "RITA",
@@ -320,7 +321,11 @@ export const toolGroups = [
     "en": "Various",
     "fr": "Divers",
     "items": [
-      {"en":"OCR — Text Recognition","fr":"OCR — Reconnaissance de texte","id":"various.ocr"},
+      {
+        "en": "OCR — Text Recognition",
+        "fr": "OCR — Reconnaissance de texte",
+        "id": "various.ocr"
+      },
       {
         "en": "Median Filtering",
         "fr": "Filtrage médian",

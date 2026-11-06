@@ -1,0 +1,65 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createHistogramImageExportSurface,histogramImageExportSize} from '../sherloq-browser/assets/histogram-image-export.js';
+
+function color(value){let v=String(value).replace('#','');if(v.length===3)v=[...v].map(x=>x+x).join('');if(v.length===6)v+='ff';assert.match(v,/^[a-f\d]{8}$/i);return[0,2,4,6].map(at=>parseInt(v.slice(at,at+2),16));}
+class Canvas{
+ constructor(width=0,height=0){this._width=width;this._height=height;this.resizes=0;this.dataset={};this._rgba=new Uint8ClampedArray(width*height*4);this.context=new Context(this);}
+ get width(){return this._width;}set width(value){this._width=value;this.resizes++;this._rgba=new Uint8ClampedArray(this._width*this._height*4);}
+ get height(){return this._height;}set height(value){this._height=value;this.resizes++;this._rgba=new Uint8ClampedArray(this._width*this._height*4);}
+ getContext(kind){assert.equal(kind,'2d');return this.context;}
+}
+class Context{
+ constructor(canvas){this.canvas=canvas;this.fillStyle='#000';this.font='10px sans-serif';this.calls=[];this.reads=[];}
+ measureText(value){const size=Number(/([\d.]+)px/.exec(this.font)?.[1]??11);return{width:[...String(value)].length*6*size/11};}
+ fillText(text,x,y){this.calls.push({type:'text',text,x,y,color:this.fillStyle,font:this.font});}
+ setPixel(x,y,rgba){if(x<0||y<0||x>=this.canvas.width||y>=this.canvas.height)return;const at=(y*this.canvas.width+x)*4,a=rgba[3]/255,old=this.canvas._rgba[at+3]/255,alpha=a+old*(1-a);for(let c=0;c<3;c++)this.canvas._rgba[at+c]=alpha?Math.round((rgba[c]*a+this.canvas._rgba[at+c]*old*(1-a))/alpha):0;this.canvas._rgba[at+3]=Math.round(alpha*255);}
+ fillRect(x,y,width,height){this.calls.push({type:'fill',x,y,width,height,color:this.fillStyle});const rgba=color(this.fillStyle);for(let row=0;row<height;row++)for(let col=0;col<width;col++)this.setPixel(x+col,y+row,rgba);}
+ drawImage(source,sx,sy,sw,sh,dx,dy,dw,dh){this.calls.push({type:'image',source,sx,sy,sw,sh,dx,dy,dw,dh});for(let y=0;y<dh;y++)for(let x=0;x<dw;x++){const from=((sy+Math.min(sh-1,Math.floor(y*sh/dh)))*source.width+sx+Math.min(sw-1,Math.floor(x*sw/dw)))*4;this.setPixel(dx+x,dy+y,source._rgba.subarray(from,from+4));}}
+ getImageData(x,y,width,height){this.reads.push({x,y,width,height});const data=new Uint8ClampedArray(width*height*4);for(let row=0;row<height;row++)data.set(this.canvas._rgba.subarray(((y+row)*this.canvas.width+x)*4,((y+row)*this.canvas.width+x+width)*4),row*width*4);return{data,width,height};}
+}
+function environment(width=768,height=170){const graph=new Canvas(width,height),created=[],document={createElement(tag){assert.equal(tag,'canvas');const frame=new Canvas();created.push(frame);return frame;}};for(let y=0;y<height;y++)for(let x=0;x<width;x++){const at=(y*width+x)*4;graph._rgba[at]=x%256;graph._rgba[at+1]=y%256;graph._rgba[at+2]=(x+y)%256;graph._rgba[at+3]=255;}return{graph,document,created,create:options=>createHistogramImageExportSurface({canvas:graph,document,title:'Histogramme des canaux',scope:'Région 16 × 16 · x 10 · y 20',legend:[{label:'Rouge',color:'#f00'},{label:'Vert',color:'#0f0'},{label:'Bleu',color:'#00f'}],statistics:'Pixels : 256 · Moyenne : 12,5 · Écart type : 3,7 · Médiane : 13',background:'#202124',foreground:'#e8eaed',...options})};}
+function rgb(data,x,y,width){return Array.from(data.subarray((y*width+x)*3,(y*width+x+1)*3));}
+
+test('Histogram export captures its graph, axes and supplied captions instead of the original photograph',async()=>{
+ const h=environment(),before=h.graph._rgba.slice(),dimensions={width:h.graph.width,height:h.graph.height},surface=h.create();try{assert.deepEqual({width:surface.width,height:surface.height},histogramImageExportSize(h.graph));assert.equal(surface.width,768);assert.ok(surface.height>=250&&surface.height<=280);assert.equal(h.created.length,1);const frame=h.created[0],draw=frame.context.calls.find(call=>call.type==='image');assert.equal(draw.source,h.graph);assert.deepEqual([draw.sx,draw.sy,draw.sw,draw.sh],[0,0,768,170]);assert.deepEqual([draw.dx,draw.dw,draw.dh],[0,768,170]);
+  const output=await surface.readPixels({x:0,y:draw.dy,width:768,height:170});for(const [x,y]of [[0,0],[48,15],[767,169],[400,100]])assert.deepEqual(rgb(output.data,x,y,768),[before[(y*768+x)*4],before[(y*768+x)*4+1],before[(y*768+x)*4+2]],'The axis and curve pixels are the exact live graph bitmap');
+  const texts=frame.context.calls.filter(call=>call.type==='text');assert.equal(texts[0].text,'Histogramme des canaux');assert.equal(texts[1].text,'Région 16 × 16 · x 10 · y 20');assert.deepEqual(texts.slice(2,5).map(call=>call.text),['Rouge','Vert','Bleu']);assert.deepEqual(frame.context.calls.filter(call=>call.type==='fill').slice(2).map(call=>call.color),['#f00','#0f0','#00f']);assert.ok(texts.some(call=>call.text.includes('Pixels : 256')));assert.ok(texts.some(call=>call.text.includes('Médiane : 13')));assert.deepEqual(h.graph._rgba,before);assert.deepEqual({width:h.graph.width,height:h.graph.height},dimensions);assert.equal(h.graph.resizes,0);
+ }finally{surface.close();}
+});
+test('The export is immutable after pointer motion, label changes or a later graph repaint',async()=>{
+ const h=environment(),legend=[{label:'Red',color:'#f00'}],surface=h.create({title:'Channel histogram',scope:'Whole image · 2255 × 1511',legend,statistics:'Pixels: 3,407,305 · Mean: 32.15'});try{const before=await surface.readPixels({x:0,y:48,width:4,height:4});h.graph._rgba.fill(0);legend[0].label='Changed';legend[0].color='#000';const after=await surface.readPixels({x:0,y:48,width:4,height:4});assert.deepEqual(after.data,before.data);const texts=h.created[0].context.calls.filter(call=>call.type==='text');assert.ok(texts.some(call=>call.text==='Red'));assert.ok(texts.some(call=>call.text==='Whole image · 2255 × 1511'));assert.equal(texts.some(call=>call.text==='Changed'),false);
+ }finally{surface.dispose();}
+});
+test('Native band reads allocate only the requested RGB8 crop and leave the snapshot intact',async()=>{
+ const h=environment(),surface=h.create();try{const frame=h.created[0],shape={width:surface.width,height:surface.height};for(const rect of [{x:0,y:0,width:768,height:1},{x:31,y:51,width:7,height:13},{x:767,y:surface.height-1,width:1,height:1}]){const part=await surface.readPixels(rect);assert.equal(part.format,'rgb8');assert.equal(part.width,rect.width);assert.equal(part.height,rect.height);assert.equal(part.data.length,rect.width*rect.height*3);assert.deepEqual(frame.context.reads.at(-1),rect);}assert.deepEqual({width:frame.width,height:frame.height},shape);assert.equal(surface.byteLength,surface.width*surface.height*4);assert.equal(surface.exportReadWorkspaceBytes,surface.width*surface.height*7);
+ }finally{surface.close();}
+});
+test('Transparent graph pixels are composited on an opaque requested export background',async()=>{
+ const h=environment();h.graph._rgba.fill(0);const surface=h.create({background:'#123456'});try{const output=await surface.readPixels({x:100,y:100,width:1,height:1});assert.deepEqual(Array.from(output.data),[18,52,86]);for(let i=3;i<h.created[0]._rgba.length;i+=4)assert.equal(h.created[0]._rgba[i],255);}finally{surface.close();}
+});
+test('Long captions are kept inside the fixed frame with at most three readable statistic lines',()=>{
+ const h=environment(),surface=h.create({title:'A'.repeat(500),scope:'B'.repeat(500),legend:[{label:'C'.repeat(500),color:'#123456'}],statistics:Array.from({length:200},(_,i)=>'Stat'+i).join(' ')});try{const frame=h.created[0],texts=frame.context.calls.filter(call=>call.type==='text'),statistics=texts.filter(call=>call.y>218);assert.ok(texts[0].text.endsWith('…'));assert.ok(texts[1].text.endsWith('…'));assert.ok(texts[2].text.endsWith('…'));assert.equal(statistics.length,3);assert.ok(statistics.at(-1).text.endsWith('…'));for(const call of texts){assert.ok(call.x>=0&&call.y<surface.height);assert.ok(call.x+frame.context.measureText(call.text).width<=surface.width);}}
+ finally{surface.close();}
+});
+test('The size query creates no bitmap and oversized graph canvases are fitted without changing their aspect ratio',()=>{
+ const h=environment(1536,340),before=h.graph.resizes;assert.deepEqual(histogramImageExportSize(h.graph),{width:768,height:272});assert.equal(h.created.length,0);assert.equal(h.graph.resizes,before);const surface=h.create();try{const draw=h.created[0].context.calls.find(call=>call.type==='image');assert.deepEqual([draw.dw,draw.dh],[768,170]);assert.equal(draw.dw/draw.dh,h.graph.width/h.graph.height);assert.equal(h.graph.resizes,before);}finally{surface.close();}
+});
+test('Invalid bounds and released snapshots fail clearly without touching live UI state',async()=>{
+ const h=environment(),before=h.graph._rgba.slice(),surface=h.create();for(const rect of [null,{x:-1,y:0,width:1,height:1},{x:0,y:0,width:0,height:1},{x:0,y:0,width:1,height:NaN},{x:.5,y:0,width:1,height:1},{x:768,y:0,width:1,height:1},{x:0,y:surface.height,width:1,height:1}])await assert.rejects(surface.readPixels(rect),{code:'INVALID_INPUT'});assert.equal(h.created[0].context.reads.length,0);const controller=new AbortController();controller.abort();await assert.rejects(surface.readPixels({x:0,y:0,width:1,height:1},{signal:controller.signal}),{code:'CANCELLED'});surface.close();surface.dispose();assert.equal(h.created[0].width,0);assert.equal(h.created[0].height,0);await assert.rejects(surface.readPixels({x:0,y:0,width:1,height:1}),{code:'CANCELLED'});assert.deepEqual(h.graph._rgba,before);assert.equal(h.graph.width,768);assert.equal(h.graph.height,170);
+});
+test('DPR-tagged retina and wide graphs export their native bitmap without reducing curves or label resolution',async()=>{
+ for(const sample of [{width:1536,height:340,dpr:2},{width:1600,height:170,dpr:1},{width:2400,height:340,dpr:2}]){
+  const h=environment(sample.width,sample.height);Object.assign(h.graph.dataset,{pixelRatio:String(sample.dpr),logicalWidth:String(sample.width/sample.dpr),logicalHeight:String(sample.height/sample.dpr)});const before=h.graph._rgba.slice(),expected={width:Math.max(768*sample.dpr,sample.width),height:48*sample.dpr+sample.height+54*sample.dpr};assert.deepEqual(histogramImageExportSize(h.graph),expected);assert.equal(h.created.length,0,'The size query does not allocate or redraw a bitmap');const surface=h.create();try{assert.deepEqual({width:surface.width,height:surface.height},expected);const frame=h.created[0],draw=frame.context.calls.find(call=>call.type==='image');assert.deepEqual([draw.sx,draw.sy,draw.sw,draw.sh],[0,0,sample.width,sample.height]);assert.deepEqual([draw.dw,draw.dh],[sample.width,sample.height],'The native high-DPI graph is copied one-for-one');assert.equal(draw.dy,48*sample.dpr);
+   for(const [x,y]of [[0,0],[sample.width-1,sample.height-1],[Math.floor(sample.width/2),Math.floor(sample.height/2)]]){const out=await surface.readPixels({x:draw.dx+x,y:draw.dy+y,width:1,height:1}),at=(y*sample.width+x)*4;assert.deepEqual(Array.from(out.data),Array.from(before.subarray(at,at+3)));}
+   const texts=frame.context.calls.filter(call=>call.type==='text');assert.equal(texts[0].font,'bold '+13*sample.dpr+'px sans-serif');assert.equal(texts[0].x,12*sample.dpr);assert.equal(texts[0].y,17*sample.dpr);assert.equal(texts[1].font,11*sample.dpr+'px sans-serif');assert.deepEqual(h.graph._rgba,before);assert.equal(h.graph.resizes,0);assert.equal(surface.byteLength,expected.width*expected.height*4);assert.equal(surface.exportReadWorkspaceBytes,expected.width*expected.height*7);
+   const captured=await surface.readPixels({x:draw.dx+1,y:draw.dy+1,width:1,height:1});h.graph._rgba.fill(0);const retained=await surface.readPixels({x:draw.dx+1,y:draw.dy+1,width:1,height:1});assert.deepEqual(retained.data,captured.data,'Later pointer repaint cannot change the captured retina export');
+  }finally{surface.close();}
+ }
+});
+test('A narrow DPR-tagged graph is centered within a readable native-resolution export frame',async()=>{
+ const h=environment(800,200);Object.assign(h.graph.dataset,{pixelRatio:'2',logicalWidth:'400',logicalHeight:'100'});assert.deepEqual(histogramImageExportSize(h.graph),{width:1536,height:404});const surface=h.create();try{const draw=h.created[0].context.calls.find(call=>call.type==='image');assert.deepEqual([draw.dx,draw.dy,draw.dw,draw.dh],[368,96,800,200]);assert.equal(h.graph.resizes,0);}finally{surface.close();}
+});
+test('Invalid or unavailable export canvases do not change the source graph',()=>{
+ const h=environment(),before=h.graph._rgba.slice();for(const canvas of [null,{width:0,height:1,getContext(){}},{width:1,height:NaN,getContext(){}},{width:1,height:1}])assert.throws(()=>createHistogramImageExportSurface({canvas,document:h.document}),{code:'INVALID_INPUT'});assert.equal(h.created.length,0);assert.throws(()=>h.create({legend:null}),{code:'INVALID_INPUT'});let failedFrame;assert.throws(()=>h.create({document:{createElement(){return failedFrame={width:0,height:0,getContext:()=>null};}}}),{code:'CANVAS_UNAVAILABLE'});assert.equal(failedFrame.width,0);assert.equal(failedFrame.height,0);assert.deepEqual(h.graph._rgba,before);
+});

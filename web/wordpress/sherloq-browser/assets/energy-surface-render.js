@@ -1,8 +1,8 @@
-import {renderEnergy} from './energy-render.js?v=0.32.0';
-import {readEnergyWindow,sampleEnergyField} from './energy-native-fields.js?v=0.32.0';
+import {renderEnergy} from './energy-render.js?v=0.33.0';
+import {readEnergyWindow,sampleEnergyField} from './energy-native-fields.js?v=0.33.0';
 import {EngineError,checkAbort,createCooperator} from './unified-engine/src/errors.js';
 import {numericPlaneSamplePlan} from './unified-engine/src/numeric-plane-sampling.js';
-import {ADAPTIVE_PREVIEW_MAX_SIDE} from './preview-limits.js?v=0.32.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE} from './preview-limits.js?v=0.33.0';
 const fields=view=>view==='scores'?['energy_scope','energy_high_score','energy_low_score']:['energy_labels'];
 const nativePanels=(both,width,height)=>both?{panels:['high','low'].map((field,index)=>({field,x:index*width,y:0,width,height}))}:{};
 const paletteEntries=(analysis,presentation)=>presentation.view==='scores'?0:analysis.data.regionColors?.length??0;

@@ -1,4 +1,4 @@
-import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.32.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.33.0';
 import {checkAbort,EngineError} from './unified-engine/src/errors.js';
 
 // A full-quality presentation of already retained detections. The temporary

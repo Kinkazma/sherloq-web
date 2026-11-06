@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.0";
 import {d2prlInputSide} from '../experiments/d2prl/input-side.js';
 import {sparseWindowNpzMetadata} from './sparse-window-npz.js';
 import {catnetStrictNpzEntries} from './catnet-strict-npz.js';
@@ -116,7 +116,7 @@ export function catnetNpz(result,maxBytes,writer=writeNpz){
  }
  return writer(result,maxBytes,entries);
 }
-function writeNpz(result,maxBytes,entries){
+export function writeNpz(result,maxBytes,entries){
  function jsonBound(v){if(v===null||typeof v!=='object')return typeof v==='string'?v.length*6+2:32;return Object.entries(v).reduce((n,[k,x])=>n+k.length*6+jsonBound(x)+4,2);}
  const d=result.data;
  const admission=32768+entries.reduce((n,e)=>n+e.bytes,0)+4*(jsonBound(d.metadata)+jsonBound(result.provenance));if(admission>maxBytes)throw new EngineError('MEMORY_LIMIT','NPZ export exceeds its conservative preparation budget.');

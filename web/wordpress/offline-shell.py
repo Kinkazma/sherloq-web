@@ -21,7 +21,7 @@ def write_shell(plugin, manifest, identity, version):
             continue
         if name.startswith(('private', 'offline/', 'dependency-manifest-')) or name in ['offline-shell.json', 'offline-public-app.html', '.htaccess']:
             continue
-        if p.suffix not in ['.js', '.mjs', '.json', '.html', '.css', '.woff2', '.txt', '.py', '.svg', '.webmanifest', '.png']:
+        if p.suffix not in ['.js', '.mjs', '.json', '.html', '.css', '.woff2', '.txt', '.py', '.svg', '.webmanifest', '.png', '.wasm']:
             continue
         data = p.read_bytes()
         if p.suffix == '.html' and b'private-report' in data:

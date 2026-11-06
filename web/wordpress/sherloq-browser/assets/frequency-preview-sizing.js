@@ -1,5 +1,5 @@
-import {ADAPTIVE_PREVIEW_MAX_SIDE as MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS as MAX_PIXELS} from './preview-limits.js?v=0.32.0';
-import {PREVIEW_QUALITY_POLICY,previewResolutionRequest,gentlePreviewStep} from './preview-quality-policy.js?v=0.32.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE as MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS as MAX_PIXELS} from './preview-limits.js?v=0.33.0';
+import {PREVIEW_QUALITY_POLICY,previewResolutionRequest,gentlePreviewStep} from './preview-quality-policy.js?v=0.33.0';
 // Display geometry only. No FFT, coefficients, native method or GPU state.
 export const FREQUENCY_SIZING_BYTES=131072;
 const MODEL='frequency-owned-visible-grid/9',MAX_KEYS=8,MAX_GRIDS=4,MAX_OWNED=4,SLOW_MS=500;

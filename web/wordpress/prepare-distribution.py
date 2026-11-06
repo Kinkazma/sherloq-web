@@ -15,6 +15,7 @@ import subprocess
 import tarfile
 import tempfile
 import zipfile
+import zlib
 import importlib.util
 _spec = importlib.util.spec_from_file_location("runtime_delivery", Path(__file__).with_name("runtime-delivery.py"))
 _delivery = importlib.util.module_from_spec(_spec)
@@ -252,6 +253,22 @@ def stage_engine_source(output, repository, commit):
     put(output / 'public/web/engine-source-identity.json', encode({'commit': commit, 'snapshot': 'engine-source', 'runtime': version}))
 
 
+def write_bootstrap_archive(archive, plugin, names):
+    """Keep standard DEFLATE while compressing hash-heavy JSON inventories better."""
+    with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as target:
+        for source in names:
+            info = zipfile.ZipInfo.from_file(source, 'sherloq-browser/' + source.relative_to(plugin).as_posix())
+            info.compress_type = zipfile.ZIP_DEFLATED
+            with target.open(info, 'w') as destination:
+                # ZipFile does not expose the DEFLATE strategy. Replace the
+                # fresh stream before writing; its CRC/size accounting remains
+                # owned by ZipFile and the archive format is unchanged.
+                strategy = zlib.Z_FILTERED if source.suffix == '.json' else zlib.Z_DEFAULT_STRATEGY
+                destination._compressor = zlib.compressobj(9, zlib.DEFLATED, -15, 8, strategy)
+                with source.open('rb') as stream:
+                    shutil.copyfileobj(stream, destination)
+
+
 def finalize(output, origin, *, offline=False, local_test=False, private_overlay=None):
     if not offline:
         github = re.fullmatch(r'https://raw\.githubusercontent\.com/[^/]+/[^/]+/[a-f0-9]{40}/(?:[\w.-]+/)*', origin or '')
@@ -269,7 +286,8 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     sources = output / 'public/web/wordpress/sherloq-browser'
     version = re.search(r'Version:\s*([\d.]+)', (sources / 'sherloq-browser.php').read_text())[1]
     for source in sources.rglob('*'):
-        if not source.is_file():
+        if (not source.is_file() or '__pycache__' in source.relative_to(sources).parts
+                or source.suffix in {'.pyc', '.pyo'}):
             continue
         name = source.relative_to(sources).as_posix()
         data = delivery_bytes(name, source, version)
@@ -321,9 +339,7 @@ def finalize(output, origin, *, offline=False, local_test=False, private_overlay
     names = sorted(p for p in plugin.rglob('*') if p.is_file())
     size = sum(p.stat().st_size for p in names)
     archive = output / 'private' / ('sherloq-browser-' + version + ('-offline' if offline else '-github') + '.zip')
-    with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-        for p in names:
-            z.write(p, 'sherloq-browser/' + p.relative_to(plugin).as_posix())
+    write_bootstrap_archive(archive, plugin, names)
     if archive.stat().st_size > 25_000_000:
         archive.unlink()
         raise ValueError('Compressed private bootstrap ZIP exceeds 25,000,000 bytes')

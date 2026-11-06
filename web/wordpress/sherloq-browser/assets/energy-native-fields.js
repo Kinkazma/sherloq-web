@@ -1,5 +1,5 @@
 import {EngineError,checkAbort,createCooperator} from './unified-engine/src/errors.js';
-import {ADAPTIVE_PREVIEW_MAX_SIDE} from './preview-limits.js?v=0.32.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE} from './preview-limits.js?v=0.33.0';
 import {numericPlaneSamplePlan} from './unified-engine/src/numeric-plane-sampling.js';
 const MAX_ELEMENTS=262144;
 const type=name=>name==='energy_scope'||name==='energy_labels'||name==='analysis_scope'?Int32Array:Float32Array;

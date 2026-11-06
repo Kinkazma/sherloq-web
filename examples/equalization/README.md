@@ -4,14 +4,14 @@
 
 The same microscopy crop is shown with each method, using the existing SHERLOQ image-adjustment pipeline. These are display adjustments; the source and detector inputs remain unchanged.
 
-## Original, CLAHE, CLAHE + gamma and AHE
+## Original, CLAHE, CLAHE + gamma, AHE and SHERLOQ
 
-| Original | CLAHE | CLAHE + gamma | AHE |
-| --- | --- | --- | --- |
-| ![Original](images/original.webp) | ![CLAHE](images/clahe.webp) | ![CLAHE + gamma](images/clahe-gamma.webp) | ![AHE](images/ahe.webp) |
-| Unadjusted | Contrast limit: 5 | Contrast limit: 5 · Gamma: 5 | Tiles per axis: 8 |
+| Original | CLAHE | CLAHE + gamma | AHE | SHERLOQ |
+| --- | --- | --- | --- | --- |
+| ![Original](images/original.webp) | ![CLAHE](images/clahe.webp) | ![CLAHE + gamma](images/clahe-gamma.webp) | ![AHE](images/ahe.webp) | ![SHERLOQ](images/sherloq.webp) |
+| Unadjusted | Contrast limit: 40 | Contrast limit: 40 · Gamma: 5 | Tiles per axis: 8 | Revelation: 100% · Microcontrast: 100% |
 
-CLAHE + gamma uses the same CLAHE setting and the global-adjustment gamma value 5 (50 in its input field).
+CLAHE and CLAHE + gamma both use the maximum contrast limit of 40. The combined view also uses the global-adjustment gamma value 5 (50 in its input field). SHERLOQ uses revelation 100% and microcontrast 100%.
 
 ## Other methods
 

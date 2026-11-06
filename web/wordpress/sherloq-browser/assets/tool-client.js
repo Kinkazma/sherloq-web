@@ -1,61 +1,61 @@
-import {aiDetectorConfiguration} from './ai-detectors-config.js?v=0.32.0';
-import {SPLICEBUSTER_OPERATION,splicebusterViews,readSplicebusterScalar} from './splicebuster-ui.js?v=0.32.0';
+import {aiDetectorConfiguration} from './ai-detectors-config.js?v=0.33.0';
+import {SPLICEBUSTER_OPERATION,splicebusterViews,readSplicebusterScalar} from './splicebuster-ui.js?v=0.33.0';
 import {nativeUsefulEvidence} from './unified-engine/src/native-useful-operation.js';
-import {usefulTaskInputs} from './useful-task-inputs.js?v=0.32.0';
+import {usefulTaskInputs} from './useful-task-inputs.js?v=0.33.0';
 import {externalUsefulOwner,externalUsefulEvidence} from './unified-engine/src/external-useful-operation.js';
-import {stagedCoreOperation,coreResultContext} from './core-result-contract.js?v=0.32.0';
-import {backendMethod,requestedBackend} from './backend-mode-preferences.js?v=0.32.0';
+import {stagedCoreOperation,coreResultContext} from './core-result-contract.js?v=0.33.0';
+import {backendMethod,requestedBackend} from './backend-mode-preferences.js?v=0.33.0';
 import {humanNlmRecompute} from './unified-engine/src/nlm-recompute-intent.js';
-import {getAdaptivePreferenceStore} from './adaptive-preferences.js?v=0.32.0';
-import {createNlmAdaptiveRuntime} from './nlm-adaptive-runtime.js?v=0.32.0';
-import {createUsefulOperationRuntime} from './useful-operation-runtime.js?v=0.32.0';
-import {describeUsefulNlm,passiveNlmEnvironment} from './nlm-useful-context.js?v=0.32.0';
+import {getAdaptivePreferenceStore} from './adaptive-preferences.js?v=0.33.0';
+import {createNlmAdaptiveRuntime} from './nlm-adaptive-runtime.js?v=0.33.0';
+import {createUsefulOperationRuntime} from './useful-operation-runtime.js?v=0.33.0';
+import {describeUsefulNlm,passiveNlmEnvironment} from './nlm-useful-context.js?v=0.33.0';
 import {USEFUL_WORK_CODE_IDENTITY} from './unified-engine/src/useful-work-code-identity.js';
-import {prnuTrainingBackendChoice,prnuTrainingPreparationMetadata} from './prnu-training-request.js?v=0.32.0';
-import {classicalContextPreviewCandidate} from './classical-context-preview.js?v=0.32.0';
-import {medianContextPreviewCandidate} from './median-context-preview.js?v=0.32.0';
-import {resamplingContextPreviewContract} from './resampling-context-parameter-preview.js?v=0.32.0';
-import {nativeClonePreview} from './native-clone-preview.js?v=0.32.0';
-import {createRetainedResultRetirement} from './retained-result-retirement.js?v=0.32.0';
+import {prnuTrainingBackendChoice,prnuTrainingPreparationMetadata} from './prnu-training-request.js?v=0.33.0';
+import {classicalContextPreviewCandidate} from './classical-context-preview.js?v=0.33.0';
+import {medianContextPreviewCandidate} from './median-context-preview.js?v=0.33.0';
+import {resamplingContextPreviewContract} from './resampling-context-parameter-preview.js?v=0.33.0';
+import {nativeClonePreview} from './native-clone-preview.js?v=0.33.0';
+import {createRetainedResultRetirement} from './retained-result-retirement.js?v=0.33.0';
 import {readRitaStrictProjection} from './unified-engine/src/rita-strict-projection.js';
-import {readNativeContextScalar} from './native-context-scalar.js?v=0.32.0';
-import {readCatnetNativeScalar} from './catnet-native-scalar.js?v=0.32.0';
-import {prepareCatnetScopedBlobRequest,analyzeCatnetScopedBlob,catnetScopedToolResult} from './catnet-scoped-client.js?v=0.32.0';
-import {previewGhostContexts} from './ghost-context-parameter-preview.js?v=0.32.0';
-import {createGhostSurfacePreview,ghostSurfacePreviewContract} from './ghost-surface-preview.js?v=0.32.0';
-import {sourceRegionDetectionInput} from './source-region-preparation.js?v=0.32.0';
+import {readNativeContextScalar} from './native-context-scalar.js?v=0.33.0';
+import {readCatnetNativeScalar} from './catnet-native-scalar.js?v=0.33.0';
+import {prepareCatnetScopedBlobRequest,analyzeCatnetScopedBlob,catnetScopedToolResult} from './catnet-scoped-client.js?v=0.33.0';
+import {previewGhostContexts} from './ghost-context-parameter-preview.js?v=0.33.0';
+import {createGhostSurfacePreview,ghostSurfacePreviewContract} from './ghost-surface-preview.js?v=0.33.0';
+import {sourceRegionDetectionInput} from './source-region-preparation.js?v=0.33.0';
 import {assertM2SourceRegionTask} from './unified-engine/src/m2-source-region-input.js';
 import {withM2NativeSourceTransport} from './unified-engine/src/m2-native-source-client.js';
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {sourceRegionDomainShape,assertSourceRegionOperation} from './unified-engine/src/source-region-capabilities.js';
 import {resolveRecompressionPlan} from './unified-engine/src/recompression-plan.js';
-import {ocrDisplay,updateOcrPresentation,renderOcrWindow} from './ocr-presentation.js?v=0.32.0';
-import {createParameterPreview,supportsScopedParameterPreview,parameterPreviewPreparation} from './tool-parameter-preview.js?v=0.32.0';
-export {supportsParameterPreviewPreparation} from './tool-parameter-preview.js?v=0.32.0';
-import {createParameterRegionSampler} from './parameter-preview-source-regions.js?v=0.32.0';
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.32.0';
-import {renderRetainedPreview,updateRetainedParameters,retainedPreviewWorkingBytes,renderRetainedWindow,planRetainedPreview} from './retained-parameter-preview.js?v=0.32.0';
-import {parameterPreviewPolicy,retainedNativeBasisStatus} from './parameter-preview-policy.js?v=0.32.0';
-import {isExtensionTool,extensionConfiguration} from './extension-tools.js?v=0.32.0';
-import {dtdFrame} from './dtd-presentation.js?v=0.32.0';
-import {comprintFrame} from './comprint-presentation.js?v=0.32.0';
-import {extensionSourcePresentation,responseSourceSurface,responseProxyKey} from './extension-source-presentation.js?v=0.32.0';
-import {truforHeatFrame} from './trufor-palette.js?v=0.32.0';
-import {ritaFrame,ritaDisplayThreshold,ritaDisplayOpacity} from './rita-presentation.js?v=0.32.0';
+import {ocrDisplay,updateOcrPresentation,renderOcrWindow} from './ocr-presentation.js?v=0.33.0';
+import {createParameterPreview,supportsScopedParameterPreview,parameterPreviewPreparation} from './tool-parameter-preview.js?v=0.33.0';
+export {supportsParameterPreviewPreparation} from './tool-parameter-preview.js?v=0.33.0';
+import {createParameterRegionSampler} from './parameter-preview-source-regions.js?v=0.33.0';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.0';
+import {renderRetainedPreview,updateRetainedParameters,retainedPreviewWorkingBytes,renderRetainedWindow,planRetainedPreview} from './retained-parameter-preview.js?v=0.33.0';
+import {parameterPreviewPolicy,retainedNativeBasisStatus} from './parameter-preview-policy.js?v=0.33.0';
+import {isExtensionTool,extensionConfiguration} from './extension-tools.js?v=0.33.0';
+import {dtdFrame} from './dtd-presentation.js?v=0.33.0';
+import {comprintFrame} from './comprint-presentation.js?v=0.33.0';
+import {extensionSourcePresentation,responseSourceSurface,responseProxyKey} from './extension-source-presentation.js?v=0.33.0';
+import {truforHeatFrame} from './trufor-palette.js?v=0.33.0';
+import {ritaFrame,ritaDisplayThreshold,ritaDisplayOpacity} from './rita-presentation.js?v=0.33.0';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
-import {localFeaturePolicy} from './feature-policy.js?v=0.32.0';
-import {composeCloneFrame,sampleCloneField,d2AnalysisKey,neuralDisplays} from './neural-clone-ui.js?v=0.32.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.33.0';
+import {composeCloneFrame,sampleCloneField,d2AnalysisKey,neuralDisplays} from './neural-clone-ui.js?v=0.33.0';
 import {samplePixels} from './unified-engine/src/display-sampling.js';
-import {individualModels,m2ToolClient,m2ToolConfiguration} from './tool-models.js?v=0.32.0';
+import {individualModels,m2ToolClient,m2ToolConfiguration} from './tool-models.js?v=0.33.0';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
-import {d2prlInputSide} from './d2prl-input-size.js?v=0.32.0';
-import {createExportSink} from './export-sink.js?v=0.32.0';
-import {exportSinkScopeFor} from './export-sink-owner.js?v=0.32.0';
-import {exportPresentationRaster} from './raster-export-client.js?v=0.32.0';
-import {createCloneWindowPresenter,cloneScientificField} from './neural-window-presentation.js?v=0.32.0';
+import {d2prlInputSide} from './d2prl-input-size.js?v=0.33.0';
+import {createExportSink} from './export-sink.js?v=0.33.0';
+import {exportSinkScopeFor} from './export-sink-owner.js?v=0.33.0';
+import {exportPresentationRaster} from './raster-export-client.js?v=0.33.0';
+import {createCloneWindowPresenter,cloneScientificField} from './neural-window-presentation.js?v=0.33.0';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
-import {composeBiomeWindow,biomePresentationWorkingBytes} from './detection-biome-presentation.js?v=0.32.0';
+import {composeBiomeWindow,biomePresentationWorkingBytes} from './detection-biome-presentation.js?v=0.33.0';
 
 // Dense native counters may exceed JS's exact-number range. Keep their decimal
 // values as strings in JSON; borrow scientific typed arrays without copying them.
@@ -104,8 +104,8 @@ export async function configureAiDetectors(engine,configuration,hooks={}){
  if(!operation.configured)await engine.loadAiDetectors(configuration,hooks);
 }
 export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},onParameterExportRetired,engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity,resourceHints,resolvePrnuTrainingBackend,usefulWorkStore,usefulWorkCodeIdentity=USEFUL_WORK_CODE_IDENTITY,usefulWorkEnvironment=passiveNlmEnvironment}={}){
- const deployment=await (await fetch(new URL('./integrated-config.json?v=0.32.0',import.meta.url))).json();
- const base=new URL(deployment.assetBase,new URL('./integrated-config.json?v=0.32.0',import.meta.url));
+ const deployment=await (await fetch(new URL('./integrated-config.json?v=0.33.0',import.meta.url))).json();
+ const base=new URL(deployment.assetBase,new URL('./integrated-config.json?v=0.33.0',import.meta.url));
  const asset=name=>new URL(name,base).href;
  const usefulNlmDomains=new WeakMap();
  let nlmAdaptive;try{nlmAdaptive=createNlmAdaptiveRuntime({store:usefulWorkStore??getAdaptivePreferenceStore(),describe:({task,source})=>{const seen=usefulNlmDomains.get(task.sourceRegionDomain);return describeUsefulNlm({task,source,domain:seen?.domain,capabilities:seen?.capabilities,codeIdentity:usefulWorkCodeIdentity,environment:{...usefulWorkEnvironment(),completionClass:'ui-core-transaction'}});}});}catch{/* Unavailable optional central storage must not refuse requested science. */}
@@ -818,7 +818,7 @@ const client={
    if(!transactionalOcr&&reference&&task.operation!=='comparison.image'){const old=reference;await engine.unload(old.id);reference=null;}
    if(!transactionalOcr&&mask&&(!extras.mask||!['tampering.copyMove.brisk','tampering.copyMove.akaze','tampering.copyMove.orb'].includes(task.operation))){const old=mask;await engine.unload(old.id);mask=null;}
    if(!transactionalOcr&&prnu&&task.operation!=='noise.prnu'){const old=prnu;await engine.unload(old.id);prnu=null;}
-   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=withM2NativeSourceTransport(await m2Factory({method,configuration:usefulM2Configurations.get(method),memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile}));m2Method=method;}let reader;const shape=task.sourceRegionDomain&&sourceRegionDomainShape(task.sourceRegionDomain),nativeRectangle=shape==='rectangle',nativeContexts=['cfa','trufor','rita'].includes(method)&&['native-regions','membership'].includes(shape);if(nativeRectangle||nativeContexts)reader=await acquireSourceRegionReaderNow({sourceRegionDomain:task.sourceRegionDomain,purpose:nativeContexts?'analysis-native-contexts':'analysis-rectangle',...(nativeContexts?{scientificConsumer:'m2.'+method}:{})},{ownerQueue:true});const descriptor=reader?await m2[nativeContexts?'analyzeNativeContexts':'analyzeNativeRectangle'](method,reader,task.params,{...hooks(),backend:task.backend}):await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend,expectedSourceSha256:source.sha256});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const resultDomain=reader?.sourceRegionDomain??task.sourceRegionDomain,resultSource=reader?.sourceRegionSourceSurface??(resultDomain?source.surface:undefined);const ritaModes=['overlay','probability','mask'],ritaInitial=ritaModes.includes(task.view?.mode)?task.view.mode:'overlay';const views=method==='splicebuster'?splicebusterViews(metadata):method==='forgeryscope'?[]:method==='rita'?[ritaInitial,...ritaModes.filter(mode=>mode!==ritaInitial)]:method==='trufor'?['map','confidence','noiseprint_pp',...(descriptor.fields?.neuron333?['neuron333']:[])]:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:{...metadata.provenance,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin],originalEncodedBytesPreserved:true}:{})},metrics:metadata.metrics,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin],sourceRegionSourceSurface:resultSource}:{}),m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+(resultDomain?resultDomain.fingerprint+'-':'')+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin]}:{}),...(method==='rita'?{ritaPresentation:{mode:view,score:{id:'m2-score-'+descriptor.id,revision:1,m2Result:descriptor.id,field:'map'},threshold:ritaDisplayThreshold(task.view?.threshold),opacity:ritaDisplayOpacity(task.view?.opacity)}}:{})}))};if(method==='trufor'&&descriptor.fields?.map)result.views.push({...result.views[0],id:'m2-'+descriptor.id+'-'+(resultDomain?resultDomain.fingerprint+'-':'')+'map-alternative',view:'map_alternative',truforPalette:!metadata.metadata?.fragmented,truforFields:descriptor.fields});result=afterUseful(result);return result;}
+   if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);if(m2&&m2Method!==method){await m2.dispose();m2=null;}if(!m2){const caps=await engine.capabilities(),memory=caps.memory;const reserve=memory.retainedBytes+memory.cacheBytes+memory.knownHeapCapacityBytes+64*1024**2;m2=withM2NativeSourceTransport(await m2Factory({method,configuration:usefulM2Configurations.get(method),memoryBudgetBytes:Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-reserve)),computeProfile}));m2Method=method;}let reader;const shape=task.sourceRegionDomain&&sourceRegionDomainShape(task.sourceRegionDomain),nativeRectangle=shape==='rectangle',nativeContexts=['cfa','trufor','trufor-mini','rita'].includes(method)&&['native-regions','membership'].includes(shape);if(nativeRectangle||nativeContexts)reader=await acquireSourceRegionReaderNow({sourceRegionDomain:task.sourceRegionDomain,purpose:nativeContexts?'analysis-native-contexts':'analysis-rectangle',...(nativeContexts?{scientificConsumer:'m2.'+method}:{})},{ownerQueue:true});const descriptor=reader?await m2[nativeContexts?'analyzeNativeContexts':'analyzeNativeRectangle'](method,reader,task.params,{...hooks(),backend:task.backend}):await m2.analyzeBlob(method,extras.file,task.params,{...hooks(),backend:task.backend,expectedSourceSha256:source.sha256});let metadata;try{metadata=await m2.metadata(descriptor);}catch(error){await m2.release(descriptor.id);throw error;}const resultDomain=reader?.sourceRegionDomain??task.sourceRegionDomain,resultSource=reader?.sourceRegionSourceSurface??(resultDomain?source.surface:undefined);const ritaModes=['overlay','probability','mask'],ritaInitial=ritaModes.includes(task.view?.mode)?task.view.mode:'overlay';const views=method==='splicebuster'?splicebusterViews(metadata):method==='forgeryscope'?[]:method==='rita'?[ritaInitial,...ritaModes.filter(mode=>mode!==ritaInitial)]:method==='trufor'?['map','confidence','noiseprint_pp',...(descriptor.fields?.neuron333?['neuron333']:[])]:method==='trufor-mini'?['map',...(descriptor.fields?.noiseprint_pp?['noiseprint_pp']:[])]:[0,1,2];result={id:task.id,imageId:source.id,operation:task.operation,status:'ok',data:metadata,provenance:{...metadata.provenance,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin],originalEncodedBytesPreserved:true}:{})},metrics:metadata.metrics,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin],sourceRegionSourceSurface:resultSource}:{}),m2Result:descriptor,views:views.map(view=>({id:'m2-'+descriptor.id+'-'+(resultDomain?resultDomain.fingerprint+'-':'')+view,revision:1,width:descriptor.width,height:descriptor.height,format:'rgb8',m2Result:descriptor.id,view,...(resultDomain?{sourceRegionDomain:resultDomain,sourceRegionOrigin:[...resultDomain.origin]}:{}),...(method==='rita'?{ritaPresentation:{mode:view,score:{id:'m2-score-'+descriptor.id,revision:1,m2Result:descriptor.id,field:'map'},threshold:ritaDisplayThreshold(task.view?.threshold),opacity:ritaDisplayOpacity(task.view?.opacity)}}:{})}))};if(['trufor','trufor-mini'].includes(method)&&descriptor.fields?.map)result.views.push({...result.views[0],id:'m2-'+descriptor.id+'-'+(resultDomain?resultDomain.fingerprint+'-':'')+'map-alternative',view:'map_alternative',truforPalette:!metadata.metadata?.fragmented,truforFields:descriptor.fields});result=afterUseful(result);return result;}
    if(m2&&!transactionalOcr){await m2.dispose();m2=null;m2Method=null;}
    if(isExtensionTool(task.operation)){
     const input={...task,imageId:source.id},configuration=extensionConfiguration();
@@ -827,7 +827,7 @@ const client={
     result=extensionSourcePresentation(result);return result;
    }
    if(task.operation==='various.ocr'){
-    const ocrStartedAt=performance.now(),ocrSource=source,ocrCurrent=typeof context.isCurrent==='function'?context.isCurrent:()=>!disposed&&source===ocrSource;const configuration=await (await import('./ocr-models.js?v=0.32.0')).ocrConfiguration({algorithm:task.params?.algorithm});let input={...task,imageId:source.id,backend:task.backend??'auto'};
+    const ocrStartedAt=performance.now(),ocrSource=source,ocrCurrent=typeof context.isCurrent==='function'?context.isCurrent:()=>!disposed&&source===ocrSource;const configuration=await (await import('./ocr-models.js?v=0.33.0')).ocrConfiguration({algorithm:task.params?.algorithm});let input={...task,imageId:source.id,backend:task.backend??'auto'};
     if(usefulOcr&&operationAdaptive&&typeof engine.describeOcrUsefulWork==='function'){
      await engine.loadOcrModels(configuration,hooks());checkAbort(controller?.signal);const owner=await engine.describeOcrUsefulWork(input.params,hooks());
      try{usefulOperationObservation=await operationAdaptive.prepareWithOwner(input,{sha256:source?.sha256,width:source?.surface?.width,height:source?.surface?.height},{method:'tesseract',completionClass,owner,startedAt:ocrStartedAt,signal:controller?.signal,isCurrent:ocrCurrent});input=usefulOperationObservation.task;}catch{}
@@ -857,7 +857,7 @@ const client={
   readTable:(table,offset=0,length=128)=>enqueue(()=>engine.readTable({tableId:table.id,revision:table.revision,offset,length},hooks())),
   // Batch decisions read scientific values, never colours from a rendered map.
   readScalar:(descriptor,rect,field,options={})=>enqueue(async()=>{
-   if((['m2.trufor','m2.rita'].includes(result?.operation)&&result.data?.metadata?.fragmented)||(result?.operation==='jpeg.comprint'&&result.metrics?.sourceRegionPolicy==='native-comprint-contexts-global-statistics'))return readNativeContextScalar({result,source,rect,field,expected:descriptor,signal:options.signal,windowBytes:m2?.ready?.windowBytes,readArray:(...args)=>m2.readArray(...args),readPlane:async(d,rect)=>(await engine.readPlane({surfaceId:d.id,revision:d.revision,rect},hooks())).plane.data});
+   if((['m2.trufor','m2.trufor-mini','m2.rita'].includes(result?.operation)&&result.data?.metadata?.fragmented)||(result?.operation==='jpeg.comprint'&&result.metrics?.sourceRegionPolicy==='native-comprint-contexts-global-statistics'))return readNativeContextScalar({result,source,rect,field,expected:descriptor,signal:options.signal,windowBytes:m2?.ready?.windowBytes,readArray:(...args)=>m2.readArray(...args),readPlane:async(d,rect)=>(await engine.readPlane({surfaceId:d.id,revision:d.revision,rect},hooks())).plane.data});
    if(result?.operation==='m2.catnet'&&result.data?.metadata?.fragmented)return readCatnetNativeScalar({client:m2,result,source,rect,field,expected:descriptor,signal:options.signal});
    if(result?.m2Result){
     if(result.operation===SPLICEBUSTER_OPERATION){

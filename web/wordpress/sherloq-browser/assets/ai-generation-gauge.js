@@ -1,6 +1,6 @@
-import {renderDetectorStudy} from './ai-detector-study.js?v=0.32.0';
-import {aiDetectorReading} from './ai-detectors-presentation.js?v=0.32.0';
-import {extensionTool} from './extension-tools.js?v=0.32.0';
+import {renderDetectorStudy} from './ai-detector-study.js?v=0.33.0';
+import {aiDetectorReading} from './ai-detectors-presentation.js?v=0.33.0';
+import {extensionTool} from './extension-tools.js?v=0.33.0';
 
 // This is a presentation of the model's existing, uncalibrated sigmoid score.
 // It never changes inference, thresholds, scientific data or exported results.

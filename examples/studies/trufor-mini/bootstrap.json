@@ -1,0 +1,2446 @@
+{
+  "ALL": {
+    "clusters": 3363,
+    "images": 6246,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.8489165838397451,
+        "high": 0.8659809891936302,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.9178909299357693,
+        "high": 0.9317288152537768,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.808165892838083,
+        "high": 0.8279893017658124,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.6714771046082614,
+        "high": 0.6905247658294197,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.9013975155279503,
+        "high": 0.9199266149652486,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.5300399354616521,
+        "high": 0.566964306008487,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.8065602468571218,
+        "high": 0.8281176176867057,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.7470826702740362,
+        "high": 0.7665253903370669,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.7950196218325364,
+        "high": 0.8219664548487486,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.2792811624166107,
+        "high": 0.31084672331043484,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.8431215872703218,
+        "high": 0.860902498667714,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.9113212911737738,
+        "high": 0.9265258940153797,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.8071899033374835,
+        "high": 0.8267991557769313,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.6554507311718217,
+        "high": 0.6740881461109606,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.9203525128171636,
+        "high": 0.9373608090263797,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.5813434443453416,
+        "high": 0.6176731037684009,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.806931123800119,
+        "high": 0.828763725345316,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.7336933996820967,
+        "high": 0.7538050308505203,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.8151109742482539,
+        "high": 0.8408819708989232,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.3238633821021438,
+        "high": 0.35909972730066064,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.8798103346497718,
+        "high": 0.8948980551076497,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.9356956508796973,
+        "high": 0.948021112200132,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.800955162566706,
+        "high": 0.8232375864395386,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.8091516655647298,
+        "high": 0.8270043948715581,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.6986404204645303,
+        "high": 0.730032363432704,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.06774253749851197,
+        "high": 0.08893954313658331,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.7499202545161633,
+        "high": 0.7769500898532411,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.7909708189526632,
+        "high": 0.8096305101146043,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.6095428351268458,
+        "high": 0.644827629483451,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.020118426848521123,
+        "high": 0.03309840745163418,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": 0.001531718406993743,
+        "high": 0.02788758027387511,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.027433377462959617,
+        "high": -0.006905031721845242,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.02043863777155553,
+        "high": -0.014980925398735034,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.028546996119057363,
+        "high": -0.022031626164881107,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 2.007798420275138,
+        "high": 2.1045360127412964,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.008244760078361052,
+        "high": -0.0025442239426431857,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.007737324007099275,
+        "high": -0.003965005366690704,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.005022861062080455,
+        "high": 0.003118885460978498,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.0039627994638663094,
+        "high": 0.005385210607971391,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "casia1-corrected": {
+    "clusters": 1720,
+    "images": 1720,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.8687901657882405,
+        "high": 0.9006720702857735,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.9080624134501323,
+        "high": 0.932442326310717,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.7692307692307693,
+        "high": 0.8082329596207545,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.7138659756866883,
+        "high": 0.7527418763029271,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.875693223745388,
+        "high": 0.915386937431394,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.39476951045318787,
+        "high": 0.4639606220219846,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.7954936273193534,
+        "high": 0.8357055046384079,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.7989810732129984,
+        "high": 0.8350817957504715,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.7454153182308522,
+        "high": 0.7991266375545851,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.11523233089423378,
+        "high": 0.16287949988607883,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.8700693853434087,
+        "high": 0.9016991102881053,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.909829227887495,
+        "high": 0.9335639871036528,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.7681909014689304,
+        "high": 0.8071677070026905,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.70893654469259,
+        "high": 0.7480106891208137,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.8818163552865046,
+        "high": 0.9198749999999999,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.40875,
+        "high": 0.47842181507712117,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.7963546338859366,
+        "high": 0.8368298368298368,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.7994246622056396,
+        "high": 0.8363601915522001,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.7456246947341951,
+        "high": 0.7976358170432176,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.11318003043749313,
+        "high": 0.1614139261989926,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.891159611445028,
+        "high": 0.9196802419802143,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.9209143845035976,
+        "high": 0.9432329439751026,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.7709756219302799,
+        "high": 0.8151966602481139,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.8036305655742008,
+        "high": 0.8369326567421257,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.6487056399995698,
+        "high": 0.7100879240585123,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.026249180711610486,
+        "high": 0.05250787815126048,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.7172869666861484,
+        "high": 0.7680882919532676,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.7757007497247935,
+        "high": 0.8089154001319754,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.5663628222809639,
+        "high": 0.6308364231755492,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.0063369350724358665,
+        "high": 0.022195506233730643,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": -0.028024660488445263,
+        "high": 0.0023973334479042234,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.07136397580986036,
+        "high": -0.04120999891334492,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.037438403844402605,
+        "high": -0.02607639098503384,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.04545196847603304,
+        "high": -0.03103520310478285,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 1.5747273384809155,
+        "high": 1.5913827895489927,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.005732582365745345,
+        "high": 0.0083492169040833,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.0025099298241399864,
+        "high": 0.005983245243608538,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.012690785670909204,
+        "high": 0.009982509601277,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.012407238895235687,
+        "high": 0.013160836157254201,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "cocoglide": {
+    "clusters": 512,
+    "images": 1024,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.7178936004638672,
+        "high": 0.7656420707702637,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.7222398713298493,
+        "high": 0.7776820759429584,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.6709665657070604,
+        "high": 0.7141501353342241,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.6513671875,
+        "high": 0.6943359375,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.701171875,
+        "high": 0.7734863281249997,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.3515625,
+        "high": 0.435546875,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.5507955936352509,
+        "high": 0.6232595866231911,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.6357421875,
+        "high": 0.68359375,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.443359375,
+        "high": 0.529296875,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.134765625,
+        "high": 0.197265625,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.7267560958862305,
+        "high": 0.7729427337646484,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.7314228907141196,
+        "high": 0.7852624353824162,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.6833477135461605,
+        "high": 0.7210084033613445,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.634765625,
+        "high": 0.6787109375,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.775390625,
+        "high": 0.84375,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.453125,
+        "high": 0.5390625,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.6023788887169168,
+        "high": 0.6644678615771545,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.650390625,
+        "high": 0.697265625,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.5234375,
+        "high": 0.607421875,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.181640625,
+        "high": 0.25390625,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.7306694984436035,
+        "high": 0.7764017105102539,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.7488470085319886,
+        "high": 0.7973930927744117,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.455049831778074,
+        "high": 0.5398969550217962,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.623046875,
+        "high": 0.6650390625,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.3125,
+        "high": 0.396484375,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.044921875,
+        "high": 0.08984375,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.30993844020170996,
+        "high": 0.4036704315743346,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.5859130859375,
+        "high": 0.6201171875,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.185546875,
+        "high": 0.2578125,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.005859375,
+        "high": 0.02734375,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": -0.03223013376404239,
+        "high": 0.007746097640758306,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.0487116862180519,
+        "high": -0.0057111990826617534,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": 0.004031871030065306,
+        "high": 0.025519158029628813,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.0016590885015446677,
+        "high": 0.01977219036809565,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 1.5715776270168138,
+        "high": 1.597113170957379,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.001611804962158203,
+        "high": 0.018830394744873042,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.0023452676570067275,
+        "high": 0.019210401580085374,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.007587403607332321,
+        "high": 0.0283325793685342,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": 0.025130263580043093,
+        "high": 0.06951497019357157,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "columbia": {
+    "clusters": 363,
+    "images": 363,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.9821210751075486,
+        "high": 0.9973484541497294,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.985545191374402,
+        "high": 0.9974642423017573,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.6824009169358602,
+        "high": 0.7704645220836522,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.6022084595734569,
+        "high": 0.6666666666666666,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 1.0,
+        "high": 1.0,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.6666666666666666,
+        "high": 0.7955830808530862,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.7910333625987708,
+        "high": 0.866831696914499,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.766712179655767,
+        "high": 0.8389041940789473,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.9714285714285714,
+        "high": 1.0,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.3111053540587219,
+        "high": 0.45454545454545453,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.9504723525225393,
+        "high": 0.9818076217063483,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.9543724578728774,
+        "high": 0.983419106549406,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.6720639627237107,
+        "high": 0.7620933542571439,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.5843015090148942,
+        "high": 0.6455051892551892,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 1.0,
+        "high": 1.0,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.7089896214896214,
+        "high": 0.8313969819702117,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.7427259940988519,
+        "high": 0.827894388298638,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.6983748950821195,
+        "high": 0.776341916483922,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.9714285714285714,
+        "high": 1.0,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.4388888888888889,
+        "high": 0.5904376208897485,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.988173857454638,
+        "high": 0.999848126795682,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.9917694257452008,
+        "high": 0.9998527162197107,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.9725262123197903,
+        "high": 0.9972602739726028,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.9727293481560738,
+        "high": 0.9972677595628415,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.9714285714285714,
+        "high": 1.0,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.0,
+        "high": 0.03723404255319149,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.9558011049723757,
+        "high": 0.9890124902419984,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.9573686706153026,
+        "high": 0.989054529997571,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.9312123700054734,
+        "high": 0.9840425531914894,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.0,
+        "high": 0.027777777777777776,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": null,
+      "pixel_micro_delta_F1_0.75": null,
+      "pixel_macro_delta_F1_0.5": null,
+      "pixel_macro_delta_F1_0.75": null,
+      "forward_ratio_of_sums": {
+        "low": 1.7669167247474538,
+        "high": 1.7879109488740468,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.03497312544236975,
+        "high": -0.013399599269268555,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.03436506443997969,
+        "high": -0.012275615934749667,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.024499853282086894,
+        "high": 0.0029200178291196137,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.06531451937134092,
+        "high": -0.024834562766302488,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "comofod-available": {
+    "clusters": 37,
+    "images": 75,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.4688968177175724,
+        "high": 0.6604100440935191,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.3513649101860829,
+        "high": 0.5688972635853914,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.3225806451612903,
+        "high": 0.5294117647058824,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.4379513888888889,
+        "high": 0.5906932993968903,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.3888440860215054,
+        "high": 0.8260869565217391,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.40816326530612246,
+        "high": 0.7450980392156863,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.2641261171797418,
+        "high": 0.5283018867924528,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.4863257575757575,
+        "high": 0.6447821419656361,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.21739130434782608,
+        "high": 0.61547619047619,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.1346153846153846,
+        "high": 0.440057692307692,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.4737297550476898,
+        "high": 0.6698061342592592,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.3588231315314455,
+        "high": 0.5570399049648193,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.37495833333333334,
+        "high": 0.5507496251874061,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.4456964285714286,
+        "high": 0.6036094130529177,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.52,
+        "high": 0.92,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.5185019841269841,
+        "high": 0.8333333333333334,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.2727272727272727,
+        "high": 0.5084745762711864,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.46747916666666667,
+        "high": 0.622826470889359,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.24,
+        "high": 0.6538461538461539,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.2,
+        "high": 0.5272984562607202,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.48609943259502325,
+        "high": 0.6682524240012301,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.387398713779566,
+        "high": 0.5861111616713728,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.0,
+        "high": 0.29411764705882354,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.5,
+        "high": 0.5552447469274482,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.0,
+        "high": 0.20833333333333334,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.0,
+        "high": 0.10416666666666667,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.0,
+        "high": 0.24242424242424243,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.5,
+        "high": 0.5689655172413793,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.0,
+        "high": 0.13793103448275862,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.0,
+        "high": 0.0,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": -0.0347183415903165,
+        "high": 0.0036707333196867795,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.015064568339926214,
+        "high": 0.005726150247561834,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.0296993174434859,
+        "high": 0.008796167483125146,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.008905075497540618,
+        "high": 0.026411887393680528,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 1.643755571592062,
+        "high": 1.6738508239625753,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.027517746228926325,
+        "high": 0.04359182965155017,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.04939741136276493,
+        "high": 0.03956443419299165,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.01270194003527338,
+        "high": 0.08663305772540404,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.03933252502799598,
+        "high": 0.043771237722850596,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "coverage": {
+    "clusters": 100,
+    "images": 200,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.709795,
+        "high": 0.8120075,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.7429214007006343,
+        "high": 0.8407129217920434,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.6778242677824268,
+        "high": 0.7459016393442623,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.6,
+        "high": 0.69,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.81,
+        "high": 0.94,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.49,
+        "high": 0.6802499999999987,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.6458333333333334,
+        "high": 0.75,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.645,
+        "high": 0.745,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.62,
+        "high": 0.8,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.23,
+        "high": 0.41,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.7172975,
+        "high": 0.8145074999999999,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.7576940968728793,
+        "high": 0.8450826411842604,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.6690047961630695,
+        "high": 0.7153846153846154,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.55,
+        "high": 0.625,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.88,
+        "high": 0.98,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.67,
+        "high": 0.84,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.6547044435385243,
+        "high": 0.7359307359307359,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.61,
+        "high": 0.7,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.71,
+        "high": 0.87,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.38,
+        "high": 0.57,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.717585,
+        "high": 0.8173075,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.7599894663084521,
+        "high": 0.8477899950651548,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.4888194444444444,
+        "high": 0.6666666666666666,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.645,
+        "high": 0.7350000000000001,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.33,
+        "high": 0.52,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.01,
+        "high": 0.09024999999999864,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.3050847457627119,
+        "high": 0.5217391304347826,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.585,
+        "high": 0.6699999999999999,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.18,
+        "high": 0.36,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.0,
+        "high": 0.05,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": -0.06418558882955322,
+        "high": -0.0038197663098587394,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.043737861477958856,
+        "high": 0.029755558927166685,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.02231519514109184,
+        "high": 0.026923557875641945,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.0069312458533123565,
+        "high": 0.043852662316944374,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 1.5711247203446328,
+        "high": 1.605501339414091,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.01200250000000001,
+        "high": 0.025302499999999974,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.00906993785605575,
+        "high": 0.02900960843860762,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.048274752799845895,
+        "high": 0.009070934419260504,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.03454024525453097,
+        "high": 0.029215290007050768,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "imd2020-real-life": {
+    "clusters": 411,
+    "images": 2424,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.8301407116146187,
+        "high": 0.8645714625230695,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.9625060809271958,
+        "high": 0.9727598202653188,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.8894497094254716,
+        "high": 0.907567771212415,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.5048693056220831,
+        "high": 0.5292163134896599,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.9675723852966354,
+        "high": 0.9827961609091854,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.9198980405357523,
+        "high": 0.964160380213972,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.8787944128078872,
+        "high": 0.8996605139437974,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.559345531505837,
+        "high": 0.6003332785570631,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.9142836010143702,
+        "high": 0.9411236086976941,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.7281442273950169,
+        "high": 0.8096385542168675,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.8050727753985473,
+        "high": 0.8424927156322803,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.9540717459074732,
+        "high": 0.9663403505030957,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.8902617672949413,
+        "high": 0.9083105213131634,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.5042573544662592,
+        "high": 0.5258882402388579,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.971469798539166,
+        "high": 0.9843688374529806,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.927360774818402,
+        "high": 0.9710144927536232,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.8781937895586424,
+        "high": 0.8990095150178641,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.5483483054428895,
+        "high": 0.5872755203101463,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.9190549296164475,
+        "high": 0.9450017524690243,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.7572798030246453,
+        "high": 0.8361544253938832,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.9006158379770087,
+        "high": 0.9276725759340005,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.9745240404049261,
+        "high": 0.985261749059091,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.8941234189700388,
+        "high": 0.9180084478835631,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.7909314707471062,
+        "high": 0.8353454934447423,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.8507515505533872,
+        "high": 0.8906124106344199,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.20048309178743962,
+        "high": 0.2857142857142857,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.8569805390023634,
+        "high": 0.8878972809345828,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.8317903974373456,
+        "high": 0.8676694148402795,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.7635670039852362,
+        "high": 0.8116471973000033,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.060240963855421686,
+        "high": 0.11437404820669002,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": 0.007664555610040028,
+        "high": 0.03961537089077615,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.02394763502873989,
+        "high": 0.0008626005153794084,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.025940304908579567,
+        "high": -0.01898469768895621,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.03786724717190217,
+        "high": -0.029551402224675713,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 2.0699805810722913,
+        "high": 2.1856978037035457,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.030592944523245406,
+        "high": -0.015250546710553235,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.010058058748178389,
+        "high": -0.004583974019296159,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.0017983276949360082,
+        "high": 0.00311858227729177,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.004526877332784185,
+        "high": 0.003786681947261059,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "korus": {
+    "clusters": 220,
+    "images": 440,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.7198047520661157,
+        "high": 0.789039256198347,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.7555436721474973,
+        "high": 0.8211259673345109,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.6567780799392866,
+        "high": 0.7254580891741288,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.6272727272727273,
+        "high": 0.6977272727272728,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.7,
+        "high": 0.8137499999999993,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.36818181818181817,
+        "high": 0.5,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.592572298325723,
+        "high": 0.684863523573201,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.65,
+        "high": 0.7181818181818181,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.5,
+        "high": 0.6272727272727273,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.14545454545454545,
+        "high": 0.25,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.7109168388429753,
+        "high": 0.7820893595041322,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.7326239370628096,
+        "high": 0.8061836058106001,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.684931506849315,
+        "high": 0.7388059701492538,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.6295454545454545,
+        "high": 0.6954545454545454,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.7909090909090909,
+        "high": 0.8863636363636364,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.45,
+        "high": 0.5818181818181818,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.6220045737630303,
+        "high": 0.7024700835760415,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.6363636363636364,
+        "high": 0.7068181818181818,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.5863636363636363,
+        "high": 0.7136363636363636,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.24545454545454545,
+        "high": 0.37272727272727274,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.7139013429752067,
+        "high": 0.7800862603305785,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.7563391774095513,
+        "high": 0.8202966200255498,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.32955726983062217,
+        "high": 0.47586206896551725,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.5954545454545455,
+        "high": 0.6522727272727273,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.2,
+        "high": 0.31363636363636366,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.0,
+        "high": 0.022727272727272728,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.22580645161290322,
+        "high": 0.380987394957983,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.5636363636363636,
+        "high": 0.615909090909091,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.12727272727272726,
+        "high": 0.23636363636363636,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.0,
+        "high": 0.013636363636363636,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": -0.04144521787527132,
+        "high": -0.0016685211682439265,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.020642861652378507,
+        "high": 0.004817623816275342,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.009885615221252284,
+        "high": 0.009434587594193723,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.0033154316704437537,
+        "high": 0.017324617159010618,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 1.9706765227114829,
+        "high": 1.999322244842648,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.01774845041322314,
+        "high": 0.0009715909090909219,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.03439689485331645,
+        "high": -0.0063056754003399055,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.00322773803593038,
+        "high": 0.04557377576961386,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.01248430657888151,
+        "high": 0.060589516796286165,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "EXCLUDING_IMD2020": {
+    "clusters": 2952,
+    "images": 3822,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.8082896141230176,
+        "high": 0.8311925955454711,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.8486561038495585,
+        "high": 0.8696712412196154,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.7267362014224134,
+        "high": 0.751570789961493,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.6795244393662313,
+        "high": 0.7046534132387513,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.8277801970909389,
+        "high": 0.859579368301812,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.4381387480084059,
+        "high": 0.4839427518769007,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.7202210678712693,
+        "high": 0.7493220028179383,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.7358007347271613,
+        "high": 0.7600025272042108,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.6676848143890645,
+        "high": 0.7055851880775739,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.17232044860761456,
+        "high": 0.20765836081785816,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.8096964546697251,
+        "high": 0.8318483058377917,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.8455645395932675,
+        "high": 0.8670058336370624,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.7279059264858048,
+        "high": 0.751120382971422,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.6668371700662186,
+        "high": 0.6904004137508154,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.8637749201103929,
+        "high": 0.8932649595602175,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.5,
+        "high": 0.5446637473236421,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.7262867996810392,
+        "high": 0.7533159614354145,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.7284823548933959,
+        "high": 0.7527683680239372,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.7021684651879689,
+        "high": 0.7406477248771829,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.2215155486251145,
+        "high": 0.2599358019415998,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.8274335236561863,
+        "high": 0.8482030847864169,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.8686959003571675,
+        "high": 0.888106889862346,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.6787353522053983,
+        "high": 0.7120006329113924,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.745900430172859,
+        "high": 0.7668165575976515,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.534252874878832,
+        "high": 0.5740412488273563,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.03254993449080702,
+        "high": 0.05040270686406766,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.6078570241934542,
+        "high": 0.64585585169074,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.7143805064838538,
+        "high": 0.7350134706053553,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.44234669687967443,
+        "high": 0.4824562518395633,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.008143212012704114,
+        "high": 0.018328840970350403,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": -0.03317154512820046,
+        "high": -0.007660153740274685,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.0333445954320106,
+        "high": -0.014937368638050608,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.017070511562161154,
+        "high": -0.007995693338442668,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.020762718540851297,
+        "high": -0.010161961054018427,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 1.881334589435093,
+        "high": 1.900941282917774,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.003482630651086249,
+        "high": 0.0057736359035036565,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.006438709167076173,
+        "high": 0.0008472043785925566,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.007332688196741125,
+        "high": 0.008053987706845058,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.0038720745666608824,
+        "high": 0.014411452084677017,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "NOT_PREVIOUSLY_EXAMINED": {
+    "clusters": 3225,
+    "images": 5990,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.8534835972435743,
+        "high": 0.8703136590030205,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.9220679603801744,
+        "high": 0.935164609744454,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.8129992409825496,
+        "high": 0.8320439024857919,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.6721292717718906,
+        "high": 0.6913427803110601,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.9071571637314233,
+        "high": 0.9253213461118869,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.5344747986117744,
+        "high": 0.5725478590415776,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.8124229799867438,
+        "high": 0.8338218908302376,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.7490493990749262,
+        "high": 0.7692390957512149,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.8031329256993003,
+        "high": 0.830536152198984,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.2816422783125482,
+        "high": 0.31634670435610873,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.8472579489829186,
+        "high": 0.864880577919733,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.9154925744998014,
+        "high": 0.9295250137722816,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.8122647551523802,
+        "high": 0.8312357451287563,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.656365433226723,
+        "high": 0.6760907024839303,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.9256005695165024,
+        "high": 0.9420675192167451,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.5824404427445754,
+        "high": 0.621098031693253,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.8128770294594397,
+        "high": 0.8332336471233411,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.7353619508443471,
+        "high": 0.755237013773019,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.821873927436511,
+        "high": 0.8479069753267545,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.32646194659972616,
+        "high": 0.3617837824623949,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.8861753538688519,
+        "high": 0.9011353056220117,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.9396544152197649,
+        "high": 0.9515515925919825,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.8081885625483519,
+        "high": 0.8312285626576854,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.8138468803314673,
+        "high": 0.8322151381590819,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.709875531268974,
+        "high": 0.7420852520501292,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.06891588711789683,
+        "high": 0.09144788616916544,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.7596611674754994,
+        "high": 0.7861471693507142,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.7969618750742725,
+        "high": 0.8152091937563771,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.6215751701719944,
+        "high": 0.657365788299467,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.020746648947358358,
+        "high": 0.034419479251883926,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": 0.0018646712399367465,
+        "high": 0.028644730857648126,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.027156273520611153,
+        "high": -0.005936680007794675,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.02115560057878827,
+        "high": -0.015073173742361523,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.02975137005291561,
+        "high": -0.023024386663140838,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 2.013601448679113,
+        "high": 2.108764510088154,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.008796146701610321,
+        "high": -0.0029101359822392807,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.00798375939321681,
+        "high": -0.0040923032953259055,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.004704140915494787,
+        "high": 0.003356859258682637,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.004468655704164432,
+        "high": 0.004793979439229547,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "PREVIOUSLY_EXAMINED": {
+    "clusters": 138,
+    "images": 256,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.675227652206981,
+        "high": 0.7705468776512452,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.745218143130681,
+        "high": 0.831826247528206,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.6441915825557037,
+        "high": 0.7349852572952987,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.5964276896890143,
+        "high": 0.6920730342596272,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.6764652983495557,
+        "high": 0.8161919061517736,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.37187749933351105,
+        "high": 0.5491803278688525,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.5819554777208059,
+        "high": 0.7063940869862428,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.6259378234928761,
+        "high": 0.725571566269879,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.49624060150375937,
+        "high": 0.6535433070866141,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.152,
+        "high": 0.2975423220474539,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.6821952870006792,
+        "high": 0.7747443734414209,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.7451813919624756,
+        "high": 0.8323535910542766,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.6472395783267647,
+        "high": 0.7267403767403767,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.5701369218128863,
+        "high": 0.6615384615384615,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.7259075487701442,
+        "high": 0.8549618320610687,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.4705170777988615,
+        "high": 0.6452087286527511,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.6147532112696047,
+        "high": 0.7237354085603113,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.6280188477517107,
+        "high": 0.7240430834965282,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.5547430999087591,
+        "high": 0.7086614173228346,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.20491803278688525,
+        "high": 0.35772357723577236,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.6851032520915393,
+        "high": 0.7707691825273413,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.7572165914127119,
+        "high": 0.84146289600116,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.4606741573033708,
+        "high": 0.6116560269539388,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.6298093839425108,
+        "high": 0.7076888554468505,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.3119777777777778,
+        "high": 0.46324861466325656,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.016129032258064516,
+        "high": 0.09016393442622951,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.35666640615841505,
+        "high": 0.5164835164835165,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.6054646070075758,
+        "high": 0.6708100106723025,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.21804511278195488,
+        "high": 0.35075623789449695,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.0,
+        "high": 0.025423728813559324,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": -0.02847741386213534,
+        "high": 0.011222558547006965,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.038615435722483486,
+        "high": 0.016237955860009673,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.01627421808251879,
+        "high": 0.003600173696417474,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.018165644180891262,
+        "high": 0.022604249173501154,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 1.925780603849802,
+        "high": 1.9789780844385088,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.011305196259833403,
+        "high": 0.02353717709937166,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.015432187066480302,
+        "high": 0.01726756043625603,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.029143324734839396,
+        "high": 0.027737413790937096,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.011347484254182819,
+        "high": 0.06623348322800195,
+        "finite_replicates": 2000
+      }
+    }
+  },
+  "UNIQUE_SOURCE_SHA256": {
+    "clusters": 3363,
+    "images": 6229,
+    "replicates": 2000,
+    "confidence_level": 0.95,
+    "method": "Paired percentile bootstrap; connected components of shared manifest source groups OR source SHA256 sampled with replacement independently within dataset strata; both model outputs always share weights.",
+    "caveat": "CASIA and Columbia group IDs are per image, so donor/source dependence is incompletely represented. These descriptive intervals do not correct training overlap or development selection.",
+    "intervals": {
+      "original_common__AUROC": {
+        "low": 0.8484817235278875,
+        "high": 0.8656649399188519,
+        "finite_replicates": 2000
+      },
+      "original_common__AP": {
+        "low": 0.9181161884425822,
+        "high": 0.9323584116005655,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.5": {
+        "low": 0.8082082316635837,
+        "high": 0.8289709893496597,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.5": {
+        "low": 0.6714888747808329,
+        "high": 0.6905861841353746,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.5": {
+        "low": 0.9015817579574459,
+        "high": 0.9199492281817985,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.5": {
+        "low": 0.5305370937027731,
+        "high": 0.567457364994224,
+        "finite_replicates": 2000
+      },
+      "original_common__F1_0.75": {
+        "low": 0.8072445695232116,
+        "high": 0.8287145004180525,
+        "finite_replicates": 2000
+      },
+      "original_common__balanced_accuracy_0.75": {
+        "low": 0.7471980184735167,
+        "high": 0.7667661840095994,
+        "finite_replicates": 2000
+      },
+      "original_common__recall_0.75": {
+        "low": 0.7952669955935039,
+        "high": 0.8226487541482025,
+        "finite_replicates": 2000
+      },
+      "original_common__false_positive_rate_0.75": {
+        "low": 0.27932483789460505,
+        "high": 0.3114178771773326,
+        "finite_replicates": 2000
+      },
+      "mini_common__AUROC": {
+        "low": 0.8429935692108694,
+        "high": 0.8607767722436063,
+        "finite_replicates": 2000
+      },
+      "mini_common__AP": {
+        "low": 0.9119728480260286,
+        "high": 0.9270086623367478,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.5": {
+        "low": 0.80746167982594,
+        "high": 0.827936743886626,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.5": {
+        "low": 0.6552270875577577,
+        "high": 0.6743769216894457,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.5": {
+        "low": 0.9201613571266143,
+        "high": 0.9372421902281457,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.5": {
+        "low": 0.5800436793372034,
+        "high": 0.617546439628483,
+        "finite_replicates": 2000
+      },
+      "mini_common__F1_0.75": {
+        "low": 0.8080463853850932,
+        "high": 0.8292867828320429,
+        "finite_replicates": 2000
+      },
+      "mini_common__balanced_accuracy_0.75": {
+        "low": 0.7337785938176018,
+        "high": 0.753498032300058,
+        "finite_replicates": 2000
+      },
+      "mini_common__recall_0.75": {
+        "low": 0.8152940642910365,
+        "high": 0.8414077982671906,
+        "finite_replicates": 2000
+      },
+      "mini_common__false_positive_rate_0.75": {
+        "low": 0.32350255865981864,
+        "high": 0.35814426587914794,
+        "finite_replicates": 2000
+      },
+      "original_official__AUROC": {
+        "low": 0.8799718501703608,
+        "high": 0.8947980127604561,
+        "finite_replicates": 2000
+      },
+      "original_official__AP": {
+        "low": 0.9361907964749513,
+        "high": 0.9483805957780953,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.5": {
+        "low": 0.8004142850857369,
+        "high": 0.8230909480479033,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.5": {
+        "low": 0.808352072090951,
+        "high": 0.8266532193009073,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.5": {
+        "low": 0.6986065323387182,
+        "high": 0.7299861108525102,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.5": {
+        "low": 0.06838935467445084,
+        "high": 0.08931854423217943,
+        "finite_replicates": 2000
+      },
+      "original_official__F1_0.75": {
+        "low": 0.7489861087950186,
+        "high": 0.776269661645804,
+        "finite_replicates": 2000
+      },
+      "original_official__balanced_accuracy_0.75": {
+        "low": 0.7902281271731642,
+        "high": 0.8090330090076567,
+        "finite_replicates": 2000
+      },
+      "original_official__recall_0.75": {
+        "low": 0.6086783877927335,
+        "high": 0.6438909027946627,
+        "finite_replicates": 2000
+      },
+      "original_official__false_positive_rate_0.75": {
+        "low": 0.020370436632468906,
+        "high": 0.03303590838509317,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.5": {
+        "low": 0.0014520601957892733,
+        "high": 0.026883395619655536,
+        "finite_replicates": 2000
+      },
+      "pixel_micro_delta_F1_0.75": {
+        "low": -0.028947000963542774,
+        "high": -0.00733808761752096,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.5": {
+        "low": -0.020576450871776807,
+        "high": -0.014793796449571909,
+        "finite_replicates": 2000
+      },
+      "pixel_macro_delta_F1_0.75": {
+        "low": -0.02869377337744688,
+        "high": -0.021914591371208013,
+        "finite_replicates": 2000
+      },
+      "forward_ratio_of_sums": {
+        "low": 2.0095519939031066,
+        "high": 2.1027563130742104,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AUROC": {
+        "low": -0.008138129564524995,
+        "high": -0.0023074983065102146,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_AP": {
+        "low": -0.007750082601111102,
+        "high": -0.003799639890311546,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.5": {
+        "low": -0.004884143167033958,
+        "high": 0.003333664936597741,
+        "finite_replicates": 2000
+      },
+      "image_common_delta_F1_0.75": {
+        "low": -0.004026547798756416,
+        "high": 0.005469306013117844,
+        "finite_replicates": 2000
+      }
+    }
+  }
+}

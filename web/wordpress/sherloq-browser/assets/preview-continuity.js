@@ -1,6 +1,6 @@
 // A temporary gesture owns this evidence. Counts of inputs, queue time and idle
 // time are not work. Only dispatched, still-owned computations can advance it.
-import {PREVIEW_QUALITY_POLICY as policy} from './preview-quality-policy.js?v=0.32.0';
+import {PREVIEW_QUALITY_POLICY as policy} from './preview-quality-policy.js?v=0.33.0';
 export function createPreviewContinuity({now=()=>performance.now(),windowMs=policy.noFrameWorkWindowMilliseconds,maxMisses=policy.maxNoFrameWindows}={}){
  let current=null;
  const key=event=>event?.continuous===true&&Number.isSafeInteger(event.generation)&&event.generation>0&&Number.isSafeInteger(event.gestureEpoch)&&event.gestureEpoch>0?JSON.stringify([event.operation??'',event.toolId??'',event.field??'',event.generation,event.gestureEpoch]):null;

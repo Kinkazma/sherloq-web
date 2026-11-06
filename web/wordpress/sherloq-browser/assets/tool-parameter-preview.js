@@ -1,11 +1,12 @@
-import {previewEqualizationFamily} from './preview-cost-family.js?v=0.32.0';
-import {createFrequencyPreviewSizing,FREQUENCY_SIZING_BYTES,frequencyPreviewDiagnostics} from './frequency-preview-sizing.js?v=0.32.0';
-import {parameterRegionDerivedDomain,frameParameterRegionPixels} from './parameter-preview-source-regions.js?v=0.32.0';
+import {isGradientField} from './unified-engine/src/gradient-field-parameters.js';
+import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.0';
+import {createFrequencyPreviewSizing,FREQUENCY_SIZING_BYTES,frequencyPreviewDiagnostics} from './frequency-preview-sizing.js?v=0.33.0';
+import {parameterRegionDerivedDomain,frameParameterRegionPixels} from './parameter-preview-source-regions.js?v=0.33.0';
 /** Bounded, explicitly provisional pixel calculations in a separate worker.
  * This module never receives a native source blob, model or native result ID.
  */
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.32.0';
-import {continuityPreviewSide} from './preview-quality-policy.js?v=0.32.0';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.0';
+import {continuityPreviewSide} from './preview-quality-policy.js?v=0.33.0';
 const MiB=1024**2,DEFAULT_SIDE=192,WORKER_BYTES=192*MiB;
 const OPERATIONS=new Set(['inspection.adjust','inspection.magnifier','detail.gradient','detail.echo','colors.space','colors.pca','detail.wavelets','detail.frequency','noise.separation','noise.planes','noise.minmax','pixels.defects','noise.blocking','colors.stats','tampering.contrast','various.illuminant','comparison.image','jpeg.ghosts','noise.noisesniffer']);
 const WORKER_ONLY_PREPARATION=new Set(['inspection.magnifier','colors.pca','detail.frequency','comparison.image','noise.noisesniffer']);
@@ -47,7 +48,7 @@ function frame(value,side){const p=value?.pixels??value;if(!Number.isSafeInteger
 function resultResources(result){const found=new Map(),seen=new Set();const visit=value=>{if(!value||typeof value!=='object'||ArrayBuffer.isView(value)||seen.has(value))return;seen.add(value);if(typeof value.id==='string'&&Number.isSafeInteger(value.revision)&&typeof value.format==='string')found.set(value.id,{...value,table:Number.isSafeInteger(value.rowCount)});for(const v of Object.values(value))visit(v);};visit(result);return[...found.values()];}
 function sourceKey(identity,w,h,side){if(identity===undefined||identity===null||identity==='')fail('INVALID_INPUT','A preview requires the current native source identity.');return JSON.stringify([identity,w,h,side]);}
 function previewCost(operation,p){const fields=['mode','wavelet','radius','block','filter','sharpen','blockSize','samplesPerBin'];return operation==='jpeg.ghosts'?'qualities='+Math.floor(Math.log2(1+Math.max(0,(p.high??90)-(p.low??50))/(p.step??5))):fields.filter(key=>Object.hasOwn(p,key)).map(key=>{const v=p[key],bucket=typeof v==='number'&&key!=='mode'?v>0?Math.floor(Math.log2(v))+1:0:v;return key+'='+bucket;}).join('/');}
-function previewSizingKey(operation,p,backend,view){return'pixels/'+operation+'/'+previewCost(operation,p)+'/'+previewEqualizationFamily(p)+'/backend='+(backend??'auto')+(operation==='detail.gradient'?'/method='+(p.method??'sobel')+'/recompression='+JSON.stringify([p.recompression?.codec??'none',p.recompression?.lossless??false]):'')+(operation==='detail.frequency'?'/view='+frequencyViewName(view):'');}
+function previewSizingKey(operation,p,backend,view){return'pixels/'+operation+'/'+previewCost(operation,p)+'/'+previewEqualizationFamily(p)+'/backend='+(backend??'auto')+(operation==='detail.gradient'?'/method='+(p.method??'sobel')+(!isGradientField(p)?'':'/field='+JSON.stringify([p.view,Math.floor(Math.log2(p.kernelSize??3)),Math.floor(Math.log2(p.sampleStep??1)),p.preSigma>0?Math.floor(Math.log2(p.preSize??9)):0,p.view==='coherence'?Math.floor(Math.log2(p.tensorSize??11)):0]))+'/recompression='+JSON.stringify([p.recompression?.codec??'none',p.recompression?.lossless??false]):'')+(operation==='detail.frequency'?'/view='+frequencyViewName(view):'');}
 const defaultFactory=async options=>(await import('./unified-engine/src/worker-client.js')).createWorkerEngine(options);
 
 // OpenCV's padded DFT axes are the smallest dimensions with factors2,3,5.
@@ -69,6 +70,13 @@ export function projectParameterPreviewParams(operation,input,{width,height,logi
  const integer=(field,fallback,low,high,project)=>{const value=Object.hasOwn(params,field)?params[field]:fallback;if(!Number.isInteger(value)||value<low||value>high)return;set(field,project(value),value,'Spatial support projected onto the provisional sampled grid.');};
  const radius=(field,fallback,low,high)=>integer(field,fallback,low,high,value=>clamp(Math.round(value*scale),low,high));
  if(operation==='inspection.adjust')integer('sharpen',0,0,100,value=>{const support=Math.floor(value/4),projected=support?Math.max(1,Math.round(support*scale)):0;return projected===support?value:projected*4;});
+ if(operation==='detail.gradient'&&isGradientField(params)){
+  radius('sampleStep',1,1,16);
+  for(const field of ['preSize','tensorSize'])if(params[field]!==undefined)integer(field,9,3,127,value=>clamp(2*Math.round((value-1)*scale/2)+1,3,127));
+  for(const field of ['preSigma','tensorSigma'])if(typeof params[field]==='number'&&params[field]>0)set(field,Math.max(.1,params[field]*scale),params[field],'Gaussian spatial sigma projected onto the provisional sampled grid.');
+  if(['disk','prewitt','sobel','gaussian'].includes(params.method)&&params.kernelSize!==undefined)integer('kernelSize',3,3,63,value=>clamp(2*Math.round((value-1)*scale/2)+1,3,63));
+  if(params.method==='gaussian'&&typeof params.sigma==='number')set('sigma',Math.max(.1,params.sigma*scale),params.sigma,'Gradient sigma projected onto the provisional sampled grid.');
+ }
  if(operation==='detail.echo')radius('radius',2,1,15);
  if(operation==='noise.separation'&&(params.mode??0)!==4)radius('radius',1,1,10);
  if(operation==='noise.minmax')integer('filter',0,0,5,value=>value?clamp(Math.round((value+3)*scale)-3,1,5):0);
@@ -208,7 +216,7 @@ export function createParameterPreview({readSource,readReference,reserve,release
   const control=operation==='detail.frequency'?request.previewControl:null,controlTiming=()=>control?{gestureEpoch:control.gestureEpoch,controlRequestId:control.controlRequestId,lastAdmittedInput:control.lastAdmittedInput,clock:control.clock,inputAt:control.inputAt,admittedInputAt:control.admittedInputAt,enqueuedAt:control.enqueuedAt,inputAgeAvailable:control.inputAgeAvailable,ageOrigin:control.ageOrigin,preQueueMs:control.preQueueMs,previewOrdinal:control.previewOrdinal,previewIntentionOrdinal:control.previewIntentionOrdinal,refreshPhase:control.refreshPhase,refinement:control.refinement===true,refinementOrdinal:control.refinementOrdinal??0,dispatchedAt:control.dispatchedAt,queueWaitMs:control.queueWaitMs,intentAgeMilliseconds:typeof control.ageMilliseconds==='function'?control.ageMilliseconds():0,queueAgeMilliseconds:typeof control.queueAgeMilliseconds==='function'?control.queueAgeMilliseconds():null}:null;
   const superseded=phase=>{check(signal);if(control?.yieldBeforeNative?.()!==true)return false;totals.supersededBeforeNative++;control.report?.({phase,...controlTiming(),sourceIdentity:request.sourceIdentity,...totals});return true;};
   if(control&&retirementRecord)await retire();if(operation==='detail.frequency'&&sourceGroup&&sourceGroup!==sourceKey(request.sourceIdentity,logicalWidth,logicalHeight,0))await retire();if(superseded('superseded-before-proxy-preparation'))return null;
-  await activate(signal);const [scratchBytes,ordinaryExtra]=ADMISSION[operation]??[192,32*MiB],scopedHeap=sourceRegions?SCOPED_HEAPS[operation]:null,extraBytes=Math.max(ordinaryExtra,scopedHeap&&!loadedScopedHeaps.has(scopedHeap[0])?scopedHeap[1]:0);let capabilities=engine?.capabilities?await engine.capabilities():null,memory=capabilities?.memory;check(signal);
+  await activate(signal);const [scratchBytes,ordinaryExtra]=ADMISSION[operation]??[192,32*MiB],scopedHeap=sourceRegions&&!(operation==='detail.gradient'&&isGradientField(request.params))?SCOPED_HEAPS[operation]:null,extraBytes=Math.max(ordinaryExtra,scopedHeap&&!loadedScopedHeaps.has(scopedHeap[0])?scopedHeap[1]:0);let capabilities=engine?.capabilities?await engine.capabilities():null,memory=capabilities?.memory;check(signal);
   let room=memoryBudgetBytes-Math.max(32*MiB,memory?.knownHeapCapacityBytes??0)-extraBytes-(memory?.retainedBytes??0)-(memory?.activeReservationBytes??0)-2*MiB;
   if(room<scratchBytes+6&&engine){memory=await reclaimIdleWorkspace(request,signal,scratchBytes,extraBytes,memory);if(superseded('superseded-after-idle-workspace-retirement'))return null;room=memoryBudgetBytes-Math.max(32*MiB,memory?.knownHeapCapacityBytes??0)-extraBytes-(memory?.retainedBytes??0)-(memory?.activeReservationBytes??0)-2*MiB;}
   if(room<scratchBytes+6&&engine){await retire();memory=null;room=memoryBudgetBytes-32*MiB-extraBytes-2*MiB;}
@@ -301,7 +309,7 @@ export function createParameterPreview({readSource,readReference,reserve,release
    const task=(async()=>{current();await activate(own.signal);await ensureWorker(own.signal,current);current();let grid=null,reason=null;
     if(warmSource&&request&&parameterPreviewPreparation(request.operation,{sourceRegions})==='source'){
      const {operation,logicalWidth,logicalHeight}=request;if(!Number.isSafeInteger(logicalWidth)||!Number.isSafeInteger(logicalHeight)||logicalWidth<1||logicalHeight<1)fail('INVALID_INPUT','Native logical dimensions are required for source preparation.');
-     const [scratch,ordinaryExtra]=ADMISSION[operation]??[192,32*MiB],scopedHeap=sourceRegions?SCOPED_HEAPS[operation]:null,extra=Math.max(ordinaryExtra,scopedHeap&&!loadedScopedHeaps.has(scopedHeap[0])?scopedHeap[1]:0),memory=(await engine.capabilities?.())?.memory,room=memoryBudgetBytes-Math.max(32*MiB,memory?.knownHeapCapacityBytes??0)-extra-(memory?.retainedBytes??0)-(memory?.activeReservationBytes??0)-2*MiB,p=request.params??{},key=previewSizingKey(operation,p,request.backend,request.view),minimumSide=operation==='jpeg.ghosts'?Math.ceil(16*Math.max(logicalWidth,logicalHeight)/Math.min(logicalWidth,logicalHeight)):16;
+     const [scratch,ordinaryExtra]=ADMISSION[operation]??[192,32*MiB],scopedHeap=sourceRegions&&!(operation==='detail.gradient'&&isGradientField(request.params))?SCOPED_HEAPS[operation]:null,extra=Math.max(ordinaryExtra,scopedHeap&&!loadedScopedHeaps.has(scopedHeap[0])?scopedHeap[1]:0),memory=(await engine.capabilities?.())?.memory,room=memoryBudgetBytes-Math.max(32*MiB,memory?.knownHeapCapacityBytes??0)-extra-(memory?.retainedBytes??0)-(memory?.activeReservationBytes??0)-2*MiB,p=request.params??{},key=previewSizingKey(operation,p,request.backend,request.view),minimumSide=operation==='jpeg.ghosts'?Math.ceil(16*Math.max(logicalWidth,logicalHeight)/Math.min(logicalWidth,logicalHeight)):16;
      current();if(operation==='jpeg.ghosts'&&(Math.min(logicalWidth,logicalHeight)<16||minimumSide>side))reason='source-geometry';
      else if(room>=scratch+6){const admittedPixels=Math.min(maximumPixels,Math.floor(room/(scratch+6))),plan=adaptive?adaptive.plan({key,width:logicalWidth,height:logicalHeight,sourceIdentity:typeof request.sourceIdentity==='string'?request.sourceIdentity:JSON.stringify(request.sourceIdentity),maxSide:side,minSide:minimumSide,maxPixels:admittedPixels,feedback:request.adaptiveFeedback}):null;
       grid=await sourceFor(request,own.signal,plan?.side??Math.min(DEFAULT_SIDE,side));current();if(grid&&grid.width*grid.height>admittedPixels)fail('MEMORY_LIMIT','Prepared source exceeds admitted pixel count.');

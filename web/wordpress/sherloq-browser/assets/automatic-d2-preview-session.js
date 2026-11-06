@@ -1,5 +1,5 @@
-import {genericHeldPreviewKey} from './generic-held-preview-owner.js?v=0.32.0';
-import {createPreviewContinuity} from './preview-continuity.js?v=0.32.0';
+import {genericHeldPreviewKey} from './generic-held-preview-owner.js?v=0.33.0';
+import {createPreviewContinuity} from './preview-continuity.js?v=0.33.0';
 // One native/RGB transaction and one replaceable intention. A completed owned
 // frame can advance within its gesture; only the latest intention becomes final.
 export function createAutomaticD2PreviewSession({preview,show,commit,restore=()=>{},error=()=>{},changed=()=>{},supersededBudgetMs=300,now=()=>performance.now(),delay=(fn,ms)=>setTimeout(fn,ms),undelay=clearTimeout}={}){

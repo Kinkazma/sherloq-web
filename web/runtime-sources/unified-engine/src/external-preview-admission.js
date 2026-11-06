@@ -1,4 +1,6 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.0";
+import {isGradientField} from './gradient-field-parameters.js';
+import {gradientFieldHeadroom} from './gradient-field.js';
 import {observedDerivativeWorkingBytes} from './source-region-observed-derivatives.js';
 import {observedSeparationWorkingBytes} from './source-region-observed-separation.js';
 import {ramByteCacheBytes} from './ram-byte-cache.js';
@@ -28,7 +30,8 @@ export function externalPreviewNativeHeadroom(operation,image,params,{runtimeByt
  * `domain` has already passed prepareSourceRegionDomain. Rectangle/identity
  * routes use segmentedGradient's useful parallel workers and must still reclaim.
  * This optional cache never changes the adapter's storage/worker decisions. */
-export function externalPreviewScopedGradientHeadroom(operation,domain,{runtimeBytes=0,transportBytes=0,image}={}){
+export function externalPreviewScopedGradientHeadroom(operation,domain,{runtimeBytes=0,transportBytes=0,image,params}={}){
+ if(operation==='detail.gradient'&&domain&&isGradientField(params))return{operation,...gradientFieldHeadroom(domain.width,domain.height,params,{runtimeBytes,transportBytes}),strictScopedGradient:true};
  if(operation!=='detail.gradient'||!domain||![runtimeBytes,transportBytes,domain.width,domain.height,domain.countIncluded].every(Number.isSafeInteger)||runtimeBytes<0||transportBytes<0||domain.width<1||domain.height<1||domain.countIncluded<1||typeof domain.rowIntervals!=='function')return null;
  const envelope=domain.width*domain.height,observations=domain.countIncluded,pageBytes=image?.session?.snapshot?.().pageBytes;if(pageBytes!==undefined&&(!Number.isSafeInteger(pageBytes)||pageBytes<1))return null;const migration=(image?.session||image?.ensureTemporarySession)?migrationWorkspaceBytes(Math.max(envelope*3,observations*4),image.session):0;
  // output RGB + scope; derivative store + its optional complete RAM cache.

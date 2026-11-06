@@ -5,6 +5,8 @@ import {GRADIENT_HEAP_BYTES,releaseGradientWasm,gradientDerivatives,gradientLeng
 import {createRamByteCache,ramByteCacheBytes} from './ram-byte-cache.js';import {gradientCacheStore} from './gradient-cache.js';
 import {gradientParams,gradientSemantics} from './gradient-parameters.js';
 import {getGradientRenderGpu} from './gradient-render-gpu.js';
+import {isGradientField} from './gradient-field-parameters.js';
+import {gradientFieldSurface} from './gradient-field.js';
 
 export function gradientToneLut(histogram,n,p){
  const lut=new Uint8Array(768),intensity=Math.trunc(p.intensity/100*127);
@@ -23,6 +25,7 @@ export function gradientToneLut(histogram,n,p){
 // Derivatives are stored before global maxima, lengths or histograms are used.
 export async function segmentedGradient(image,p,{budget,signal,onProgress,rowsPerBlock,cacheKey,maxWorkers=1,backend='auto',cpuKernel='auto'}={}){
  p=gradientParams(p);const method=p.method,cooperate=createCooperator(signal);
+ if(isGradientField(p))return gradientFieldSurface(image,p,{budget,signal,onProgress,rowsPerBlock,cacheKey,backend});
  requireValue(['cpu','auto','webgpu'].includes(backend),'Unknown gradient backend.');
  if(backend==='webgpu'&&cpuKernel!=='reference'&&method!=='sobel')throw new EngineError('UNSUPPORTED_BACKEND','Krawetz direction retains its qualified native CPU trigonometry.');
  if(backend==='webgpu'&&cpuKernel!=='reference'&&!globalThis.navigator?.gpu)throw new EngineError('GPU_UNAVAILABLE','Native gradient WebGPU rendering is unavailable.');

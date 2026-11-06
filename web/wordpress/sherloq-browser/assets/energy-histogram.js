@@ -1,4 +1,4 @@
-import {energyPlaneCount} from './energy-native-fields.js?v=0.32.0';
+import {energyPlaneCount} from './energy-native-fields.js?v=0.33.0';
 import {createCooperator} from './unified-engine/src/errors.js';
 // Native distributions only. No RGB brightness histogram, draft resampling,
 // JPEG recompression, percentile estimation or scientific map is created here.

@@ -1,0 +1,124 @@
+{
+  "kind": "secondary sensitivity analysis, not exact paper reproduction",
+  "source": "https://github.com/grip-unina/TruFor/blob/main/TruFor_train_test/metrics.py",
+  "threshold": 0.5,
+  "comparison": "strictly greater than threshold, as in official code",
+  "border": "positive minimum_filter15, negative complement maximum_filter11, reflect",
+  "orientation": "per-image maximum of F1(prediction) and F1(1-prediction); uses ground truth",
+  "exclusions": "Columbia provenance excluded; invalid masks excluded; images with no eroded positive pixels excluded",
+  "korus": "white255 and gray128 pooled positive as primary local protocol; ignored labels excluded with neighborhood",
+  "summary": [
+    {
+      "dataset": "ALL",
+      "model": "trufor_original",
+      "images": 3720,
+      "macro_F1_border_fixed_polarity": 0.654713027152865,
+      "macro_F1_border_oracle_polarity": 0.6828464297615496,
+      "oracle_inverted_images": 610
+    },
+    {
+      "dataset": "ALL",
+      "model": "proxy_current",
+      "images": 3720,
+      "macro_F1_border_fixed_polarity": 0.6433389931556596,
+      "macro_F1_border_oracle_polarity": 0.669738477220314,
+      "oracle_inverted_images": 588
+    },
+    {
+      "dataset": "casia1-corrected",
+      "model": "trufor_original",
+      "images": 900,
+      "macro_F1_border_fixed_polarity": 0.7253515203737665,
+      "macro_F1_border_oracle_polarity": 0.742926239652463,
+      "oracle_inverted_images": 154
+    },
+    {
+      "dataset": "casia1-corrected",
+      "model": "proxy_current",
+      "images": 900,
+      "macro_F1_border_fixed_polarity": 0.7071008416196876,
+      "macro_F1_border_oracle_polarity": 0.7235188348917093,
+      "oracle_inverted_images": 146
+    },
+    {
+      "dataset": "cocoglide",
+      "model": "trufor_original",
+      "images": 508,
+      "macro_F1_border_fixed_polarity": 0.3956100611306925,
+      "macro_F1_border_oracle_polarity": 0.5257273434507377,
+      "oracle_inverted_images": 250
+    },
+    {
+      "dataset": "cocoglide",
+      "model": "proxy_current",
+      "images": 508,
+      "macro_F1_border_fixed_polarity": 0.4094871076067206,
+      "macro_F1_border_oracle_polarity": 0.5289323363107395,
+      "oracle_inverted_images": 227
+    },
+    {
+      "dataset": "comofod-available",
+      "model": "trufor_original",
+      "images": 25,
+      "macro_F1_border_fixed_polarity": 0.18795008740905195,
+      "macro_F1_border_oracle_polarity": 0.23858680700073345,
+      "oracle_inverted_images": 11
+    },
+    {
+      "dataset": "comofod-available",
+      "model": "proxy_current",
+      "images": 25,
+      "macro_F1_border_fixed_polarity": 0.1798023564040516,
+      "macro_F1_border_oracle_polarity": 0.2312095884622821,
+      "oracle_inverted_images": 11
+    },
+    {
+      "dataset": "coverage",
+      "model": "trufor_original",
+      "images": 90,
+      "macro_F1_border_fixed_polarity": 0.5854613740228521,
+      "macro_F1_border_oracle_polarity": 0.6263195916424822,
+      "oracle_inverted_images": 22
+    },
+    {
+      "dataset": "coverage",
+      "model": "proxy_current",
+      "images": 90,
+      "macro_F1_border_fixed_polarity": 0.5882428867594164,
+      "macro_F1_border_oracle_polarity": 0.6170677431351107,
+      "oracle_inverted_images": 20
+    },
+    {
+      "dataset": "imd2020-real-life",
+      "model": "trufor_original",
+      "images": 1977,
+      "macro_F1_border_fixed_polarity": 0.7261852768724388,
+      "macro_F1_border_oracle_polarity": 0.7319847622903064,
+      "oracle_inverted_images": 93
+    },
+    {
+      "dataset": "imd2020-real-life",
+      "model": "proxy_current",
+      "images": 1977,
+      "macro_F1_border_fixed_polarity": 0.7098698925961476,
+      "macro_F1_border_oracle_polarity": 0.7161678004093475,
+      "oracle_inverted_images": 106
+    },
+    {
+      "dataset": "korus",
+      "model": "trufor_original",
+      "images": 220,
+      "macro_F1_border_fixed_polarity": 0.403125515426278,
+      "macro_F1_border_oracle_polarity": 0.43190138219089064,
+      "oracle_inverted_images": 80
+    },
+    {
+      "dataset": "korus",
+      "model": "proxy_current",
+      "images": 220,
+      "macro_F1_border_fixed_polarity": 0.39982340925494564,
+      "macro_F1_border_oracle_polarity": 0.42901126821898705,
+      "oracle_inverted_images": 78
+    }
+  ]
+}

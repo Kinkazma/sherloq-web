@@ -9903,6 +9903,11 @@
       "sha256": "bbbabdf3f6bf9120d917b9a635b2bdd96da3b5078bc1eb32de8f5100067a1e10"
     },
     {
+      "file": "fixtures/gradient-field-reference.json",
+      "bytes": 346087,
+      "sha256": "eef371ea8701a391ecf73eb4603a64318e1449455f3963e60bf5c1561e925648"
+    },
+    {
       "file": "fixtures/gradient-methods-reference.json",
       "bytes": 75699,
       "sha256": "e722e7f7fd0cc160d55d5d322a0c29438e4df6c996004fb63ba2d7800fa37a1d"
@@ -12909,8 +12914,8 @@
     },
     {
       "file": "runtime-manifest.json",
-      "bytes": 691196,
-      "sha256": "ef2ca3546c48d2c5d10a77c64e2a028d7de6038fb9328cf3c071177cdfa63e2f"
+      "bytes": 693659,
+      "sha256": "c36ce5363f8c934033d28d1c1ddd37345d7a3a4d2abaf1625db47467480b0b96"
     },
     {
       "file": "scripts/adapt-butteraugli-paged.py",
@@ -15283,6 +15288,21 @@
       "sha256": "a6c661aff92bb22411cbf682c4aab7fe2320649ede3d818cc26b83acf28ba823"
     },
     {
+      "file": "scripts/compose-mini-fusion.py",
+      "bytes": 7968,
+      "sha256": "25cab85c9e9a8724673ebad685410fec02ad37e4a20a0bf051d527639dbe6772"
+    },
+    {
+      "file": "scripts/compose-mini-message-mlp.py",
+      "bytes": 14403,
+      "sha256": "f8cccd96e6f1333e2b046d5407813133ccd663a503f9ae3d8c85a609116e5a56"
+    },
+    {
+      "file": "scripts/compose-mini-query-mlp.py",
+      "bytes": 7582,
+      "sha256": "4a446678edb477a7333227ae12a8e704855612007f8d4a38ecf99c626c6eba18"
+    },
+    {
       "file": "scripts/correct-trufor-batchnorm.py",
       "bytes": 1790,
       "sha256": "3b79054042ac4878e263a2a3bd43ee28bd56f90a1cc619c80b9a0e53755a1bae"
@@ -15526,6 +15546,11 @@
       "file": "scripts/export-trufor-attention-core-study.py",
       "bytes": 1991,
       "sha256": "e05fd84ade96bebef59f2651d680d7a19d426f120b9ce68696a3ac4c5d3cf9a5"
+    },
+    {
+      "file": "scripts/export-trufor-mini.py",
+      "bytes": 13378,
+      "sha256": "d6dfc97f92658d6eeb18bb6883e95bdc0f0466c382fa9556801947101ac883cb"
     },
     {
       "file": "scripts/export-trufor-neuron333.py",
@@ -18483,6 +18508,111 @@
       "sha256": "e52d5230fb7d2ec10b0209821307f1bbbd11915f69fec7d386856f5f528592a6"
     },
     {
+      "file": "scripts/trufor-mini-reproduction/README.md",
+      "bytes": 5514,
+      "sha256": "fec604f2f897b3b40e2ea8f1151ab42362d63c5172956b6d1a949d514d546b02"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/compact.py",
+      "bytes": 14801,
+      "sha256": "25b0520a6ff1f776cd877d6f1f2670e80558a343d844cf3936566f5b932deccf"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/licenses/LICENSE.txt",
+      "bytes": 1837,
+      "sha256": "07201e07e3d2c1ac55480037a87734fcccacbb0cd0e25a31e3b89ac7ffadf8b4"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/licenses/LICENSE_CMX.txt",
+      "bytes": 1086,
+      "sha256": "687ff4d0ea13200541df7359799a08c2db626094ecacbb8a3fe63ffad177f2a1"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/rebuild_mini.py",
+      "bytes": 4704,
+      "sha256": "9076c581a266f973291db89ede59bd5202173c58e066cb47329377c46c63123b"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/reconstruction/derived-tensors.npz",
+      "bytes": 1603577,
+      "sha256": "f9f1941ed0cd4b03a747fce7904272dcb8a78d6557b1fc46dbbda7f4d03c4704"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/reconstruction/mini-spec.json",
+      "bytes": 126131,
+      "sha256": "813fcc9a026bf3fade2761cb56b5c1822d4092e5abd8c9707dcf18a264e0c6ec"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/requirements.txt",
+      "bytes": 193,
+      "sha256": "8bb05fc055303d1ca58332e4d54ef6b37a54588d7ff7e1d1f2def49b992d1e76"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/config.py",
+      "bytes": 1378,
+      "sha256": "189408c7a59012dfff1a7ea04abb8b3b7f6eeffb22c777936285eee790dcb028"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/DnCNN.py",
+      "bytes": 5442,
+      "sha256": "3736b7c625d03b85accea77c26a41ea2da956dae07d70182532e7df9b74ae882"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/__init__.py",
+      "bytes": 515,
+      "sha256": "e8bba2be4a95dbbe0e3a0fe6701ebfc72518206b9a6ed3b4f5e349cb8f98a578"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/builder_np_conf.py",
+      "bytes": 6220,
+      "sha256": "956297093e6a4da3059365f3c7a15368b05f5bbd65c8e97508a4ba9694492f28"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/decoders/MLPDecoder.py",
+      "bytes": 4294,
+      "sha256": "1121510126982cf81486e89b12efb0618240288ee642519b03c0f5f6aaff9d5b"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/encoders/attention_memory.py",
+      "bytes": 1101,
+      "sha256": "11146664207d795aa3df2f57eed322a9edc96dd5a94783f273608786fa9c5b21"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/encoders/dual_segformer.py",
+      "bytes": 21709,
+      "sha256": "a25c584b2cb92bd1412332e3481fd1fd71a364c00ce282ff06679a3e4709dbad"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/layer_utils.py",
+      "bytes": 1395,
+      "sha256": "f24723cec04bf5b9296deaaa163bdc0dd1e3d7599fe1e2ba1450c4f06a98fc95"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/net_utils.py",
+      "bytes": 8089,
+      "sha256": "171239507b49f00026ca46db88cbb101f8c24f47dd7a93b1b5a7f919deb8ed21"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/utils/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/models/cmx/utils/init_func.py",
+      "bytes": 2285,
+      "sha256": "2a3a1c7da372079b8592612261cc9865127c292aea15d16eae957545a8585881"
+    },
+    {
+      "file": "scripts/trufor-mini-reproduction/trufor_src/trufor.yaml",
+      "bytes": 401,
+      "sha256": "48e851ecd57fe9a4aca7962592f54b75cefd1f990c76d47fedcca1521db1c073"
+    },
+    {
       "file": "scripts/trufor-segment-modules.py",
       "bytes": 6542,
       "sha256": "79cfe381b4681c1e593ff16eb0ca659139e10f51e7e973fef90a4cad7821c5d5"
@@ -20640,7 +20770,7 @@
     {
       "file": "src/engine-worker-entry.js",
       "bytes": 173,
-      "sha256": "3f21d5fd800674674022d7cdc1c198094c1dee06d6c802b0e72645bf5eca438b"
+      "sha256": "58c98e3060fe8b00415ed0bd848516eceaa55900c1999ef11f685ce9037bb59e"
     },
     {
       "file": "src/equalization-global-histogram-gpu.js",
@@ -20754,18 +20884,18 @@
     },
     {
       "file": "src/external-preview-admission.js",
-      "bytes": 18268,
-      "sha256": "957906db59526eb74f8b349644744f4df86c726f7949c02ba6d4627ec3189675"
+      "bytes": 18600,
+      "sha256": "eac558df8ad3f62080e9e3e8fdb95d3f0aa79a25a1bcd9a2861a74f33a59347b"
     },
     {
       "file": "src/external-preview-parallel-admission.js",
-      "bytes": 4735,
-      "sha256": "455175c3f9b0e859308444737e26e3d633b633f5adc3b2a1760156f5a5632244"
+      "bytes": 5029,
+      "sha256": "99245c0a2ac7478592e5ff1501a106157cf11cca341b22994b7c9e950de095fd"
     },
     {
       "file": "src/external-useful-operation.js",
-      "bytes": 4523,
-      "sha256": "dc694df9bc64893d0cdf2edbf857f72fbf404e4f536b0e80da7f9de8118a9353"
+      "bytes": 4537,
+      "sha256": "7ea740c9900d0d7b6bf8f0c2161309ea2cccd8ec4eb501a282161715edb09a78"
     },
     {
       "file": "src/fetch-verified-asset.js",
@@ -21048,9 +21178,29 @@
       "sha256": "364cb8b88d24af3a0b0e229fd8bd6be4796dd95c23bb2d9c22d110be539375c9"
     },
     {
+      "file": "src/gradient-field-gpu.js",
+      "bytes": 12018,
+      "sha256": "13ed6c4807756f0be7c63393c63abf21908a1792a8d79ef4df0e7f822a845233"
+    },
+    {
+      "file": "src/gradient-field-math.js",
+      "bytes": 11294,
+      "sha256": "602dd5bc902c19b3259f8e9f7a63ccb7d9681f90cee1971b6c005f40e9f8df4c"
+    },
+    {
+      "file": "src/gradient-field-parameters.js",
+      "bytes": 2968,
+      "sha256": "7152336b2a69d3092c74997a1d3f93b57c23cd2c65fe994009f8bd23816591b9"
+    },
+    {
+      "file": "src/gradient-field.js",
+      "bytes": 11654,
+      "sha256": "3a811a9535f5d0b60dc7b6f1c856290c89055114195e078e593407ca5919e20b"
+    },
+    {
       "file": "src/gradient-gpu-admission.js",
-      "bytes": 501,
-      "sha256": "b7bb4e7b0fa165228a928b609b8aea26cec72d848869ecc4fc68809ef9c21ffa"
+      "bytes": 697,
+      "sha256": "f11282ea80ecd20864d5a1f07fad345df0186377a18637a06f95c1cc1990c3f7"
     },
     {
       "file": "src/gradient-math.js",
@@ -21059,8 +21209,8 @@
     },
     {
       "file": "src/gradient-parameters.js",
-      "bytes": 1768,
-      "sha256": "1c2c8bf362a868a60423a4a2db4466a35d1e08a1dc8cbc5f43fd6772016060c3"
+      "bytes": 2163,
+      "sha256": "6c13fc3af4a6d3924091020e05e90d280386bb241e3c23e65c84290fca3cc757"
     },
     {
       "file": "src/gradient-render-gpu-shader.js",
@@ -21129,8 +21279,8 @@
     },
     {
       "file": "src/index.js",
-      "bytes": 224871,
-      "sha256": "5cffd90230b667b7d9936f82402ad095c31770c45df31344a568434da47c4c47"
+      "bytes": 226877,
+      "sha256": "6bb8617e4f58870ad63d5b106d7189ddc5f053c3c113b0fd8b85309c363cc108"
     },
     {
       "file": "src/indexeddb-storage.js",
@@ -21274,28 +21424,28 @@
     },
     {
       "file": "src/m2-native-source-client.js",
-      "bytes": 5787,
-      "sha256": "b5f3ac4b7db90bcb593e2884c212b814d1ffc19295fd074c84b5c2c8bb30fec4"
+      "bytes": 5867,
+      "sha256": "043fc3fde54f1006ec99ff15d0eea50f230331c3d2f2d964d3ddb57fa37ec07b"
     },
     {
       "file": "src/m2-npz-stream.js",
-      "bytes": 5554,
-      "sha256": "e9eccf1bef0df9d54d6372d18d29568eee2d83b9e4b1d075d175a40a5f9a1a40"
+      "bytes": 5634,
+      "sha256": "2f9ca8da97dc6edf1a2d59546678378ba9c56f2a5da8167d36aaf0a267a4c272"
     },
     {
       "file": "src/m2-source-region-input.js",
-      "bytes": 4340,
-      "sha256": "d79b4454ab2ea9294aca0666b9fecfa60a3764012cc0cfdee14a9cbfac7b81d3"
+      "bytes": 4368,
+      "sha256": "7bb1890be689e6feaf8ab26cede584d47710a89dbebe067857f28e9b75ab3ac6"
     },
     {
       "file": "src/m2-worker-client.js",
-      "bytes": 7913,
-      "sha256": "7e47d15bb156ccce383e7bf0965d841eb34dce68f53c9ce8e8622e7469ece7d9"
+      "bytes": 7946,
+      "sha256": "a4633fcb39d5721fd35e0c3788cc8f5b7b5a0c5661662060869a7759b6905275"
     },
     {
       "file": "src/m2-worker-host.js",
-      "bytes": 23322,
-      "sha256": "62adfe11c6d8c28f4f3a8fd8f7968a1fa366c1d5cb7653c49d9ade7b22ace6cf"
+      "bytes": 23974,
+      "sha256": "e05ce302d693714e5ee5ea9e334a68eb390f789e23cd069dc42baa476e5cb6fe"
     },
     {
       "file": "src/m2-worker.js",
@@ -21369,8 +21519,8 @@
     },
     {
       "file": "src/media-codec-worker.js",
-      "bytes": 12634,
-      "sha256": "ea8cc6e5620d6d44eec1dc5e33d3d29cced97b5dce0f57511f6e705490e94116"
+      "bytes": 13218,
+      "sha256": "50a2a8102490a4e651df6a14c58b849cc07cd78dae119933e072d479b908bece"
     },
     {
       "file": "src/media-format.js",
@@ -22279,8 +22429,8 @@
     },
     {
       "file": "src/npz.js",
-      "bytes": 19567,
-      "sha256": "7ac4c65725bbcfa6b870db1b5b21b2f3c8962a56c04a030fbbccb83b1c32b9c6"
+      "bytes": 19574,
+      "sha256": "d73a62eb73dec4ee051d1553108499f15cf8325090f5929c9ff5d67f42bcca76"
     },
     {
       "file": "src/numeric-bank.js",
@@ -22359,8 +22509,8 @@
     },
     {
       "file": "src/opencv-operations.js",
-      "bytes": 4102,
-      "sha256": "1367237dd590d5878af331e943e9a138dedc2a841aba54f19ceab8ed7dd11a07"
+      "bytes": 4310,
+      "sha256": "72e72c53f3647c512c0d7aa2f2da374678269587ebffc61fee92fe3f3600bfce"
     },
     {
       "file": "src/opencv.js",
@@ -22409,8 +22559,8 @@
     },
     {
       "file": "src/pixel-operations.js",
-      "bytes": 19040,
-      "sha256": "223492ab56885ff9fc717301c5c521917c51593d620bff528aeaff360d996be0"
+      "bytes": 19433,
+      "sha256": "5df01d1fa821d4b062f508a5645d88d17c408bca67c9638384db372e43f2068c"
     },
     {
       "file": "src/pixel-stats.js",
@@ -23239,8 +23389,8 @@
     },
     {
       "file": "src/segmented-gradient.js",
-      "bytes": 10081,
-      "sha256": "917bdd1c9654003d8c1cae160812f7ecbb7a2a4c62577a9053680db6d31cd810"
+      "bytes": 10321,
+      "sha256": "176ff239e1b408c5d6906b44996124ffd355a419324eefc680fa103eeb28ae7a"
     },
     {
       "file": "src/segmented-histogram.js",
@@ -23979,8 +24129,8 @@
     },
     {
       "file": "src/source-region-general-derivatives.js",
-      "bytes": 12179,
-      "sha256": "11c0afd4f721643067b83a1da1d759c12cfe0604483beeb64c93f6412ac4650a"
+      "bytes": 12499,
+      "sha256": "3985b77595dffa1df9b9c994dbe840d1912e81479fbb2b6d41434b0a79f30682"
     },
     {
       "file": "src/source-region-general-illuminant.js",
@@ -24026,6 +24176,11 @@
       "file": "src/source-region-ghost-preview.js",
       "bytes": 16363,
       "sha256": "8e4c0bdb796bdedb682f41630226008672ea5e6c21a3b6b04183c567de3039ed"
+    },
+    {
+      "file": "src/source-region-gradient-field.js",
+      "bytes": 1995,
+      "sha256": "423611799790e5c6f646cc0fee22092dfb018fd2e08902bf12592cc31b4c5505"
     },
     {
       "file": "src/source-region-gray.js",
@@ -24149,8 +24304,8 @@
     },
     {
       "file": "src/source-region-runtime.js",
-      "bytes": 24167,
-      "sha256": "31a1373185f2ab427f781a1fe7ba7ae801d9da83e559582fa3963b1a907cfb18"
+      "bytes": 24184,
+      "sha256": "54b731211dbf9f75ea3d03d3b22effa9469f1a2fc74249d41c2f5777f0c72ad8"
     },
     {
       "file": "src/source-region-spai.js",
@@ -24873,6 +25028,56 @@
       "sha256": "102e7bc06993406dcc159734f6b68c4bb8d46e3c5ea796f9d500d806c584c492"
     },
     {
+      "file": "src/trufor-mini-analyzer.js",
+      "bytes": 10067,
+      "sha256": "090c74770810a5365a425ff02f55d9e782b2bca249fecd0f9cf088ad7f63d543"
+    },
+    {
+      "file": "src/trufor-mini-backbone.js",
+      "bytes": 24274,
+      "sha256": "d18b510e24f54ab2932583bfad1c7bd527eb682783c7527dafebc58748456f3b"
+    },
+    {
+      "file": "src/trufor-mini-decoder.js",
+      "bytes": 8461,
+      "sha256": "90482c773d4a0e4737f3eb083d21c335948269895e52be8eeb5164f9f8b43275"
+    },
+    {
+      "file": "src/trufor-mini-geometry.js",
+      "bytes": 899,
+      "sha256": "06baf3b5bb7b69a00ed69c720b130538ebb39c30db5518b1bb35c4020d7a07c4"
+    },
+    {
+      "file": "src/trufor-mini-noiseprint.js",
+      "bytes": 8622,
+      "sha256": "abb97a40a78c696c2a884d26b5110d6ca3a0e0524d05f1185d8793072d5495fe"
+    },
+    {
+      "file": "src/trufor-mini-npz.js",
+      "bytes": 2278,
+      "sha256": "9da35aba8477069296c8f26a66852a03a968f913d224f9847788a02df19acdd5"
+    },
+    {
+      "file": "src/trufor-mini-render.js",
+      "bytes": 2060,
+      "sha256": "c89681f72531e048c2c33f5dcf611f963ee8226fd4eafed82a0ddc6007877c8e"
+    },
+    {
+      "file": "src/trufor-mini-source-region-router.js",
+      "bytes": 1299,
+      "sha256": "02829b23c7af8edefb30d44c571ba7daf40d14093e4c607bbe45cc0ac3c366df"
+    },
+    {
+      "file": "src/trufor-mini-strict-analyzer.js",
+      "bytes": 12290,
+      "sha256": "91deeced99eba3056c7e14f0c829ddde37fb73728f72acbfb23dee65ae1fb8b3"
+    },
+    {
+      "file": "src/trufor-mini-strict-source-input.js",
+      "bytes": 3429,
+      "sha256": "227908cfd0e822e034cb4df85865322ae0e817c1422bcf5caae918595bd6276b"
+    },
+    {
       "file": "src/trufor-neuron333.js",
       "bytes": 3171,
       "sha256": "f7bba081e4700b46c17f3b3b2b4fc9fb91396fdcfd2fb1a2023646e91e9bbecd"
@@ -24985,7 +25190,7 @@
     {
       "file": "src/useful-work-code-identity.js",
       "bytes": 273,
-      "sha256": "40d54ec736eb2b8a5b4a3d094a262a41d87b061cb53e2ffde6125c31d2f0c819"
+      "sha256": "ca288df3d3eedd65166d38d4828296846c2a444c87a37e6c2116629c43226c5f"
     },
     {
       "file": "src/useful-work-observer.js",
@@ -25093,9 +25298,9 @@
       "sha256": "1abb15202b4e5358426e9cec7133714323c8b615755602f0883745cade544b06"
     },
     {
-      "file": "src/worker-bundle-97ae9ff8f723fea651f0.mjs",
-      "bytes": 10784541,
-      "sha256": "97ae9ff8f723fea651f080fcbc806216f280b892b21cd506e1a28569dcc8c08c"
+      "file": "src/worker-bundle-11726a32fb4b8b37c223.mjs",
+      "bytes": 10905474,
+      "sha256": "11726a32fb4b8b37c223868361ff7d984916827c65514dce5f8d721cc96aa710"
     },
     {
       "file": "src/worker-client.js",
@@ -29278,6 +29483,11 @@
       "sha256": "990ac03b3d8940bf2d38018b6559baf874381b2d83485ec9d465188b6a4b0560"
     },
     {
+      "file": "tests/gradient-audit-state.test.mjs",
+      "bytes": 8297,
+      "sha256": "eca84cc5979060d449b867b10087e1725a87e69c66306716d752a32e44b71425"
+    },
+    {
       "file": "tests/gradient-cache-optimization-browser.js",
       "bytes": 3431,
       "sha256": "eeb25d5be5a05b8dd6a303ef95365f61a6ac267c239bfa6502d57274e2787dd5"
@@ -29288,9 +29498,29 @@
       "sha256": "1c2ef396d6b5f2dbd0895bb40f5cdb9b83b64b57abc3f2fecea5946cdbd102f7"
     },
     {
+      "file": "tests/gradient-display-restoration.test.mjs",
+      "bytes": 5476,
+      "sha256": "33b191f6379b86d22ec41ae72a4ab496683be7ea060495f5b61b20756c809854"
+    },
+    {
       "file": "tests/gradient-equalization-order.test.mjs",
       "bytes": 15555,
       "sha256": "3e9cc6596ea65808618f22a158c5f2e084d27e41097b80b68fb39aac7f25bbb6"
+    },
+    {
+      "file": "tests/gradient-field-browser-qualification.js",
+      "bytes": 2946,
+      "sha256": "76f3a7148e093ef6036642aa60065919d47f6615faf09e7893d9b9ce4a1f11d8"
+    },
+    {
+      "file": "tests/gradient-field-equalization.test.mjs",
+      "bytes": 4019,
+      "sha256": "84c6728d5788609074997e7b1c587c58b9b20547cfe707d587ed53e815f1f447"
+    },
+    {
+      "file": "tests/gradient-field.test.mjs",
+      "bytes": 7737,
+      "sha256": "47b91af04b00b7e4b7066e878ff37b9bab6c4e8827848da83550619b8ceaa586"
     },
     {
       "file": "tests/gradient-math.test.mjs",
@@ -29331,6 +29561,16 @@
       "file": "tests/gradient-review-orientation.test.mjs",
       "bytes": 1728,
       "sha256": "2fb44fafb98f4ae37a434cb2ad2e78ea803d0a8c908d48ce27462196afb5ca7e"
+    },
+    {
+      "file": "tests/gradient-sequence-cache.test.mjs",
+      "bytes": 4262,
+      "sha256": "6cdbbb6191d4cf091f08354542ce69273bf1ed9ae634fe365b638bbd14e1549d"
+    },
+    {
+      "file": "tests/gradient-shared-settings.test.mjs",
+      "bytes": 3416,
+      "sha256": "7a8236131a421c3933dfa48879f22ca5238e98a0a64bc4d71dfb931777fff94b"
     },
     {
       "file": "tests/header-inspection-browser.js",
@@ -29433,6 +29673,11 @@
       "sha256": "84ab439937fa6ef8b40d10d3c815fe98379422d7e7773ab2a3413546a5bd6ca9"
     },
     {
+      "file": "tests/helpers/trufor-mini-strict-fixture.mjs",
+      "bytes": 944,
+      "sha256": "5dcaa40a858f89e6d0f80522e8c07cef7b0dbec115fbaad5112daf9ac148d21d"
+    },
+    {
       "file": "tests/helpers/trufor-strict-fixture.mjs",
       "bytes": 4720,
       "sha256": "044eb3908064020dfa802b4b6ebd02af476de3742b0036af2413d7c5e11f6976"
@@ -29531,6 +29776,11 @@
       "file": "tests/json-export-stream.test.mjs",
       "bytes": 1712,
       "sha256": "977174b983fb870a76ace84d787739d10a0cefc0765859673a2f8dade5acc55e"
+    },
+    {
+      "file": "tests/krawetz-zero-intensity.test.mjs",
+      "bytes": 2168,
+      "sha256": "9edc8bd886c0bd9dabb327fec699f6b822de6a546763d79fb1f14d049fc9d7d5"
     },
     {
       "file": "tests/lazy-result-storage-browser.js",
@@ -32938,6 +33188,11 @@
       "sha256": "1d3e2f0e09878e0fe168283ce195116c13fdbae9aa9ebb457c8ce6e0aed649fa"
     },
     {
+      "file": "tests/tiff-cmyk-import.test.mjs",
+      "bytes": 9938,
+      "sha256": "d14526450af9581770ae3e5b9ffb7ada10bb645f0553eafc303dad741b3a3125"
+    },
+    {
       "file": "tests/tiff-formats-browser.js",
       "bytes": 2848,
       "sha256": "e30f02771d9e4eda1d0682f851cd985b0d8e99430c7c7a383605bbfb63c7cd13"
@@ -33056,6 +33311,26 @@
       "file": "tests/trufor-immutable-host.test.mjs",
       "bytes": 3212,
       "sha256": "f4b56c633ace80515facb7fa6445cd6471d69a9250bda865b6072e67308c785f"
+    },
+    {
+      "file": "tests/trufor-mini-contract.test.mjs",
+      "bytes": 8934,
+      "sha256": "ae21a0b646a28075befd949b3c69c4e2a3b009970894a8130a4f5860684d11bd"
+    },
+    {
+      "file": "tests/trufor-mini-native.test.mjs",
+      "bytes": 6645,
+      "sha256": "f047a1059aa970a21bc03472424bf6a91fe36a6f92aea17de737a7b76e9802f3"
+    },
+    {
+      "file": "tests/trufor-mini-retirement.test.mjs",
+      "bytes": 3423,
+      "sha256": "c8d5bb400e7f5b0cba685b7f33d64686a29397e51908e0cf565bc66fff8e0674"
+    },
+    {
+      "file": "tests/trufor-mini-source-input.test.mjs",
+      "bytes": 3512,
+      "sha256": "033f6f39b0d362b1bb330e50c1094e520c76bb1dbb4c8ad98d7d210123537ac1"
     },
     {
       "file": "tests/trufor-native-contract.test.mjs",
@@ -48914,8 +49189,8 @@
     },
     {
       "file": "worker-bundle-build.json",
-      "bytes": 230707,
-      "sha256": "58f565656ce20031936b2294de076f987a4059330b27a1a3891ad274e57d0e9c"
+      "bytes": 232631,
+      "sha256": "ad2754ca45f29041b0ab369d5df074fdb2da0e918ab975a2e1f52fb9fcd47d28"
     }
   ]
 }

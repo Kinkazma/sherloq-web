@@ -1,4 +1,4 @@
-import {positionViewportPopup} from './viewport-popup.js?v=0.32.0';
+import {positionViewportPopup} from './viewport-popup.js?v=0.33.0';
 import {equalizationMethods,equalizationState as normalizeEqualizationState,equalizationOperations} from './unified-engine/src/equalization-settings.js';
 export {equalizationMethods,equalizationOperations};
 // Shared equalization controls always request Fast/Auto. The standalone

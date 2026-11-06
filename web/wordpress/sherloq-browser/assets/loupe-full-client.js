@@ -1,4 +1,4 @@
-import {createLoupeImageCache as createRegionalCache} from './pdf-native-effects.js?v=0.32.0';
+import {createLoupeImageCache as createRegionalCache} from './pdf-native-effects.js?v=0.33.0';
 
 const cancelled=()=>Object.assign(Error('Loupe preparation superseded'),{code:'CANCELLED'});
 const effectKey=effects=>JSON.stringify(Object.fromEntries(Object.entries(effects).filter(([,p])=>p.enabled)));

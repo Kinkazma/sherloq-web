@@ -1,3 +1,4 @@
+import {currentToolId} from './tool-id-migrations.js?v=0.33.0';
 // Navigation never owns or cancels calculation lifetimes.
 export const DEFAULT_FAVORITES=Object.freeze(['colors.pca','ela.classic','detail.gradient','tampering.copyMove.sparse']);
 export function createWorkspaceState(){
@@ -13,9 +14,9 @@ export function createWorkspaceState(){
   setLanguage(value){if(!['fr','en'].includes(value))throw Error('Invalid language');language=value;},
   setLayout(value){if(!['tabs','tile','cascade'].includes(value))throw Error('Invalid layout');layout=value;},
   toggleTools(){toolsVisible=!toolsVisible;},
-  toggleFavorite(id){if(favorites.has(id))favorites.delete(id);else favorites.add(id);if(!favorites.size)groups.delete('Favorites');},
+  toggleFavorite(id){id=currentToolId(id);if(favorites.has(id))favorites.delete(id);else favorites.add(id);if(!favorites.size)groups.delete('Favorites');},
   setGroup(id,open){open?groups.add(id):groups.delete(id);},
   preferences(){return {language,layout,toolsVisible,favorites:[...favorites]};},
-  restore(value={},validTools=[]){if(value.language)this.setLanguage(value.language);if(value.layout)this.setLayout(value.layout);if(typeof value.toolsVisible==='boolean')toolsVisible=value.toolsVisible;if(Array.isArray(value.favorites)){favorites.clear();for(const id of value.favorites)if(validTools.includes(id))favorites.add(id);}},
+  restore(value={},validTools=[]){if(value.language)this.setLanguage(value.language);if(value.layout)this.setLayout(value.layout);if(typeof value.toolsVisible==='boolean')toolsVisible=value.toolsVisible;if(Array.isArray(value.favorites)){favorites.clear();for(const savedId of value.favorites){const id=currentToolId(savedId);if(validTools.includes(id))favorites.add(id);}}},
  };
 }

@@ -57,3 +57,11 @@ test('Closing one document releases only its export reservations in the shared e
  await a.dispose();assert.equal(live.has(first.id),false);assert.equal(live.get(second.id),17);assert.equal(disposed,0);
  await b.releaseExternalMemory(second.id);await b.dispose();assert.equal(live.size,0);assert.equal(disposed,1);
 });
+
+
+test('Legacy clone favorites migrate once without dropping the replacement or unrelated favorites',()=>{
+ const state=createWorkspaceState();state.restore({language:'en',layout:'cascade',favorites:['tampering.copyMove.brisk','colors.pca','tampering.copyMove.sparse','future.tool']},['tampering.copyMove.sparse','colors.pca']);
+ assert.deepEqual(state.preferences(),{language:'en',layout:'cascade',toolsVisible:true,favorites:['tampering.copyMove.sparse','colors.pca']});
+ state.toggleFavorite('tampering.copyMove.brisk');assert.deepEqual([...state.favorites],['colors.pca']);state.toggleFavorite('tampering.copyMove.sparse');assert.deepEqual([...state.favorites],['colors.pca','tampering.copyMove.sparse']);
+ const recalled=createWorkspaceState();recalled.restore(state.preferences(),['tampering.copyMove.sparse','colors.pca']);assert.deepEqual(recalled.preferences(),state.preferences());
+});

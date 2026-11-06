@@ -1,0 +1,5763 @@
+{
+  "version": 1,
+  "fingerprint_format": "tensor-state-sha256-v1",
+  "fingerprint_definition": "Sorted keys; UTF-8 key + NUL; ASCII str(torch dtype) + NUL; compact JSON shape + NUL; contiguous CPU tensor bytes.",
+  "original_checkpoint_sha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+  "original_state_sha256": "30591984b1fbc4caaaf4a0c889b4611cc16765fb0daa0171cba2ad411ad07e0c",
+  "mini_reference_checkpoint_sha256": "bd9fd0221c17e8c2e3fa518f2945178a660349c55b333a9680c15e7676fe1dc3",
+  "mini_state_sha256": "07fbb94c9738f65bfb7c6e8335638ed892fad329c343d5b8aac0908a982d43fe",
+  "mini_state_tensors": 825,
+  "config": {
+    "name": "flow-inactive",
+    "rgb": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "noise": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "precision": "mixed",
+    "npp": "folded",
+    "attention": "sdpa",
+    "cross_fp32": true,
+    "project_fusion": true,
+    "attention_policy": {
+      "rgb": [
+        "exact",
+        "exact",
+        "exact",
+        "exact"
+      ],
+      "noise": [
+        "pool2",
+        "pool2",
+        "global",
+        "global"
+      ]
+    },
+    "runtime_policy": {
+      "max_queries": 16384,
+      "budget_bytes": 134217728
+    }
+  },
+  "selection": {
+    "npp.0": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      12,
+      14,
+      16,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      34,
+      36,
+      37,
+      38,
+      39,
+      46,
+      49,
+      50,
+      53,
+      54,
+      56,
+      57,
+      60
+    ],
+    "npp.1": [
+      0,
+      1,
+      3,
+      4,
+      5,
+      7,
+      9,
+      16,
+      19,
+      20,
+      23,
+      25,
+      27,
+      28,
+      29,
+      33,
+      34,
+      35,
+      37,
+      41,
+      44,
+      45,
+      46,
+      49,
+      50,
+      51,
+      53,
+      54,
+      56,
+      58,
+      60,
+      61
+    ],
+    "npp.2": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      28,
+      30,
+      33,
+      34,
+      35,
+      37,
+      38,
+      40,
+      41,
+      42,
+      43,
+      45,
+      49,
+      50,
+      53,
+      54,
+      55,
+      56,
+      57,
+      59,
+      61,
+      62,
+      63
+    ],
+    "npp.3": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      12,
+      13,
+      14,
+      17,
+      18,
+      20,
+      21,
+      23,
+      24,
+      26,
+      27,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      43,
+      45,
+      46,
+      48,
+      50,
+      51,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      61,
+      62
+    ],
+    "npp.4": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      35,
+      36,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      58,
+      60,
+      61,
+      62
+    ],
+    "npp.5": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      35,
+      37,
+      38,
+      40,
+      42,
+      43,
+      46,
+      47,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      57,
+      58,
+      59,
+      62,
+      63
+    ],
+    "npp.6": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21,
+      24,
+      25,
+      26,
+      29,
+      30,
+      31,
+      34,
+      35,
+      36,
+      40,
+      41,
+      43,
+      44,
+      45,
+      46,
+      47,
+      49,
+      50,
+      51,
+      52,
+      53,
+      56,
+      57,
+      58,
+      59,
+      60,
+      62,
+      63
+    ],
+    "npp.7": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      34,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      44,
+      45,
+      47,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "npp.8": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      56,
+      58,
+      59,
+      60,
+      62
+    ],
+    "npp.9": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "npp.10": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "npp.11": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "npp.12": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "npp.13": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "npp.14": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      29,
+      30,
+      31,
+      32,
+      34,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      60,
+      61,
+      62,
+      63
+    ],
+    "npp.15": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      22,
+      23,
+      24,
+      25,
+      29,
+      31,
+      34,
+      35,
+      36,
+      37,
+      39,
+      42,
+      46,
+      47,
+      48,
+      49,
+      51,
+      53,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ]
+  },
+  "derived_tensors_file": "derived-tensors.npz",
+  "derived_tensors_sha256": "f9f1941ed0cd4b03a747fce7904272dcb8a78d6557b1fc46dbbda7f4d03c4704",
+  "tensor_recipes": {
+    "v1": {
+      "derived": "v1"
+    },
+    "v2": {
+      "derived": "v2"
+    },
+    "v3": {
+      "derived": "v3"
+    },
+    "v4": {
+      "derived": "v4"
+    },
+    "bias": {
+      "derived": "bias"
+    },
+    "read8": {
+      "derived": "read8"
+    },
+    "read8_bias": {
+      "derived": "read8_bias"
+    },
+    "read1": {
+      "derived": "read1"
+    },
+    "read1_bias": {
+      "derived": "read1_bias"
+    },
+    "image_mean": {
+      "derived": "image_mean"
+    },
+    "image_scale": {
+      "derived": "image_scale"
+    },
+    "rgb_patch.0.proj.weight": {
+      "source": "backbone.patch_embed1.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.0.proj.bias": {
+      "source": "backbone.patch_embed1.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.0.norm.weight": {
+      "source": "backbone.patch_embed1.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.0.norm.bias": {
+      "source": "backbone.patch_embed1.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.1.proj.weight": {
+      "source": "backbone.patch_embed2.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.1.proj.bias": {
+      "source": "backbone.patch_embed2.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.1.norm.weight": {
+      "source": "backbone.patch_embed2.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.1.norm.bias": {
+      "source": "backbone.patch_embed2.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.2.proj.weight": {
+      "source": "backbone.patch_embed3.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.2.proj.bias": {
+      "source": "backbone.patch_embed3.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.2.norm.weight": {
+      "source": "backbone.patch_embed3.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.2.norm.bias": {
+      "source": "backbone.patch_embed3.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.3.proj.weight": {
+      "source": "backbone.patch_embed4.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.3.proj.bias": {
+      "source": "backbone.patch_embed4.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.3.norm.weight": {
+      "source": "backbone.patch_embed4.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_patch.3.norm.bias": {
+      "source": "backbone.patch_embed4.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.0.proj.weight": {
+      "source": "backbone.extra_patch_embed1.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.0.proj.bias": {
+      "source": "backbone.extra_patch_embed1.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.0.norm.weight": {
+      "source": "backbone.extra_patch_embed1.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.0.norm.bias": {
+      "source": "backbone.extra_patch_embed1.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.1.proj.weight": {
+      "source": "backbone.extra_patch_embed2.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.1.proj.bias": {
+      "source": "backbone.extra_patch_embed2.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.1.norm.weight": {
+      "source": "backbone.extra_patch_embed2.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.1.norm.bias": {
+      "source": "backbone.extra_patch_embed2.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.2.proj.weight": {
+      "source": "backbone.extra_patch_embed3.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.2.proj.bias": {
+      "source": "backbone.extra_patch_embed3.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.2.norm.weight": {
+      "source": "backbone.extra_patch_embed3.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.2.norm.bias": {
+      "source": "backbone.extra_patch_embed3.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.3.proj.weight": {
+      "source": "backbone.extra_patch_embed4.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.3.proj.bias": {
+      "source": "backbone.extra_patch_embed4.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.3.norm.weight": {
+      "source": "backbone.extra_patch_embed4.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_patch.3.norm.bias": {
+      "source": "backbone.extra_patch_embed4.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.norm1.weight": {
+      "source": "backbone.block1.0.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.norm1.bias": {
+      "source": "backbone.block1.0.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.q.weight": {
+      "source": "backbone.block1.0.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.q.bias": {
+      "source": "backbone.block1.0.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.kv.weight": {
+      "source": "backbone.block1.0.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.kv.bias": {
+      "source": "backbone.block1.0.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.proj.weight": {
+      "source": "backbone.block1.0.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.proj.bias": {
+      "source": "backbone.block1.0.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.sr.weight": {
+      "source": "backbone.block1.0.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.sr.bias": {
+      "source": "backbone.block1.0.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.norm.weight": {
+      "source": "backbone.block1.0.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.attn.norm.bias": {
+      "source": "backbone.block1.0.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.norm2.weight": {
+      "source": "backbone.block1.0.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.norm2.bias": {
+      "source": "backbone.block1.0.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.mlp.fc1.weight": {
+      "source": "backbone.block1.0.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.mlp.fc1.bias": {
+      "source": "backbone.block1.0.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block1.0.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block1.0.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.mlp.fc2.weight": {
+      "source": "backbone.block1.0.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.0.mlp.fc2.bias": {
+      "source": "backbone.block1.0.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.norm1.weight": {
+      "source": "backbone.block1.1.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.norm1.bias": {
+      "source": "backbone.block1.1.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.q.weight": {
+      "source": "backbone.block1.1.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.q.bias": {
+      "source": "backbone.block1.1.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.kv.weight": {
+      "source": "backbone.block1.1.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.kv.bias": {
+      "source": "backbone.block1.1.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.proj.weight": {
+      "source": "backbone.block1.1.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.proj.bias": {
+      "source": "backbone.block1.1.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.sr.weight": {
+      "source": "backbone.block1.1.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.sr.bias": {
+      "source": "backbone.block1.1.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.norm.weight": {
+      "source": "backbone.block1.1.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.attn.norm.bias": {
+      "source": "backbone.block1.1.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.norm2.weight": {
+      "source": "backbone.block1.1.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.norm2.bias": {
+      "source": "backbone.block1.1.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.mlp.fc1.weight": {
+      "source": "backbone.block1.1.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.mlp.fc1.bias": {
+      "source": "backbone.block1.1.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block1.1.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block1.1.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.mlp.fc2.weight": {
+      "source": "backbone.block1.1.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.1.mlp.fc2.bias": {
+      "source": "backbone.block1.1.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.norm1.weight": {
+      "source": "backbone.block1.2.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.norm1.bias": {
+      "source": "backbone.block1.2.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.q.weight": {
+      "source": "backbone.block1.2.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.q.bias": {
+      "source": "backbone.block1.2.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.kv.weight": {
+      "source": "backbone.block1.2.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.kv.bias": {
+      "source": "backbone.block1.2.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.proj.weight": {
+      "source": "backbone.block1.2.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.proj.bias": {
+      "source": "backbone.block1.2.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.sr.weight": {
+      "source": "backbone.block1.2.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.sr.bias": {
+      "source": "backbone.block1.2.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.norm.weight": {
+      "source": "backbone.block1.2.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.attn.norm.bias": {
+      "source": "backbone.block1.2.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.norm2.weight": {
+      "source": "backbone.block1.2.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.norm2.bias": {
+      "source": "backbone.block1.2.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.mlp.fc1.weight": {
+      "source": "backbone.block1.2.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.mlp.fc1.bias": {
+      "source": "backbone.block1.2.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block1.2.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block1.2.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.mlp.fc2.weight": {
+      "source": "backbone.block1.2.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.0.2.mlp.fc2.bias": {
+      "source": "backbone.block1.2.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.norm1.weight": {
+      "source": "backbone.block2.0.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.norm1.bias": {
+      "source": "backbone.block2.0.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.q.weight": {
+      "source": "backbone.block2.0.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.q.bias": {
+      "source": "backbone.block2.0.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.kv.weight": {
+      "source": "backbone.block2.0.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.kv.bias": {
+      "source": "backbone.block2.0.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.proj.weight": {
+      "source": "backbone.block2.0.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.proj.bias": {
+      "source": "backbone.block2.0.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.sr.weight": {
+      "source": "backbone.block2.0.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.sr.bias": {
+      "source": "backbone.block2.0.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.norm.weight": {
+      "source": "backbone.block2.0.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.attn.norm.bias": {
+      "source": "backbone.block2.0.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.norm2.weight": {
+      "source": "backbone.block2.0.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.norm2.bias": {
+      "source": "backbone.block2.0.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.mlp.fc1.weight": {
+      "source": "backbone.block2.0.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.mlp.fc1.bias": {
+      "source": "backbone.block2.0.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block2.0.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block2.0.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.mlp.fc2.weight": {
+      "source": "backbone.block2.0.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.0.mlp.fc2.bias": {
+      "source": "backbone.block2.0.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.norm1.weight": {
+      "source": "backbone.block2.1.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.norm1.bias": {
+      "source": "backbone.block2.1.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.q.weight": {
+      "source": "backbone.block2.1.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.q.bias": {
+      "source": "backbone.block2.1.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.kv.weight": {
+      "source": "backbone.block2.1.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.kv.bias": {
+      "source": "backbone.block2.1.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.proj.weight": {
+      "source": "backbone.block2.1.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.proj.bias": {
+      "source": "backbone.block2.1.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.sr.weight": {
+      "source": "backbone.block2.1.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.sr.bias": {
+      "source": "backbone.block2.1.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.norm.weight": {
+      "source": "backbone.block2.1.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.attn.norm.bias": {
+      "source": "backbone.block2.1.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.norm2.weight": {
+      "source": "backbone.block2.1.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.norm2.bias": {
+      "source": "backbone.block2.1.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.mlp.fc1.weight": {
+      "source": "backbone.block2.1.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.mlp.fc1.bias": {
+      "source": "backbone.block2.1.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block2.1.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block2.1.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.mlp.fc2.weight": {
+      "source": "backbone.block2.1.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.1.mlp.fc2.bias": {
+      "source": "backbone.block2.1.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.norm1.weight": {
+      "source": "backbone.block2.2.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.norm1.bias": {
+      "source": "backbone.block2.2.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.q.weight": {
+      "source": "backbone.block2.2.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.q.bias": {
+      "source": "backbone.block2.2.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.kv.weight": {
+      "source": "backbone.block2.2.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.kv.bias": {
+      "source": "backbone.block2.2.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.proj.weight": {
+      "source": "backbone.block2.2.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.proj.bias": {
+      "source": "backbone.block2.2.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.sr.weight": {
+      "source": "backbone.block2.2.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.sr.bias": {
+      "source": "backbone.block2.2.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.norm.weight": {
+      "source": "backbone.block2.2.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.attn.norm.bias": {
+      "source": "backbone.block2.2.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.norm2.weight": {
+      "source": "backbone.block2.2.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.norm2.bias": {
+      "source": "backbone.block2.2.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.mlp.fc1.weight": {
+      "source": "backbone.block2.2.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.mlp.fc1.bias": {
+      "source": "backbone.block2.2.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block2.2.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block2.2.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.mlp.fc2.weight": {
+      "source": "backbone.block2.2.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.2.mlp.fc2.bias": {
+      "source": "backbone.block2.2.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.norm1.weight": {
+      "source": "backbone.block2.3.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.norm1.bias": {
+      "source": "backbone.block2.3.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.q.weight": {
+      "source": "backbone.block2.3.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.q.bias": {
+      "source": "backbone.block2.3.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.kv.weight": {
+      "source": "backbone.block2.3.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.kv.bias": {
+      "source": "backbone.block2.3.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.proj.weight": {
+      "source": "backbone.block2.3.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.proj.bias": {
+      "source": "backbone.block2.3.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.sr.weight": {
+      "source": "backbone.block2.3.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.sr.bias": {
+      "source": "backbone.block2.3.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.norm.weight": {
+      "source": "backbone.block2.3.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.attn.norm.bias": {
+      "source": "backbone.block2.3.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.norm2.weight": {
+      "source": "backbone.block2.3.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.norm2.bias": {
+      "source": "backbone.block2.3.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.mlp.fc1.weight": {
+      "source": "backbone.block2.3.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.mlp.fc1.bias": {
+      "source": "backbone.block2.3.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block2.3.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block2.3.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.mlp.fc2.weight": {
+      "source": "backbone.block2.3.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.1.3.mlp.fc2.bias": {
+      "source": "backbone.block2.3.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.norm1.weight": {
+      "source": "backbone.block3.0.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.norm1.bias": {
+      "source": "backbone.block3.0.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.q.weight": {
+      "source": "backbone.block3.0.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.q.bias": {
+      "source": "backbone.block3.0.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.kv.weight": {
+      "source": "backbone.block3.0.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.kv.bias": {
+      "source": "backbone.block3.0.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.proj.weight": {
+      "source": "backbone.block3.0.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.proj.bias": {
+      "source": "backbone.block3.0.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.sr.weight": {
+      "source": "backbone.block3.0.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.sr.bias": {
+      "source": "backbone.block3.0.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.norm.weight": {
+      "source": "backbone.block3.0.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.attn.norm.bias": {
+      "source": "backbone.block3.0.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.norm2.weight": {
+      "source": "backbone.block3.0.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.norm2.bias": {
+      "source": "backbone.block3.0.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.mlp.fc1.weight": {
+      "source": "backbone.block3.0.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.mlp.fc1.bias": {
+      "source": "backbone.block3.0.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block3.0.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block3.0.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.mlp.fc2.weight": {
+      "source": "backbone.block3.0.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.0.mlp.fc2.bias": {
+      "source": "backbone.block3.0.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.norm1.weight": {
+      "source": "backbone.block3.1.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.norm1.bias": {
+      "source": "backbone.block3.1.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.q.weight": {
+      "source": "backbone.block3.1.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.q.bias": {
+      "source": "backbone.block3.1.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.kv.weight": {
+      "source": "backbone.block3.1.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.kv.bias": {
+      "source": "backbone.block3.1.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.proj.weight": {
+      "source": "backbone.block3.1.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.proj.bias": {
+      "source": "backbone.block3.1.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.sr.weight": {
+      "source": "backbone.block3.1.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.sr.bias": {
+      "source": "backbone.block3.1.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.norm.weight": {
+      "source": "backbone.block3.1.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.attn.norm.bias": {
+      "source": "backbone.block3.1.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.norm2.weight": {
+      "source": "backbone.block3.1.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.norm2.bias": {
+      "source": "backbone.block3.1.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.mlp.fc1.weight": {
+      "source": "backbone.block3.1.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.mlp.fc1.bias": {
+      "source": "backbone.block3.1.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block3.1.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block3.1.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.mlp.fc2.weight": {
+      "source": "backbone.block3.1.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.1.mlp.fc2.bias": {
+      "source": "backbone.block3.1.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.norm1.weight": {
+      "source": "backbone.block3.2.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.norm1.bias": {
+      "source": "backbone.block3.2.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.q.weight": {
+      "source": "backbone.block3.2.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.q.bias": {
+      "source": "backbone.block3.2.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.kv.weight": {
+      "source": "backbone.block3.2.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.kv.bias": {
+      "source": "backbone.block3.2.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.proj.weight": {
+      "source": "backbone.block3.2.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.proj.bias": {
+      "source": "backbone.block3.2.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.sr.weight": {
+      "source": "backbone.block3.2.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.sr.bias": {
+      "source": "backbone.block3.2.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.norm.weight": {
+      "source": "backbone.block3.2.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.attn.norm.bias": {
+      "source": "backbone.block3.2.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.norm2.weight": {
+      "source": "backbone.block3.2.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.norm2.bias": {
+      "source": "backbone.block3.2.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.mlp.fc1.weight": {
+      "source": "backbone.block3.2.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.mlp.fc1.bias": {
+      "source": "backbone.block3.2.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block3.2.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block3.2.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.mlp.fc2.weight": {
+      "source": "backbone.block3.2.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.2.mlp.fc2.bias": {
+      "source": "backbone.block3.2.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.norm1.weight": {
+      "source": "backbone.block3.3.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.norm1.bias": {
+      "source": "backbone.block3.3.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.q.weight": {
+      "source": "backbone.block3.3.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.q.bias": {
+      "source": "backbone.block3.3.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.kv.weight": {
+      "source": "backbone.block3.3.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.kv.bias": {
+      "source": "backbone.block3.3.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.proj.weight": {
+      "source": "backbone.block3.3.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.proj.bias": {
+      "source": "backbone.block3.3.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.sr.weight": {
+      "source": "backbone.block3.3.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.sr.bias": {
+      "source": "backbone.block3.3.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.norm.weight": {
+      "source": "backbone.block3.3.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.attn.norm.bias": {
+      "source": "backbone.block3.3.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.norm2.weight": {
+      "source": "backbone.block3.3.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.norm2.bias": {
+      "source": "backbone.block3.3.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.mlp.fc1.weight": {
+      "source": "backbone.block3.3.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.mlp.fc1.bias": {
+      "source": "backbone.block3.3.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block3.3.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block3.3.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.mlp.fc2.weight": {
+      "source": "backbone.block3.3.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.3.mlp.fc2.bias": {
+      "source": "backbone.block3.3.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.norm1.weight": {
+      "source": "backbone.block3.4.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.norm1.bias": {
+      "source": "backbone.block3.4.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.q.weight": {
+      "source": "backbone.block3.4.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.q.bias": {
+      "source": "backbone.block3.4.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.kv.weight": {
+      "source": "backbone.block3.4.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.kv.bias": {
+      "source": "backbone.block3.4.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.proj.weight": {
+      "source": "backbone.block3.4.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.proj.bias": {
+      "source": "backbone.block3.4.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.sr.weight": {
+      "source": "backbone.block3.4.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.sr.bias": {
+      "source": "backbone.block3.4.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.norm.weight": {
+      "source": "backbone.block3.4.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.attn.norm.bias": {
+      "source": "backbone.block3.4.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.norm2.weight": {
+      "source": "backbone.block3.4.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.norm2.bias": {
+      "source": "backbone.block3.4.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.mlp.fc1.weight": {
+      "source": "backbone.block3.4.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.mlp.fc1.bias": {
+      "source": "backbone.block3.4.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block3.4.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block3.4.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.mlp.fc2.weight": {
+      "source": "backbone.block3.4.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.4.mlp.fc2.bias": {
+      "source": "backbone.block3.4.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.norm1.weight": {
+      "source": "backbone.block3.5.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.norm1.bias": {
+      "source": "backbone.block3.5.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.q.weight": {
+      "source": "backbone.block3.5.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.q.bias": {
+      "source": "backbone.block3.5.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.kv.weight": {
+      "source": "backbone.block3.5.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.kv.bias": {
+      "source": "backbone.block3.5.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.proj.weight": {
+      "source": "backbone.block3.5.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.proj.bias": {
+      "source": "backbone.block3.5.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.sr.weight": {
+      "source": "backbone.block3.5.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.sr.bias": {
+      "source": "backbone.block3.5.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.norm.weight": {
+      "source": "backbone.block3.5.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.attn.norm.bias": {
+      "source": "backbone.block3.5.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.norm2.weight": {
+      "source": "backbone.block3.5.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.norm2.bias": {
+      "source": "backbone.block3.5.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.mlp.fc1.weight": {
+      "source": "backbone.block3.5.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.mlp.fc1.bias": {
+      "source": "backbone.block3.5.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block3.5.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block3.5.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.mlp.fc2.weight": {
+      "source": "backbone.block3.5.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.2.5.mlp.fc2.bias": {
+      "source": "backbone.block3.5.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.norm1.weight": {
+      "source": "backbone.block4.0.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.norm1.bias": {
+      "source": "backbone.block4.0.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.attn.q.weight": {
+      "source": "backbone.block4.0.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.attn.q.bias": {
+      "source": "backbone.block4.0.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.attn.kv.weight": {
+      "source": "backbone.block4.0.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.attn.kv.bias": {
+      "source": "backbone.block4.0.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.attn.proj.weight": {
+      "source": "backbone.block4.0.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.attn.proj.bias": {
+      "source": "backbone.block4.0.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.norm2.weight": {
+      "source": "backbone.block4.0.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.norm2.bias": {
+      "source": "backbone.block4.0.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.mlp.fc1.weight": {
+      "source": "backbone.block4.0.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.mlp.fc1.bias": {
+      "source": "backbone.block4.0.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block4.0.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block4.0.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.mlp.fc2.weight": {
+      "source": "backbone.block4.0.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.0.mlp.fc2.bias": {
+      "source": "backbone.block4.0.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.norm1.weight": {
+      "source": "backbone.block4.1.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.norm1.bias": {
+      "source": "backbone.block4.1.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.attn.q.weight": {
+      "source": "backbone.block4.1.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.attn.q.bias": {
+      "source": "backbone.block4.1.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.attn.kv.weight": {
+      "source": "backbone.block4.1.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.attn.kv.bias": {
+      "source": "backbone.block4.1.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.attn.proj.weight": {
+      "source": "backbone.block4.1.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.attn.proj.bias": {
+      "source": "backbone.block4.1.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.norm2.weight": {
+      "source": "backbone.block4.1.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.norm2.bias": {
+      "source": "backbone.block4.1.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.mlp.fc1.weight": {
+      "source": "backbone.block4.1.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.mlp.fc1.bias": {
+      "source": "backbone.block4.1.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block4.1.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block4.1.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.mlp.fc2.weight": {
+      "source": "backbone.block4.1.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.1.mlp.fc2.bias": {
+      "source": "backbone.block4.1.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.norm1.weight": {
+      "source": "backbone.block4.2.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.norm1.bias": {
+      "source": "backbone.block4.2.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.attn.q.weight": {
+      "source": "backbone.block4.2.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.attn.q.bias": {
+      "source": "backbone.block4.2.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.attn.kv.weight": {
+      "source": "backbone.block4.2.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.attn.kv.bias": {
+      "source": "backbone.block4.2.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.attn.proj.weight": {
+      "source": "backbone.block4.2.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.attn.proj.bias": {
+      "source": "backbone.block4.2.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.norm2.weight": {
+      "source": "backbone.block4.2.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.norm2.bias": {
+      "source": "backbone.block4.2.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.mlp.fc1.weight": {
+      "source": "backbone.block4.2.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.mlp.fc1.bias": {
+      "source": "backbone.block4.2.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.block4.2.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.block4.2.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.mlp.fc2.weight": {
+      "source": "backbone.block4.2.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_blocks.3.2.mlp.fc2.bias": {
+      "source": "backbone.block4.2.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.norm1.weight": {
+      "source": "backbone.extra_block1.0.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.norm1.bias": {
+      "source": "backbone.extra_block1.0.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.q.weight": {
+      "source": "backbone.extra_block1.0.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.q.bias": {
+      "source": "backbone.extra_block1.0.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.kv.weight": {
+      "source": "backbone.extra_block1.0.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.kv.bias": {
+      "source": "backbone.extra_block1.0.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.proj.weight": {
+      "source": "backbone.extra_block1.0.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.proj.bias": {
+      "source": "backbone.extra_block1.0.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.sr.weight": {
+      "source": "backbone.extra_block1.0.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.sr.bias": {
+      "source": "backbone.extra_block1.0.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.norm.weight": {
+      "source": "backbone.extra_block1.0.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.attn.norm.bias": {
+      "source": "backbone.extra_block1.0.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.norm2.weight": {
+      "source": "backbone.extra_block1.0.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.norm2.bias": {
+      "source": "backbone.extra_block1.0.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.mlp.fc1.weight": {
+      "source": "backbone.extra_block1.0.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.mlp.fc1.bias": {
+      "source": "backbone.extra_block1.0.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block1.0.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block1.0.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.mlp.fc2.weight": {
+      "source": "backbone.extra_block1.0.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.0.mlp.fc2.bias": {
+      "source": "backbone.extra_block1.0.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.norm1.weight": {
+      "source": "backbone.extra_block1.1.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.norm1.bias": {
+      "source": "backbone.extra_block1.1.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.q.weight": {
+      "source": "backbone.extra_block1.1.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.q.bias": {
+      "source": "backbone.extra_block1.1.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.kv.weight": {
+      "source": "backbone.extra_block1.1.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.kv.bias": {
+      "source": "backbone.extra_block1.1.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.proj.weight": {
+      "source": "backbone.extra_block1.1.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.proj.bias": {
+      "source": "backbone.extra_block1.1.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.sr.weight": {
+      "source": "backbone.extra_block1.1.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.sr.bias": {
+      "source": "backbone.extra_block1.1.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.norm.weight": {
+      "source": "backbone.extra_block1.1.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.attn.norm.bias": {
+      "source": "backbone.extra_block1.1.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.norm2.weight": {
+      "source": "backbone.extra_block1.1.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.norm2.bias": {
+      "source": "backbone.extra_block1.1.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.mlp.fc1.weight": {
+      "source": "backbone.extra_block1.1.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.mlp.fc1.bias": {
+      "source": "backbone.extra_block1.1.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block1.1.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block1.1.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.mlp.fc2.weight": {
+      "source": "backbone.extra_block1.1.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.1.mlp.fc2.bias": {
+      "source": "backbone.extra_block1.1.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.norm1.weight": {
+      "source": "backbone.extra_block1.2.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.norm1.bias": {
+      "source": "backbone.extra_block1.2.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.q.weight": {
+      "source": "backbone.extra_block1.2.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.q.bias": {
+      "source": "backbone.extra_block1.2.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.kv.weight": {
+      "source": "backbone.extra_block1.2.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.kv.bias": {
+      "source": "backbone.extra_block1.2.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.proj.weight": {
+      "source": "backbone.extra_block1.2.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.proj.bias": {
+      "source": "backbone.extra_block1.2.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.sr.weight": {
+      "source": "backbone.extra_block1.2.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.sr.bias": {
+      "source": "backbone.extra_block1.2.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.norm.weight": {
+      "source": "backbone.extra_block1.2.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.attn.norm.bias": {
+      "source": "backbone.extra_block1.2.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.norm2.weight": {
+      "source": "backbone.extra_block1.2.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.norm2.bias": {
+      "source": "backbone.extra_block1.2.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.mlp.fc1.weight": {
+      "source": "backbone.extra_block1.2.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.mlp.fc1.bias": {
+      "source": "backbone.extra_block1.2.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block1.2.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block1.2.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.mlp.fc2.weight": {
+      "source": "backbone.extra_block1.2.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.0.2.mlp.fc2.bias": {
+      "source": "backbone.extra_block1.2.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.norm1.weight": {
+      "source": "backbone.extra_block2.0.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.norm1.bias": {
+      "source": "backbone.extra_block2.0.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.q.weight": {
+      "source": "backbone.extra_block2.0.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.q.bias": {
+      "source": "backbone.extra_block2.0.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.kv.weight": {
+      "source": "backbone.extra_block2.0.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.kv.bias": {
+      "source": "backbone.extra_block2.0.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.proj.weight": {
+      "source": "backbone.extra_block2.0.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.proj.bias": {
+      "source": "backbone.extra_block2.0.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.sr.weight": {
+      "source": "backbone.extra_block2.0.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.sr.bias": {
+      "source": "backbone.extra_block2.0.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.norm.weight": {
+      "source": "backbone.extra_block2.0.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.attn.norm.bias": {
+      "source": "backbone.extra_block2.0.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.norm2.weight": {
+      "source": "backbone.extra_block2.0.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.norm2.bias": {
+      "source": "backbone.extra_block2.0.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.mlp.fc1.weight": {
+      "source": "backbone.extra_block2.0.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.mlp.fc1.bias": {
+      "source": "backbone.extra_block2.0.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block2.0.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block2.0.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.mlp.fc2.weight": {
+      "source": "backbone.extra_block2.0.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.0.mlp.fc2.bias": {
+      "source": "backbone.extra_block2.0.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.norm1.weight": {
+      "source": "backbone.extra_block2.1.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.norm1.bias": {
+      "source": "backbone.extra_block2.1.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.q.weight": {
+      "source": "backbone.extra_block2.1.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.q.bias": {
+      "source": "backbone.extra_block2.1.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.kv.weight": {
+      "source": "backbone.extra_block2.1.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.kv.bias": {
+      "source": "backbone.extra_block2.1.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.proj.weight": {
+      "source": "backbone.extra_block2.1.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.proj.bias": {
+      "source": "backbone.extra_block2.1.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.sr.weight": {
+      "source": "backbone.extra_block2.1.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.sr.bias": {
+      "source": "backbone.extra_block2.1.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.norm.weight": {
+      "source": "backbone.extra_block2.1.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.attn.norm.bias": {
+      "source": "backbone.extra_block2.1.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.norm2.weight": {
+      "source": "backbone.extra_block2.1.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.norm2.bias": {
+      "source": "backbone.extra_block2.1.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.mlp.fc1.weight": {
+      "source": "backbone.extra_block2.1.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.mlp.fc1.bias": {
+      "source": "backbone.extra_block2.1.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block2.1.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block2.1.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.mlp.fc2.weight": {
+      "source": "backbone.extra_block2.1.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.1.mlp.fc2.bias": {
+      "source": "backbone.extra_block2.1.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.norm1.weight": {
+      "source": "backbone.extra_block2.2.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.norm1.bias": {
+      "source": "backbone.extra_block2.2.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.q.weight": {
+      "source": "backbone.extra_block2.2.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.q.bias": {
+      "source": "backbone.extra_block2.2.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.kv.weight": {
+      "source": "backbone.extra_block2.2.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.kv.bias": {
+      "source": "backbone.extra_block2.2.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.proj.weight": {
+      "source": "backbone.extra_block2.2.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.proj.bias": {
+      "source": "backbone.extra_block2.2.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.sr.weight": {
+      "source": "backbone.extra_block2.2.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.sr.bias": {
+      "source": "backbone.extra_block2.2.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.norm.weight": {
+      "source": "backbone.extra_block2.2.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.attn.norm.bias": {
+      "source": "backbone.extra_block2.2.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.norm2.weight": {
+      "source": "backbone.extra_block2.2.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.norm2.bias": {
+      "source": "backbone.extra_block2.2.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.mlp.fc1.weight": {
+      "source": "backbone.extra_block2.2.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.mlp.fc1.bias": {
+      "source": "backbone.extra_block2.2.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block2.2.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block2.2.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.mlp.fc2.weight": {
+      "source": "backbone.extra_block2.2.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.2.mlp.fc2.bias": {
+      "source": "backbone.extra_block2.2.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.norm1.weight": {
+      "source": "backbone.extra_block2.3.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.norm1.bias": {
+      "source": "backbone.extra_block2.3.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.q.weight": {
+      "source": "backbone.extra_block2.3.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.q.bias": {
+      "source": "backbone.extra_block2.3.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.kv.weight": {
+      "source": "backbone.extra_block2.3.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.kv.bias": {
+      "source": "backbone.extra_block2.3.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.proj.weight": {
+      "source": "backbone.extra_block2.3.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.proj.bias": {
+      "source": "backbone.extra_block2.3.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.sr.weight": {
+      "source": "backbone.extra_block2.3.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.sr.bias": {
+      "source": "backbone.extra_block2.3.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.norm.weight": {
+      "source": "backbone.extra_block2.3.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.attn.norm.bias": {
+      "source": "backbone.extra_block2.3.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.norm2.weight": {
+      "source": "backbone.extra_block2.3.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.norm2.bias": {
+      "source": "backbone.extra_block2.3.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.mlp.fc1.weight": {
+      "source": "backbone.extra_block2.3.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.mlp.fc1.bias": {
+      "source": "backbone.extra_block2.3.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block2.3.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block2.3.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.mlp.fc2.weight": {
+      "source": "backbone.extra_block2.3.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.1.3.mlp.fc2.bias": {
+      "source": "backbone.extra_block2.3.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.norm1.weight": {
+      "source": "backbone.extra_block3.0.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.norm1.bias": {
+      "source": "backbone.extra_block3.0.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.q.weight": {
+      "source": "backbone.extra_block3.0.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.q.bias": {
+      "source": "backbone.extra_block3.0.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.kv.weight": {
+      "source": "backbone.extra_block3.0.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.kv.bias": {
+      "source": "backbone.extra_block3.0.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.proj.weight": {
+      "source": "backbone.extra_block3.0.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.proj.bias": {
+      "source": "backbone.extra_block3.0.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.sr.weight": {
+      "source": "backbone.extra_block3.0.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.sr.bias": {
+      "source": "backbone.extra_block3.0.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.norm.weight": {
+      "source": "backbone.extra_block3.0.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.attn.norm.bias": {
+      "source": "backbone.extra_block3.0.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.norm2.weight": {
+      "source": "backbone.extra_block3.0.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.norm2.bias": {
+      "source": "backbone.extra_block3.0.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.mlp.fc1.weight": {
+      "source": "backbone.extra_block3.0.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.mlp.fc1.bias": {
+      "source": "backbone.extra_block3.0.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block3.0.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block3.0.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.mlp.fc2.weight": {
+      "source": "backbone.extra_block3.0.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.0.mlp.fc2.bias": {
+      "source": "backbone.extra_block3.0.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.norm1.weight": {
+      "source": "backbone.extra_block3.1.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.norm1.bias": {
+      "source": "backbone.extra_block3.1.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.q.weight": {
+      "source": "backbone.extra_block3.1.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.q.bias": {
+      "source": "backbone.extra_block3.1.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.kv.weight": {
+      "source": "backbone.extra_block3.1.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.kv.bias": {
+      "source": "backbone.extra_block3.1.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.proj.weight": {
+      "source": "backbone.extra_block3.1.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.proj.bias": {
+      "source": "backbone.extra_block3.1.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.sr.weight": {
+      "source": "backbone.extra_block3.1.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.sr.bias": {
+      "source": "backbone.extra_block3.1.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.norm.weight": {
+      "source": "backbone.extra_block3.1.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.attn.norm.bias": {
+      "source": "backbone.extra_block3.1.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.norm2.weight": {
+      "source": "backbone.extra_block3.1.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.norm2.bias": {
+      "source": "backbone.extra_block3.1.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.mlp.fc1.weight": {
+      "source": "backbone.extra_block3.1.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.mlp.fc1.bias": {
+      "source": "backbone.extra_block3.1.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block3.1.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block3.1.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.mlp.fc2.weight": {
+      "source": "backbone.extra_block3.1.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.1.mlp.fc2.bias": {
+      "source": "backbone.extra_block3.1.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.norm1.weight": {
+      "source": "backbone.extra_block3.2.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.norm1.bias": {
+      "source": "backbone.extra_block3.2.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.q.weight": {
+      "source": "backbone.extra_block3.2.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.q.bias": {
+      "source": "backbone.extra_block3.2.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.kv.weight": {
+      "source": "backbone.extra_block3.2.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.kv.bias": {
+      "source": "backbone.extra_block3.2.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.proj.weight": {
+      "source": "backbone.extra_block3.2.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.proj.bias": {
+      "source": "backbone.extra_block3.2.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.sr.weight": {
+      "source": "backbone.extra_block3.2.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.sr.bias": {
+      "source": "backbone.extra_block3.2.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.norm.weight": {
+      "source": "backbone.extra_block3.2.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.attn.norm.bias": {
+      "source": "backbone.extra_block3.2.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.norm2.weight": {
+      "source": "backbone.extra_block3.2.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.norm2.bias": {
+      "source": "backbone.extra_block3.2.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.mlp.fc1.weight": {
+      "source": "backbone.extra_block3.2.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.mlp.fc1.bias": {
+      "source": "backbone.extra_block3.2.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block3.2.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block3.2.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.mlp.fc2.weight": {
+      "source": "backbone.extra_block3.2.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.2.mlp.fc2.bias": {
+      "source": "backbone.extra_block3.2.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.norm1.weight": {
+      "source": "backbone.extra_block3.3.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.norm1.bias": {
+      "source": "backbone.extra_block3.3.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.q.weight": {
+      "source": "backbone.extra_block3.3.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.q.bias": {
+      "source": "backbone.extra_block3.3.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.kv.weight": {
+      "source": "backbone.extra_block3.3.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.kv.bias": {
+      "source": "backbone.extra_block3.3.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.proj.weight": {
+      "source": "backbone.extra_block3.3.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.proj.bias": {
+      "source": "backbone.extra_block3.3.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.sr.weight": {
+      "source": "backbone.extra_block3.3.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.sr.bias": {
+      "source": "backbone.extra_block3.3.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.norm.weight": {
+      "source": "backbone.extra_block3.3.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.attn.norm.bias": {
+      "source": "backbone.extra_block3.3.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.norm2.weight": {
+      "source": "backbone.extra_block3.3.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.norm2.bias": {
+      "source": "backbone.extra_block3.3.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.mlp.fc1.weight": {
+      "source": "backbone.extra_block3.3.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.mlp.fc1.bias": {
+      "source": "backbone.extra_block3.3.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block3.3.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block3.3.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.mlp.fc2.weight": {
+      "source": "backbone.extra_block3.3.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.3.mlp.fc2.bias": {
+      "source": "backbone.extra_block3.3.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.norm1.weight": {
+      "source": "backbone.extra_block3.4.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.norm1.bias": {
+      "source": "backbone.extra_block3.4.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.q.weight": {
+      "source": "backbone.extra_block3.4.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.q.bias": {
+      "source": "backbone.extra_block3.4.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.kv.weight": {
+      "source": "backbone.extra_block3.4.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.kv.bias": {
+      "source": "backbone.extra_block3.4.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.proj.weight": {
+      "source": "backbone.extra_block3.4.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.proj.bias": {
+      "source": "backbone.extra_block3.4.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.sr.weight": {
+      "source": "backbone.extra_block3.4.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.sr.bias": {
+      "source": "backbone.extra_block3.4.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.norm.weight": {
+      "source": "backbone.extra_block3.4.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.attn.norm.bias": {
+      "source": "backbone.extra_block3.4.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.norm2.weight": {
+      "source": "backbone.extra_block3.4.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.norm2.bias": {
+      "source": "backbone.extra_block3.4.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.mlp.fc1.weight": {
+      "source": "backbone.extra_block3.4.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.mlp.fc1.bias": {
+      "source": "backbone.extra_block3.4.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block3.4.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block3.4.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.mlp.fc2.weight": {
+      "source": "backbone.extra_block3.4.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.4.mlp.fc2.bias": {
+      "source": "backbone.extra_block3.4.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.norm1.weight": {
+      "source": "backbone.extra_block3.5.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.norm1.bias": {
+      "source": "backbone.extra_block3.5.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.q.weight": {
+      "source": "backbone.extra_block3.5.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.q.bias": {
+      "source": "backbone.extra_block3.5.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.kv.weight": {
+      "source": "backbone.extra_block3.5.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.kv.bias": {
+      "source": "backbone.extra_block3.5.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.proj.weight": {
+      "source": "backbone.extra_block3.5.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.proj.bias": {
+      "source": "backbone.extra_block3.5.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.sr.weight": {
+      "source": "backbone.extra_block3.5.attn.sr.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.sr.bias": {
+      "source": "backbone.extra_block3.5.attn.sr.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.norm.weight": {
+      "source": "backbone.extra_block3.5.attn.norm.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.attn.norm.bias": {
+      "source": "backbone.extra_block3.5.attn.norm.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.norm2.weight": {
+      "source": "backbone.extra_block3.5.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.norm2.bias": {
+      "source": "backbone.extra_block3.5.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.mlp.fc1.weight": {
+      "source": "backbone.extra_block3.5.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.mlp.fc1.bias": {
+      "source": "backbone.extra_block3.5.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block3.5.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block3.5.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.mlp.fc2.weight": {
+      "source": "backbone.extra_block3.5.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.2.5.mlp.fc2.bias": {
+      "source": "backbone.extra_block3.5.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.norm1.weight": {
+      "source": "backbone.extra_block4.0.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.norm1.bias": {
+      "source": "backbone.extra_block4.0.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.attn.q.weight": {
+      "source": "backbone.extra_block4.0.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.attn.q.bias": {
+      "source": "backbone.extra_block4.0.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.attn.kv.weight": {
+      "source": "backbone.extra_block4.0.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.attn.kv.bias": {
+      "source": "backbone.extra_block4.0.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.attn.proj.weight": {
+      "source": "backbone.extra_block4.0.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.attn.proj.bias": {
+      "source": "backbone.extra_block4.0.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.norm2.weight": {
+      "source": "backbone.extra_block4.0.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.norm2.bias": {
+      "source": "backbone.extra_block4.0.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.mlp.fc1.weight": {
+      "source": "backbone.extra_block4.0.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.mlp.fc1.bias": {
+      "source": "backbone.extra_block4.0.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block4.0.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block4.0.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.mlp.fc2.weight": {
+      "source": "backbone.extra_block4.0.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.0.mlp.fc2.bias": {
+      "source": "backbone.extra_block4.0.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.norm1.weight": {
+      "source": "backbone.extra_block4.1.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.norm1.bias": {
+      "source": "backbone.extra_block4.1.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.attn.q.weight": {
+      "source": "backbone.extra_block4.1.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.attn.q.bias": {
+      "source": "backbone.extra_block4.1.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.attn.kv.weight": {
+      "source": "backbone.extra_block4.1.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.attn.kv.bias": {
+      "source": "backbone.extra_block4.1.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.attn.proj.weight": {
+      "source": "backbone.extra_block4.1.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.attn.proj.bias": {
+      "source": "backbone.extra_block4.1.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.norm2.weight": {
+      "source": "backbone.extra_block4.1.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.norm2.bias": {
+      "source": "backbone.extra_block4.1.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.mlp.fc1.weight": {
+      "source": "backbone.extra_block4.1.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.mlp.fc1.bias": {
+      "source": "backbone.extra_block4.1.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block4.1.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block4.1.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.mlp.fc2.weight": {
+      "source": "backbone.extra_block4.1.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.1.mlp.fc2.bias": {
+      "source": "backbone.extra_block4.1.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.norm1.weight": {
+      "source": "backbone.extra_block4.2.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.norm1.bias": {
+      "source": "backbone.extra_block4.2.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.attn.q.weight": {
+      "source": "backbone.extra_block4.2.attn.q.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.attn.q.bias": {
+      "source": "backbone.extra_block4.2.attn.q.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.attn.kv.weight": {
+      "source": "backbone.extra_block4.2.attn.kv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.attn.kv.bias": {
+      "source": "backbone.extra_block4.2.attn.kv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.attn.proj.weight": {
+      "source": "backbone.extra_block4.2.attn.proj.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.attn.proj.bias": {
+      "source": "backbone.extra_block4.2.attn.proj.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.norm2.weight": {
+      "source": "backbone.extra_block4.2.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.norm2.bias": {
+      "source": "backbone.extra_block4.2.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.mlp.fc1.weight": {
+      "source": "backbone.extra_block4.2.mlp.fc1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.mlp.fc1.bias": {
+      "source": "backbone.extra_block4.2.mlp.fc1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.mlp.dwconv.dwconv.weight": {
+      "source": "backbone.extra_block4.2.mlp.dwconv.dwconv.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.mlp.dwconv.dwconv.bias": {
+      "source": "backbone.extra_block4.2.mlp.dwconv.dwconv.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.mlp.fc2.weight": {
+      "source": "backbone.extra_block4.2.mlp.fc2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_blocks.3.2.mlp.fc2.bias": {
+      "source": "backbone.extra_block4.2.mlp.fc2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_norm.0.weight": {
+      "source": "backbone.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_norm.0.bias": {
+      "source": "backbone.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_norm.1.weight": {
+      "source": "backbone.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_norm.1.bias": {
+      "source": "backbone.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_norm.2.weight": {
+      "source": "backbone.norm3.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_norm.2.bias": {
+      "source": "backbone.norm3.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_norm.3.weight": {
+      "source": "backbone.norm4.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rgb_norm.3.bias": {
+      "source": "backbone.norm4.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_norm.0.weight": {
+      "source": "backbone.extra_norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_norm.0.bias": {
+      "source": "backbone.extra_norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_norm.1.weight": {
+      "source": "backbone.extra_norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_norm.1.bias": {
+      "source": "backbone.extra_norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_norm.2.weight": {
+      "source": "backbone.extra_norm3.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_norm.2.bias": {
+      "source": "backbone.extra_norm3.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_norm.3.weight": {
+      "source": "backbone.extra_norm4.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "noise_norm.3.bias": {
+      "source": "backbone.extra_norm4.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.0.channel_weights.mlp.0.weight": {
+      "source": "backbone.FRMs.0.channel_weights.mlp.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.0.channel_weights.mlp.0.bias": {
+      "source": "backbone.FRMs.0.channel_weights.mlp.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.0.channel_weights.mlp.2.weight": {
+      "source": "backbone.FRMs.0.channel_weights.mlp.2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.0.channel_weights.mlp.2.bias": {
+      "source": "backbone.FRMs.0.channel_weights.mlp.2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.0.spatial_weights.mlp.0.weight": {
+      "source": "backbone.FRMs.0.spatial_weights.mlp.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.0.spatial_weights.mlp.0.bias": {
+      "source": "backbone.FRMs.0.spatial_weights.mlp.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.0.spatial_weights.mlp.2.weight": {
+      "source": "backbone.FRMs.0.spatial_weights.mlp.2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.0.spatial_weights.mlp.2.bias": {
+      "source": "backbone.FRMs.0.spatial_weights.mlp.2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.1.channel_weights.mlp.0.weight": {
+      "source": "backbone.FRMs.1.channel_weights.mlp.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.1.channel_weights.mlp.0.bias": {
+      "source": "backbone.FRMs.1.channel_weights.mlp.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.1.channel_weights.mlp.2.weight": {
+      "source": "backbone.FRMs.1.channel_weights.mlp.2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.1.channel_weights.mlp.2.bias": {
+      "source": "backbone.FRMs.1.channel_weights.mlp.2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.1.spatial_weights.mlp.0.weight": {
+      "source": "backbone.FRMs.1.spatial_weights.mlp.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.1.spatial_weights.mlp.0.bias": {
+      "source": "backbone.FRMs.1.spatial_weights.mlp.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.1.spatial_weights.mlp.2.weight": {
+      "source": "backbone.FRMs.1.spatial_weights.mlp.2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.1.spatial_weights.mlp.2.bias": {
+      "source": "backbone.FRMs.1.spatial_weights.mlp.2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.2.channel_weights.mlp.0.weight": {
+      "source": "backbone.FRMs.2.channel_weights.mlp.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.2.channel_weights.mlp.0.bias": {
+      "source": "backbone.FRMs.2.channel_weights.mlp.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.2.channel_weights.mlp.2.weight": {
+      "source": "backbone.FRMs.2.channel_weights.mlp.2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.2.channel_weights.mlp.2.bias": {
+      "source": "backbone.FRMs.2.channel_weights.mlp.2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.2.spatial_weights.mlp.0.weight": {
+      "source": "backbone.FRMs.2.spatial_weights.mlp.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.2.spatial_weights.mlp.0.bias": {
+      "source": "backbone.FRMs.2.spatial_weights.mlp.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.2.spatial_weights.mlp.2.weight": {
+      "source": "backbone.FRMs.2.spatial_weights.mlp.2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.2.spatial_weights.mlp.2.bias": {
+      "source": "backbone.FRMs.2.spatial_weights.mlp.2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.3.channel_weights.mlp.0.weight": {
+      "source": "backbone.FRMs.3.channel_weights.mlp.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.3.channel_weights.mlp.0.bias": {
+      "source": "backbone.FRMs.3.channel_weights.mlp.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.3.channel_weights.mlp.2.weight": {
+      "source": "backbone.FRMs.3.channel_weights.mlp.2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.3.channel_weights.mlp.2.bias": {
+      "source": "backbone.FRMs.3.channel_weights.mlp.2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.3.spatial_weights.mlp.0.weight": {
+      "source": "backbone.FRMs.3.spatial_weights.mlp.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.3.spatial_weights.mlp.0.bias": {
+      "source": "backbone.FRMs.3.spatial_weights.mlp.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.3.spatial_weights.mlp.2.weight": {
+      "source": "backbone.FRMs.3.spatial_weights.mlp.2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "rectify.3.spatial_weights.mlp.2.bias": {
+      "source": "backbone.FRMs.3.spatial_weights.mlp.2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.channel_proj1.weight": {
+      "source": "backbone.FFMs.0.cross.channel_proj1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.channel_proj1.bias": {
+      "source": "backbone.FFMs.0.cross.channel_proj1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.channel_proj2.weight": {
+      "source": "backbone.FFMs.0.cross.channel_proj2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.channel_proj2.bias": {
+      "source": "backbone.FFMs.0.cross.channel_proj2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.cross_attn.kv1.weight": {
+      "source": "backbone.FFMs.0.cross.cross_attn.kv1.weight",
+      "casts": [
+        "float16",
+        "float32"
+      ]
+    },
+    "fusion.0.cross.cross_attn.kv2.weight": {
+      "source": "backbone.FFMs.0.cross.cross_attn.kv2.weight",
+      "casts": [
+        "float16",
+        "float32"
+      ]
+    },
+    "fusion.0.cross.end_proj1.weight": {
+      "source": "backbone.FFMs.0.cross.end_proj1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.end_proj1.bias": {
+      "source": "backbone.FFMs.0.cross.end_proj1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.end_proj2.weight": {
+      "source": "backbone.FFMs.0.cross.end_proj2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.end_proj2.bias": {
+      "source": "backbone.FFMs.0.cross.end_proj2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.norm1.weight": {
+      "source": "backbone.FFMs.0.cross.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.norm1.bias": {
+      "source": "backbone.FFMs.0.cross.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.norm2.weight": {
+      "source": "backbone.FFMs.0.cross.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.cross.norm2.bias": {
+      "source": "backbone.FFMs.0.cross.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.hidden.0.weight": {
+      "source": "backbone.FFMs.0.channel_emb.channel_embed.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.hidden.0.bias": {
+      "source": "backbone.FFMs.0.channel_emb.channel_embed.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.hidden.1.weight": {
+      "source": "backbone.FFMs.0.channel_emb.channel_embed.1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.hidden.1.bias": {
+      "source": "backbone.FFMs.0.channel_emb.channel_embed.1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.0.residual.weight": {
+      "derived": "fusion.0.residual.weight"
+    },
+    "fusion.0.finish.weight": {
+      "derived": "fusion.0.finish.weight"
+    },
+    "fusion.0.finish.bias": {
+      "derived": "fusion.0.finish.bias"
+    },
+    "fusion.1.cross.channel_proj1.weight": {
+      "source": "backbone.FFMs.1.cross.channel_proj1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.channel_proj1.bias": {
+      "source": "backbone.FFMs.1.cross.channel_proj1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.channel_proj2.weight": {
+      "source": "backbone.FFMs.1.cross.channel_proj2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.channel_proj2.bias": {
+      "source": "backbone.FFMs.1.cross.channel_proj2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.cross_attn.kv1.weight": {
+      "source": "backbone.FFMs.1.cross.cross_attn.kv1.weight",
+      "casts": [
+        "float16",
+        "float32"
+      ]
+    },
+    "fusion.1.cross.cross_attn.kv2.weight": {
+      "source": "backbone.FFMs.1.cross.cross_attn.kv2.weight",
+      "casts": [
+        "float16",
+        "float32"
+      ]
+    },
+    "fusion.1.cross.end_proj1.weight": {
+      "source": "backbone.FFMs.1.cross.end_proj1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.end_proj1.bias": {
+      "source": "backbone.FFMs.1.cross.end_proj1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.end_proj2.weight": {
+      "source": "backbone.FFMs.1.cross.end_proj2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.end_proj2.bias": {
+      "source": "backbone.FFMs.1.cross.end_proj2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.norm1.weight": {
+      "source": "backbone.FFMs.1.cross.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.norm1.bias": {
+      "source": "backbone.FFMs.1.cross.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.norm2.weight": {
+      "source": "backbone.FFMs.1.cross.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.cross.norm2.bias": {
+      "source": "backbone.FFMs.1.cross.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.hidden.0.weight": {
+      "source": "backbone.FFMs.1.channel_emb.channel_embed.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.hidden.0.bias": {
+      "source": "backbone.FFMs.1.channel_emb.channel_embed.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.hidden.1.weight": {
+      "source": "backbone.FFMs.1.channel_emb.channel_embed.1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.hidden.1.bias": {
+      "source": "backbone.FFMs.1.channel_emb.channel_embed.1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.1.residual.weight": {
+      "derived": "fusion.1.residual.weight"
+    },
+    "fusion.1.finish.weight": {
+      "derived": "fusion.1.finish.weight"
+    },
+    "fusion.1.finish.bias": {
+      "derived": "fusion.1.finish.bias"
+    },
+    "fusion.2.cross.channel_proj1.weight": {
+      "source": "backbone.FFMs.2.cross.channel_proj1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.channel_proj1.bias": {
+      "source": "backbone.FFMs.2.cross.channel_proj1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.channel_proj2.weight": {
+      "source": "backbone.FFMs.2.cross.channel_proj2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.channel_proj2.bias": {
+      "source": "backbone.FFMs.2.cross.channel_proj2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.cross_attn.kv1.weight": {
+      "source": "backbone.FFMs.2.cross.cross_attn.kv1.weight",
+      "casts": [
+        "float16",
+        "float32"
+      ]
+    },
+    "fusion.2.cross.cross_attn.kv2.weight": {
+      "source": "backbone.FFMs.2.cross.cross_attn.kv2.weight",
+      "casts": [
+        "float16",
+        "float32"
+      ]
+    },
+    "fusion.2.cross.end_proj1.weight": {
+      "source": "backbone.FFMs.2.cross.end_proj1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.end_proj1.bias": {
+      "source": "backbone.FFMs.2.cross.end_proj1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.end_proj2.weight": {
+      "source": "backbone.FFMs.2.cross.end_proj2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.end_proj2.bias": {
+      "source": "backbone.FFMs.2.cross.end_proj2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.norm1.weight": {
+      "source": "backbone.FFMs.2.cross.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.norm1.bias": {
+      "source": "backbone.FFMs.2.cross.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.norm2.weight": {
+      "source": "backbone.FFMs.2.cross.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.cross.norm2.bias": {
+      "source": "backbone.FFMs.2.cross.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.hidden.0.weight": {
+      "source": "backbone.FFMs.2.channel_emb.channel_embed.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.hidden.0.bias": {
+      "source": "backbone.FFMs.2.channel_emb.channel_embed.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.hidden.1.weight": {
+      "source": "backbone.FFMs.2.channel_emb.channel_embed.1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.hidden.1.bias": {
+      "source": "backbone.FFMs.2.channel_emb.channel_embed.1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.2.residual.weight": {
+      "derived": "fusion.2.residual.weight"
+    },
+    "fusion.2.finish.weight": {
+      "derived": "fusion.2.finish.weight"
+    },
+    "fusion.2.finish.bias": {
+      "derived": "fusion.2.finish.bias"
+    },
+    "fusion.3.cross.channel_proj1.weight": {
+      "source": "backbone.FFMs.3.cross.channel_proj1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.channel_proj1.bias": {
+      "source": "backbone.FFMs.3.cross.channel_proj1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.channel_proj2.weight": {
+      "source": "backbone.FFMs.3.cross.channel_proj2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.channel_proj2.bias": {
+      "source": "backbone.FFMs.3.cross.channel_proj2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.cross_attn.kv1.weight": {
+      "source": "backbone.FFMs.3.cross.cross_attn.kv1.weight",
+      "casts": [
+        "float16",
+        "float32"
+      ]
+    },
+    "fusion.3.cross.cross_attn.kv2.weight": {
+      "source": "backbone.FFMs.3.cross.cross_attn.kv2.weight",
+      "casts": [
+        "float16",
+        "float32"
+      ]
+    },
+    "fusion.3.cross.end_proj1.weight": {
+      "source": "backbone.FFMs.3.cross.end_proj1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.end_proj1.bias": {
+      "source": "backbone.FFMs.3.cross.end_proj1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.end_proj2.weight": {
+      "source": "backbone.FFMs.3.cross.end_proj2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.end_proj2.bias": {
+      "source": "backbone.FFMs.3.cross.end_proj2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.norm1.weight": {
+      "source": "backbone.FFMs.3.cross.norm1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.norm1.bias": {
+      "source": "backbone.FFMs.3.cross.norm1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.norm2.weight": {
+      "source": "backbone.FFMs.3.cross.norm2.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.cross.norm2.bias": {
+      "source": "backbone.FFMs.3.cross.norm2.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.hidden.0.weight": {
+      "source": "backbone.FFMs.3.channel_emb.channel_embed.0.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.hidden.0.bias": {
+      "source": "backbone.FFMs.3.channel_emb.channel_embed.0.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.hidden.1.weight": {
+      "source": "backbone.FFMs.3.channel_emb.channel_embed.1.weight",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.hidden.1.bias": {
+      "source": "backbone.FFMs.3.channel_emb.channel_embed.1.bias",
+      "casts": [
+        "float16"
+      ]
+    },
+    "fusion.3.residual.weight": {
+      "derived": "fusion.3.residual.weight"
+    },
+    "fusion.3.finish.weight": {
+      "derived": "fusion.3.finish.weight"
+    },
+    "fusion.3.finish.bias": {
+      "derived": "fusion.3.finish.bias"
+    },
+    "noise.0.weight": {
+      "derived": "noise.0.weight"
+    },
+    "noise.0.bias": {
+      "derived": "noise.0.bias"
+    },
+    "noise.2.weight": {
+      "derived": "noise.2.weight"
+    },
+    "noise.2.bias": {
+      "derived": "noise.2.bias"
+    },
+    "noise.5.weight": {
+      "derived": "noise.5.weight"
+    },
+    "noise.5.bias": {
+      "derived": "noise.5.bias"
+    },
+    "noise.8.weight": {
+      "derived": "noise.8.weight"
+    },
+    "noise.8.bias": {
+      "derived": "noise.8.bias"
+    },
+    "noise.11.weight": {
+      "derived": "noise.11.weight"
+    },
+    "noise.11.bias": {
+      "derived": "noise.11.bias"
+    },
+    "noise.14.weight": {
+      "derived": "noise.14.weight"
+    },
+    "noise.14.bias": {
+      "derived": "noise.14.bias"
+    },
+    "noise.17.weight": {
+      "derived": "noise.17.weight"
+    },
+    "noise.17.bias": {
+      "derived": "noise.17.bias"
+    },
+    "noise.20.weight": {
+      "derived": "noise.20.weight"
+    },
+    "noise.20.bias": {
+      "derived": "noise.20.bias"
+    },
+    "noise.23.weight": {
+      "derived": "noise.23.weight"
+    },
+    "noise.23.bias": {
+      "derived": "noise.23.bias"
+    },
+    "noise.26.weight": {
+      "derived": "noise.26.weight"
+    },
+    "noise.26.bias": {
+      "derived": "noise.26.bias"
+    },
+    "noise.29.weight": {
+      "derived": "noise.29.weight"
+    },
+    "noise.29.bias": {
+      "derived": "noise.29.bias"
+    },
+    "noise.32.weight": {
+      "derived": "noise.32.weight"
+    },
+    "noise.32.bias": {
+      "derived": "noise.32.bias"
+    },
+    "noise.35.weight": {
+      "derived": "noise.35.weight"
+    },
+    "noise.35.bias": {
+      "derived": "noise.35.bias"
+    },
+    "noise.38.weight": {
+      "derived": "noise.38.weight"
+    },
+    "noise.38.bias": {
+      "derived": "noise.38.bias"
+    },
+    "noise.41.weight": {
+      "derived": "noise.41.weight"
+    },
+    "noise.41.bias": {
+      "derived": "noise.41.bias"
+    },
+    "noise.44.weight": {
+      "derived": "noise.44.weight"
+    },
+    "noise.44.bias": {
+      "derived": "noise.44.bias"
+    },
+    "noise.47.weight": {
+      "derived": "noise.47.weight"
+    },
+    "noise.47.bias": {
+      "source": "dncnn.47.bias",
+      "casts": [
+        "float32"
+      ]
+    }
+  },
+  "reconstruction_note": "Source recipes preserve values through declared dtype casts. Derived tensors freeze affine folding, projected fusion and pruned Noiseprint coefficients. No fitting or inference is performed during reconstruction.",
+  "verification": {
+    "source_tensor_recipes": 769,
+    "derived_tensor_recipes": 56,
+    "all_reference_tensors_exactly_equal": true,
+    "new_inference": false
+  }
+}

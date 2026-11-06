@@ -1,4 +1,4 @@
-import {copySubimagesSelectionPolicy} from './subimages-selection-intent.js?v=0.32.0';
+import {copySubimagesSelectionPolicy} from './subimages-selection-intent.js?v=0.33.0';
 import {requireValue} from './unified-engine/src/errors.js';
 
 // Only the UI owner calls this when it creates its initial default scope. An

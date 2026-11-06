@@ -37,8 +37,15 @@ class ShellTests(unittest.TestCase):
             (assets/'app.html').write_text('<html><head></head><body>public workspace</body></html>')
             (assets/'private-report.js').write_text('private site integration')
             (assets/'LICENSE.txt').write_text('public license')
+            native_wasm = assets/'vendor/local-jpeg-color/jpeg-color.wasm'
+            native_wasm.parent.mkdir(parents=True)
+            native_wasm.write_bytes(b'\x00asm\x01\x00\x00\x00')
             result = module.write_shell(plugin, {'files': {}, 'slots': []}, 'a'*64, 'test')
             self.assertNotIn('private-report.js', result['files'])
+            self.assertEqual(result['files']['vendor/local-jpeg-color/jpeg-color.wasm'], {
+                'size': native_wasm.stat().st_size,
+                'sha256': hashlib.sha256(native_wasm.read_bytes()).hexdigest(),
+            })
             public = (assets/'offline-public-app.html').read_bytes()
             self.assertIn(b'rel="manifest"', public)
             self.assertEqual(hashlib.sha256(public).hexdigest(), result['files']['app.html']['sha256'])

@@ -1,5 +1,5 @@
-import {nativeContextMapEvidence} from './native-context-map-evidence.js?v=0.32.0';
-import {catnetNativeMapEvidence} from './catnet-batch-evidence.js?v=0.32.0';
+import {nativeContextMapEvidence} from './native-context-map-evidence.js?v=0.33.0';
+import {catnetNativeMapEvidence} from './catnet-batch-evidence.js?v=0.33.0';
 import {Budget} from './unified-engine/src/cache.js';
 import {createCloneCorroboration} from './unified-engine/src/clone-corroboration.js';
 import {automaticPointEntries} from './unified-engine/src/automatic-point-entries.js';
@@ -8,7 +8,7 @@ import {createCloneEntryGeometry} from './unified-engine/src/clone-entry-geometr
 import {streamedD2prlRegions} from './unified-engine/src/d2prl-regions-stream.js';
 import {forgeryscopeEntries} from './unified-engine/src/automatic-ai-entries.js';
 import {SIFT_SOURCE,CLONE_SOURCES} from './unified-engine/src/clone-relations.js';
-import {createBatchScopeMask,scopedMaskStore} from './batch-scope-mask.js?v=0.32.0';
+import {createBatchScopeMask,scopedMaskStore} from './batch-scope-mask.js?v=0.33.0';
 
 const check=signal=>signal?.throwIfAborted();
 const invalid=message=>Object.assign(Error(message),{code:'BATCH_EVIDENCE_INVALID'});
@@ -116,7 +116,7 @@ export async function cloneEvidence(output,recipe,client,image,context,signal){
  return {...owned,evidencePreparation,entries:owned.entries.map(e=>({...e,methodKey}))};
 }
 export async function mapEvidence(output,recipe,client,image,signal){
- if((output.operation==='m2.trufor'&&output.data?.metadata?.fragmented)||(output.operation==='jpeg.comprint'&&output.metrics?.sourceRegionPolicy==='native-comprint-contexts-global-statistics'))return nativeContextMapEvidence(output,recipe,client,image,{scope:imageScope(image,output,client),signal});
+ if((['m2.trufor','m2.trufor-mini'].includes(output.operation)&&output.data?.metadata?.fragmented)||(output.operation==='jpeg.comprint'&&output.metrics?.sourceRegionPolicy==='native-comprint-contexts-global-statistics'))return nativeContextMapEvidence(output,recipe,client,image,{scope:imageScope(image,output,client),signal});
  if(output?.operation==='m2.catnet'&&output.data?.metadata?.fragmented)return catnetNativeMapEvidence(output,recipe,client,image,{scope:imageScope(image,output,client),signal});
  const map=output.surface??output.planeSurfaces?.map;
  if(!map&&!output.m2Result?.fields?.map)throw Error('Carte scientifique absente.');

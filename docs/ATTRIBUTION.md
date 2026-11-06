@@ -8,7 +8,9 @@ The example originals, edits and edit-reference images were supplied by me for t
 
 AI assistants produced much of the implementation. I directed and corrected choices, explored solution approaches, worked on ergonomics, and reviewed part of the calculations. The validation documents distinguish actual checks from broader claims.
 
-The browser inspection tools integrate [B-Free (GRIP-UNINA)](https://github.com/grip-unina/B-Free), [SPAI (MeVer)](https://github.com/mever-team/spai), [DTD / DocTamper (Qu et al.)](https://github.com/qcf-568/DocTamper) and [Comprint (Mareen et al.)](https://github.com/IDLabMedia/comprint). Their [component notices](../web/extensions-source/licenses) and model notices remain attached. B-Free and Comprint have component-specific restrictions; the repository's root license does not replace them.
+The AI-image detectors integrate [DDA](https://github.com/roy-ch/Dual-Data-Alignment), [GAPL](https://github.com/UltraCapture/GAPL), [SPAI](https://github.com/mever-team/spai), [PRL](https://github.com/wittyuu/Relative-Patch-Response-Learning), [Community Forensics 384](https://github.com/JeongsooP/Community-Forensics) and [B-Free](https://github.com/grip-unina/B-Free). Their complete author lists appear once in the [chronological README credits](../README.md#credits). [DTD / DocTamper](https://github.com/qcf-568/DocTamper) and [Comprint](https://github.com/IDLabMedia/comprint) retain their own credits and [component notices](../web/extensions-source/licenses). B-Free and Comprint have component-specific restrictions; the repository’s root licence does not replace them.
+
+DDA and PRL retain the DINOv2 and DINOv3 credits respectively; GAPL retains the CLIP credits. SPAI also uses [Masked Frequency Modeling (MFM)](https://github.com/Jiahao000/MFM), by Jiahao Xie, Wei Li, Xiaohang Zhan, Ziwei Liu, Yew Soon Ong and Chen Change Loy; its [S-Lab notice](../web/extensions-source/licenses/spai/mfm-LICENSE.txt) is retained separately. Vision Transformer architecture credits and the full DINO author lists are included in the same README table. The [model resource notices](METHODS-RESOURCE-LICENSES.txt) retain the component-specific declarations.
 
 Comprint uses [Pyodide](https://pyodide.org/) and its packaged numerical/scientific libraries in the browser. Their original notices remain in the [runtime resources](../web/extensions-source/comprint-statistics/pyodide/closure.json), package archives and [extracted dependency notices](../web/extensions-source/licenses/pyodide-packages).
 
@@ -16,11 +18,21 @@ RITA retains its authors' credits and [conversion notice](../web/wordpress/featu
 
 The [RITA/TruFor comparison](../examples/studies/rita-trufor/mini-study-rita-trufor.md) has a separate [image licence](../examples/studies/rita-trufor/IMAGE-LICENCE.txt): its photographs, edits, maps and boards are available for viewing, with all rights reserved. The repository's code licence grants no reuse rights over those images.
 
-## Luminance gradient variants
+## Luminance gradients
 
-The default “Gradient de Sobel” retains SHERLOQ’s existing Sobel derivatives and global channel normalization. “Gradient de Krawetz” is an independent reconstruction of the directional visualization described by Neal Krawetz in [A Picture’s Worth… (2008), pages 22–24](https://blackhat.com/presentations/bh-dc-08/Krawetz/Whitepaper/bh-dc-08-krawetz-WP.pdf#page=22) and illustrated in [Body By Victoria (2009)](https://www.hackerfactor.com/blog/index.php?/archives/322-Body-By-Victoria.html). It does not contain or claim to reproduce the author’s unavailable original source code. The reconstruction uses integer BT.601 luminance, available-neighbour differences with relative weights 4:7:4, local direction in red/green and clipped magnitude divided by nine in blue.
+The gradient panel uses Krawetz by default. The expanded operators credit Irwin Sobel and Gary Feldman (Sobel–Feldman), Judith M. S. Prewitt, Russell A. Kirsch, Hanno Scharr, Hany Farid and Eero P. Simoncelli. Peter Kovesi’s seven-tap coefficient reference, Tony Lindeberg’s Gaussian-derivative reference and the orientation/coherence work of Zsuzsanna Püspöki, Martin Storath, Daniel Sage and Michael Unser are listed with their dates and sources in the [README credits](../README.md#credits) and [technical references](LUMINANCE-GRADIENT-FIELDS.md#references).
 
-Acquisition and exclusion domains are applied before scientific observations; absent neighbours are omitted for Krawetz. Sobel retains its existing boundary extension. Optional equalization uses the admitted union. Integer Krawetz derivatives match the independent reference exactly; Python and WebAssembly color values can differ by one 8-bit level at transcendental-function truncation boundaries. Browser calculations share the same WebAssembly kernel.
+Krawetz’s directional visualization is described in [A Picture’s Worth… (2008), section 3.4.4](https://blackhat.com/presentations/bh-dc-08/Krawetz/Whitepaper/bh-dc-08-krawetz-WP.pdf) and [Body By Victoria (2009)](https://www.hackerfactor.com/blog/index.php?/archives/322-Body-By-Victoria.html). Its unavailable original source code is not included. The experimental weighted disk is a separate SHERLOQ implementation; central differences use the standard finite-difference definition. The browser operators and coherence view are independent implementations, rather than embedded OrientationJ Java code. Their numerical conventions are documented in the technical reference.
+
+The gradient example uses the Victoria’s Secret photograph reproduced in Krawetz’s 2009 article. The analysis panels were calculated by SHERLOQ Web.
+
+## TruFor and TruFor Mini
+
+The original TruFor / Noiseprint++ authors are Fabrizio Guillaro, Davide Cozzolino, Avneesh Sud, Nicholas Dufour and Luisa Verdoliva. TruFor Mini is my adaptation of that model; it retains the original model credits. [The study and reproduction files](../examples/studies/trufor-mini/README.md) include the retained [TruFor notice](../examples/studies/trufor-mini/reproduction/licenses/LICENSE.txt) and [CMX notice](../examples/studies/trufor-mini/reproduction/licenses/LICENSE_CMX.txt), including Huayao Liu’s copyright. The CMX and SegFormer/Mix Transformer research authors are also credited once in the README table.
+
+## Native colour histograms
+
+The native JPEG colour decoder uses libjpeg-turbo and retains the [libjpeg-turbo licence](../web/wordpress/sherloq-browser/assets/vendor/local-jpeg-color/LICENSE.md) and [Independent JPEG Group notice](../web/wordpress/sherloq-browser/assets/vendor/local-jpeg-color/README.ijg), including Thomas G. Lane, Guido Vollbeding and their collaborators. This software is based in part on the work of the Independent JPEG Group. The local/global histogram controller and native TIFF-channel reader were prepared for this adaptation; they are not attributed to a separate research model.
 
 ## Display equalization
 

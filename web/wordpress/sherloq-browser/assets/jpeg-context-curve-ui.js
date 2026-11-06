@@ -1,5 +1,5 @@
-import {recompressionAxisLabel} from './recompression-axis-label.js?v=0.32.0';
-import {normalizeNativeContextSelection,nativeContextSelectionFor,findNativeContextSelection} from './native-context-selection.js?v=0.32.0';
+import {recompressionAxisLabel} from './recompression-axis-label.js?v=0.33.0';
+import {normalizeNativeContextSelection,nativeContextSelectionFor,findNativeContextSelection} from './native-context-selection.js?v=0.33.0';
 export function restoreJpegContextViews(value){const restored={};if(!value||typeof value!=='object'||Array.isArray(value))return restored;for(const operation of ['jpeg.quality','jpeg.recompression']){const selection=normalizeNativeContextSelection(value[operation]);if(selection)restored[operation]=selection;}return restored;}
 /** Select among already computed native curves. Preferences contain only
  * verified source identity and integer Original bounds, never a reader/signal. */

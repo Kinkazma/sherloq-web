@@ -1,0 +1,415 @@
+{
+  "population": "all files once per condition; both human versions and both AI sets",
+  "filesPerCondition": 333,
+  "humanFilesPerCondition": 174,
+  "aiFilesPerCondition": 159,
+  "sourceSha256": "1bf87acc5f1ccf4e747fc0e84977d272223bb3f84090d6f485066bd522d7acf7",
+  "results": [
+    {
+      "method": "b-free",
+      "condition": "sans bruit",
+      "views": [
+        "H",
+        "M",
+        "R",
+        "T"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 14,
+        "FP": 9,
+        "TN": 165,
+        "FN": 145
+      },
+      "metrics": {
+        "recall": 0.0880503144654088,
+        "falsePositiveRate": 0.05172413793103448,
+        "precision": 0.6086956521739131,
+        "accuracy": 0.5375375375375375,
+        "f1": 0.15384615384615385,
+        "balancedAccuracy": 0.5181630882671872,
+        "rocAuc": 0.4498301163883467,
+        "averagePrecision": 0.46696119240094436,
+        "setIoU": 0.08333333333333333,
+        "median": 0.06358758798436359
+      }
+    },
+    {
+      "method": "b-free",
+      "condition": "avec bruit",
+      "views": [
+        "H6",
+        "M6",
+        "R6",
+        "T6"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 9,
+        "FP": 19,
+        "TN": 155,
+        "FN": 150
+      },
+      "metrics": {
+        "recall": 0.05660377358490566,
+        "falsePositiveRate": 0.10919540229885058,
+        "precision": 0.32142857142857145,
+        "accuracy": 0.4924924924924925,
+        "f1": 0.0962566844919786,
+        "balancedAccuracy": 0.4737041856430275,
+        "rocAuc": 0.4314682281500759,
+        "averagePrecision": 0.4351914570637507,
+        "setIoU": 0.05056179775280899,
+        "median": 0.091924039175154
+      }
+    },
+    {
+      "method": "spai",
+      "condition": "sans bruit",
+      "views": [
+        "H",
+        "M",
+        "R",
+        "T"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 99,
+        "FP": 52,
+        "TN": 122,
+        "FN": 60
+      },
+      "metrics": {
+        "recall": 0.6226415094339622,
+        "falsePositiveRate": 0.2988505747126437,
+        "precision": 0.6556291390728477,
+        "accuracy": 0.6636636636636637,
+        "f1": 0.6387096774193548,
+        "balancedAccuracy": 0.6618954673606593,
+        "rocAuc": 0.7279332032097159,
+        "averagePrecision": 0.6812761687237847,
+        "setIoU": 0.46919431279620855,
+        "median": 0.140805717931102
+      }
+    },
+    {
+      "method": "spai",
+      "condition": "avec bruit",
+      "views": [
+        "H6",
+        "M6",
+        "R6",
+        "T6"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 113,
+        "FP": 108,
+        "TN": 66,
+        "FN": 46
+      },
+      "metrics": {
+        "recall": 0.710691823899371,
+        "falsePositiveRate": 0.6206896551724138,
+        "precision": 0.5113122171945701,
+        "accuracy": 0.5375375375375375,
+        "f1": 0.5947368421052631,
+        "balancedAccuracy": 0.5450010843634786,
+        "rocAuc": 0.587399696378226,
+        "averagePrecision": 0.5784303461912405,
+        "setIoU": 0.4232209737827715,
+        "median": 0.9433230035197412
+      }
+    },
+    {
+      "method": "dda",
+      "condition": "sans bruit",
+      "views": [
+        "H",
+        "M",
+        "R",
+        "T"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 90,
+        "FP": 17,
+        "TN": 157,
+        "FN": 69
+      },
+      "metrics": {
+        "recall": 0.5660377358490566,
+        "falsePositiveRate": 0.09770114942528736,
+        "precision": 0.8411214953271028,
+        "accuracy": 0.7417417417417418,
+        "f1": 0.6766917293233082,
+        "balancedAccuracy": 0.7341682932118846,
+        "rocAuc": 0.8155497722836695,
+        "averagePrecision": 0.8384879614856091,
+        "setIoU": 0.5113636363636364,
+        "median": 0.2370047161046793
+      }
+    },
+    {
+      "method": "dda",
+      "condition": "avec bruit",
+      "views": [
+        "H6",
+        "M6",
+        "R6",
+        "T6"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 58,
+        "FP": 42,
+        "TN": 132,
+        "FN": 101
+      },
+      "metrics": {
+        "recall": 0.36477987421383645,
+        "falsePositiveRate": 0.2413793103448276,
+        "precision": 0.58,
+        "accuracy": 0.5705705705705706,
+        "f1": 0.44787644787644787,
+        "balancedAccuracy": 0.5617002819345044,
+        "rocAuc": 0.6261837634641798,
+        "averagePrecision": 0.5923019384720369,
+        "setIoU": 0.2885572139303483,
+        "median": 0.2539874085352699
+      }
+    },
+    {
+      "method": "prl",
+      "condition": "sans bruit",
+      "views": [
+        "H",
+        "M",
+        "R",
+        "T"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 42,
+        "FP": 22,
+        "TN": 152,
+        "FN": 117
+      },
+      "metrics": {
+        "recall": 0.2641509433962264,
+        "falsePositiveRate": 0.12643678160919541,
+        "precision": 0.65625,
+        "accuracy": 0.5825825825825826,
+        "f1": 0.37668161434977576,
+        "balancedAccuracy": 0.5688570808935155,
+        "rocAuc": 0.49501192799826504,
+        "averagePrecision": 0.5670169898848749,
+        "setIoU": 0.23204419889502761,
+        "median": 0.2352216205754136
+      }
+    },
+    {
+      "method": "prl",
+      "condition": "avec bruit",
+      "views": [
+        "H6",
+        "M6",
+        "R6",
+        "T6"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 26,
+        "FP": 21,
+        "TN": 153,
+        "FN": 133
+      },
+      "metrics": {
+        "recall": 0.16352201257861634,
+        "falsePositiveRate": 0.1206896551724138,
+        "precision": 0.5531914893617021,
+        "accuracy": 0.5375375375375375,
+        "f1": 0.2524271844660194,
+        "balancedAccuracy": 0.5214161787031013,
+        "rocAuc": 0.44039615412419575,
+        "averagePrecision": 0.5058340387733202,
+        "setIoU": 0.14444444444444443,
+        "median": 0.22005826644368393
+      }
+    },
+    {
+      "method": "community-forensics",
+      "condition": "sans bruit",
+      "views": [
+        "H",
+        "M",
+        "R",
+        "T"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 31,
+        "FP": 3,
+        "TN": 171,
+        "FN": 128
+      },
+      "metrics": {
+        "recall": 0.1949685534591195,
+        "falsePositiveRate": 0.017241379310344827,
+        "precision": 0.9117647058823529,
+        "accuracy": 0.6066066066066066,
+        "f1": 0.32124352331606215,
+        "balancedAccuracy": 0.5888635870743874,
+        "rocAuc": 0.6622207764042507,
+        "averagePrecision": 0.7036694358353303,
+        "setIoU": 0.19135802469135801,
+        "median": 0.002759465372841044
+      }
+    },
+    {
+      "method": "community-forensics",
+      "condition": "avec bruit",
+      "views": [
+        "H6",
+        "M6",
+        "R6",
+        "T6"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 3,
+        "FP": 8,
+        "TN": 166,
+        "FN": 156
+      },
+      "metrics": {
+        "recall": 0.018867924528301886,
+        "falsePositiveRate": 0.04597701149425287,
+        "precision": 0.2727272727272727,
+        "accuracy": 0.5075075075075075,
+        "f1": 0.03529411764705882,
+        "balancedAccuracy": 0.4864454565170245,
+        "rocAuc": 0.3514060579773007,
+        "averagePrecision": 0.3836219696284529,
+        "setIoU": 0.017964071856287425,
+        "median": 0.0010078258777997348
+      }
+    },
+    {
+      "method": "gapl",
+      "condition": "sans bruit",
+      "views": [
+        "H",
+        "M",
+        "R",
+        "T"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 127,
+        "FP": 56,
+        "TN": 118,
+        "FN": 32
+      },
+      "metrics": {
+        "recall": 0.7987421383647799,
+        "falsePositiveRate": 0.3218390804597701,
+        "precision": 0.6939890710382514,
+        "accuracy": 0.7357357357357357,
+        "f1": 0.7426900584795322,
+        "balancedAccuracy": 0.7384515289525049,
+        "rocAuc": 0.8428395864960602,
+        "averagePrecision": 0.8510520611174517,
+        "setIoU": 0.5906976744186047,
+        "median": 0.6771400615298898
+      }
+    },
+    {
+      "method": "gapl",
+      "condition": "avec bruit",
+      "views": [
+        "H6",
+        "M6",
+        "R6",
+        "T6"
+      ],
+      "n": 333,
+      "humanFiles": 174,
+      "aiFiles": 159,
+      "counts": {
+        "TP": 78,
+        "FP": 81,
+        "TN": 93,
+        "FN": 81
+      },
+      "metrics": {
+        "recall": 0.49056603773584906,
+        "falsePositiveRate": 0.46551724137931033,
+        "precision": 0.49056603773584906,
+        "accuracy": 0.5135135135135135,
+        "f1": 0.49056603773584906,
+        "balancedAccuracy": 0.5125243981782693,
+        "rocAuc": 0.5522663196703536,
+        "averagePrecision": 0.5329681589504593,
+        "setIoU": 0.325,
+        "median": 0.44774628088838997
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "method": "b-free",
+      "n": 333,
+      "changed": 21
+    },
+    {
+      "method": "spai",
+      "n": 333,
+      "changed": 82
+    },
+    {
+      "method": "dda",
+      "n": 333,
+      "changed": 85
+    },
+    {
+      "method": "prl",
+      "n": 333,
+      "changed": 27
+    },
+    {
+      "method": "community-forensics",
+      "n": 333,
+      "changed": 35
+    },
+    {
+      "method": "gapl",
+      "n": 333,
+      "changed": 118
+    }
+  ],
+  "computation": "classification metrics from pooled counts; AUC/AP/median from pooled scores",
+  "inferenceExecuted": false
+}

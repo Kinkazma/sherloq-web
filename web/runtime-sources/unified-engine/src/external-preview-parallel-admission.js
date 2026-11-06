@@ -1,6 +1,8 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.0";
 import {ramByteCacheBytes} from './ram-byte-cache.js';
 import {migrationWorkspaceBytes} from './migration-workspace.js';
+import {isGradientField} from './gradient-field-parameters.js';
+import {gradientFieldHeadroom} from './gradient-field.js';
 const MiB=1024**2,H=64*MiB;
 const safe=v=>Number.isSafeInteger(v)&&v>=0;
 function finish(operation,components,extra={}){const bytes=Object.values(components).reduce((n,v)=>n+v,0);return Object.values(components).every(safe)&&safe(bytes)&&bytes>0?{operation,bytes,completeResidentAlternative:true,...extra,components}:null;}
@@ -12,6 +14,7 @@ function finish(operation,components,extra={}){const bytes=Object.values(compone
 export function externalPreviewParallelHeadroom(operation,image,p,{runtimeBytes=0,transportBytes=0,profile={},cpuKernel='auto',backend='auto',contract,domainShape='identity',domain,workersAvailable=typeof globalThis.Worker!=='undefined'}={}){
  if(!['inspection.adjust','detail.gradient'].includes(operation)||p?.recompression||!image?.surface?.descriptor||!safe(runtimeBytes)||!safe(transportBytes)||!['identity','rectangle'].includes(domainShape))return null;
  const d=image.surface.descriptor,w=domainShape==='rectangle'?domain?.width:d.width,h=domainShape==='rectangle'?domain?.height:d.height,n=w*h;if(![w,h,n,n*3].every(Number.isSafeInteger)||w<1||h<1||!['auto','single','reference'].includes(cpuKernel))return null;
+ if(operation==='detail.gradient'&&isGradientField(p))return{operation,...gradientFieldHeadroom(w,h,p,{runtimeBytes,transportBytes}),registeredParallel:true,domainShape};
  let contiguous=null;if(contract&&safe(contract.scratchFactor)&&safe(contract.extraBytes??0)&&!contract.dynamicResultBudget&&!contract.resultMemory){let admission;try{admission=contract.admissionBytes?.({width:w,height:h,format:'rgb8'},p,image.bytes)??0;}catch{return null;}if(!safe(admission))return null;
   contiguous=finish(operation,{runtime:runtimeBytes,declaredScratch:n*3*contract.scratchFactor,declaredExtra:contract.extraBytes??0,declaredAdditional:admission,resultAndClone:n*6,gpuDisplay:operation==='inspection.adjust'&&cpuKernel!=='reference'&&backend!=='cpu'?64*MiB:0,metadata:transportBytes*8+262144},{parallelWorkers:0,registeredContiguous:true});
  }

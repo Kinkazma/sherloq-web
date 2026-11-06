@@ -1,12 +1,12 @@
-import {recompressionSizingIdentity} from './recompression-controls.js?v=0.32.0';
+import {recompressionSizingIdentity} from './recompression-controls.js?v=0.33.0';
 import {selectionIdentity} from './unified-engine/src/recompression-probe.js';
-import {createContextEnergyParameterPreview} from './energy-context-parameter-preview.js?v=0.32.0';
-import {createEnergyPreviewStatisticsOwner} from './energy-preview-statistics-owner.js?v=0.32.0';
-import {energyFieldAvailable,sampleEnergyField,energyPlaneCount,energyNativeFieldNames} from './energy-native-fields.js?v=0.32.0';
-import {renderEnergy} from './energy-render.js?v=0.32.0';
+import {createContextEnergyParameterPreview} from './energy-context-parameter-preview.js?v=0.33.0';
+import {createEnergyPreviewStatisticsOwner} from './energy-preview-statistics-owner.js?v=0.33.0';
+import {energyFieldAvailable,sampleEnergyField,energyPlaneCount,energyNativeFieldNames} from './energy-native-fields.js?v=0.33.0';
+import {renderEnergy} from './energy-render.js?v=0.33.0';
 import {EngineError,serializeEngineError} from './unified-engine/src/errors.js';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.32.0';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.0';
 
 const MiB=1024**2;
 // Isolate a retained cache release from the large per-render lexical context.

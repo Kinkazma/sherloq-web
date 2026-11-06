@@ -187,3 +187,10 @@
 .batch-ai-tools>summary { padding:8px 12px; font-weight:600; color:var(--ink); background:var(--panel); cursor:pointer; }
 .batch-image-preview>img { cursor:zoom-in; }
 .batch-edit-zones { align-self:flex-start; }
+
+/* Flatten the disclosure shell so its summary stays in the primary row.
+   Only its body takes a full row, ordered after the primary controls. */
+.gradient-advanced{display:contents}.gradient-advanced>summary{cursor:pointer;width:max-content;max-width:100%;align-self:center;min-height:29px;padding:3px 7px;border:1px solid #b6a14d;border-radius:4px;color:var(--ink,#e8eaed);font-size:13px;font-weight:600;white-space:nowrap;background:color-mix(in srgb,#d6bc55 7%,var(--panel,#292a2d))}.gradient-advanced>summary:hover{background:color-mix(in srgb,#d6bc55 14%,var(--panel,#292a2d))}.gradient-advanced>.gradient-advanced-fields{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;flex:1 0 100%;width:100%;min-width:0;order:10;padding:7px 0}.gradient-advanced:not([open])>.gradient-advanced-fields,.gradient-advanced-fields>label[hidden]{display:none}.gradient-advanced-fields select[data-parameter="view"]{width:240px;max-width:260px}
+.batch-fields .gradient-advanced-fields{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}.batch-fields .gradient-advanced-fields label:has([data-parameter="view"]){grid-column:1/-1;justify-content:flex-start;gap:10px}
+
+#tool-controls .gradient-advanced-fields select[data-parameter="view"]{width:180px;max-width:180px}

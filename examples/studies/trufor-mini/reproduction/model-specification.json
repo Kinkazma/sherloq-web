@@ -1,0 +1,38 @@
+{
+  "full_model_sha256": "2845912ff57f33502abea6a2075eecacd093a553825515691598c04ca5e94c12",
+  "proxy_model_sha256": "bd9fd0221c17e8c2e3fa518f2945178a660349c55b333a9680c15e7676fe1dc3",
+  "primary_image_score": "mean_top_1_percent_localization",
+  "additional_image_scores": [
+    "maximum",
+    "percentile_99",
+    "percentile_99_9",
+    "official_global_score_original_only"
+  ],
+  "pixel_thresholds": [
+    0,
+    0.5,
+    0.75
+  ],
+  "image_thresholds": [
+    0,
+    0.5,
+    0.75
+  ],
+  "curve_bins": 4096,
+  "decision": "positive iff response >= threshold, including threshold 0 (all positive).",
+  "masks": {
+    "korus_primary": "white255 and gray128 positive; zero negative; other values ignored",
+    "korus_secondary": "white255 positive; zero negative; gray and intermediate ignored",
+    "columbia": "image-level primary; red/green provenance segmentation diagnostics separately, not pooled with binary forgery masks",
+    "others": "provided author mask >=128; native dimensions must match; missing/invalid mask recorded without invented labels"
+  },
+  "calibration": "No fitting, model pruning or threshold optimization from the study. Best-observed threshold is exploratory and labeled as such.",
+  "full_execution": "Original weights/architecture including learned global detector. Existing bounded global-attention implementation retains all keys; no spatial approximation.",
+  "original_frozen_manifest_sha256": "1f5873b117cb15c6c1ffbf9cc9be384342b690421e1e59964bc03f7b52e43ece",
+  "inference_precision": "float32",
+  "class_count": 2,
+  "decoder_channels": 512,
+  "channel333": 333,
+  "timing_definition": "Forward pass and map retrieval, excluding weight loading and disk I/O. TruFor precedes Mini for each image. The recorded batch used concurrent images; summed latencies are not independent elapsed batch times.",
+  "code_scope": "Portable scientific reconstruction and paired inference; installation, orchestration and cleanup scripts are excluded."
+}

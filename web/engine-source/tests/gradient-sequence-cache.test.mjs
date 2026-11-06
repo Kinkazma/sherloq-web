@@ -1,0 +1,21 @@
+import test from'node:test';import assert from'node:assert/strict';import{createEngine}from'../src/index.js';import{gradientFieldDefaults}from'../src/gradient-field-parameters.js';import{equalizationMethods,equalizationState}from'../src/equalization-settings.js';import{createOriginalSourceRegionsState,compileOriginalSourceRegions}from'../src/source-region-geometry.js';
+const pixels={width:31,height:27,format:'rgb8',data:Uint8Array.from({length:31*27*3},(_,i)=>(i*37+(i>>>3)*71)%256)},methods=['sobel','krawetz','disk','central','prewitt','scharr','farid','gaussian','kirsch'];
+async function read(engine,r){return r.pixels?.data??(await engine.readPixels({surfaceId:r.surface.id,revision:r.surface.revision})).pixels.data;}
+async function retire(engine,r,originalId){const ids=new Set();function walk(v){if(!v||typeof v!=='object'||ArrayBuffer.isView(v))return;if(v.id&&Number.isInteger(v.revision)&&v.format)ids.add(v.id);for(const x of Object.values(v))walk(x);}walk(r);for(const id of ids)if(id!==originalId)await engine.releaseSurface(id);}
+for(const seed of[0x571a2f17,0x9e3779b9,0x12345678])test('parameter/cache walk matches fresh execution, retains old results and survives cancellation; seed '+seed,async()=>{
+ const engine=createEngine({memoryBudgetBytes:192*1024**2,cpuKernel:'auto'}),held=[];let state=seed,p={...gradientFieldDefaults('krawetz'),method:'krawetz',intensity:0,mode:2,invert:false,equalize:false},original;
+ const pick=a=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return a[state%a.length];};
+ try{
+  original=await engine.load({id:'original',bytes:Uint8Array.of(1,2,3),pixels,provenance:{decoder:'bounded-parameter-preview'}});const selection=await createOriginalSourceRegionsState({width:pixels.width,height:pixels.height,sourceSha256:original.sha256});await selection.add('acquisition',{x0:2,y0:2,x1:30,y1:26});await selection.add('exclusion',{x0:9,y0:7,x1:18,y1:20});const domain=await compileOriginalSourceRegions(selection.snapshot());
+  for(let step=0;step<81;step++){
+   const method=methods[step%methods.length],view=['native','angle','coherence'][Math.floor(step/9)%3];p={...p,method,view};if(['scharr','central','kirsch','krawetz'].includes(method))p.kernelSize=3;else if(method==='farid')p.kernelSize=pick([5,7]);else p.kernelSize=pick([3,5,9]);
+   // Vary multiple independent settings too, so every return traverses a new combination.
+   p={...p,intensity:pick([0,37,100]),mode:pick([0,1,2,3]),invert:pick([false,true]),sampleStep:pick([1,2,3]),preSigma:pick([0,.5,1.4]),preSize:pick([3,7,15]),tensorSigma:pick([.1,1.5,4]),tensorSize:pick([3,7,15]),luma:pick(['bt601','linear709']),border:pick(['reflect','nearest','omit']),sigma:pick([.1,1,3]),diskFill:pick([.1,.8,1])};
+   const eq=pick(['none','histogram','clahe','bpdhe']),params={...p,equalization:equalizationState({method:eq,values:equalizationMethods.map(m=>m.default)})},scoped=pick([false,true]),task={id:'walk-'+step,imageId:'original',operation:'detail.gradient',params,backend:'cpu',...(scoped?{sourceRegionDomain:domain.descriptor}:{})};
+   if(step%13===0){const stop=new AbortController();await assert.rejects(engine.run(task,{signal:stop.signal,onProgress:e=>{if((e.fraction??0)>=.65)stop.abort();}}),{code:'CANCELLED'});}
+   const result=await engine.run(task),actual=await read(engine,result),fresh=createEngine({memoryBudgetBytes:192*1024**2,cpuKernel:'auto'});
+   try{const source=await fresh.load({id:'original',bytes:Uint8Array.of(1,2,3),pixels,provenance:{decoder:'bounded-parameter-preview'}}),answer=await fresh.run(task);assert.deepEqual(actual,await read(fresh,answer),'history must not change pixels at '+step+' '+method+'/'+view+'/'+eq+'/'+scoped);await retire(fresh,answer,source.surface.id);}finally{await fresh.dispose();}
+   for(const old of held)assert.deepEqual(await read(engine,old.result),old.bytes,'later settings never overwrite earlier result');held.push({result,bytes:actual.slice()});if(held.length>3){const old=held.shift();await retire(engine,old.result,original.surface.id);}
+  }
+ }finally{for(const r of held)await retire(engine,r.result,original.surface.id);await engine.dispose();assert.equal(engine.capabilities().memory.activeReservationBytes,0);assert.equal(engine.capabilities().memory.retainedBytes,0);}
+});

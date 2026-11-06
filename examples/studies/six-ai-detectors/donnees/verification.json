@@ -1,0 +1,18 @@
+{
+  "rawPredictions": 3996,
+  "images": 666,
+  "methods": 6,
+  "duplicateSuccessfulPredictions": 0,
+  "missingPredictions": 0,
+  "thresholdChecks": 3996,
+  "identityChecks": 3996,
+  "independentNumericalComparisons": 1092,
+  "maximumPointMetricDifference": 2.220446049250313e-16,
+  "newInference": false,
+  "bootstrap": {
+    "iterations": 5000,
+    "seed": 20261105,
+    "unit": "paired source families",
+    "scope": "paired changes in signal rates; 36 exact McNemar tests with Holm correction"
+  }
+}

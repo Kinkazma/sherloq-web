@@ -1,5 +1,5 @@
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.32.0';
-import {recompressionSizingIdentity} from './recompression-controls.js?v=0.32.0';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.0';
+import {recompressionSizingIdentity} from './recompression-controls.js?v=0.33.0';
 const adaptive=createAdaptivePreview(),measuredFamilies=new Set();
 const fail=(code,message)=>{throw Object.assign(Error(message),{code});};
 /** One measured request, including all native contexts and transport, supplies

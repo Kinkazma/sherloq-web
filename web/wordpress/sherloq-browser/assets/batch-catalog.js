@@ -1,13 +1,13 @@
-import {defaultBackend} from './backend-mode-preferences.js?v=0.32.0';
-import {isBatchSherloq,normalizeBatchSherloqRecipe} from './batch-sherloq-settings.js?v=0.32.0';
-import {localFeaturePolicy} from './feature-policy.js?v=0.32.0';
-import {toolCatalog,toolFields} from './tool-catalog.js?v=0.32.0';
-import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js?v=0.32.0';
-import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js?v=0.32.0';
-import defaults from './tool-defaults.js?v=0.32.0';
-import {defaults as classicDefaults} from './settings.js?v=0.32.0';
-import {NEURAL_METHODS} from './neural-clone-ui.js?v=0.32.0';
-import {clipPolygon} from './batch-scope-geometry.js?v=0.32.0';
+import {defaultBackend} from './backend-mode-preferences.js?v=0.33.0';
+import {isBatchSherloq,normalizeBatchSherloqRecipe} from './batch-sherloq-settings.js?v=0.33.0';
+import {localFeaturePolicy} from './feature-policy.js?v=0.33.0';
+import {toolCatalog,toolFields} from './tool-catalog.js?v=0.33.0';
+import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js?v=0.33.0';
+import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js?v=0.33.0';
+import defaults from './tool-defaults.js?v=0.33.0';
+import {defaults as classicDefaults} from './settings.js?v=0.33.0';
+import {NEURAL_METHODS} from './neural-clone-ui.js?v=0.33.0';
+import {clipPolygon} from './batch-scope-geometry.js?v=0.33.0';
 
 const copy=value=>structuredClone(value);
 const groups={recommended:['Adaptés au traitement par lot','Suited to batch processing'],complement:['Analyses complémentaires','Additional analyses'],less:['Moins adaptés — inspection humaine','Less suited — human inspection'],required:['Entrée supplémentaire nécessaire','Additional input required']};
@@ -55,7 +55,7 @@ function describe(id,item){
  let kind='view',group='less';
  if(id.startsWith('analysis.')){kind='automatic';group='recommended';}
  else if(id.startsWith('ai.clones.')||id.startsWith('tampering.copyMove.')||id==='m2.forgeryscope'){kind='clones';group='recommended';}
- else if(['m2.trufor','m2.rita','m2.catnet','ai.localization.focal','ai.localization.adaifl'].includes(id)){kind='map';group='complement';}
+ else if(['m2.trufor','m2.trufor-mini','m2.rita','m2.catnet','ai.localization.focal','ai.localization.adaifl'].includes(id)){kind='map';group='complement';}
  else if(id==='noise.noisesniffer'){kind='regions';group='complement';}
  else if(id==='ela.energy'||id==='ela.biomes'){kind='ela';group='complement';}
  if(prerequisites[id]){kind='required';group='required';}

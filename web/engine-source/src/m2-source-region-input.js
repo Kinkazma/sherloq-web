@@ -6,13 +6,13 @@ import {EngineError,checkAbort} from './errors.js';
 
 // These analyzers consume an RGB grid. CAT-Net additionally needs JPEG/DCT
 // coefficients in the same grid, and is deliberately absent from this adapter.
-export const M2_NATIVE_RECTANGLE_METHODS=Object.freeze(['rita','trufor','cfa']);
+export const M2_NATIVE_RECTANGLE_METHODS=Object.freeze(['rita','trufor','trufor-mini','cfa']);
 export function assertM2SourceRegionTask(task,domain){
  const method=String(task.operation??'').replace(/^m2\./,''),shape=sourceRegionDomainShape(domain),unlocalized=sourceRegionUnlocalizedInput(task);
  if(shape==='empty')throw new EngineError('SOURCE_SCOPE_EMPTY','The source selection admits no original pixels.');
  if(shape==='identity')return{method,shape,adapter:'original-identity'};
  if(method==='catnet'&&['rectangle','native-regions','membership'].includes(shape)&&!unlocalized)return{method,shape,adapter:'catnet-original-stored-block-contexts'};
- if(['cfa','trufor','rita'].includes(method)&&['native-regions','membership'].includes(shape)&&!unlocalized)return{method,shape,adapter:method+'-strict-native-contexts'};
+ if(['cfa','trufor','trufor-mini','rita'].includes(method)&&['native-regions','membership'].includes(shape)&&!unlocalized)return{method,shape,adapter:method+'-strict-native-contexts'};
  if(shape!=='rectangle'||!M2_NATIVE_RECTANGLE_METHODS.includes(method)||unlocalized)throw new EngineError('SOURCE_SCOPE_UNSUPPORTED',method==='catnet'?'CAT-Net requires a qualified JPEG/DCT crop adapter aligned to the RGB grid.':'This M2 method has no qualified native adapter for this source domain or independent coordinates.',{details:{method,shape,reason:method==='catnet'?'DCT_CROP_UNQUALIFIED':shape==='membership'?'MEMBERSHIP_UNQUALIFIED':'INPUT_UNLOCALIZED',unlocalizedInput:unlocalized}});
  return{method,shape,adapter:'m2-native-rgb-rectangle'};
 }

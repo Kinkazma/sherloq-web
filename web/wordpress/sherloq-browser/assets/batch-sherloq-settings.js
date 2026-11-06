@@ -1,5 +1,5 @@
-import {isDetectorAlias,detectorTask} from './ai-detector-tools.js?v=0.32.0';
-import {equalizationState} from './equalization-menu.js?v=0.32.0';
+import {isDetectorAlias,detectorTask} from './ai-detector-tools.js?v=0.33.0';
+import {equalizationState} from './equalization-menu.js?v=0.33.0';
 const invalid = (parameter,value) => Object.assign(new Error('Invalid SHERLOQ batch '+parameter+': '+String(value)),{code:'INVALID_INPUT',details:{parameter,value}});
 
 export const isBatchSherloq = recipe => recipe?.operation==='inspection.sherloq7c';

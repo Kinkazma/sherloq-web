@@ -121,3 +121,39 @@
 #tool-controls .sparse-detector>label{min-width:0;max-width:100%;flex-wrap:wrap}
 #tool-controls .sparse-detector select{min-width:0;max-width:100%}
 #tool-controls .sparse-parameters .tool-fields{height:auto;max-height:none;overflow:visible}
+
+/* Native channel histogram stays below the image, not over it. */
+.local-channel-histogram{flex:0 0 auto;min-height:0;padding:6px 8px;background:var(--panel);border:1px solid var(--line);border-top:0;max-height:42%;overflow:auto}
+.local-histogram-controls{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;font-size:11px;min-height:28px}
+.local-histogram-controls select,.local-histogram-controls button{font-size:11px;min-height:25px;padding:3px 6px}
+.local-histogram-info{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--muted)}
+.local-channel-histogram>canvas{position:static!important;width:100%;height:clamp(90px,16vh,170px)!important;max-width:none;display:block}
+.local-histogram-stats{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;min-height:15px}
+.local-histogram-region{position:absolute;pointer-events:none;border:1px solid #fff;outline:1px solid #17181a;z-index:3;box-sizing:border-box}
+.local-histogram-region.pinned{border-color:#f0bb69}
+#viewport.local-histogram-active{cursor:crosshair}
+#viewport.local-histogram-cursor-hidden:not(:active):not(:has(>.local-histogram-region.pinned)),#viewport.local-histogram-cursor-hidden:not(:active):not(:has(>.local-histogram-region.pinned))>#canvas{cursor:none}
+@media(max-height:550px){.local-channel-histogram>canvas{height:85px!important}.local-channel-histogram{max-height:48%}}
+
+.local-histogram-pixel,.local-histogram-legend{font-size:11px;min-height:16px;font-variant-numeric:tabular-nums}
+.local-histogram-legend{display:flex;gap:14px;align-items:center}
+.local-histogram-details{margin-top:4px;font-size:11px}.local-histogram-details summary{cursor:pointer;color:var(--muted)}
+.local-histogram-details table{border-collapse:collapse;font-size:11px;max-width:100%;font-variant-numeric:tabular-nums}.local-histogram-details td,.local-histogram-details th{padding:3px 8px;border-bottom:1px solid var(--line);text-align:right}.local-histogram-details th:first-child{text-align:left;font-weight:400}.local-histogram-details p{margin:5px 0}
+
+.local-histogram-low-sample{color:#df7777!important;border-color:#b54747!important;box-shadow:inset 0 0 0 1px #b5474733}.local-histogram-controls option[data-low-sample=true]{color:#c95d5d}
+
+.local-histogram-region-values{font-size:11px;font-variant-numeric:tabular-nums;color:var(--muted)}
+
+/* Flatten the disclosure shell so its summary stays in the primary row.
+   Only its body takes a full row, ordered after the primary controls. */
+.gradient-advanced{display:contents}.gradient-advanced>summary{cursor:pointer;width:max-content;max-width:100%;align-self:center;min-height:29px;padding:3px 7px;border:1px solid #b6a14d;border-radius:4px;color:var(--ink,#e8eaed);font-size:13px;font-weight:600;white-space:nowrap;background:color-mix(in srgb,#d6bc55 7%,var(--panel,#292a2d))}.gradient-advanced>summary:hover{background:color-mix(in srgb,#d6bc55 14%,var(--panel,#292a2d))}.gradient-advanced>.gradient-advanced-fields{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;flex:1 0 100%;width:100%;min-width:0;order:10;padding:7px 0}.gradient-advanced:not([open])>.gradient-advanced-fields,.gradient-advanced-fields>label[hidden]{display:none}.gradient-advanced-fields select[data-parameter="view"]{width:240px;max-width:260px}
+
+#tool-controls .gradient-advanced-fields select[data-parameter="view"]{width:180px;max-width:180px}
+
+/* Keep processor choice and actions before the inline advanced body. */
+#tool-controls.gradient-controls .tool-actions{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-left:0}
+
+#tool-controls.gradient-controls .gradient-primary-actions{display:inline-flex;align-items:center;flex-wrap:wrap;gap:5px 10px;max-width:100%}
+#tool-controls.gradient-controls .gradient-primary-actions>.tool-attachments{display:contents}
+
+#tool-controls.gradient-controls #tool-param-method{width:132px;max-width:132px}

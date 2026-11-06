@@ -1,3 +1,4 @@
+import {truforMiniNpz} from './trufor-mini-npz.js';
 import {scientificZipPlan,scientificZipLocal,scientificZipCentral,scientificZipEnd} from './scientific-zip.js';
 import {ritaNpz,truforNpz,compositeNpz,catnetNpz,cfaNpz,forgeryscopeNpz} from './npz.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
@@ -30,7 +31,7 @@ function dataRange(e,offset,count){
  * bounded windows. The caller must pin result arrays until release(). */
 export async function createM2NpzStream(method,result,{budget,signal,onProgress,onCleanupError}={}){
  if(method==='splicebuster')return createSplicebusterNpzStream(result,{budget,signal,onProgress,onCleanupError});
- const factory={rita:ritaNpz,trufor:truforNpz,composite:compositeNpz,catnet:catnetNpz,cfa:cfaNpz,forgeryscope:forgeryscopeNpz}[method];requireValue(factory,'Unknown M2 export method.');
+ const factory={rita:ritaNpz,trufor:truforNpz,'trufor-mini':truforMiniNpz,composite:compositeNpz,catnet:catnetNpz,cfa:cfaNpz,forgeryscope:forgeryscopeNpz}[method];requireValue(factory,'Unknown M2 export method.');
  let source,entries;factory(result,Infinity,(r,_limit,e)=>{source=r;entries=e;});
  const release=budget.reserve(2*CHUNK+65536+entries.length*1024+32*(jsonBound(source.data.metadata)+jsonBound(source.provenance)));
  try{

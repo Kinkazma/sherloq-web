@@ -1,6 +1,6 @@
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
-import {resultResources,configureSegmentationModel,configureExtensionModels} from './tool-client.js?v=0.32.0';
-import {isExtensionTool} from './extension-tools.js?v=0.32.0';
+import {resultResources,configureSegmentationModel,configureExtensionModels} from './tool-client.js?v=0.33.0';
+import {isExtensionTool} from './extension-tools.js?v=0.33.0';
 import {requireValue,checkAbort} from './unified-engine/src/errors.js';
 
 // Individual documents share one native memory budget and the original image.

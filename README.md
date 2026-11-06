@@ -74,15 +74,16 @@ The local version works like a standalone desktop application, with straightforw
 
 Alongside SHERLOQ’s inherited tools, I integrated the following methods and added or restored the views listed below. They share the browser workspace, with source-region selection and batch processing available for supported analyses.
 
-- **Copy-move matching:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG. Inspect correspondences within an image or between selected acquisitions.
+- **Copy-Move Forgery:** SIFT + G2NN + RANSAC, PatchMatch, XFeat, ALIKED + LightGlue, EfficientLoFTR and SSG. Inspect correspondences within an image or between selected acquisitions.
 - **Clone localization:** D2PRL, Forgeryscope Auto, CMSeg-Net, MGCFDN and SelfDM. Inspect localization maps in the original image coordinates, including local and global searches where supported.
 - **Noise, CFA and JPEG analysis:** Noisesniffer, Splicebuster, Adaptive CFA, ZERO JPEG Grids and Multiple Compression, for inspecting noise inconsistencies, sensor patterns and compression traces.
 - **Text recognition and document inspection:** PP-OCRv6 and Tesseract for OCR; DTD / DocTamper for locating possible text edits.
-- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL and RITA. Compare their different localization or source-clustering responses with the input image.
+- **Neural forensic maps:** CAT-Net, SAFIRE, FOCAL, AdaIFL, RITA and TruFor Mini. Compare their different localization or source-clustering responses with the input image.
 - **Experimental AI detectors:** DDA, GAPL, SPAI, PRL, Community Forensics 384 and B-Free, with whole-image scores and per-model evaluation results.
 - **Compression fingerprints:** Comprint, with compression-distance maps, colour overlays, display thresholds and opacity controls.
-- **Display equalization:** a shared menu covering Histogram, CLAHE, AHE, bi-histogram, recursive, weighted, dynamic, exposure-based and contextual methods, plus adaptive gamma correction. Each view remembers a separate setting for each method.
-- **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, ELA energy and Biome territory views, and a choice between Sobel and Krawetz luminance gradients.
+- **Display equalization:** a shared menu covering SHERLOQ (revelation and microcontrast), Histogram, CLAHE, AHE, bi-histogram, recursive, weighted, dynamic, exposure-based and contextual methods, plus adaptive gamma correction. Each view remembers a separate setting for each method.
+- **Luminance gradients:** Sobel and Krawetz, extended with weighted disk (experimental), central differences, Prewitt, Scharr, Farid–Simoncelli, Gaussian derivative and eight-direction Kirsch. Three views: RGB components and magnitude, HSV orientation and tensor coherence. [Methods and settings](docs/LUMINANCE-GRADIENT-FIELDS.md).
+- **Other additions and restored tools:** local and whole-image channel histograms, Illuminant Map, Dead/Hot Pixels, ELA energy and Biome territory views.
 
 The workspace also provides CPU/GPU execution choices, lightweight adjustment previews and retained results. For retained maps, changing the view or opacity reuses the computed response. Independent source regions and exclusions carry through supported analyses, batch recipes and saved results.
 
@@ -211,7 +212,7 @@ Expand a section to view the images. WebP previews are limited to 500 kB each; c
 ### Matching and clone localization
 
 <details>
-<summary>Copy-Move Forgery 2 — dense PatchMatch and SIFT + G2NN + RANSAC</summary>
+<summary>Copy-Move Forgery — dense PatchMatch and SIFT + G2NN + RANSAC</summary>
 
 | Spiral — PatchMatch Zernike | Spiral — SIFT + G2NN + RANSAC |
 | --- | --- |
@@ -347,6 +348,14 @@ The Original variant uses block 32 and tile 512. Its coarse map responds across 
 
 </details>
 
+<details id="luminance-gradient-example">
+<summary>Luminance gradient analysis — components and magnitude (RGB)</summary>
+
+[![Original image and nine luminance-gradient operators](examples/results/luminance-gradients/comparison-98pct.webp)](examples/results/luminance-gradients/comparison-98pct.png)
+
+
+</details>
+
 <details>
 <summary>Restored tools — Illuminant Map and Dead/Hot Pixels</summary>
 
@@ -448,6 +457,25 @@ The anomaly map responds strongly to two regions on the right. Confidence and No
 </details>
 
 <details>
+<summary>TruFor Mini — comparison with the original model</summary>
+
+I built TruFor Mini by pruning channels in TruFor’s noise branch and reducing its localization readout to eight units. All Transformer blocks are retained; noise-branch attention is approximated. The study compares detection, localization and computation time with the original model.
+
+[![Read the study](examples/studies/six-ai-detectors/read-study.svg)](examples/studies/trufor-mini/TRUFOR-MINI-STUDY-EN.pdf)
+
+**Documentation and reproduction**
+
+The study folder brings together the manuscript, figures, recorded measurements, model reconstruction recipe and reproduction scripts.
+
+[![Documentation and code](examples/studies/trufor-mini/documentation-code.svg)](examples/studies/trufor-mini/README.md)
+
+[![TruFor and TruFor Mini — examples 1 to 6](screenshots/readme-webp/examples/studies/trufor-mini/overview-01.webp)](examples/studies/trufor-mini/examples/overview-01-original.webp)
+
+[![TruFor and TruFor Mini — examples 7 to 12](screenshots/readme-webp/examples/studies/trufor-mini/overview-02.webp)](examples/studies/trufor-mini/examples/overview-02-original.webp)
+
+</details>
+
+<details>
 <summary>RITA — clone-stamp and generative-edit localization</summary>
 
 RITA opens with an overlay at threshold **0.5**; Scores and Mask views are also available. Image dimensions are preserved. Reflection padding is applied when needed and removed from the result.
@@ -471,7 +499,7 @@ Colors count distinct detector/search-context contributions: blue 1, cyan 2, gre
 
 </details>
 
-### Text analysis and AI-image detection
+### Text analysis
 
 <details>
 <summary>PP-OCRv6 — proposed text regions for scientific preparation</summary>
@@ -502,11 +530,16 @@ Green: detected edits · red: false alerts · yellow: missed edits. Predicting �
 
 </details>
 
+### AI-image detection
+
+I compared the six AI-image detectors integrated into SHERLOQ Web using a corpus of 666 files: 348 without AI generation and 318 derived from images generated or reconstructed with **OpenAI’s ChatGPT Images 2.5**, as used on 3 November 2026. The results for each model are summarized below.
+
+[![Read the complete study](examples/studies/six-ai-detectors/read-complete-study.svg)](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf) [![Data and supplementary files](examples/studies/six-ai-detectors/data-supplementary.svg)](examples/studies/six-ai-detectors/README.md) [![Download the image dataset](examples/studies/six-ai-detectors/download-dataset.svg)](https://mega.nz/#P!AgFusABYlFI3lAXSDhlIehf-al7ttN5o0N2BJO630YpyTNLdxypSVlB1IKTO9-IgXf8V2SGGAuDTSzarJgl4B_J1HOWOI9f0TTqc-r7rvtGPsC7ghaZQZfKpuY0Q1u8i-wDRb9HxQ3A)
+
+**Dataset link:** <https://mega.nz/#P!AgFusABYlFI3lAXSDhlIehf-al7ttN5o0N2BJO630YpyTNLdxypSVlB1IKTO9-IgXf8V2SGGAuDTSzarJgl4B_J1HOWOI9f0TTqc-r7rvtGPsC7ghaZQZfKpuY0Q1u8i-wDRb9HxQ3A>  
+**Password:** `RjJhix6eQfy&`
+
 These experimental detectors assess AI-image signals. Even a correct AI label does not establish that the underlying data are false: a real acquisition can retain reliable information after AI denoising or sharpening. Partial AI edits may also go undetected.
-
-Results on the study’s 666-file corpus (348 human, 318 AI).
-
-[Read the complete study](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf).
 
 <details>
 <summary>⚠ DDA — experimental AI detector</summary>
@@ -517,6 +550,8 @@ Results on the study’s 666-file corpus (348 human, 318 AI).
 | Which non-AI images are wrongly flagged as AI? | **17.0%** |
 | Which alerts are justified? | **71.5%** |
 | Across all images, which decisions are correct? | **65.6%** |
+
+[![Read the study](examples/studies/six-ai-detectors/read-study.svg)](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf)
 
 </details>
 
@@ -530,6 +565,8 @@ Results on the study’s 666-file corpus (348 human, 318 AI).
 | Which alerts are justified? | **59.9%** |
 | Across all images, which decisions are correct? | **62.5%** |
 
+[![Read the study](examples/studies/six-ai-detectors/read-study.svg)](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf)
+
 </details>
 
 <details>
@@ -541,6 +578,8 @@ Results on the study’s 666-file corpus (348 human, 318 AI).
 | Which non-AI images are wrongly flagged as AI? | **46.0%** |
 | Which alerts are justified? | **57.0%** |
 | Across all images, which decisions are correct? | **60.1%** |
+
+[![Read the study](examples/studies/six-ai-detectors/read-study.svg)](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf)
 
 </details>
 
@@ -554,6 +593,8 @@ Results on the study’s 666-file corpus (348 human, 318 AI).
 | Which alerts are justified? | **61.3%** |
 | Across all images, which decisions are correct? | **56.0%** |
 
+[![Read the study](examples/studies/six-ai-detectors/read-study.svg)](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf)
+
 </details>
 
 <details>
@@ -565,6 +606,8 @@ Results on the study’s 666-file corpus (348 human, 318 AI).
 | Which non-AI images are wrongly flagged as AI? | **3.2%** |
 | Which alerts are justified? | **75.6%** |
 | Across all images, which decisions are correct? | **55.7%** |
+
+[![Read the study](examples/studies/six-ai-detectors/read-study.svg)](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf)
 
 </details>
 
@@ -578,6 +621,8 @@ Results on the study’s 666-file corpus (348 human, 318 AI).
 | Which alerts are justified? | **45.1%** |
 | Across all images, which decisions are correct? | **51.5%** |
 
+[![Read the study](examples/studies/six-ai-detectors/read-study.svg)](examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf)
+
 </details>
 
 ### Display equalization
@@ -587,17 +632,32 @@ Results on the study’s 666-file corpus (348 human, 318 AI).
 Other methods: **Histogram**, **BBHE**, **DSIHE**, **MMBEBHE**, **RMSHE**, **RSIHE**, **RSWHE**, **DHE**, **BPDHE**, **WTHE**, **ESIHE**, **CVC** and **AGCWD**. [Compare all equalization methods](examples/equalization/README.md).
 
 <details>
-<summary>Original, CLAHE, CLAHE + gamma and AHE — compact example</summary>
+<summary>Original, CLAHE, CLAHE + gamma, AHE and SHERLOQ — example</summary>
 
-| Original | CLAHE | CLAHE + gamma | AHE |
-| --- | --- | --- | --- |
-| ![Original microscopy crop](examples/equalization/images/original.webp) | ![CLAHE with contrast limit 5](examples/equalization/images/clahe.webp) | ![CLAHE with contrast limit 5 and gamma 5](examples/equalization/images/clahe-gamma.webp) | ![AHE with 8 tiles per axis](examples/equalization/images/ahe.webp) |
+| Original | CLAHE | CLAHE + gamma | AHE | SHERLOQ |
+| --- | --- | --- | --- | --- |
+| ![Original microscopy crop](examples/equalization/images/original.webp) | ![CLAHE with contrast limit 40](examples/equalization/images/clahe.webp) | ![CLAHE with contrast limit 40 and gamma 5](examples/equalization/images/clahe-gamma.webp) | ![AHE with 8 tiles per axis](examples/equalization/images/ahe.webp) | ![SHERLOQ with revelation 100% and microcontrast 100%](examples/equalization/images/sherloq.webp) |
 
 > If you’re wondering where this little smiling fellow comes from: he already appeared in [this study published in *Scientific Reports*, a Nature Portfolio journal](https://pmc.ncbi.nlm.nih.gov/articles/PMC6026137/pdf/41598_2018_Article_28183.pdf#page=6), page 6, Figure 4, panel A, third image in the top row ([archived PDF](examples/equalization/sources/reinehr-2018-s100b/s41598-018-28183-6.pdf#page=6)). He certainly looks as though he was drawn with a paintbrush. I’m not sure, though, that the author noticed the little fellow they were drawing.
 
 If the article is retracted or becomes unavailable, an [archived copy of the PDF](examples/equalization/sources/reinehr-2018-s100b/s41598-018-28183-6.pdf#page=6) is available in this repository.
 
-The same microscopy crop in each view. CLAHE + gamma uses gamma 5 (50 in the global-adjustment field), with CLAHE’s contrast limit kept at 5. These adjustments change the display, not the source image or detector inputs.
+The same microscopy crop in each view. CLAHE and CLAHE + gamma use the maximum contrast limit of 40. The combined view also uses gamma 5 (50 in the global-adjustment field). SHERLOQ uses revelation 100% and microcontrast 100%. These adjustments change the display, not the source image or detector inputs.
+
+</details>
+
+<details>
+<summary>SHERLOQ — method and source code</summary>
+
+[Original Python implementation](examples/equalization/sherloq-python/sherloq7c.py) · [Python modules and dependencies](examples/equalization/sherloq-python/README.md) · [Current engine implementation](https://github.com/Kinkazma/sherloq-web/tree/main/web/engine-source/vendor/frozen-sherloq7c183).
+
+SHERLOQ works on the normalized intensity `x = max(R, G, B)`. Connected pixels with equal intensity are grouped into components, which are linked through an eight-neighbour grid. Each link carries a positive contrast `d`, directed from the darker level to the lighter one. Its normalized weight `w` is proportional to `m sqrt(d/(d+q))`, where `m` is the geometric multiplicity and `q` is the weighted median of the contrasts. The weighted first percentile `q_0.01` provides a scale for weak variations.
+
+The target `T_b` is obtained by strictly convex optimization. Its objective combines logarithmic barriers on the contrast reserves `T_h - T_l - 0.1d` and on the margins `T_i(1-T_i)`, the latter weighted by component area and a coefficient of **0.1**. A quadratic term `0.5 λ_b (T_h - T_l - c_b)²` favours the contrast target `c_b = g_b d / (1 + (g_b - 1)d)`, with `g_b = max(4 × 16^b, (0.5 + 7.5b)/(255q_0.01))`. Its weight is `λ_b = 20w / (c_b² × (1 + (d/(8q_0.01))⁴))`. The microcontrast parameter `b`, from 0 to 1, controls this target gain. The constraints preserve neighbouring intensity order and retain at least 10% of each original nonzero contrast.
+
+A base `M_b` is also constructed from the global stretch of the observed extrema, with the difference `T_b - T_0` added. A quadratic projection brings this base into the admissible domain, with extrema anchored at 0 and 1 and the same contrast constraints. The scalar output is then `Y = (1-s)M_b + sT_b`, where `s` controls revelation. Microcontrast therefore remains active independently of this control; a constant image remains unchanged.
+
+Colour is reconstructed as `RGB_out = RGB_in × Y/x` when `x > 0`; black pixels remain black. This common gain preserves channel proportions wherever the output is nonzero. Constraints and numerical errors are checked before quantization. The method can reveal textures, noise and subtle variations already present in the image; it computes neither a recompression residual nor an ELA error measure.
 
 </details>
 
@@ -657,22 +717,28 @@ These desktop screenshots from [Guido Bartoli’s original repository](https://g
 
 ## Credits
 
-SHERLOQ, the integrated research methods and shared components retain their original authors’ credits, notices and licenses. The table below lists methods and models chronologically; years refer to the cited publications or original software release.
+SHERLOQ, the integrated research methods and shared components retain their original authors’ credits, notices and licenses. The table below lists methods and models chronologically; years refer to the cited publications, original software releases or dated presentations.
 
 <details>
 <summary>Authors of the methods and models — chronological order</summary>
 
 | Publication year | Method or model | Original authors | Reference |
 | --- | --- | --- | --- |
+| 1968 · 2014 | **Sobel–Feldman gradient** | Irwin Sobel, Gary Feldman | [Sobel’s historical account](https://www.researchgate.net/publication/239398674_An_Isotropic_3x3_Image_Gradient_Operator) · Operator presented in 1968; historical note published in 2014. |
+| 1970 | **Prewitt gradient** | Judith M. S. Prewitt | [Object Enhancement and Extraction](https://web.eecs.utk.edu/~hqi/ece472-572/reference/edge-Prewitt70.pdf), in Picture Processing and Psychopictorics, pp. 75–149. |
+| 1971 | **Kirsch compass gradient** | Russell A. Kirsch | [Computer Determination of the Constituent Structure of Biological Images](https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=821708) |
 | 1977 · 1980 · 2004 | **Illuminant Map — colour-constancy foundations** | G. Buchsbaum; Graham D. Finlayson, Elisabetta Trezzi; Edwin H. Land | [Gray World](https://www.sciencedirect.com/science/article/pii/0016003280900587) · [Shades of Gray / Max-RGB](https://library.imaging.org/admin/apis/public/api/ist/website/downloadArticle/cic/12/1/art00008) · [Retinex](https://doi.org/10.1038/scientificamerican1277-108) |
 | 1981 · 2004 · 2011 | **SIFT + G2NN + RANSAC** | SIFT: David G. Lowe. G2NN copy-move method: Irene Amerini, Lamberto Ballan, Roberto Caldelli, Alberto Del Bimbo, Giuseppe Serra. RANSAC: Martin A. Fischler, Robert C. Bolles. | [SIFT](https://www.cs.ubc.ca/~lowe/keypoints/) · [G2NN method](https://ailab.uniud.it/wp-content/uploads/2018/11/serra_TIFS_2011.pdf) · [RANSAC](https://www.sri.com/publication/artificial-intelligence-pubs/random-sample-consensus-a-paradigm-for-model-fitting-with-applications-to-image-analysis-and-automated-cartography-2/) |
 | 1987 | **AHE** | Stephen M. Pizer, E. Philip Amburn, John D. Austin, Robert Cromartie, Ari Geselowitz, Trey Greer, Bart ter Haar Romeny, John B. Zimmerman, Karel Zuiderveld | [Adaptive histogram equalization and its variations](https://doi.org/10.1016/S0734-189X(87)80186-X) |
 | 1994 | **CLAHE** | Karel Zuiderveld | [Contrast Limited Adaptive Histogram Equalization](https://doi.org/10.1016/B978-0-12-336156-1.50061-6) |
+| 1994 | **Gaussian derivatives — scale-space reference** | Tony Lindeberg | [Scale-space theory: A basic tool for analysing structures at different scales](https://www.csc.kth.se/~tony/abstracts/Lin94-SI-abstract.html) |
 | 1997 | **BBHE** | Yeong-Taeg Kim | [Contrast Enhancement Using Brightness Preserving Bi-Histogram Equalization](https://doi.org/10.1109/30.580378) |
 | 1999 | **DSIHE** | Yu Wang, Qian Chen, Baeomin Zhang | [Image enhancement based on equal area dualistic sub-image histogram equalization method](https://doi.org/10.1109/30.754419) |
+| 2000 | **Scharr gradient** | Hanno Scharr | [Optimale Operatoren in der Digitalen Bildverarbeitung](https://doi.org/10.11588/heidok.00000962) |
 | 2003 | **MMBEBHE / RMSHE** | Soong-Der Chen, Abd. Rahman Ramli | [Minimum Mean Brightness Error Bi-Histogram Equalization in Contrast Enhancement](https://doi.org/10.1109/TCE.2003.1261234) · [Contrast enhancement using recursive mean-separate histogram equalization for scalable brightness preservation](https://doi.org/10.1109/TCE.2003.1261233) |
 | 2004 · 2006 | **Multiple Compression — double-quantization foundations** | Alin C. Popescu, Hany Farid; Junfeng He, Zhouchen Lin, Lifeng Wang, Xiaoou Tang | [Statistical foundations](https://farid.berkeley.edu/downloads/publications/ih04.pdf) · [DCT coefficient analysis](https://www.microsoft.com/en-us/research/publication/detecting-doctored-jpeg-images-via-dct-coefficient-analysis/) |
-| 2007 | **ELA — underlying method** | Neal Krawetz | [Original paper](https://www.blackhat.com/presentations/bh-usa-07/Krawetz/Whitepaper/bh-usa-07-krawetz-WP.pdf) |
+| 2004 · 2010 | **Farid–Simoncelli gradients / seven-tap coefficient reference** | Hany Farid, Eero P. Simoncelli. Seven-tap reference implementation: Peter Kovesi. | [Differentiation of Discrete Multidimensional Signals](https://doi.org/10.1109/TIP.2004.823819) · [Kovesi’s seven-tap reference](https://peterkovesi.com/matlabfns/Spatial/derivative7.m) |
+| 2007 · 2008 | **ELA / Krawetz luminance-gradient visualization** | Neal Krawetz | [ELA paper](https://www.blackhat.com/presentations/bh-usa-07/Krawetz/Whitepaper/bh-usa-07-krawetz-WP.pdf) · [Gradient visualization, section 3.4.4](https://blackhat.com/presentations/bh-dc-08/Krawetz/Whitepaper/bh-dc-08-krawetz-WP.pdf) |
 | 2007 | **Tesseract OCR / English and French LSTM data** | Ray Smith and the Tesseract / tessdata_best contributors. Browser runtime: Tesseract.js-core contributors. | [Original paper](https://tesseract-ocr.github.io/docs/tesseracticdar2007.pdf) · [Authors](https://github.com/tesseract-ocr/tesseract/blob/main/AUTHORS) · [Language models](https://github.com/tesseract-ocr/tessdata_best) · [Browser runtime](https://github.com/naptha/tesseract.js-core) |
 | 2007 | **BPDHE** | Haidi Ibrahim, Nicholas Sia Pik Kong | [Brightness Preserving Dynamic Histogram Equalization for Image Contrast Enhancement](https://doi.org/10.1109/TCE.2007.4429280) |
 | 2007 | **DHE** | M. Abdullah-Al-Wadud, Md. Hasanul Kabir, M. Ali Akber Dewan, Oksam Chae | [A Dynamic Histogram Equalization for Image Contrast Enhancement](https://doi.org/10.1109/TCE.2007.381734) |
@@ -687,6 +753,7 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | 2014 | **ESIHE** | Kuldeep Singh, Rajiv Kapoor | [Image enhancement using Exposure based Sub Image Histogram Equalization](https://doi.org/10.1016/j.patrec.2013.08.024) · [Implementation licence](web/engine-source/docs/ESIHE-LICENSE.txt) |
 | 2015 · 2018 | **DeepMask** | Pedro O. Pinheiro, Ronan Collobert, Piotr Dollár. PyTorch implementation: Qiang Wang. | [Research and implementation](https://github.com/foolwood/deepmask-pytorch) |
 | 2015 | **Splicebuster** | Davide Cozzolino, Giovanni Poggi, Luisa Verdoliva | [Original paper](https://doi.org/10.1109/WIFS.2015.7368565) |
+| 2016 | **Structure-tensor coherence — OrientationJ reference** | Zsuzsanna Püspöki, Martin Storath, Daniel Sage, Michael Unser | [Transforms and Operators for Directional Bioimage Analysis: A Survey](https://bigwww.epfl.ch/publications/puespoeki1603.html) · [OrientationJ](https://bigwww.epfl.ch/demo/orientationj/) |
 | 2018 | **ConvCRF** | Marvin T. T. Teichmann, Roberto Cipolla | [Paper](https://arxiv.org/abs/1805.04777) |
 | 2018 · 2020 | **SuperPoint / SuperGlue** | Daniel DeTone, Tomasz Malisiewicz, Andrew Rabinovich; Paul-Edouard Sarlin (SuperGlue) | [SuperPoint](https://arxiv.org/abs/1712.07629) · [SuperGlue](https://github.com/magicleap/SuperGluePretrainedNetwork) |
 | 2020 | **Adaptive CFA** | Quentin Bammey, Rafael Grompone von Gioi, Jean-Michel Morel | [Paper](https://openaccess.thecvf.com/content_CVPR_2020/html/Bammey_An_Adaptive_Neural_Network_for_Unsupervised_Mosaic_Consistency_Analysis_in_CVPR_2020_paper.html) |
@@ -695,6 +762,8 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | 2021 · 2024 | **Noisesniffer** | Marina Gardella, Pablo Musé, Miguel Colom, Jean-Michel Morel | [Paper and implementation](https://www.ipol.im/pub/art/2024/462/) |
 | 2021 | **ZERO JPEG Grids** | Tina Nikoukhah, Jérémy Anger, Miguel Colom, Jean-Michel Morel, Rafael Grompone von Gioi | [Paper and implementation](https://www.ipol.im/pub/art/2021/390/) |
 | 2021 | **CLIP visual backbone (GAPL)** | OpenAI; Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen Krueger, Ilya Sutskever | [Original project](https://github.com/openai/CLIP) |
+| 2021 | **Vision Transformer — shared backbone architecture** | Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, Neil Houlsby | [An Image is Worth 16×16 Words](https://arxiv.org/abs/2010.11929) · ICLR 2021. |
+| 2021 | **SegFormer / Mix Transformer — TruFor backbone** | Enze Xie, Wenhai Wang, Zhiding Yu, Anima Anandkumar, Jose M. Alvarez, Ping Luo | [SegFormer](https://arxiv.org/abs/2105.15203) |
 | 2022 | **SelfDM** | Yaqi Liu, Chao Xia, Xiaobin Zhu, Shengwei Xu | [Original project](https://github.com/yaqiliu-cs/SelfDM-TIP) |
 | 2023 | **ALIKED** | Xiaoming Zhao, Xingming Wu, Weihai Chen, Peter C. Y. Chen, Qingsong Xu, Zhengguo Li | [Original project](https://github.com/Shiaoming/ALIKED) |
 | 2023 | **Comprint** | Hannes Mareen, Dante Vanden Bussche, Fabrizio Guillaro, Davide Cozzolino, Glenn Van Wallendael, Peter Lambert, Luisa Verdoliva | [Original project](https://github.com/IDLabMedia/comprint) |
@@ -702,9 +771,11 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | 2023 | **LightGlue** | Philipp Lindenberger, Paul-Edouard Sarlin, Marc Pollefeys | [Original project](https://github.com/cvg/LightGlue) |
 | 2023 | **Segment Anything** | Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer Whitehead, Alexander C. Berg, Wan-Yen Lo, Piotr Dollár, Ross Girshick | [Paper](https://arxiv.org/abs/2304.02643) |
 | 2023 | **SSG / spatial-phrase matching** | Chao Wang, Zhiqiu Huang, Shuren Qi, Yaoshen Yu, Guohua Shen, Yushu Zhang | [Paper](https://arxiv.org/abs/2207.09135) |
-| 2023 | **TruFor / Noiseprint++** | Fabrizio Guillaro, Davide Cozzolino, Avneesh Sud, Nicholas Dufour, Luisa Verdoliva | [Original project](https://github.com/grip-unina/TruFor) |
+| 2023 · 2026 | **TruFor / TruFor Mini / Noiseprint++** | Original TruFor: Fabrizio Guillaro, Davide Cozzolino, Avneesh Sud, Nicholas Dufour, Luisa Verdoliva. TruFor Mini adaptation: Gaël Dauchy. | [Original project](https://github.com/grip-unina/TruFor) · [TruFor Mini study and reproduction](examples/studies/trufor-mini/README.md) |
 | 2023 | **Ultralytics YOLO** | Glenn Jocher, Ayush Chaurasia, Jing Qiu and Ultralytics contributors | [Original citation](https://docs.ultralytics.com/models/yolov8/) |
-| 2023 · 2025 | **DINOv2 / DINOv3 backbones (DDA / PRL)** | Meta Platforms; Maxime Oquab, Timothée Darcet, Théo Moutakanni, Huy V. Vo, Marc Szafraniec, Vasil Khalidov, Patrick Labatut, Armand Joulin, Piotr Bojanowski, Oriane Siméoni, Maximilian Seitzer, Federico Baldassarre, Cijo Jose, Seungeun Yi, Michaël Ramamonjisoa, Francisco Massa, Daniel Haziza, Luca Wehrstedt, Jianyuan Wang, Leonel Sentana, Claire Roberts, Andrea Vedaldi, Jamie Tolan, John Brandt, Camille Couprie, Julien Mairal, Hervé Jégou | [DINOv2](https://github.com/facebookresearch/dinov2) · [DINOv3](https://github.com/facebookresearch/dinov3) |
+| 2023 · 2025 | **DINOv2 / DINOv3 backbones (DDA / PRL)** | Meta Platforms; Maxime Oquab, Timothée Darcet, Théo Moutakanni, Huy V. Vo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez, Daniel Haziza, Francisco Massa, Alaaeldin El-Nouby, Mahmoud Assran, Nicolas Ballas, Wojciech Galuba, Russell Howes, Po-Yao Huang, Shang-Wen Li, Ishan Misra, Michael Rabbat, Vasu Sharma, Gabriel Synnaeve, Hu Xu, Hervé Jégou, Julien Mairal, Patrick Labatut, Armand Joulin, Piotr Bojanowski, Oriane Siméoni, Maximilian Seitzer, Federico Baldassarre, Cijo Jose, Seungeun Yi, Michaël Ramamonjisoa, Luca Wehrstedt, Jianyuan Wang, Leonel Sentana, Claire Roberts, Andrea Vedaldi, Jamie Tolan, John Brandt, Camille Couprie | [DINOv2 paper](https://arxiv.org/abs/2304.07193) · [DINOv3 paper](https://arxiv.org/abs/2508.10104) · [DINOv2 source](https://github.com/facebookresearch/dinov2) · [DINOv3 source](https://github.com/facebookresearch/dinov3) |
+| 2023 | **CMX — fusion architecture used by TruFor / TruFor Mini** | Jiaming Zhang, Huayao Liu, Kailun Yang, Xinxin Hu, Ruiping Liu, Rainer Stiefelhagen | [Original paper](https://arxiv.org/abs/2203.04838) · [Original code](https://github.com/huaaaliu/RGBX_Semantic_Segmentation) |
+| 2023 | **MFM — pretraining used by SPAI** | Jiahao Xie, Wei Li, Xiaohang Zhan, Ziwei Liu, Yew Soon Ong, Chen Change Loy | [Masked Frequency Modeling for Self-Supervised Visual Pre-Training](https://arxiv.org/abs/2206.07706) · [Original code](https://github.com/Jiahao000/MFM) · ICLR 2023. |
 | 2024 | **AdaIFL** | Yuxi Li, Fuyuan Cheng, Wangbo Yu, Guangshuo Wang, Guibo Luo, Yuesheng Zhu | [Original project](https://github.com/LMIAPC/AdaIFL) |
 | 2024 | **EfficientLoFTR** | Yifan Wang, Xingyi He, Sida Peng, Dongli Tan, Xiaowei Zhou | [Original project](https://github.com/zju3dv/EfficientLoFTR) |
 | 2024 | **XFeat / LighterGlue** | Guilherme Potje, Felipe Cadar, André Araujo, Renato Martins, Erickson R. Nascimento | [Original project](https://github.com/verlab/accelerated_features) |
@@ -722,5 +793,6 @@ SHERLOQ, the integrated research methods and shared components retain their orig
 | 2026 | **PP-OCRv6 — text detection and recognition** | Yubo Zhang, Xueqing Wang, Manhui Lin, Yue Zhang, Penglongyi Deng, Ting Sun, Tingquan Gao, Zelun Zhang, Jiaxuan Liu, Changda Zhou, Hongen Liu, Suyin Liang, Cheng Cui, Yi Liu, Dianhai Yu, Yanjun Ma. Small detector ONNX conversion: RapidAI / RapidOCR contributors. Medium models: official PaddlePaddle ONNX exports. | [Paper](https://arxiv.org/abs/2606.13108) · [Small conversion](https://github.com/RapidAI/RapidOCR) · [Official Medium models](https://huggingface.co/PaddlePaddle/PP-OCRv6_medium_rec_onnx) |
 | 2026 | **RITA** | Xuekang Zhu, Ji-Zhe Zhou, Kaiwen Feng, Chenfan Qu, Xiwen Wang, Yunfei Wang, Liting Zhou, Jian Liu | [Original project](https://github.com/scu-zjz/RITA) · [Weights: CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) |
 | 2026 | **PRL** | Tianyu Wang, Ouxiang Li, Yanbin Hao, Zhenhua Tang, Shuo Wang | [Original paper](https://arxiv.org/abs/2610.11876v1) · Preprint 2026 |
+| 2026 | **SHERLOQ display equalization** | Gaël Dauchy | [Original Python source](examples/equalization/sherloq-python/sherloq7c.py) · [Browser engine source](web/engine-source/vendor/frozen-sherloq7c183/sherloq7c-memory.mjs) |
 
 </details>

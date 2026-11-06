@@ -7,7 +7,7 @@ async function json(url,{signal}={}){
  return JSON.parse(new TextDecoder().decode(bytes));
 }
 export async function aiDetectorConfiguration({url,signal}={}){
- if(!url){const deployment=await json(new URL('./integrated-config.json?v=0.32.0',import.meta.url),{signal});url=new URL('ai-detectors/model-manifest.json',new URL(deployment.assetBase,new URL('./integrated-config.json?v=0.32.0',import.meta.url))).href;}
+ if(!url){const deployment=await json(new URL('./integrated-config.json?v=0.33.0',import.meta.url),{signal});url=new URL('ai-detectors/model-manifest.json',new URL(deployment.assetBase,new URL('./integrated-config.json?v=0.33.0',import.meta.url))).href;}
  const key=String(url);if(flights.has(key)&&!signal)return structuredClone(await flights.get(key));
  const task=json(key,{signal}).then(value=>({...value,gpuQualifiedMethods:aiDetectorGpuMethods(value.gpuQualifiedMethods??[]),gpuQualifiedBrowserFamilies:aiDetectorGpuBrowserFamilies(value.gpuQualifiedBrowserFamilies??[]),qualificationEvidence:aiDetectorQualification(value.qualificationEvidence).qualificationEvidence}));
  if(!signal)flights.set(key,task);

@@ -55,6 +55,28 @@ class OfflineServerTests(unittest.TestCase):
         self.assertEqual(self.request('app.html',{'Origin':'https://remote.test'})[0],403)
         self.assertEqual(self.request('private-report.js')[0],404)
 
+    def test_bridge_catalogue_preserves_exact_noncanonical_json_bytes(self):
+        catalogue={'schema':'sherloq.features/1','groups':[{'id':'core','fr':'Base','en':'Core'}],
+                   'features':[{'id':'core','fr':'Éléments de base','en':'Core','group':'core',
+                                'protected':True,'dependsOn':[],'resources':['engine/module.wasm'],'tasks':[]}]}
+        raw=(json.dumps(catalogue,ensure_ascii=True,indent=2)+'\n').encode()
+        self.assertNotEqual(raw,offline.canonical(catalogue))
+        shell={**self.shell,'version':'bridge-test','catalog':offline.digest(raw),
+               'files':{**self.shell['files'],'feature-catalog.json':{'size':len(raw),'sha256':offline.digest(raw)}}}
+        managed=offline.ManagedLibrary(self.archive,Path(self.tmp.name)/'managed')
+        managed.upload(offline.digest(raw),io.BytesIO(raw),len(raw))
+        candidate=managed.prepare({'shell':shell,'manifest':self.manifest,'catalog':catalogue,
+                                  'policy':{'schema':'sherloq.feature-policy/1','disabledFeatures':[],'disabledGroups':[]}},bridge=True)
+        managed.activate(candidate)
+        self.server.shutdown();self.server.server_close();self.thread.join()
+        self.server=offline.make_server(self.archive,self.config,managed)
+        self.thread=threading.Thread(target=self.server.serve_forever,daemon=True);self.thread.start()
+        for name in ['feature-catalog.json','__features.json']:
+            status,headers,data=self.request(name)
+            self.assertEqual(status,200);self.assertEqual(data,raw)
+            self.assertEqual(offline.digest(data),shell['catalog'])
+            self.assertEqual(json.loads(data),catalogue)
+
     def test_wrong_archive_and_changed_archive_fail_closed(self):
         with self.assertRaises(ValueError):offline.Archive(self.path,{**self.config,'manifest':'f'*64})
         self.path.write_bytes(self.path.read_bytes()+b'changed')

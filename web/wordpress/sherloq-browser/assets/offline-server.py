@@ -631,7 +631,18 @@ def make_server(archive, config, managed=None):
                     data=managed.read_object(record['release']['manifest']['sha256'],record['release']['manifest']['size']) if record and record.get('release') else canonical(manifest)
                     self.reply(data,'application/json'); return
                 if name in ['__features.json','feature-catalog.json'] and record:
-                    data=managed.read_object(record['release']['catalog']['sha256'],record['release']['catalog']['size']) if record.get('release') else archive.catalog_bytes if record['identity']==managed.baseline and archive.catalog_bytes is not None else canonical(record['catalog'])
+                    if record.get('release'):
+                        data=managed.read_object(record['release']['catalog']['sha256'],record['release']['catalog']['size'])
+                    elif record['identity']==managed.baseline and archive.catalog_bytes is not None:
+                        data=archive.catalog_bytes
+                    else:
+                        # Bridge catalogues are immutable shell files too.
+                        # Reserializing equivalent JSON changes their hash
+                        # when escaping or whitespace differs from the source.
+                        meta=shell['files'].get('feature-catalog.json')
+                        if not meta:raise ValueError('Managed feature catalogue has no pinned shell bytes')
+                        data=managed.read_object(meta['sha256'],meta['size'])
+                    if digest(data)!=shell.get('catalog'):raise ValueError('Managed feature catalogue integrity differs')
                     self.reply(data,'application/json'); return
                 if name == '__features.json' and archive.catalog:
                     self.reply(archive.catalog_bytes,'application/json'); return
