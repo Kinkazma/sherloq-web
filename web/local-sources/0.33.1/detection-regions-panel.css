@@ -1,0 +1,14 @@
+/* Uses the workbench's palette, compact buttons and panel borders. */
+.detection-regions-panel{display:flex;flex-direction:column;min-width:0;min-height:0;color:var(--ink);background:var(--panel)}
+.detection-regions-tabs{display:flex;gap:5px;padding:8px;border-bottom:1px solid var(--line);background:var(--raised)}
+.detection-regions-tabs button{flex:1;min-height:27px;font-size:12px}
+.detection-regions-tabs button[aria-selected=true]{background:var(--selected);border-color:var(--accent);font-weight:650}
+.detection-regions-actions{display:flex;flex-wrap:wrap;gap:5px;padding:8px;border-bottom:1px solid var(--line)}
+.detection-regions-actions button{min-height:27px;font-size:11px;white-space:normal}
+.detection-regions-history{display:flex;gap:5px;padding:6px 8px;border-bottom:1px solid var(--line)}
+.detection-regions-history button{flex:1;min-height:27px;font-size:11px}
+.detection-regions-list{display:flex;flex-direction:column;gap:4px;padding:8px;overflow:auto;min-height:0}
+.detection-regions-item{width:100%;text-align:left;font-size:12px;white-space:normal;border-left:4px solid var(--detection-color);min-height:29px}
+.detection-regions-item[data-highlighted=true]{background:var(--selected);border-color:var(--accent);border-left-color:var(--detection-color)}
+.detection-regions-empty{font-size:12px;color:var(--muted);margin:8px}
+.detection-regions-panel [hidden]{display:none}

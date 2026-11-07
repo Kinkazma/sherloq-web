@@ -1,0 +1,117 @@
+{
+  "schema": "sherloq.gradient-fields-increment/1",
+  "sha256": "b380bec03f38f3335e55a5abf559cf512c0827bbdaa25fb60e72bc91e8de3218",
+  "displayVersion": 2,
+  "files": [
+    {
+      "file": "web/engine-source/src/external-preview-admission.js",
+      "sha256": "d3468da3f37f86a36f9ce819169d905ac2fd41611056ff9db5c5945dcb5bb56c",
+      "bytes": 18641
+    },
+    {
+      "file": "web/engine-source/src/external-preview-parallel-admission.js",
+      "sha256": "0ca2cd22ea9910975a353daad9878a82ac48258e7d5bbabf2e45ef7919c4c536",
+      "bytes": 5070
+    },
+    {
+      "file": "web/engine-source/src/gradient-field-gpu.js",
+      "sha256": "13ed6c4807756f0be7c63393c63abf21908a1792a8d79ef4df0e7f822a845233",
+      "bytes": 12018
+    },
+    {
+      "file": "web/engine-source/src/gradient-field-math.js",
+      "sha256": "602dd5bc902c19b3259f8e9f7a63ccb7d9681f90cee1971b6c005f40e9f8df4c",
+      "bytes": 11294
+    },
+    {
+      "file": "web/engine-source/src/gradient-field-parameters.js",
+      "sha256": "7152336b2a69d3092c74997a1d3f93b57c23cd2c65fe994009f8bd23816591b9",
+      "bytes": 2968
+    },
+    {
+      "file": "web/engine-source/src/gradient-field.js",
+      "sha256": "298d8aeab4f64fb4471d27af42166b37030774b870a9a3c55711ad8f4704b840",
+      "bytes": 12118
+    },
+    {
+      "file": "web/engine-source/src/gradient-gpu-admission.js",
+      "sha256": "f11282ea80ecd20864d5a1f07fad345df0186377a18637a06f95c1cc1990c3f7",
+      "bytes": 697
+    },
+    {
+      "file": "web/engine-source/src/gradient-parameters.js",
+      "sha256": "6c13fc3af4a6d3924091020e05e90d280386bb241e3c23e65c84290fca3cc757",
+      "bytes": 2163
+    },
+    {
+      "file": "web/engine-source/src/index.js",
+      "sha256": "6bb8617e4f58870ad63d5b106d7189ddc5f053c3c113b0fd8b85309c363cc108",
+      "bytes": 226877
+    },
+    {
+      "file": "web/engine-source/src/opencv-operations.js",
+      "sha256": "72e72c53f3647c512c0d7aa2f2da374678269587ebffc61fee92fe3f3600bfce",
+      "bytes": 4310
+    },
+    {
+      "file": "web/engine-source/src/pixel-operations.js",
+      "sha256": "5df01d1fa821d4b062f508a5645d88d17c408bca67c9638384db372e43f2068c",
+      "bytes": 19433
+    },
+    {
+      "file": "web/engine-source/src/segmented-gradient.js",
+      "sha256": "176ff239e1b408c5d6906b44996124ffd355a419324eefc680fa103eeb28ae7a",
+      "bytes": 10321
+    },
+    {
+      "file": "web/engine-source/src/source-region-general-derivatives.js",
+      "sha256": "3985b77595dffa1df9b9c994dbe840d1912e81479fbb2b6d41434b0a79f30682",
+      "bytes": 12499
+    },
+    {
+      "file": "web/engine-source/src/source-region-gradient-field.js",
+      "sha256": "423611799790e5c6f646cc0fee22092dfb018fd2e08902bf12592cc31b4c5505",
+      "bytes": 1995
+    },
+    {
+      "file": "web/wordpress/sherloq-browser/assets/backend-mode-preferences.js",
+      "sha256": "81a06c1961598198bddbffab50c9335862041aac6863b4ccb780c42807c9a6a1",
+      "bytes": 5399
+    },
+    {
+      "file": "web/wordpress/sherloq-browser/assets/batch-ui.js",
+      "sha256": "1f9981bd1151467d9cb77882479bbd21661fb6ae22e9a246799b761223f0a630",
+      "bytes": 107409
+    },
+    {
+      "file": "web/wordpress/sherloq-browser/assets/batch.css",
+      "sha256": "47cde084225d73a3d563d7a8bfc0e9ebda623537ae9a54b90af42cd99afa6c3d",
+      "bytes": 16170
+    },
+    {
+      "file": "web/wordpress/sherloq-browser/assets/gradient-methods.js",
+      "sha256": "a6baa92c88bb082506945c6e3ad3962dfe771728035812438694d642ab6fcf5f",
+      "bytes": 5576
+    },
+    {
+      "file": "web/wordpress/sherloq-browser/assets/tool-catalog.js",
+      "sha256": "5108eac96f27c54d9f552be6fb9827f86111ab252e00b6941716856aa80b0051",
+      "bytes": 16289
+    },
+    {
+      "file": "web/wordpress/sherloq-browser/assets/tool-parameter-preview.js",
+      "sha256": "98284e31d119a6bac410189d53f98e2cfba14fb0506d9802c2d1a144bd2c419c",
+      "bytes": 63115
+    },
+    {
+      "file": "web/wordpress/sherloq-browser/assets/tool-workspace.css",
+      "sha256": "6e745d6b10e7595072a33ca3714ad0cf9c6be9cb89de2a97e5208be01293ea36",
+      "bytes": 19392
+    },
+    {
+      "file": "web/wordpress/sherloq-browser/assets/tool-workspace.js",
+      "sha256": "846884193e03856542934d0124786ed4328a9ad151dbdff4c4a6407baf93458b",
+      "bytes": 166565
+    }
+  ]
+}
