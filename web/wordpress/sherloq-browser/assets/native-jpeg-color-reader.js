@@ -1,5 +1,5 @@
-import {dependencyBytes} from './runtime-dependency.js?v=0.33.0';
-import {NATIVE_JPEG_COLOR_RESOURCE} from './native-jpeg-color-resource.js?v=0.33.0';
+import {dependencyBytes} from './runtime-dependency.js?v=0.33.1';
+import {NATIVE_JPEG_COLOR_RESOURCE} from './native-jpeg-color-resource.js?v=0.33.1';
 import createNativeColorModule from './vendor/local-jpeg-color/jpeg-color.js';
 import {createBlobSource} from './unified-engine/src/blob-source.js';
 import {inspectJpegBlob} from './unified-engine/src/jpeg.js';

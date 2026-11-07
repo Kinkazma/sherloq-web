@@ -1,4 +1,4 @@
-import {toolCatalog,toolFields} from './tool-catalog.js?v=0.33.0';
+import {toolCatalog,toolFields} from './tool-catalog.js?v=0.33.1';
 
 // A draft is always separate from the native result. Scientific method/model
 // changes and recompressed JPEG evidence are never substituted for the native

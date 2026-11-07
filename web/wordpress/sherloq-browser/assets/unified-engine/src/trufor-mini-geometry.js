@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import {requireValue,checkAbort} from './errors.js';
 const f=Math.fround;
 export function cropFor(featureHeight,outputHeight,top,rows){return {start:Math.max(0,Math.floor(((2*top+1)*featureHeight-outputHeight)/(2*outputHeight))),stop:Math.min(featureHeight,Math.floor(((2*(top+rows)-1)*featureHeight-outputHeight)/(2*outputHeight))+2)};}

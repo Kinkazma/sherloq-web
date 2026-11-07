@@ -1,8 +1,8 @@
-import {validRecompressionSettings} from './recompression-controls.js?v=0.33.0';
-import {equalizationState} from './equalization-menu.js?v=0.33.0';
-import {validateCloneProfilesTransport} from './clone-profiles.js?v=0.33.0';
+import {validRecompressionSettings} from './recompression-controls.js?v=0.33.1';
+import {equalizationState} from './equalization-menu.js?v=0.33.1';
+import {validateCloneProfilesTransport} from './clone-profiles.js?v=0.33.1';
 import {validateAdaptiveState} from './unified-engine/src/adaptive-runtime.js';
-import {validateBackendChoices} from './backend-mode-preferences.js?v=0.33.0';
+import {validateBackendChoices} from './backend-mode-preferences.js?v=0.33.1';
 export const defaults={quality:75,scale:50,contrast:20,linear:false,grayscale:false};
 export function validElaMode(value){
  const mode=value==='energy'?'biomes':value;

@@ -1,4 +1,4 @@
-import { bindViewerNavigation, doubleClickCamera } from './viewer-input.js?v=0.33.0';
+import { bindViewerNavigation, doubleClickCamera } from './viewer-input.js?v=0.33.1';
 // Two views share the same decoded surfaces and engine; layouts never rerun analysis.
 export function createWindowLayout({getSource,onResize,getNavigationMode,document=globalThis.document}){
  const $=id=>document.getElementById(id),desk=$('window-desk'),windowIds=['original-window','analysis-window'];

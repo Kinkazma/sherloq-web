@@ -1,4 +1,4 @@
-import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.33.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.33.1';
 let serial=0;
 export function previewSurfaceIsCurrent(surface){try{return typeof surface?.parameterPreviewCurrent!=='function'||surface.parameterPreviewCurrent()===true;}catch{return false;}}
 // One immutable, bounded provisional frame. It uses native logical coordinates

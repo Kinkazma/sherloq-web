@@ -1,4 +1,4 @@
-import {currentToolId} from './tool-id-migrations.js?v=0.33.0';
+import {currentToolId} from './tool-id-migrations.js?v=0.33.1';
 // Navigation never owns or cancels calculation lifetimes.
 export const DEFAULT_FAVORITES=Object.freeze(['colors.pca','ela.classic','detail.gradient','tampering.copyMove.sparse']);
 export function createWorkspaceState(){

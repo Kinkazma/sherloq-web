@@ -1,6 +1,4 @@
 {
-  "schema": 1,
-  "version": "0.37.0-methods.1",
   "excludes": [
     ".build",
     "node_modules",
@@ -12915,7 +12913,7 @@
     {
       "file": "runtime-manifest.json",
       "bytes": 693659,
-      "sha256": "c36ce5363f8c934033d28d1c1ddd37345d7a3a4d2abaf1625db47467480b0b96"
+      "sha256": "118cf00920e808b78f100e33ab05bbb27e7dc089c6b0ef55210edf6bb6fcac71"
     },
     {
       "file": "scripts/adapt-butteraugli-paged.py",
@@ -20770,7 +20768,7 @@
     {
       "file": "src/engine-worker-entry.js",
       "bytes": 173,
-      "sha256": "58c98e3060fe8b00415ed0bd848516eceaa55900c1999ef11f685ce9037bb59e"
+      "sha256": "2f270e534a291041ab47e8774efb05546672d82809df99f57f1057f1261b6097"
     },
     {
       "file": "src/equalization-global-histogram-gpu.js",
@@ -20884,13 +20882,13 @@
     },
     {
       "file": "src/external-preview-admission.js",
-      "bytes": 18600,
-      "sha256": "eac558df8ad3f62080e9e3e8fdb95d3f0aa79a25a1bcd9a2861a74f33a59347b"
+      "bytes": 18641,
+      "sha256": "d3468da3f37f86a36f9ce819169d905ac2fd41611056ff9db5c5945dcb5bb56c"
     },
     {
       "file": "src/external-preview-parallel-admission.js",
-      "bytes": 5029,
-      "sha256": "99245c0a2ac7478592e5ff1501a106157cf11cca341b22994b7c9e950de095fd"
+      "bytes": 5070,
+      "sha256": "0ca2cd22ea9910975a353daad9878a82ac48258e7d5bbabf2e45ef7919c4c536"
     },
     {
       "file": "src/external-useful-operation.js",
@@ -21194,8 +21192,8 @@
     },
     {
       "file": "src/gradient-field.js",
-      "bytes": 11654,
-      "sha256": "3a811a9535f5d0b60dc7b6f1c856290c89055114195e078e593407ca5919e20b"
+      "bytes": 12118,
+      "sha256": "298d8aeab4f64fb4471d27af42166b37030774b870a9a3c55711ad8f4704b840"
     },
     {
       "file": "src/gradient-gpu-admission.js",
@@ -25190,7 +25188,7 @@
     {
       "file": "src/useful-work-code-identity.js",
       "bytes": 273,
-      "sha256": "ca288df3d3eedd65166d38d4828296846c2a444c87a37e6c2116629c43226c5f"
+      "sha256": "5fe9cc907112ace48d850e20e50cabcc83bbc53e2f59689a71650753a9cb161d"
     },
     {
       "file": "src/useful-work-observer.js",
@@ -25298,9 +25296,9 @@
       "sha256": "1abb15202b4e5358426e9cec7133714323c8b615755602f0883745cade544b06"
     },
     {
-      "file": "src/worker-bundle-11726a32fb4b8b37c223.mjs",
-      "bytes": 10905474,
-      "sha256": "11726a32fb4b8b37c223868361ff7d984916827c65514dce5f8d721cc96aa710"
+      "file": "src/worker-bundle-2ff321a8dd0a5d01eee2.mjs",
+      "bytes": 10906115,
+      "sha256": "2ff321a8dd0a5d01eee2ce27cc01045f00b0d04a3ff4c1bf8234d71a28e03fe0"
     },
     {
       "file": "src/worker-client.js",
@@ -26089,8 +26087,8 @@
     },
     {
       "file": "tests/backend-route-admission.test.mjs",
-      "bytes": 2959,
-      "sha256": "5197336dff463fb6814ef23136dab3e1b723b3006d4c2bbd47cff653d860f919"
+      "bytes": 3036,
+      "sha256": "e9999e310173d2a5fbb7e12e86789b9aacf9e343c4b8153d4853af53a0eb338e"
     },
     {
       "file": "tests/batch-preparation-host.test.mjs",
@@ -29541,6 +29539,11 @@
       "file": "tests/gradient-optimization-browser.js",
       "bytes": 3446,
       "sha256": "41af100cad425948418dade5226d337e087ef692efdad2020617c584573fe4e6"
+    },
+    {
+      "file": "tests/gradient-preview-headroom-validation.test.mjs",
+      "bytes": 2325,
+      "sha256": "4ea02f758fd7a298c812e6eb25250fda4f2e85c52eb86b4970381ef110929f74"
     },
     {
       "file": "tests/gradient-proxy-gpu-contract.test.mjs",
@@ -49190,7 +49193,9 @@
     {
       "file": "worker-bundle-build.json",
       "bytes": 232631,
-      "sha256": "ad2754ca45f29041b0ab369d5df074fdb2da0e918ab975a2e1f52fb9fcd47d28"
+      "sha256": "b663e21725a5c8aabf07139f5d3298136af970d7e6625680e1b5f77d26fbb199"
     }
-  ]
+  ],
+  "schema": 1,
+  "version": "0.37.0-methods.1"
 }

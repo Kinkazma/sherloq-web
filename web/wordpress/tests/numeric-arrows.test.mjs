@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
-import {numericEditingIncrement} from '../sherloq-browser/assets/numeric-increment.js?v=0.32.0';
+import {numericEditingIncrement} from '../sherloq-browser/assets/numeric-increment.js?v=0.33.1';
 import {createToolWorkspace} from '../sherloq-browser/assets/tool-workspace.js';
 import {localFeaturePolicy} from '../sherloq-browser/assets/feature-policy.js';
 import {toolCatalog,toolFields} from '../sherloq-browser/assets/tool-catalog.js';
-import {numericSliderWindow} from '../sherloq-browser/assets/hover-sliders.js?v=0.32.0';
+import {numericSliderWindow} from '../sherloq-browser/assets/hover-sliders.js?v=0.33.1';
 import {CLONE_ALGORITHMS,SSG_DEFAULTS} from '../sherloq-browser/assets/clone-methods.js';
 import {ssgFullParams} from '../../engine-source/src/ssg-full-input.js';
 

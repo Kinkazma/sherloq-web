@@ -36,7 +36,7 @@ export async function createNativeColorClient({blob,sourceSha256,width,height,pa
   requireValue(choices.every(choice=>Number.isSafeInteger(choice.totalBytes)),'Native colour grant exceeds the safe integer range.');
   const owner=await parent.getClient();assertCurrent();grant=await owner.reserveNativeWorkspace({imageId:parent.imageId,sourceSha256,width,height,choices});assertCurrent();
   requireValue(grant&&Number.isSafeInteger(grant.engineBytes)&&grant.engineBytes>0&&typeof grant.release==='function'&&choices.some(choice=>choice.engineBytes===grant.engineBytes&&choice.totalBytes===grant.bytes),'Original did not return a matching native colour grant.');
-  temporarySessionId='native-color-'+crypto.randomUUID();worker=workerFactory(new URL('./native-color-worker.js?v=0.33.0',import.meta.url),{type:'module'});sessions.set(temporarySessionId,null);
+  temporarySessionId='native-color-'+crypto.randomUUID();worker=workerFactory(new URL('./native-color-worker.js?v=0.33.1',import.meta.url),{type:'module'});sessions.set(temporarySessionId,null);
   worker.onmessage=({data})=>{
    if(closed||retiredWorker)return;
    if(data?.temporarySession){const item=data.temporarySession;if(typeof item.id==='string'&&typeof item.backend==='string')sessions.set(item.id,item.backend);return;}

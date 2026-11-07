@@ -1,5 +1,5 @@
-import {AI_DETECTOR_GROUP,AI_DETECTOR_TOOLS,AI_DETECTOR_OPERATION} from './ai-detector-tools.js?v=0.33.0';
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.0';
+import {AI_DETECTOR_GROUP,AI_DETECTOR_TOOLS,AI_DETECTOR_OPERATION} from './ai-detector-tools.js?v=0.33.1';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.1';
 export const toolGroups = [
   {
     "en": "General",

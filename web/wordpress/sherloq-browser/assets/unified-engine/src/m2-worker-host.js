@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import {neuralUsefulExecutionSnapshot} from './neural-graph-pool.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {compositeSourceDomain,compositeRegionalImage,compositeRegionalResult} from './composite-regional-source.js';

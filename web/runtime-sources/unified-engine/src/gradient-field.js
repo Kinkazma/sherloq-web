@@ -1,6 +1,6 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import {EngineError,requireValue,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
-import {gradientFieldIdentity,gradientFieldRadius,gradientFieldCostIdentity} from './gradient-field-parameters.js';
+import {gradientFieldIdentity,gradientFieldRadius,gradientFieldCostIdentity,validateGradientField,FIELD_METHODS} from './gradient-field-parameters.js';
 import {grayInput,prefilter,derivativeBlock,coherenceBlock,angleInto,gradientKernel,gradientComponentStats,accumulateGradientComponents,componentInto} from './gradient-field-math.js';
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface,createMaskSurface} from './rgb-surface.js';
@@ -16,8 +16,13 @@ import {retireCompositeOwners} from './composite-owner-release.js';
 const MiB=1024**2;
 export const gradientFieldSemantics=p=>`${p.method} signed luminance field; ${p.view==='native'?'historical RGB components and magnitude':p.view==='angle'?'HSV orientation (hue=angle; saturation=magnitude/max, value=(127+128*magnitude/max)/255; zero vector RGB127)':`structure-tensor coherence, Gaussian ${p.tensorSize} sigma ${p.tensorSigma}`}; ${p.luma}; excluded taps omitted BEFORE derivatives, prefilter and tensor; ${p.border} physical borders.`;
 export function gradientFieldHeadroom(width,height,p,{runtimeBytes=0,transportBytes=0}={}){
+ if(![width,height,runtimeBytes,transportBytes].every(Number.isSafeInteger)||width<1||height<1||runtimeBytes<0||transportBytes<0)return null;
+ if(p!==undefined&&(p===null||typeof p!=='object'||Array.isArray(p)))return null;
+ const method=p?.method??'sobel';if(!FIELD_METHODS.includes(method))return null;
+ try{p=validateGradientField(p??{},{method});}catch{return null;}
  const halo=Math.max(gradientFieldRadius(p),p.view==='coherence'?(p.tensorSize-1)/2:0),rows=Math.min(height,Math.max(1,Math.floor(65536/width))),window=width*Math.min(height,rows+2*halo);
- return{bytes:runtimeBytes+width*height*42+window*400+16*MiB+transportBytes*12,completeResidentAlternative:true,parallelWorkers:0,gradientField:true};
+ const bytes=runtimeBytes+width*height*42+window*400+16*MiB+transportBytes*12;
+ return Number.isSafeInteger(bytes)&&bytes>0?{bytes,completeResidentAlternative:true,parallelWorkers:0,gradientField:true}:null;
 }
 export async function gradientFieldSurface(image,p,options={}){
  const gpu=getGradientFieldGpu(options.budget);

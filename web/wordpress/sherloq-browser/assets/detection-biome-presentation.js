@@ -1,4 +1,4 @@
-import {createBatchScopeMask} from './batch-scope-mask.js?v=0.33.0';
+import {createBatchScopeMask} from './batch-scope-mask.js?v=0.33.1';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
 
 const invalid=message=>new EngineError('INVALID_INPUT',message);

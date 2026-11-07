@@ -1,9 +1,9 @@
-import {nativeSampleWindows} from './ela-auto-native-sampling.js?v=0.33.0';
+import {nativeSampleWindows} from './ela-auto-native-sampling.js?v=0.33.1';
 import {resolveSelectedPlan} from './unified-engine/src/recompression-probe.js';
 import {recompressionFormat} from './unified-engine/src/recompression-plan.js';
 import {createSourceRegionView} from './unified-engine/src/source-region-view.js';
 import {EngineError,checkAbort,createCooperator} from './unified-engine/src/errors.js';
-import {calibrateElaClassicHistogram} from './ela-auto-estimate.js?v=0.33.0';
+import {calibrateElaClassicHistogram} from './ela-auto-estimate.js?v=0.33.1';
 const maximumSamples=320*320,windowPixels=8192;
 const requireValue=(condition,message)=>{if(!condition)throw new EngineError('INVALID_INPUT',message);};
 export const SELECTED_ELA_LEVEL_POLICY=Object.freeze({id:'native-rgb-probe-level-v1',qualityGrid:Object.freeze([100,95,90,80,65,50,30,10,1]),paletteGrid:Object.freeze([256,224,192,160,128,96,64,32,16,8,4,2]),additionalMeanError:1,minimumPercentile995:3,minimumNonzeroFraction:.005,neighborSupport:1,meaning:'An operational display-probe level, not the historical encoding quality or a manipulation detector.'});

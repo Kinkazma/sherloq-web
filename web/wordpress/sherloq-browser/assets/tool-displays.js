@@ -1,6 +1,6 @@
-import {SPLICEBUSTER_OPERATION,splicebusterViewLabel} from './splicebuster-ui.js?v=0.33.0';
-import {recompressionAxisLabel} from './recompression-axis-label.js?v=0.33.0';
-import {extensionDisplays} from './extension-tools.js?v=0.33.0';
+import {SPLICEBUSTER_OPERATION,splicebusterViewLabel} from './splicebuster-ui.js?v=0.33.1';
+import {recompressionAxisLabel} from './recompression-axis-label.js?v=0.33.1';
+import {extensionDisplays} from './extension-tools.js?v=0.33.1';
 function ghostDisplayLabels(output,displays,language){
  const same=(a,b)=>a===b||!!(a?.id&&b?.id&&a.id===b.id&&a.revision===b.revision),views=output.data?.views??[],qualities=output.data?.qualities;
  return displays.map((entry,position)=>{

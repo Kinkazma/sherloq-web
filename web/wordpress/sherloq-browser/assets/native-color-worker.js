@@ -1,5 +1,5 @@
-import {createNativeJpegColorReader} from './native-jpeg-color-reader.js?v=0.33.0';
-import {createNativeTiffColorReader} from './native-tiff-color-reader.js?v=0.33.0';
+import {createNativeJpegColorReader} from './native-jpeg-color-reader.js?v=0.33.1';
+import {createNativeTiffColorReader} from './native-tiff-color-reader.js?v=0.33.1';
 import {Budget} from './unified-engine/src/cache.js';
 import {createTemporarySession} from './unified-engine/src/temporary-storage.js';
 import {EngineError,requireValue,checkAbort,serializeEngineError} from './unified-engine/src/errors.js';

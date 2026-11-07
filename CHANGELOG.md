@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.33.1 — Gradient preview admission · 2026-11-07
+
+- Reject invalid gradient settings, dimensions and overflowing memory estimates before reserving optional preview resources. Normalize valid partial settings without changing the image calculation.
+- Align regression fixtures with the consolidated clone menu, local-histogram lifecycle and versioned numeric controls.
+
 ## 0.33.0 — Channel histograms, TruFor Mini and luminance gradients · 2026-11-07
 
 - Consolidate clone detection under one menu entry, using the expanded matching tool and its existing profiles; migrate legacy navigation and favourites to that entry.

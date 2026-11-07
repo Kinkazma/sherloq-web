@@ -1,17 +1,17 @@
 {
   "schema": "sherloq.gradient-fields-increment/1",
-  "sha256": "73710f3a88a19a1185786c3097986ea71100e377e8cf271b60d42187209c42fe",
+  "sha256": "b380bec03f38f3335e55a5abf559cf512c0827bbdaa25fb60e72bc91e8de3218",
   "displayVersion": 2,
   "files": [
     {
       "file": "web/engine-source/src/external-preview-admission.js",
-      "sha256": "eac558df8ad3f62080e9e3e8fdb95d3f0aa79a25a1bcd9a2861a74f33a59347b",
-      "bytes": 18600
+      "sha256": "d3468da3f37f86a36f9ce819169d905ac2fd41611056ff9db5c5945dcb5bb56c",
+      "bytes": 18641
     },
     {
       "file": "web/engine-source/src/external-preview-parallel-admission.js",
-      "sha256": "99245c0a2ac7478592e5ff1501a106157cf11cca341b22994b7c9e950de095fd",
-      "bytes": 5029
+      "sha256": "0ca2cd22ea9910975a353daad9878a82ac48258e7d5bbabf2e45ef7919c4c536",
+      "bytes": 5070
     },
     {
       "file": "web/engine-source/src/gradient-field-gpu.js",
@@ -30,8 +30,8 @@
     },
     {
       "file": "web/engine-source/src/gradient-field.js",
-      "sha256": "3a811a9535f5d0b60dc7b6f1c856290c89055114195e078e593407ca5919e20b",
-      "bytes": 11654
+      "sha256": "298d8aeab4f64fb4471d27af42166b37030774b870a9a3c55711ad8f4704b840",
+      "bytes": 12118
     },
     {
       "file": "web/engine-source/src/gradient-gpu-admission.js",
@@ -75,12 +75,12 @@
     },
     {
       "file": "web/wordpress/sherloq-browser/assets/backend-mode-preferences.js",
-      "sha256": "147e5893db989a1cab85e792a3981e609c9fc1c36d034f433fdb1e7e0c40a5d8",
+      "sha256": "81a06c1961598198bddbffab50c9335862041aac6863b4ccb780c42807c9a6a1",
       "bytes": 5399
     },
     {
       "file": "web/wordpress/sherloq-browser/assets/batch-ui.js",
-      "sha256": "46775e843a39fc6b28a147a8b3c50247b5efb3d67fa3362e65342cd871418aea",
+      "sha256": "1f9981bd1151467d9cb77882479bbd21661fb6ae22e9a246799b761223f0a630",
       "bytes": 107409
     },
     {
@@ -90,17 +90,17 @@
     },
     {
       "file": "web/wordpress/sherloq-browser/assets/gradient-methods.js",
-      "sha256": "8918b954b3f2507deb02ac5e4f6bc61f0bb0e615ab41ad4fdb2622d606ca26db",
+      "sha256": "a6baa92c88bb082506945c6e3ad3962dfe771728035812438694d642ab6fcf5f",
       "bytes": 5576
     },
     {
       "file": "web/wordpress/sherloq-browser/assets/tool-catalog.js",
-      "sha256": "c9261c105e487ff0a6b9a75612aba25661143ebb4c016404851d0084a88fe610",
+      "sha256": "5108eac96f27c54d9f552be6fb9827f86111ab252e00b6941716856aa80b0051",
       "bytes": 16289
     },
     {
       "file": "web/wordpress/sherloq-browser/assets/tool-parameter-preview.js",
-      "sha256": "3a3ee4b0af30b3c1344d585871bcc76002c755b07087c06c42937b348d426e79",
+      "sha256": "98284e31d119a6bac410189d53f98e2cfba14fb0506d9802c2d1a144bd2c419c",
       "bytes": 63115
     },
     {
@@ -110,7 +110,7 @@
     },
     {
       "file": "web/wordpress/sherloq-browser/assets/tool-workspace.js",
-      "sha256": "ca1395ff4f9f0087bc2f7d50ebd111c6c0c58bb716aa177bbc0a7ecf3c79c7ce",
+      "sha256": "846884193e03856542934d0124786ed4328a9ad151dbdff4c4a6407baf93458b",
       "bytes": 166565
     }
   ]

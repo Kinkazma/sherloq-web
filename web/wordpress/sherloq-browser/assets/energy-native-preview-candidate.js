@@ -1,7 +1,7 @@
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
 import {energyParams} from './unified-engine/src/energy-pipeline.js';
 import {ownedPayloadBytes} from './unified-engine/src/pixel-operations.js';
-import {energyPlaneCount} from './energy-native-fields.js?v=0.33.0';
+import {energyPlaneCount} from './energy-native-fields.js?v=0.33.1';
 
 const requireValue=(value,message)=>{if(!value)throw new EngineError('INVALID_INPUT',message);};
 const acknowleded=ack=>ack!==false&&ack!==0;

@@ -1,8 +1,8 @@
-import {nativeSampleWindows} from './ela-auto-native-sampling.js?v=0.33.0';
+import {nativeSampleWindows} from './ela-auto-native-sampling.js?v=0.33.1';
 import {EngineError,checkAbort,createCooperator} from './unified-engine/src/errors.js';
 import {validateParams} from './unified-engine/src/ela.js';
 import {createSourceRegionView} from './unified-engine/src/source-region-view.js';
-import {estimateElaClassicAuto,calibrateElaClassicHistogram} from './ela-auto-estimate.js?v=0.33.0';
+import {estimateElaClassicAuto,calibrateElaClassicHistogram} from './ela-auto-estimate.js?v=0.33.1';
 const SAMPLE_PIXELS=320*320,WINDOW_PIXELS=8192,CACHE_BYTES=256*1024,CONTEXT_BYTES=128*1024;
 const requireValue=(value,message)=>{if(!value)throw new EngineError('INVALID_INPUT',message);};
 const cleanupError=error=>({code:error.code,message:error.message});

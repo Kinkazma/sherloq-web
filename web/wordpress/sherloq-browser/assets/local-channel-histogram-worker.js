@@ -1,5 +1,5 @@
-import {computeLocalChannelHistogram,createChannelHistogramAggregate} from './local-channel-histogram-core.js?v=0.33.0';
-import {computeNativeChannelHistogram,nativeColorLayout,createNativeHistogramAggregate} from './native-channel-histogram-core.js?v=0.33.0';
+import {computeLocalChannelHistogram,createChannelHistogramAggregate} from './local-channel-histogram-core.js?v=0.33.1';
+import {computeNativeChannelHistogram,nativeColorLayout,createNativeHistogramAggregate} from './native-channel-histogram-core.js?v=0.33.1';
 
 const workspace={seen:new Uint8Array(1<<21)};
 const aggregateWorkspace={};let activeAggregate=null;

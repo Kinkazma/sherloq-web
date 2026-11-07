@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import{createTruforMiniAnalyzer}from'./trufor-mini-analyzer.js';
 import{compileOriginalSourceRegions}from'./source-region-geometry.js';
 import{createSourceRegionView}from'./source-region-view.js';

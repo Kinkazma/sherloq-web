@@ -1,10 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {toolCatalog} from '../sherloq-browser/assets/tool-catalog.js';
 import {fixture} from './helpers/clone-window-choice-fixture.mjs';
 import {CLONE_WINDOW_TOOLS,cloneWindowTaskOptions,restoreCloneWindowChoices,isCloneWindowOperation} from '../sherloq-browser/assets/clone-window-choice.js';
 
 test('The explicit common-analysis choice defaults to independent on every relevant tool',()=>{
- for(const id of CLONE_WINDOW_TOOLS){const h=fixture(id),input=h.document.getElementById('tool-clone-window-global');assert.ok(input,id);assert.equal(!!input.checked,false,id);assert.deepEqual(h.ui.taskOptions(),{cloneWindowMode:'independent'});assert.ok(h.document.querySelector('[data-clone-window-label]').textContent.includes('Analyser les zones ensemble'));h.ui.dispose();}
+ assert.equal(toolCatalog['tampering.copyMove.brisk'],undefined);assert.ok(toolCatalog['tampering.copyMove.sparse']);
+ for(const id of CLONE_WINDOW_TOOLS.filter(id=>toolCatalog[id])){const h=fixture(id),input=h.document.getElementById('tool-clone-window-global');assert.ok(input,id);assert.equal(!!input.checked,false,id);assert.deepEqual(h.ui.taskOptions(),{cloneWindowMode:'independent'});assert.ok(h.document.querySelector('[data-clone-window-label]').textContent.includes('Analyser les zones ensemble'));h.ui.dispose();}
 });
 test('A deliberate click changes scope without mutating any native parameter or backend',()=>{
  const h=fixture('tampering.copyMove.sparse'),before=h.ui.params(),backend=h.ui.backend(),input=h.document.getElementById('tool-clone-window-global');input.checked=true;h.emit(input,'change');assert.deepEqual(h.ui.taskOptions(),{cloneWindowMode:'global'});assert.deepEqual(h.ui.params(),before);assert.equal(h.ui.backend(),backend);assert.deepEqual(h.settings,[{analysisModeChanged:true}]);assert.equal(h.events.some(e=>e.phase==='preview'),false);h.ui.dispose();

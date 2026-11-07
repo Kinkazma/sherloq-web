@@ -1,4 +1,4 @@
-import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.33.0';
+import {ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './preview-limits.js?v=0.33.1';
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {sourceRegionTransportBytes} from './unified-engine/src/source-region-transport.js';
 const MAX_RECTS=8192,MAX_SIDE=ADAPTIVE_PREVIEW_MAX_SIDE;

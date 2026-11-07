@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {compileOriginalSourceRegions} from './source-region-geometry.js';
 import {sourceRegionDomainShape,sourceRegionUnlocalizedInput} from './source-region-capabilities.js';

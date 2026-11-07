@@ -1,12 +1,12 @@
 import {isGradientField} from './unified-engine/src/gradient-field-parameters.js';
-import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.0';
-import {createFrequencyPreviewSizing,FREQUENCY_SIZING_BYTES,frequencyPreviewDiagnostics} from './frequency-preview-sizing.js?v=0.33.0';
-import {parameterRegionDerivedDomain,frameParameterRegionPixels} from './parameter-preview-source-regions.js?v=0.33.0';
+import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.1';
+import {createFrequencyPreviewSizing,FREQUENCY_SIZING_BYTES,frequencyPreviewDiagnostics} from './frequency-preview-sizing.js?v=0.33.1';
+import {parameterRegionDerivedDomain,frameParameterRegionPixels} from './parameter-preview-source-regions.js?v=0.33.1';
 /** Bounded, explicitly provisional pixel calculations in a separate worker.
  * This module never receives a native source blob, model or native result ID.
  */
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.0';
-import {continuityPreviewSide} from './preview-quality-policy.js?v=0.33.0';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.1';
+import {continuityPreviewSide} from './preview-quality-policy.js?v=0.33.1';
 const MiB=1024**2,DEFAULT_SIDE=192,WORKER_BYTES=192*MiB;
 const OPERATIONS=new Set(['inspection.adjust','inspection.magnifier','detail.gradient','detail.echo','colors.space','colors.pca','detail.wavelets','detail.frequency','noise.separation','noise.planes','noise.minmax','pixels.defects','noise.blocking','colors.stats','tampering.contrast','various.illuminant','comparison.image','jpeg.ghosts','noise.noisesniffer']);
 const WORKER_ONLY_PREPARATION=new Set(['inspection.magnifier','colors.pca','detail.frequency','comparison.image','noise.noisesniffer']);

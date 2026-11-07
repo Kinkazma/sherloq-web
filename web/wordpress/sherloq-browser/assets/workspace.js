@@ -1,32 +1,32 @@
-import {currentToolId} from './tool-id-migrations.js?v=0.33.0';
-import {bindViewportMenu} from './viewport-popup.js?v=0.33.0';
-import {AI_DETECTOR_OPERATION,colorDetectorToolbarWarning,isDetectorAlias,detectorAliasForMethod,detectorTask} from './ai-detector-tools.js?v=0.33.0';
-import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.33.0';
-import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.33.0';
+import {currentToolId} from './tool-id-migrations.js?v=0.33.1';
+import {bindViewportMenu} from './viewport-popup.js?v=0.33.1';
+import {AI_DETECTOR_OPERATION,colorDetectorToolbarWarning,isDetectorAlias,detectorAliasForMethod,detectorTask} from './ai-detector-tools.js?v=0.33.1';
+import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.33.1';
+import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.33.1';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.33.0';
-import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.33.0';
-import {createOpeningImagePreview} from './opening-image-preview.js?v=0.33.0';
-import {diagnostic} from './runtime-context.js?v=0.33.0';
-import {installHoverSliders} from './hover-sliders.js?v=0.33.0';
-import {browserLanguage} from './language.js?v=0.33.0';
-import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.33.0';
-import {mountMediaControls} from './media-controls.js?v=0.33.0';
-import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.33.0';
-import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.33.0';
-import {bindDocumentResize} from './document-resize.js?v=0.33.0';
-import {toolGroups} from './tool-tree.js?v=0.33.0';
-import {isExperimentalTool} from './extension-tools.js?v=0.33.0';
-import {createWorkspaceState} from './workspace-state.js?v=0.33.0';
-import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.33.0';
-import {createDownloadShelf} from './download-shelf.js?v=0.33.0';
-import {mountSessionControls} from './session-ui.js?v=0.33.0';
-import {recoverSettings,settingsFilename} from './settings.js?v=0.33.0';
-import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.33.0';
-import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.33.0';
-import {localFeaturePolicy} from './feature-policy.js?v=0.33.0';
+import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.33.1';
+import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.33.1';
+import {createOpeningImagePreview} from './opening-image-preview.js?v=0.33.1';
+import {diagnostic} from './runtime-context.js?v=0.33.1';
+import {installHoverSliders} from './hover-sliders.js?v=0.33.1';
+import {browserLanguage} from './language.js?v=0.33.1';
+import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.33.1';
+import {mountMediaControls} from './media-controls.js?v=0.33.1';
+import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.33.1';
+import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.33.1';
+import {bindDocumentResize} from './document-resize.js?v=0.33.1';
+import {toolGroups} from './tool-tree.js?v=0.33.1';
+import {isExperimentalTool} from './extension-tools.js?v=0.33.1';
+import {createWorkspaceState} from './workspace-state.js?v=0.33.1';
+import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.33.1';
+import {createDownloadShelf} from './download-shelf.js?v=0.33.1';
+import {mountSessionControls} from './session-ui.js?v=0.33.1';
+import {recoverSettings,settingsFilename} from './settings.js?v=0.33.1';
+import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.33.1';
+import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.33.1';
+import {localFeaturePolicy} from './feature-policy.js?v=0.33.1';
 
-export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.33.0')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.33.0')).mountPdfReader(options),originalRegionsFactory}={}) {
+export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.33.1')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.33.1')).mountPdfReader(options),originalRegionsFactory}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
 const downloadShelf=createDownloadShelf({document,parent:$('toolbox'),before:$('toolbox').querySelector('.navigation-tools'),language:()=>state.language,onError:error=>notify(error.message)});
@@ -36,10 +36,10 @@ const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id));
 // Keep the existing synchronous factories once their shared module graph is ready.
 let runtimeReady,engineFactory,createBatchScopeEditor;
 function ensureRuntime(){return runtimeReady??=Promise.all([
- import('./app.js?v=0.33.0'),
- import('./workspace-engine-pool.js?v=0.33.0'),
- import('./batch-scope-editor.js?v=0.33.0'),
- import('./original-source-regions-controller.js?v=0.33.0')
+ import('./app.js?v=0.33.1'),
+ import('./workspace-engine-pool.js?v=0.33.1'),
+ import('./batch-scope-editor.js?v=0.33.1'),
+ import('./original-source-regions-controller.js?v=0.33.1')
 ]).then(([panel,pool,editor,regions])=>{
  panelFactory??=panel.mountAnalysisPanel;originalRegionsFactory??=regions.createOriginalSourceRegionsController;
  createBatchScopeEditor=editor.createBatchScopeEditor;engineFactory=pool.createWorkspaceEnginePool();
@@ -57,7 +57,7 @@ const hoverSliders=installHoverSliders({root:document,enabled:false,language:()=
 const scopeFallbackUI=createWholeSourceFallbackUI({document,language:()=>state.language,getPreferences:()=>scopeFallbacks,setPreferences:value=>{scopeFallbacks=validateWholeSourceFallbacks(value);savePreferences();},toolLabel:id=>tools.find(t=>t.id===id)?.[state.language]??id});
 const scopeFallbackSettingsButton=button(state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…',()=>{closeMenus();scopeFallbackUI.configure();});$('import-settings').after(scopeFallbackSettingsButton);
 let templateReady;
-const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.33.0',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
+const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.33.1',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
 function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,allSliders,experimentalTools,scopeFallbacks:validateWholeSourceFallbacks(scopeFallbacks),...media,dependencies:dependencyPreferences()};}
 function setMedia(next){if(!applyingLoupeStep)stepPlayback.reset();media=validateMediaPreferences(next);applyMedia();savePreferences();}
 const comparisonKeys=new Set();let comparisonController=null;let pinnedController=null;

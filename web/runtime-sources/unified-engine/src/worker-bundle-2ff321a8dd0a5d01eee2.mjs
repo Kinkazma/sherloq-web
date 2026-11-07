@@ -1,3 +1,4 @@
+import "../../runtime-context.js?v=0.33.1";
 var __defProp = Object.defineProperty;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
@@ -46332,8 +46333,18 @@ import { Budget as Budget6 } from "./cache.js";
 import { contiguousSurface as contiguousSurface3 } from "./image-sources.js";
 import { retireCompositeOwners as retireCompositeOwners21 } from "./composite-owner-release.js";
 function gradientFieldHeadroom(width, height, p, { runtimeBytes = 0, transportBytes = 0 } = {}) {
+  if (![width, height, runtimeBytes, transportBytes].every(Number.isSafeInteger) || width < 1 || height < 1 || runtimeBytes < 0 || transportBytes < 0) return null;
+  if (p !== void 0 && (p === null || typeof p !== "object" || Array.isArray(p))) return null;
+  const method = p?.method ?? "sobel";
+  if (!FIELD_METHODS.includes(method)) return null;
+  try {
+    p = validateGradientField(p ?? {}, { method });
+  } catch {
+    return null;
+  }
   const halo = Math.max(gradientFieldRadius(p), p.view === "coherence" ? (p.tensorSize - 1) / 2 : 0), rows5 = Math.min(height, Math.max(1, Math.floor(65536 / width))), window = width * Math.min(height, rows5 + 2 * halo);
-  return { bytes: runtimeBytes + width * height * 42 + window * 400 + 16 * MiB16 + transportBytes * 12, completeResidentAlternative: true, parallelWorkers: 0, gradientField: true };
+  const bytes11 = runtimeBytes + width * height * 42 + window * 400 + 16 * MiB16 + transportBytes * 12;
+  return Number.isSafeInteger(bytes11) && bytes11 > 0 ? { bytes: bytes11, completeResidentAlternative: true, parallelWorkers: 0, gradientField: true } : null;
 }
 async function gradientFieldSurface(image, p, options = {}) {
   const gpu = getGradientFieldGpu(options.budget);
@@ -123994,7 +124005,10 @@ function externalPreviewParallelHeadroom(operation2, image, p, { runtimeBytes = 
   if (!["inspection.adjust", "detail.gradient"].includes(operation2) || p?.recompression || !image?.surface?.descriptor || !safe(runtimeBytes) || !safe(transportBytes) || !["identity", "rectangle"].includes(domainShape)) return null;
   const d = image.surface.descriptor, w = domainShape === "rectangle" ? domain2?.width : d.width, h = domainShape === "rectangle" ? domain2?.height : d.height, n = w * h;
   if (![w, h, n, n * 3].every(Number.isSafeInteger) || w < 1 || h < 1 || !["auto", "single", "reference"].includes(cpuKernel)) return null;
-  if (operation2 === "detail.gradient" && isGradientField(p)) return { operation: operation2, ...gradientFieldHeadroom(w, h, p, { runtimeBytes, transportBytes }), registeredParallel: true, domainShape };
+  if (operation2 === "detail.gradient" && isGradientField(p)) {
+    const headroom = gradientFieldHeadroom(w, h, p, { runtimeBytes, transportBytes });
+    return headroom ? { operation: operation2, ...headroom, registeredParallel: true, domainShape } : null;
+  }
   let contiguous = null;
   if (contract2 && safe(contract2.scratchFactor) && safe(contract2.extraBytes ?? 0) && !contract2.dynamicResultBudget && !contract2.resultMemory) {
     let admission;
@@ -124064,7 +124078,10 @@ function externalPreviewNativeHeadroom(operation2, image, params, { runtimeBytes
   return Number.isSafeInteger(bytes11) && bytes11 > 0 ? { bytes: bytes11, operation: operation2, completeResidentAlternative: true, parallelWorkers: 0 } : null;
 }
 function externalPreviewScopedGradientHeadroom(operation2, domain2, { runtimeBytes = 0, transportBytes = 0, image, params } = {}) {
-  if (operation2 === "detail.gradient" && domain2 && isGradientField(params)) return { operation: operation2, ...gradientFieldHeadroom(domain2.width, domain2.height, params, { runtimeBytes, transportBytes }), strictScopedGradient: true };
+  if (operation2 === "detail.gradient" && domain2 && isGradientField(params)) {
+    const headroom = gradientFieldHeadroom(domain2.width, domain2.height, params, { runtimeBytes, transportBytes });
+    return headroom ? { operation: operation2, ...headroom, strictScopedGradient: true } : null;
+  }
   if (operation2 !== "detail.gradient" || !domain2 || ![runtimeBytes, transportBytes, domain2.width, domain2.height, domain2.countIncluded].every(Number.isSafeInteger) || runtimeBytes < 0 || transportBytes < 0 || domain2.width < 1 || domain2.height < 1 || domain2.countIncluded < 1 || typeof domain2.rowIntervals !== "function") return null;
   const envelope = domain2.width * domain2.height, observations2 = domain2.countIncluded, pageBytes = image?.session?.snapshot?.().pageBytes;
   if (pageBytes !== void 0 && (!Number.isSafeInteger(pageBytes) || pageBytes < 1)) return null;

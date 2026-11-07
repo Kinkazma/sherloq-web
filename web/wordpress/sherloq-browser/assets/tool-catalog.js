@@ -1,14 +1,14 @@
-import {currentToolId} from './tool-id-migrations.js?v=0.33.0';
-import {gradientDefaults,GRADIENT_METHODS,gradientMethodLabel} from './gradient-methods.js?v=0.33.0';
-import {isDetectorAlias} from './ai-detector-tools.js?v=0.33.0';
+import {currentToolId} from './tool-id-migrations.js?v=0.33.1';
+import {gradientDefaults,GRADIENT_METHODS,gradientMethodLabel} from './gradient-methods.js?v=0.33.1';
+import {isDetectorAlias} from './ai-detector-tools.js?v=0.33.1';
 import {equalizationOperations} from './unified-engine/src/equalization-settings.js';
 import{segmentationExclusionsAvailable}from'./unified-engine/src/segmentation-window-capabilities.js';
-import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.33.0';
+import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.33.1';
 // UI descriptors only. Scientific validation remains in the frozen worker.
-import {toolGroups} from './tool-tree.js?v=0.33.0';
-import defaults from './tool-defaults.js?v=0.33.0';
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.0';
-import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.33.0';
+import {toolGroups} from './tool-tree.js?v=0.33.1';
+import defaults from './tool-defaults.js?v=0.33.1';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.1';
+import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.33.1';
 const select=(values,labels=values)=>({choices:values.map((value,i)=>({value,label:labels[i]}))});
 const indexed=labels=>select(labels.map((_,i)=>i),labels);
 const range=(min,max,step=1)=>({min,max,step});

@@ -1,6 +1,6 @@
-import {canContinueHeldPreview,completedHeldPreviewFrame} from './completed-held-preview.js?v=0.33.0';
-import {createPreviewContinuity} from './preview-continuity.js?v=0.33.0';
-import {canContinueFrequencyPreview,completedFrequencyPreviewFrame} from './frequency-held-preview.js?v=0.33.0';
+import {canContinueHeldPreview,completedHeldPreviewFrame} from './completed-held-preview.js?v=0.33.1';
+import {createPreviewContinuity} from './preview-continuity.js?v=0.33.1';
+import {canContinueFrequencyPreview,completedFrequencyPreviewFrame} from './frequency-held-preview.js?v=0.33.1';
 const continues=(a,b)=>canContinueHeldPreview(a,b)||canContinueFrequencyPreview(a,b);
 // One replaceable draft and one final intention. A preview owns no scientific
 // result; source/tool changes invalidate publication, even if a read completes.

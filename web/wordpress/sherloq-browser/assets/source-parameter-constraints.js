@@ -1,4 +1,4 @@
-import {nativeParameterConstraint} from './native-context-constraints.js?v=0.33.0';
+import {nativeParameterConstraint} from './native-context-constraints.js?v=0.33.1';
 // Native automatic values are explicit: zero is not generally an automatic mode.
 export function automaticParameterMode(operation,key){
  if(operation==='colors.plots'&&key==='scale'||operation==='detail.wavelets'&&key==='level')return{value:null,boundary:0};

@@ -1,7 +1,7 @@
-import {LOCAL_CHANNEL_HISTOGRAM_SIZES,localHistogramRect,computeLocalChannelHistogram,localHistogramPixel} from './local-channel-histogram-core.js?v=0.33.0';
-import {readWholeChannelHistogram} from './whole-channel-histogram.js?v=0.33.0';
+import {LOCAL_CHANNEL_HISTOGRAM_SIZES,localHistogramRect,computeLocalChannelHistogram,localHistogramPixel} from './local-channel-histogram-core.js?v=0.33.1';
+import {readWholeChannelHistogram} from './whole-channel-histogram.js?v=0.33.1';
 import {histogramSummary} from './unified-engine/src/histogram.js';
-import {computeNativeChannelHistogram,nativeHistogramPixel,nativeHistogramSummary} from './native-channel-histogram-core.js?v=0.33.0';
+import {computeNativeChannelHistogram,nativeHistogramPixel,nativeHistogramSummary} from './native-channel-histogram-core.js?v=0.33.1';
 
 // Native and rendered RGB observations have separate owners and caches. Pointer
 // motion can replace only the next local request, never queue obsolete windows.
@@ -83,7 +83,7 @@ export function createLocalChannelHistogram({document,viewport,getSource,getCame
  function stopWorker(){worker?.terminate();worker=null;if(pendingWorker){pendingWorker.reject(Object.assign(Error('Histogram reader closed.'),{code:'CANCELLED'}));pendingWorker=null;}}
  function calculate(pixels){
   if(typeof Worker!=='function')return Promise.resolve({data:pixels.space?computeNativeChannelHistogram(pixels):computeLocalChannelHistogram(pixels,getParams()),pixels});
-  if(!worker){const reader=worker=new Worker(new URL('./local-channel-histogram-worker.js?v=0.33.0',import.meta.url),{type:'module'});reader.onmessage=event=>{if(worker!==reader)return;const reply=event.data;if(!pendingWorker||reply.id!==pendingWorker.id)return;const owner=pendingWorker;pendingWorker=null;reply.error?owner.reject(Object.assign(Error(reply.error.message),reply.error)):owner.resolve({data:reply.data,pixels:reply.pixels});};reader.onerror=event=>{if(worker!==reader)return;const owner=pendingWorker;pendingWorker=null;reader.terminate();worker=null;owner?.reject(Error(event.message||'Histogram worker failed.'));};}
+  if(!worker){const reader=worker=new Worker(new URL('./local-channel-histogram-worker.js?v=0.33.1',import.meta.url),{type:'module'});reader.onmessage=event=>{if(worker!==reader)return;const reply=event.data;if(!pendingWorker||reply.id!==pendingWorker.id)return;const owner=pendingWorker;pendingWorker=null;reply.error?owner.reject(Object.assign(Error(reply.error.message),reply.error)):owner.resolve({data:reply.data,pixels:reply.pixels});};reader.onerror=event=>{if(worker!==reader)return;const owner=pendingWorker;pendingWorker=null;reader.terminate();worker=null;owner?.reject(Error(event.message||'Histogram worker failed.'));};}
   return new Promise((resolve,reject)=>{const id=++workerSequence;pendingWorker={id,resolve,reject};try{worker.postMessage({id,pixels,params:getParams(),returnPixels:true},[pixels.data.buffer]);}catch(error){pendingWorker=null;worker?.terminate();worker=null;reject(error);}});
  }
  async function pump(){

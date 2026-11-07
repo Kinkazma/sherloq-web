@@ -175,7 +175,7 @@ CMSeg-Net, MGCFDN, SelfDM, ALIKED + LightGlue, EfficientLoFTR et SSG restent dis
 
 Sur la page Résultats, choisissez **Biomes** ou **Corroboration**, puis réglez l’opacité entre 0 et 100 %. Les valeurs initiales sont 100 % pour les Biomes et 35 % pour la Corroboration ; chaque vue conserve son propre choix. Les aperçus, rapports PDF et images du ZIP suivent ce choix, sans relancer les détecteurs.
 
-Biomes affiche les groupes appariés de Détection de clones 2, issus de SIFT ou de PatchMatch, lorsque leurs coordonnées natives ont été archivées. Une même couleur relie les deux côtés du groupe. Les groupes collinéaires restent des contours. Corroboration affiche les comptes scientifiques des méthodes concordantes. La disponibilité de chaque vue dépend des données conservées ; les sorties neuronales seules restent des cartes ou des masques.
+Biomes affiche les groupes appariés de Détection de clones, issus de SIFT ou de PatchMatch, lorsque leurs coordonnées natives ont été archivées. Une même couleur relie les deux côtés du groupe. Les groupes collinéaires restent des contours. Corroboration affiche les comptes scientifiques des méthodes concordantes. La disponibilité de chaque vue dépend des données conservées ; les sorties neuronales seules restent des cartes ou des masques.
 
 Les nouvelles recettes de clones du lot utilisent une séparation d’appariement de 7 pixels, une longueur affichée minimale de 15 pixels et quatre témoins par côté. Les réglages explicites de l’utilisateur et les réglages enregistrés lors de l’analyse restent prioritaires. Les paramètres individuels, SSG et neuronaux sont conservés.
 

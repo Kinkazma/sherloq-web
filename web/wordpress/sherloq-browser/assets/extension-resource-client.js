@@ -1,4 +1,4 @@
-import {sha256,validateManifest,requiredDependencyChunks} from './dependency-core.js?v=0.33.0';
+import {sha256,validateManifest,requiredDependencyChunks} from './dependency-core.js?v=0.33.1';
 export const EXTENSION_CHUNK_CACHE='sherloq-dependency-chunks-v1';
 export const EXTENSION_READ_LIMIT=1024*1024;
 const hashPattern=/^[a-f0-9]{64}$/,failure=(code,message)=>Object.assign(Error(message),{code});

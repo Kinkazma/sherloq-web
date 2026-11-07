@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import {createSHA256} from '../vendor/hash-wasm/hashes.js';
 import {jpegHeader,readTiff,tiffImageHeader} from './image-headers.js';
 import {captureOwnedSourcePrefixIntegrity} from './source-prefix-integrity.js';

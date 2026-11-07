@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import {selectedElaAutoStats as computeSelectedElaAutoStats} from './selected-ela-auto-stats.js';
 import {createElaSynthesisService} from './ela-synthesis-service.js';
 import {createElaSynthesisFrameOwner} from './ela-synthesis-frame-owner.js';

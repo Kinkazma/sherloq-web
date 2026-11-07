@@ -1,4 +1,4 @@
-import {validRecompressionSettings} from './recompression-controls.js?v=0.33.0';
+import {validRecompressionSettings} from './recompression-controls.js?v=0.33.1';
 import {FIELD_METHODS,FIELD_KEYS,gradientFieldDefaults} from './unified-engine/src/gradient-field-parameters.js';
 export const GRADIENT_METHODS=FIELD_METHODS;
 const fields=['method','intensity','mode','invert','equalize',...FIELD_KEYS];

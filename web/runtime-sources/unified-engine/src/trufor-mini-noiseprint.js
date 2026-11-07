@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import {requireValue,checkAbort} from './errors.js';
 export function miniNppRuntimeCapacityPlan({width,height,manifest,windowBytes,workspaceBytes,maximumInputElements,windowWorkers,jobCount,budget,gpuRoute}){
  const MiB=1024**2,quantum=16*MiB,round=n=>Math.ceil(n/quantum)*quantum;

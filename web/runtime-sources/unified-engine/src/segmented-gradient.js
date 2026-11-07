@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.0";
+import "../../runtime-context.js?v=0.33.1";
 import {createPixelStoreCache} from './pixel-store-cache.js';import {WaveletStripPool} from './wavelet-strip-pool.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint,createCooperator,normalizeResourceError} from './errors.js';
 import {createSegmentedBytes} from './segmented-bytes.js';import {createRgbSurface} from './rgb-surface.js';import {equalizeHistogramLut} from './pixel-utils.js';
