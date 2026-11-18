@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {nativeMagickResource} from './native-magick-resources.js';
 import {EngineError,requireValue} from './errors.js';
 const MiB=1024**2,page=65536,aligned=bytes=>Math.floor(bytes/page)*page;

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {pngColorChunk} from './png-colorimetry.js';
 import {EngineError,requireValue} from './errors.js';
 const text=(bytes,start,end)=>new TextDecoder('latin1').decode(bytes.subarray(start,end));

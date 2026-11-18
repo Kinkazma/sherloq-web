@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 /** Keep the existing synchronous raw-read API when possible. A strict bank
  * may perform asynchronous IO; its engine lock and reservation then remain
  * owned until both the read and provenance transformation have settled. */

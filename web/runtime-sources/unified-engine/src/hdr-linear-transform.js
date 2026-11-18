@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // A typed linear HDR representation from the existing libavif gain tables.
 // This stage neither decodes AV1 nor alters the Original source banks.
 import {requireValue,checkAbort,createCooperator,EngineError} from './errors.js';

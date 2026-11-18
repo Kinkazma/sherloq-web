@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 import {streamedAutomaticForgeryscope,scopedAutomaticForgeryscope} from './automatic-forgeryscope-stream.js';
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {automaticAiSelection,readAutomaticForgeryscopeCrop} from './automatic-ai-regions.js';

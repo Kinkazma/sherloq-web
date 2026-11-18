@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {getNative16EchoSourceOwner} from './native16-echo-source.js';
 import {echoHeapBytes} from './echo-math.js';
 import {runNative16Operation} from './native16-operations.js';

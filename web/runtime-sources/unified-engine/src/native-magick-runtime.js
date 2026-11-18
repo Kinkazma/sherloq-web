@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Native typed decoder over the shared encoded source and cache owners.
 import {encodedBytesSource,mountEncodedSource} from './encoded-source.js';
 import {mountPixelCache} from './native-magick-cache-fs.js';

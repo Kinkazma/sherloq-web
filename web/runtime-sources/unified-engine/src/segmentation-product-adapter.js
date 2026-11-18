@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import{segmentationWindowCapabilities}from'./segmentation-window-capabilities.js';
 import{createSegmentationAdapter}from'./segmentation-adapter.js';
 import{createSegmentationNativeWindowPool}from'./segmentation-native-window-pool.js';

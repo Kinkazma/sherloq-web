@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Pure admission shared by the regional dispatch and proxy/UI predicates.
 // Availability and identity of an actual native Source are checked by callers.
 export const NATIVE16_GRADIENT_SHAPES=Object.freeze(['identity','rectangle','native-regions','membership']);

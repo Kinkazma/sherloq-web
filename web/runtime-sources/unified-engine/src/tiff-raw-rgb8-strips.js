@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 const WINDOW_BYTES=4*1024**2;
 const value=(header,tag)=>header.directories?.[0]?.entries.find(entry=>entry.tag===tag)?.value;

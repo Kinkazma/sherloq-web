@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {EngineError,checkAbort} from './errors.js';
 export const RAW_NATIVE_RESOURCE=Object.freeze({url:new URL('../vendor/libraw-native/libraw-native.wasm',import.meta.url).href,bytes:1175584,sha256:'1274c32202db8490531dc4fc899d5fa6217522454f7bf0505659975730a61537'});
 export async function readVerifiedRawResource({signal,fetcher=globalThis.fetch}={}){

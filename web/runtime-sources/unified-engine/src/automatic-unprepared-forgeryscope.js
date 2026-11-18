@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {automaticNativeCloneWindows} from './automatic-unprepared-clones.js';
 import {createAutomaticPreparedForgeryscope} from './automatic-prepared-forgeryscope.js';
 import {prepareAutomaticStrictContext} from './automatic-strict-context.js';

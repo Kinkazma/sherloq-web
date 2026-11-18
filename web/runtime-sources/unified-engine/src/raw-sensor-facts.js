@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {requireValue} from './errors.js';
 const integer=n=>Number.isSafeInteger(n), positive=n=>integer(n)&&n>0;
 const plainRect=r=>r&&[r.x,r.y,r.width,r.height].every(integer)&&r.x>=0&&r.y>=0&&r.width>0&&r.height>0;

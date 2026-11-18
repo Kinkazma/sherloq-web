@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 import{createSelfDMProposalWindowProduct}from'./selfdm-proposal-window-product.js';
 import{segmentationSupportsGlobalUnion,segmentationPendingFragmentBackend,segmentationWindowCapabilities}from'./segmentation-window-capabilities.js';
 import{createTntWindowFragmentProduct}from'./mgcfdn-tnt-window-fragment-product.js';

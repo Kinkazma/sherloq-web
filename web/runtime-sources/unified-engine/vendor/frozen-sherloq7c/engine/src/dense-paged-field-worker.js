@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 import {acknowledgeDenseRetirement,onceDenseRetirement,retireDenseOwners,cleanupDenseOwners,createDenseRetirementLedger} from './dense-owner-retirement.js';
 import {runWithResourceRecovery} from './resource-recovery.js';
 import {serializeEngineError} from './errors.js';

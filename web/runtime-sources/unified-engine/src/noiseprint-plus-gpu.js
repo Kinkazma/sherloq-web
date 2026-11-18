@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {disposeGpuDeviceGracefully} from './neural-worker-cleanup.js';
 import {requestStorageDevice,storageDeviceLimits} from './gpu-limits.js';
 import {closeGpuErrorScopes} from './gpu-error-scope.js';

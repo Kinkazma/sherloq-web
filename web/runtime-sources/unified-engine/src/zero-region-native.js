@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {allocateWasmMemory,nativeModuleFailure,wasmAllocationFailure} from './allocation.js';
 import {checkAbort,createCooperator,requireValue} from './errors.js';
 import {createZeroRetirement} from './zero-native-context-plan.js';

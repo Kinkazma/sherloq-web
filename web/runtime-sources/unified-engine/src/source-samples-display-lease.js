@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Read-only registry alias. The SourceSamples pair owns the one RGB8 store.
 import{EngineError,requireValue,checkAbort}from'./errors.js';
 import{withRetirementOwner}from'./owner-retirement-error.js';

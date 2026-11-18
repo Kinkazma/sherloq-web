@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 /** Native YOLOv11 public profiles: decoded BCN tensors -> NMS -> source boxes.
  * Model execution and memory admission are supplied by the network runtime.
  */

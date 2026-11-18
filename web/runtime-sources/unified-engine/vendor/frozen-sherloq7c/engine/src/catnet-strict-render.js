@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 import{requireValue,checkAbort}from'./errors.js';import{renderResearch}from'./research-render.js';import{catnetStrictResultContext}from'./catnet-strict-fields.js';
 /** Original-only presentation is allowed outside scientific support; those
  * pixels never enter the network. Native palettes/overlay arithmetic are

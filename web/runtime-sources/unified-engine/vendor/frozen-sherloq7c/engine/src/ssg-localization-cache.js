@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 // Reclaimable, borrowed native SSG scalar stages.
 import {allocateOwnedTypedArray} from './allocation.js';
 import {requireValue,checkAbort} from './errors.js';

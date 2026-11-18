@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {NATIVE_PREVIEW_FINANCE,createNativePreviewFinanceRegistry,capturedNativePreviewTermination} from './native-preview-peer-finance.js';
 import {CAPTURED_OWNERSHIP_CONTROL,createCapturedOwnershipRegistry} from './captured-ownership-control.js';
 import {applicationNeuralWindowClientService,neuralWindowApplicationSnapshot} from './neural-window-client-service.js';

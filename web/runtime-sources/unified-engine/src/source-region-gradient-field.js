@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {runNative16Operation} from './native16-operations.js';
 import {native16GradientRegionRequested} from './native16-gradient-region-contract.js';
 import {sourceRegionDomainShape} from './source-region-capabilities.js';

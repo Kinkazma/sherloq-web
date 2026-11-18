@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Execution adapter only. Every pixel passes through the same canonical LCMS.
 import {createSourceSamplesCodecPeer} from './source-samples-codec-peer.js';
 import {EngineError, requireValue, checkAbort} from './errors.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {requireValue} from './errors.js';
 // Validate map geometry before either dense or segmented output is allocated.
 export function catnetMapGeometry(metadata){

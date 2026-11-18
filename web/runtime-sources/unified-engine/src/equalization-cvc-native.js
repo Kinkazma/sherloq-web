@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Exact-domain CVC reduction. The caller owns/funds target and scratch; this
 // accumulator retains neither image samples nor a joint N-by-N matrix.
 import {EngineError, requireValue, checkAbort, checkpoint} from './errors.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Private, opportunistic cache for eligible simple RGB presentations.
 // Every operation still passes the same metadata/resource ownership guards.
 // It owns one immutable 7C source; public outputs retain their own source/state.

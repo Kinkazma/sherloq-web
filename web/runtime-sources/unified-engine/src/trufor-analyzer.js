@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {createTruforSegmentedAnalyzer} from './trufor-segmented-analyzer.js';
 import {renderTruforSegmented} from './trufor-segmented-render.js';
 import {Budget} from './cache.js';

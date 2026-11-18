@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {copyTypedArray} from './allocation.js';
 // Internal borrowed view of the engine's already-owned encoded Uint8Array.

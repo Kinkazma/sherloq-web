@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 import {declaredCloneScopeRegions} from './clone-scope-declarations.js';
 import {localizeSourceRegionTask} from './source-region-localize.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Retire one failed image import through its existing resource owners.
 import {onceDenseRetirement as once} from './dense-owner-retirement.js';
 import {retireCompositeOwners} from './composite-owner-release.js';

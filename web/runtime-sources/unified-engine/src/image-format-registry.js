@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Shared immutable image-format definitions. Import and recompression providers
 // expose their own capabilities over the same identities; tools consume RGB8.
 const formats=[

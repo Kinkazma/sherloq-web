@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {createGenerationContextImage} from './source-region-generation.js';
 import {sourceRegionUnlocalizedInput} from './source-region-capabilities.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';

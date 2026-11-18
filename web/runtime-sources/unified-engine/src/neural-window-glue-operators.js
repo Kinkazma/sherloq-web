@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {XFEAT_GLUE_GLOBAL_ASSETS} from './xfeat-glue-global-assets.js';
 import {requireValue} from './errors.js';
 

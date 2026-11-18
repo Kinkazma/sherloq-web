@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {requireValue} from './errors.js';
 const digest=value=>value===null||typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
 const fields=['schema','kind','targetHeadroom','outputSpace','profileIdentity'];

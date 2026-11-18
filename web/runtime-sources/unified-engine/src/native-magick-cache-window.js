@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // A funded write-back page for the common asynchronous temporary store.
 // Row-sized Core writes are coalesced; RAM/OPFS do not pass through this cache.
 import {allocateOwnedTypedArray} from './allocation.js';

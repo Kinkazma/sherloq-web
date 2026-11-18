@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {attachObservedNlmCleanup} from './observed-nlm-gpu-retirement.js';
 import {gpuRetirementFailure} from './gpu-attempt-retirement.js';
 import {requireValue} from './errors.js';

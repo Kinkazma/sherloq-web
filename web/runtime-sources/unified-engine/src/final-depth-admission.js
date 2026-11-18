@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {colorSpaceResidentAdmissionPlan} from './segmented-color-spaces.js';
 import {nativeColorSpaceParametersAdmitted} from './opencv-operations.js';
 import {native16DefectsAdmissionPlan} from './native16-defects.js';
@@ -139,7 +139,7 @@ export function finalDepthAdmissionPlan(task,image,{budget,runtimeBytes=0,profil
   }else if(task.operation==='inspection.adjust'){
    plan=native?native16AdjustAdmissionPlan({...image,surface:image.nativeSurface},task.params??{},{budget,runtimeBytes:Math.max(0,runtimeBytes-separationHeapBytes()),backend,colorBackend:cpuKernel==='reference'?'cpu':'auto',maxWorkers:cpuKernel==='auto'?profile.maxWorkers??1:1}):externalPreviewParallelHeadroom(task.operation,image,contract?.validate(params)??params,{runtimeBytes,profile,cpuKernel,backend,contract});
   }else if(task.operation==='colors.pca'){
-   plan=pcaExecutionPlan({width:w,height:h,inputDepth:native?16:8,retainedTables:!!image.nativeSurface,params,maxWorkers:cpuKernel==='auto'?profile.maxWorkers??1:1,heapBytes:pcaStreamHeapBytes(),publicOutputCopyBytes:!native&&!image.segmented&&(cpuKernel==='reference'||n<1024*1024)?n*3:0,...options});
+   plan=pcaExecutionPlan({width:w,height:h,inputDepth:native?16:8,retainedTables:true,params,maxWorkers:cpuKernel==='auto'?profile.maxWorkers??1:1,heapBytes:pcaStreamHeapBytes(),publicOutputCopyBytes:!native&&!image.segmented&&(cpuKernel==='reference'||n<1024*1024)?n*3:0,...options});
    if(composite?.kind==='post'){
     // Actual normalized PCA RGB16 colour domain, never the Original ICC.
     const intermediate=pcaNativePostDescriptor(task,image,w,h),post=nativeEqualizationSurfaceAdmissionPlan(intermediate,composite,{budget,backend,runtimeBytes:0,storageOverheadBytes,colorBackend:cpuKernel==='reference'?'cpu':'auto'});

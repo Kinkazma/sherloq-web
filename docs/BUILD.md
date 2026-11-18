@@ -1,6 +1,6 @@
 # Reconstruction
 
-## Current 0.33.2 snapshot
+## Current 0.33.3 snapshot
 
 The current release uses `web/wordpress/runtime-patches/current-snapshot.json`. It pins the canonical engine and UI inputs, complete resource manifest and both runtime locks. Earlier additive receipts remain immutable historical records; they are not replayed against the newer snapshot. Rebuilding rejects changed inputs and preserves the reviewed executable bytes.
 
@@ -62,7 +62,7 @@ The 0.17.0 delivery retains 96 native WASM modules below 300 KiB locally, on dem
 
 The batch PDF/ZIP vendor files retain their original bytes and paths and load on demand. Method-specific optional files can be imported from an authorized local library without blocking downloads for other tools. [Changes and qualification](../CHANGELOG.md).
 
-Local update inventories for this version are recorded in `web/local-sources/0.33.2/` and `releases/0.33.2.json`. The declared scientific scope increment adds 14 resources and replaces 43 JavaScript files; its receipt binds the exact runtime locks and leaves existing model payloads unchanged. Rebuilding retains the previous version’s compatibility manifest.
+Local update inventories for this version are recorded in `web/local-sources/0.33.3/` and `releases/0.33.3.json`. The declared scientific scope increment adds 14 resources and replaces 43 JavaScript files; its receipt binds the exact runtime locks and leaves existing model payloads unchanged. Rebuilding retains the previous version’s compatibility manifest.
 
 The ELA layer adds one JavaScript module and replaces four, including the index shared with the earlier scientific increment. Keep the immutable predecessor snapshots and both receipts when reconstructing the executable lock. [Runtime increment contracts](RUNTIME-INCREMENTS.md). The final service-worker assemblers include `dependency-client-routing.js`; older client/resource identities remain available during coexistence and migration.
 

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {EngineError,requireValue} from './errors.js';
 import {createNeuralSpatialRows} from './neural-spatial-rows.js';
 import {segmentedNeuralProjection} from './segmented-neural-projection.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // The preparation codec produces samples for the existing Original-owned A/B.
 import {createNativeMagickDecoder}from'./native-magick-runtime.js';
 import {encodedBytesSource,createCachedEncodedSource}from'./encoded-source.js';

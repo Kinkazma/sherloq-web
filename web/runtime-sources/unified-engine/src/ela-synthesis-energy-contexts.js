@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {sourceRegionEnergy} from './source-region-fragmented-energy.js';
 import {requireValue} from './errors.js';
 // Reuse the existing wholly admitted native-context plan and ownership/coverage

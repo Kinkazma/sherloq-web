@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 // The existing qualified float32/logarithm arithmetic, applied to one real
 // already-aggregated residual plane. No duplicate quality planes are supplied.
 import {energyScoreMathWGSL} from './energy-score-gpu-shader.js';

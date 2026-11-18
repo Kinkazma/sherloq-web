@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {usesAlternateRecompression} from './recompression-plan.js';
 import {selectedEnergyReference} from './energy-pipeline.js';
 import {selectedEnergyCodec} from './energy-stream.js';

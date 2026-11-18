@@ -1,2 +1,2 @@
 // Generated only after build-time input/closure checks. Pure engine exports; no Worker endpoint.
-export const engineLibraryURL=base=>new URL("./engine-library-bundle-4593debc58dc96749f80.mjs",base);
+export const engineLibraryURL=base=>new URL("./engine-library-bundle-82e9ef7ba87ab659f83b.mjs",base);

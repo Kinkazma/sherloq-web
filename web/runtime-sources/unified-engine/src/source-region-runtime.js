@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {native16EchoRegionRequested} from './native16-echo-contract.js';
 import {sourceRegionEcho} from './source-region-echo.js';
 import {echoHeapBytes} from './echo-math.js';

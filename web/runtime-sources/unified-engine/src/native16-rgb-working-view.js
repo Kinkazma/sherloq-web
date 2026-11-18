@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
 import {createColorTransformCache,COLOR_OUTPUT_PROFILE_MAX_BYTES} from './color-managed-runtime.js';
 import {COLOR_NATIVE_RESOURCE} from './color-managed-resource.js';

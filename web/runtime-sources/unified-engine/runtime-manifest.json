@@ -3303,19 +3303,19 @@
       "sha256": "40401343652fc6b5635eb48e58674d2cb502832b2536ef3aba7188fdd96f6d74"
     },
     {
-      "file": "src/engine-library-bundle-4593debc58dc96749f80.mjs",
-      "bytes": 12219107,
-      "sha256": "4593debc58dc96749f803f3a888b6904d984ab36255adc1e33e24e57670c254d"
+      "file": "src/engine-library-bundle-82e9ef7ba87ab659f83b.mjs",
+      "bytes": 12219831,
+      "sha256": "82e9ef7ba87ab659f83b507042aaa9ab999383438fb1b1829d347c0abdc6c44b"
     },
     {
       "file": "src/engine-library-entry.js",
       "bytes": 200,
-      "sha256": "fec6ebe04eba8912fb7c434d9fb5e8c8e04efcaa714d9e97b8bf7de572e564d7"
+      "sha256": "4520aefdf6006553894ddad16b068b2b3f774bc5b1fad23ed7f4c36791be27a0"
     },
     {
       "file": "src/engine-worker-entry.js",
       "bytes": 173,
-      "sha256": "84a4102c5ea2fe781cc3ae66c32ccdfdb5af0241b3332f86103b1cc009e1ed7b"
+      "sha256": "2023e8af71f83a3a59ae3640428e0918a462f502c617e75d35b874404d3f0622"
     },
     {
       "file": "src/equalization-cvc-native.js",
@@ -3499,13 +3499,13 @@
     },
     {
       "file": "src/final-depth-admission.js",
-      "bytes": 31858,
-      "sha256": "38023a226782f26a246768a9386834f91c46152cdbd2cf7be393a65408174540"
+      "bytes": 31841,
+      "sha256": "d823ad42678378b65f8c4bada2d4f7bd31e5343cf7cb521fc596c410b8e4094e"
     },
     {
       "file": "src/final-result-lifetime.js",
-      "bytes": 7513,
-      "sha256": "21893bc081a43c3c35f9c76e45e8a140cee8ab810d8811a0724f280c09b714e8"
+      "bytes": 8188,
+      "sha256": "efe2e2dde3a6c52dbe825c73eeafaec6cd23f0a95b991ceda4eb20125dc67a9c"
     },
     {
       "file": "src/float32-ranks-stream.js",
@@ -3909,8 +3909,8 @@
     },
     {
       "file": "src/index.js",
-      "bytes": 297228,
-      "sha256": "5c2449c95e68c1358ef75403d6a7b7d1eb0a08a3c8d621dfd4f23b1c6f195510"
+      "bytes": 297192,
+      "sha256": "28644e34e73221e0d72c48f9732bbee3ec2fa6d143fde446d8f7efd9ac5be2b2"
     },
     {
       "file": "src/indexeddb-storage.js",
@@ -6514,8 +6514,8 @@
     },
     {
       "file": "src/segmented-pca.js",
-      "bytes": 14924,
-      "sha256": "a1c7a8edab9da83719587661319861c9ec4d789b1f0c84397d6454ac6ecdd1db"
+      "bytes": 14890,
+      "sha256": "c77d6705a470a7028ce20661a0ab61f5931dd37f25334e7bd3b5208b2542c958"
     },
     {
       "file": "src/segmented-planes.js",
@@ -8315,7 +8315,7 @@
     {
       "file": "src/useful-work-code-identity.js",
       "bytes": 273,
-      "sha256": "36df33970e351d2618bec5c3e5a3908cedd966c17017bc250179415904637dd3"
+      "sha256": "e8d777d4d14223c28b6b67759b0536d8df9e5458119ea7cd63c6ac01b786a156"
     },
     {
       "file": "src/useful-work-observer.js",
@@ -8423,9 +8423,9 @@
       "sha256": "1abb15202b4e5358426e9cec7133714323c8b615755602f0883745cade544b06"
     },
     {
-      "file": "src/worker-bundle-5a37950f5e2c1f50897f.mjs",
+      "file": "src/worker-bundle-d01d3afcd1495d85d3b3.mjs",
       "bytes": 31299,
-      "sha256": "5a37950f5e2c1f50897fbd6ffcc57d3815a1815059ed20b058f936074f0f20a2"
+      "sha256": "d01d3afcd1495d85d3b3157a4f5fab7265556f35ed18115cbb9d4d4680f63a53"
     },
     {
       "file": "src/worker-client.js",

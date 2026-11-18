@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 import {fetchXfeatGlueAsset} from './xfeat-glue-global-assets.js';
 import {GlobalGlueAttention as Shared} from './xfeat-glue-shared-softmax.js';
 export {glueCSR} from './xfeat-glue-shared-softmax.js';

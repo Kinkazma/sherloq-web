@@ -1,3 +1,3 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 // Shared acknowledged retirement; keep this provider's internal names stable.
 export {gpuTransaction as sparseBinaryGpuTransaction,retireGpuTransaction as retireSparseBinaryGpuTransaction,drainGpuTransactions as drainSparseBinaryGpuTransactions,attachGpuCleanup as attachSparseBinaryGpuCleanup} from './gpu-ack-retirement.js';

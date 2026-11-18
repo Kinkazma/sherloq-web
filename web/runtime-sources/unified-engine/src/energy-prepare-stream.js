@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {rememberEnergyNativePreparation,tryEnergyNativeContextPreparation} from './energy-native-context-preparation.js';
 import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
 import {gray} from './pixel-utils.js';

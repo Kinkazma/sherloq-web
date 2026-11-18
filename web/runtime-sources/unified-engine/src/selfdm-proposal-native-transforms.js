@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {requireValue} from './errors.js';
 import {selfDMProposalNativeTransform} from './selfdm-proposal-native-assets.js';
 import {buildSelfDMProposalPointOwnerGraph} from './selfdm-proposal-point-owner-graph.js';

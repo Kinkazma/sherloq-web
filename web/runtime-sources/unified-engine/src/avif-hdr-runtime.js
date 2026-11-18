@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {AVIF_HDR_DAV1D_RESOURCES as AVIF_HDR_RESOURCES} from './avif-hdr-dav1d-resources.js';
 import {createAvifGainMapGpu} from './avif-gain-map-gpu.js';

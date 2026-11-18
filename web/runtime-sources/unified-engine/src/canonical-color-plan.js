@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {requireValue} from './errors.js';
 import {COLOR_TRANSFORM_LAYOUTS} from './color-managed-runtime.js';
 import {COLOR_NATIVE_RESOURCE} from './color-managed-resource.js';

@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 // The consumer must finish consuming each borrowed chunk before write resolves.
 // No encoded image store, Blob, canvas or temporary-storage fallback is created.
 import factory from '../vendor/png16-export/png16-export.js';

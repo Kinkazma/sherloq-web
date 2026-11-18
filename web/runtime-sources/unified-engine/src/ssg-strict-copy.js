@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {sparseStrictImageRecord,prepareSparseStrictNativeContext} from './sparse-strict-source.js';
 import {createSsgStrictCompiledView} from './ssg-strict-compiled-view.js';
 import {createSsgStrictEngine} from './ssg-strict-engine.js';

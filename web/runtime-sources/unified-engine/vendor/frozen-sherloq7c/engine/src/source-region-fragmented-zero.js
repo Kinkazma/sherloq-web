@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 import {createSegmentedZeroAnalysis,segmentedZeroResult} from './segmented-zero.js';
 import {zeroParams,zeroRecompressionIdentity} from './zero.js';
 import {ZERO_PALETTE} from './zero-palette.js';

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {denseGray,denseDescriptorShape,canonicalDenseSift} from './dense-math.js';
 import {alignDenseSupports} from './dense-links.js';
 import {checkAbort,requireValue} from './errors.js';

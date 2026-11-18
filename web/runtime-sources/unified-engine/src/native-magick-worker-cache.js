@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Adapt the existing mountPixelCache contract to its parent-owned byte stores.
 // The same Asyncify syscall waits for all bounded chunks of one native I/O.
 export function createWorkerCacheBridge(request,maximumTransferBytes){

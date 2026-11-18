@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Exact method geometry; separable PIL-compatible RGB8 filtering before FP32
 // normalization. The source is the host's oriented, immutable RGB8 surface.
 // Algorithm reference: Pillow 12.2.0 libImaging/Resample.c (Pillow license).

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // The qualified Core cache store stays in Original's actual shared budget.
 // This is codec-private I/O, not a second source/window reader API.
 import {createPixelCacheStoreOwner}from'./native-magick-cache-store.js';

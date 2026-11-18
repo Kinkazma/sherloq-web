@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.33.3 — PCA view continuity and result reuse · 2026-11-18
+
+- Keep the PCA scene, camera and image surfaces in place across display changes when the source and scientific model remain the same. Replace the raster after the next rendering is ready.
+- Give the 3D view a usable opening area when space is constrained, while keeping the divider freely adjustable afterwards.
+- Restore the visible parameter reset, keep the 3D view reset at the lower right, and reset opacity to 55% on double-click.
+- Reuse exact completed whole-image PCA renderings in 8 and 16 bits when the same settings return and their resources remain cached. Preserve memory budgets, acknowledged eviction, CPU/GPU selection and normal calculation on a cache miss.
+
 ## 0.33.2 — Native precision and image inspection · 2026-11-18
 
 - Preserve native image data separately from the screen preview, improve supported HDR/AVIF and embedded-colour-profile rendering, and correct the framing and presentation of supported RAW inputs. Sensor data and developed RGB remain distinct analysis domains.

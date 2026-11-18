@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Private backing adapter for the existing Core file cache. No pixel math.
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';

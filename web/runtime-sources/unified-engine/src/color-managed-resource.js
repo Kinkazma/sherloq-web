@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {EngineError,checkAbort} from './errors.js';
 export const COLOR_NATIVE_RESOURCE=Object.freeze({url:new URL('../vendor/color-managed-native/color-managed-native.wasm',import.meta.url).href,bytes:272956,sha256:'6a225c54ddc7e9061569155632490248a2a69332738eba75232dbdcb9f32b754'});
 export async function readVerifiedColorResource({signal,fetcher=globalThis.fetch}={}){

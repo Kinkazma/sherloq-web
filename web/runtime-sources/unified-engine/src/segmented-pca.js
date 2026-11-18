@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {pcaExecutionPlan,pcaModelIdentity} from './pca-execution-plan.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {withRetirementOwner} from './owner-retirement-error.js';
@@ -24,7 +24,7 @@ export async function segmentedPca(image,params,{budget,signal,onProgress,basis:
  if(inputDepth===16){requireValue(binding&&typeof binding.nativeSurfaceId==='string'&&Number.isSafeInteger(binding.nativeRevision)&&typeof binding.profileIdentity==='string'&&typeof binding.imageId==='string'&&typeof binding.sourceSha256==='string'&&typeof isSourceCurrent==='function'&&display?.descriptor?.id===binding.sourceSurfaceId&&display.descriptor.revision===binding.sourceRevision&&grid.width===width&&grid.height===height&&grid.nativeSurfaceId===descriptor.id&&grid.nativeRevision===descriptor.revision&&Number.isSafeInteger(grid.step)&&grid.step>0&&Array.isArray(grid.origin)&&grid.origin.length===2&&grid.origin.every(v=>Number.isSafeInteger(v)&&v>=0)&&grid.origin[0]+(width-1)*grid.step<display.descriptor.width&&grid.origin[1]+(height-1)*grid.step<display.descriptor.height,'PCA16 needs the actual native grid, Original authority and canonical SDR partner.');current();}
  const modelIdentity=inputDepth===16?pcaModelIdentity(binding,descriptor,grid):null;
  if(inputDepth===16&&cachedBasis)requireValue(basisIdentity===modelIdentity,'PCA16 cached model belongs to another native Source/profile/grid.');
- const mode=['distance','project','crossprod'].indexOf(p.mode),channels=mode===2?3:1,room=budget.limit-budget.retained-budget.active,execution=pcaExecutionPlan({width,height,inputDepth,params:p,retainedTables:inputDepth===16||!!image.nativeSurface,availableBytes:room,blockPixels:requestedBlock,maxWorkers,heapBytes:pcaStreamHeapBytes()}),block=execution?.blockPixels;
+ const mode=['distance','project','crossprod'].indexOf(p.mode),channels=mode===2?3:1,room=budget.limit-budget.retained-budget.active,execution=pcaExecutionPlan({width,height,inputDepth,params:p,retainedTables:true,availableBytes:room,blockPixels:requestedBlock,maxWorkers,heapBytes:pcaStreamHeapBytes()}),block=execution?.blockPixels;
  if(!execution)throw new EngineError('MEMORY_LIMIT','PCA minimum streaming workspace does not fit.');
  const s={tables:null,reservation:null,planning:null,input:null,raw:null,output:null,surface:null,sample:null,pool:null,projector:null,projectorCredit:null,colorSampler:null,histogram:null,histogramCredit:null,histogramBacking:null,lut:null,lutCredit:null,lutBacking:null},refused=new Set(),foreign=new Set();let covarianceMetrics,projectorMetrics;
  const acknowledge=value=>{if(value===false||value===0)throw new EngineError('BUSY','PCA resource retirement was not acknowledged.');return value;};

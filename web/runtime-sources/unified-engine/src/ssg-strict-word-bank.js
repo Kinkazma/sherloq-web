@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {createSsgVlfeat,ssgVlfeatMemoryPlan} from './ssg-vlfeat.js';
 import {ssgWordDescriptors,ssgMatchWords} from './ssg.js';
 import {ssgInside} from './ssg-full-input.js';

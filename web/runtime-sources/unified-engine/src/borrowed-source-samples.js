@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Exact typed windows over the RGB surface already owned by Original.
 // This adapter retains metadata and window loans, never the underlying store.
 import {EngineError,requireValue,checkAbort} from './errors.js';

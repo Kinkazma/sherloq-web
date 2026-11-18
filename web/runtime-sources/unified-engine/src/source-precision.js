@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Source content, its decoded container and consumer precision are distinct.
 // This module reads only qualified metadata: no pixel scans, extension guesses,
 // codec imports, tensor-type inference or new source allocation.

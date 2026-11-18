@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.33.2";
+import "../../../../../runtime-context.js?v=0.33.3";
 // A DOM File may change. Cached identity belongs to captured SHA prefix states;
 // later reads use certified owned buffers, never an assumed immutable File.
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';

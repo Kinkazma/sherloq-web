@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {planMgcfdnWindowGpuAdmission} from './mgcfdn-window-gpu-admission.js';
 import {requireValue} from './errors.js';
 // These are the CURRENT JavaScript reservations made by the frozen graph

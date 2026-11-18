@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {certifySparseRequestedGeometry} from './source-region-requested-geometry.js';
 import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from './source-region-geometry.js';
 import {nativeSourceRegionMembership,nativeSourceRegionDefaultRegions,sourceRegionHasNativeAcquisitions} from './source-region-native-regions.js';

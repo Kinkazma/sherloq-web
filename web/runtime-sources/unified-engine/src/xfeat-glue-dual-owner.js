@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // SHERLOQ: keep the delivered CPU artifact for every CPU operator, rather than
 // interpreting executionProviders:['wasm'] inside the different GPU artifact.
 import {createGlueWorkerOwner} from './xfeat-glue-worker-owner.js';

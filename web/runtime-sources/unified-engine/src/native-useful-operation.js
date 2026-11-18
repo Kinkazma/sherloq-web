@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {sourceRegionDomainShape} from './source-region-capabilities.js';
 import {native16ProxyParametersAdmitted} from './native16-parameter-contract.js';
 import {externalUsefulOwner,externalUsefulEvidence} from './external-useful-operation.js';

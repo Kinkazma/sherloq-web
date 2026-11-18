@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // Shared dense PatchMatch propagation. Direct float32 banks, native initialization and
 // zero/first-order propagation; live ordered reverse stays in native C++.
 export const densePmWgsl=String.raw`

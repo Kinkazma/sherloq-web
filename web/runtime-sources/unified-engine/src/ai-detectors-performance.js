@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // CPU width follows the shared scheduler's grant, including single-thread
 // browsers. The fixed ORT heap is funded separately by inference admission.
 const failure=()=>Object.assign(new Error('Invalid detector performance policy.'),{code:'MODEL_CONTRACT'});

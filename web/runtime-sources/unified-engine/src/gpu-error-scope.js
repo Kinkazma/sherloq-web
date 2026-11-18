@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {EngineError,serializeEngineError} from './errors.js';
 // mapAsync may reject before WebGPU exposes the allocator's scoped failure.
 // Drain both scopes and retain both pieces of evidence instead of discarding it.

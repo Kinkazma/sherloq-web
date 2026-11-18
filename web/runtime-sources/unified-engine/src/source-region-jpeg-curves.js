@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {resolveSelectedPlan,selectionIdentity} from './recompression-probe.js';
 import {recompressionPaletteColors,recompressionFormat} from './recompression-plan.js';
 import {attachGpuCleanup} from './gpu-ack-retirement.js';

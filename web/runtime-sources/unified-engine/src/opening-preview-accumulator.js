@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {requireValue} from './errors.js';
 export const OPENING_PREVIEW_ACCUMULATOR_BYTES=16*1024**2;
 export function openingPreviewAccumulatorPlan({width:sw,height:sh,maximumPixels=1024**2,maximumDimension=2048}={}){

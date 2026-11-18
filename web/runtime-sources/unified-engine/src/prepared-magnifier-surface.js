@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {magnifierParams,magnifierRegion,magnifierLayout,magnifierLuts,magnifierMetadataBytes} from './magnifier.js';
 import {equalizationPlan} from './equalization-settings.js';
 import {displayGeometry} from './display-sampling.js';

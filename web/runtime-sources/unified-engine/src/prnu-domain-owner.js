@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import{compileOriginalSourceRegions}from'./source-region-geometry.js';
 import{createSourceRegionView}from'./source-region-view.js';
 import{sourceRegionTransportBytes}from'./source-region-transport.js';

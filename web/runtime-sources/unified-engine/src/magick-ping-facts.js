@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // JavaScript transcription of the pinned SDK source-sample-facts.ts.
 const maximumBytes=16384,encoder=new TextEncoder();
 const roles=new Set(['color','alpha','index','meta']);

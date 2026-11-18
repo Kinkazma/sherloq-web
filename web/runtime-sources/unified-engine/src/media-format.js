@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {IMAGE_FORMATS} from './image-format-registry.js';
 import {requireValue} from './errors.js';
 // Decode only image coders. No filenames, URLs, documents or delegate commands

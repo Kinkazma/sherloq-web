@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 import {requireValue} from './errors.js';
 import {MEDIA_RESOURCE_PINS, NATIVE_MAGICK_RESOURCE_METADATA} from './media-resource-integrity.js';
 

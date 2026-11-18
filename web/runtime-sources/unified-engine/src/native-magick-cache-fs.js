@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.2";
+import "../../runtime-context.js?v=0.33.3";
 // This mount changes only where the existing Core's file cache stores bytes.
 // The C WASI wrappers await a whole native read/write call, outside JS iov loops.
 import {EngineError,requireValue,checkAbort} from './errors.js';
