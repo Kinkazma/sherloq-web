@@ -1,0 +1,665 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "[SERIAL]",
+  "version": 1,
+  "metadata": {
+    "timestamp": "[BUILD_TIMESTAMP]",
+    "component": {
+      "type": "application",
+      "bom-ref": "imagemagick",
+      "name": "ImageMagick",
+      "version": "[MAGICK_VERSION]"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "aom",
+      "name": "aom",
+      "version": "3.15.1",
+      "publisher": "Alliance for Open Media",
+      "copyright": "Copyright (c) 2016, Alliance for Open Media. All rights reserved.",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://aomedia.googlesource.com/aom"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-09-22"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "brotli",
+      "name": "brotli",
+      "version": "1.2.0",
+      "publisher": "Brotli Authors",
+      "copyright": "Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/google/brotli"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2025-10-27"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libbzip2",
+      "name": "libbzip2",
+      "version": "1.0.8",
+      "publisher": "Julian Seward, jseward@acm.org",
+      "copyright": "Copyright © 1996-2000 Julian R Seward",
+      "licenses": [
+        {
+          "license": {
+            "id": "bzip2-1.0.6"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://sourceware.org/bzip2/"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2019-07-13"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libde265",
+      "name": "libde265",
+      "version": "1.1.3",
+      "publisher": "Struktur AG.",
+      "copyright": "Copyright (c) 2013 Struktur AG.",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-3.0-or-later"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/strukturag/libde265"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-09-14"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "openexr",
+      "name": "openexr",
+      "version": "3.5.1",
+      "publisher": "Contributors to the OpenEXR Project.",
+      "copyright": "Copyright (c) Contributors to the OpenEXR Project.",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/AcademySoftwareFoundation/openexr"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-09-26"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libffi",
+      "name": "libffi",
+      "version": "3.8.0",
+      "publisher": "Anthony Green",
+      "copyright": "Copyright Anthony Green",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://sourceware.org/libffi"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-08-09"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "freetype",
+      "name": "freetype",
+      "version": "2.14.3",
+      "publisher": "David Turner, Robert Wilhelm, & Werner Lemberg",
+      "copyright": "Copyright © 2006 David Turner, Robert Wilhelm, & Werner Lemberg",
+      "licenses": [
+        {
+          "license": {
+            "id": "FTL"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.freetype.org"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-03-22"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "glib",
+      "name": "glib",
+      "version": "2.64.3",
+      "publisher": "Canonical Limited",
+      "copyright": "Copyright © 2013 Canonical Limited",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://gitlab.gnome.org/GNOME/glib"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2020-05-20"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libheif",
+      "name": "libheif",
+      "version": "1.23.5",
+      "publisher": "Struktur AG.",
+      "copyright": "Copyright (c) 2017 Struktur AG",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-3.0-or-later"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/strukturag/libheif"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-09-21"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libhwy",
+      "name": "libhwy",
+      "version": "1.4.0",
+      "publisher": "Google LLC",
+      "copyright": "Copyright 2019 Google LLC",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/google/highway"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-04-23"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "imath",
+      "name": "imath",
+      "version": "3.2.3",
+      "publisher": "Contributors to the OpenEXR Project",
+      "copyright": "Copyright (c) Contributors to the OpenEXR Project",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/AcademySoftwareFoundation/Imath"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-08-20"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libjpeg-turbo",
+      "name": "libjpeg-turbo",
+      "version": "3.2.0",
+      "publisher": "D. R. Commander",
+      "copyright": "Copyright (C) 2019 D. R. Commander",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.libjpeg-turbo.org/"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2025-06-30"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libjxl",
+      "name": "libjxl",
+      "version": "0.12.0",
+      "publisher": "The JPEG XL Project",
+      "copyright": "Copyright (c) the JPEG XL Project",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/libjxl/libjxl"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-07-01"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "lcms",
+      "name": "lcms",
+      "version": "2.19.1",
+      "publisher": "Little CMS",
+      "copyright": "Copyright (c) 1998-2014 Marti Maria Saguer",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.littlecms.com"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-05-06"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "liblqr",
+      "name": "liblqr",
+      "version": "0.4.2",
+      "publisher": "Carlo Baldassi",
+      "copyright": "Copyright (C) 2007 Carlo Baldassi",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-3.0-or-later"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/carlobaldassi/liblqr"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2012-12-04"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "openjpeg",
+      "name": "openjpeg",
+      "version": "2.5.4",
+      "publisher": "Communications and Remote Sensing Lab",
+      "copyright": "Copyright © 2002 Communications and Remote Sensing Lab",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.openjpeg.org"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2025-09-20"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "openjph",
+      "name": "openjph",
+      "version": "0.32.0",
+      "publisher": "Aous Naman",
+      "copyright": "Copyright (c) Aous Naman ",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/aous72/OpenJPH"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-09-17"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libpng",
+      "name": "libpng",
+      "version": "1.6.58",
+      "publisher": "The PNG Development Group",
+      "copyright": "Copyright (c) Glenn Randers-Pehrson",
+      "licenses": [
+        {
+          "license": {
+            "id": "libpng-2.0"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/pnggroup/libpng"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libraw",
+      "name": "libraw",
+      "version": "0.22.2",
+      "publisher": "LibRaw LLC",
+      "copyright": "Copyright 2008 LibRaw LLC",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/LibRaw/LibRaw"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-07-16"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libtiff",
+      "name": "libtiff",
+      "version": "4.7.2",
+      "publisher": "Silicon Graphics, Inc.",
+      "copyright": "Copyright (c) 1991 Silicon Graphics, Inc.",
+      "licenses": [
+        {
+          "license": {
+            "id": "libtiff"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://gitlab.com/libtiff/libtiff"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-06-26"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libwebp",
+      "name": "libwebp",
+      "version": "1.6.0",
+      "publisher": "Google Inc",
+      "copyright": "Copyright (c) 2010, Google Inc. All rights reserved.",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://chromium.googlesource.com/webm/libwebp"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2025-07-09"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "libxml2",
+      "name": "libxml2",
+      "version": "2.15.4",
+      "publisher": "Daniel Veillard",
+      "copyright": "Copyright (C) 1998 Daniel Veillard",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://gitlab.gnome.org/GNOME/libxml2"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-09-01"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "zlib",
+      "name": "zlib",
+      "version": "1.3.2",
+      "publisher": "Mark Adler",
+      "copyright": "Copyright (C) 1995 Mark Adler",
+      "licenses": [
+        {
+          "license": {
+            "id": "Zlib"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/madler/zlib"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2026-02-17"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "zstd",
+      "name": "zstd",
+      "version": "1.5.7",
+      "publisher": "Meta Platforms, Inc. and affiliates",
+      "copyright": "Copyright (c) Meta Platforms, Inc. and affiliates",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/madler/zlib"
+        }
+      ],
+      "properties": [
+        {
+          "name": "releaseDate",
+          "value": "2025-02-19"
+        }
+      ]
+    }
+  ]
+}

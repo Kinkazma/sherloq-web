@@ -1,6 +1,6 @@
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {openUsefulNlmSession} from './useful-nlm-session.js';
-import {openSeparationGpu} from './separation-gpu-session.js';
+import {openSeparationGpu,separationGpuAdmission} from './separation-gpu-session.js';
 import {createPixelStoreCache} from './pixel-store-cache.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
 import {separationHalo,separationWorkspace,separationHeapBytes,SEPARATION_HEAP_BYTES} from './separation-math.js';
@@ -11,37 +11,64 @@ import {equalizeHistogramLut} from './pixel-utils.js';import {createSegmentedByt
 export function separationEqualizeLuts(histograms,count){return Array.from({length:3},(_,c)=>equalizeHistogramLut(histograms.subarray(c*256,(c+1)*256),count));}
 
 const semantics='Original Median/Gaussian/Box/Bilateral/NLM filtering with full-resolution neighborhoods. Denoised output or absolute residual; equalization is global per channel. NLM radius controls strength, not its fixed7x7 template/21x21 search.';
+export function separationExecutionPlan({width:w,height:h,params:p,rowsPerBlock,maxWorkers=1,gpuAvailable=false,workersAvailable=typeof Worker!=='undefined',ioBytes=0,lineBytes=Math.max(w,h)*3}){
+ const halo=separationHalo(p),targetRows=Math.min(h,rowsPerBlock??Math.max(1,Math.floor((gpuAvailable&&p.mode===4?131072:262144)/w))),maxWindowRows=Math.floor((SEPARATION_HEAP_BYTES-4*1024**2-(p.mode===4?w*21*21*4:0))/(w*32)),heapRows=maxWindowRows>=h?h:maxWindowRows-2*halo,minimumRows=Math.min(targetRows,heapRows,Math.max(1,2*halo)),maximum=gpuAvailable||!workersAvailable?1:Math.min(32,maxWorkers,Math.ceil(h/targetRows));
+ const heapBytes=count=>count===1?SEPARATION_HEAP_BYTES:separationHeapBytes()+count*SEPARATION_HEAP_BYTES,overhead=count=>heapBytes(count)+ioBytes+16384+count*6144,batchBytes=(count,rows)=>overhead(count)+lineBytes+count*w*(rows+Math.min(h,rows+2*halo))*3;
+ const rowsFor=(count,room)=>{const available=room-overhead(count)-lineBytes,admittedRows=Math.min(targetRows,heapRows,Math.floor((available-count*w*Math.min(h-1,2*halo)*3)/(count*w*6)));return gpuAvailable&&p.mode===4&&admittedRows>=8?Math.floor(admittedRows/8)*8:admittedRows;};
+ return{targetRows,heapRows,minimumRows,maximum,heapBytes,overhead,batchBytes,rowsFor};
+}
+export const separationOutputBytes=n=>n*3;
+export function separationCacheAdmissionBytes(n,p,choice,count,{canMigrate=false}={}){
+ const cacheBytes=separationCacheBytes(n,p.denoised),extraRows=choice.batchBytes(count,Math.min(choice.targetRows,choice.heapRows))-choice.batchBytes(count,choice.minimumRows);
+ return{cacheBytes,requiredBytes:cacheBytes+extraRows+(!canMigrate?n*3+Math.min(4*1024**2,n*3):0)};
+}
+export function separationCachedRenderAdmitted(cached,n,{canMigrate,ioBytes,room}){
+ return canMigrate||cached.byteLength+separationHeapBytes()+ioBytes+16384+3+n*3+Math.min(4*1024**2,n*3)<=room;
+}
+export function separationResidentAdmissionPlan(image,p,{budget,backend='auto',runtimeBytes=0,maxWorkers=1,ioBytes=0,storageOverheadBytes=0,cacheKey}={}){
+ try{
+  if(budget.recovering||['gpu','array-buffer','wasm'].some(kind=>budget.isBackingUnderPressure?.(kind)))return{known:false,reason:'separation-resource-recovery'};
+  const{width:w,height:h}=image.surface.descriptor,n=w*h,canMigrate=!!(image.session||image.ensureTemporarySession),outputBytes=separationOutputBytes(n),filterKey=cacheKey&&cacheKey+[w,h,p.mode,p.radius,p.mode===3?p.sigma:0,Number(p.grayscale),Number(p.denoised)].join('/'),external=filterKey&&image.pixelStoreCaches?.get('separation'),cached=external?.key===filterKey?external:filterKey&&budget.cache.get(filterKey);
+  if(cached){
+   const value=cached.value,complete=!value?.store&&value?.byteLength===outputBytes&&Array.isArray(value.chunks)&&value.chunks.length===Math.ceil(outputBytes/(4*1024**2))&&Array.from(value.chunks).every((a,i)=>a instanceof Uint8Array&&a.byteLength===Math.min(4*1024**2,outputBytes-i*4*1024**2))&&(p.denoised?value.histograms===null:value.histograms instanceof Float64Array&&value.histograms.length===768);
+   if(!complete||!separationCachedRenderAdmitted(cached,n,{canMigrate,ioBytes,room:budget.limit-budget.retained-budget.active-runtimeBytes}))return{known:false,reason:'separation-cache-not-attested'};
+   return{known:true,bytes:runtimeBytes+storageOverheadBytes+outputBytes+separationHeapBytes()+ioBytes+16384+Math.min(4*1024**2,outputBytes),completeResidentAlternative:true,filterCache:true,parallelWorkers:0};
+  }
+  const options={width:w,height:h,params:p,maxWorkers,ioBytes},cpu=separationExecutionPlan(options),gpuChoice=separationExecutionPlan({...options,gpuAvailable:true}),gpuRows=Math.min(gpuChoice.targetRows,gpuChoice.heapRows);
+  if(gpuRows<1)return{known:false,reason:'separation-row-not-admitted'};
+  const gpu=separationGpuAdmission(w,Math.min(h,gpuRows+2*separationHalo(p)),gpuRows,p,{budget,backend,priorBytes:runtimeBytes});if(!gpu.known)return gpu;
+  const envelope=choice=>{const rows=Math.min(choice.targetRows,choice.heapRows);if(rows<1)return NaN;const{cacheBytes}=separationCacheAdmissionBytes(n,p,choice,choice.maximum,{canMigrate});return storageOverheadBytes+outputBytes+cacheBytes+Math.max(choice.batchBytes(choice.maximum,rows),separationHeapBytes()+ioBytes+16384+Math.min(4*1024**2,outputBytes));};
+  const cpuBytes=envelope(cpu),gpuBytes=gpu.available?envelope(gpuChoice)+gpu.missingResidentBytes+gpu.hostBytes:0,bytes=runtimeBytes+Math.max(cpuBytes,gpuBytes,gpu.openingBytes??0);
+  return Number.isSafeInteger(bytes)&&bytes>0?{known:true,bytes,completeResidentAlternative:true,parallelWorkers:gpu.available?1:cpu.maximum,gpuState:gpu.state}:null;
+ }catch{return{known:false,reason:'separation-plan-uninspectable'};}
+}
 export async function segmentedSeparation(image,p,{budget,signal,onProgress,rowsPerBlock,maxWorkers=1,adaptive=new AdaptiveConcurrency(),cacheKey,backend='auto'}={}){
  const {width:w,height:h}=image.surface.descriptor,n=w*h,halo=separationHalo(p),equalize=!p.denoised&&p.levels===0;
  requireValue(Number.isSafeInteger(n*3)&&n<=2147483647,'Separation exceeds the qualified native integer histogram domain.');requireValue(rowsPerBlock===undefined||Number.isSafeInteger(rowsPerBlock)&&rowsPerBlock>0,'Invalid separation row group.');requireValue(Number.isSafeInteger(maxWorkers)&&maxWorkers>=1,'Invalid separation worker limit.');checkAbort(signal);
  const minimumWindow=Math.min(h,1+2*halo);if(separationWorkspace(w,minimumWindow,p)>SEPARATION_HEAP_BYTES)throw new EngineError('MEMORY_LIMIT','A separation row and its real halo exceed the fixed64MiB heap.');
  const ioBytes=image.session?.backend==='indexeddb'||!image.session&&image.ensureTemporarySession?2*1024**2:0,lineBytes=Math.max(w,h)*3;
  const filterKey=cacheKey&&cacheKey+[w,h,p.mode,p.radius,p.mode===3?p.sigma:0,Number(p.grayscale),Number(p.denoised)].join('/');const external=filterKey&&image.pixelStoreCaches?.get('separation');let cached=external?.key===filterKey?external:filterKey&&budget.get(filterKey);
- if(cached&&!image.session&&!image.ensureTemporarySession&&cached.byteLength+separationHeapBytes()+ioBytes+16384+3+n*3+Math.min(4*1024**2,n*3)>budget.limit-budget.retained-budget.active){budget.remove(filterKey);cached=null;}
+ if(cached&&!separationCachedRenderAdmitted(cached,n,{canMigrate:!!(image.session||image.ensureTemporarySession),ioBytes,room:budget.limit-budget.retained-budget.active})){budget.remove(filterKey);cached=null;}
  if(cached){
   let borrowed;budget.remove(filterKey);
   try{borrowed=budget.reserve(cached.byteLength);const result=await renderSeparationCache(image,p,cached,{budget,signal,onProgress,ioBytes});result.semantics=semantics;result.metrics.haloRows=halo;return result;}
   finally{borrowed?.();if(!cached.value.store)budget.put(filterKey,cached);}
  }
  let gpu,result,failed=false,primary;try{gpu=p.mode===4&&backend==='webgpu'?await openUsefulNlmSession({budget,backend,signal}):await openSeparationGpu({budget,backend,signal});
- const targetRows=Math.min(h,rowsPerBlock??Math.max(1,Math.floor((gpu?.available&&p.mode===4?131072:262144)/w))),maxWindowRows=Math.floor((SEPARATION_HEAP_BYTES-4*1024**2-(p.mode===4?w*21*21*4:0))/(w*32)),heapRows=maxWindowRows>=h?h:maxWindowRows-2*halo;
- const minimumRows=Math.min(targetRows,heapRows,Math.max(1,2*halo)),maximum=gpu?.available||typeof Worker==='undefined'?1:Math.min(32,maxWorkers,Math.ceil(h/targetRows));
- const heapBytes=count=>count===1?SEPARATION_HEAP_BYTES:separationHeapBytes()+count*SEPARATION_HEAP_BYTES;
- const overhead=count=>heapBytes(count)+ioBytes+16384+count*6144;
- const batchBytes=(count,rows)=>overhead(count)+lineBytes+count*w*(rows+Math.min(h,rows+2*halo))*3;
+ const{targetRows,heapRows,minimumRows,maximum,heapBytes,overhead,batchBytes,rowsFor}=separationExecutionPlan({width:w,height:h,params:p,rowsPerBlock,maxWorkers,gpuAvailable:!!gpu?.available,ioBytes,lineBytes});
  const key=[w,h,p.mode,p.radius,p.mode===3?p.sigma:0,Number(p.grayscale),Number(p.denoised),Number(equalize)].join('/'),plan=adaptive.select(key,maximum,budget,c=>batchBytes(c,minimumRows)),started=performance.now();let count=plan.count,retry=null,executions=0;
  async function attempt(){
   let attemptFailed=false,attemptPrimary,attemptResult,pendingCache,planning,staging,output,workers,cacheLease,base,blocks=0,workerJobs=0,sourceReads=0,readMs=0,kernelMs=0,writeMs=0,postprocessMs=0,cacheWriteMs=0;
   const abort=()=>workers?.clear();signal?.addEventListener('abort',abort,{once:true});
   try{
    checkAbort(signal);planning=budget.reserve(batchBytes(count,minimumRows));
-   const cacheBytes=separationCacheBytes(n,p.denoised),extraRows=batchBytes(count,Math.min(targetRows,heapRows))-batchBytes(count,minimumRows);
+   const{cacheBytes,requiredBytes}=separationCacheAdmissionBytes(n,p,{targetRows,heapRows,minimumRows,batchBytes},count,{canMigrate:!!(image.session||image.ensureTemporarySession)});
    // Useful worker admission has priority. Optional cache may affect where the
    // new output lives, but never reduces workers or evicts an owned result.
-   if(filterKey&&cacheBytes+extraRows+(!image.session&&!image.ensureTemporarySession?n*3+Math.min(4*1024**2,n*3):0)<=budget.limit-budget.retained-budget.active){cacheLease=budget.reserve(cacheBytes);base=createSeparationCache(n*3,p.denoised?null:new Float64Array(768));}
+   if(filterKey&&requiredBytes<=budget.limit-budget.retained-budget.active){cacheLease=budget.reserve(cacheBytes);base=createSeparationCache(n*3,p.denoised?null:new Float64Array(768));}
    if(!base&&filterKey&&(image.session||image.ensureTemporarySession)){pendingCache=await createPixelStoreCache(image,'separation',filterKey,n*3,{histograms:p.denoised?null:new Float64Array(768)},{budget,signal});base=pendingCache.record.value;}
-   output=await createSegmentedBytes(n*3,{budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal});planning();planning=null;
-   const available=budget.limit-budget.retained-budget.active-overhead(count)-lineBytes,admittedRows=Math.min(targetRows,heapRows,Math.floor((available-count*w*Math.min(h-1,2*halo)*3)/(count*w*6))),rows=gpu?.available&&p.mode===4&&admittedRows>=8?Math.floor(admittedRows/8)*8:admittedRows;
+   output=await createSegmentedBytes(separationOutputBytes(n),{budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal});planning();planning=null;
+   const rows=rowsFor(count,budget.limit-budget.retained-budget.active);
    if(rows<1)throw new EngineError('MEMORY_LIMIT','Separation row staging does not fit the shared budget.');
    // IO is planned above, but the storage owner reserves its actual pages.
    // Keep that allowance free instead of charging the same workspace twice.

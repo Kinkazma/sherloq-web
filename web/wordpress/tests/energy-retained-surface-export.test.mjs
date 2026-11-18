@@ -7,7 +7,7 @@ import {Budget} from '../../engine-source/src/cache.js';
 import {streamEnergyNpz} from '../../engine-source/src/energy-npz-stream.js';
 import {energyExportChunks} from '../sherloq-browser/assets/streaming-export.js';
 const MiB=1024**2,decode=new TextDecoder(),workerURL=process.env.SHERLOQ_ENERGY_EXPORT_WORKER?pathToFileURL(process.env.SHERLOQ_ENERGY_EXPORT_WORKER):new URL('../sherloq-browser/assets/engine-worker.js',import.meta.url),original=await readFile(workerURL,'utf8');
-const code=original.replace(/^import .*;\n/gm,'').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import('./unified-engine/src/index.js')",'await loadEngine()');
+const code=original.replace(/^import .*;\n/gm,'').replace(/^/,'const engineLibraryURL=base=>new URL("./index.js",base);\n').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import(moduleURL)",'await loadEngine()');
 const imports={};for(const match of original.matchAll(/^import\s+\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/gm)){const module=await import(new URL(match[2],workerURL));for(const field of match[1].split(',')){const[name,alias]=field.trim().split(/\s+as\s+/);imports[alias??name]=module[name];}}
 const rawNames=['energy_planes','energy_low_score','energy_high_score','energy_scope','energy_labels'];
 function fixture(planeCount=1,width=11,height=4){

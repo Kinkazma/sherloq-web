@@ -1,8 +1,12 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {installTransformStripWorker} from './transform-strip-worker.js';
 import {frequencyStreamMath,frequencyStreamHeapBytes} from './frequency-stream-math.js';
 installTransformStripWorker(async data=>{const math=await frequencyStreamMath();let values;
+ if(data.op==='polar-stats')return{...math.polarStats(data.values),heapBytes:frequencyStreamHeapBytes()};
+ if(data.op==='axis-magnitude')return{...math.axisMagnitude(data.values,data.length,data.lines,data.globalCount,data.offset,data.crop),heapBytes:frequencyStreamHeapBytes()};
  if(data.op==='axis')values=math.axis(data.values,data.length,data.lines,data.globalCount,data.mode);
+ else if(data.op==='polar')values=math.polar(data.values,data);
+ else if(data.op==='normalize-polar')values=math.normalizePolar(data.values,data.minimum,data.maximum);
  else if(data.op==='mask-horizontal')values=math.maskHorizontal(data.width,data.height,data.top,data.rows,data.split,data.smooth);
  else if(data.op==='mask-vertical')values=math.maskVertical(data.values,data.width,data.height,data.columns,data.smooth);
  else throw Error('Unknown frequency strip operation');return {values,heapBytes:frequencyStreamHeapBytes()};

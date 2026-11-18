@@ -1,0 +1,47 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';
+import createModule from '../vendor/libraw-native/libraw-native.js';import {readCameraRawSensor,nativeRawSensorMetadataPlan,RAW_SENSOR_METADATA_MAXIMUM_BYTES} from '../src/raw-codec-runtime.js';import {Budget} from '../src/cache.js';import {createNativeSampleBank} from '../src/native-sample-bank.js';
+const MiB=1024**2,wasm=await readFile(new URL('../vendor/libraw-native/libraw-native.wasm',import.meta.url)),spec=JSON.parse(await readFile(new URL('./fixtures/raw16/sensor-fixtures.json',import.meta.url),'utf8')),sha=b=>createHash('sha256').update(b).digest('hex'),results=[];
+function resources(stats){return{admitSensorMetadata(plan){assert.equal(plan.maximumRetainedBytes,2*MiB);assert.ok(plan.serializedBytes>0&&plan.serializedBytes<=RAW_SENSOR_METADATA_MAXIMUM_BYTES);},readResource:async()=>wasm,moduleFactory:async options=>{const m=await createModule(options);return new Proxy(m,{get(target,key){const f=target[key];if(key==='_raw_native_process')return(...a)=>{stats.process++;return f(...a);};if(key==='_raw_native_close')return(...a)=>{stats.close++;return f(...a);};return f;}});}};}
+async function sensor(name,{abort=false}={}){const bytes=await readFile(new URL('./fixtures/raw16/'+name,import.meta.url)),budget=new Budget(256*MiB),metadataFee=budget.reserve(2*MiB),codecFee=budget.reserve(128*MiB+bytes.length+2*MiB),stats={process:0,close:0},controller=new AbortController();let bank,result,metadata;try{result=await readCameraRawSensor({blob:new Blob([bytes]),sourceSha256:sha(bytes),maximumMemoryBytes:128*MiB},{...resources(stats),signal:controller.signal,onSensorHeader:async m=>{metadata=m;assert.equal(m.stage,'post-unpack-before-raw2image');assert.equal(m.decoding.floatToInteger,false);assert.equal(m.orientationApplied,false);bank=await createNativeSampleBank({width:m.width,height:m.height,sampleType:m.sampleType,channels:m.channels,channelMap:Array.from({length:m.channels},(_,i)=>'sensor-'+i),sourceDepth:m.sourceDepth||null,domain:'sensor',sampleModel:'raw-decoded-sensor',bindingOriginal:{imageId:'actual-'+name,sourceSurfaceId:'original-'+name,sourceRevision:1,sourceSha256:sha(bytes),kind:'encoded'},budget,provenance:{metadataOwnedSeparately:true,stage:m.stage}});},onSensorBand:async b=>{const Type=b.sampleType==='float32'?Float32Array:Uint16Array;await bank.writeBand({y:b.y,width:b.width,rows:b.rows,samples:new Type(b.bytes.buffer,b.bytes.byteOffset,b.bytes.byteLength/Type.BYTES_PER_ELEMENT)});if(abort)controller.abort();}});assert.equal(stats.process,0);assert.equal(stats.close,1);codecFee();const surface=await bank.seal();assert.equal(budget.total(),surface.descriptor.byteLength+2*MiB);const window=await surface.readWindow();try{const out=Buffer.from(window.samples.buffer,window.samples.byteOffset,window.samples.byteLength),data=spec[name.includes('float')?'float32':'uint16'];assert.deepEqual(out,bytes.subarray(data.payloadOffset));assert.equal(sha(out),data.payloadSha256);if(name.includes('float')){assert.equal(metadata.sampleType,'float32');assert.ok(window.samples.some(x=>x<0));assert.ok(window.samples.some(x=>x>1));assert.ok(window.samples.some(x=>x%1!==0));assert.ok(window.samples.some(x=>Object.is(x,-0)));}else{assert.deepEqual(metadata.geometry.activeArea,{x:6,y:4,width:119,height:89});assert.equal(metadata.geometry.activeAreaSource,'LibRaw normalized post-open geometry');assert.ok(metadata.geometry.rawPitch>0);assert.deepEqual(metadata.calibration.blackPattern.values,[64,65,66,67]);assert.equal(metadata.calibration.white,4095);assert.equal(metadata.dngCalibration.colors[0].colorMatrix.length,12);assert.equal(metadata.dngCalibration.levels.opcodeBytesOwnedBy,'original-encoded-source');}results.push({fixture:name,samples:window.samples.length,sourceSha256:sha(bytes),nativeSampleSha256:sha(out),metadata,stats,codecRetiredBeforeBankRead:true,retainedAfterCodec:budget.total(),metrics:result.metrics});}finally{window.release();}}finally{await bank?.dispose();codecFee();metadataFee();assert.equal(budget.total(),0);assert.equal(stats.close,1);assert.equal(stats.process,0);}}
+test('sensor-only known uint16 uses shared bank and post-unpack calibration/margins without any process call',()=>sensor('sensor-uint16-margins.dng'));
+test('sensor-only float32 preserves exact fractions, negatives, >1 and signed zero before integer conversion',()=>sensor('sensor-float32.dng'));
+test('sensor cancellation closes decoder and partial shared bank without publication',async()=>{await assert.rejects(sensor('sensor-uint16-margins.dng',{abort:true}),{code:'CANCELLED'});});
+function orientation(bytes,value){const out=Buffer.from(bytes),v=new DataView(out.buffer,out.byteOffset,out.length),ifd=v.getUint32(4,true),n=v.getUint16(ifd,true);for(let i=0;i<n;i++){const p=ifd+2+i*12;if(v.getUint16(p,true)===274){v.setUint16(p+8,value,true);return out;}}throw Error('No orientation');}
+test('sensor-only rejects another frame before instantiation and never guesses a frame',async()=>{
+ let instantiated=0;
+ for(const frame of [1,null,false,'0'])await assert.rejects(readCameraRawSensor({frame},{onSensorHeader(){},onSensorBand(){},moduleFactory(){instantiated++;}}),/frame0/);
+ assert.equal(instantiated,0);
+});
+test('sensor identity mismatch is rejected before native decoder creation',async()=>{
+ const bytes=await readFile(new URL('./fixtures/raw16/sensor-float32.dng',import.meta.url));let instantiated=0;
+ await assert.rejects(readCameraRawSensor({blob:new Blob([bytes]),sourceSha256:'00'.repeat(32),maximumMemoryBytes:128*MiB},{admitSensorMetadata(){},onSensorHeader(){},onSensorBand(){},moduleFactory(){instantiated++;}}),{code:'SOURCE_CHANGED'});
+ assert.equal(instantiated,0);
+});
+for(const failureStage of ['header','band'])test('sensor '+failureStage+' ownership failure closes decoder without development',async()=>{
+ const bytes=await readFile(new URL('./fixtures/raw16/sensor-uint16-margins.dng',import.meta.url)),stats={process:0,close:0},primary=Object.freeze(new Error('sensor owner '+failureStage));let bands=0;
+ await assert.rejects(readCameraRawSensor({blob:new Blob([bytes]),maximumMemoryBytes:128*MiB},{...resources(stats),onSensorHeader(){if(failureStage==='header')throw primary;},onSensorBand(){bands++;if(failureStage==='band')throw primary;}}),error=>error===primary);
+ assert.equal(stats.process,0);assert.equal(stats.close,1);assert.equal(bands,failureStage==='header'?0:1);
+});
+test('sensor grid stays unrotated while all eight original orientations remain explicit',async()=>{
+ const original=await readFile(new URL('./fixtures/raw16/sensor-float32.dng',import.meta.url)),flips=[];
+ for(let exif=1;exif<=8;exif++){
+  const bytes=orientation(original,exif),stats={process:0,close:0},bands=[];let metadata;
+  await readCameraRawSensor({blob:new Blob([bytes]),maximumMemoryBytes:128*MiB},{...resources(stats),onSensorHeader(m){metadata=m;},onSensorBand(b){bands.push(b.bytes);}});
+  assert.equal(metadata.orientationApplied,false);assert.equal(metadata.width,128);assert.equal(metadata.height,96);assert.equal(metadata.geometry.mappingToDeveloped,'not-proven');
+  assert.deepEqual(Buffer.concat(bands),bytes.subarray(spec.float32.payloadOffset));assert.equal(stats.process,0);assert.equal(stats.close,1);flips.push(metadata.geometry.librawFlip);
+ }
+ assert.equal(new Set(flips).size,8);results.push({mode:'sensor-unrotated',orientations:8,librawFlips:flips,wholeGridByteExact:true,processCalls:0});
+});
+test('metadata bounds reject before text/parse/header and close the native owner',async()=>{
+ const bytes=await readFile(new URL('./fixtures/raw16/sensor-float32.dng',import.meta.url));let metadataPointer=0,textReads=0,admissions=0,headers=0,closes=0;
+ await assert.rejects(readCameraRawSensor({blob:new Blob([bytes]),maximumMemoryBytes:128*MiB},{readResource:async()=>wasm,moduleFactory:async options=>{const m=await createModule(options);return new Proxy(m,{get(target,key){if(key==='_raw_native_sensor_metadata_size')return()=>RAW_SENSOR_METADATA_MAXIMUM_BYTES+1;if(key==='_raw_native_sensor_metadata')return()=>metadataPointer=target[key]();if(key==='UTF8ToString')return(...args)=>{if(args[0]===metadataPointer)textReads++;return target[key](...args);};if(key==='_raw_native_close')return()=>{closes++;return target[key]();};return target[key];}});},admitSensorMetadata(){admissions++;},onSensorHeader(){headers++;},onSensorBand(){}}),/metadata exceeds/);
+ assert.equal(textReads,0);assert.equal(admissions,0);assert.equal(headers,0);assert.equal(closes,1);
+ assert.throws(()=>nativeRawSensorMetadataPlan(0));assert.throws(()=>nativeRawSensorMetadataPlan(RAW_SENSOR_METADATA_MAXIMUM_BYTES+1));
+});
+test('metadata admission refusal precedes cloning and preserves frozen primary',async()=>{
+ const bytes=await readFile(new URL('./fixtures/raw16/sensor-float32.dng',import.meta.url));for(const refusal of [false,0,Object.freeze(new Error('metadata credit refused'))]){
+  const stats={process:0,close:0};let header=0;
+  await assert.rejects(readCameraRawSensor({blob:new Blob([bytes]),maximumMemoryBytes:128*MiB},{...resources(stats),admitSensorMetadata(){if(refusal instanceof Error)throw refusal;return refusal;},onSensorHeader(){header++;},onSensorBand(){}}),e=>refusal instanceof Error?e===refusal:/did not acknowledge/.test(e.message));
+  assert.equal(header,0);assert.equal(stats.process,0);assert.equal(stats.close,1);
+ }
+});

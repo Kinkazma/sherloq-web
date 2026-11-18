@@ -8,6 +8,7 @@ import {wasmAllocationFailure,allocateTypedArray,allocateWasmMemory} from './all
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {wasmRange,closeMemoryRanges} from './memory-range.js';
 import {rolledRgbSurface} from './rolled-rgb-surface.js';
+import {synthesisRgbContiguousBytes} from './ela-synthesis-source.js';
 import {EngineError,requireValue,checkAbort,controlCheckpoint,createCooperator} from './errors.js';import {createSegmentedBytes} from './segmented-bytes.js';
 const MiB=1024**2,IO=256*1024;
 export function rgbRecompressionPlan(surface){
@@ -16,6 +17,12 @@ export function rgbRecompressionPlan(surface){
  // Conservative TJBUFSIZE bound, padded MCUs, valid for the fixed baseline4:2:0.
  const encodedCapacityBytes=Math.ceil(width/16)*16*Math.ceil(height/16)*16*6+2048;
  return {width,height,rowBytes,rows,heapMaximumBytes,encodedCapacityBytes,workingBytes:heapMaximumBytes+8*MiB+IO,windowAllowance:2*rowBytes*rows+sourceWidth*3+4*MiB};
+}
+// Shared by the complete-context admission and the synthesis live-set view.
+// Eligibility describes the same native coefficient heap; no GPU trial runs.
+export function rgbRecompressionArchivePlan(surface){
+ const plan=rgbRecompressionPlan(surface),{width,height}=plan,blocks=Math.ceil(width/8)*Math.ceil(height/8)+2*Math.ceil(width/16)*Math.ceil(height/16),rgbBytes=width*height*3,coefficientBytes=blocks*128;
+ return{blocks,rgbBytes,coefficientBytes,eligible:width*height>=262144&&coefficientBytes<=24*MiB,workingBytes:72*MiB+rgbBytes*16+coefficientBytes*6+blocks*256+plan.encodedCapacityBytes+plan.windowAllowance-synthesisRgbContiguousBytes(surface)};
 }
 // Two completed encoded qualities per source; native RGB is never cached whole.
 export function createRgbRecompression(image,budget,{createArchive=b=>new ElaJpegArchiveBridge(b)}={}){
@@ -31,10 +38,9 @@ export function createRgbRecompression(image,budget,{createArchive=b=>new ElaJpe
  async function archiveVisit(quality,{signal,onProgress,onBand,phaseX,phaseY,sampling,wasmBinary,backend,elaParams,elaTable}){
   if(backend!=='webgpu'||quality<1||plan.width*plan.height<262144||phaseX||phaseY||sampling!=='420'||wasmBinary||!globalThis.navigator?.gpu)return null;
   const key='0/0/'+quality;if(cache.has(key))return null;
-  const blocks=Math.ceil(plan.width/8)*Math.ceil(plan.height/8)+2*Math.ceil(plan.width/16)*Math.ceil(plan.height/16),rgbBytes=plan.width*plan.height*3,coefficientBytes=blocks*128;
+  const {rgbBytes,coefficientBytes,workingBytes:required}=rgbRecompressionArchivePlan(image.surface);
   // Admission is conservative and does not allocate a second pipeline or
   // execute a trial recompression. Native scanlines remain the bounded path.
-  const required=72*MiB+rgbBytes*16+coefficientBytes*6+blocks*256+plan.encodedCapacityBytes+plan.windowAllowance;
   if(coefficientBytes>24*MiB||required>budget.limit-budget.total()){archiveFallback={code:'MEMORY_LIMIT',policy:'complete-context-native-entropy-admission'};return null;}
   let created,written=0,committed=false,result,failed=false,primary,cleanupFailed=false,mayFallback=false;const ioBudget=new Budget(8*MiB),reserveIO=bytes=>ioBudget.reserve(bytes);pinned.add(key);
   try{

@@ -1,3 +1,4 @@
+import {retireCompositeOwners} from './composite-owner-release.js';
 import {cvPixels} from './opencv.js';
 import {checkAbort,createCooperator} from './errors.js';
 import {createComparisonGpu,comparisonGpuMayFallback} from './comparison-gpu.js';
@@ -16,15 +17,15 @@ export function chooseAdjustDisplayBackend(state,pixels,requested,gpuAvailable){
  return Math.min(...state.webgpu)<Math.min(...state.cpu)?'webgpu':'cpu';
 }
 export async function applyAdjustDisplayLut(image,lut,{signal}={},context={}){
- const {budget,backend='auto'}=context,state=budget?stateFor(budget,context.adjustDisplayOwner??image):null,selected=state?chooseAdjustDisplayBackend(state,image.width*image.height,backend,!!globalThis.navigator?.gpu):'cpu',started=performance.now(),data=new Uint8Array(image.data.length),cooperate=createCooperator(signal);let gpu,fallback=null,batches=0,used=selected;
+ const {budget,backend='auto'}=context,state=budget?stateFor(budget,context.adjustDisplayOwner??image):null,selected=state?chooseAdjustDisplayBackend(state,image.width*image.height,backend,!!globalThis.navigator?.gpu):'cpu',started=performance.now(),data=new Uint8Array(image.data.length),cooperate=createCooperator(signal);let gpu,fallback=null,batches=0,used=selected,failed=false,primary;
  try{
   if(selected==='webgpu')try{
    gpu=await createComparisonGpu({budget});
    for(let at=0;at<data.length;at+=262144*3){checkAbort(signal);const output=await gpu.run(3,image.data.subarray(at,Math.min(data.length,at+262144*3)),null,{signal,lut});try{data.set(output.data,at);batches++;}finally{output.release();}}
-  }catch(error){checkAbort(signal);if(!comparisonGpuMayFallback(error))throw error;fallback=error.code;used='cpu';if(state)state.unavailable=['GPU_UNAVAILABLE','GPU_FAILED'].includes(error.code);}
+  }catch(error){if(error?.cleanupOwner)throw error;checkAbort(signal);if(!comparisonGpuMayFallback(error))throw error;fallback=error.code;used='cpu';if(state)state.unavailable=['GPU_UNAVAILABLE','GPU_FAILED'].includes(error.code);}
   if(used==='cpu')for(let at=0;at<data.length;at+=262144*3){await cooperate();const end=Math.min(data.length,at+262144*3);for(let i=at;i<end;i+=3){data[i]=lut[image.data[i]];data[i+1]=lut[256+image.data[i+1]];data[i+2]=lut[512+image.data[i+2]];}}
   checkAbort(signal);
- }finally{await gpu?.dispose();}
+ }catch(error){failed=true;primary=error;throw error;}finally{await retireCompositeOwners([()=>gpu?.dispose()],failed?{primary}:{});}
  const milliseconds=performance.now()-started;if(state&&!fallback){state[used].push(milliseconds);if(state[used].length>4)state[used].shift();}
  return{pixels:{...image,data},metrics:{backend:used,kernel:'native-adjustment-prefix-and-exact-display-LUT',finishMs:milliseconds,gpuBatches:batches,gpuFallback:fallback,displayBackendObservations:state?{cpu:[...state.cpu],webgpu:[...state.webgpu]}:null}};
 }

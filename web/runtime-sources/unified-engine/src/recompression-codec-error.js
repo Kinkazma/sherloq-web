@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {serializeEngineError} from './errors.js';
 
 const read=(value,key)=>{try{return value?.[key];}catch{return undefined;}},text=value=>typeof value==='string'&&value.trim()?value.slice(0,2048):undefined;

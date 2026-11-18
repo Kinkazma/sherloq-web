@@ -5,7 +5,7 @@ import {readFile} from 'node:fs/promises';
 
 // Execute the shipped endpoint and protocol. Only native SDK work and the two
 // cache owners are controlled; no extracted branch or imitation router is used.
-const workerURL=new URL('../sherloq-browser/assets/engine-worker.js',import.meta.url),source=await readFile(workerURL,'utf8'),code=source.replace(/^import .*;\n/gm,'').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import('./unified-engine/src/index.js')",'await loadEngine()');
+const workerURL=new URL('../sherloq-browser/assets/engine-worker.js',import.meta.url),source=await readFile(workerURL,'utf8'),code=source.replace(/^import .*;\n/gm,'').replace(/^/,'const engineLibraryURL=base=>new URL("./index.js",base);\n').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import(moduleURL)",'await loadEngine()');
 const imports={};for(const match of source.matchAll(/^import\s+\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/gm)){const module=await import(new URL(match[2],workerURL).href);for(const part of match[1].split(',')){const[name,alias]=part.trim().split(/\s+as\s+/);imports[alias??name]=module[name];}}
 const turn=()=>new Promise(resolve=>setImmediate(resolve));
 const energy={quality:0,block:32,minimum:3,profile:'manual',histogramLow:10,histogramHigh:990,shadow:50,highlight:50},ela={quality:75,scale:1,contrast:0,linear:false,grayscale:false};

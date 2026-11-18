@@ -1,6 +1,6 @@
-import {renderSpaiNativeContexts} from './spai-native-contexts-ui.js?v=0.33.1';
-import {generationReading,renderGenerationGauge,renderGenerationContext} from './ai-generation-gauge.js?v=0.33.1';
-import {nativeContextSelectionFor,findNativeContextSelection,normalizeNativeContextSelection} from './native-context-selection.js?v=0.33.1';
+import {renderSpaiNativeContexts} from './spai-native-contexts-ui.js?v=0.33.2';
+import {generationReading,renderGenerationGauge,renderGenerationContext} from './ai-generation-gauge.js?v=0.33.2';
+import {nativeContextSelectionFor,findNativeContextSelection,normalizeNativeContextSelection} from './native-context-selection.js?v=0.33.2';
 
 export function restoreGenerationContextSelections(value){
  if(!value||typeof value!=='object'||Array.isArray(value))return{};

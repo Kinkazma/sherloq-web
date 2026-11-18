@@ -1,29 +1,30 @@
-import {validateElaParentGrant} from './ela-parent-budget.js?v=0.33.1';
-import {synthesizeElaClassic} from './ela-synthesis-worker.js?v=0.33.1';
-import {sampleElaSynthesisSurface} from './ela-synthesis-preview.js?v=0.33.1';
-import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.1';
-import {selectedElaAutoPlan,estimateSelectedElaAuto,createSelectedElaAutoCache} from './ela-auto-selected.js?v=0.33.1';
-import {recompressionIdentity,recompressionSizingIdentity} from './recompression-controls.js?v=0.33.1';
-import {isEnergyContextCollection,selectEnergyContext,createEnergyContextView} from './energy-context-selection.js?v=0.33.1';
-import {readEnergyWindow} from './energy-native-fields.js?v=0.33.1';
-import {createElaNativeContextAuto} from './ela-auto-native-contexts.js?v=0.33.1';
-import {energyFrameBudget,assertEnergyFrameBudget} from './energy-frame-budget.js?v=0.33.1';
-import {renderEnergySurface,admitEnergySurfacePreview} from './energy-surface-render.js?v=0.33.1';
-import {energyHistogramAnalysis} from './energy-native-fields.js?v=0.33.1';
+import {validateElaParentGrant} from './ela-parent-budget.js?v=0.33.2';
+import {engineLibraryURL} from './unified-engine/src/engine-library-entry.js';
+import {synthesizeElaClassic} from './ela-synthesis-worker.js?v=0.33.2';
+import {sampleElaSynthesisSurface} from './ela-synthesis-preview.js?v=0.33.2';
+import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.2';
+import {selectedElaAutoPlan,estimateSelectedElaAuto,createSelectedElaAutoCache} from './ela-auto-selected.js?v=0.33.2';
+import {recompressionIdentity,recompressionSizingIdentity} from './recompression-controls.js?v=0.33.2';
+import {isEnergyContextCollection,selectEnergyContext,createEnergyContextView} from './energy-context-selection.js?v=0.33.2';
+import {readEnergyWindow} from './energy-native-fields.js?v=0.33.2';
+import {createElaNativeContextAuto} from './ela-auto-native-contexts.js?v=0.33.2';
+import {energyFrameBudget,assertEnergyFrameBudget} from './energy-frame-budget.js?v=0.33.2';
+import {renderEnergySurface,admitEnergySurfacePreview} from './energy-surface-render.js?v=0.33.2';
+import {energyHistogramAnalysis} from './energy-native-fields.js?v=0.33.2';
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {sourceRegionDomainShape} from './unified-engine/src/source-region-capabilities.js';
 import {samplePixels} from './unified-engine/src/display-sampling.js';
 import {EngineError,serializeEngineError,deserializeEngineError,normalizeResourceError} from './unified-engine/src/errors.js';
 import {installWorkerMessageProtocol,workerMessageFailure} from './unified-engine/src/worker-message-protocol.js';
-import {renderEnergy} from './energy-render.js?v=0.33.1';
-import {createEnergyParameterPreview} from './energy-parameter-preview.js?v=0.33.1';
-import {createEnergyNativePreviewCandidate} from './energy-native-preview-candidate.js?v=0.33.1';
-import {resolveComputeProfile} from './resource-policy.js?v=0.33.1';
-import {energyExportChunks} from './streaming-export.js?v=0.33.1';
+import {renderEnergy} from './energy-render.js?v=0.33.2';
+import {createEnergyParameterPreview} from './energy-parameter-preview.js?v=0.33.2';
+import {createEnergyNativePreviewCandidate} from './energy-native-preview-candidate.js?v=0.33.2';
+import {resolveComputeProfile} from './resource-policy.js?v=0.33.2';
+import {energyExportChunks} from './streaming-export.js?v=0.33.2';
 import {validateParams} from './unified-engine/src/ela.js';
-import {estimateElaClassicAuto,calibrateElaClassicDisplay} from './ela-auto-estimate.js?v=0.33.1';
-import {createContextEnergyHistogram as createEnergyHistogram} from './energy-context-histogram.js?v=0.33.1';
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.1';
+import {estimateElaClassicAuto,calibrateElaClassicDisplay} from './ela-auto-estimate.js?v=0.33.2';
+import {createContextEnergyHistogram as createEnergyHistogram} from './energy-context-histogram.js?v=0.33.2';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.2';
 let contextEnergyView,energyContextKey=null,classicProportionalIdentity=null;
 let parentBudgetGrant=null;
 let engine,lastEnergy=null,lastClassic=null,lastPixels=null,energyMaxima={},energySignedRanges={},parameterDraft=false,parameterDraftKind=null,parameterPreview=null,controller,displayRevision=0,queue=Promise.resolve(),consumerBudget=0,failed=false;
@@ -293,8 +294,8 @@ async function handle({id,action,payload,options}){
    const budget=offeredGrant?offeredGrant.engineBytes:profile.memoryBudgetBytes-Math.max(0,options?.uiReserveBytes||0)-consumerBudget;
    if(offeredGrant&&(offeredGrant.consumerBytes!==options.uiRGBBudgetBytes||offeredGrant.uiReserveBytes!==options.uiReserveBytes))throw new EngineError('INVALID_INPUT','ELA UI reservations differ from the financed envelope.');
    if(budget<32*1024**2)throw Object.assign(Error('UI reservations leave insufficient engine memory'),{code:'UI_MEMORY_BUDGET'});
-   const moduleURL=new URL('./unified-engine/src/index.js',import.meta.url).href;let createEngine;
-   try{({createEngine}=await import('./unified-engine/src/index.js'));}
+   const moduleURL=engineLibraryURL(new URL('./unified-engine/src/',import.meta.url)).href;let createEngine;
+   try{({createEngine}=await import(moduleURL));}
    catch(cause){throw new EngineError('WORKER_LOAD_FAILED',cause?.message||'Browser engine module could not be loaded.',{cause,details:{phase:'module-load',moduleURL}});}
    if(failed)return;
    try{engine=createEngine({...options,memoryBudgetBytes:budget,onTemporarySession:session=>self.postMessage({temporarySession:session})});}
@@ -305,12 +306,13 @@ async function handle({id,action,payload,options}){
   controller=new AbortController();activeCommand={id,action};let result,nextSuccessfulEnergyCohort;
   if(action==='load'){
    if(parentBudgetGrant&&payload.id!==parentBudgetGrant.imageId)throw new EngineError('INVALID_INPUT','ELA load belongs to another financed Original.');
+   if(parentBudgetGrant?.sourceBorrowed&&(!payload.remoteSource||payload.remoteSource.descriptor?.sourceRgbBytes!==parentBudgetGrant.borrowedSourceRgbBytes||payload.remoteSource.descriptor?.sourceNativeRgbBytes!==parentBudgetGrant.borrowedSourceNativeRgbBytes))throw new EngineError('INVALID_INPUT','A borrowed Original envelope requires its proved canonical source loan.');
    await selectedElaAutoCache?.dispose();selectedElaAutoCache=null;
    const previousAutomaticOwner=automaticNativeContextOwner;automaticNativeContextOwner=null;await previousAutomaticOwner?.dispose();
    await retireSynthesisEnergyOwners();await disposeNormalNativePreview();
    await releaseEnergySurfaces();
    await releaseRetiredResultSources(0);
-   result=await engine.loadBlob(payload,{signal:controller.signal,onProgress:progress=>self.postMessage({id,progress})});
+   result=await engine[payload.remoteSource?'loadBorrowedOriginal':'loadBlob'](payload,{signal:controller.signal,onProgress:progress=>self.postMessage({id,progress})});
    if(parentBudgetGrant&&(result.sha256!==parentBudgetGrant.sourceSha256||result.width!==parentBudgetGrant.width||result.height!==parentBudgetGrant.height))throw new EngineError('INVALID_INPUT','ELA decoded Original differs from the financed source proof.');
    await releaseClassicSurface();
    automaticSource=payload.blob?{imageId:payload.id,sourceSha256:result.sha256,blob:payload.blob}:null;automaticEstimate=null;

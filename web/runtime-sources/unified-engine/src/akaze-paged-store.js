@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {createSegmentedBytes} from './segmented-bytes.js';
 import {requireValue,checkAbort} from './errors.js';
 // Global logical raster, tile-major physical storage. Native windows keep their

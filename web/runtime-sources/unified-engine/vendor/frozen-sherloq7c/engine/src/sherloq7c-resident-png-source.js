@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 import factory from '../vendor/png16-stream/png16-stream.js';
 import {createResidentRgb16} from './sherloq7c-resident-memory.js';
 import {cooperator} from './sherloq7c-math.js';

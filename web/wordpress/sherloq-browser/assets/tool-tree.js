@@ -1,5 +1,5 @@
-import {AI_DETECTOR_GROUP,AI_DETECTOR_TOOLS,AI_DETECTOR_OPERATION} from './ai-detector-tools.js?v=0.33.1';
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.1';
+import {AI_DETECTOR_GROUP,AI_DETECTOR_TOOLS,AI_DETECTOR_OPERATION} from './ai-detector-tools.js?v=0.33.2';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.2';
 export const toolGroups = [
   {
     "en": "General",
@@ -166,6 +166,13 @@ export const toolGroups = [
         "en": "Bit Plane Values",
         "fr": "Plans de bits",
         "id": "noise.planes"
+      },
+      {
+        "en": "Last Bit Analysis",
+        "fr": "Analyse du dernier bit",
+        "id": "ela.bitrate",
+        "experimental": true,
+        "newFeature": "yellow"
       },
       {
         "en": "Wavelet Blocking",

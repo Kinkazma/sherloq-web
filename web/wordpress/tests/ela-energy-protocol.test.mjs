@@ -14,7 +14,7 @@ import {resolveComputeProfile} from '../sherloq-browser/assets/resource-policy.j
 // scientific engine output is injected: this tests reuse and transport, not ELA
 // detection quality or a browser's native PNG encoder.
 const workerURL=new URL('../sherloq-browser/assets/engine-worker.js',import.meta.url);
-const code=(await readFile(workerURL,'utf8')).replace(/^import .*;\n/gm,'').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import('./unified-engine/src/index.js')",'await loadEngine()');
+const code=(await readFile(workerURL,'utf8')).replace(/^import .*;\n/gm,'').replace(/^/,'const engineLibraryURL=base=>new URL("./index.js",base);\n').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import(moduleURL)",'await loadEngine()');
 const turn=()=>new Promise(resolve=>setImmediate(resolve));
 const actualWorkerImports={};for(const match of (await readFile(workerURL,'utf8')).matchAll(/^import\s+\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/gm)){const module=await import(new URL(match[2],workerURL).href);for(const field of match[1].split(',')){const[name,alias]=field.trim().split(/\s+as\s+/);actualWorkerImports[alias??name]=module[name];}}
 function endpoint(){

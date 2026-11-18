@@ -24,7 +24,7 @@ for root, label in [(engine, 'engine'), (assets, 'ui')]:
             continue
         # Generated inventories contain this identity and worker build hashes.
         # Hash their source inputs instead of creating a recursive identity.
-        if name in {'src/useful-work-code-identity.js', 'src/engine-worker-entry.js', 'source-manifest.json', 'runtime-manifest.json'} or path.name.startswith('worker-bundle-'):
+        if name in {'src/useful-work-code-identity.js', 'src/engine-worker-entry.js', 'src/engine-library-entry.js', 'source-manifest.json', 'runtime-manifest.json'} or path.name.startswith(('worker-bundle-', 'engine-library-bundle-')):
             continue
         if label == 'ui' and (any(name.startswith(slot + '/') for slot in manifest['slots']) or
                 name.startswith(('dependency-manifest-', 'offline/')) or name in

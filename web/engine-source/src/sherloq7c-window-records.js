@@ -75,9 +75,14 @@ export function sherloq7cWindowRecords(result,budget,{threshold=255,invert=false
     const part=await view.readWindow(rect,options);try{requireValue(target instanceof Type&&target.length>=part.pixels.data.length,'Sherloq destination has the wrong type or extent.');target.set(part.pixels.data);return{...part,pixels:{...part.pixels,data:target.subarray(0,part.pixels.data.length)},release(){}};}finally{await part.release();}
    },
    async readSampledWindow(tile,{signal,budget:sampleBudget=budget}={}){
-    const work=reads.begin();let owner;
+    const work=reads.begin();let owner,transferred=false;
     try{
      const g=displayGeometry({width,height},tile);
+     if(!scalar&&!native&&typeof result.readSampledWindow==='function'){
+      const part=await result.readSampledWindow(tile,{signal}),release=reads.lease(work,()=>part.release());transferred=true;
+      try{checkAbort(signal);finish(part.pixels.data,threshold,invert);return{...part,release};}
+      catch(error){try{await release();}catch(cleanupError){throw withCleanup(error,cleanupError);}throw error;}
+     }
      if(g.step===1){const part=await view.readWindow({x:g.x,y:g.y,width:g.w,height:g.h},{signal});return{...part,metrics:{sourceBytes:part.pixels.data.byteLength}};}
      owner=allocateOwnedTypedArray(Type,g.width*g.height*channels,{budget:sampleBudget,label:'sherloq-sampled-window'});let sourceBytes=0;
      for(let row=0;row<g.height;row++){
@@ -85,7 +90,7 @@ export function sherloq7cWindowRecords(result,budget,{threshold=255,invert=false
       try{sourceBytes+=part.pixels.data.byteLength;for(let col=0;col<g.width;col++)for(let c=0;c<channels;c++)owner.data[(row*g.width+col)*channels+c]=part.pixels.data[col*g.step*channels+c];}finally{await part.release();}
      }
      checkAbort(signal);return{pixels:{width:g.width,height:g.height,format,data:owner.data},release:owner.release,metrics:{sourceBytes}};
-    }catch(error){owner?.release();throw error;}finally{work.done();}
+    }catch(error){owner?.release();throw error;}finally{if(!transferred)work.done();}
    },
    dispose:()=>reads.dispose(()=>retire(key))
   };if(native&&threshold===255&&!invert&&typeof result.pipePng==='function')view.pipeSherloqPng=async(writable,options={})=>{const ticket=reads.begin();try{return await result.pipePng(writable,options);}finally{ticket.done();}};return view;

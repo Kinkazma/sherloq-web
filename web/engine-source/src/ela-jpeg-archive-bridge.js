@@ -3,6 +3,7 @@ import {ElaJpegCoefficientEncoder} from './ela-jpeg-coeff-encoder.js';
 import {allocateTypedArray} from './allocation.js';
 import {ownGpuArrays} from './gpu-owned-arrays.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
+import {borrowSynthesisRgb} from './ela-synthesis-source.js';
 import {EngineError,requireValue,checkAbort,createCooperator} from './errors.js';
 // Optional ELA-only path. It emits real native encoded bytes before delivering
 // borrowed exact RGB bands. Other JPEG consumers retain the native default.
@@ -12,6 +13,7 @@ export class ElaJpegArchiveBridge{
  mayFallback(error){return !!error&&typeof error==='object'&&this.fallbackFailures.has(error);}
  async release(set,owner,method='release'){if(!owner)return;await owner[method]();set.delete(owner);}
  async source(surface,signal){
+  checkAbort(signal);const staged=borrowSynthesisRgb(surface);if(staged){this.sources.add(staged);return staged;}
   const{width,height}=surface.descriptor,bytes=width*height*3,free=this.budget.reserve(bytes);let data;try{data=allocateTypedArray(Uint8Array,bytes,{label:'ELA-complete-native-JPEG-context'});}catch(error){free();throw this.mark(error);}const backings=[],owned=ownGpuArrays({rgb:data},free,backings,this.budget,{},this.sources);this.sources.add(owned);const acquired=new Set(),cooperate=createCooperator(signal);
   try{backings.push({bytes,release:this.budget.registerBacking?.('array-buffer',bytes,{owner:'ela',label:'ELA-complete-native-JPEG-context',identity:data.buffer})});
    const rows=Math.max(1,Math.min(32,Math.floor(65536/width)));

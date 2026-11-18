@@ -7,7 +7,7 @@ import {EngineError} from './errors.js';
 // admitted source grid, never their resolution, parameters or model methods.
 export const SOURCE_REGION_RECTANGLE_OPERATIONS=Object.freeze([
  'analysis.complete','analysis.clones','ai.clones.d2prl','ai.clones.segmentation',
- 'subimages.detect','ela.classic','ela.energy','ela.biomes','jpeg.zero','jpeg.quality','jpeg.recompression','jpeg.ghosts','inspection.histogram','inspection.magnifier','inspection.adjust','detail.gradient','detail.echo',
+ 'subimages.detect','ela.classic','ela.bitrate','ela.energy','ela.biomes','jpeg.zero','jpeg.quality','jpeg.recompression','jpeg.ghosts','inspection.histogram','inspection.magnifier','inspection.adjust','detail.gradient','detail.echo',
  'detail.frequency','detail.wavelets','noise.blocking','noise.separation','noise.planes','noise.noisesniffer',
  'noise.minmax','pixels.defects','colors.space','colors.stats','colors.pca',
  'colors.plots','various.median','tampering.contrast','various.illuminant',

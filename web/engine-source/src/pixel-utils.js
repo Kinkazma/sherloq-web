@@ -4,11 +4,11 @@ export const gray=(r,g,b)=>(r*9798+g*19235+b*3735+16384)>>15;
 export function roundEven(x){const n=Math.floor(x),d=x-n;return d===0.5?n+(n%2):Math.floor(x+0.5);}
 // OpenCV equalizeHist converts integer population and cumulative counts to
 // float32 before division/multiplication, including populations above2^24.
-export function equalizeHistogramLut(bins,count){
- const lut=new Uint8Array(256);let first=0;while(first<255&&!bins[first])first++;
+export function equalizeHistogramLut(bins,count,maximum=255){
+ const Type=maximum===65535?Uint16Array:Uint8Array,lut=new Type(maximum+1);let first=0;while(first<maximum&&!bins[first])first++;
  if(bins[first]===count){lut.fill(first);return lut;}
- const scale=Math.fround(255/Math.fround(count-bins[first]));let sum=0;
- for(let i=first+1;i<256;i++){sum+=bins[i];lut[i]=Math.max(0,Math.min(255,roundEven(Math.fround(Math.fround(sum)*scale))));}
+ const scale=Math.fround(maximum/Math.fround(count-bins[first]));let sum=0;
+ for(let i=first+1;i<=maximum;i++){sum+=bins[i];lut[i]=Math.max(0,Math.min(maximum,roundEven(Math.fround(Math.fround(sum)*scale))));}
  return lut;
 }
 export const round2=x=>roundEven(x*100)/100;

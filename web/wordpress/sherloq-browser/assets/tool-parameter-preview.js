@@ -1,14 +1,27 @@
+import {assertNativeRegionPreviewSampling} from './unified-engine/src/source-region-preview-grid.js';
+import {nativePreviewAnswerOwned,retireNativePreviewAnswer} from './native-preview-answer.js?v=0.33.2';
+import {withRetirementOwner} from './unified-engine/src/owner-retirement-error.js';
+import {sourceRegionDomainShape} from './unified-engine/src/source-region-capabilities.js';
 import {isGradientField} from './unified-engine/src/gradient-field-parameters.js';
-import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.1';
-import {createFrequencyPreviewSizing,FREQUENCY_SIZING_BYTES,frequencyPreviewDiagnostics} from './frequency-preview-sizing.js?v=0.33.1';
-import {parameterRegionDerivedDomain,frameParameterRegionPixels} from './parameter-preview-source-regions.js?v=0.33.1';
+import {native16ProxyParametersAdmitted} from './unified-engine/src/native16-parameter-contract.js';
+import {native16TransformPreviewLayout} from './unified-engine/src/native16-transform-preview-layout.js';
+import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.2';
+import {createFrequencyPreviewSizing,FREQUENCY_SIZING_BYTES,frequencyPreviewDiagnostics} from './frequency-preview-sizing.js?v=0.33.2';
+import {parameterRegionDerivedDomain,frameParameterRegionPixels} from './parameter-preview-source-regions.js?v=0.33.2';
 /** Bounded, explicitly provisional pixel calculations in a separate worker.
  * This module never receives a native source blob, model or native result ID.
  */
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.1';
-import {continuityPreviewSide} from './preview-quality-policy.js?v=0.33.1';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.2';
+import {continuityPreviewSide} from './preview-quality-policy.js?v=0.33.2';
 const MiB=1024**2,DEFAULT_SIDE=192,WORKER_BYTES=192*MiB;
-const OPERATIONS=new Set(['inspection.adjust','inspection.magnifier','detail.gradient','detail.echo','colors.space','colors.pca','detail.wavelets','detail.frequency','noise.separation','noise.planes','noise.minmax','pixels.defects','noise.blocking','colors.stats','tampering.contrast','various.illuminant','comparison.image','jpeg.ghosts','noise.noisesniffer']);
+// Preparation and calculation borrow the same admitted Core16 source owner.
+function nativePixelPreviewRequest(request){
+ const operation=request?.operation,shape=request?.sourceRegionDomain?sourceRegionDomainShape(request.sourceRegionDomain):'identity';
+ if(operation==='ela.bitrate')return true;
+ return request?.workingDepth===16&&['detail.frequency','detail.wavelets','detail.echo','inspection.adjust','detail.gradient','colors.stats','noise.planes','noise.minmax','noise.separation','noise.blocking','pixels.defects','colors.space','colors.pca'].includes(operation)&&native16ProxyParametersAdmitted(operation,request.params,shape);
+}
+
+const OPERATIONS=new Set(['ela.bitrate','inspection.adjust','inspection.magnifier','detail.gradient','detail.echo','colors.space','colors.pca','detail.wavelets','detail.frequency','noise.separation','noise.planes','noise.minmax','pixels.defects','noise.blocking','colors.stats','tampering.contrast','various.illuminant','comparison.image','jpeg.ghosts','noise.noisesniffer']);
 const WORKER_ONLY_PREPARATION=new Set(['inspection.magnifier','colors.pca','detail.frequency','comparison.image','noise.noisesniffer']);
 // Warm only source transport. References, FFT layouts and retained scientific
 // bases keep their existing first-use contracts; preparation never runs them.
@@ -109,11 +122,11 @@ export function projectParameterPreviewParams(operation,input,{width,height,logi
  return{params,projection:{schema:'parameter-preview-spatial-projection/1',scaleX,scaleY,scale,adjustments,limitations}};
 }
 
-export function createParameterPreview({readSource,readReference,reserve,release,updateReservation,engineFactory=defaultFactory,onMetrics=()=>{},side=ADAPTIVE_PREVIEW_MAX_SIDE,memoryBudgetBytes=WORKER_BYTES,adaptive:providedAdaptive,maximumSourceGrids=3,sourceRegions=false}={}){
- if(typeof readSource!=='function'||typeof engineFactory!=='function'||!Number.isSafeInteger(side)||side<16||side>ADAPTIVE_PREVIEW_MAX_SIDE||!Number.isSafeInteger(memoryBudgetBytes)||memoryBudgetBytes<64*MiB||!Number.isSafeInteger(maximumSourceGrids)||maximumSourceGrids<1||maximumSourceGrids>4||typeof sourceRegions!=='boolean')fail('INVALID_INPUT','A bounded source reader and preview worker factory are required.');
+export function createParameterPreview({readSource,readReference,reserve,release,updateReservation,engineFactory=defaultFactory,onMetrics=()=>{},side=ADAPTIVE_PREVIEW_MAX_SIDE,memoryBudgetBytes=WORKER_BYTES,adaptive:providedAdaptive,maximumSourceGrids=3,sourceRegions=false,nativePreview}={}){
+ if(typeof readSource!=='function'||typeof engineFactory!=='function'||!Number.isSafeInteger(side)||side<16||side>ADAPTIVE_PREVIEW_MAX_SIDE||!Number.isSafeInteger(memoryBudgetBytes)||memoryBudgetBytes<64*MiB||!Number.isSafeInteger(maximumSourceGrids)||maximumSourceGrids<1||maximumSourceGrids>4||typeof sourceRegions!=='boolean'||nativePreview!==undefined&&typeof nativePreview!=='function')fail('INVALID_INPUT','A bounded source reader and preview worker factory are required.');
  const adaptive=providedAdaptive===undefined?createAdaptivePreview():providedAdaptive,frequencyAdaptive=providedAdaptive===undefined?createFrequencyPreviewSizing():null;
  const maximumPixels=Math.min(ADAPTIVE_PREVIEW_MAX_PIXELS,Math.max(256,Math.floor((memoryBudgetBytes-48*MiB)/160))),workingBytes=memoryBudgetBytes+maximumPixels*(maximumSourceGrids*(sourceRegions?4:3)+12)+(sourceRegions?maximumSourceGrids*(4*MiB+65536):0)+(frequencyAdaptive?FREQUENCY_SIZING_BYTES:0);
- let engine,lease,source,sourceGroup,reference,active,controller,starting,preparing,preparationController,disposed=false,resetting=false,generation=0,serial=0,retiring,retirementRecord,disposal,idleOwnedBytes=0,frequencyInFlightChoice=null,frequencyReturnedSourceId=null,frequencyActiveSourceId=null;
+ let engine,lease,source,sourceGroup,reference,active,controller,starting,preparing,preparationController,disposed=false,resetting=false,generation=0,serial=0,retiring,retirementRecord,disposal,idleOwnedBytes=0,frequencyInFlightChoice=null,frequencyReturnedSourceId=null,frequencyActiveSourceId=null,nativeMemoryLimit=null;
  const sourceGrids=new Map(),loadedScopedHeaps=new Set(),measuredPreviewFamilies=new Set();
  // Presence comes from the actual source owners, not an imported timing row.
  // This observed epoch only invalidates known misses; it is no Core FFT lease.
@@ -212,6 +225,38 @@ export function createParameterPreview({readSource,readReference,reserve,release
  async function calculate(request,signal,epoch){
   if(!OPERATIONS.has(request?.operation))fail('PREVIEW_UNAVAILABLE','This operation has no generic pixel-proxy contract.');
   const {operation,logicalWidth,logicalHeight}=request;if(!Number.isSafeInteger(logicalWidth)||!Number.isSafeInteger(logicalHeight)||logicalWidth<1||logicalHeight<1)fail('INVALID_INPUT','Native logical dimensions are required.');
+  if(nativePreview&&nativePixelPreviewRequest(request)){
+   check(signal);const requestedParams=structuredClone(request.params??{}),sizingKey=previewSizingKey(operation,requestedParams,request.backend,request.view)+(operation==='ela.bitrate'?'/native8-elabitrate':'/native16'),admissionKey=JSON.stringify([epoch,request.sourceIdentity,sizingKey]),identity=typeof request.sourceIdentity==='string'?request.sourceIdentity:JSON.stringify(request.sourceIdentity),started=performance.now();
+   let nativePixels=Math.min(ADAPTIVE_PREVIEW_MAX_PIXELS,nativeMemoryLimit?.key===admissionKey?nativeMemoryLimit.pixels:ADAPTIVE_PREVIEW_MAX_PIXELS),plan,maxSide,firstPlanClock;
+   const transform=['detail.frequency','detail.wavelets'].includes(operation),layout=(width,height)=>transform?native16TransformPreviewLayout(operation,{width,height,logicalWidth,logicalHeight},request.view):{inputWidth:width,inputHeight:height,outputWidth:width,outputHeight:height,logicalWidth,logicalHeight};
+   // The adaptive side describes a sampled Source grid. Its actual transform
+   // frame can be padded; pay and bound that frame without halving an otherwise
+   // admitted complete Source merely because its DFT adds a few edge columns.
+   const outputSide=choice=>{const inputSide=choice?.side??side;if(!transform)return inputSide;const step=Math.max(1,Math.ceil(Math.max(logicalWidth,logicalHeight)/inputSide)),out=layout(Math.ceil(logicalWidth/step),Math.ceil(logicalHeight/step));return Math.min(side,Math.max(out.outputWidth,out.outputHeight));};
+   const choose=()=>{const choice=adaptive?.plan({key:sizingKey,width:logicalWidth,height:logicalHeight,sourceIdentity:nativePixels===ADAPTIVE_PREVIEW_MAX_PIXELS?identity:JSON.stringify([identity,{nativeAdmissionPixels:nativePixels}]),maxSide:side,minSide:16,maxPixels:nativePixels,feedback:request.adaptiveFeedback,continuity:request.previewControl?.continuity});if(choice){firstPlanClock??={startedAt:choice.token.startedAt,startedClock:choice.token.startedClock};return{...choice,...firstPlanClock,token:{...choice.token,...firstPlanClock}};}return choice;};
+   const boundedStep=minimum=>{let low=Math.max(minimum,Math.ceil(Math.max(logicalWidth,logicalHeight)/maxSide)),high=Math.max(logicalWidth,logicalHeight);const fits=step=>{const w=Math.ceil(logicalWidth/step),h=Math.ceil(logicalHeight/step);if(!transform)return w*h<=nativePixels;const out=layout(w,h);return out.outputWidth<=maxSide&&out.outputHeight<=maxSide&&out.outputWidth*out.outputHeight<=nativePixels;};if(fits(low))return low;while(low<high){const middle=low+Math.floor((high-low)/2);if(fits(middle))high=middle;else low=middle+1;}return low;};
+   plan=choose();maxSide=outputSide(plan);let step=boundedStep(1),replans=0,rejectedMilliseconds=0;
+   for(;;){
+    const width=Math.ceil(logicalWidth/step),height=Math.ceil(logicalHeight/step),outputLayout=layout(width,height),{params,projection}=projectParameterPreviewParams(operation,requestedParams,{width,height,logicalWidth,logicalHeight}),attemptStarted=performance.now();let answer,transferred=false,failed=false,primary;
+    try{
+     request.previewControl?.onComputeStart?.();check(signal);answer=await nativePreview({...request,params,maxSide,maxPixels:nativePixels,step},{signal});check(signal);if(epoch!==generation)fail('CANCELLED','Native16 proxy owner changed.');
+     const pixels=frame(answer?.pixels,side);if(pixels.width!==outputLayout.outputWidth||pixels.height!==outputLayout.outputHeight)fail('INVALID_INPUT','Native16 proxy output differs from its admitted layout.');if(transform&&Object.keys(outputLayout).some(key=>answer.metrics?.transformPreviewLayout?.[key]!==outputLayout[key]))fail('INVALID_INPUT','Native16 transform preview lost its selected scientific view.');if(request.sourceRegionDomain&&sourceRegionDomainShape(request.sourceRegionDomain)!=='identity')assertNativeRegionPreviewSampling(answer.metrics?.sourceRegionSampling,request.sourceRegionDomain,{width,height,step});
+     const milliseconds=performance.now()-started,setupMilliseconds=(answer.metrics?.setupMilliseconds??0)+rejectedMilliseconds,cached=answer.metrics?.cache?.result===true,adaptiveMetrics=plan?{token:plan.token,milliseconds,setupMilliseconds,cold:!!answer.metrics?.cold,cached,pixels:width*height,feedback:adaptive.observe(plan,{milliseconds,setupMilliseconds,cold:!!answer.metrics?.cold,cached,pixels:width*height,inputWidth:width,inputHeight:height})}:null;
+     if(replans)nativeMemoryLimit={key:admissionKey,pixels:nativePixels};
+     totals.previews++;totals.computations+=cached?0:1;totals.maximumInputPixels=Math.max(totals.maximumInputPixels,width*height);totals.maximumOutputPixels=Math.max(totals.maximumOutputPixels,outputLayout.outputWidth*outputLayout.outputHeight);
+     const output={pixels:{...pixels,logicalWidth:outputLayout.logicalWidth,logicalHeight:outputLayout.logicalHeight,...(transform?{previewCoordinates:outputLayout.coordinates}:{})},exact:false,params,metrics:{...answer.metrics,schema:'parameter-pixel-proxy/1',operation,field:request.field??null,sourceIdentity:request.sourceIdentity,inputDimensions:[width,height],outputDimensions:[outputLayout.outputWidth,outputLayout.outputHeight],requestedParams,previewParams:params,spatialProjection:projection,nativeInputDepth:operation==='ela.bitrate'?8:16,exactNativeGrid:step===1,adaptivePreview:adaptiveMetrics,...(transform?{nativeTransformPreviewLayout:outputLayout,scientificFinalChanged:false}:{}),...(replans?{nativeAdmission:{replans,rejectedMilliseconds,reason:'acknowledged-memory-admission',sampleStep:step}}:{}),milliseconds,...totals}};transferred=true;return output;
+    }catch(error){
+     failed=true;primary=error;
+     if(error?.code!=='MEMORY_LIMIT'||error.nativePreviewAdmissionRetired!==true||error.imagesCleared||['cleanupOwner','cleanupError','cleanupErrors','previewCleanupError','temporaryCleanupFailures'].some(key=>Object.hasOwn(error,key))||signal.aborted||epoch!==generation||width===1&&height===1)throw error;
+     // Policy refusals, unlike abandoned slider values or cold preparation,
+     // are actual admission evidence. Failed work is not latency calibration.
+     rejectedMilliseconds+=performance.now()-attemptStarted;replans++;const next=Math.min(Math.max(logicalWidth,logicalHeight),Math.max(step+1,Math.ceil(step*Math.SQRT2))),nextWidth=Math.ceil(logicalWidth/next),nextHeight=Math.ceil(logicalHeight/next);if(transform){const out=layout(nextWidth,nextHeight);nativePixels=out.outputWidth*out.outputHeight;}else nativePixels=nextWidth*nextHeight;plan=choose();maxSide=outputSide(plan);step=boundedStep(next);
+    }finally{
+     try{if(!transferred&&nativePreviewAnswerOwned(answer))try{await retireNativePreviewAnswer(answer);}catch(cleanup){throw withRetirementOwner(failed?primary:cleanup,{dispose:()=>retireNativePreviewAnswer(answer)},cleanup);}}
+     finally{try{request.previewControl?.onComputeEnd?.();}catch{}}
+    }
+   }
+  }
   const diagnosticStarted=operation==='detail.frequency'?performance.now():null;
   const control=operation==='detail.frequency'?request.previewControl:null,controlTiming=()=>control?{gestureEpoch:control.gestureEpoch,controlRequestId:control.controlRequestId,lastAdmittedInput:control.lastAdmittedInput,clock:control.clock,inputAt:control.inputAt,admittedInputAt:control.admittedInputAt,enqueuedAt:control.enqueuedAt,inputAgeAvailable:control.inputAgeAvailable,ageOrigin:control.ageOrigin,preQueueMs:control.preQueueMs,previewOrdinal:control.previewOrdinal,previewIntentionOrdinal:control.previewIntentionOrdinal,refreshPhase:control.refreshPhase,refinement:control.refinement===true,refinementOrdinal:control.refinementOrdinal??0,dispatchedAt:control.dispatchedAt,queueWaitMs:control.queueWaitMs,intentAgeMilliseconds:typeof control.ageMilliseconds==='function'?control.ageMilliseconds():0,queueAgeMilliseconds:typeof control.queueAgeMilliseconds==='function'?control.queueAgeMilliseconds():null}:null;
   const superseded=phase=>{check(signal);if(control?.yieldBeforeNative?.()!==true)return false;totals.supersededBeforeNative++;control.report?.({phase,...controlTiming(),sourceIdentity:request.sourceIdentity,...totals});return true;};
@@ -300,6 +345,7 @@ export function createParameterPreview({readSource,readReference,reserve,release
  async function reset(){frequencyAdaptive?.reset();generation++;controller?.abort();preparationController?.abort();resetting=true;try{await Promise.allSettled([active,preparing]);await retire();}finally{resetting=false;}}
  return{
   prepare({signal,isCurrent,request,warmSource=false}={}){
+   if(nativePreview&&nativePixelPreviewRequest(request)){try{check(signal);if(disposed||typeof isCurrent!=='function'||!isCurrent())return Promise.resolve({prepared:false,reason:'not-current'});if(!active&&!resetting)nativeMemoryLimit=null;return Promise.resolve({prepared:true,workerReady:true,sourceReady:true,nativeInputDepth:request.operation==='ela.bitrate'?8:16,setupWorkerMilliseconds:0,sourceReads:0,sourceLoads:0,computations:0});}catch(error){return Promise.reject(error);}}
    if(disposed)return Promise.reject(Object.assign(Error('Parameter preview disposed.'),{code:'DISPOSED'}));
    if(typeof isCurrent!=='function'||!isCurrent())return Promise.resolve({prepared:false,reason:'not-current'});
    if(active||resetting)return Promise.resolve({prepared:false,reason:'preview-active'});

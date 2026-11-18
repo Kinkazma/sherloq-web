@@ -1,0 +1,71 @@
+{
+  "schema": "sherloq.dav1d-source-patch/1",
+  "maximumFramePixels32": 100000000,
+  "singleAllocationMaximum": "PTRDIFF_MAX minus checked alignment padding",
+  "actualAllocationMaximum": "caller-funded imported WebAssembly.Memory; failed growth returns ENOMEM",
+  "frameParallelism": 1,
+  "changes": [
+    {
+      "file": "dav1d-1.5.4/src/lib.c",
+      "beforeSha256": "0f3cf72a63e9bf8393ab47553c98d4631f6350f90c54e560019ce065d71f8608",
+      "afterSha256": "7378b37bd4f4f0920ae70a75d96a2937c08f0d2b6c5e46a59529b25e5694a8ac"
+    },
+    {
+      "file": "dav1d-1.5.4/src/mem.h",
+      "beforeSha256": "f4b9be308b6a310af5bd28330589343a5fcf29848140d5bae38a6f71d7366174",
+      "afterSha256": "7adaa7b8bf7d9b4a1a26840ddc53b46c9fc3f17a6750f85cbf0adc04f8f7a05b"
+    },
+    {
+      "file": "dav1d-1.5.4/src/mem.h",
+      "beforeSha256": "7adaa7b8bf7d9b4a1a26840ddc53b46c9fc3f17a6750f85cbf0adc04f8f7a05b",
+      "afterSha256": "dcd4f6b04913eaa1709e6dd4ea9a1d837c6d0f441d4c2d63ec7174d16453146e"
+    },
+    {
+      "file": "dav1d-1.5.4/src/mem.h",
+      "beforeSha256": "dcd4f6b04913eaa1709e6dd4ea9a1d837c6d0f441d4c2d63ec7174d16453146e",
+      "afterSha256": "0f83550c09155d5bf288b69fbd46647e9a534b165573bf490f422b2b2c2a89cc"
+    },
+    {
+      "file": "dav1d-1.5.4/src/mem.c",
+      "beforeSha256": "6b2824cea459be669aeaa9279cd855161e70388bfb084980649c9ef7a824f800",
+      "afterSha256": "469855ddcdd7f4e61ec4745839355904b951cb2f8c792a690c0f3880782229fa"
+    },
+    {
+      "file": "dav1d-1.5.4/src/mem.c",
+      "beforeSha256": "469855ddcdd7f4e61ec4745839355904b951cb2f8c792a690c0f3880782229fa",
+      "afterSha256": "5c6ba6d8bd802c47d18d21a59bcdd3f5f9001da3739f713440d0f9a28d1426b5"
+    },
+    {
+      "file": "dav1d-1.5.4/src/mem.c",
+      "beforeSha256": "5c6ba6d8bd802c47d18d21a59bcdd3f5f9001da3739f713440d0f9a28d1426b5",
+      "afterSha256": "0e485f2305ce52b2eb5f60bac81882efc6bb04b84fcb159298b5660e268a3b0c"
+    },
+    {
+      "file": "dav1d-1.5.4/src/mem.c",
+      "beforeSha256": "0e485f2305ce52b2eb5f60bac81882efc6bb04b84fcb159298b5660e268a3b0c",
+      "afterSha256": "49b6aaf82e49360e9844b7b63b65be05ad3548914423ce68477d0ae01c8590fa"
+    },
+    {
+      "file": "dav1d-1.5.4/src/picture.c",
+      "beforeSha256": "b836ed741934c4cf5244d2aaf5a5325efd73ee95eaf6ee1f03cb6717151967bd",
+      "afterSha256": "8c0a3ee68604b7bac6f0c8c6c992928a37e8335688dc717081fc290b250d0829"
+    },
+    {
+      "file": "dav1d-1.5.4/src/picture.c",
+      "beforeSha256": "8c0a3ee68604b7bac6f0c8c6c992928a37e8335688dc717081fc290b250d0829",
+      "afterSha256": "58e0bfcb646d5e56a4f575e12cd3fbd4c760a94b46e2f8ea405bf2d287908e8a"
+    },
+    {
+      "file": "libavif-1.4.2/src/codec_dav1d.c",
+      "beforeSha256": "35447f7d1cce1397bc3fafc6cfb9ec1292e3fa37b1a846d0f4a1bfc3c7d4ca68",
+      "afterSha256": "e93559e3c079957b35db00051108a47ffda559d7ef806ccf7b097dda965622b3"
+    },
+    {
+      "file": "libavif-1.4.2/src/read.c",
+      "beforeSha256": "e1cdbe4ecd139a2d4aff7eea927a48465753aea768d40e30550601ca72e65cdc",
+      "afterSha256": "dfe1e2f4bef8abc660d6dc4055f30fff837c554ef0095deccfc82f3ec33104f2"
+    }
+  ],
+  "codecCount": "Exact avifDecoderCreateCodecs topology, including tracks, grids, operating points, allLayers and Sample Transforms",
+  "codecGeometry": "Exact per-instance padded128 work pixels and native64 tile budget; uint64 checked; shared codecs take maximum, distinct codecs sum"
+}

@@ -69,18 +69,35 @@ static cv::Mat hsv8Reference(const cv::Mat& src){
   }result.at<cv::Vec3b>(y,x)=cv::Vec3b(h,s,hi);
  }return result;
 }
+static uint16_t trunc16(double x){return std::isfinite(x)?static_cast<uint16_t>(static_cast<int64_t>(std::trunc(x))&65535):0;}
+static cv::Mat algebraColor(const cv::Mat& full,int space,int channel,bool wide=false){
+ cv::Mat value;const int type=wide?CV_16U:CV_8U;const float scale=wide?65535.f:255.f;
+ const auto put=[&](int y,int x,double z){if(wide)value.at<uint16_t>(y,x)=trunc16(z);else value.at<uchar>(y,x)=trunc8(z);};
+ if(space==3||space==4){cv::Mat converted=floatHue(full,space==4);value.create(full.rows,full.cols,type);for(int y=0;y<full.rows;y++)for(int x=0;x<full.cols;x++){float v=converted.at<cv::Vec3f>(y,x)[channel]*scale;if(channel==0)v/=360.f;put(y,x,v);}}
+ else{
+  value.create(full.rows,full.cols,type);cv::Mat perceptual;if(space==2&&channel==3)cv::cvtColor(full,perceptual,cv::COLOR_BGR2GRAY);
+  for(int y=0;y<full.rows;y++)for(int x=0;x<full.cols;x++){
+   auto v=full.at<cv::Vec3f>(y,x);float b=v[0],g=v[1],r=v[2],high=std::max({r,g,b}),low=std::min({r,g,b}),z;
+   if(space==1){float black=1.f-high,denominator=1.f-black;z=channel==3?black:((1.f-v[2-channel])-black);if(channel<3&&denominator!=0)z/=denominator;z*=scale;put(y,x,z);}
+   else{if(channel==0)z=(high+low)/2.f;else if(channel==1)z=.21f*r+.72f*g+.07f*b;else if(channel==2)z=((b+g)+r)/3.f;else z=perceptual.at<float>(y,x);put(y,x,wide?double(z)*65535.:double(z)*255.);}
+  }
+ }
+ return value;
+}
 static cv::Mat color(const cv::Mat& src,int space,int channel){
  cv::Mat value;
  if(space==0)cv::extractChannel(src,value,2-channel);
  else if(space>=5){const int codes[]={cv::COLOR_BGR2YCrCb,cv::COLOR_BGR2XYZ,cv::COLOR_BGR2Lab,cv::COLOR_BGR2Luv};cv::cvtColor(src,value,codes[space-5]);cv::extractChannel(value,value,channel);}
- else if(space==3||space==4){cv::Mat full=floatHue(normalized(src),space==4);value.create(src.rows,src.cols,CV_8U);for(int y=0;y<src.rows;y++)for(int x=0;x<src.cols;x++){float v=full.at<cv::Vec3f>(y,x)[channel]*255.f;if(channel==0)v/=360.f;value.at<uchar>(y,x)=trunc8(v);}}
+ else value=algebraColor(normalized(src),space,channel);
+ cv::cvtColor(value,value,cv::COLOR_GRAY2BGR);return value;
+}
+static cv::Mat color16(const cv::Mat& src,int space,int channel){
+ cv::Mat value;
+ if(space==0)cv::extractChannel(src,value,2-channel);
  else{
-  auto full=normalized(src);value.create(src.rows,src.cols,CV_8U);cv::Mat perceptual;if(space==2&&channel==3)cv::cvtColor(full,perceptual,cv::COLOR_BGR2GRAY);
-  for(int y=0;y<src.rows;y++)for(int x=0;x<src.cols;x++){
-   auto v=full.at<cv::Vec3f>(y,x);float b=v[0],g=v[1],r=v[2],high=std::max({r,g,b}),low=std::min({r,g,b}),z;
-   if(space==1){float black=1.f-high,denominator=1.f-black;z=channel==3?black:((1.f-v[2-channel])-black);if(channel<3&&denominator!=0)z/=denominator;z*=255.f;value.at<uchar>(y,x)=trunc8(z);}
-   else{if(channel==0)z=(high+low)/2.f;else if(channel==1)z=.21f*r+.72f*g+.07f*b;else if(channel==2)z=((b+g)+r)/3.f;else z=perceptual.at<float>(y,x);value.at<uchar>(y,x)=trunc8(double(z)*255.);}
-  }
+  cv::Mat unit(src.rows,src.cols,CV_32FC3);for(int y=0;y<src.rows;y++)for(int i=0;i<src.cols*3;i++)unit.ptr<float>(y)[i]=float(src.ptr<uint16_t>(y)[i])/65535.f;
+  if(space==5){value.create(src.rows,src.cols,CV_16U);cv::Mat converted;cv::cvtColor(unit,converted,cv::COLOR_BGR2YCrCb);for(int y=0;y<src.rows;y++)for(int x=0;x<src.cols;x++)value.at<uint16_t>(y,x)=trunc16(converted.at<cv::Vec3f>(y,x)[channel]*65535.f);}
+  else value=algebraColor(unit,space,channel,true);
  }
  cv::cvtColor(value,value,cv::COLOR_GRAY2BGR);return value;
 }
@@ -223,6 +240,10 @@ int cv_frequency_mask(int width,int height,double split,double smooth,int kind){
 int cv_frequency_frame(int i){if(i<0||i>4)return 0;output=i==4?frequencyMask:frequencyFrames[i];return !output.empty();}
 double cv_frequency_zero(){return frequencyZero;}
 
+// Typed colour entry only. The original 8-bit dispatcher remains unchanged.
+int cv_color16(const uint16_t* rgb,int width,int height,int space,int channel){
+ try{output.release();if(!rgb||width<1||height<1||space<0||space>5||channel<0||channel>=(space==1||space==2?4:3))return 0;cv::setNumThreads(1);cv::Mat source(height,width,CV_16UC3,const_cast<uint16_t*>(rgb)),bgr,result;cv::cvtColor(source,bgr,cv::COLOR_RGB2BGR);result=color16(bgr,space,channel);cv::cvtColor(result,output,cv::COLOR_BGR2RGB);return 1;}catch(...){output.release();return 0;}
+}
 int cv_run(const unsigned char* rgb,int width,int height,int op,const double* params){
  try{output.release();cv::setNumThreads(1);cv::Mat source(height,width,CV_8UC3,const_cast<unsigned char*>(rgb)),bgr,result;cv::cvtColor(source,bgr,cv::COLOR_RGB2BGR);
  switch(op){case 1:result=color(bgr,params[0],params[1]);break;case 2:result=noise(bgr,params);break;case 3:result=gradient(bgr,params);break;case 4:result=adjust(bgr,params);break;case 5:result=echo(bgr,params);break;case 6:cv::resize(bgr,result,{int(params[0]),int(params[1])},0,0,cv::INTER_LANCZOS4);break;case 7:result=pcaView(bgr,params);break;case 8:result=pcaView(bgr,params,params+4);break;case 9:result=params[0]?equalize(bgr):bgr;if(params[1])result=gray3(result);break;default:return 0;}cv::cvtColor(result,output,cv::COLOR_BGR2RGB);return 1;

@@ -1,35 +1,41 @@
 import {EngineError} from './unified-engine/src/errors.js';
 import {recompressionCodecWorkspace} from './unified-engine/src/recompression-codec-client.js';
+import {validateOriginalSourceLoanDescriptor} from './unified-engine/src/original-source-loan.js';
 const MiB=1024**2,GiB=1024**3;
 export const ELA_PARENT_BUDGET_SCHEMA='sherloq.ela-parent-budget/1';
 // An envelope, not an allocation or a source-size limit. Core still admits each
 // actual owner and the codec keeps its own physical Wasm32 limit. The additional
 // 32N+64MiB funds duplicated Source, resident runtimes, RGB outputs and GPU work;
 // the 29.49MP measured complete JXL peak fits the 3.5GiB alternative.
-export function elaParentBudgetPlan({width,height,legacyEngineBytes,consumerBytes,uiReserveBytes,codec='jpeg',lossless=false,nativeWorkspaceBytes=0}){
+export function elaParentBudgetPlan({width,height,legacyEngineBytes,consumerBytes,uiReserveBytes,codec='jpeg',lossless=false,nativeWorkspaceBytes=0,borrowedSource=null}){
  if(![width,height].every(n=>Number.isSafeInteger(n)&&n>0)||![legacyEngineBytes,consumerBytes,uiReserveBytes,nativeWorkspaceBytes].every(n=>Number.isSafeInteger(n)&&n>=0))throw new EngineError('INVALID_INPUT','Invalid ELA parent budget geometry or reservations.');
  if(codec==='jpeg'&&nativeWorkspaceBytes<=legacyEngineBytes)return null;
  const workspace=codec==='jpeg'?{workingBytes:0}:recompressionCodecWorkspace({width,height},{codec,lossless});
+ let sourceCreditBytes=0,borrowedTransferBytes=0;if(borrowedSource){validateOriginalSourceLoanDescriptor(borrowedSource);if(borrowedSource.width!==width||borrowedSource.height!==height||borrowedSource.sourceRgbBytes!==width*height*3||![0,width*height*6].includes(borrowedSource.sourceNativeRgbBytes))throw new EngineError('INVALID_INPUT','The borrowed Original bank extents differ from this ELA grid.');sourceCreditBytes=borrowedSource.sourceRgbBytes+borrowedSource.sourceNativeRgbBytes;borrowedTransferBytes=4*MiB;}
  // Ask only when the selected codec or a declared complete native workspace
  // needs more than the historical envelope. Never price JXL for another codec.
- const requiredNativeBytes=Math.max(workspace.workingBytes+width*height*7,nativeWorkspaceBytes);
+ const requiredNativeBytes=Math.max(workspace.workingBytes+width*height*7-(borrowedSource?borrowedSource.sourceRgbBytes:0)+borrowedTransferBytes,nativeWorkspaceBytes);
  if(requiredNativeBytes<=legacyEngineBytes)return null;
  // An authoritative complete native live-set already includes its Source,
  // matrix and simultaneous frame/heap work. Do not price those owners twice.
- const minimumNativeBytes=Math.ceil(Math.max(codec==='jpeg'?0:workspace.workingBytes+width*height*32+64*MiB,nativeWorkspaceBytes)/MiB)*MiB;
+ // Subtract only source banks proved absent from this borrower. Keep all
+ // historical derived/GPU/cache headroom, rather than guessing a new live-set.
+ // The complete synthesis plan already observes its actual source ownership.
+ const minimumNativeBytes=Math.ceil(Math.max(codec==='jpeg'?0:workspace.workingBytes+width*height*32-sourceCreditBytes+64*MiB+borrowedTransferBytes,nativeWorkspaceBytes)/MiB)*MiB;
  const engineChoices=[Math.max(4*GiB,minimumNativeBytes),Math.max(3.5*GiB,minimumNativeBytes)].filter((n,i,a)=>a.indexOf(n)===i);
  if(!Number.isSafeInteger(minimumNativeBytes)||engineChoices.some(engineBytes=>!Number.isSafeInteger(engineBytes+consumerBytes+uiReserveBytes)))throw new EngineError('INVALID_INPUT','Unsafe complete ELA parent workspace.');
- return{minimumNativeBytes,requiredNativeBytes,codecWorkspaceBytes:workspace.workingBytes,...(nativeWorkspaceBytes?{nativeWorkspaceBytes}:{}),consumerBytes,uiReserveBytes,choices:engineChoices.map(engineBytes=>({engineBytes,totalBytes:engineBytes+consumerBytes+uiReserveBytes}))};
+ return{minimumNativeBytes,requiredNativeBytes,codecWorkspaceBytes:workspace.workingBytes,...(nativeWorkspaceBytes?{nativeWorkspaceBytes}:{}),...(borrowedSource?{sourceBorrowed:true,borrowedSourceSha256:borrowedSource.sha256,borrowedSourceRgbBytes:borrowedSource.sourceRgbBytes,borrowedSourceNativeRgbBytes:borrowedSource.sourceNativeRgbBytes,sourceCreditBytes,borrowedTransferBytes}:{}),consumerBytes,uiReserveBytes,choices:engineChoices.map(engineBytes=>({engineBytes,totalBytes:engineBytes+consumerBytes+uiReserveBytes}))};
 }
 // A warm financed worker can keep its exact source and caches for every
 // covered control value. Source/epoch identity is checked by the existing owner.
 export function elaParentBudgetCovers(grant,plan){
  if(!grant||!plan||!Number.isSafeInteger(plan.minimumNativeBytes)||plan.minimumNativeBytes<0)return false;
  try{validateElaParentGrant(grant);}catch{return false;}
- return grant.engineBytes>=plan.minimumNativeBytes&&grant.consumerBytes===plan.consumerBytes&&grant.uiReserveBytes===plan.uiReserveBytes;
+ return grant.engineBytes>=plan.minimumNativeBytes&&grant.consumerBytes===plan.consumerBytes&&grant.uiReserveBytes===plan.uiReserveBytes&&!!grant.sourceBorrowed===!!plan.sourceBorrowed&&(!plan.sourceBorrowed||grant.borrowedSourceRgbBytes===plan.borrowedSourceRgbBytes&&grant.borrowedSourceNativeRgbBytes===plan.borrowedSourceNativeRgbBytes);
 }
 export function validateElaParentGrant(grant){
  if(!grant||grant.schema!==ELA_PARENT_BUDGET_SCHEMA||typeof grant.id!=='string'||!grant.id||typeof grant.epoch!=='string'||!grant.epoch||typeof grant.imageId!=='string'||!grant.imageId||!/^([a-f0-9]{64})$/i.test(grant.sourceSha256??'')||![grant.width,grant.height].every(n=>Number.isSafeInteger(n)&&n>0)||![grant.engineBytes,grant.consumerBytes,grant.uiReserveBytes,grant.totalBytes].every(n=>Number.isSafeInteger(n)&&n>=0)||grant.engineBytes<32*MiB||grant.totalBytes!==grant.engineBytes+grant.consumerBytes+grant.uiReserveBytes)throw new EngineError('INVALID_INPUT','Invalid financed ELA worker envelope.');
+ if(grant.sourceBorrowed!==undefined&&typeof grant.sourceBorrowed!=='boolean'||grant.sourceBorrowed&&(grant.borrowedSourceRgbBytes!==grant.width*grant.height*3||![0,grant.width*grant.height*6].includes(grant.borrowedSourceNativeRgbBytes)))throw new EngineError('INVALID_INPUT','Invalid borrowed Original source credit.');
  return grant;
 }
 // The credit survives failed/falsy ACKs and is returned only after all concrete
@@ -42,6 +48,7 @@ export function createElaParentBudgetOwner({source,plan,isCurrent=()=>true,epoch
   if(opening)return opening;
   opening=(async()=>{
    if(!plan)return null;
+   if(plan.sourceBorrowed&&plan.borrowedSourceSha256!==source.hash)throw new EngineError('INVALID_INPUT','The ELA bank credit belongs to another Original.');
    if(!isCurrent()||source.isCurrent?.()===false)throw new EngineError('CANCELLED','ELA parent source changed.');
    const client=await source.getClient();
    if(!isCurrent()||source.isCurrent?.()===false)throw new EngineError('CANCELLED','ELA parent source changed.');
@@ -49,7 +56,7 @@ export function createElaParentBudgetOwner({source,plan,isCurrent=()=>true,epoch
    // Publish ownership before any stale/abort check: even a cancelled acquisition
    // still has a real parent debt which retire() must acknowledge.
    release=acquired.release;
-   grant=validateElaParentGrant({schema:ELA_PARENT_BUDGET_SCHEMA,id:acquired.id,epoch,imageId:source.imageId,sourceSha256:source.hash,width:source.source.width,height:source.source.height,engineBytes:acquired.engineBytes,consumerBytes:plan.consumerBytes,uiReserveBytes:plan.uiReserveBytes,totalBytes:acquired.bytes});
+   grant=validateElaParentGrant({schema:ELA_PARENT_BUDGET_SCHEMA,id:acquired.id,epoch,imageId:source.imageId,sourceSha256:source.hash,width:source.source.width,height:source.source.height,engineBytes:acquired.engineBytes,consumerBytes:plan.consumerBytes,uiReserveBytes:plan.uiReserveBytes,totalBytes:acquired.bytes,...(plan.sourceBorrowed?{sourceBorrowed:true,borrowedSourceRgbBytes:plan.borrowedSourceRgbBytes,borrowedSourceNativeRgbBytes:plan.borrowedSourceNativeRgbBytes}:{})});
    if(closing||!isCurrent()||source.isCurrent?.()===false)throw new EngineError('CANCELLED','ELA parent source changed.');
    return grant;
   })();const current=opening;void current.catch(()=>{if(!release&&opening===current)opening=null;});return current;

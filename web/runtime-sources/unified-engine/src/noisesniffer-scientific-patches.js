@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {checkAbort,createCooperator,requireValue,EngineError} from './errors.js';
 import {numpySum} from './numpy-sum.js';
 import {retireCompositeOwners} from './composite-owner-release.js';

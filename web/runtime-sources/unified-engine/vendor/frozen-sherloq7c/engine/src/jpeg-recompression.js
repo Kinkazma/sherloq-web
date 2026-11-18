@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {validateRecompressionOptions} from './recompression-plan.js';
 import {observeJpegGrayCpu} from './jpeg-gray-curve-gpu.js';
 import {gpuJpegGrayLosses} from './jpeg-gray-curve-stage.js';

@@ -1,0 +1,4 @@
+#include <avif/avif.h>
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc,char**argv){if(argc!=3)return 2;avifDecoder*d=avifDecoderCreate();avifImage*im=avifImageCreateEmpty();d->maxThreads=1;if(avifDecoderReadFile(d,im,argv[1]))return 3;avifRGBImage rgb;avifRGBImageSetDefaults(&rgb,im);rgb.format=AVIF_RGB_FORMAT_RGBA;if(avifRGBImageAllocatePixels(&rgb)||avifImageYUVToRGB(im,&rgb))return 4;FILE*f=fopen(argv[2],"wb");if(!f)return 5;unsigned max=(1u<<rgb.depth)-1;for(unsigned y=0;y<im->height;y++)for(unsigned x=0;x<im->width;x++)for(unsigned c=0;c<3;c++){unsigned v=rgb.depth>8?((unsigned short*)(rgb.pixels+y*rgb.rowBytes))[x*4+c]:rgb.pixels[y*rgb.rowBytes+x*4+c];unsigned short s=(v*65535+max/2)/max;fwrite(&s,2,1,f);}fclose(f);avifRGBImageFreePixels(&rgb);avifImageDestroy(im);avifDecoderDestroy(d);return 0;}

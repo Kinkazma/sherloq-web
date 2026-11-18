@@ -1,0 +1,494 @@
+--- a/coders/jpeg.c
++++ b/coders/jpeg.c
+@@ -45,6 +45,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+@@ -1828,6 +1829,12 @@
+   jpeg_calc_output_dimensions(jpeg_info);
+   image->columns=jpeg_info->output_width;
+   image->rows=jpeg_info->output_height;
++  {
++    NativeFacts f;const char *model=jpeg_info->num_components == 1 ? "GRAY" :
++      jpeg_info->num_components == 4 ? "CMYK" : "RGB";
++    NFBegin(&f,"JPEG",model);NFUniform(&f,model,"uint",(unsigned)jpeg_info->data_precision,0);
++    NFEncodingNumber(&f,"jpegColorSpace",(double)jpeg_info->jpeg_color_space);NFEnd(&f,image);
++  }
+   image->depth=(size_t) jpeg_info->data_precision;
+   if (IsITUFaxImage(image) != MagickFalse)
+     {
+--- a/coders/png.c
++++ b/coders/png.c
+@@ -42,6 +42,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+@@ -3151,6 +3152,20 @@
+ #endif
+ 
+ 
++  {
++    NativeFacts f;int indexed=ping_color_type == PNG_COLOR_TYPE_PALETTE;
++    int gray=ping_color_type == PNG_COLOR_TYPE_GRAY || ping_color_type == PNG_COLOR_TYPE_GRAY_ALPHA;
++    int alpha=(ping_color_type & PNG_COLOR_MASK_ALPHA) != 0;
++    int trns=png_get_valid(ping,ping_info,PNG_INFO_tRNS) != 0;
++    const char *model=indexed?"indexed":gray?"GRAY":"RGB";
++    NFBegin(&f,"PNG",model);
++    if(indexed){NFChannel(&f,"index","index","uint",ping_file_depth,0);NFUniform(&f,"RGB","uint",8,0);}
++    else NFUniform(&f,gray?"GRAY":"RGB","uint",ping_file_depth,0);
++    if(alpha)NFChannel(&f,"A","alpha","uint",ping_file_depth,0);
++    else if(trns)NFChannel(&f,"A","alpha","uint",indexed?8:1,0);
++    f.association="straight";NFEncodingNumber(&f,"colorType",ping_color_type);
++    NFEncodingNumber(&f,"storageBitsPerSample",ping_file_depth);NFEnd(&f,image);
++  }
+   /*
+     Read image scanlines.
+   */
+--- a/coders/webp.c
++++ b/coders/webp.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+@@ -244,6 +245,10 @@
+   image->depth=8;
+   image->alpha_trait=features->has_alpha != 0 ? BlendPixelTrait :
+     UndefinedPixelTrait;
++  {
++    NativeFacts f;NFBegin(&f,"WEBP","RGB");NFUniform(&f,"RGB","uint",8,features->has_alpha != 0);
++    f.association="straight";NFEnd(&f,image);
++  }
+   return(webp_status);
+ }
+ 
+--- a/coders/gif.c
++++ b/coders/gif.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+@@ -1271,6 +1272,11 @@
+       image->colors++;
+     else if (opacity > (ssize_t) image->colors)
+       opacity=(-1);
++    {
++      NativeFacts f;NFBegin(&f,"GIF","indexed");NFChannel(&f,"index","index","uint",8,0);
++      NFUniform(&f,"RGB","uint",8,0);if(opacity>=0)NFChannel(&f,"A","alpha","uint",1,0);
++      f.association="straight";NFEncodingNumber(&f,"paletteEntries",(double)image->colors);NFEnd(&f,image);
++    }
+     image->ticks_per_second=100;
+     image->alpha_trait=opacity >= 0 ? BlendPixelTrait : UndefinedPixelTrait;
+     if ((image->columns == 0) || (image->rows == 0))
+--- a/coders/tiff.c
++++ b/coders/tiff.c
+@@ -44,6 +44,7 @@
+ #define JPEG_SUPPORT 1
+ #endif
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+@@ -1627,6 +1628,28 @@
+               }
+           }
+       }
++    {
++      NativeFacts f;uint16 count=0,*extras=NULL;unsigned color=(photometric == PHOTOMETRIC_SEPARATED)?4:
++        (photometric == PHOTOMETRIC_RGB)?3:1;const char *model=color==4?"CMYK":color==3?"RGB":"GRAY";
++      const char *type=sample_format == SAMPLEFORMAT_UINT?"uint":sample_format == SAMPLEFORMAT_INT?"sint":
++        sample_format == SAMPLEFORMAT_IEEEFP?"float":"unknown";
++      (void)TIFFGetFieldDefaulted(tiff,TIFFTAG_EXTRASAMPLES,&count,&extras,sans);
++      NFBegin(&f,"TIFF",photometric == PHOTOMETRIC_PALETTE?"indexed":model);
++      if(photometric == PHOTOMETRIC_PALETTE){
++        NFChannel(&f,"index","index",type,bits_per_sample,0);NFUniform(&f,"RGB","uint",16,0);
++        NFEncodingString(&f,"colorSource","declared-16bit-colormap");color=1;
++      }else NFUniform(&f,model,type,bits_per_sample,0);
++      for(unsigned c=color;c<samples_per_pixel;c++){
++        unsigned e=c-(samples_per_pixel-count);char name[32];
++        int alpha=c>=samples_per_pixel-count&&e<count&&
++          (extras[e]==EXTRASAMPLE_ASSOCALPHA||extras[e]==EXTRASAMPLE_UNASSALPHA);
++        (void)snprintf(name,sizeof(name),alpha?"A.%u":"extra.%u",c-color);
++        NFChannel(&f,name,alpha?"alpha":"meta",type,bits_per_sample,0);
++        if(alpha)f.association=extras[e]==EXTRASAMPLE_ASSOCALPHA?"premultiplied":"straight";
++      }
++      NFEncodingNumber(&f,"sampleFormat",sample_format);NFEncodingNumber(&f,"photometric",photometric);
++      NFEnd(&f,image);
++    }
+     if (image_info->ping != MagickFalse)
+       {
+         if (image_info->number_scenes != 0)
+--- a/coders/psd.c
++++ b/coders/psd.c
+@@ -45,6 +45,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+@@ -2679,6 +2680,22 @@
+         profile=DestroyStringInfo(profile);
+       ThrowReaderException(CorruptImageError,"UnexpectedEndOfFile");
+     }
++  {
++    NativeFacts f;const char *model=psd_info.mode==CMYKMode?"CMYK":
++      psd_info.mode==GrayscaleMode||psd_info.mode==BitmapMode?"GRAY":
++      psd_info.mode==IndexedMode?"indexed":psd_info.mode==LabMode?"Lab":"RGB";
++    const char *type=psd_info.depth==32?"float":"uint";
++    NFBegin(&f,"PSD",model);
++    if(psd_info.mode==IndexedMode){NFChannel(&f,"index","index","uint",psd_info.depth,0);NFUniform(&f,"RGB","uint",8,0);}
++    else if(psd_info.mode==LabMode){NFChannel(&f,"L","color",type,psd_info.depth,0);NFChannel(&f,"a","color",type,psd_info.depth,0);NFChannel(&f,"b","color",type,psd_info.depth,0);}
++    else NFUniform(&f,model,type,psd_info.depth,0);
++    for(unsigned c=psd_info.min_channels;c<psd_info.channels;c++){
++      char name[32];(void)snprintf(name,sizeof(name),"extra.%u",c-psd_info.min_channels);
++      int alpha=c==psd_info.min_channels&&(image->alpha_trait&BlendPixelTrait)!=0;
++      NFChannel(&f,alpha?"A":name,alpha?"alpha":"meta",type,psd_info.depth,0);
++    }
++    NFEncodingNumber(&f,"mode",psd_info.mode);NFEnd(&f,image);
++  }
+   /*
+     If we are only "pinging" the image, then we're done - so return.
+   */
+--- a/coders/jxl.c
++++ b/coders/jxl.c
+@@ -39,6 +39,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+@@ -291,6 +292,18 @@
+ {
+   image->columns=basic_info->xsize;
+   image->rows=basic_info->ysize;
++  {
++    NativeFacts f;const char *model=basic_info->num_color_channels==1?"GRAY":"RGB";
++    const char *map=basic_info->num_color_channels==1?"Y":"RGB";
++    NFBegin(&f,"JXL",model);
++    for(unsigned c=0;map[c];c++){char name[2]={map[c],0};NFChannel(&f,name,"color",
++      basic_info->exponent_bits_per_sample?"float":"uint",basic_info->bits_per_sample,basic_info->exponent_bits_per_sample);}
++    if(basic_info->alpha_bits)NFChannel(&f,"A","alpha",basic_info->alpha_exponent_bits?"float":"uint",
++      basic_info->alpha_bits,basic_info->alpha_exponent_bits);
++    f.association=basic_info->alpha_premultiplied?"premultiplied":"straight";
++    NFEncodingNumber(&f,"extraChannelCount",basic_info->num_extra_channels);
++    NFEncodingNumber(&f,"uninspectedExtraChannels",basic_info->num_extra_channels-(basic_info->alpha_bits?1:0));NFEnd(&f,image);
++  }
+   image->depth=basic_info->bits_per_sample;
+   if (basic_info->alpha_bits != 0)
+     image->alpha_trait=BlendPixelTrait;
+--- a/coders/jp2.c
++++ b/coders/jp2.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+@@ -487,6 +488,14 @@
+   */
+   image->columns=(size_t) jp2_image->comps[0].w;
+   image->rows=(size_t) jp2_image->comps[0].h;
++  {
++    NativeFacts f;NFBegin(&f,"JP2",jp2_image->numcomps==1?"GRAY":"declared-components");
++    for(unsigned c=0;c<jp2_image->numcomps;c++){
++      char name[32];(void)snprintf(name,sizeof(name),"component.%u",c);
++      NFChannel(&f,name,jp2_image->comps[c].alpha?"alpha":"color",jp2_image->comps[c].sgnd?"sint":"uint",jp2_image->comps[c].prec,0);
++    }
++    NFEncodingString(&f,"signedDecode","offset-to-unsigned-when-signed");NFEnd(&f,image);
++  }
+   image->depth=jp2_image->comps[0].prec;
+   image->compression=JPEG2000Compression;
+   if (jp2_image->numcomps == 1)
+--- a/coders/exr.c
++++ b/coders/exr.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+ #include "MagickCore/cache.h"
+@@ -630,6 +631,19 @@
+       exr_finish(&ctxt);
+       ThrowReaderException(BlobError,"UnableToOpenBlob");
+     }
++  {
++    const exr_attr_chlist_t *channels=NULL;
++    if(exr_get_channels(ctxt,part_index,&channels)==EXR_ERR_SUCCESS&&channels){
++      NativeFacts f;NFBegin(&f,"EXR","declared-channels");
++      for(int c=0;c<channels->num_channels;c++){
++        const char *name=channels->entries[c].name.str,*last=strrchr(name,'.');
++        const char *shortname=last?last+1:name;exr_pixel_type_t type=channels->entries[c].pixel_type;
++        const char *role=strcmp(shortname,"A")==0?"alpha":strcmp(shortname,"R")==0||strcmp(shortname,"G")==0||strcmp(shortname,"B")==0||strcmp(shortname,"Y")==0?"color":"meta";
++        NFChannel(&f,name,role,type==EXR_PIXEL_UINT?"uint":type==EXR_PIXEL_HALF||type==EXR_PIXEL_FLOAT?"float":"unknown",type==EXR_PIXEL_HALF?16:32,type==EXR_PIXEL_HALF?5:type==EXR_PIXEL_FLOAT?8:0);
++      }
++      NFEncodingNumber(&f,"part",part_index);NFEnd(&f,image);
++    }
++  }
+   result=exr_get_data_window(ctxt,part_index,&data_window);
+   if (result == EXR_ERR_SUCCESS)
+     result=exr_get_compression(ctxt,part_index,&compression);
+--- a/coders/heic.c
++++ b/coders/heic.c
+@@ -45,6 +45,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+@@ -476,6 +477,14 @@
+   bits_per_pixel=heif_image_handle_get_luma_bits_per_pixel(image_handle);
+   if (bits_per_pixel != -1)
+     image->depth=(size_t) bits_per_pixel;
++  {
++    NativeFacts f;int chroma=heif_image_handle_get_chroma_bits_per_pixel(image_handle);
++    NFBegin(&f,"HEIC","coded-components");
++    NFChannel(&f,"luma","color","uint",bits_per_pixel>0?(unsigned)bits_per_pixel:0,0);
++    if(chroma>0){NFChannel(&f,"chroma.0","color","uint",(unsigned)chroma,0);NFChannel(&f,"chroma.1","color","uint",(unsigned)chroma,0);}
++    if(heif_image_handle_has_alpha_channel(image_handle))NFChannel(&f,"A","alpha","unknown",0,0);
++    f.association=heif_image_handle_is_premultiplied_alpha(image_handle)?"premultiplied":"straight";NFEnd(&f,image);
++  }
+   preserve_orientation=IsStringTrue(GetImageOption(image_info,
+     "heic:preserve-orientation"));
+   if (preserve_orientation == MagickFalse)
+--- a/coders/pnm.c
++++ b/coders/pnm.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+@@ -518,6 +519,16 @@
+     if ((max_value == 0) || (max_value > 4294967295UL))
+       ThrowPNMException(CorruptImageError,"ImproperImageHeader");
+     for (depth=1; GetQuantumRange(depth) < max_value; depth++) ;
++    {
++      NativeFacts f;int floating=format=='f'||format=='F'||format=='h'||format=='H';
++      int gray=format=='f'||format=='h'||format=='1'||format=='2'||format=='4'||format=='5'||colorspace==GRAYColorspace;
++      const char *model=colorspace==CMYKColorspace?"CMYK":gray?"GRAY":"RGB";
++      unsigned bits=floating?(format=='h'||format=='H'?16:32):(unsigned)depth;
++      NFBegin(&f,floating?"PFM":"PNM",model);NFUniform(&f,model,floating?"float":"uint",bits,(image->alpha_trait&BlendPixelTrait)!=0);
++      if(floating){NFEncodingNumber(&f,"decodedScale",fabs(quantum_scale));NFEncodingString(&f,"endian",quantum_scale<0?"little":"big");NFEncodingString(&f,"rowOrder","bottom-to-top");}
++      else NFEncodingNumber(&f,"declaredMaximum",(double)max_value);
++      f.association="straight";NFEnd(&f,image);
++    }
+     image->depth=depth;
+     if ((image_info->ping != MagickFalse) && (image_info->number_scenes != 0))
+       if (image->scene >= (image_info->scene+image_info->number_scenes-1))
+--- a/coders/hdr.c
++++ b/coders/hdr.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+ #include "MagickCore/cache.h"
+@@ -385,6 +386,13 @@
+       image->chromaticity.white_point.x=white_point[0];
+       image->chromaticity.white_point.y=white_point[1];
+     }
++  {
++    NativeFacts f;int xyz=LocaleCompare(format,"32-bit_rle_xyze")==0;
++    const char *map=xyz?"XYZ":"RGB";NFBegin(&f,"HDR",xyz?"XYZ":"RGB");
++    for(unsigned c=0;map[c];c++){char name[2]={map[c],0};NFChannel(&f,name,"color","shared-exponent",8,8);}
++    NFEncodingNumber(&f,"pixelStorageBits",32);NFEncodingString(&f,"exponent","shared-biased-128");
++    NFEncodingString(&f,"decodedType","float32");NFEnd(&f,image);
++  }
+   image->compression=(image->columns < 8) || (image->columns > 0x7ffff) ?
+     NoCompression : RLECompression;
+   if (image_info->ping != MagickFalse)
+--- a/coders/farbfeld.c
++++ b/coders/farbfeld.c
+@@ -42,6 +42,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+@@ -186,6 +187,10 @@
+   image->columns=(size_t) ReadBlobLong(image);
+   image->rows=(size_t) ReadBlobLong(image);
+   image->alpha_trait=BlendPixelTrait;
++  {
++    NativeFacts f;NFBegin(&f,"FARBFELD","RGB");NFUniform(&f,"RGB","uint",16,1);
++    f.association="straight";NFEncodingString(&f,"endian","big");NFEnd(&f,image);
++  }
+   if (image_info->ping != MagickFalse)
+     {
+       (void) CloseBlob(image);
+--- a/coders/qoi.c
++++ b/coders/qoi.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+ #include "MagickCore/constitute.h"
+@@ -234,6 +235,9 @@
+     (void) SetImageColorspace(image,RGBColorspace,exception);
+   else
+     ThrowReaderException(CorruptImageError,"ImproperImageHeader");
++  {
++    NativeFacts f;NFBegin(&f,"QOI","RGB");NFUniform(&f,"RGB","uint",8,(image->alpha_trait&BlendPixelTrait)!=0);f.association="straight";NFEnd(&f,image);
++  }
+   if (image->ping != MagickFalse)
+     {
+       (void) CloseBlob(image);
+--- a/coders/bmp.c
++++ b/coders/bmp.c
+@@ -42,6 +42,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+ #include "MagickCore/cache.h"
+@@ -1041,6 +1042,21 @@
+       ((bmp_info.compression == BI_BITFIELDS) || 
+        (bmp_info.compression == BI_ALPHABITFIELDS))) ? BlendPixelTrait :
+        UndefinedPixelTrait;
++    {
++      NativeFacts f;int indexed=bmp_info.bits_per_pixel<=8;
++      NFBegin(&f,"BMP",indexed?"indexed":"RGB");
++      if(indexed){NFChannel(&f,"index","index","uint",bmp_info.bits_per_pixel,0);NFUniform(&f,"RGB","uint",8,0);}
++      else{
++        unsigned long masks[4]={bmp_info.red_mask,bmp_info.green_mask,bmp_info.blue_mask,bmp_info.alpha_mask};
++        const char *map="RGBA";
++        for(unsigned c=0;c<4;c++){
++          unsigned bits=0;unsigned long mask=masks[c];while(mask){bits+=(unsigned)(mask&1UL);mask>>=1;}
++          if(!bits&&c<3)bits=bmp_info.bits_per_pixel==16?5:8;
++          if(bits){char name[2]={map[c],0};NFChannel(&f,name,c==3?"alpha":"color","uint",bits,0);}
++        }
++      }
++      NFEncodingNumber(&f,"pixelStorageBits",bmp_info.bits_per_pixel);NFEncodingNumber(&f,"compression",bmp_info.compression);NFEnd(&f,image);
++    }
+     if (bmp_info.bits_per_pixel < 16)
+       {
+         size_t
+--- a/coders/pcx.c
++++ b/coders/pcx.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+ #include "MagickCore/blob-private.h"
+@@ -354,6 +355,25 @@
+     image->resolution.x=(double) pcx_info.horizontal_resolution;
+     image->resolution.y=(double) pcx_info.vertical_resolution;
+     image->colors=16;
++    {
++      NativeFacts f;MagickOffsetType at=TellBlob(image);int planes=-1;
++      /* The legacy Ping returns before reading the rest of this128-byte header.
++         Peek only the already-declared plane count, then restore exact position.
++         No raster, palette scan, separate open or second decompression. */
++      if(at>=0&&SeekBlob(image,at+49,SEEK_SET)>=0){planes=ReadBlobByte(image);(void)SeekBlob(image,at,SEEK_SET);}
++      NFBegin(&f,"PCX",planes>1&&pcx_info.bits_per_pixel==8?"planar":"indexed");
++      if(planes>1&&planes<=6&&pcx_info.bits_per_pixel==8){
++        const char *map="RGBA";for(int c=0;c<planes;c++){
++          char name[32];if(c<4){name[0]=map[c];name[1]=0;}else (void)snprintf(name,sizeof(name),"extra.%u",c-4);
++          NFChannel(&f,name,c==3?"alpha":c<3?"color":"meta","uint",8,0);
++        }
++        NFEncodingString(&f,"alphaInterpretation","legacy-fourth-plane");
++      }else{
++        NFChannel(&f,"index","index","uint",planes>0?(unsigned)(planes*pcx_info.bits_per_pixel):0,0);
++        NFUniform(&f,"RGB","uint",8,0);
++      }
++      NFEncodingNumber(&f,"planeCount",planes>0?planes:0);NFEncodingNumber(&f,"planeBits",pcx_info.bits_per_pixel);NFEnd(&f,image);
++    }
+     if ((image_info->ping != MagickFalse) && (image_info->number_scenes != 0))
+       if (image->scene >= (image_info->scene+image_info->number_scenes-1))
+         break;
+--- a/coders/tga.c
++++ b/coders/tga.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+@@ -348,6 +349,19 @@
+     }
+   else
+     image->orientation=TopLeftOrientation;
++  {
++    NativeFacts f;int indexed=tga_info.image_type==TGAColormap||tga_info.image_type==TGARLEColormap;
++    int gray=tga_info.image_type==TGAMonochrome||tga_info.image_type==TGARLEMonochrome;
++    unsigned stored=indexed?tga_info.colormap_size:tga_info.bits_per_pixel;
++    unsigned alpha=tga_info.attributes&15U;const char *model=indexed?"indexed":gray?"GRAY":"RGB";
++    NFBegin(&f,"TGA",model);
++    if(indexed)NFChannel(&f,"index","index","uint",tga_info.bits_per_pixel,0);
++    NFUniform(&f,gray?"GRAY":"RGB","uint",gray?8:stored<=16&&stored>8?5:8,0);
++    if(alpha)NFChannel(&f,"A","alpha","uint",alpha,0);
++    else if(stored==32)NFChannel(&f,"reserved","meta","uint",8,0);
++    NFEncodingNumber(&f,"pixelStorageBits",tga_info.bits_per_pixel);NFEncodingNumber(&f,"paletteStorageBits",indexed?tga_info.colormap_size:0);
++    NFEncodingNumber(&f,"attributeBits",alpha);NFEnd(&f,image);
++  }
+   if (image_info->ping != MagickFalse)
+     {
+       (void) CloseBlob(image);
+--- a/coders/icon.c
++++ b/coders/icon.c
+@@ -41,6 +41,7 @@
+   Include declarations.
+ */
+ #include "MagickCore/studio.h"
++#include "MagickCore/source-samples-private.h"
+ #include "MagickCore/artifact.h"
+ #include "MagickCore/attribute.h"
+ #include "MagickCore/blob.h"
+@@ -544,6 +545,15 @@
+             p++;
+           }
+           icon_colormap=(unsigned char *) RelinquishMagickMemory(icon_colormap);
++        }
++        {
++          NativeFacts f;int indexed=bits_per_pixel<=8;
++          NFBegin(&f,"ICO",indexed?"indexed":"RGB");
++          if(indexed)NFChannel(&f,"index","index","uint",bits_per_pixel,0);
++          NFUniform(&f,"RGB","uint",bits_per_pixel==16?5:8,0);
++          if(bits_per_pixel==32)NFChannel(&f,"A.pixel","alpha","uint",8,0);
++          NFChannel(&f,"A.mask","alpha","uint",1,0);
++          NFEncodingNumber(&f,"pixelStorageBits",bits_per_pixel);NFEncodingString(&f,"alphaEncoding","pixel-and-AND-mask-when-present");NFEnd(&f,image);
+         }
+         /*
+           Convert Icon raster image to pixel packets.

@@ -1,0 +1,42 @@
+{
+  "source-samples-private.h": {
+    "bytes": 3830,
+    "sha256": "1620dd712a19f73a5652afaffa692335e87764f9a77892402b49cab369e88392"
+  },
+  "IMAGE-METADATA-PATCHES.json": {
+    "bytes": 3755,
+    "sha256": "5111ac67491d95d033c84babd1adbfa5d0a60e671f1c230f624530079465164a"
+  },
+  "SOURCE-ARCHIVES.json": {
+    "bytes": 1392,
+    "sha256": "6d2545fd6518138d58747e0fc2ae98a738ce604bc9ff8da7f258a1894b8e9264"
+  },
+  "SOURCE-REFS.json": {
+    "bytes": 322,
+    "sha256": "a0d012119f022a0bf9a42bbcd14e4f44826b287204b4f3d6713ecb87b9346f3e"
+  },
+  "DEPENDENCY-SOURCE-REFS.json": {
+    "bytes": 3021,
+    "sha256": "82b1101342f188d2aecf97bfcd5931807c4c865b5fce6224dca37d388fedf735"
+  },
+  "patches/magick-native-configurable-prefixes.patch": {
+    "bytes": 1043,
+    "sha256": "dde20bd8e1ca9c5e1a9f4ea105ecdbfd9a455b4c18c58da6d1736cc77f240642"
+  },
+  "patches/magick-wasm-source-metadata.patch": {
+    "bytes": 259567,
+    "sha256": "996d8216ef834f67ad4845b95af3406a45fe8078b7f47aa5cccca72bac1e8057"
+  },
+  "patches/imagemagick-source-metadata.patch": {
+    "bytes": 21242,
+    "sha256": "b34708b354f140bbec14210daf0182461f55cd5153cf06049df830df49a02efc"
+  },
+  "sdk/magick-image-info.ts": {
+    "bytes": 4911,
+    "sha256": "70b8ed1a0ee182cbc418384cf5b789d7d79075cf043564f87d1ff89c1ef04e49"
+  },
+  "sdk/source-sample-facts.ts": {
+    "bytes": 4738,
+    "sha256": "64a89f62da73f523baa96e580c128bd1797f16fca794f5bf7d2336d7ee456986"
+  }
+}

@@ -1,12 +1,18 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {EngineError,checkAbort,requireValue} from './errors.js';
 
 // Generated from vendor/media/PINNED.json and the pinned physical lengths.
 // BEGIN GENERATED MEDIA PINS
 export const MEDIA_RESOURCE_PINS=Object.freeze({
- magick:Object.freeze({file:'magick/x86/magick.wasm',url:new URL('../vendor/media/magick/x86/magick.wasm',import.meta.url).href,bytes:15447097,sha256:'b7d6710436b150dc5bd1ca04d80b6b7614c54854d7470f888f7e69a2a41b00e4'}),
+ magick:Object.freeze({file:'magick/x86/magick.wasm',url:new URL('../vendor/media/magick/x86/magick.wasm',import.meta.url).href,bytes:15539155,sha256:'5393a3ae339a9b165a60ebc0fd5f71ff7a3471d1790e44e22a6ec1ecbf06ffca'}),
  avifSt:Object.freeze({file:'avif/avif-st.wasm',url:new URL('../vendor/media/avif/avif-st.wasm',import.meta.url).href,bytes:6075534,sha256:'8a0468a7f68d2eb915d14571ad046272e4db3c8ba25ff2518aacb2fd37b32800'}),
- srgb:Object.freeze({file:'srgb.icc',url:new URL('../vendor/media/srgb.icc',import.meta.url).href,bytes:588,sha256:'43a3c4fdd280876312a6e0f98fb408528d5ba8ba0af6f9f78b7939730303d77a'})
+ srgb:Object.freeze({file:'srgb.icc',url:new URL('../vendor/media/srgb.icc',import.meta.url).href,bytes:588,sha256:'43a3c4fdd280876312a6e0f98fb408528d5ba8ba0af6f9f78b7939730303d77a'}),
+ magickNative16:Object.freeze({file:'magick-native/q16/native-magick.wasm',url:new URL('../vendor/media/magick-native/q16/native-magick.wasm',import.meta.url).href,bytes:17704053,sha256:'94f9dd849f766d20e150c1845ee699f43439e63676882983522981d7d6c78984'}),
+ magickNative32:Object.freeze({file:'magick-native/q32/native-magick.wasm',url:new URL('../vendor/media/magick-native/q32/native-magick.wasm',import.meta.url).href,bytes:17724259,sha256:'2551d53d6dde11c315bd5fe19fc45570c8d8ea3c2460cc46675ec9b00ca96cb1'})
+});
+export const NATIVE_MAGICK_RESOURCE_METADATA=Object.freeze({
+ 16:Object.freeze({quantumDepth:16,wasmResourceId:'magickNative16',moduleURL:new URL('../vendor/media/magick-native/q16/native-magick.mjs',import.meta.url).href,moduleSourceBytes:137613,moduleSourceSha256:'915b62719dee9e94ad75020b28faf2ebb145b1875db13a2a8fb389aa74cdd794',initialWasmBytes:33554432,moduleMaximumWasmBytes:4294967296,quantumStorageBytes:4}),
+ 32:Object.freeze({quantumDepth:32,wasmResourceId:'magickNative32',moduleURL:new URL('../vendor/media/magick-native/q32/native-magick.mjs',import.meta.url).href,moduleSourceBytes:137674,moduleSourceSha256:'2051aeecad73bfee9b1692126227fb86e6484ae924208de5e0c0779f2217fd70',initialWasmBytes:33554432,moduleMaximumWasmBytes:4294967296,quantumStorageBytes:8})
 });
 // END GENERATED MEDIA PINS
 

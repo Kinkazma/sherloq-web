@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 import {Budget} from './cache.js';
 import {resolveComputeProfile} from './profiles.js';
 import {LiveMemoryPolicy} from './live-memory-policy.js';

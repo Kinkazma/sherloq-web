@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 // Private, opportunistic cache for eligible simple RGB presentations.
 // Every operation still passes the same metadata/resource ownership guards.
 // It owns one immutable 7C source; public outputs retain their own source/state.
@@ -30,27 +30,38 @@ function copyPlain(value,{skipPixels=false,maxBytes=maxMetadataBytes}={}){
  const result=copy(value,true);if(estimate>maxBytes)throw fail('CACHE_UNQUALIFIED','Metadata budget exceeded.');return{value:result,estimatedBytes:estimate};
 }
 function stable(value){if(Object.is(value,-0))return'-0';if(value===undefined)return'undefined';if(value===null||typeof value!=='object')return JSON.stringify(value);if(Array.isArray(value))return'['+value.map(stable).join(',')+']';return'{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+stable(value[k])).join(',')+'}';}
-function scientificKey(task,plan,image){
+function originalIdentity(image,includeNative=true){
+ const descriptor=image.surface?.descriptor??{},native=includeNative?image.nativeSurface?.descriptor:null;
+ return{sha256:image.sha256,width:image.width??descriptor.width,height:image.height??descriptor.height,id:descriptor.id,revision:descriptor.revision,format:descriptor.format,...(native?{native:{id:native.id,revision:native.revision,width:native.width,height:native.height,format:native.format,depth:native.depth}}:{})};
+}
+function scientificKey(task,plan,image,includeNative=true){
  if(!eligibleOperations.has(task.operation))return null;
  try{
   // Only the root request id is temporal. Nested ids/seeds and ALL scientific
   // fields stay in the key. Unsupported transports simply miss this cache.
   for(const key of Reflect.ownKeys(task)){const property=Object.getOwnPropertyDescriptor(task,key);if(typeof key!=='string'||!property.enumerable||!Object.hasOwn(property,'value'))throw fail('CACHE_UNQUALIFIED','Task properties must be plain enumerable values.');}
   const {id,...baseTask}=task,{value}=copyPlain({...baseTask,params:plan.base},{maxBytes:4*maxKeyCharacters});
-  const descriptor=image.surface?.descriptor??{};
-  const text=stable({task:value,original:{sha256:image.sha256,width:image.width??descriptor.width,height:image.height??descriptor.height,id:descriptor.id,revision:descriptor.revision,format:descriptor.format}});
+  const text=stable({task:value,original:originalIdentity(image,includeNative)});
   return text.length<=maxKeyCharacters?text:null;
  }catch(error){if(error.code==='CACHE_UNQUALIFIED')return null;throw error;}
 }
 function snapshotAnswer(answer,image,inputDescriptor){
  if(answer?.status!=='ok')return null;
  for(const name of['planeSurfaces','rgbSurfaces','maskSurfaces','flagSurfaces','tables'])if(Object.keys(answer[name]??{}).length)return null;
- const primary=answer.surface?.id,original=image.surface?.descriptor?.id;
+ const primary=answer.surface?.id,original=image.surface?.descriptor?.id,native=image.nativeSurface?.descriptor;
+ const originals=new Map();
+ for(const descriptor of [image.surface?.descriptor,...(native?.format==='rgb16'&&native.depth===16?[native]:[])])if(descriptor?.id)originals.set(descriptor.id,descriptor);
+ const originalReference=(id,value)=>{
+  const descriptor=originals.get(id);if(!descriptor)return false;
+  // A native provenance reference belongs to this captured Original, not to
+  // another result or another revision with a coincidentally matching shape.
+  return ['revision','width','height','format','depth'].every(key=>!Object.hasOwn(value,key)||value[key]===descriptor[key]);
+ };
  try{
   // Copy first: this rejects cycles/accessors and leaves no reachable backing
   // store. Only the root primary descriptor is remapped by result publication.
   const snapshot=copyPlain(answer,{skipPixels:true});
-  function resourceCheck(value){if(!value||typeof value!=='object')return true;if(value.id&&Number.isInteger(value.revision)&&((Number.isInteger(value.width)&&Number.isInteger(value.height))||Number.isInteger(value.rowCount))&&value.id!==original)return false;return Object.entries(value).every(([key,part])=>!(['surfaceId','tableId'].includes(key)&&typeof part==='string'&&(key==='tableId'||part!==original))&&resourceCheck(part));}
+  function resourceCheck(value){if(!value||typeof value!=='object')return true;if(value.id&&Number.isInteger(value.revision)&&((Number.isInteger(value.width)&&Number.isInteger(value.height))||Number.isInteger(value.rowCount))&&!originalReference(value.id,value))return false;return Object.entries(value).every(([key,part])=>!(typeof part==='string'&&(key==='tableId'||key==='surfaceId'&&!originalReference(part,value)))&&resourceCheck(part));}
   for(const [key,value]of Object.entries(snapshot.value)){
    if(key==='surface')continue;
    if(key==='layers'){if(!Array.isArray(value))return null;for(const layer of value){const{surfaceId,...rest}=layer;if(surfaceId&&surfaceId!==primary&&surfaceId!==original||!resourceCheck(rest))return null;}}
@@ -71,7 +82,7 @@ export function createSherloqPresentationCache({budget}={}){
    if(entry.clearCoreRequested&&!entry.coreCleared){if(entry.core.memory?.().busy)throw fail('BUSY','Presentation runtime still computing.');await entry.core.clearCache();entry.coreCleared=true;}
    if(entry.input){await entry.input.release();entry.input=null;}
    if(entry.metadataLease){entry.metadataLease();entry.metadataLease=null;}
-   entry.answer=entry.descriptor=entry.image=entry.core=null;pending.delete(entry);
+   entry.answer=entry.descriptor=entry.image=entry.core=entry.originalSurface=entry.nativeSurface=null;pending.delete(entry);
   })();
   entry.retiring=task;void task.finally(()=>{if(entry.retiring===task)entry.retiring=null;}).catch(()=>{});return task;
  }
@@ -83,9 +94,10 @@ export function createSherloqPresentationCache({budget}={}){
  return{
   async begin(task,plan,image,core){
    if(closed)throw fail('DISPOSED','Presentation cache closed.');if(active)throw fail('BUSY','One presentation transaction at a time.');const preparing={preparing:true};active=preparing;try{await drain();
-   const key=scientificKey(task,plan,image),hit=key!==null&&current?.key===key&&current.image===image&&current.core===core;
+   const originalSurface=image.surface,nativeSurface=image.nativeSurface??null,originalKey=scientificKey(task,plan,image,false);
+   const key=scientificKey(task,plan,image),hit=key!==null&&current?.key===key&&current.image===image&&current.core===core&&current.originalSurface===originalSurface&&current.nativeSurface===nativeSurface;
    if(!hit&&current){current.clearCoreRequested=true;await retire(current,{clearCore:true});}
-   const entry=hit?current:{key,image,imageId:task.imageId,core,input:null,answer:null,descriptor:null,metadataLease:null,metadataBytes:0,coreCleared:false};
+   const entry=hit?current:{key,image,imageId:task.imageId,core,originalSurface,nativeSurface,input:null,answer:null,descriptor:null,metadataLease:null,metadataBytes:0,coreCleared:false};
    const programIdentity=Object.freeze({sourceKey:key,maxSide:plan.state.sherloq7c.maxSide??512,precision:plan.state.sherloq7c.precision,computationMode:plan.state.sherloq7c.computationMode??'precision'});const token={entry,hit,committed:hit,finished:false,importing:null,finishing:null};active=token;
    return{
     hit,programIdentity,
@@ -101,11 +113,19 @@ export function createSherloqPresentationCache({budget}={}){
     },
     commit(answer,inputDescriptor){
      if(token.finished||active!==token)throw fail('DISPOSED','Presentation transaction retired.');if(hit)return true;
-     if(key===null||!entry.input)return false;const snapshot=snapshotAnswer(answer,image,inputDescriptor);if(!snapshot)return false;
+     if(key===null||!entry.input)return false;
+     if(image.surface!==originalSurface||scientificKey(task,plan,image,false)!==originalKey)return false;
+     const currentNative=image.nativeSurface??null,commitKey=scientificKey(task,plan,image);
+     // A lazy native decode may be attached to this same unchanged Original
+     // by its first base calculation. Only absence -> valid native is allowed;
+     // an existing native owner/revision can never be silently replaced.
+     if(nativeSurface!==currentNative){const d=currentNative?.descriptor,original=originalSurface?.descriptor;if(nativeSurface!==null||!d||d.format!=='rgb16'||d.depth!==16||d.width!==original?.width||d.height!==original?.height)return false;}
+     if(commitKey===null||commitKey!==key&&nativeSurface!==null)return false;
+     const snapshot=snapshotAnswer(answer,image,inputDescriptor);if(!snapshot)return false;
      let descriptor;try{descriptor=copyPlain(inputDescriptor);}catch(error){if(error.code==='CACHE_UNQUALIFIED')return false;throw error;}
-     const metadataBytes=snapshot.estimatedBytes+descriptor.estimatedBytes+key.length*2+1024;if(metadataBytes>maxMetadataBytes)return false;
+     const metadataBytes=snapshot.estimatedBytes+descriptor.estimatedBytes+commitKey.length*2+1024;if(metadataBytes>maxMetadataBytes)return false;
      let lease;try{lease=budget.reserve(metadataBytes);}catch(error){if(error.code==='MEMORY_LIMIT'||error.code==='MEMORY_ALLOCATION')return false;throw error;}
-     entry.metadataLease=lease;entry.metadataBytes=metadataBytes;entry.answer=snapshot.value;entry.descriptor=Object.freeze(descriptor.value);current=entry;token.committed=true;return true;
+     entry.key=commitKey;entry.nativeSurface=currentNative;entry.metadataLease=lease;entry.metadataBytes=metadataBytes;entry.answer=snapshot.value;entry.descriptor=Object.freeze(descriptor.value);current=entry;token.committed=true;return true;
     },
     finish(options={}){
      if(token.finishing)return token.finishing;token.finished=true;

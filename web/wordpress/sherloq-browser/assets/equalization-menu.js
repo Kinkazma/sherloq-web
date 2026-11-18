@@ -1,4 +1,4 @@
-import {positionViewportPopup} from './viewport-popup.js?v=0.33.1';
+import {positionViewportPopup} from './viewport-popup.js?v=0.33.2';
 import {equalizationMethods,equalizationState as normalizeEqualizationState,equalizationOperations} from './unified-engine/src/equalization-settings.js';
 export {equalizationMethods,equalizationOperations};
 // Shared equalization controls always request Fast/Auto. The standalone
@@ -79,4 +79,43 @@ export function sherloqComputationNotice(metrics,language='fr'){
  if(!m||!['fast','precision'].includes(m.effectiveComputationMode))return null;
  const name=m.effectiveComputationMode==='fast'?(fr?'Rapide':'Fast'):(fr?'Précision':'Precision');
  return (fr?'Résultat affiché : ':'Displayed result: ')+name+(m.fallbackReason?(fr?' · repli sans GPU':' · fallback without GPU'):'');
+}
+
+// Preserve each native select as the only value/form/event owner. The shared
+// SHERLOQ popover replaces its OS picker, not its DOM or scientific bindings.
+export function mountSherloqSelectMenus(root=globalThis.document){
+ const doc=root.ownerDocument??root,win=doc.defaultView;let current=null,disposed=false,typeBuffer='',typeTime=0;
+ const path=event=>event.composedPath?.()??[event.target];
+ const selectFor=event=>path(event).find(node=>node?.tagName==='SELECT');
+ const admitted=select=>select&&!select.multiple&&select.size<=1&&!select.matches(':disabled')&&!select.hidden;
+ const enabled=option=>!option.disabled&&!option.parentElement?.disabled&&!option.hidden&&!option.parentElement?.hidden;
+ function style(scope){if(scope.querySelector('link[data-sherloq-select-style]'))return;const link=doc.createElement('link');link.dataset.sherloqSelectStyle='';link.rel='stylesheet';link.href=new URL('./equalization-menu.css',import.meta.url).href;(scope.nodeType===9?scope.head:scope).append(link);}
+ function restore(select,name,value){if(value===null)select.removeAttribute(name);else select.setAttribute(name,value);}
+ function close(focus=false){const old=current;if(!old)return;current=null;old.observer?.disconnect();old.resize?.disconnect();if(old.top&&old.popup.matches(':popover-open'))old.popup.hidePopover();old.popup.remove();restore(old.select,'aria-expanded',old.expanded);restore(old.select,'aria-controls',old.controls);restore(old.select,'aria-haspopup',old.haspopup);if(focus&&old.select.isConnected&&!old.select.matches(':disabled'))old.select.focus();typeBuffer='';}
+ function position(){if(!current)return;if(!current.select.isConnected||!admitted(current.select)){close();return;}positionViewportPopup(current.select,current.popup,{width:Math.max(160,current.select.getBoundingClientRect().width)});}
+ function visibleOptions(select){return Array.from(select.options).filter(option=>!option.hidden&&!option.parentElement?.hidden);}
+ function focusOption(index){if(!current)return;const button=current.buttons.find(item=>item.index===index)?.button??current.buttons.find(item=>!item.button.disabled)?.button;button?.focus();button?.scrollIntoView?.({block:'nearest'});}
+ function choose(index){const old=current;if(!old||!admitted(old.select))return;const option=old.select.options[index];if(!option||!enabled(option))return;const changed=old.select.selectedIndex!==index;old.select.selectedIndex=index;close(true);if(changed){old.select.dispatchEvent(new win.Event('input',{bubbles:true,composed:true}));old.select.dispatchEvent(new win.Event('change',{bubbles:true}));}}
+ function fill(){const old=current;if(!old)return;const {select,list}=old,scope=select.getRootNode(),focused=old.buttons.find(item=>item.button===doc.activeElement||item.button===scope.activeElement)?.index;old.buttons=[];list.replaceChildren();let group=null;
+  for(const option of visibleOptions(select)){const parent=option.parentElement;if(parent?.tagName==='OPTGROUP'&&parent!==group){const heading=doc.createElement('div');heading.className='eq-select-group';heading.textContent=parent.label;heading.setAttribute('role','presentation');list.append(heading);group=parent;}
+   const button=doc.createElement('button'),index=Array.from(select.options).indexOf(option);button.type='button';button.textContent=option.label;button.title=option.title;button.setAttribute('role','option');button.setAttribute('aria-selected',String(option.selected));button.disabled=!enabled(option);button.tabIndex=-1;if(option.dataset.newFeature)button.dataset.newFeature=option.dataset.newFeature;button.addEventListener('click',()=>choose(index));list.append(button);old.buttons.push({index,button});
+  }
+  old.popup.dataset.highlightNewFeatures=String(!!select.closest('.highlight-new-features'));if(!old.buttons.length){close();return;}position();if(focused!==undefined)focusOption(focused);
+ }
+ function open(select){if(disposed||!admitted(select))return;if(current?.select===select)return;close();const scope=select.getRootNode();style(scope);const popup=doc.createElement('div'),list=doc.createElement('div');popup.className='eq-popover eq-select-popover';popup.id='sherloq-select-'+Math.random().toString(36).slice(2);popup.setAttribute('popover','manual');list.className='eq-methods eq-select-options';list.setAttribute('role','listbox');list.setAttribute('aria-label',select.getAttribute('aria-label')??select.labels?.[0]?.textContent?.trim()??select.title??'');popup.append(list);
+  const mount=select.closest('[popover],dialog[open],details[open]')??(scope.nodeType===9?scope.body:scope);mount.append(popup);const top=typeof popup.showPopover==='function';current={select,popup,list,top,buttons:[],expanded:select.getAttribute('aria-expanded'),controls:select.getAttribute('aria-controls'),haspopup:select.getAttribute('aria-haspopup')};select.setAttribute('aria-expanded','true');select.setAttribute('aria-controls',popup.id);select.setAttribute('aria-haspopup','listbox');if(top)popup.showPopover();fill();if(!current)return;
+  const active=current;active.observer=win.MutationObserver?new win.MutationObserver(records=>{if(current!==active)return;if(!admitted(select)||!select.isConnected){close();return;}if(records.some(record=>record.target===select||select.contains(record.target)))fill();}):null;active.observer?.observe(scope,{subtree:true,childList:true,attributes:true,characterData:true});active.resize=win.ResizeObserver?new win.ResizeObserver(position):null;active.resize?.observe(select);active.resize?.observe(popup);
+  popup.addEventListener('keydown',event=>{const candidates=current?.buttons.filter(item=>!item.button.disabled)??[],focused=candidates.findIndex(item=>item.button===doc.activeElement||item.button===scope.activeElement);let next;
+   if(event.key==='Escape'){event.preventDefault();event.stopPropagation();close(true);return;}if(event.key==='Tab'){close(true);return;}
+   if(event.key==='ArrowDown')next=(focused+1)%candidates.length;else if(event.key==='ArrowUp')next=(focused+candidates.length-1)%candidates.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=candidates.length-1;
+   else if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();if(focused>=0)choose(candidates[focused].index);return;}
+   else if(event.key.length===1&&!event.ctrlKey&&!event.metaKey&&!event.altKey){const now=Date.now();typeBuffer=now-typeTime<800?typeBuffer+event.key:event.key;typeTime=now;const term=typeBuffer.toLocaleLowerCase(),from=Math.max(0,focused+1);next=candidates.findIndex((_,offset)=>candidates[(from+offset)%candidates.length].button.textContent.toLocaleLowerCase().startsWith(term));if(next>=0)next=(from+next)%candidates.length;}
+   else return;event.preventDefault();event.stopPropagation();if(next>=0&&candidates[next])focusOption(candidates[next].index);
+  });focusOption(select.selectedIndex);
+ }
+ const pointer=event=>{if(disposed||event.defaultPrevented||event.button!==0)return;const select=selectFor(event);if(admitted(select)){event.preventDefault();select.focus();if(current?.select===select)close();else open(select);}else if(current&&!path(event).includes(current.popup))close();};
+ const click=event=>{const select=selectFor(event);if(!admitted(select))return;event.preventDefault();if(!current&&event.detail===0)open(select);};
+ const keydown=event=>{if(event.defaultPrevented)return;const select=selectFor(event);if(!admitted(select))return;if(['Enter',' ','ArrowDown','ArrowUp','F4'].includes(event.key)&&!event.ctrlKey&&!event.metaKey){event.preventDefault();event.stopPropagation();open(select);}else if(event.key==='Escape'&&current?.select===select){event.preventDefault();event.stopPropagation();close(true);}};
+ root.addEventListener('pointerdown',pointer,true);root.addEventListener('click',click,true);root.addEventListener('keydown',keydown,true);doc.addEventListener('scroll',position,true);win.addEventListener('resize',position);win.visualViewport?.addEventListener('resize',position);win.visualViewport?.addEventListener('scroll',position);
+ return{close,dispose(){if(disposed)return;disposed=true;close();root.removeEventListener('pointerdown',pointer,true);root.removeEventListener('click',click,true);root.removeEventListener('keydown',keydown,true);doc.removeEventListener('scroll',position,true);win.removeEventListener('resize',position);win.visualViewport?.removeEventListener('resize',position);win.visualViewport?.removeEventListener('scroll',position);}};
 }

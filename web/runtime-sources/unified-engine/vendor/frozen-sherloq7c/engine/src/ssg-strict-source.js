@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {createSsgSourceTaskOwner} from './ssg-source-task-owner.js';
 import {attachSsgNormalizationObservation,ssgNormalizationObservation} from './ssg-normalization-observer.js';
 const qualifiedPreparedSources=new WeakSet();export const isSsgStrictPreparedSource=source=>qualifiedPreparedSources.has(source);

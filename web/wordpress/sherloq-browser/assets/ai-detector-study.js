@@ -1,3 +1,5 @@
+import {openDetectorStudyDialog} from './detector-study-dialog.js?v=0.33.2';
+
 // Descriptive results on the Sherloq corpus, 5 November 2026.
 // Display data only: no model loading, inference, or scientific parameters.
 const freeze=value=>{
@@ -290,7 +292,16 @@ export function renderDetectorStudy(document,{method,language='fr'}={}){
  section.className='generation-evaluation';
  section.dataset.detectorStudy=study.method;
  section.lang=lang;
- const source=node('span',copy.source);
+ const source=node('a',copy.source);
+ source.href='https://github.com/Kinkazma/sherloq-web/blob/main/examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf';
+ source.target='_blank';
+ source.rel='noopener noreferrer';
+ source.setAttribute('aria-haspopup','dialog');
+ source.addEventListener('click',event=>{
+  if(event.button>0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();
+  openDetectorStudyDialog({document:source.ownerDocument,language:lang,opener:source});
+ });
  source.className='generation-study-source';
  source.title=copy.population+'. '+copy.rank+' '+study.rank+' '+copy.of+' '+DETECTOR_STUDY_ORDER.length+' '+copy.criterion+'. '+study.recommendation[lang];
  const table=node('table'),head=node('thead'),headRow=node('tr'),body=node('tbody');

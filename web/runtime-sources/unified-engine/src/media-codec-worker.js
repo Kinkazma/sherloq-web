@@ -1,27 +1,38 @@
-import "../../runtime-context.js?v=0.33.1";
+import "../../runtime-context.js?v=0.33.2";
 import {createSHA256} from '../vendor/hash-wasm/hashes.js';
 import {jpegHeader,readTiff,tiffImageHeader} from './image-headers.js';
+import {decodeRawNativeImport,decodeRasterNativeImport,nativeRasterHeader} from './native-color-import.js';
+import {decodeAvifNative} from './avif-hdr-runtime.js';
+import {managedOpeningPreview} from './managed-opening-preview.js';
 import {captureOwnedSourcePrefixIntegrity} from './source-prefix-integrity.js';
 import {heicCell,heicGrid} from './heic-grid.js';
 import {serializeEngineError,deserializeEngineError,EngineError,requireValue} from './errors.js';
-import {extendedImageFormat,sourceImageFormat,isoChroma,webpChroma} from './media-format.js';
+import {extendedImageFormat,sourceImageFormat,isoChroma,webpChroma,isCameraRaw} from './media-format.js';
 import {readVerifiedMediaResource} from './media-resource-integrity.js';
 let sequence=0;const pending=new Map();
 function request(name,value,transfer=[]){const id=++sequence;return new Promise((resolve,reject)=>{pending.set(id,{resolve,reject});self.postMessage({request:name,sequence:id,value},transfer);});}
 const progress=(phase,fraction)=>self.postMessage({progress:{phase,fraction}});
+const preview=value=>request('decoded-preview',value,value.pixels?.data?[value.pixels.data.buffer]:[]);
 async function output(bytes,metadata){return outputParts([bytes],metadata);}
 async function outputParts(parts,metadata){
  await request('output-start',{byteLength:parts.reduce((n,b)=>n+b.length,0),...metadata});let written=0;
  for(const bytes of parts)for(let offset=0;offset<bytes.byteLength;offset+=1024**2){const part=bytes.slice(offset,Math.min(bytes.byteLength,offset+1024**2));const length=part.length;await request('output-chunk',{bytes:part,offset:written},[part.buffer]);written+=length;}
  return metadata;
 }
-async function magick(){
- const m=await import('../vendor/media/magick/index.js');await m.initializeImageMagick(await readVerifiedMediaResource('magick'));
+async function magick(resourceTransform){
+ const m=await import('../vendor/media/magick/index.js');
+ const resource=await readVerifiedMediaResource('magick');
+ await m.initializeImageMagick(resourceTransform?resourceTransform(resource):resource);
  // The decoder creates internal images (orientation, profiles and pixel caches).
  // frameCount below selects one frame without preventing those temporary images.
  m.ResourceLimits.disk=0n;m.ResourceLimits.listLength=16n;m.ResourceLimits.width=65500n;m.ResourceLimits.height=65500n;return m;
 }
-async function decode({blob,name,inspectOnly=false,sourceSha256}){
+async function decode({blob,name,inspectOnly=false,sourceSha256,colorBackend='auto',encodedInput}){
+ requireValue(['auto','cpu'].includes(colorBackend),'Invalid source color backend.');
+ if(encodedInput?.mode==='seekable'){
+  const {decodeSeekable}=await import('./media-seekable-reader.js');
+  return decodeSeekable({blob,name,encodedInput,inspectOnly,magick,decodeGeneric});
+ }
  const bytes=new Uint8Array(await blob.arrayBuffer());
  if(sourceSha256!==undefined){requireValue(typeof sourceSha256==='string'&&/^[a-f0-9]{64}$/i.test(sourceSha256),'Invalid encoded source identity.');const digest=await createSHA256();digest.update(bytes);if(digest.digest('hex')!==sourceSha256.toLowerCase())throw new EngineError('SOURCE_CHANGED','The encoded bytes consumed by the image inspector do not match the loaded original source.');}
  const format=extendedImageFormat(bytes,name);
@@ -29,26 +40,65 @@ async function decode({blob,name,inspectOnly=false,sourceSha256}){
  const originalTiff=format==='TIFF'?tiffImageHeader(readTiff(bytes,0,bytes.length,{allowBigTiff:true})):null,managedTiff=originalTiff?.photometric===5&&originalTiff.samples===4?originalTiff:null;
  requireValue(format,'This image encoding is not supported by the extended image reader.');
  const captured=inspectOnly?null:await captureOwnedSourcePrefixIntegrity(bytes,{reserveMemory:()=>()=>{},onProgress:fraction=>progress('original-sha256',fraction)});
+ const nativeProgress=p=>self.postMessage({progress:p});
+ let nativeResult,retained=false;
+ const nativeRequest=async(action,value,transfer=[])=>{if(action==='decode-header'){value.format=sourceImageFormat(bytes,name)??value.format;value.sourceFormat=value.format;const admission=await request(action,value,transfer);retained=!!admission.retainOriginal;return admission;}return request(action,value,transfer);};
+ // Camera RAW must be recognized before its TIFF-like container. Neither the
+ // embedded JPEG nor an 8-bit ImageMagick raster is a native RAW analysis source.
+ if(isCameraRaw(name)){
+  // LibRaw re-reads the Blob for inspection and development. Bind every read
+  // to the encoded bytes already owned by this job, including inspect-only.
+  let rawSha256=captured?.manifest.sha256??sourceSha256;
+  if(rawSha256===undefined){const digest=await createSHA256();digest.update(bytes);rawSha256=digest.digest('hex');}
+  nativeResult=await decodeRawNativeImport({blob,sourceSha256:rawSha256,inspectOnly,colorBackend},{request:nativeRequest,onProgress:nativeProgress,onPreview:preview});
+ }
+ else if(format==='AVIF'){
+  const result=await decodeAvifNative(bytes,{inspectOnly,colorBackend,threads:navigator.hardwareConcurrency??1,onHeader:h=>nativeRequest('decode-header',h),onWorkspaceReady:value=>nativeRequest('decode-residency',value),onProgress:nativeProgress,onPreview:preview,onBand:async({nativeBytes,displayBytes,y,rows,width})=>{await nativeRequest('decoded-native-band',{bytes:nativeBytes,y,rows,width},[nativeBytes.buffer]);await nativeRequest('decoded-band',{bytes:displayBytes,y,rows,width},[displayBytes.buffer]);}});nativeResult=inspectOnly?{header:result}:result;
+ }else if((format==='PNG'||format==='TIFF')&&nativeRasterHeader(bytes,format))nativeResult=await decodeRasterNativeImport({bytes,format,inspectOnly,colorBackend},{request:nativeRequest,onProgress:nativeProgress,onPreview:preview});
+ if(nativeResult){const sourceFormat=sourceImageFormat(bytes,name)??nativeResult.header.format;nativeResult.header.format=nativeResult.header.sourceFormat=sourceFormat;if(inspectOnly)return nativeResult.header;return{...nativeResult,provenance:{...nativeResult.provenance,format:sourceFormat,sourceFormat},sourceIntegrity:captured.manifest,...(retained?{originalBytes:bytes}:{})};}
  const m=await magick(),settings=new m.MagickReadSettings({format:m.MagickFormat[format]??format,frameIndex:0,frameCount:1});
- const info=m.MagickImageInfo.create(bytes,settings),swapped=info.orientation>=5&&info.orientation<=8;
- const canonicalFormat=sourceImageFormat(bytes,name)??format.toLowerCase(),header={format:canonicalFormat,sourceFormat:canonicalFormat,sourceWidth:info.width,sourceHeight:info.height,width:swapped?info.height:info.width,height:swapped?info.width:info.height,orientation:info.orientation||1,chroma:format==='WEBP'?webpChroma(bytes):isoChroma(bytes),...(managedJpeg?.channels===4?{channels:4,depth:8,sourceColorSpace:managedJpeg.sourceColorSpace,adobeColorTransform:managedJpeg.adobeColorTransform,nativeJpegVerified:false}:{}),...(managedTiff?{channels:4,depth:managedTiff.depth,sourceDepth:managedTiff.depth,sourceColorSpace:'CMYK',nativeTiffVerified:false}:{})};
+ const info=m.MagickImageInfo.create(bytes,settings);
+ return decodeGeneric({m,settings,info,imageInput:bytes,bytes,name,format,inspectOnly,manifest:captured?.manifest,managedJpeg,managedTiff});
+}
+
+async function decodeGeneric({m,settings,info,imageInput,bytes,name,format,inspectOnly,manifest,managedJpeg,managedTiff,seekableHeapBytes,bandBytes,encodedSource}){
+ const swapped=info.orientation>=5&&info.orientation<=8;
+ // These bounded facts were copied by the SDK from this very Ping object.
+ // They describe encoded channels, not preservation in the Q8 RGB raster.
+ const sourceSamples=info.sourceSamples??null,sourceSamplesLimitation=info.sourceSamplesLimitation??(sourceSamples?null:'decoder-source-metadata-unavailable');
+ const canonicalFormat=sourceImageFormat(bytes,name)??format.toLowerCase(),header={rgb8GeometryOwner:'magick8-auto-orient/1',format:canonicalFormat,sourceFormat:canonicalFormat,sourceWidth:info.width,sourceHeight:info.height,width:swapped?info.height:info.width,height:swapped?info.width:info.height,orientation:info.orientation||1,chroma:format==='WEBP'?webpChroma(bytes,encodedSource):isoChroma(bytes,encodedSource),sourceSamples,sourceSamplesLimitation,...(managedJpeg?.channels===4?{channels:4,depth:8,sourceColorSpace:managedJpeg.sourceColorSpace,adobeColorTransform:managedJpeg.adobeColorTransform,nativeJpegVerified:false}:{}),...(managedTiff?{channels:4,depth:managedTiff.depth,sourceDepth:managedTiff.depth,sourceColorSpace:'CMYK',nativeTiffVerified:false}:{})};
  requireValue(Number.isSafeInteger(header.width*header.height)&&header.width>0&&header.height>0,'Invalid image dimensions.');
  if(inspectOnly)return header;
- const admission=await request('decode-header',header);m.ResourceLimits.memory=BigInt(admission.nativeBytes);m.ResourceLimits.maxMemoryRequest=BigInt(admission.nativeBytes);
+ // Both encoded backings use this same decision between Ping and Read.
+ const admission=await request('decode-header',header);
+ const identity=seekableHeapBytes?{verifiedSourceSha256:manifest.sha256}:{sourceIntegrity:manifest};
+ if(admission.action==='hp-source-handoff'){
+  return {kind:'hp-source-handoff',header,...identity};
+ }
+ if(seekableHeapBytes)requireValue(admission.nativeBytes===seekableHeapBytes&&!admission.retainOriginal,'The mounted Read exceeds its admitted heap or requests a full encoded copy.');
+ m.ResourceLimits.memory=BigInt(admission.nativeBytes);m.ResourceLimits.maxMemoryRequest=BigInt(admission.nativeBytes);
  let provenance;
- await m.ImageMagick.read(bytes,settings,async image=>{
-  image.autoOrient();requireValue(image.width===header.width&&image.height===header.height,'Unexpected oriented image size.');
+ await m.ImageMagick.read(imageInput,settings,async image=>{
+  const sourceWidth=image.width,sourceHeight=image.height,orientation=image.orientation||1;
+  requireValue([sourceWidth,sourceHeight].every(v=>Number.isSafeInteger(v)&&v>0)&&sourceWidth*sourceHeight===header.width*header.height&&Number.isInteger(orientation)&&orientation>=1&&orientation<=8,'Unexpected decoded source geometry.');
+  image.autoOrient();
+  requireValue(image.width===(orientation>=5?sourceHeight:sourceWidth)&&image.height===(orientation>=5?sourceWidth:sourceHeight),'Unexpected oriented image size.');
+  Object.assign(header,{sourceWidth,sourceHeight,width:image.width,height:image.height,orientation,orientationApplied:true});
+  const rgb8Geometry={owner:header.rgb8GeometryOwner,sourceWidth,sourceHeight,width:image.width,height:image.height,orientation,orientationApplied:true};
   const profile=image.getColorProfile(),cicp=image.getAttribute('heic:cicp');
   if(profile)image.transformColorSpace(new m.ColorProfile(await readVerifiedMediaResource('srgb')));
   // CMYK samples are not RGB samples. With no embedded profile,
   // request ImageMagick's CMYK-to-sRGB conversion before exporting RGB bands.
   if((managedJpeg?.channels===4||managedTiff)&&image.colorSpace!==m.ColorSpace.sRGB)image.colorSpace=m.ColorSpace.sRGB;
-  provenance={decoder:'ImageMagick-7.1.2-32/magick-wasm-0.0.44',format:header.format,sourceFormat:header.sourceFormat,chroma:header.chroma,sourceSize:[info.width,info.height],orientation:header.orientation,orientationApplied:true,analysisDepth:8,icc:profile?'converted to sRGB':'absent; native RGB conversion',frames:'first image only',alpha:image.hasAlpha?'present, RGB channels retained without alpha':'absent',cicp:profile?null:cicp,...(managedJpeg?.channels===4?{sourceColorSpace:managedJpeg.sourceColorSpace,sourceChannels:4,adobeColorTransform:managedJpeg.adobeColorTransform,nativeJpegVerified:false,colorConversion:profile?'embedded CMYK ICC to sRGB':'ImageMagick native CMYK to sRGB'}:{}),...(managedTiff?{sourceColorSpace:'CMYK',sourceChannels:4,sourceDepth:managedTiff.depth,depth:managedTiff.depth,nativeTiffVerified:false,colorConversion:profile?'embedded CMYK ICC to sRGB':'ImageMagick native CMYK to sRGB'}:{})};
-  for(let y=0;y<image.height;y+=32){const rows=Math.min(32,image.height-y);const rgb=image.getPixels(pixels=>pixels.toByteArray(0,y,image.width,rows,'RGB'));requireValue(rgb instanceof Uint8Array&&rgb.length===image.width*rows*3,'Invalid decoded RGB band.');
+  const openingPixels=await managedOpeningPreview({width:image.width,height:image.height,readRows:(y,rows)=>image.getPixels(pixels=>pixels.toByteArray(0,y,image.width,rows,'RGB')),transform:!profile&&cicp?.split(/[\/,]/)[1]==='16'?rgb=>pqToSdr(rgb,cicp):undefined});
+  await preview({pixels:openingPixels,sourceWidth:image.width,sourceHeight:image.height,orientation:1,decoder:'ImageMagick shared SDR preview',presentationOnly:true});
+  provenance={decoder:'ImageMagick-7.1.2-32/magick-wasm-0.0.44',format:header.format,sourceFormat:header.sourceFormat,chroma:header.chroma,sourceSize:[sourceWidth,sourceHeight],orientation:header.orientation,orientationApplied:true,analysisDepth:8,sourceSamples,sourceSamplesLimitation,icc:profile?'converted to sRGB':'absent; native RGB conversion',frames:'first image only',alpha:image.hasAlpha?'present, RGB channels retained without alpha':'absent',cicp:profile?null:cicp,...(managedJpeg?.channels===4?{sourceColorSpace:managedJpeg.sourceColorSpace,sourceChannels:4,adobeColorTransform:managedJpeg.adobeColorTransform,nativeJpegVerified:false,colorConversion:profile?'embedded CMYK ICC to sRGB':'ImageMagick native CMYK to sRGB'}:{}),...(managedTiff?{sourceColorSpace:'CMYK',sourceChannels:4,sourceDepth:managedTiff.depth,depth:managedTiff.depth,nativeTiffVerified:false,colorConversion:profile?'embedded CMYK ICC to sRGB':'ImageMagick native CMYK to sRGB'}:{})};
+  const bandRows=seekableHeapBytes?Math.min(32,Math.floor(bandBytes/(image.width*3))):32;
+  for(let y=0;y<image.height;y+=bandRows){const rows=Math.min(bandRows,image.height-y);const rgb=image.getPixels(pixels=>pixels.toByteArray(0,y,image.width,rows,'RGB'));requireValue(rgb instanceof Uint8Array&&rgb.length===image.width*rows*3,'Invalid decoded RGB band.');
    if(!profile&&cicp?.split(/[\/,]/)[1]==='16')pqToSdr(rgb,cicp);
-   await request('decoded-band',{bytes:rgb,y,rows},[rgb.buffer]);progress('decode',(y+rows)/image.height);
+   await request('decoded-band',{bytes:rgb,y,rows,width:image.width,...(y===0?{rgb8Geometry}: {})},[rgb.buffer]);progress('decode',(y+rows)/image.height);
   }
- });return {header,provenance,sourceIntegrity:captured.manifest,...(admission.retainOriginal?{originalBytes:bytes}:{})};
+ });return {header,provenance,...identity,...(admission.retainOriginal?{originalBytes:bytes}:{})};
 }
 function pqToSdr(rgb,cicp){
  const bt2020=cicp.split(/[\/,]/)[0]==='9',m1=2610/16384,m2=2523/32,c1=3424/4096,c2=2413/128,c3=2392/128;
@@ -108,6 +158,11 @@ async function encode({width,height,format,quality,chroma,lossless=false,threads
 }
 self.onmessage=async({data})=>{
  if(data.reply){const item=pending.get(data.reply);pending.delete(data.reply);if(item)data.error?item.reject(deserializeEngineError(data.error)):item.resolve(data.value);return;}
- try{const value=await(data.action==='decode'?decode(data.payload):data.action==='encode'?encode(data.payload):Promise.reject(new EngineError('INVALID_INPUT','Unknown media operation.')));self.postMessage({done:true,value});}
+ try{
+  const value=await(data.action==='decode'?decode(data.payload):data.action==='encode'?encode(data.payload):Promise.reject(new EngineError('INVALID_INPUT','Unknown media operation.')));
+  if(value?.kind==='hp-source-handoff'&&value.sourceIntegrity){
+   self.postMessage({done:true,value},[value.sourceIntegrity.states.buffer]);
+  }else self.postMessage({done:true,value});
+ }
  catch(error){self.postMessage({error:serializeEngineError(error,'MEDIA_CODEC_FAILED')});}
 };

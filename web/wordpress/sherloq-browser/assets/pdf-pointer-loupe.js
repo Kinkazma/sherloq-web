@@ -1,6 +1,6 @@
-import {diagnostic} from './runtime-context.js?v=0.33.1';
-import * as defaultMedia from './pdf-media-settings.js?v=0.33.1';
-import {createLoupeScan} from './pdf-native-scan.js?v=0.33.1';
+import {diagnostic} from './runtime-context.js?v=0.33.2';
+import * as defaultMedia from './pdf-media-settings.js?v=0.33.2';
+import {createLoupeScan} from './pdf-native-scan.js?v=0.33.2';
 export function loupeMapping(radius,inner,transition,relativeZoom){
  const t=transition?Math.max(0,Math.min(1,(radius-inner)/transition)):Number(radius>inner),s=t*t*t*(t*(t*6-15)+10);
  return radius*(1/relativeZoom+(1-1/relativeZoom)*s);
@@ -8,7 +8,7 @@ export function loupeMapping(radius,inner,transition,relativeZoom){
 const vertex='attribute vec2 position;varying vec2 uv;void main(){uv=vec2((position.x+1.)*.5,(1.-position.y)*.5);gl_Position=vec4(position,0.,1.);}';
 const fragment=`precision highp float;
 varying vec2 uv;uniform sampler2D baseImage;uniform sampler2D middleImage;uniform sampler2D detailImage;
-uniform sampler2D effectBase;uniform sampler2D effectMiddle;uniform sampler2D effectDetail;uniform float effectsReady;uniform float nativeRawReady;uniform float effectValid0;uniform float effectValid1;uniform float effectValid2;
+uniform sampler2D effectBase;uniform sampler2D effectMiddle;uniform sampler2D effectDetail;uniform float effectsReady;uniform float effectsVisible;uniform float nativeRawReady;uniform float effectValid0;uniform float effectValid1;uniform float effectValid2;
 uniform vec2 imageCentre;uniform float imageScale;uniform vec4 rawWindow0;uniform vec4 rawWindow1;uniform vec4 rawWindow2;uniform vec4 effectWindow0;uniform vec4 effectWindow1;uniform vec4 effectWindow2;
 uniform float cursorContrast;uniform float radius;uniform float innerRadius;uniform float transition;uniform float magnification;
 vec4 sampleInside(sampler2D image,vec2 coord){if(any(lessThan(coord,vec2(0.)))||any(greaterThan(coord,vec2(1.))))return vec4(0.);return texture2D(image,coord);}
@@ -18,13 +18,13 @@ vec2 q=d*(1./magnification+(1.-1./magnification)*s);vec2 world=imageCentre+q/ima
 vec4 colour=vec4(0.);if(nativeRawReady>.5){colour=sampleInside(baseImage,(world-rawWindow0.xy)/rawWindow0.zw);
 vec4 middle=sampleInside(middleImage,(world-rawWindow1.xy)/rawWindow1.zw);if(middle.a>.99)colour=middle;
 vec4 detail=sampleInside(detailImage,(world-rawWindow2.xy)/rawWindow2.zw);if(detail.a>.99)colour=detail;}
-if(effectsReady>.5){
+if(effectsReady>.5&&effectsVisible>.5){
  vec2 eb=(world-effectWindow0.xy)/effectWindow0.zw;vec4 changed=effectValid0>.5?sampleInside(effectBase,eb):vec4(0.);
  vec2 mb=(world-effectWindow1.xy)/effectWindow1.zw;vec4 em=effectValid1>.5?sampleInside(effectMiddle,mb):vec4(0.);if(em.a>.99){float edge=min(min(mb.x,mb.y),min(1.-mb.x,1.-mb.y));changed=mix(changed,em,smoothstep(0.,.06,edge));}
  vec2 db=(world-effectWindow2.xy)/effectWindow2.zw;vec4 ed=effectValid2>.5?sampleInside(effectDetail,db):vec4(0.);if(ed.a>.99){float edge=min(min(db.x,db.y),min(1.-db.x,1.-db.y));changed=mix(changed,ed,smoothstep(0.,.06,edge));}
  colour=mix(colour,vec4(changed.rgb,max(colour.a,changed.a)),(1.-s)*step(.99,changed.a));}if(cursorContrast>.5){vec2 a=abs(d);bool core=(a.x<=.5&&a.y<=3.5)||(a.y<=.5&&a.x<=3.5);bool halo=(a.x<=1.5&&a.y<=4.5)||(a.y<=1.5&&a.x<=4.5);if(halo){float ink=dot(colour.rgb,vec3(.2126,.7152,.0722))>.5?0.:1.;colour=vec4(vec3(core?ink:1.-ink),1.);}}gl_FragColor=colour;}`;
 // Geometry is rendered at the display's actual pixel density. Every effect source is native.
-export function createPointerLoupe(view,{baseCanvas,getSurface,getEffectsSurface=()=>null,getPixelRatio=()=>globalThis.devicePixelRatio||1,getScreen=()=>globalThis.screen,getCamera,canInteract=()=>true,onZoom=()=>{},onSweepChange=()=>{},onPresented=()=>{},keepVisibleAtMinimum=()=>false,onError=()=>{},getEffectsState=()=>({}),mediaSettings=defaultMedia,getRawSurface=(source,index)=>source,getEffectsPending=()=>false,interactionMode='interactive',cursorMarker='none'}){
+export function createPointerLoupe(view,{baseCanvas,getSurface,getEffectsSurface=()=>null,getPixelRatio=()=>globalThis.devicePixelRatio||1,getScreen=()=>globalThis.screen,getCamera,canInteract=()=>true,onZoom=()=>{},onSweepChange=()=>{},onPresented=()=>{},keepVisibleAtMinimum=()=>false,onError=()=>{},getEffectsState=()=>({}),mediaSettings=defaultMedia,getRawSurface=(source,index)=>source,getEffectsPending=()=>false,getComparingOriginal=()=>false,interactionMode='interactive',cursorMarker='none'}){
  const {loupeDefaults,validateLoupeSettings,loupeScale,loupeMinimumZoom,loupeGeometry,typingEvent}=mediaSettings;
  const document=view.ownerDocument;let overlay=document.createElement('canvas');overlay.className='pointer-loupe';overlay.hidden=true;view.append(overlay);
  const rings=document.createElementNS('http://www.w3.org/2000/svg','svg');rings.classList.add('pointer-loupe-rings');rings.setAttribute('aria-hidden','true');rings.style.display='none';for(let i=0;i<2;i++)rings.append(document.createElementNS(rings.namespaceURI,'circle'));view.append(rings);
@@ -70,7 +70,10 @@ export function createPointerLoupe(view,{baseCanvas,getSurface,getEffectsSurface
   const geometry=loupeGeometry(settings,getScreen()),radius=geometry.diameter/2+geometry.transition,size=radius*2,dpr=getPixelRatio(),side=Math.max(1,Math.ceil(size*dpr)),zoom=loupeScale(settings,camera.scale,keepVisibleAtMinimum()),ratio=zoom/camera.scale;
   if(side>gl.getParameter(gl.MAX_TEXTURE_SIZE))throw Error('Diamètre supérieur à la capacité graphique.');
   if(lastSource!==source){if(lastSource?.owner!==source.owner){effectsReady=false;sampleWindows=null;effectSources=[];effectParams=[];effectGeometry=[];effectCurrent=[false,false,false];rawWindows=null;currentWindows=null;lastRawReady=false;lastEffect=null;nativeFrame=false;waitingNative=false;presentedFrame=null;}lastSource=source;rawGeometry=[];rawSources=[];}
-  const x=(pointer.x-camera.x)/camera.scale,y=(pointer.y-camera.y)/camera.scale,scales=[camera.scale,Math.sqrt(zoom*camera.scale),zoom],windows=scales.map(scale=>{const extent=radius/scale;return[x-extent,y-extent,extent*2,extent*2];}),bounds=windows.map(([left,top,width,height])=>({left,top,right:left+width,bottom:top+height,circle:{x,y,radius:radius/camera.scale}})),rawTargets=bounds.map((_,i)=>getRawSurface(source,i)??source);
+  const comparingOriginal=!!getComparingOriginal(),x=(pointer.x-camera.x)/camera.scale,y=(pointer.y-camera.y)/camera.scale,scales=[camera.scale,Math.sqrt(zoom*camera.scale),zoom],windows=scales.map(scale=>{const extent=radius/scale;return[x-extent,y-extent,extent*2,extent*2];}),bounds=windows.map(([left,top,width,height])=>({left,top,right:left+width,bottom:top+height,circle:{x,y,radius:radius/camera.scale}})),rawTargets=bounds.map((b,i)=>getRawSurface(source,i,b,scales[i]*dpr)??source);
+  // A different before/after raw family cannot inherit the other family's GPU
+  // pixels while cold. Effect owners and textures remain retained throughout O.
+  if(rawSources.some((value,i)=>value&&value!==rawTargets[i])){rawGeometry=[];rawSources=[];rawWindows=null;nativeFrame=false;}
   function paint(target,index){const prepared=scratchContext(index),c=prepared.canvas,ctx=prepared.ctx;scratchValid[index]=false;if(c.width!==side)c.width=c.height=side;ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,side,side);const i=index%3,scale=scales[i];ctx.setTransform(scale*dpr,0,0,scale*dpr,side/2-x*scale*dpr,side/2-y*scale*dpr);ctx.imageSmoothingEnabled=scale*dpr<3;target.draw(ctx,bounds[i],scale*dpr);scratchValid[index]=true;uploadScratch(index);}
   // Originals acquire native placements progressively too. A changed revision
   // invalidates the same-coordinate textures when an embedded image arrives.
@@ -90,7 +93,7 @@ export function createPointerLoupe(view,{baseCanvas,getSurface,getEffectsSurface
   // transparent rather than borrowing the page overview or moving stale pixels.
   // RAW windows commit together; exact effect windows arrive detail-first.
   lastRawReady=rawReady;currentWindows=windows;
-  settled=false;waitingNative=!rawReady||effectsPending||!!target&&!ready;
+  settled=false;waitingNative=!rawReady||!comparingOriginal&&(effectsPending||!!target&&!ready);
   view.classList.toggle('loupe-magnifying',ratio>1&&!pinned);rings.style.display=settings.markers?'block':'none';rings.style.opacity=String(settings.ringOpacity/100);
   for(const [i,r]of [geometry.diameter/2,radius].entries())for(const [k,v]of Object.entries({cx:pointer.x,cy:pointer.y,r,stroke:settings.ringColor,'stroke-width':settings.ringWidth,'stroke-dasharray':settings.ringStyle==='dashed'?'4 4':'none'}))rings.children[i].setAttribute(k,String(v));
   overlay.hidden=false;overlay.style.left=(pointer.x-radius)+'px';overlay.style.top=(pointer.y-radius)+'px';overlay.style.width=overlay.style.height=size+'px';if(overlay.width!==side)overlay.width=overlay.height=side;gl.viewport(0,0,side,side);
@@ -101,14 +104,14 @@ export function createPointerLoupe(view,{baseCanvas,getSurface,getEffectsSurface
   // While the next native result or its tiles arrive, keep the previous native result.
   // Its world coordinates stay attached to the same image; no fallback overview exists.
   if(!target){effectsReady=false;sampleWindows=null;lastEffect=null;effectSources=[];effectParams=[];effectGeometry=[];effectCurrent=[false,false,false];}
-  gl.uniform1f(gl.getUniformLocation(program,'effectsReady'),effectsReady?1:0);gl.uniform1f(gl.getUniformLocation(program,'nativeRawReady'),nativeFrame?1:0);gl.uniform2f(gl.getUniformLocation(program,'imageCentre'),x,y);gl.uniform1f(gl.getUniformLocation(program,'imageScale'),camera.scale);
+  gl.uniform1f(gl.getUniformLocation(program,'effectsReady'),effectsReady?1:0);gl.uniform1f(gl.getUniformLocation(program,'effectsVisible'),comparingOriginal?0:1);gl.uniform1f(gl.getUniformLocation(program,'nativeRawReady'),nativeFrame?1:0);gl.uniform2f(gl.getUniformLocation(program,'imageCentre'),x,y);gl.uniform1f(gl.getUniformLocation(program,'imageScale'),camera.scale);
   (rawWindows??windows).forEach((rect,i)=>gl.uniform4f(gl.getUniformLocation(program,'rawWindow'+i),...rect));
   windows.forEach((rect,i)=>{gl.uniform4f(gl.getUniformLocation(program,'effectWindow'+i),...(sampleWindows?.[i]??rect));gl.uniform1f(gl.getUniformLocation(program,'effectValid'+i),effectSources[i]?1:0);});
   for(const [name,value]of Object.entries({radius,innerRadius:geometry.diameter/2,transition:geometry.transition,magnification:ratio}))gl.uniform1f(gl.getUniformLocation(program,name),value);
-  gl.uniform1f(gl.getUniformLocation(program,'cursorContrast'),cursorMarker==='contrast'?1:0);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);presentedFrame={serial:++presentationSerial,owner:source.owner,pointer:{...pointer},camera:{scale:camera.scale,x:camera.x,y:camera.y},zoom,native:nativeFrame,rawReady,waitingNative,completeNative:rawReady&&!effectsPending&&(target?settled:!Object.values(settings.effects).some(group=>group?.enabled)),effectsKey:effectsReady?lastEffect?.effectsKey:null,centralEffectReady:effectCurrent[2],effectWindowsCurrent:[...effectCurrent],effectWindowParameters:effectParams.map(key=>key??null)};if(settled){
+  gl.uniform1f(gl.getUniformLocation(program,'cursorContrast'),cursorMarker==='contrast'?1:0);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);presentedFrame={serial:++presentationSerial,owner:source.owner,pointer:{...pointer},camera:{scale:camera.scale,x:camera.x,y:camera.y},zoom,native:nativeFrame,rawReady,waitingNative,comparingOriginal,completeNative:rawReady&&(comparingOriginal||!effectsPending&&(target?settled:!Object.values(settings.effects).some(group=>group?.enabled))),effectsKey:!comparingOriginal&&effectsReady?lastEffect?.effectsKey:null,centralEffectReady:!comparingOriginal&&effectCurrent[2],effectWindowsCurrent:[...effectCurrent],effectWindowParameters:effectParams.map(key=>key??null)};if(settled&&!comparingOriginal){
    const paintKey=source.owner+':'+target.effectsKey+':'+presentationRevision;
    if(notifiedPaint===paintKey&&scan.active)scan.presented();
-   if(notifiedPaint!==paintKey&&pendingPaint!==paintKey){cancelAnimationFrame(paintNotification);pendingPaint=paintKey;paintNotification=requestAnimationFrame(()=>{pendingPaint='';if(disposed||overlay.hidden||document.hidden||!settled||waitingNative||!lastRawReady||lastSource?.owner!==source.owner||lastEffect?.effectsKey!==target.effectsKey||target.effectsKey!==JSON.stringify(settings.effects)||(target.presentationRevision??target.metrics?.presentationRevision??0)!==presentationRevision)return;notifiedPaint=paintKey;onPresented({owner:source.owner,effectsKey:target.effectsKey});if(target.effectsKey===JSON.stringify(settings.effects))scan.presented();});}
+   if(notifiedPaint!==paintKey&&pendingPaint!==paintKey){cancelAnimationFrame(paintNotification);pendingPaint=paintKey;paintNotification=requestAnimationFrame(()=>{pendingPaint='';if(disposed||getComparingOriginal()||overlay.hidden||document.hidden||!settled||waitingNative||!lastRawReady||lastSource?.owner!==source.owner||lastEffect?.effectsKey!==target.effectsKey||target.effectsKey!==JSON.stringify(settings.effects)||(target.presentationRevision??target.metrics?.presentationRevision??0)!==presentationRevision)return;notifiedPaint=paintKey;onPresented({owner:source.owner,effectsKey:target.effectsKey});if(target.effectsKey===JSON.stringify(settings.effects))scan.presented();});}
   }
  }
  const move=e=>{if(pinned&&!scan.active)return;if(!canInteract(e)){stopInteraction();pointer=null;hide();return;}const r=view.getBoundingClientRect();pointer={x:e.clientX-r.left,y:e.clientY-r.top};lastPointer={...pointer};markInteraction();requestDraw();};

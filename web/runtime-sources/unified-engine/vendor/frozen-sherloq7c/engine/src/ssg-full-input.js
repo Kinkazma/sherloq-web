@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {requireValue,checkAbort,createCooperator,serializeEngineError} from './errors.js';
 import {allocateOwnedTypedArray} from './allocation.js';
 import {validateRgbRows} from './rgb-row-source.js';

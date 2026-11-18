@@ -15,7 +15,7 @@ function fixture({auto=true,sendFailure,disposeFailure,surfaceFailure,storeFailu
  }};
  const rgb=({width,height})=>({width,height,format:'rgb8',data:new Uint8Array(width*height*3)});
  class Budget{constructor(limit){this.limit=limit;}reserve(bytes){counters.reserved+=bytes;let released=false;return()=>{if(released)return;released=true;counters.reserved-=bytes;};}registerReclaimer(){counters.reclaimers++;let removed=false;return()=>{if(removed)return;removed=true;counters.reclaimers--;};}snapshot(){return{activeReservationBytes:counters.reserved,retainedBytes:0};}}
- const runtime=installNativeTileWorker(scope,{loadModule:async url=>{
+ const runtime=installNativeTileWorker(scope,{loadModule:async url=>{url=new URL(url).pathname;
   if(loadGate)await loadGate;
   if(url.endsWith('/pdf-native-regional-image.js'))return{createRegionalLoupeImage(source){counters.created++;return{metrics:{},readWindow:(r,options)=>{if(readFailure)throw readFailure;return source.readWindow(r,options);},async dispose(){counters.disposed++;if(disposeGate)await disposeGate;if(surfaceFailure)throw surfaceFailure;}};}};
   if(url.endsWith('/temporary-storage.js'))return{createTemporarySession:async()=>({backend:'mock',dispose(){counters.sessionDisposed++;if(disposeFailure)throw disposeFailure;}})};

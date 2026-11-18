@@ -1,4 +1,30 @@
 @import url('./detection-regions-panel.css');
+/* PCA keeps one compact scientific/presentation bar. */
+#tool-controls.pca-controls{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:6px 10px}
+#tool-controls.pca-controls>.parameter-bar,#tool-controls.pca-controls>.tool-actions,#tool-controls.pca-controls>.tool-attachments{display:none}
+#tool-controls.pca-controls>form,.pca-cloud-toolbar{display:contents}
+#tool-controls.pca-controls .tool-fields{display:contents}
+#tool-controls.pca-controls label{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+#tool-controls.pca-controls input[type=range]{width:70px}
+#tool-controls.pca-controls button,#tool-controls.pca-controls select{font-size:12px;padding:4px 6px}
+.pca-variance{font-size:10px;color:var(--muted);white-space:nowrap}
+.pca-cloud-toolbar>label{margin-inline-end:5px}
+.pca-variance{margin-inline-start:4px}
+#tool-results.pca-results{padding:0;overflow:hidden}
+.pca-cloud-panel{display:grid;grid-template-columns:1fr 6px 1fr;height:100%;min-height:0}
+.pca-image-pane,.pca-cloud-pane{position:relative;min-width:0;min-height:0;overflow:hidden;background:var(--canvas,#17181a)}
+.pca-cloud-pane{display:flex;flex-direction:column}
+.pca-cloud-pane>.scatter-stage{min-height:0}
+.pca-cloud-pane>.pca-cloud-controls{display:flex;align-items:center;flex-wrap:wrap;flex:0 0 auto;gap:4px 7px;min-height:0;padding:3px 6px;font-size:11px}
+.pca-cloud-pane>.pca-cloud-controls>label{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.pca-cloud-pane>.pca-cloud-controls input[type=range]{width:70px}
+.pca-cloud-pane>.pca-cloud-controls button,.pca-cloud-pane>.pca-cloud-controls select{font-size:11px;min-height:23px;padding:2px 5px}
+.pca-cloud-reset{position:absolute;right:6px;bottom:6px;z-index:3;font-size:11px;min-height:23px;padding:2px 6px}
+.pca-splitter{background:var(--line,#555);cursor:col-resize;touch-action:none}
+.pca-cloud-panel[data-layout="stacked"]>.pca-splitter{cursor:row-resize}
+.pca-splitter:focus-visible{outline:2px solid var(--accent,#69a5ef);outline-offset:-2px}
+#tool-results .pca-raster-canvas{position:absolute!important;inset:0;width:100%;height:100%!important;max-width:none;touch-action:none;cursor:grab}
+#app:has(.pca-controls) #task-run{display:none}
 #tool-controls{padding:8px 12px;border-bottom:1px solid var(--line,#aaa)}
 #tool-controls[hidden],#tool-results[hidden]{display:none}
 .tool-method-warning{display:flex;flex:1 1 0;align-items:center;min-width:0;max-width:360px;height:30px;margin:0;padding:0;border:0;background:none;color:var(--muted,#777);font-size:10.5px;line-height:10px}
@@ -157,3 +183,39 @@
 #tool-controls.gradient-controls .gradient-primary-actions>.tool-attachments{display:contents}
 
 #tool-controls.gradient-controls #tool-param-method{width:132px;max-width:132px}
+
+/* Histogram layout follows its document before the controls/viewport split. */
+.local-histogram-body{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}
+.local-histogram-chart{min-width:0}
+.local-histogram-plot>canvas{position:static!important;width:100%;height:clamp(90px,16vh,170px)!important;max-width:none;display:block}
+.local-histogram-body .local-histogram-details{--histogram-channels:3;width:calc(120px + var(--histogram-channels)*58px);max-width:100%;min-width:0;max-height:clamp(110px,18vh,200px);overflow:auto;margin:0;font-size:11px;scrollbar-width:thin}
+.local-histogram-details[data-channels="1"]{--histogram-channels:1}.local-histogram-details[data-channels="2"]{--histogram-channels:2}.local-histogram-details[data-channels="4"]{--histogram-channels:4}
+.local-histogram-details-title{color:var(--muted);font-weight:600;line-height:1.2;margin:0 0 2px}
+.local-histogram-body .local-histogram-details table{width:100%;table-layout:fixed;line-height:1.15}
+.local-histogram-body .local-histogram-details td,.local-histogram-body .local-histogram-details th{padding:1px 4px;white-space:normal;overflow-wrap:anywhere;vertical-align:top}
+.local-histogram-body .local-histogram-details th:first-child{width:120px}
+.local-histogram-body .local-histogram-details p{max-width:420px;margin:1px 0 3px;line-height:1.2}
+.local-histogram-pixel{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:1px;line-height:1.25;margin-top:2px}
+.local-histogram-pixel-model,.local-histogram-pixel-channel{white-space:nowrap}
+.local-histogram-pixel-channel strong{font-weight:600}
+.local-histogram-chart .local-histogram-region-values{margin-top:2px;font-size:11px;line-height:1.2}
+.local-channel-histogram[data-layout="stacked"] .local-histogram-body{grid-template-columns:minmax(0,1fr);gap:5px}.local-channel-histogram[data-layout="stacked"] .local-histogram-body .local-histogram-details{max-height:150px}
+@media(max-height:550px){.local-histogram-plot>canvas{height:85px!important}.local-histogram-body .local-histogram-details{max-height:110px}}
+
+/* Compact captions retain full statistics and export text. */
+.local-histogram-body .local-histogram-details-title,.local-histogram-body .local-histogram-details>p,.local-histogram-details[data-channels="1"] table>tr:first-child,.local-histogram-details[data-channels="1"] table>tbody>tr:first-child{display:none}
+.local-histogram-plot{position:relative;min-width:0}
+.local-histogram-position{position:absolute;left:80px;right:65px;bottom:9px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;font-size:10px;line-height:12px;color:var(--muted)}
+.local-histogram-captions{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 12px;margin-top:2px}
+.local-histogram-captions .local-histogram-pixel{flex:0 1 auto;max-width:100%;margin-top:0}
+.local-histogram-captions .local-histogram-region-values{flex:0 1 auto;max-width:100%;margin:0 0 0 auto}
+.local-histogram-position-toggle{margin-inline-start:0;font-size:11px}
+
+.local-histogram-body .local-histogram-details[data-channels="1"]{width:198px;max-height:clamp(110px,27vh,240px)}
+.local-histogram-details[data-channels="1"] th:first-child{width:140px}
+
+/* Reserve the lines needed by changing numeric ranges, without width growth. */
+.local-histogram-details tr[data-stat="nonzero"],.local-histogram-details tr[data-stat="count"]{height:calc(2.3em + 3px)}
+.local-histogram-details[data-sample-type="float32"] tr{height:auto}
+
+@media(max-height:550px){.local-histogram-body .local-histogram-details[data-channels="1"]{max-height:110px}}

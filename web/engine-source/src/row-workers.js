@@ -4,7 +4,7 @@ import {EngineError} from './errors.js';
 // One owned input window per worker/batch. The caller admits all input/output
 // leases and heaps and validates operation-specific output shapes and statistics.
 export class RowWorkers{
- constructor(count,url,validate,{budget,resourceOwner='row',resourceOperation}={}){this.budget=budget;this.resourceOwner=resourceOwner;this.resourceOperation=resourceOperation;this.maximum=count;this.workers=[];this.pending=new Set();this.validate=validate;try{for(let i=0;i<count;i++)this.workers.push(new Worker(url,{type:'module'}));}catch{this.clear();throw new EngineError('WORKER_RESOURCE','Row workers could not start.');}}
+ constructor(count,url,validate,{budget,resourceOwner='row',resourceOperation,onWorker}={}){this.budget=budget;this.resourceOwner=resourceOwner;this.resourceOperation=resourceOperation;this.maximum=count;this.workers=[];this.pending=new Set();this.validate=validate;try{for(let i=0;i<count;i++){const worker=new Worker(url,{type:'module'});this.workers.push(worker);onWorker?.(worker,i);}}catch{this.clear();throw new EngineError('WORKER_RESOURCE','Row workers could not start.');}}
  call(index,input){return this.budget?scheduledWorkerCall(this,()=>this.dispatch(index,input),{label:'row-kernel'}):this.dispatch(index,input);}
  dispatch(index,input){
   const worker=this.workers[index];if(!worker)return Promise.reject(new EngineError('CANCELLED','Row workers stopped.'));

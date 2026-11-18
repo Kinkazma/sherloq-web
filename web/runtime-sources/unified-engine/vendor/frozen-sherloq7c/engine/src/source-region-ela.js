@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {usesAlternateRecompression} from './recompression-plan.js';
 import {acquireSourceRegionRecompression} from './source-region-recompression.js';
 import {createJpegEntryRetirement} from './jpeg-encoded-cache-owners.js';

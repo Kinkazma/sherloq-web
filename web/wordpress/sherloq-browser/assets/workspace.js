@@ -1,32 +1,35 @@
-import {currentToolId} from './tool-id-migrations.js?v=0.33.1';
-import {bindViewportMenu} from './viewport-popup.js?v=0.33.1';
-import {AI_DETECTOR_OPERATION,colorDetectorToolbarWarning,isDetectorAlias,detectorAliasForMethod,detectorTask} from './ai-detector-tools.js?v=0.33.1';
-import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.33.1';
-import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.33.1';
+import {mountSherloqSelectMenus} from './equalization-menu.js?v=0.33.2';
+import {createOpeningRegionDraft} from './opening-region-draft.js?v=0.33.2';
+import {currentToolId} from './tool-id-migrations.js?v=0.33.2';
+import {bindViewportMenu} from './viewport-popup.js?v=0.33.2';
+import {AI_DETECTOR_OPERATION,colorDetectorToolbarWarning,isDetectorAlias,detectorAliasForMethod,detectorTask} from './ai-detector-tools.js?v=0.33.2';
+import {getAdaptivePreferenceStore,importAdaptiveSettings} from './adaptive-preferences.js?v=0.33.2';
+import {createWholeSourceFallbackUI,validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.33.2';
 import {retireCompositeOwners} from './unified-engine/src/composite-owner-release.js';
-import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.33.1';
-import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.33.1';
-import {createOpeningImagePreview} from './opening-image-preview.js?v=0.33.1';
-import {diagnostic} from './runtime-context.js?v=0.33.1';
-import {installHoverSliders} from './hover-sliders.js?v=0.33.1';
-import {browserLanguage} from './language.js?v=0.33.1';
-import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.33.1';
-import {mountMediaControls} from './media-controls.js?v=0.33.1';
-import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.33.1';
-import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.33.1';
-import {bindDocumentResize} from './document-resize.js?v=0.33.1';
-import {toolGroups} from './tool-tree.js?v=0.33.1';
-import {isExperimentalTool} from './extension-tools.js?v=0.33.1';
-import {createWorkspaceState} from './workspace-state.js?v=0.33.1';
-import {validateOriginalSourceRegions} from './original-source-regions.js?v=0.33.1';
-import {createDownloadShelf} from './download-shelf.js?v=0.33.1';
-import {mountSessionControls} from './session-ui.js?v=0.33.1';
-import {recoverSettings,settingsFilename} from './settings.js?v=0.33.1';
-import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.33.1';
-import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.33.1';
-import {localFeaturePolicy} from './feature-policy.js?v=0.33.1';
+import {validateOriginalSourceRegionOptions} from './original-source-region-options.js?v=0.33.2';
+import {detectWorkspaceFileKind,isBatchDrop,isWorkspaceFileDrag} from './workspace-file-routing.js?v=0.33.2';
+import {createOpeningImagePreview} from './opening-image-preview.js?v=0.33.2';
+import {createOpeningSourcePreview} from './opening-source-preview.js?v=0.33.2';
+import {diagnostic} from './runtime-context.js?v=0.33.2';
+import {installHoverSliders} from './hover-sliders.js?v=0.33.2';
+import {browserLanguage} from './language.js?v=0.33.2';
+import {validateMediaPreferences,loupeKey,loupeSettingsKey,loupeSweepKey,imageAccept,typingEvent} from './media-settings.js?v=0.33.2';
+import {mountMediaControls} from './media-controls.js?v=0.33.2';
+import {createLoupeStepPlayback} from './loupe-step-playback.js?v=0.33.2';
+import {installLoupeStepShortcuts} from './loupe-step-shortcuts.js?v=0.33.2';
+import {bindDocumentResize} from './document-resize.js?v=0.33.2';
+import {toolGroups} from './tool-tree.js?v=0.33.2';
+import {isExperimentalTool} from './extension-tools.js?v=0.33.2';
+import {createWorkspaceState} from './workspace-state.js?v=0.33.2';
+import {createOriginalSourceRegionsState,validateOriginalSourceRegions} from './original-source-regions.js?v=0.33.2';
+import {createDownloadShelf} from './download-shelf.js?v=0.33.2';
+import {mountSessionControls} from './session-ui.js?v=0.33.2';
+import {recoverSettings,settingsFilename} from './settings.js?v=0.33.2';
+import {dependencyPreferences,restoreDependencyPreferences} from './dependency-library.js?v=0.33.2';
+import {preferenceAccess,recoverWorkspaceSettings,capturePreferenceBackup,downloadPreferenceBackup,mergePreferenceChanges} from './preferences-recovery.js?v=0.33.2';
+import {localFeaturePolicy} from './feature-policy.js?v=0.33.2';
 
-export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.33.1')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.33.1')).mountPdfReader(options),originalRegionsFactory}={}) {
+export function mountWorkspace(document=globalThis.document,{panelFactory,fetcher=fetch,batchFactory=async options=>(await import('./batch-ui.js?v=0.33.2')).mountBatchUI(options),localManagement,pdfFactory=async options=>(await import('./pdf-reader.js?v=0.33.2')).mountPdfReader(options),originalRegionsFactory,openingPreviewFactory=createOpeningImagePreview}={}) {
 const $=id=>document.getElementById(id),state=createWorkspaceState();
 let batchUI,batchOpening;
 const downloadShelf=createDownloadShelf({document,parent:$('toolbox'),before:$('toolbox').querySelector('.navigation-tools'),language:()=>state.language,onError:error=>notify(error.message)});
@@ -36,10 +39,10 @@ const tools=toolGroups.flatMap(g=>g.items),known=new Set(tools.map(t=>t.id));
 // Keep the existing synchronous factories once their shared module graph is ready.
 let runtimeReady,engineFactory,createBatchScopeEditor;
 function ensureRuntime(){return runtimeReady??=Promise.all([
- import('./app.js?v=0.33.1'),
- import('./workspace-engine-pool.js?v=0.33.1'),
- import('./batch-scope-editor.js?v=0.33.1'),
- import('./original-source-regions-controller.js?v=0.33.1')
+ import('./app.js?v=0.33.2'),
+ import('./workspace-engine-pool.js?v=0.33.2'),
+ import('./batch-scope-editor.js?v=0.33.2'),
+ import('./original-source-regions-controller.js?v=0.33.2')
 ]).then(([panel,pool,editor,regions])=>{
  panelFactory??=panel.mountAnalysisPanel;originalRegionsFactory??=regions.createOriginalSourceRegionsController;
  createBatchScopeEditor=editor.createBatchScopeEditor;engineFactory=pool.createWorkspaceEnginePool();
@@ -53,11 +56,13 @@ let sourceEntry=null,sourceInput=null,currentFile=null,generation=0,framePending
 const panelAttention=new Map();let attentionSuspended=false;
 let scopeFallbacks={};
 let computeProfile='maximum',navigationMode='auto',highlight=false,allSliders=true,experimentalTools=false,media=validateMediaPreferences(),unknownFavorites=[],lastPreferences;const toolSignatures=new Map(),dirtyTools=new Set();
+const selectMenus=mountSherloqSelectMenus(document);
+window.addEventListener('pagehide',event=>{if(!event.persisted)selectMenus.dispose();},{once:true});
 const hoverSliders=installHoverSliders({root:document,enabled:false,language:()=>state.language});
 const scopeFallbackUI=createWholeSourceFallbackUI({document,language:()=>state.language,getPreferences:()=>scopeFallbacks,setPreferences:value=>{scopeFallbacks=validateWholeSourceFallbacks(value);savePreferences();},toolLabel:id=>tools.find(t=>t.id===id)?.[state.language]??id});
 const scopeFallbackSettingsButton=button(state.language==='en'?'Whole-image fallback…':'Repli sur l’image entière…',()=>{closeMenus();scopeFallbackUI.configure();});$('import-settings').after(scopeFallbackSettingsButton);
 let templateReady;
-const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.33.1',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
+const template=()=>templateReady??=fetcher(new URL('./panel.html?v=0.33.2',import.meta.url)).then(async r=>{if(!r.ok)throw Error('Panel template unavailable');const page=new DOMParser().parseFromString(await r.text(),'text/html');page.querySelectorAll('script').forEach(s=>s.remove());return [...page.body.children];});
 function preferences(){return {...state.preferences(),favorites:[...state.favorites,...unknownFavorites],theme,computeProfile,navigationMode,highlight,allSliders,experimentalTools,scopeFallbacks:validateWholeSourceFallbacks(scopeFallbacks),...media,dependencies:dependencyPreferences()};}
 function setMedia(next){if(!applyingLoupeStep)stepPlayback.reset();media=validateMediaPreferences(next);applyMedia();savePreferences();}
 const comparisonKeys=new Set();let comparisonController=null;let pinnedController=null;
@@ -114,24 +119,66 @@ function positionOpeningPreview(record){
 }
 function clearOpeningPreview(record){
  const opening=record.openingPreview;if(!opening)return;record.openingPreview=null;
- opening.attachment.dispose();opening.element.remove();opening.ticket.records.delete(record);
+ record.controller?.clearOpeningPresentation?.({draft:false});opening.attachment.dispose();opening.element.remove();opening.ticket.records.delete(record);
 }
+const retiringOpenings=new Set();
 function retireOpening(ticket){
- if(!ticket||ticket.closed)return;ticket.closed=true;
+ if(!ticket)return Promise.resolve();if(ticket.retirement)return ticket.retirement;ticket.closed=true;ticket.sourcePreview.fail();ticket.draftControls?.remove();ticket.draftControls=null;ticket.draftRecord?.controller?.clearOpeningPresentation?.();ticket.draftRecord?.controller?.finishOpeningDraft?.();if(ticket.draftRecord?.openingInteractive===ticket)ticket.draftRecord.openingInteractive=null;ticket.draftRecord=null;ticket.regionDraft?.close();ticket.regionDraft=null;
  for(const record of [...ticket.records])clearOpeningPreview(record);
- ticket.preview.dispose();if(sourceOpening===ticket)sourceOpening=null;
+ if(sourceOpening===ticket)sourceOpening=null;
+ // Remove the presentation now, but retain its ownership until the native
+ // decoder and any shared-source loan have acknowledged disposal.
+ const retiring=Promise.resolve().then(()=>ticket.preview.dispose());ticket.retirement=retiring;retiringOpenings.add(retiring);
+ void retiring.then(()=>{retiringOpenings.delete(retiring);scheduleRender();},error=>diagnostic({level:'error',kind:'opening-preview.retirement',error:{code:error?.code,message:error?.message}}));return retiring;
 }
-function releasePresentedOpening(ticket){if(ticket?.nativeReady&&!ticket.records.size)retireOpening(ticket);}
+function setSourcePreview(record,preview,identity){
+ const ticket=sourceOpening;if(!ticket||ticket.closed||ticket.generation!==generation||record!==sourceEntry||record.closed||currentFile!==ticket.file||identity?.file!==ticket.file)return false;
+ return ticket.sourcePreview.publish(preview);
+}
+function releasePresentedOpening(ticket){if(ticket?.nativeReady&&!ticket.records.size&&!ticket.regionDraft)retireOpening(ticket);}
+function traceOpening(record,phase,detail={}){const trace=record?.openingTrace;if(!trace||trace.generation!==generation)return;const event={...detail,phase,operation:record.id,elapsedMs:performance.now()-trace.startedAt};trace.events.push(event);diagnostic({level:'info',kind:'opening.critical-path',generation:trace.generation,...event});}
+function syncOpeningControls(ticket=sourceOpening){if(!ticket?.draftControls)return;for(const control of ticket.draftControls.children){control.textContent=state.language==='en'?control.dataset.openingEn:control.dataset.openingFr;if(['acquisition','exclusion'].includes(control.dataset.openingRegion))control.setAttribute('aria-pressed',String(ticket.draftRecord?.controller?.openingRegionTool===control.dataset.openingRegion));}}
+function currentOpening(record,ticket){return !ticket.closed&&sourceOpening===ticket&&ticket.generation===generation&&record===sourceEntry&&!record.closed&&currentFile===ticket.file;}
+function syncOpeningDraft(record,ticket){
+ if(!ticket.regionDraft||!ticket.canonicalRegions)return Promise.resolve();const input=record.controller?.input?.();if(!currentOpening(record,ticket)||!input?.source)return Promise.resolve();
+ const snapshot=ticket.regionDraft.validateCanonical({file:input.file,generation:ticket.generation,width:input.source.width,height:input.source.height,sourceSha256:input.hash});
+ if(ticket.draftQueuedRevision===snapshot.revision)return ticket.draftSync??Promise.resolve();ticket.draftQueuedRevision=snapshot.revision;
+ const work=(ticket.draftSync??Promise.resolve()).catch(()=>{}).then(async()=>{if(!currentOpening(record,ticket)||!ticket.canonicalRegions)return;const state=await createOriginalSourceRegionsState({sourceSha256:input.hash,width:input.source.width,height:input.source.height},{snapshot:ticket.canonicalRegions.serialize()});await state.replaceZones(snapshot.zones,{positiveMode:snapshot.positiveMode,enabled:snapshot.enabled});if(!currentOpening(record,ticket))return;await ticket.canonicalRegions.restore(state.serialize());});ticket.draftSync=work;return work;
+}
+async function finishOpeningDraft(record,ticket){
+ if(!ticket.nativeReady||!ticket.regionDraft||record.controller?.openingInteractionActive)return;await syncOpeningDraft(record,ticket);if(!currentOpening(record,ticket)||record.controller?.openingInteractionActive)return;record.controller?.finishOpeningDraft?.();ticket.regionDraft.close();ticket.regionDraft=null;ticket.draftControls?.remove();ticket.draftControls=null;releasePresentedOpening(ticket);
+}
+async function activateOpeningPresentation(record,ticket){
+ const controller=await record.ready;if(!controller?.showOpeningPresentation||!currentOpening(record,ticket)||ticket.nativeReady||record.openingInteractive===ticket)return;const existingInput=controller.input?.();if(existingInput?.file===ticket.file&&existingInput?.hash)return;
+ const frame=ticket.preview.presentation?.();if(!frame)return;
+ try{
+  ticket.regionDraft??=createOpeningRegionDraft({file:ticket.file,generation:ticket.generation,width:frame.width,height:frame.height,isCurrent:()=>currentOpening(record,ticket),onChange(){controller.refreshOpeningDraft?.();void syncOpeningDraft(record,ticket).catch(error=>{if(currentOpening(record,ticket))notify(error.message);});}});
+  if(!controller.showOpeningPresentation(frame,{file:ticket.file,isCurrent:()=>currentOpening(record,ticket),regionDraft:ticket.regionDraft,onInteractionEnd:()=>void finishOpeningDraft(record,ticket).catch(error=>{if(currentOpening(record,ticket))notify(error.message);})}))return;
+  record.openingInteractive=ticket;ticket.draftRecord=record;traceOpening(record,'opening-interactive',{width:frame.width,height:frame.height});record.panel.inert=false;if(record.openingPreview?.ticket===ticket)record.openingPreview.element.style.visibility='hidden';record.originalRegionsElement.hidden=false;
+  const bar=document.createElement('div');bar.className='panel-actions original-source-region-actions';bar.dataset.openingRegionToolbar='true';ticket.draftControls=bar;
+  for(const [kind,fr,en,action]of [['acquisition','Ajouter une acquisition','Add acquisition',()=>controller.beginOpeningRegion('acquisition')],['exclusion','Ajouter une exclusion','Add exclusion',()=>controller.beginOpeningRegion('exclusion')],['undo','Annuler le geste','Undo',()=>ticket.regionDraft?.undo()],['clear','Supprimer les zones','Clear regions',()=>ticket.regionDraft?.clear()]]){const control=document.createElement('button');control.type='button';control.dataset.openingRegion=kind;control.dataset.openingFr=fr;control.dataset.openingEn=en;control.textContent=state.language==='en'?en:fr;control.onclick=()=>{try{action();}catch(error){if(currentOpening(record,ticket))notify(error.message);}};bar.append(control);}
+  // Original's task controls are deliberately hidden until its native input.
+  // This presentation-only toolbar belongs beside them, outside that hidden
+  // task container, while the canonical region owner is still being loaded.
+  record.panel.shadowRoot.getElementById('analysis-controls').after(bar);controller.fit();scheduleRender();
+ }catch(error){frame.close?.();throw error;}
+}
 function attachOpeningPreview(record,ticket=sourceOpening){
  if(!ticket||ticket.closed||ticket.generation!==generation||record.openingPreview?.ticket===ticket)return;
  clearOpeningPreview(record);const element=document.createElement('div');element.className='opening-image-preview';element.setAttribute('aria-hidden','true');record.element.append(element);
  const attachment=ticket.preview.attach(element);record.openingPreview={ticket,element,attachment};ticket.records.add(record);positionOpeningPreview(record);
- void ticket.preview.ready.then(available=>{if(!available&&record.openingPreview?.ticket===ticket){clearOpeningPreview(record);releasePresentedOpening(ticket);}});
+ void ticket.preview.ready.then(available=>{if(available)traceOpening(record,'opening-preview-ready',{preview:ticket.preview.snapshot?.()??null});if(!available&&record.openingPreview?.ticket===ticket){clearOpeningPreview(record);releasePresentedOpening(ticket);}else if(available&&record.id==='original')return activateOpeningPresentation(record,ticket);}).catch(error=>{if(currentOpening(record,ticket))notify(error.message);});
 }
-function sourcePresented(record,presentation){
+function sourcePresented(record,presentation){traceOpening(record,'source-frame-drawn',{sourceSha256:presentation.sourceSha256,compositorAcknowledged:false});
+ return clearPresentedOpening(record,presentation);
+}
+function toolPresented(record,presentation){if(presentation.operation!==record.id)return false;return clearPresentedOpening(record,presentation,'prepared-result-presented');}
+function clearPresentedOpening(record,presentation,phase){
  const opening=record.openingPreview;if(!opening)return;const ticket=opening.ticket,input=record.controller?.input?.();
- if(ticket.closed||ticket.generation!==generation||record.closed||input?.file!==ticket.file||input?.imageId!==presentation.imageId||input?.hash!==presentation.sourceSha256)return;
+ if(ticket.closed||ticket.generation!==generation||record.generation!==generation||record.closed||input?.file!==ticket.file||input?.imageId!==presentation.imageId||input?.hash!==presentation.sourceSha256)return false;
+ if(phase)traceOpening(record,phase,{sourceSha256:presentation.sourceSha256,resultId:presentation.resultId,compositorAcknowledged:true});
  clearOpeningPreview(record);releasePresentedOpening(ticket);
+ return true;
 }
 let settingsTimer;
 function scheduleRender(){if(framePending)return;framePending=true;requestAnimationFrame(()=>{framePending=false;renderStatus();clearTimeout(settingsTimer);settingsTimer=setTimeout(saveTools,250);});}
@@ -154,7 +201,7 @@ function reportTarget(entry=state.documents.get(state.active),view=entry?.contro
  return batchUI?.canExport?batchUI:null;
 }
 function renderStatus(){
- mediaUI.refreshLoupeStep();
+ syncOpeningControls();mediaUI.refreshLoupeStep();
  if(stepOwner&&(stepOwner.controller!==activeLoupeController()||stepOwner.owner!==activeLoupeController()?.loupePresentationIdentity?.()?.owner)){stepOwner=null;stepPlayback.reset();}
  const entry=state.documents.get(state.active),view=entry?.controller?.snapshot();
  for(const record of state.documents.values()){
@@ -162,12 +209,13 @@ function renderStatus(){
  }
  const background=[...state.documents.values()].filter(e=>e.id!==state.active&&e.controller?.busy).length;
  $('background-status').textContent=background?background+' '+text('background'):'';
- if(entry?.loading&&!view?.busy&&!view?.importing){notify(text('loading'));$('workspace-progress').value=0;$('zoom').value='—';}
+ if(entry?.error){notify(entry.error.message||String(entry.error));$('workspace-progress').value=0;$('zoom').value='—';}
+ else if(entry?.loading&&!view?.busy&&!view?.importing){notify(text('loading'));$('workspace-progress').value=0;$('zoom').value='—';}
  else if(view){notify(view.status);if(view.progress===null)$('workspace-progress').removeAttribute('value');else $('workspace-progress').value=view.progress;$('zoom').value=view.zoom+'%';}
  else {notify(entry?text('loading'):text('ready'));$('workspace-progress').value=0;$('zoom').value='—';}
  $('file-info').textContent=entry?.kind==='pdf'?entry.file.name:sourceInput?.description||currentFile?.name||'';
- const available=!!entry?.controller&&!entry.loading;
- for(const id of ['fit','zoom-in','zoom-out'])$(id).disabled=!available;
+ const available=!!entry?.controller&&!entry.loading,navigable=available||entry?.controller?.snapshot?.().openingPresentation===true;
+ for(const id of ['fit','zoom-in','zoom-out'])$(id).disabled=!navigable;
  $('save-session').disabled=!available||entry.controller.capabilities?.session===false;
  $('export-image').disabled=!available||!!view.busy||!(view.hasResult||entry.id==='original');$('quick-export-image').disabled=$('export-image').disabled;$('export-report').disabled=!reportTarget(entry,view);
  const busy=entries().some(e=>e.controller?.busy||e.loading);$('import-settings').disabled=busy;$('restore-session').disabled=busy;
@@ -204,6 +252,13 @@ function scopedDocument(root,host){return {
  get hidden(){return document.hidden;},get visibilityState(){return document.visibilityState;},
  get fullscreenElement(){return document.fullscreenElement;},exitFullscreen:()=>document.exitFullscreen()
 };}
+function parentBudgetSource(){const parent=sourceEntry,input=parent?.controller?.input?.();return input?.source&&input.file?{...input,getClient:()=>parent.controller.regionDetectionClient(),isCurrent:()=>sourceEntry===parent&&!parent.closed&&parent.controller?.input?.().source===input.source&&parent.controller?.input?.().file===input.file}:null;}
+async function parentBudgetSourceReady(record){
+ const parent=sourceEntry,epoch=generation,signal=parent?.sourceLifetime?.signal,cancelled=()=>Object.assign(Error('The opening Original source changed.'),{code:'CANCELLED'});if(!parent||signal?.aborted)throw cancelled();let abort;
+ try{const aborted=new Promise((_,reject)=>{abort=()=>reject(cancelled());signal?.addEventListener('abort',abort,{once:true});});await Promise.race([parent.inputReady??Promise.resolve(),aborted]);}
+ finally{signal?.removeEventListener('abort',abort);}
+ if(record.closed||record.generation!==epoch||parent!==sourceEntry||parent.closed||generation!==epoch||signal?.aborted)throw cancelled();const value=parentBudgetSource();if(!value||value.isCurrent()!==true)throw cancelled();return value;
+}
 function createEntry(id,{pdf=false}={}){
  const record={id,loading:true,generation,element:document.createElement('section'),regionElement:document.createElement('div'),originalRegionsElement:document.createElement('div'),originalRegions:null,controller:null,position:false};record.regionElement.hidden=true;record.originalRegionsElement.hidden=true;record.originalRegionsElement.className='original-source-controls-owner';
  record.element.id='document-'+crypto.randomUUID();record.element.className='document-window';
@@ -225,7 +280,7 @@ function createEntry(id,{pdf=false}={}){
   const root=panel.attachShadow({mode:'open'});
   for(const name of ['app.css','tool-workspace.css','panel.css']){const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(name,import.meta.url).href;link.onload=()=>{record.controller?.fit();positionOpeningPreview(record);};root.append(link);}
   for(const node of nodes)root.append(document.importNode(node,true));
-  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,scopeEditorFactory:placementScopeEditor,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,onSourcePresented:value=>sourcePresented(record,value),getAllSliders:()=>allSliders,getExperimentalTools:()=>experimentalTools,requestExport:task=>mediaUI.requestExport(task),requestWholeSourceFallback:options=>scopeFallbackUI.request(options),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>{if(!applyingLoupeStep)stepPlayback.reset();mediaUI.sync();},onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>loupeEffectsState(record,value),onLoupePresented:value=>loupePresented(record,value),exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),getParentBudgetSource:()=>{const parent=sourceEntry,input=parent?.controller?.input?.();return input?.source&&input.file?{...input,getClient:()=>parent.controller.regionDetectionClient(),isCurrent:()=>sourceEntry===parent&&parent.controller?.input?.().source===input.source&&parent.controller?.input?.().file===input.file}:null;},sourceInput:()=>sourceInput,getOriginalSourceRegions:()=>sourceEntry?.originalRegions?.snapshot()??null,getOriginalSourceRegionOptions:()=>sourceEntry?.originalRegions?.serializeOptions?.()??null,getOriginalRegionsHighlight:()=>sourceEntry?.originalRegions?.highlight??null,onOriginalRegionsKeydown:event=>sourceEntry?.originalRegions?.keydown(event)??false,restoreOriginalSourceRegions:value=>restoreOriginalSourceRegions(value),visible:()=>!record.element.hidden&&!record.closed,isActive:()=>panelIsActive(record),previewPreparationAllowed:()=>panelPreparationAllowed(record),changed:scheduleRender});
+  record.controller=panelFactory(scopedDocument(root,panel),{managed:true,regionParent:record.regionElement,scopeEditorFactory:placementScopeEditor,download,toolId:id,sourceOnly:id==='original',language:state.language,theme,computeProfile,engineFactory,onSourcePresented:value=>sourcePresented(record,value),onToolPresented:value=>toolPresented(record,value),onSourcePreview:(value,identity)=>setSourcePreview(record,value,identity),onOpeningPhase:(phase,detail)=>traceOpening(record,phase,detail),getAllSliders:()=>allSliders,getExperimentalTools:()=>experimentalTools,requestExport:task=>mediaUI.requestExport(task),requestWholeSourceFallback:options=>scopeFallbackUI.request(options),openLoupeSettings:()=>mediaUI.openLoupe(),onLoupeContextChange:()=>{if(!applyingLoupeStep)stepPlayback.reset();mediaUI.sync();},onLoupeSweepChange:()=>mediaUI.sync(),onLoupeEffectsState:value=>loupeEffectsState(record,value),onLoupePresented:value=>loupePresented(record,value),exportOriginalImage:settings=>sourceEntry?.controller?.exportImage(settings),onLoupeChange:value=>setMedia({...media,loupe:value}),getParentBudgetSource:parentBudgetSource,getParentBudgetSourceReady:()=>parentBudgetSourceReady(record),sourceInput:()=>sourceInput,getOriginalSourceRegions:()=>sourceEntry?.originalRegions?.snapshot()??null,getOriginalSourceRegionOptions:()=>sourceEntry?.originalRegions?.serializeOptions?.()??null,getOriginalRegionsHighlight:()=>sourceEntry?.originalRegions?.highlight??null,onOriginalRegionsKeydown:event=>sourceEntry?.originalRegions?.keydown(event)??false,restoreOriginalSourceRegions:value=>restoreOriginalSourceRegions(value),visible:()=>!record.element.hidden&&!record.closed,isActive:()=>panelIsActive(record),previewPreparationAllowed:()=>panelPreparationAllowed(record),changed:scheduleRender});
   if(id==='original'){let controls=root.getElementById('tool-controls');if(!controls){controls=document.createElement('section');controls.id='tool-controls';root.getElementById('analysis-controls').after(controls);}controls.classList.add('original-source-controls');controls.append(record.originalRegionsElement);controls.hidden=false;}
   if(savedTools[id])record.controller.applySettings(savedTools[id]);
   record.controller.setLanguage?.(state.language);
@@ -233,7 +288,11 @@ function createEntry(id,{pdf=false}={}){
   record.unregisterSliders=hoverSliders.registerRoot(root);
   positionOpeningPreview(record);
   return record.controller;
- }).catch(error=>{record.loading=false;record.error=error;notify(error.message);throw error;});
+ }).catch(error=>{record.loading=false;record.error=error;
+  diagnostic({level:'error',kind:'workspace.panel-initialization',context:{toolId:id},error:{name:error?.name,code:error?.code,message:error?.message??String(error),stack:error?.stack}});
+  if(!record.closed){const alert=document.createElement('p');alert.className='panel-initialization-error';alert.setAttribute('role','alert');alert.textContent=error.message||String(error);panel.append(alert);panel.inert=false;notify(alert.textContent);scheduleRender();}
+  throw error;
+ });
  return record;
 }
 async function openPDF(input){
@@ -252,8 +311,8 @@ async function openTool(id){
  if(!currentFile){pickImage();return;}
  if(id==='inspection.magnifier'&&!media.loupe.enabled)setMedia({...media,loupe:{...media.loupe,enabled:true}});
  if(id==='original'&&sourceEntry){sourceEntry.closed=false;state.open(id,sourceEntry);$('workspace-desk').append(sourceEntry.element);attachOpeningPreview(sourceEntry);selectDocument(id);return;}
- const sourceRecord=sourceEntry,inputReady=sourceRecord?.inputReady,record=createEntry(id);state.open(id,record);attachOpeningPreview(record);renderDocuments();
- try{const [controller,input]=await Promise.all([record.ready,inputReady]);if(!controller||!input||record.closed||record.generation!==generation||sourceRecord!==sourceEntry)return;controller.adopt({...input,sourceRegions:sourceRecord.originalRegions?.serialize()??null});record.loading=false;renderDocuments();}
+ const sourceRecord=sourceEntry,inputReady=sourceRecord?.inputReady,record=createEntry(id);record.openingTrace=sourceRecord?.openingTrace;traceOpening(record,'tool-selected');void record.ready.then(controller=>controller?.prepareOpeningTool?.()).catch(error=>{if(!record.closed)diagnostic({level:'warning',kind:'opening.tool-preparation',operation:id,error:{code:error.code,message:error.message}});});state.open(id,record);attachOpeningPreview(record);renderDocuments();
+ try{const [controller,input]=await Promise.all([record.ready,inputReady]);if(!controller||!input||record.closed||record.generation!==generation||sourceRecord!==sourceEntry)return;traceOpening(record,'tool-adopt-start');controller.adopt({...input,sourceRegions:sourceRecord.originalRegions?.serialize()??null});traceOpening(record,'tool-adopt-end');record.loading=false;renderDocuments();}
  catch(error){if(record.closed||record.generation!==generation)return;record.loading=false;clearOpeningPreview(record);notify(error.message);}
 }
 function remember(record){if(known.has(record.id)&&record.controller?.settings){const value=record.controller.settings();savedTools[record.id]=value;if(JSON.stringify(value)!==toolSignatures.get(record.id))dirtyTools.add(record.id);}}
@@ -287,17 +346,17 @@ async function closeDocument(id,{force=false}={}){
  if(!force&&record.controller?.busy&&!confirm(text('busyClose')))return;
  remember(record);saveTools();state.close(id);record.element.remove();
  if(record===sourceEntry&&[...state.documents.values()].some(value=>value.kind!=='pdf')){const ticket=record.openingPreview?.ticket;clearOpeningPreview(record);releasePresentedOpening(ticket);record.element.hidden=true;renderDocuments();return;}
- record.closed=true;const closing=[record];if(record===sourceEntry){retireOpening(sourceOpening);sourceEntry=null;sourceInput=null;currentFile=null;}
- if(![...state.documents.values()].some(value=>value.kind!=='pdf')){retireOpening(sourceOpening);if(sourceEntry&&sourceEntry!==record){sourceEntry.closed=true;sourceEntry.element.remove();closing.push(sourceEntry);}sourceEntry=null;sourceInput=null;currentFile=null;$('image-file').value='';}
+ record.closed=true;const closing=[record];if(record===sourceEntry){record.sourceLifetime?.abort();retireOpening(sourceOpening);sourceEntry=null;sourceInput=null;currentFile=null;}
+ if(![...state.documents.values()].some(value=>value.kind!=='pdf')){sourceEntry?.sourceLifetime?.abort();retireOpening(sourceOpening);if(sourceEntry&&sourceEntry!==record){sourceEntry.closed=true;sourceEntry.element.remove();closing.push(sourceEntry);}sourceEntry=null;sourceInput=null;currentFile=null;$('image-file').value='';}
  // Remove the view immediately; a queued worker cleanup may wait for another job.
- renderDocuments();await retireEntries(closing);
+ renderDocuments();for(const entry of closing)retirementOwner(entry);await Promise.all([...retiringOpenings]);await retireEntries(closing);
 }
 async function closeAll({preservePdfs=false,preserveOriginal=false}={}){
- retireOpening(sourceOpening);
+ sourceEntry?.sourceLifetime?.abort();retireOpening(sourceOpening);
  generation++;const original=preserveOriginal&&sourceEntry&&!sourceEntry.closed?sourceEntry:null,kept=entries().filter(record=>(preservePdfs&&record.kind==='pdf')||record===original),previous=entries().filter(record=>!kept.includes(record));state.clear();for(const record of kept){record.generation=generation;state.open(record.id,record);}sourceEntry=original;sourceInput=null;currentFile=null;pendingSession=null;sessionIntent=null;$('image-file').value='';
  for(const record of previous){remember(record);record.closed=true;record.element.remove();}
  saveTools();
- renderDocuments();await retireEntries(previous);
+ renderDocuments();for(const entry of previous)retirementOwner(entry);await Promise.all([...retiringOpenings]);await retireEntries(previous);
 }
 async function closeAnalyses(){
  const original=sourceEntry;if(!original)return closeAll({preservePdfs:true});
@@ -310,19 +369,19 @@ async function closeAnalyses(){
  await retireEntries(closing);
 }
 async function openImage(file,{preservePdfs=true,confirmReplace=true}={}){
- if(!file)return;const epoch=generation,kind=await detectWorkspaceFileKind(file);if(epoch!==generation)return;if(kind==='pdf')return openPDF(file);if(confirmReplace&&currentFile&&!confirm(text('replace')))return;
+ if(!file)return;const openingStartedAt=performance.now();const epoch=generation,kind=await detectWorkspaceFileKind(file);if(epoch!==generation)return;if(kind==='pdf')return openPDF(file);if(confirmReplace&&currentFile&&!confirm(text('replace')))return;
  const session=pendingSession,closing=closeAll({preservePdfs,preserveOriginal:true}),replacementGeneration=generation;pendingSession??=session;currentFile=file;
- const record=sourceEntry??createEntry('original');record.loading=true;record.panel.inert=true;sourceEntry=record;state.open('original',record);
- const opening={generation:replacementGeneration,file,records:new Set(),nativeReady:false,closed:false,preview:null};sourceOpening=opening;opening.preview=createOpeningImagePreview({file,document,isCurrent:()=>sourceOpening===opening&&!opening.closed&&generation===replacementGeneration&&currentFile===file});attachOpeningPreview(record,opening);renderDocuments();
+ const record=sourceEntry??createEntry('original');record.sourceLifetime=new AbortController();record.openingTrace={generation:replacementGeneration,startedAt:openingStartedAt,events:[]};traceOpening(record,'file-entry');record.loading=true;record.panel.inert=true;for(const child of record.originalRegionsElement.children)child.hidden=true;sourceEntry=record;state.open('original',record);
+ const opening={generation:replacementGeneration,file,records:new Set(),nativeReady:false,closed:false,preview:null,sourcePreview:null};sourceOpening=opening;const openingCurrent=()=>sourceOpening===opening&&!opening.closed&&generation===replacementGeneration&&currentFile===file;opening.sourcePreview=createOpeningSourcePreview({file,isCurrent:openingCurrent});opening.preview=openingPreviewFactory({file,document,isCurrent:openingCurrent,decodePreview:opening.sourcePreview.decodePreview});attachOpeningPreview(record,opening);renderDocuments();
  record.inputReady=Promise.resolve(closing).then(async()=>{
   if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;const controller=await record.ready;
-  if(!controller||record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;await record.originalRegions?.dispose();if(record.closed||generation!==replacementGeneration)return null;record.originalRegions=null;await controller.load(file);
+  if(!controller||record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;traceOpening(record,'panel-runtime-ready');await record.originalRegions?.dispose();if(record.closed||generation!==replacementGeneration)return null;record.originalRegions=null;await controller.load(file);traceOpening(record,'controller-load-settled');
   if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return null;
-  const originalRegions=originalRegionsFactory({scopeEditorFactory:placementScopeEditor,document,parent:record.originalRegionsElement,presentation:'toolbar',source:()=>{const input=record.controller?.input();return input?.file&&input.source?{blob:input.file,name:input.file.name,id:input.imageId,width:input.source.width,height:input.source.height,sourceSha256:input.hash}:null;},language:()=>state.language,computeProfile:()=>computeProfile,navigationMode:()=>navigationMode,getClient:()=>record.controller.regionDetectionClient(),onHighlight:()=>record.controller?.refreshOriginalRegions?.(),onError:error=>{if(!record.closed&&record.generation===replacementGeneration&&generation===replacementGeneration)notify(error.message);},onOpenBatch:snapshot=>openOriginalInBatch(record,snapshot),onChange:snapshot=>{if(record.closed||record!==sourceEntry||record.loading||record.generation!==replacementGeneration||generation!==replacementGeneration)return;sourceInput={...sourceInput,sourceRegions:snapshot};record.controller?.refreshOriginalRegions?.();for(const entry of entries())if(entry!==record&&entry.kind!=='pdf')entry.controller?.markSourceRegionsStale?.(snapshot);scheduleRender();}});record.originalRegions=originalRegions;
-  await originalRegions.ready;if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration){await originalRegions.dispose();return null;}sourceInput={...controller.input(),sourceRegions:originalRegions.serialize()};record.loading=false;record.panel.inert=false;record.controller?.refreshOriginalRegions?.();opening.nativeReady=true;renderDocuments();releasePresentedOpening(opening);return sourceInput;
+  opening.draftControls?.remove();opening.draftControls=null;const originalRegions=originalRegionsFactory({scopeEditorFactory:placementScopeEditor,document,parent:record.originalRegionsElement,presentation:'toolbar',source:()=>{const input=record.controller?.input();return input?.file&&input.source?{blob:input.file,name:input.file.name,id:input.imageId,width:input.source.width,height:input.source.height,sourceSha256:input.hash}:null;},language:()=>state.language,computeProfile:()=>computeProfile,navigationMode:()=>navigationMode,getClient:()=>record.controller.regionDetectionClient(),onHighlight:()=>record.controller?.refreshOriginalRegions?.(),onError:error=>{if(!record.closed&&record.generation===replacementGeneration&&generation===replacementGeneration)notify(error.message);},onOpenBatch:snapshot=>openOriginalInBatch(record,snapshot),onChange:snapshot=>{if(record.closed||record!==sourceEntry||record.loading||record.generation!==replacementGeneration||generation!==replacementGeneration)return;sourceInput={...sourceInput,sourceRegions:snapshot};record.controller?.refreshOriginalRegions?.();for(const entry of entries())if(entry!==record&&entry.kind!=='pdf')entry.controller?.markSourceRegionsStale?.(snapshot);scheduleRender();}});record.originalRegions=originalRegions;
+  await originalRegions.ready;traceOpening(record,'canonical-region-state-ready');opening.canonicalRegions=originalRegions;await syncOpeningDraft(record,opening);if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration){await originalRegions.dispose();return null;}sourceInput={...controller.input(),sourceRegions:originalRegions.serialize()};record.loading=false;record.panel.inert=false;record.controller?.refreshOriginalRegions?.();opening.nativeReady=true;traceOpening(record,'original-input-ready');void finishOpeningDraft(record,opening).catch(error=>{if(currentOpening(record,opening))notify(error.message);});renderDocuments();releasePresentedOpening(opening);return sourceInput;
  });
  try{const input=await record.inputReady;if(!input||record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return;if(pendingSession)await applySession(pendingSession);}
- catch(error){if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return;record.loading=false;record.panel.inert=false;retireOpening(opening);notify(error.message);}
+ catch(error){if(record.closed||record.generation!==replacementGeneration||generation!==replacementGeneration)return;record.loading=false;record.panel.inert=false;record.sourceLifetime?.abort();retireOpening(opening);notify(error.message);}
 }
 function warmImagePanel(){void Promise.all([template(),ensureRuntime()]).catch(()=>{});}
 function pickImage(){closeMenus();warmImagePanel();$('image-file').value='';$('image-file').click();}

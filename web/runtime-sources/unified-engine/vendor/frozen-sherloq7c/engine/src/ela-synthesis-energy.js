@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {energyParams} from './energy-pipeline.js';
 import {segmentedResidualEnergyPlane,energyStreamBytes} from './energy-stream.js';
 import {detectSegmentedPanels} from './auto-zones-stream.js';

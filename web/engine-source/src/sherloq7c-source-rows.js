@@ -1,7 +1,8 @@
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 
-// The current native16 importer retains ownership until all row reads finish.
-// It is never substituted with the display RGB8 path for a 16-bit Original.
+// The adapter selects native16 or explicitly selected SDR8 promoted exactly
+// into this fixed16-bit kernel container. The row transport never changes that
+// selected numerical domain and retains ownership until all reads finish.
 export function native16SourceRows(source,{onProgress}={}){
  const {width,height,data}=source;
  requireValue(Number.isSafeInteger(width)&&Number.isSafeInteger(height)&&data instanceof Uint16Array&&data.length===width*height*3,'Native RGB16 source required.');
@@ -13,7 +14,8 @@ export function native16SourceRows(source,{onProgress}={}){
 }
 
 // A computed presentation is identified separately from its Original.
-// RGB8 promotion is allowed here and for an originally 8-bit source only.
+// RGB8 promotion is allowed for computed presentations and an explicitly
+// selected SDR8 input; it never silently substitutes a native16 request.
 export function presentationSourceRows(surface,{onProgress}={}){
  const {width,height,format='rgb8'}=surface.descriptor,native=format==='rgb16';
  requireValue(['rgb8','rgb16'].includes(format),'RGB8 or native RGB16 presentation required.');

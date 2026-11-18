@@ -1,0 +1,29 @@
+{
+  "schema": "sherloq.native-magick-qualified-output/1",
+  "quantum16": {
+    "native-magick.mjs": {
+      "bytes": 137613,
+      "sha256": "915b62719dee9e94ad75020b28faf2ebb145b1875db13a2a8fb389aa74cdd794"
+    },
+    "native-magick.wasm": {
+      "bytes": 17704053,
+      "sha256": "94f9dd849f766d20e150c1845ee699f43439e63676882983522981d7d6c78984"
+    }
+  },
+  "quantum32": {
+    "native-magick.mjs": {
+      "bytes": 137674,
+      "sha256": "2051aeecad73bfee9b1692126227fb86e6484ae924208de5e0c0779f2217fd70"
+    },
+    "native-magick.wasm": {
+      "bytes": 17724259,
+      "sha256": "2551d53d6dde11c315bd5fe19fc45570c8d8ea3c2460cc46675ec9b00ca96cb1"
+    }
+  },
+  "wrapperSha256": "447470d072387081cb758d3029212158c1fd4feeb3d677068c70fe261124ca6c",
+  "cacheBridgeSha256": "44eb67160118c45fdccbdb7479c4e09c1dfae5d0afc89293a2aaa0ad13160278",
+  "runtimeConfigurationPrefix": {
+    "16": "/sherloq/native-magick",
+    "32": "/sherloq/native-magick/Q32"
+  }
+}

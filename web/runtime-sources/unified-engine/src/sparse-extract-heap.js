@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 // Prefer a larger SIFT cap only when it is fully financed. Wasm still starts
 // at its original32MiB and grows on demand; this is not a preallocation.
 const MiB=1024**2;

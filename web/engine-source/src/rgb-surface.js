@@ -4,11 +4,12 @@ import {sampleStoredPixels} from './display-sampling.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {createReadCooperation} from './read-cooperation.js';
 import {allocateOwnedTypedArray} from './allocation.js';
-function createByteSurface(store,{width:sw,height:sh,orientation=1,budget,ownsStore=true,channels,format,range,semantics}={}){
+function createByteSurface(store,{width:sw,height:sh,orientation=1,budget,ownsStore=true,surfaceId,channels,format,range,semantics}={}){
  requireValue(Number.isSafeInteger(sw)&&Number.isSafeInteger(sh)&&sw>0&&sh>0&&Number.isSafeInteger(sw*sh*channels)&&store.byteLength===sw*sh*channels,'Invalid byte surface dimensions.');
  requireValue(Number.isInteger(orientation)&&orientation>=1&&orientation<=8&&budget,'Invalid byte surface options.');
+ requireValue(surfaceId===undefined||typeof surfaceId==='string'&&surfaceId.length>0&&surfaceId.length<=128&&!surfaceId.includes('\0'),'Invalid reserved surface identity.');
  const metadata=format==='rgb8'?{}:{range:Object.freeze(range.slice()),semantics,...(format==='rgb-flags8'?{channelOrder:'RGB'}:{})};
- const width=orientation>=5?sh:sw,height=orientation>=5?sw:sh,id=crypto.randomUUID();let disposed=false,disposing;
+ const width=orientation>=5?sh:sw,height=orientation>=5?sw:sh,id=surfaceId??crypto.randomUUID();let disposed=false,disposing;
  const reads=createReadCooperation();
  const alive=()=>{if(disposed)throw new EngineError('DISPOSED','Pixel surface disposed.');};
  function source(x,y){switch(orientation){case 2:return [sw-1-x,y];case 3:return [sw-1-x,sh-1-y];case 4:return [x,sh-1-y];case 5:return [y,x];case 6:return [y,sh-1-x];case 7:return [sw-1-y,sh-1-x];case 8:return [sw-1-y,x];default:return [x,y];}}

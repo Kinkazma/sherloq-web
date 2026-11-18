@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {selectedEnergyCodec} from './energy-stream.js';
 import {allocateTypedArray,registerArrayViews} from './allocation.js';
 import {getExecutionScheduler} from './execution-scheduler.js';

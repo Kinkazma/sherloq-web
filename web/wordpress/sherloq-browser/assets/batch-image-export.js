@@ -1,9 +1,9 @@
-import {exportDefaults,validateExportSettings,linkedExportSize} from './media-settings.js?v=0.33.1';
-import {rasterOptions} from './raster-export-client.js?v=0.33.1';
+import {exportDefaults,validateExportSettings,linkedExportSize} from './media-settings.js?v=0.33.2';
+import {rasterOptions} from './raster-export-client.js?v=0.33.2';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
-import {createExportSink} from './export-sink.js?v=0.33.1';
-import {createExportSinkScope} from './export-sink-owner.js?v=0.33.1';
-import {createIndexedDbExportWriter} from './indexeddb-export-writer.js?v=0.33.1';
+import {createExportSink} from './export-sink.js?v=0.33.2';
+import {createExportSinkScope} from './export-sink-owner.js?v=0.33.2';
+import {createIndexedDbExportWriter} from './indexeddb-export-writer.js?v=0.33.2';
 
 export const BATCH_IMAGE_EXPORT_DEFAULTS=Object.freeze({...exportDefaults,format:'png'});
 export const BATCH_IMAGE_EXPORT_FORMATS=Object.freeze(['png','webp','tiff','avif','heic']);

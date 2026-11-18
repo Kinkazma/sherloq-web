@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 import factory from './gpu-pack-kernel.mjs';
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {cooperator} from './sherloq7c-math.js';

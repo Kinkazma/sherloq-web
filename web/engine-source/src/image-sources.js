@@ -1,3 +1,6 @@
+import {createPngColorDisplay8} from './png-color-display8.js';
+import {needsPngColorDisplay8} from './png-colorimetry.js';
+import {withRetirementOwner} from './owner-retirement-error.js';
 import {samplePixels} from './display-sampling.js';
 import {isCameraRaw} from './media-format.js';
 import {loadExtendedImage} from './media-image-source.js';
@@ -14,7 +17,7 @@ import {createBlobSource} from './blob-source.js';import {createTemporarySession
 export function contiguousSurface(pixels,budget){const store={byteLength:pixels.data.byteLength,storage:'memory',readInto(target,offset){target.set(pixels.data.subarray(offset,offset+target.length));return target;}};const surface=createRgbSurface(store,{width:pixels.width,height:pixels.height,budget,ownsStore:false});let closed=false;const dispose=surface.dispose;surface.dispose=()=>{closed=true;return dispose();};const alive=()=>{if(closed)throw new EngineError('DISPOSED','Pixel surface disposed.');};surface.readSampledWindow=(tile,options={})=>{alive();return samplePixels(pixels,tile,{budget,...options,alive});};return surface;}
 // A RAM Original may later need segmented working/output storage. Its lazy
 // session belongs to that Original, never to a disposable result or crop view.
-export function attachImageTemporarySession(record,{budget,temporarySessionId,onTemporarySession,createSession=createTemporarySession}={}){
+export function attachImageTemporarySession(record,{budget,temporarySessionId,onTemporarySession,createSession=createTemporarySession,strictAcknowledgements=false}={}){
  if(record.ensureTemporarySession||record.session||record.originalSource||record.temporarySessionOwner)return record;
  let session,pending,closing=false,closed=false,disposal;
  const owner={get hasResources(){return!!(session||pending);},
@@ -24,7 +27,7 @@ export function attachImageTemporarySession(record,{budget,temporarySessionId,on
    return pending;
   },
   dispose(){if(closed)return Promise.resolve();if(disposal)return disposal;closing=true;
-   const task=(async()=>{await pending?.catch(()=>{});if(session){await session.dispose();session=null;}closed=true;})();disposal=task;void task.finally(()=>{if(disposal===task)disposal=null;}).catch(()=>{});return task;
+   const task=(async()=>{await pending?.catch(()=>{});if(session){const result=await session.dispose();if(strictAcknowledgements&&(result===false||result===0))throw result;session=null;}closed=true;})();disposal=task;void task.finally(()=>{if(disposal===task)disposal=null;}).catch(()=>{});return task;
   }
  };
  record.temporarySessionOwner=owner;record.ensureTemporarySession=options=>owner.ensure(options);Object.defineProperty(record,'session',{configurable:true,enumerable:true,get:()=>session});return record;
@@ -58,7 +61,7 @@ export async function loadSegmentedJpeg(blob,{budget,signal,onProgress,temporary
 }
 const segmentedImageRetirements=new WeakMap();
 export function disposeSegmentedImage(record){
- let state=segmentedImageRetirements.get(record);if(!state){state={dependencies:new Map(),surfaces:new Map(),sessions:new Map(),sources:new Map(),task:null};segmentedImageRetirements.set(record,state);}if(state.task)return state.task;
+ let state=segmentedImageRetirements.get(record);if(!state){state={dependencies:new Map(),surfaces:new Map(),sessions:new Map(),sources:new Map(),originalOwner:record.originalSamplesOwner,task:null};segmentedImageRetirements.set(record,state);}if(state.task)return state.task;
  const remember=(owners,owner,onDone)=>{
   if(typeof owner?.dispose!=='function'||owners.has(owner))return;
   let done=false,pending;owners.set(owner,()=>{if(done)return;if(pending)return pending;const task=Promise.resolve().then(()=>owner.dispose()).then(()=>{done=true;onDone?.();});pending=task;void task.finally(()=>{if(pending===task)pending=null;}).catch(()=>{});return task;});
@@ -67,23 +70,29 @@ export function disposeSegmentedImage(record){
  for(const key of ['plotsCache','emCache','waveletCache','blockingCache','frequencyCache','prnuCache','resamplingCache','fourierPresentationGpu','fourierPreview','noisesnifferCache','noisesnifferColdPreview','stereoCache','thumbnailAnalysis','energyCache','synthesisEnergyCache','synthesisWholeEnergyCache','energyPreparationContexts','energyScoreGpu','ghostCache','biomesCache','ghostCellRetirements','ghostProxyCache','zeroPreview','zeroAnalysis','doubleJpegOwner','rgbRecompression','selectedRecompression','selectedGhostRecompression','recompressionCache','sourceRegionRecompressionCache']){
   const owner=record[key];remember(state.dependencies,owner,()=>{if(record[key]===owner)record[key]=null;});
  }
- remember(state.surfaces,record.surface);if(record.ownsTemporarySession!==false)remember(state.sessions,record.temporarySessionOwner??record.session);remember(state.sources,record.source);
+ if(!state.originalOwner){remember(state.surfaces,record.surface);remember(state.surfaces,record.nativeSurface);if(record.ownsTemporarySession!==false)remember(state.sessions,record.temporarySessionOwner??record.session);remember(state.sources,record.source);}
  // Cache owners may still owe source-window ACKs. Their Original surface,
  // temporary backing and encoded source stay alive until those debts retire.
- const task=(async()=>{await retireCompositeOwners([...state.dependencies.values()]);await retireCompositeOwners([...state.surfaces.values()]);await retireCompositeOwners([...state.sessions.values()]);await retireCompositeOwners([...state.sources.values()]);})();state.task=task;void task.finally(()=>{if(state.task===task)state.task=null;}).catch(()=>{});return task;
+ const task=(async()=>{await retireCompositeOwners([...state.dependencies.values()]);if(state.originalOwner){
+  const preview=record.native16PreviewOwner;
+  if(preview){const receipt=await preview.dispose();if(receipt===0||receipt===false)throw receipt;if(record.native16PreviewOwner===preview)record.native16PreviewOwner=null;}
+  await state.originalOwner.dispose();return;
+ }await retireCompositeOwners([...state.surfaces.values()]);await retireCompositeOwners([...state.sessions.values()]);await retireCompositeOwners([...state.sources.values()]);})();state.task=task;void task.finally(()=>{if(state.task===task)state.task=null;}).catch(()=>{});return task;
 }
-export async function loadSegmentedPng(blob,{header,animationDetected=false,budget,signal,onProgress,temporarySessionId,onTemporarySession}={}){
+export async function loadSegmentedPng(blob,{header,animationDetected=false,budget,signal,onProgress,colorBackend='auto',temporarySessionId,onTemporarySession}={}){
  if(animationDetected)throw new EngineError('UNSUPPORTED_FORMAT','Animated PNG needs a separately qualified segmented frame policy.');
- const source=createBlobSource(blob,{budget});let session,sessionPending,store,surface;
+ const source=createBlobSource(blob,{budget});let session,sessionPending,store,surface,colorDisplay,colorProvenance;
  async function ensureTemporarySession({signal:taskSignal}={}){
   checkAbort(taskSignal);if(session)return session;if(!sessionPending)sessionPending=(async()=>{const value=await createTemporarySession({budget,signal:taskSignal,id:temporarySessionId});session=value;onTemporarySession?.({id:value.id,backend:value.backend});return value;})().finally(()=>{sessionPending=null;});return sessionPending;
  }
  try{
   const sha256=await source.sha256({signal,onProgress:fraction=>onProgress?.({phase:'original-sha256',fraction})});checkAbort(signal);
   const inspected=await inspectPngSource(source,{signal,account:n=>budget.reserve(n)});header=inspected.header;if(inspected.metrics.animationDetected)throw new EngineError('UNSUPPORTED_FORMAT','Animated PNG needs a separately qualified segmented frame policy.');
+  if(needsPngColorDisplay8(header))colorDisplay=await createPngColorDisplay8(header,{budget,signal,backend:colorBackend});
   const n=header.sourceWidth*header.sourceHeight,plan=pngStreamPlan(header.sourceWidth,header.sourceHeight),fits=n*3+plan.workingBytes+2*1024**2<=budget.limit-budget.retained-budget.active;
   if(!fits)await ensureTemporarySession({signal});store=await createSegmentedBytes(n*3,{budget,storage:fits?'memory':'temporary',temporarySession:session,signal});
-  const started=performance.now(),decode=await decodePngRows(source,header,store,{budget,signal,onProgress:f=>onProgress?.({phase:'decode',fraction:f})}),decodeMs=performance.now()-started;
+  const started=performance.now(),decode=await decodePngRows(source,header,store,{budget,signal,...(colorDisplay?{transformBand:bytes=>colorDisplay.convertInPlace(bytes)}:{}),onProgress:f=>onProgress?.({phase:'decode',fraction:f})}),decodeMs=performance.now()-started;
+  if(colorDisplay){colorProvenance=colorDisplay.provenance();await colorDisplay.dispose();colorDisplay=null;}
   checkAbort(signal);
   // decodePngRows has flushed RGB and retired its last encoded read in finally.
   // Keep the decode cache during import, then retire large encoded copies; the
@@ -91,9 +100,9 @@ export async function loadSegmentedPng(blob,{header,animationDetected=false,budg
   const encodedCacheReleasedBytes=source.byteLength>32*1024**2?source.evictCachedRanges():0;
   surface=createRgbSurface(store,{width:header.sourceWidth,height:header.sourceHeight,orientation:header.orientation,budget});
   const oriented=await prepareOrientedSourceCache(surface,{budget,temporarySession:session,signal,onProgress});surface=oriented.surface;
-  const provenance={decoder:'libpng-1.6.43/emscripten-4.0.15/scanlines-v1',format:'png',sourceFormat:'png',layout:'segmented-scanlines',orientation:header.orientation,orientationApplied:true,sourceSize:[header.sourceWidth,header.sourceHeight],sourceDepth:header.depth,analysisDepth:8,interlace:header.interlace,icc:header.icc?'present, not applied (native policy)':'absent',alpha:header.alpha?'present, native IMREAD_COLOR conversion; not retained':'absent',interpolation:'none',frames:'static PNG'};
+  const provenance={decoder:'libpng-1.6.43/emscripten-4.0.15/scanlines-v1',format:'png',sourceFormat:'png',layout:'segmented-scanlines',orientation:header.orientation,orientationApplied:true,sourceSize:[header.sourceWidth,header.sourceHeight],sourceDepth:header.depth,analysisDepth:8,interlace:header.interlace,icc:header.icc?'present, not applied (native policy)':'absent',alpha:header.alpha?'present, native IMREAD_COLOR conversion; not retained':'absent',interpolation:'none',frames:'static PNG',...(colorProvenance?{icc:colorProvenance.converted?'absent; nominal PNG colorimetry to sRGB display':'absent; nominal PNG colorimetry not projected',colorManagement:colorProvenance}:{})};
   return {kind:'image',segmented:true,source,store,surface,get session(){return session;},ensureTemporarySession,sha256,provenance,retainedBytes:0,metrics:{decodeMs,...decode,...oriented.metrics,encodedCacheReleasedBytes,storage:store.storage,temporaryBackend:session?.backend??null,temporaryFallback:session?.fallback??null,temporaryBytes:session?store.byteLength+(oriented.metrics.orientationCacheBytes??0):0,originalBlobBytes:blob.size,originalBlobResidency:'browser-managed; not measured as zero RAM'}};
- }catch(error){try{try{await surface?.dispose();if(!surface)await store?.dispose();}finally{await session?.dispose();}}catch(cleanup){error.temporaryCleanupError={code:cleanup.code??'STORAGE_IO',message:cleanup.message};}finally{source.dispose();}throw error;}
+ }catch(error){let primary=error;try{await colorDisplay?.dispose();}catch(cleanup){primary=withRetirementOwner(error,colorDisplay,cleanup);}try{try{await surface?.dispose();if(!surface)await store?.dispose();}finally{await session?.dispose();}}catch(cleanup){error.temporaryCleanupError={code:cleanup.code??'STORAGE_IO',message:cleanup.message};}finally{source.dispose();}throw primary;}
 }
 export async function loadSegmentedTiff(blob,{header,budget,signal,onProgress,temporarySessionId,onTemporarySession}={}){
  const source=createBlobSource(blob,{budget});let session,sessionPending,store,surface;

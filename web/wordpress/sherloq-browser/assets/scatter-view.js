@@ -1,5 +1,5 @@
-import {createOrientationCube,nearestPlotFace,plotFaceCamera} from './scatter-orientation.js?v=0.33.1';
-import {bindViewerNavigation} from './viewer-input.js?v=0.33.1';
+import {createOrientationCube,nearestPlotFace,plotFaceCamera} from './scatter-orientation.js?v=0.33.2';
+import {bindViewerNavigation} from './viewer-input.js?v=0.33.2';
 
 const MIN_ZOOM=.1,MAX_ZOOM=12;
 export const PLOT_INTRO_CAMERA=Object.freeze({yaw:-Math.atan(Math.sin(Math.PI/15)),pitch:Math.PI/15});
@@ -29,7 +29,8 @@ export function zoomPlotCamera(camera,{width,height},point,factor){
 }
 
 // Presentation cache only. The native table and its CSV keep every computed row.
-export async function readPlotPoints(table,readTable,{valid=()=>true,maxPoints=262144}={}) {
+export async function readPlotPoints(table,readTable,{valid=()=>true,maxPoints=262144,displayColors=false}={}) {
+ if(displayColors)return readColoredPlotPoints(table,readTable,{valid,maxPoints});
  const stride=Math.max(1,Math.ceil(table.rowCount/maxPoints));
  const values=new Float32Array(Math.ceil(table.rowCount/stride)*6);
  let count=0;
@@ -44,6 +45,13 @@ export async function readPlotPoints(table,readTable,{valid=()=>true,maxPoints=2
   offset+=page.length;
  }
  return {values,count,total:table.rowCount};
+}
+
+async function readColoredPlotPoints(table,readTable,{valid,maxPoints}){
+ if(!Number.isInteger(maxPoints)||maxPoints<1||maxPoints>262144||!table.presentationColors)throw Error('Missing canonical plot palette contract.');
+ const stride=Math.max(1,Math.ceil(table.rowCount/maxPoints)),count=Math.ceil(table.rowCount/stride),values=new Float32Array(count*6),displayColors=new Uint8Array(count*3);let used=0;
+ for(let offset=0;offset<table.rowCount;){if(!valid())return null;let page=await readTable(table,offset,65536);try{if(!valid())return null;if(!page.length||!(page.displayColors instanceof Uint8Array)||page.displayColors.length!==page.length*3||page.displayColorSource?.schema!==table.presentationColors.schema||JSON.stringify(page.displayColorSource)!==JSON.stringify(table.presentationColors))throw Error('The canonical plot palette belongs to another grid or Source.');for(let row=Math.ceil(offset/stride)*stride;row<offset+page.length;row+=stride){const from=row-offset;values.set(page.data.subarray(from*6,from*6+6),used*6);displayColors.set(page.displayColors.subarray(from*3,from*3+3),used*3);used++;}offset+=page.length;}finally{page.data=page.displayColors=null;page=null;}}
+ return{values,displayColors,count:used,total:table.rowCount};
 }
 
 export function bindPlotCamera(canvas,{camera,style,changed,reset,snap=reset,interacting=()=>{},getNavigationMode=()=> 'auto'}) {
@@ -87,21 +95,22 @@ export function bindPlotCamera(canvas,{camera,style,changed,reset,snap=reset,int
 function gpuRenderer(canvas,points) {
  const gl=canvas.getContext('webgl2',{alpha:false,antialias:true,depth:false,preserveDrawingBuffer:false});
  if(!gl)return null;
- const shaders=[];let program,buffer;
+ const palette=points.displayColors;const shaders=[];let program,buffer,paletteBuffer;
  try{
   const shader=(type,source)=>{const s=gl.createShader(type);shaders.push(s);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;};
   program=gl.createProgram();
   gl.attachShader(program,shader(gl.VERTEX_SHADER,`#version 300 es
    precision highp float;
-   in vec3 rgb; in vec3 hsv;
-   uniform ivec3 axes; uniform vec4 camera; uniform vec4 framing; uniform bool volume;
+   in vec3 rgb; in vec3 hsv;${palette?' in vec3 displayRgb;':''}
+   uniform ivec3 axes; uniform vec4 camera; uniform vec4 framing; uniform bool volume; uniform int sampleStride;
    out vec3 color;
    float component(int axis){return axis<3?rgb[axis]:hsv[axis-3];}
    void main(){
+    if(gl_VertexID % sampleStride != 0){gl_Position=vec4(2.,2.,0.,1.);gl_PointSize=1.;color=${palette?'displayRgb':'rgb'};return;}
     vec3 p=vec3(component(axes.x),component(axes.y),volume?component(axes.z):.5)-.5;
     if(volume){float x=p.x*cos(camera.x)+p.z*sin(camera.x);float z=p.z*cos(camera.x)-p.x*sin(camera.x);p=vec3(x,p.y*cos(camera.y)-z*sin(camera.y),p.y*sin(camera.y)+z*cos(camera.y));}
     gl_Position=vec4(p.x*framing.x+camera.z,p.y*framing.y+camera.w,0.,1.);
-    gl_PointSize=framing.z;color=rgb;
+    gl_PointSize=framing.z;color=${palette?'displayRgb':'rgb'};
    }`));
   gl.attachShader(program,shader(gl.FRAGMENT_SHADER,`#version 300 es
    precision mediump float;
@@ -113,22 +122,26 @@ function gpuRenderer(canvas,points) {
   if(gl.getError()!==gl.NO_ERROR)throw Error('GPU plot allocation failed');
   gl.useProgram(program);
   for(const [name,offset]of [['rgb',0],['hsv',12]]){const a=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,3,gl.FLOAT,false,24,offset);}
-  const u=Object.fromEntries(['axes','camera','framing','volume','colored','opacity'].map(k=>[k,gl.getUniformLocation(program,k)]));
+  if(palette){paletteBuffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,paletteBuffer);gl.bufferData(gl.ARRAY_BUFFER,palette,gl.STATIC_DRAW);if(gl.getError()!==gl.NO_ERROR)throw Error('GPU plot palette allocation failed');const a=gl.getAttribLocation(program,'displayRgb');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,3,gl.UNSIGNED_BYTE,true,3,0);}
+  const u=Object.fromEntries(['axes','camera','framing','volume','colored','opacity','sampleStride'].map(k=>[k,gl.getUniformLocation(program,k)]));
   gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
   return {
-   draw(style,camera,w,h,dpr,dark){
+   draw(style,camera,w,h,dpr,dark,stride=1){
     gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(...(dark?[.09,.095,.105,1]:[.97,.97,.97,1]));gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(program);gl.uniform3i(u.axes,style.x,style.y,style.z);gl.uniform1i(u.volume,style.kind==='3d');gl.uniform1i(u.colored,style.colored);gl.uniform1f(u.opacity,style.alpha);
+    gl.uniform1i(u.sampleStride,stride);
     gl.uniform4f(u.camera,camera.yaw,camera.pitch,camera.x*2/w,-camera.y*2/h);
     const scale=Math.min(w,h)*1.4*camera.zoom;gl.uniform4f(u.framing,scale/w,scale/h,Math.max(1,1.5*dpr),0);
     gl.drawArrays(gl.POINTS,0,points.count);
    },
-   dispose(){gl.deleteBuffer(buffer);gl.deleteProgram(program);for(const s of shaders)gl.deleteShader(s);}
+   dispose(){if(paletteBuffer)gl.deleteBuffer(paletteBuffer);gl.deleteBuffer(buffer);gl.deleteProgram(program);for(const s of shaders)gl.deleteShader(s);}
   };
- }catch(error){if(buffer)gl.deleteBuffer(buffer);if(program)gl.deleteProgram(program);for(const s of shaders)gl.deleteShader(s);return null;}
+ }catch(error){if(paletteBuffer)gl.deleteBuffer(paletteBuffer);if(buffer)gl.deleteBuffer(buffer);if(program)gl.deleteProgram(program);for(const s of shaders)gl.deleteShader(s);return null;}
 }
 
-export function createScatterView({document,parent,points,style,columns,language=()=> 'fr',getNavigationMode=()=> 'auto',forceCanvas=false,initialCamera,cameraState,introState=createPlotIntroState(),allowIntro=true,reducedMotion}) {
+export function createScatterView({document,parent,points,style,columns,language=()=> 'fr',getNavigationMode=()=> 'auto',forceCanvas=false,initialCamera,cameraState,introState=createPlotIntroState(),allowIntro=true,reducedMotion,guideSegments=[],axisLabels,originLabel='0',ariaLabel='Nuage RGB/HSV interactif',canvasMaxPoints=Infinity,onBackendChange}) {
+ if(points.displayColors&&(!(points.displayColors instanceof Uint8Array)||points.displayColors.length!==points.count*3||points.count>262144))throw Error('Invalid bounded canonical plot palette.');
+ if(!(canvasMaxPoints===Infinity||Number.isInteger(canvasMaxPoints)&&canvasMaxPoints>0))throw Error('Invalid canvas point limit.');
  let p={...style},disposed=false,frame=null,introFrame=null;
  const camera=cameraState??createPlotCamera(initialCamera),motionWindow=document.defaultView??globalThis.window;
  const prefersReducedMotion=()=>typeof reducedMotion==='function'?reducedMotion():reducedMotion??motionWindow?.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches??false;
@@ -142,23 +155,28 @@ export function createScatterView({document,parent,points,style,columns,language
  let renderer=forceCanvas?null:gpuRenderer(canvas,points);
  if(!renderer){canvas.remove();canvas=document.createElement('canvas');canvas.className='scatter-canvas';stage.prepend(canvas);}
  const context=renderer?null:canvas.getContext('2d');
- canvas.tabIndex=0;canvas.setAttribute('aria-label','Nuage RGB/HSV interactif');
+ const pointStride=()=>Math.max(1,Math.ceil(points.count/Math.min(p.maxPoints??Infinity,renderer?Infinity:canvasMaxPoints)));
+ const displayCount=()=>Math.ceil(points.count/pointStride());
+ canvas.tabIndex=0;canvas.setAttribute('aria-label',ariaLabel);
  function draw(){
   frame=null;if(disposed)return;cube.draw();
   const {width:w,height:h}=cssViewport(stage);if(!w||!h)return;
   const dpr=Math.min(globalThis.devicePixelRatio||1,2),dark=(document.documentElement.dataset.theme||'dark')==='dark';
   if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
-  if(renderer)renderer.draw(p,camera,w,h,dpr,dark);
+  if(renderer)renderer.draw(p,camera,w,h,dpr,dark,pointStride());
   else{
    context.setTransform(canvas.width/w,0,0,canvas.height/h,0,0);context.fillStyle=dark?'#17181a':'#f7f7f7';context.fillRect(0,0,w,h);context.globalAlpha=p.alpha;
-   const viewport={width:w,height:h};for(let i=0;i<points.count;i++){const row=points.values.subarray(i*6,i*6+6),[x,y]=projectPlotPoint(row,p,camera,viewport);context.fillStyle=p.colored?`rgb(${row[0]*255},${row[1]*255},${row[2]*255})`:'#338cd9';context.fillRect(x,y,1.5,1.5);}context.globalAlpha=1;
+   if(points.displayColors){const viewport={width:w,height:h},stride=pointStride(),colors=points.displayColors;for(let i=0;i<points.count;i+=stride){const row=points.values.subarray(i*6,i*6+6),[x,y]=projectPlotPoint(row,p,camera,viewport);context.fillStyle=p.colored?`rgb(${colors[i*3]},${colors[i*3+1]},${colors[i*3+2]})`:'#338cd9';context.fillRect(x,y,1.5,1.5);}context.globalAlpha=1;}else{
+   const viewport={width:w,height:h},stride=pointStride();for(let i=0;i<points.count;i+=stride){const row=points.values.subarray(i*6,i*6+6),[x,y]=projectPlotPoint(row,p,camera,viewport);context.fillStyle=p.colored?`rgb(${row[0]*255},${row[1]*255},${row[2]*255})`:'#338cd9';context.fillRect(x,y,1.5,1.5);}context.globalAlpha=1;
+   }
   }
   if(guides.width!==canvas.width||guides.height!==canvas.height){guides.width=canvas.width;guides.height=canvas.height;}
   axisContext.setTransform(guides.width/w,0,0,guides.height/h,0,0);axisContext.clearRect(0,0,w,h);axisContext.lineWidth=1;axisContext.font='11px sans-serif';
   const project=(x,y,z)=>projectCoordinates(x,y,z,p.kind,camera,{width:w,height:h});
   const origin=project(0,0,0),ends=[project(1,0,0),project(0,1,0),...(p.kind==='3d'?[project(0,0,1)]:[])];
-  ends.forEach((end,i)=>{if(Math.hypot(end[0]-origin[0],end[1]-origin[1])<2)return;axisContext.strokeStyle=['#ce7777','#78b58a','#81a9dc'][i];axisContext.fillStyle=axisContext.strokeStyle;axisContext.beginPath();axisContext.moveTo(...origin);axisContext.lineTo(...end);axisContext.stroke();axisContext.fillText(columns[[p.x,p.y,p.z][i]]+' 1',end[0]+4,end[1]-4);});
-  axisContext.fillStyle=dark?'#aeb2b9':'#59606a';axisContext.fillText('0',origin[0]-10,origin[1]+12);
+  ends.forEach((end,i)=>{if(Math.hypot(end[0]-origin[0],end[1]-origin[1])<2)return;axisContext.strokeStyle=['#ce7777','#78b58a','#81a9dc'][i];axisContext.fillStyle=axisContext.strokeStyle;axisContext.beginPath();axisContext.moveTo(...origin);axisContext.lineTo(...end);axisContext.stroke();const axis=[p.x,p.y,p.z][i];axisContext.fillText(axisLabels?.[axis]??columns[axis]+' 1',end[0]+4,end[1]-4);});
+  axisContext.fillStyle=dark?'#aeb2b9':'#59606a';axisContext.fillText(typeof originLabel==='function'?originLabel():originLabel,origin[0]-10,origin[1]+12);
+  for(const segment of guideSegments){const a=projectPlotPoint(segment.from,p,camera,{width:w,height:h}),b=projectPlotPoint(segment.to,p,camera,{width:w,height:h});axisContext.strokeStyle=segment.color;axisContext.fillStyle=segment.color;axisContext.lineWidth=2;axisContext.beginPath();axisContext.moveTo(...a);axisContext.lineTo(...b);axisContext.stroke();axisContext.fillText(segment.label,b[0]+5,b[1]+12);}
  }
  function requestDraw(){if(!disposed&&frame===null)frame=requestAnimationFrame(draw);}
  function stopIntro(preserve=false){if(introFrame!==null)cancelAnimationFrame(introFrame);introFrame=null;if(!preserve)introState.transition=null;if(introState.cancel===stopIntro)introState.cancel=null;}
@@ -180,15 +198,15 @@ export function createScatterView({document,parent,points,style,columns,language
  function snapCamera(){if(p.kind!=='3d'){resetCamera();return;}alignFace(nearestPlotFace(camera));}
  function reinitialize(){rearmPlotIntro(introState);Object.assign(camera,createPlotCamera());startIntro();requestDraw();}
  function resetCamera(){consumeIntro();Object.assign(camera,createPlotCamera());requestDraw();}
- function translate(){const fr=language()==='fr';label.textContent=[p.x,p.y,...(p.kind==='3d'?[p.z]:[])].map(i=>columns[i]).join(' × ');help.textContent=(fr?(p.kind==='3d'?'Glisser : tourner · Maj + glisser : déplacer':'Glisser : déplacer')+' · Trackpad : déplacer · Molette / pincement : zoom · Double-clic : '+(p.kind==='3d'?'aligner la face proche':'ajuster'):(p.kind==='3d'?'Drag: rotate · Shift + drag: pan':'Drag: pan')+' · Trackpad: pan · Wheel / pinch: zoom · Double-click: '+(p.kind==='3d'?'align nearest face':'fit'))+(points.count<points.total?(fr?' · Affichage : ':' · Display: ')+points.count.toLocaleString()+' / '+points.total.toLocaleString()+(fr?' points.':' points.'):'');}
+ function translate(){const fr=language()==='fr';label.textContent=[p.x,p.y,...(p.kind==='3d'?[p.z]:[])].map(i=>columns[i]).join(' × ');help.textContent=(fr?(p.kind==='3d'?'Glisser : tourner · Maj + glisser : déplacer':'Glisser : déplacer')+' · Trackpad : déplacer · Molette / pincement : zoom · Double-clic : '+(p.kind==='3d'?'aligner la face proche':'ajuster'):(p.kind==='3d'?'Drag: rotate · Shift + drag: pan':'Drag: pan')+' · Trackpad: pan · Wheel / pinch: zoom · Double-click: '+(p.kind==='3d'?'align nearest face':'fit'))+(displayCount()<points.total?(fr?' · Affichage : ':' · Display: ')+displayCount().toLocaleString()+' / '+points.total.toLocaleString()+(fr?' points.':' points.'):'');}
  const navigation=bindPlotCamera(canvas,{camera,style:()=>p,changed:requestDraw,reset:resetCamera,snap:snapCamera,interacting:consumeIntro,getNavigationMode});
  const resize=new ResizeObserver(requestDraw);resize.observe(stage);
  // Restoring a context cannot restore its old resources. Fall back to the same
  // retained points without an engine call or an automatic rerun.
  const contextLost=e=>{e.preventDefault();if(disposed)return;renderer?.dispose();renderer=null;replacement();};canvas.addEventListener('webglcontextlost',contextLost);
  function releaseView(){stopIntro(true);disposed=true;cube.dispose();navigation.dispose();resize.disconnect();if(frame!==null)cancelAnimationFrame(frame);canvas.removeEventListener('webglcontextlost',contextLost);}
- function replacement(){const saved=createPlotCamera(camera);releaseView();successor=createScatterView({document,parent,points,style:p,columns,language,getNavigationMode,forceCanvas:true,initialCamera:saved,cameraState:camera,introState,allowIntro,reducedMotion});}
+ function replacement(){const saved=createPlotCamera(camera);releaseView();successor=createScatterView({document,parent,points,style:p,columns,language,getNavigationMode,forceCanvas:true,initialCamera:saved,cameraState:camera,introState,allowIntro,reducedMotion,guideSegments,axisLabels,originLabel,ariaLabel,canvasMaxPoints,onBackendChange});onBackendChange?.(successor.backend);}
  let successor=null;
  translate();requestDraw();startIntro();
- return {get camera(){return successor?successor.camera:createPlotCamera(camera);},get intro(){return successor?successor.intro:{armed:introState.armed,interacted:introState.interacted,active:introState.cancel===stopIntro};},cancelIntro(){if(successor)return successor.cancelIntro();introState.cancel?.();},alignFace(face){if(successor)return successor.alignFace(face);alignFace(face);},snap(){if(successor)return successor.snap();snapCamera();},reinitialize(){if(successor)return successor.reinitialize();reinitialize();},get miniPointCount(){return successor?successor.miniPointCount:cube.sampleCount;},setStyle(value){if(successor)return successor.setStyle(value);const previousKind=p.kind;p={...p,...value};if(p.kind!=='3d')stopIntro();translate();requestDraw();if(previousKind!=='3d'&&p.kind==='3d')startIntro();},redraw(){if(successor)return successor.redraw();translate();requestDraw();},fit(){if(successor)return successor.fit();resetCamera();},zoomBy(factor){if(successor)return successor.zoomBy(factor);consumeIntro();if(zoomPlotCamera(camera,cssViewport(stage),null,factor))requestDraw();},dispose(){if(successor)return successor.dispose();if(disposed)return;releaseView();renderer?.dispose();}};
+ return {get displayCount(){return successor?successor.displayCount:displayCount();},get backend(){return successor?successor.backend:renderer?'webgl2':'canvas2d';},get camera(){return successor?successor.camera:createPlotCamera(camera);},get intro(){return successor?successor.intro:{armed:introState.armed,interacted:introState.interacted,active:introState.cancel===stopIntro};},cancelIntro(){if(successor)return successor.cancelIntro();introState.cancel?.();},alignFace(face){if(successor)return successor.alignFace(face);alignFace(face);},snap(){if(successor)return successor.snap();snapCamera();},reinitialize(){if(successor)return successor.reinitialize();reinitialize();},get miniPointCount(){return successor?successor.miniPointCount:cube.sampleCount;},setStyle(value){if(successor)return successor.setStyle(value);const previousKind=p.kind;p={...p,...value};if(p.kind!=='3d')stopIntro();translate();requestDraw();if(previousKind!=='3d'&&p.kind==='3d')startIntro();},redraw(){if(successor)return successor.redraw();translate();requestDraw();},fit(){if(successor)return successor.fit();resetCamera();},zoomBy(factor){if(successor)return successor.zoomBy(factor);consumeIntro();if(zoomPlotCamera(camera,cssViewport(stage),null,factor))requestDraw();},dispose(){if(successor)return successor.dispose();if(disposed)return;releaseView();renderer?.dispose();}};
 }

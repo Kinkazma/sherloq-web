@@ -1,12 +1,12 @@
 import {isGradientField} from './unified-engine/src/gradient-field-parameters.js';
 import {usefulOperationMethod} from './unified-engine/src/useful-operation-method.js';
 import {backendScope} from './unified-engine/src/adaptive-runtime.js';
-import {CLONE_ALGORITHMS} from './clone-methods.js?v=0.33.1';
+import {CLONE_ALGORITHMS} from './clone-methods.js?v=0.33.2';
 import {SEGMENTATION_WINDOW_VARIANTS} from './unified-engine/src/segmentation-window-capabilities.js';
 // Static registered routes only: preference defaults create no device, model,
 // benchmark or admission. Runtime resource/backend checks remain authoritative.
 const gpuOperations=new Set([
- 'ela.classic','ela.biomes','ela.energy','tampering.copyMove.brisk','tampering.copyMove.akaze','tampering.copyMove.orb',
+ 'ela.classic','ela.biomes','ela.energy','ela.bitrate','tampering.copyMove.brisk','tampering.copyMove.akaze','tampering.copyMove.orb',
  'tampering.resampling','tampering.resampling.fourier','various.median','noise.noisesniffer','noise.prnu','comparison.image',
  'detail.frequency','noise.blocking','detail.wavelets','various.stereogram','jpeg.zero','jpeg.ghosts','jpeg.recompression','jpeg.quality','noise.separation',
  'ai.sources.safire','ai.localization.focal','ai.localization.adaifl','ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint',
@@ -22,10 +22,10 @@ export function gpuBackendEligible(tool,params={},extras={}){
  if(tool==='various.ocr')return params.prepareOnly!==true&&['ppocr-medium','tesseract'].includes(params.algorithm??params.engine??'ppocr-medium');
  return gpuOperations.has(tool);
 }
-// Energy and SHERLOQ have an automatic GPU path with native CPU recovery. API
+// Registered automatic routes combine useful CPU/GPU work with native recovery. API
 // exposure alone must not turn that default into a strict GPU request. Other
 // tools retain their historical defaults; explicit saved choices remain strict.
-export const defaultBackend=(tool,params={},extras={})=>['inspection.sherloq7c','ela.energy','detail.gradient'].includes(tool)?'auto':gpuBackendEligible(tool,params,extras)&&!!globalThis.navigator?.gpu?'webgpu':'auto';
+export const defaultBackend=(tool,params={},extras={})=>['inspection.sherloq7c','ela.energy','ela.bitrate','detail.gradient','detail.frequency','detail.wavelets'].includes(tool)?'auto':gpuBackendEligible(tool,params,extras)&&!!globalThis.navigator?.gpu?'webgpu':'auto';
 export function requestedBackend(task,extras={},store){
  if(task.backend!==undefined&&task.backend!==null)return task.backend;
  const identity=usefulOperationMethod(task.operation,task.params,extras),scope=backendScope(identity.tool,identity.method);

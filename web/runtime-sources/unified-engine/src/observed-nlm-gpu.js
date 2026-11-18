@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {createNlmAtlasReadEnvelope} from './nlm-atlas-read-envelope.js';
 import {planNlmAtlasBatch,copyNlmPackedAtlasInto,copyNlmPackedOutputInto} from './nlm-atlas-batch-plan.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';
@@ -7,6 +7,31 @@ import {nativeGpuSync,nativeGpuAsync} from './gpu-native-boundary.js';
 import {markObservedNlmGpuFailure,attachObservedNlmCleanup,keepObservedNlmGpuRetirement,forgetObservedNlmGpuRetirement,retireObservedNlmBuffer} from './observed-nlm-gpu-retirement.js';
 import {separationNlmShader} from './separation-nlm-gpu-shaders.js';
 const HEAP=64*1024**2,PIPELINE=2*1024**2,batchKey=Symbol('owned-native-point-atlases');
+/** Cold memory bound for this provider's ordinary bands, not point atlases.
+ * No adapter/device/table or Source is created. Actual GPU admission remains
+ * exclusively in the requested provider; a byte bound grants no backend. */
+export function observedNlmGpuAdmissionPlan(w,h,rows,p,{backend='auto',limits}={}){
+ const unknown=reason=>({known:false,completeResidentAlternative:false,reason});
+ if(![w,h,rows].every(Number.isSafeInteger)||w<1||h<1||rows<1||rows>h||w>2147483647||h>2147483647||!p||p.mode!==4||!Number.isInteger(p.radius)||p.radius<1||p.radius>10||typeof p.grayscale!=='boolean'||!['cpu','auto','webgpu'].includes(backend))return unknown('observed-nlm8-band-geometry-invalid');
+ if(backend==='cpu')return{known:true,completeResidentAlternative:true,bytes:0,memoryOnly:true,gpuExecutionAdmitted:false,state:'cpu-alternative-no-provider'};
+ const n=w*h,total=w*rows,countL=Math.floor(65025/(64/49)+1),countAB=p.grayscale?0:Math.floor(130050/(64/49)+1),tableBytes=(countL+countAB)*4;
+ // Same mallocs as run(): packed Source/output, RGB output, temporary RGB
+ // input. C++ pack holds grayN or BGR3N+Lab3N; unpack holds grayR or
+ // Lab3R+BGR3R. The existing4MiB Native workspace bounds allocator slack.
+ const allocatorAllowanceBytes=4*1024**2,packBytes=(p.grayscale?8:13)*n+7*total,unpackBytes=4*n+(p.grayscale?8:13)*total,nativeWorkspaceBytes=allocatorAllowanceBytes+Math.max(400000,packBytes,unpackBytes);
+ if(!Number.isSafeInteger(nativeWorkspaceBytes)||nativeWorkspaceBytes>HEAP)return unknown('observed-nlm8-native-workspace-not-admitted');
+ const buffers={source:n*4,output:total*4,shape:32,table:tableBytes,membership:4,scratch:4,readback:total*4},gpuBufferBytes=Object.values(buffers).reduce((a,b)=>a+b,0),mappedBytes=total*4,hostOutputBytes=total*3,tableConstructionBytes=1200000;
+ let deviceAdmissionKnown=false;
+ if(limits!==undefined){
+  const binding=Math.min(limits?.maxStorageBufferBindingSize??0,limits?.maxBufferSize??0),workgroups=limits?.maxComputeWorkgroupsPerDimension;
+  if(!Number.isSafeInteger(binding)||binding<4||!Number.isSafeInteger(workgroups)||workgroups<1)return unknown('observed-nlm8-device-limits-uninspectable');
+  if(Object.values(buffers).some(bytes=>bytes>binding)||Math.ceil(w/8)>workgroups||Math.ceil(rows/8)>workgroups)return unknown('observed-nlm8-device-limits-exceeded');
+  deviceAdmissionKnown=true;
+ }
+ const tableConstructionPeakBytes=HEAP+hostOutputBytes+tableBytes+tableConstructionBytes,executionPeakBytes=HEAP+hostOutputBytes+tableBytes+gpuBufferBytes+PIPELINE+mappedBytes,bytes=Math.max(tableConstructionPeakBytes,executionPeakBytes);
+ if(![n,total,bytes,...Object.values(buffers)].every(Number.isSafeInteger))return unknown('observed-nlm8-unsafe-bound');
+ return{known:true,completeResidentAlternative:true,bytes,memoryOnly:true,gpuExecutionAdmitted:false,deviceAdmissionKnown,state:'observed-nlm8-fresh-band-memory-bound',heapBytes:HEAP,pipelineBytes:PIPELINE,tableBytes,countL,countAB,buffers,gpuBufferBytes,mappedBytes,hostOutputBytes,tableConstructionBytes,tableConstructionPeakBytes,executionPeakBytes,nativeWorkspaceBytes,packBytes,unpackBytes,allocatorAllowanceBytes};
+}
 // Dedicated transport for the existing NLM Native preparation and WGSL.
 // No filtering formula, lookup coefficient, search/template or dispatch changes.
 export async function createObservedNlmGpu({budget,signal,operation=(_label,work)=>work()}={}){

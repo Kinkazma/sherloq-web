@@ -1,0 +1,48 @@
+{
+  "schema": "sherloq.synthetic-alpha-oracle/1",
+  "source": "Synthetic RGB16 gradient and alpha ramp, generated for tests; no user image.",
+  "reference": "libavif1.4.2/dav1d1.5.4 source-depth RGBA, straight output, RGB channels promoted to full-range16. SDR hashes retain the prior black-composited policy.",
+  "license": "CC0-1.0",
+  "images": [
+    {
+      "file": "alpha-10-premultiplied.avif",
+      "width": 64,
+      "height": 48,
+      "depth": 10,
+      "alphaPremultiplied": true,
+      "encodedSha256": "6ea44eecdad610659d74e55b9f45a1b1cc64239475fc4232d39f64d578a11083",
+      "nativeRgb16Sha256": "328435d52d8c5b107fbe6ca34dae3cda3bc1a98ff26bd40e5905b78e16892674",
+      "sdrRgb8Sha256": "a1fd191877cc99b77ed9599e72219854786d55614798e59d6c02d539a3d37054"
+    },
+    {
+      "file": "alpha-10.avif",
+      "width": 64,
+      "height": 48,
+      "depth": 10,
+      "alphaPremultiplied": false,
+      "encodedSha256": "9ae4673f479194d898d8cd2ffc44e24e89a62116d40836f0505df09336ed6f67",
+      "nativeRgb16Sha256": "98a9d28e01b2b38600696bb68f41146af2502a4a355413bdd844e9655b5698d3",
+      "sdrRgb8Sha256": "bb7c36ffdcfac8cb9a0f4d879ec360499c48028c52ca34cc0f6eb9baf753e378"
+    },
+    {
+      "file": "alpha-8-premultiplied.avif",
+      "width": 64,
+      "height": 48,
+      "depth": 8,
+      "alphaPremultiplied": true,
+      "encodedSha256": "d82e058a30a7573c6e2a50086a6b024bb32f1265e08715bb51000c5b3e998400",
+      "nativeRgb16Sha256": "53617aab8f999d3d0803103f57142bdad7890394605b7d4fb3d794a309fb10dd",
+      "sdrRgb8Sha256": "44671f18be9d09ae9206c930e52a0f79becc0bec262e3d574c66e99e69c2022e"
+    },
+    {
+      "file": "alpha-8.avif",
+      "width": 64,
+      "height": 48,
+      "depth": 8,
+      "alphaPremultiplied": false,
+      "encodedSha256": "671faa177ae9b3d7188a8431adf232228e4caba760b81e1e503ef1f793872416",
+      "nativeRgb16Sha256": "c9a8e07e01f0fd2b86c92e3fa02c105bf590346d4d3c61785940e8a7cb0b65bb",
+      "sdrRgb8Sha256": "ae6b5014be8d7d694b1f9cbf5b8cf02f4a226efb4d4820d3a19d14fee6679eaf"
+    }
+  ]
+}

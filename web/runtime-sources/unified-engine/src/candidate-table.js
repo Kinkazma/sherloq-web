@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {EngineError,requireValue,checkAbort,controlCheckpoint,normalizeResourceError} from './errors.js';
 
 export const CANDIDATE_COLUMNS=Object.freeze(['x','y','rgbChannelIndex','flag','originalValue','replacementValue']);
@@ -36,7 +36,7 @@ export function createCandidateTable(store,{budget,params}={}){
    }catch(error){release();throw normalizeResourceError(error);}
    finally{page?.release();}
   },
-  dispose(){if(disposing)return disposing;disposed=true;disposing=Promise.resolve(store.dispose());return disposing;}
+  dispose(){if(disposing)return disposing;disposed=true;let task;try{task=Promise.resolve(store.dispose());}catch(error){return Promise.reject(error);}disposing=task;void task.catch(()=>{if(disposing===task)disposing=null;});return task;}
  };
  return table;
 }

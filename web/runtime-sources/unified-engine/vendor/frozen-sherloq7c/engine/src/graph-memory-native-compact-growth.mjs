@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 // Synchronous page admission is required by Emscripten's resize_heap import.
 // No async reclaim is attempted while native code is on the stack.
 import proof from './graph-memory-native-compact-growth-proof.mjs';

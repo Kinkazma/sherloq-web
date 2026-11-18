@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {validateRecompressionOptions,usesAlternateRecompression} from './recompression-plan.js';
 import {resolveSelectedPlan} from './recompression-probe.js';
 // Full energy-only scientific path under qualification. Legacy peer biomes are separate.

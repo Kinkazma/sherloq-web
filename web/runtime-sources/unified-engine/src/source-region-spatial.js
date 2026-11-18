@@ -1,5 +1,6 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {sourceRegionBiomes} from './source-region-biomes.js';
+import {sourceRegionElabitrate} from './source-region-elabitrate.js';
 import {sourceRegionDoubleJpeg} from './source-region-double-jpeg.js';
 import {SOURCE_REGION_CLONES_ADAPTER} from './source-region-clones.js';
 import {SOURCE_REGION_COMPLETE_ADAPTER} from './source-region-complete.js';
@@ -86,6 +87,7 @@ export async function sourceRegionPointwise({task,original,derived,view,domain,b
 }
 const all=()=>true;
 export const SOURCE_REGION_SPATIAL_ADAPTERS=Object.freeze({
+ 'ela.bitrate':{shapes:['rectangle','membership','native-regions'],previewOperations:['ela.bitrate'],validateParams:PIXEL_OPERATIONS['ela.bitrate'].validate,accepts:all,parameterConstraints:'One global RGB8 histogram over all admitted native samples; exclusions omitted before bounds and quantization; original background is display-only.',run:sourceRegionElabitrate},
  'analysis.complete':SOURCE_REGION_COMPLETE_ADAPTER,
  'subimages.detect':{shapes:['membership','native-regions'],validateParams:subimageParams,accepts:all,parameterConstraints:'Unchanged native geometric panel detector independently in complete admitted RGB contexts; no excluded palette/morphology observations or implied full-frame fallback.',run:sourceRegionSubimages},
  'analysis.clones':SOURCE_REGION_CLONES_ADAPTER,

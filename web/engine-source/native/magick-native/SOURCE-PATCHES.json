@@ -1,0 +1,30 @@
+{
+  "coders/jxl.c": {
+    "beforeSha256": "7158d9170c077de535b464c217a5d413ae61786ae921c7ba5ebb63465c3a1221",
+    "afterSha256": "d723122f39954e9d82df3db8e856b48d010eca0a0740e7f3cdaef24090402dfd"
+  },
+  "coders/pnm.c": {
+    "beforeSha256": "6666147781eb0ee30ce719efcbfec8bb1c8df2880a4556a096a2e1d24d30e22e",
+    "afterSha256": "485de0d1e2efb3ac3dd83f4fba2eaa6383becc1b34fdfdf739d2ed5859c26fdd"
+  },
+  "coders/psd.c": {
+    "beforeSha256": "4e359186117924a0900b8ed24a93e8191ccc4fdeb08d3cf0776b011c98c8f336",
+    "afterSha256": "3169adc6c35d8fa383acc6457aa8b33f9933b7867dacb9d66fb278cd8570f3ce"
+  },
+  "coders/tiff.c": {
+    "beforeSha256": "53a3eabd3e5d47821b318601db3c874b7114270710278ece0b021b03d3691dae",
+    "afterSha256": "c2d2abaa0116523ff4030070a6ed5a445a8dd27d548de8ea71bfb1e6bef76a80"
+  },
+  "MagickCore/quantum-import.c": {
+    "beforeSha256": "9991d909a3f84ccde423cbf14dc83e91195d7ae1c26e69108d52d4e639f8e763",
+    "afterSha256": "fa6c8b64fdb94e0f458b08821f484b41df87835534477189e521c26d6b59c039"
+  },
+  "coders/heic.c": {
+    "beforeSha256": "fbabe1e159557b90f6fdfc852453d02564dc52fc15888cf1297cb2c61040fb32",
+    "afterSha256": "9255b78ce515735a2e51b2cd519cb20ca0ae7ca9d679a72271f6be103580957e"
+  },
+  "coders/exr.c": {
+    "beforeSha256": "5ff4b2641248140fcf17554ae050bb4270d7da3bebc9ad44a6400899fe070173",
+    "afterSha256": "2a3fd430787027de1a4b8e38dda5edd2126c50542d7b413a06c0d586d0527946"
+  }
+}

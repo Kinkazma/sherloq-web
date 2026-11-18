@@ -1,12 +1,12 @@
 import {validateAdaptiveState} from './unified-engine/src/adaptive-runtime.js';
-import {ADAPTIVE_STORAGE_KEY,foreignAdaptiveSettings} from './adaptive-preferences.js?v=0.33.1';
-import {validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.33.1';
-import {recoverSettings,validParams} from './settings.js?v=0.33.1';
-import {validateMediaPreferences,validateExportSettings,validateLoupeSettings,validatePlacementLoupeSettings} from './media-settings.js?v=0.33.1';
-import {libraryValue} from './dependency-store.js?v=0.33.1';
-import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences} from './local-auto-update.js?v=0.33.1';
-import {getDocumentDownloadShelf} from './download-shelf.js?v=0.33.1';
-import {isPreferenceKey,capturePreferenceSnapshot} from './preference-snapshot.js?v=0.33.1';
+import {ADAPTIVE_STORAGE_KEY,foreignAdaptiveSettings} from './adaptive-preferences.js?v=0.33.2';
+import {validateWholeSourceFallbacks} from './whole-source-fallback.js?v=0.33.2';
+import {recoverSettings,validParams} from './settings.js?v=0.33.2';
+import {validateMediaPreferences,validateExportSettings,validateLoupeSettings,validatePlacementLoupeSettings} from './media-settings.js?v=0.33.2';
+import {libraryValue} from './dependency-store.js?v=0.33.2';
+import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences} from './local-auto-update.js?v=0.33.2';
+import {getDocumentDownloadShelf} from './download-shelf.js?v=0.33.2';
+import {isPreferenceKey,capturePreferenceSnapshot} from './preference-snapshot.js?v=0.33.2';
 export {isPreferenceKey};
 
 const RECOVERY='sherloq.recovery.';

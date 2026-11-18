@@ -38,7 +38,7 @@ export function createResultSurfaces(surfaces){
   const pending=retiring.get(id);if(pending)return pending;
   // Keep the only owner addressable until its asynchronous cleanup succeeds.
   // A rejected ACK can then be retried, and concurrent callers retire it once.
-  const task=Promise.resolve().then(()=>record.surface.dispose()).then(()=>{
+  const task=Promise.resolve().then(()=>record.surface.dispose()).then(ack=>{requireValue(ack!==false&&ack!==0,'Result surface retirement was not acknowledged.');
    if(results.get(id)===record){results.delete(id);surfaces.delete(id);}
   });
   retiring.set(id,task);
@@ -53,6 +53,23 @@ export function createResultSurfaces(surfaces){
    const bundle={surface:this.publish(imageId,record)};
    for(const [name,values] of groups)if(Object.keys(values??{}).length)bundle[name]=Object.fromEntries(Object.entries(values).map(([key,value])=>[key,this.publish(imageId,value)]));
    return bundle;
+  },
+  attachOriginalSource({originalImageId,originalSurfaceId,derivedImageId,derivedSurfaceId},bundle){
+   const original=surfaces.get(originalSurfaceId),derived=surfaces.get(derivedSurfaceId);
+   requireValue(original?.imageId===originalImageId&&derived?.imageId===derivedImageId&&originalImageId!==derivedImageId&&derived.record?.originalSource===original.record,'Regional result requires its verified derived Original source.');
+   const descriptors=[bundle?.surface,...['rgbSurfaces','planeSurfaces','maskSurfaces','flagSurfaces','tables'].flatMap(name=>Object.values(bundle?.[name]??{}))].filter(Boolean),unique=new Map(descriptors.map(value=>[value.id,value]));
+   requireValue(unique.size>0,'Regional result has no published resources.');
+   const rows=[];
+   for(const [id,descriptor]of unique){
+    const result=results.get(id),live=surfaces.get(id);
+    requireValue(result&&live&&live.record?.surface?.descriptor?.revision===descriptor.revision&&result.surface.descriptor.revision===descriptor.revision&&!retiring.has(id),'Regional result resource is not live.');
+    requireValue(result.imageId===derivedImageId&&live.imageId===derivedImageId||result.imageId===originalImageId&&live.imageId===originalImageId&&result.pairedSourceIds?.includes(derivedImageId),'Regional result belongs to another Original or derived source.');
+    rows.push({result,live});
+   }
+   // All resources and the literal source relationship were verified before
+   // changing a single authority. This never replaces pixels or weakens the
+   // final-lifetime validator; the derived source stays an explicit dependency.
+   for(const {result,live}of rows){const paired=[...new Set([...(result.pairedSourceIds??[]),derivedImageId])];result.imageId=originalImageId;result.pairedSourceIds=paired;live.imageId=originalImageId;live.record={...live.record,pairedSourceIds:paired};}
   },
   async release(id){if(!results.has(id)&&surfaces.has(id))throw new EngineError('INVALID_INPUT','Use unload to release an original source surface.');await remove(id);},
   hasAny(){return results.size>0;},

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {prepareEnergy} from './energy-prepare.js';
 import {readEnergyPreparationContext,retainEnergyPreparationContext} from './energy-preparation-context.js';
 import {createSegmentedBytes} from './segmented-bytes.js';

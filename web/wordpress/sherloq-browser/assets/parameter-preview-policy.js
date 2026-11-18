@@ -1,4 +1,4 @@
-import {toolCatalog,toolFields} from './tool-catalog.js?v=0.33.1';
+import {toolCatalog,toolFields} from './tool-catalog.js?v=0.33.2';
 
 // A draft is always separate from the native result. Scientific method/model
 // changes and recompressed JPEG evidence are never substituted for the native
@@ -12,7 +12,7 @@ function set(ids,keys,kind,reason,extra={}){for(const id of ids.split(' '))for(c
 function all(ids,kind,reason,extra={}){for(const id of ids.split(' '))set(id,toolFields(id).map(f=>f.key).join(' '),kind,reason,extra);}
 all('file.digest file.hex file.similarity metadata.structure metadata.exiftool metadata.thumbnail metadata.location metadata.c2pa','none','Byte inspection, metadata and validation are exact actions, not provisional image calculations.',{final:'none'});
 set('file.hex','offset length','explicit','Read the selected original-byte interval exactly on commit; no image proxy or altered bytes.',{final:'native'});
-all('inspection.adjust detail.gradient detail.echo noise.separation colors.space colors.stats','pixel-proxy','A bounded provisional visual transform; the native operation and source remain unchanged at commit.');
+all('ela.bitrate inspection.adjust detail.gradient detail.echo noise.separation colors.space colors.stats','pixel-proxy','A bounded provisional visual transform; the native operation and source remain unchanged at commit.');
 set('detail.gradient','method','explicit','Commit the selected native gradient method automatically; a method choice is not a sampled scientific preview.',{final:'native'});
 set('jpeg.ghosts jpeg.multiple jpeg.recompression jpeg.quality jpeg.zero','recompression recompression.quality recompression.paletteColors','explicit','Commit the selected experimental Original recompression through this native analysis; existing views and numerical axes remain authoritative.',{final:'native'});
 all('inspection.magnifier','local','The existing native ROI loupe already handles its small interactive display.',{existing:true,final:'view'});

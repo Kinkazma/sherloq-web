@@ -1,10 +1,23 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {EngineError,requireValue,checkAbort} from './errors.js';
 import {nativeGpuSync,nativeGpuAsync,gpuFallbackError} from './gpu-native-boundary.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {waveletGpuBanks} from './wavelet-gpu-banks.js';
 import {waveletForwardGpuShader} from './wavelet-forward-gpu-shader.js';
 import {validateWaveletGpuOperation,waveletGpuOperation,retireWaveletGpuOperation,attachWaveletGpuCleanup} from './wavelet-gpu-retirement.js';
+
+const FORWARD_PIPELINE_BYTES=4*1024**2;
+// Pure layout of this exact dispatch, not a GPU availability/provider probe.
+// Its initialization IDWT pipeline is owned separately by
+// WaveletReconstructionGpu; forwardPipelineBytes covers this module only.
+export function waveletForwardLevelPlan(width,height,name,{mode=0,diagonalOnly=false}={}){
+ const bank=waveletGpuBanks[name],n=width*height;
+ requireValue(bank&&[width,height,n].every(Number.isSafeInteger)&&width>0&&height>0&&[0,8,16,32].includes(mode)&&typeof diagonalOnly==='boolean','Invalid wavelet forward layout.');
+ const filter=bank[0].length,verticalHeight=Math.floor((height+filter-1)/2),coefficientWidth=Math.floor((width+filter-1)/2),verticalCount=width*verticalHeight,count=coefficientWidth*verticalHeight,inputBytes=n*(mode===0?8:mode===16?1:3),paddedInputBytes=Math.ceil(inputBytes/8)*8;
+ const bufferBytes={source:paddedInputBytes,vertical:verticalCount*(diagonalOnly?8:16),output:count*(diagonalOnly?8:32),readback:count*(diagonalOnly?8:32),weights:filter*32,uniforms:96};
+ const recordBytes=Math.ceil(inputBytes/8)*16+verticalCount*(diagonalOnly?8:16)+count*(diagonalOnly?24:96)+filter*64+192;
+ return{known:true,width,height,name,mode,diagonalOnly,n,filter,verticalHeight,coefficientWidth,verticalCount,count,inputBytes,paddedInputBytes,bufferBytes,hostUploadBytes:paddedInputBytes,hostOutputBytes:count*(diagonalOnly?8:32),hostWeightBytes:filter*32,recordBytes,forwardPipelineBytes:FORWARD_PIPELINE_BYTES,withinForwardDomain:width>=filter&&height>=filter};
+}
 
 export async function waveletForwardLevel(gpu,input,width,height,name,{signal,mode=0,diagonalOnly=false,required=false,consume}={}){
  requireValue(!gpu.closed&&!gpu.active,'Wavelet GPU is closed or busy.');
@@ -19,7 +32,7 @@ export async function waveletForwardLevel(gpu,input,width,height,name,{signal,mo
   await gpu.initialize(signal);record.device=gpu.device;
   const pipelineField=diagonalOnly?'diagonalPipeline':'forwardPipeline';
   if(!gpu[pipelineField]){
-   const started=performance.now();gpu.forwardLease??=gpu.budget.reserve(4*1024**2);record.device.pushErrorScope('validation');record.device.pushErrorScope('out-of-memory');record.scopes=2;
+   const started=performance.now();gpu.forwardLease??=gpu.budget.reserve(FORWARD_PIPELINE_BYTES);record.device.pushErrorScope('validation');record.device.pushErrorScope('out-of-memory');record.scopes=2;
    const pipeline=await nativeGpuAsync(()=>record.device.createComputePipelineAsync({layout:'auto',compute:{module:record.device.createShaderModule({code:waveletForwardGpuShader}),entryPoint:'down',constants:{diagonalOnly}}}),{signal});
    await validateWaveletGpuOperation(record,{signal});checkAbort(signal);gpu[pipelineField]=pipeline;record.drained=false;gpu.metrics.forwardInitMs=(gpu.metrics.forwardInitMs??0)+performance.now()-started;
   }
@@ -42,13 +55,13 @@ export async function waveletForwardLevel(gpu,input,width,height,name,{signal,mo
 // Owned forward transport; consumer completes before its staging lease retires.
 async function dispatchForward(gpu,record,input,width,height,name,{mode,diagonalOnly,signal}){
  const device=gpu.device,pipeline=diagonalOnly?gpu.diagonalPipeline:gpu.forwardPipeline,banks=waveletGpuBanks;
- const start=performance.now(),filter=banks[name][0].length,vh=Math.floor((height+filter-1)/2),cw=Math.floor((width+filter-1)/2),n=width*height,verticalCount=width*vh,count=cw*vh,buffers=[];
+ const start=performance.now(),plan=waveletForwardLevelPlan(width,height,name,{mode,diagonalOnly}),{filter,verticalHeight:vh,coefficientWidth:cw,n,verticalCount,count}=plan,buffers=[];
  if(width<filter||height<filter)throw Error('Private forward path requires native maximum-level axes');
  const create=(size,usage)=>{if(size>device.limits.maxBufferSize||((usage&GPUBufferUsage.STORAGE)&&size>device.limits.maxStorageBufferBindingSize))throw new EngineError('GPU_LIMIT','Complete forward stencils exceed device storage');const value=nativeGpuSync(()=>device.createBuffer({size,usage}),{signal});buffers.push(value);record.buffers.add(value);return value;};
- record.release=gpu.budget.reserve(Math.ceil(input.byteLength/8)*16+verticalCount*(diagonalOnly?8:16)+count*(diagonalOnly?24:96)+filter*64+192);
+ record.release=gpu.budget.reserve(plan.recordBytes);
  let mapped;
  try{
-  const padded=Math.ceil(input.byteLength/8)*8,source=create(padded,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST),vertical=create(verticalCount*(diagonalOnly?8:16),GPUBufferUsage.STORAGE),output=create(count*(diagonalOnly?8:32),GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC),weights=create(filter*32,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST),read=create(count*(diagonalOnly?8:32),GPUBufferUsage.COPY_DST|GPUBufferUsage.MAP_READ),bytes=new Uint8Array(padded);bytes.set(new Uint8Array(input.buffer,input.byteOffset,input.byteLength));nativeGpuSync(()=>device.queue.writeBuffer(source,0,bytes),{signal});
+  const padded=plan.paddedInputBytes,source=create(plan.bufferBytes.source,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST),vertical=create(plan.bufferBytes.vertical,GPUBufferUsage.STORAGE),output=create(plan.bufferBytes.output,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC),weights=create(plan.bufferBytes.weights,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST),read=create(plan.bufferBytes.readback,GPUBufferUsage.COPY_DST|GPUBufferUsage.MAP_READ),bytes=new Uint8Array(padded);bytes.set(new Uint8Array(input.buffer,input.byteOffset,input.byteLength));nativeGpuSync(()=>device.queue.writeBuffer(source,0,bytes),{signal});
   const packed=new Float32Array(filter*8);let at=0;for(const bank of banks[name])for(const value of bank){const hi=Math.fround(value);packed[at++]=hi;packed[at++]=Math.fround(value-hi);}nativeGpuSync(()=>device.queue.writeBuffer(weights,0,packed),{signal});
   const groups=count=>{const x=Math.min(65535,Math.ceil(count/128));return [x,Math.ceil(count/(x*128))];},[vx,vy]=groups(verticalCount),[gx,gy]=groups(count),uniform=values=>{const value=create(32,GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST);nativeGpuSync(()=>device.queue.writeBuffer(value,0,new Uint32Array(values)),{signal});return value;};
   const up0=uniform([width,height,width,vh,filter,0,vx,mode]),up1=uniform([width,vh,cw,vh,filter,1,gx,1]),up2=uniform([width,vh,cw,vh,filter,1,gx,7]),bind=values=>nativeGpuSync(()=>device.createBindGroup({layout:pipeline.getBindGroupLayout(0),entries:values.map((buffer,binding)=>({binding,resource:{buffer}}))}),{signal}),g0=bind([source,weights,vertical,up0]),g1=bind([vertical,weights,output,up1]),g2=bind([vertical,weights,output,up2]),encoder=nativeGpuSync(()=>device.createCommandEncoder(),{signal});

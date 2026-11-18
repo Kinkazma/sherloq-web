@@ -1,0 +1,23 @@
+{
+  "schema": "sherloq.native-color/1",
+  "library": "LittleCMS2.19.1",
+  "source": "https://github.com/mm2/Little-CMS/releases/download/lcms2.19.1/lcms2-2.19.1.tar.gz",
+  "sourceSha256": "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8",
+  "toolchain": "Emscripten4.0.15",
+  "threads": 1,
+  "heapMaximumBytes": 4294967296,
+  "files": {
+    "color-managed-native.js": {
+      "bytes": 14897,
+      "sha256": "36c54de75872bf52348eac73b280d6a945f8ec0ed3756b7fa4dc57ab204927e3"
+    },
+    "color-managed-native.wasm": {
+      "bytes": 272956,
+      "sha256": "6a225c54ddc7e9061569155632490248a2a69332738eba75232dbdcb9f32b754"
+    },
+    "LICENSE": {
+      "bytes": 1080,
+      "sha256": "6dbd60437f8ef91d8de1f08ad75882547fd4931bfcc3566a0735f28db1484d31"
+    }
+  }
+}

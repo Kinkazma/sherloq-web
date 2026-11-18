@@ -1,0 +1,17 @@
+{
+  "schema": "sherloq.native-magick-toolchain/1",
+  "emsdkReleaseHash": "b412b6307e541b93dd93f01b61181e15c17302ec",
+  "emsdkInstalledIdentity": "releases-b412b6307e541b93dd93f01b61181e15c17302ec-64bit",
+  "emscriptenVersion": "4.0.15",
+  "emscriptenCommit": "09f52557f0d48b65b8c724853ed8f4e8bf80e669",
+  "llvmCommit": "3388d40684742e950b3c5d1d2dafe5a40695cfc1",
+  "binaryenVersion": "wasm-opt version 124 (version_123-373-gcf756c929)",
+  "nodeVersion": "v22.16.0",
+  "pythonVersion": "3.13.3",
+  "sdkAcquisition": {
+    "project": "https://github.com/emscripten-core/emsdk",
+    "version": "4.0.15",
+    "releaseManifestKey": "4.0.15",
+    "instructions": "Use an official SDK installation whose upstream/.emsdk_version matches this release identity. No installation is performed by the image runtime."
+  }
+}

@@ -1,0 +1,543 @@
+--- a/coders/jxl.c
++++ b/coders/jxl.c
+@@ -287,11 +287,17 @@
+     }
+ }
+ 
+-static inline void JXLInitImage(Image *image,JxlBasicInfo *basic_info)
++static inline void JXLInitImage(Image *image,JxlBasicInfo *basic_info,
++  ExceptionInfo *exception)
+ {
+   image->columns=basic_info->xsize;
+   image->rows=basic_info->ysize;
+-  image->depth=basic_info->bits_per_sample;
++  image->depth=MagickMax(basic_info->bits_per_sample,basic_info->alpha_bits);
++  (void) FormatImageProperty(image,"native:color-depth","%u",basic_info->bits_per_sample);
++  (void) FormatImageProperty(image,"native:alpha-depth","%u",basic_info->alpha_bits);
++  if (basic_info->exponent_bits_per_sample != 0 ||
++      basic_info->alpha_exponent_bits != 0)
++    (void) SetImageProperty(image,"quantum:format","floating-point",exception);
+   if (basic_info->alpha_bits != 0)
+     image->alpha_trait=BlendPixelTrait;
+   image->orientation=JXLOrientationToOrientation(basic_info->orientation);
+@@ -527,7 +533,7 @@
+               image->filename);
+             break;
+           }
+-        JXLInitImage(image,&basic_info);
++        JXLInitImage(image,&basic_info,exception);
+         jxl_status=JXL_DEC_BASIC_INFO;
+         status=SetImageExtent(image,image->columns,image->rows,exception);
+         if (status == MagickFalse)
+@@ -550,6 +556,8 @@
+ 
+         (void) memset(&color_encoding,0,sizeof(color_encoding));
+         JXLSetFormat(image,&pixel_format,exception);
++        if (basic_info.exponent_bits_per_sample != 0 || basic_info.alpha_exponent_bits != 0)
++          pixel_format.data_type=JXL_TYPE_FLOAT;
+ #if JPEGXL_NUMERIC_VERSION >= JPEGXL_COMPUTE_NUMERIC_VERSION(0,9,0)
+         jxl_status=JxlDecoderGetColorAsEncodedProfile(jxl_info,
+           JXL_COLOR_PROFILE_TARGET_DATA,&color_encoding);
+@@ -674,7 +682,7 @@
+             if (GetNextImageInList(image) == (Image *) NULL)
+               break;
+             image=SyncNextImageInList(image);
+-            JXLInitImage(image,&basic_info);
++            JXLInitImage(image,&basic_info,exception);
+             status=SetImageExtent(image,image->columns,image->rows,exception);
+             if (status == MagickFalse)
+               {
+@@ -700,6 +708,8 @@
+           }
+         (void) ResetImagePixels(image,exception);
+         JXLSetFormat(image,&pixel_format,exception);
++        if (basic_info.exponent_bits_per_sample != 0 || basic_info.alpha_exponent_bits != 0)
++          pixel_format.data_type=JXL_TYPE_FLOAT;
+         if (extent == 0)
+           {
+             jxl_status=JxlDecoderImageOutBufferSize(jxl_info,&pixel_format,
+--- a/coders/pnm.c
++++ b/coders/pnm.c
+@@ -1484,6 +1484,7 @@
+           }
+         image->endian=quantum_scale < 0.0 ? LSBEndian : MSBEndian;
+         image->depth=32;
++        (void) SetImageProperty(image,"quantum:format","floating-point",exception);
+         quantum_info=AcquireQuantumInfo(image_info,image);
+         if (quantum_info == (QuantumInfo *) NULL)
+           ThrowPNMException(ResourceLimitError,"MemoryAllocationFailed");
+--- a/coders/psd.c
++++ b/coders/psd.c
+@@ -2498,6 +2498,8 @@
+     Initialize image.
+   */
+   image->depth=psd_info.depth;
++  if (psd_info.depth > 16)
++    (void) SetImageProperty(image,"quantum:format","floating-point",exception);
+   image->columns=psd_info.columns;
+   image->rows=psd_info.rows;
+   status=SetImageExtent(image,image->columns,image->rows,exception);
+--- a/coders/tiff.c
++++ b/coders/tiff.c
+@@ -1454,6 +1454,14 @@
+         (void) SetImageProperty(image,"tiff:endian","msb",exception);
+         image->endian=MSBEndian;
+       }
++    (void) TIFFGetFieldDefaulted(tiff,TIFFTAG_EXTRASAMPLES,&extra_samples,&sample_info,sans);
++    if (extra_samples == 0 && samples_per_pixel == 4 && photometric == PHOTOMETRIC_RGB)
++      image->alpha_trait=BlendPixelTrait;
++    for (i=0; i < extra_samples; ++i)
++      if (sample_info[i] == EXTRASAMPLE_ASSOCALPHA || sample_info[i] == EXTRASAMPLE_UNASSALPHA)
++        image->alpha_trait=BlendPixelTrait;
++    if (extra_samples && IsStringTrue(GetImageOption(image_info,"tiff:assume-alpha")) != MagickFalse)
++      image->alpha_trait=BlendPixelTrait;
+     if ((photometric == PHOTOMETRIC_MINISBLACK) ||
+         (photometric == PHOTOMETRIC_MINISWHITE))
+       (void) SetImageColorspace(image,GRAYColorspace,exception);
+--- a/MagickCore/quantum-import.c
++++ b/MagickCore/quantum-import.c
+@@ -158,7 +158,13 @@
+   return(pixels);
+ }
+ 
+-static inline float ScaleFloatPixel(const QuantumInfo *quantum_info,
++#if defined(MAGICKCORE_HDRI_SUPPORT) && (MAGICKCORE_QUANTUM_DEPTH == 32)
++typedef double ScaledFloatQuantum;
++#else
++typedef float ScaledFloatQuantum;
++#endif
++
++static inline ScaledFloatQuantum ScaleFloatPixel(const QuantumInfo *quantum_info,
+   const unsigned char *quantum)
+ {
+   double
+@@ -167,16 +173,18 @@
+   pixel=(double) (*((float *) quantum));
+   pixel-=quantum_info->minimum;
+   pixel*=quantum_info->scale;
++#if !defined(MAGICKCORE_HDRI_SUPPORT) || (MAGICKCORE_QUANTUM_DEPTH != 32)
+   if (pixel < (double) -FLT_MAX)
+     return(-FLT_MAX);
+   if (pixel > (double) FLT_MAX)
+     return(FLT_MAX);
+-  return((float) pixel);
++#endif
++  return((ScaledFloatQuantum) pixel);
+ }
+ 
+ static inline const unsigned char *PushQuantumFloatPixel(
+   const QuantumInfo *quantum_info,const unsigned char *magick_restrict pixels,
+-  float *pixel)
++  ScaledFloatQuantum *pixel)
+ {
+   unsigned char
+     quantum[4];
+@@ -201,7 +209,7 @@
+ 
+ static inline const unsigned char *PushQuantumFloat24Pixel(
+   const QuantumInfo *quantum_info,const unsigned char *magick_restrict pixels,
+-  float *pixel)
++  ScaledFloatQuantum *pixel)
+ {
+   unsigned char
+     quantum[4];
+@@ -357,7 +365,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -388,7 +396,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -697,7 +705,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -736,7 +744,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -952,7 +960,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -995,7 +1003,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -1217,7 +1225,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -1260,7 +1268,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -1518,7 +1526,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -1561,7 +1569,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -1718,7 +1726,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -1765,7 +1773,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -1928,7 +1936,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -1975,7 +1983,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -2313,7 +2321,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -2344,7 +2352,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -2544,7 +2552,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -2579,7 +2587,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -2773,7 +2781,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -2810,7 +2818,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3008,7 +3016,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3049,7 +3057,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3194,7 +3202,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3231,7 +3239,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3351,7 +3359,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3382,7 +3390,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3678,7 +3686,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3717,7 +3725,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3933,7 +3941,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -3976,7 +3984,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -4198,7 +4206,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+@@ -4241,7 +4249,7 @@
+     {
+       if (quantum_info->format == FloatingPointQuantumFormat)
+         {
+-          float
++          ScaledFloatQuantum
+             pixel;
+ 
+           for (x=0; x < (ssize_t) number_pixels; x++)
+--- a/coders/heic.c
++++ b/coders/heic.c
+@@ -679,15 +679,15 @@
+       {
+         unsigned short pixel = (((unsigned short) *(p+1) << 8) |
+           (*(p+0))) << shift; p+=(ptrdiff_t) 2;
+-        SetPixelRed(image,ScaleShortToQuantum(pixel),q);
++        SetPixelRed(image,ScaleAnyToQuantum(pixel,GetQuantumRange(image->depth) << shift),q);
+         pixel=(((unsigned short) *(p+1) << 8) | (*(p+0))) << shift; p+=(ptrdiff_t) 2;
+-        SetPixelGreen(image,ScaleShortToQuantum(pixel),q);
++        SetPixelGreen(image,ScaleAnyToQuantum(pixel,GetQuantumRange(image->depth) << shift),q);
+         pixel=(((unsigned short) *(p+1) << 8) | (*(p+0))) << shift; p+=(ptrdiff_t) 2;
+-        SetPixelBlue(image,ScaleShortToQuantum(pixel),q);
++        SetPixelBlue(image,ScaleAnyToQuantum(pixel,GetQuantumRange(image->depth) << shift),q);
+         if (image->alpha_trait != UndefinedPixelTrait)
+           {
+             pixel=(((unsigned short) *(p+1) << 8) | (*(p+0))) << shift; p+=(ptrdiff_t) 2;
+-            SetPixelAlpha(image,ScaleShortToQuantum(pixel),q);
++            SetPixelAlpha(image,ScaleAnyToQuantum(pixel,GetQuantumRange(image->depth) << shift),q);
+           }
+         q+=(ptrdiff_t) GetPixelChannels(image);
+       }
+@@ -915,15 +915,15 @@
+         {
+           unsigned short pixel = (((unsigned short) *(p+1) << 8) |
+             (*(p+0))) << shift; p+=(ptrdiff_t) 2;
+-          SetPixelRed(image,ScaleShortToQuantum(pixel),q);
++          SetPixelRed(image,ScaleAnyToQuantum(pixel,GetQuantumRange(image->depth) << shift),q);
+           pixel=(((unsigned short) *(p+1) << 8) | (*(p+0))) << shift; p+=(ptrdiff_t) 2;
+-          SetPixelGreen(image,ScaleShortToQuantum(pixel),q);
++          SetPixelGreen(image,ScaleAnyToQuantum(pixel,GetQuantumRange(image->depth) << shift),q);
+           pixel=(((unsigned short) *(p+1) << 8) | (*(p+0))) << shift; p+=(ptrdiff_t) 2;
+-          SetPixelBlue(image,ScaleShortToQuantum(pixel),q);
++          SetPixelBlue(image,ScaleAnyToQuantum(pixel,GetQuantumRange(image->depth) << shift),q);
+           if (image->alpha_trait != UndefinedPixelTrait)
+             {
+               pixel=(((unsigned short) *(p+1) << 8) | (*(p+0))) << shift; p+=(ptrdiff_t) 2;
+-              SetPixelAlpha(image,ScaleShortToQuantum(pixel),q);
++              SetPixelAlpha(image,ScaleAnyToQuantum(pixel,GetQuantumRange(image->depth) << shift),q);
+             }
+           q+=(ptrdiff_t) GetPixelChannels(image);
+         }
+--- a/coders/exr.c
++++ b/coders/exr.c
+@@ -287,7 +287,7 @@
+   if (status == MagickFalse)
+     return(status);
+   if ((decoder.channel_count == 1) && (pixel_channels[0] == IndexPixelChannel))
+-    image->colorspace=GRAYColorspace;
++    image->colorspace=LinearGRAYColorspace;
+   *data=(uint8_t *) AcquireQuantumMemory(*pixel_size,pixel_count);
+   if (*data == (uint8_t*)NULL)
+     {
+@@ -630,14 +630,56 @@
+       exr_finish(&ctxt);
+       ThrowReaderException(BlobError,"UnableToOpenBlob");
+     }
++  {
++    const exr_attr_chlist_t *channels=NULL;
++    exr_attr_chromaticities_t chroma;
++    if (exr_get_channels(ctxt,part_index,&channels) == EXR_ERR_SUCCESS && channels)
++      {
++        int c,has_rgb=0,has_y=0;
++        unsigned color_depth=0,alpha_depth=0;
++        image->depth=0;
++        for (c=0; c < channels->num_channels; ++c)
++          {
++            const exr_pixel_type_t type=channels->entries[c].pixel_type;
++            const unsigned depth=type == EXR_PIXEL_HALF ? 16 : 32;
++            const char *name=channels->entries[c].name.str;
++            const char *last=strrchr(name,'.');
++            if (last) name=last+1;
++            image->depth=MagickMax(image->depth,depth);
++            if (strcmp(name,"A") == 0)
++              {image->alpha_trait=BlendPixelTrait;alpha_depth=depth;}
++            else color_depth=MagickMax(color_depth,depth);
++            if (strcmp(name,"R") == 0 || strcmp(name,"G") == 0 || strcmp(name,"B") == 0) has_rgb=1;
++            if (strcmp(name,"Y") == 0) has_y=1;
++          }
++        (void) SetImageProperty(image,"quantum:format","floating-point",exception);
++        image->colorspace=RGBColorspace;
++        if (has_y && !has_rgb) image->colorspace=LinearGRAYColorspace;
++        (void) FormatImageProperty(image,"native:color-depth","%u",color_depth);
++        (void) FormatImageProperty(image,"native:alpha-depth","%u",alpha_depth);
++      }
++    if (exr_attr_get_chromaticities(ctxt,part_index,"chromaticities",&chroma)
++        == EXR_ERR_SUCCESS)
++      {
++        image->chromaticity.red_primary.x=chroma.red_x;
++        image->chromaticity.red_primary.y=chroma.red_y;
++        image->chromaticity.green_primary.x=chroma.green_x;
++        image->chromaticity.green_primary.y=chroma.green_y;
++        image->chromaticity.blue_primary.x=chroma.blue_x;
++        image->chromaticity.blue_primary.y=chroma.blue_y;
++        image->chromaticity.white_point.x=chroma.white_x;
++        image->chromaticity.white_point.y=chroma.white_y;
++        (void) SetImageProperty(image,"native:chromaticities","declared",exception);
++      }
++  }
+   result=exr_get_data_window(ctxt,part_index,&data_window);
+   if (result == EXR_ERR_SUCCESS)
+     result=exr_get_compression(ctxt,part_index,&compression);
+   if (result == EXR_ERR_SUCCESS)
+     result=exr_get_storage(ctxt,part_index,&storage_type);
+   if ((result != EXR_ERR_SUCCESS) ||
+-      (data_window.min.x >= data_window.max.x) ||
+-      (data_window.min.y >= data_window.max.y))
++      (data_window.min.x > data_window.max.x) ||
++      (data_window.min.y > data_window.max.y))
+     {
+       exr_finish(&ctxt);
+       ThrowReaderException(CorruptImageError,"CorruptImage");

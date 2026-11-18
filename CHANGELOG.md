@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.33.2 — Native precision and image inspection · 2026-11-18
+
+- Preserve native image data separately from the screen preview, improve supported HDR/AVIF and embedded-colour-profile rendering, and correct the framing and presentation of supported RAW inputs. Sensor data and developed RGB remain distinct analysis domains.
+- Extend compatible image operators to native 16-bit processing, including adjustments, equalization, gradients, magnifiers, frequencies, wavelets, noise separation, channel tools and graphical PCA. Learned models retain their own preprocessing requirements.
+- Make general preparation optional, show early previews and reuse valid shared statistics and panel preparation without reducing the final analysis population or resolution.
+- Consolidate local and whole-image channel histograms, with native-depth statistics, RAW sensor views, pinned selections, persistent placement and graph export.
+- Improve graphical PCA layout, native computation and continuous navigation through the shared viewer.
+- Add experimental Last Bit Analysis: an SDR RGB8 quantization residual with adjustable removal from 0 to 2 bits in 0.1 steps, a default 8-to-7-bit view and global stretching.
+- Restore tile prefetch and continuous navigation in both magnifiers. Preserve zoom and alignment when comparing with the original, including reduced-size results, and synchronize shared equalization choices.
+- Correct the composition of global adjustments, equalization and tonal scanning; restore the other effects after scanning is disabled and reuse the calculated result.
+- Fix runtime module resolution for DDA, GAPL, PRL and Community Forensics without changing the models or their preprocessing. Open the comparative detector study in an overlay with continuous scrolling and zoom.
+- Reuse the exact SHERLOQ revelation blend during slider changes and retain intermediate frames until the final requested value is ready, including compatible native 16-bit sources. The initial scientific calculation is unchanged.
+- Refresh the project presentation and add two Last Bit Analysis examples, with source references and interpretation notes.
+
 ## 0.33.1 — Gradient preview admission · 2026-11-07
 
 - Reject invalid gradient settings, dimensions and overflowing memory estimates before reserving optional preview resources. Normalize valid partial settings without changing the image calculation.

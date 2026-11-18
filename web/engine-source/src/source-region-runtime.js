@@ -1,3 +1,8 @@
+import {native16EchoRegionRequested} from './native16-echo-contract.js';
+import {sourceRegionEcho} from './source-region-echo.js';
+import {echoHeapBytes} from './echo-math.js';
+import {native16GradientRegionRequested} from './native16-gradient-region-contract.js';
+import {sourceRegionGradientField} from './source-region-gradient-field.js';
 import{segmentationIndependentSourceAdmitted}from'./segmentation-independent-capability.js';
 import{compileOriginalSourceRegions}from'./source-region-geometry.js';
 import {automaticClonesSourceTask} from './automatic-clones-source-task.js';
@@ -20,6 +25,16 @@ import {EngineError,checkAbort} from './errors.js';
  * Live published result handles survive; orphan variants are kept in a small LRU. */
 export function createSourceRegionRuntime({budget,images,surfaces,resultSurfaces,getImage,withBusy,runLegacy,runGeneration,runSegmentation,retireAnalysis,knownHeapBytes,version,profile,cpuKernel,codec,referencesFor,medianPool,cloningGroupPool,pagedAkazeExtract,accountedPrnuHeapBytes=()=>0}){
  const records=new Map(),contexts=new Map(),retirements=new Map();let clock=0;
+ // A regional Gradient or Echo final belongs to its literal Original. Its borrowed
+ // crop remains a paired source of every published component so the existing
+ // variant LRU cannot retire that view while a final or its mask is live.
+ function derivativePair(record,derivedId){
+  const pair=value=>({...value,pairedSourceIds:[...new Set([...(value.pairedSourceIds??[]),derivedId])]});
+  const answer=pair(record);
+  for(const group of ['rgbRecords','planeRecords','maskRecords','flagRecords','tableRecords'])if(record[group])answer[group]=Object.fromEntries(Object.entries(record[group]).map(([key,value])=>[key,pair(value)]));
+  return answer;
+ }
+
  function retire(entry){
   if(records.get(entry.id)!==entry)return;
   let state=retirements.get(entry.id);if(!state){state={results:false,analysis:false,pixels:false};retirements.set(entry.id,state);}
@@ -114,12 +129,14 @@ export function createSourceRegionRuntime({budget,images,surfaces,resultSurfaces
     else if(task.operation==='inspection.histogram')answer=await withBusy(()=>histogram(task,original,entry,view,hooks));
     else if(task.operation==='subimages.detect'&&sourceRegionDomainShape(domain)==='rectangle')answer=await withBusy(()=>withM3Pixels([entry.record],{signal,onProgress},async()=>{const segmented=entry.record.segmented;entry.record.segmented=false;try{return await runLegacy(internal,hooks);}finally{entry.record.segmented=segmented;}}));
     else{
-     const adapter=registeredSourceRegionAdapter(task.operation,domain);
-     if(adapter)answer=await withBusy(async()=>{let resident;try{const admittedPrnuHeap=accountedPrnuHeapBytes();resident=budget.reserve(knownHeapBytes());return await adapter.run({accountedPrnuHeapBytes:admittedPrnuHeap,task:{...internal,sourceRegionDomain:domain.descriptor},original,derived:entry.record,view,domain,budget,signal,onProgress,version,profile,cpuKernel,codec,references:referencesFor?.(internal)??[],medianPool,cloningGroupPool,pagedAkazeExtract:(gray,mask,width,height,nativeHooks)=>pagedAkazeExtract(gray,mask,width,height,nativeHooks,original),runGeneration:(nativeTask,nativeImage,nativeHooks)=>runGeneration(nativeTask,nativeImage,{...hooks,...nativeHooks}),runLegacy:input=>runLegacy({...internal,...input,imageId:entry.id,sourceRegionDomain:undefined},hooks),publishResult:(id,record)=>resultSurfaces.publishBundle(id,record),publishTable:(id,record)=>resultSurfaces.publish(id,record),releaseResult:id=>resultSurfaces.release(id)});}finally{resident?.();}});
+     const nativeEcho=native16EchoRegionRequested(task,original,sourceRegionDomainShape(domain)),adapter=native16GradientRegionRequested(task,original,sourceRegionDomainShape(domain))?{run:sourceRegionGradientField}:nativeEcho?{run:sourceRegionEcho}:registeredSourceRegionAdapter(task.operation,domain);
+     if(adapter)answer=await withBusy(async()=>{let resident;try{const admittedPrnuHeap=accountedPrnuHeapBytes();resident=budget.reserve(Math.max(0,knownHeapBytes()-(nativeEcho&&sourceRegionDomainShape(domain)==='rectangle'?echoHeapBytes():0)));return await adapter.run({sourceBindingImageId:task.imageId,isSourceCurrent:()=>images.get(task.imageId)===original,accountedPrnuHeapBytes:admittedPrnuHeap,task:{...internal,sourceRegionDomain:domain.descriptor},original,derived:entry.record,view,domain,budget,signal,onProgress,version,profile,cpuKernel,codec,references:referencesFor?.(internal)??[],medianPool,cloningGroupPool,pagedAkazeExtract:(gray,mask,width,height,nativeHooks)=>pagedAkazeExtract(gray,mask,width,height,nativeHooks,original),runGeneration:(nativeTask,nativeImage,nativeHooks)=>runGeneration(nativeTask,nativeImage,{...hooks,...nativeHooks}),runLegacy:input=>runLegacy({...internal,...input,imageId:entry.id,sourceRegionDomain:undefined},hooks),publishResult:(id,record)=>{if(!['detail.gradient','detail.echo'].includes(task.operation))return resultSurfaces.publishBundle(id,record);if(id!==entry.id)throw new EngineError('SOURCE_REGIONS_INVALID','Regional derivative publication lost its derived source identity.');return resultSurfaces.publishBundle(task.imageId,derivativePair(record,entry.id));},publishTable:(id,record)=>resultSurfaces.publish(id,record),releaseResult:id=>resultSurfaces.release(id)});}finally{resident?.();}});
      else answer=await runLegacy(internal,hooks);
     }
-    checkAbort(signal);if(remember(answer,task,original,entry,domain,effectiveTask.sourceRegionLocalization,contextLease))contextLease=null;let sourceSurface=original.surface.descriptor,presentation;
-    try{if(entry){presentation=createRgbSurface(entry.record.store,{width:domain.width,height:domain.height,budget,ownsStore:false});sourceSurface=resultSurfaces.publish(entry.id,{surface:presentation,sourceRegionPresentation:true});}return sourceRegionResult(answer,{task,original,domain,sourceSurface,cacheIdentity:entry?.id,identity:!entry,localization:effectiveTask.sourceRegionLocalization});}
+    checkAbort(signal);
+    if(entry&&['detail.gradient','detail.echo'].includes(task.operation))resultSurfaces.attachOriginalSource({originalImageId:task.imageId,originalSurfaceId:original.surface.descriptor.id,derivedImageId:entry.id,derivedSurfaceId:entry.record.surface.descriptor.id},answer);
+    if(remember(answer,task,original,entry,domain,effectiveTask.sourceRegionLocalization,contextLease))contextLease=null;let sourceSurface=original.surface.descriptor,presentation;
+    try{if(entry){presentation=createRgbSurface(entry.record.store,{width:domain.width,height:domain.height,budget,ownsStore:false});sourceSurface=['detail.gradient','detail.echo'].includes(task.operation)?resultSurfaces.publish(task.imageId,derivativePair({surface:presentation,sourceRegionPresentation:true},entry.id)):resultSurfaces.publish(entry.id,{surface:presentation,sourceRegionPresentation:true});}return sourceRegionResult(answer,{task,original,domain,sourceSurface,cacheIdentity:entry?.id,identity:!entry,localization:effectiveTask.sourceRegionLocalization});}
     catch(error){if(presentation){if(sourceSurface.id===presentation.descriptor.id)await resultSurfaces.release(sourceSurface.id);else await presentation.dispose();}throw error;}
    }catch(error){const retained=error.details?.retainedAnalysis;if(entry&&retained?.analysisId)if(remember({analysisId:retained.analysisId},task,original,entry,domain,effectiveTask.sourceRegionLocalization,contextLease))contextLease=null;throw error;}finally{try{await view?.dispose();}finally{scopeTask?.release();coordinateMetadata?.();contextLease?.();metadata?.();}}
   },

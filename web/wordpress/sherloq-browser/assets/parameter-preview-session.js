@@ -1,12 +1,20 @@
-import {canContinueHeldPreview,completedHeldPreviewFrame} from './completed-held-preview.js?v=0.33.1';
-import {createPreviewContinuity} from './preview-continuity.js?v=0.33.1';
-import {canContinueFrequencyPreview,completedFrequencyPreviewFrame} from './frequency-held-preview.js?v=0.33.1';
+import {canContinueHeldPreview,completedHeldPreviewFrame} from './completed-held-preview.js?v=0.33.2';
+import {createPreviewContinuity} from './preview-continuity.js?v=0.33.2';
+import {canContinueFrequencyPreview,completedFrequencyPreviewFrame} from './frequency-held-preview.js?v=0.33.2';
+import {nativePreviewAnswerOwned,retireNativePreviewAnswer} from './native-preview-answer.js?v=0.33.2';
+import {withRetirementOwner} from './unified-engine/src/owner-retirement-error.js';
 const continues=(a,b)=>canContinueHeldPreview(a,b)||canContinueFrequencyPreview(a,b);
 // One replaceable draft and one final intention. A preview owns no scientific
 // result; source/tool changes invalidate publication, even if a read completes.
 export function createParameterPreviewSession({preview,show,commit,computed=()=>{},restore=()=>{},state=()=>{},error=()=>{},schedule=fn=>setTimeout(fn,0),unschedule=clearTimeout,now=()=>performance.now(),onControl=()=>{},previewIntervalMs=0,supersededBudgetMs=300,delay=(fn,ms)=>setTimeout(fn,ms),undelay=clearTimeout}={}){
  let epoch=0,disposed=false,pending=false,active=false,queued=null,flight=null,finalTimer=null,finalFlight=null,controller=null,uncommittedFinal=null,latestPreviewEvent=null,previewOrdinal=0,previewIntentionOrdinal=0,refinementOrdinal=0;
  let previewTimer=null,previewDelayFlight=null,releasePreviewDelay=null,lastDispatch=-Infinity,runningTicket=null,obsoleteTimer=null,lastPresentedOrdinal=0;
+ let nativeRetirements=null,nativeRetirementFlight;
+ function drainNativeAnswers(){if(nativeRetirementFlight)return nativeRetirementFlight;if(!nativeRetirements)return Promise.resolve();const collection=nativeRetirements;
+  const task=(async()=>{let failed=false,primary;for(const answer of [...collection])try{await retireNativePreviewAnswer(answer);collection.delete(answer);}catch(error){if(!failed){failed=true;primary=error;}}if(!collection.size&&nativeRetirements===collection)nativeRetirements=null;if(failed)throw primary;})();
+  nativeRetirementFlight=task;void task.finally(()=>{if(nativeRetirementFlight===task)nativeRetirementFlight=null;}).catch(()=>{});return task;
+ }
+ let retirementOwner;
  const continuity=createPreviewContinuity({now});
  const cancelObsoleteTimer=()=>{if(obsoleteTimer!==null)undelay(obsoleteTimer);obsoleteTimer=null;};
  function supersede(event){
@@ -32,7 +40,7 @@ export function createParameterPreviewSession({preview,show,commit,computed=()=>
   // inputAt as its historical enqueue alias; never invent an input timestamp.
   const dispatchedPreviewOrdinal=frequency?++previewOrdinal:null,input=ticket.event.lastAdmittedInput,admittedInputAt=input?.clock==='performance.now'&&Number.isFinite(input.observedAt)&&input.observedAt>=0&&input.observedAt<=ticket.enqueuedAt?input.observedAt:null;
   const previewControl=frequency?{onComputeStart,onComputeEnd,continuity:continuity.snapshot(progress),gestureEpoch:ticket.event.gestureEpoch,controlRequestId:ticket.event.controlRequestId,lastAdmittedInput:input,clock:'performance.now',inputAt:ticket.enqueuedAt,admittedInputAt,enqueuedAt:ticket.enqueuedAt,inputAgeAvailable:admittedInputAt!==null,ageOrigin:admittedInputAt===null?'preview-enqueue-fallback':'admitted-input',preQueueMs:admittedInputAt===null?null:ticket.enqueuedAt-admittedInputAt,previewOrdinal:dispatchedPreviewOrdinal,previewIntentionOrdinal:ticket.previewIntentionOrdinal,refreshPhase:ticket.refinement?'held-visible-refinement':dispatchedPreviewOrdinal===1?'first-armed-preview':'held-refresh',refinement:ticket.refinement===true,refinementOrdinal:ticket.refinement?++refinementOrdinal:0,dispatchedAt,queueWaitMs:Math.max(0,dispatchedAt-ticket.enqueuedAt),ageMilliseconds:()=>Math.max(0,now()-(admittedInputAt??ticket.enqueuedAt)),queueAgeMilliseconds:()=>Math.max(0,now()-ticket.enqueuedAt),yieldBeforeNative:()=>disposed||!pending||!active||abort.signal.aborted||ticket.epoch!==epoch&&!canContinueFrequencyPreview(ticket.event,latestPreviewEvent),report:metrics=>onControl({...metrics,operation:ticket.event.operation,field:ticket.event.field,generation:ticket.event.generation,ticketEpoch:ticket.epoch})}:undefined;
-  const task=(async()=>{try{const result=await preview(ticket.event,{signal:abort.signal,previewControl:previewControl??{onComputeStart,onComputeEnd,gestureEpoch:ticket.event.gestureEpoch,continuity:continuity.snapshot(progress)}});onComputeEnd();
+  const task=(async()=>{let result,primary,failed=false;try{result=await preview(ticket.event,{signal:abort.signal,previewControl:previewControl??{onComputeStart,onComputeEnd,gestureEpoch:ticket.event.gestureEpoch,continuity:continuity.snapshot(progress)}});onComputeEnd();
    // A completed frame can advance within its still-owned numeric gesture.
    // The one queued successor retains the latest requested value for final use.
    const stillOwned=()=>{if(disposed||!pending||!active||abort.signal.aborted||ticket.previewIntentionOrdinal<lastPresentedOrdinal)return false;try{return ticket.epoch===epoch?(typeof ticket.event.completedPreviewCurrent!=='function'||ticket.event.completedPreviewCurrent()===true):completedHeldPreviewFrame(ticket.event,latestPreviewEvent,result)||completedFrequencyPreviewFrame(ticket.event,latestPreviewEvent,result);}catch{return false;}};
@@ -44,7 +52,8 @@ export function createParameterPreviewSession({preview,show,commit,computed=()=>
      queued={epoch,event:ticket.event,enqueuedAt:now(),previewIntentionOrdinal:ticket.previewIntentionOrdinal,refinement:true};
     }
    }
-  }catch(e){if(!disposed&&ticket.epoch===epoch&&!abort.signal.aborted&&e?.code!=='CANCELLED'&&e?.name!=='AbortError')error(e,{phase:'preview',event:ticket.event});}})();
+  }catch(e){failed=true;primary=e;}finally{if(nativePreviewAnswerOwned(result)){nativeRetirements??=new Set();nativeRetirements.add(result);try{await drainNativeAnswers();}catch(cleanup){primary=withRetirementOwner(failed?primary:cleanup,retirementOwner??={dispose:drainNativeAnswers},cleanup);failed=true;}}}
+  if(failed&&!disposed&&ticket.epoch===epoch&&!abort.signal.aborted&&primary?.code!=='CANCELLED'&&primary?.name!=='AbortError')error(primary,{phase:'preview',event:ticket.event});})();
   flight=task;notify();try{await task;}finally{onComputeEnd();continuity.finish(progress,{milliseconds:ticket.computeMilliseconds,presented,eligible:ticket.missedPresentation===true&&active&&pending&&continues(ticket.event,latestPreviewEvent)});if(flight===task)flight=null;if(controller===abort){controller=null;cancelObsoleteTimer();}if(runningTicket===ticket)runningTicket=null;notify();if(queued)void pump();}
  }
  function handle(event){
@@ -76,5 +85,5 @@ export function createParameterPreviewSession({preview,show,commit,computed=()=>
    finally{if(finalFlight===task)finalFlight=null;notify();}
   });finalFlight=task;notify();},event);
  }
- return {handle,reset,get pending(){return pending;},get active(){return active;},get epoch(){return epoch;},async settled(){while(previewDelayFlight||flight){if(previewDelayFlight)await previewDelayFlight;if(flight)await flight;}if(finalFlight)await finalFlight;},dispose(){if(disposed)return;invalidate();uncommittedFinal=null;disposed=true;active=pending=false;notify();}};
+ return {handle,reset,get pending(){return pending;},get active(){return active;},get epoch(){return epoch;},retireNativeAnswers:drainNativeAnswers,async settled(){while(previewDelayFlight||flight){if(previewDelayFlight)await previewDelayFlight;if(flight)await flight;}if(finalFlight)await finalFlight;if(nativeRetirements)await drainNativeAnswers();},dispose(){if(disposed)return;invalidate();uncommittedFinal=null;disposed=true;active=pending=false;notify();}};
 }

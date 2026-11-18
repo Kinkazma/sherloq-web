@@ -1,0 +1,14 @@
+{
+  "magickNative": {
+    "commit": "999720f7ebe03d5a0029536f1586a2cb82b500ae",
+    "tag": "2026.927.1314"
+  },
+  "magickWasm": {
+    "commit": "8d346777ce0e172dacdb797a65346569425c43af",
+    "tag": "0.0.44"
+  },
+  "imageMagick": {
+    "commit": "ad98b244c995d2e3051757fa3b7855f45b550d24",
+    "version": "7.1.2-32"
+  }
+}

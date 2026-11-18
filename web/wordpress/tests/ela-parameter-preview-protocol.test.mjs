@@ -27,7 +27,7 @@ import {sourceRegionDomainShape} from '../sherloq-browser/assets/unified-engine/
 import {validateParams} from '../sherloq-browser/assets/unified-engine/src/ela.js';
 import {estimateElaClassicAuto,calibrateElaClassicDisplay} from '../sherloq-browser/assets/ela-auto-estimate.js';
 import {createEnergyHistogram} from '../sherloq-browser/assets/energy-histogram.js';
-const workerURL=new URL(import.meta.resolve('../sherloq-browser/assets/engine-worker.js')),code=(await readFile(workerURL,'utf8')).replace(/^import .*;\n/gm,'').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import('./unified-engine/src/index.js')",'await loadEngine()');
+const workerURL=new URL(import.meta.resolve('../sherloq-browser/assets/engine-worker.js')),code=(await readFile(workerURL,'utf8')).replace(/^import .*;\n/gm,'').replace(/^/,'const engineLibraryURL=base=>new URL("./index.js",base);\n').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import(moduleURL)",'await loadEngine()');
 const dependencies={energyParams,energyProfile,prepareEnergy,segmentEnergy,energyColor,energyLogData,referenceLogFunction};
 const params={quality:75,block:16,minimum:1,profile:'manual',histogramLow:10,histogramHigh:990,shadow:50,highlight:50};
 

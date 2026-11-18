@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {EngineError,requireValue,checkAbort,createCooperator,normalizeResourceError} from './errors.js';
 import {PIXEL_OPERATIONS} from './pixel-operations.js';
 import {gradientHeapBytes,GRADIENT_HEAP_BYTES,gradientDerivatives,gradientLengths,gradientRender,gradientLut} from './gradient-math.js';

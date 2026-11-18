@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.33.1";
+import "../../runtime-context.js?v=0.33.2";
 import {nativeGradientField} from './gradient-field-parameters.js';
 // Independent numerical operators. Coordinates x right, y down; signed vectors
 // point to increasing luminance. Missing observations never become black taps.
@@ -31,9 +31,9 @@ export function gradientKernel(p){
  if(cache.size>=32)cache.delete(cache.keys().next().value);cache.set(key,out);return out;
 }
 export function boundary(i,n,mode){if(i>=0&&i<n)return i;if(mode==='omit')return -1;if(mode==='nearest')return Math.max(0,Math.min(n-1,i));if(n===1)return 0;let j=i%(2*n);if(j<0)j+=2*n;return j<n?j:2*n-1-j;}
-export function grayInput(rgb,membership,p){
- const n=rgb.length/3,L=new Float64Array(n),M=membership??new Uint8Array(n).fill(1),integerSobel=nativeGradientField(p)&&p.method==='sobel',linear=x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4;
- for(let i=0;i<n;i++)if(M[i]){const r=rgb[3*i],g=rgb[3*i+1],b=rgb[3*i+2];L[i]=integerSobel?((r*9798+g*19235+b*3735+16384)>>15)/255:p.method==='krawetz'&&p.luma==='bt601'?Math.floor((299*r+587*g+114*b)/1000)/255:p.luma==='linear709'?.2126*linear(r/255)+.7152*linear(g/255)+.0722*linear(b/255):(.299*r+.587*g+.114*b)/255;}
+export function grayInput(rgb,membership,p,{linearLuminance}={}){
+ const n=rgb.length/3,L=new Float64Array(n),M=membership??new Uint8Array(n).fill(1),integerSobel=nativeGradientField(p)&&p.method==='sobel',maximum=p.sampleMaximum??255,linear=x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4;
+ for(let i=0;i<n;i++)if(M[i]){const r=rgb[3*i],g=rgb[3*i+1],b=rgb[3*i+2];L[i]=integerSobel?((r*9798+g*19235+b*3735+16384)>>15)/maximum:p.method==='krawetz'&&p.luma==='bt601'?Math.floor((299*r+587*g+114*b)/1000)/maximum:p.luma==='linear709'?(linearLuminance?linearLuminance[i]:.2126*linear(r/maximum)+.7152*linear(g/maximum)+.0722*linear(b/maximum)):(.299*r+.587*g+.114*b)/maximum;}
  return{L,M};
 }
 export function convolveAxis(input,w,h,weights,axis,border='reflect',step=1){
@@ -86,12 +86,12 @@ export function angleRgb(gx,gy,invert=false){const out=new Uint8Array(3);angleIn
 // Native 3x3 coefficients, gray rounding and ROI extension retained for the
 // existing operators; normalized uniformly only after each exact integer sum.
 export function historicalDerivativeBlock(L,M,w,h,p,{start=0,rows=h}={}){
- const out=new Float64Array(w*rows*2),sobel=p.method==='sobel',edge=(i,n)=>{if(n===1)return 0;const period=2*n-2;let v=i%period;if(v<0)v+=period;return v<n?v:period-v;};
- for(let row=0;row<rows;row++)for(let x=0;x<w;x++){const y=start+row,at=y*w+x,target=2*(row*w+x);if(!M[at])continue;const centre=Math.round(L[at]*255);let gx=0,gy=0;
+ const out=new Float64Array(w*rows*2),sobel=p.method==='sobel',maximum=p.sampleMaximum??255,edge=(i,n)=>{if(n===1)return 0;const period=2*n-2;let v=i%period;if(v<0)v+=period;return v<n?v:period-v;};
+ for(let row=0;row<rows;row++)for(let x=0;x<w;x++){const y=start+row,at=y*w+x,target=2*(row*w+x);if(!M[at])continue;const centre=Math.round(L[at]*maximum);let gx=0,gy=0;
   for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;let sx=x+dx,sy=y+dy,value;
-   if(sobel){sx=edge(sx,w);sy=edge(sy,h);if(!M[sy*w+sx]){sx=edge(x-dx,w);sy=edge(y-dy,h);if(!M[sy*w+sx]){sx=x;sy=y;}}value=Math.round(L[sy*w+sx]*255);gx+=dx*(dy===0?2:1)*value;gy+=dy*(dx===0?2:1)*value;}
-   else{if(sx<0||sx>=w||sy<0||sy>=h||!M[sy*w+sx])continue;value=(Math.round(L[sy*w+sx]*255)-centre)*(dx&&dy?4:7);gx+=dx*value;gy+=dy*value;}
-  }const scale=sobel?2040:7650;out[target]=gx/scale;out[target+1]=gy/scale;
+   if(sobel){sx=edge(sx,w);sy=edge(sy,h);if(!M[sy*w+sx]){sx=edge(x-dx,w);sy=edge(y-dy,h);if(!M[sy*w+sx]){sx=x;sy=y;}}value=Math.round(L[sy*w+sx]*maximum);gx+=dx*(dy===0?2:1)*value;gy+=dy*(dx===0?2:1)*value;}
+   else{if(sx<0||sx>=w||sy<0||sy>=h||!M[sy*w+sx])continue;value=(Math.round(L[sy*w+sx]*maximum)-centre)*(dx&&dy?4:7);gx+=dx*value;gy+=dy*value;}
+  }const scale=(sobel?8:30)*maximum;out[target]=gx/scale;out[target+1]=gy/scale;
  }return out;
 }
 export function gradientComponentStats(){return new Float64Array([0,0,Infinity,-Infinity,Infinity,-Infinity,0]);}

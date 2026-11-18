@@ -1,0 +1,3608 @@
+{
+  "oracle": "PyWavelets 1.5.0",
+  "width": 83,
+  "height": 79,
+  "sourceSha256": "2c13680c9265e2de28418fd1acfb3780cc59163e87e92f6e0eb5d7bdcaabfe3e",
+  "cases": [
+    {
+      "params": {
+        "wavelet": "db1",
+        "mode": "soft",
+        "threshold": 0,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "00bc887bd3808ee355bc94d39a45548d364cbc1956d88a5d16881f09285df44c",
+          "maximum": 2316705.750000002
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "7ff5d7df8ac6130708549f37c1e0668eb8b6dfd81637b66afd3e7c0aa9d7248e",
+          "maximum": 41158.000000000015
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "a272f0a61a7e525109c19d6208811e24e54b09ca7930fc878547a49b8119f07c",
+          "maximum": 29781.000000000007
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "d446a721e042ac24ae64efc0981c27dfb87648227603de5d7f8e385b87cda74c",
+          "maximum": 30009.500000000004
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "1a661df6a5bce4a919d8fd90d09aaed79e82a174b6d45d199b8529214727a32c",
+          "maximum": 75415.50000000003
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "28ec2f30b716baeb979181e4e01c7b9e4731f09f2f6cc9841c90ea63d049ad02",
+          "maximum": 29095.500000000007
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "5da2082a1c5147dc387d3a6463067d4e7a3934565981826f23774493a2e2d70a",
+          "maximum": 30009.500000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "adea790e887e1c7be1e1bc3c93b3ffa839083d503ce3c16ce6b7bf741b7510be",
+          "maximum": 61647.75000000004
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "46adb9ca1726d96976e4e99af524db4c0af8b491443eab0e5ee0d6bd68845d4b",
+          "maximum": 26367.750000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "5dcd14b095c70e0055a8f02a8a45cfee7a278bee5f31b0da82d78b6cfb8723ce",
+          "maximum": 30007.12500000004
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "728b09b3feb33d3b791202e37ebc40ef9716addde4790e6acd80d5c05a0c9b26",
+          "maximum": 122833.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "681c8606b11c329bf109cb296b60a50665fdf120e0f3ccf1e6fa8e2c6f7c503d",
+          "maximum": 15463.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "d57cc4a4eafcd270bbb423cd5269fa7ed5a408b84c5c3b379331d54802143a46",
+          "maximum": 30001.187500000015
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "b50687abd13f53151f20787b4dba4dd25e5faa01bcc821e70bc3a124fd22c978",
+          "maximum": 11328.374999999982
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "14f915e518ae8b428913abfda7d883383bd4912102ce4aa308be01ed81b8f758",
+          "maximum": 58146.875
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "1da222203eec5dcfc71b8dbb9c82c616d6f34c8fb655b2e765154f1a9bb136d7",
+          "maximum": 22497.625000000025
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "1ccbd585725f9d8d78ceefb99e16182f3218a7f17a4ddbf85224bcb9a6659990",
+          "maximum": 37820.62499999994
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "3bd6a5fd0bc5f23d74543ec5c7c9bf4e65ae4cf345b73b1d1d29277c2f67058c",
+          "maximum": 52594.62500000012
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "126114b9c815ed89392b842055b7ee486cf8457e6a027008243f3fe5ea0a3aaf",
+          "maximum": 938.3906249999714
+        }
+      ],
+      "displaySha256": "66f54cf80f345900610334f1dacb42e9be3302f070eaf5f0e2950ee4d0316586",
+      "reconstructionSha256": "1142193d4cecb359f95eda5278f901c86fdf996eb9031207eb7e61d15fc5b4dd"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "mode": "soft",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "00bc887bd3808ee355bc94d39a45548d364cbc1956d88a5d16881f09285df44c",
+          "maximum": 2316705.750000002
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "7ff5d7df8ac6130708549f37c1e0668eb8b6dfd81637b66afd3e7c0aa9d7248e",
+          "maximum": 41158.000000000015
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "a272f0a61a7e525109c19d6208811e24e54b09ca7930fc878547a49b8119f07c",
+          "maximum": 29781.000000000007
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "d446a721e042ac24ae64efc0981c27dfb87648227603de5d7f8e385b87cda74c",
+          "maximum": 30009.500000000004
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "1a661df6a5bce4a919d8fd90d09aaed79e82a174b6d45d199b8529214727a32c",
+          "maximum": 75415.50000000003
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "28ec2f30b716baeb979181e4e01c7b9e4731f09f2f6cc9841c90ea63d049ad02",
+          "maximum": 29095.500000000007
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "5da2082a1c5147dc387d3a6463067d4e7a3934565981826f23774493a2e2d70a",
+          "maximum": 30009.500000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "adea790e887e1c7be1e1bc3c93b3ffa839083d503ce3c16ce6b7bf741b7510be",
+          "maximum": 61647.75000000004
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "46adb9ca1726d96976e4e99af524db4c0af8b491443eab0e5ee0d6bd68845d4b",
+          "maximum": 26367.750000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "5dcd14b095c70e0055a8f02a8a45cfee7a278bee5f31b0da82d78b6cfb8723ce",
+          "maximum": 30007.12500000004
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "728b09b3feb33d3b791202e37ebc40ef9716addde4790e6acd80d5c05a0c9b26",
+          "maximum": 122833.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "681c8606b11c329bf109cb296b60a50665fdf120e0f3ccf1e6fa8e2c6f7c503d",
+          "maximum": 15463.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "d57cc4a4eafcd270bbb423cd5269fa7ed5a408b84c5c3b379331d54802143a46",
+          "maximum": 30001.187500000015
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "b50687abd13f53151f20787b4dba4dd25e5faa01bcc821e70bc3a124fd22c978",
+          "maximum": 11328.374999999982
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "14f915e518ae8b428913abfda7d883383bd4912102ce4aa308be01ed81b8f758",
+          "maximum": 58146.875
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "1da222203eec5dcfc71b8dbb9c82c616d6f34c8fb655b2e765154f1a9bb136d7",
+          "maximum": 22497.625000000025
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "1ccbd585725f9d8d78ceefb99e16182f3218a7f17a4ddbf85224bcb9a6659990",
+          "maximum": 37820.62499999994
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "3bd6a5fd0bc5f23d74543ec5c7c9bf4e65ae4cf345b73b1d1d29277c2f67058c",
+          "maximum": 52594.62500000012
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "126114b9c815ed89392b842055b7ee486cf8457e6a027008243f3fe5ea0a3aaf",
+          "maximum": 938.3906249999714
+        }
+      ],
+      "displaySha256": "dcd80488b6e9bc99e58640c36a673ceac8308118e03d0447743d6c3ae611f685",
+      "reconstructionSha256": "2187130d28608c9f355641d3dec9848db4a272e76283f57c8dca0b195738b81d"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "mode": "hard",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "00bc887bd3808ee355bc94d39a45548d364cbc1956d88a5d16881f09285df44c",
+          "maximum": 2316705.750000002
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "7ff5d7df8ac6130708549f37c1e0668eb8b6dfd81637b66afd3e7c0aa9d7248e",
+          "maximum": 41158.000000000015
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "a272f0a61a7e525109c19d6208811e24e54b09ca7930fc878547a49b8119f07c",
+          "maximum": 29781.000000000007
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "d446a721e042ac24ae64efc0981c27dfb87648227603de5d7f8e385b87cda74c",
+          "maximum": 30009.500000000004
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "1a661df6a5bce4a919d8fd90d09aaed79e82a174b6d45d199b8529214727a32c",
+          "maximum": 75415.50000000003
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "28ec2f30b716baeb979181e4e01c7b9e4731f09f2f6cc9841c90ea63d049ad02",
+          "maximum": 29095.500000000007
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "5da2082a1c5147dc387d3a6463067d4e7a3934565981826f23774493a2e2d70a",
+          "maximum": 30009.500000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "adea790e887e1c7be1e1bc3c93b3ffa839083d503ce3c16ce6b7bf741b7510be",
+          "maximum": 61647.75000000004
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "46adb9ca1726d96976e4e99af524db4c0af8b491443eab0e5ee0d6bd68845d4b",
+          "maximum": 26367.750000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "5dcd14b095c70e0055a8f02a8a45cfee7a278bee5f31b0da82d78b6cfb8723ce",
+          "maximum": 30007.12500000004
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "728b09b3feb33d3b791202e37ebc40ef9716addde4790e6acd80d5c05a0c9b26",
+          "maximum": 122833.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "681c8606b11c329bf109cb296b60a50665fdf120e0f3ccf1e6fa8e2c6f7c503d",
+          "maximum": 15463.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "d57cc4a4eafcd270bbb423cd5269fa7ed5a408b84c5c3b379331d54802143a46",
+          "maximum": 30001.187500000015
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "b50687abd13f53151f20787b4dba4dd25e5faa01bcc821e70bc3a124fd22c978",
+          "maximum": 11328.374999999982
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "14f915e518ae8b428913abfda7d883383bd4912102ce4aa308be01ed81b8f758",
+          "maximum": 58146.875
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "1da222203eec5dcfc71b8dbb9c82c616d6f34c8fb655b2e765154f1a9bb136d7",
+          "maximum": 22497.625000000025
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "1ccbd585725f9d8d78ceefb99e16182f3218a7f17a4ddbf85224bcb9a6659990",
+          "maximum": 37820.62499999994
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "3bd6a5fd0bc5f23d74543ec5c7c9bf4e65ae4cf345b73b1d1d29277c2f67058c",
+          "maximum": 52594.62500000012
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "126114b9c815ed89392b842055b7ee486cf8457e6a027008243f3fe5ea0a3aaf",
+          "maximum": 938.3906249999714
+        }
+      ],
+      "displaySha256": "58a2c6958d757fb1f39ed63ee282029cd4712718916e58a76e02383d6f8f376c",
+      "reconstructionSha256": "7eeae03c036ae48412e859fe4f815ccb8aebe5a3a9374023e18c4edd035e3cd2"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "mode": "garrote",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "00bc887bd3808ee355bc94d39a45548d364cbc1956d88a5d16881f09285df44c",
+          "maximum": 2316705.750000002
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "7ff5d7df8ac6130708549f37c1e0668eb8b6dfd81637b66afd3e7c0aa9d7248e",
+          "maximum": 41158.000000000015
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "a272f0a61a7e525109c19d6208811e24e54b09ca7930fc878547a49b8119f07c",
+          "maximum": 29781.000000000007
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "d446a721e042ac24ae64efc0981c27dfb87648227603de5d7f8e385b87cda74c",
+          "maximum": 30009.500000000004
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "1a661df6a5bce4a919d8fd90d09aaed79e82a174b6d45d199b8529214727a32c",
+          "maximum": 75415.50000000003
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "28ec2f30b716baeb979181e4e01c7b9e4731f09f2f6cc9841c90ea63d049ad02",
+          "maximum": 29095.500000000007
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "5da2082a1c5147dc387d3a6463067d4e7a3934565981826f23774493a2e2d70a",
+          "maximum": 30009.500000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "adea790e887e1c7be1e1bc3c93b3ffa839083d503ce3c16ce6b7bf741b7510be",
+          "maximum": 61647.75000000004
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "46adb9ca1726d96976e4e99af524db4c0af8b491443eab0e5ee0d6bd68845d4b",
+          "maximum": 26367.750000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "5dcd14b095c70e0055a8f02a8a45cfee7a278bee5f31b0da82d78b6cfb8723ce",
+          "maximum": 30007.12500000004
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "728b09b3feb33d3b791202e37ebc40ef9716addde4790e6acd80d5c05a0c9b26",
+          "maximum": 122833.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "681c8606b11c329bf109cb296b60a50665fdf120e0f3ccf1e6fa8e2c6f7c503d",
+          "maximum": 15463.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "d57cc4a4eafcd270bbb423cd5269fa7ed5a408b84c5c3b379331d54802143a46",
+          "maximum": 30001.187500000015
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "b50687abd13f53151f20787b4dba4dd25e5faa01bcc821e70bc3a124fd22c978",
+          "maximum": 11328.374999999982
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "14f915e518ae8b428913abfda7d883383bd4912102ce4aa308be01ed81b8f758",
+          "maximum": 58146.875
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "1da222203eec5dcfc71b8dbb9c82c616d6f34c8fb655b2e765154f1a9bb136d7",
+          "maximum": 22497.625000000025
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "1ccbd585725f9d8d78ceefb99e16182f3218a7f17a4ddbf85224bcb9a6659990",
+          "maximum": 37820.62499999994
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "3bd6a5fd0bc5f23d74543ec5c7c9bf4e65ae4cf345b73b1d1d29277c2f67058c",
+          "maximum": 52594.62500000012
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "126114b9c815ed89392b842055b7ee486cf8457e6a027008243f3fe5ea0a3aaf",
+          "maximum": 938.3906249999714
+        }
+      ],
+      "displaySha256": "d07bd1c5e118d1ee3b8cec34c98c27f6da307b86e05f9313ae26a73411de4e35",
+      "reconstructionSha256": "8a52de18f6321afd6e563262144c8054301f70659f6df24f664daa162a61882d"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "mode": "greater",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "00bc887bd3808ee355bc94d39a45548d364cbc1956d88a5d16881f09285df44c",
+          "maximum": 2316705.750000002
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "7ff5d7df8ac6130708549f37c1e0668eb8b6dfd81637b66afd3e7c0aa9d7248e",
+          "maximum": 41158.000000000015
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "a272f0a61a7e525109c19d6208811e24e54b09ca7930fc878547a49b8119f07c",
+          "maximum": 29781.000000000007
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "d446a721e042ac24ae64efc0981c27dfb87648227603de5d7f8e385b87cda74c",
+          "maximum": 30009.500000000004
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "1a661df6a5bce4a919d8fd90d09aaed79e82a174b6d45d199b8529214727a32c",
+          "maximum": 75415.50000000003
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "28ec2f30b716baeb979181e4e01c7b9e4731f09f2f6cc9841c90ea63d049ad02",
+          "maximum": 29095.500000000007
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "5da2082a1c5147dc387d3a6463067d4e7a3934565981826f23774493a2e2d70a",
+          "maximum": 30009.500000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "adea790e887e1c7be1e1bc3c93b3ffa839083d503ce3c16ce6b7bf741b7510be",
+          "maximum": 61647.75000000004
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "46adb9ca1726d96976e4e99af524db4c0af8b491443eab0e5ee0d6bd68845d4b",
+          "maximum": 26367.750000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "5dcd14b095c70e0055a8f02a8a45cfee7a278bee5f31b0da82d78b6cfb8723ce",
+          "maximum": 30007.12500000004
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "728b09b3feb33d3b791202e37ebc40ef9716addde4790e6acd80d5c05a0c9b26",
+          "maximum": 122833.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "681c8606b11c329bf109cb296b60a50665fdf120e0f3ccf1e6fa8e2c6f7c503d",
+          "maximum": 15463.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "d57cc4a4eafcd270bbb423cd5269fa7ed5a408b84c5c3b379331d54802143a46",
+          "maximum": 30001.187500000015
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "b50687abd13f53151f20787b4dba4dd25e5faa01bcc821e70bc3a124fd22c978",
+          "maximum": 11328.374999999982
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "14f915e518ae8b428913abfda7d883383bd4912102ce4aa308be01ed81b8f758",
+          "maximum": 58146.875
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "1da222203eec5dcfc71b8dbb9c82c616d6f34c8fb655b2e765154f1a9bb136d7",
+          "maximum": 22497.625000000025
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "1ccbd585725f9d8d78ceefb99e16182f3218a7f17a4ddbf85224bcb9a6659990",
+          "maximum": 37820.62499999994
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "3bd6a5fd0bc5f23d74543ec5c7c9bf4e65ae4cf345b73b1d1d29277c2f67058c",
+          "maximum": 52594.62500000012
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "126114b9c815ed89392b842055b7ee486cf8457e6a027008243f3fe5ea0a3aaf",
+          "maximum": 938.3906249999714
+        }
+      ],
+      "displaySha256": "2826ab24a78fcc77c7ee57d6795a6ae10d12952165174abe07336096f4e9d02b",
+      "reconstructionSha256": "c5b8c780fbade3b743e81c416612214ba0cd272063e457995ffc9ab11d64850a"
+    },
+    {
+      "params": {
+        "wavelet": "db1",
+        "mode": "less",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "00bc887bd3808ee355bc94d39a45548d364cbc1956d88a5d16881f09285df44c",
+          "maximum": 2316705.750000002
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "7ff5d7df8ac6130708549f37c1e0668eb8b6dfd81637b66afd3e7c0aa9d7248e",
+          "maximum": 41158.000000000015
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "a272f0a61a7e525109c19d6208811e24e54b09ca7930fc878547a49b8119f07c",
+          "maximum": 29781.000000000007
+        },
+        {
+          "shape": [
+            40,
+            42
+          ],
+          "sha256": "d446a721e042ac24ae64efc0981c27dfb87648227603de5d7f8e385b87cda74c",
+          "maximum": 30009.500000000004
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "1a661df6a5bce4a919d8fd90d09aaed79e82a174b6d45d199b8529214727a32c",
+          "maximum": 75415.50000000003
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "28ec2f30b716baeb979181e4e01c7b9e4731f09f2f6cc9841c90ea63d049ad02",
+          "maximum": 29095.500000000007
+        },
+        {
+          "shape": [
+            20,
+            21
+          ],
+          "sha256": "5da2082a1c5147dc387d3a6463067d4e7a3934565981826f23774493a2e2d70a",
+          "maximum": 30009.500000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "adea790e887e1c7be1e1bc3c93b3ffa839083d503ce3c16ce6b7bf741b7510be",
+          "maximum": 61647.75000000004
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "46adb9ca1726d96976e4e99af524db4c0af8b491443eab0e5ee0d6bd68845d4b",
+          "maximum": 26367.750000000015
+        },
+        {
+          "shape": [
+            10,
+            11
+          ],
+          "sha256": "5dcd14b095c70e0055a8f02a8a45cfee7a278bee5f31b0da82d78b6cfb8723ce",
+          "maximum": 30007.12500000004
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "728b09b3feb33d3b791202e37ebc40ef9716addde4790e6acd80d5c05a0c9b26",
+          "maximum": 122833.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "681c8606b11c329bf109cb296b60a50665fdf120e0f3ccf1e6fa8e2c6f7c503d",
+          "maximum": 15463.87500000003
+        },
+        {
+          "shape": [
+            5,
+            6
+          ],
+          "sha256": "d57cc4a4eafcd270bbb423cd5269fa7ed5a408b84c5c3b379331d54802143a46",
+          "maximum": 30001.187500000015
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "b50687abd13f53151f20787b4dba4dd25e5faa01bcc821e70bc3a124fd22c978",
+          "maximum": 11328.374999999982
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "14f915e518ae8b428913abfda7d883383bd4912102ce4aa308be01ed81b8f758",
+          "maximum": 58146.875
+        },
+        {
+          "shape": [
+            3,
+            3
+          ],
+          "sha256": "1da222203eec5dcfc71b8dbb9c82c616d6f34c8fb655b2e765154f1a9bb136d7",
+          "maximum": 22497.625000000025
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "1ccbd585725f9d8d78ceefb99e16182f3218a7f17a4ddbf85224bcb9a6659990",
+          "maximum": 37820.62499999994
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "3bd6a5fd0bc5f23d74543ec5c7c9bf4e65ae4cf345b73b1d1d29277c2f67058c",
+          "maximum": 52594.62500000012
+        },
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "sha256": "126114b9c815ed89392b842055b7ee486cf8457e6a027008243f3fe5ea0a3aaf",
+          "maximum": 938.3906249999714
+        }
+      ],
+      "displaySha256": "6ffc54e78dc68c0cd8748530be2f4a5d95888a67ec01bed1fb3a43c5f4cc4bc3",
+      "reconstructionSha256": "ee0b60f8ea1dab6545c41e849936e9c400880596a61e98d205a492f1cba9b697"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "mode": "soft",
+        "threshold": 0,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "6fe95f39ea073e4068b7c8345e8aae79a500128cd2c5bfe1ceae1a6729732b1b",
+          "maximum": 694755.926170129
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "07c55276b09419c6419dac396fa33891f7d60c3d0e0192a710ca430dab5d4da0",
+          "maximum": 47475.952641916454
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "41eafc711d5e1feb9143bc3303c7d5d0159d6159e17d9d3824b0c3770cb9b1c5",
+          "maximum": 30537.684780385123
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "2bf9ae9aaa2002cf15438ab3e776fdbf4b6d33eed4a193f9fe4501042af45961",
+          "maximum": 30743.798826485825
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "d852fbd443dca376b71c3b626fc8d5304eea7f66f0724988b8eb4aad869ceeca",
+          "maximum": 64436.09723594585
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "f314455e5d293b698c55bea3e9e3c97ae6890009447f42c80c0f0be7f06fbc1d",
+          "maximum": 23085.5177350244
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "b4a4238a00b7b20f189e093e5731bcfa0ef0da5c76c294bb4b87887e07d67bff",
+          "maximum": 26410.406129229123
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "97424cb4c5703e5edfbeb1a5433695d01b0616f7639d486fe693e0798ebb3b0f",
+          "maximum": 58468.58643720967
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "c90f9c8e807233f0016136bd184bde67d73a78aa61078dddfdfdbac24baf76ac",
+          "maximum": 25937.002606575687
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "4f35e9d76641e5f937a38fe0f867fc456ac3f2e21fa7bed93c6704cf0bfa460f",
+          "maximum": 25853.440528812345
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "fc5b50ffbb80747d4c11b0e7fa0bd2128ff71b8953324578b3db0f3c25ee9a73",
+          "maximum": 153086.57650437238
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "3116a22b70493648e102b8016cb3a582ef1c78509dccb35cf140a59138ce8852",
+          "maximum": 17790.091985840983
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "1e23a4812f5d82977e00380fdf10bb1aa25f8c55c3a784866c2c390c2d2a4756",
+          "maximum": 20544.113750058263
+        }
+      ],
+      "displaySha256": "66f54cf80f345900610334f1dacb42e9be3302f070eaf5f0e2950ee4d0316586",
+      "reconstructionSha256": "c512ffbb3ddbc3b473d7e13246171b46c97f261a2228e9d4628a48f938fe1228"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "mode": "soft",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "6fe95f39ea073e4068b7c8345e8aae79a500128cd2c5bfe1ceae1a6729732b1b",
+          "maximum": 694755.926170129
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "07c55276b09419c6419dac396fa33891f7d60c3d0e0192a710ca430dab5d4da0",
+          "maximum": 47475.952641916454
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "41eafc711d5e1feb9143bc3303c7d5d0159d6159e17d9d3824b0c3770cb9b1c5",
+          "maximum": 30537.684780385123
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "2bf9ae9aaa2002cf15438ab3e776fdbf4b6d33eed4a193f9fe4501042af45961",
+          "maximum": 30743.798826485825
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "d852fbd443dca376b71c3b626fc8d5304eea7f66f0724988b8eb4aad869ceeca",
+          "maximum": 64436.09723594585
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "f314455e5d293b698c55bea3e9e3c97ae6890009447f42c80c0f0be7f06fbc1d",
+          "maximum": 23085.5177350244
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "b4a4238a00b7b20f189e093e5731bcfa0ef0da5c76c294bb4b87887e07d67bff",
+          "maximum": 26410.406129229123
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "97424cb4c5703e5edfbeb1a5433695d01b0616f7639d486fe693e0798ebb3b0f",
+          "maximum": 58468.58643720967
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "c90f9c8e807233f0016136bd184bde67d73a78aa61078dddfdfdbac24baf76ac",
+          "maximum": 25937.002606575687
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "4f35e9d76641e5f937a38fe0f867fc456ac3f2e21fa7bed93c6704cf0bfa460f",
+          "maximum": 25853.440528812345
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "fc5b50ffbb80747d4c11b0e7fa0bd2128ff71b8953324578b3db0f3c25ee9a73",
+          "maximum": 153086.57650437238
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "3116a22b70493648e102b8016cb3a582ef1c78509dccb35cf140a59138ce8852",
+          "maximum": 17790.091985840983
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "1e23a4812f5d82977e00380fdf10bb1aa25f8c55c3a784866c2c390c2d2a4756",
+          "maximum": 20544.113750058263
+        }
+      ],
+      "displaySha256": "90bf4855e99a7db7ce439a614a119484e96de152ccae654f9d34e54126d42af2",
+      "reconstructionSha256": "7b9cdd1d27f41bd5cda02302d4a9719bcfc8766b99ad93d6a5df41af78bcadd4"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "mode": "hard",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "6fe95f39ea073e4068b7c8345e8aae79a500128cd2c5bfe1ceae1a6729732b1b",
+          "maximum": 694755.926170129
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "07c55276b09419c6419dac396fa33891f7d60c3d0e0192a710ca430dab5d4da0",
+          "maximum": 47475.952641916454
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "41eafc711d5e1feb9143bc3303c7d5d0159d6159e17d9d3824b0c3770cb9b1c5",
+          "maximum": 30537.684780385123
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "2bf9ae9aaa2002cf15438ab3e776fdbf4b6d33eed4a193f9fe4501042af45961",
+          "maximum": 30743.798826485825
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "d852fbd443dca376b71c3b626fc8d5304eea7f66f0724988b8eb4aad869ceeca",
+          "maximum": 64436.09723594585
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "f314455e5d293b698c55bea3e9e3c97ae6890009447f42c80c0f0be7f06fbc1d",
+          "maximum": 23085.5177350244
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "b4a4238a00b7b20f189e093e5731bcfa0ef0da5c76c294bb4b87887e07d67bff",
+          "maximum": 26410.406129229123
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "97424cb4c5703e5edfbeb1a5433695d01b0616f7639d486fe693e0798ebb3b0f",
+          "maximum": 58468.58643720967
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "c90f9c8e807233f0016136bd184bde67d73a78aa61078dddfdfdbac24baf76ac",
+          "maximum": 25937.002606575687
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "4f35e9d76641e5f937a38fe0f867fc456ac3f2e21fa7bed93c6704cf0bfa460f",
+          "maximum": 25853.440528812345
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "fc5b50ffbb80747d4c11b0e7fa0bd2128ff71b8953324578b3db0f3c25ee9a73",
+          "maximum": 153086.57650437238
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "3116a22b70493648e102b8016cb3a582ef1c78509dccb35cf140a59138ce8852",
+          "maximum": 17790.091985840983
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "1e23a4812f5d82977e00380fdf10bb1aa25f8c55c3a784866c2c390c2d2a4756",
+          "maximum": 20544.113750058263
+        }
+      ],
+      "displaySha256": "62a46d10301cda25fed3c106b326c6cc866fedd995f66e019551002f8ed3642b",
+      "reconstructionSha256": "755bf4d0a7d1147d779dd32800bbcc39e7ba06afccc0f16f2d99f5f0db154fd2"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "mode": "garrote",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "6fe95f39ea073e4068b7c8345e8aae79a500128cd2c5bfe1ceae1a6729732b1b",
+          "maximum": 694755.926170129
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "07c55276b09419c6419dac396fa33891f7d60c3d0e0192a710ca430dab5d4da0",
+          "maximum": 47475.952641916454
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "41eafc711d5e1feb9143bc3303c7d5d0159d6159e17d9d3824b0c3770cb9b1c5",
+          "maximum": 30537.684780385123
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "2bf9ae9aaa2002cf15438ab3e776fdbf4b6d33eed4a193f9fe4501042af45961",
+          "maximum": 30743.798826485825
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "d852fbd443dca376b71c3b626fc8d5304eea7f66f0724988b8eb4aad869ceeca",
+          "maximum": 64436.09723594585
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "f314455e5d293b698c55bea3e9e3c97ae6890009447f42c80c0f0be7f06fbc1d",
+          "maximum": 23085.5177350244
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "b4a4238a00b7b20f189e093e5731bcfa0ef0da5c76c294bb4b87887e07d67bff",
+          "maximum": 26410.406129229123
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "97424cb4c5703e5edfbeb1a5433695d01b0616f7639d486fe693e0798ebb3b0f",
+          "maximum": 58468.58643720967
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "c90f9c8e807233f0016136bd184bde67d73a78aa61078dddfdfdbac24baf76ac",
+          "maximum": 25937.002606575687
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "4f35e9d76641e5f937a38fe0f867fc456ac3f2e21fa7bed93c6704cf0bfa460f",
+          "maximum": 25853.440528812345
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "fc5b50ffbb80747d4c11b0e7fa0bd2128ff71b8953324578b3db0f3c25ee9a73",
+          "maximum": 153086.57650437238
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "3116a22b70493648e102b8016cb3a582ef1c78509dccb35cf140a59138ce8852",
+          "maximum": 17790.091985840983
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "1e23a4812f5d82977e00380fdf10bb1aa25f8c55c3a784866c2c390c2d2a4756",
+          "maximum": 20544.113750058263
+        }
+      ],
+      "displaySha256": "2ba867e468d5081307130c1cbf3d2ab673cf9c5779997909db3230e0550266f3",
+      "reconstructionSha256": "453c1863d66857b7ce7421c0e2fe1994f93dc58f077de1335367a42878824dc3"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "mode": "greater",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "6fe95f39ea073e4068b7c8345e8aae79a500128cd2c5bfe1ceae1a6729732b1b",
+          "maximum": 694755.926170129
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "07c55276b09419c6419dac396fa33891f7d60c3d0e0192a710ca430dab5d4da0",
+          "maximum": 47475.952641916454
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "41eafc711d5e1feb9143bc3303c7d5d0159d6159e17d9d3824b0c3770cb9b1c5",
+          "maximum": 30537.684780385123
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "2bf9ae9aaa2002cf15438ab3e776fdbf4b6d33eed4a193f9fe4501042af45961",
+          "maximum": 30743.798826485825
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "d852fbd443dca376b71c3b626fc8d5304eea7f66f0724988b8eb4aad869ceeca",
+          "maximum": 64436.09723594585
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "f314455e5d293b698c55bea3e9e3c97ae6890009447f42c80c0f0be7f06fbc1d",
+          "maximum": 23085.5177350244
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "b4a4238a00b7b20f189e093e5731bcfa0ef0da5c76c294bb4b87887e07d67bff",
+          "maximum": 26410.406129229123
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "97424cb4c5703e5edfbeb1a5433695d01b0616f7639d486fe693e0798ebb3b0f",
+          "maximum": 58468.58643720967
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "c90f9c8e807233f0016136bd184bde67d73a78aa61078dddfdfdbac24baf76ac",
+          "maximum": 25937.002606575687
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "4f35e9d76641e5f937a38fe0f867fc456ac3f2e21fa7bed93c6704cf0bfa460f",
+          "maximum": 25853.440528812345
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "fc5b50ffbb80747d4c11b0e7fa0bd2128ff71b8953324578b3db0f3c25ee9a73",
+          "maximum": 153086.57650437238
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "3116a22b70493648e102b8016cb3a582ef1c78509dccb35cf140a59138ce8852",
+          "maximum": 17790.091985840983
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "1e23a4812f5d82977e00380fdf10bb1aa25f8c55c3a784866c2c390c2d2a4756",
+          "maximum": 20544.113750058263
+        }
+      ],
+      "displaySha256": "6484e10837464dbaa91661ded6e63a99d8b714ecaa985b2b3f8daef3712b7199",
+      "reconstructionSha256": "21bc3f74b1b31120e397aed91c9f3535b892abdd6de2a5064c18a5122a19e32c"
+    },
+    {
+      "params": {
+        "wavelet": "db2",
+        "mode": "less",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "6fe95f39ea073e4068b7c8345e8aae79a500128cd2c5bfe1ceae1a6729732b1b",
+          "maximum": 694755.926170129
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "07c55276b09419c6419dac396fa33891f7d60c3d0e0192a710ca430dab5d4da0",
+          "maximum": 47475.952641916454
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "41eafc711d5e1feb9143bc3303c7d5d0159d6159e17d9d3824b0c3770cb9b1c5",
+          "maximum": 30537.684780385123
+        },
+        {
+          "shape": [
+            41,
+            43
+          ],
+          "sha256": "2bf9ae9aaa2002cf15438ab3e776fdbf4b6d33eed4a193f9fe4501042af45961",
+          "maximum": 30743.798826485825
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "d852fbd443dca376b71c3b626fc8d5304eea7f66f0724988b8eb4aad869ceeca",
+          "maximum": 64436.09723594585
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "f314455e5d293b698c55bea3e9e3c97ae6890009447f42c80c0f0be7f06fbc1d",
+          "maximum": 23085.5177350244
+        },
+        {
+          "shape": [
+            22,
+            23
+          ],
+          "sha256": "b4a4238a00b7b20f189e093e5731bcfa0ef0da5c76c294bb4b87887e07d67bff",
+          "maximum": 26410.406129229123
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "97424cb4c5703e5edfbeb1a5433695d01b0616f7639d486fe693e0798ebb3b0f",
+          "maximum": 58468.58643720967
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "c90f9c8e807233f0016136bd184bde67d73a78aa61078dddfdfdbac24baf76ac",
+          "maximum": 25937.002606575687
+        },
+        {
+          "shape": [
+            12,
+            13
+          ],
+          "sha256": "4f35e9d76641e5f937a38fe0f867fc456ac3f2e21fa7bed93c6704cf0bfa460f",
+          "maximum": 25853.440528812345
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "fc5b50ffbb80747d4c11b0e7fa0bd2128ff71b8953324578b3db0f3c25ee9a73",
+          "maximum": 153086.57650437238
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "3116a22b70493648e102b8016cb3a582ef1c78509dccb35cf140a59138ce8852",
+          "maximum": 17790.091985840983
+        },
+        {
+          "shape": [
+            7,
+            8
+          ],
+          "sha256": "1e23a4812f5d82977e00380fdf10bb1aa25f8c55c3a784866c2c390c2d2a4756",
+          "maximum": 20544.113750058263
+        }
+      ],
+      "displaySha256": "2e2a09f0993ded099db4bafaf61404c4740e76c2298664c5b290da53c2878128",
+      "reconstructionSha256": "fede334a3042fbb3a064e7466e17758613291c38352259feaaf28cdfacf7827f"
+    },
+    {
+      "params": {
+        "wavelet": "db8",
+        "mode": "soft",
+        "threshold": 0,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "743565aff47ece727c1ce8f977cd9d198aa0472cbff9130428df72aa66773c39",
+          "maximum": 189037.6262227133
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "08f8eaf42650bb169438ecc52b462925f4adc038822cbffba4cd35f7630ce536",
+          "maximum": 52246.817075494575
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "40c69f92ac30a5799f1ada58fd7175613f6cce913d89211f1dd604ecbfc25e1a",
+          "maximum": 24285.776535999943
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "bb10a69f2b0f071f7decf2f09b60d286446376f93f057364e46a228fe4e2da3b",
+          "maximum": 24384.89718354683
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "6113e04bad81e3dd7c09a082a5e2c07201393e4df248b70762537c2dabe6b696",
+          "maximum": 80007.13275277319
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "ddea1bc26bef1678d2c8f4d8699e8b7323566474bc031aba0d12e7a8be3e4da4",
+          "maximum": 15292.000664549294
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "cb6961496ada6bab58c0fb738b72ca5357054f8b18cfc2f0e6b88add9cd550e6",
+          "maximum": 17516.982378576624
+        }
+      ],
+      "displaySha256": "f04475793e12c07d1992bd7041a167432eec4293a4a0d0dc4c007be3a117a599",
+      "reconstructionSha256": "70b16b69a61f6e37300b38b9751bbdc2c9ef568d7b8a973eafa7396799904c4d"
+    },
+    {
+      "params": {
+        "wavelet": "db8",
+        "mode": "soft",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "743565aff47ece727c1ce8f977cd9d198aa0472cbff9130428df72aa66773c39",
+          "maximum": 189037.6262227133
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "08f8eaf42650bb169438ecc52b462925f4adc038822cbffba4cd35f7630ce536",
+          "maximum": 52246.817075494575
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "40c69f92ac30a5799f1ada58fd7175613f6cce913d89211f1dd604ecbfc25e1a",
+          "maximum": 24285.776535999943
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "bb10a69f2b0f071f7decf2f09b60d286446376f93f057364e46a228fe4e2da3b",
+          "maximum": 24384.89718354683
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "6113e04bad81e3dd7c09a082a5e2c07201393e4df248b70762537c2dabe6b696",
+          "maximum": 80007.13275277319
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "ddea1bc26bef1678d2c8f4d8699e8b7323566474bc031aba0d12e7a8be3e4da4",
+          "maximum": 15292.000664549294
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "cb6961496ada6bab58c0fb738b72ca5357054f8b18cfc2f0e6b88add9cd550e6",
+          "maximum": 17516.982378576624
+        }
+      ],
+      "displaySha256": "8dd7b12dc3d37e6e13d7e4d41ce3a336f47d1293b6e9f42744f3da77bdc85a95",
+      "reconstructionSha256": "17522938920ca6ef4077c45c8453817b946e9acbd9cc344552fbfe1301dac640"
+    },
+    {
+      "params": {
+        "wavelet": "db8",
+        "mode": "hard",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "743565aff47ece727c1ce8f977cd9d198aa0472cbff9130428df72aa66773c39",
+          "maximum": 189037.6262227133
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "08f8eaf42650bb169438ecc52b462925f4adc038822cbffba4cd35f7630ce536",
+          "maximum": 52246.817075494575
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "40c69f92ac30a5799f1ada58fd7175613f6cce913d89211f1dd604ecbfc25e1a",
+          "maximum": 24285.776535999943
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "bb10a69f2b0f071f7decf2f09b60d286446376f93f057364e46a228fe4e2da3b",
+          "maximum": 24384.89718354683
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "6113e04bad81e3dd7c09a082a5e2c07201393e4df248b70762537c2dabe6b696",
+          "maximum": 80007.13275277319
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "ddea1bc26bef1678d2c8f4d8699e8b7323566474bc031aba0d12e7a8be3e4da4",
+          "maximum": 15292.000664549294
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "cb6961496ada6bab58c0fb738b72ca5357054f8b18cfc2f0e6b88add9cd550e6",
+          "maximum": 17516.982378576624
+        }
+      ],
+      "displaySha256": "ffa3cac45b93faa12aa6eb24f584e2378bde51f8d18c4d8e8b0703fdd3b63c3c",
+      "reconstructionSha256": "e1544779440905d0350d671ad375521463054291a47b3738fdc5e5eabe41e84a"
+    },
+    {
+      "params": {
+        "wavelet": "db8",
+        "mode": "garrote",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "743565aff47ece727c1ce8f977cd9d198aa0472cbff9130428df72aa66773c39",
+          "maximum": 189037.6262227133
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "08f8eaf42650bb169438ecc52b462925f4adc038822cbffba4cd35f7630ce536",
+          "maximum": 52246.817075494575
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "40c69f92ac30a5799f1ada58fd7175613f6cce913d89211f1dd604ecbfc25e1a",
+          "maximum": 24285.776535999943
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "bb10a69f2b0f071f7decf2f09b60d286446376f93f057364e46a228fe4e2da3b",
+          "maximum": 24384.89718354683
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "6113e04bad81e3dd7c09a082a5e2c07201393e4df248b70762537c2dabe6b696",
+          "maximum": 80007.13275277319
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "ddea1bc26bef1678d2c8f4d8699e8b7323566474bc031aba0d12e7a8be3e4da4",
+          "maximum": 15292.000664549294
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "cb6961496ada6bab58c0fb738b72ca5357054f8b18cfc2f0e6b88add9cd550e6",
+          "maximum": 17516.982378576624
+        }
+      ],
+      "displaySha256": "7ed5cea0fcdcadfd6e59eaae496ed20fa590552a948352adcc0f29d5d09782d1",
+      "reconstructionSha256": "07d6e63994ce7317ffa68be37c40e26efa1176e1ec793e7734897a869f112ed3"
+    },
+    {
+      "params": {
+        "wavelet": "db8",
+        "mode": "greater",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "743565aff47ece727c1ce8f977cd9d198aa0472cbff9130428df72aa66773c39",
+          "maximum": 189037.6262227133
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "08f8eaf42650bb169438ecc52b462925f4adc038822cbffba4cd35f7630ce536",
+          "maximum": 52246.817075494575
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "40c69f92ac30a5799f1ada58fd7175613f6cce913d89211f1dd604ecbfc25e1a",
+          "maximum": 24285.776535999943
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "bb10a69f2b0f071f7decf2f09b60d286446376f93f057364e46a228fe4e2da3b",
+          "maximum": 24384.89718354683
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "6113e04bad81e3dd7c09a082a5e2c07201393e4df248b70762537c2dabe6b696",
+          "maximum": 80007.13275277319
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "ddea1bc26bef1678d2c8f4d8699e8b7323566474bc031aba0d12e7a8be3e4da4",
+          "maximum": 15292.000664549294
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "cb6961496ada6bab58c0fb738b72ca5357054f8b18cfc2f0e6b88add9cd550e6",
+          "maximum": 17516.982378576624
+        }
+      ],
+      "displaySha256": "3d236bc4e7bc6397ca2b44682e98419e85731db606fd4928a3fd5fd31d2cd9b4",
+      "reconstructionSha256": "a28b8883e18997d16acf019280f78f4093e424e3376caea8b3adaa7dfafe02c7"
+    },
+    {
+      "params": {
+        "wavelet": "db8",
+        "mode": "less",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "743565aff47ece727c1ce8f977cd9d198aa0472cbff9130428df72aa66773c39",
+          "maximum": 189037.6262227133
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "08f8eaf42650bb169438ecc52b462925f4adc038822cbffba4cd35f7630ce536",
+          "maximum": 52246.817075494575
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "40c69f92ac30a5799f1ada58fd7175613f6cce913d89211f1dd604ecbfc25e1a",
+          "maximum": 24285.776535999943
+        },
+        {
+          "shape": [
+            47,
+            49
+          ],
+          "sha256": "bb10a69f2b0f071f7decf2f09b60d286446376f93f057364e46a228fe4e2da3b",
+          "maximum": 24384.89718354683
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "6113e04bad81e3dd7c09a082a5e2c07201393e4df248b70762537c2dabe6b696",
+          "maximum": 80007.13275277319
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "ddea1bc26bef1678d2c8f4d8699e8b7323566474bc031aba0d12e7a8be3e4da4",
+          "maximum": 15292.000664549294
+        },
+        {
+          "shape": [
+            31,
+            32
+          ],
+          "sha256": "cb6961496ada6bab58c0fb738b72ca5357054f8b18cfc2f0e6b88add9cd550e6",
+          "maximum": 17516.982378576624
+        }
+      ],
+      "displaySha256": "710cf3d0bf669b101093b4ce730c956491f3dc9ed4cbd469d95d5a2d2b99cd36",
+      "reconstructionSha256": "cbf399fede0d64809a8620373273f238cbc5c9c20506a3d168cfafefd81581d4"
+    },
+    {
+      "params": {
+        "wavelet": "sym5",
+        "mode": "soft",
+        "threshold": 0,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "3108236cc98806f563f2eac66f02d5182cfa3341b6b00226fa43917bd84b7a4e",
+          "maximum": 322061.1519727113
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "c6c1adbc51be4be333af390c72f5d3d6c6bd5fee8b44c384e820cc31573f3dc4",
+          "maximum": 53082.370539159696
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "988aaf2df08da5f39c895acd2e6a7e031d5c6eb0cbdafd8945c69af3399b284e",
+          "maximum": 26700.59321008102
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "a583f1c27c676d8a9125a36af035782310e425fb4b2430d44ebc187b0dce99f4",
+          "maximum": 26810.475531612476
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "60599ae2ede2395d33dad27a965cce63423869ea4089e465084ec55bfc539d55",
+          "maximum": 81892.17752136054
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1e40f83604b145f5e178a9b86f49e6d38a1eda7db94a5a8647352df5605a1145",
+          "maximum": 22303.572957330165
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1d6327c6d6f538401181d524df4340dd0f807e0d41a2776d901602f4e333d8a1",
+          "maximum": 20900.512762644415
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "ab6c9840faf3837a97e2055b5b420d72b5f6dbeab22f1fefba5aefe5da4bc716",
+          "maximum": 69809.21873080383
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "03127cfae4cbc778ef14972c7f043ad34c201b3e45b81ca4ede6b84713d548ee",
+          "maximum": 19995.85978299695
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "6b9197bb0307bec3ad046e39584dffd4be69c8a9c2bf3f5276177668caecdd2a",
+          "maximum": 21899.356058490594
+        }
+      ],
+      "displaySha256": "395603d8be96f4aafa2a6c3bb323b80262831a090cc017d409577bfd85cdb6b2",
+      "reconstructionSha256": "012252e359292a077daeafe6c5909d2d6f609d39539e903c83cb831d55d9187a"
+    },
+    {
+      "params": {
+        "wavelet": "sym5",
+        "mode": "soft",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "3108236cc98806f563f2eac66f02d5182cfa3341b6b00226fa43917bd84b7a4e",
+          "maximum": 322061.1519727113
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "c6c1adbc51be4be333af390c72f5d3d6c6bd5fee8b44c384e820cc31573f3dc4",
+          "maximum": 53082.370539159696
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "988aaf2df08da5f39c895acd2e6a7e031d5c6eb0cbdafd8945c69af3399b284e",
+          "maximum": 26700.59321008102
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "a583f1c27c676d8a9125a36af035782310e425fb4b2430d44ebc187b0dce99f4",
+          "maximum": 26810.475531612476
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "60599ae2ede2395d33dad27a965cce63423869ea4089e465084ec55bfc539d55",
+          "maximum": 81892.17752136054
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1e40f83604b145f5e178a9b86f49e6d38a1eda7db94a5a8647352df5605a1145",
+          "maximum": 22303.572957330165
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1d6327c6d6f538401181d524df4340dd0f807e0d41a2776d901602f4e333d8a1",
+          "maximum": 20900.512762644415
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "ab6c9840faf3837a97e2055b5b420d72b5f6dbeab22f1fefba5aefe5da4bc716",
+          "maximum": 69809.21873080383
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "03127cfae4cbc778ef14972c7f043ad34c201b3e45b81ca4ede6b84713d548ee",
+          "maximum": 19995.85978299695
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "6b9197bb0307bec3ad046e39584dffd4be69c8a9c2bf3f5276177668caecdd2a",
+          "maximum": 21899.356058490594
+        }
+      ],
+      "displaySha256": "03e854a907fea65d0fc077b922e8b99348f021dc6b190bab7b6379109478f561",
+      "reconstructionSha256": "03a8f06330ee8cdbec6178ad4dc63bea36f72cd8d3e39a1885b5750caa5bffa6"
+    },
+    {
+      "params": {
+        "wavelet": "sym5",
+        "mode": "hard",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "3108236cc98806f563f2eac66f02d5182cfa3341b6b00226fa43917bd84b7a4e",
+          "maximum": 322061.1519727113
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "c6c1adbc51be4be333af390c72f5d3d6c6bd5fee8b44c384e820cc31573f3dc4",
+          "maximum": 53082.370539159696
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "988aaf2df08da5f39c895acd2e6a7e031d5c6eb0cbdafd8945c69af3399b284e",
+          "maximum": 26700.59321008102
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "a583f1c27c676d8a9125a36af035782310e425fb4b2430d44ebc187b0dce99f4",
+          "maximum": 26810.475531612476
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "60599ae2ede2395d33dad27a965cce63423869ea4089e465084ec55bfc539d55",
+          "maximum": 81892.17752136054
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1e40f83604b145f5e178a9b86f49e6d38a1eda7db94a5a8647352df5605a1145",
+          "maximum": 22303.572957330165
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1d6327c6d6f538401181d524df4340dd0f807e0d41a2776d901602f4e333d8a1",
+          "maximum": 20900.512762644415
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "ab6c9840faf3837a97e2055b5b420d72b5f6dbeab22f1fefba5aefe5da4bc716",
+          "maximum": 69809.21873080383
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "03127cfae4cbc778ef14972c7f043ad34c201b3e45b81ca4ede6b84713d548ee",
+          "maximum": 19995.85978299695
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "6b9197bb0307bec3ad046e39584dffd4be69c8a9c2bf3f5276177668caecdd2a",
+          "maximum": 21899.356058490594
+        }
+      ],
+      "displaySha256": "9ec74ef2ad6fd689a0311b27a84d45e6e9acf89ef91f01d03a574c63d6b4ce0e",
+      "reconstructionSha256": "962edbadf3f66125f639e44dd01606d5fac4b8d95f4823998eeea11d76bf703d"
+    },
+    {
+      "params": {
+        "wavelet": "sym5",
+        "mode": "garrote",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "3108236cc98806f563f2eac66f02d5182cfa3341b6b00226fa43917bd84b7a4e",
+          "maximum": 322061.1519727113
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "c6c1adbc51be4be333af390c72f5d3d6c6bd5fee8b44c384e820cc31573f3dc4",
+          "maximum": 53082.370539159696
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "988aaf2df08da5f39c895acd2e6a7e031d5c6eb0cbdafd8945c69af3399b284e",
+          "maximum": 26700.59321008102
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "a583f1c27c676d8a9125a36af035782310e425fb4b2430d44ebc187b0dce99f4",
+          "maximum": 26810.475531612476
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "60599ae2ede2395d33dad27a965cce63423869ea4089e465084ec55bfc539d55",
+          "maximum": 81892.17752136054
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1e40f83604b145f5e178a9b86f49e6d38a1eda7db94a5a8647352df5605a1145",
+          "maximum": 22303.572957330165
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1d6327c6d6f538401181d524df4340dd0f807e0d41a2776d901602f4e333d8a1",
+          "maximum": 20900.512762644415
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "ab6c9840faf3837a97e2055b5b420d72b5f6dbeab22f1fefba5aefe5da4bc716",
+          "maximum": 69809.21873080383
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "03127cfae4cbc778ef14972c7f043ad34c201b3e45b81ca4ede6b84713d548ee",
+          "maximum": 19995.85978299695
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "6b9197bb0307bec3ad046e39584dffd4be69c8a9c2bf3f5276177668caecdd2a",
+          "maximum": 21899.356058490594
+        }
+      ],
+      "displaySha256": "0933609974cd91e4bfc220c1fa4fc3e3a805d987d8593c16049a0d41880c4f0d",
+      "reconstructionSha256": "ed793040cff5faa72166b991a3e664443cbc884bce2a855aa0cf8522d29b1f8a"
+    },
+    {
+      "params": {
+        "wavelet": "sym5",
+        "mode": "greater",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "3108236cc98806f563f2eac66f02d5182cfa3341b6b00226fa43917bd84b7a4e",
+          "maximum": 322061.1519727113
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "c6c1adbc51be4be333af390c72f5d3d6c6bd5fee8b44c384e820cc31573f3dc4",
+          "maximum": 53082.370539159696
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "988aaf2df08da5f39c895acd2e6a7e031d5c6eb0cbdafd8945c69af3399b284e",
+          "maximum": 26700.59321008102
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "a583f1c27c676d8a9125a36af035782310e425fb4b2430d44ebc187b0dce99f4",
+          "maximum": 26810.475531612476
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "60599ae2ede2395d33dad27a965cce63423869ea4089e465084ec55bfc539d55",
+          "maximum": 81892.17752136054
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1e40f83604b145f5e178a9b86f49e6d38a1eda7db94a5a8647352df5605a1145",
+          "maximum": 22303.572957330165
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1d6327c6d6f538401181d524df4340dd0f807e0d41a2776d901602f4e333d8a1",
+          "maximum": 20900.512762644415
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "ab6c9840faf3837a97e2055b5b420d72b5f6dbeab22f1fefba5aefe5da4bc716",
+          "maximum": 69809.21873080383
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "03127cfae4cbc778ef14972c7f043ad34c201b3e45b81ca4ede6b84713d548ee",
+          "maximum": 19995.85978299695
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "6b9197bb0307bec3ad046e39584dffd4be69c8a9c2bf3f5276177668caecdd2a",
+          "maximum": 21899.356058490594
+        }
+      ],
+      "displaySha256": "ca866c2ebc242a58648fc33d4bd059843f6eb8a23d489ad616eca00f35b99315",
+      "reconstructionSha256": "4f746772b17069d140c9988c39b6763dd1dd84bc051934c5402192777ed47aa3"
+    },
+    {
+      "params": {
+        "wavelet": "sym5",
+        "mode": "less",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "3108236cc98806f563f2eac66f02d5182cfa3341b6b00226fa43917bd84b7a4e",
+          "maximum": 322061.1519727113
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "c6c1adbc51be4be333af390c72f5d3d6c6bd5fee8b44c384e820cc31573f3dc4",
+          "maximum": 53082.370539159696
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "988aaf2df08da5f39c895acd2e6a7e031d5c6eb0cbdafd8945c69af3399b284e",
+          "maximum": 26700.59321008102
+        },
+        {
+          "shape": [
+            44,
+            46
+          ],
+          "sha256": "a583f1c27c676d8a9125a36af035782310e425fb4b2430d44ebc187b0dce99f4",
+          "maximum": 26810.475531612476
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "60599ae2ede2395d33dad27a965cce63423869ea4089e465084ec55bfc539d55",
+          "maximum": 81892.17752136054
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1e40f83604b145f5e178a9b86f49e6d38a1eda7db94a5a8647352df5605a1145",
+          "maximum": 22303.572957330165
+        },
+        {
+          "shape": [
+            26,
+            27
+          ],
+          "sha256": "1d6327c6d6f538401181d524df4340dd0f807e0d41a2776d901602f4e333d8a1",
+          "maximum": 20900.512762644415
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "ab6c9840faf3837a97e2055b5b420d72b5f6dbeab22f1fefba5aefe5da4bc716",
+          "maximum": 69809.21873080383
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "03127cfae4cbc778ef14972c7f043ad34c201b3e45b81ca4ede6b84713d548ee",
+          "maximum": 19995.85978299695
+        },
+        {
+          "shape": [
+            17,
+            18
+          ],
+          "sha256": "6b9197bb0307bec3ad046e39584dffd4be69c8a9c2bf3f5276177668caecdd2a",
+          "maximum": 21899.356058490594
+        }
+      ],
+      "displaySha256": "56ca3668e749c9e82045b7191e271c2e5db7426bd0b5b1f647db0975276d7797",
+      "reconstructionSha256": "908cd97ed854e8636bd592862ae95aa376dd80511e1bd824d904c8cc713356da"
+    },
+    {
+      "params": {
+        "wavelet": "coif3",
+        "mode": "soft",
+        "threshold": 0,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "9ef6d9318d7bcb4c9f51c102ebc0695c984fb1f2b88b30a8535726766eb91416",
+          "maximum": 192220.7894254209
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "af7acece8d0a0b49616326895f4a453e79b9dd6e223b3fceaf08a317730737f5",
+          "maximum": 45421.8519068803
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "c3384ba8b657c6c909021dfcd11051be5e24df5b896272e35d5ac67d211ca105",
+          "maximum": 23764.16945654755
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "85e0ed59cd394c5ed3e7177c93472c0568e929b57ff1d4502ea67c6acbbbb668",
+          "maximum": 23837.374484599215
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "e89916d16215ace5bc09871d4f6b0dea61a4d38d58358f5d0d1e0b953749767c",
+          "maximum": 72998.19586451288
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "0ef51d1bf7d3d654aa9614aa23687f8efa04ecee983ff6d0d9ebace4546d0770",
+          "maximum": 28778.479773642164
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "820a09bc50e03ff63909bf2796ca05cffb686bceacf0fe537474d218868931c7",
+          "maximum": 34773.018731602155
+        }
+      ],
+      "displaySha256": "ce75446f0fd2e88b3b9f90e2036cc54dab0f3c1ae4cce6201cb6350fe5088d0b",
+      "reconstructionSha256": "889cbd762d597888deb0da11b449c27003b895068209975f53c86aa2123d3b64"
+    },
+    {
+      "params": {
+        "wavelet": "coif3",
+        "mode": "soft",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "9ef6d9318d7bcb4c9f51c102ebc0695c984fb1f2b88b30a8535726766eb91416",
+          "maximum": 192220.7894254209
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "af7acece8d0a0b49616326895f4a453e79b9dd6e223b3fceaf08a317730737f5",
+          "maximum": 45421.8519068803
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "c3384ba8b657c6c909021dfcd11051be5e24df5b896272e35d5ac67d211ca105",
+          "maximum": 23764.16945654755
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "85e0ed59cd394c5ed3e7177c93472c0568e929b57ff1d4502ea67c6acbbbb668",
+          "maximum": 23837.374484599215
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "e89916d16215ace5bc09871d4f6b0dea61a4d38d58358f5d0d1e0b953749767c",
+          "maximum": 72998.19586451288
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "0ef51d1bf7d3d654aa9614aa23687f8efa04ecee983ff6d0d9ebace4546d0770",
+          "maximum": 28778.479773642164
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "820a09bc50e03ff63909bf2796ca05cffb686bceacf0fe537474d218868931c7",
+          "maximum": 34773.018731602155
+        }
+      ],
+      "displaySha256": "d4b5c9e5ab0ba092e46261f08f34372904adebd7ae05e572ad4b46be5d8abfe4",
+      "reconstructionSha256": "479766d9537703b3c0f3d07be8d0e74bd42eab2083b6df2e2f32ea3ac73d6616"
+    },
+    {
+      "params": {
+        "wavelet": "coif3",
+        "mode": "hard",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "9ef6d9318d7bcb4c9f51c102ebc0695c984fb1f2b88b30a8535726766eb91416",
+          "maximum": 192220.7894254209
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "af7acece8d0a0b49616326895f4a453e79b9dd6e223b3fceaf08a317730737f5",
+          "maximum": 45421.8519068803
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "c3384ba8b657c6c909021dfcd11051be5e24df5b896272e35d5ac67d211ca105",
+          "maximum": 23764.16945654755
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "85e0ed59cd394c5ed3e7177c93472c0568e929b57ff1d4502ea67c6acbbbb668",
+          "maximum": 23837.374484599215
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "e89916d16215ace5bc09871d4f6b0dea61a4d38d58358f5d0d1e0b953749767c",
+          "maximum": 72998.19586451288
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "0ef51d1bf7d3d654aa9614aa23687f8efa04ecee983ff6d0d9ebace4546d0770",
+          "maximum": 28778.479773642164
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "820a09bc50e03ff63909bf2796ca05cffb686bceacf0fe537474d218868931c7",
+          "maximum": 34773.018731602155
+        }
+      ],
+      "displaySha256": "d6fc43a61a1939fe36cfb5470432f6bab7fea77bc90cf351f26ab5e5225dc520",
+      "reconstructionSha256": "90e8d526d125249cf109c124b96b6f67b4d7f372c4c0f68e503bcae6a52bcb52"
+    },
+    {
+      "params": {
+        "wavelet": "coif3",
+        "mode": "garrote",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "9ef6d9318d7bcb4c9f51c102ebc0695c984fb1f2b88b30a8535726766eb91416",
+          "maximum": 192220.7894254209
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "af7acece8d0a0b49616326895f4a453e79b9dd6e223b3fceaf08a317730737f5",
+          "maximum": 45421.8519068803
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "c3384ba8b657c6c909021dfcd11051be5e24df5b896272e35d5ac67d211ca105",
+          "maximum": 23764.16945654755
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "85e0ed59cd394c5ed3e7177c93472c0568e929b57ff1d4502ea67c6acbbbb668",
+          "maximum": 23837.374484599215
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "e89916d16215ace5bc09871d4f6b0dea61a4d38d58358f5d0d1e0b953749767c",
+          "maximum": 72998.19586451288
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "0ef51d1bf7d3d654aa9614aa23687f8efa04ecee983ff6d0d9ebace4546d0770",
+          "maximum": 28778.479773642164
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "820a09bc50e03ff63909bf2796ca05cffb686bceacf0fe537474d218868931c7",
+          "maximum": 34773.018731602155
+        }
+      ],
+      "displaySha256": "890e0b91ba43c2774b04925f925c7be8c54e6dcebbbebdfbd312c52c5013e04d",
+      "reconstructionSha256": "fd23b032c6feefc992e635370c9b35aee1988d5f8a4bad46da312b7621a75730"
+    },
+    {
+      "params": {
+        "wavelet": "coif3",
+        "mode": "greater",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "9ef6d9318d7bcb4c9f51c102ebc0695c984fb1f2b88b30a8535726766eb91416",
+          "maximum": 192220.7894254209
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "af7acece8d0a0b49616326895f4a453e79b9dd6e223b3fceaf08a317730737f5",
+          "maximum": 45421.8519068803
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "c3384ba8b657c6c909021dfcd11051be5e24df5b896272e35d5ac67d211ca105",
+          "maximum": 23764.16945654755
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "85e0ed59cd394c5ed3e7177c93472c0568e929b57ff1d4502ea67c6acbbbb668",
+          "maximum": 23837.374484599215
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "e89916d16215ace5bc09871d4f6b0dea61a4d38d58358f5d0d1e0b953749767c",
+          "maximum": 72998.19586451288
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "0ef51d1bf7d3d654aa9614aa23687f8efa04ecee983ff6d0d9ebace4546d0770",
+          "maximum": 28778.479773642164
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "820a09bc50e03ff63909bf2796ca05cffb686bceacf0fe537474d218868931c7",
+          "maximum": 34773.018731602155
+        }
+      ],
+      "displaySha256": "b02308681a0b60516e58efa802f4ef397c1121ac19bac715dc0e89302c4a27db",
+      "reconstructionSha256": "71bc937bf728d00eb110b18990274703bc11c1987a78027bf412f494a4c22939"
+    },
+    {
+      "params": {
+        "wavelet": "coif3",
+        "mode": "less",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "9ef6d9318d7bcb4c9f51c102ebc0695c984fb1f2b88b30a8535726766eb91416",
+          "maximum": 192220.7894254209
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "af7acece8d0a0b49616326895f4a453e79b9dd6e223b3fceaf08a317730737f5",
+          "maximum": 45421.8519068803
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "c3384ba8b657c6c909021dfcd11051be5e24df5b896272e35d5ac67d211ca105",
+          "maximum": 23764.16945654755
+        },
+        {
+          "shape": [
+            48,
+            50
+          ],
+          "sha256": "85e0ed59cd394c5ed3e7177c93472c0568e929b57ff1d4502ea67c6acbbbb668",
+          "maximum": 23837.374484599215
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "e89916d16215ace5bc09871d4f6b0dea61a4d38d58358f5d0d1e0b953749767c",
+          "maximum": 72998.19586451288
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "0ef51d1bf7d3d654aa9614aa23687f8efa04ecee983ff6d0d9ebace4546d0770",
+          "maximum": 28778.479773642164
+        },
+        {
+          "shape": [
+            32,
+            33
+          ],
+          "sha256": "820a09bc50e03ff63909bf2796ca05cffb686bceacf0fe537474d218868931c7",
+          "maximum": 34773.018731602155
+        }
+      ],
+      "displaySha256": "aea45c8509835ab1671eac43068a51650a89d0005649e8313d14be4799940495",
+      "reconstructionSha256": "1d7509e2f7d6a4a2eff7efe4baa9d8dd84929873491036cfde5098138e595ab5"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.3",
+        "mode": "soft",
+        "threshold": 0,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "bfcbb6c51404b9df4174423befb45943808ebb8cb86c3536eff2951c0542b485",
+          "maximum": 506372.07087925775
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "ee6dbaa7ff1efb2b4d963f17b04f46e2d48b2d86c8fa35aa48f07d112775622e",
+          "maximum": 48293.12499999999
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "0d2d3ca6a23cc1f6543261a832df4ef492da344b7482bc97f6ed6cab9c5ff724",
+          "maximum": 21098.9453125
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "90ad49c7f62001b6bf34009c9afa1eb3b0ea30d129b8fee7e9cd1c9b9f2ca139",
+          "maximum": 11259.5
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "1959b86a01eaa4d56a3044b56e9263d9a782ddbfbde66dfdeae9232e9d6e7614",
+          "maximum": 157839.1620559692
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "5fbfd0669eeb8cfe6c663c44af60fcd2dd5cf6830d27241a62b71140394c9f1a",
+          "maximum": 62889.65413284303
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "a6b90e9388f73ad484331603b3ce35b9e1658600673e4f0ecb15b12d353264d4",
+          "maximum": 52158.72222900391
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "f9b6f8aec76af2c23ccd5e31f129457999439e46b22e52d629b3dadf78b4c3ef",
+          "maximum": 191873.65220927363
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "3764961f05a8d765960150324f139a21eac69f426938f04af6f62f1a39d5c8e6",
+          "maximum": 105426.56811916833
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "56999f2c8147849f40cb9d6e64776c1c203cb186d9cae0887074e3108b3f6c3f",
+          "maximum": 69366.03770186754
+        }
+      ],
+      "displaySha256": "00c88f6b51f0bbcbf8c4955943179ed2813113a78c94bf1eeff09813d176c9bf",
+      "reconstructionSha256": "1a8d98fc759d8813027c882b80e45d85ca713cf5e565cdc6146ede30d9cb35af"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.3",
+        "mode": "soft",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "bfcbb6c51404b9df4174423befb45943808ebb8cb86c3536eff2951c0542b485",
+          "maximum": 506372.07087925775
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "ee6dbaa7ff1efb2b4d963f17b04f46e2d48b2d86c8fa35aa48f07d112775622e",
+          "maximum": 48293.12499999999
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "0d2d3ca6a23cc1f6543261a832df4ef492da344b7482bc97f6ed6cab9c5ff724",
+          "maximum": 21098.9453125
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "90ad49c7f62001b6bf34009c9afa1eb3b0ea30d129b8fee7e9cd1c9b9f2ca139",
+          "maximum": 11259.5
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "1959b86a01eaa4d56a3044b56e9263d9a782ddbfbde66dfdeae9232e9d6e7614",
+          "maximum": 157839.1620559692
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "5fbfd0669eeb8cfe6c663c44af60fcd2dd5cf6830d27241a62b71140394c9f1a",
+          "maximum": 62889.65413284303
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "a6b90e9388f73ad484331603b3ce35b9e1658600673e4f0ecb15b12d353264d4",
+          "maximum": 52158.72222900391
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "f9b6f8aec76af2c23ccd5e31f129457999439e46b22e52d629b3dadf78b4c3ef",
+          "maximum": 191873.65220927363
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "3764961f05a8d765960150324f139a21eac69f426938f04af6f62f1a39d5c8e6",
+          "maximum": 105426.56811916833
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "56999f2c8147849f40cb9d6e64776c1c203cb186d9cae0887074e3108b3f6c3f",
+          "maximum": 69366.03770186754
+        }
+      ],
+      "displaySha256": "d83da77e02bcee7c00f843c8bdde9ef7d529ad154fec86f0e59deef03ef6515d",
+      "reconstructionSha256": "3a8691c2554a8110e32def789a8752e9184dfb8ffef1f08700a5091a126edb6f"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.3",
+        "mode": "hard",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "bfcbb6c51404b9df4174423befb45943808ebb8cb86c3536eff2951c0542b485",
+          "maximum": 506372.07087925775
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "ee6dbaa7ff1efb2b4d963f17b04f46e2d48b2d86c8fa35aa48f07d112775622e",
+          "maximum": 48293.12499999999
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "0d2d3ca6a23cc1f6543261a832df4ef492da344b7482bc97f6ed6cab9c5ff724",
+          "maximum": 21098.9453125
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "90ad49c7f62001b6bf34009c9afa1eb3b0ea30d129b8fee7e9cd1c9b9f2ca139",
+          "maximum": 11259.5
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "1959b86a01eaa4d56a3044b56e9263d9a782ddbfbde66dfdeae9232e9d6e7614",
+          "maximum": 157839.1620559692
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "5fbfd0669eeb8cfe6c663c44af60fcd2dd5cf6830d27241a62b71140394c9f1a",
+          "maximum": 62889.65413284303
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "a6b90e9388f73ad484331603b3ce35b9e1658600673e4f0ecb15b12d353264d4",
+          "maximum": 52158.72222900391
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "f9b6f8aec76af2c23ccd5e31f129457999439e46b22e52d629b3dadf78b4c3ef",
+          "maximum": 191873.65220927363
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "3764961f05a8d765960150324f139a21eac69f426938f04af6f62f1a39d5c8e6",
+          "maximum": 105426.56811916833
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "56999f2c8147849f40cb9d6e64776c1c203cb186d9cae0887074e3108b3f6c3f",
+          "maximum": 69366.03770186754
+        }
+      ],
+      "displaySha256": "69de30b7a7f9ccfd07f969323e2335a7bb8bf852337460131f9e8524499abc94",
+      "reconstructionSha256": "77eeda8d8cdc01b0f73785b3aa7f849dc39f34615173b6fde19e510e16378c43"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.3",
+        "mode": "garrote",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "bfcbb6c51404b9df4174423befb45943808ebb8cb86c3536eff2951c0542b485",
+          "maximum": 506372.07087925775
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "ee6dbaa7ff1efb2b4d963f17b04f46e2d48b2d86c8fa35aa48f07d112775622e",
+          "maximum": 48293.12499999999
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "0d2d3ca6a23cc1f6543261a832df4ef492da344b7482bc97f6ed6cab9c5ff724",
+          "maximum": 21098.9453125
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "90ad49c7f62001b6bf34009c9afa1eb3b0ea30d129b8fee7e9cd1c9b9f2ca139",
+          "maximum": 11259.5
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "1959b86a01eaa4d56a3044b56e9263d9a782ddbfbde66dfdeae9232e9d6e7614",
+          "maximum": 157839.1620559692
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "5fbfd0669eeb8cfe6c663c44af60fcd2dd5cf6830d27241a62b71140394c9f1a",
+          "maximum": 62889.65413284303
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "a6b90e9388f73ad484331603b3ce35b9e1658600673e4f0ecb15b12d353264d4",
+          "maximum": 52158.72222900391
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "f9b6f8aec76af2c23ccd5e31f129457999439e46b22e52d629b3dadf78b4c3ef",
+          "maximum": 191873.65220927363
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "3764961f05a8d765960150324f139a21eac69f426938f04af6f62f1a39d5c8e6",
+          "maximum": 105426.56811916833
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "56999f2c8147849f40cb9d6e64776c1c203cb186d9cae0887074e3108b3f6c3f",
+          "maximum": 69366.03770186754
+        }
+      ],
+      "displaySha256": "b874b50d125087fe1cd5b8c96eda2bb9bc73dc48e84c10170e14c9600d337052",
+      "reconstructionSha256": "4e4ea6b50ec1aa35cb4ffae869333d41964594e0cfca8acd309d425b994f30e9"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.3",
+        "mode": "greater",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "bfcbb6c51404b9df4174423befb45943808ebb8cb86c3536eff2951c0542b485",
+          "maximum": 506372.07087925775
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "ee6dbaa7ff1efb2b4d963f17b04f46e2d48b2d86c8fa35aa48f07d112775622e",
+          "maximum": 48293.12499999999
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "0d2d3ca6a23cc1f6543261a832df4ef492da344b7482bc97f6ed6cab9c5ff724",
+          "maximum": 21098.9453125
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "90ad49c7f62001b6bf34009c9afa1eb3b0ea30d129b8fee7e9cd1c9b9f2ca139",
+          "maximum": 11259.5
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "1959b86a01eaa4d56a3044b56e9263d9a782ddbfbde66dfdeae9232e9d6e7614",
+          "maximum": 157839.1620559692
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "5fbfd0669eeb8cfe6c663c44af60fcd2dd5cf6830d27241a62b71140394c9f1a",
+          "maximum": 62889.65413284303
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "a6b90e9388f73ad484331603b3ce35b9e1658600673e4f0ecb15b12d353264d4",
+          "maximum": 52158.72222900391
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "f9b6f8aec76af2c23ccd5e31f129457999439e46b22e52d629b3dadf78b4c3ef",
+          "maximum": 191873.65220927363
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "3764961f05a8d765960150324f139a21eac69f426938f04af6f62f1a39d5c8e6",
+          "maximum": 105426.56811916833
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "56999f2c8147849f40cb9d6e64776c1c203cb186d9cae0887074e3108b3f6c3f",
+          "maximum": 69366.03770186754
+        }
+      ],
+      "displaySha256": "0579ac186b796019a2622300940bd119ab7ba5170a62e639bb9703b9c096c4a8",
+      "reconstructionSha256": "16e3e4bdb23d3753efc7278f6b039efdf5c9a422d49b2311471a9e837c3ac553"
+    },
+    {
+      "params": {
+        "wavelet": "bior3.3",
+        "mode": "less",
+        "threshold": 31,
+        "level": 3
+      },
+      "coefficientBands": [
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "bfcbb6c51404b9df4174423befb45943808ebb8cb86c3536eff2951c0542b485",
+          "maximum": 506372.07087925775
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "ee6dbaa7ff1efb2b4d963f17b04f46e2d48b2d86c8fa35aa48f07d112775622e",
+          "maximum": 48293.12499999999
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "0d2d3ca6a23cc1f6543261a832df4ef492da344b7482bc97f6ed6cab9c5ff724",
+          "maximum": 21098.9453125
+        },
+        {
+          "shape": [
+            43,
+            45
+          ],
+          "sha256": "90ad49c7f62001b6bf34009c9afa1eb3b0ea30d129b8fee7e9cd1c9b9f2ca139",
+          "maximum": 11259.5
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "1959b86a01eaa4d56a3044b56e9263d9a782ddbfbde66dfdeae9232e9d6e7614",
+          "maximum": 157839.1620559692
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "5fbfd0669eeb8cfe6c663c44af60fcd2dd5cf6830d27241a62b71140394c9f1a",
+          "maximum": 62889.65413284303
+        },
+        {
+          "shape": [
+            25,
+            26
+          ],
+          "sha256": "a6b90e9388f73ad484331603b3ce35b9e1658600673e4f0ecb15b12d353264d4",
+          "maximum": 52158.72222900391
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "f9b6f8aec76af2c23ccd5e31f129457999439e46b22e52d629b3dadf78b4c3ef",
+          "maximum": 191873.65220927363
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "3764961f05a8d765960150324f139a21eac69f426938f04af6f62f1a39d5c8e6",
+          "maximum": 105426.56811916833
+        },
+        {
+          "shape": [
+            16,
+            16
+          ],
+          "sha256": "56999f2c8147849f40cb9d6e64776c1c203cb186d9cae0887074e3108b3f6c3f",
+          "maximum": 69366.03770186754
+        }
+      ],
+      "displaySha256": "a4c24d50229c84e71aad320e40ce9bc1e82c4f218c9259f0b336d2105cc8da55",
+      "reconstructionSha256": "92336d8e30ee2683a5605c90db01cf400f8e8be83e205a4e33b49ac716f073e9"
+    }
+  ]
+}

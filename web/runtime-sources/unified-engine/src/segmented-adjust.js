@@ -1,4 +1,5 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
+import {withRetirementOwner} from './owner-retirement-error.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {equalizationPlan} from './equalization-settings.js';
 import {equalizationSurface} from './equalization-presentation.js';
@@ -17,8 +18,8 @@ export async function segmentedAdjust(image,p,{budget,signal,onProgress,rowsPerB
  if(Object.hasOwn(p,'equalization')){
   const plan=equalizationPlan('inspection.adjust',p),native=await segmentedAdjust(image,plan.base,{budget,signal,onProgress,rowsPerBlock,cacheKey,maxWorkers,adaptive});
   if(!plan.post)return native;
-  let next;try{next=await equalizationSurface(native.surface,plan,{budget,signal,onProgress,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession});await native.surface.dispose();return {...native,...next,metrics:{...native.metrics,...next.metrics}};}
-  catch(error){await retireCompositeOwners([()=>native.surface.dispose(),()=>next?.surface.dispose()],{primary:error});throw error;}
+  let next,nativeRefused=false;try{next=await equalizationSurface(native.surface,plan,{budget,signal,onProgress,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession});try{await native.surface.dispose();}catch(error){nativeRefused=true;throw withRetirementOwner(error,native.surface,error);}return {...native,...next,metrics:{...native.metrics,...next.metrics}};}
+  catch(error){await retireCompositeOwners([()=>nativeRefused?undefined:native.surface.dispose(),()=>next?.surface.dispose()],{primary:error});throw error;}
  }
  const {width:w,height:h}=image.surface.descriptor,n=w*h,halo=Math.floor(p.sharpen/4),padding=w%8!==0||h%8!==0,pw=padding?w+8-w%8:w,ph=padding?h+8-h%8:h,otsu=p.threshold===0;
  requireValue(Number.isSafeInteger(n*3)&&n<=2147483647,'Adjustment exceeds the qualified native integer histogram domain.');requireValue(rowsPerBlock===undefined||Number.isSafeInteger(rowsPerBlock)&&rowsPerBlock>0,'Invalid adjustment row group.');requireValue(Number.isSafeInteger(maxWorkers)&&maxWorkers>=1,'Invalid adjustment worker limit.');checkAbort(signal);
@@ -31,7 +32,7 @@ export async function segmentedAdjust(image,p,{budget,signal,onProgress,rowsPerB
  const heapBytes=c=>c===1?ADJUST_HEAP_BYTES:adjustHeapBytes()+c*ADJUST_HEAP_BYTES,overhead=c=>heapBytes(c)+metadataBytes+c*65536,batchBytes=(c,rows)=>overhead(c)+c*w*(rows*2+Math.min(h,rows+2*halo))*3;
  const key=JSON.stringify([w,h,p]),plan=adaptive.select(key,maximum,budget,c=>batchBytes(c,minimumRows)),started=performance.now();let count=plan.count,retry=null,executions=0;
  async function attempt(){
- let pendingCache,output,planning,staging,cacheLease,base,workers,workerJobs=0,cacheWriteMs=0,reads=0,blocks=0,readMs=0,localMs=0,histogramMs=0,equalizeMs=0,finishMs=0,writeMs=0;let hist,grayHist;const abort=()=>workers?.clear();signal?.addEventListener('abort',abort,{once:true});
+ let pendingCache,output,planning,staging,cacheLease,base,workers,workerJobs=0,cacheWriteMs=0,reads=0,blocks=0,readMs=0,localMs=0,histogramMs=0,equalizeMs=0,finishMs=0,writeMs=0;let hist,grayHist,failed=false,primary;const abort=()=>workers?.clear();signal?.addEventListener('abort',abort,{once:true});
  function addGray(bytes){for(let i=0;i<bytes.length;i+=3)grayHist[gray(bytes[i],bytes[i+1],bytes[i+2])]++;}
  async function histogram(bytes,rows,y,prepared){const at=performance.now();if(p.equalize===1){for(let i=2;i<bytes.length;i+=3)hist[bytes[i]]++;}else if(p.equalize>=2){const part=prepared??await adjustTileHistogram(bytes,w,rows,y,pw,ph,{signal});for(let i=0;i<16384;i++)hist[i]+=part[i];}else if(grayHist)addGray(bytes);histogramMs+=performance.now()-at;}
  async function cacheBytes(bytes,offset){if(!base)return;const at=performance.now();try{await base.write(bytes,offset);}catch(error){if(!(error instanceof RangeError))throw error;base=null;cacheLease?.();cacheLease=null;}cacheWriteMs+=performance.now()-at;}
@@ -66,10 +67,10 @@ export async function segmentedAdjust(image,p,{budget,signal,onProgress,rowsPerB
   const threshold=otsu?await adjustOtsu(grayHist,n,{signal}):p.threshold;
   if(p.threshold<255||p.invert){const at=performance.now();await output.visit(async(bytes,offset)=>{for(let i=0;i<bytes.length;i++){let v=p.threshold<255?(bytes[i]>threshold?255:0):bytes[i];bytes[i]=p.invert?255-v:v;}await output.write(bytes,offset);onProgress?.(.8+.2*(offset+bytes.length)/(n*3));},{signal,blockBytes:w*rows*3});finishMs=performance.now()-at;}
   await output.flush();onProgress?.(1);checkAbort(signal);
-  if(base){cacheLease?.();cacheLease=null;if(base.store)await pendingCache.publish();else budget.put(prefixKey,{value:base,byteLength:prefixBytes});}
+  if(base){cacheLease?.();cacheLease=null;if(base.store){const previous=image.pixelStoreCaches?.get('adjust');try{await pendingCache.publish();}catch(error){if(image.pixelStoreCaches?.get('adjust')===pendingCache.record&&previous&&previous!==pendingCache.record)throw withRetirementOwner(error,previous,error);throw error;}}else budget.put(prefixKey,{value:base,byteLength:prefixBytes});}
   return{surface:createRgbSurface(output,{width:w,height:h,budget}),semantics,metrics:{analysisCacheHit:false,prefixCacheStorage:base?.store?'temporary':base?'memory':null,prefixCacheStored:!!base&&(!!base.store||budget.get(prefixKey)?.value===base),prefixCacheBytes:base?prefixBytes:0,cacheWriteMs,totalMs:performance.now()-started,readMs,localMs,histogramMs,equalizeMs,finishMs,writeMs,filterWallMs,workers:count,workerJobs,dispatchAccountedBytes,sourceReads:reads,blocks,rowsPerBlock:rows,haloRows:halo,clahePaddedSize:p.equalize>=2?[pw,ph]:null,otsuThreshold:otsu?threshold:null,storage:output.storage,arithmeticHeapCapacityBytes:admittedArithmeticHeapBytes,retainedResultBytes:n*3}};
- }catch(error){workers?.clear();await output?.dispose();throw normalizeResourceError(error);}finally{signal?.removeEventListener('abort',abort);workers?.clear();planning?.();staging?.();cacheLease?.();await pendingCache?.cleanup();}
+ }catch(error){failed=true;primary=error?.cleanupOwner?error:normalizeResourceError(error);throw primary;}finally{signal?.removeEventListener('abort',abort);await retireCompositeOwners([()=>workers?.clear(),()=>failed?output?.dispose():undefined,()=>planning?.(),()=>staging?.(),()=>cacheLease?.(),()=>pendingCache?.cleanup()],failed?{primary}:{});}
  }
- let result;try{executions++;result=await attempt();}catch(error){checkAbort(signal);if(count===1||!isWorkerResourceFailure(error))throw error;adaptive.reduce(key,count,{error});retry={failedWorkers:count,code:error.code??'MEMORY_ALLOCATION'};count=1;executions++;result=await attempt();}
+ let result;try{executions++;result=await attempt();}catch(error){if(error?.cleanupOwner)throw error;checkAbort(signal);if(count===1||!isWorkerResourceFailure(error))throw error;adaptive.reduce(key,count,{error});retry={failedWorkers:count,code:error.code??'MEMORY_ALLOCATION'};count=1;executions++;result=await attempt();}
  adaptive.observe(key,{count,maximum,milliseconds:performance.now()-started,units:n});result.metrics.scheduling={...plan,preflightExecutions:0,taskExecutions:executions,retry};return result;
 }

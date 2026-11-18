@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 // Output coordinates belong to the selected raster, never the Original grid.
 export function proxyGeometry(width,height,maxSide=512){
  if(![width,height].every(v=>Number.isSafeInteger(v)&&v>0)||![256,512,1024,2048,'native'].includes(maxSide))throw new TypeError('Invalid proxy geometry');

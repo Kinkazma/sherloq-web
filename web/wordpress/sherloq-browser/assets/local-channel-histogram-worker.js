@@ -1,5 +1,6 @@
-import {computeLocalChannelHistogram,createChannelHistogramAggregate} from './local-channel-histogram-core.js?v=0.33.1';
-import {computeNativeChannelHistogram,nativeColorLayout,createNativeHistogramAggregate} from './native-channel-histogram-core.js?v=0.33.1';
+import {computeRawSensorHistogram} from './raw-sensor-histogram-core.js?v=0.33.2';
+import {computeLocalChannelHistogram,createChannelHistogramAggregate} from './local-channel-histogram-core.js?v=0.33.2';
+import {computeNativeChannelHistogram,nativeColorLayout,createNativeHistogramAggregate} from './native-channel-histogram-core.js?v=0.33.2';
 
 const workspace={seen:new Uint8Array(1<<21)};
 const aggregateWorkspace={};let activeAggregate=null;
@@ -9,6 +10,11 @@ self.onmessage=event=>{
   if(returnPixels!==undefined&&typeof returnPixels!=='boolean')throw Object.assign(Error('The native window return flag must be boolean.'),{code:'INVALID_INPUT'});
   // The maintained RGB8 render path is selected only when no native-space
   // declaration exists. An invalid declared space must never fall back to it.
+  if(pixels?.space==='SENSOR'){
+   if(aggregate!==undefined)throw Object.assign(Error('Sensor aggregates use their captured bank reader.'),{code:'INVALID_INPUT'});
+   const data=computeRawSensorHistogram(pixels),transfer=[data.bins.buffer,data.cumulative.buffer];
+   if(returnPixels===true){transfer.push(pixels.data.buffer);self.postMessage({id,data,pixels},transfer);}else self.postMessage({id,data},transfer);return;
+  }
   const native=pixels!==null&&typeof pixels==='object'&&Object.hasOwn(pixels,'space'),layout=native?nativeColorLayout(pixels):null,kind=native?'native:'+layout.space+':'+layout.depth+':'+layout.channels:'render:rgb8';
   if(aggregate!==undefined){
    const invalid=message=>{throw Object.assign(Error(message),{code:'INVALID_INPUT'});};
@@ -20,6 +26,9 @@ self.onmessage=event=>{
    const owner=aggregate.reset===true?{id:aggregate.id,kind,native,value:native?createNativeHistogramAggregate():createChannelHistogramAggregate(aggregateWorkspace)}:activeAggregate;
    const data=owner.value.append(pixels,params),complete=aggregate.final===true;
    activeAggregate=complete?null:owner;
+   // This aggregate keeps counts only; acknowledge its leased input only
+   // after the consumer has explicitly dropped the transferred pixel frame.
+   if(pixels.originalColorWindowId)pixels.data=null;
    self.postMessage({id,data,aggregate:{id:owner.id,pixels:owner.native?owner.value.total:owner.value.pixels,count:owner.value.count,complete}},[data.bins.buffer,data.cumulative.buffer]);
    return;
   }

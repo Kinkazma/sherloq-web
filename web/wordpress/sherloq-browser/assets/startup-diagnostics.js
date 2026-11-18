@@ -1,4 +1,4 @@
-import {diagnostic} from './runtime-context.js?v=0.33.1';
+import {diagnostic} from './runtime-context.js?v=0.33.2';
 
 // One pair per startup phase; no polling, image data or per-resource events.
 export async function startupPhase(stage,action,{emit=diagnostic,now=()=>performance.now(),failureLevel='error'}={}){

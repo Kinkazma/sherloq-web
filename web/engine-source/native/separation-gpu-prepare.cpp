@@ -40,3 +40,56 @@ int separation_gpu_correct_bilateral(const uint32_t* src,int w,int h,int start,i
  }catch(...){return -1;}
 }
 }
+
+#include "separation-native16.h"
+#include "separation-nlm16.h"
+extern "C" int separation_gpu_pack_nlm16(const uint16_t* rgb,int w,int h,int gray,uint32_t* out){
+ try{
+  if(!rgb||!out||w<=0||h<=0||(gray!=0&&gray!=1))return -2;
+  if(gray){cv::Mat input(h,w,CV_16UC3,const_cast<uint16_t*>(rgb)),mono;cv::cvtColor(input,mono,cv::COLOR_RGB2GRAY);for(int y=0;y<h;y++)for(int x=0;x<w;x++){const uint32_t value=mono.ptr<uint16_t>(y)[x];out[2*(size_t(y)*w+x)]=value|(value<<16);out[2*(size_t(y)*w+x)+1]=value;}}
+  else{const cv::Mat lab=separation_nlm16::codedLab(rgb,w,h);for(int y=0;y<h;y++)for(int x=0;x<w;x++){const float* value=lab.ptr<float>(y)+3*x;uint32_t* target=out+4*(size_t(y)*w+x);std::memcpy(target,value,12);target[3]=0;}}
+  return 1;
+ }catch(const std::bad_alloc&){return -1;}catch(...){return -2;}
+}
+extern "C" int separation_gpu_unpack_nlm16(const uint32_t* packed,int w,int rows,int gray,uint16_t* out){
+ try{
+  if(!packed||!out||w<=0||rows<=0||(gray!=0&&gray!=1))return -2;
+  if(gray){for(size_t i=0;i<size_t(w)*rows;i++){const uint16_t v=uint16_t(packed[2*i]);out[3*i]=out[3*i+1]=out[3*i+2]=v;}}
+  else separation_nlm16::labToCodes(reinterpret_cast<const float*>(packed),w,rows,4,out);
+  return 1;
+ }catch(const std::bad_alloc&){return -1;}catch(...){return -2;}
+}
+extern "C" int separation_gpu_correct_nlm16(const uint32_t* source,int w,int h,int start,int rows,int radius,int gray,uint32_t* out){
+ try{
+  if(!source||!out||w<=0||h<=0||start<0||rows<=0||start>h-rows||radius<1||radius>10||(gray!=0&&gray!=1))return -2;
+  if(gray)return 0;bool any=false;for(size_t i=0;i<size_t(w)*rows;i++)any|=bool(out[4*i+3]&0x80000000u);if(!any)return 0;
+  const auto l=separation_nlm16::weights(radius,1),ab=separation_nlm16::weights(radius,2);int repaired=0;
+  for(int yy=0;yy<rows;yy++)for(int x=0;x<w;x++){uint32_t* target=out+4*(size_t(yy)*w+x);if(!(target[3]&0x80000000u))continue;float result[3];separation_nlm16::pointLab(reinterpret_cast<const float*>(source),w,h,4,start+yy,x,l,ab,result);std::memcpy(target,result,12);target[3]=0;repaired++;}
+  return repaired;
+ }catch(const std::bad_alloc&){return -1;}catch(...){return -2;}
+}
+extern "C" int separation_gpu_bilateral16(int radius,int sigmaUI,int gray,int32_t* taps,float* spatial,float* color){
+ try{
+  if(radius<1||radius>10||sigmaUI<1||sigmaUI>200||(gray!=0&&gray!=1)||!taps||!spatial||!color)return -2;
+  const SeparationBilateral16Table table(radius,sigmaUI,gray);
+  std::copy(table.color.begin(),table.color.end(),color);
+  for(size_t k=0;k<table.dx.size();k++){taps[2*k]=table.dx[k];taps[2*k+1]=table.dy[k];spatial[k]=table.spatial[k];}
+  return int(table.dx.size());
+ }catch(...){return -1;}
+}
+extern "C" int separation_gpu_correct_bilateral16(const uint32_t* src,int w,int h,int start,int rows,int radius,int sigmaUI,int gray,int originX,int nativeWidth,uint32_t* out){
+ try{
+  if(!src||!out||w<=0||h<=0||start<0||rows<=0||start>h-rows||radius<1||radius>10||sigmaUI<1||sigmaUI>200||(gray!=0&&gray!=1)||originX<0||nativeWidth<int64_t(originX)+w)return -2;
+  int flagged=0;for(int i=0;i<w*rows;i++)flagged+=bool(out[2*i+1]&0x80000000u);if(!flagged)return 0;
+  const SeparationBilateral16Table table(radius,sigmaUI,gray);std::vector<const uint32_t*> samples(table.dx.size());
+  for(int yy=0;yy<rows;yy++)for(int x=0;x<w;x++){
+   const int at=yy*w+x;if(!(out[2*at+1]&0x80000000u))continue;
+   const uint32_t* centre=src+2*(ptrdiff_t(start+yy)*w+x);
+   for(size_t k=0;k<samples.size();k++)samples[k]=src+2*(ptrdiff_t(cv::borderInterpolate(start+yy+table.dy[k],h,cv::BORDER_REFLECT_101))*w+cv::borderInterpolate(x+table.dx[k],w,cv::BORDER_REFLECT_101));
+   uint16_t codes[3]={uint16_t(centre[0]),uint16_t(centre[0]>>16),uint16_t(centre[1])},result[3]={0,0,0};
+   separationBilateral16Pixel(table,codes,[&](int k,int c){return uint16_t(samples[k][c/2]>>((c&1)*16));},gray,x+originX,nativeWidth,result);
+   if(gray)result[1]=result[2]=result[0];out[2*at]=uint32_t(result[0])|(uint32_t(result[1])<<16);out[2*at+1]=result[2];
+  }
+  return flagged;
+ }catch(...){return -1;}
+}

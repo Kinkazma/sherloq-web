@@ -1,0 +1,29 @@
+{
+  "method": "Last Bit Analysis",
+  "operation": "ela.bitrate",
+  "params": {
+    "removed": 1
+  },
+  "analysisDomain": "sdr-rgb8-presentation",
+  "source": {
+    "file": "victoria-input.jpg",
+    "sha256": "462ddf124d118be86f7c94f2da5e96632a1db8e110c7cbdf3efee5b88573be3e",
+    "decodedRgb8Sha256": "acb72ca9cd3685b4c3a7208345280f9e6b9b9cab08ce32584055967f8faaf958",
+    "width": 424,
+    "height": 572,
+    "credit": "Victoria’s Secret; image reproduced in Body By Victoria, Hacker Factor",
+    "article": "https://www.hackerfactor.com/blog/index.php?/archives/322-Body-By-Victoria.html"
+  },
+  "result": {
+    "removedBits": 1,
+    "keepBits": 7,
+    "rawRgbSha256": "905a5ae1e866d67d8caf09be4c095710425b3a6966f7b593601e0a4e012e8e49",
+    "file": "victoria-removed-1.webp",
+    "fileSha256": "a7d312109bc9c0e6a73a1ba7efefd6f955c33841f814d00886a8990a643830da",
+    "bytes": 74392,
+    "coreEqualsDirectKernel": true,
+    "integerOracleExact": true
+  },
+  "kernelSha256": "81a5cd696b7cabfff1f263c9eb42f593f08f18af1f042edf9c46e439b7cccdd1",
+  "sourceUnchanged": true
+}

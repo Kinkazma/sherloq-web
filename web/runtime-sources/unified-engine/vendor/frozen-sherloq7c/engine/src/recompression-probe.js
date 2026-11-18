@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {validateRecompressionOptions,resolveRecompressionPlan,deriveRecompressionPlan,recompressionFormat,recompressionPaletteColors} from './recompression-plan.js';
 import {createRgbRecompression} from './jpeg-rgb-stream.js';
 import {recompressSurface,recompressPixels} from './recompression-surface.js';

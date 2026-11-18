@@ -1,0 +1,38 @@
+{
+  "schema": "sherloq.private-raw-sensor-fixtures/1",
+  "uint16": {
+    "file": "sensor-uint16-margins.dng",
+    "bytes": 25136,
+    "sha256": "73ef24a9326d6ea56aec71c2f48d02fc1a373f9431a2e87fd3eca1cf7dd44e3a",
+    "payloadOffset": 560,
+    "payloadSha256": "5682c03690a243597c8305a13f102cb5a2c1a631bdee7678cffbf44ef7314c13"
+  },
+  "float32": {
+    "file": "sensor-float32.dng",
+    "bytes": 49680,
+    "sha256": "39bc2da569f2122f7dfb98b2f2a5bc1ffd19aab0beae7b00d8ed9becdfa83a8d",
+    "payloadOffset": 528,
+    "payloadSha256": "f49e2c6202e5693a3adb3eb306df9aea2e79547f8953febd20b84d08b62e2cc0"
+  },
+  "width": 128,
+  "height": 96,
+  "uint16Pattern": [
+    0,
+    1,
+    63,
+    64,
+    65,
+    4095,
+    16383,
+    65535
+  ],
+  "floatPattern": [
+    -0.25,
+    -0.0,
+    0.125,
+    0.3,
+    1.25,
+    4.5,
+    128.0625
+  ]
+}

@@ -46,3 +46,19 @@ test('Aborting during loading sends cancellation and retires the funded child wi
 test('A changed Original cannot supply another native read and remains safely disposable',async()=>{
  const h=environment(),client=await createNativeColorClient(h.options());h.setCurrent(false);await assert.rejects(client.readPixels({x:0,y:0,width:4,height:4}),{code:'CANCELLED'});assert.equal(h.workers[0].reads.length,0);await client.dispose();assert.equal(h.releases,1);
 });
+
+test('a constructor failure keeps its retry owner when the thrown value cannot carry properties',async()=>{
+ for(const primary of[Object.freeze(Object.assign(Error('worker constructor failed'),{code:'WORKER_FAILED'})),0,null]){
+  const h=environment({releaseRefusals:1});let failure;
+  try{await createNativeColorClient(h.options({workerFactory:()=>{throw primary;}}));assert.fail('constructor should reject');}catch(error){failure=error;}
+  assert.equal(h.releases,1);assert.equal(failure?.cause,primary);assert.equal(failure?.thrownValue,primary);assert.equal(typeof failure?.cleanupOwner?.dispose,'function');assert.equal(failure.code,primary?.code??'INTERNAL');
+  await failure.cleanupOwner.dispose();assert.equal(h.releases,2);await failure.cleanupOwner.dispose();assert.equal(h.releases,2);
+ }
+});
+
+test('a successfully retired constructor failure preserves the exact thrown value',async()=>{
+ for(const primary of[Object.freeze(Error('worker constructor failed')),0,null]){
+  const h=environment();let failure=Symbol('not thrown');try{await createNativeColorClient(h.options({workerFactory:()=>{throw primary;}}));}catch(error){failure=error;}
+  assert.equal(failure,primary);assert.equal(h.releases,1);
+ }
+});

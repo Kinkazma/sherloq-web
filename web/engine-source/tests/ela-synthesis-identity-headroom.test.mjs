@@ -9,6 +9,7 @@ import {usesAlternateRecompression} from '../src/recompression-plan.js';
 import {createOriginalSourceRegionsState,compileOriginalSourceRegions} from '../src/source-region-geometry.js';
 import {prepareSourceRegionDomain,sourceRegionDomainShape,sourceRegionTransportBytes} from '../src/source-region-dispatch.js';
 import {createElaSynthesisService} from '../src/ela-synthesis-service.js';
+import {segmentedElaSynthesisHeadroom} from '../src/ela-synthesis-source-headroom.js';
 
 // No pixels are allocated or calculated. Execute the actual admission helpers
 // against real compiled certificates and metadata-only Original descriptors.
@@ -18,7 +19,7 @@ const prepareCode=code.slice(code.indexOf(' async function prepareElaSynthesisNa
 assert(boundCode&&prepareCode);const MiB=1024**2,sha='a'.repeat(64),width=1536,height=1024;
 function fixture({active=true,segmented=false}={}){
  const budget=new Budget(1024**3),original={sha256:sha,provenance:{format:'jpeg'},surface:{descriptor:{width,height,format:'rgb8'},readWindow(){throw Error('Admission must not read image pixels.');}},...(segmented?{segmented:true}:{pixels:{width,height,format:'rgb8',data:{byteLength:width*height*3}}})},images=new Map([['original',original]]),calls=[],codec={};let validations=0,context;
- context=vm.createContext({images,image:id=>images.get(id),budget,codec,imageCodec:codec,RUNTIME_RESERVE:32*MiB,knownHeapBytes:()=>0,cpuKernel:'auto',profile:{maxWorkers:10},Worker:function(){},equalizationPlan,usesAlternateRecompression,sourceRegionDomainShape,sourceRegionTransportBytes,checkAbort,busy:false,idle(){assert.equal(context.busy,false);},async prepareSourceRegionDomain(...args){validations++;return prepareSourceRegionDomain(...args);},elaSynthesis:{hasFor:()=>active,async prepareNative(bytes){calls.push(bytes);}}});vm.runInContext(boundCode+'\n'+prepareCode,context);
+ context=vm.createContext({images,image:id=>images.get(id),budget,codec,imageCodec:codec,RUNTIME_RESERVE:32*MiB,knownHeapBytes:()=>0,cpuKernel:'auto',profile:{maxWorkers:10},Worker:function(){},equalizationPlan,usesAlternateRecompression,segmentedElaSynthesisHeadroom,sourceRegionDomainShape,sourceRegionTransportBytes,checkAbort,busy:false,idle(){assert.equal(context.busy,false);},async prepareSourceRegionDomain(...args){validations++;return prepareSourceRegionDomain(...args);},elaSynthesis:{hasFor:()=>active,async prepareNative(bytes){calls.push(bytes);}}});vm.runInContext(boundCode+'\n'+prepareCode,context);
  const eq=equalizationState();eq.method='histogram';const task={id:'native-frame',imageId:'original',operation:'ela.classic',backend:'cpu',params:{quality:75,scale:1,contrast:0,linear:false,grayscale:false,equalization:eq}};
  return{budget,original,images,calls,context,task,get validations(){return validations;},bound:(t=task,proof)=>context.visibleElaNativeBytes(t,proof),prepare:t=>context.prepareElaSynthesisNativeHeadroom(t)};
 }
@@ -49,9 +50,9 @@ test('per-native admission uses exactly the same verified whole-image bound, wit
  const noEq={...h.task,params:{quality:75,scale:1,contrast:0,linear:false,grayscale:false}},scoped={...noEq,sourceRegionDomain:descriptor};await h.prepare(scoped);assert.equal(h.calls.at(-1),h.bound(noEq));assert.equal(h.budget.total(),0);
 });
 
-test('real rectangles, holes and unknown segmented layouts retain the full-budget fallback',async()=>{
+test('real rectangles and holes retain full-budget admission; qualified segmented JPEG has the maintained bound',async()=>{
  for(const kind of ['rectangle','hole']){const h=fixture(),descriptor=await certificate(kind),task={...h.task,sourceRegionDomain:descriptor};await h.prepare(task);assert.equal(h.calls[0],h.budget.limit);assert.equal(h.budget.total(),0);}
- const h=fixture({segmented:true}),descriptor=await certificate();await h.prepare({...h.task,sourceRegionDomain:descriptor});assert.equal(h.calls[0],h.budget.limit);assert.equal(h.budget.total(),0);
+ const h=fixture({segmented:true}),descriptor=await certificate();await h.prepare({...h.task,sourceRegionDomain:descriptor});assert.equal(h.calls[0],h.bound());assert.ok(h.calls[0]<h.budget.limit);assert.equal(h.budget.total(),0);const alternate={...h.task,params:{...h.task.params,recompression:{codec:'webp'}}};assert.equal(h.bound(alternate),h.budget.limit,'An unqualified alternate codec keeps its complete historical freedom');
 });
 
 test('forged geometry/counts/fingerprint, wrong source and wrong grid cannot authorize RAM refinement',async()=>{

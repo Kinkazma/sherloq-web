@@ -41,14 +41,15 @@ export function createSherloq7cAdapter({budget,version,publishResult,memoryBudge
   async run(task,image,{signal,onProgress}={}){
    if(active)throw new EngineError('BUSY','Sherloq adapter is already running.');active=true;
    try{
-   if(closed)throw new EngineError('DISPOSED','Sherloq adapter is closed.');await retirePending();const p=sherloq7cParams(task.params),started=performance.now();
+   if(closed)throw new EngineError('DISPOSED','Sherloq adapter is closed.');await retirePending();const p=sherloq7cParams(task.params),inputDomain=task.workingDepth??image.workingDepth??16,started=performance.now();requireValue([8,16].includes(inputDomain),'Invalid SHERLOQ input domain.');
    if(task.regions&&(!Array.isArray(task.regions)||task.regions.length)||task.scientificScope||task.exclusions?.length)throw new EngineError('UNSUPPORTED_REGION','Sherloq7C currently requires the complete original image; this scope needs a separate native16 qualification.');
    let entry=entries.get(task.imageId);if(entry&&entry.sha256!==image.sha256)throw new EngineError('SOURCE_CHANGED','Sherloq original identity changed.');
-   if(!entry){entry={sha256:image.sha256,source:null,inputOwner:null};entries.set(task.imageId,entry);}
+   if(entry&&entry.inputDomain!==inputDomain){await clearImage(task.imageId);entry=null;}
+   if(!entry){entry={sha256:image.sha256,inputDomain,source:null,inputOwner:null};entries.set(task.imageId,entry);}
    const sourceCached=!!entry.source;await runtime(task.imageId);
    try{if(!entry.source){
-    entry.inputOwner??=await loadNativeRgb16(image,{budget,signal,onProgress});
-    const original=entry.inputOwner;entry.sourceBitDepth=original.sourceBitDepth;entry.provenance=original.provenance;entry.metrics=original.metrics;
+    entry.inputOwner??=await loadNativeRgb16(image,{budget,signal,onProgress,workingDepth:inputDomain});
+    const original=entry.inputOwner;entry.sourceBitDepth=original.sourceBitDepth;entry.effectiveInputDepth=original.provenance.numericalInputDepth??(original.sourceBitDepth>8?16:8);entry.provenance=original.provenance;entry.metrics=original.metrics;
     entry.source=await core.createSource(native16SourceRows(original,{onProgress}),{signal});
    }}catch(error){retainConstructionCleanup(error);throw error;}
    // The old decoder owner remains addressable until its retirement succeeds.
@@ -60,10 +61,10 @@ export function createSherloq7cAdapter({budget,version,publishResult,memoryBudge
     record=sherloq7cResultRecords(result,budget);const bundle=publishResult(task.imageId,record);published=true;
     return{id:task.id,imageId:task.imageId,operation:task.operation,status:'ok',layout:'surface',...bundle,
      layers:[{id:'sherloq7c',kind:'rgb',surfaceId:bundle.surface.id,origin:[0,0],range:[0,255]}],
-     data:{version:'7C',sourceBitDepth:entry.sourceBitDepth,workingBitDepth:16,resultBitDepth:16,scalarPrecision:'float64',native16:bundle.planeSurfaces.rgb16,scalar:bundle.planeSurfaces.intensity},
+     data:{version:'7C',sourceBitDepth:entry.sourceBitDepth,workingBitDepth:16,numericalInputDepth:entry.effectiveInputDepth,resultBitDepth:16,scalarPrecision:'float64',native16:bundle.planeSurfaces.rgb16,scalar:bundle.planeSurfaces.intensity},
      semantics:'Sherloq7C uses the explicitly selected output resolution; RGB16 and scalar output dimensions are the actual reduced raster, without upsampling. The original is preserved separately.',
-     provenance:{engine:version,operation:task.operation,params:p,backend:result.metrics?.actualBackend??result.metrics?.backend??'cpu',originalSha256:image.sha256,sourceUnchanged:true,decode:entry.provenance,native:'Sherloq7C graph objective and anchored projection',kernelParity:result.metrics?.approximate?'Approximate; see effectiveComputationMode and declared bounds':result.metrics?.precision??p.precision,layout:'owned-selected-resolution-rgb16-windows',proxy:result.metrics?.proxy??null},
-     metrics:{...result.metrics,totalMs:performance.now()-started,source16CacheHit:sourceCached,source16:entry.metrics,sourceBitDepth:entry.sourceBitDepth,workingBitDepth:16,memory:budget.snapshot()}};
+     provenance:{engine:version,operation:task.operation,params:p,backend:result.metrics?.actualBackend??result.metrics?.backend??'cpu',originalSha256:image.sha256,sourceUnchanged:true,decode:entry.provenance,precision:{requestedWorkingDepth:inputDomain,effectiveWorkingDepth:entry.effectiveInputDepth,sourceBitDepth:entry.sourceBitDepth,kernelInputDepth:16,conversion:entry.effectiveInputDepth===8?'declared-sdr-rgb8-presentation':'none-native16-input',...(entry.effectiveInputDepth===8?{promotion:'u8*257; normalized samples unchanged'}:{})},native:'Sherloq7C graph objective and anchored projection',kernelParity:result.metrics?.approximate?'Approximate; see effectiveComputationMode and declared bounds':result.metrics?.precision??p.precision,layout:'owned-selected-resolution-rgb16-windows',proxy:result.metrics?.proxy??null},
+     metrics:{...result.metrics,totalMs:performance.now()-started,source16CacheHit:sourceCached,source16:entry.metrics,sourceBitDepth:entry.sourceBitDepth,workingBitDepth:16,numericalInputDepth:entry.effectiveInputDepth,memory:budget.snapshot()}};
    }catch(error){
     if(!published&&result){
      const owners=new Set(record?[record.surface,...Object.values(record.planeRecords).map(x=>x.surface)]:[{dispose:()=>result.release()}]);

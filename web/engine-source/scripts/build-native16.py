@@ -19,5 +19,9 @@ original=(BUILD/'opencv-4.11.0/3rdparty/libtiff/tif_read.c').read_text();old='if
 patched=original.replace(old,'if (tif->tif_rawcc != tilesize)').replace('(uint64_t)tif->tif_rawdatasize);','(uint64_t)tif->tif_rawcc);',1)
 (work/'tif_read.c').write_text(patched)
 subprocess.run([str(CC),str(work/'tif_read.c'),*includes,'-D_FILE_OFFSET_BITS=64','-O3',*prefix_maps,'-fexceptions','-c','-o',str(work/'tif_read.o')],env=env,check=True)
-build('tiff16-stream',[work/'tif_read.o',BUILD/'cv/3rdparty/lib/liblibtiff.a',BUILD/'cv/3rdparty/lib/liblibjpeg-turbo.a',BUILD/'cv/3rdparty/lib/libzlib.a'],includes,['_tiff16_'+x for x in ['open','block','width','height','block_width','block_height','out_width','out_height','orientation','data','error','close']],268435456)
+build('tiff16-stream',[work/'tif_read.o',BUILD/'cv/3rdparty/lib/liblibtiff.a',BUILD/'cv/3rdparty/lib/liblibjpeg-turbo.a',BUILD/'cv/3rdparty/lib/libzlib.a'],includes,['_tiff16_'+x for x in ['open','block','width','height','block_width','block_height','out_width','out_height','orientation','channels','data','error','close']],4294967296)
 build('png16-stream',[BUILD/'cv/3rdparty/lib/liblibpng.a',BUILD/'cv/3rdparty/lib/libzlib.a'],['-I'+str(BUILD/'opencv-4.11.0/3rdparty/libpng'),'-I'+str(BUILD/'opencv-4.11.0/3rdparty/zlib'),'-I'+str(BUILD/'cv/3rdparty/zlib')],['_malloc','_free']+['_png_stream_'+x for x in ['open','rows','end','width','height','passes','error','close']],67108864)
+pins=[]
+for kind,stem in [('PNG','png16-stream'),('TIFF','tiff16-stream')]:
+ p=ROOT/'vendor'/stem/(stem+'.wasm');pins.append(f"{kind}:Object.freeze({{url:new URL('../vendor/{stem}/{stem}.wasm',import.meta.url).href,bytes:{p.stat().st_size},sha256:'{hashlib.sha256(p.read_bytes()).hexdigest()}'}})")
+(ROOT/'src/native16-codec-pins.js').write_text('export const NATIVE16_CODEC_PINS=Object.freeze({'+','.join(pins)+'});\n')

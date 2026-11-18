@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {AI_GPU_BROWSER_FAMILIES,aiDetectorBrowserFamily,aiDetectorGpuMethods as eligibleGpuMethods} from './ai-detectors-gpu-policy.js';
 import {aiDetectorQualification} from './ai-detectors-qualification.js';
 export const AI_DETECTOR_METHODS=Object.freeze(['dda','prl','community-forensics','gapl']);

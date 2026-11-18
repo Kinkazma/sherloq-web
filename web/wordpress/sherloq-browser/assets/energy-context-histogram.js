@@ -1,6 +1,6 @@
-import {createEnergyHistogram} from './energy-histogram.js?v=0.33.1';
-import {selectEnergyContext,isEnergyContextCollection} from './energy-context-selection.js?v=0.33.1';
-import {energyHistogramAnalysis,readEnergyWindow,energyPlaneCount} from './energy-native-fields.js?v=0.33.1';
+import {createEnergyHistogram} from './energy-histogram.js?v=0.33.2';
+import {selectEnergyContext,isEnergyContextCollection} from './energy-context-selection.js?v=0.33.2';
+import {energyHistogramAnalysis,readEnergyWindow,energyPlaneCount} from './energy-native-fields.js?v=0.33.2';
 const fail=(code,message)=>{throw Object.assign(Error(message),{code});};
 const check=signal=>{if(signal?.aborted)fail('CANCELLED','Energy context histogram cancelled.');};
 const fields=['energy_scope','energy_low_score','energy_high_score'];

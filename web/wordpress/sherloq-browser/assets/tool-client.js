@@ -1,61 +1,73 @@
-import {aiDetectorConfiguration} from './ai-detectors-config.js?v=0.33.1';
-import {SPLICEBUSTER_OPERATION,splicebusterViews,readSplicebusterScalar} from './splicebuster-ui.js?v=0.33.1';
+import {native16TransformPreviewLayout} from './unified-engine/src/native16-transform-preview-layout.js';
+import {assertNativeRegionPreviewSampling} from './unified-engine/src/source-region-preview-grid.js';
+import {CAPTURED_OWNERSHIP_CONTROL} from './unified-engine/src/captured-ownership-control.js';
+import {createFinalDepthResultBank,snapshotFinalDepthTask,finalDepthSourceBinding} from './final-depth-result-bank.js?v=0.33.2';
+import {withRetirementOwner} from './unified-engine/src/owner-retirement-error.js';
+import {NATIVE_PREVIEW_FINANCE,NATIVE_PREVIEW_PRESENTATIONS} from './unified-engine/src/native-preview-peer-finance.js';
+import {createNativePreviewFrameOwner} from './native-preview-frame-owner.js?v=0.33.2';
+import {produceNativePreviewAnswer,nativePreviewAnswerOwned,retireNativePreviewAnswer} from './native-preview-answer.js?v=0.33.2';
+import {native16ParameterProxyAdmitted} from './unified-engine/src/native16-parameter-contract.js';
+import {native16CompositeEqualizationPlan} from './unified-engine/src/native16-equalization-contract.js';
+import {aiDetectorConfiguration} from './ai-detectors-config.js?v=0.33.2';
+import {SPLICEBUSTER_OPERATION,splicebusterViews,readSplicebusterScalar} from './splicebuster-ui.js?v=0.33.2';
 import {nativeUsefulEvidence} from './unified-engine/src/native-useful-operation.js';
-import {usefulTaskInputs} from './useful-task-inputs.js?v=0.33.1';
+import {usefulTaskInputs} from './useful-task-inputs.js?v=0.33.2';
 import {externalUsefulOwner,externalUsefulEvidence} from './unified-engine/src/external-useful-operation.js';
-import {stagedCoreOperation,coreResultContext} from './core-result-contract.js?v=0.33.1';
-import {backendMethod,requestedBackend} from './backend-mode-preferences.js?v=0.33.1';
+import {stagedCoreOperation,coreResultContext,ordinaryCancellableCoreOperation} from './core-result-contract.js?v=0.33.2';
+import {backendMethod,requestedBackend} from './backend-mode-preferences.js?v=0.33.2';
 import {humanNlmRecompute} from './unified-engine/src/nlm-recompute-intent.js';
-import {getAdaptivePreferenceStore} from './adaptive-preferences.js?v=0.33.1';
-import {createNlmAdaptiveRuntime} from './nlm-adaptive-runtime.js?v=0.33.1';
-import {createUsefulOperationRuntime} from './useful-operation-runtime.js?v=0.33.1';
-import {describeUsefulNlm,passiveNlmEnvironment} from './nlm-useful-context.js?v=0.33.1';
+import {getAdaptivePreferenceStore} from './adaptive-preferences.js?v=0.33.2';
+import {createNlmAdaptiveRuntime} from './nlm-adaptive-runtime.js?v=0.33.2';
+import {createUsefulOperationRuntime} from './useful-operation-runtime.js?v=0.33.2';
+import {describeUsefulNlm,passiveNlmEnvironment} from './nlm-useful-context.js?v=0.33.2';
 import {USEFUL_WORK_CODE_IDENTITY} from './unified-engine/src/useful-work-code-identity.js';
-import {prnuTrainingBackendChoice,prnuTrainingPreparationMetadata} from './prnu-training-request.js?v=0.33.1';
-import {classicalContextPreviewCandidate} from './classical-context-preview.js?v=0.33.1';
-import {medianContextPreviewCandidate} from './median-context-preview.js?v=0.33.1';
-import {resamplingContextPreviewContract} from './resampling-context-parameter-preview.js?v=0.33.1';
-import {nativeClonePreview} from './native-clone-preview.js?v=0.33.1';
-import {createRetainedResultRetirement} from './retained-result-retirement.js?v=0.33.1';
+import {prnuTrainingBackendChoice,prnuTrainingPreparationMetadata} from './prnu-training-request.js?v=0.33.2';
+import {classicalContextPreviewCandidate} from './classical-context-preview.js?v=0.33.2';
+import {medianContextPreviewCandidate} from './median-context-preview.js?v=0.33.2';
+import {resamplingContextPreviewContract} from './resampling-context-parameter-preview.js?v=0.33.2';
+import {nativeClonePreview} from './native-clone-preview.js?v=0.33.2';
+import {createRetainedResultRetirement} from './retained-result-retirement.js?v=0.33.2';
 import {readRitaStrictProjection} from './unified-engine/src/rita-strict-projection.js';
-import {readNativeContextScalar} from './native-context-scalar.js?v=0.33.1';
-import {readCatnetNativeScalar} from './catnet-native-scalar.js?v=0.33.1';
-import {prepareCatnetScopedBlobRequest,analyzeCatnetScopedBlob,catnetScopedToolResult} from './catnet-scoped-client.js?v=0.33.1';
-import {previewGhostContexts} from './ghost-context-parameter-preview.js?v=0.33.1';
-import {createGhostSurfacePreview,ghostSurfacePreviewContract} from './ghost-surface-preview.js?v=0.33.1';
-import {sourceRegionDetectionInput} from './source-region-preparation.js?v=0.33.1';
+import {readNativeContextScalar} from './native-context-scalar.js?v=0.33.2';
+import {readCatnetNativeScalar} from './catnet-native-scalar.js?v=0.33.2';
+import {prepareCatnetScopedBlobRequest,analyzeCatnetScopedBlob,catnetScopedToolResult} from './catnet-scoped-client.js?v=0.33.2';
+import {previewGhostContexts} from './ghost-context-parameter-preview.js?v=0.33.2';
+import {createGhostSurfacePreview,ghostSurfacePreviewContract} from './ghost-surface-preview.js?v=0.33.2';
+import {sourceRegionDetectionInput} from './source-region-preparation.js?v=0.33.2';
 import {assertM2SourceRegionTask} from './unified-engine/src/m2-source-region-input.js';
 import {withM2NativeSourceTransport} from './unified-engine/src/m2-native-source-client.js';
+import {serveOriginalSourceLoan,ORIGINAL_SOURCE_LOAN_SCHEMA} from './unified-engine/src/original-source-loan.js';
 import {compileOriginalSourceRegions} from './unified-engine/src/source-region-geometry.js';
 import {sourceRegionDomainShape,assertSourceRegionOperation} from './unified-engine/src/source-region-capabilities.js';
 import {resolveRecompressionPlan} from './unified-engine/src/recompression-plan.js';
-import {ocrDisplay,updateOcrPresentation,renderOcrWindow} from './ocr-presentation.js?v=0.33.1';
-import {createParameterPreview,supportsScopedParameterPreview,parameterPreviewPreparation} from './tool-parameter-preview.js?v=0.33.1';
-export {supportsParameterPreviewPreparation} from './tool-parameter-preview.js?v=0.33.1';
-import {createParameterRegionSampler} from './parameter-preview-source-regions.js?v=0.33.1';
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.1';
-import {renderRetainedPreview,updateRetainedParameters,retainedPreviewWorkingBytes,renderRetainedWindow,planRetainedPreview} from './retained-parameter-preview.js?v=0.33.1';
-import {parameterPreviewPolicy,retainedNativeBasisStatus} from './parameter-preview-policy.js?v=0.33.1';
-import {isExtensionTool,extensionConfiguration} from './extension-tools.js?v=0.33.1';
-import {dtdFrame} from './dtd-presentation.js?v=0.33.1';
-import {comprintFrame} from './comprint-presentation.js?v=0.33.1';
-import {extensionSourcePresentation,responseSourceSurface,responseProxyKey} from './extension-source-presentation.js?v=0.33.1';
-import {truforHeatFrame} from './trufor-palette.js?v=0.33.1';
-import {ritaFrame,ritaDisplayThreshold,ritaDisplayOpacity} from './rita-presentation.js?v=0.33.1';
+import {ocrDisplay,updateOcrPresentation,renderOcrWindow} from './ocr-presentation.js?v=0.33.2';
+import {createParameterPreview,supportsScopedParameterPreview,parameterPreviewPreparation} from './tool-parameter-preview.js?v=0.33.2';
+export {supportsParameterPreviewPreparation} from './tool-parameter-preview.js?v=0.33.2';
+import {createParameterRegionSampler} from './parameter-preview-source-regions.js?v=0.33.2';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE,ADAPTIVE_PREVIEW_MAX_PIXELS} from './adaptive-preview.js?v=0.33.2';
+import {renderRetainedPreview,updateRetainedParameters,retainedPreviewWorkingBytes,renderRetainedWindow,planRetainedPreview} from './retained-parameter-preview.js?v=0.33.2';
+import {parameterPreviewPolicy,retainedNativeBasisStatus} from './parameter-preview-policy.js?v=0.33.2';
+import {isExtensionTool,extensionConfiguration} from './extension-tools.js?v=0.33.2';
+import {dtdFrame} from './dtd-presentation.js?v=0.33.2';
+import {comprintFrame} from './comprint-presentation.js?v=0.33.2';
+import {extensionSourcePresentation,responseSourceSurface,responseProxyKey} from './extension-source-presentation.js?v=0.33.2';
+import {truforHeatFrame} from './trufor-palette.js?v=0.33.2';
+import {ritaFrame,ritaDisplayThreshold,ritaDisplayOpacity} from './rita-presentation.js?v=0.33.2';
 import {displayGeometry} from './unified-engine/src/display-sampling.js';
-import {localFeaturePolicy} from './feature-policy.js?v=0.33.1';
-import {composeCloneFrame,sampleCloneField,d2AnalysisKey,neuralDisplays} from './neural-clone-ui.js?v=0.33.1';
+import {localFeaturePolicy} from './feature-policy.js?v=0.33.2';
+import {composeCloneFrame,sampleCloneField,d2AnalysisKey,neuralDisplays} from './neural-clone-ui.js?v=0.33.2';
 import {samplePixels} from './unified-engine/src/display-sampling.js';
-import {individualModels,m2ToolClient,m2ToolConfiguration} from './tool-models.js?v=0.33.1';
+import {individualModels,m2ToolClient,m2ToolConfiguration} from './tool-models.js?v=0.33.2';
 import {createWorkerEngine} from './unified-engine/src/worker-client.js';
 import {D2PRL_MODEL_IDENTITY} from './unified-engine/src/d2prl-model-identity.js';
-import {d2prlInputSide} from './d2prl-input-size.js?v=0.33.1';
-import {createExportSink} from './export-sink.js?v=0.33.1';
-import {exportSinkScopeFor} from './export-sink-owner.js?v=0.33.1';
-import {exportPresentationRaster} from './raster-export-client.js?v=0.33.1';
-import {createCloneWindowPresenter,cloneScientificField} from './neural-window-presentation.js?v=0.33.1';
+import {d2prlInputSide} from './d2prl-input-size.js?v=0.33.2';
+import {createExportSink} from './export-sink.js?v=0.33.2';
+import {exportSinkScopeFor} from './export-sink-owner.js?v=0.33.2';
+import {exportPresentationRaster} from './raster-export-client.js?v=0.33.2';
+import {createCloneWindowPresenter,cloneScientificField} from './neural-window-presentation.js?v=0.33.2';
 import {EngineError,checkAbort} from './unified-engine/src/errors.js';
-import {composeBiomeWindow,biomePresentationWorkingBytes} from './detection-biome-presentation.js?v=0.33.1';
+import {readRawSensorHistogram} from './raw-sensor-histogram.js?v=0.33.2';
+import {composeBiomeWindow,biomePresentationWorkingBytes} from './detection-biome-presentation.js?v=0.33.2';
 
 // Dense native counters may exceed JS's exact-number range. Keep their decimal
 // values as strings in JSON; borrow scientific typed arrays without copying them.
@@ -104,8 +116,8 @@ export async function configureAiDetectors(engine,configuration,hooks={}){
  if(!operation.configured)await engine.loadAiDetectors(configuration,hooks);
 }
 export async function createToolClient({computeProfile='maximum',onProgress=()=>{},onInvalidated=()=>{},onParameterExportRetired,engineFactory=createWorkerEngine,m2Factory=m2ToolClient,memoryBudgetBytes,m2MemoryBudgetBytes=Infinity,resourceHints,resolvePrnuTrainingBackend,usefulWorkStore,usefulWorkCodeIdentity=USEFUL_WORK_CODE_IDENTITY,usefulWorkEnvironment=passiveNlmEnvironment}={}){
- const deployment=await (await fetch(new URL('./integrated-config.json?v=0.33.1',import.meta.url))).json();
- const base=new URL(deployment.assetBase,new URL('./integrated-config.json?v=0.33.1',import.meta.url));
+ const deployment=await (await fetch(new URL('./integrated-config.json?v=0.33.2',import.meta.url))).json();
+ const base=new URL(deployment.assetBase,new URL('./integrated-config.json?v=0.33.2',import.meta.url));
  const asset=name=>new URL(name,base).href;
  const usefulNlmDomains=new WeakMap();
  let nlmAdaptive;try{nlmAdaptive=createNlmAdaptiveRuntime({store:usefulWorkStore??getAdaptivePreferenceStore(),describe:({task,source})=>{const seen=usefulNlmDomains.get(task.sourceRegionDomain);return describeUsefulNlm({task,source,domain:seen?.domain,capabilities:seen?.capabilities,codeIdentity:usefulWorkCodeIdentity,environment:{...usefulWorkEnvironment(),completionClass:'ui-core-transaction'}});}});}catch{/* Unavailable optional central storage must not refuse requested science. */}
@@ -119,7 +131,12 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  // A live presenter still owns its buffers. Only a finally-started retirement
  // may be retried by another lifecycle operation; never wait for it in this lane.
  const retainedParameterPreviewLeases=new Map();
- const nativeWorkspaceLoans=new Map();
+ const nativeWorkspaceLoans=new Map(),nativeSourceLoans=new Set();
+ const retainedHistogramOwners=new Set();
+ const originalColorReaders=new Set();
+ async function closeOriginalColorReaders(){let failed=false,primary;for(const reader of [...originalColorReaders])try{await reader.dispose();}catch(error){if(!failed){failed=true;primary=error;}}if(failed)throw primary;}
+
+ async function closeRetainedHistogramOwners(){let failed=false,primary;for(const owner of [...retainedHistogramOwners])try{await owner.dispose();}catch(error){if(!failed){failed=true;primary=error;}}if(failed)throw primary;}
  async function releaseRetainedParameterPreviewLease(lease){const record=retainedParameterPreviewLeases.get(lease.id);if(record)record.retiring=true;const ack=await engine.releaseExternalMemory(lease.id);if(ack===false||ack===0)throw new EngineError('PREVIEW_UNAVAILABLE','Preview RGB retirement was not acknowledged.');if(responseProxy?.lease.id===lease.id)responseProxy=null;if(ritaProxy?.lease.id===lease.id)ritaProxy=null;retainedParameterPreviewLeases.delete(lease.id);}
  async function drainRetainedParameterPreviewLeases(){let failed=false,primary;for(const record of [...retainedParameterPreviewLeases.values()])if(record.retiring)try{await releaseRetainedParameterPreviewLease(record.lease);}catch(error){if(!failed){failed=true;primary=error;}}if(failed)throw primary;}
  const ritaNumericPreviewLeases=new Map();
@@ -129,7 +146,9 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  async function releaseNativeClonePreviewLease(lease){const record=nativeClonePreviewLeases.get(lease.id);if(record)record.retiring=true;await engine.releaseExternalMemory(lease.id);nativeClonePreviewLeases.delete(lease.id);}
  async function drainNativeClonePreviewLeases(){let failed=false,primary;for(const record of [...nativeClonePreviewLeases.values()])if(record.retiring)try{await releaseNativeClonePreviewLease(record.lease);}catch(error){if(!failed){failed=true;primary=error;}}if(failed)throw primary;}
 
- const retainedRetirement=createRetainedResultRetirement({allowAbsentSurfaceRetirement:true,resources:resultResources,releaseSurface:id=>engine.releaseSurface(id),releaseTable:id=>engine.releaseTable(id),protectedResources:()=>{const current=resultResources(result);return{surfaces:[...current.surfaces,...[...sourceAliases].map(id=>({id})),...(source?.surface?[source.surface]:[])],tables:current.tables};}});
+ let finalDepthBank;
+ const retainedRetirement=createRetainedResultRetirement({allowAbsentSurfaceRetirement:true,resources:resultResources,releaseSurface:id=>engine.releaseSurface(id),releaseTable:id=>engine.releaseTable(id),protectedResources:()=>{const current=resultResources(result);return{surfaces:[...current.surfaces,...(finalDepthBank?.protectedResources().surfaces??[]),...[...sourceAliases].map(id=>({id})),...(source?.surface?[source.surface]:[])],tables:[...current.tables,...(finalDepthBank?.protectedResources().tables??[])]};}});
+ finalDepthBank=createFinalDepthResultBank({engine,createControl:request=>{if(typeof engine[CAPTURED_OWNERSHIP_CONTROL]!=='function')throw new EngineError('CAPTURED_CONTROL_REQUIRED','Captured ownership controls are unavailable.');return engine[CAPTURED_OWNERSHIP_CONTROL](request);},enqueue:work=>enqueue(work),getSource:()=>source,getResult:()=>result,setResult:value=>{result=value;},resources:output=>{const owned=resultResources(output),originals=new Set([...sourceAliases,...nativeSourceAliases.keys(),...[source?.surface?.id,source?.nativeSurface?.id].filter(Boolean)]);return{surfaces:owned.surfaces.filter(d=>!originals.has(d.id)),tables:owned.tables};}});
  const displayAdaptive=createAdaptivePreview();
  async function drainRetainedPreviewWorkspaces(){await drainRitaNumericPreviewLeases();await drainNativeClonePreviewLeases();await drainRetainedParameterPreviewLeases();}
  function hasRetiringRetainedPreviewWorkspace(){return [...retainedParameterPreviewLeases.values(),...nativeClonePreviewLeases.values()].some(record=>record.retiring);}
@@ -171,8 +190,38 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   return{...display,responsePreview:true,previewStep:plan.step,adaptivePreview:{token:plan.token}};
  }
 
- let d2Analysis=null,responseProxy=null,ritaProxy=null;let sourceInput;const sourceAliases=new Set(),preparationSources=new Set();
- const invalidated=()=>{for(const reader of preparationSources)reader.invalidate();preparationSources.clear();void clearResponseProxy().catch(()=>{});void clearRitaProxy().catch(()=>{});d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
+ let d2Analysis=null,responseProxy=null,ritaProxy=null;let sourceInput,sourceIdentity;const sourceAliases=new Set(),nativeSourceAliases=new Map(),preparationSources=new Set();
+ const nativeAliasKey=display=>JSON.stringify([display?.id,display?.revision]);
+ function rememberSourceAliases(current){sourceAliases.add(current.surface.id);if(current.nativeSurface?.format==='rgb16')nativeSourceAliases.set(nativeAliasKey(current.nativeSurface),{width:current.nativeSurface.width,height:current.nativeSurface.height});}
+ function sameSourceBinding(current,expected){return !!current&&!!expected&&current.id===expected.id&&current.sha256===expected.sha256&&current.width===expected.width&&current.height===expected.height;}
+ async function restoreCanonicalSource(){
+  const input=sourceInput,expected=sourceIdentity;
+  if(!input?.blob||!expected||input.id!==expected.id||input.blob!==expected.blob)throw new EngineError('INVALID_INPUT','The canonical Original source is unknown.');
+  if(!source){
+   // Called only inside this client's queue. The shared pool serializes and
+   // deduplicates the same id/Blob; never enqueue recursively in this lane.
+   const restored=await engine.loadBlob({...input,layout:'segmented'},hooks());
+   source=restored; // Retain ownership even if validation below refuses it.
+   if(sourceInput!==input||sourceIdentity!==expected||!sameSourceBinding(restored,expected))throw new EngineError('INVALID_INPUT','The restored Original differs from its captured identity.');
+   rememberSourceAliases(restored);
+  }
+  if(!sameSourceBinding(source,expected))throw new EngineError('INVALID_INPUT','The current Original differs from its captured identity.');
+  return source;
+ }
+ async function nativeReadSurface(display){
+  const alias=nativeSourceAliases.get(nativeAliasKey(display));
+  if(alias){
+   if(alias.width!==display.width||alias.height!==display.height)throw new EngineError('INVALID_INPUT','Native Original dimensions changed.');
+   const current=await restoreCanonicalSource(),native=current.nativeSurface;if(native?.format!=='rgb16'||native.width!==alias.width||native.height!==alias.height)throw new EngineError('INVALID_INPUT','The restored Original has no matching native16 view.');return native;
+  }
+  // Scientific finals keep their own surface, revision and lifetime. Never
+  // reinterpret their codes as an alias of the photographic Original.
+  const currentResult=result?.imageId===source?.id&&result?.provenance?.originalSha256===source?.sha256;
+  const native=finalDepthBank.readableSurface(display)??(currentResult?resultResources(result).surfaces.find(value=>value.id===display.id&&value.revision===display.revision):null);
+  if(disposed||!source||native?.format!=='rgb16'||native.depth!==16||native.width!==display.width||native.height!==display.height)throw new EngineError('INVALID_INPUT','Native16 final does not belong to this current result.');return native;
+ }
+
+ const invalidated=()=>{finalDepthBank.revoke();for(const reader of preparationSources)reader.invalidate();preparationSources.clear();void clearResponseProxy().catch(()=>{});void clearRitaProxy().catch(()=>{});d2Analysis=null;const resultLost=!!result&&!result.m2Result;if(!result?.m2Result)result=null;source=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;onInvalidated({resultLost});};
  engine.onSourceInvalidation?.(invalidated);
  const resolve=value=>Array.isArray(value)?value.map(resolve):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,v])=>[key,key==='url'?asset(v):resolve(v)])):value;
  const enqueue=fn=>{const task=queue.then(()=>{if(disposed)throw Object.assign(Error('Outil fermé'),{code:'CANCELLED'});return fn();});queue=task.catch(()=>{});return task;};
@@ -182,7 +231,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   const settled=await Promise.allSettled([async()=>{if(reference){const old=reference;await engine.unload(old.id);reference=null;}},async()=>{if(mask){const old=mask;await engine.unload(old.id);mask=null;}},async()=>{if(prnu){const old=prnu;await engine.unload(old.id);prnu=null;}},async()=>{if(m2){await m2.dispose();m2=null;m2Method=null;}}].map(retire=>retire()));
   const failure=settled.find(row=>row.status==='rejected');if(failure)throw failure.reason;
  }
- const work=async(fn,{signal:outerSignal}={})=>{const local=controller=new AbortController(),abort=()=>local.abort(outerSignal?.reason);outerSignal?.addEventListener('abort',abort,{once:true});if(outerSignal?.aborted)abort();try{checkAbort(local.signal);if(m2RetirementPending&&m2Method==='splicebuster'){const failed=m2;await failed.dispose();if(m2===failed){m2=null;m2Method=null;if(result?.m2Result)result=null;}m2RetirementPending=false;}return await fn();}catch(error){if(m2&&!retiredM2Failures.has(error)&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error?.code)){const failed=m2;if(m2Method==='splicebuster'){m2RetirementPending=true;try{await failed.dispose();if(m2===failed){m2=null;m2Method=null;if(result?.m2Result)result=null;}m2RetirementPending=false;}catch(cleanup){if(error&&typeof error==='object'&&Object.isExtensible(error))try{error.cleanupError=cleanup;}catch{}}}else{m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}}if(error?.imagesCleared){for(const reader of preparationSources)reader.invalidate();preparationSources.clear();d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;}throw error;}finally{outerSignal?.removeEventListener('abort',abort);if(controller===local)controller=null;}};
+ const work=async(fn,{signal:outerSignal}={})=>{const local=controller=new AbortController(),abort=()=>local.abort(outerSignal?.reason);outerSignal?.addEventListener('abort',abort,{once:true});if(outerSignal?.aborted)abort();try{checkAbort(local.signal);if(m2RetirementPending&&m2Method==='splicebuster'){const failed=m2;await failed.dispose();if(m2===failed){m2=null;m2Method=null;if(result?.m2Result)result=null;}m2RetirementPending=false;}return await fn();}catch(error){if(m2&&!retiredM2Failures.has(error)&&['WORKER_FAILED','WORKER_MESSAGE_FAILED','WORKER_LOAD_FAILED','DISPOSED'].includes(error?.code)){const failed=m2;if(m2Method==='splicebuster'){m2RetirementPending=true;try{await failed.dispose();if(m2===failed){m2=null;m2Method=null;if(result?.m2Result)result=null;}m2RetirementPending=false;}catch(cleanup){if(error&&typeof error==='object'&&Object.isExtensible(error))try{error.cleanupError=cleanup;}catch{}}}else{m2=null;m2Method=null;if(result?.m2Result)result=null;await failed.dispose().catch(()=>{});}}if(error?.imagesCleared){finalDepthBank.revoke();for(const reader of preparationSources)reader.invalidate();preparationSources.clear();d2Analysis=null;source=result=reference=mask=prnu=median=quality=null;m3Loaded=m3OcrLoaded=d2Loaded=false;}throw error;}finally{outerSignal?.removeEventListener('abort',abort);if(controller===local)controller=null;}};
  async function clearGhostSurfacePreview(){const old=ghostSurfacePreview;if(!old)return;try{await old.dispose();if(ghostSurfacePreview===old)ghostSurfacePreview=null;}catch(error){throw error;}}
  async function release(){
    await drainRetainedPreviewWorkspaces();
@@ -200,6 +249,55 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   for(const id of [...pending.tables])try{await engine.releaseTable(id);pending.tables.delete(id);}catch(error){failures.push(error);}
   if(!pending.surfaces.size&&!pending.tables.size){if(result===previous)result=null;if(coreResultRetirement===pending)coreResultRetirement=null;}
   if(failures.length){const primary=failures[0];if(failures.length>1&&Object.isExtensible(primary))try{primary.cleanupErrors=failures.slice(1);}catch{}throw primary;}
+ }
+ let nativeParameterFrames,nativeParameterFinance,nativeParameterFinanceOwner,nativeFrameSource,nativeFrameOpening,nativeFrameRetirement;
+ async function retireNativeParameterFrames(){
+  if(nativeFrameRetirement)return nativeFrameRetirement;
+  const task=(async()=>{await nativeFrameOpening?.catch(()=>{});const owned=nativeParameterFrames,finance=nativeParameterFinance;
+   await owned?.closePresentations();if(finance)await finance.dispose();else await owned?.dispose();await owned?.dispose();await nativeParameterFinanceOwner?.dispose();
+   if(nativeParameterFrames===owned){nativeParameterFrames=nativeParameterFinance=nativeParameterFinanceOwner=nativeFrameSource=null;}
+  })();nativeFrameRetirement=task;void task.finally(()=>{if(nativeFrameRetirement===task)nativeFrameRetirement=null;}).catch(()=>{});return task;
+ }
+ // Only a clean policy-admission refusal can replan the same native source.
+ // An uncertain numeric owner or a reset is a retained failure, never a new
+ // proxy request against a missing/replacement Original.
+ function nativeAdmissionRefusal(error,original,signal,prior){
+  if(error?.code!=='MEMORY_LIMIT'||signal?.aborted||source!==original||error.imagesCleared||error.details?.retainedAnalysis||error.details?.recovery?.loopDetected)return false;
+  for(const key of ['cleanupOwner','cleanupError','cleanupErrors','previewCleanupError','temporaryCleanupFailures'])if(Object.hasOwn(error,key))return false;
+  return !nativeParameterFrames||!prior&&nativeParameterFrames.state.closed||!nativeParameterFrames.state.closing&&!nativeParameterFrames.state.closed;
+ }
+ async function produceAdmittedNativePreview(request,{signal},original,domain){
+  checkAbort(signal);if(source!==original)throw new EngineError('CANCELLED','Native16 preview source changed.');
+  if(nativeParameterFrames&&nativeFrameSource!==original){await retireNativeParameterFrames();checkAbort(signal);if(source!==original)throw new EngineError('CANCELLED','Native16 preview source changed.');}
+  const prior=nativeParameterFrames,inputWidth=Math.ceil(request.logicalWidth/request.step),inputHeight=Math.ceil(request.logicalHeight/request.step),transform=['detail.frequency','detail.wavelets'].includes(request.operation),layout=transform?native16TransformPreviewLayout(request.operation,{width:inputWidth,height:inputHeight,logicalWidth:request.logicalWidth,logicalHeight:request.logicalHeight},request.view):null,width=layout?layout.outputWidth:inputWidth,height=layout?layout.outputHeight:inputHeight;let attempt,submitted=false,nativeTaskId;
+  try{
+   // Only the actual attempted grid is prepaid, not every possible grid below
+   // maxPixels. Core continues to admit its own numeric scratch independently.
+   if(prior)attempt=await prior.beginCapacityAttempt();
+   const frames=await ensureNativeParameterFrames(width*height,original);
+   const answer=await produceNativePreviewAnswer(frames,{width,height,epoch:1,signal},frame=>{submitted=true;nativeTaskId='native16-proxy-'+crypto.randomUUID();return engine.previewParameters({id:nativeTaskId,imageId:original.id,operation:request.operation,params:request.params,backend:request.backend??'auto',workingDepth:request.operation==='ela.bitrate'?8:16,...(transform?{view:request.view}:{}),...(domain?{sourceRegionDomain:domain}:{})},{preview:{maxSide:request.maxSide,maxPixels:request.maxPixels,step:request.step},nativePresentation:nativeParameterFinance.bindFrame(frame),signal});});
+   if(domain&&sourceRegionDomainShape(domain)!=='identity')try{assertNativeRegionPreviewSampling(answer.metrics?.sourceRegionSampling,domain,{width,height,step:request.step,native:request.operation==='ela.bitrate'?original.surface:original.nativeSurface,sourceSha256:original.sha256});}catch(primary){try{await retireNativePreviewAnswer(answer);}catch(cleanup){throw withRetirementOwner(primary,{dispose:()=>retireNativePreviewAnswer(answer)},cleanup);}throw primary;}
+   attempt?.commit();return answer;
+  }catch(primary){
+   if(!nativeAdmissionRefusal(primary,original,signal,prior)){if(attempt&&!nativeParameterFrames?.state.closing)try{attempt.commit();}catch{}throw primary;}
+   const numeric=primary.details?.nativePreviewRetirement,mayReplan=!submitted||numeric?.acknowledged===true&&numeric.attemptId===nativeTaskId&&numeric.imageId===original.id&&numeric.sourceSurfaceId===original.surface.id&&numeric.sourceRevision===original.surface.revision&&numeric.sourceSha256===original.sha256&&numeric.operation===request.operation&&numeric.step===request.step&&(!domain||sourceRegionDomainShape(domain)==='identity'||numeric.sourceRegionFingerprint===domain.fingerprint);
+   try{if(attempt)await attempt.rollback();else await retireNativeParameterFrames();}
+   catch(cleanup){throw withRetirementOwner(primary,prior??nativeParameterFrames??nativeParameterFinanceOwner,cleanup);}
+   checkAbort(signal);if(source!==original||!mayReplan)throw primary;
+   // Local-only evidence, created after every new presentation receipt has an
+   // ACK. It is never sent to the Worker or saved as a scientific parameter.
+   const retry=new EngineError('MEMORY_LIMIT',primary.message,{cause:primary});retry.nativePreviewAdmissionRetired=true;throw retry;
+  }
+ }
+ async function ensureNativeParameterFrames(maximumPixels,original){
+  if(nativeFrameOpening)await nativeFrameOpening;
+  if(nativeParameterFrames&&nativeFrameSource!==original)await retireNativeParameterFrames();
+  if(nativeParameterFrames){if(maximumPixels>nativeParameterFrames.state.maximumPixels)await nativeParameterFrames.admitMaximumPixels(maximumPixels);return nativeParameterFrames;}
+  if(typeof engine[NATIVE_PREVIEW_FINANCE]!=='function')throw new EngineError('PREVIEW_UNAVAILABLE','The captured native presentation budget is unavailable.');
+  const task=(async()=>{const binding={imageId:original.id,surfaceId:original.surface.id,revision:original.surface.revision,sourceSha256:original.sha256};nativeFrameSource=original;let capturedFrames;
+   nativeParameterFinance=engine[NATIVE_PREVIEW_FINANCE]({binding,onOwner:owner=>{nativeParameterFinanceOwner=owner;},onRetireLocal:async()=>{await capturedFrames?.closePresentations();await capturedFrames?.dispose();}});
+   return await createNativePreviewFrameOwner({binding,maximumPixels,finance:nativeParameterFinance,isCurrent:()=>!disposed&&source===original,onOwner:owner=>{capturedFrames=nativeParameterFrames=owner;}});
+  })();nativeFrameOpening=task;void task.finally(()=>{if(nativeFrameOpening===task)nativeFrameOpening=null;}).catch(()=>{});return task;
  }
  function clearParameterPreview(){const previous=parameterPreviewRetirement,old=parameterPreview,reader=parameterPreviewReader;parameterPreview=null;parameterPreviewReader=null;parameterPreviewKey=null;if(old||reader)retiringParameterPreviews.add({old,reader});const retiring=(async()=>{await previous.catch(()=>{});const failures=[];for(const record of [...retiringParameterPreviews]){try{await record.old?.dispose();await record.reader?.dispose();retiringParameterPreviews.delete(record);}catch(error){failures.push(error);}}if(failures.length)throw failures[0];})();parameterPreviewRetirement=retiring;return retiring;}
  async function settleParameterPreview(){await parameterPreviewRetirement;await parameterPreview?.settle();}
@@ -219,7 +317,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     const blob=parameterReferenceInput;if(!blob)throw new EngineError('INVALID_INPUT','A comparison reference is required.');
     if(reference?.blob!==blob){if(reference){const old=reference;await engine.unload(old.id);reference=null;}const id='reference-'+crypto.randomUUID(),descriptor=await engine.loadBlob({id,blob,layout:'segmented'});reference={id,blob,surface:descriptor.surface};}
     image=reference;
-   }else{if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'});sourceAliases.add(source.surface.id);}image=source;if(domain&&['native-regions','membership'].includes(sourceRegionDomainShape(domain))){if(!parameterPreviewReader||parameterPreviewReader.sourceRegionDomain.fingerprint!==domain.fingerprint){await parameterPreviewReader?.dispose();parameterPreviewReader=createParameterRegionSampler({engine,source,domain});}return await parameterPreviewReader.read({maxSide,signal});}if(domain&&sourceRegionDomainShape(domain)==='rectangle'){if(!parameterPreviewReader||parameterPreviewReader.sourceRegionDomain.fingerprint!==domain.fingerprint){await parameterPreviewReader?.dispose();parameterPreviewReader=await acquireSourceRegionReaderNow({sourceRegionDomain:domain,purpose:'analysis-rectangle'},{ownerQueue:true});}image={id:source.id,sha256:source.sha256,surface:parameterPreviewReader.sourceRegionSourceSurface};}}
+   }else{if(!source&&sourceInput){await restoreCanonicalSource();}image=source;if(domain&&['native-regions','membership'].includes(sourceRegionDomainShape(domain))){if(!parameterPreviewReader||parameterPreviewReader.sourceRegionDomain.fingerprint!==domain.fingerprint){await parameterPreviewReader?.dispose();parameterPreviewReader=createParameterRegionSampler({engine,source,domain});}return await parameterPreviewReader.read({maxSide,signal});}if(domain&&sourceRegionDomainShape(domain)==='rectangle'){if(!parameterPreviewReader||parameterPreviewReader.sourceRegionDomain.fingerprint!==domain.fingerprint){await parameterPreviewReader?.dispose();parameterPreviewReader=await acquireSourceRegionReaderNow({sourceRegionDomain:domain,purpose:'analysis-rectangle'},{ownerQueue:true});}image={id:source.id,sha256:source.sha256,surface:parameterPreviewReader.sourceRegionSourceSurface};}}
    if(!image?.surface)throw new EngineError('CACHE_MISS','Preview source is unavailable.');
    const d=image.surface,step=Math.max(1,Math.ceil(Math.max(d.width,d.height)/Math.max(1,Math.min(ADAPTIVE_PREVIEW_MAX_SIDE,maxSide)))),lease=await engine.reserveExternalMemory({bytes:Math.ceil(d.width/step)*Math.ceil(d.height/step)*3});
    try{const {pixels}=await engine.readDisplay({surfaceId:d.id,revision:d.revision,tile:{x:0,y:0,w:d.width,h:d.height,step}});checkAbort(signal);return {pixels,logicalWidth:d.width,logicalHeight:d.height,sourceIdentity:domain?[image.sha256??image.id,domain.fingerprint]:image.sha256??image.id};}
@@ -267,6 +365,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    };
  }
  async function previewParameters(task,{field,signal,extras={},adaptiveFeedback,previewControl,heldPreviewIntent}={}){
+  if(finalDepthBank.hasPendingRetirement)await finalDepthBank.drain();
   const intent=heldPreviewIntent?structuredClone(heldPreviewIntent):null;
   const held=(answer,family)=>{
    if(!answer||!intent||task.operation==='detail.frequency')return answer;
@@ -310,6 +409,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    }});
    return current()?answer??null:null;
   }
+  const nativePca=task.operation==='colors.pca'&&!!source?.nativeSurface&&(task.workingDepth??source.workingDepth??16)===16&&native16ParameterProxyAdmitted(task.operation,task.params,source.precisionCapabilities,shape);
   const nativeScopedPixel=!!domain&&['native-regions','membership'].includes(shape)&&(policy.kind==='pixel-proxy'||policy.fallback==='pixel-proxy')&&supportsScopedParameterPreview(task.operation);
   const nativeGhostScientific=!!domain&&['native-regions','membership'].includes(shape)&&task.operation==='jpeg.ghosts'&&policy.kind==='pixel-proxy'&&['low','high','step','x','y'].includes(field);
   const nativeGhostRetained=sameDomain&&policy.kind==='retained'&&policy.strategy==='ghosts'&&ghostSurfacePreviewContract({output:result,params:task.params,view:task.view});
@@ -348,7 +448,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     return retainedWorkspace(plan.pixels*8+65536,async()=>{const started=performance.now();let rendered;
     {
      assertCurrent();const memory=(await engine.capabilities()).memory??{};assertCurrent();const budget=memory.budgetBytes??memoryBudgetBytes??64*1024**2,available=memory.policyAvailableBytes??Math.max(0,budget-(memory.retainedBytes??0)-(memory.cacheBytes??0)-(memory.activeReservationBytes??0)),maxWorkingBytes=Math.max(0,Math.floor(Math.min(budget/3,available))),targetMs=policy.targetMs??(policy.strategy==='safire-grouping'?200:50);
-     const answer=await engine.previewParameters({id:'parameter-preview-'+crypto.randomUUID(),imageId:currentSource.id,operation:task.operation,params:task.params,view:task.view,backend:task.backend??'auto',...(domain?{sourceRegionDomain:domain}:{})},{preview:{maxSide:plan.side,maxPixels:plan.pixels,maxWorkingBytes,targetMs},signal});assertCurrent();
+     const answer=await engine.previewParameters({id:'parameter-preview-'+crypto.randomUUID(),imageId:currentSource.id,operation:task.operation,params:task.params,view:task.view,backend:task.backend??'auto',...(task.workingDepth!==undefined?{workingDepth:task.workingDepth}:{}),...(domain?{sourceRegionDomain:domain}:{})},{preview:{maxSide:plan.side,maxPixels:plan.pixels,maxWorkingBytes,targetMs},signal});assertCurrent();
      const pixels=answer?.pixels;if(!pixels||pixels.format!=='rgb8'||!(pixels.data instanceof Uint8Array)||pixels.data.length!==pixels.width*pixels.height*3||pixels.width*pixels.height>plan.pixels||pixels.width>ADAPTIVE_PREVIEW_MAX_SIDE||pixels.height>ADAPTIVE_PREVIEW_MAX_SIDE)throw new EngineError('INVALID_INPUT','Retained preview exceeded its admitted transport frame.');
      rendered={...answer,exact:false,provisional:true,metrics:{...answer.metrics,adaptivePreview:{token:plan.token,milliseconds:performance.now()-started,setupMilliseconds:answer.metrics?.setupMilliseconds??0,cold:!!answer.metrics?.cold,pixels:pixels.width*pixels.height}}};
     }
@@ -356,7 +456,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    });}catch(error){if(hasRetiringRetainedPreviewWorkspace())throw error;const code=retainedPreviewFailureCode(error);if(nativeNoisesnifferRetained&&['PREVIEW_UNAVAILABLE','CACHE_MISS'].includes(code))return null;if(policy.fallback!=='pixel-proxy'||!['PREVIEW_UNAVAILABLE','CACHE_MISS'].includes(code))throw error;}
   }
   if(policy.kind==='retained'&&policy.strategy==='histogram'&&result&&sameDomain){
-   // A histogram gesture reads the retained 1024 bins, never a pixel raster.
+   // A histogram gesture reads the retained native bins, never a pixel raster.
    // Keep its small summary workspace independent from image-preview budgets.
    const currentResult=result,currentSource=source,current=()=>!disposed&&result===currentResult&&source===currentSource;
    const assertCurrent=()=>{checkAbort(signal);if(!current())throw new EngineError('CANCELLED','Histogram source or result changed.');};
@@ -383,8 +483,8 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     assertCurrent();return held(rendered,'ghost-hybrid');});
    });
   }
-  if(policy.kind==='retained'&&result&&sameDomain&&policy.fallback!=='pixel-proxy'){
-   const currentResult=result,currentSource=source,assertCurrent=()=>{checkAbort(signal);if(disposed||result!==currentResult||source!==currentSource)throw new EngineError('CANCELLED','Retained preview source or result changed.');};
+  if(policy.kind==='retained'&&result&&sameDomain&&policy.fallback!=='pixel-proxy'&&!nativePca){
+   const currentResult=result,currentSource=source,pcaModel=task.operation==='colors.pca'&&!currentResult.data?.mean?currentResult.tables?.pca_model:null,pcaBinding=pcaModel?JSON.stringify(finalDepthSourceBinding(currentSource)):null,pcaGeneration=finalDepthBank.generation,assertCurrent=()=>{checkAbort(signal);if(disposed||result!==currentResult||source!==currentSource||pcaModel&&(finalDepthBank.generation!==pcaGeneration||JSON.stringify(finalDepthSourceBinding(currentSource))!==pcaBinding))throw new EngineError('CANCELLED','Retained preview source or result changed.');};
    // This preview borrows native data across queued source reads. Disposal must
    // wait for its owned lease, even after new work has been disabled.
    let complete;const done=new Promise(resolve=>complete=resolve);retainedPreviews.add(done);let lease,failure,failed=false;
@@ -410,40 +510,51 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
     }
     const plan=planRetainedProxy({...args,maxPixels});if(!plan)return null;
     lease=await enqueue(async()=>{assertCurrent();const held=await engine.reserveExternalMemory({bytes:retainedPreviewWorkingBytes({plan,operation:task.operation,params:task.params,view:task.view,output:currentResult,medianContexts:nativeMedianRetained,classicalContexts:nativeClassicalRetained})});retainedParameterPreviewLeases.set(held.id,{lease:held,retiring:false});return held;});assertCurrent();
-    const answer=await renderRetainedPreview({...args,adaptivePlan:plan});assertCurrent();
-    return held(answer&&{...answer,...(domain?{sourceRegionDomain:domain,sourceRegionOrigin:[...domain.origin]}:{})},'retained-tables');
+    let modelPage,modelData;
+    try{
+     if(pcaModel){
+      if(pcaModel.format!=='float64-table'||pcaModel.rowCount!==5||pcaModel.columns?.join(',')!=='B,G,R')throw new EngineError('INVALID_RESULT','The retained PCA model table is invalid.');
+      assertCurrent();modelPage=await client.readTable(pcaModel,0,5);assertCurrent();const values=modelPage?.data;
+      if(!(values instanceof Float64Array)||modelPage.offset!==0||modelPage.length!==5||values.length!==15||!values.every(Number.isFinite))throw new EngineError('INVALID_RESULT','The retained PCA model is incomplete.');
+      modelData={...currentResult.data,mean:values.subarray(0,3),eigenvectors:values.subarray(3,12),eigenvalues:values.subarray(12,15)};args.output={...currentResult,data:modelData};
+     }
+     const answer=await renderRetainedPreview({...args,adaptivePlan:plan});assertCurrent();
+     return held(answer&&{...answer,...(domain?{sourceRegionDomain:domain,sourceRegionOrigin:[...domain.origin]}:{})},'retained-tables');
+    }finally{if(modelData)modelData.mean=modelData.eigenvectors=modelData.eigenvalues=null;if(modelPage)modelPage.data=null;}
    }catch(error){failed=true;failure=error;throw error;}finally{
     try{if(lease){const cleanup=queue.then(()=>releaseRetainedParameterPreviewLease(lease));queue=cleanup.catch(()=>{});try{await cleanup;}catch(error){if(!failed)throw error;try{if(Object.isExtensible(failure))failure.cleanupErrors=[...(failure.cleanupErrors??[]),error];}catch{}}}if(!failed)assertCurrent();}
     finally{retainedPreviews.delete(done);complete();}
    }
   }
-  if(policy.kind!=='pixel-proxy'&&policy.fallback!=='pixel-proxy')return null;
+  if(policy.kind!=='pixel-proxy'&&policy.fallback!=='pixel-proxy'&&!nativePca)return null;
   if(shape!=='identity'&&extras.reference)return null;
   parameterReferenceInput=extras.reference;
-  await ensureParameterPreview(domain,nativeScopedPixel,signal);
+  await ensureParameterPreview(domain,nativeScopedPixel,signal,task);
   let proxyTask=task;
   if(task.params?.recompression?.codec==='source'){
    const selected=await resolveRecompressionPlan(task.params,{provenance:source?.provenance,blob:sourceInput?.blob},{signal});checkAbort(signal);
    proxyTask={...task,params:{...task.params,recompression:{...task.params.recompression,codec:selected.stage.codec,lossless:selected.stage.lossless}}};
   }
-  const answer=await parameterPreview.preview({...proxyTask,field,...(adaptiveFeedback?{adaptiveFeedback}:{}),...(previewControl?{previewControl}:{}),sourceIdentity:domain?[source?.sha256??source?.id,domain.fingerprint]:source?.sha256??source?.id,logicalWidth:domain?.width??source?.surface.width,logicalHeight:domain?.height??source?.surface.height,signal});return held(answer?{...answer,...(domain?{sourceRegionDomain:domain,sourceRegionOrigin:[...domain.origin]}:{})}:null,task.operation==='jpeg.ghosts'?'ghost-hybrid':'derived-pixel');
+  const answer=await parameterPreview.preview({...proxyTask,...(source?.nativeSurface&&proxyTask.workingDepth===undefined?{workingDepth:source.workingDepth??16}:{}),field,...(adaptiveFeedback?{adaptiveFeedback}:{}),...(previewControl?{previewControl}:{}),sourceIdentity:domain?[source?.sha256??source?.id,domain.fingerprint]:source?.sha256??source?.id,logicalWidth:domain?.width??source?.surface.width,logicalHeight:domain?.height??source?.surface.height,signal});let published=false;try{const output=held(answer?{...answer,...(domain?{sourceRegionDomain:domain,sourceRegionOrigin:[...domain.origin]}:{})}:null,task.operation==='jpeg.ghosts'?'ghost-hybrid':'derived-pixel');published=true;return output;}finally{if(!published&&nativePreviewAnswerOwned(answer))await retireNativePreviewAnswer(answer);}
  }
- async function ensureParameterPreview(domain,nativeScopedPixel,signal){
-  const key=JSON.stringify([source?.id,source?.sha256,domain?.fingerprint??null]);if(parameterPreviewKey!==key){await clearParameterPreview();checkAbort(signal);parameterPreviewKey=key;}
-  let previewWorkerBudget;if(!parameterPreview){const m=(await engine.capabilities()).memory??{};checkAbort(signal);const total=m.budgetBytes??memoryBudgetBytes??256*1024**2,available=Math.max(0,total-(m.retainedBytes??0)-(m.cacheBytes??0)-(m.activeReservationBytes??0)-(m.knownHeapCapacityBytes??0)-256*1024);previewWorkerBudget=Math.floor(Math.min(512*1024**2,available/1.4)/(16*1024**2))*(16*1024**2);if(previewWorkerBudget<64*1024**2)throw new EngineError('PREVIEW_UNAVAILABLE','The native result leaves no admitted preview-worker workspace.');}
-  parameterPreview??=createParameterPreview({memoryBudgetBytes:previewWorkerBudget,sourceRegions:nativeScopedPixel,readSource:request=>parameterSource(request,false,domain),readReference:request=>parameterSource(request,true),reserve:({bytes,label},{onReclaim}={})=>enqueue(()=>engine.reserveExternalCache?engine.reserveExternalCache({bytes,label},{onReclaim}):engine.reserveExternalMemory({bytes})),release:lease=>engine.releaseExternalCache?engine.releaseExternalCache(lease.id):engine.releaseExternalMemory(lease.id),...(engine.updateExternalCache?{updateReservation:updateParameterPreviewReservation}:{})});
+ function parameterPreviewWorkerBudget(memory){const total=memory.budgetBytes??memoryBudgetBytes??256*1024**2,available=Math.max(0,total-(memory.retainedBytes??0)-(memory.cacheBytes??0)-(memory.activeReservationBytes??0)-(memory.knownHeapCapacityBytes??0)-256*1024);return Math.floor(Math.min(512*1024**2,available/1.4)/(16*1024**2))*(16*1024**2);}
+ async function ensureParameterPreview(domain,nativeScopedPixel,signal,task){
+  const native=task?.operation==='ela.bitrate'||!!source?.nativeSurface&&(task?.workingDepth??source.workingDepth??16)===16&&native16ParameterProxyAdmitted(task?.operation,task?.params,source?.precisionCapabilities,domain?sourceRegionDomainShape(domain):'identity'),original=source,key=JSON.stringify([source?.id,source?.sha256,domain?.fingerprint??null,...(native?[task?.operation==='ela.bitrate'?'native8-elabitrate':'native16']:[])]);if(parameterPreviewKey!==key){await clearParameterPreview();checkAbort(signal);parameterPreviewKey=key;}
+  let previewWorkerBudget;if(!parameterPreview&&!native){let m=(await engine.capabilities()).memory??{};checkAbort(signal);previewWorkerBudget=parameterPreviewWorkerBudget(m);if(finalDepthBank.hasInactive&&previewWorkerBudget<512*1024**2){await finalDepthBank.retireInactive('preview-worker-admission');checkAbort(signal);m=(await engine.capabilities()).memory??{};checkAbort(signal);previewWorkerBudget=parameterPreviewWorkerBudget(m);}if(previewWorkerBudget<64*1024**2)throw new EngineError('PREVIEW_UNAVAILABLE','The native result leaves no admitted preview-worker workspace.');}
+  parameterPreview??=createParameterPreview({memoryBudgetBytes:previewWorkerBudget,sourceRegions:nativeScopedPixel,...(native?{nativePreview:(request,{signal})=>enqueue(()=>produceAdmittedNativePreview(request,{signal},original,domain))}:{}),readSource:request=>parameterSource(request,false,domain),readReference:request=>parameterSource(request,true),reserve:({bytes,label},{onReclaim}={})=>enqueue(()=>engine.reserveExternalCache?engine.reserveExternalCache({bytes,label},{onReclaim}):engine.reserveExternalMemory({bytes})),release:lease=>engine.releaseExternalCache?engine.releaseExternalCache(lease.id):engine.releaseExternalMemory(lease.id),...(engine.updateExternalCache?{updateReservation:updateParameterPreviewReservation}:{})});
 
   return parameterPreview;
  }
  async function prepareParameterPreview(task,{expectedResult,isCurrent,signal,warmSource=false}={}){
+  if(finalDepthBank.hasPendingRetirement)await finalDepthBank.drain();
   if(!parameterPreviewPreparation(task?.operation)||typeof isCurrent!=='function')return{prepared:false,reason:'unqualified-operation-or-adoption'};
   const currentSource=source,currentResult=result,current=()=>!disposed&&source===currentSource&&!!currentSource&&result===currentResult&&expectedResult===currentResult&&!!currentResult&&currentResult.operation===task.operation&&isCurrent();
   if(!current())return{prepared:false,reason:'not-current'};
   try{
    const prepared=await enqueue(async()=>{checkAbort(signal);if(!current())return null;const submitted=await sourceRegionTask(task,{}, {signal});if(!current())return null;const domain=submitted.sourceRegionDomain,shape=domain?sourceRegionDomainShape(domain):'identity';if(!['identity','rectangle','native-regions','membership'].includes(shape)||(currentResult.sourceRegionDomain?.fingerprint??null)!==(domain?.fingerprint??null))return null;return{task:submitted,domain,scoped:['native-regions','membership'].includes(shape)};});
    if(!prepared||!current())return{prepared:false,reason:'not-current-or-unqualified-domain'};
-   const owner=await ensureParameterPreview(prepared.domain,prepared.scoped,signal);if(!current())return{prepared:false,reason:'not-current'};
-   return await owner.prepare({signal,isCurrent:current,warmSource,request:{operation:prepared.task.operation,params:prepared.task.params,view:prepared.task.view,backend:prepared.task.backend??'auto',sourceIdentity:prepared.domain?[currentSource.sha256??currentSource.id,prepared.domain.fingerprint]:currentSource.sha256??currentSource.id,logicalWidth:prepared.domain?.width??currentSource.surface.width,logicalHeight:prepared.domain?.height??currentSource.surface.height}});
+   const owner=await ensureParameterPreview(prepared.domain,prepared.scoped,signal,prepared.task);if(!current())return{prepared:false,reason:'not-current'};
+   return await owner.prepare({signal,isCurrent:current,warmSource,request:{operation:prepared.task.operation,params:prepared.task.params,view:prepared.task.view,backend:prepared.task.backend??'auto',...(prepared.task.workingDepth!==undefined?{workingDepth:prepared.task.workingDepth}:{}),sourceIdentity:prepared.domain?[currentSource.sha256??currentSource.id,prepared.domain.fingerprint]:currentSource.sha256??currentSource.id,logicalWidth:prepared.domain?.width??currentSource.surface.width,logicalHeight:prepared.domain?.height??currentSource.surface.height}});
   }catch(error){if(error?.code==='MEMORY_LIMIT')return{prepared:false,reason:'budget',code:error.code};if(error?.code==='CANCELLED')return{prepared:false,reason:'not-current',code:error.code};throw error;}
  }
   // A prepared download can own its file while native export inputs have
@@ -485,7 +596,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  }
  async function clonePixels(display,tile,{assertCurrent=()=>{}}={}){
   assertCurrent();
-  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
+  if(!source&&sourceInput){await restoreCanonicalSource();}
   if(display.cloneWindowPlacement){
    if(display.cloneWindowSourceSha256&&source?.sha256!==display.cloneWindowSourceSha256)throw new EngineError('CACHE_MISS','The independent window belongs to another Original image.');
    const checked=async work=>{assertCurrent();const value=await work();assertCurrent();return value;};return cloneWindowPresenter.render(display,tile,{compose:composeCloneFrame,readField:(key,local)=>checked(async()=>{const d=display.cloneFields[key];return(await engine.readDisplay({surfaceId:d.id,revision:d.revision,tile:local,render:{range:d.range??[0,1]}},hooks())).pixels;}),readOriginal:window=>checked(async()=>(await engine.readDisplay({surfaceId:source.surface.id,revision:source.surface.revision,tile:window},hooks())).pixels)});
@@ -507,7 +618,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   return composeCloneFrame({width:Math.ceil(tile.w/(tile.step??1)),height:Math.ceil(tile.h/(tile.step??1)),values,support,mask,base,view:display.cloneView,masked:display.cloneMasked});
  }
  async function biomePixels(display,window,sampled=false){
-  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(!source)throw new EngineError('CACHE_MISS','The original biome source is unavailable.');
+  if(!source&&sourceInput){await restoreCanonicalSource();}if(!source)throw new EngineError('CACHE_MISS','The original biome source is unavailable.');
   const original={width:source.surface.width,height:source.surface.height,sha256:source.sha256};if(display.width!==original.width||display.height!==original.height)throw new EngineError('INVALID_INPUT','Biome presentation dimensions differ from the original image.');
   const step=sampled?window.step??1:1,width=sampled?Math.ceil(window.w/step):window.width,height=sampled?Math.ceil(window.h/step):window.height,bytes=biomePresentationWorkingBytes(width,height,original.width,original.height,{scoped:!!display.biomePresentation.scope}),lease=await engine.reserveExternalMemory({bytes});
   try{const args={surfaceId:source.surface.id,revision:source.surface.revision,...(sampled?{tile:window}:{rect:window})},base=(await engine[sampled?'readDisplay':'readPixels'](args,hooks())).pixels;return composeBiomeWindow(base,display.biomePresentation.groups,window,{scope:display.biomePresentation.scope,source:original,signal:controller?.signal});}
@@ -518,7 +629,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   await drainRetainedPreviewWorkspaces();
   const p=display.comprintPresentation??display.dtdPresentation;if(!p)return null;
   const score=p.score,side=display.adaptivePreview?.token?.side??128;
-  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
+  if(!source&&sourceInput){await restoreCanonicalSource();}
   const baseSource=responseSourceSurface(display,source?.surface),key=responseProxyKey(display,baseSource,side);
   if(responseProxy?.key===key)return responseProxy;
   await clearResponseProxy();
@@ -547,7 +658,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
  const displayThresholdForProxy=(value,fallback)=>Math.round((Number.isFinite(value)?value:fallback)*255)/255;
  async function activationPixels(display,tile){
   const g=displayGeometry(display,tile),comprint=!!display.comprintPresentation,presentation=display.comprintPresentation??display.dtdPresentation,score=presentation.score,overlay=presentation.mode.endsWith('overlay'),valueBytes=comprint?8:4;
-  if(overlay&&!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
+  if(overlay&&!source&&sourceInput){await restoreCanonicalSource();}
   const baseSource=overlay?responseSourceSurface(display,source?.surface):null;
   const span=(g.width-1)*g.step+1,rows=g.step===1?Math.max(1,Math.min(32,Math.floor(1024**2/(span*valueBytes)))):1;
   const lease=await engine.reserveExternalMemory({bytes:g.width*g.height*(valueBytes+3+(overlay?3:0))+span*rows*valueBytes});
@@ -595,7 +706,7 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   return out;
  }
  async function ensureRitaSource(display){
-  if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}
+  if(!source&&sourceInput){await restoreCanonicalSource();}
   const base=result?.sourceRegionSourceSurface??source?.surface;if(!base||base.width!==display.width||base.height!==display.height)throw new EngineError('CACHE_MISS','The original RITA image is unavailable.');return base;
  }
  async function prepareRitaProxy(display){
@@ -645,11 +756,12 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
   if(display.truforPalette)return truforPalettePixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
   if(display.biomePresentation)return biomePixels(display,rect);
   if(display.cloneView)return clonePixels(display,{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1});
-  if(sourceAliases.has(display.id)){if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(source)display=source.surface;}
+  if(sourceAliases.has(display.id)){if(!source&&sourceInput){await restoreCanonicalSource();}if(source)display=source.surface;}
   if(display.m2Result){const frame=await m2.renderWindow(display.m2Result,display.view,rect);try{const data=new Uint8Array(frame.bytes);for(let at=0;at<data.length;at+=m2.ready.windowBytes)data.set(await m2.readExport(frame.id,at,Math.min(m2.ready.windowBytes,data.length-at)),at);return {width:frame.width,height:frame.height,format:'rgb8',data};}finally{await m2.releaseExport(frame.id);}}
   if(display.pixels){const input=display.pixels,data=new Uint8Array(rect.width*rect.height*3);for(let y=0;y<rect.height;y++)data.set(input.data.subarray(((y+rect.y)*input.width+rect.x)*3,((y+rect.y)*input.width+rect.x+rect.width)*3),y*rect.width*3);return {width:rect.width,height:rect.height,format:'rgb8',data};}
   const input={surfaceId:display.id,revision:display.revision,rect};
   if(display.format==='rgb8')return (await engine.readPixels(input,hooks())).pixels;
+  if(display.format==='rgb16')return (await engine.readDisplay({surfaceId:display.id,revision:display.revision,tile:{x:rect.x,y:rect.y,w:rect.width,h:rect.height,step:1}},hooks())).pixels;
   const read=display.format==='mask8'?await engine.readMask(input,hooks()):display.format==='rgb-flags8'?await engine.readFlags(input,hooks()):await engine.readPlane(input,hooks());
   const plane=read.plane??read.mask??read.flags??read.pixels,values=plane.data;const data=new Uint8Array(rect.width*rect.height*3),[lo,hi]=display.range??[0,1];
   for(let i=0;i<rect.width*rect.height;i++){if(display.format==='rgb-flags8'){for(let c=0;c<3;c++)data[i*3+c]=values[i*3+c]?255:0;}else{const value=display.format==='mask8'?(values[i]?255:0):Math.max(0,Math.min(255,Math.round((values[i]-lo)/(hi-lo||1)*255)));data.fill(value,i*3,i*3+3);}}return {width:rect.width,height:rect.height,format:'rgb8',data};
@@ -686,23 +798,194 @@ export async function createToolClient({computeProfile='maximum',onProgress=()=>
    return transaction.then(async next=>{try{await retirement;}catch(error){if(!next)throw error;next.metrics={...next.metrics,retainedCleanup:{pending:true,code:error.code??'RETIREMENT_FAILED',message:error.message}};}return next;},async error=>{try{await retirement;}catch(cleanup){if(Object.isExtensible(error))error.cleanupErrors=[...(error.cleanupErrors??[]),cleanup];}throw error;});
   }
 const client={
+  get hasNativeParameterPresentations(){return !!nativeParameterFrames||!!nativeFrameOpening;},
+  [NATIVE_PREVIEW_PRESENTATIONS]:retireNativeParameterFrames,
   previewParameters,prepareParameterPreview,releasePreparedParameterPreview:()=>beforeQueuedParameterPreview(clearParameterPreview),acquirePreparationSource,acquireSourceRegionReader,
   updateRetainedParameters:updateRetained,cancelRetainedParameters(){retainedController?.abort();},
+  invalidateFinalDepthResults:reason=>finalDepthBank.invalidate(reason),finalDepthResultState:()=>finalDepthBank.snapshot(),
   deployment,get source(){return source;},get result(){return result;},capabilities:()=>enqueue(()=>engine.capabilities()),
+  readRawSensorHistogram(request,{signal}={}){
+   const original=source;
+   if(!original?.surface||original.id!==request?.imageId||original.sha256!==request.sourceSha256
+    ||original.surface.id!==request.surfaceId||original.surface.revision!==request.revision){
+    return Promise.reject(new EngineError('SOURCE_CHANGED','The raw sensor must be read from its canonical Original.'));
+   }
+   if(original.provenance?.rawSensorAvailableFromOriginal!==true
+    ||!['prepareSourceSamples','readSourceSamples','retireSourceSamples'].every(method=>typeof engine[method]==='function')){
+    return Promise.reject(new EngineError('SOURCE_SAMPLES_UNAVAILABLE','This Original has no qualified raw sensor reader.'));
+   }
+   const useOriginal=operation=>enqueue(()=>work(async()=>{
+    checkAbort(signal);
+    if(source!==original)throw new EngineError('SOURCE_CHANGED','The raw sensor Original changed.');
+    return operation(hooks());
+   },{signal}));
+   return readRawSensorHistogram({
+    prepareSourceSamples:value=>useOriginal(options=>engine.prepareSourceSamples(value,options)),
+    readSourceSamples:value=>useOriginal(options=>engine.readSourceSamples(value,options)),
+    // Retirement is the existing captured control lane. Waiting in the
+    // useful-work queue here could block an unload awaiting this exact ACK.
+    retireSourceSamples:receipt=>engine.retireSourceSamples(receipt),
+   },original,{signal,byFilter:request.byFilter===true,...(request.rect?{rect:request.rect}:{}),reserve:bytes=>useOriginal(async()=>{
+    const lease=await engine.reserveExternalMemory({bytes});
+    return ()=>enqueue(()=>engine.releaseExternalMemory(lease.id));
+   })});
+  },
+  // One Original peer, its existing SourceSamples service and a captured UI
+  // workspace. Useful reads queue normally; every retirement bypasses unload.
+  openRawSensorSamples(request,options={}){return client.openOriginalColorChannels(request,{...options,rawSensor:true});},
+  async openOriginalColorChannels(request,{signal,onOwner,onInvalidate=()=>{},beforeRetire=()=>{},rawSensor=false,representation=null}={}){
+   const original=source;
+   if(!original?.surface||original.id!==request?.imageId||original.sha256!==request.sourceSha256||original.width!==request.width||original.height!==request.height)throw new EngineError('SOURCE_CHANGED','Native channels need the canonical Original.');
+   if(typeof onOwner!=='function')throw new EngineError('INVALID_INPUT','A native-channel owner is required before admission.');
+   if(typeof rawSensor!=='boolean'||rawSensor&&original.provenance?.rawSensorAvailableFromOriginal!==true)throw new EngineError('SOURCE_SAMPLES_UNAVAILABLE','This Original has no preserved RAW sensor bank.');
+   if(representation!==null&&(rawSensor||representation.schema!=='sherloq.source-representation/1'||representation.kind!=='raw-demosaic-rgb'||![0,3,4].includes(representation.quality)||!['rgb16','sdr8'].includes(representation.view)||Object.keys(representation).sort().join(',')!=='kind,quality,schema,view'||original.provenance?.rawSensorAvailableFromOriginal!==true))throw new EngineError('INVALID_INPUT','Invalid captured RAW development representation.');
+   representation=representation?Object.freeze({...representation}):null;
+   const local=new AbortController(),bindingOriginal={imageId:original.id,sourceSurfaceId:original.surface.id,sourceRevision:original.surface.revision,sourceSha256:original.sha256,kind:'encoded'},tickets=new Set(),windows=new Map();
+   let sourceReceipt,budgetOwner,releaseBudget,capturedControl,seekWorkspace,closing=false,closed=false,peerLost=false,disposal,localDrain,localDrained=false;
+   const cancelled=()=>new EngineError('CANCELLED','The native-channel Original is closing.');
+   const current=()=>!closing&&!closed&&!disposed&&source===original&&!signal?.aborted;
+   const check=()=>{checkAbort(signal);checkAbort(local.signal);if(!current())throw new EngineError('SOURCE_CHANGED','The native-channel Original changed.');};
+   function cancelQueued(){for(const ticket of tickets)if(!ticket.started){tickets.delete(ticket);ticket.reject(cancelled());}local.abort();}
+   function invalidate(retiring){closing=true;peerLost||=retiring;cancelQueued();const ack=onInvalidate({retiring:peerLost});if(ack===false||ack===0||ack&&typeof ack.then==='function')throw new EngineError('BUSY','Native-channel reference invalidation was not acknowledged.');}
+   function drainLocal(){if(localDrained)return Promise.resolve();if(localDrain)return localDrain;const task=Promise.resolve().then(()=>beforeRetire({retiring:peerLost})).then(ack=>{if(ack===false||ack===0)throw new EngineError('BUSY','Native-channel consumers have not retired.');localDrained=true;});localDrain=task;void task.finally(()=>{if(localDrain===task)localDrain=null;}).catch(()=>{});return task;}
+   function schedule(operation,adopt){
+    if(!current())return Promise.reject(cancelled());let ticket;
+    const answer=new Promise((resolve,reject)=>{ticket={resolve,reject,started:false,done:null};tickets.add(ticket);});
+    // A not-yet-posted ticket can be cancelled without waiting behind unload.
+    const queued=enqueue(async()=>{if(!tickets.has(ticket))return;ticket.started=true;
+     // Ownership-bearing SourceSamples replies already posted must reach this
+     // owner before cancellation can reject visibility. No read buffer or
+     // prepared-source receipt is stranded behind an automatic cancel cleanup.
+     try{check();const value=await work(()=>operation({onProgress}),{signal:local.signal});adopt?.(value);check();ticket.resolve(value);}
+     catch(error){ticket.reject(error);}finally{tickets.delete(ticket);}
+    });ticket.done=queued;void queued.catch(error=>{tickets.delete(ticket);ticket.reject(error);});return answer;
+   }
+   // A RAW development has two view leases on one Core pair. The captured
+   // UI envelope and peer are shared; each receipt/window still retires by ID.
+   const defaultView=representation?.view??'default',views=new Map();
+   function stateFor(view){
+    if(view!==defaultView&&(!representation||!['rgb16','sdr8'].includes(view)))throw new EngineError('INVALID_INPUT','Invalid sibling RAW view.');
+    let state=views.get(view);if(!state){state={view,receipt:null,flight:null,retiring:false};views.set(view,state);}return state;
+   }
+   function checkView(state){check();if(state.retiring)throw cancelled();}
+   function validatePrepared(value,state){
+    if(!representation)return;
+    const d=value?.descriptor,depth=state.view==='rgb16'?16:8;
+    if(value.domain!=='decoded'||value.frame!==0||!value.sourceLeaseId||value.sourceId!==d?.id||value.revision!==d?.revision
+     ||!['imageId','sourceSurfaceId','sourceRevision','sourceSha256','kind'].every(key=>value.bindingOriginal?.[key]===bindingOriginal[key]&&d.bindingOriginal?.[key]===bindingOriginal[key])
+     ||d.format!=='native-samples'||d.domain!=='decoded'||d.sampleType!==(depth===16?'uint16':'uint8')||d.containerBits!==depth||d.channels!==3
+     ||d.width!==original.width||d.height!==original.height||d.sampleModel!==(depth===16?'raw-developed-rgb':'raw-developed-sdr-rgb')
+     ||d.sampleSemantics?.qualityRequested!==representation.quality||d.sampleSemantics.view!==state.view||d.sampleSemantics.developmentApplied!==true||d.sampleSemantics.originalBanksUnchanged!==true)
+     throw new EngineError('INVALID_INPUT','The RAW view receipt differs from its captured Original and recipe.');
+   }
+   function prepareView(view){
+    const state=stateFor(view);checkView(state);if(state.receipt)return Promise.resolve(state.receipt);if(state.flight)return state.flight;
+    const requested=representation?{...representation,view}:null;
+    const task=schedule(hooks=>{checkView(state);return engine.prepareSourceSamples({imageId:original.id,domain:rawSensor?'sensor':'decoded',frame:0,bindingOriginal,...(rawSensor?{}:{representation:requested??{schema:'sherloq.source-representation/1',kind:'original-color-channels'}})},hooks);},value=>{
+     // Adopt before validation/cancellation: even an invalid or late reply owns
+     // a real lease which must remain reachable until its retirement ACK.
+     state.receipt=value;if(view===defaultView)sourceReceipt=value;validatePrepared(value,state);
+    }).then(value=>{checkView(state);return value;});state.flight=task;void task.finally(()=>{if(state.flight===task)state.flight=null;}).catch(()=>{});return task;
+   }
+   function readView(view,rect,sampled=false){const state=stateFor(view);checkView(state);if(!state.receipt)return Promise.reject(new EngineError('INVALID_INPUT','Original channels have not been prepared.'));return schedule(hooks=>{checkView(state);return engine.readSourceSamples({...state.receipt,...(sampled?{tile:rect}:{rect})},hooks);},value=>{windows.set(value.windowLeaseId,value);checkView(state);});}
+   async function retireViewNow(state,beforeDrop){
+    state.retiring=true;await Promise.allSettled([...tickets].filter(t=>t.started).map(t=>t.done));
+    const dropped=await beforeDrop?.();if(dropped===false||dropped===0)throw new EngineError('BUSY','RAW view references have not been dropped.');
+    // Replies which arrived after the consumer drop
+    // after that drop are owned only by this ledger and cannot be published.
+    for(const[id,value]of windows)if(value.sourceLeaseId===state.receipt?.sourceLeaseId)await owner.retireWindow(id);
+    if(state.receipt){const ack=await engine.retireSourceSamples(state.receipt);if(ack===false||ack===0||ack?.retired!==true)throw new EngineError('BUSY','Original-channel Source retirement was not acknowledged.');if(state.receipt===sourceReceipt)sourceReceipt=null;state.receipt=null;}
+    views.delete(state.view);
+   }
+   function retireView(state,beforeDrop){if(state.retirement)return state.retirement;const task=retireViewNow(state,beforeDrop);state.retirement=task;void task.finally(()=>{if(state.retirement===task)state.retirement=null;}).catch(()=>{});return task;}
+   function sdrDisplay(){const state=views.get('sdr8'),display=state?.receipt?.descriptor?.displaySurface;checkView(state??{retiring:true});if(!representation||!display||display.format!=='rgb8'||display.width!==original.width||display.height!==original.height)throw new EngineError('INVALID_INPUT','A captured RAW SDR display lease is required.');return{state,display};}
+   const owner={
+    get closed(){return closed;},get unavailable(){return closing||peerLost;},get binding(){return bindingOriginal;},get sourceDescriptor(){return sourceReceipt?.descriptor??null;},
+    sourceDescriptorFor(view){return views.get(view)?.receipt?.descriptor??null;},isViewCurrent(view){const state=views.get(view);return current()&&!!state?.receipt&&!state.retiring;},
+    readDisplay(tile){const{state,display}=sdrDisplay();return schedule(hooks=>{checkView(state);return engine.readDisplay({surfaceId:display.id,revision:display.revision,tile},hooks);},()=>checkView(state));},
+    readRenderedPixels(rect){const{state,display}=sdrDisplay();return schedule(hooks=>{checkView(state);return engine.readPixels({surfaceId:display.id,revision:display.revision,rect},hooks);},()=>checkView(state));},
+    prepare(){return prepareView(defaultView);},prepareSibling(view){if(!representation)throw new EngineError('INVALID_INPUT','This consumer has no RAW sibling view.');return prepareView(view);},
+    releaseSibling(view,beforeDrop){if(!representation)throw new EngineError('INVALID_INPUT','This consumer has no RAW sibling view.');const state=views.get(view);return state?retireView(state,beforeDrop):Promise.resolve();},
+    reserveSeekWorkspace(bytes){return schedule(async()=>{if(seekWorkspace)throw new EngineError('BUSY','Native seek workspace already exists.');const lease=await capturedControl.reserveExternalMemory({bytes},{signal:local.signal});seekWorkspace=lease;return{...lease,engineBytes:bytes,release:()=>({transferredToCapturedConsumer:true})};});},
+    async releaseSeekWorkspace(){if(!seekWorkspace)return;await capturedControl.releaseExternalMemory(seekWorkspace.id);seekWorkspace=null;},
+    read(rect){return readView(defaultView,rect);},readSibling(view,rect){if(!representation)throw new EngineError('INVALID_INPUT','This consumer has no RAW sibling view.');return readView(view,rect);},
+    readSampled(tile){return readView(defaultView,tile,true);},readSampledSibling(view,tile){if(!representation)throw new EngineError('INVALID_INPUT','This consumer has no RAW sibling view.');return readView(view,tile,true);},
+    async retireWindow(id){const value=windows.get(id);if(!value)return;const ack=await engine.retireSourceSamples(value);if(ack===false||ack===0||ack?.retired!==true)throw new EngineError('BUSY','Native-channel window retirement was not acknowledged.');windows.delete(id);},
+    dispose(){if(closed)return Promise.resolve();if(disposal)return disposal;
+     const task=Promise.resolve().then(async()=>{invalidate(false);await drainLocal();await Promise.allSettled([...tickets].filter(t=>t.started).map(t=>t.done));for(const id of [...windows.keys()])await owner.retireWindow(id);
+      for(const state of [...views.values()])await retireView(state);
+      if(releaseBudget){await releaseBudget();releaseBudget=null;}else if(budgetOwner)await budgetOwner.dispose();
+      closed=true;signal?.removeEventListener('abort',abort);originalColorReaders.delete(owner);
+     }).catch(primary=>{throw withRetirementOwner(primary,owner,primary);});disposal=task;void task.finally(()=>{if(disposal===task)disposal=null;}).catch(()=>{});return task;
+    },
+    snapshot(){return{closed,closing,peerLost,windows:windows.size,source:!!sourceReceipt,views:[...views.values()].map(state=>({view:state.view,sourceLeaseId:state.receipt?.sourceLeaseId??null,retiring:state.retiring})),tickets:tickets.size,uiBytes:48*1024**2};},
+   };
+   const abort=()=>{try{invalidate(false);}catch{}void owner.dispose().catch(()=>{});};
+   originalColorReaders.add(owner);
+   try{
+    onOwner(owner);check();signal?.addEventListener('abort',abort,{once:true});
+    await enqueue(async()=>{
+     check();const factory=engine[CAPTURED_OWNERSHIP_CONTROL];if(typeof factory!=='function')throw new EngineError('CAPTURED_CONTROL_REQUIRED','The Original captured consumer control is unavailable.');
+     const binding={...bindingOriginal,nativeSurfaceId:original.nativeSurface?.id??null,nativeRevision:original.nativeSurface?.revision??null};delete binding.kind;
+     factory({purpose:'external-memory',binding,ownerId:'native-channels-'+crypto.randomUUID(),onOwner(value){
+      capturedControl=value;budgetOwner={dispose:async()=>{await capturedControl.dispose();if(capturedControl.snapshot().closed!==true)throw new EngineError('BUSY','Native-channel UI credit is not retired.');retainedHistogramOwners.delete(budgetOwner);}};retainedHistogramOwners.add(budgetOwner);releaseBudget=()=>budgetOwner.dispose();
+     },onPeerUnavailable(){invalidate(capturedControl.snapshot().retiring===true);if(!localDrained){void drainLocal().catch(()=>{});return false;}return true;}});
+     await capturedControl.reserveExternalMemory({bytes:48*1024**2},{signal:local.signal});check();
+    });
+    check();return owner;
+   }catch(primary){try{await owner.dispose();}catch(cleanup){throw withRetirementOwner(primary,owner,cleanup);}throw primary;}
+  },
+  acquireElaSourceLoan:request=>enqueue(async()=>{
+   if(!sameSourceBinding(sourceIdentity,{id:request?.imageId,sha256:request?.sourceSha256,width:request?.width,height:request?.height}))throw new EngineError('INVALID_INPUT','ELA source loan belongs to another canonical Original.');
+   const current=await restoreCanonicalSource();if(disposed)throw new EngineError('DISPOSED','The Original client closed during source loan admission.');if(!current?.surface||current.id!==request?.imageId||current.sha256!==request.sourceSha256||current.width!==request.width||current.height!==request.height)throw new EngineError('INVALID_INPUT','ELA source loan belongs to another canonical Original.');
+   const assertCurrent=()=>{if(disposed||source!==current||source.surface.id!==current.surface.id||source.surface.revision!==current.surface.revision)throw new EngineError('SOURCE_CHANGED','The canonical Original source loan is stale.');};
+   const channel=new MessageChannel(),descriptor={schema:ORIGINAL_SOURCE_LOAN_SCHEMA,purpose:'ela-original',loanId:crypto.randomUUID(),width:current.width,height:current.height,format:'rgb8',sha256:current.sha256,byteLength:sourceInput.blob.size,sourceSurfaceId:current.surface.id,sourceRevision:current.surface.revision,sourceRgbBytes:current.width*current.height*3,sourceNativeRgbBytes:current.nativeSurface?.format==='rgb16'?current.nativeSurface.width*current.nativeSurface.height*6:0,sourceFormat:current.sourceFormat??current.provenance?.sourceFormat??current.provenance?.format,provenance:structuredClone(current.provenance),file:structuredClone(current.file)};
+   const windowDebts=new Set(),windowDebtOwner={async dispose(){for(const debt of [...windowDebts])await debt.retire();}};
+   async function admitted(bytes,read){return enqueue(async()=>{
+    assertCurrent();for(const held of windowDebts)if(held.failed||held.flight)throw withRetirementOwner(new EngineError('RETIREMENT_PENDING','A previous Original read workspace still awaits retirement.'),windowDebtOwner,new EngineError('BUSY','Original workspace retirement is still pending.'));
+    const lease=await engine.reserveExternalMemory({bytes:bytes*2+65536});let published=false,failed=false,primary;const debt={retired:false,failed:false,flight:null,retire(){if(debt.retired)return Promise.resolve();if(debt.flight)return debt.flight;const task=Promise.resolve().then(()=>engine.releaseExternalMemory(lease.id)).then(ack=>{if(ack===false||ack===0)throw new EngineError('BUSY','Borrowed Original window retirement was not acknowledged.');debt.retired=true;windowDebts.delete(debt);return ack;}).catch(error=>{debt.failed=true;throw error;});debt.flight=task;void task.finally(()=>{if(debt.flight===task)debt.flight=null;}).catch(()=>{});return task;}};windowDebts.add(debt);
+    try{const output=await read();assertCurrent();const result={...output,release:()=>enqueue(()=>debt.retire())};published=true;return result;}
+    catch(error){failed=true;primary=error;throw error;}
+    finally{if(!published)try{await debt.retire();}catch(cleanup){throw withRetirementOwner(failed?primary:cleanup,windowDebtOwner,cleanup);}}
+   });}
+   let server;server=serveOriginalSourceLoan({descriptor,port:channel.port1,
+    readWindow:(rect,{signal}={})=>admitted(rect.width*rect.height*3,()=>engine.readPixels({surfaceId:current.surface.id,revision:current.surface.revision,rect},{signal})),
+    readSampledWindow:(tile,{signal}={})=>admitted(Math.ceil(tile.w/tile.step)*Math.ceil(tile.h/tile.step)*3,()=>engine.readDisplay({surfaceId:current.surface.id,revision:current.surface.revision,tile},{signal})),
+    readOriginal:(range,{signal}={})=>admitted(range.length,()=>engine.readOriginal(current.id,range,{signal})),dispose:()=>windowDebtOwner.dispose(),onClosed:()=>nativeSourceLoans.delete(server)});nativeSourceLoans.add(server);
+   let transferred=false;return{descriptor,port:channel.port2,markTransferred(){transferred=true;},dispose({childRetired=false}={}){if(transferred&&!server.closed&&!childRetired)return Promise.reject(new EngineError('BUSY','ELA Core must acknowledge retirement before its Original loan.'));return server.dispose();},get closed(){return server.closed;}};
+  }),
   reserveNativeWorkspace:request=>enqueue(async()=>{
-   if(!source||source.id!==request.imageId||source.sha256!==request.sourceSha256||source.width!==request.width||source.height!==request.height)throw new EngineError('INVALID_INPUT','Native workspace belongs to another Original.');
+   if(!sameSourceBinding(sourceIdentity,{id:request?.imageId,sha256:request?.sourceSha256,width:request?.width,height:request?.height}))throw new EngineError('INVALID_INPUT','Native workspace belongs to another Original.');
+   const original=await restoreCanonicalSource(),assertCurrent=()=>{if(disposed)throw new EngineError('DISPOSED','The Original client closed during workspace admission.');if(source!==original||!source||source.id!==request.imageId||source.sha256!==request.sourceSha256||source.width!==request.width||source.height!==request.height)throw new EngineError('SOURCE_CHANGED','Native workspace no longer belongs to its captured Original.');};assertCurrent();
    const {memory}=await engine.capabilities(),occupied=(memory.retainedBytes??0)+(memory.cacheBytes??0)+(memory.activeReservationBytes??0)+(memory.knownHeapCapacityBytes??0),available=memory.budgetBytes-occupied;
-   const selected=request.choices?.find(choice=>Number.isSafeInteger(choice.engineBytes)&&choice.engineBytes>0&&Number.isSafeInteger(choice.totalBytes)&&choice.totalBytes>=choice.engineBytes&&choice.totalBytes<=available);
+   assertCurrent();const selected=request.choices?.find(choice=>Number.isSafeInteger(choice.engineBytes)&&choice.engineBytes>0&&Number.isSafeInteger(choice.totalBytes)&&choice.totalBytes>=choice.engineBytes&&choice.totalBytes<=available);
    // Preflight includes live caches/known heaps: this optional child envelope
    // never evicts a useful parent preparation merely to obtain a larger ticket.
    if(!selected)throw new EngineError('MEMORY_LIMIT','The shared Original budget cannot finance this complete native ELA workspace.',{details:{availableBytes:available,requestedChoices:request.choices}});
    const lease=await engine.reserveExternalMemory({bytes:selected.totalBytes});nativeWorkspaceLoans.set(lease.id,lease);
    let released=false,retirement;
-   return{id:lease.id,bytes:lease.bytes,engineBytes:selected.engineBytes,release(){if(released)return Promise.resolve();if(retirement)return retirement;return retirement=Promise.resolve().then(()=>engine.releaseExternalMemory(lease.id)).then(ack=>{if(ack===false||ack===0)throw new EngineError('BUSY','Parent native workspace retirement was not acknowledged.');nativeWorkspaceLoans.delete(lease.id);released=true;return ack;}).finally(()=>{retirement=null;});}};
+   const grant={id:lease.id,bytes:lease.bytes,engineBytes:selected.engineBytes,release(){if(released)return Promise.resolve();if(retirement)return retirement;return retirement=Promise.resolve().then(()=>engine.releaseExternalMemory(lease.id)).then(ack=>{if(ack===false||ack===0)throw new EngineError('BUSY','Parent native workspace retirement was not acknowledged.');nativeWorkspaceLoans.delete(lease.id);released=true;return ack;}).finally(()=>{retirement=null;});}};
+   try{assertCurrent();}catch(primary){try{await grant.release();}catch(cleanup){throw withRetirementOwner(primary,grant,cleanup);}throw primary;}return grant;
   }),
+  reservePcaCloudPresentation(bytes,options){if(!Number.isSafeInteger(bytes)||bytes<1||bytes>48*1024**2)return Promise.reject(new EngineError('MEMORY_LIMIT','PCA presentation exceeds the existing48MiB UI envelope.'));return client.reserveRetainedHistogram(bytes,options);},
+  reserveRetainedHistogram(bytes,{onOwner,onPeerUnavailable}={}){
+   if(typeof onOwner!=='function'||typeof onPeerUnavailable!=='function')return Promise.reject(new EngineError('INVALID_INPUT','Captured histogram ownership callbacks are required.'));
+   return enqueue(async()=>{
+    if(disposed||!source?.surface)throw new EngineError('INVALID_INPUT','A loaded Original is required for retained histograms.');
+    const original=source,binding={imageId:original.id,sourceSurfaceId:original.surface.id,sourceRevision:original.surface.revision,sourceSha256:original.sha256,nativeSurfaceId:original.nativeSurface?.id??null,nativeRevision:original.nativeSurface?.revision??null},factory=engine[CAPTURED_OWNERSHIP_CONTROL];
+    if(typeof factory!=='function')throw new EngineError('CAPTURED_CONTROL_REQUIRED','The captured histogram control is unavailable.');
+    let control,owner,retirement;
+    const retire=()=>{if(retirement)return retirement;const task=Promise.resolve().then(()=>control.dispose()).then(()=>{if(control.snapshot().closed!==true)throw new EngineError('BUSY','Captured histogram retirement was not acknowledged.');retainedHistogramOwners.delete(owner);});retirement=task;void task.finally(()=>{if(retirement===task)retirement=null;}).catch(()=>{});return task;};
+    try{
+     factory({purpose:'external-memory',binding,ownerId:'histogram-'+crypto.randomUUID(),onOwner:adopted=>{control=adopted;owner={dispose:retire,snapshot:()=>control.snapshot()};retainedHistogramOwners.add(owner);return onOwner(owner);},onPeerUnavailable:()=>onPeerUnavailable({retiring:control.snapshot().retiring})});
+     if(source!==original||disposed)throw new EngineError('SOURCE_CHANGED','The histogram Original changed before admission.');
+     await control.reserveExternalMemory({bytes});return retire;
+    }catch(primary){if(control?.snapshot().closed)retainedHistogramOwners.delete(owner);if(primary?.imagesCleared)invalidated();throw primary;}
+   });
+  },
   reserveExport:async(bytes,display)=>{const owner=display?.m2Result?m2:engine;if(!owner)throw Error('No export source');const lease=await enqueue(()=>owner.reserveExternalMemory({bytes}));return()=>owner.releaseExternalMemory(lease.id);},
-  load:input=>{if(nativeWorkspaceLoans.size)return Promise.reject(new EngineError('BUSY','Native ELA owners must retire before replacing their Original.'));const previewDone=beforeQueuedParameterPreview(clearParameterPreview);return enqueue(()=>work(async()=>{if(nativeWorkspaceLoans.size)throw new EngineError('BUSY','Native ELA owners must retire before replacing their Original.');await previewDone;await drainRetainedPreviewWorkspaces();d2Analysis=null;await m2?.retirePendingNativeSources?.();await release();await closePreparationSources();if(source){const old=source;await engine.unload(old.id);source=null;}if(sourceInput&&(sourceInput.id!==input.id||sourceInput.blob!==input.blob))sourceAliases.clear();sourceInput=input;source=await engine.loadBlob({...input,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);return source;}));},
-  release:()=>{if(publicResultRetirement)return publicResultRetirement;const task=enqueue(release);publicResultRetirement=task;void task.finally(()=>{if(publicResultRetirement===task)publicResultRetirement=null;}).catch(()=>{});return task;},
+  load:input=>{if(nativeWorkspaceLoans.size||nativeSourceLoans.size)return Promise.reject(new EngineError('BUSY','Native ELA owners must retire before replacing their Original.'));const finalDepthRetirement=finalDepthBank.invalidate('source-change').retirement;const previewDone=beforeQueuedParameterPreview(clearParameterPreview);return enqueue(()=>work(async()=>{await finalDepthRetirement;if(nativeWorkspaceLoans.size||nativeSourceLoans.size)throw new EngineError('BUSY','Native ELA owners must retire before replacing their Original.');await closeOriginalColorReaders();await closeRetainedHistogramOwners();await previewDone;if(nativeParameterFrames||nativeFrameOpening)await retireNativeParameterFrames();await drainRetainedPreviewWorkspaces();d2Analysis=null;await m2?.retirePendingNativeSources?.();await release();await closePreparationSources();if(source){const old=source;await engine.unload(old.id);source=null;}if(sourceInput&&(sourceInput.id!==input.id||sourceInput.blob!==input.blob)){sourceAliases.clear();nativeSourceAliases.clear();}sourceInput=input;sourceIdentity=null;source=await engine.loadBlob({...input,layout:'segmented'},hooks());sourceIdentity={id:source.id,blob:input.blob,sha256:source.sha256,width:source.width,height:source.height};rememberSourceAliases(source);return source;}));},
+  release:()=>{if(publicResultRetirement)return publicResultRetirement;const finalDepthRetirement=finalDepthBank.invalidate('public-release').retirement;const task=enqueue(async()=>{await finalDepthRetirement;return release();});publicResultRetirement=task;void task.finally(()=>{if(publicResultRetirement===task)publicResultRetirement=null;}).catch(()=>{});return task;},
   detectSubimages:(options={})=>enqueue(()=>work(async()=>{
    await closePreparationSources({pendingOnly:true});if(!sourceInput?.blob)throw Object.assign(Error('Source not loaded'),{code:'INVALID_INPUT'});
    // The shipped detector has a full-memory API. Load an explicit temporary
@@ -726,21 +1009,30 @@ const client={
    }catch(error){failed=true;failure=error;throw error;}
    finally{if(opened)try{await temporaryOwner.close();}catch(cleanupError){if(failed){if(failure!==null&&(typeof failure==='object'||typeof failure==='function')&&Object.isExtensible(failure))try{failure.cleanupError=cleanupError;}catch{}}else throw cleanupError;}}
   },{signal:options.signal})),
-  run:(task,extras={},context={})=>{task={...task,backend:requestedBackend(task,extras,getAdaptivePreferenceStore())};let usefulObservation,usefulOperationObservation,usefulOwner,afterUseful=next=>next;const usefulOcr=task?.operation==='various.ocr'&&task.params?.algorithm==='tesseract'&&typeof engine.describeOcrUsefulWork==='function';const transactionalOcr=usefulOcr&&typeof context.onCoreResult==='function'&&typeof context.isCurrent==='function';const transactionalCore=stagedCoreOperation(task)&&coreResultContext(context);const completionClass=transactionalOcr||transactionalCore?'ui-core-transaction':'public-api-ack';const usefulNlm=task?.operation==='noise.separation'&&task.params?.mode===4&&typeof context.onCoreResult==='function'&&typeof context.isCurrent==='function';const previewDone=beforeQueuedParameterPreview(()=>['various.illuminant','noise.planes','colors.stats','detail.gradient','inspection.adjust','detail.echo','detail.frequency','noise.separation','noise.minmax','pixels.defects','detail.wavelets','noise.blocking'].includes(task.operation)?settleParameterPreview():clearParameterPreview());const requested=enqueue(()=>work(async()=>{
-   if(stagedCoreOperation(task)&&typeof context.onCoreResult==='function'&&!coreResultContext(context))throw new EngineError('INVALID_ARGUMENT','A synchronous core publication owner is required');
-   await previewDone;await drainRetainedPreviewWorkspaces();await closePreparationSources({pendingOnly:true});if(usefulNlm||transactionalOcr||operationAdaptive)await retainedRetirement.drain();if(transactionalOcr&&result?.operation==='various.ocr')await retireOcrAuxiliary();localFeaturePolicy.assertTaskAvailable(task);task=await sourceRegionTask(task,extras,{signal:controller?.signal});
+  run:(task,extras={},context={})=>{task={...task,backend:requestedBackend(task,extras,getAdaptivePreferenceStore())};delete task.native16PreviewIntent;if(task.operation==='detail.gradient'||(['noise.separation','inspection.adjust','detail.echo','noise.blocking'].includes(task.operation)||task.operation==='colors.pca'&&native16CompositeEqualizationPlan(task.operation,task.params)?.kind==='post')&&(task.workingDepth??source?.workingDepth)===16&&native16ParameterProxyAdmitted(task.operation,task.params,source?.precisionCapabilities,task.sourceRegionDomain?sourceRegionDomainShape(task.sourceRegionDomain):'identity'))task.native16PreviewIntent=task.backend??'auto';let usefulObservation,usefulOperationObservation,usefulOwner,afterUseful=next=>next;const usefulOcr=task?.operation==='various.ocr'&&task.params?.algorithm==='tesseract'&&typeof engine.describeOcrUsefulWork==='function';const transactionalOcr=usefulOcr&&typeof context.onCoreResult==='function'&&typeof context.isCurrent==='function';const finalDepthOpt=finalDepthBank.eligible(task,context),finalDepthGeneration=finalDepthBank.generation,finalDepthRetirementCheckpoint=finalDepthOpt?finalDepthBank.retirementCheckpoint():null;let finalDepthRestoration,finalDepthRequestedTask;const transactionalCore=(stagedCoreOperation(task)||finalDepthOpt)&&coreResultContext(context);const publicCore=ordinaryCancellableCoreOperation(task)&&!transactionalCore;const completionClass=transactionalOcr||transactionalCore?'ui-core-transaction':'public-api-ack';const usefulNlm=task?.operation==='noise.separation'&&task.params?.mode===4&&typeof context.onCoreResult==='function'&&typeof context.isCurrent==='function';const previewDone=context.restoreDepthOnly===true&&finalDepthOpt?Promise.resolve():beforeQueuedParameterPreview(()=>['ela.bitrate','various.illuminant','noise.planes','colors.stats','detail.gradient','inspection.adjust','detail.echo','detail.frequency','noise.separation','noise.minmax','pixels.defects','detail.wavelets','noise.blocking'].includes(task.operation)||(task.operation==='colors.space'&&(task.workingDepth??source?.workingDepth)===16&&native16ParameterProxyAdmitted(task.operation,task.params,source?.precisionCapabilities,task.sourceRegionDomain?sourceRegionDomainShape(task.sourceRegionDomain):'identity'))||(task.operation==='colors.pca'&&(task.workingDepth??source?.workingDepth)===16&&native16CompositeEqualizationPlan(task.operation,task.params)?.kind==='post'&&native16ParameterProxyAdmitted(task.operation,task.params,source?.precisionCapabilities,task.sourceRegionDomain?sourceRegionDomainShape(task.sourceRegionDomain):'identity'))?settleParameterPreview():clearParameterPreview());const requested=enqueue(()=>work(async()=>{
+   if(finalDepthOpt&&!coreResultContext(context)||stagedCoreOperation(task)&&(!ordinaryCancellableCoreOperation(task)||task.operation==='inspection.adjust'&&task.params?.equalization?.method==='sherloq7c')&&typeof context.onCoreResult==='function'&&!coreResultContext(context))throw new EngineError('INVALID_ARGUMENT','A synchronous core publication owner is required');
+   if(context.restoreDepthOnly===true&&!finalDepthOpt)return null;await previewDone;await drainRetainedPreviewWorkspaces();await closePreparationSources({pendingOnly:true});if(usefulNlm||transactionalOcr||operationAdaptive)await retainedRetirement.drain();if(transactionalOcr&&result?.operation==='various.ocr')await retireOcrAuxiliary();localFeaturePolicy.assertTaskAvailable(task);task=await sourceRegionTask(task,extras,{signal:controller?.signal});if(finalDepthOpt){task=snapshotFinalDepthTask(task);finalDepthRequestedTask=snapshotFinalDepthTask(task);
+    if(coreResultRetirement)throw new EngineError('RETIREMENT_PENDING','The previous core result is still retiring');await retainedRetirement.drain();
+    finalDepthRestoration=await finalDepthBank.beforeRun(finalDepthRequestedTask,{...context,signal:controller?.signal},finalDepthGeneration,finalDepthRetirementCheckpoint);
+    if(finalDepthRestoration){const next=finalDepthRestoration.answer,previous=result,currentSource=source,current=()=>!disposed&&!controller?.signal.aborted&&source===currentSource&&result===previous&&context.isCurrent()===true&&finalDepthRestoration.current();let accepted=false,failed=false,primary;
+     try{if(!current())return null;if(await context.onCoreResult(next,{previous,task,isCurrent:current})!==true||!current())return null;finalDepthRestoration.accept();result=next;accepted=true;if(previous&&previous!==next){retainedRetirement.track(previous);try{await retainedRetirement.retire(previous);}catch(cleanup){Object.assign(next.metrics??={},{retainedCleanup:{pending:true,code:cleanup?.code??'RETIREMENT_FAILED',message:String(cleanup?.message??cleanup)}});}}return next;}
+     catch(error){failed=true;primary=error;throw error;}
+     finally{if(!accepted)try{await finalDepthRestoration.abandon();}catch(cleanup){if(!failed)throw cleanup;try{if(Object.isExtensible(primary))primary.cleanupErrors=[...(primary.cleanupErrors??[]),cleanup];}catch{}}}
+    }
+    if(context.restoreDepthOnly===true||!context.isCurrent()||finalDepthGeneration!==finalDepthBank.generation||controller?.signal.aborted)return null;
+   }
    if(humanNlmRecompute(task)&&(!(context.humanRecompute===true&&typeof context.onCoreResult==='function'&&typeof context.isCurrent==='function')||!['native-regions','membership'].includes(sourceRegionDomainShape(task.sourceRegionDomain))))throw new EngineError('RECOMPUTE_UNAVAILABLE','Explicit backend recomputation currently requires a current transactional NLM source-region result.');
    // Comparable work begins after this lane and its source/domain snapshot are admitted.
    // Previous display/preview/queue retirement is not CPU/GPU execution cost.
    if(usefulNlm&&nlmAdaptive){try{usefulObservation=await nlmAdaptive.prepare(task,{sha256:source?.sha256,width:source?.surface?.width,height:source?.surface?.height},{signal:controller?.signal});task=usefulObservation.task;}catch{/* Optional observation cannot reject the requested analysis. */}checkAbort(controller?.signal);if(!context.isCurrent())return null;if(usefulObservation?.decision.blocked)throw new EngineError('BACKEND_NOT_ADMITTED','The requested NLM backend is not admitted by the current capability or numerical contract.');}
-   const genericEligible=!usefulOcr&&(!usefulNlm||!['native-regions','membership'].includes(usefulNlmDomains.get(task.sourceRegionDomain)?.domain?.shape));
+   const genericEligible=!finalDepthRestoration&&!usefulOcr&&(!usefulNlm||!['native-regions','membership'].includes(usefulNlmDomains.get(task.sourceRegionDomain)?.domain?.shape));
    if(genericEligible&&operationAdaptive){const actualSource=source,startedAt=performance.now();try{const described=usefulTaskInputs(task,extras,{median,quality,reference,mask,prnu,source:actualSource});let owner;
      if(task.operation.startsWith('m2.')){const method=task.operation.slice(3);let configuration=usefulM2Configurations.get(method);if(!configuration){configuration=await m2ToolConfiguration(method);usefulM2Configurations.set(method,configuration);}const caps=await engine.capabilities(),memory=caps.memory,existing=m2Method===method?m2:null,limit=existing?.ready?.memory?.budgetBytes??Math.max(32*1024**2,Math.min(m2MemoryBudgetBytes,memory.budgetBytes-memory.retainedBytes-memory.cacheBytes-memory.knownHeapCapacityBytes-64*1024**2));owner=externalUsefulOwner(task,{version:caps.version,profile:existing?.ready?.profile??caps.resourceProfile,budget:{limit},cpuKernel:'auto',image:{...actualSource,width:actualSource.surface.width,height:actualSource.surface.height,segmented:true},m2Configuration:configuration});if(owner&&!existing)owner={...owner,performanceIdentityComplete:false};}
      else owner=typeof engine.describeUsefulOperation==='function'?await engine.describeUsefulOperation({task:described,imageId:actualSource?.id},hooks()):null;
      usefulOwner=owner;
      if(task.operation.startsWith('m2.'))afterUseful=(next,m2Owner=m2)=>{if(!next||source!==actualSource)return next;next={...next,provenance:{...next.provenance,originalSha256:actualSource.sha256}};const seenLimit=next.metrics?.memory?.budgetBytes,actualProfile=m2Owner?.ready?.profile,actualOwner={...usefulOwner,...(seenLimit?{budgetBytes:seenLimit}:{}),...(actualProfile?{profile:actualProfile.id,threads:Math.min(32,actualProfile.maxWorkers)}:{})},evidence=externalUsefulEvidence(actualOwner,next);return evidence?{...next,metrics:{...next.metrics,usefulWork:evidence}}:next;};
      else if(['metadata.structure','metadata.location'].includes(task.operation))afterUseful=next=>{if(!next||!usefulOwner)return next;const evidence=nativeUsefulEvidence(usefulOwner,next);return evidence?{...next,metrics:{...next.metrics,usefulWork:evidence}}:next;};usefulOperationObservation=await operationAdaptive.prepareWithOwner(task,{sha256:actualSource?.sha256,width:actualSource?.surface?.width,height:actualSource?.surface?.height,identityVerified:!!sourceInput?.blob&&actualSource?.provenance?.decoder!=='caller'},{method:backendMethod(task.operation,task.params,extras),completionClass,owner,signal:controller?.signal,startedAt,isCurrent:()=>source===actualSource&&!disposed});task=usefulOperationObservation.task;}catch{/* Optional identity cannot reject actual work. */}checkAbort(controller?.signal);if(usefulOperationObservation?.decision.blocked)throw new EngineError('BACKEND_NOT_ADMITTED','The requested backend is not admitted by the actual numerical/resource owner.');}
-   const executeCore=async()=>{let next;
+   const executeCore=async()=>{let next;if(finalDepthRestoration)return finalDepthRestoration.answer;
    await configure(task.operation,task.params);const params={...task.params};let prnuPreparedNow=false;
    if(task.operation==='comparison.image'){if(!extras.reference)throw Error('Choisissez une image de référence.');if(reference?.blob!==extras.reference){if(reference){const old=reference;await engine.unload(old.id);reference=null;}const id='reference-'+crypto.randomUUID();const descriptor=await engine.loadBlob({id,blob:extras.reference,layout:'segmented'},hooks());reference={id,blob:extras.reference,surface:descriptor.surface};}params.referenceImageId=reference.id;}
    if(task.operation==='noise.prnu'){
@@ -797,20 +1089,22 @@ const client={
      return result;
     }catch(error){if(!committed){const failures=[];try{await staged?.retire();}catch(e){failures.push(e);}if(ownsCandidate){if(error&&typeof error==='object')retiredM2Failures.add(error);try{await candidate?.dispose();}catch(e){failures.push(e);}}if(failures.length&&Object.isExtensible(error))error.cleanupErrors=failures;}throw error;}
    }
-   if(transactionalCore){
-    if(typeof context.isCurrent!=='function')throw new EngineError('INVALID_ARGUMENT','A synchronous core publication owner is required');
+   if(publicCore)await release();
+   if(transactionalCore||publicCore){
+    if(transactionalCore&&typeof context.isCurrent!=='function')throw new EngineError('INVALID_ARGUMENT','A synchronous core publication owner is required');
     if(coreResultRetirement)throw new EngineError('RETIREMENT_PENDING','The previous core result is still retiring');
-    await retainedRetirement.drain();const previous=result,currentSource=source,current=()=>!disposed&&!controller?.signal.aborted&&source===currentSource&&result===previous&&context.isCurrent()===true;let next,accepted=false,failed=false,primary;
+    await retainedRetirement.drain();const previous=result,currentSource=source,current=()=>!disposed&&!controller?.signal.aborted&&source===currentSource&&result===previous&&(!transactionalCore||context.isCurrent()===true);let next,accepted=false,failed=false,primary;
     try{
-     if(!current())return null;next=afterUseful(await executeCore());checkAbort(controller?.signal);
-     if(!current()||await context.onCoreResult(next,{previous,task,isCurrent:current})!==true||!current())return null;
+     if(!current()||finalDepthRestoration&&!finalDepthRestoration.current()){if(publicCore)throw new EngineError('CANCELLED','The ordinary result owner changed.');return null;}next=afterUseful(await executeCore());checkAbort(controller?.signal);const finalDepthCandidate=finalDepthOpt&&!finalDepthRestoration?finalDepthBank.createCandidate(finalDepthRequestedTask,next,{...context,signal:controller?.signal},finalDepthGeneration):null;
+     if(publicCore&&!current())throw new EngineError('CANCELLED','The ordinary result owner changed.');
+     if(transactionalCore&&(!current()||await context.onCoreResult(next,{previous,task,isCurrent:current})!==true||!current()))return null;
      // UI domain validation and adoption have both ACKed. No await separates
      // that admission from the scientific owner swap. Old handles retire later.
-     result=next;accepted=true;
+     if(finalDepthRestoration)finalDepthRestoration.accept();result=next;accepted=true;if(finalDepthOpt&&!finalDepthRestoration)finalDepthBank.adoptCandidate(finalDepthCandidate,next,{...context,signal:controller?.signal},finalDepthGeneration);
      if(previous&&previous!==next){retainedRetirement.track(previous);try{await retainedRetirement.retire(previous);}catch(cleanup){Object.assign(next.metrics??={}, {retainedCleanup:{pending:true,code:cleanup?.code??'RETIREMENT_FAILED',message:String(cleanup?.message??cleanup)}});}}
      return next;
     }catch(error){failed=true;primary=error;throw error;}
-    finally{if(next&&!accepted){retainedRetirement.track(next);try{await retainedRetirement.retire(next);}catch(cleanup){if(!failed)throw cleanup;try{if(Object.isExtensible(primary))primary.cleanupErrors=[...(primary.cleanupErrors??[]),cleanup];}catch{}}}}
+    finally{if(next&&!accepted)try{if(finalDepthRestoration)await finalDepthRestoration.abandon();else{retainedRetirement.track(next);await retainedRetirement.retire(next);}}catch(cleanup){if(!failed)throw cleanup;try{if(Object.isExtensible(primary))primary.cleanupErrors=[...(primary.cleanupErrors??[]),cleanup];}catch{}}}
    }
    if(!transactionalOcr)await release();
    // Auxiliary images/databases belong to their tool; the original and evictable
@@ -827,7 +1121,7 @@ const client={
     result=extensionSourcePresentation(result);return result;
    }
    if(task.operation==='various.ocr'){
-    const ocrStartedAt=performance.now(),ocrSource=source,ocrCurrent=typeof context.isCurrent==='function'?context.isCurrent:()=>!disposed&&source===ocrSource;const configuration=await (await import('./ocr-models.js?v=0.33.1')).ocrConfiguration({algorithm:task.params?.algorithm});let input={...task,imageId:source.id,backend:task.backend??'auto'};
+    const ocrStartedAt=performance.now(),ocrSource=source,ocrCurrent=typeof context.isCurrent==='function'?context.isCurrent:()=>!disposed&&source===ocrSource;const configuration=await (await import('./ocr-models.js?v=0.33.2')).ocrConfiguration({algorithm:task.params?.algorithm});let input={...task,imageId:source.id,backend:task.backend??'auto'};
     if(usefulOcr&&operationAdaptive&&typeof engine.describeOcrUsefulWork==='function'){
      await engine.loadOcrModels(configuration,hooks());checkAbort(controller?.signal);const owner=await engine.describeOcrUsefulWork(input.params,hooks());
      try{usefulOperationObservation=await operationAdaptive.prepareWithOwner(input,{sha256:source?.sha256,width:source?.surface?.width,height:source?.surface?.height},{method:'tesseract',completionClass,owner,startedAt:ocrStartedAt,signal:controller?.signal,isCurrent:ocrCurrent});input=usefulOperationObservation.task;}catch{}
@@ -854,7 +1148,7 @@ const client={
    }
    result=afterUseful(await executeCore());return result;
   }));if(usefulNlm)void requested.then(()=>usefulObservation?.complete(requested),()=>usefulObservation?.complete(requested)).catch(()=>{});void requested.then(()=>usefulOperationObservation?.complete(requested),()=>usefulOperationObservation?.complete(requested)).catch(()=>{});return requested;},
-  readTable:(table,offset=0,length=128)=>enqueue(()=>engine.readTable({tableId:table.id,revision:table.revision,offset,length},hooks())),
+  readTable:(table,offset=0,length=128,options={})=>enqueue(()=>engine.readTable({tableId:table.id,revision:table.revision,offset,length,...(options.displayColors===true?{displayColors:true}:{})},hooks())),
   // Batch decisions read scientific values, never colours from a rendered map.
   readScalar:(descriptor,rect,field,options={})=>enqueue(async()=>{
    if((['m2.trufor','m2.trufor-mini','m2.rita'].includes(result?.operation)&&result.data?.metadata?.fragmented)||(result?.operation==='jpeg.comprint'&&result.metrics?.sourceRegionPolicy==='native-comprint-contexts-global-statistics'))return readNativeContextScalar({result,source,rect,field,expected:descriptor,signal:options.signal,windowBytes:m2?.ready?.windowBytes,readArray:(...args)=>m2.readArray(...args),readPlane:async(d,rect)=>(await engine.readPlane({surfaceId:d.id,revision:d.revision,rect},hooks())).plane.data});
@@ -905,6 +1199,16 @@ const client={
   planDisplayPreview:display=>enqueue(()=>displayPreviewPlan(display)),
   prepareDisplayPreview:display=>enqueue(async()=>{const bounded=await displayPreviewPlan(display);await(bounded.ritaPresentation?prepareRitaProxy(bounded):prepareResponseProxy(bounded));}),
   readWindow:(display,rect)=>enqueue(()=>pixels(display,rect)),
+  readNativePixels:(display,rect,{signal}={})=>enqueue(()=>work(async()=>{
+   checkAbort(signal);if(display?.format!=='rgb16'||display.depth!==16||typeof display.id!=='string'||!Number.isSafeInteger(display.revision)||![display.width,display.height].every(v=>Number.isSafeInteger(v)&&v>0)||!rect||![rect.x,rect.y,rect.width,rect.height].every(Number.isSafeInteger)||rect.x<0||rect.y<0||rect.width<=0||rect.height<=0||rect.x>display.width-rect.width||rect.y>display.height-rect.height)throw new EngineError('INVALID_INPUT','An exact native16 source window is required.');
+   const native=await nativeReadSurface(display);
+   const answer=await engine.readNativePixels({surfaceId:native.id,revision:native.revision,rect},hooks());checkAbort(signal);const p=answer?.pixels;if(p?.format!=='rgb16'||p.depth!==16||p.width!==rect.width||p.height!==rect.height||!(p.data instanceof Uint16Array)||p.data.length!==rect.width*rect.height*3)throw new EngineError('INVALID_INPUT','Native16 pixels differ from the requested exact RGB grid.');return p;
+  },{signal})),
+  readNativeSampledPixels:(display,tile,{signal}={})=>enqueue(()=>work(async()=>{
+   checkAbort(signal);if(display?.format!=='rgb16'||display.depth!==16||typeof display.id!=='string'||!Number.isSafeInteger(display.revision)||![display.width,display.height].every(v=>Number.isSafeInteger(v)&&v>0)||!tile||![tile.x,tile.y,tile.w,tile.h,tile.step].every(Number.isSafeInteger)||tile.x<0||tile.y<0||tile.w<=0||tile.h<=0||tile.step<=0||tile.x>display.width-tile.w||tile.y>display.height-tile.h)throw new EngineError('INVALID_INPUT','A bounded native16 sampled window is required.');
+   const grid=displayGeometry(display,tile),native=await nativeReadSurface(display);
+   const answer=await engine.readNativePixels({surfaceId:native.id,revision:native.revision,tile},hooks());checkAbort(signal);const p=answer?.pixels,width=grid.width,height=grid.height;if(p?.format!=='rgb16'||p.depth!==16||p.width!==width||p.height!==height||!(p.data instanceof Uint16Array)||p.data.length!==width*height*3||answer.origin?.[0]!==tile.x||answer.origin?.[1]!==tile.y||answer.samplingStep!==tile.step||answer.logicalRect?.x!==tile.x||answer.logicalRect?.y!==tile.y||answer.logicalRect?.width!==tile.w||answer.logicalRect?.height!==tile.h)throw new EngineError('INVALID_INPUT','Native16 pixels differ from the requested sampled RGB grid.');return{...p,origin:{x:tile.x,y:tile.y},samplingStep:tile.step,logicalRect:{...answer.logicalRect}};
+  },{signal})),
   readTile:(display,tile,displayRead)=>enqueue(async()=>{
    const assertCurrent=()=>{if(displayRead?.isCurrent&&displayRead.isCurrent()!==true)throw new EngineError('CANCELLED','Obsolete display read.');};assertCurrent();const read=async()=>{
    if(display.retainedParameterView)return retainedPixels(display,tile);
@@ -914,7 +1218,7 @@ const client={
    if(display.truforPalette)return truforPalettePixels(display,tile);
    if(display.biomePresentation)return biomePixels(display,tile,true);
    if(display.cloneView)return clonePixels(display,tile,{assertCurrent});
-   if(sourceAliases.has(display.id)){if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(source)display=source.surface;}
+   if(sourceAliases.has(display.id)){if(!source&&sourceInput){await restoreCanonicalSource();}if(source)display=source.surface;}
    if(display.m2Result)return (await m2.readDisplay(display.m2Result,display.view,tile)).pixels;
    if(display.pixels){const frame=await samplePixels({...display.pixels,format:'rgb8'},tile);try{return frame.pixels;}finally{frame.release();}}
    return (await engine.readDisplay({surfaceId:display.id,revision:display.revision,tile,render:display.format==='rgb8'?undefined:{range:display.range??[0,1]}},hooks())).pixels;
@@ -924,7 +1228,7 @@ const client={
    if(selected?.responsePreview)throw new EngineError('INVALID_INPUT','A transient preview cannot be exported.');
    // Resolve only aliases retained for this Original source, as display reads
    // do after shared-worker invalidation. Result handles keep their own owner.
-   if(sourceAliases.has(selected?.id)){if(!source&&sourceInput){source=await engine.loadBlob({...sourceInput,layout:'segmented'},hooks());sourceAliases.add(source.surface.id);}if(source)selected=source.surface;}
+   if(sourceAliases.has(selected?.id)){if(!source&&sourceInput){await restoreCanonicalSource();}if(source)selected=source.surface;}
     const scope=exportSinkScopeFor(client);await scope.retryFailed();const exportOwner=scope.begin();
     watchParameterExportRetirement(exportOwner,source,result);
     try{
@@ -946,7 +1250,7 @@ const client={
    }catch(error){return exportOwner.fail(error);}
   })),
   cancel(){controller?.abort();retainedController?.abort();},
-  dispose(){if(disposal)return disposal;disposed=true;controller?.abort();retainedController?.abort();const previewDone=beforeQueuedParameterPreview(clearParameterPreview);const task=queue.then(async()=>{await previewDone;await Promise.allSettled([...retainedPreviews]);const failures=[];for(const action of[()=>retainedRetirement.drain(),()=>clearResponseProxy(),()=>clearRitaProxy(),()=>clearGhostSurfacePreview(),async()=>{await drainRetainedPreviewWorkspaces();await m2?.dispose();await closePreparationSources();await cloneWindowPresenter.dispose();if(nativeWorkspaceLoans.size)throw new EngineError('BUSY','Native ELA owners must retire before their Original budget.');await engine.dispose();}])try{await action();}catch(error){failures.push(error);}if(failures.length){const primary=failures[0];if(failures.length>1&&Object.isExtensible(primary))try{primary.cleanupErrors=failures.slice(1);}catch{}throw primary;}});disposal=task;void task.catch(()=>{if(disposal===task)disposal=null;});return task;}
+  dispose(){if(disposal)return disposal;if(nativeSourceLoans.size)return Promise.reject(new EngineError('BUSY','Borrowed ELA sources must retire before their Original.'));const finalDepthRetirementCheckpoint=finalDepthBank.retirementCheckpoint();finalDepthBank.revoke();disposed=true;controller?.abort();retainedController?.abort();const previewDone=beforeQueuedParameterPreview(clearParameterPreview);const task=queue.then(async()=>{await closeOriginalColorReaders();await closeRetainedHistogramOwners();await previewDone;await finalDepthBank.drain(finalDepthRetirementCheckpoint);await Promise.allSettled([...retainedPreviews]);const failures=[];for(const action of[()=>retainedRetirement.drain(),()=>clearResponseProxy(),()=>clearRitaProxy(),()=>clearGhostSurfacePreview(),async()=>{await drainRetainedPreviewWorkspaces();await m2?.dispose();await closePreparationSources();await cloneWindowPresenter.dispose();if(nativeWorkspaceLoans.size)throw new EngineError('BUSY','Native ELA owners must retire before their Original budget.');if(nativeParameterFrames||nativeFrameOpening)await retireNativeParameterFrames();await engine.dispose();}])try{await action();}catch(error){failures.push(error);}if(failures.length){const primary=failures[0];if(failures.length>1&&Object.isExtensible(primary))try{primary.cleanupErrors=failures.slice(1);}catch{}throw primary;}});disposal=task;void task.catch(()=>{if(disposal===task)disposal=null;});return task;}
  };
  return client;
 }

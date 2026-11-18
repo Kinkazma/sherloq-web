@@ -1,4 +1,5 @@
 export default {
+  "ela.bitrate":{"params":{"removed":1},"exports":["json"]},
   "ai.generation.detect":{"params":{"method":"dda"},"exports":["json"]},
   "ai.generation.dda":{"params":{"method":"dda"},"exports":["json"]},
   "ai.generation.prl":{"params":{"method":"prl"},"exports":["json"]},

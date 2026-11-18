@@ -1,0 +1,68 @@
+{
+  "schema": "sherloq.echo-typed-native/1",
+  "compiler": "Emscripten 4.0.15",
+  "optimizations": 5,
+  "arithmetic": "-O3 -ffp-contract=off; existing8 order unchanged; exact Int32 small native16 derivatives; existing ordered float32/FMA for large kernels",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "entryPoints": {
+    "depth8": [
+      "echo_derivatives",
+      "echo_render"
+    ],
+    "depth16": [
+      "echo_derivatives16",
+      "echo_render16"
+    ]
+  },
+  "types": {
+    "sampleBytes": {
+      "8": 1,
+      "16": 2
+    },
+    "rawBytesPerChannel": 4,
+    "rawPixelBytes": 12,
+    "outputPixelBytes": 3,
+    "native16Small": {
+      "radius": [
+        1,
+        4
+      ],
+      "rawKind": "int32",
+      "normalization": "global per-channel Float64, then RGB8 nearest-even/contrast/gray"
+    },
+    "native16Large": {
+      "radius": [
+        5,
+        15
+      ],
+      "rawKind": "float32",
+      "normalization": "existing global Float32/FMA; image-population branch below8 preserved"
+    }
+  },
+  "files": {
+    "native/echo.cpp": {
+      "bytes": 3790,
+      "sha256": "a5b4c41b8f59807d558111bba5982f53043d4038de58ed019ad0533e1a6d57c8"
+    },
+    "native/echo-native16.cpp": {
+      "bytes": 5707,
+      "sha256": "08fcb7954756b8818257434a7e6c616c30f5aff3b821c946a92d978f4a92440e"
+    },
+    "scripts/build-echo-native16.sh": {
+      "bytes": 2361,
+      "sha256": "8aa3a819e6bc4ccedfc49c7ea151e8a1e61db663e7c21d0b88c47307fc31ab6b"
+    },
+    "vendor/echo/echo-native16.js": {
+      "bytes": 10641,
+      "sha256": "fffa3280128af9374d681e32a9c3084da2452eedd40f5009d080b769e425f31a"
+    },
+    "vendor/echo/echo-native16.wasm": {
+      "bytes": 24155,
+      "sha256": "6659b5dcbbd351f1356aa5801dffd6a2dc60eabfb61b70cb8e349bf6e2476ca9"
+    }
+  }
+}

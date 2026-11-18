@@ -209,6 +209,20 @@ test('Low-sample highlighting uses clipped native dimensions and the exact 255 v
 
 function nativeFixture(rect,{space='CMYK',depth=8,values=[5,45,105,205]}={}){const channels={CMYK:4,RGB:3,GRAY:1}[space],data=depth===16?new Uint16Array(rect.width*rect.height*channels):new Uint8Array(rect.width*rect.height*channels);for(let i=0;i<data.length;i++)data[i]=values[i%channels];return{width:rect.width,height:rect.height,format:space.toLowerCase()+depth,space,depth,channels,data};}
 function nativeOwner({width=80,height=70,space='CMYK',depth=8,values=[5,45,105,205],dispose=()=>{}}={}){const calls=[];return{width,height,calls,capability:{sourceSha256:'a'.repeat(64),sourceFormat:'jpeg',width,height,space,depth,channels:{CMYK:['C','M','Y','K'],RGB:['R','G','B'],GRAY:['Gray']}[space],range:[0,2**depth-1],iccApplied:false},async readPixels(rect){calls.push({...rect});return nativeFixture(rect,{space,depth,values});},dispose};}
+
+test('Histogram labels distinguish native precision from developed, converted and promoted RGB without rereading pixels',async()=>{
+ const cases=[
+  {sampleRole:'decoded',codedDepth:10,codedSampleType:'unsigned-integer',fr:'RVB natifs superposés',en:'Native RGB overlay',native:true},
+  {sampleRole:'developed',codedDepth:32,codedSampleType:'unknown',fr:'RVB développé · superposition',en:'Developed RGB overlay'},
+  {sampleRole:'color-converted',codedDepth:16,codedSampleType:'unsigned-integer',fr:'RVB converti · superposition',en:'Converted RGB overlay'},
+  {sampleRole:'decoded',codedDepth:8,codedSampleType:'unsigned-integer',fr:'RVB de calcul · superposition',en:'Processing RGB overlay'},
+  {sampleRole:'unknown',codedDepth:null,codedSampleType:'unknown',fr:'RVB de calcul · superposition',en:'Processing RGB overlay'},
+ ];
+ for(const c of cases){const reader=nativeOwner({space:'RGB',depth:16,values:[50000,12345,257]});Object.assign(reader.capability,c);const h=environment({width:80,height:70,stored:{size:4},getNativeSource:async()=>reader});try{
+  h.controller.sync();await h.finish();await h.tick();await h.finish();assert.equal(h.input('local-histogram-curves').options[0].textContent,c.fr);const info=h.panel().querySelector('.local-histogram-info');assert.equal(/bits natifs/.test(info.textContent),!!c.native);assert.deepEqual(JSON.parse(h.panel().dataset.means),[50000,12345,257]);
+  const reads=reader.calls.length,computed=h.controller.snapshot().computed,means=h.panel().dataset.means;h.setLanguage('en');h.controller.sync();await h.finish();assert.equal(h.input('local-histogram-curves').options[0].textContent,c.en);assert.equal(/bits native/.test(info.textContent),!!c.native);assert.equal(reader.calls.length,reads);assert.equal(h.controller.snapshot().computed,computed);assert.equal(h.panel().dataset.means,means);
+ }finally{await h.close();}}
+});
 const nativeWhole=async source=>source.capability?computeNativeChannelHistogram(await source.readPixels({x:0,y:0,width:source.width,height:source.height})):computeLocalChannelHistogram(pixels({x:0,y:0,width:source.width,height:source.height}));
 
 test('The actual default region is 16 by 16 and exactly 256 samples has no red warning',async()=>{
@@ -224,7 +238,7 @@ test('CMYK source pixels, means and four ink curves have their own cache, includ
 });
 test('Native 16-bit plots preserve all scientific bins and values while only grouping their screen trace',async()=>{
  const reader=nativeOwner({space:'CMYK',depth:16,values:[65535,32768,257,0]}),h=environment({width:80,height:70,stored:{size:4},getNativeSource:async()=>reader,readWholeHistogram:nativeWhole});try{
-  h.controller.sync();await h.finish();await h.tick();await h.finish();assert.equal(h.panel().dataset.space,'CMYK');assert.equal(h.panel().dataset.depth,'16');assert.deepEqual(JSON.parse(h.panel().dataset.pixel),[65535,32768,257,0]);assert.deepEqual(JSON.parse(h.panel().dataset.means),[65535,32768,257,0]);const canvas=h.panel().querySelector('canvas'),context=canvas.getContext('2d');assert.equal(context.strokes.length,5);assert.equal(context.strokes[1].lines.length,720);assert.ok(context.texts.some(value=>value[0]==='65535'));assert.match(canvas.title,/65536 classes natives/);
+  h.controller.sync();await h.finish();await h.tick();await h.finish();assert.equal(h.panel().dataset.space,'CMYK');assert.equal(h.panel().dataset.depth,'16');assert.deepEqual(JSON.parse(h.panel().dataset.pixel),[65535,32768,257,0]);assert.deepEqual(JSON.parse(h.panel().dataset.means),[65535,32768,257,0]);const canvas=h.panel().querySelector('canvas'),context=canvas.getContext('2d');assert.equal(context.strokes.length,5);assert.equal(context.strokes[1].lines.length,720);assert.ok(context.texts.some(value=>value[0]==='65535'));assert.match(canvas.title,/65536 classes de la vue 16 bits/);
   const details=h.panel().querySelector('details');details.open=true;details.ontoggle();const mean=details.querySelector('[data-stat="mean"]');assert.deepEqual([...mean.children].slice(1).map(e=>e.textContent),['65 535','32 768','257','0']);h.setParams({start:128,end:255});h.controller.refresh();await h.finish();assert.equal(h.panel().dataset.count,'16');assert.equal(details.querySelector('[data-stat="start"]').children[1].textContent,'32 896');assert.equal(details.querySelector('[data-stat="count"]').children[3].textContent,'0','Yellow 257 does not fall into the projected 16-bit interval');
   h.input('local-histogram-curves').value='gray';h.input('local-histogram-curves').onchange();assert.equal(h.panel().dataset.space,'RGB');assert.equal(h.panel().dataset.depth,'8');assert.equal(h.panel().dataset.channel,'3');assert.deepEqual(JSON.parse(h.panel().dataset.pixel),[65535,32768,257,0]);
  }finally{await h.close();}

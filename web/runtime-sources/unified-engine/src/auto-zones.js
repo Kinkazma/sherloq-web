@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 // Native core/auto_zones.py panel detector. Integer RGB input; BGR palette order.
 import {requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {parameters} from './pixel-utils.js';
@@ -30,7 +30,7 @@ export async function detectPanels(image,{signal,onProgress,account=()=>{}}={}){
  onProgress?.(.1);
  const mask=new Uint8Array(n),scratch=new Uint8Array(n),queue=new Int32Array(n),proposals=[];
  const median=(hist,count)=>{const lo=Math.floor((count-1)/2),hi=Math.floor(count/2);let total=0,a=-1;for(let v=0;v<256;v++){total+=hist[v];if(a<0&&total>lo)a=v;if(total>hi)return Math.floor((a+v)/2);}throw Error('Missing sample median');};
- const near=(p,color)=>Math.max(Math.abs(data[p]-color[0]),Math.abs(data[p+1]-color[1]),Math.abs(data[p+2]-color[2]))<=14;
+ const near=(p,color)=>{const r=data[p]-color[0];if(r<-14||r>14)return false;const g=data[p+1]-color[1];if(g<-14||g>14)return false;const b=data[p+2]-color[2];return b>=-14&&b<=14;};
  async function close(){
   for(let y=0;y<h;y++){for(let x=0;x<w;x++){const i=y*w+x;scratch[i]=mask[i]|(x?mask[i-1]:0)|(x+1<w?mask[i+1]:0);}await yieldWork();}
   for(let y=0;y<h;y++){for(let x=0;x<w;x++){const i=y*w+x;mask[i]=scratch[i]|(y?scratch[i-w]:0)|(y+1<h?scratch[i+w]:0);}await yieldWork();}
@@ -59,8 +59,8 @@ export async function detectPanels(image,{signal,onProgress,account=()=>{}}={}){
    }
    const bw=x1-x0+1,bh=y1-y0+1,area=bw*bh;
    if(bw<Math.max(24,w*.012)||bh<Math.max(16,h*.012)||area<n*.0005||area>n*.95||tail/area<.82)continue;
-   const borders=[await border(x0,Math.max(0,y0-2),x0+bw,y0,color),await border(x0,y0+bh,x0+bw,Math.min(h,y0+bh+2),color),await border(Math.max(0,x0-2),y0,x0,y0+bh,color),await border(x0+bw,y0,Math.min(w,x0+bw+2),y0+bh,color)];
-   if(Math.min(...borders)>=.65){account(2048);proposals.push([x0,y0,bw,bh,tail/area]);}
+   checkAbort(signal);const accepted=(await border(x0,Math.max(0,y0-2),x0+bw,y0,color))>=.65&&(await border(x0,y0+bh,x0+bw,Math.min(h,y0+bh+2),color))>=.65&&(await border(Math.max(0,x0-2),y0,x0,y0+bh,color))>=.65&&(await border(x0+bw,y0,Math.min(w,x0+bw+2),y0+bh,color))>=.65;checkAbort(signal);
+   if(accepted){account(2048);proposals.push([x0,y0,bw,bh,tail/area]);}
    await yieldWork();
   }
   onProgress?.(.1+.8*(ci+1)/palette.length);

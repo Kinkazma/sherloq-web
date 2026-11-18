@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdarg.h>
 static TIFF *tif;static uint64_t source_size,position;static uint32_t width,height,bw,bh,ow,oh;
-static uint16_t samples,planar,orientation,photometric;static unsigned char *raw;static uint16_t *rgb;static int tiled,failure;
+static uint16_t samples,planar,orientation,photometric,output_samples;static unsigned char *raw;static uint16_t *rgb,*map_r,*map_g,*map_b;static int tiled,failure;
 EM_ASYNC_JS(int,encoded_tiff16_read,(unsigned char* target,unsigned length,unsigned low,unsigned high),{
  try{await Module['readEncoded'](target,length,high*4294967296+low);return 1;}catch(error){Module['readFailure']=error;return 0;}
 });
@@ -23,12 +23,13 @@ int tiff16_open(double length,unsigned limit){
  TIFFOpenOptionsSetMaxSingleMemAlloc(o,limit);TIFFOpenOptionsSetErrorHandlerExtR(o,error_handler,NULL);TIFFOpenOptionsSetWarningHandlerExtR(o,warning_handler,NULL);
  tif=TIFFClientOpenExt("original-rgb16","r",NULL,read_input,write_input,seek_input,close_input,size_input,NULL,NULL,o);TIFFOpenOptionsFree(o);if(!tif)return 0;
  uint16_t bits,kind;TIFFGetFieldDefaulted(tif,TIFFTAG_BITSPERSAMPLE,&bits);TIFFGetFieldDefaulted(tif,TIFFTAG_SAMPLESPERPIXEL,&samples);TIFFGetFieldDefaulted(tif,TIFFTAG_PHOTOMETRIC,&photometric);TIFFGetFieldDefaulted(tif,TIFFTAG_SAMPLEFORMAT,&kind);TIFFGetFieldDefaulted(tif,TIFFTAG_PLANARCONFIG,&planar);TIFFGetFieldDefaulted(tif,TIFFTAG_ORIENTATION,&orientation);
- if(bits!=16||!((photometric==PHOTOMETRIC_RGB&&samples==3)||((photometric==PHOTOMETRIC_MINISBLACK||photometric==PHOTOMETRIC_MINISWHITE)&&samples==1))||kind!=SAMPLEFORMAT_UINT||(planar!=PLANARCONFIG_CONTIG&&planar!=PLANARCONFIG_SEPARATE)||orientation<1||orientation>8)return 0;
+ if(bits!=16||!((photometric==PHOTOMETRIC_RGB&&(samples==3||samples==4))||(photometric==PHOTOMETRIC_SEPARATED&&samples==4)||((photometric==PHOTOMETRIC_MINISBLACK||photometric==PHOTOMETRIC_MINISWHITE)&&(samples==1||samples==2))||(photometric==PHOTOMETRIC_PALETTE&&samples==1))||kind!=SAMPLEFORMAT_UINT||(planar!=PLANARCONFIG_CONTIG&&planar!=PLANARCONFIG_SEPARATE)||orientation<1||orientation>8)return 0;
+ output_samples=photometric==PHOTOMETRIC_SEPARATED?4:3;if(photometric==PHOTOMETRIC_PALETTE&&!TIFFGetField(tif,TIFFTAG_COLORMAP,&map_r,&map_g,&map_b))return 0;
  if(!TIFFGetField(tif,TIFFTAG_IMAGEWIDTH,&width)||!TIFFGetField(tif,TIFFTAG_IMAGELENGTH,&height)||!width||!height||width>65500||height>65500)return 0;
  tiled=TIFFIsTiled(tif);if(tiled){if(!TIFFGetField(tif,TIFFTAG_TILEWIDTH,&bw)||!TIFFGetField(tif,TIFFTAG_TILELENGTH,&bh))return 0;}else{bw=width;TIFFGetFieldDefaulted(tif,TIFFTAG_ROWSPERSTRIP,&bh);if(bh>height)bh=height;}
  uint64_t pixels=(uint64_t)bw*bh,raw_size=tiled?TIFFTileSize64(tif):TIFFStripSize64(tif);
- if(!bw||!bh||pixels>limit/6||raw_size>limit)return 0;
- raw=malloc((size_t)raw_size);rgb=malloc((size_t)pixels*6);if(!raw||!rgb){failure=2;return 0;}return 1;
+ if(!bw||!bh||pixels>limit/(output_samples*2)||raw_size>limit)return 0;
+ raw=malloc((size_t)raw_size);rgb=malloc((size_t)pixels*output_samples*2);if(!raw||!rgb){failure=2;return 0;}return 1;
 }
 int tiff16_block(unsigned x,unsigned y){
  if(!tif||x>=width||y>=height||x%bw||y%bh)return 0;ow=width-x<bw?width-x:bw;oh=height-y<bh?height-y:bh;
@@ -38,10 +39,12 @@ int tiff16_block(unsigned x,unsigned y){
   if((uint64_t)n<(uint64_t)stride*oh*2)return 0;
   const uint16_t* in=(const uint16_t*)raw;
   for(unsigned row=0;row<oh;row++)for(unsigned col=0;col<ow;col++){
-   if(samples==1){const uint16_t v=photometric==PHOTOMETRIC_MINISWHITE?65535-in[row*stride+col]:in[row*stride+col];for(unsigned k=0;k<3;k++)rgb[(row*ow+col)*3+k]=v;}
-   else if(planar==PLANARCONFIG_SEPARATE)rgb[(row*ow+col)*3+c]=in[row*stride+col];
-   else for(unsigned k=0;k<3;k++)rgb[(row*ow+col)*3+k]=in[row*stride+col*3+k];
+   if(photometric==PHOTOMETRIC_PALETTE){const unsigned index=in[row*stride+col];rgb[(row*ow+col)*3]=map_r[index];rgb[(row*ow+col)*3+1]=map_g[index];rgb[(row*ow+col)*3+2]=map_b[index];}
+   else if(photometric==PHOTOMETRIC_MINISBLACK||photometric==PHOTOMETRIC_MINISWHITE){if(planar==PLANARCONFIG_CONTIG||c==0){const uint16_t code=in[row*stride+col*(planar==PLANARCONFIG_CONTIG?samples:1)],v=photometric==PHOTOMETRIC_MINISWHITE?65535-code:code;for(unsigned k=0;k<3;k++)rgb[(row*ow+col)*3+k]=v;}}
+   else if(planar==PLANARCONFIG_SEPARATE){if(c<output_samples)rgb[(row*ow+col)*output_samples+c]=in[row*stride+col];}
+   else for(unsigned k=0;k<output_samples;k++)rgb[(row*ow+col)*output_samples+k]=in[row*stride+col*samples+k];
   }
  }return 1;
 }
 unsigned tiff16_width(void){return width;}unsigned tiff16_height(void){return height;}unsigned tiff16_block_width(void){return bw;}unsigned tiff16_block_height(void){return bh;}unsigned tiff16_out_width(void){return ow;}unsigned tiff16_out_height(void){return oh;}unsigned tiff16_orientation(void){return orientation;}uint16_t* tiff16_data(void){return rgb;}int tiff16_error(void){return failure;}
+unsigned tiff16_channels(void){return output_samples;}

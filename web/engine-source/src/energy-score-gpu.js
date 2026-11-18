@@ -9,7 +9,16 @@ import {createEnergyScorePolicy} from './energy-score-policy.js';
 import {nativeEnergyScores} from './energy-score-native.js';
 
 const MiB=1024**2,MINIMUM_LOG_BITS=973078528,MAXIMUM_LOG_BITS=1157627904;
+// Extent of the unchanged generated corrections and bucket index. This is
+// checked against the actual lookup before any GPU buffer is constructed.
+const SCORE_LOOKUP_BYTES=21726*4+(((MAXIMUM_LOG_BITS-MINIMUM_LOG_BITS)>>>16)+2)*4;
 const f=Math.fround;
+export function energyScoreGpuAdmissionCosts(panelCount,{pipelineBytes=4*MiB}={}){
+ requireValue(Number.isSafeInteger(panelCount)&&panelCount>=0&&Number.isSafeInteger(pipelineBytes)&&pipelineBytes>=0,'Valid Energy score admission dimensions required.');
+ if(!panelCount)return{pipelineBytes:0,metadataBytes:0,centerBytes:0,tableBytes:SCORE_LOOKUP_BYTES,minimumBandPixels:0,minimumWorkspaceBytes:0,minimumBytes:0};
+ const centerBytes=panelCount*16,metadataBytes=panelCount*128+256*1024,minimumWorkspaceBytes=96+2*MiB+2*centerBytes+2*SCORE_LOOKUP_BYTES;
+ return{pipelineBytes,metadataBytes,centerBytes,tableBytes:SCORE_LOOKUP_BYTES,minimumBandPixels:1,minimumWorkspaceBytes,minimumBytes:pipelineBytes+metadataBytes+minimumWorkspaceBytes};
+}
 export function energyScoreGpuPlan(count,centerBytes,tableBytes,{available,limits}={}){
  requireValue(Number.isSafeInteger(count)&&count>0&&count<2**31&&Number.isSafeInteger(centerBytes)&&centerBytes>0&&Number.isSafeInteger(tableBytes)&&tableBytes>=0,'Valid native energy score dimensions required.');
  const overhead=2*MiB+centerBytes*2+tableBytes*2;
@@ -20,6 +29,7 @@ export function energyScoreGpuPlan(count,centerBytes,tableBytes,{available,limit
 
 export class EnergyScoreGpu{
  constructor(budget){initializeGpuOwner(this,budget,'ela-energy-score');this.program=null;this.singleProgram=null;this.policy=null;this.policyFree=null;}
+ admissionCosts(planeCount,panelCount){requireValue([1,3].includes(planeCount),'A native Energy plane count is required.');const reusable=this[planeCount===1?'singleProgram':'program']&&!this.retirementNeeded&&!this.pending?.size;return energyScoreGpuAdmissionCosts(panelCount,{pipelineBytes:reusable?0:4*MiB});}
  selectBackend(count,requested='webgpu'){
   requireValue(['cpu','webgpu','auto'].includes(requested),'Unknown native energy score backend.');
   if(this.closed)throw new EngineError('DISPOSED','Energy score GPU closed.');
@@ -78,7 +88,7 @@ export class EnergyScoreGpu{
     for(let q=0;q<planeCount;q++)centerFloats[i*4+q+1]=values[q];
    }
    const data=energyLogData(),words=new Uint32Array(data.buffer,data.byteOffset,data.byteLength/4),buckets=new Uint32Array(((MAXIMUM_LOG_BITS-MINIMUM_LOG_BITS)>>>16)+2);let at=0;
-   requireValue(words.byteLength+buckets.byteLength<=256*1024,'Qualified energy logarithm metadata exceeds its funded bound.');
+   requireValue(words.byteLength+buckets.byteLength===SCORE_LOOKUP_BYTES&&SCORE_LOOKUP_BYTES<=256*1024,'Qualified energy logarithm metadata exceeds its funded bound.');
    for(let i=0;i<buckets.length;i++){const key=MINIMUM_LOG_BITS+i*65536;while(at<words.length&&words[at]<key)at+=2;buckets[i]=at;}
    const plan=energyScoreGpuPlan(count,centers.byteLength,words.byteLength+buckets.byteLength,{available:this.budget.limit-this.budget.total(),limits:device.limits});
    if(!plan)throw this.failure(new EngineError('GPU_LIMIT','No energy score band fits the shared GPU budget.'));record.workspace=this.reserve(plan.workspaceBytes);

@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {StrictDenseCopyEngine} from './dense-strict-copy.js';
 import {createCompiledStrictDenseSource} from './dense-strict-source.js';
 import {requireValue,checkAbort} from './errors.js';

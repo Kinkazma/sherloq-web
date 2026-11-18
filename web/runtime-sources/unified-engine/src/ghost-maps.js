@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {validateRecompressionOptions} from './recompression-plan.js';
 import {parameters} from './pixel-utils.js';import {jpegBlockError} from './jpeg-block-error.js';import {checkpoint,requireValue} from './errors.js';import {GHOST_PALETTES} from './ghost-palettes.js';
 import {getGhostJpegService,consumeGhostGpuResult} from './ghost-jpeg-service.js';

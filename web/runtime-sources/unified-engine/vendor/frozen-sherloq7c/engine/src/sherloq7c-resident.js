@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 import {createSherloq7CResident} from './sherloq7c-resident-engine.js';
 import {createResidentMemoryPolicy,createResidentRgb16} from './sherloq7c-resident-memory.js';
 import {createResidentPng16} from './sherloq7c-resident-png-source.js';

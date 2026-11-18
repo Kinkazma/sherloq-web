@@ -1,4 +1,5 @@
 import {IMAGE_FORMATS} from './image-format-registry.js';
+import {requireValue} from './errors.js';
 // Decode only image coders. No filenames, URLs, documents or delegate commands
 // are accepted by the extended codec bridge.
 const ascii=(b,a,n)=>String.fromCharCode(...b.subarray(a,a+n));
@@ -23,6 +24,19 @@ function tgaHeader(bytes){
  const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);return v.getUint16(12,true)>0&&v.getUint16(14,true)>0&&18+bytes[0]<bytes.length;
 }
 
+// Standalone DIB is an announced BMP-family input. Its bounded structural
+// header identifies it; decoding stays with Magick's DIB coder and the exact
+// original bytes. A leading integer alone is never enough to claim this type.
+export function dibImageHeader(bytes){
+ if(!(bytes instanceof Uint8Array)||bytes.length<12)return null;const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength),size=v.getUint32(0,true);if(![12,40,52,56,64,108,124].includes(size)||size>bytes.length)return null;
+ const core=size===12,width=core?v.getUint16(4,true):v.getInt32(4,true),signedHeight=core?v.getUint16(6,true):v.getInt32(8,true),height=Math.abs(signedHeight),planes=v.getUint16(core?8:12,true),depth=v.getUint16(core?10:14,true),compression=core?0:v.getUint32(16,true),colors=core?0:v.getUint32(32,true);
+ if(width<1||height<1||planes!==1||![0,1,4,8,16,24,32].includes(depth)||!Number.isSafeInteger(width*height*4)||compression>6||core&&![1,4,8,24].includes(depth)||depth===0&&![4,5].includes(compression)||signedHeight<0&&![0,3,6].includes(compression))return null;
+ if(size!==64&&(compression===1&&depth!==8||compression===2&&depth!==4||[3,6].includes(compression)&&![16,32].includes(depth)))return null;
+ if(depth<=8&&colors>2**depth)return null;const palette=depth>0&&depth<=8?(colors||2**depth)*(core?3:4):colors*4,masks=size===40&&[3,6].includes(compression)?(compression===6?16:12):0;
+ if(!Number.isSafeInteger(size+palette+masks)||size+palette+masks>=bytes.length)return null;
+ return{width,height,depth,compression,headerSize:size};
+}
+
 export const isCameraRaw=name=>/\.(dng|cr2|cr3|nef|arw|orf|rw2|raf|pef)$/i.test(String(name??''));
 export function extendedImageFormat(bytes,name=''){
  const s=ascii(bytes,0,12),ext=String(name).split('.').pop().toLowerCase();
@@ -34,7 +48,7 @@ export function extendedImageFormat(bytes,name=''){
  if(bytes[0]===0&&bytes[1]===0&&bytes[2]===1&&bytes[3]===0)return 'ICO';
  if(/^P[1-7]\s/.test(s))return 'PNM';if(bytes[0]===255&&bytes[1]===10||s.slice(4,8)==='JXL ')return 'JXL';
  if(s.startsWith('qoif'))return 'QOI';if(s.startsWith('farbfeld'))return 'FARBFELD';
- if(bytes[0]===118&&bytes[1]===47&&bytes[2]===49&&bytes[3]===1)return 'EXR';if(pcxHeader(bytes))return 'PCX';
+ if(bytes[0]===118&&bytes[1]===47&&bytes[2]===49&&bytes[3]===1)return 'EXR';if(pcxHeader(bytes))return 'PCX';if(dibImageHeader(bytes))return 'DIB';
  if(['dng','cr2','cr3','nef','arw','orf','rw2','raf','pef'].includes(ext))return ext.toUpperCase();
  const legacy=legacyImageFormat(bytes);if(legacy)return legacy==='jpeg'?'JPEG':legacy.toUpperCase();
  if(ext==='tga'||tgaHeader(bytes))return 'TGA';return null;
@@ -42,22 +56,36 @@ export function extendedImageFormat(bytes,name=''){
 export function sourceImageFormat(bytes,name=''){
  const legacy=legacyImageFormat(bytes);if(legacy&&legacy!=='tiff')return legacy;
  const format=extendedImageFormat(bytes,name);if(!format)return null;
+ if(format==='DIB')return 'bmp';
  if(format==='PNM'){if(/^P[36]\s/.test(ascii(bytes,0,3)))return 'ppm';if(/^P7\s/.test(ascii(bytes,0,3)))return 'pam';}
  return format.toLowerCase();
 }
-export function isoChroma(bytes){
+// A mounted input can skip payloads and inspect their next chunk header without
+// materializing the entire encoded file. ByteArray callers still use subarrays.
+function mediaChunkReader(bytes,source){
+ const scratch=source?new Uint8Array(8):null;
+ return (offset,count)=>{
+  if(!source||offset+count<=bytes.length)return bytes.subarray(offset,offset+count);
+  const chunk=scratch.subarray(0,count);
+  requireValue(source.readInto(chunk,offset)===count,'Incomplete encoded chunk header.');
+  return chunk;
+ };
+}
+export function isoChroma(bytes,source){
  // Only accept a single consistent codec sampling declaration. Multiple images
  // with different sampling remain unknown and use the explicit 4:2:2 fallback.
- const values=new Set();const scan=(start,end,depth)=>{if(depth>8)return;for(let at=start;at+8<=end;){let size=new DataView(bytes.buffer,bytes.byteOffset+at,4).getUint32(0),header=8;const tag=ascii(bytes,at+4,4);if(size===1){if(at+16>end)return;size=Number(new DataView(bytes.buffer,bytes.byteOffset+at+8,8).getBigUint64(0));header=16;}if(size===0)size=end-at;if(!Number.isSafeInteger(size)||size<header||at+size>end)return;const body=at+header;
-  if(tag==='av1C'&&size>=header+4){const bits=bytes[body+2];if(!(bits&16))values.add(bits&8?bits&4?'420':'422':'444');}
-  if(tag==='hvcC'&&size>=header+17){const value=bytes[body+16]&3;if(value)values.add(['','420','422','444'][value]);}
+ const read=mediaChunkReader(bytes,source),view=chunk=>new DataView(chunk.buffer,chunk.byteOffset,chunk.byteLength);
+ const values=new Set();const scan=(start,end,depth)=>{if(depth>8)return;for(let at=start;at+8<=end;){const chunk=read(at,8);let size=view(chunk).getUint32(0),header=8;const tag=ascii(chunk,4,4);if(size===1){if(at+16>end)return;size=Number(view(read(at+8,8)).getBigUint64(0));header=16;}if(size===0)size=end-at;if(!Number.isSafeInteger(size)||size<header||at+size>end)return;const body=at+header;
+  if(tag==='av1C'&&size>=header+4){const bits=read(body+2,1)[0];if(!(bits&16))values.add(bits&8?bits&4?'420':'422':'444');}
+  if(tag==='hvcC'&&size>=header+17){const value=read(body+16,1)[0]&3;if(value)values.add(['','420','422','444'][value]);}
   if(['meta','iprp','ipco'].includes(tag))scan(body+(tag==='meta'?4:0),at+size,depth+1);at+=size;
- }};scan(0,bytes.length,0);return values.size===1?[...values][0]:null;
+ }};scan(0,source?.byteLength??bytes.length,0);return values.size===1?[...values][0]:null;
 }
-export function webpChroma(bytes){
+export function webpChroma(bytes,source){
  // VP8X may precede ICC/alpha and the actual image bitstream.
  if(ascii(bytes,0,4)!=='RIFF'||ascii(bytes,8,4)!=='WEBP')return null;
- for(let at=12;at+8<=bytes.length;){const tag=ascii(bytes,at,4),size=new DataView(bytes.buffer,bytes.byteOffset+at+4,4).getUint32(0,true);
-  if(size>bytes.length-at-8)return null;if(tag==='VP8L')return '444';if(tag==='VP8 ')return '420';at+=8+size+(size&1);
+ const length=source?.byteLength??bytes.length,read=mediaChunkReader(bytes,source);
+ for(let at=12;at+8<=length;){const chunk=read(at,8),tag=ascii(chunk,0,4),size=new DataView(chunk.buffer,chunk.byteOffset+4,4).getUint32(0,true);
+  if(size>length-at-8)return null;if(tag==='VP8L')return '444';if(tag==='VP8 ')return '420';at+=8+size+(size&1);
  }return null;
 }

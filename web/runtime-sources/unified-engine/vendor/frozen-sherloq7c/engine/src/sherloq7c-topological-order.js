@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 /** Stable explicit-memory order of positive source levels. No native .sort. */
 export async function projectionTopologicalOrder(levels,options={}) {
   const n=levels.length,order=new Uint32Array(n);let histogram=new Uint32Array(65537),native=true,channel=null,pending=null,work=0;

@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 // Histogram100 RGB8 packed kernels; identical to the qualified private batched prototype.
 const PARAMS = `struct Parameters {
   width:u32, height:u32, pixels:u32, histogramGroups:u32,

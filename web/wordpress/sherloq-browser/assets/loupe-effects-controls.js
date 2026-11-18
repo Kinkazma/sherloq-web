@@ -1,7 +1,7 @@
-import {mountEqualizationMenu,readEqualization,writeEqualization} from './equalization-menu.js?v=0.33.1';
-import {bindAutomaticRange} from './hover-sliders.js?v=0.33.1';
-import {bindSliderReset} from './slider-reset.js?v=0.33.1';
-import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js?v=0.33.1';
+import {mountEqualizationMenu,readEqualization,writeEqualization} from './equalization-menu.js?v=0.33.2';
+import {bindAutomaticRange} from './hover-sliders.js?v=0.33.2';
+import {bindSliderReset} from './slider-reset.js?v=0.33.2';
+import {effectDefaults,validateLoupeEffects} from './loupe-effects-settings.js?v=0.33.2';
 const groups={adjust:['Réglages globaux','Global adjustments'],enhance:['Loupe améliorée','Enhanced magnifier'],sweep:['Balayage de niveau','Level sweep']};
 const fields={
  adjust:[['brightness','Luminosité','Brightness',-255,255],['saturation','Saturation','Saturation',-255,255],['hue','Teinte','Hue',0,180],['gamma','Gamma × 10','Gamma × 10',1,50],['shadows','Ombres','Shadows',-100,100],['highlights','Hautes lumières','Highlights',-100,100],['sweep','Niveau','Level',0,255],['width','Largeur de niveau','Level width',0,255],['sharpen','Netteté','Sharpening',0,100],['threshold','Seuil · 0 = auto','Threshold · 0 = auto',0,255],['equalize','Égalisation','Equalization',['Sans','Histogramme','CLAHE 1','CLAHE 2','CLAHE 3','CLAHE 4'],['None','Histogram','CLAHE 1','CLAHE 2','CLAHE 3','CLAHE 4']],['invert','Inverser','Invert']],
@@ -13,7 +13,7 @@ export function mountLoupeEffectControls(parent,{getPreferences,setPreferences,l
  for(const [group,names]of Object.entries(groups)){
   const section=node('details'),summary=node('summary'),label=node('label'),enable=node('input'),title=node('span'),grid=node('div');section.className='loupe-effect';section.dataset.effectGroup=group;grid.className='loupe-effect-grid';enable.type='checkbox';enable.dataset.effect=group+'.enabled';label.append(enable,title);summary.append(label);section.append(summary,grid);parent.append(section);section.addEventListener('focusin',()=>activeGroup=group);section.addEventListener('pointerdown',()=>activeGroup=group);
   // The checkbox changes the effect, the rest of the summary folds its controls.
-  enable.addEventListener('click',e=>e.stopPropagation());enable.onchange=()=>{const p=getPreferences();section.open=enable.checked;setPreferences({...p,loupe:{...p.loupe,effects:validateLoupeEffects({...p.loupe.effects,[group]:{...p.loupe.effects[group],enabled:enable.checked}})}});};
+  enable.addEventListener('click',e=>e.stopPropagation());enable.onchange=()=>{stopSweep();const p=getPreferences();section.open=enable.checked;setPreferences({...p,loupe:{...p.loupe,effects:validateLoupeEffects({...p.loupe.effects,[group]:{...p.loupe.effects[group],enabled:enable.checked}})}});};
   const controls=[];
   let equalizationMenu;
   for(const [key,fr,en,min,max,values]of fields[group]){
@@ -31,13 +31,13 @@ export function mountLoupeEffectControls(parent,{getPreferences,setPreferences,l
   }
   const actions=node('div'),scan=node('button','B'),reset=node('button');actions.className='loupe-effect-actions';scan.type=reset.type='button';scan.dataset.effectScan=group;scan.setAttribute('aria-keyshortcuts','B');scan.onclick=()=>{activeGroup=group;onSweep(group);};reset.dataset.effectReset=group;reset.onclick=()=>{stopSweep();for(const c of controls)if(c.number)drafts.delete(c.number);const p=getPreferences();setPreferences({...p,loupe:{...p.loupe,effects:{...p.loupe.effects,[group]:{...effectDefaults[group],enabled:p.loupe.effects[group].enabled}}}});};actions.append(scan,reset);
   let configure,target;if(group==='adjust'){configure=node('button','B ⚙');configure.type='button';configure.dataset.sweepConfigure='';configure.setAttribute('aria-expanded','false');target=node('select');target.dataset.sweepTarget='';target.hidden=true;for(const [key]of fields.adjust){const option=node('option',key);option.value=key;target.append(option);}configure.onclick=()=>{target.hidden=!target.hidden;configure.setAttribute('aria-expanded',String(!target.hidden));};target.onchange=()=>{stopSweep();const p=getPreferences();setPreferences({...p,loupe:{...p.loupe,sweepTarget:target.value}});};actions.append(configure,target);}
-  section.append(actions);entries.push({group,names,section,enable,title,controls,scan,reset,configure,target,equalizationMenu});
+  section.append(actions);entries.push({group,names,section,enable,title,controls,scan,reset,configure,target,equalizationMenu,equalizationKey:null});
  }
  return{activeGroup:()=>activeGroup,clearDrafts:()=>drafts.clear(),sync(){
   const p=getPreferences(),effects=p.loupe.effects,index=language()==='fr'?0:1,running=sweepState();
-  for(const {group,names,section,enable,title,controls,scan,reset,configure,target,equalizationMenu}of entries){
-   title.textContent=names[index];enable.checked=effects[group].enabled;enable.disabled=forced(group);enable.title=enable.disabled?(index?'This effect belongs to the active Enhanced magnifier tool. L switches between local and whole-image enhancement.':'Cet effet appartient à l’outil Loupe améliorée actif. L bascule entre amélioration locale et image entière.') : '';
-   equalizationMenu?.sync();
+  for(const entry of entries){const {group,names,section,enable,title,controls,scan,reset,configure,target,equalizationMenu}=entry;
+   title.textContent=names[index];enable.checked=effects[group].enabled;enable.disabled=group!=='enhance'&&forced(group);enable.title=enable.disabled?(index?'This effect belongs to the active Enhanced magnifier tool. L switches between local and whole-image enhancement.':'Cet effet appartient à l’outil Loupe améliorée actif. L bascule entre amélioration locale et image entière.') : '';
+   if(equalizationMenu){const key=JSON.stringify([effects[group].enabled,readEqualization(effects[group],group==='adjust'?'inspection.adjust':'inspection.magnifier')]);if(key!==entry.equalizationKey){entry.equalizationKey=key;equalizationMenu.reset();}else equalizationMenu.sync();}
    const equalize=group==='enhance'&&effects.enhance.mode==='equalize';
    for(const c of controls){c.caption.textContent=index?c.en:c.fr;const unused=equalize&&['percent','channel'].includes(c.key);c.input.disabled=!enable.checked||unused;c.input.title=unused?(index?'Used by Auto contrast; histogram equalization has no clipping parameter.':'Utilisé par Contraste automatique ; l’égalisation n’utilise pas l’écrêtage.') : '';if(c.number){c.number.disabled=c.input.disabled;c.number.title=c.input.title;}if(c.input.type==='checkbox')c.input.checked=effects[group][c.key];else c.input.value=effects[group][c.key];if(c.number&&(!drafts.has(c.number)||drafts.get(c.number)!==effects[group][c.key]||c.number.disabled)){drafts.delete(c.number);c.number.value=effects[group][c.key];}c.automaticRange?.refresh();if(c.labels)for(const [i,o]of [...c.input.options].entries())o.textContent=c.labels[index][i];}
    scan.textContent=(running===group?(index?'Stop':'Arrêter'):(index?'Sweep':'Balayer'))+' · B';scan.disabled=!p.loupe.enabled||!enable.checked||equalize;scan.setAttribute('aria-pressed',String(running===group));reset.textContent=index?'Reset values':'Réinitialiser les valeurs';

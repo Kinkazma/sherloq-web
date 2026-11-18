@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {allocateTypedArray} from './allocation.js';
 import {parameters} from './pixel-utils.js';
 import {requireValue,checkAbort} from './errors.js';

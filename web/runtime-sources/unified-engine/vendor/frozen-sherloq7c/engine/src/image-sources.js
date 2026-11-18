@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {samplePixels} from './display-sampling.js';
 import {isCameraRaw} from './media-format.js';
 import {loadExtendedImage} from './media-image-source.js';

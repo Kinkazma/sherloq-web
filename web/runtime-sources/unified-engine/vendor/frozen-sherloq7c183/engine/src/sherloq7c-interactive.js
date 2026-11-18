@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 // Optional latest-request-wins scheduling. The supplied engine has exclusive
 // use while attached; published outputs remain owned by their callers.
 const failure=(code,message,cause)=>Object.assign(new Error(message,cause===undefined?undefined:{cause}),{code});

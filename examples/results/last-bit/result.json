@@ -1,0 +1,32 @@
+{
+  "method": "Last Bit Analysis",
+  "operation": "ela.bitrate",
+  "backend": "cpu",
+  "analysisDomain": "sdr-rgb8-presentation",
+  "source": {
+    "path": "../../equalization/images/original.webp",
+    "fileSha256": "662cbbcc4d7ccd9a4612cf78daf83ee655805cfded78c16f5aec37f7878d05fe",
+    "decodedRgb8Sha256": "2ef97094b1b36b25165b50238cae66409171da38820eb206ae55f19ff24add2c",
+    "width": 189,
+    "height": 131,
+    "article": "https://doi.org/10.1038/s41598-018-28183-6",
+    "authors": "Reinehr et al.",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "credit": "../../equalization/sources/reinehr-2018-s100b/README.md"
+  },
+  "kernelSha256": "81a5cd696b7cabfff1f263c9eb42f593f08f18af1f042edf9c46e439b7cccdd1",
+  "results": [
+    {
+      "removedBits": 1,
+      "keepBits": 7,
+      "rawRgbSha256": "7ba99488b11d2f1f236852f4edfbdab89fc3dea71c2eba806d0d4c4e13473b8a",
+      "file": "microscopy-removed-1.webp",
+      "fileSha256": "b97a5b2c7c20a249a36910f4a9e5488896b9ebfd2b8d66b0d22ebe1ddee1879d",
+      "bytes": 6268,
+      "coreEqualsDirectKernel": true,
+      "integerOracleExact": true
+    }
+  ],
+  "sourceUnchanged": true
+}

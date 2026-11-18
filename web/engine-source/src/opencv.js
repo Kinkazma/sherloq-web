@@ -4,7 +4,7 @@ import {PRNU_TWIDDLES} from './prnu-twiddles.js';
 let pending,ready;
 const prnuTables=new WeakMap();
 export async function initCvWasm({wasmBinary}={}){
- const {default:create}=await import('../vendor/opencv/opencv.js');pending=create(wasmBinary?{wasmBinary}:{});ready=await pending;return ready;
+ const {default:create}=await import('../vendor/opencv-color16/opencv.js');pending=create(wasmBinary?{wasmBinary}:{});ready=await pending;return ready;
 }
 async function moduleInstance(){try{return ready??(pending?await pending:await initCvWasm());}catch(cause){pending=null;throw nativeModuleFailure(cause,'Local OpenCV WebAssembly module could not load.');}}
 export const cvHeapBytes=()=>ready?.HEAPU8.buffer.byteLength??0;
@@ -61,6 +61,13 @@ async function cvCompute(image,operation,params,{signal}={}){
   checkAbort(signal);const width=m._cv_width(),height=m._cv_height(),length=m._cv_size();requireValue(length===width*height*3,'Invalid OpenCV RGB output.');
   const data=copyTypedArray(m.HEAPU8.subarray(m._cv_data(),m._cv_data()+length),{label:'opencv-output'}),result={pixels:{width,height,format:'rgb8',data}};if(operation===7){const at=m._cv_model()/8;result.data={channelOrder:'BGR',mean:copyTypedArray(m.HEAPF64.subarray(at,at+3),{label:'opencv-output'}),eigenvectors:copyTypedArray(m.HEAPF64.subarray(at+3,at+12),{label:'opencv-output'}),eigenvalues:copyTypedArray(m.HEAPF64.subarray(at+12,at+15),{label:'opencv-output'})};}return result;
  }finally{m._cv_release();if(src)m._free(src);if(args)m._free(args);}
+}
+export async function cvColor16(image,space,channel,{signal}={}){
+ requireValue(image?.format==='rgb16'&&image.data instanceof Uint16Array&&Number.isSafeInteger(image.width)&&image.width>0&&Number.isSafeInteger(image.height)&&image.height>0&&image.data.length===image.width*image.height*3&&Number.isInteger(space)&&space>=0&&space<=5&&Number.isInteger(channel)&&channel>=0&&channel<(space===1||space===2?4:3),'An exact native RGB16 color band and algebraic channel are required.');
+ await checkpoint(signal);const m=await moduleInstance();checkAbort(signal);requireValue(typeof m._cv_color16==='function','This OpenCV module does not contain the admitted native16 color entry.');let src=0;
+ try{src=m._malloc(image.data.byteLength);if(!src)throw wasmAllocationFailure(m,'OpenCV native16 color input allocation failed.',image.data.byteLength);if(new Uint8Array(new Uint16Array([1]).buffer)[0]===1)m.HEAPU8.set(new Uint8Array(image.data.buffer,image.data.byteOffset,image.data.byteLength),src);else{const view=new DataView(m.HEAPU8.buffer);for(let i=0;i<image.data.length;i++)view.setUint16(src+i*2,image.data[i],true);}
+  if(!m._cv_color16(src,image.width,image.height,space,channel))throw new EngineError('INVALID_INPUT','OpenCV rejected the native16 algebraic color band.');checkAbort(signal);const width=m._cv_width(),height=m._cv_height(),length=m._cv_size();requireValue(width===image.width&&height===image.height&&length===width*height*6,'Invalid native16 color output extent.');const bytes=copyTypedArray(m.HEAPU8.subarray(m._cv_data(),m._cv_data()+length),{label:'opencv-native16-color-output'});if(new Uint8Array(new Uint16Array([1]).buffer)[0]!==1)for(let i=0;i<bytes.length;i+=2){const low=bytes[i];bytes[i]=bytes[i+1];bytes[i+1]=low;}return{width,height,format:'rgb16',depth:16,range:[0,65535],data:new Uint16Array(bytes.buffer,bytes.byteOffset,bytes.byteLength/2)};
+ }finally{m._cv_release();if(src)m._free(src);}
 }
 export async function cvDecode(bytes,{signal,grayscale=false}={}){
  await checkpoint(signal);const m=await moduleInstance();checkAbort(signal);let src=0;

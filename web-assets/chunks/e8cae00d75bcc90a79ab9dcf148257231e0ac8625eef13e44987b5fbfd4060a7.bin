@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten 4.0.15",
+  "reference": "Unchanged native preparation exports plus native16 bilateral table and marked-centre repairs sharing the CPU typed arithmetic",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/separation-gpu-prepare.cpp": {
+      "bytes": 7623,
+      "sha256": "5e4b1cf0e01c73074b9afe86c4fc9271725b17a7204352e90833d821abdf82de"
+    },
+    "native/separation-native16.h": {
+      "bytes": 2383,
+      "sha256": "f1217e047595d928af5dc98f191d22963415b4ce6132b8dd9e1708e7740ecd0d"
+    },
+    "scripts/build-separation-gpu-prepare-depth16.sh": {
+      "bytes": 2187,
+      "sha256": "41364f762af696461b5b359ad4692ae7738a697152564f6be9088ff4f50e6da9"
+    },
+    "vendor/separation-gpu-prepare/prepare-depth16.js": {
+      "bytes": 23554,
+      "sha256": "e3f7f17079d20caf9d09024fe65a5338d70a82c85932f2516ddde17893a95e87"
+    },
+    "vendor/separation-gpu-prepare/prepare-depth16.wasm": {
+      "bytes": 630399,
+      "sha256": "853c97030d36e3b678ae836bebe8163af2074f3f8abe86a52a4bfd5f443620f0"
+    }
+  }
+}

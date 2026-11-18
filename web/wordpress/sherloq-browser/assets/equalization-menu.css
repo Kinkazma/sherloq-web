@@ -6,3 +6,6 @@
 .eq-mode-notice{font-size:11px;line-height:1.35;color:var(--muted);overflow-wrap:anywhere}
 
 .eq-sherloq-size{gap:0;margin-bottom:6px}.eq-popover .eq-parameter.eq-sherloq-size select{box-sizing:border-box;max-width:none;height:22px;min-height:22px;padding:1px 5px;line-height:1.1;font-size:11px}
+
+/* The actual select remains visible, focusable and form-owned. */
+.eq-select-popover{width:244px;padding:5px;max-width:calc(100vw - 16px)}.eq-select-options{display:flex;flex-direction:column;gap:2px;max-height:none;overflow:visible}.eq-select-options button{flex:none;display:block;width:100%;white-space:normal;min-height:25px;line-height:1.3}.eq-select-options button[aria-selected=true]{border-color:var(--accent,#6893b4);background:#71879a35}.eq-select-group{font-size:11px;color:var(--muted);padding:6px 7px 3px}.eq-select-popover[data-highlight-new-features=true] [data-new-feature=red]{box-shadow:inset 0 0 0 1px rgba(205,60,70,.65)}.eq-select-popover[data-highlight-new-features=true] [data-new-feature=green]{box-shadow:inset 0 0 0 1px rgba(30,157,84,.7)}.eq-select-popover[data-highlight-new-features=true] [data-new-feature=blue]{box-shadow:inset 0 0 0 1px rgba(35,115,225,.75)}.eq-select-popover[data-highlight-new-features=true] [data-new-feature=yellow]{box-shadow:inset 0 0 0 1px #e4bf37}

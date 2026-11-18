@@ -1,0 +1,98 @@
+{
+  "aom": {
+    "commit": "689067b48df9548d25e37abaa618ebd4b6015c67",
+    "url": "https://github.com/ImageMagick/aom"
+  },
+  "brotli": {
+    "commit": "6225e7a93b6bcc1f3e3b267e9523a8eaea49eb5e",
+    "url": "https://github.com/ImageMagick/brotli"
+  },
+  "bzip2": {
+    "commit": "abffe764f875f71d051efb19d4c83139375f82d7",
+    "url": "https://github.com/ImageMagick/bzip2"
+  },
+  "de265": {
+    "commit": "5a0bf9f624d810de6af20e41ac3cfd92bf7de508",
+    "url": "https://github.com/ImageMagick/de265"
+  },
+  "exr": {
+    "commit": "60ff3e20b06690fdbe938e2134872e43640cf1cb",
+    "url": "https://github.com/ImageMagick/exr"
+  },
+  "ffi": {
+    "commit": "91982d4ac97b179dd1fb878caef2ed2847bc38b6",
+    "url": "https://github.com/ImageMagick/ffi"
+  },
+  "freetype": {
+    "commit": "6cf8b1a08bdec1d41246f51bcd12e5a62c9845e2",
+    "url": "https://github.com/ImageMagick/freetype"
+  },
+  "glib": {
+    "commit": "ea0118ca0d408473d320b21262a1cdc6ce3e5f40",
+    "url": "https://github.com/ImageMagick/glib"
+  },
+  "heif": {
+    "commit": "b8fbb502979530d5e4baa7d24d8c353c3d13d1cd",
+    "url": "https://github.com/ImageMagick/heif"
+  },
+  "highway": {
+    "commit": "e1a586af5be6358bb983ff608f9678a622209ca3",
+    "url": "https://github.com/ImageMagick/highway"
+  },
+  "imath": {
+    "commit": "1ec391453dd33f3432018d3a266e3d177a705235",
+    "url": "https://github.com/ImageMagick/imath"
+  },
+  "jpeg-turbo": {
+    "commit": "b91492930ceb23c0b5282e8b9fc21de54182d92e",
+    "url": "https://github.com/ImageMagick/jpeg-turbo"
+  },
+  "jpeg-xl": {
+    "commit": "8503118ff13ab8b11680296900da3361d6703dc1",
+    "url": "https://github.com/ImageMagick/jpeg-xl"
+  },
+  "lcms": {
+    "commit": "d261ab6fda30fd7578a2ce7ace5c0b2c7d3fc0b8",
+    "url": "https://github.com/ImageMagick/lcms"
+  },
+  "lqr": {
+    "commit": "a2e9e8b5b41bf0569f51482707a12d354a086f3a",
+    "url": "https://github.com/ImageMagick/lqr"
+  },
+  "openjpeg": {
+    "commit": "5a52e8e0690da686ddb6e98310e7bb5190a9a7c5",
+    "url": "https://github.com/ImageMagick/openjpeg"
+  },
+  "openjph": {
+    "commit": "c1a1ffc1e3f90eb9397407f1f545a47e01390aef",
+    "url": "https://github.com/ImageMagick/openjph"
+  },
+  "png": {
+    "commit": "88ee938ef91b0289339be463b29003f65d486210",
+    "url": "https://github.com/ImageMagick/png"
+  },
+  "raw": {
+    "commit": "9f7613ef48877180225b9377c87b0f3a65a2ca8e",
+    "url": "https://github.com/ImageMagick/raw"
+  },
+  "tiff": {
+    "commit": "3021cd03440ba6954f8bdf2b7ad4557a36092cd8",
+    "url": "https://github.com/ImageMagick/tiff"
+  },
+  "webp": {
+    "commit": "b981ef267195cb12f2cb97e4dd23e12a1323a4ce",
+    "url": "https://github.com/ImageMagick/webp"
+  },
+  "xml": {
+    "commit": "3ba73c8312b7ac88adc1a2e62df13d0827e93a0f",
+    "url": "https://github.com/ImageMagick/xml"
+  },
+  "zlib": {
+    "commit": "e42706934e4e7564d960031ae62ff29d918ee06d",
+    "url": "https://github.com/ImageMagick/zlib"
+  },
+  "zstd": {
+    "commit": "4d5752ffeca8defb48ad744274f4f76b2866d71d",
+    "url": "https://github.com/ImageMagick/zstd"
+  }
+}

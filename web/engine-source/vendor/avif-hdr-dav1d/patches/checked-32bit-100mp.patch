@@ -1,0 +1,233 @@
+--- a/dav1d-1.5.4/src/lib.c
++++ b/dav1d-1.5.4/src/lib.c
+@@ -205,8 +205,8 @@
+      * dav1d_decode_frame() malloc size calculations. Prevent that from occuring
+      * by enforcing a maximum frame size limit, chosen to roughly correspond to
+      * the largest size possible to decode without exhausting virtual memory. */
+-    if (sizeof(size_t) < 8 && s->frame_size_limit - 1 >= 8192 * 8192) {
+-        c->frame_size_limit = 8192 * 8192;
++    if (sizeof(size_t) < 8 && s->frame_size_limit - 1 >= 100000000) {
++        c->frame_size_limit = 100000000;
+         if (s->frame_size_limit)
+             dav1d_log(c, "Frame size limit reduced from %u to %u.\n",
+                       s->frame_size_limit, c->frame_size_limit);
+--- a/dav1d-1.5.4/src/mem.h
++++ b/dav1d-1.5.4/src/mem.h
+@@ -31,6 +31,7 @@
+ #define TRACK_HEAP_ALLOCATIONS 0
+ 
+ #include <stdlib.h>
++#include <stdint.h>
+ 
+ #if defined(_WIN32) || HAVE_MEMALIGN
+ #include <malloc.h>
+--- a/dav1d-1.5.4/src/mem.h
++++ b/dav1d-1.5.4/src/mem.h
+@@ -89,6 +89,8 @@
+  */
+ static inline void *dav1d_alloc_aligned_internal(const size_t sz, const size_t align) {
+     assert(!(align & (align - 1)));
++    if (!align || align > PTRDIFF_MAX ||
++        sz > (size_t) PTRDIFF_MAX - align - sizeof(void *)) return NULL;
+ #ifdef _WIN32
+     return _aligned_malloc(sz, align);
+ #elif HAVE_POSIX_MEMALIGN
+--- a/dav1d-1.5.4/src/mem.h
++++ b/dav1d-1.5.4/src/mem.h
+@@ -132,8 +132,14 @@
+ void dav1d_log_alloc_stats(Dav1dContext *c);
+ #else
+ #define dav1d_mem_pool_init(type, pool) dav1d_mem_pool_init(pool)
+-#define dav1d_malloc(type, sz) malloc(sz)
+-#define dav1d_realloc(type, ptr, sz) realloc(ptr, sz)
++static inline void *dav1d_checked_malloc(const size_t sz) {
++    return sz > PTRDIFF_MAX ? NULL : malloc(sz);
++}
++static inline void *dav1d_checked_realloc(void *ptr, const size_t sz) {
++    return sz > PTRDIFF_MAX ? NULL : realloc(ptr, sz);
++}
++#define dav1d_malloc(type, sz) dav1d_checked_malloc(sz)
++#define dav1d_realloc(type, ptr, sz) dav1d_checked_realloc(ptr, sz)
+ #define dav1d_alloc_aligned(type, sz, align) dav1d_alloc_aligned_internal(sz, align)
+ #define dav1d_free(ptr) free(ptr)
+ #define dav1d_free_aligned(ptr) dav1d_free_aligned_internal(ptr)
+--- a/dav1d-1.5.4/src/mem.c
++++ b/dav1d-1.5.4/src/mem.c
+@@ -102,6 +102,7 @@
+ }
+ 
+ void *dav1d_malloc(const enum AllocationType type, const size_t sz) {
++    if (sz > (size_t) PTRDIFF_MAX - DEFAULT_ALIGN) return NULL;
+     void *const ptr = malloc(sz + DEFAULT_ALIGN);
+     return track_alloc(type, ptr, sz, DEFAULT_ALIGN);
+ }
+--- a/dav1d-1.5.4/src/mem.c
++++ b/dav1d-1.5.4/src/mem.c
+@@ -110,6 +110,7 @@
+ void *dav1d_alloc_aligned(const enum AllocationType type,
+                           const size_t sz, const size_t align)
+ {
++    if (align > PTRDIFF_MAX || sz > (size_t) PTRDIFF_MAX - align) return NULL;
+     void *const ptr = dav1d_alloc_aligned_internal(sz + align, align);
+     return track_alloc(type, ptr, sz, align);
+ }
+--- a/dav1d-1.5.4/src/mem.c
++++ b/dav1d-1.5.4/src/mem.c
+@@ -120,6 +120,7 @@
+ {
+     if (!ptr)
+         return dav1d_malloc(type, sz);
++    if (sz > (size_t) PTRDIFF_MAX - DEFAULT_ALIGN) return NULL;
+     ptr = realloc((char*)ptr - DEFAULT_ALIGN, sz + DEFAULT_ALIGN);
+     if (ptr)
+         ptr = track_free((char*)ptr + DEFAULT_ALIGN);
+--- a/dav1d-1.5.4/src/mem.c
++++ b/dav1d-1.5.4/src/mem.c
+@@ -241,6 +241,7 @@
+ }
+ 
+ void *dav1d_mem_pool_pop(Dav1dMemPool *const pool, const size_t size) {
++    if (size > (size_t) PTRDIFF_MAX - 64) return NULL;
+     pthread_mutex_lock(&pool->lock);
+     Dav1dMemPoolBuffer *buf = pool->buf;
+     pool->ref_cnt++;
+--- a/dav1d-1.5.4/src/picture.c
++++ b/dav1d-1.5.4/src/picture.c
+@@ -44,6 +44,8 @@
+ #include "src/thread_task.h"
+ 
+ int dav1d_default_picture_alloc(Dav1dPicture *const p, void *const cookie) {
++    if (p->p.w <= 0 || p->p.h <= 0 || p->p.w > 65536 || p->p.h > 65536)
++        return DAV1D_ERR(EINVAL);
+     const int hbd = p->p.bpc > 8;
+     const int aligned_w = (p->p.w + 127) & ~127;
+     const int aligned_h = (p->p.h + 127) & ~127;
+--- a/dav1d-1.5.4/src/picture.c
++++ b/dav1d-1.5.4/src/picture.c
+@@ -65,9 +65,14 @@
+         uv_stride += DAV1D_PICTURE_ALIGNMENT;
+     p->stride[0] = y_stride;
+     p->stride[1] = uv_stride;
+-    const size_t y_sz = y_stride * aligned_h;
+-    const size_t uv_sz = uv_stride * (aligned_h >> ss_ver);
+-    const size_t pic_size = y_sz + 2 * uv_sz;
++    const uint64_t y_size64 = (uint64_t) y_stride * aligned_h;
++    const uint64_t uv_size64 = (uint64_t) uv_stride * (aligned_h >> ss_ver);
++    const uint64_t picture_size64 = y_size64 + 2 * uv_size64;
++    if (picture_size64 > (uint64_t) PTRDIFF_MAX - DAV1D_PICTURE_ALIGNMENT)
++        return DAV1D_ERR(ENOMEM);
++    const size_t y_sz = (size_t) y_size64;
++    const size_t uv_sz = (size_t) uv_size64;
++    const size_t pic_size = (size_t) picture_size64;
+ 
+     uint8_t *const buf = dav1d_mem_pool_pop(cookie, pic_size + DAV1D_PICTURE_ALIGNMENT);
+     if (!buf) return DAV1D_ERR(ENOMEM);
+--- a/libavif-1.4.2/src/codec_dav1d.c
++++ b/libavif-1.4.2/src/codec_dav1d.c
+@@ -72,11 +72,10 @@
+         dav1dSettings.n_frame_threads = 1;
+         dav1dSettings.n_tile_threads = AVIF_CLAMP(codec->maxThreads, 1, DAV1D_MAX_TILE_THREADS);
+ #endif // DAV1D_API_VERSION_MAJOR >= 6
+-        // Set a maximum frame size limit to avoid OOM'ing fuzzers. In 32-bit builds, if
+-        // frame_size_limit > 8192 * 8192, dav1d reduces frame_size_limit to 8192 * 8192 and logs
+-        // a message, so we set frame_size_limit to at most 8192 * 8192 to avoid the dav1d_log
+-        // message.
+-        dav1dSettings.frame_size_limit = (sizeof(size_t) < 8) ? AVIF_MIN(codec->imageSizeLimit, 8192 * 8192) : codec->imageSizeLimit;
++        // The paired checked32-bit dav1d build admits up to100MP. Its picture
++        // and allocator arithmetic is checked; the imported WASM memory and
++        // SHERLOQ owner still enforce the actual funded memory ceiling.
++        dav1dSettings.frame_size_limit = (sizeof(size_t) < 8) ? AVIF_MIN(codec->imageSizeLimit, 100000000) : codec->imageSizeLimit;
+         dav1dSettings.logger.cookie = codec;
+         dav1dSettings.logger.callback = avifDav1dLogCallback;
+         dav1dSettings.operating_point = codec->operatingPoint;
+--- a/libavif-1.4.2/src/read.c
++++ b/libavif-1.4.2/src/read.c
+@@ -5421,6 +5421,14 @@
+     return AVIF_TRUE;
+ }
+ 
++// One shared topology predicate for native admission and codec creation.
++static avifBool avifDecoderCanShareNativeCodec(const avifDecoder * decoder)
++{
++    const avifDecoderData * data = decoder->data;
++    return ((data->tiles.count == 1) || (decoder->imageCount == 1 && avifTilesCanBeDecodedWithSameCodecInstance(data))) &&
++           data->sampleTransformNumInputImageItems == 0;
++}
++
+ static avifResult avifDecoderCreateCodecs(avifDecoder * decoder)
+ {
+     avifDecoderData * data = decoder->data;
+@@ -5450,8 +5458,7 @@
+         //     after decoding all tiles).
+         // Otherwise, we will use |tiles.count| decoder instances (one instance for each tile).
+         const avifBool canUseSingleCodecInstance =
+-            ((data->tiles.count == 1) || (decoder->imageCount == 1 && avifTilesCanBeDecodedWithSameCodecInstance(data))) &&
+-            data->sampleTransformNumInputImageItems == 0;
++            avifDecoderCanShareNativeCodec(decoder);
+         if (canUseSingleCodecInstance) {
+             AVIF_CHECKRES(avifCodecCreateInternal(decoder->codecChoice, &decoder->data->tiles.tile[0], &decoder->diag, &data->codec));
+             for (unsigned int i = 0; i < decoder->data->tiles.count; ++i) {
+@@ -5465,6 +5472,63 @@
+         }
+     }
+     return AVIF_RESULT_OK;
++}
++
++// Native admission inspects the exact instances avifDecoderCreateCodecs
++// will create. No codec or pixel allocation is performed by these helpers.
++uint32_t avifDecoderNativeCodecCount(const avifDecoder * decoder);
++uint64_t avifDecoderNativeCodecWorkPixels(const avifDecoder * decoder);
++uint64_t avifDecoderNativeCodecTileBudget(const avifDecoder * decoder);
++uint32_t avifDecoderNativeCodecCount(const avifDecoder * decoder)
++{
++    if (!decoder || !decoder->data || !decoder->data->tiles.count) return 0;
++    const avifDecoderData * data = decoder->data;
++    if (data->source == AVIF_DECODER_SOURCE_TRACKS) return 1u + (data->tiles.count > 1u);
++    return avifDecoderCanShareNativeCodec(decoder) ? 1u : data->tiles.count;
++}
++
++static uint64_t avifNativeCodecTileGeometry(const avifTile * tile, avifBool tileBudget)
++{
++    const uint64_t width = tile->width, height = tile->height;
++    if (!width || !height) return UINT64_MAX;
++    if (tileBudget) {
++        const uint64_t cols = AVIF_MIN(UINT64_C(64), (width + 63) / 64);
++        const uint64_t rows = AVIF_MIN(UINT64_C(64), (height + 63) / 64);
++        return cols * rows;
++    }
++    const uint64_t alignedWidth = (width + 127) & ~UINT64_C(127);
++    const uint64_t alignedHeight = (height + 127) & ~UINT64_C(127);
++    if (alignedHeight > UINT64_MAX / alignedWidth) return UINT64_MAX;
++    return alignedWidth * alignedHeight;
++}
++
++static uint64_t avifDecoderNativeCodecGeometry(const avifDecoder * decoder, avifBool tileBudget)
++{
++    if (!decoder || !decoder->data || !decoder->data->tiles.count) return 0;
++    const avifDecoderData * data = decoder->data;
++    const avifBool tracks = data->source == AVIF_DECODER_SOURCE_TRACKS;
++    const avifBool shared = !tracks && avifDecoderCanShareNativeCodec(decoder);
++    const uint32_t count = tracks ? AVIF_MIN(data->tiles.count, 2u) : data->tiles.count;
++    uint64_t total = 0;
++    for (uint32_t i = 0; i < count; ++i) {
++        const uint64_t value = avifNativeCodecTileGeometry(&data->tiles.tile[i], tileBudget);
++        if (value == UINT64_MAX) return UINT64_MAX;
++        if (shared) total = AVIF_MAX(total, value);
++        else {
++            if (value > UINT64_MAX - total) return UINT64_MAX;
++            total += value;
++        }
++    }
++    return total;
++}
++
++uint64_t avifDecoderNativeCodecWorkPixels(const avifDecoder * decoder)
++{
++    return avifDecoderNativeCodecGeometry(decoder, AVIF_FALSE);
++}
++uint64_t avifDecoderNativeCodecTileBudget(const avifDecoder * decoder)
++{
++    return avifDecoderNativeCodecGeometry(decoder, AVIF_TRUE);
+ }
+ 
+ // Returns the primary color item if found, or NULL.

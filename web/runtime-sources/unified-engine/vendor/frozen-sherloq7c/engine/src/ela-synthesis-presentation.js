@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {createRgbSurface} from './rgb-surface.js';
 import {validateParams} from './ela.js';
 import {roundEven} from './pixel-utils.js';

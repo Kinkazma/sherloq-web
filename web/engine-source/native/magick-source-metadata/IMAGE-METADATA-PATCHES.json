@@ -1,0 +1,78 @@
+{
+  "coders/jpeg.c": {
+    "beforeSha256": "7b0e5eb91c32969e1c8fa1959627c6405222332bf5e80355b2e1f1ce9043ed6d",
+    "afterSha256": "3a9990e3d8a103abdc6382d409a5701b8e9dd9281398f61384096a35c0c74615"
+  },
+  "coders/png.c": {
+    "beforeSha256": "56b262a0d9032d2ef9dae2b1d4b724a22fc7ce343aca7afdd3be80a625b3cd97",
+    "afterSha256": "2db8df292c2cdbde304b94afcaac7e352e2b5453780d6b539ff83de7004ac3b9"
+  },
+  "coders/webp.c": {
+    "beforeSha256": "5c5a9b66903dc3aa1328eccd5912bae17a8f22adf2dd80f95096e792bbaf1f07",
+    "afterSha256": "ab15b907971d102c19087d11cefdcc9f9e54ba73a391d67546d138f5813f8e50"
+  },
+  "coders/gif.c": {
+    "beforeSha256": "bb74470b819ff0beaeecf207692cb694a50b162c8635ffd845c04448a4dfefbf",
+    "afterSha256": "e0b1ecf0c8e101156831dd9f4ad394adef92ef50a6a19fcddea0db74152f5a73"
+  },
+  "coders/tiff.c": {
+    "beforeSha256": "53a3eabd3e5d47821b318601db3c874b7114270710278ece0b021b03d3691dae",
+    "afterSha256": "22fe6618376a7a1b0690712ce427cbdbbeadd207e4891cef439cfb2c11608975"
+  },
+  "coders/psd.c": {
+    "beforeSha256": "4e359186117924a0900b8ed24a93e8191ccc4fdeb08d3cf0776b011c98c8f336",
+    "afterSha256": "e2a6c7a438f1eb1162c53f3f558d680ec5ac6d95b551f21490f7227877bb0f9b"
+  },
+  "coders/jxl.c": {
+    "beforeSha256": "7158d9170c077de535b464c217a5d413ae61786ae921c7ba5ebb63465c3a1221",
+    "afterSha256": "ecda9a56e41730c8a54a2c9681203c175b2a5fb92724ad6932d8afec8cfccaad"
+  },
+  "coders/jp2.c": {
+    "beforeSha256": "6928bc77604a18d40a8fecbca01df812c36df5bd033832122502895149178354",
+    "afterSha256": "733e68fea13ed1673f7d2285f3f04c5b3e73e6358b47fd8013de69a308bd7e24"
+  },
+  "coders/exr.c": {
+    "beforeSha256": "5ff4b2641248140fcf17554ae050bb4270d7da3bebc9ad44a6400899fe070173",
+    "afterSha256": "7ac4d0a9e3f6fbb8d1cdcd0a353e0df8650f9508b886cfd3bf692546695a4c85"
+  },
+  "coders/heic.c": {
+    "beforeSha256": "fbabe1e159557b90f6fdfc852453d02564dc52fc15888cf1297cb2c61040fb32",
+    "afterSha256": "130a58f880f8cd8e45067b4bfc8e977bbc1792f5376ea6d578b44cfbf633b5ad"
+  },
+  "coders/pnm.c": {
+    "beforeSha256": "6666147781eb0ee30ce719efcbfec8bb1c8df2880a4556a096a2e1d24d30e22e",
+    "afterSha256": "a0cbfb14b3cecca8c1278c97bc79ba76ce3b5d778cd768dd04dafc956bf51874"
+  },
+  "coders/hdr.c": {
+    "beforeSha256": "702bfca31e29213bbf5ccc566540d7f92e6a3c41b6a65e32adf3ace0f5fd246d",
+    "afterSha256": "3838ad8a19d64e84b3f7a3793d4a3ed53d64d25dd0beb6c2b3a46fdc8bffdb34"
+  },
+  "coders/farbfeld.c": {
+    "beforeSha256": "b9e2b435c7a29a810ebe932d91967135a8fafb42dbf77e63344cac602fb4efd9",
+    "afterSha256": "9d6d3e6763c870cb1bfea3259f2b545c0b499019df5fff4e8a00863fcc54394a"
+  },
+  "coders/qoi.c": {
+    "beforeSha256": "ac64c81fbac3fef0a75a54f5ef86bb0013942435ef608848c08f8071599d096c",
+    "afterSha256": "8d2d44250710f0debb3b25b6a67dc62f8a279bd63c8427c1e65c95b1ba15ca2c"
+  },
+  "coders/bmp.c": {
+    "beforeSha256": "996126d4033e4a2dbee2f629df35bc880aa03dfa22dec7fd8ad87330b111d0f8",
+    "afterSha256": "33fcf50c4dba80070816ae6ac02959caac2c1f169e9cfb6b531f70134bc363cb"
+  },
+  "coders/pcx.c": {
+    "beforeSha256": "670387e7d39633bf83624676ab7d2daaad7999097eedfe2ac5faee9b2ca6d28d",
+    "afterSha256": "27ce715fd35c37ee7a7c4bbd503dc5b3b80b5750ccdaa824b825a722fa6df293"
+  },
+  "coders/tga.c": {
+    "beforeSha256": "e82e7dcc0466c51d07929453441030a8ec14adb8acf03b5e7e67370778030730",
+    "afterSha256": "e215cc18912ba947b9d0d6f909c0e9b2b28988599ec6708900d73d46095fe38a"
+  },
+  "coders/icon.c": {
+    "beforeSha256": "db84e8e9b92873d8ca20c4758a504391e715d55d0a404037ce476116167d27a1",
+    "afterSha256": "ce898c1a7e9d3a9c04b4a948ffce66dc95fa62421331be9bf96742134eaaf786"
+  },
+  "MagickCore/source-samples-private.h": {
+    "beforeSha256": null,
+    "afterSha256": "1620dd712a19f73a5652afaffa692335e87764f9a77892402b49cab369e88392"
+  }
+}

@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {usesAlternateRecompression} from './recompression-plan.js';
 import {EnergyScoreGpu} from './energy-score-gpu.js';
 import {ENERGY_SCORE_AUTO_ENABLED} from './energy-score-policy.js';

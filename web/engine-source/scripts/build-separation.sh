@@ -16,7 +16,7 @@ em++ native/separation.cpp "$OPENCV_BUILD_ROOT/cv/lib/libopencv_photo.a" "$OPENC
  -O3 -ffp-contract=off -fexceptions -ffile-prefix-map="$PWD/"= -fdebug-prefix-map="$PWD/"= -ffile-prefix-map="$OPENCV_BUILD_ROOT/"=.build/ -fdebug-prefix-map="$OPENCV_BUILD_ROOT/"=.build/ \
  -sMODULARIZE=1 -sEXPORT_ES6=1 -sENVIRONMENT=web,worker,node -sALLOW_MEMORY_GROWTH=0 \
  -sINITIAL_MEMORY=67108864 -sMAXIMUM_MEMORY=67108864 -sABORTING_MALLOC=0 -sFILESYSTEM=0 -sDISABLE_EXCEPTION_CATCHING=0 \
- -sEXPORTED_RUNTIME_METHODS='["HEAPU8"]' -sEXPORTED_FUNCTIONS='["_malloc","_free","_separation_rows","_separation_nlm_rows","_separation_observed_rows","_separation_nlm_points"]' -o vendor/separation/separation.js
+ -sEXPORTED_RUNTIME_METHODS='["HEAPU8"]' -sEXPORTED_FUNCTIONS='["_malloc","_free","_separation_rows","_separation_rows16","_separation_nlm_rows","_separation_observed_rows","_separation_nlm_points"]' -o vendor/separation/separation.js
 cp vendor/opencv/LICENSE vendor/separation/LICENSE
 cp vendor/quality/LICENSE vendor/separation/LICENSE-MUSL.txt
 python3 - <<'PY'

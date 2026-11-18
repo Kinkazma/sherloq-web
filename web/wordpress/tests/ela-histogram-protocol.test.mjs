@@ -12,7 +12,7 @@ import {energyExportChunks} from '../sherloq-browser/assets/streaming-export.js'
 import {resolveComputeProfile} from '../sherloq-browser/assets/resource-policy.js';
 import {prepareEnergy} from '../../engine-source/src/energy-prepare.js';
 
-const workerURL=new URL('../sherloq-browser/assets/engine-worker.js',import.meta.url),code=(await readFile(workerURL,'utf8')).replace(/^import .*;\n/gm,'').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import('./unified-engine/src/index.js')",'await loadEngine()');
+const workerURL=new URL('../sherloq-browser/assets/engine-worker.js',import.meta.url),code=(await readFile(workerURL,'utf8')).replace(/^import .*;\n/gm,'').replace(/^/,'const engineLibraryURL=base=>new URL("./index.js",base);\n').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import(moduleURL)",'await loadEngine()');
 const sum=counts=>counts.reduce((a,b)=>a+b,0),parameters={quality:75,profile:'manual',histogramLow:100,histogramHigh:900,shadow:20,highlight:30};
 async function endpoint(){
  // Actual RGB pixels and Float32 native preparation; JPEG planes and the

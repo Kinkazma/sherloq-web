@@ -1,10 +1,17 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {attachObservedNlmCleanup} from './observed-nlm-gpu-retirement.js';
+import {gpuRetirementFailure} from './gpu-attempt-retirement.js';
 import {requireValue} from './errors.js';
 import {separationRows} from './separation-math.js';import {gray} from './pixel-utils.js';
 // Input/source cache buffers remain owned by the caller. A GPU result keeps its
 // independent output credit until the row/core consumer finishes copying it.
 export async function separationStage(image,p,start,rows,hooks={}){
+ if(image.data instanceof Uint16Array){
+  let gpu;try{const began=performance.now();gpu=await hooks.gpu?.run(image,p,start,rows,hooks);if(gpu)requireValue(gpu.bytes instanceof Uint16Array&&gpu.bytes.length===image.width*rows*3&&typeof gpu.release==='function','Owned native16 GPU separation extent differs');const bytes=gpu?.bytes??await separationRows(image,p,start,rows,hooks),kernelMs=performance.now()-began,at=performance.now(),histograms=p.denoised?null:new Float64Array(3*65536),offset=start*image.width*3;
+   if(!p.denoised)for(let i=0;i<bytes.length;i+=3){const j=offset+i,g=p.grayscale?gray(image.data[j],image.data[j+1],image.data[j+2]):0;for(let c=0;c<3;c++){const value=Math.abs((p.grayscale?g:image.data[j+c])-bytes[i+c]);bytes[i+c]=value;histograms[c*65536+value]++;}}
+   return{bytes,histograms,kernelMs,postprocessMs:performance.now()-at,...(gpu?{release:gpu.release,precisionRepairs:gpu.precisionRepairs??0}:{})};
+  }catch(error){try{await gpu?.release();}catch(cleanup){throw gpuRetirementFailure(error,cleanup?.cleanupOwner??{dispose:()=>gpu.release()},cleanup);}throw error;}
+ }
  let gpu;
  try{
   const began=performance.now();gpu=hooks.gpu?.compute?await hooks.gpu.compute(image,p,start,rows,hooks,()=>separationRows(image,p,start,rows,hooks)):await hooks.gpu?.run(image,p,start,rows,hooks);if(gpu)requireValue(gpu.bytes instanceof Uint8Array&&gpu.bytes.length===image.width*rows*3&&typeof gpu.release==='function','Owned GPU separation output extent differs');const bytes=gpu?.bytes??await separationRows(image,p,start,rows,hooks),kernelMs=performance.now()-began,at=performance.now(),equalize=!p.denoised&&p.levels===0,histograms=equalize?new Float64Array(768):null;

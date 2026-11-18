@@ -1,6 +1,6 @@
-import {AI_DETECTOR_GROUP,isDetectorTool} from './ai-detector-tools.js?v=0.33.1';
-import {doctamperNativeSummary} from './doctamper-native-summary.js?v=0.33.1';
-import {comprintNativeSummary} from './comprint-native-summary.js?v=0.33.1';
+import {AI_DETECTOR_GROUP,isDetectorTool} from './ai-detector-tools.js?v=0.33.2';
+import {doctamperNativeSummary} from './doctamper-native-summary.js?v=0.33.2';
+import {comprintNativeSummary} from './comprint-native-summary.js?v=0.33.2';
 // UI metadata only. The core owns decoding, model loading, scheduling and results.
 // Sizes identify the exported ONNX files, not a claim about cached resources.
 export const EXTENSION_MODEL_ASSETS=Object.freeze({
@@ -41,7 +41,7 @@ export const EXTENSION_TOOLS=Object.freeze([
 ].map(tool=>Object.freeze({...tool,newFeature:'yellow'})));
 export const extensionTool=id=>EXTENSION_TOOLS.find(t=>t.id===id);
 export const isExtensionTool=id=>!!extensionTool(id);
-export const isExperimentalTool=id=>isDetectorTool(id)||extensionTool(id)?.experimental===true;
+export const isExperimentalTool=id=>id==='ela.bitrate'||isDetectorTool(id)||extensionTool(id)?.experimental===true;
 export function extensionConfiguration(){const baseURL=new URL('./extension-engine/',import.meta.url).href;return {baseURL,moduleURL:new URL('engine.js',baseURL).href,resultStorage:'temporary'};}
 export function extensionModelAssets(id){
  const methods=[extensionTool(id)?.method];

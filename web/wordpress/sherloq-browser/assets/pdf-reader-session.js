@@ -1,5 +1,5 @@
-import {createPdfRenderOperatorBridge,preparePdfRenderOperators} from './pdf-render-operators.js?v=0.33.1';
-import {createBatchImporter,IMPORT_LIMITS} from './batch-import.js?v=0.33.1';
+import {createPdfRenderOperatorBridge,preparePdfRenderOperators} from './pdf-render-operators.js?v=0.33.2';
+import {createBatchImporter,IMPORT_LIMITS} from './batch-import.js?v=0.33.2';
 
 const aborted=signal=>signal?.throwIfAborted();
 const abortReason=()=>new DOMException('PDF import cancelled.','AbortError');

@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 import {EngineError} from './errors.js';
 import {nativeGpuSync,nativeGpuAsync} from './gpu-native-boundary.js';
 // Same acknowledged-retirement protocol as the stereo/wavelet providers.

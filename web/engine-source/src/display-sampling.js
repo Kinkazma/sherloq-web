@@ -55,6 +55,7 @@ export async function readDisplayFrame(surface,tile,{budget,signal,render,overla
   const wrap=part=>({descriptor:{...surface.descriptor,...part.pixels},readWindow:async()=>({pixels:part.pixels,release(){}})});
   if(render||sample.pixels.format!=='rgb8')result=await rasterPresentation(wrap(sample),render??{},{budget,overlay:base?wrap(base):undefined}).readWindow({x:0,y:0,width:sample.pixels.width,height:sample.pixels.height},{signal});
   else {result=sample;sample=null;}
-  return {...result,metrics:{sourceBytes:(sample?.metrics?.sourceBytes??result.metrics?.sourceBytes??0)+(base?.metrics?.sourceBytes??0),outboundBytes:result.pixels.data.byteLength,displayMs:performance.now()-start}};
+  const nativeColorPresentation=sample?.metrics?.nativeColorPresentation??result.metrics?.nativeColorPresentation;
+  return {...result,metrics:{sourceBytes:(sample?.metrics?.sourceBytes??result.metrics?.sourceBytes??0)+(base?.metrics?.sourceBytes??0),outboundBytes:result.pixels.data.byteLength,displayMs:performance.now()-start,...(nativeColorPresentation?{nativeColorPresentation}:{})}};
  }catch(e){result?.release();throw e;}finally{sample?.release();base?.release();}
 }

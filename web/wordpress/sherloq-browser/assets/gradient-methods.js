@@ -1,6 +1,9 @@
-import {validRecompressionSettings} from './recompression-controls.js?v=0.33.1';
+import {validRecompressionSettings} from './recompression-controls.js?v=0.33.2';
 import {FIELD_METHODS,FIELD_KEYS,gradientFieldDefaults} from './unified-engine/src/gradient-field-parameters.js';
 export const GRADIENT_METHODS=FIELD_METHODS;
+// Added in the field-operator project after the historical Sobel/Krawetz pair.
+export const GRADIENT_ADDED_METHODS=Object.freeze(['disk','central','prewitt','scharr','farid','gaussian','kirsch']);
+export const gradientMethodNovelty=method=>GRADIENT_ADDED_METHODS.includes(method)?'blue':null;
 const fields=['method','intensity','mode','invert','equalize',...FIELD_KEYS];
 export const gradientMethod=value=>FIELD_METHODS.includes(value)?value:'sobel';
 export const gradientMethodLabel=(method,language='fr')=>({sobel:'Sobel',krawetz:'Krawetz',disk:language==='fr'?'Disque pondéré (expérimental)':'Weighted disk (experimental)',central:language==='fr'?'Différences centrées':'Central differences',prewitt:'Prewitt',scharr:'Scharr',farid:'Farid–Simoncelli',gaussian:language==='fr'?'Dérivée gaussienne':'Gaussian derivative',kirsch:'Kirsch · 8 directions'})[method]??method;

@@ -1,0 +1,3 @@
+#include <lcms2.h>
+static int sample(const cmsUInt16Number in[],cmsUInt16Number out[],void *cargo){(void)cargo;double r=in[0]/65535.,g=in[1]/65535.,b=in[2]/65535.;cmsCIEXYZ xyz={.3*r+.2*g+.1*b,.2*r+.6*g+.2*b,.1*r+.1*g+.5*b};cmsFloat2XYZEncoded(out,&xyz);return 1;}
+int main(int argc,char **argv){if(argc!=3)return 2;cmsHPROFILE p=cmsOpenProfileFromFile(argv[1],"r");if(!p)return 3;cmsPipeline *pipe=cmsPipelineAlloc(0,3,3);cmsStage *clut=cmsStageAllocCLut16bit(0,5,3,3,0);cmsStageSampleCLut16bit(clut,sample,0,0);cmsPipelineInsertStage(pipe,cmsAT_END,clut);cmsWriteTag(p,cmsSigAToB0Tag,pipe);int ok=cmsSaveProfileToFile(p,argv[2]);cmsPipelineFree(pipe);cmsCloseProfile(p);return !ok;}

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SHERLOQ Browser Lab
  * Description: Local browser image analysis, with an isolated bilingual workspace.
- * Version: 0.33.1
+ * Version: 0.33.2
  * Requires at least: 6.3
  * Requires PHP: 7.4
  * License: GPL-3.0-or-later
@@ -10,11 +10,11 @@
  */
 if (!defined('ABSPATH')) { exit; }
 // A single source of truth for the page and block-editor cache identity.
-define('SHERLOQ_BROWSER_VERSION', '0.33.1');
+define('SHERLOQ_BROWSER_VERSION', '0.33.2');
 /** Pass the active site's Adobe configuration into both isolated app previews. */
 function sherloq_browser_asset_url() {
     $url = plugins_url('assets/app.php', __FILE__);
-    $fonts = defined('GAELDAUCHY_V4_ADOBE_FONTS_URL') ? GAELDAUCHY_V4_ADOBE_FONTS_URL : '';
+    $fonts = defined('SHERLOQ_ADOBE_FONTS_URL') ? SHERLOQ_ADOBE_FONTS_URL : '';
     $fonts = apply_filters('sherloq_browser_adobe_fonts_url', $fonts);
     $args = array('v' => SHERLOQ_BROWSER_VERSION);
     if (is_string($fonts) && preg_match('~^https://use\.typekit\.net/[a-z0-9]+\.css$~D', $fonts)) { $args['fonts'] = $fonts; }

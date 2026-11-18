@@ -7,7 +7,7 @@ import vm from 'node:vm';
 const url=process.env.SHERLOQ_ELA_COMMIT_APP_URL??new URL('../sherloq-browser/assets/app.js',import.meta.url);
 const app=readFileSync(url,'utf8');
 function section(first,last){const start=app.indexOf(first),end=app.indexOf(last,start);assert(start>=0&&end>start,first+' remains an actual app callback');return app.slice(start,end);}
-const callbacks=[section('function queueAnalysis(){','\nlet layouts='),section('function beginElaParameters(','\nasync function estimateClassicAuto'),section('function queueElaParameterPreview(','\nfunction revokeElaParameterPreview'),section('function finishElaParameters(){','\nasync function finishEnergyEla'),section('async function refreshEnergyView(','\nasync function exportEnergy')].join('\n');
+const callbacks=[section('function queueAnalysis(','\nlet layouts='),section('function beginElaParameters(','\nasync function estimateClassicAuto'),section('function queueElaParameterPreview(','\nfunction revokeElaParameterPreview'),section('function finishElaParameters(){','\nasync function finishEnergyEla'),section('async function refreshEnergyView(','\nasync function exportEnergy')].join('\n');
 const drain=async()=>{for(let i=0;i<20;i++)await Promise.resolve();};
 
 function fixture({synthesis=false}={}){
@@ -15,7 +15,7 @@ function fixture({synthesis=false}={}){
  const state={loaded:true,worker:{},fileInput:{},source:{},imageId:'source-1',revision:1,elaPreviewEpoch:1,elaPreviewVersion:0,elaParameterDraft:true,elaPreviewCommit:false,elaPreviewBusy:false,elaPreviewQueued:null,elaParameterKind:'energy',energyMode:true,elaMode:'biomes',energyViewBusy:false,energyViewQueued:false,energyViewPreview:null,energyViewRevision:1,busy:false,sourceRegionsStale:false,destroyed:false,autoRunTimer:null,pendingMagnifier:false,drawing:false,activeAnalysis:'ela.classic',parameterSession:null,parameterCommitting:false,energyHistogramUI:null,elaAdaptiveFeedback:null,energyViewFrame:null,params:{quality:75},scientific:{quality:synthesis?0:75,shadow:29},presentation:{view:'overlay',opacity:70},lastScientificEnergy:{id:'energy-1'},lastScientificClassic:null,regionController:null,resultMeta:{id:'energy-1',ui:{},data:{metadata:{}}},synthesisState:{enabled:synthesis},host:{sourceOnly:false},previousPresentation:null,result:null,hash:'a'.repeat(64)};
  const elements=new Map(),get=id=>{if(!elements.has(id))elements.set(id,{value:'',classList:{contains:()=>false}});return elements.get(id);};
  const context=vm.createContext({...state,console,
-  $:get,individualMode:()=>false,automaticMode:()=>false,compositeMode:()=>false,localMagnifier:()=>false,firstSourceFrame:{requestAnalysis:()=>false},comparisonRunNotice:()=>'',
+  $:get,localChannelHistogram:null,sherloqDynamic:()=>false,completedNativeEnergyPreviewMatches:()=>false,individualMode:()=>false,automaticMode:()=>false,compositeMode:()=>false,localMagnifier:()=>false,firstSourceFrame:{requestAnalysis:()=>false},comparisonRunNotice:()=>'',
   prepareEnergyRequest:()=>({params:{...context.scientific},presentation:{...context.presentation}}),energyContextSelection:()=>({}),effectiveElaParams:()=>({}),requestedBackend:()=> 'cpu',getAdaptivePreferenceStore:()=>({}),
   bindSourceRegionTask:async()=>({}),cancelSupersededLocalPreviews:()=>{},beginLocalPreviewFlight:()=>({progress:{}}),finishLocalPreviewFlight:()=>{},localPreviewContinuity:{snapshot:()=>({})},
   request:(action,payload)=>new Promise((resolve,reject)=>requests.push({action,payload,resolve,reject})),

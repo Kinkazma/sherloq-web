@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {createNumericSurface} from './numeric-surface.js';
 export const energySemantics='Descriptive low/high JPEG residual energy relative to each detected panel. Scores are not probabilities or attribution of editing. Exact pixel support may be disconnected. Legacy peer biomes, background and Ghost corroboration are separate operations.';
 export async function segmentedEnergyResult(analysis,{budget}={}){

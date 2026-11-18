@@ -20,7 +20,9 @@ Image forensics, PDF inspection and batch analysis. Use it online or prepare an 
 </tr>
 </table>
 
-SHERLOQ Web adapts SHERLOQ’s image-analysis workflows for a browser workspace embedded in WordPress. It also runs entirely offline once the local application and its resources are prepared.
+SHERLOQ Web is an image-forensics application for examining photographs, scientific figures and PDF documents in a browser. It brings together tools for finding clones, inspecting noise and compression, and investigating possible edits. It runs online or entirely offline once the local application is prepared.
+
+It opens image formats including JPEG, PNG, WebP, TIFF, HEIC and AVIF, as well as supported RAW and HDR files. Its processing pipeline works in 8 bits and uses up to 16 bits for higher-bit-depth images in compatible tools. The PDF reader provides page inspection and extraction of embedded images at their native resolution. [PDF reader](docs/PDF-READER.md).
 
 SHERLOQ was created by [Guido Bartoli and the original contributors](https://github.com/GuidoBartoli/sherloq). Their repository documents the original project, its history, research references and upstream development. This web adaptation follows [my macOS fork](https://github.com/Kinkazma/sherloq).
 
@@ -83,11 +85,14 @@ Alongside SHERLOQ’s inherited tools, I integrated the following methods and ad
 - **Compression fingerprints:** Comprint, with compression-distance maps, colour overlays, display thresholds and opacity controls.
 - **Display equalization:** a shared menu covering SHERLOQ (revelation and microcontrast), Histogram, CLAHE, AHE, bi-histogram, recursive, weighted, dynamic, exposure-based and contextual methods, plus adaptive gamma correction. Each view remembers a separate setting for each method.
 - **Luminance gradients:** Sobel and Krawetz, extended with weighted disk (experimental), central differences, Prewitt, Scharr, Farid–Simoncelli, Gaussian derivative and eight-direction Kirsch. Three views: RGB components and magnitude, HSV orientation and tensor coherence. [Methods and settings](docs/LUMINANCE-GRADIENT-FIELDS.md).
-- **Other additions and restored tools:** local and whole-image channel histograms, Illuminant Map, Dead/Hot Pixels, ELA energy and Biome territory views.
+- **Last Bit Analysis — experimental:** visualization of low-order colour bits to examine breaks in fine texture and smoothing.
+- **Channel histogram:** local or whole-image distributions, with 8-bit and 16-bit support. RAW sensor samples and developed RGB have distinct views.
+- **Graphical PCA and RGB/HSV plots:** interactive colour representations for examining colour distributions and groupings.
+- **Other additions and restored tools:** Illuminant Map, Dead/Hot Pixels, ELA energy and Biome territory views, and an enhanced loupe with tonal sweeps.
 
 The workspace also provides CPU/GPU execution choices, lightweight adjustment previews and retained results. For retained maps, changing the view or opacity reuses the computed response. Independent source regions and exclusions carry through supported analyses, batch recipes and saved results.
 
-The AI detectors and DTD are experimental and hidden by default. Enable them through **Settings → Enable experimental tools**.
+The AI detectors, DTD and Last Bit Analysis are experimental and hidden by default. Enable them through **Settings → Enable experimental tools**.
 
 The research methods retain their original authors’ credits. SelfDM requires model files imported into the local resource library. See the [resource notices](docs/METHODS-RESOURCE-LICENSES.txt) for the supplied models and their terms.
 
@@ -314,6 +319,41 @@ The two score layers use the application’s fixed red-channel scale. They also 
 [![Spiral — ELA energy overlay](screenshots/readme-webp/examples/results/spiral-ela-energy/result.webp)](examples/results/spiral-ela-energy/result.png)
 
 The added energy/territory view highlights two areas on the right of the spiral and misses other marked edits. ELA itself is inherited from the original SHERLOQ tools.
+
+</details>
+
+<details>
+<summary>Last Bit Analysis</summary>
+
+Last Bit Analysis reveals the low-order bits of colour values. By default, it compares an 8-bit image with the same image quantized to 7 bits, then amplifies the difference.
+
+It aims to reveal breaks in fine texture that may accompany smoothing or retouching. Noise and compression also influence this map.
+
+**Microscopy — the little smiling fellow**
+
+| Input image | Last Bit Analysis — 8 → 7 bits |
+| --- | --- |
+| ![Microscopy input](examples/equalization/images/original.webp) | ![Microscopy last-bit residual](examples/results/last-bit/microscopy-removed-1.webp) |
+
+Crop from Reinehr et al., *Scientific Reports* (2018), Figure 4A. [Article and image credit](examples/equalization/sources/reinehr-2018-s100b/README.md) — CC BY 4.0.
+
+**Victoria’s Secret**
+
+| Input photograph | Last Bit Analysis — 8 → 7 bits |
+| --- | --- |
+| [![Victoria’s Secret input](examples/results/last-bit/victoria-input.webp)](examples/results/last-bit/victoria-input.jpg) | ![Victoria’s Secret last-bit residual](examples/results/last-bit/victoria-removed-1.webp) |
+
+Victoria’s Secret photograph reproduced in [“Body By Victoria”, Hacker Factor](https://www.hackerfactor.com/blog/index.php?/archives/322-Body-By-Victoria.html).
+
+**Reading this example**
+
+**The dress.** Its colour response stands out clearly from the background. This break invites closer examination of a possible local colour adjustment.
+
+**The lower part of the dress.** The map becomes predominantly black and white, unlike the upper part of the garment. This change may reflect different local processing, without identifying what was done.
+
+**The chest.** The square visible in this map overlaps the area that the [source article](https://www.hackerfactor.com/blog/index.php?/archives/322-Body-By-Victoria.html) associates with the removal of an element.
+
+**The belt buckle.** A similar response appears on the buckle, suggesting another local treatment.
 
 </details>
 
@@ -716,6 +756,8 @@ These desktop screenshots from [Guido Bartoli’s original repository](https://g
 </details>
 
 ## Credits
+
+Image import and colour management use [ImageMagick](web/engine-source/vendor/media/magick-native/NOTICE.md) (ImageMagick Studio LLC and contributors), [LibRaw](web/engine-source/vendor/libraw-native/COPYRIGHT) (LibRaw LLC and upstream authors), [Little CMS](web/engine-source/vendor/color-managed-native/LICENSE) (Marti Maria Saguer), and [libavif/dav1d](web/engine-source/vendor/avif-hdr-dav1d/LIBAVIF-LICENSE) (Joe Drago, VideoLAN and the dav1d authors).
 
 SHERLOQ, the integrated research methods and shared components retain their original authors’ credits, notices and licenses. The table below lists methods and models chronologically; years refer to the cited publications, original software releases or dated presentations.
 

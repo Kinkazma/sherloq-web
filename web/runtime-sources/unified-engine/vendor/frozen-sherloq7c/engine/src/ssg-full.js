@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import{isSsgProjectionFailure}from'./ssg-native-projection.js';
 import {retireCompositeOwners} from './composite-owner-release.js';
 import {createSsgRetainedLocalizer} from './ssg-retained-localization.js';

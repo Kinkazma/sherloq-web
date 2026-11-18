@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten 4.0.15",
+  "reference": "Unchanged native preparation exports plus nominal Lab32F NLM16 pack/unpack and marked-centre repair sharing CPU arithmetic",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/separation-gpu-prepare.cpp": {
+      "bytes": 9729,
+      "sha256": "099f3c8150b158b2a27bab44cbe11d4591284b78570fab13caef0b9d894e1c95"
+    },
+    "native/separation-nlm16.h": {
+      "bytes": 9617,
+      "sha256": "c7badd6f1ea6160b62f69f207ce1182a5629d3e3bfc0418a88ff59f8f1f6d9bb"
+    },
+    "scripts/build-separation-gpu-prepare-nlm16.sh": {
+      "bytes": 2790,
+      "sha256": "e27d4423d0b761bbf9ae8ead168d43cb1c698c0ca1b7ce91236bbd3457f59c06"
+    },
+    "vendor/separation-gpu-prepare/prepare-nlm16.js": {
+      "bytes": 23910,
+      "sha256": "aa57d725c6fc605ffdf1e6deb5b20e64618220352e323fa5d64c075cb474edd1"
+    },
+    "vendor/separation-gpu-prepare/prepare-nlm16.wasm": {
+      "bytes": 634403,
+      "sha256": "775f6aed15d2ec2be67f3b3e20473e21a83c7a4ed21bfc4ac368ac2003bcc05e"
+    }
+  },
+  "buildInputs": {
+    "native/separation-native16.h": {
+      "bytes": 2383,
+      "sha256": "f1217e047595d928af5dc98f191d22963415b4ce6132b8dd9e1708e7740ecd0d"
+    },
+    ".build/cv/lib/libopencv_core.a": {
+      "bytes": 3723884,
+      "sha256": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    ".build/cv/lib/libopencv_imgproc.a": {
+      "bytes": 5090812,
+      "sha256": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+    }
+  }
+}

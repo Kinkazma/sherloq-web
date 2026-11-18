@@ -1,3 +1,4 @@
+import {pngColorChunk} from './png-colorimetry.js';
 import {EngineError,requireValue} from './errors.js';
 const text=(bytes,start,end)=>new TextDecoder('latin1').decode(bytes.subarray(start,end));
 function checkRange(start,count,end){requireValue(Number.isSafeInteger(start)&&Number.isSafeInteger(count)&&start>=0&&count>=0&&start+count<=end,'Metadata offset outside source bytes.');}
@@ -104,8 +105,9 @@ export function imageHeader(bytes){
   checkRange(8,25,bytes.length);const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);requireValue(text(bytes,12,16)==='IHDR'&&view.getUint32(8)===13,'Invalid PNG header.');
   const sourceWidth=view.getUint32(16),sourceHeight=view.getUint32(20),depth=bytes[24],colorType=bytes[25];requireValue(sourceWidth>0&&sourceHeight>0,'Invalid PNG dimensions.');
   let alpha=[4,6].includes(colorType),icc=false,orientation=1,offset=8,exif;
-  while(offset+12<=bytes.length){const length=view.getUint32(offset),kind=text(bytes,offset+4,offset+8);checkRange(offset+8,length+4,bytes.length);if(kind==='iCCP')icc=true;if(kind==='tRNS')alpha=true;if(kind==='eXIf'){requireValue(!exif,'Multiple PNG EXIF chunks are ambiguous.');exif=readTiff(bytes,offset+8,offset+8+length);orientation=exif.orientation;}offset+=length+12;if(kind==='IEND')break;}
-  return {format:'png',width:orientation>=5?sourceHeight:sourceWidth,height:orientation>=5?sourceWidth:sourceHeight,sourceWidth,sourceHeight,depth,colorType,alpha,icc,orientation,...(exif?{exif}:{}),compressionMethod:bytes[26],filterMethod:bytes[27],interlace:bytes[28]};
+  const colorimetry={};
+  while(offset+12<=bytes.length){const length=view.getUint32(offset),kind=text(bytes,offset+4,offset+8);checkRange(offset+8,length+4,bytes.length);if(['sRGB','gAMA','cHRM','cICP'].includes(kind)&&length<=32)pngColorChunk(kind,bytes.subarray(offset+8,offset+8+length),colorimetry);if(kind==='iCCP')icc=true;if(kind==='tRNS')alpha=true;if(kind==='eXIf'){requireValue(!exif,'Multiple PNG EXIF chunks are ambiguous.');exif=readTiff(bytes,offset+8,offset+8+length);orientation=exif.orientation;}offset+=length+12;if(kind==='IEND')break;}
+  return {format:'png',width:orientation>=5?sourceHeight:sourceWidth,height:orientation>=5?sourceWidth:sourceHeight,sourceWidth,sourceHeight,depth,colorType,alpha,icc,orientation,...(Object.keys(colorimetry).length?{colorimetry}:{}),...(exif?{exif}:{}),compressionMethod:bytes[26],filterMethod:bytes[27],interlace:bytes[28]};
  }
  throw new EngineError('UNSUPPORTED_FORMAT','Only verified JPEG, PNG and classic TIFF decoding is available.');
 }

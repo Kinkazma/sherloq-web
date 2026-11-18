@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 // Annotation geometry only. Biological image pixels are never rewritten or excluded.
 export const SCIENTIFIC_ANNOTATION_BARS_POLICY = Object.freeze({
   schema: 'sherloq.scientific-annotations/1',

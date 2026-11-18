@@ -1,14 +1,14 @@
-import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.1';
+import {previewEqualizationFamily} from './preview-cost-family.js?v=0.33.2';
 import {Budget} from './unified-engine/src/cache.js';
 import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
 import {equalizationPixels} from './unified-engine/src/equalization-pixels.js';
 import {clipTraceLineToCircles} from './unified-engine/src/copy-draw-geometry.js';
-import {biomeAreaPreviewBytes,retainedBiomeAreaGroups} from './biome-area-retained-preview.js?v=0.33.1';
-import {selectResamplingPreviewOutput,resamplingMagnitudeCacheKey,copyResamplingMagnitudePage} from './resampling-context-parameter-preview.js?v=0.33.1';
-import {validateClassicalContextPreview,CLASSICAL_CONTEXT_PREVIEW_BYTES} from './classical-context-preview.js?v=0.33.1';
-import {renderMedianContextPreview,MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES} from './median-context-preview.js?v=0.33.1';
+import {biomeAreaPreviewBytes,retainedBiomeAreaGroups} from './biome-area-retained-preview.js?v=0.33.2';
+import {selectResamplingPreviewOutput,resamplingMagnitudeCacheKey,copyResamplingMagnitudePage} from './resampling-context-parameter-preview.js?v=0.33.2';
+import {validateClassicalContextPreview,CLASSICAL_CONTEXT_PREVIEW_BYTES} from './classical-context-preview.js?v=0.33.2';
+import {renderMedianContextPreview,MEDIAN_CONTEXT_PREVIEW_WORKING_BYTES} from './median-context-preview.js?v=0.33.2';
 import {selectSparseTraceRows,traceSelectionSummary,sparseTraceDrawCommands,nativeTraceCircle,tracePaletteWorkingBytes} from './unified-engine/src/sparse-trace-selection.js';
-import {paintSsgRetainedMask} from './ssg-retained-mask-presentation.js?v=0.33.1';
+import {paintSsgRetainedMask} from './ssg-retained-mask-presentation.js?v=0.33.2';
 import {createCooperator} from './unified-engine/src/errors.js';
 import {histogramSummary} from './unified-engine/src/histogram.js';
 import {roundEven} from './unified-engine/src/pixel-utils.js';
@@ -18,9 +18,9 @@ import {GRAY_PALETTE} from './unified-engine/src/gray-palette.js';
 import {GHOST_PALETTES} from './unified-engine/src/ghost-palettes.js';
 import {INFERNO,SAFIRE_COLORS} from './unified-engine/src/research-palettes.js';
 import {illuminantCellDisplay} from './unified-engine/src/illuminant.js';
-import {detectionBiomes} from './detection-biomes.js?v=0.33.1';
-import {composeBiomeWindow} from './detection-biome-presentation.js?v=0.33.1';
-import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE} from './adaptive-preview.js?v=0.33.1';
+import {detectionBiomes} from './detection-biomes.js?v=0.33.2';
+import {composeBiomeWindow} from './detection-biome-presentation.js?v=0.33.2';
+import {createAdaptivePreview,ADAPTIVE_PREVIEW_MAX_SIDE} from './adaptive-preview.js?v=0.33.2';
 import {renderResearch as renderNativeResearch} from './unified-engine/src/research-view.js';
 
 const MAX_SIDE=ADAPTIVE_PREVIEW_MAX_SIDE,LEGACY_SIDE=256,MAX_CELLS=131072,CLONE_TRACE_BYTES=8192*6144+MAX_SIDE*32+16384+tracePaletteWorkingBytes(MAX_SIDE,8192);
@@ -94,10 +94,10 @@ async function classicalClones(a,d,p,g){
  }offset+=length;}return frame(g,data);
 }
 function histogram(output,params){
- const d=output?.data;if(!finiteArray(d?.bins,1024))return null;const channel=params.channel??3,start=params.start??0,end=params.end??255;
+ const d=output?.data,native=d?.depth===16&&d?.binCount===65536,binCount=native?65536:256;if(!finiteArray(d?.bins,4*binCount))return null;const channel=params.channel??3,start=params.start??0,end=params.end??255;
  if(![channel,start,end].every(Number.isInteger)||channel<0||channel>3||start<0||start>255||end<0||end>255)throw invalid('Invalid histogram preview range.');
- const bins=d.bins instanceof Float64Array?d.bins:Float64Array.from(d.bins);let total=0;for(let i=0;i<256;i++)total+=bins[i];
- return {summary:histogramSummary(bins,channel,start,end,total),bins:d.bins,cumulative:d.cumulative,channel,start,end};
+ const bins=d.bins instanceof Float64Array?d.bins:Float64Array.from(d.bins);let total=0;for(let i=0;i<binCount;i++)total+=bins[i];
+ return {summary:native?histogramSummary(bins.subarray(channel*binCount,(channel+1)*binCount),0,start*257,end*257,total):histogramSummary(bins,channel,start,end,total),bins:d.bins,cumulative:d.cumulative,channel,start,end};
 }
 function updated(output,params,patch){return {...output,...patch,provenance:{...output.provenance,params:{...output.provenance?.params,...params}},metrics:{...output.metrics,previewCommit:{nativeAnalysisCalls:0,retained:true}}};}
 function sameAnalysis(output,params,displayKeys){const prior=output.provenance?.params??{};return Object.keys(params).every(key=>displayKeys.includes(key)||!Object.hasOwn(prior,key)||JSON.stringify(params[key])===JSON.stringify(prior[key]));}

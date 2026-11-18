@@ -1,8 +1,8 @@
-import {requiredFeatureChunks,featureStateChange,featureDeletionPlan,selectActiveFiles} from './feature-catalog.js?v=0.33.1';
-import {createChunkLoader,libraryValue} from './dependency-store.js?v=0.33.1';
-import {OFFLINE_CHUNKS,offlineChunkURL,readOfflineInstallation,offlineHeaders} from './offline-browser-store.js?v=0.33.1';
-import {localChunkReader,updateWorkerMessage} from './local-update-core.js?v=0.33.1';
-import {preferenceAccess,capturePreferenceEntry,restorePreferenceEntry} from './preferences-recovery.js?v=0.33.1';
+import {requiredFeatureChunks,featureStateChange,featureDeletionPlan,selectActiveFiles} from './feature-catalog.js?v=0.33.2';
+import {createChunkLoader,libraryValue} from './dependency-store.js?v=0.33.2';
+import {OFFLINE_CHUNKS,offlineChunkURL,readOfflineInstallation,offlineHeaders} from './offline-browser-store.js?v=0.33.2';
+import {localChunkReader,updateWorkerMessage} from './local-update-core.js?v=0.33.2';
+import {preferenceAccess,capturePreferenceEntry,restorePreferenceEntry} from './preferences-recovery.js?v=0.33.2';
 
 const POLICY_KEY='sherloq.local.feature-policy';
 export function createFeatureChoicePersistence({getState,access=preferenceAccess,capture=()=>capturePreferenceEntry(POLICY_KEY),restore=entry=>restorePreferenceEntry(POLICY_KEY,entry),saveServer,readServer,refreshCache=async()=>{},onRecovery=()=>{}}={}){

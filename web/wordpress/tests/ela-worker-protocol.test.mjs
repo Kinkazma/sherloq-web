@@ -40,7 +40,7 @@ for(const fault of ['duplicate-chunk','early-success'])test('classic export '+fa
  worker.emit({id,chunk:Uint8Array.of(1),sequence:1});worker.emit(fault==='duplicate-chunk'?{id,chunk:Uint8Array.of(1),sequence:1}:{id,result:{streamed:true}});await rejected;finish();await turn();assert.equal(worker.messages.length,1);assert.equal(worker.dead,true);
 });
 
-const workerSource=(await readFile(workerURL,'utf8')).replace(/^import .*;\n/gm,'').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import('./unified-engine/src/index.js')",'await loadEngine()');
+const workerSource=(await readFile(workerURL,'utf8')).replace(/^import .*;\n/gm,'').replace(/^/,'const engineLibraryURL=base=>new URL("./index.js",base);\n').replaceAll('import.meta.url',JSON.stringify(workerURL.href)).replace("await import(moduleURL)",'await loadEngine()');
 function endpoint({loadFailure,createFailure,delayedLoad,releaseFailure}={}){
  const messages=[],audit={created:0,loads:0,runs:0,exportsReleased:0};let count=0;
  const engine={capabilities:()=>({ready:true}),async loadBlob(){audit.loads++;return {width:2,height:1,surface:{id:'source',revision:1,width:2,height:1}};},async run(){audit.runs++;return {pixels:{width:2,height:1,data:new Uint8Array(6)}};},async exportSurface(){return {id:'export',revision:1,byteLength:2};},async readExport(){return {bytes:Uint8Array.of(1,2)};},async releaseExport(){audit.exportsReleased++;if(releaseFailure)throw releaseFailure;}};

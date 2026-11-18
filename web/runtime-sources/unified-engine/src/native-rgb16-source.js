@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {EngineError,requireValue,checkAbort,controlCheckpoint} from './errors.js';
 import {allocateOwnedTypedArray,allocateWasmMemory,wasmAllocationFailure} from './allocation.js';
 import {createOwnedByteSource} from './owned-byte-source.js';
@@ -10,10 +10,23 @@ const MiB=1024**2;
 function coordinate(x,y,w,h,o){switch(o){case 2:return[w-1-x,y];case 3:return[w-1-x,h-1-y];case 4:return[x,h-1-y];case 5:return[y,x];case 6:return[h-1-y,x];case 7:return[h-1-y,w-1-x];case 8:return[y,w-1-x];default:return[x,y];}}
 function nativeOwnerResult(value,owner){value.dispose=()=>{owner.release();value.data=null;};return value;}
 
+async function promoteSdr8(image,{budget,signal,sourceBitDepth=8}={}){
+ const surface=image.surface,w=surface?.descriptor?.width??image.pixels?.width,h=surface?.descriptor?.height??image.pixels?.height;requireValue(w&&h&&(!surface?.descriptor?.format||surface.descriptor.format==='rgb8'),'The selected SDR8 source is unavailable.');checkAbort(signal);
+ let output=allocateOwnedTypedArray(Uint16Array,w*h*3,{budget,owner:'sherloq-source16',label:'sherloq-sdr8-container16'});const started=performance.now();
+ try{
+  for(let y=0;y<h;y+=32){await controlCheckpoint(signal);const rows=Math.min(32,h-y),part=surface?await surface.readWindow({x:0,y,width:w,height:rows},{signal}):{pixels:{data:image.pixels.data.subarray(y*w*3,(y+rows)*w*3)},release(){}};
+   try{checkAbort(signal);requireValue(part.pixels.data instanceof Uint8Array&&part.pixels.data.length===rows*w*3,'The selected SDR8 source changed its sample domain.');for(let i=0;i<part.pixels.data.length;i++)output.data[y*w*3+i]=part.pixels.data[i]*257;}finally{await part.release();}
+  }
+  checkAbort(signal);const owner=output;output=null;return nativeOwnerResult({width:w,height:h,format:'rgb16',bitDepth:16,data:owner.data,sourceBitDepth,provenance:{decoder:'existing-qualified-rgb8-promoted-exactly',sourceBitDepth,numericalInputDepth:8,workingBitDepth:16,sourceSelection:'declared-sdr-rgb8-presentation',promotion:'u8*257; normalized samples unchanged',sourceSha256:image.sha256},metrics:{decode16Ms:performance.now()-started,sdrSourceReused:true}},owner);
+ }finally{output?.release();}
+}
+
 // Additional native scientific channel. The historical RGB8 surface is kept
 // for existing tools and display; RGB16 never comes from that reduced surface.
-export async function loadNativeRgb16(image,{budget,signal,onProgress}={}){
- requireValue(image&&budget,'Source image and central budget required.');
+export async function loadNativeRgb16(image,{budget,signal,onProgress,workingDepth}={}){
+ requireValue(image&&budget,'Source image and central budget required.');requireValue(workingDepth===undefined||[8,16].includes(workingDepth),'Invalid requested SHERLOQ source depth.');
+ if(workingDepth===8)return promoteSdr8(image,{budget,signal,sourceBitDepth:image.nativeSurface?.descriptor.sourceDepth??image.provenance?.sourceDepth??image.provenance?.depth??8});
+ if(image.nativeSurface){const started=performance.now(),d=image.nativeSurface.descriptor;requireValue(d.format==='rgb16'&&d.depth===16,'Invalid retained native16 source.');checkAbort(signal);const part=await image.nativeSurface.readWindow({x:0,y:0,width:d.width,height:d.height},{signal});try{checkAbort(signal);return nativeOwnerResult({width:d.width,height:d.height,format:'rgb16',bitDepth:16,data:part.pixels.data,sourceBitDepth:d.sourceDepth,provenance:{...structuredClone(d.provenance??{}),decoder:'retained-native-rgb16-surface',sourceBitDepth:d.sourceDepth,workingBitDepth:16,numericalInputDepth:16,sourceSelection:'retained-native-rgb16',sourceSha256:image.sha256,color:structuredClone(d.color),conversion:'none; exact retained native16 samples'},metrics:{decode16Ms:performance.now()-started,nativeSurfaceReused:true}},part);}catch(error){part.release();throw error;}}
  let ownedSource,output,working,backing,m,cache;const started=performance.now();
  const source=image.source??(image.bytes instanceof Uint8Array?(ownedSource=createOwnedByteSource(image.bytes,{budget})):(ownedSource=createBlobSource(image.blob,{budget})));
  let close;
@@ -22,14 +35,7 @@ export async function loadNativeRgb16(image,{budget,signal,onProgress}={}){
   try{const b=signature.bytes;tiff=(b[0]===73&&b[1]===73)||(b[0]===77&&b[1]===77);png=b.length===8&&[137,80,78,71,13,10,26,10].every((v,i)=>b[i]===v);}finally{signature.release();}
   let header;if(tiff||png)({header}=await(tiff?inspectTiffSource:inspectPngSource)(source,{signal,account:n=>budget.reserve(n)}));
   if(header?.depth>8&&header.depth!==16||!header&&Number(image.provenance?.depth)>8)throw new EngineError('UNSUPPORTED_FORMAT','The original depth needs a qualified native decoder; reduced RGB8 is not a Sherloq analysis source.');
-  if(!header||header.depth!==16){
-   const surface=image.surface,w=surface?.descriptor?.width??image.pixels?.width,h=surface?.descriptor?.height??image.pixels?.height;
-   requireValue(w&&h,'Native source dimensions required.');output=allocateOwnedTypedArray(Uint16Array,w*h*3,{budget,owner:'sherloq-source16',label:'sherloq-promoted-rgb16'});
-   for(let y=0;y<h;y+=32){await controlCheckpoint(signal);const rows=Math.min(32,h-y),part=surface?await surface.readWindow({x:0,y,width:w,height:rows},{signal}):{pixels:{data:image.pixels.data.subarray(y*w*3,(y+rows)*w*3)},release(){}};
-    try{for(let i=0;i<part.pixels.data.length;i++)output.data[y*w*3+i]=part.pixels.data[i]*257;}finally{part.release();}
-   }
-   const owner=output;output=null;return nativeOwnerResult({width:w,height:h,format:'rgb16',bitDepth:16,data:owner.data,sourceBitDepth:header?.depth??8,provenance:{decoder:'existing-qualified-rgb8-promoted-exactly',sourceBitDepth:header?.depth??8,workingBitDepth:16,promotion:'u8*257; normalized samples unchanged',sourceSha256:image.sha256},metrics:{decode16Ms:performance.now()-started}},owner);
-  }
+  if(!header||header.depth!==16)return await promoteSdr8(image,{budget,signal,sourceBitDepth:header?.depth??8});
   const sw=header.sourceWidth,sh=header.sourceHeight,o=header.orientation??1,w=o>=5?sh:sw,h=o>=5?sw:sh;
   requireValue(Number.isSafeInteger(w*h*3),'RGB16 dimensions exceed the safe range.');
   if(tiff&&![0,1,2].includes(header.photometric))throw new EngineError('UNSUPPORTED_FORMAT','Native RGB16 TIFF requires unsigned RGB or grayscale samples.');
@@ -72,7 +78,7 @@ export async function loadNativeRgb16(image,{budget,signal,onProgress}={}){
    }await call('png_stream_end');}finally{m._free(pointer);}
   }
   backing?.materialize(peak);checkAbort(signal);const owner=output;output=null;
-  return nativeOwnerResult({width:w,height:h,format:'rgb16',bitDepth:16,data:owner.data,sourceBitDepth:16,provenance:{decoder:tiff?'libtiff-4.6.0-native-rgb16':'libpng-1.6.43-native-rgb16',sourceBitDepth:16,workingBitDepth:16,orientation:o,iccApplied:false,sourceSha256:image.sha256,conversion:'No 16-to-8 conversion; unsigned samples preserved'},metrics:{decode16Ms:performance.now()-started,codecHeapCapacityBytes:peak,encodedReads}},owner);
+  return nativeOwnerResult({width:w,height:h,format:'rgb16',bitDepth:16,data:owner.data,sourceBitDepth:16,provenance:{decoder:tiff?'libtiff-4.6.0-native-rgb16':'libpng-1.6.43-native-rgb16',sourceBitDepth:16,workingBitDepth:16,numericalInputDepth:16,sourceSelection:'original-native-rgb16-decoder',orientation:o,iccApplied:false,sourceSha256:image.sha256,conversion:'No 16-to-8 conversion; unsigned samples preserved'},metrics:{decode16Ms:performance.now()-started,codecHeapCapacityBytes:peak,encodedReads}},owner);
  }catch(error){output?.release();throw error;}
  finally{try{close?.();}finally{cache?.release();m=null;backing?.();working?.();ownedSource?.dispose();}}
 }

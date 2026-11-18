@@ -44,6 +44,12 @@ VERIFIED_BINARY_FACTORIES = frozenset({
     'individual-assets/m3/ssg/edges-shared.mjs',
     'individual-assets/segmentation/selfdm-proposal/proposal-cv.mjs',
     'unified-engine/vendor/selfdm-proposal/proposal-cv.mjs',
+    # These new banded import owners fetch exact pinned bytes before the
+    # factory receives wasmBinary. Keep the same source and delivered factory.
+    'unified-engine/vendor/libraw-native/libraw-native.js',
+    'unified-engine/vendor/color-managed-native/color-managed-native.js',
+    'unified-engine/vendor/media/magick-native/q16/native-magick.mjs',
+    'unified-engine/vendor/media/magick-native/q32/native-magick.mjs',
 })
 
 def _encoded(value):

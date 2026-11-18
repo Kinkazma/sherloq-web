@@ -1,4 +1,4 @@
-import {watchCanvas2D} from './canvas-context-recovery.js?v=0.33.1';
+import {watchCanvas2D} from './canvas-context-recovery.js?v=0.33.2';
 // Presentation only. Full RGB8 pixels remain the analysis/export reference.
 const MiB=1024**2;
 export class TileCache {
@@ -32,6 +32,13 @@ export function createTiledSurface(pixels,cache){
    if(![x,y,w,h].every(Number.isSafeInteger)||x<0||y<0||w<1||h<1||x+w>width||y+h>height)throw new Error('Invalid image window');
    const data=new Uint8Array(w*h*3);for(let row=0;row<h;row++)data.set(source.data.subarray(((y+row)*width+x)*3,((y+row)*width+x+w)*3),row*w*3);
    return{width:w,height:h,format:'rgb8',data};
+  },
+  async readSampledDisplayPixels({x,y,w,h,step=1}){
+   if(!source)throw Error('Surface released');
+   if(![x,y,w,h,step].every(Number.isSafeInteger)||x<0||y<0||w<1||h<1||step<1||x+w>width||y+h>height)throw Error('Invalid sampled image window');
+   const ow=Math.ceil(w/step),oh=Math.ceil(h/step);if(ow*oh>1024**2)throw Error('Histogram display window exceeds its admitted pixel budget');
+   const data=new Uint8Array(ow*oh*3);for(let row=0;row<oh;row++)for(let col=0;col<ow;col++){const from=((y+row*step)*width+x+col*step)*3,to=(row*ow+col)*3;data[to]=source.data[from];data[to+1]=source.data[from+1];data[to+2]=source.data[from+2];}
+   return{width:ow,height:oh,format:'rgb8',data};
   },
   draw(ctx,bounds,scale){if(!source)return;for(const tile of visibleTiles(width,height,bounds,scale)){
    // One sampled texel of overlap prevents transparent seams at fractional zoom.

@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {validateRecompressionOptions} from './recompression-plan.js';
 import {recompressionLosses} from './jpeg-recompression.js';
 import {parameters,roundEven} from './pixel-utils.js';import {jpegHeader} from './image-headers.js';import {checkAbort,requireValue} from './errors.js';

@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten 4.0.15",
+  "reference": "Existing OpenCV 4.11 libraries and unchanged byte exports; typed median and native-coded bilateral extension",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/separation.cpp": {
+      "bytes": 16523,
+      "sha256": "aaca485d7744e0ad69c5934ad63f95fa2a5200d3a7b23703997909268c13d7f4"
+    },
+    "native/separation-native16.h": {
+      "bytes": 2383,
+      "sha256": "f1217e047595d928af5dc98f191d22963415b4ce6132b8dd9e1708e7740ecd0d"
+    },
+    "scripts/build-separation-depth16.sh": {
+      "bytes": 3058,
+      "sha256": "cf52eb4ca585c188fe670352bdbd678eedeeaac3ded45342a5d28a2670db4a28"
+    },
+    "vendor/separation/separation-depth16.js": {
+      "bytes": 30247,
+      "sha256": "b05d623de638482ba59524e6a541d83d4b987cbfca298b524eab304873d9d039"
+    },
+    "vendor/separation/separation-depth16.wasm": {
+      "bytes": 1287485,
+      "sha256": "6ca3a6e5bef570e659b9569b575393d5bcfe827abfc97ecc619cbdc109ac08ac"
+    }
+  },
+  "buildInputs": {
+    "native/opencv.cpp": {
+      "bytes": 27099,
+      "sha256": "3f22ebb31a9c8eb3beeabccedd866a4f6f565b62921d7fac266c7245cbc2d7a1"
+    },
+    "native/stereo-fma.h": {
+      "bytes": 2291,
+      "sha256": "3c7ab85540a6d3ec5ac7bfbee71e3d02c9993acf3a1c3d2a7e4214987be78b2c"
+    },
+    ".build/cv/lib/libopencv_photo.a": {
+      "bytes": 901924,
+      "sha256": "a14766a2dc714a175cefdd84efe0500ec0dce261c05549b0baf2efd3275b1c0f"
+    },
+    ".build/cv/lib/libopencv_core.a": {
+      "bytes": 3723884,
+      "sha256": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d"
+    },
+    ".build/cv/lib/libopencv_imgproc.a": {
+      "bytes": 5090812,
+      "sha256": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+    }
+  }
+}

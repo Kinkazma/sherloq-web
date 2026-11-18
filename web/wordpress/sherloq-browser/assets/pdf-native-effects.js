@@ -1,13 +1,13 @@
-import {nativeTiles,tileId} from './pdf-native-tile-plan.js?v=0.33.1';
-import {createBatchScopeMask} from './batch-scope-mask.js?v=0.33.1';
-import {isRecord,positiveId,validRect,validRgb,validError,encodeError,decodeError,protocolFailure} from './loupe-native-protocol.js?v=0.33.1';
+import {nativeTiles,tileId} from './pdf-native-tile-plan.js?v=0.33.2';
+import {createBatchScopeMask} from './batch-scope-mask.js?v=0.33.2';
+import {isRecord,positiveId,validRect,validRgb,validError,encodeError,decodeError,protocolFailure} from './loupe-native-protocol.js?v=0.33.2';
 // Scientific processing uses the maintained native-image engine. No reduced input or overview.
 const services=new Map();
 const encodedError=encodeError,receivedError=decodeError;
 const asCleanupFailure=value=>value instanceof Error?value:Object.assign(Error('Native loupe cleanup failed.',{cause:value}),{code:'CLEANUP_FAILED'});
 function service(memoryBudgetBytes){
  if(services.has(memoryBudgetBytes))return services.get(memoryBudgetBytes);
- const sourceURL=new URL('./pdf-native-effects-worker.js?v=0.33.1',import.meta.url);let worker;
+ const sourceURL=new URL('./pdf-native-effects-worker.js?v=0.33.2',import.meta.url);let worker;
  try{worker=new Worker(sourceURL,{type:'module'});}catch(cause){throw Object.assign(Error('Loupe preparation worker could not start.',{cause}),{code:'WORKER_FAILED',details:{sourceURL:String(sourceURL),executionPhase:'worker-startup'}});}
  const pending=new Map(),sources=new Map(),listeners=new Map(),sourceReads=new Map(),sourceFailures=new Map();let serial=0,lastSourceRead=0,users=0,failed=null,phase='open',retired=false,settled=false,closeError=null;
  let closeResolve,closeReject;const closedTask=new Promise((resolve,reject)=>{closeResolve=resolve;closeReject=reject;});closedTask.catch(()=>{});
@@ -65,7 +65,10 @@ function service(memoryBudgetBytes){
    }
    if(data.action!==undefined||!positiveId(data.ticket)||data.ticket>serial)throw invalid();const job=pending.get(data.ticket);if(!job)return;
    let error;if(data.error!==undefined){if(!validError(data.error)||data.pixels!==undefined||data.resultId!==undefined||data.metrics!==undefined||data.released!==undefined)throw invalid();error=receivedError(data.error);}
-   else if(job.action==='build'){if(data.resultId!==data.ticket||!positiveId(data.resultId)||!isRecord(data.metrics))throw invalid();}
+   else if(job.action==='build'){
+    if(data.resultId!==data.ticket||!positiveId(data.resultId)||!isRecord(data.metrics))throw invalid();
+    if(data.output!==undefined){const o=data.output;if(!isRecord(o)||![o.width,o.height,o.sourceWidth,o.sourceHeight].every(positiveId)||!Number.isSafeInteger(o.width*o.height*3)||o.sourceWidth!==job.payload.width||o.sourceHeight!==job.payload.height||o.width>o.sourceWidth||o.height>o.sourceHeight||o.width===o.sourceWidth&&o.height===o.sourceHeight||o.coordinateDomain!=='selected-output-resolution')throw invalid('Invalid regional output geometry.');}
+   }
    else if(job.action==='read'){if(!validRgb(data.pixels,job.payload.rect))throw invalid('Invalid native loupe RGB response.');}
    else if(job.action==='release'){if(data.released!==true||data.memory!==undefined&&!isRecord(data.memory))throw invalid();}
    else throw invalid();
@@ -88,7 +91,10 @@ export function nativePresentationCacheTarget(width,height,memoryBudgetBytes,ove
 }
 // Exact native output tiles. Scaling happens only when painting the final viewport.
 function nativeSurface(result,input,api,changed,memoryBudgetBytes,presentationOverride){
- const width=input.width,height=input.height,scope=input.scientificScope?createBatchScopeMask(input.scientificScope,{width:input.width,height:input.height,sourceSha256:input.scientificScope.sourceSha256}):null,tiles=new Map(),waiting=new Map(),leases=new Set(),explicitReads=new Set();let refs=1,closed=false,clock=0,reads=0,tileBytes=0,evictions=0;
+ const output=result.output,width=output?.width??input.width,height=output?.height??input.height;
+ if(output&&(input.scientificScope||input.applyAlpha))throw Object.assign(Error('A reduced regional presentation needs a qualified Original scope mapping.'),{code:'SOURCE_SCOPE_UNSUPPORTED'});
+ const presentationCoordinateTransform=output?Object.freeze({sourceWidth:input.width,sourceHeight:input.height,outputWidth:width,outputHeight:height,toSource:Object.freeze([input.width/width,input.height/height]),toOutput:Object.freeze([width/input.width,height/input.height])}):null;
+ const scope=input.scientificScope?createBatchScopeMask(input.scientificScope,{width:input.width,height:input.height,sourceSha256:input.scientificScope.sourceSha256}):null,tiles=new Map(),waiting=new Map(),leases=new Set(),explicitReads=new Set();let refs=1,closed=false,clock=0,reads=0,tileBytes=0,evictions=0;
  // This is a lazy per-image presentation LRU target, separate from the worker
  // policy. A visible exact native region can exceed it; it is not total RAM.
  const presentationCacheBytes=nativePresentationCacheTarget(width,height,memoryBudgetBytes,presentationOverride);
@@ -167,7 +173,7 @@ function nativeSurface(result,input,api,changed,memoryBudgetBytes,presentationOv
   }
   function prepare(bounds,scale=1){if(released||closed)return false;if(api.sourceFailure(result.resultId)){failed=api.sourceFailure(result.resultId);return false;}checkLeaseHealth(lease);if(fixedComplete()){completeHits++;return true;}if(covered(bounds,scale)){coverageHits++;return true;}const regions=rects(expanded(bounds,scale));checkTileHealth(regions);if(!collecting){collecting=true;lease.needs.clear();queueMicrotask(()=>{collecting=false;trim(required());});}for(const r of regions)lease.needs.add(id(r));prioritize(regions);const absent=regions.filter(r=>!tiles.has(id(r)));if(!absent.length)return true;
    if(!suspended)for(const r of absent)if(!waiting.has(id(r)))void tile(r).then(()=>{failed=null;onChange();},error=>{if(error.code!=='CANCELLED'){failed=error;onChange(error);}});return false;}
-  return {width,height,preparedLoupe:true,native:true,composedScope:!!scope,id:result.resultId,metrics:result.metrics,get available(){return !api.failed&&!api.sourceFailure(result.resultId)&&!closed;},get presentationRevision(){checkFixedHealth();return presentationRevision;},get byteLength(){return (result.metrics.retainedBytes||0)+(result.metrics.bandCacheBytes||0)+(result.metrics.workerCacheBytes||0)+tileBytes+(fixed?.bytes??0)+[...leases].reduce((n,v)=>n+(v.composite?v.composite.canvas.width*v.composite.canvas.height*4:0),0);},get nativeReads(){return reads;},setInteractive(value){const next=!!value;if(interactive===next||released||closed)return;interactive=next;lastDemand=null;schedulePriority();},prepare,
+  return {width,height,...(presentationCoordinateTransform?{coordinateDomain:'selected-output-resolution',presentationCoordinateTransform}:{}),preparedLoupe:true,native:true,composedScope:!!scope,id:result.resultId,metrics:result.metrics,get available(){return !api.failed&&!api.sourceFailure(result.resultId)&&!closed;},get presentationRevision(){checkFixedHealth();return presentationRevision;},get byteLength(){return (result.metrics.retainedBytes||0)+(result.metrics.bandCacheBytes||0)+(result.metrics.workerCacheBytes||0)+tileBytes+(fixed?.bytes??0)+[...leases].reduce((n,v)=>n+(v.composite?v.composite.canvas.width*v.composite.canvas.height*4:0),0);},get nativeReads(){return reads;},setInteractive(value){const next=!!value;if(interactive===next||released||closed)return;interactive=next;lastDemand=null;schedulePriority();},prepare,
    async ready(bounds,scale=1){if(released||closed)throw cancelled();if(api.sourceFailure(result.resultId))throw api.sourceFailure(result.resultId);checkLeaseHealth(lease);if(fixedComplete()||covered(bounds,scale))return;const regions=rects(expanded(bounds,scale));checkTileHealth(regions);lease.needs=new Set(regions.map(id));prioritize(regions);do{await Promise.all(regions.map(tile));if(released||closed)throw cancelled();}while(regions.some(r=>!tiles.has(id(r))));},
    draw(ctx,bounds,scale=1){
     if(released||closed)return;if(!prepare(bounds,scale)){if(failed)throw failed;return;}

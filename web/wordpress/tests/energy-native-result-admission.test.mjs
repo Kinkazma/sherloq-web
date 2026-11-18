@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import {readFile} from 'node:fs/promises';
 
 const url=new URL('../sherloq-browser/assets/engine-worker.js',import.meta.url),source=await readFile(url,'utf8');
-const code=source.replace(/^import .*;\n/gm,'').replaceAll('import.meta.url',JSON.stringify(url.href)).replace("await import('./unified-engine/src/index.js')",'await loadEngine()');
+const code=source.replace(/^import .*;\n/gm,'').replace(/^/,'const engineLibraryURL=base=>new URL("./index.js",base);\n').replaceAll('import.meta.url',JSON.stringify(url.href)).replace("await import(moduleURL)",'await loadEngine()');
 const imports={};for(const m of source.matchAll(/^import\s+\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/gm))for(const part of m[1].split(',')){const [name,alias]=part.trim().split(/\s+as\s+/);imports[alias??name]=(await import(new URL(m[2],url).href))[name];}
 
 async function attempt({width,height,budget,presentation={view:'overlay'}}){

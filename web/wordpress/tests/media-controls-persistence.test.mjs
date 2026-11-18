@@ -9,6 +9,7 @@ function setup({context = 'global'} = {}) {
   const {document, window} = parseHTML('<html><body><details id="settings-menu"><div><hr></div></details></body></html>');
   Object.defineProperty(window.HTMLSelectElement.prototype, 'value', {configurable: true, get() {return [...this.options].find(option => option.hasAttribute('selected'))?.value || this.options[0]?.value || '';}, set(value) {for (const option of this.options) option.toggleAttribute('selected', option.value === String(value));}});
   window.HTMLInputElement.prototype.checkValidity = function() {const value = Number(this.value), min = this.getAttribute('min'), max = this.getAttribute('max');return Number.isFinite(value) && (min === null || value >= Number(min)) && (max === null || value <= Number(max));};
+  Object.defineProperty(window.HTMLInputElement.prototype, 'validity', {configurable: true, get() {return {valid: this.checkValidity()};}});
   let preferences = validateMediaPreferences({loupe: {enabled: true}}), effects = validateLoupeEffects({}), enhance = {enabled: true, mode: 'contrast', percent: 20, channel: false};
   const broadcasts = [], preferenceSaves = [], updates = [], scans = [];
   const ui = mountMediaControls(document, {
@@ -70,11 +71,20 @@ for (const [group, key, value] of [['adjust', 'gamma', 14], ['enhance', 'percent
 test('the Enhanced magnifier owns its parameters without enabling its independent global effect', () => {
   const h = setup({context: 'enhancement'});
   try {
-    assert.equal(h.field('enhance.enabled').checked, true); assert.equal(h.field('enhance.enabled').disabled, true);
-    h.edit('enhance.percent', 37); h.edit('enhance.channel', true); h.edit('enhance.mode', 'equalize');
-    assert.deepEqual(h.enhance(), {enabled: true, mode: 'equalize', percent: 37, channel: true});
+    const globalPreset = structuredClone(h.preferences().loupe.effects.enhance), box = h.field('enhance.enabled');
+    assert.equal(box.checked, true); assert.equal(box.disabled, false);
+    h.edit('enhance.percent', 37); h.edit('enhance.channel', true);
+    box.closest('[data-effect-group="enhance"]').querySelector('[data-method="histogram"]').click();
+    assert.equal(h.enhance().mode, 'equalize'); assert.equal(h.enhance().percent, 37); assert.equal(h.enhance().channel, true); assert.equal(h.enhance().equalization.method, 'histogram');
     assert.equal(h.preferences().loupe.effects.enhance.enabled, false); assert.equal(h.broadcasts.length, 0);
     assert.equal(h.updates.length, 3); assert.equal(h.preferences().loupe.enabled, true);
+    const selected = structuredClone(h.enhance());
+    box.checked = false; box.onchange();
+    assert.deepEqual(h.enhance(), {...selected, enabled: false}); assert.equal(box.checked, false);
+    assert.deepEqual(h.preferences().loupe.effects.enhance, globalPreset); assert.equal(h.broadcasts.length, 0);
+    box.checked = true; box.onchange();
+    assert.deepEqual(h.enhance(), selected); assert.equal(box.checked, true); assert.equal(h.updates.length, 5);
+    assert.deepEqual(h.preferences().loupe.effects.enhance, globalPreset); assert.equal(h.broadcasts.length, 0);
     h.enable('adjust'); h.edit('adjust.brightness', 19);
     assert.equal(h.preferences().loupe.effects.adjust.enabled, true); assert.equal(h.preferences().loupe.effects.adjust.brightness, 19);
     assert.equal(h.enhance().mode, 'equalize'); assert.equal(h.field('enhance.enabled').checked, true);

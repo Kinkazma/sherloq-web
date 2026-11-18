@@ -1,12 +1,47 @@
-import {createLoupeImageCache as createRegionalCache} from './pdf-native-effects.js?v=0.33.1';
+import {createLoupeImageCache as createRegionalCache} from './pdf-native-effects.js?v=0.33.2';
+import {equalizationPlan} from './unified-engine/src/equalization-settings.js';
+import {withRetirementOwner} from './unified-engine/src/owner-retirement-error.js';
+import {adjustmentParameters} from './loupe-effects-settings.js?v=0.33.2';
 
 const cancelled=()=>Object.assign(Error('Loupe preparation superseded'),{code:'CANCELLED'});
 const effectKey=effects=>JSON.stringify(Object.fromEntries(Object.entries(effects).filter(([,p])=>p.enabled)));
+const sharedWorkspaceBytes=512*1024**2;
+function needsSharedWorkspace(effects){return ['adjust','enhance'].some(name=>effects[name]?.enabled&&equalizationPlan(name==='adjust'?'inspection.adjust':'inspection.magnifier',name==='adjust'?adjustmentParameters(effects.adjust):effects.enhance)?.state.method==='sherloq7c');}
+// Financing belongs to the captured Original, not to a gesture or a build.
+// closedTask covers every fork of a regional publication, including export.
+function financedCache({createCache,changed,bytes,getWorkspace,onUnavailable}){
+ let cache=null,parentDispose=null,retire=null,admission,invalid=false,localDone=false,retired=false,flight=null;const publications=new Set();
+ const owner={cancel(){cache?.cancel();},async acquire(...args){
+  try{await admission;}catch(primary){try{await owner.dispose();}catch(cleanup){throw withRetirementOwner(primary,owner,cleanup);}throw primary;}
+  if(invalid)throw cancelled();const surface=await cache.acquire(...args);
+  if(typeof surface.closedTask?.then!=='function'){await surface.close();throw Object.assign(Error('Loupe publication has no retirement acknowledgement.'),{code:'INVALID_INPUT'});}
+  publications.add(surface.closedTask);void surface.closedTask.then(()=>publications.delete(surface.closedTask),()=>{});
+  if(invalid){await surface.close();throw cancelled();}return surface;
+ },dispose(){
+  if(retired)return Promise.resolve();if(flight)return flight;invalid=true;cache?.cancel();
+  const task=Promise.resolve().then(async()=>{
+   onUnavailable();
+   await Promise.allSettled([admission]);
+   if(!localDone){await cache?.dispose();await Promise.all([...publications]);localDone=true;}
+   const release=retire??parentDispose;if(release){const ack=await release();if(ack===false||ack===0)throw Object.assign(Error('Loupe workspace retirement was not acknowledged.'),{code:'BUSY'});}retired=true;
+  }).catch(primary=>{throw withRetirementOwner(primary,owner,primary);});flight=task;void task.finally(()=>{if(flight===task)flight=null;}).catch(()=>{});return task;
+ }};
+ admission=Promise.resolve().then(()=>getWorkspace(bytes,{
+  onOwner(held){
+   if(parentDispose||typeof held?.dispose!=='function')throw Object.assign(Error('Invalid captured loupe workspace owner.'),{code:'INVALID_INPUT'});
+   parentDispose=held.dispose.bind(held);held.dispose=()=>owner.dispose();return true;
+  },
+  onPeerUnavailable(){if(localDone)return true;invalid=true;cache?.cancel();void owner.dispose().catch(()=>{});return false;}
+ })).then(release=>{
+  if(!parentDispose||typeof release!=='function')throw Object.assign(Error('Loupe workspace admission was not captured.'),{code:'INVALID_INPUT'});
+  retire=release;if(invalid)throw cancelled();cache=createCache({changed,memoryBudgetBytes:bytes});
+ });admission.catch(()=>{});return owner;
+}
 // The normal image and PDF loupe use the same native regional processor. This
 // adapter only owns image identity, presentation leases and retry policy. There
 // is no overview, reduced scratch input or second full-image effect pipeline.
-export function createLoupeImageCache({changed=()=>{},state=()=>{},memoryBudgetBytes=128*1024**2,createCache=createRegionalCache}={}){
- let engine=null,source=null,input=null,inputScope=null,current=null,building=null,wanted='',failed='',failure=null,closed=false,builds=0,suspended=false,resetTask=null,disposeTask=null;
+export function createLoupeImageCache({changed=()=>{},state=()=>{},memoryBudgetBytes=128*1024**2,createCache=createRegionalCache,getWorkspace}={}){
+ let engine=null,engineBytes=0,engineFinanced=false,source=null,input=null,inputScope=null,current=null,building=null,wanted='',failed='',failure=null,closed=false,builds=0,suspended=false,resetTask=null,disposeTask=null;
  const jobs=new Set(),scopes=new Set();
  // Each retained source owns its in-flight cleanups and at most its first
  // cleanup error. A reset drains its retired scopes and then releases them;
@@ -22,11 +57,12 @@ export function createLoupeImageCache({changed=()=>{},state=()=>{},memoryBudgetB
   };
  }
  function closeCurrent(){const retired=current;current=null;if(retired)return cleanup(()=>retired.surface.close(),retired.scope);}
- function cancel(){engine?.cancel();suspended=true;building=null;wanted='';}
+ function retireEngine(){const previous=engine;engine=null;engineBytes=0;engineFinanced=false;closeCurrent();if(previous)cleanup(()=>previous.dispose(),inputScope);}
+ function cancel(){engine?.cancel();suspended=true;building=null;wanted='';if(engineFinanced)retireEngine();}
  function clear(){
   if(!engine&&!input&&!current&&!building&&resetTask)return resetTask;
   const pending=[...jobs],retired=input,previous=engine,scope=inputScope,retiredScopes=[...scopes];
-  cancel();closeCurrent();engine=null;input=null;inputScope=null;source=null;failed='';failure=null;suspended=false;
+  cancel();closeCurrent();engine=null;engineBytes=0;engineFinanced=false;input=null;inputScope=null;source=null;failed='';failure=null;suspended=false;
   if(previous)cleanup(()=>previous.dispose(),scope);
   if(retired)cleanup(async()=>{await Promise.allSettled(pending.filter(job=>job.input===retired).map(job=>job.done));await retired.release();},scope);
   resetTask=finishCleanup(retiredScopes,pending);return resetTask;
@@ -42,7 +78,15 @@ export function createLoupeImageCache({changed=()=>{},state=()=>{},memoryBudgetB
   if(current?.key===key&&current.surface.available!==false&&!suspended){current.surface.effectsKey=JSON.stringify(effects);return current;}
   if(building?.key===key||failed===key)return current;
   state({busy:true,scope:'native-region'});
-  const jobInput=input;engine??=createCache({changed,memoryBudgetBytes});
+  const financed=typeof getWorkspace==='function'&&needsSharedWorkspace(effects),requestedBytes=financed?Math.max(memoryBudgetBytes,sharedWorkspaceBytes):memoryBudgetBytes;
+  if(engine&&(engineBytes!==requestedBytes||engineFinanced!==financed))retireEngine();
+  const jobInput=input;
+  if(!engine){engineBytes=requestedBytes;engineFinanced=financed;if(financed){
+   const scope=inputScope;let funded;funded=financedCache({createCache,changed,bytes:requestedBytes,getWorkspace,onUnavailable(){
+    if(engine===funded){engine=null;engineBytes=0;engineFinanced=false;building=null;closeCurrent();suspended=true;rememberFailure(wanted||key,Object.assign(Error('Captured loupe Original is unavailable.'),{code:'SOURCE_CHANGED'}));}
+    cleanup(()=>funded.dispose(),scope);
+   }});engine=funded;
+  }else engine=createCache({changed,memoryBudgetBytes});}
   const record={key,source:value,input:jobInput,scope:inputScope};building=record;jobs.add(record);
   let acquiring;try{acquiring=engine.acquire(jobInput,effects,changed);}catch(error){acquiring=Promise.reject(error);}
   record.done=Promise.resolve(acquiring).then(async surface=>{

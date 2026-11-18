@@ -1,19 +1,20 @@
-import {currentToolId} from './tool-id-migrations.js?v=0.33.1';
-import {gradientDefaults,GRADIENT_METHODS,gradientMethodLabel} from './gradient-methods.js?v=0.33.1';
-import {isDetectorAlias} from './ai-detector-tools.js?v=0.33.1';
+import {currentToolId} from './tool-id-migrations.js?v=0.33.2';
+import {gradientDefaults,GRADIENT_METHODS,gradientMethodLabel} from './gradient-methods.js?v=0.33.2';
+import {isDetectorAlias} from './ai-detector-tools.js?v=0.33.2';
 import {equalizationOperations} from './unified-engine/src/equalization-settings.js';
 import{segmentationExclusionsAvailable}from'./unified-engine/src/segmentation-window-capabilities.js';
-import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.33.1';
+import {CLONE_ALGORITHMS,cloneMethodLabel,SSG_DEFAULTS} from './clone-methods.js?v=0.33.2';
 // UI descriptors only. Scientific validation remains in the frozen worker.
-import {toolGroups} from './tool-tree.js?v=0.33.1';
-import defaults from './tool-defaults.js?v=0.33.1';
-import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.1';
-import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.33.1';
+import {toolGroups} from './tool-tree.js?v=0.33.2';
+import defaults from './tool-defaults.js?v=0.33.2';
+import {EXTENSION_TOOLS} from './extension-tools.js?v=0.33.2';
+import {D2PRL_INPUT_SIDES} from './d2prl-input-size.js?v=0.33.2';
 const select=(values,labels=values)=>({choices:values.map((value,i)=>({value,label:labels[i]}))});
 const indexed=labels=>select(labels.map((_,i)=>i),labels);
 const range=(min,max,step=1)=>({min,max,step});
 const channels=indexed(['Luminance','Rouge','Vert','Bleu','Norme RGB']);
 const fields={
+ 'ela.bitrate':{removed:{...range(0,2,.1),label:'Bits retirés'}},
  'various.ocr':{orientationCorrection:{label:'Corriger le sens de lecture'},bitmapThreshold:{...range(.01,.99,.01),label:'Seuil du masque de texte'},boxThreshold:{...range(.01,.99,.01),label:'Confiance de détection'},unclipRatio:{...range(.1,5,.1),label:'Marge autour du texte'},algorithm:select(['ppocr-medium','tesseract'],['PP-OCRv6 Medium','Tesseract LSTM — précision']),language:{...select(['eng+fra','fra','eng'],['Français + anglais','Français','Anglais']),label:'Langues'},psm:{...select([3,4,6,7,8,10,11,13],['Mise en page automatique','Colonne de texte','Bloc de texte','Ligne de texte','Mot isolé','Caractère isolé','Texte épars','Ligne brute']),label:'Organisation du texte'},threshold:{...range(0,1,.01),label:'Confiance minimale'},view:select(['overlay','text'],['Texte et encadrements','Texte'])},
  'ai.clones.d2prl':{inputSide:{...select(D2PRL_INPUT_SIDES,D2PRL_INPUT_SIDES.map(side=>side+' × '+side+(side>448?' ⚠️':''))),label:'Taille de la grille D2PRL'},minimum:range(0,5000)},
  'metadata.exiftool':{mode:select(['dump','headers','location','thumbnail'],['Métadonnées','Structure HTML','Géolocalisation','Miniature brute'])},

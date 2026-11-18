@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {resolveRecompressionPlan} from './recompression-plan.js';
 import {recompressSurface} from './recompression-surface.js';
 import {recompressionCodecWorkspace,recompressionCodecPlanningBytes} from './recompression-codec-client.js';

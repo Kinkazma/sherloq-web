@@ -1,6 +1,6 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {getExecutionScheduler} from './execution-scheduler.js';
-import {createFrequencyGpu} from './frequency-gpu-kernel.js';
+import {createFrequencyGpu,frequencyMaskPlanningBytes} from './frequency-gpu-kernel.js';
 import {cvFrequencyMask} from './opencv.js';
 import {EngineError,checkAbort} from './errors.js';
 const DEVICE_RESERVE=32*1024**2;
@@ -24,10 +24,10 @@ export class FrequencyGpu {
   if(!required&&(kernel===1||width*height*kernel<1048576))return {mask:null,metrics:{backend:'cpu',reason:'Small mask uses the CPU reference.'}};
   let release;const abort=()=>this.dispose();signal?.addEventListener('abort',abort,{once:true});
   try{
-   checkAbort(signal);release=this.budget.reserve(width*height*16+kernel*4+32+4*1024**2);await this.prepare(signal);checkAbort(signal);
-   const t=performance.now(),prepared=prepareMask?await prepareMask():{input:await cvFrequencyMask(width,height,p.split,p.smooth,0,{signal}),weights:await cvFrequencyMask(width,height,p.split,p.smooth,1,{signal})},preparationMs=performance.now()-t,r=await getExecutionScheduler(this.budget,{maxWorkers:this.profile.maxWorkers}).run({cpu:0,gpu:1,signal,resourceOwner:'frequency',label:'frequency-mask'},()=>this.gpu.run(prepared.input,width,height,prepared.weights));checkAbort(signal);
+   checkAbort(signal);release=this.budget.reserve(kernel*4+32+4*1024**2+frequencyMaskPlanningBytes(width,height));await this.prepare(signal);checkAbort(signal);
+   const t=performance.now(),prepared=prepareMask?await prepareMask():{input:await cvFrequencyMask(width,height,p.split,p.smooth,0,{signal}),weights:await cvFrequencyMask(width,height,p.split,p.smooth,1,{signal})},preparationMs=performance.now()-t,r=await getExecutionScheduler(this.budget,{maxWorkers:this.profile.maxWorkers}).run({cpu:0,gpu:1,signal,resourceOwner:'frequency',label:'frequency-mask'},()=>this.gpu.run(prepared.input,width,height,prepared.weights,{reserveGpuBytes:bytes=>this.budget.reserve(bytes)}));checkAbort(signal);
    if(r.data.some(x=>!Number.isFinite(x)||x<0||x>1.0001))throw new EngineError('UNSUPPORTED_BACKEND','Invalid GPU frequency mask.');
-   return {mask:r.data,metrics:{backend:'webgpu',kernel:'frequency-gpu-mask+cpu-dft',gpu:{preparationMs,...r.metrics,qualification:this.qualification},workers:1}};
+   return {mask:r.data,metrics:{backend:'webgpu',kernel:'frequency-gpu-mask+cpu-dft',gpu:{preparationMs,...r.metrics,maskPlanningReservationBytes:frequencyMaskPlanningBytes(width,height),qualification:this.qualification},workers:1}};
   }catch(error){checkAbort(signal);const reason=error.message;this.dispose();if(error.code!=='MEMORY_LIMIT')this.failure=reason;if(required)throw new EngineError(error.code??'UNSUPPORTED_BACKEND',reason);return {mask:null,metrics:{backend:'cpu',reason:error.code==='MEMORY_LIMIT'?'GPU exceeds the shared memory budget.':'GPU unavailable or requested computation failed.'}};
   }finally{signal?.removeEventListener('abort',abort);release?.();}
  }

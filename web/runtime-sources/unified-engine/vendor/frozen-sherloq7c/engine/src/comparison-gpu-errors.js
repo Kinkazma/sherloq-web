@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {EngineError,checkAbort,normalizeResourceError} from './errors.js';
 /** Translate only a native WebGPU boundary failure. Callers keep this outside
  * budget admission, input validation and scheduler acquisition. Already

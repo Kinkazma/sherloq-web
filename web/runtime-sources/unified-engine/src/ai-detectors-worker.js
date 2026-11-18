@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 // One bounded ORT heap, one layer session, no browser storage/cache calls.
 import {validateAiManifest,validateAiTensor,aiOutputShapes} from './ai-detectors-runtime.js';
 import {aiDetectorBrowserFamily,AI_GPU_BROWSER_FAMILIES} from './ai-detectors-gpu-policy.js';

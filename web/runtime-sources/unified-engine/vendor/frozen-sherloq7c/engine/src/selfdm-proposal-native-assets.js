@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {SELFDM_PROPOSAL_MODELS,verifySelfDMProposalModels} from './selfdm-proposal-assets.js';
 
 const definitions=[

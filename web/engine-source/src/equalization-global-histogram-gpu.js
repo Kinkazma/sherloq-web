@@ -5,7 +5,8 @@ import {createSegmentedBytes} from './segmented-bytes.js';
 import {createRgbSurface} from './rgb-surface.js';
 import {getExecutionScheduler} from './execution-scheduler.js';
 import {initializeGpuOwner,openOwnedGpuDevice,retireOwnedGpuDevice,gpuOwnerFailure,gpuOwnerMayFallback,gpuOwnerSync,gpuOwnerAsync,gpuOwnerReserve} from './gpu-context-owner.js';
-import {gpuTransaction,retireGpuTransaction,attachGpuCleanup} from './gpu-ack-retirement.js';
+import {retireNativeGpuBufferPrefixes} from './native-gpu-retirement-observer.js';
+import {gpuTransaction,retireGpuTransaction,gpuRetirementFailure,gpuRetirementBlocked,gpuRetirementSync,gpuRetirementStep} from './gpu-ack-retirement.js';
 import {HISTOGRAM_WGSL,REDUCE_WGSL,APPLY_WGSL} from './equalization-global-histogram-wgsl.js';
 
 const MiB=1024**2,PIPELINES=12*MiB,IO_BYTES=4*MiB;
@@ -30,7 +31,7 @@ export function globalHistogram100GpuPlan(width,height,masked,{axis=65535}={}){
 
 class GlobalHistogram100Gpu {
  constructor(budget){initializeGpuOwner(this,budget,'global-histogram100');this.pipelines=null;this.pipelineFree=null;this.queue=Promise.resolve();this.closing=false;this.calls=0;this.completed=0;this.lastFallback=null;}
- retirePipelines=async()=>{this.pipelines=null;if(this.pipelineFree){await this.pipelineFree();this.pipelineFree=null;}};
+ retirePipelines=async()=>{await retireNativeGpuBufferPrefixes(this);this.pipelines=null;if(this.pipelineFree){await this.pipelineFree();this.pipelineFree=null;}};
  sync(fn,signal){return gpuOwnerSync(this,fn,signal);}
  asyncCall(fn,signal){return gpuOwnerAsync(this,fn,signal);}
  capacity(bytes){if(this.budget.recovering||this.budget.isBackingUnderPressure?.('gpu')||this.budget.total()+bytes>this.budget.limit)throw gpuOwnerFailure(this,new EngineError('MEMORY_LIMIT','Optional global Histogram100 GPU workspace is not admitted.'));}
@@ -50,35 +51,38 @@ class GlobalHistogram100Gpu {
  compute(source,options){
   const work=async()=>{
    checkAbort(options.signal);if(this.closing||this.closed)throw new EngineError('DISPOSED','Global Histogram100 GPU service is closing.');
-   try{return await this.run(source,options);}
+   const retirementContext=options.nativeGpuRetirement?{}:null;const runOptions=retirementContext?{...options,nativeGpuRetirementContext:retirementContext}:options;const retireFailure=async()=>{await retireOwnedGpuDevice(this);retirementContext?.afterDeviceDrain?.();};
+   try{return await this.run(source,runOptions);}
    catch(error){
     if(options.signal?.aborted){checkAbort(options.signal);}
-    if(!gpuOwnerMayFallback(this,error))throw error;
-    try{await retireOwnedGpuDevice(this);}catch(cleanup){attachGpuCleanup(error,cleanup);throw error;}
+    if(gpuRetirementBlocked(error)||!gpuOwnerMayFallback(this,error))throw error;
+    try{await retireFailure();}catch(cleanup){throw gpuRetirementFailure(error,{dispose:retireFailure},cleanup);}
     checkAbort(options.signal);this.lastFallback=error.code;return null;
    }
   };const result=this.queue.then(work);this.queue=result.then(()=>{},()=>{});return result;
  }
- async run(source,{signal,onProgress,contains,temporarySession,getTemporarySession}={}){
+ async run(source,{signal,onProgress,contains,temporarySession,getTemporarySession,nativeGpuRetirement,retirementTicket,retirementCacheOwner,nativeGpuRetirementContext}={}){
   const {width,height,format}=source?.descriptor??{};
   requireValue(format==='rgb8'&&typeof source.readWindow==='function','Global HSV equalization requires native RGB8.');
   requireValue(contains===null||contains===undefined||typeof contains==='function','A valid equalization membership predicate is required.');
   this.calls++;this.busy=true;this.fallbackFailures=new WeakSet();
-  const started=performance.now(),tx=gpuTransaction(this),stages=new Set(),windows=new Set();let outputStore,outputSurface,published=false,failed=false,primary,record;
+  const started=performance.now(),tx=gpuTransaction(this),stages=new Set(),windows=new Set();let outputStore,outputSurface,published=false,failed=false,primary,record,proof,cacheRecorded=false;
   // The cache owner retains a failed output retirement; published surfaces own
   // their independent store and are removed from this set only after cleanup.
-  const outputOwner={release:async()=>{const value=await(outputSurface?.dispose()??outputStore?.dispose());if(value===0||value===false)throw new EngineError('BUSY','Histogram output awaits retirement ACK.');outputSurface=outputStore=null;this.pendingResults.delete(outputOwner);}};
+  const outputOwner={release:async()=>{const value=await(outputSurface?.dispose()??outputStore?.dispose());if(value===0||value===false)throw new EngineError('BUSY','Histogram output awaits retirement ACK.');outputSurface=outputStore=null;this.pendingResults.delete(outputOwner);if(proof&&cacheRecorded)proof.acknowledge(retry);}};
   this.pendingResults.add(outputOwner);
-  const retireWindow=async part=>{const ack=await part.release();if(ack===0||ack===false)throw new EngineError('BUSY','Histogram source window awaits retirement ACK.');windows.delete(part);};
+  const retry={dispose:async()=>{await retireNativeGpuBufferPrefixes(this);if(this.retirementNeeded||proof&&!cacheRecorded)await retireOwnedGpuDevice(this);else{await retireGpuTransaction(this,tx);await outputOwner.release();}if(this.nativeRegistrationUnproven)proof?.unproven(retry);proof?.acknowledge(retry);}};
+  const retireWindow=async part=>{try{const ack=await part.release();if(ack===0||ack===false)throw new EngineError('BUSY','Histogram source window awaits retirement ACK.');windows.delete(part);}catch(error){throw gpuRetirementFailure(error,retry,error);}};
   tx.outputFree=async()=>{for(const part of windows)await retireWindow(part);for(const item of stages){if(!item.retired){item.retiredBytes=await item.backing?.();item.retired=true;}if(!item.notified){if(item.retiredBytes!==0)this.budget.notifyBackingRelease?.('array-buffer',item.retiredBytes??item.bytes);item.notified=true;}item.data=null;stages.delete(item);}};
-  const stage=(Type,length,label)=>{let data;try{data=allocateTypedArray(Type,length,{label});}catch(error){throw gpuOwnerFailure(this,error);}const item={data,bytes:data.byteLength,backing:null,retired:false,notified:false};stages.add(item);item.backing=this.budget.registerBacking?.('array-buffer',data.byteLength,{owner:'global-histogram100',label,identity:data.buffer});return data;};
+  const stage=(Type,length,label)=>{let data;try{data=allocateTypedArray(Type,length,{label});}catch(error){throw gpuOwnerFailure(this,error);}const item={data,bytes:data.byteLength,backing:null,retired:false,notified:false};stages.add(item);try{item.backing=this.budget.registerBacking?.('array-buffer',data.byteLength,{owner:'global-histogram100',label,identity:data.buffer});}catch(error){if(proof)this.nativeRegistrationUnproven=true;throw error;}return data;};
   try{
-   if(this.pending.size>1||this.pendingResults.size>1||this.lost||this.retirementNeeded||this.orphanPipelineFees.size){this.pending.delete(tx);this.pendingResults.delete(outputOwner);try{await retireOwnedGpuDevice(this);}finally{this.pending.add(tx);this.pendingResults.add(outputOwner);}}
+   if(nativeGpuRetirement){proof=nativeGpuRetirement.adopt(retirementTicket,retry);this.nativePrefixes??=new Set();if(nativeGpuRetirementContext)nativeGpuRetirementContext.afterDeviceDrain=()=>{if(this.nativeRegistrationUnproven)proof.unproven(retry);proof.acknowledge(retry);};}
+   if(this.pending.size>1||this.pendingResults.size>1||this.lost||this.retirementNeeded||this.orphanPipelineFees.size){this.pending.delete(tx);this.pendingResults.delete(outputOwner);try{await gpuRetirementStep(()=>retireOwnedGpuDevice(this),retry);}finally{this.pending.add(tx);this.pendingResults.add(outputOwner);}}
    let plan=globalHistogram100GpuPlan(width,height,!!contains);
    if(!plan)throw gpuOwnerFailure(this,new EngineError('GPU_LIMIT','Native Histogram100 addressing exceeds the optional GPU path.'));
    // Match the ordinary CPU output's storage policy first. A RAM result remains
    // reserved as one segmented store, not as an additional host transport bank.
-   try{outputStore=await createSegmentedBytes(plan.bytes,{budget:this.budget,temporarySession,getTemporarySession,signal,owner:'equalization',label:'presentation-equalization'});}
+   try{outputStore=await createSegmentedBytes(plan.bytes,{budget:this.budget,temporarySession,getTemporarySession,signal,owner:'equalization',label:'presentation-equalization'});if(proof){const dispose=outputStore.dispose.bind(outputStore);outputStore.dispose=async()=>{const value=await dispose();if(value===false||value===0)throw value;return value;};}}
    catch(error){if(['MEMORY_LIMIT','MEMORY_ALLOCATION','STORAGE_UNAVAILABLE','STORAGE_IO'].includes(error?.code))throw gpuOwnerFailure(this,error);throw error;}
    this.capacity(plan.workspaceBytes+plan.readHeadroomBytes+(this.pipelines?0:PIPELINES));
    tx.lease=await getExecutionScheduler(this.budget).acquire({cpu:0,gpu:1,signal,resourceOwner:'equalization',label:'global-Histogram100'});
@@ -94,7 +98,7 @@ class GlobalHistogram100Gpu {
    tx.workspace=async()=>{if(tx.outputFree)throw new EngineError('BUSY','Histogram100 host retirement still owns its workspace.');await freeWorkspace();};
    this.sync(()=>device.pushErrorScope('validation'),signal);tx.scopes++;
    this.sync(()=>device.pushErrorScope('out-of-memory'),signal);tx.scopes++;
-   const make=(size,usage,label)=>{const buffer=this.sync(()=>device.createBuffer({size,usage,label}),signal),entry={bytes:size,destroyed:false,release:null};tx.buffers.set(buffer,entry);entry.release=this.budget.registerBacking?.('gpu',size,{owner:'global-histogram100',label});return buffer;};
+   const make=(size,usage,label)=>{if(proof){const entry={bytes:size,destroyed:false,release:null,buffer:null};this.nativePrefixes.add(entry);entry.buffer=this.sync(()=>device.createBuffer({size,usage,label}),signal);tx.buffers.set(entry.buffer,entry);this.nativePrefixes.delete(entry);try{entry.release=this.budget.registerBacking?.('gpu',size,{owner:'global-histogram100',label});}catch(error){this.nativeRegistrationUnproven=true;throw error;}return entry.buffer;}const buffer=this.sync(()=>device.createBuffer({size,usage,label}),signal),entry={bytes:size,destroyed:false,release:null};tx.buffers.set(buffer,entry);entry.release=this.budget.registerBacking?.('gpu',size,{owner:'global-histogram100',label});return buffer;};
    const rgb=make(plan.sourceBytes,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'Histogram100-source'),mask=make(plan.maskBytes,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'Histogram100-mask'),partials=make(plan.partialBytes,GPUBufferUsage.STORAGE,'Histogram100-locals'),histogram=make(1024,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC,'Histogram100-counts'),ratios=make(65536,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST,'Histogram100-ratios'),output=make(plan.sourceBytes,GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC,'Histogram100-result'),params=make(32,GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST,'Histogram100-parameters'),histRead=make(1024,GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST,'Histogram100-count-read'),rgbRead=make(plan.readBytes,GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST,'Histogram100-RGB-read');
    const bind=(pipeline,buffers,sizes)=>this.sync(()=>device.createBindGroup({layout:pipeline.getBindGroupLayout(0),entries:buffers.map((buffer,binding)=>({binding,resource:{buffer,offset:0,size:sizes[binding]}}))}),signal);
    const [hp,rp,ap]=this.pipelines,hb=bind(hp,[rgb,mask,partials,params],[plan.sourceBytes,plan.maskBytes,plan.partialBytes,32]),rb=bind(rp,[partials,histogram,params],[plan.partialBytes,1024,32]),ab=bind(ap,[rgb,mask,ratios,output,params],[plan.sourceBytes,plan.maskBytes,65536,plan.sourceBytes,32]);
@@ -113,8 +117,8 @@ class GlobalHistogram100Gpu {
    const uploadMilliseconds=performance.now()-uploadStarted;
    const mapRead=async(buffer,size,consume)=>{
     await this.asyncCall(()=>buffer.mapAsync(GPUMapMode.READ,0,size),signal);tx.mapping={buffer,mapped:true,release:null};
-    const mapped=this.sync(()=>buffer.getMappedRange(0,size),signal);tx.mapping.release=this.budget.registerBacking?.('gpu-mapped',size,{owner:'global-histogram100',label:'Histogram100-mapping',identity:mapped});checkAbort(signal);
-    await consume(mapped);this.sync(()=>buffer.unmap(),signal);tx.mapping.mapped=false;await tx.mapping.release?.();tx.mapping=null;checkAbort(signal);
+    const mapped=this.sync(()=>buffer.getMappedRange(0,size),signal);try{tx.mapping.release=this.budget.registerBacking?.('gpu-mapped',size,{owner:'global-histogram100',label:'Histogram100-mapping',identity:mapped});}catch(error){if(proof)this.nativeRegistrationUnproven=true;throw error;}checkAbort(signal);
+    await consume(mapped);gpuRetirementSync(()=>this.sync(()=>buffer.unmap(),signal),retry);tx.mapping.mapped=false;await gpuRetirementStep(()=>tx.mapping.release?.(),retry);tx.mapping=null;checkAbort(signal);
    };
    const histogramStarted=performance.now(),encoder=this.sync(()=>device.createCommandEncoder(),signal);
    this.sync(()=>{const pass=encoder.beginComputePass();pass.setPipeline(hp);pass.setBindGroup(0,hb);pass.dispatchWorkgroups(plan.groups);pass.setPipeline(rp);pass.setBindGroup(0,rb);pass.dispatchWorkgroups(1);pass.end();encoder.copyBufferToBuffer(histogram,0,histRead,0,1024);device.queue.submit([encoder.finish()]);},signal);tx.drained=false;
@@ -128,21 +132,23 @@ class GlobalHistogram100Gpu {
     await mapRead(rgbRead,length,async mapped=>{const bytes=new Uint8Array(mapped,0,Math.min(length,plan.bytes-offset));await outputStore.write(bytes,offset,{signal});});
     onProgress?.({phase:'equalization-render',fraction:Math.min(1,(offset+length)/plan.bytes)});
    }
-   tx.drained=true;const oom=await this.asyncCall(()=>device.popErrorScope(),signal);tx.scopes--;const validation=await this.asyncCall(()=>device.popErrorScope(),signal);tx.scopes--;
+   tx.drained=true;const oom=await gpuRetirementStep(()=>this.asyncCall(()=>device.popErrorScope(),signal),retry);tx.scopes--;const validation=await gpuRetirementStep(()=>this.asyncCall(()=>device.popErrorScope(),signal),retry);tx.scopes--;
    if(oom||validation)throw gpuOwnerFailure(this,new EngineError(oom?'GPU_OUT_OF_MEMORY':'GPU_FAILED',(oom??validation).message));
    await outputStore.flush();checkAbort(signal);outputSurface=createRgbSurface(outputStore,{width,height,budget:this.budget});
    record={surface:outputSurface,metrics:{equalization:{method:'histogram',value:100,backend:'webgpu',domain:'admitted-native-pixels',channels:'HSV-V',boundedWindows:true,traversal:'native-bands-GPU-histogram',gpuHistogramPasses:1,gpuApplyPasses:1,gpuReadbackBytes:plan.bytes,sourceReadWindows:readWindows,cold,setupMilliseconds,uploadMilliseconds,histogramMilliseconds,lutMilliseconds,mapAndReadbackMilliseconds:performance.now()-mapStarted,workspaceBytes:plan.workspaceBytes,elapsedMs:performance.now()-started}}};
    checkAbort(signal);published=true;return record;
   }catch(error){failed=true;primary=error;throw error;}
   finally{
-   let cleanup;try{await retireGpuTransaction(this,tx);}catch(error){cleanup=error;}
+   let cleanupFailed=false,cleanup;const alreadyRefused=failed&&gpuRetirementBlocked(primary);if(!alreadyRefused)try{await retireNativeGpuBufferPrefixes(this);await retireGpuTransaction(this,tx);}catch(error){cleanupFailed=true;cleanup=error;}
    const closedDuringRun=this.closing&&!failed;
-   if(!published||failed||cleanup||closedDuringRun)try{await outputOwner.release();}catch(error){cleanup??=error;}
-   else this.pendingResults.delete(outputOwner);
+   if(!alreadyRefused&&(!published||failed||cleanupFailed||closedDuringRun))try{await outputOwner.release();}catch(error){if(!cleanupFailed)cleanup=error;cleanupFailed=true;}
+   else if(!alreadyRefused)this.pendingResults.delete(outputOwner);
    this.busy=false;
-   if(cleanup){if(failed){attachGpuCleanup(primary,cleanup);}else throw cleanup;}
+   if(alreadyRefused)throw gpuRetirementFailure(primary,retry,primary);
+   if(cleanupFailed){const debt=this.pending.has(tx)||this.pendingResults.has(outputOwner)||!!this.nativePrefixes?.size;if(proof&&!debt&&!this.retirementNeeded&&!this.orphanPipelineFees.size){if(this.nativeRegistrationUnproven)proof.unproven(retry);else{if(this.device||this.pipelines){if(!retirementCacheOwner)proof.unproven(retry);else{proof.retainCache(retry,retirementCacheOwner);cacheRecorded=true;}}proof.acknowledge(retry);}}throw gpuRetirementFailure(failed?primary:cleanup,retry,cleanup,debt);}
+   if(proof&&!this.retirementNeeded&&!this.orphanPipelineFees.size){if(this.nativeRegistrationUnproven)proof.unproven(retry);else{if(this.device||this.pipelines){if(!retirementCacheOwner)proof.unproven(retry);else{proof.retainCache(retry,retirementCacheOwner);cacheRecorded=true;}}if(!published||failed||closedDuringRun)proof.acknowledge(retry);else if(outputSurface){const dispose=outputSurface.dispose.bind(outputSurface);outputSurface.dispose=async()=>{const value=await dispose();if(value===false||value===0)throw value;proof.acknowledge(retry);return value;};}}}
    if(closedDuringRun)throw new EngineError('DISPOSED','Histogram100 service closed before output adoption.');
-   if(record&&!failed&&!cleanup){record.metrics.equalization.elapsedMs=performance.now()-started;this.completed++;}
+   if(record&&!failed&&!cleanupFailed){record.metrics.equalization.elapsedMs=performance.now()-started;this.completed++;}
   }
  }
  async dispose(){this.closing=true;await this.queue;await retireOwnedGpuDevice(this);this.closed=true;}
@@ -153,7 +159,7 @@ export async function tryGlobalHistogram100Gpu(source,options={}){
  requireValue(budget?.reserve&&budget?.total,'A shared Histogram100 Budget is required.');
  if(backend==='cpu'||!globalThis.navigator?.gpu)return null;
  let service=services.get(budget);if(!service){service=new GlobalHistogram100Gpu(budget);services.set(budget,service);}
- return service.compute(source,options);
+ if(!options.nativeGpuRetirement)return service.compute(source,options);const retirementCacheOwner=options.nativeGpuRetirement.cacheOwner(service,'global-Histogram100-budget-cache');return service.compute(source,{...options,retirementCacheOwner});
 }
 export function globalHistogram100GpuState(budget){const service=services.get(budget);return service?{calls:service.calls,completed:service.completed,lastFallback:service.lastFallback,pipelines:service.pipelines?.length??0,pending:service.pending.size,failedOutputs:service.pendingResults.size}:null;}
 export async function disposeGlobalHistogram100Gpu(budget){const service=services.get(budget);if(service){await service.dispose();if(services.get(budget)===service)services.delete(budget);}}

@@ -1,0 +1,13 @@
+import "../../runtime-context.js?v=0.33.2";
+// One planner for ordinary and typed PCA, all layouts and image dimensions.
+// Source banks are already funded. These are the actual phase extents retained
+// together by segmentedPca, not a second Budget or an allocation.
+export function pcaModelIdentity(binding,descriptor,grid){return JSON.stringify([binding.imageId,binding.sourceSurfaceId,binding.sourceRevision,binding.sourceSha256,binding.nativeSurfaceId,binding.nativeRevision,binding.profileIdentity,16,descriptor.width,descriptor.height,descriptor.id,descriptor.revision,grid.step,grid.origin,descriptor.orientation??1,'identity']);}
+export function pcaExecutionPlan({width,height,inputDepth=8,params={},retainedTables=inputDepth===16,availableBytes=Number.MAX_SAFE_INTEGER,blockPixels=65536,maxWorkers=1,heapBytes=0,canWorkers=typeof Worker==='function',canShare=globalThis.crossOriginIsolated===true&&typeof SharedArrayBuffer==='function',runtimeBytes=0,ioBytes=0,storageOverheadBytes=0,publicOutputCopyBytes=0}={}){
+ const MiB=1024**2,n=width*height;if(![width,height,n,blockPixels,heapBytes,runtimeBytes,ioBytes,storageOverheadBytes,publicOutputCopyBytes].every(Number.isSafeInteger)||width<1||height<1||publicOutputCopyBytes<0||![8,16].includes(inputDepth))return null;
+ const block=Math.min(blockPixels,Math.floor((availableBytes-12*MiB)/144));if(block<1)return null;
+ const channels=params.mode==='crossprod'?3:1,sampleBytes=inputDepth/8,stride=Math.max(1,Math.ceil(n/131072)),points=Math.ceil(n/stride),cloud=points*(inputDepth===16?9:retainedTables?6:3),workspaceBytes=Math.max(8*MiB,heapBytes)+block*64,lanes=canWorkers&&n>=MiB?Math.min(3,Math.max(1,Math.floor(maxWorkers))):1;
+ const workerInput=block*3*sampleBytes,covariancePool=lanes>1?lanes*(8*MiB+block*(inputDepth===16?16:8))+(canShare?workerInput:0):0,raw=n*channels*8,output=n*3*sampleBytes,histogram=params.equalize?(inputDepth===16?3*65536*8:768*8):0,lut=params.equalize?3*(inputDepth===16?65536*2:256):0,projector=params.mode==='project'&&n>=MiB?8*MiB:0,modelTables=5*15*8,page=4096*6*4,csv=(4096*6*32+256)*4;
+ const common=runtimeBytes+ioBytes+storageOverheadBytes+workspaceBytes+cloud+modelTables,phases={covariance:common+workerInput+covariancePool,projection:common+raw+workerInput+(inputDepth===16?block*3:0)+projector+block*8+2*MiB,normalization:common+raw+output+histogram+block*8+2*MiB,equalization:common+output+histogram+lut,publication:runtimeBytes+output+publicOutputCopyBytes+cloud+modelTables+page+csv};
+ const bytes=Math.max(...Object.values(phases));return Number.isSafeInteger(bytes)?{known:true,bytes,completeResidentAlternative:true,blockPixels:block,workspaceBytes,parallelWorkers:lanes,phases,retainedResultBytes:output+cloud+120}:null;
+}

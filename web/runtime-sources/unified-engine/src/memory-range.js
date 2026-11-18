@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {EngineError,requireValue} from './errors.js';
 
 const RANGE=Symbol('renewable byte range'),owners=new WeakMap();
@@ -31,4 +31,11 @@ export function byteRange(value){
 export function byteSubrange(value,offset=0,length=byteLength(value)-offset){
  const parent=byteRange(value);byteView(parent,offset,length);
  return {[RANGE]:true,byteLength:length,view(at,count){return byteView(parent,offset+at,count);}};
+}
+
+// Wasm32 i32 exports may arrive signed in JavaScript. Normalize the address,
+// then validate its complete span against the current committed byte length.
+// The end offset remains a Number; it must never wrap modulo2^32.
+export function unsignedWasm32Pointer(value,heapBytes,length,{allowZero=false,alignment=1}={}){
+ requireValue(Number.isInteger(value)&&value>=-(2**31)&&value<=2**32-1,'Invalid Wasm32 pointer value.');const pointer=value>>>0;requireValue(Number.isSafeInteger(heapBytes)&&heapBytes>=0&&heapBytes<=2**32&&Number.isSafeInteger(length)&&length>=0&&Number.isSafeInteger(alignment)&&alignment>0&&pointer%alignment===0&&(allowZero||pointer>0||length===0)&&pointer<=heapBytes-length,'Invalid unsigned Wasm32 byte range.');return pointer;
 }

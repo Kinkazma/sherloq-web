@@ -74,7 +74,13 @@ function assertEvaluationShape(document,method){
  assert.equal(evaluation.querySelectorAll('tbody tr').length,4);
  assert.equal(evaluation.querySelectorAll('thead th').length,2);
  assert.equal(evaluation.querySelector('input,select,button,details'),null);
- assert.equal(evaluation.querySelector('[href]'),null,'no link to the old unrelated CONVEX study');
+ const source=evaluation.querySelector('a.generation-study-source');
+ assert.equal(source,evaluation.children[1]);
+ assert.equal(new URL(source.getAttribute('href')).href,'https://github.com/Kinkazma/sherloq-web/blob/main/examples/studies/six-ai-detectors/Comparative%20evaluation%20of%20AI-generated%20image%20detectors%20%E2%80%93%20DDA%20-%20GAPL%20-%20SPAI%20-%20PRL%20-%20Community%20Forensics%20384%20-%20B-Free.pdf');
+ assert.equal(source.target,'_blank');
+ assert.equal(source.rel,'noopener noreferrer');
+ assert.equal(source.getAttribute('aria-haspopup'),'dialog');
+ assert.equal(evaluation.querySelectorAll('[href]').length,1,'only the requested study PDF link is present');
  assert.doesNotMatch(evaluation.textContent,/CONVEX|sans bruit|avec bruit|No added noise|Added noise/);
  assert.deepEqual([...gauge.children].map(n=>(n.className?.baseVal??n.className)||n.tagName.toLowerCase()),
   ['generation-gauge-header','svg','generation-gauge-ends','generation-gauge-index','generation-verdict','generation-warning','generation-evaluation']);

@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 // Experimental direct native materialization. No root/next/pixel-level JS copy.
 import factory from './graph-memory-native-compact-kernel.mjs';
 import {createFundedMemory,verifiedGrowthBinary} from './graph-memory-native-compact-growth.mjs';

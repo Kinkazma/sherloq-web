@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {requireValue} from './errors.js';
 import {selfDMProposalNativeTransform} from './selfdm-proposal-native-assets.js';
 

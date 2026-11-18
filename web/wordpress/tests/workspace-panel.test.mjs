@@ -3,6 +3,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {parseHTML} from 'linkedom';
+import {createOpeningRegionDraft} from '../sherloq-browser/assets/opening-region-draft.js';
 import {mountAnalysisPanel} from '../sherloq-browser/assets/app.js';
 const html=await readFile(new URL(import.meta.resolve('../sherloq-browser/assets/panel.html')),'utf8');
 function environment(){
@@ -23,13 +24,16 @@ function environment(){
   const size=step===null?1:Number(step),origin=low!==null?Number(low):0;
   return !Number.isFinite(size)||size<=0||Math.abs((value-origin)/size-Math.round((value-origin)/size))<1e-7;
  };
+ Object.defineProperty(window.HTMLInputElement.prototype,'validity',{configurable:true,get(){return{valid:this.checkValidity()};}});
+ Object.defineProperty(window.HTMLSelectElement.prototype,'selectedIndex',{configurable:true,get(){const index=[...this.options].findIndex(o=>o.hasAttribute('selected'));return index>=0?index:this.options.length?0:-1;}});
+ Object.defineProperty(window.HTMLSelectElement.prototype,'validity',{configurable:true,get(){return{valid:!this.required||this.selectedIndex>=0&&this.value!==''};}});
  // LinkeDOM supplies parsing/events/Shadow DOM; dimensions and canvas are transports.
  Object.defineProperty(window.HTMLElement.prototype,'clientWidth',{get:()=>800,configurable:true});Object.defineProperty(window.HTMLElement.prototype,'clientHeight',{get:()=>600,configurable:true});
  window.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:()=>()=>{}});
  const controls=[];
  function mount(toolId,sourceOnly=false){
   const host=document.createElement('div');document.body.append(host);const root=host.attachShadow({mode:'open'}),parsed=parseHTML(html).document;for(const child of [...parsed.body.children])if(child.tagName!=='SCRIPT')root.append(document.importNode(child,true));
-  const scoped={getElementById:id=>root.getElementById(id),querySelectorAll:s=>root.querySelectorAll(s),createElement:t=>document.createElement(t),documentElement:host,addEventListener:(...args)=>root.addEventListener(...args)};
+  const scoped={getElementById:id=>root.getElementById(id),querySelectorAll:s=>root.querySelectorAll(s),createElement:t=>document.createElement(t),documentElement:host,addEventListener:(...args)=>root.addEventListener(...args),removeEventListener:(...args)=>root.removeEventListener(...args)};
   const controller=mountAnalysisPanel(scoped,{managed:true,toolId,sourceOnly,language:'fr',theme:'dark',visible:()=>true,changed(){}});controls.push(controller);return {controller,root,host};
  }
  return {mount,async dispose(){await Promise.all(controls.map(c=>c.dispose()));}};
@@ -54,5 +58,11 @@ test('Adopted original pixels remain owned by their document when another tab cl
 test('Panel Close all keeps adopted original pixels, bytes and settings instead of reloading empty',async()=>{
  const env=environment();try{const panel=env.mount('inspection.adjust'),file=new Blob(['original bytes']),source={width:640,height:480,draw(){},close(){throw Error('Shared original must not be closed by an analysis');}},input={file,source,imageId:'shared-source',hash:'fingerprint',description:'same source'};
  panel.controller.adopt(input);panel.root.getElementById('close-dialog').close=()=>{};panel.root.getElementById('confirm-close').onclick();assert.equal(panel.controller.input().file,file);assert.equal(panel.controller.input().imageId,'shared-source');assert.equal(panel.controller.input().source.width,640);assert.equal(panel.root.getElementById('app').classList.contains('original-mode'),true);assert.equal(panel.root.getElementById('empty').hidden,true);
+ }finally{await env.dispose();}
+});
+
+test('Original navigation and manual opening zones work before any scientific source is loaded',async()=>{
+ const env=environment();let released=0;try{const panel=env.mount('original',true),file=new File(['original'],'photo.avif'),draft=createOpeningRegionDraft({file,generation:1,width:10000,height:8000}),surface={width:10000,height:8000,openingPresentation:true,previewOnly:true,prepare:()=>true,draw(){},close(){released++;}},view=panel.root.getElementById('viewport');view.getBoundingClientRect=()=>({left:0,top:0,width:800,height:600});view.setPointerCapture=()=>{};
+ assert.equal(panel.controller.showOpeningPresentation(surface,{file,regionDraft:draft}),true);assert.equal(panel.controller.input().source,null);assert.equal(panel.controller.input().file,null);assert.equal(panel.controller.snapshot().hasResult,false);const zoom=panel.controller.snapshot().zoom;panel.controller.zoomBy(1.25);assert.notEqual(panel.controller.snapshot().zoom,zoom);panel.controller.fit();panel.controller.beginOpeningRegion('exclusion');view.onpointerdown({button:0,pointerId:1,clientX:100,clientY:100,target:view});view.onpointermove({pointerId:1,clientX:200,clientY:180,target:view});view.onpointerup({pointerId:1,target:view});assert.equal(draft.snapshot().zones.length,1);assert.equal(draft.snapshot().zones[0].kind,'exclusion');assert.equal(draft.snapshot().sourceSha256,undefined);assert.equal(panel.controller.input().source,null);panel.controller.clearOpeningPresentation();assert.equal(released,1);assert.equal(panel.controller.snapshot().openingPresentation,false);
  }finally{await env.dispose();}
 });

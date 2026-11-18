@@ -15,23 +15,30 @@ function cellCoordinates(d,block,columns){
  return {xs,ys};
 }
 
+export function minmaxExecutionPlan({descriptor:d,params,availableBytes,rowsPerBlock,chunkBytes=4*1024**2,ioBytes=0}){
+ const w=d.sourceWidth,h=d.sourceHeight,n=w*h,radius=params.filter+3,block=radius*2+1,columns=Math.ceil(d.width/block),cellRows=Math.ceil(d.height/block),cells=columns*cellRows,filtered=Boolean(params.filter),gridBytes=filtered?cells*16+(w+h)*4:0,planningBytes=Math.min(8*1024**2,n*9+w*18)+ioBytes,rows=Math.min(h,rowsPerBlock??Math.max(1,Math.floor(4*1024**2/(w*9))-2),Math.floor(availableBytes/(w*9))-2),countBlock=Math.min(chunkBytes,Math.floor(availableBytes/2)),renderPixels=Math.min(Math.floor(4*1024**2/3),Math.floor(availableBytes/3));
+ return{w,h,n,radius,block,columns,cellRows,cells,filtered,gridBytes,planningBytes,rows,countBlock,renderPixels};
+}
+export function minmaxAdmissionPlan(descriptor,params,{runtimeBytes=0,ioBytes=0,storageOverheadBytes=0}={}){
+ const plan=minmaxExecutionPlan({descriptor,params,availableBytes:Number.MAX_SAFE_INTEGER,ioBytes}),workingBytes=Math.max(plan.planningBytes,Math.min(plan.h,plan.rows+2)*plan.w*9,plan.filtered?plan.countBlock*2:0,plan.filtered?Math.min(plan.n,plan.renderPixels)*3:0),bytes=runtimeBytes+storageOverheadBytes+plan.n*5+plan.gridBytes+workingBytes;
+ return Number.isSafeInteger(bytes)&&bytes>0&&plan.rows>0?{bytes,completeResidentAlternative:true,rowsPerBlock:plan.rows,parallelWorkers:0}:null;
+}
 export async function segmentedMinmax(image,params,{budget,signal,onProgress,rowsPerBlock}={}){
  const d=image.surface.descriptor,w=d.sourceWidth,h=d.sourceHeight,n=w*h;
  requireValue(rowsPerBlock===undefined||Number.isSafeInteger(rowsPerBlock)&&rowsPerBlock>0,'Invalid extrema row group.');
- const radius=params.filter+3,block=radius*2+1,columns=Math.ceil(d.width/block),cellRows=Math.ceil(d.height/block),cells=columns*cellRows;
- const filtered=Boolean(params.filter),gridBytes=filtered?cells*16+(w+h)*4:0,ioBytes=image.session?.backend==='indexeddb'||!image.session&&image.ensureTemporarySession?2*1024**2:0;
+ const ioBytes=image.session?.backend==='indexeddb'||!image.session&&image.ensureTemporarySession?2*1024**2:0,decision=room=>minmaxExecutionPlan({descriptor:d,params,availableBytes:room,rowsPerBlock,ioBytes}),{radius,block,columns,cellRows,cells,filtered,gridBytes,planningBytes}=decision(Number.MAX_SAFE_INTEGER);
  let low,high,output,planning,gridReservation,blocks=0,rows;const stageMs={admission:0,extremaAndMaskWrites:0,densityCounts:0,globalNormalization:0,displayWrites:0};let stageStart=performance.now();
  try{
   // Reserve both future grid and current useful staging before choosing which
   // retained masks fit RAM. No calibration or full-resolution scratch raster.
   gridReservation=budget.reserve(gridBytes);
-  planning=budget.reserve(Math.min(8*1024**2,n*9+w*18)+ioBytes);
+  planning=budget.reserve(planningBytes);
   low=await createSegmentedBytes(n,{budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal});
   high=await createSegmentedBytes(n,{budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal});
   output=await createSegmentedBytes(n*3,{budget,temporarySession:image.session,getTemporarySession:image.ensureTemporarySession,signal});
   planning();planning=null;
   const available=()=>budget.limit-budget.retained-budget.active-(image.session?.backend==='indexeddb'?2*1024**2:0);
-  rows=Math.min(h,rowsPerBlock??Math.max(1,Math.floor(4*1024**2/(w*9))-2),Math.floor(available()/(w*9))-2);
+  rows=decision(available()).rows;
   if(rows<1)throw new EngineError('MEMORY_LIMIT','Extrema neighborhood staging does not fit the shared budget.');
   stageMs.admission=performance.now()-stageStart;stageStart=performance.now();
   for(let y=0;y<h;y+=rows){
@@ -47,7 +54,7 @@ export async function segmentedMinmax(image,params,{budget,signal,onProgress,row
   await low.flush();await high.flush();stageMs.extremaAndMaskWrites=performance.now()-stageStart;stageStart=performance.now();
   if(filtered){
    const {xs,ys}=cellCoordinates(d,block,columns),counts=[new Uint16Array(cells),new Uint16Array(cells)];
-   const countBlock=Math.min(low.chunkBytes,Math.floor(available()/2));
+   const countBlock=minmaxExecutionPlan({descriptor:d,params,availableBytes:available(),rowsPerBlock,chunkBytes:low.chunkBytes,ioBytes}).countBlock;
    if(countBlock<1)throw new EngineError('MEMORY_LIMIT','Extrema count staging does not fit the shared budget.');
    await low.visit(async(bytes,offset)=>{
     const release=budget.reserve(bytes.length);
@@ -71,7 +78,7 @@ export async function segmentedMinmax(image,params,{budget,signal,onProgress,row
    const colors=[params.minimum,params.maximum],combined=new Uint8Array(cells*3);
    for(let i=0;i<cells;i++)for(let m=0;m<2;m++)for(let c=0;c<3;c++)if(colors[m]===c||colors[m]===3)combined[i*3+c]+=levels[m][i];
    const normalized=normalizeU8(combined);checkAbort(signal);stageMs.globalNormalization=performance.now()-stageStart;stageStart=performance.now();onProgress?.(.75);
-   const renderPixels=Math.min(Math.floor(4*1024**2/3),Math.floor(available()/3));
+   const renderPixels=decision(available()).renderPixels;
    if(renderPixels<1)throw new EngineError('MEMORY_LIMIT','Extrema display staging does not fit the shared budget.');
    const release=budget.reserve(Math.min(n,renderPixels)*3);
    try{const bytes=new Uint8Array(Math.min(n,renderPixels)*3);

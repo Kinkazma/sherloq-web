@@ -1,0 +1,41 @@
+{
+  "schema": "sherloq.avif-hdr-dav1d-build/1",
+  "variant": "mt",
+  "toolchain": "Emscripten4.0.15",
+  "compilerFlags": [
+    "-O3",
+    "-flto",
+    "-msimd128",
+    "-mbulk-memory",
+    "-pthread"
+  ],
+  "libavif": {
+    "version": "1.4.2",
+    "archiveSha256": "2b645287340ba5a631d268b551dc2d72bd73ac33335962dd36dcdb6d8366921d"
+  },
+  "dav1d": {
+    "version": "1.5.4",
+    "archive": "https://downloads.videolan.org/pub/videolan/dav1d/1.5.4/dav1d-1.5.4.tar.xz",
+    "archiveSha256": "686616b7c69eb88d44459391ab25cac13b6647a3b288835c5784e71c1514a5c5",
+    "license": "BSD-2-Clause"
+  },
+  "entrySourceSha256": "22ce194abba0c94ed8f7cbac531a2faba40a147eaec4f24682591b97643c3358",
+  "importedMemoryMaximumBytes": 4294967296,
+  "pthreadStackBytes": 1048576,
+  "threadCount": "caller-admitted workerCount",
+  "maximum32BitFramePixels": 100000000,
+  "sourcePatch": {
+    "file": "patches/checked-32bit-100mp.patch",
+    "sha256": "8807f66a73cd569323ef77cf772dc79ada145f649fce1074f79ba4651f4b4147"
+  },
+  "files": {
+    "avif-hdr-dav1d-mt.mjs": {
+      "bytes": 29684,
+      "sha256": "955e127f24d97bcfc0d9f0e19e1ae7e0de4714b6f71591692fd9e41e3c972c96"
+    },
+    "avif-hdr-dav1d-mt.wasm": {
+      "bytes": 850838,
+      "sha256": "0f7e247be395c77e1d0e764931a38634f8c7d6dc6eb05159ff72a7f0ec70ccf5"
+    }
+  }
+}

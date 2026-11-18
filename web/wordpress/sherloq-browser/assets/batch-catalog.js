@@ -1,13 +1,13 @@
-import {defaultBackend} from './backend-mode-preferences.js?v=0.33.1';
-import {isBatchSherloq,normalizeBatchSherloqRecipe} from './batch-sherloq-settings.js?v=0.33.1';
-import {localFeaturePolicy} from './feature-policy.js?v=0.33.1';
-import {toolCatalog,toolFields} from './tool-catalog.js?v=0.33.1';
-import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js?v=0.33.1';
-import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js?v=0.33.1';
-import defaults from './tool-defaults.js?v=0.33.1';
-import {defaults as classicDefaults} from './settings.js?v=0.33.1';
-import {NEURAL_METHODS} from './neural-clone-ui.js?v=0.33.1';
-import {clipPolygon} from './batch-scope-geometry.js?v=0.33.1';
+import {defaultBackend} from './backend-mode-preferences.js?v=0.33.2';
+import {isBatchSherloq,normalizeBatchSherloqRecipe} from './batch-sherloq-settings.js?v=0.33.2';
+import {localFeaturePolicy} from './feature-policy.js?v=0.33.2';
+import {toolCatalog,toolFields} from './tool-catalog.js?v=0.33.2';
+import {CLONE_ALGORITHMS,cloneMethodLabel,changeCloneAlgorithm,cloneOperation,isDenseClone,SSG_DEFAULTS} from './clone-methods.js?v=0.33.2';
+import {sparseParameters,sparseViewDefaults,CLASSIC_SIFT,PANELS_SIFT} from './sparse-controls.js?v=0.33.2';
+import defaults from './tool-defaults.js?v=0.33.2';
+import {defaults as classicDefaults} from './settings.js?v=0.33.2';
+import {NEURAL_METHODS} from './neural-clone-ui.js?v=0.33.2';
+import {clipPolygon} from './batch-scope-geometry.js?v=0.33.2';
 
 const copy=value=>structuredClone(value);
 const groups={recommended:['Adaptés au traitement par lot','Suited to batch processing'],complement:['Analyses complémentaires','Additional analyses'],less:['Moins adaptés — inspection humaine','Less suited — human inspection'],required:['Entrée supplémentaire nécessaire','Additional input required']};
@@ -65,6 +65,7 @@ function describe(id,item){
 const entries=Object.entries({...toolCatalog,...extra}).filter(([id])=>id!=='tampering.copyMove.sparse').map(([id,item])=>describe(id,item));
 const ssgKeys=new Set(Object.keys(SSG_DEFAULTS));
 for(const item of entries)if(item.operation==='ela.classic')item.fields.push({key:'equalization',label:'Égalisation',type:'equalization'});
+for(const item of entries)if(item.operation==='ela.bitrate')item.description=['Analyse le rendu RVB SDR à 8 bits par canal et affiche les écarts après réduction de profondeur. Par défaut, 7 bits sur 8 sont conservés (N−1).','Analyzes the SDR RGB rendering at 8 bits per channel and shows the differences after bit-depth reduction. By default, 7 of 8 bits are retained (N−1).'];
 for(const [variant,name]of NEURAL_METHODS.filter(([id])=>!id.startsWith('forgeryscope')&&id!=='d2prl'))entries.push({...describe('ai.clones.segmentation',{fr:name,en:name,params:{variant}}),...(variant==='selfdm-proposal'?{description:['Chaîne complète expérimentale à la résolution originale : cinq réseaux sur CPU ou GPU, étapes OpenCV sur CPU. Les fenêtres réutilisent leur espace de travail sans réduire les pixels source.','Experimental complete pipeline at original resolution: five networks on CPU or GPU, OpenCV stages on CPU. Windows reuse their workspace without downscaling source pixels.']}:variant==='selfdm-map'?{description:['Carte initiale SelfDM uniquement, préparée à la résolution native du modèle. Le raffinement complet est une méthode distincte.','SelfDM initial map only, prepared at the model’s native resolution. Complete refinement is a separate method.']}:{}),id:'segmentation-'+variant,fields:[]});
 for(const [index,algorithm] of CLONE_ALGORITHMS.entries()){
  const params=copy(toolCatalog['tampering.copyMove.sparse'].params);changeCloneAlgorithm(params,params.algorithm);params.algorithm=algorithm;changeCloneAlgorithm(params,'PatchMatch Zernike');

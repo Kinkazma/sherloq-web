@@ -1,0 +1,38 @@
+{
+  "schema": "sherloq.magick-q8-source-metadata/1",
+  "quantumDepth": 8,
+  "hdri": false,
+  "pixelContract": "Historical Q8 export unchanged; encoded precision metadata is not preservation.",
+  "abi": {
+    "publicExports": {
+      "count": 125,
+      "sha256": "0eeeb727034fd8e09b428f403f25090698b4497ce2cb7ab74ecb9855aa379b67"
+    },
+    "nativeMethods": {
+      "count": 665,
+      "sha256": "22472bf762634ff7b5ca70cc2b2cf07157ca96b65f3899fb72864d436723a312"
+    },
+    "delegates": {
+      "count": 17,
+      "sha256": "c1e1aa66603dee97afa385d39d11ae50d3b89facc64bf485760869de24de6206"
+    },
+    "formats": {
+      "count": 278,
+      "sha256": "b3177af101b0ff36cac6edc5a527500812a90b9f5252644d74d998c74ac1b62c"
+    }
+  },
+  "limits": {
+    "metadataUtf8BytesExclusive": 16384,
+    "channels": 64,
+    "nameUtf8Bytes": 127
+  },
+  "reconstruction": {
+    "script": "scripts/magick-q8/rebuild.py",
+    "patches": "native/magick-source-metadata",
+    "toolchain": "Emscripten4.0.15"
+  },
+  "architecture": {
+    "product": "x86/wasm32",
+    "x64JavaScriptExport": "retained unchanged; no x64 Wasm shipped or selected; metadata not qualified"
+  }
+}

@@ -9,24 +9,24 @@
   },
   "files": {
     "native/separation.cpp": {
-      "bytes": 9921,
-      "sha256": "d979f17d54847c2c924e83aa3e7104aa66a4effe1cf80e60ca5b705f1d771643"
+      "bytes": 10950,
+      "sha256": "0a53cc670a1cea25f0075b692c344c96f4be947c8bbfe8478f9d2f2eb8363511"
     },
     "native/opencv.cpp": {
       "bytes": 27099,
       "sha256": "3f22ebb31a9c8eb3beeabccedd866a4f6f565b62921d7fac266c7245cbc2d7a1"
     },
     "scripts/build-separation.sh": {
-      "bytes": 3491,
-      "sha256": "cd668c72a7f91879e882c9191fc698497023d96db07fe3874ea5646e871cab10"
+      "bytes": 3512,
+      "sha256": "57b4363aed5f2c17e8dbdb0e2f72b8862a40dd6fb5e20b38505e4218548e7773"
     },
     "vendor/separation/separation.js": {
-      "bytes": 29958,
-      "sha256": "5818d0c20c49d31e775568853486d50901ffa9203cae761c0ab4772a54140d37"
+      "bytes": 30043,
+      "sha256": "2530437c2756125152debf8c6aa3d555b4e6751b10a41e6a38fd67118069b416"
     },
     "vendor/separation/separation.wasm": {
-      "bytes": 1276104,
-      "sha256": "cc8e6b92006f11e991a81b4a3e371a599d17fcdbeacbe85d98bc11c6741f5453"
+      "bytes": 1277222,
+      "sha256": "8d247a7b9b46a362d0c45edd11e85b0631538820165b45d5342fdaab9275af79"
     },
     "vendor/separation/NOTICE-OPENCV-LEGACY.txt": {
       "bytes": 6637,

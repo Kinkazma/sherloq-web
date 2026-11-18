@@ -1,11 +1,11 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {parameters,rows,rgbPixels} from './pixel-utils.js';
 import {checkAbort} from './errors.js';
 export const defectParams=(p={})=>parameters(p,{radius:1,threshold:32,spread:32,kind:0,mode:0},{radius:[1,2],threshold:[1,255],spread:[0,255],kind:[0,2],mode:[0,2]});
 // Caller excludes the global image border and supplies the complete halo.
 // The same window supplies the median only when a channel is a candidate.
-export function defectChannel(src,w,x,y,c,p,window){
- let lo=255,hi=0,k=0,hot=p.kind!==2,dead=p.kind!==1;
+export function defectChannel(src,w,x,y,c,p,window,maximum=255){
+ let lo=maximum,hi=0,k=0,hot=p.kind!==2,dead=p.kind!==1;
  const value=src[(y*w+x)*3+c];
  for(let dy=-p.radius;dy<=p.radius;dy++)for(let dx=-p.radius;dx<=p.radius;dx++){
   const neighbor=src[((y+dy)*w+x+dx)*3+c];window[k++]=neighbor;

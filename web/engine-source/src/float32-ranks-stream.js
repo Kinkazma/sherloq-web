@@ -8,8 +8,8 @@ export async function selectFloat32Ranks(store,count,ranks,{budget,signal,onProg
   async function scan(visit,phase){for(let at=0;at<count;at+=buffer.length){await cooperate();const length=Math.min(buffer.length,count-at);await store.readInto(raw.subarray(0,length*4),at*4);checkAbort(signal);visit(length);onProgress?.({phase,fraction:(at+length)/count});}}
   await scan(length=>{for(let i=0;i<length;i++){requireValue(Number.isFinite(buffer[i])&&buffer[i]>=0&&buffer[i]<=maximum,'Float32 value outside the admitted nonnegative domain.');hist[words[i]>>>16]++;}},'energy-quantile-prefix');
   const select=(table,rank)=>{let before=0;for(let i=0;i<table.length;i++){if(before+table[i]>rank)return {value:i,rank:rank-before};before+=table[i];}throw Error('Float32 rank exceeds stream count.');};
-  const suffixes=new Map();for(const target of targets){const found=select(hist,target.rank);target.prefix=found.value;target.rank=found.rank;if(!suffixes.has(found.value))suffixes.set(found.value,new Uint32Array(65536));}
-  await scan(length=>{for(let i=0;i<length;i++){const word=words[i],table=suffixes.get(word>>>16);if(table)table[word&65535]++;}},'energy-quantile-suffix');
+  const suffixes=new Map(),prefixLookup=new Uint8Array(65536),suffixTables=[];for(const target of targets){const found=select(hist,target.rank);target.prefix=found.value;target.rank=found.rank;if(!suffixes.has(found.value)){const table=new Uint32Array(65536);suffixes.set(found.value,table);suffixTables.push(table);prefixLookup[found.value]=suffixTables.length;}}
+  await scan(length=>{for(let i=0;i<length;i++){const word=words[i],ordinal=prefixLookup[word>>>16];if(ordinal)suffixTables[ordinal-1][word&65535]++;}},'energy-quantile-suffix');
   const scalar=new Float32Array(1),bits=new Uint32Array(scalar.buffer);return targets.map(target=>{bits[0]=(target.prefix<<16)|select(suffixes.get(target.prefix),target.rank).value;return scalar[0];});
  }finally{release();}
 }

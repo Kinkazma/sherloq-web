@@ -1,6 +1,7 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {EngineError} from './errors.js';
 import {nativeGpuSync,nativeGpuAsync} from './gpu-native-boundary.js';
+export {gpuRetirementFailure,gpuRetirementBlocked,gpuRetirementSync,gpuRetirementStep} from './gpu-attempt-retirement.js';
 // Same acknowledged-retirement protocol as the stereo/wavelet providers.
 // A transaction remains registered until every buffer, scope, mapped owner
 // and reservation acknowledges retirement. A rejected fence is not an ACK.

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "compiler": "Emscripten4.0.15",
+  "reference": "OpenCV4.11 core/imgproc/photo single-thread libraries and existing qualified bilateral arithmetic; native16 adjustment prefix reuses plots float32 forward and explicit float32 inverse, nearest-even uint16 output",
+  "memory": {
+    "initialBytes": 67108864,
+    "maximumBytes": 67108864,
+    "growth": false
+  },
+  "files": {
+    "native/separation.cpp": {
+      "bytes": 14030,
+      "sha256": "612ab5b8e509fadd4fddb6005fbda70d9a76a2d20c22721920eeab41fae6af88"
+    },
+    "native/stereo-fma.h": {
+      "bytes": 2291,
+      "sha256": "3c7ab85540a6d3ec5ac7bfbee71e3d02c9993acf3a1c3d2a7e4214987be78b2c"
+    },
+    "native/opencv.cpp": {
+      "bytes": 27099,
+      "sha256": "3f22ebb31a9c8eb3beeabccedd866a4f6f565b62921d7fac266c7245cbc2d7a1"
+    },
+    "scripts/build-separation-adjust16.sh": {
+      "bytes": 3603,
+      "sha256": "04e3667434192361c4aa167d40bb051727f1f0b9b24fa076314801f5e518b34b"
+    },
+    "vendor/separation/separation-adjust16.js": {
+      "bytes": 30155,
+      "sha256": "68c2b02c2b83782d14262b388e15af5220b00027d4647a4531df0bf7cefa1014"
+    },
+    "vendor/separation/separation-adjust16.wasm": {
+      "bytes": 1279109,
+      "sha256": "313c739c2d03b2ae0f11de25ff46258d5c8d84056afa79ce1f26dd203fccabb2"
+    },
+    "vendor/separation/NOTICE-OPENCV-LEGACY.txt": {
+      "bytes": 6637,
+      "sha256": "9153bb7093ae49f71977905457cd4a6ff2347616428ca659bc783569d9f609ed"
+    }
+  },
+  "buildInputs": {
+    ".build/opencv-4.11.0/modules/photo/src/fast_nlmeans_denoising_invoker.hpp": "cff610416b159363577fadf5f3b63d19c7977db943622dd7d6cab64c9dd99b0c",
+    ".build/opencv-4.11.0/modules/photo/src/fast_nlmeans_denoising_invoker_commons.hpp": "fce7673b47e6cca53bdeab87589a1baed968d2549ebe6205e0cb35b5eb7f13f7",
+    ".build/separation/separation-bilateral.h": "f20d600f40025d25d64bd6722af6d079b7f36f433cd8f7c2343db8e0c9bd64f9",
+    ".build/cv/lib/libopencv_photo.a": "a14766a2dc714a175cefdd84efe0500ec0dce261c05549b0baf2efd3275b1c0f",
+    ".build/cv/lib/libopencv_core.a": "34c84202eb196cbc4fc4b07204415193056a33b194e5c8187aa05a61dffaaf5d",
+    ".build/cv/lib/libopencv_imgproc.a": "f43d34ea0be3e94fe0bfd432b108cdbfdc88f97e96ebc5d172ffc2bc9c4a72f1"
+  }
+}

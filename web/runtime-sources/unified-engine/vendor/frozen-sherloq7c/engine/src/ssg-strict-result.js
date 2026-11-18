@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {allocateOwnedTypedArray} from './allocation.js';
 import {sourceRegionTransportBytes} from './source-region-transport.js';
 import {copyPalette} from './copy-subbiomes.js';

@@ -1,3 +1,5 @@
+import {sourceRegionDomainShape} from './source-region-capabilities.js';
+import {native16ProxyParametersAdmitted} from './native16-parameter-contract.js';
 import {externalUsefulOwner,externalUsefulEvidence} from './external-useful-operation.js';
 import {extensionUsefulOwner,extensionUsefulEvidence} from './extensions-useful-operation.js';
 import {usefulOwnerWorkContract} from './useful-owner-facts.js';
@@ -18,7 +20,14 @@ function rawNativeUsefulOwner(task,context={}){
  if(['various.ocr','analysis.complete','analysis.clones'].includes(task?.operation))return externalUsefulOwner(task,context);
  if(['ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint'].includes(task?.operation))return extensionUsefulOwner(task,context);
  if(task?.operation==='tampering.copyMove.sparse')return alikedOperationOwner(task,context)??researchUsefulOwner(task,context);
- if(task?.operation==='noise.separation')return nlmOperationOwner(task,context)??pixelUsefulOwner(task,context);
+ if(task?.operation==='pixels.defects'){
+  const native=image?.nativeSurface?.descriptor,shape=task.sourceRegionDomain?sourceRegionDomainShape(task.sourceRegionDomain):'identity';
+  if(native?.format==='rgb16'&&native.depth===16&&(task.workingDepth??image.workingDepth??16)===16&&native16ProxyParametersAdmitted(task.operation,task.params,shape))return pixelUsefulOwner(task,context);
+ }
+ if(task?.operation==='noise.separation'){
+  const native=image?.nativeSurface?.descriptor,shape=task.sourceRegionDomain?sourceRegionDomainShape(task.sourceRegionDomain):'identity',nativeNlm=task.params?.mode===4&&native?.format==='rgb16'&&native.depth===16&&(task.workingDepth??image.workingDepth??16)===16&&shape==='identity'&&native16ProxyParametersAdmitted(task.operation,task.params,shape);
+  return nativeNlm?pixelUsefulOwner(task,context):nlmOperationOwner(task,context)??pixelUsefulOwner(task,context);
+ }
  if(['tampering.copyMove.dense','ai.sources.safire','ai.localization.focal','ai.localization.adaifl'].includes(task?.operation))return researchUsefulOwner(task,context);
  if(['ai.clones.d2prl','ai.clones.segmentation'].includes(task?.operation))return neuralUsefulOwner(task,context);
  if(!CONTRACTS[task?.operation])return pixelUsefulOwner(task,context);
@@ -28,13 +37,24 @@ function rawNativeUsefulOwner(task,context={}){
 }
 export function nativeUsefulOwner(task,context={}){return usefulOwnerWorkContract(rawNativeUsefulOwner(task,context));}
 export function nativeUsefulCacheKey(task,answer){
+ if(task.operation==='pixels.defects'&&(answer?.metrics?.nativeInputDepth??answer?.metrics?.inputDepth??answer?.provenance?.precision?.effectiveWorkingDepth)===16)return null;
  const op=PIXEL_OPERATIONS[task.operation];if(!CONTRACTS[task.operation]||!op)return null;const p=op.validate(task.params),imageId=answer?.metrics?.sourceRegion?.cacheIdentity??task.imageId;return imageId+'\0op/'+task.operation+'/'+JSON.stringify(op.cacheParams?.(p)??p);
 }
 export function nativeUsefulEvidence(owner,answer,{cacheAcknowledged=false}={}){
  if(['various.ocr','analysis.complete','analysis.clones'].includes(owner?.operation))return externalUsefulEvidence(owner,answer);
  if(['ai.generation.bfree','ai.generation.spai','ai.text.doctamper','jpeg.comprint'].includes(owner?.operation))return extensionUsefulEvidence(owner,answer);
  if(owner?.operation==='tampering.copyMove.sparse')return ['ALIKED','ALIKED rotation'].includes(owner.method)?alikedOperationEvidence(owner,answer):researchUsefulEvidence(owner,answer);
- if(owner?.operation==='noise.separation')return owner.method==='4'?nlmOperationEvidence(owner,answer):pixelUsefulEvidence(owner,answer);
+ if(owner?.operation==='pixels.defects'&&owner.parameters?.nativeTask?.workingDepth===16){
+  if((answer?.metrics?.nativeInputDepth??answer?.metrics?.inputDepth)!==16)return null;
+  return pixelUsefulEvidence(owner,answer);
+ }
+ if(owner?.operation==='noise.separation'){
+  if(owner.method==='4'&&owner.parameters?.nativeTask?.workingDepth===16&&owner.parameters?.nativeNlm?.contract==='native16-nlm-l2/1'){
+   if((answer?.metrics?.nativeInputDepth??answer?.metrics?.inputDepth)!==16)return null;
+   return pixelUsefulEvidence(owner,answer);
+  }
+  return owner.method==='4'?nlmOperationEvidence(owner,answer):pixelUsefulEvidence(owner,answer);
+ }
  if(['tampering.copyMove.dense','ai.sources.safire','ai.localization.focal','ai.localization.adaifl'].includes(owner?.operation))return researchUsefulEvidence(owner,answer);
  if(['ai.clones.d2prl','ai.clones.segmentation'].includes(owner?.operation))return neuralUsefulEvidence(owner,answer);
  if(!CONTRACTS[owner?.operation])return pixelUsefulEvidence(owner,answer);

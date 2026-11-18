@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {applicationNeuralWindowClientService,neuralWindowApplicationSnapshot} from './neural-window-client-service.js';
 import {createNeuralWindowClientLink} from './neural-window-client-link.js';
 import {engineWorkerURL} from './engine-worker-entry.js';

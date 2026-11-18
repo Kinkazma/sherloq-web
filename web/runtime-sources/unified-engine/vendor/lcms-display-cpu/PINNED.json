@@ -1,0 +1,32 @@
+{
+  "schema": "sherloq.lcms-display-cpu/1",
+  "toolchain": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.15 (09f52557f0d48b65b8c724853ed8f4e8bf80e669)",
+  "sourceSha256": "36636ae5b69e9cdf8f2910b371bd38892c92b116cc6d667ab944b8080d24d3e5",
+  "sourceSamplesModified": false,
+  "maximumMemoryBytes": 33554432,
+  "variants": {
+    "scalar": {
+      "lcms-linear-scalar.mjs": {
+        "bytes": 7733,
+        "sha256": "3dc403b7663f6b9c32dc3519f8613ee756e7195a2f97836cf9d5def0c83f7c10"
+      },
+      "lcms-linear-scalar.wasm": {
+        "bytes": 7516,
+        "sha256": "25c8839c994f72939f06e75ef3e823bb27a0366fe9b6881f95bd49909e04a031"
+      }
+    },
+    "simd": {
+      "lcms-linear-simd.mjs": {
+        "bytes": 7825,
+        "sha256": "2da0e0bb26fe4fa2bdf0e684bed3154e438fe110aad34594aac17900f73edc58"
+      },
+      "lcms-linear-simd.wasm": {
+        "bytes": 10164,
+        "sha256": "080d5e9f91e4c7d2fae46a2bcf6345c27fb5199aed741ad762d5a91146c9844d"
+      }
+    }
+  },
+  "source": "native/lcms-linear-projection.c",
+  "maximumSdrCodeError": 1,
+  "native16Error": 0
+}

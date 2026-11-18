@@ -1,12 +1,12 @@
-import {createLocalUpdater,registerLocalUpdateClient} from './local-update-core.js?v=0.33.1';
-import {offlinePlan} from './offline-browser-store.js?v=0.33.1';
-import {sha256} from './dependency-core.js?v=0.33.1';
-import {localFeaturePolicy} from './feature-policy.js?v=0.33.1';
-import {normalizeFeatureState,recoverFeatureState,validateFeatureCatalog} from './feature-catalog.js?v=0.33.1';
-import {createLocalFeatureManager,createFeatureChoicePersistence} from './local-feature-manager.js?v=0.33.1';
-import {preferenceAccess,capturePreferenceBackup,migratePreferenceBackup,commitPreferenceMigration,restorePreferenceBackup,importPreferenceBackup,downloadPreferenceBackup} from './preferences-recovery.js?v=0.33.1';
-import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences,canOfferAutoUpdate,ignoreAutoUpdateVersion} from './local-auto-update.js?v=0.33.1';
-import {localActivityBusy,localActivityFrozen} from './local-activity.js?v=0.33.1';
+import {createLocalUpdater,registerLocalUpdateClient} from './local-update-core.js?v=0.33.2';
+import {offlinePlan} from './offline-browser-store.js?v=0.33.2';
+import {sha256} from './dependency-core.js?v=0.33.2';
+import {localFeaturePolicy} from './feature-policy.js?v=0.33.2';
+import {normalizeFeatureState,recoverFeatureState,validateFeatureCatalog} from './feature-catalog.js?v=0.33.2';
+import {createLocalFeatureManager,createFeatureChoicePersistence} from './local-feature-manager.js?v=0.33.2';
+import {preferenceAccess,capturePreferenceBackup,migratePreferenceBackup,commitPreferenceMigration,restorePreferenceBackup,importPreferenceBackup,downloadPreferenceBackup} from './preferences-recovery.js?v=0.33.2';
+import {AUTO_UPDATE_KEY,recoverAutoUpdatePreferences,canOfferAutoUpdate,ignoreAutoUpdateVersion} from './local-auto-update.js?v=0.33.2';
+import {localActivityBusy,localActivityFrozen} from './local-activity.js?v=0.33.2';
 
 export function isLocalManagementContext(config,location=globalThis.location){
  if(!config||!/^[a-f0-9]{64}$/.test(config.manifest||''))return false;

@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 import {resolveElaSynthesisAxis,ELA_SYNTHESIS_RECIPE} from './ela-synthesis-axis.js';
 import {createElaSynthesisAccumulator} from './ela-synthesis-accumulator.js';
 import {createElaSynthesisCache,elaSynthesisCacheKey} from './ela-synthesis-cache.js';
@@ -153,7 +153,7 @@ export function createElaSynthesisService({budget,getImage,getSurface,publish,on
    let surface,borrowed,fee;try{
     if(result.surface){surface=getSurface(result.surface.id);requireValue(result.surface.id!==job.original.surface.descriptor.id&&surface?.descriptor.revision===result.surface.revision,'Synthesis frame surface revision changed.');}
     else{requireValue(result.pixels?.data instanceof Uint8Array,'A live native synthesis surface or RGB8 frame is required.');fee=budget.reserve(result.pixels.data.byteLength);surface=borrowed=contiguousSurface(result.pixels,budget);}
-    const started=performance.now(),answer=await job.accumulator.append(surface,{index,signal,onProgress}),appendedAt=performance.now(),backend=result.metrics?.backend??result.provenance.backend??'cpu';job.backends[backend]=(job.backends[backend]??0)+1;await releaseFrame(job);job.frameMetrics.push({backend,recompressions:result.metrics?.recompressions??null,totalMs:result.metrics?.totalMs??null,equalization:result.metrics?.equalization?structuredClone(result.metrics.equalization):null,nativeFrame:result.metrics?.synthesisFrame?structuredClone(result.metrics.synthesisFrame):null,appendMilliseconds:appendedAt-started,frameRetirementMilliseconds:performance.now()-appendedAt});return answer;
+    const started=performance.now(),answer=await job.accumulator.append(surface,{index,signal,onProgress}),appendedAt=performance.now(),backend=result.metrics?.backend??result.provenance.backend??'cpu';job.backends[backend]=(job.backends[backend]??0)+1;await releaseFrame(job);job.frameMetrics.push({backend,recompressions:result.metrics?.recompressions??null,totalMs:result.metrics?.totalMs??null,equalization:result.metrics?.equalization?structuredClone(result.metrics.equalization):null,nativeFrame:result.metrics?.synthesisFrame?structuredClone(result.metrics.synthesisFrame):null,...(result.metrics?.synthesisSource?{synthesisSource:structuredClone(result.metrics.synthesisSource)}:{}),appendMilliseconds:appendedAt-started,frameRetirementMilliseconds:performance.now()-appendedAt});return answer;
    }finally{await borrowed?.dispose();fee?.();}
   },
   async finish({id,resultId='ela-synthesis-'+id},{signal,onProgress}={}){

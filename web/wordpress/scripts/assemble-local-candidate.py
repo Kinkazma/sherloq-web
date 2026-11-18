@@ -52,14 +52,14 @@ def load(name, path):
 
 
 def active_bundle_name(path):
-    return re.fullmatch(r'worker-bundle-[a-f0-9]+\.mjs', path.name) is not None
+    return re.fullmatch(r'(?:worker|engine-library)-bundle-[a-f0-9]+\.mjs', path.name) is not None
 
 
 def record(repository, path):
     return {'file': path.relative_to(repository).as_posix(), 'bytes': path.stat().st_size, 'sha256': sha(path)}
 
 
-def assemble(source, staging, receipt_path, *, node='node', full_verify=True, complete_chunks=False, ai_detectors_qualification_proof=None):
+def assemble(source, staging, receipt_path, *, node='node', full_verify=True, complete_chunks=False, ai_detectors_qualification_proof=None, preserve_detector_assets=False):
     source, staging = source.resolve(), staging.resolve()
     if source == staging or source.is_relative_to(staging) or staging.is_relative_to(source):
         raise ValueError('A distinct, previously cloned staging repository is required')
@@ -70,7 +70,10 @@ def assemble(source, staging, receipt_path, *, node='node', full_verify=True, co
         raise ValueError('Staging must already contain the complete private repository clone')
     inventory = load('local_runtime_inventory', swp / 'runtime-inventory.py')
     adapter = load('local_runtime_delivery', swp / 'runtime-delivery.py')
-    detectors = load('local_ai_detector_assets', swp / 'runtime-ai-detectors.py')
+    detector_script = swp / 'runtime-ai-detectors.py'
+    detectors = load('local_ai_detector_assets', detector_script) if detector_script.is_file() else None
+    if detectors is None and not preserve_detector_assets:
+        raise ValueError('Detector assembler is absent; explicitly preserve the already verified detector payloads or provide its source')
     builder = load('local_build', swp / 'build.py')
     snapshot = json.loads((wp / 'runtime-patches/current-snapshot.json').read_text())
     baseline_manifest_bytes = (staging / 'web-assets/manifest-template.json').read_bytes()
@@ -92,12 +95,18 @@ def assemble(source, staging, receipt_path, *, node='node', full_verify=True, co
             if actual != set(runtime['files']):
                 raise ValueError('Baseline physical inventory differs: ' + runtime['destination'])
     print(json.dumps({'phase': 'baseline-valid'}), flush=True)
+    subprocess.run([node, str(engine / 'scripts/generate-media-resource-integrity-pins.mjs'), '--check'], check=True)
     active = inventory.selected_worker(engine)
     if not active:
         raise ValueError('This qualified local candidate requires its validated generated Worker')
     subprocess.run([node, str(engine / 'scripts/build-engine-worker.mjs'), '--engine-root=' + str(engine),
         '--ui-root=' + str(swp / 'sherloq-browser/assets'), '--output-root=' + str(engine), '--check'], check=True)
     active_name = Path(active['path']).name
+    library = inventory.selected_library(engine)
+    if not library:
+        raise ValueError('This qualified candidate requires its validated generated engine library')
+    active_library = Path(library['path']).name if library else None
+    active_names = {active_name, active_library}
     version = re.search(r'Version:\s*([\d.]+)', (swp / 'sherloq-browser/sherloq-browser.php').read_text())[1]
     slots = manifest['slots']
     root_sources, copied_root_source = set(), 0
@@ -117,13 +126,40 @@ def assemble(source, staging, receipt_path, *, node='node', full_verify=True, co
         rel = path.relative_to(engine)
         if any(part.startswith('.') or part in {'node_modules', '__pycache__'} for part in rel.parts):
             continue
-        if rel.parts[0] == 'src' and path.name.startswith('worker-bundle-') and path.suffix == '.mjs' and path.name != active_name:
+        if rel.parts[0] == 'src' and path.name.startswith(('worker-bundle-', 'engine-library-bundle-')) and path.suffix == '.mjs' and path.name not in active_names:
             continue
         engine_sources.add(rel.as_posix())
         target = staged_engine / rel
         if not target.is_file() or sha(target) != sha(path):
             put(target, path.read_bytes())
             copied_engine_source += 1
+    # A reused staging clone must also reflect deliberate source removals.
+    # Retire only previously pinned canonical inputs, after checking their
+    # retained identities; unrelated staging files are never swept away.
+    retired_sources = []
+    prefix = 'web/engine-source/'
+    for entry in snapshot['canonicalFiles']:
+        if not entry['file'].startswith(prefix):
+            continue
+        relative = entry['file'][len(prefix):]
+        if (engine / relative).is_file():
+            continue
+        old = staged_engine / relative
+        if old.is_file():
+            if sha(old) != entry['sha256']:
+                raise ValueError('Retired canonical input was modified in staging: ' + relative)
+            old.unlink()
+            retired_sources.append(entry['file'])
+        companion = 'unified-engine/' + relative
+        target = assets / companion
+        spec = manifest['files'].get(companion)
+        if spec and target.is_file():
+            if sha(target) != spec['sha256']:
+                raise ValueError('Retired runtime companion was modified: ' + companion)
+            target.unlink()
+            retired_sources.append('web/wordpress/sherloq-browser/assets/' + companion)
+        if spec:
+            manifest['files'].pop(companion)
     # Bring fresh source-owned scripts/UI to the clone; dependencies are updated
     # separately, only through the bounded inventory and transport adapter.
     copied_source = 0
@@ -144,10 +180,10 @@ def assemble(source, staging, receipt_path, *, node='node', full_verify=True, co
     # Canonical sources and packaging proof retain their raw identities. Old
     # artifacts are removed only in this new delivery; loaded personal tabs keep
     # their original checkout untouched.
-    removed = []
+    removed = list(retired_sources)
     for root in (staged_engine / 'src', assets / 'unified-engine/src'):
-        for old in root.glob('worker-bundle-*.mjs'):
-            if old.name != active_name:
+        for old in sorted([*root.glob('worker-bundle-*.mjs'), *root.glob('engine-library-bundle-*.mjs')]):
+            if old.name not in active_names:
                 removed.append(old.relative_to(staging).as_posix())
                 old.unlink()
     for name, path in raw.items():
@@ -189,12 +225,15 @@ def assemble(source, staging, receipt_path, *, node='node', full_verify=True, co
         changed.append({'file': relative, 'sourceSha256': raw_hashes[name], 'before': previous, 'after': manifest['files'][relative]})
     for relative in list(manifest['files']):
         path = Path(relative)
-        if path.parts[:2] == ('unified-engine', 'src') and active_bundle_name(path) and path.name != active_name:
+        if path.parts[:2] == ('unified-engine', 'src') and active_bundle_name(path) and path.name not in active_names:
             manifest['files'].pop(relative)
     # Retained model bytes live once canonically outside the runtime engine;
     # assembly exposes the one URL family used by the common UI configuration.
-    ai_detector_delivery = detectors.stage_detector_assets(source, staging, manifest, source_lock, lock,
-        qualification_proof=ai_detectors_qualification_proof)
+    ai_detector_delivery = (detectors.stage_detector_assets(source, staging, manifest, source_lock, lock,
+        qualification_proof=ai_detectors_qualification_proof) if not preserve_detector_assets else {
+            'changedFiles': [], 'newChunks': [], 'canonicalFiles': [],
+            'status': 'preserved-verified-baseline-payloads',
+            'reason': 'Explicit local assembly selection; this change does not alter any learned model payload.'})
     changed.extend(ai_detector_delivery['changedFiles'])
     new_chunks.update(ai_detector_delivery['newChunks'])
     locals_set = set(manifest.get('localFiles', [])) & set(manifest['files'])
@@ -254,7 +293,7 @@ def assemble(source, staging, receipt_path, *, node='node', full_verify=True, co
         if rel.as_posix() in {'runtime-lock.json', 'runtime-source-lock.json', 'runtime-patches/current-snapshot.json'}:
             continue
         canonical.add('web/wordpress/' + rel.as_posix())
-    snapshot = {'schema': 'sherloq.runtime-snapshot/1', 'scope': 'Complete reviewed private local candidate; historical receipts preserved. Filesystem admission is explicit and bounded; no publication or native arithmetic change.',
+    snapshot = {'schema': 'sherloq.runtime-snapshot/1', 'scope': 'Complete private local candidate from explicitly selected canonical sources; historical receipts preserved. Assembly updates transport identities only. Numerical source changes are bound by their own source hashes and qualification. No publication.',
         'uiVersion': version, 'worker': active, 'manifest': record(staging, staging / 'web-assets/manifest-template.json'),
         'locks': {name: record(staging, wp / name) for name in ('runtime-lock.json', 'runtime-source-lock.json')},
         'canonicalFiles': [record(staging, staging / name) for name in sorted(canonical)]}
@@ -312,7 +351,9 @@ if __name__ == '__main__':
     parser.add_argument('--inventory-only-baseline', action='store_true', help='Skip baseline byte hashes only when independently verified; always check exact physical inventory')
     parser.add_argument('--complete-chunks', action='store_true', help='Materialize every unrestricted chunk locally from verified physical resources')
     parser.add_argument('--ai-detectors-qualification-proof', type=Path, help='Optional private retained D certificate; verified by SHA and never copied to public assets')
+    parser.add_argument('--preserve-detector-assets', action='store_true', help='Keep the baseline detector model resources exactly; never stages new detector payloads')
     args = parser.parse_args()
     assemble(args.source_root, args.staging_root, args.receipt, node=args.node,
         full_verify=not args.inventory_only_baseline, complete_chunks=args.complete_chunks,
-        ai_detectors_qualification_proof=args.ai_detectors_qualification_proof)
+        ai_detectors_qualification_proof=args.ai_detectors_qualification_proof,
+        preserve_detector_assets=args.preserve_detector_assets)

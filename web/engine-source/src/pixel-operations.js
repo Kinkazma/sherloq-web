@@ -1,4 +1,5 @@
 import {FIELD_METHODS} from './gradient-field-parameters.js';
+import {elabitrateParams,elabitrate} from './elabitrate.js';
 import {sherloq7cParams} from './sherloq7c-adapter.js';
 import {resamplingAnalysisParams} from './resampling-analysis.js';
 import {elaCellParams,elaCellPipeline} from './ela-cell-pipeline.js';
@@ -34,6 +35,7 @@ import {resamplingFourierParams,resamplingFourierAdmission,resamplingFourierData
 
 // Budget multipliers include working arrays, retained result and defensive copy.
 export const PIXEL_OPERATIONS=Object.freeze({
+ 'ela.bitrate':{validate:elabitrateParams,compute:elabitrate,backends:['cpu','webgpu','auto'],scratchFactor:2,extraBytes:8192,native:'ELAB bit-depth reduction on canonical SDR RGB8; qualified truncation residual and global RGB normalization',exports:['json'],kernelStatus:'experimental-real-image-qualified',parity:'RGB8-only byte lookup; fractional settings retain the qualified Number quantizer, global admitted RGB bounds and nearest rounding. No JPEG recompression or authenticity verdict.'},
  'inspection.sherloq7c':{validate:sherloq7cParams,backends:['cpu','webgpu','auto'],scratchFactor:0,extraBytes:0,native:'Sherloq7C native RGB16 graph optimization',exports:['json'],kernelStatus:'experimental-qualified-private-corpus',parity:'Measured numerical precision is declared per backend; RGB16 and float64 output retained.'},
  'ela.biomes':{backends:['cpu','webgpu'],validate:elaCellParams,compute:elaCellPipeline,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,resultMemory:'owned-source-copy',native:'core/ela_biomes.py cell path + ela_background.py + ela_ghosts.py; original RGB and native cKDTree',exports:['json','npz'],kernelStatus:'validated-synthetic',parity:'Original-resolution native cell profiles, robust peers, Ghost phases and seeded segmentation. Descriptor maximum measured error2.39e-7; qualified corpus and limits in docs/ELA-CELLS.md. Pixel-energy analysis remains a separate operation.'},
  'ela.energy':{backends:['cpu','webgpu','auto'],validate:energyParams,compute:energyPipeline,scratchFactor:0,extraBytes:0,dynamicResultBudget:true,resultMemory:'owned-source-copy',native:'core/ela_biomes.py energy path + ela_energy.py + ela_energy_auto.py; original-byte JPEG tables',exports:['json','npz'],kernelStatus:'validated-synthetic',parity:'51 complete native original-byte energy paths exact through real API workers in Chrome/Firefox/WebKit; 84 preparation,624 mask,512 colour and scientific-profile corpora. Three useful JPEG workers at1MP, cache/NPZ/cancellation verified. Energy-only; no legacy peer biomes or complete analysis.'},

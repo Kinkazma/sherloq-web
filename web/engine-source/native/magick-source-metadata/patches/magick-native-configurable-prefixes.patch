@@ -1,0 +1,25 @@
+--- a/src/Magick.Native/CMakeLists.txt
++++ b/src/Magick.Native/CMakeLists.txt
+@@ -6,8 +6,9 @@
+ 
+ add_definitions(-DMAGICK_NATIVE_${PLATFORM} -DMAGICKCORE_QUANTUM_DEPTH=${DEPTH} -DMAGICKCORE_HDRI_ENABLE=${HDRI_ENABLE})
+ 
+-set(DEPENDENCIES_DIR "/tmp/dependencies")
+-include_directories(. ${DEPENDENCIES_DIR}/include /tmp/ImageMagick/include/ImageMagick-7)
++set(DEPENDENCIES_DIR "/tmp/dependencies" CACHE PATH "Pinned static delegate prefix")
++set(IMAGEMAGICK_DIR "/tmp/ImageMagick" CACHE PATH "Patched ImageMagick Q8 prefix")
++include_directories(. ${DEPENDENCIES_DIR}/include ${IMAGEMAGICK_DIR}/include/ImageMagick-7)
+ link_directories(${DEPENDENCIES_DIR}/lib)
+ 
+ if (NOT PLATFORM STREQUAL "MACOS")
+@@ -114,8 +115,8 @@
+ target_link_libraries(
+     ${LIBRARY_NAME}
+ 
+-    /tmp/ImageMagick/lib/libMagickWand-7.${QUANTUM_NAME}.a
+-    /tmp/ImageMagick/lib/libMagickCore-7.${QUANTUM_NAME}.a
++    ${IMAGEMAGICK_DIR}/lib/libMagickWand-7.${QUANTUM_NAME}.a
++    ${IMAGEMAGICK_DIR}/lib/libMagickCore-7.${QUANTUM_NAME}.a
+ 
+     ${LIBRSVG}
+     ${LIBRAQM}

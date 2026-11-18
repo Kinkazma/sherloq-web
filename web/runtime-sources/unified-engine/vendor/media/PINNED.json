@@ -7,7 +7,15 @@
     "archive": "https://registry.npmjs.org/@imagemagick/magick-wasm/-/magick-wasm-0.0.44.tgz",
     "archiveSha256": "808e876ed849de942b47dec268d4a8059e68fc2470aa895266bb36754eb968a7",
     "quantumDepth": 8,
-    "notice": "magick/NOTICE"
+    "notice": "magick/NOTICE",
+    "sourceMetadata": {
+      "schema": "sherloq.coder-source-samples/1",
+      "sourceCommit": "8d346777ce0e172dacdb797a65346569425c43af",
+      "nativeCommit": "999720f7ebe03d5a0029536f1586a2cb82b500ae",
+      "imageMagickCommit": "ad98b244c995d2e3051757fa3b7855f45b550d24",
+      "rebuild": "scripts/magick-q8/rebuild.py",
+      "scope": "Source-header facts from the existing Ping; Q8 raster semantics unchanged; not a preservation attestation."
+    }
   },
   "heic": {
     "package": "icodec",
@@ -72,8 +80,10 @@
     "heic/versions.json": "4369efef3fc4d49cb8b7695e1c9810343af97f010624d71d6d6dfaf64811fccc",
     "magick/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "magick/NOTICE": "bc14d5191f0cd22ef077cb91daca24ec57a221746bc21941fc48b18f5bd8f072",
-    "magick/index.js": "cf1db24f7e63f560118ef434fd581dc9ef66ad099dc417184765cd6076fb4a1b",
-    "magick/x86/magick.wasm": "b7d6710436b150dc5bd1ca04d80b6b7614c54854d7470f888f7e69a2a41b00e4",
-    "srgb.icc": "43a3c4fdd280876312a6e0f98fb408528d5ba8ba0af6f9f78b7939730303d77a"
+    "magick/index.js": "4a64f24dd1a86be1fdf3a2073b9949829c0e41507d3fbf7a577343ce0edf08b9",
+    "magick/x86/magick.wasm": "5393a3ae339a9b165a60ebc0fd5f71ff7a3471d1790e44e22a6ec1ecbf06ffca",
+    "srgb.icc": "43a3c4fdd280876312a6e0f98fb408528d5ba8ba0af6f9f78b7939730303d77a",
+    "magick/index.d.ts": "d737e11dd0e028abb6d95614f35029a809a6274ea35ee55351a6d2e927b7b493",
+    "magick/SOURCE-METADATA.json": "beed6a0395c3823e053551001e497ebce35eca060480fda704a0b11694965b33"
   }
 }

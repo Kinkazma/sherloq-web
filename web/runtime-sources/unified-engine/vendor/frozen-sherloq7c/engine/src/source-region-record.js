@@ -1,4 +1,4 @@
-import "../../../../../runtime-context.js?v=0.31.0";
+import "../../../../../runtime-context.js?v=0.33.2";
 import {createRgbSurface} from './rgb-surface.js';
 import {allocateOwnedTypedArray} from './allocation.js';
 import {EngineError,requireValue,checkAbort} from './errors.js';

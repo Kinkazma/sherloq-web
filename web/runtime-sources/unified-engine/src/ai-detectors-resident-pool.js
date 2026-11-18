@@ -1,4 +1,4 @@
-import "../../runtime-context.js?v=0.31.0";
+import "../../runtime-context.js?v=0.33.2";
 // Isolated CF experiment. No product registration and no result/input cache.
 const fail=(code,message)=>Object.assign(new Error(message),{code});
 const check=signal=>{if(signal?.aborted)throw fail('CANCELLED','CF inference cancelled');};

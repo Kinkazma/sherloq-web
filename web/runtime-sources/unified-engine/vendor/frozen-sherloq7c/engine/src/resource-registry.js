@@ -1,3 +1,4 @@
+import "../../../../../runtime-context.js?v=0.33.2";
 import {EngineError,requireValue} from './errors.js';
 export const BACKING_KINDS=['array-buffer','wasm','gpu','gpu-mapped'];
 const STATES=['ready','queued','compute','io','recovery','waiting-child'];
