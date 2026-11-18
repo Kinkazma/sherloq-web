@@ -1,0 +1,1 @@
+export const NATIVE_JPEG_COLOR_RESOURCE=Object.freeze({"url": "./vendor/local-jpeg-color/jpeg-color.wasm", "sha256": "7252ca7c57c1b8cf6722649f4c024ee590cac718751844ade3cea73d808b1b81", "bytes": 368845});

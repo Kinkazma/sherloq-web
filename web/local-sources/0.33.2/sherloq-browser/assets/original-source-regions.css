@@ -1,0 +1,19 @@
+.original-source-regions{font:inherit;color:var(--ink,inherit);min-width:0}.original-source-region-actions{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.original-source-region-actions>label,.original-source-regions>label{display:flex;align-items:center;gap:5px;font-size:12px}.original-source-regions button{font:inherit;font-size:12px;cursor:pointer}.original-source-region-status{display:block;font-size:11px;color:var(--muted,inherit);padding:4px 0}.original-source-regions .detection-regions-list{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px}.original-source-region-switch{display:flex;align-items:center;gap:3px}.original-source-region-switch button{min-width:24px;line-height:1.2}.original-source-region-switch input{margin:3px}.original-source-regions [data-region-enabled=false]{opacity:.55;border-style:dashed}.original-source-regions [hidden]{display:none!important}
+.embedded-panel.original-mode #tool-controls.original-source-controls{display:flex!important}
+.original-source-controls> :not(.original-source-controls-owner){display:none!important}
+.original-source-controls-owner{width:100%;min-width:0}
+.original-source-regions-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px}
+.original-source-regions-toolbar .original-source-region-actions,.original-source-regions-toolbar .detection-regions-panel,.original-source-regions-toolbar .detection-regions-actions,.original-source-regions-toolbar .detection-regions-history{display:contents}
+.original-source-regions-toolbar .detection-regions-tabs{display:none}
+.original-source-regions-toolbar .original-source-region-status{padding:0}
+.original-source-regions-toolbar button{min-height:25px;padding:3px 6px;white-space:nowrap}
+.original-source-regions-toolbar .detection-regions-history>button{width:auto;min-width:0;flex:0 0 auto}
+.original-source-region-list{min-width:0;font-size:12px;flex:none}
+.original-source-region-list>summary{cursor:pointer;white-space:nowrap}
+.original-source-region-list[open]{flex-basis:100%;max-height:150px;overflow:auto}
+.original-source-region-list .detection-regions-list{padding-top:5px;grid-template-columns:minmax(0,1fr) auto}
+
+/* Original commands keep two semantic rows and the same live action nodes. */
+.original-source-regions-toolbar{flex-direction:column;align-items:stretch;gap:5px}
+.original-source-regions-toolbar .original-source-region-actions,.original-source-regions-toolbar .original-source-region-secondary{display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px;width:100%;min-width:0}
+.original-source-regions-toolbar .original-source-region-secondary>label{display:flex;align-items:center;gap:5px;font-size:12px}
